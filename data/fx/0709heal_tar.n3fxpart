@@ -1,0 +1,27 @@
+<N3FXPART>
+<type> board
+<texture> fx\billboard\0724heal_tarcb\0724heal_tarcb.tga 10
+<life> 1.8000
+<texture_animation_speed> 8.0000
+<position0> 0.0000 0.2000 0.0000
+<distance> 1.0000
+<velocity> 0.0000 0.0000 0.0000
+<rot_velocity> 0.0000 0 0
+<acceleration> 0.0000 0.0000 0.0000
+<on_ground> false
+<alpha> true
+<doubleside> true
+<light> false
+<zbuffer> true
+<zwrite> true
+<src_blend> SRCALPHA
+<dest_blend> INVSRCALPHA
+<fadeout> 1.5000
+<fadein> 0.2000
+<billboard_count> 1
+<billboard_size> 0.4500 0.4500
+<tex_loop> false
+<Rotate_only_y> false
+<billboard_scale_velocity> 0.0000 0.0000
+<billboard_scale_acceleration> 0.0000 0.0000
+<end>

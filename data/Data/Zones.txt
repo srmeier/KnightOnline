@@ -1,0 +1,2 @@
+0	Zones\karus_start.gtd	Zones\karus_start.tct	Zones\karus_start.tlt	Zones\karus_start.opd	Zones\karus_start.dxt	Misc\Sky\Karus.n3sky	1	0	Zones\karus_start.glo
+1	Zones\karus_start.gtd	Zones\karus_start.tct	Zones\karus_start.tlt	Zones\karus_start.opd	Zones\karus_start.dxt	Misc\Sky\Karus.n3sky	1	0	Zones\karus_start.glo

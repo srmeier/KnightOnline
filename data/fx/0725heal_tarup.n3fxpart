@@ -1,0 +1,143 @@
+<N3FXPART>
+<type> particle
+<texture> fx\particle\0724heal_tarup\0724heal_tarup.tga 1
+<life> 1.0000
+<texture_animation_speed> 30.0000
+<position0> 0.0000 0.0000 0.0000
+<velocity> 0.0000 0.0000 0.0000
+<acceleration> 0.0000 0.0000 0.0000
+<alpha> true
+<doubleside> true
+<light> false
+<zbuffer> true
+<zwrite> true
+<on_ground> false
+<src_blend> SRCALPHA
+<dest_blend> INVSRCALPHA
+<fadeout> 0.0000
+<fadein> 0.0000
+<particle_count> 50
+<particle_size_range> 0.0500 0.1500
+<particle_life> 0.6000 0.6500
+<start_range_min> -0.5000 -0.5000 0.0000
+<start_range_max> 0.5000 0.5000 0.0000
+<create_count> 5
+<create_delay> 0.1000
+<emit_type> spread 0.0000
+<particle_direction> 0.0000 1.0000 0.0000
+<particle_velocity> 3.5000
+<particle_acceleration> 1.0000
+<particle_rotation_velocity> 240.0000
+<particle_gravity> 0.0000
+<change_color> false
+<particle_color> 0 2879170
+<color_key> 0
+<alpha_key> 0
+<particle_color> 1 170782402
+<particle_color> 2 338685635
+<particle_color> 3 506588867
+<particle_color> 4 674492100
+<particle_color> 5 842395333
+<particle_color> 6 1027076037
+<particle_color> 7 1194979270
+<particle_color> 8 1362948038
+<particle_color> 9 1530851271
+<particle_color> 10 1698754504
+<particle_color> 11 1883434952
+<particle_color> 12 2051338441
+<particle_color> 13 -2075725622
+<particle_color> 14 -1907822390
+<particle_color> 15 -1739853621
+<particle_color> 16 -1555173173
+<particle_color> 17 -1387269940
+<particle_color> 18 -1219366451
+<particle_color> 19 -1051463219
+<particle_color> 20 -883559986
+<particle_color> 21 -698879538
+<particle_color> 22 -530910769
+<particle_color> 23 -363007536
+<particle_color> 24 -195104048
+<particle_color> 25 -10423599
+<alpha_key> 25
+<particle_color> 26 -10292526
+<particle_color> 27 -10161454
+<particle_color> 28 -10030381
+<particle_color> 29 -9833773
+<particle_color> 30 -9702444
+<particle_color> 31 -9571371
+<particle_color> 32 -9440299
+<particle_color> 33 -9309226
+<particle_color> 34 -9178154
+<particle_color> 35 -9046825
+<particle_color> 36 -8850216
+<particle_color> 37 -8719144
+<particle_color> 38 -8588071
+<particle_color> 39 -8456998
+<particle_color> 40 -8325926
+<particle_color> 41 -8194597
+<particle_color> 42 -8063525
+<particle_color> 43 -7866916
+<particle_color> 44 -7735843
+<particle_color> 45 -7604771
+<particle_color> 46 -7473698
+<alpha_key> 46
+<particle_color> 47 -7342370
+<particle_color> 48 -7211297
+<particle_color> 49 -7080224
+<particle_color> 50 -6883616
+<particle_color> 51 -6752543
+<particle_color> 52 -6621470
+<particle_color> 53 -6490142
+<particle_color> 54 -6359069
+<particle_color> 55 -6227997
+<particle_color> 56 -6096924
+<particle_color> 57 -5900315
+<particle_color> 58 -5769243
+<particle_color> 59 -5637914
+<particle_color> 60 -5506842
+<particle_color> 61 -5375769
+<particle_color> 62 -5244696
+<particle_color> 63 -5113624
+<particle_color> 64 -4917015
+<particle_color> 65 -4785686
+<particle_color> 66 -4654614
+<particle_color> 67 -4523541
+<particle_color> 68 -4392469
+<particle_color> 69 -4261396
+<particle_color> 70 -4130067
+<particle_color> 71 -3933459
+<particle_color> 72 -3802386
+<particle_color> 73 -3671314
+<particle_color> 74 -3540241
+<particle_color> 75 -3409168
+<particle_color> 76 -3277840
+<particle_color> 77 -3146767
+<particle_color> 78 -2950158
+<particle_color> 79 -2819086
+<particle_color> 80 -2688013
+<particle_color> 81 -2556941
+<particle_color> 82 -2425612
+<particle_color> 83 -2294539
+<particle_color> 84 -2163467
+<alpha_key> 84
+<particle_color> 85 -287179530
+<particle_color> 86 -572261130
+<particle_color> 87 -857342729
+<particle_color> 88 -1142424072
+<particle_color> 89 -1427505672
+<particle_color> 90 -1712587271
+<particle_color> 91 -1997668870
+<particle_color> 92 2012282362
+<particle_color> 93 1727200763
+<particle_color> 94 1442119419
+<particle_color> 95 1157037820
+<particle_color> 96 871956221
+<particle_color> 97 586874621
+<particle_color> 98 301793022
+<particle_color> 99 16777215
+<color_key> 99
+<alpha_key> 99
+<shape_name> fx\0702heal05_cast\heal05_cast.n3shape
+<shape_fps> 0.0000
+<shape_apply> false
+<end>

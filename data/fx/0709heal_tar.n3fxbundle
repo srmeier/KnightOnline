@@ -1,0 +1,9 @@
+<N3FXBUNDLE>
+<PART> fx/0709heal_tar.n3fxpart 0.00
+<PART> fx/0702heal_tarp.n3fxpart 0.00
+<PART> fx/0711heal_cast.n3fxpart 0.50
+<PART> fx/0711heal_cast01.n3fxpart 1.00
+<PART> fx/0711heal_cast02.n3fxpart 1.50
+<Depend_Scale> true
+<Static_Pos> false
+<Velocity> 0.0000

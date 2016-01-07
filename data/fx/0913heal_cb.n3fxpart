@@ -1,0 +1,27 @@
+<N3FXPART>
+<type> board
+<texture> fx\billboard\0913heal_cb\0913heal_cb.tga 10
+<life> 3.1000
+<texture_animation_speed> 10.0000
+<position0> 0.0000 0.0000 0.0000
+<distance> 0.5000
+<velocity> 0.0000 0.0000 0.0000
+<rot_velocity> 0.0000 0 0
+<acceleration> 0.0000 0.0000 0.0000
+<on_ground> false
+<alpha> true
+<doubleside> true
+<light> false
+<zbuffer> false
+<zwrite> true
+<src_blend> SRCALPHA
+<dest_blend> ONE
+<fadeout> 0.6000
+<fadein> 0.5000
+<billboard_count> 1
+<billboard_size> 2.0000 2.0000
+<tex_loop> true
+<Rotate_only_y> false
+<billboard_scale_velocity> 0.0000 0.0000
+<billboard_scale_acceleration> 0.0000 0.0000
+<end>

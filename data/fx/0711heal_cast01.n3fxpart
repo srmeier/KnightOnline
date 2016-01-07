@@ -1,0 +1,137 @@
+<N3FXPART>
+<type> particle
+<texture> fx\particle\0724heal_tarp\0724heal_tarp.tga 4
+<life> 3.0000
+<texture_animation_speed> 20.0000
+<position0> 0.0000 0.2300 0.0000
+<velocity> 0.0000 -0.6000 0.0000
+<acceleration> 0.0000 0.0000 0.0000
+<alpha> true
+<doubleside> true
+<light> false
+<zbuffer> true
+<zwrite> true
+<on_ground> false
+<src_blend> SRCALPHA
+<dest_blend> INVSRCALPHA
+<fadeout> 0.1000
+<fadein> 0.0000
+<particle_count> 100
+<particle_size_range> 0.1000 0.5000
+<particle_life> 0.1000 0.8000
+<start_range_min> 0.0000 -0.0500 -0.0500
+<start_range_max> 0.1500 0.0500 0.2000
+<create_count> 3
+<create_delay> 0.0300
+<emit_type> spread 0.0000
+<particle_direction> 0.0000 0.0000 1.0000
+<particle_velocity> 1.2000
+<particle_acceleration> 0.0000
+<particle_rotation_velocity> 0.0000
+<particle_gravity> 0.0000
+<change_color> false
+<particle_color> 0 -5900820
+<color_key> 0
+<particle_color> 1 -5900820
+<particle_color> 2 -5835284
+<particle_color> 3 -5769748
+<particle_color> 4 -5704212
+<particle_color> 5 -5638676
+<particle_color> 6 -5573139
+<particle_color> 7 -5507603
+<particle_color> 8 -5442067
+<particle_color> 9 -5376531
+<particle_color> 10 -5310739
+<particle_color> 11 -5245202
+<particle_color> 12 -5245202
+<particle_color> 13 -5179666
+<particle_color> 14 -5114130
+<particle_color> 15 -5048594
+<particle_color> 16 -4983057
+<particle_color> 17 -4917521
+<particle_color> 18 -4851985
+<particle_color> 19 -4786449
+<particle_color> 20 -4720657
+<particle_color> 21 -4655120
+<particle_color> 22 -4589584
+<particle_color> 23 -4589584
+<particle_color> 24 -4524048
+<particle_color> 25 -4458512
+<particle_color> 26 -4392976
+<particle_color> 27 -4327439
+<particle_color> 28 -4261903
+<particle_color> 29 -4196367
+<particle_color> 30 -4130575
+<particle_color> 31 -4065039
+<particle_color> 32 -3999502
+<particle_color> 33 -3933966
+<particle_color> 34 -3933966
+<particle_color> 35 -3868430
+<particle_color> 36 -3802894
+<particle_color> 37 -3737357
+<particle_color> 38 -3671821
+<particle_color> 39 -3606285
+<particle_color> 40 -3540493
+<particle_color> 41 -3474957
+<particle_color> 42 -3409420
+<particle_color> 43 -3343884
+<particle_color> 44 -3278348
+<particle_color> 45 -3278348
+<particle_color> 46 -3212812
+<particle_color> 47 -3147275
+<particle_color> 48 -3081739
+<particle_color> 49 -3016203
+<particle_color> 50 -2950411
+<particle_color> 51 -2884875
+<particle_color> 52 -2819339
+<particle_color> 53 -2753802
+<particle_color> 54 -2688266
+<particle_color> 55 -2622730
+<particle_color> 56 -2622730
+<particle_color> 57 -2557194
+<particle_color> 58 -2491657
+<particle_color> 59 -2426121
+<particle_color> 60 -2360329
+<particle_color> 61 -2294793
+<particle_color> 62 -2229257
+<particle_color> 63 -2163720
+<particle_color> 64 -2098184
+<particle_color> 65 -2032648
+<particle_color> 66 -1967112
+<particle_color> 67 -1967112
+<particle_color> 68 -1901575
+<particle_color> 69 -1836039
+<particle_color> 70 -1770247
+<particle_color> 71 -1704711
+<particle_color> 72 -1639175
+<particle_color> 73 -1573638
+<particle_color> 74 -1508102
+<particle_color> 75 -1442566
+<particle_color> 76 -1377030
+<particle_color> 77 -1311494
+<particle_color> 78 -1311494
+<particle_color> 79 -1245957
+<particle_color> 80 -1180165
+<particle_color> 81 -1114629
+<particle_color> 82 -1049093
+<particle_color> 83 -983557
+<particle_color> 84 -918020
+<particle_color> 85 -852484
+<particle_color> 86 -786948
+<particle_color> 87 -721412
+<particle_color> 88 -655876
+<particle_color> 89 -655875
+<particle_color> 90 -590083
+<particle_color> 91 -524547
+<particle_color> 92 -459011
+<particle_color> 93 -393475
+<particle_color> 94 -327938
+<particle_color> 95 -262402
+<particle_color> 96 -196866
+<particle_color> 97 -131330
+<particle_color> 98 -65794
+<particle_color> 99 -1
+<shape_name> fx\object\0725heal_mesh\heal_mesh.n3shape
+<shape_fps> 130.0000
+<shape_apply> true
+<end>

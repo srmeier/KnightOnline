@@ -1,0 +1,16 @@
+Machine_Type = catapult
+Speed = 1.0
+RotateSpeed = 0.15
+Shape_Name = misc\catapult.n3shape
+Wheel_FL = misc\catapult_wheel1.n3pmesh
+Wheel_FR = misc\catapult_wheel2.n3pmesh
+Wheel_BL = misc\catapult_wheel4.n3pmesh
+Wheel_BR = misc\catapult_wheel3.n3pmesh
+Thrower_Name = misc\catapult_thrower.n3pmesh
+Thrower_LimitRadian = 1.4
+Thrower_RadianAccel = 5.0
+Thrower_RadianSpeed2Reload = 1.0
+Thrower_ReloadDelayTime = 3.0
+Thrower_RecoilRadian = 0.3
+Thrower_StoneShapeName = misc\catapult_stone.n3shape
+Thrower_StoneOffset = 0.0 5.2 -10.20

@@ -1,0 +1,8 @@
+<N3FXBUNDLE>
+<PART> fx/0710ab_tarp.n3fxpart 0.00
+<PART> fx/0710ab_tarr01.n3fxpart 0.50
+<PART> fx/0710ab_tarr02.n3fxpart 0.60
+<PART> fx/0710ab_tarr03.n3fxpart 0.70
+<Depend_Scale> true
+<Static_Pos> false
+<Velocity> 0.0000

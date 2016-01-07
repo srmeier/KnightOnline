@@ -1,0 +1,26 @@
+<N3FXPART>
+<type> mesh
+<shape_name> fx\object\0710ab_tarr02\ab_tarr02.n3shape
+<texture_move> NONE 0.0000
+<scale_velocity> 0.0000 0.0000 0.0000
+<scale> 1.5000 0.9000 1.5000
+<scale_accelerate> 0.0000 0.0000 0.0000
+<tex_fps> 1.0000
+<tex_loop> false
+<alpha> true
+<on_ground> false
+<doubleside> true
+<light> false
+<zbuffer> true
+<zwrite> true
+<mesh_fps> 1.0000
+<acceleration> 2.0000 10.0000 2.0000
+<position0> 0.0000 0.0000 0.0000
+<velocity> 0.0000 2.0000 0.0000
+<rot_velocity> 0.0000 20.0000 0.0000
+<life> 0.2000
+<fadeout> 0.1000
+<fadein> 0.0000
+<src_blend> SRCALPHA
+<dest_blend> INVSRCALPHA
+<end>
