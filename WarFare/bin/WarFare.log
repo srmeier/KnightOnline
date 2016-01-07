@@ -1,0 +1,21 @@
+﻿  WarFareMain.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\DInput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\srmeier\Desktop\KnightOnline\N3Base\include\N3UIBase.h(143): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\srmeier\Desktop\KnightOnline\WarFare\include\GameEng.h(113): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\srmeier\Desktop\KnightOnline\WarFare\include\Warfaremain.h(16): warning C4005: 'LLKHF_ALTDOWN': macro redefinition
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(1018): note: see previous definition of 'LLKHF_ALTDOWN'
+c:\users\srmeier\desktop\knightonline\n3base\include\N3AnimControl.h(166): warning C4018: '>=': signed/unsigned mismatch
+c:\users\srmeier\desktop\knightonline\n3base\include\N3Joint.h(53): warning C4018: '>': signed/unsigned mismatch
+C:\Users\srmeier\Desktop\KnightOnline\N3Base\include\N3Chr.h(300): warning C4018: '>': signed/unsigned mismatch
+C:\Users\srmeier\Desktop\KnightOnline\N3Base\include\N3Chr.h(313): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\srmeier\Desktop\KnightOnline\N3Base\include\N3Chr.h(320): warning C4018: '>=': signed/unsigned mismatch
+src\WarFareMain.cpp(355): warning C4553: '==': operator has no effect; did you intend '='?
+src\WarFareMain.cpp(323): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+  Generating code
+  140 of 14940 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    346 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  WarFare.vcxproj -> C:\Users\srmeier\Desktop\KnightOnline\WarFare\bin\WarFare.exe

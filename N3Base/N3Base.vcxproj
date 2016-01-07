@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\AVIPlayer.h" />
+    <ClInclude Include="include\BitMapFile.h" />
+    <ClInclude Include="include\DFont.h" />
+    <ClInclude Include="include\JPEG.H" />
+    <ClInclude Include="include\LogWriter.h" />
+    <ClInclude Include="include\My_3DStruct.h" />
+    <ClInclude Include="include\My_Macro.h" />
+    <ClInclude Include="include\N3AlphaPrimitiveManager.h" />
+    <ClInclude Include="include\N3AnimatedTexures.h" />
+    <ClInclude Include="include\N3AnimControl.h" />
+    <ClInclude Include="include\N3AnimKey.h" />
+    <ClInclude Include="include\N3Base.h" />
+    <ClInclude Include="include\N3BaseFileAccess.h" />
+    <ClInclude Include="include\N3Board.h" />
+    <ClInclude Include="include\N3Camera.h" />
+    <ClInclude Include="include\N3Chr.h" />
+    <ClInclude Include="include\N3Cloak.h" />
+    <ClInclude Include="include\N3Cloud.h" />
+    <ClInclude Include="include\N3ColorChange.h" />
+    <ClInclude Include="include\N3Eng.h" />
+    <ClInclude Include="include\N3EngTool.h" />
+    <ClInclude Include="include\N3FXBundle.h" />
+    <ClInclude Include="include\N3FXDef.h" />
+    <ClInclude Include="include\N3FXGroup.h" />
+    <ClInclude Include="include\N3FXPartBase.h" />
+    <ClInclude Include="include\N3FXPartBillBoard.h" />
+    <ClInclude Include="include\N3FXPartBottomBoard.h" />
+    <ClInclude Include="include\N3FXParticle.h" />
+    <ClInclude Include="include\N3FXPartMesh.h" />
+    <ClInclude Include="include\N3FXPartParticles.h" />
+    <ClInclude Include="include\N3FXPlug.h" />
+    <ClInclude Include="include\N3FXPMesh.h" />
+    <ClInclude Include="include\N3FXPMeshInstance.h" />
+    <ClInclude Include="include\N3FXShape.h" />
+    <ClInclude Include="include\N3GERain.h" />
+    <ClInclude Include="include\N3GESnow.h" />
+    <ClInclude Include="include\N3GlobalEffect.h" />
+    <ClInclude Include="include\N3GlobalEffectMng.h" />
+    <ClInclude Include="include\N3IME.h" />
+    <ClInclude Include="include\N3IMesh.h" />
+    <ClInclude Include="include\N3Joint.h" />
+    <ClInclude Include="include\N3Light.h" />
+    <ClInclude Include="include\N3Mesh.h" />
+    <ClInclude Include="include\N3Mng.h" />
+    <ClInclude Include="include\N3Moon.h" />
+    <ClInclude Include="include\N3PMesh.h" />
+    <ClInclude Include="include\N3PMeshCreate.h" />
+    <ClInclude Include="include\N3PMeshInstance.h" />
+    <ClInclude Include="include\N3Pond.h" />
+    <ClInclude Include="include\N3River.h" />
+    <ClInclude Include="include\N3River2.h" />
+    <ClInclude Include="include\N3RiverPatch.h" />
+    <ClInclude Include="include\N3Scene.h" />
+    <ClInclude Include="include\N3Shape.h" />
+    <ClInclude Include="include\N3ShapeEx.h" />
+    <ClInclude Include="include\N3ShapeExtra.h" />
+    <ClInclude Include="include\N3ShapeMgr.h" />
+    <ClInclude Include="include\N3ShapeMod.h" />
+    <ClInclude Include="include\N3Skin.h" />
+    <ClInclude Include="include\N3Sky.h" />
+    <ClInclude Include="include\N3SkyMng.h" />
+    <ClInclude Include="include\N3Snd3dObj.h" />
+    <ClInclude Include="include\N3SndDef.h" />
+    <ClInclude Include="include\N3SndEng.h" />
+    <ClInclude Include="include\N3SndMgr.h" />
+    <ClInclude Include="include\N3SndObj.h" />
+    <ClInclude Include="include\N3SndObj2D.h" />
+    <ClInclude Include="include\N3SndObj3D.h" />
+    <ClInclude Include="include\N3SndObjStream.h" />
+    <ClInclude Include="include\N3Star.h" />
+    <ClInclude Include="include\N3Sun.h" />
+    <ClInclude Include="include\N3TableBase.h" />
+    <ClInclude Include="include\N3Texture.h" />
+    <ClInclude Include="include\N3Transform.h" />
+    <ClInclude Include="include\N3TransformCollision.h" />
+    <ClInclude Include="include\N3UIArea.h" />
+    <ClInclude Include="include\N3UIBase.h" />
+    <ClInclude Include="include\N3UIButton.h" />
+    <ClInclude Include="include\N3UIDef.h" />
+    <ClInclude Include="include\N3UIEdit.h" />
+    <ClInclude Include="include\N3UIImage.h" />
+    <ClInclude Include="include\N3UIList.h" />
+    <ClInclude Include="include\N3UIManager.h" />
+    <ClInclude Include="include\N3UIProgress.h" />
+    <ClInclude Include="include\N3UIScrollBar.h" />
+    <ClInclude Include="include\N3UIStatic.h" />
+    <ClInclude Include="include\N3UIString.h" />
+    <ClInclude Include="include\N3UITooltip.h" />
+    <ClInclude Include="include\N3UITrackBar.h" />
+    <ClInclude Include="include\N3VMesh.h" />
+    <ClInclude Include="include\Pick.h" />
+    <ClInclude Include="include\StdAfxBase.h" />
+    <ClInclude Include="include\StreamSoundObj.h" />
+    <ClInclude Include="include\WaveFile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DFont.cpp" />
+    <ClCompile Include="src\JPEG.cpp" />
+    <ClCompile Include="src\LogWriter.cpp" />
+    <ClCompile Include="src\N3AlphaPrimitiveManager.cpp" />
+    <ClCompile Include="src\N3AnimControl.cpp" />
+    <ClCompile Include="src\N3AnimKey.cpp" />
+    <ClCompile Include="src\N3Base.cpp" />
+    <ClCompile Include="src\N3BaseFileAccess.cpp" />
+    <ClCompile Include="src\N3Camera.cpp" />
+    <ClCompile Include="src\N3Chr.cpp" />
+    <ClCompile Include="src\N3Cloak.cpp" />
+    <ClCompile Include="src\N3Cloud.cpp" />
+    <ClCompile Include="src\N3ColorChange.cpp" />
+    <ClCompile Include="src\N3Eng.cpp" />
+    <ClCompile Include="src\N3FXBundle.cpp" />
+    <ClCompile Include="src\N3FXBundleGame.cpp" />
+    <ClCompile Include="src\N3FXMgr.cpp" />
+    <ClCompile Include="src\N3FXPartBase.cpp" />
+    <ClCompile Include="src\N3FXPartBillBoard.cpp" />
+    <ClCompile Include="src\N3FXPartBillBoardGame.cpp" />
+    <ClCompile Include="src\N3FXPartBottomBoard.cpp" />
+    <ClCompile Include="src\N3FXPartBottomBoardGame.cpp" />
+    <ClCompile Include="src\N3FXParticle.cpp" />
+    <ClCompile Include="src\N3FXPartMesh.cpp" />
+    <ClCompile Include="src\N3FXPartParticles.cpp" />
+    <ClCompile Include="src\N3FXPlug.cpp" />
+    <ClCompile Include="src\N3FXPMesh.cpp" />
+    <ClCompile Include="src\N3FXPMeshInstance.cpp" />
+    <ClCompile Include="src\N3FXShape.cpp" />
+    <ClCompile Include="src\N3GERain.cpp" />
+    <ClCompile Include="src\N3GESnow.cpp" />
+    <ClCompile Include="src\N3GlobalEffect.cpp" />
+    <ClCompile Include="src\N3IMesh.cpp" />
+    <ClCompile Include="src\N3Joint.cpp" />
+    <ClCompile Include="src\N3Light.cpp" />
+    <ClCompile Include="src\N3Mesh.cpp" />
+    <ClCompile Include="src\N3Moon.cpp" />
+    <ClCompile Include="src\N3PMesh.cpp" />
+    <ClCompile Include="src\N3PMeshCreate.cpp" />
+    <ClCompile Include="src\N3PMeshInstance.cpp" />
+    <ClCompile Include="src\N3Pond.cpp" />
+    <ClCompile Include="src\N3River.cpp" />
+    <ClCompile Include="src\N3River2.cpp" />
+    <ClCompile Include="src\N3Scene.cpp" />
+    <ClCompile Include="src\N3Shape.cpp" />
+    <ClCompile Include="src\N3ShapeExtra.cpp" />
+    <ClCompile Include="src\N3ShapeMgr.cpp" />
+    <ClCompile Include="src\N3Skin.cpp" />
+    <ClCompile Include="src\N3Sky.cpp" />
+    <ClCompile Include="src\N3SkyMng.cpp" />
+    <ClCompile Include="src\N3SndMgr.cpp" />
+    <ClCompile Include="src\N3SndObj.cpp" />
+    <ClCompile Include="src\N3SndObjStream.cpp" />
+    <ClCompile Include="src\N3Star.cpp" />
+    <ClCompile Include="src\N3Sun.cpp" />
+    <ClCompile Include="src\N3Terrain.cpp" />
+    <ClCompile Include="src\N3TerrainManager.cpp" />
+    <ClCompile Include="src\N3TerrainPatch.cpp" />
+    <ClCompile Include="src\N3Texture.cpp" />
+    <ClCompile Include="src\N3Transform.cpp" />
+    <ClCompile Include="src\N3TransformCollision.cpp" />
+    <ClCompile Include="src\N3UIArea.cpp" />
+    <ClCompile Include="src\N3UIBase.cpp" />
+    <ClCompile Include="src\N3UIButton.cpp" />
+    <ClCompile Include="src\N3UIDBCLButton.cpp" />
+    <ClCompile Include="src\N3UIEdit.cpp" />
+    <ClCompile Include="src\N3UIIcon.cpp" />
+    <ClCompile Include="src\N3UIImage.cpp" />
+    <ClCompile Include="src\N3UIList.cpp" />
+    <ClCompile Include="src\N3UIProgress.cpp" />
+    <ClCompile Include="src\N3UIScrollBar.cpp" />
+    <ClCompile Include="src\N3UIStatic.cpp" />
+    <ClCompile Include="src\N3UIString.cpp" />
+    <ClCompile Include="src\N3UITooltip.cpp" />
+    <ClCompile Include="src\N3UITrackBar.cpp" />
+    <ClCompile Include="src\N3UIWndBase.cpp" />
+    <ClCompile Include="src\N3VMesh.cpp" />
+    <ClCompile Include="src\N3WorldBase.cpp" />
+    <ClCompile Include="src\N3WorldManager.cpp" />
+    <ClCompile Include="src\Pick.cpp" />
+    <ClCompile Include="src\WaveFile.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5E45D92A-702B-4128-A1AF-504A17271D94}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>N3Base</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>lib\</OutDir>
+    <IntDir>lib\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\external\include\</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>lib\</OutDir>
+    <IntDir>lib\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\external\include\</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_N3GAME;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\WarFare\include\;include\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_N3GAME;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\WarFare\include\;include\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

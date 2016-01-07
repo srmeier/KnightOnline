@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WarFare", "WarFare\WarFare.vcxproj", "{02A7C2DE-6DB6-477A-977A-ADF0BF2204A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E45D92A-702B-4128-A1AF-504A17271D94} = {5E45D92A-702B-4128-A1AF-504A17271D94}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N3Base", "N3Base\N3Base.vcxproj", "{5E45D92A-702B-4128-A1AF-504A17271D94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02A7C2DE-6DB6-477A-977A-ADF0BF2204A6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{02A7C2DE-6DB6-477A-977A-ADF0BF2204A6}.Debug|Win32.Build.0 = Debug|Win32
+		{02A7C2DE-6DB6-477A-977A-ADF0BF2204A6}.Release|Win32.ActiveCfg = Release|Win32
+		{02A7C2DE-6DB6-477A-977A-ADF0BF2204A6}.Release|Win32.Build.0 = Release|Win32
+		{5E45D92A-702B-4128-A1AF-504A17271D94}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5E45D92A-702B-4128-A1AF-504A17271D94}.Debug|Win32.Build.0 = Debug|Win32
+		{5E45D92A-702B-4128-A1AF-504A17271D94}.Release|Win32.ActiveCfg = Release|Win32
+		{5E45D92A-702B-4128-A1AF-504A17271D94}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
