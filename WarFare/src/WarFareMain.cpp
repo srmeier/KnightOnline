@@ -1,5 +1,6 @@
 /*
 */
+
 #include "StdAfx.h"
 #include "UIChat.h"
 #include "GameEng.h"
@@ -157,17 +158,17 @@ LRESULT CALLBACK WndProcSub(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 //-----------------------------------------------------------------------------
 HWND CreateMainWindow(HINSTANCE hInstance)
 {
-	WNDCLASS    wc;
+	WNDCLASS wc;
 
-	wc.style         = 0;
-	wc.lpfnWndProc   = (WNDPROC)WndProcMain;
-	wc.cbClsExtra    = 0;
-	wc.cbWndExtra    = 0;
-	wc.hInstance     = hInstance;
-	wc.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAIN));
-	wc.hCursor       = NULL;
+	wc.style = 0;
+	wc.lpfnWndProc = (WNDPROC)WndProcMain;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAIN));
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW); //NULL;
 	wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
-	wc.lpszMenuName  = NULL;
+	wc.lpszMenuName = NULL;
 	wc.lpszClassName = "Knight OnLine Client";
 
 	if(::RegisterClass(&wc) == 0) {
@@ -175,7 +176,7 @@ HWND CreateMainWindow(HINSTANCE hInstance)
 		exit(-1);
 	}
 
-	DWORD style = WS_POPUP | WS_CLIPCHILDREN;
+	DWORD style = WS_OVERLAPPEDWINDOW; //WS_POPUP | WS_CLIPCHILDREN;
 	return ::CreateWindow(
 		"Knight OnLine Client",
 		"Knight OnLine Client",
@@ -346,7 +347,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	// NOTE: set the games current procedure to s_pProcLogIn
 	//CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
 
-	// TESTING -----
+	// TESTING ----------
 	CGameBase::s_pPlayer->m_InfoBase.eRace = RACE_KA_ARKTUAREK;
 	CGameBase::s_pPlayer->m_InfoBase.eNation = NATION_KARUS;
 	CGameBase::s_pPlayer->m_InfoBase.eClass = CLASS_KA_WARRIOR;
@@ -360,7 +361,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcMain);
 	//CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcCharacterSelect);
-	// TESTING ------
+	// TESTING -----------
 
 	#if _DEBUG
 		HACCEL hAccel = LoadAccelerators(NULL, MAKEINTRESOURCE(IDR_MAIN_ACCELATOR));
