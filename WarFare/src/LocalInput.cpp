@@ -325,11 +325,12 @@ void CLocalInput::Tick(void)
 		::GetCursorPos(&m_ptCurMouse); // 좀 이상해서... 그냥 시스템 마우스 커서 위치 가져오기
 		::ScreenToClient(m_hWnd, &m_ptCurMouse); // 클라이언트 영역으로 변환
 
-		if(PtInRect(&rcClient, m_ptCurMouse) == FALSE) //  || GetFocus() != m_hWnd) // 스크린 영역 밖에 있거나 포커스가 가있지 않으면..
-		{
-		}
-		else
-		{
+		// NOTE: removing check for whether mouse is within the game window
+		//if(PtInRect(&rcClient, m_ptCurMouse) == FALSE) //  || GetFocus() != m_hWnd) // 스크린 영역 밖에 있거나 포커스가 가있지 않으면..
+		//{
+		//}
+		//else
+		//{
 			// 마우스 버튼 상태 보관.
 			m_nMouseFlagOld = m_nMouseFlag;
 			m_nMouseFlag = 0;
@@ -379,6 +380,6 @@ void CLocalInput::Tick(void)
 			if(m_nMouseFlag & MOUSE_LBCLICK) { m_rcLBDrag.left = m_ptCurMouse.x; m_rcLBDrag.top = m_ptCurMouse.y; }
 			if(m_nMouseFlag & MOUSE_MBCLICK) { m_rcMBDrag.left = m_ptCurMouse.x; m_rcMBDrag.top = m_ptCurMouse.y; }
 			if(m_nMouseFlag & MOUSE_RBCLICK) { m_rcRBDrag.left = m_ptCurMouse.x; m_rcRBDrag.top = m_ptCurMouse.y; }
-		}
+		//}
 //	} // end of mouse
 }

@@ -972,10 +972,12 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 
 	if( dwMouseFlags & MOUSE_RBCLICK )
 	{
+		// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
 		OnMouseRBtnPress(ptCur, ptPrev);
 	}
 	if( dwMouseFlags & MOUSE_RBDOWN )
 	{
+		// NOTE: this is where the right click rotation and zoom out occur
 		OnMouseRbtnDown(ptCur, ptPrev);
 	}
 	if( dwMouseFlags & MOUSE_RBCLICK )
@@ -988,10 +990,12 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 	}
 	if( dwMouseFlags & MOUSE_LBCLICK )
 	{
+		// NOTE: move on click
 		OnMouseLBtnPress(ptCur, ptPrev);
 	}
 	if( dwMouseFlags & MOUSE_LBDOWN )
 	{
+		// NOTE: move on held down click
 		OnMouseLbtnDown(ptCur, ptPrev);
 	}
 	if( dwMouseFlags & MOUSE_LBCLICKED )
@@ -1003,6 +1007,20 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 		OnMouseLDBtnPress(ptCur, ptPrev);
 	}
 
+	float fRotY = 0, fRotX = 0;
+	if(ptCur.x <= 0) fRotY = -2.0f;
+	else if(ptCur.x >= (CN3Base::s_CameraData.vp.Width - 1)) fRotY = 2.0f;
+	if(ptCur.y <= 0) fRotX = -1.0f;
+	else if(ptCur.y >= (CN3Base::s_CameraData.vp.Height - 1)) fRotX = 1.0f;
+	if(fRotY)
+	{
+		if(VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
+		else s_pPlayer->RotAdd(fRotY);
+	}
+	if(fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
+
+	// NOTE: move camera when cursor is on the border
+	/*
 	// 마우스에 따른 카메라 회전...
 	float fRotY = 0, fRotX = 0;
 	if(0 == ptCur.x) fRotY = -2.0f;
@@ -1015,6 +1033,7 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 		else s_pPlayer->RotAdd(fRotY);
 	}
 	if(fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
+	*/
 
 	//
 	// 마우스 처리.
@@ -6794,8 +6813,10 @@ bool CGameProcMain::OnMouseMove(POINT ptCur, POINT ptPrev)
 {
 	if(s_pUIMgr->m_bDoneSomething) return false;
 
+	// NOTE: check if cursor position has changed
 	if(ptCur.x != ptPrev.x || ptCur.y != ptPrev.y)
 	{
+		// NOTE: check if something has been selected by the cursor
 		if(m_pMagicSkillMng->m_dwRegionMagicState==1)
 		{
 			__Vector3 vNormal, vMyPos, vGap, vDir;
@@ -6865,7 +6886,8 @@ bool CGameProcMain::OnMouseLDBtnPress(POINT ptCur, POINT ptPrev)
 // 왼쪽 클릭
 bool CGameProcMain::OnMouseLBtnPress(POINT ptCur, POINT ptPrev)
 {
-	if(s_pUIMgr->m_bDoneSomething) return false;
+	// TEMP: removing this while UI is broken
+	//if(s_pUIMgr->m_bDoneSomething) return false;
 
 	POINT ptPlayer = ::_Convert3D_To_2DCoordinate(	s_pPlayer->Position(), 
 													CN3Base::s_CameraData.mtxView,
@@ -6996,7 +7018,8 @@ bool CGameProcMain::OnMouseLBtnPressd(POINT ptCur, POINT ptPrev)
 // 왼쪽 눌리고 있을때
 bool CGameProcMain::OnMouseLbtnDown(POINT ptCur, POINT ptPrev)
 {
-	if(s_pUIMgr->m_bDoneSomething) return false;
+	// TEMP: removing this while UI is broken
+	//if(s_pUIMgr->m_bDoneSomething) return false;
 
 	POINT ptPlayer = ::_Convert3D_To_2DCoordinate(	s_pPlayer->Position(), 
 													CN3Base::s_CameraData.mtxView,
@@ -7067,9 +7090,11 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 
 	if(NULL == pNPC)
 	{
+		// NOTE: sending the packet to pick up items
 		CPlayerNPC* pCorpse = s_pOPMgr->PickCorpse(ptCur.x, ptCur.y, iID); // 픽킹..
 		if(false == this->MsgSend_RequestItemBundleOpen(pCorpse)) // 시체 뒤저서 아이템 상자 열기..
 		{
+			// NOTE: if no corpse and item box then check if the player clicked on an iteractable shape
 			CN3Shape* pShape = ACT_WORLD->PickWithShape(ptCur.x, ptCur.y, true);
 			if(	pShape && pShape == s_pPlayer->m_pObjectTarget && pShape->m_iEventID) // Event 가 있으면..
 			{
@@ -7118,6 +7143,7 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 		}
 		else // 보통 NPC 이면..
 		{
+			// NOTE: an NPC has been clicked on
 			if(pNPC->m_InfoBase.eNation == s_pPlayer->m_InfoBase.eNation) // 같은 국가 일때만..
 			{
 				float fD = (s_pPlayer->Position() - pNPC->Position()).Magnitude();
@@ -7149,7 +7175,7 @@ bool CGameProcMain::OnMouseRBtnPressd(POINT ptCur, POINT ptPrev)
 // 오른쪽 눌리고 있을때
 bool CGameProcMain::OnMouseRbtnDown(POINT ptCur, POINT ptPrev)
 {
-	float fMouseSensivity = 0.02f;
+	float fMouseSensivity = 0.05f;//0.02f;
 	
 	float fRotY = D3DXToRadian(180.0f) * ((ptCur.x - ptPrev.x) * fMouseSensivity); // 회전할 양을 계산하고..
 	float fRotX = D3DXToRadian(180.0f) * ((ptCur.y - ptPrev.y) * fMouseSensivity);
@@ -7166,9 +7192,9 @@ bool CGameProcMain::OnMouseRbtnDown(POINT ptCur, POINT ptPrev)
 
 	if(fRotY || fRotX)
 	{
-		SetGameCursor(NULL);
-		::SetCursorPos(ptPrev.x, ptPrev.y);
-		s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
+		//SetGameCursor(NULL);
+		//::SetCursorPos(ptPrev.x, ptPrev.y);
+		//s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
 	}
 	return true;
 }
