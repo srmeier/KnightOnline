@@ -1,1 +1,1 @@
-
+git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
