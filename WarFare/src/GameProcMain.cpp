@@ -1007,17 +1007,21 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 		OnMouseLDBtnPress(ptCur, ptPrev);
 	}
 
-	float fRotY = 0, fRotX = 0;
-	if(ptCur.x <= 0) fRotY = -2.0f;
-	else if(ptCur.x >= (CN3Base::s_CameraData.vp.Width - 1)) fRotY = 2.0f;
-	if(ptCur.y <= 0) fRotX = -1.0f;
-	else if(ptCur.y >= (CN3Base::s_CameraData.vp.Height - 1)) fRotX = 1.0f;
-	if(fRotY)
-	{
-		if(VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-		else s_pPlayer->RotAdd(fRotY);
+	/*
+	if (!(dwMouseFlags & MOUSE_RBDOWN)) {
+		float fRotY = 0, fRotX = 0;
+		if (ptCur.x <= 0) fRotY = -2.0f;
+		else if (ptCur.x >= (CN3Base::s_CameraData.vp.Width - 1)) fRotY = 2.0f;
+		if (ptCur.y <= 0) fRotX = -1.0f;
+		else if (ptCur.y >= (CN3Base::s_CameraData.vp.Height - 1)) fRotX = 1.0f;
+		if (fRotY)
+		{
+			if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
+			else s_pPlayer->RotAdd(fRotY);
+		}
+		if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 	}
-	if(fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
+	*/
 
 	// NOTE: move camera when cursor is on the border
 	/*
