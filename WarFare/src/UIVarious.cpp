@@ -1204,6 +1204,9 @@ CUIFriends::~CUIFriends()
 
 bool CUIFriends::Load(HANDLE hFile)
 {
+	// TEMP: to avoid the "_.txt" file in the data directory
+	return false;
+
 	if(false == CN3UIBase::Load(hFile)) return false;
 
 	m_pList_Friends		= (CN3UIList*)this->GetChildByID("List_Friends");		__ASSERT(m_pList_Friends, "NULL UI Component!!");
@@ -1250,6 +1253,9 @@ bool CUIFriends::Load(HANDLE hFile)
 
 void CUIFriends::SaveListToTextFile(const std::string& szID) // 문자열이 있으면 추가하고.. 없으면 몽땅 저장..
 {
+	// TEMP: to avoid the "_.txt" file in the data directory
+	return;
+
 	std::string szFN = CGameProcedure::s_szAccount + "_" + CGameProcedure::s_szServer + ".txt"; // 파일이름은 계정_서버.txt 로 한다.
 	char szFlags[4] = "w";
 	if(!szID.empty()) lstrcpy(szFlags, "a");
