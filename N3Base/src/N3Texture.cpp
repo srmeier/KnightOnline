@@ -175,9 +175,19 @@ bool CN3Texture::LoadFromFile(const std::string& szFileName)
 		if(hFile == INVALID_HANDLE_VALUE)
 		{
 #ifdef _N3GAME
-			CLogWriter::Write("invalid file handle(%d) - Can't open texture file(%s)", (int)hFile, szFullPath.c_str());
+			// NOTE: temp correction for fukd up uifs
+			//       - 63 is used to jump past the old texture locations
+			//       - also note that the #ifdef is messed up here now...
+			if (nFNL > 63) {
+				//OutputDebugString(&szFullPath[63]);
+				hFile = ::CreateFile(&szFullPath[63], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+			}
+
+			if (hFile == INVALID_HANDLE_VALUE) {
+				CLogWriter::Write("invalid file handle(%d) - Can't open texture file(%s)", (int)hFile, szFullPath.c_str());
+				return false;
+			}
 #endif
-			return false;
 		}
 		this->Load(hFile);
 		CloseHandle(hFile);

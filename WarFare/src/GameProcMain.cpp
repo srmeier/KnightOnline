@@ -618,8 +618,7 @@ void CGameProcMain::Render()
 	
 	ACT_WORLD->RenderSkyWeather();							// 하늘 렌더링..
 	
-	// TEMP
-	//CGameProcedure::Render(); // UI 나 그밖의 기본적인 것들 렌더링..
+	CGameProcedure::Render(); // UI 나 그밖의 기본적인 것들 렌더링..
 	if(m_pWarMessage) m_pWarMessage->RenderMessage();
 	if(s_pGameCursor) s_pGameCursor->Render();
 
