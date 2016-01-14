@@ -62,7 +62,7 @@ class CN3TerrainManager : public CN3WorldBase
 	D3DCOLOR GetLightDiffuseColorWithSky(int iIndex);
 	D3DCOLOR GetLightAmbientColorWithSky(int iIndex);
 	D3DCOLOR GetFogColorWithSky();
-	CN3Sun*	GetSunPointerWithSky();
+	//CN3Sun*	GetSunPointerWithSky();
 
 	// Bird..
 
