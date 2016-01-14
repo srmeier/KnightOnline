@@ -6889,8 +6889,7 @@ bool CGameProcMain::OnMouseLDBtnPress(POINT ptCur, POINT ptPrev)
 // 왼쪽 클릭
 bool CGameProcMain::OnMouseLBtnPress(POINT ptCur, POINT ptPrev)
 {
-	// TEMP: removing this while UI is broken
-	//if(s_pUIMgr->m_bDoneSomething) return false;
+	if(s_pUIMgr->m_bDoneSomething) return false;
 
 	POINT ptPlayer = ::_Convert3D_To_2DCoordinate(	s_pPlayer->Position(), 
 													CN3Base::s_CameraData.mtxView,
@@ -7021,8 +7020,7 @@ bool CGameProcMain::OnMouseLBtnPressd(POINT ptCur, POINT ptPrev)
 // 왼쪽 눌리고 있을때
 bool CGameProcMain::OnMouseLbtnDown(POINT ptCur, POINT ptPrev)
 {
-	// TEMP: removing this while UI is broken
-	//if(s_pUIMgr->m_bDoneSomething) return false;
+	if(s_pUIMgr->m_bDoneSomething) return false;
 
 	POINT ptPlayer = ::_Convert3D_To_2DCoordinate(	s_pPlayer->Position(), 
 													CN3Base::s_CameraData.mtxView,

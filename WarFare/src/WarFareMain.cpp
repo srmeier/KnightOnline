@@ -176,11 +176,16 @@ HWND CreateMainWindow(HINSTANCE hInstance)
 		exit(-1);
 	}
 
-	DWORD style = WS_OVERLAPPEDWINDOW; //WS_POPUP | WS_CLIPCHILDREN;
+	RECT rect;
+	GetClientRect(GetDesktopWindow(), &rect);
+	rect.left = (rect.right / 2) - (CN3Base::s_Options.iViewWidth / 2);
+	rect.top = (rect.bottom / 2) - (CN3Base::s_Options.iViewHeight / 2);
+
+	DWORD style = WS_POPUP | WS_CLIPCHILDREN; //WS_OVERLAPPEDWINDOW;
 	return ::CreateWindow(
 		"Knight OnLine Client",
 		"Knight OnLine Client",
-		style, 0, 0,
+		style, rect.left/2, rect.top/2, //0, 0,
 		CN3Base::s_Options.iViewWidth,
 		CN3Base::s_Options.iViewHeight,
 		NULL, NULL, hInstance, NULL
