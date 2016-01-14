@@ -329,6 +329,7 @@ D3DCOLOR CN3TerrainManager::GetFogColorWithSky()
 		return 0xffffffff;
 }
 
+/*
 CN3Sun*	CN3TerrainManager::GetSunPointerWithSky()
 {
 	if (m_pSky)
@@ -336,6 +337,7 @@ CN3Sun*	CN3TerrainManager::GetSunPointerWithSky()
 	else
 		return NULL;
 }
+*/
 
 // Grass..
 void CN3TerrainManager::InitWithGrass(__Vector3 CamPo)

@@ -64,7 +64,7 @@ public:
 	virtual D3DCOLOR GetLightDiffuseColorWithSky(int iIndex)	{	return 0xffffffff;	}
 	virtual D3DCOLOR GetLightAmbientColorWithSky(int iIndex)	{	return 0xffffffff;	}
 	virtual D3DCOLOR GetFogColorWithSky()	{	return 0xffffffff;	}
-	virtual CN3Sun*	GetSunPointerWithSky()	{	return NULL;	}
+	//virtual CN3Sun*	GetSunPointerWithSky()	{	return NULL;	}
 
 	// Bird..
 

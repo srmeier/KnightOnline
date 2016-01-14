@@ -620,3 +620,69 @@
     [19:29:14] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
     [19:29:14] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
     [19:29:14] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [01/14 08:37]
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Quest_Menu.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Quest_Talk.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_0.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_1.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_2.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_3.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_4.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_5.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_6.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_7.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_8.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_9.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_10.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_11.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_12.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_13.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_14.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_15.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_16.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_17.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_18.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_19.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_20.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Item_Ext_21.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\NPC_Looks.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\skill_magic_main.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Exchange_Quest.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\fx.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\sound.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Skill_Magic_1.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Skill_Magic_2.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Skill_Magic_3.tbl)
+    [08:37:08] N3TableBase - Can't open file(read) File Handle error (Data\Skill_Magic_4.tbl)
+    [08:37:08] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\ka_notice.uif - Can't open file (read)
+    [08:37:11] invalid file handle(-1) - Can't open texture file(c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\itemicon_9_0001_00_0.dxt)
+    [08:37:11] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [08:37:11] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [08:37:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\co_partyboard.uif - Can't open file (read)
+    [08:37:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\misc\co_targetsymbol.n3hsape - Can't open file (read)
+    [08:37:11] CGameProcMain::InitZone -> Zone Change (-1 -> 204) Position(0.0, 0.0, 0.0)
+    [08:37:11] 67090976->ClearDurationalMagic()
+    [08:37:11] 5917888->ClearAll()
+    [08:37:11] 5951944->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [08:37:11] 10667848->Release()
+    [08:37:11] 65579600->InitWorld()
+    [08:37:11] CN3WorldManager::InitWorld Pre delete
+    [08:37:11] CN3WorldManager::InitWorld Pre new Terrain ZoneID(204)
+    [08:37:11] CN3TerrainManager::InitWorld Pre Load	116823400
+    [08:37:11] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [08:37:11] CN3TerrainManager::InitWorld Pre Release Shapes	116842840
+    [08:37:11] CN3TerrainManager::InitWorld Pre Load Shapes
+    [08:37:12] CN3TerrainManager::InitWorld Pre Load Birds	66942216
+    [08:37:12] CN3TerrainManager::InitWorld Pre Load Sky	117105096
+    [08:37:12] 91587264->GetWidthByMeterWithTerrain()
+    [08:37:12] 67036272->LoadMap()
+    [08:37:12] 65763356->szMiniMapFNszMiniMapFN
+    [08:37:12] GetRepresentClass()
+    [08:37:12] 67036272->ZoomSet()
+    [08:37:12] 65763356->szTerrainFN.c_str()
+    [08:37:12] pCamera->LookAt()
+    [08:37:12] pCamera->Tick()
+    [08:37:12] pCamera->Apply()
+    [08:37:12] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [08:37:12] 10667848->Release()2
