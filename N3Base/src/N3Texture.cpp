@@ -179,13 +179,19 @@ bool CN3Texture::LoadFromFile(const std::string& szFileName)
 			//       - 63 is used to jump past the old texture locations
 			//       - also note that the #ifdef is messed up here now...
 			if (nFNL > 63) {
-				//OutputDebugString(&szFullPath[63]);
+				OutputDebugString(&szFullPath[63]);
 				hFile = ::CreateFile(&szFullPath[63], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 			}
 
 			if (hFile == INVALID_HANDLE_VALUE) {
-				CLogWriter::Write("invalid file handle(%d) - Can't open texture file(%s)", (int)hFile, szFullPath.c_str());
-				return false;
+				// NOTE: another temp fix
+				szFullPath = "ui/ui_ka_statebar.dxt";
+				hFile = ::CreateFile(szFullPath.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+				if (hFile == INVALID_HANDLE_VALUE) {
+					CLogWriter::Write("invalid file handle(%d) - Can't open texture file(%s)", (int)hFile, szFullPath.c_str());
+					return false;
+				}
 			}
 #endif
 		}
@@ -221,6 +227,8 @@ bool CN3Texture::LoadFromFile(const std::string& szFileName)
 		else
 		{
 #ifdef _N3GAME
+			// NOTE: strange error with "ka_hotkey.uif" containing image references to other UIFs...
+			//       but loading them like textures...
 			CLogWriter::Write("N3Texture - Failed to load texture(%s)", szFullPath.c_str());
 #endif
 		}
