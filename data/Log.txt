@@ -1,0 +1,67 @@
+---------------------------------------------------------------------------
+// Begin writing log... [01/19 08:33]
+    [08:33:58] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [08:33:58] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [08:33:58] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\co_partyboard.uif - Can't open file (read)
+    [08:33:58] CGameProcMain::InitZone -> Zone Change (-1 -> 204) Position(0.0, 0.0, 0.0)
+    [08:33:58] 74112888->ClearDurationalMagic()
+    [08:33:58] 74080904->ClearAll()
+    [08:33:59] 66877416->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [08:33:59] 68019656->Release()
+    [08:33:59] 66837704->InitWorld()
+    [08:33:59] CN3WorldManager::InitWorld Pre delete
+    [08:33:59] CN3WorldManager::InitWorld Pre new Terrain ZoneID(204)
+    [08:33:59] CN3TerrainManager::InitWorld Pre Load	107808568
+    [08:33:59] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [08:33:59] CN3TerrainManager::InitWorld Pre Release Shapes	107828008
+    [08:33:59] CN3TerrainManager::InitWorld Pre Load Shapes
+    [08:33:59] CN3TerrainManager::InitWorld Pre Load Birds	74118552
+    [08:33:59] CN3TerrainManager::InitWorld Pre Load Sky	108090264
+    [08:33:59] 68022312->GetWidthByMeterWithTerrain()
+    [08:33:59] 74085664->LoadMap()
+    [08:33:59] 67021668->szMiniMapFNszMiniMapFN
+    [08:33:59] GetRepresentClass()
+    [08:33:59] 74085664->ZoomSet()
+    [08:33:59] 67021668->szTerrainFN.c_str()
+    [08:33:59] pCamera->LookAt()
+    [08:33:59] pCamera->Tick()
+    [08:33:59] pCamera->Apply()
+    [08:33:59] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [08:33:59] 68019656->Release()2
+---------------------------------------------------------------------------
+// Begin writing log... [01/19 08:35]
+    [08:35:52] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [08:35:52] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [08:35:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\co_partyboard.uif - Can't open file (read)
+    [08:35:52] CGameProcMain::InitZone -> Zone Change (-1 -> 204) Position(0.0, 0.0, 0.0)
+    [08:35:52] 86246232->ClearDurationalMagic()
+    [08:35:52] 81956456->ClearAll()
+    [08:35:52] 80508904->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [08:35:52] 81650960->Release()
+    [08:35:52] 80469192->InitWorld()
+    [08:35:52] CN3WorldManager::InitWorld Pre delete
+    [08:35:52] CN3WorldManager::InitWorld Pre new Terrain ZoneID(204)
+    [08:35:52] CN3TerrainManager::InitWorld Pre Load	122351168
+    [08:35:52] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [08:35:52] CN3TerrainManager::InitWorld Pre Release Shapes	122370608
+    [08:35:52] CN3TerrainManager::InitWorld Pre Load Shapes
+    [08:35:53] CN3TerrainManager::InitWorld Pre Load Birds	86251896
+    [08:35:53] CN3TerrainManager::InitWorld Pre Load Sky	87565496
+    [08:35:53] 81653616->GetWidthByMeterWithTerrain()
+    [08:35:53] 86219072->LoadMap()
+    [08:35:53] 80652780->szMiniMapFNszMiniMapFN
+    [08:35:53] GetRepresentClass()
+    [08:35:53] 86219072->ZoomSet()
+    [08:35:53] 80652780->szTerrainFN.c_str()
+    [08:35:53] pCamera->LookAt()
+    [08:35:53] pCamera->Tick()
+    [08:35:53] pCamera->Apply()
+    [08:35:53] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [08:35:53] 81650960->Release()2
+    [08:37:07] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [01/19 08:37]
+---------------------------------------------------------------------------
+    [08:37:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [08:37:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [08:37:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [08:37:07] CN3TerrainManager::~CN3TerrainManager -> delete finished

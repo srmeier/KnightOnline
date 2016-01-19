@@ -1,4 +1,1 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\srmeier\documents\visual studio 2015\projects\knightonline\warfare\bin\playerbase.obj' because it is being used by another process.
-C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\srmeier\documents\visual studio 2015\projects\knightonline\warfare\bin\uiclasschange.obj' because it is being used by another process.
-C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\srmeier\documents\visual studio 2015\projects\knightonline\warfare\bin\uitradeeditdlg.obj' because it is being used by another process.
-C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : The process cannot access the file 'c:\users\srmeier\documents\visual studio 2015\projects\knightonline\warfare\bin\vc140.idb' because it is being used by another process.
+﻿
