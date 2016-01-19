@@ -677,6 +677,7 @@ typedef struct __TABLE_ITEM_EXT // 장착 아이템에 관한 리소스 레코드...
 	DWORD		dwID;				// 00 코드화된 아이템번호 - // 00 - Item 종류, 00 - Item 장착 위치(장착위치로 Plug 인지 Part 인지 판단이 가능하다.) - 0000 - ItemIndex
 	std::string	szHeader;			// 01 접두사
 	std::string	szRemark;			// 02 아이템 설명	
+	DWORD dwIDK0; // TODO: will need to implement this one
 	BYTE		byMagicOrRare;		// 03 매직 혹은 레어 아이템인지...
 
 	short	siDamage;				// 04 무기타격
@@ -841,6 +842,8 @@ typedef struct __TABLE_UPC_SKILL
 	int			iCastTime;			// 캐스팅 시간
 	int			iReCastTime;		// 다시 캐스팅할때까지 걸리는 시간.
 	
+	float fIDK0; // TODO: will need to implement this...?
+
 	int			iPercentSuccess;	// 성공률
 	DWORD		dw1stTableType;		// 첫번째 타입.
 	DWORD		dw2ndTableType;		// 두번째 타입.
@@ -884,6 +887,10 @@ typedef struct __TABLE_UPC_SKILL_TYPE_3
 typedef struct __TABLE_UPC_SKILL_TYPE_4
 {
 	DWORD		dwID;			// 일련번호
+
+	int iIDK0;
+	int iIDK1;
+
 	int			iBuffType;		// 버프타입
 	int			iDuration;
 	int			iAttackSpeed;	// 공격속도
@@ -1099,6 +1106,7 @@ enum e_SkillMagicTaget	{	SKILLMAGIC_TARGET_SELF = 1,				// 나 자신..
 typedef struct __TABLE_FX	// FX 리소스 레코드...
 {
 	DWORD		dwID;		// 고유 ID
+	std::string szName; // NOTE: adding the name of the FX
 	std::string	szFN;		// file name
 	DWORD		dwSoundID;	// 효과에 쓰는 사운드 아디.
 } TABLE_FX;

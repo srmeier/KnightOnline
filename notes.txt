@@ -1,1 +1,4 @@
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
+
+- need to get the cursor working
+- need to remove all the _DEBUG (for now)
