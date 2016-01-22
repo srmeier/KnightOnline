@@ -12,6 +12,12 @@
 #include "N3BaseFileAccess.h"
 #include "ddraw.h"
 
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_ttf.h"
+#include "SDL2/SDL_net.h"
+#include "SDL2/SDL_image.h"
+#include "SDL2/SDL_mixer.h"
+
 class CN3Eng : public CN3Base
 {
 public:
@@ -49,7 +55,7 @@ public:
 	static void Clear(D3DCOLOR crFill, RECT* pRC = NULL);
 	static void ClearAuto(RECT* pRC = NULL);
 	static void ClearZBuffer(const RECT* pRC = NULL);
-	static void Present(HWND hWnd, RECT* pRC = NULL);
+	static void Present(SDL_Window* pWindow, RECT* pRC = NULL);
 
 	void LookAt(__Vector3& vEye, __Vector3& vAt, __Vector3& vUp);
 	void SetProjection(float fNear, float fFar, float fLens, float fAspect);
@@ -58,7 +64,7 @@ public:
 	void Release();
 
 //	void InitEnv();
-	bool Init(BOOL bWindowed, HWND hWnd, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW);
+	bool Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW);
 	BOOL FindDepthStencilFormat(UINT iAdapter, D3DDEVTYPE DeviceType, D3DFORMAT TargetFormat, D3DFORMAT* pDepthStencilFormat);
 
 	static LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

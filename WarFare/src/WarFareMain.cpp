@@ -15,6 +15,13 @@
 #include "KnightChrMgr.h"
 #include "N3WorldManager.h"
 
+#include "time.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_ttf.h"
+#include "SDL2/SDL_net.h"
+#include "SDL2/SDL_image.h"
+#include "SDL2/SDL_mixer.h"
+
 //-----------------------------------------------------------------------------
 BOOL g_bActive = true;
 
@@ -226,11 +233,11 @@ HWND CreateSubWindow(HINSTANCE hInstance)
 }
 
 //-----------------------------------------------------------------------------
-/*
-- NOTE: this is the main intry point for the knight online program
-*/
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
+SDL_Window* s_pSDLWindow;
+
+//int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int SDL_main(int argc, char** argv)
+{	
 	// NOTE: get the current directory and make it known to CN3Base
 	char szPath[_MAX_PATH] = "";
 	GetCurrentDirectory(_MAX_PATH, szPath);
@@ -242,9 +249,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	lstrcat(szIniPath, "Option.Ini");
 
 	// NOTE: what is the texture quality?
-	/*
-	- get the default level of detail for the characters from the option.ini
-	*/
 	CN3Base::s_Options.iTexLOD_Chr = GetPrivateProfileInt("Texture", "LOD_Chr", 0, szIniPath);
 	if(CN3Base::s_Options.iTexLOD_Chr < 0) CN3Base::s_Options.iTexLOD_Chr = 0;
 	if(CN3Base::s_Options.iTexLOD_Chr >= 2) CN3Base::s_Options.iTexLOD_Chr = 1;
@@ -301,53 +305,72 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	CN3Base::s_Options.bWindowCursor = (iWindowCursor) ? true : false; // cursor...
 
 	// NOTE: create the sub window
-	HWND hWndSub = CreateSubWindow(hInstance);
+	//HWND hWndSub = CreateSubWindow(hInstance);
 	
 	// NOTE: create the main window
-	HWND hWndMain = CreateMainWindow(hInstance);
+	//HWND hWndMain = CreateMainWindow(hInstance);
 
-	// NOTE: check for success
+	// NOTE: check for succes
+	/*
 	if(hWndMain == NULL || hWndSub == NULL) {
 		CLogWriter::Write("Cannot create window.");
 		exit(-1);
-	}
+	}*/
 
 	// NOTE: show the windows
-	::ShowWindow(hWndSub, SW_HIDE);
-	::ShowWindow(hWndMain, nCmdShow);
+	//::ShowWindow(hWndSub, SW_HIDE);
+	//::ShowWindow(hWndMain, nCmdShow);
 
 	// NOTE: set the main window to active
-	::SetActiveWindow(hWndMain);
+	//::SetActiveWindow(hWndMain);
 
-	/*
-	- NOTE: here we check for sting commands passed as arguements to the
-		program
-	*/
-	if(lpCmdLine && lstrlen(lpCmdLine) > 0 && lstrlen(lpCmdLine) < 64)
-	{
-		char szService[64], szAccountTmp[64], szPWTmp[64];
-		sscanf(lpCmdLine, "%s %s %s", szService, szAccountTmp, szPWTmp);
+	srand((unsigned int) time(NULL));
 
-		if(lstrcmpi(szService, "MGame") == 0)
-			CGameProcedure::s_eLogInClassification = LIC_MGAME;
-		else if(lstrcmpi(szService, "Daum") == 0)
-			CGameProcedure::s_eLogInClassification = LIC_DAUM;
-		else 
-			CGameProcedure::s_eLogInClassification = LIC_KNIGHTONLINE;
+	if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		fprintf(stderr, "ER: %s\n", SDL_GetError());
+		return false;
+	}
 
-		CGameProcedure::s_szAccount = szAccountTmp;
-		CGameProcedure::s_szPassWord = szPWTmp;
+	if(TTF_Init() == -1) {
+		fprintf(stderr, "ER: %s\n", TTF_GetError());
+		return false;
+	}
 
-		if(lstrcmpi(szService, "Windowed") == 0)
-			CGameProcedure::s_bWindowed = true;
-		else
-			CGameProcedure::s_bWindowed = false;
+	int flags = IMG_INIT_JPG|IMG_INIT_PNG;
+	if((IMG_Init(flags)&flags) != flags) {
+		fprintf(stderr, "ER: %s\n", IMG_GetError());
+		return false;
+	}
+
+	flags = MIX_INIT_OGG|MIX_INIT_MP3;
+	if((Mix_Init(flags)&flags) != flags) {
+		fprintf(stderr, "ER: %s\n", Mix_GetError());
+		return false;
+	}
+
+	if(SDLNet_Init() == -1) {
+		fprintf(stderr, "ER: %s\n", SDLNet_GetError());
+		return false;
+	}
+
+	s_pSDLWindow = SDL_CreateWindow(
+		"Knight Online",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		CN3Base::s_Options.iViewWidth,
+		CN3Base::s_Options.iViewHeight,
+		0
+	);
+
+	if(s_pSDLWindow == NULL) {
+		fprintf(stderr, "ER: %s\n", SDL_GetError());
+		return false;
 	}
 
 	CGameProcedure::s_bWindowed = true;
 
 	// NOTE: allocate the static members
-	CGameProcedure::StaticMemberInit(hInstance, hWndMain, hWndSub);
+	CGameProcedure::StaticMemberInit(s_pSDLWindow);
 
 	// NOTE: set the games current procedure to s_pProcLogIn
 	//CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
@@ -450,5 +473,5 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	CGameProcedure::StaticMemberRelease();
 
-	return msg.wParam;
+	return 0;//msg.wParam;
 }

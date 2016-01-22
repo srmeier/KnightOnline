@@ -15,6 +15,12 @@ enum e_LogInClassification { LIC_KNIGHTONLINE = 0, LIC_MGAME = 1, LIC_DAUM = 2 }
 #include "GameDef.h"
 #include "GameBase.h"
 
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_ttf.h"
+#include "SDL2/SDL_net.h"
+#include "SDL2/SDL_image.h"
+#include "SDL2/SDL_mixer.h"
+
 #define		UI_POST_WND_CHAT		"Wnd_Chat"
 #define		UI_POST_WND_HOTKEY		"Wnd_Hotkey"
 #define		UI_POST_WND_PARTY		"Wnd_Party"
@@ -129,7 +135,7 @@ public:
 	virtual void ProcessUIKeyInput(bool bEnable = true);
 
 	static bool	IsUIKeyOperated();
-	static void	StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, HWND hWndSub);
+	static void	StaticMemberInit(SDL_Window* pWindow);
 	static void StaticMemberRelease();
 
 	static void TickActive();
