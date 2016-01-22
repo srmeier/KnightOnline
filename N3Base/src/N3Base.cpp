@@ -25,7 +25,7 @@ LPDIRECT3DDEVICE9 CN3Base::s_lpD3DDev	= NULL;			// 참조 포인터.. 멋대로 해제하면
 DWORD CN3Base::s_dwTextureCaps			= 0;			// Texture 호환성..
 float CN3Base::s_fFrmPerSec				= 30.0f;		// Frame Per Second
 float CN3Base::s_fSecPerFrm				= 1.0f/30.0f;	// Second per Frame
-HWND CN3Base::s_hWndBase				= NULL;			// Init 할때 쓴 Window Handle
+SDL_Window* CN3Base::s_hWndBase				= NULL;			// Init 할때 쓴 Window Handle
 HWND CN3Base::s_hWndPresent				= NULL;			// 최근에 Present 한 Window Handle
 
 D3DPRESENT_PARAMETERS CN3Base::s_DevParam;	// Device 생성 Present Parameter

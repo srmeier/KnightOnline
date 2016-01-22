@@ -124,9 +124,9 @@ void CGameProcedure::Init()
 	s_pUIMgr->SetFocusedUI(NULL);
 }
 
-void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, HWND hWndSub)
+void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 {
-	s_pKnightChr = new CKnightChrMgr(hWndMain);
+	//s_pKnightChr = new CKnightChrMgr(hWndMain);
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 게임 기본 3D 엔진 만들기..
@@ -153,17 +153,17 @@ void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, HWND h
 
 
 	RECT rc;
-	::GetClientRect(hWndMain, &rc);
+	//::GetClientRect(hWndMain, &rc);
 	s_pEng = new CGameEng();
-	if(false == s_pEng->Init(s_bWindowed, hWndMain, CN3Base::s_Options.iViewWidth, CN3Base::s_Options.iViewHeight, CN3Base::s_Options.iViewColorDepth, TRUE)) exit(-1);
+	if(false == s_pEng->Init(s_bWindowed, pWindow, CN3Base::s_Options.iViewWidth, CN3Base::s_Options.iViewHeight, CN3Base::s_Options.iViewColorDepth, TRUE)) exit(-1);
 	// 게임 기본 3D 엔진 만들기..
-	::SetFocus(hWndMain); // Set focus this window..
+	//::SetFocus(hWndMain); // Set focus this window..
 	
-	RECT rcTmp = rc; rcTmp.left = (rc.right - rc.left) / 2; rcTmp.bottom = rcTmp.top + 30;
-	CN3UIEdit::CreateEditWindow(hWndMain, rcTmp);
+	//RECT rcTmp = rc; rcTmp.left = (rc.right - rc.left) / 2; rcTmp.bottom = rcTmp.top + 30;
+	//CN3UIEdit::CreateEditWindow(hWndMain, rcTmp);
 	//////////////////////////////////////////////////////////////////////////////////////////
 
-	s_hWndSubSocket = hWndSub; // 서브 소켓용 윈도우 핸들..
+	//s_hWndSubSocket = hWndSub; // 서브 소켓용 윈도우 핸들..
 
 	CGameBase::StaticMemberInit(); // Table 및 지형, 오브젝트, 캐릭터 초기화...
 
@@ -183,6 +183,7 @@ void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, HWND h
 	s_hCursorNowRepair =	LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NOW_REPAIR));
 	*/
 
+	/*
 	s_hCursorNormal = LoadCursor(hInstance, IDC_ARROW);
 	s_hCursorNormal = LoadCursor(hInstance, IDC_ARROW);
 	s_hCursorNormal1 = LoadCursor(hInstance, IDC_ARROW);
@@ -191,6 +192,7 @@ void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, HWND h
 	s_hCursorAttack = LoadCursor(hInstance, IDC_ARROW);
 	s_hCursorPreRepair = LoadCursor(hInstance, IDC_ARROW);
 	s_hCursorNowRepair = LoadCursor(hInstance, IDC_ARROW);
+	*/
 
 	if(!CN3Base::s_Options.bWindowCursor)
 	{
@@ -200,13 +202,13 @@ void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, HWND h
 	SetGameCursor(s_hCursorNormal);
 
 	s_pLocalInput = new CLocalInput();
-	s_pLocalInput->Init(hInstance, hWndMain, FALSE); // Input 만 초기화.
+	s_pLocalInput->Init(pWindow, FALSE); // Input 만 초기화.
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// Sound 초기화..
 	if(CN3Base::s_Options.bSndEnable)
 	{
-		CN3Base::s_SndMgr.Init(hWndMain);
+		//CN3Base::s_SndMgr.Init(pWindow);
 		CN3Base::s_SndMgr.SetDuplicated(CN3Base::s_Options.bSndDuplicated);
 	}
 	CN3FXBundle::SetEffectSndDistance(float(CN3Base::s_Options.iEffectSndDist));
@@ -806,9 +808,10 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
 			s_pSocket->Disconnect(); // 끊고...
 			Sleep(2000); // 2초 딜레이.. 서버가 처리할 시간을 준다.
-			int iErr = s_pSocket->Connect(s_hWndBase, szIP.c_str(), dwPort);
+			//int iErr = s_pSocket->Connect(s_hWndBase, szIP.c_str(), dwPort);
 			s_bNeedReportConnectionClosed = true; // 서버접속이 끊어진걸 보고해야 하는지..
 
+			/*
 			if(iErr) this->ReportServerConnectionFailed("Current Zone", iErr, true); // 서버 접속 오류.. Exit.
 			else
 			{
@@ -816,6 +819,7 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				// 메인 프로시저의 경우 Character_Select 를 보내고 로그인일경우 GameServer_LogIn 을 보낸다.
 				this->MsgSend_VersionCheck(); 
 			}
+			*/
 		}
 		return true;
 

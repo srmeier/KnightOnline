@@ -1,4 +1,11 @@
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
+- get working with SDL2 and then reset the project
+
+- can easily editor the UIF (and maybe some other) files by writing their
+	contents to a .json file using duktape, modifying that file, and then
+	converting that back to whatever custom format they use
+- at least this would work nice for UIF files (better than digging through hex)
+
 - need to get the cursor working
 - need to remove all the _DEBUG (for now)

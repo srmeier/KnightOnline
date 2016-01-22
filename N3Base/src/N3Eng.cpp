@@ -106,17 +106,17 @@ void CN3Eng::Release()
 	if(m_lpDD) m_lpDD->Release(); m_lpDD = NULL;
 }
 
-bool CN3Eng::Init(BOOL bWindowed, HWND hWnd, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW)
+bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW)
 {
 	memset(&s_ResrcInfo, 0, sizeof(__ResrcInfo)); // Rendering Information 초기화..
 
-	s_hWndBase = hWnd;
+	s_hWndBase = pWindow;
 
 	// FIX (srmeier): I really have no idea what the second arguement here should be
 	int nAMC = m_lpD3D->GetAdapterModeCount(0, D3DFMT_X8R8G8B8); // 디스플레이 모드 카운트
 	if(nAMC <= 0)
 	{
-		MessageBox(hWnd, "Can't create D3D - Invalid display mode property.", "initialization", MB_OK);
+		//MessageBox(hWnd, "Can't create D3D - Invalid display mode property.", "initialization", MB_OK);
 //		{ for(int iii = 0; iii < 2; iii++) Beep(2000, 200); Sleep(300); } // 여러번 삑~
 #ifdef _N3GAME
 		CLogWriter::Write("Can't create D3D - Invalid display mode property.");
@@ -156,7 +156,7 @@ bool CN3Eng::Init(BOOL bWindowed, HWND hWnd, DWORD dwWidth, DWORD dwHeight, DWOR
 		if(dwWidth <= 0) dwWidth = dm.Width;
 		if(dwHeight <= 0) dwHeight = dm.Height;
 		BBFormat = dm.Format;
-		s_DevParam.hDeviceWindow = hWnd;
+		//s_DevParam.hDeviceWindow = hWnd;
 	}
 	else
 	{
@@ -165,7 +165,7 @@ bool CN3Eng::Init(BOOL bWindowed, HWND hWnd, DWORD dwWidth, DWORD dwHeight, DWOR
 		if(16 == dwBPP) BBFormat = D3DFMT_R5G6B5;
 		else if(24 == dwBPP) BBFormat = D3DFMT_R8G8B8;
 		else if(32 == dwBPP) BBFormat = D3DFMT_X8R8G8B8;
-		s_DevParam.hDeviceWindow = hWnd;
+		//s_DevParam.hDeviceWindow = hWnd;
 	}
 
 	s_DevParam.BackBufferWidth = dwWidth;
@@ -190,6 +190,7 @@ bool CN3Eng::Init(BOOL bWindowed, HWND hWnd, DWORD dwWidth, DWORD dwHeight, DWOR
 		}
 	}
 
+	/*
 	HRESULT rval = m_lpD3D->CreateDevice(0, DevType, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
 	if(rval != D3D_OK)
 	{
@@ -211,7 +212,24 @@ bool CN3Eng::Init(BOOL bWindowed, HWND hWnd, DWORD dwWidth, DWORD dwHeight, DWOR
 #ifdef _N3GAME
 		CLogWriter::Write("CNEng::Init - Not supported HardWare TnL");
 #endif
+	}*/
+
+	SDL_Renderer* s_pSDLRenderer;
+
+	s_pSDLRenderer = SDL_CreateRenderer(
+		pWindow, -1,
+		SDL_RENDERER_ACCELERATED|
+		SDL_RENDERER_PRESENTVSYNC
+	);
+
+	if(s_pSDLRenderer == NULL) {
+		fprintf(stderr, "ER: %s\n", SDL_GetError());
+		return false;
 	}
+
+	s_lpD3DDev = SDL_RenderGetD3D9Device(s_pSDLRenderer);
+
+
 
 	// Device 지원 항목은??
 	// DXT 지원 여부..
@@ -329,7 +347,7 @@ BOOL CN3Eng::FindDepthStencilFormat(UINT iAdapter, D3DDEVTYPE DeviceType, D3DFOR
 
     return FALSE;
 }
-void CN3Eng::Present(HWND hWnd, RECT* pRC)
+void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 {
 //	HRESULT rval = s_lpD3DDev->TestCooperativeLevel();
 //	if(D3D_OK != rval)
@@ -341,13 +359,19 @@ void CN3Eng::Present(HWND hWnd, RECT* pRC)
 //		return;
 //	}
 
+	/*
 	RECT rc;
 	if(s_DevParam.Windowed) // 윈도우 모드면...
 	{
 		GetClientRect(s_hWndBase, &rc);
 		pRC = &rc;
 	}
+	*/
 
+	SDL_Renderer* s_pRenderer = SDL_GetRenderer(pWindow);
+	SDL_RenderPresent(s_pRenderer);
+
+	/*
 	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
 	if(D3D_OK == rval)
 	{
@@ -380,6 +404,7 @@ void CN3Eng::Present(HWND hWnd, RECT* pRC)
 //		Beep(2000, 50);
 #endif
 	}
+	*/
 
 	////////////////////////////////////////////////////////////////////////////////
 	// 프레임 율 측정...
@@ -408,7 +433,13 @@ void CN3Eng::Clear(D3DCOLOR crFill, RECT* pRC)
 	RECT rc;
 	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
 	{
-		GetClientRect(s_hWndBase, &rc);
+		//GetClientRect(s_hWndBase, &rc);
+
+		int x, y, w, h;
+		SDL_GetWindowPosition(s_hWndBase, &x, &y);
+		SDL_GetWindowSize(s_hWndBase, &w, &h);
+		rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
+
 		pRC = &rc;
 	}
 
@@ -454,7 +485,13 @@ void CN3Eng::ClearZBuffer(const RECT* pRC)
 	RECT rc;
 	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
 	{
-		GetClientRect(s_hWndBase, &rc);
+		//GetClientRect(s_hWndBase, &rc);
+
+		int x, y, w, h;
+		SDL_GetWindowPosition(s_hWndBase, &x, &y);
+		SDL_GetWindowSize(s_hWndBase, &w, &h);
+		rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
+
 		pRC = &rc;
 	}
 

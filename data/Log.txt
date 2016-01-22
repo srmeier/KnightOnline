@@ -65,3 +65,130 @@
     [08:37:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
     [08:37:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
     [08:37:07] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [01/19 11:56]
+    [11:56:26] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [11:56:26] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [11:56:26] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\co_partyboard.uif - Can't open file (read)
+    [11:56:26] CGameProcMain::InitZone -> Zone Change (-1 -> 204) Position(0.0, 0.0, 0.0)
+    [11:56:26] 87351272->ClearDurationalMagic()
+    [11:56:26] 87319176->ClearAll()
+    [11:56:26] 79591400->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [11:56:26] 80733456->Release()
+    [11:56:26] 79551688->InitWorld()
+    [11:56:26] CN3WorldManager::InitWorld Pre delete
+    [11:56:26] CN3WorldManager::InitWorld Pre new Terrain ZoneID(204)
+    [11:56:26] CN3TerrainManager::InitWorld Pre Load	122226928
+    [11:56:26] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [11:56:26] CN3TerrainManager::InitWorld Pre Release Shapes	122246368
+    [11:56:26] CN3TerrainManager::InitWorld Pre Load Shapes
+    [11:56:27] CN3TerrainManager::InitWorld Pre Load Birds	87356936
+    [11:56:27] CN3TerrainManager::InitWorld Pre Load Sky	122508624
+    [11:56:27] 80736112->GetWidthByMeterWithTerrain()
+    [11:56:27] 87324344->LoadMap()
+    [11:56:27] 79735276->szMiniMapFNszMiniMapFN
+    [11:56:27] GetRepresentClass()
+    [11:56:27] 87324344->ZoomSet()
+    [11:56:27] 79735276->szTerrainFN.c_str()
+    [11:56:27] pCamera->LookAt()
+    [11:56:27] pCamera->Tick()
+    [11:56:27] pCamera->Apply()
+    [11:56:27] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [11:56:27] 80733456->Release()2
+---------------------------------------------------------------------------
+// Begin writing log... [01/22 13:36]
+    [13:36:25] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [13:36:25] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [13:36:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\co_partyboard.uif - Can't open file (read)
+    [13:36:26] CGameProcMain::InitZone -> Zone Change (-1 -> 204) Position(0.0, 0.0, 0.0)
+    [13:36:26] 66051368->ClearDurationalMagic()
+    [13:36:26] 19876880->ClearAll()
+    [13:36:26] 6347200->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [13:36:26] 19588600->Release()
+    [13:36:26] 18397280->InitWorld()
+    [13:36:26] CN3WorldManager::InitWorld Pre delete
+    [13:36:26] CN3WorldManager::InitWorld Pre new Terrain ZoneID(204)
+    [13:36:26] CN3TerrainManager::InitWorld Pre Load	100859448
+    [13:36:29] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [13:36:29] CN3TerrainManager::InitWorld Pre Release Shapes	100880936
+    [13:36:29] CN3TerrainManager::InitWorld Pre Load Shapes
+    [13:36:37] CN3TerrainManager::InitWorld Pre Load Birds	66056792
+    [13:36:37] CN3TerrainManager::InitWorld Pre Load Sky	101143192
+    [13:36:37] 19574680->GetWidthByMeterWithTerrain()
+    [13:36:37] 19884712->LoadMap()
+    [13:36:37] 18581116->szMiniMapFNszMiniMapFN
+    [13:36:37] GetRepresentClass()
+    [13:36:37] 19884712->ZoomSet()
+    [13:36:37] 18581116->szTerrainFN.c_str()
+    [13:36:37] pCamera->LookAt()
+    [13:36:37] pCamera->Tick()
+    [13:36:37] pCamera->Apply()
+    [13:36:37] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [13:36:37] 19588600->Release()2
+    [13:37:05] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [01/22 13:37]
+---------------------------------------------------------------------------
+    [13:37:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [13:37:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [13:37:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [13:37:05] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [01/22 14:09]
+    [14:09:42] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [14:09:42] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [14:09:42] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\co_partyboard.uif - Can't open file (read)
+    [14:09:43] CGameProcMain::InitZone -> Zone Change (-1 -> 204) Position(0.0, 0.0, 0.0)
+    [14:09:43] 81415160->ClearDurationalMagic()
+    [14:09:43] 82491728->ClearAll()
+    [14:09:43] 10016760->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [14:09:43] 60075576->Release()
+    [14:09:43] 58818680->InitWorld()
+    [14:09:43] CN3WorldManager::InitWorld Pre delete
+    [14:09:43] CN3WorldManager::InitWorld Pre new Terrain ZoneID(204)
+    [14:09:43] CN3TerrainManager::InitWorld Pre Load	99144304
+    [14:09:43] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [14:09:43] CN3TerrainManager::InitWorld Pre Release Shapes	99163744
+    [14:09:43] CN3TerrainManager::InitWorld Pre Load Shapes
+    [14:09:48] CN3TerrainManager::InitWorld Pre Load Birds	81420968
+    [14:09:48] CN3TerrainManager::InitWorld Pre Load Sky	99426000
+    [14:09:48] 59981584->GetWidthByMeterWithTerrain()
+    [14:09:48] 82497968->LoadMap()
+    [14:09:48] 59002244->szMiniMapFNszMiniMapFN
+    [14:09:48] GetRepresentClass()
+    [14:09:48] 82497968->ZoomSet()
+    [14:09:48] 59002244->szTerrainFN.c_str()
+    [14:09:48] pCamera->LookAt()
+    [14:09:48] pCamera->Tick()
+    [14:09:48] pCamera->Apply()
+    [14:09:48] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [14:09:48] 60075576->Release()2
+---------------------------------------------------------------------------
+// Begin writing log... [01/22 14:28]
+    [14:28:35] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [14:28:35] N3Texture - Failed to load texture(c:\documents and settings\admin\kodev\knight_c\client code\uie\ui\ka_statebar.uif)
+    [14:28:35] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\ui\co_partyboard.uif - Can't open file (read)
+    [14:28:35] CGameProcMain::InitZone -> Zone Change (-1 -> 204) Position(0.0, 0.0, 0.0)
+    [14:28:35] 82499464->ClearDurationalMagic()
+    [14:28:35] 82449896->ClearAll()
+    [14:28:35] 7487776->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [14:28:35] 62443416->Release()
+    [14:28:35] 61139464->InitWorld()
+    [14:28:35] CN3WorldManager::InitWorld Pre delete
+    [14:28:35] CN3WorldManager::InitWorld Pre new Terrain ZoneID(204)
+    [14:28:35] CN3TerrainManager::InitWorld Pre Load	99134960
+    [14:28:36] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [14:28:36] CN3TerrainManager::InitWorld Pre Release Shapes	99154400
+    [14:28:36] CN3TerrainManager::InitWorld Pre Load Shapes
+    [14:28:39] CN3TerrainManager::InitWorld Pre Load Birds	82505272
+    [14:28:39] CN3TerrainManager::InitWorld Pre Load Sky	99416656
+    [14:28:39] 62349304->GetWidthByMeterWithTerrain()
+    [14:28:39] 82463560->LoadMap()
+    [14:28:39] 61374460->szMiniMapFNszMiniMapFN
+    [14:28:39] GetRepresentClass()
+    [14:28:39] 82463560->ZoomSet()
+    [14:28:39] 61374460->szTerrainFN.c_str()
+    [14:28:39] pCamera->LookAt()
+    [14:28:39] pCamera->Tick()
+    [14:28:39] pCamera->Apply()
+    [14:28:39] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [14:28:39] 62443416->Release()2

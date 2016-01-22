@@ -11,6 +11,8 @@
 
 #pragma warning(disable : 4786)
 
+#include "SDL2/SDL.h"
+
 #include "My_3DStruct.h"
 #include "N3Mng.h"
 #include "N3AlphaPrimitiveManager.h"
@@ -167,7 +169,7 @@ public:
 	static D3DPRESENT_PARAMETERS	s_DevParam; // Device 생성 Present Parameter
 	static D3DCAPS9					s_DevCaps; // Device 호환성...
 	static DWORD					s_dwTextureCaps; // Texture 지원.. DXT1 ~ DXT5, Square Only
-	static HWND						s_hWndBase; // Init 할때 쓴 Window Handle
+	static SDL_Window*						s_hWndBase; // Init 할때 쓴 Window Handle
 	static HWND						s_hWndPresent; // 최근에 Present 한 Window Handle
 
 	static __CameraData				s_CameraData; // 카메라 데이터 정적 변수..
