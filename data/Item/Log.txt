@@ -2700,3 +2700,4 @@
     [22:57:57] invalid file handle(-1) - Can't open texture file(ui/ui_ka_statebar.dxt)
     [23:28:40] invalid file handle(-1) - Can't open texture file(ui/ui_ka_statebar.dxt)
     [23:29:28] invalid file handle(-1) - Can't open texture file(ui/ui_ka_statebar.dxt)
+    [23:36:34] invalid file handle(-1) - Can't open texture file(ui/ui_ka_statebar.dxt)
