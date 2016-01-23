@@ -132,9 +132,9 @@ void CN3FXSPart::Render()
 	if(m_bOutOfCameraRange) return;
 	if(m_bOutOfCameraRange || m_FXPMInst.GetNumVertices() <= 0) return;
 	
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape_Part++; // Rendering Information Update...
-#endif
+//#endif
 	
 	LPDIRECT3DTEXTURE9 lpTex = NULL;
 	int iTC = m_TexRefs.size();

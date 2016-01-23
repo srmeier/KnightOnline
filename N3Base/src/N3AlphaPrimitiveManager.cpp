@@ -186,9 +186,9 @@ void CN3AlphaPrimitiveManager::Render()
 			}
 		}
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 		CN3Base::s_RenderInfo.nAlpha_Polygon += pBuffs[i]->nPrimitiveCount / 3; // Rendering Information Update...
-#endif
+//#endif
 	}
 		
 	m_nToDrawCount = 0; // ´Ù ±×·È´Ù...

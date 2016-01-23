@@ -108,6 +108,26 @@ void CN3Eng::Release()
 
 bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW)
 {
+	/*
+	SDL_Renderer* s_pSDLRenderer;
+
+	s_pSDLRenderer = SDL_CreateRenderer(
+		pWindow, -1,
+		SDL_RENDERER_ACCELERATED|
+		SDL_RENDERER_PRESENTVSYNC
+	);
+
+	if(s_pSDLRenderer == NULL) {
+		fprintf(stderr, "ER: %s\n", SDL_GetError());
+		exit(-1);
+	}
+
+	s_lpD3DDev = SDL_RenderGetD3D9Device(s_pSDLRenderer);
+	s_lpD3DDev->GetDirect3D(&m_lpD3D);
+	*/
+
+	//
+
 	memset(&s_ResrcInfo, 0, sizeof(__ResrcInfo)); // Rendering Information 초기화..
 
 	s_hWndBase = pWindow;
@@ -156,7 +176,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHe
 		if(dwWidth <= 0) dwWidth = dm.Width;
 		if(dwHeight <= 0) dwHeight = dm.Height;
 		BBFormat = dm.Format;
-		//s_DevParam.hDeviceWindow = hWnd;
+		s_DevParam.hDeviceWindow = ::GetActiveWindow();
 	}
 	else
 	{
@@ -165,7 +185,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHe
 		if(16 == dwBPP) BBFormat = D3DFMT_R5G6B5;
 		else if(24 == dwBPP) BBFormat = D3DFMT_R8G8B8;
 		else if(32 == dwBPP) BBFormat = D3DFMT_X8R8G8B8;
-		//s_DevParam.hDeviceWindow = hWnd;
+		s_DevParam.hDeviceWindow = ::GetActiveWindow();
 	}
 
 	s_DevParam.BackBufferWidth = dwWidth;
@@ -190,16 +210,16 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHe
 		}
 	}
 
-	/*
-	HRESULT rval = m_lpD3D->CreateDevice(0, DevType, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
+	
+	HRESULT rval = m_lpD3D->CreateDevice(0, DevType, GetActiveWindow(), D3DCREATE_HARDWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
 	if(rval != D3D_OK)
 	{
-		rval = m_lpD3D->CreateDevice(0, DevType, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
+		rval = m_lpD3D->CreateDevice(0, DevType, GetActiveWindow(), D3DCREATE_SOFTWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
 		if(rval != D3D_OK)
 		{
 			char szDebug[256];
 			//D3DXGetErrorString(rval, szDebug, 256);
-			MessageBox(hWnd, "Can't create D3D Device - please, check DirectX or display card driver", "initialization", MB_OK);
+			MessageBox(GetActiveWindow(), "Can't create D3D Device - please, check DirectX or display card driver", "initialization", MB_OK);
 #ifdef _N3GAME
 			CLogWriter::Write("Can't create D3D Device - please, check DirectX or display card driver");
 			CLogWriter::Write(szDebug);
@@ -212,23 +232,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHe
 #ifdef _N3GAME
 		CLogWriter::Write("CNEng::Init - Not supported HardWare TnL");
 #endif
-	}*/
-
-	SDL_Renderer* s_pSDLRenderer;
-
-	s_pSDLRenderer = SDL_CreateRenderer(
-		pWindow, -1,
-		SDL_RENDERER_ACCELERATED|
-		SDL_RENDERER_PRESENTVSYNC
-	);
-
-	if(s_pSDLRenderer == NULL) {
-		fprintf(stderr, "ER: %s\n", SDL_GetError());
-		return false;
 	}
-
-	s_lpD3DDev = SDL_RenderGetD3D9Device(s_pSDLRenderer);
-
 
 
 	// Device 지원 항목은??
@@ -368,14 +372,19 @@ void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 	}
 	*/
 
-	SDL_Renderer* s_pRenderer = SDL_GetRenderer(pWindow);
-	SDL_RenderPresent(s_pRenderer);
 
-	/*
-	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
+
+
+	//SDL_Renderer* s_pRenderer = SDL_GetRenderer(pWindow);
+	//SDL_RenderPresent(s_pRenderer);
+
+
+
+	
+	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, GetActiveWindow(), NULL);
 	if(D3D_OK == rval)
 	{
-		s_hWndPresent = hWnd; // Present window handle 을 저장해 놓는다.
+		//s_hWndPresent = hWnd; // Present window handle 을 저장해 놓는다.
 	}
 	else if(D3DERR_DEVICELOST == rval || D3DERR_DEVICENOTRESET == rval)
 	{
@@ -391,7 +400,7 @@ void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 		}
 		else
 		{
-			rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
+			rval = s_lpD3DDev->Present(pRC, pRC, GetActiveWindow(), NULL);
 		}
 		return;
 	}
@@ -404,7 +413,7 @@ void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 //		Beep(2000, 50);
 #endif
 	}
-	*/
+	
 
 	////////////////////////////////////////////////////////////////////////////////
 	// 프레임 율 측정...
@@ -433,12 +442,12 @@ void CN3Eng::Clear(D3DCOLOR crFill, RECT* pRC)
 	RECT rc;
 	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
 	{
-		//GetClientRect(s_hWndBase, &rc);
+		GetClientRect(::GetActiveWindow(), &rc);
 
-		int x, y, w, h;
-		SDL_GetWindowPosition(s_hWndBase, &x, &y);
-		SDL_GetWindowSize(s_hWndBase, &w, &h);
-		rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
+		//int x, y, w, h;
+		//SDL_GetWindowPosition(s_hWndBase, &x, &y);
+		//SDL_GetWindowSize(s_hWndBase, &w, &h);
+		//rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
 
 		pRC = &rc;
 	}
@@ -453,9 +462,9 @@ void CN3Eng::Clear(D3DCOLOR crFill, RECT* pRC)
 		s_lpD3DDev->Clear(0, NULL, D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, crFill, 1.0f, 0);
 	}
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	memset(&s_RenderInfo, 0, sizeof(__RenderInfo));
-#endif
+//#endif
 }
 
 void CN3Eng::ClearAuto(RECT* pRC)
@@ -485,12 +494,12 @@ void CN3Eng::ClearZBuffer(const RECT* pRC)
 	RECT rc;
 	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
 	{
-		//GetClientRect(s_hWndBase, &rc);
+		GetClientRect(::GetActiveWindow(), &rc);
 
-		int x, y, w, h;
-		SDL_GetWindowPosition(s_hWndBase, &x, &y);
-		SDL_GetWindowSize(s_hWndBase, &w, &h);
-		rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
+		//int x, y, w, h;
+		//SDL_GetWindowPosition(s_hWndBase, &x, &y);
+		//SDL_GetWindowSize(s_hWndBase, &w, &h);
+		//rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
 
 		pRC = &rc;
 	}

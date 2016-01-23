@@ -134,6 +134,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	s_bWindowed = true;
 #endif // #if _DEBUG 
 
+/*
 #ifndef _DEBUG
 	// 대만 버전일 경우 IME 문제로 인해 가짜 풀모드를 쓴다..
 	int iLangID = ::GetUserDefaultLangID();
@@ -150,6 +151,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 		::ChangeDisplaySettings(&dm, CDS_FULLSCREEN);
 	}
 #endif // #ifndef _DEBUG
+*/
 
 
 	RECT rc;
@@ -393,7 +395,7 @@ void CGameProcedure::Tick()
 	CN3Base::s_SndMgr.Tick(); // Sound Engine...
 
 	// 스크린 캡쳐 키..
-	if(s_pLocalInput->IsKeyPress(DIK_NUMPADMINUS)) // 키패드의 마이너스 키를 누르면..
+	if(s_pLocalInput->IsKeyPress(SDL_SCANCODE_KP_MINUS)) // 키패드의 마이너스 키를 누르면..
 	{
 		SYSTEMTIME st;
 		::GetLocalTime(&st);

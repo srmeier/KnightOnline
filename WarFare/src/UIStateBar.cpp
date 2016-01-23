@@ -499,6 +499,7 @@ bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	return false;
 }
 
+// NOTE: appears to add NPC/Players as dots on map?
 void CUIStateBar::PositionInfoAdd(int iID, const __Vector3 &vPos, D3DCOLOR crID, bool bDrawTop)
 {
 	__PositionInfo info;

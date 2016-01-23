@@ -18,6 +18,8 @@ class CGameBase : public CN3Base
 #define ACT_WORLD s_pWorldMgr->GetActiveWorld()
 
 public:
+	static bool s_bRunning;
+
 	static CN3TableBase<struct __TABLE_ZONE>*			s_pTbl_Zones;			// Zone 정보에 관한 테이블..
 	static CN3TableBase<struct __TABLE_UI_RESRC>*		s_pTbl_UI;				// UI FileName Table
 	static CN3TableBase<struct __TABLE_ITEM_BASIC>*		s_pTbl_Items_Basic;		// 각 유저의(내 자신과 주위 다른 사람) 클레스별 장착 아이템 리소스 테이블

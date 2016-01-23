@@ -178,10 +178,10 @@ void CN3CPart::Render(int nLOD)
 	if(nLOD < 0 || nLOD > MAX_CHR_LOD) return;
 	if(NULL == m_pSkinsRef || m_pSkinsRef->m_Skins[nLOD].VertexCount() <= 0) return;
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nChr_Part++; // Rendering Information Update...
 	CN3Base::s_RenderInfo.nChr_Polygon += m_pSkinsRef->m_Skins[nLOD].FaceCount();
-#endif
+//#endif
 
 	static DWORD dwAlpha, dwFog, dwCull;
 	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha 사용
@@ -341,10 +341,10 @@ void CN3CPlugBase::Render(const __Matrix44& mtxParent, const __Matrix44& mtxJoin
 	if(false == m_bVisible) return;
 	if(m_PMeshInst.GetNumVertices() <= 0) return;
 	
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nChr_Plug++; // Rendering Information Update...
 	CN3Base::s_RenderInfo.nChr_Plug_Polygon += m_PMeshInst.GetNumIndices() / 3; // Rendering Information Update...
-#endif
+//#endif
 
 	DWORD dwAlpha = 0, dwFog = 0, dwCull = 0;
 	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha 사용
@@ -1684,9 +1684,9 @@ void CN3Chr::Render()
 	if(m_nLOD < 0 || m_nLOD >= MAX_CHR_LOD) return;
 
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nChr++; // Rendering Information Update...
-#endif
+//#endif
 
 
 

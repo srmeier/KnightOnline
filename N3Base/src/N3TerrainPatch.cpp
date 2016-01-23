@@ -782,9 +782,9 @@ void CN3TerrainPatch::Render()
 			fc = it->NumFace;
 			hr = CN3Base::s_lpD3DDev->DrawPrimitive( D3DPT_TRIANGLEFAN, vc, fc);
 			vc += it->NumVertex;
-#if _DEBUG
+//#if _DEBUG
 			CN3Base::s_RenderInfo.nTerrain_Polygon += it->NumVertex; // Rendering Information 갱신..
-#endif			
+//#endif			
 		}		
 		return;
 	}	
@@ -882,9 +882,9 @@ void CN3TerrainPatch::Render()
 			}
 		}
 
-#if _DEBUG
+//#if _DEBUG
 		CN3Base::s_RenderInfo.nTerrain_Tile_Polygon += TotalTile * 2; // Rendering Information 갱신..
-#endif
+//#endif
 
 		// Render Light Map...
 		s_lpD3DDev->SetStreamSource( 0, m_pLightMapVB, 0, sizeof(__VertexT1) );

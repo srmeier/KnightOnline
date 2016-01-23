@@ -175,9 +175,9 @@ public:
 	static __CameraData				s_CameraData; // 카메라 데이터 정적 변수..
 	static __ResrcInfo				s_ResrcInfo; // Rendering Information..
 	static __Options				s_Options;	// 각종 옵션등...
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	static __RenderInfo				s_RenderInfo; // Rendering Information..
-#endif
+//#endif
 	static float					s_fFrmPerSec; // Frame Per Second
 	static float					s_fSecPerFrm; // Second Per Frame = 1.0f/s_fFrmPerSec (Dino가 추가)
 	

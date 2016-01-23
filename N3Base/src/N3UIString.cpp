@@ -182,13 +182,14 @@ void CN3UIString::WordWrap()
 		// 임시 변수 잡기
 		std::string szNewBuff;
 
-		if (size.cy>iRegionHeight)	// 글자 높이가 해당 영역보다 큰 경우
+		/*if (size.cy>iRegionHeight)	// 글자 높이가 해당 영역보다 큰 경우
 		{	
 			m_ptDrawPos.y = m_rcRegion.top;
-			m_pDFont->SetText("글자 높이가 STRING control보다 큽니다.");
+			//m_pDFont->SetText("글자 높이가 STRING control보다 큽니다.");
+			m_pDFont->SetText("Temp1");
 			return;
 		}
-		else if (size.cx <= iRegionWidth)	// 글자 가로 길이가 영역 길이보다 작을경우
+		else*/ if (size.cx <= iRegionWidth)	// 글자 가로 길이가 영역 길이보다 작을경우
 		{
 			szNewBuff = m_szString;
 
@@ -259,8 +260,9 @@ void CN3UIString::WordWrap()
 //		if (iCY > iRegionHeight)
 		if (size.cy > iRegionHeight)
 		{
-			m_pDFont->SetText("글자 높이가 STRING control보다 큽니다.");
-			return;
+			//m_pDFont->SetText("글자 높이가 STRING control보다 큽니다.");
+			//m_pDFont->SetText("Temp2");
+			//return;
 		}
 
 		m_iLineCount = 1;	// 여기까지 오면 1줄은 찍힌다.
