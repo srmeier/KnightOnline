@@ -508,6 +508,8 @@ void CGameEng::CameraZoom(float fDelta)
 	}
 	else if(VP_THIRD_PERSON == m_eViewPoint) // 위에서 보는 건 거리만 늘였다 줄였다 한다..
 	{
+		// NOTE (zoom way back): search for "zoom way back" to get here
+
 		m_fOffsetVPGod -= 4.0f * fDelta * s_fSecPerFrm;
 		if(m_fOffsetVPGod < 2.0f) m_fOffsetVPGod = 2.0f; // 너무작아지면 멈추고..
 		else if(m_fOffsetVPGod > 10.0f) m_fOffsetVPGod = 10.0f; // 너무 커져도 멈추고..

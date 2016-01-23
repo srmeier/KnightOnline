@@ -81,13 +81,13 @@ public:
 
 	static class CGameCursor*				s_pGameCursor;
 
-	static HCURSOR	s_hCursorNormal;
-	static HCURSOR	s_hCursorNormal1;
-	static HCURSOR	s_hCursorClick;
-	static HCURSOR	s_hCursorClick1;
-	static HCURSOR	s_hCursorAttack;
-	static HCURSOR	s_hCursorPreRepair;
-	static HCURSOR	s_hCursorNowRepair;
+	static SDL_Cursor* s_hCursorNormal;
+	static SDL_Cursor* s_hCursorNormal1;
+	static SDL_Cursor* s_hCursorClick;
+	static SDL_Cursor* s_hCursorClick1;
+	static SDL_Cursor* s_hCursorAttack;
+	static SDL_Cursor* s_hCursorPreRepair;
+	static SDL_Cursor* s_hCursorNowRepair;
 
 	static e_Version				s_eVersion;
 	static e_LogInClassification	s_eLogInClassification; // 접속한 서비스.. MGame, Daum, KnightOnLine ....
@@ -97,7 +97,7 @@ public:
 	static int						s_iChrSelectIndex; // 이계정의 몇번째 캐릭인지...??
 
 	static bool		m_bCursorLocked;
-	static HCURSOR	m_hPrevGameCursor;
+	static SDL_Cursor*	m_hPrevGameCursor;
 	static HWND		s_hWndSubSocket; // 서브 소켓용 윈도우 핸들..
 
 	static bool		s_bNeedReportConnectionClosed; // 서버접속이 끊어진걸 보고해야 하는지..
@@ -149,7 +149,7 @@ public:
 
 	static bool CaptureScreenAndSaveToFile(const std::string& szFN);
 
-	static void	SetGameCursor(HCURSOR hCursor, bool bLocked = false);
+	static void	SetGameCursor(SDL_Cursor* hCursor, bool bLocked = false);
 	static void	SetGameCursor(e_Cursor eCursor, bool bLocked = false);
 	static void RestoreGameCursor();
 
