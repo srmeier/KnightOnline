@@ -9,6 +9,11 @@ const float PACKET_INTERVAL_MOVE = 1.5f;				// 정기적으로 보내는 패킷 시간 간격.
 const float PACKET_INTERVAL_ROTATE = 4.0f;
 const float PACKET_INTERVAL_REQUEST_TARGET_HP = 2.0f;
 
+
+#define N3_FORMAT_VER_1068 0x00000001
+#define N3_FORMAT_VER_1298 0x00000002
+
+
 // 단축키 지정해 놓은 부분..
 enum eKeyMap {	KM_HOTKEY1 = SDL_SCANCODE_1, 
 				KM_HOTKEY2 = SDL_SCANCODE_2, 
