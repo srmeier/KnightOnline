@@ -125,6 +125,8 @@ void CN3UIBase::SetParent(CN3UIBase* pParent)
 	if(m_pParent) m_pParent->RemoveChild(this);
 	m_pParent = pParent;
 	if (m_pParent) m_pParent->AddChild(this);
+
+	if(pParent) m_iVersion = pParent->m_iVersion;
 }
 
 POINT CN3UIBase::GetPos() const
@@ -228,7 +230,20 @@ bool CN3UIBase::Load(HANDLE hFile)
 
 	// children Á¤º¸
 	int iCC = 0;
-	ReadFile(hFile, &iCC, sizeof(iCC), &dwRWC, NULL); // children count
+	if(m_iVersion == N3FORMAT_VER_1298) {
+		//char temp[0xFF];
+
+		short sCC, sIdk0;
+		ReadFile(hFile, &sCC, sizeof(short), &dwRWC, NULL); // children count
+		ReadFile(hFile, &sIdk0, sizeof(short), &dwRWC, NULL);
+		iCC = (int) sCC;
+
+		//sprintf(temp, "sIdk0 = %d\n", sIdk0);
+		//OutputDebugString(temp);
+	} else {
+		ReadFile(hFile, &iCC, sizeof(iCC), &dwRWC, NULL); // children count
+	}
+
 	eUI_TYPE eChildUIType;
 	for(int i = 0; i < iCC; i++)
 	{

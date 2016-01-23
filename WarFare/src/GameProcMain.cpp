@@ -3739,7 +3739,7 @@ void CGameProcMain::InitUI()
 
 	// 파티 지원 게시판..
 	m_pUIPartyBBS->Init(s_pUIMgr);
-	m_pUIPartyBBS->LoadFromFile(pTbl->szPartyBBS);
+	m_pUIPartyBBS->LoadFromFile(pTbl->szPartyBBS, N3FORMAT_VER_1298);
 	m_pUIPartyBBS->SetVisibleWithNoSound(false);
 	rc = m_pUIPartyBBS->GetRegion();
 	iX = (iW - (rc.right - rc.left))/2;

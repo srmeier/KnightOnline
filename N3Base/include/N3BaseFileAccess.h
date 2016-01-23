@@ -14,9 +14,18 @@
 #include "N3Base.h"
 #include <string>
 
+//-----------------------------------------------------------------------------
+#define N3FORMAT_VER_UNKN 0x00000000
+#define N3FORMAT_VER_1068 0x00000001
+#define N3FORMAT_VER_1298 0x00000002
+
+static const int N3FORMAT_VER_DEFAULT = N3FORMAT_VER_1068;
+
+//-----------------------------------------------------------------------------
 class CN3BaseFileAccess : public CN3Base
 {
 protected:
+	int m_iVersion;
 	std::string		m_szFileName; // Base Path 를 제외한 로컬 경로 + 파일 이름
 
 public:
@@ -27,7 +36,7 @@ public:
 	void FileNameSet(const std::string& szFileName);
 
 	bool LoadFromFile(); // 파일에서 읽어오기.
-	virtual bool LoadFromFile(const std::string& szFileName); // 파일에서 읽어오기.
+	virtual bool LoadFromFile(const std::string& szFileName, int iVer = N3FORMAT_VER_DEFAULT); // 파일에서 읽어오기.
 	virtual bool Load(HANDLE hFile); // 핸들에서 읽어오기..
 
 	virtual bool SaveToFile(); // 현재 파일 이름대로 저장.

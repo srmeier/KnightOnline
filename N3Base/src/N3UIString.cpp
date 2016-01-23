@@ -395,6 +395,23 @@ bool CN3UIString::Load(HANDLE hFile)
 		ReadFile(hFile, &(szString[0]), iStrLen, &dwNum, NULL);				// string
 		SetString(szString);
 	}
+
+	// NOTE: testing UI string
+	if(m_iVersion == N3FORMAT_VER_1298) {
+		//char temp[0xFF];
+
+		//sprintf(temp, "\nm_dwReserved = %d\n", m_dwReserved);
+		//OutputDebugString(temp);
+		//sprintf(temp, "m_dwStyle = %d\n", m_dwStyle);
+		//OutputDebugString(temp);
+
+		int iIdk0;
+		ReadFile(hFile, &iIdk0, sizeof(int), &dwNum, NULL);
+
+		//sprintf(temp, "iIdk0 = %d\n", iIdk0);
+		//OutputDebugString(temp);
+	}
+
 	return true;
 }
 
