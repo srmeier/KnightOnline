@@ -49,7 +49,7 @@ bool CN3BaseFileAccess::Load(HANDLE hFile)
 {
 	if(m_iVersion == N3FORMAT_VER_UNKN) {
 		// NOTE: unknow version format
-		SDL_assert(1);
+		printf("Unknown version type\n");
 	}
 
 	m_szName = "";

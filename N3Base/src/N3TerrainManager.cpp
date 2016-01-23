@@ -76,7 +76,7 @@ void CN3TerrainManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 	if(NULL == pZone) { CLogWriter::Write("Null Zone Data : %d", iZoneID); return; }
 
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load\t%d", m_pTerrain); // TmpLog_11_22
-	m_pTerrain->LoadFromFile(pZone->szTerrainFN);		// 지형..로드..
+	m_pTerrain->LoadFromFile(pZone->szTerrainFN);
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load ColorMap"); // TmpLog_11_22
 	m_pTerrain->LoadColorMap(pZone->szColorMapFN);		// 컬러맵 로드..
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Release Shapes\t%d", m_pShapes); // TmpLog_11_22
@@ -218,7 +218,7 @@ bool CN3TerrainManager::CheckInclineWithTerrain(const __Vector3& vPos, const __V
 bool CN3TerrainManager::CheckCollisionCameraWithShape(__Vector3& vEyeResult, const __Vector3& vAt, float fNP)
 {
 	if (m_pShapes) 
-		return m_pShapes->CheckCollisionCamera(vEyeResult, vAt, fNP);
+		return false;//m_pShapes->CheckCollisionCamera(vEyeResult, vAt, fNP);
 	else
 		return false;
 }

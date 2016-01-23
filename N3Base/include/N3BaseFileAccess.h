@@ -25,10 +25,10 @@ static const int N3FORMAT_VER_DEFAULT = N3FORMAT_VER_1068;
 class CN3BaseFileAccess : public CN3Base
 {
 protected:
-	int m_iVersion;
 	std::string		m_szFileName; // Base Path 를 제외한 로컬 경로 + 파일 이름
 
 public:
+	int m_iVersion;
 	int m_iLOD; // 로딩할때 쓸 LOD
 
 public:

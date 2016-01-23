@@ -543,6 +543,43 @@ struct __InfoPartyBBS // 파티 지원 게시판 구조체..
 enum {	RESRC_UI_LOGIN = 0, RESRC_UI_CHARACTERSELECT, RESRC_UI_CHARACTERCREATE, RESRC_UI_INVENTORY, RESRC_UI_CHAT,
 		RESRC_UI_MYINFORMATION, RESRC_UI_TARGET, RESRC_UI_HOTKEY, RESRC_UI_FUNCTION };
 
+/*
+// NOTE: temp 1298 zone structure
+typedef struct __TABLE_ZONE
+{
+	DWORD       dwID;                 // zone ID
+	std::string	szTerrainFN;          // GTD
+
+	std::string szName;
+
+	std::string	szColorMapFN;         // TCT
+	std::string	szLightMapFN;         // TLT
+	std::string	szObjectPostDataFN;   // OPD
+
+	std::string szReserved;
+
+	std::string	szMiniMapFN;          // DXT
+	std::string szSkySetting;         // N3Sky
+	int         bIndicateEnemyPlayer; // SByte (now Int32)
+	int         iFixedSundDirection;  // Int32
+	std::string szLightObjFN;         // GLO
+
+	std::string szGEVFN;              // GEV
+	int         iIdk0;                // idk
+	std::string szENSFN;              // ENS
+	float       fIdk1;                // idk
+	std::string szFLAGFN;             // FLAG
+	DWORD       iIdk2;
+	DWORD       iIdk3;
+	DWORD       iIdk4;
+	DWORD       iIdk5;
+	std::string szOPDSUBFN;           // OPDSUB
+	int         iIdk6;
+	std::string szEVTSUB;             // EVTSUB
+} TABLE_ZONE;
+*/
+
+
 typedef struct __TABLE_ZONE
 {
 	DWORD		dwID; // zone ID
@@ -556,6 +593,7 @@ typedef struct __TABLE_ZONE
 	int			iFixedSundDirection;	// 해의 방향을 고정시키는지..
 	std::string szLightObjFN;		// 지형에 배치되어 있는 라이트정보파일..
 } TABLE_ZONE;
+
 
 typedef struct __TABLE_UI_RESRC
 {

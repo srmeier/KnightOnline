@@ -152,8 +152,10 @@ bool CN3Texture::CreateFromSurface(LPDIRECT3DSURFACE8 lpSurf, D3DFORMAT Format, 
 }
 #endif // end of _N3TOOL
 
-bool CN3Texture::LoadFromFile(const std::string& szFileName)
+bool CN3Texture::LoadFromFile(const std::string& szFileName, int iVer)
 {
+	m_iVersion = iVer;
+
 	if(m_lpTexture != NULL) this->Release();
 
 	this->FileNameSet(szFileName); // 파일 이름을 복사하고..

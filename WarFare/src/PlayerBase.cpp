@@ -766,20 +766,20 @@ void CPlayerBase::Tick()  // 회전, 지정된 에니메이션 Tick 및 색깔 지정 처리.. 등
 		this->PositionSet(vPos, false);
 	}
 
-	// TEMP
+	// TEMP search "player position" to get here
 	/*
 	- just here so player doesn't get stuck
 	*/
 	static int loopCount = 0;
 	if(loopCount==0) {
-		//vPos.x = vPos.x+5.0f;
-		//vPos.z = vPos.z + 5.0f;
-		//this->PositionSet(vPos, false);
-
-		vPos.x = 358.0f;
-		vPos.y = 120.0f;
-		vPos.z = 1610.0f;
+		vPos.x = vPos.x+5.0f;
+		vPos.z = vPos.z + 5.0f;
 		this->PositionSet(vPos, false);
+
+		//vPos.x = 358.0f;
+		//vPos.y = 120.0f;
+		//vPos.z = 1610.0f;
+		//this->PositionSet(vPos, false);
 
 		loopCount++;
 	}

@@ -125,6 +125,9 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 			ReadFile(hFile, &dwType, 4, &dwRWC, NULL); // Shape Type
 			if(dwType & OBJ_SHAPE_EXTRA) pShape = new CN3ShapeExtra(); // 성문등 확장된 Object 로 쓸경우..
 			else pShape = new CN3Shape();
+
+			pShape->m_iVersion = m_iVersion;
+
 			m_Shapes.push_back(pShape);
 
 			// pShape->m_iEventID; 바인드 포인트 100~, 200~ 성문 1100~, 1200~ 레버 2100~, 2200~
