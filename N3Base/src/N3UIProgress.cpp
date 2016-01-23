@@ -46,15 +46,15 @@ void CN3UIProgress::Release()
 	m_fChangeSpeedPerSec = 0;
 }
 
-//void CN3UIProgress::Render()
-//{
-//	if(!m_bVisible) return;
-//	
-//	CN3UIBase::Render();
-//
-//	if(m_pBkGndImgRef) m_pBkGndImgRef->Render();
-//	if(m_pFrGndImgRef) m_pFrGndImgRef->Render();
-//}
+void CN3UIProgress::Render()
+{
+	if(!m_bVisible) return;
+	
+	CN3UIBase::Render();
+
+	if(m_pBkGndImgRef) m_pBkGndImgRef->Render();
+	if(m_pFrGndImgRef) m_pFrGndImgRef->Render();
+}
 
 void CN3UIProgress::SetCurValue(int iValue, float fTimeToDelay, float fChangeSpeedPerSec)
 {
