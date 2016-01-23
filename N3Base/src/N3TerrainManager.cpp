@@ -218,7 +218,7 @@ bool CN3TerrainManager::CheckInclineWithTerrain(const __Vector3& vPos, const __V
 bool CN3TerrainManager::CheckCollisionCameraWithShape(__Vector3& vEyeResult, const __Vector3& vAt, float fNP)
 {
 	if (m_pShapes) 
-		return false;//m_pShapes->CheckCollisionCamera(vEyeResult, vAt, fNP);
+		return m_pShapes->CheckCollisionCamera(vEyeResult, vAt, fNP);
 	else
 		return false;
 }

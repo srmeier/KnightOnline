@@ -10,8 +10,6 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
 
-- not sure if it something that is wrong with loading of camera collision...
-
 ZONE TBL
 
 1068

@@ -4107,7 +4107,7 @@ void CGameProcMain::InitZone(int iZone, const __Vector3& vPosPlayer)
 
 	CLogWriter::Write("InitPlayerPosition() Position(%.1f, %.1f, %.1f)",vPosPlayer.x, vPosPlayer.y, vPosPlayer.z); // TmpLog1122
 	this->InitPlayerPosition(vPosPlayer); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
-	CLogWriter::Write("%d->Release()2",s_pOPMgr); // TmpLog1122
+	CLogWriter::Write("%d->Release()",s_pOPMgr); // TmpLog1122
 	s_pOPMgr->Release(); // 다른 플레이어 삭제...
 }
 
