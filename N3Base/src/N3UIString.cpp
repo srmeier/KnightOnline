@@ -184,6 +184,8 @@ void CN3UIString::WordWrap()
 
 		/*if (size.cy>iRegionHeight)	// 글자 높이가 해당 영역보다 큰 경우
 		{	
+			// NOTE: need to look into putting this back!!!
+
 			m_ptDrawPos.y = m_rcRegion.top;
 			//m_pDFont->SetText("글자 높이가 STRING control보다 큽니다.");
 			m_pDFont->SetText("Temp1");
@@ -260,6 +262,8 @@ void CN3UIString::WordWrap()
 //		if (iCY > iRegionHeight)
 		if (size.cy > iRegionHeight)
 		{
+			// NOTE: need to look into returning this back !!!
+
 			//m_pDFont->SetText("글자 높이가 STRING control보다 큽니다.");
 			//m_pDFont->SetText("Temp2");
 			//return;
