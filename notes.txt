@@ -2,5 +2,52 @@ git reset --hard 0d1d7fc32
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
+- get 1298 zones to work
 - need to get the teleporter to work
+- add mouse wheel zooming
+- need to check progess UI on statebar
 - fixed so that it compiles with debug config
+
+===============================================================================
+
+- not sure if it something that is wrong with loading of camera collision...
+
+ZONE TBL
+
+1068
+- ID
+- GTD
+- TCT
+- TLT
+- OPD
+- DXT
+- N3Sky
+- SByte
+- Int32
+- GLO
+
+1298
+- ID
+- GTD
+- name
+- TCT
+- TLT
+- OPD
+- reserved string
+- DXT
+- N3Sky
+- Int32
+- Int32
+- GLO
+- GEV
+- Int32
+- ENS
+- Float
+- FLAG
+- Uint32
+- Uint32
+- Uint32
+- Uint32
+- OPDSUB
+- Int32
+- EVTSUB

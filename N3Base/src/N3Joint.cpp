@@ -244,6 +244,8 @@ void CN3Joint::ParentSet(CN3Joint *pParent)
 
 	m_pParent = pParent;
 	if(pParent) pParent->ChildAdd(this);
+
+	m_iVersion = pParent->m_iVersion;
 }
 
 void CN3Joint::NodeCount(int &nCount)

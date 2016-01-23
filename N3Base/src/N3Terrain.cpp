@@ -676,6 +676,11 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 
 	m_pTileTex = new CN3Texture [m_NumTileTex];
 
+	// NOTE: kinda a temp thing...
+	for(int i=0; i<m_NumTileTex; ++i) {
+		m_pTileTex[i].m_iVersion = m_iVersion;
+	}
+
 	int NumTileTexSrc;
 	ReadFile(hFile, &NumTileTexSrc, sizeof(int), &dwRWC, NULL);
 	if(NumTileTexSrc==0) return;
@@ -852,8 +857,8 @@ void CN3Terrain::Tick()
 			}
 		}		
 	}
-	m_pRiver->Tick();
-	m_pPond->Tick();
+	if(m_pRiver) m_pRiver->Tick();
+	if(m_pPond) m_pPond->Tick();
 }
 
 
@@ -1395,8 +1400,8 @@ void CN3Terrain::Render()
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, CullMode);
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, ZEnable);
 
-	m_pRiver->Render();
-	m_pPond->Render();
+	if(m_pRiver) m_pRiver->Render();
+	if(m_pPond) m_pPond->Render();
 }
 
 
@@ -2116,6 +2121,10 @@ bool CN3Terrain::LoadColorMap(const std::string& szFN)
 	for(int x=0;x<m_iNumColorMap;x++)
 	{
 		m_ppColorMapTex[x] = new CN3Texture [m_iNumColorMap];
+
+		for(int i=0; i<m_iNumColorMap; ++i) {
+			m_ppColorMapTex[x][i].m_iVersion = m_iVersion;
+		}
 	}
 
 	HANDLE hColorMapFile = CreateFile(szFN.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);

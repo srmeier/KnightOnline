@@ -30,7 +30,7 @@ protected:
 
 public:
 	void				UpdateRenderInfo();
-	bool				LoadFromFile(const std::string& szFileName);
+	bool				LoadFromFile(const std::string& szFileName, int iVer = N3FORMAT_VER_DEFAULT);
 	bool				Load(HANDLE hFile);
 	bool				SkipFileHandle(HANDLE hFile);
 

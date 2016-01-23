@@ -149,7 +149,7 @@ int SDL_main(int argc, char** argv)
 	CGameBase::s_pPlayer->m_InfoBase.eNation = NATION_KARUS;
 	CGameBase::s_pPlayer->m_InfoBase.eClass = CLASS_KA_WARRIOR;
 	CGameBase::s_pPlayer->m_InfoExt.iZoneInit = 0x01;
-	CGameBase::s_pPlayer->m_InfoExt.iZoneCur = 204;
+	CGameBase::s_pPlayer->m_InfoExt.iZoneCur = 206;//205;//210;//204;
 	CGameBase::s_pPlayer->IDSet(-1, "testing", 0xffffffff);
 	CGameBase::s_pPlayer->m_InfoBase.iAuthority == AUTHORITY_MANAGER;
 
