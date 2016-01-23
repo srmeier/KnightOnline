@@ -35,9 +35,9 @@ std::string CN3Base::s_szPath;
 __CameraData CN3Base::s_CameraData;			// Camera Data
 __ResrcInfo CN3Base::s_ResrcInfo;			// Rendering Information
 __Options CN3Base::s_Options;	// 각종 옵션등...
-#ifdef _DEBUG
+//#ifdef _DEBUG
 __RenderInfo CN3Base::s_RenderInfo;			// Rendering Information
-#endif
+//#endif
 
 #ifdef _N3GAME // 게임이 아닌 툴에서는 필요없다...
 CN3SndMgr CN3Base::s_SndMgr;	//사운드 메니저.

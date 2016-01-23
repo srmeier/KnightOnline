@@ -173,9 +173,9 @@ void CN3SPart::Render()
 {
 	if(m_bOutOfCameraRange || m_PMInst.GetNumVertices() <= 0) return;
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape_Part++; // Rendering Information Update...
-#endif
+//#endif
 
 	LPDIRECT3DTEXTURE9 lpTex = NULL;
 	int iTC = m_TexRefs.size();
@@ -216,9 +216,9 @@ void CN3SPart::Render()
 //	s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND,   m_Mtl.dwSrcBlend);
 //	s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND,  m_Mtl.dwDestBlend);
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
-#endif
+//#endif
 
 	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog 무시..
 	{
@@ -504,9 +504,9 @@ void CN3SPart::PartialRender(int iCount, WORD* pIndices)
 {
 	if(m_bOutOfCameraRange || m_PMInst.GetNumVertices() <= 0) return;
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape_Part++; // Rendering Information Update...
-#endif
+//#endif
 
 	LPDIRECT3DTEXTURE9 lpTex = NULL;
 	int iTC = m_TexRefs.size();
@@ -542,9 +542,9 @@ void CN3SPart::PartialRender(int iCount, WORD* pIndices)
 
 	static DWORD dwFog, dwCull;
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
-#endif
+//#endif
 
 	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog 무시..
 	{
@@ -676,9 +676,9 @@ void CN3Shape::Render()
 	if(false == m_bVisible) return;
 	if(true == m_bDontRender) return;
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape++;
-#endif
+//#endif
 
 	int iPC = m_Parts.size();
 	for(int i = 0; i < iPC; i++)

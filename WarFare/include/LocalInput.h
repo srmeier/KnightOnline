@@ -7,7 +7,7 @@ const int DK_NONE = 0;
 const int DK_RELEASE = 1;
 const int DK_PRESS = 2;
 const int DK_REPEAT = 4;
-const int NUMDIKEYS = 256;
+const int NUMDIKEYS = 282;
 
 // 마우스 플래그 - 한개 이상의 플래그가 OR 연산으로 조합되어 있다..
 const int MOUSE_LBCLICK		= 0x1;
@@ -30,17 +30,17 @@ const int MOUSE_RBDBLCLK	= 0x800;
 class CLocalInput
 {
 private:
-	void AcquireMouse();
-	void UnacquireMouse();
-	void AcquireKeyboard();
-	void UnacquireKeyboard();
+	//void AcquireMouse();
+	//void UnacquireMouse();
+	//void AcquireKeyboard();
+	//void UnacquireKeyboard();
 
 protected:
-	LPDIRECTINPUT8			m_lpDI;
-	LPDIRECTINPUTDEVICE8	m_lpDIDKeyboard;
+	//LPDIRECTINPUT8			m_lpDI;
+	//LPDIRECTINPUTDEVICE8	m_lpDIDKeyboard;
 //	LPDIRECTINPUTDEVICE8	m_lpDIDMouse;
 
-	HWND m_hWnd;
+	//SDL_Window* m_hWnd;
 
 //	BOOL m_bMouse;
 //	BOOL m_bKeyboard;
@@ -85,13 +85,13 @@ public:
 	BOOL IsKeyPress(int iIndex) { if(iIndex < 0 || iIndex >= NUMDIKEYS) return FALSE; return m_bKeyPresses[iIndex]; } // 키보드를 누르는 순간... "DInput.h" 에 정의 되어 있는 DIK_???? 스캔코드를 참조..
 	BOOL IsKeyPressed(int iIndex) { if(iIndex < 0 || iIndex >= NUMDIKEYS) return FALSE; return m_bKeyPresseds[iIndex]; } // 키보드를 누르고나서 떼는 순간... "DInput.h" 에 정의 되어 있는 DIK_???? 스캔코드를 참조..
 	
-	BOOL Init(HINSTANCE hInst, HWND hWnd, BOOL bActivateKeyboard= TRUE, BOOL bActivateMouse = TRUE, BOOL ExclusiveMouseAccess = TRUE );
+	BOOL Init(SDL_Window* pWindow, BOOL bActivateKeyboard= TRUE, BOOL bActivateMouse = TRUE, BOOL ExclusiveMouseAccess = TRUE );
 
 	void Tick(void);
 	void KeyboardFlushData();
-	void RunMouseControlPanel(HWND hWnd);
+	//void RunMouseControlPanel(HWND hWnd);
 	void MouseSetLimits(int x1, int y1, int x2, int y2);
-	void SetActiveDevices(BOOL bKeyboard, BOOL bMouse);
+	//void SetActiveDevices(BOOL bKeyboard, BOOL bMouse);
 	void MouseSetPos(int x, int y);
 
 	BOOL KeyboardGetKeyState(int nDIKey); // 최근 눌려진 키 검사..
