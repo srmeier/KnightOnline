@@ -17,6 +17,8 @@ static char THIS_FILE[]=__FILE__;
 
 CN3BaseFileAccess::CN3BaseFileAccess()
 {
+	m_iVersion = N3FORMAT_VER_UNKN;
+
 	m_dwType |= OBJ_BASE_FILEACCESS;
 	m_szFileName = "";
 	m_iLOD = 0; // 로딩할때 쓸 LOD
@@ -45,6 +47,11 @@ void CN3BaseFileAccess::FileNameSet(const std::string& szFileName)
 
 bool CN3BaseFileAccess::Load(HANDLE hFile)
 {
+	if(m_iVersion == N3FORMAT_VER_UNKN) {
+		// NOTE: unknow version format
+		SDL_assert(1);
+	}
+
 	m_szName = "";
 
 	DWORD dwRWC = 0;
@@ -103,8 +110,9 @@ bool CN3BaseFileAccess::LoadFromFile()
 	return bSuccess;
 }
 
-bool CN3BaseFileAccess::LoadFromFile(const std::string& szFileName)
+bool CN3BaseFileAccess::LoadFromFile(const std::string& szFileName, int iVer)
 {
+	m_iVersion = iVer;
 	this->FileNameSet(szFileName);
 	return this->LoadFromFile();
 }

@@ -179,7 +179,9 @@ bool CN3Texture::LoadFromFile(const std::string& szFileName)
 			//       - 63 is used to jump past the old texture locations
 			//       - also note that the #ifdef is messed up here now...
 			if (nFNL > 63) {
+				OutputDebugString("WR: this is a temp fix for file -> ");
 				OutputDebugString(&szFullPath[63]);
+				OutputDebugString("\n");
 				hFile = ::CreateFile(&szFullPath[63], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 			}
 
