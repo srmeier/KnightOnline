@@ -1003,6 +1003,11 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, i
 			int nXSub = x%CELL_MAIN_DEVIDE;
 			int nZSub = z%CELL_MAIN_DEVIDE;
 
+			// NOTE: the check on nX and nZ isn't good enough because
+			//       "z/CELL_MAIN_DEVIDE" will round a small neg "z" to zero
+			//       and we'll run into an error!!!!!
+			if(nXSub<0 || nXSub>=(MAX_CELL_MAIN%CELL_MAIN_DEVIDE) || nZSub<0 && nZSub>=(MAX_CELL_MAIN%CELL_MAIN_DEVIDE)) continue;
+
 			ppSubCells[iSubCellCount] = &(m_pCells[nX][nZ]->SubCells[nXSub][nZSub]);
 			iSubCellCount++;
 
