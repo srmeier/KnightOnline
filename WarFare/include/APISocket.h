@@ -16,7 +16,8 @@
 #define WM_SOCKETMSG	(WM_USER+1)
 #define RECEIVE_BUF_SIZE	262144 // 최대 버퍼..
 
-#define _CRYPTION		// 암호화 사용
+// TEMP: disabling encryption
+//#define _CRYPTION		// 암호화 사용
 #ifdef _CRYPTION
 #include "JvCryption.h"
 #endif

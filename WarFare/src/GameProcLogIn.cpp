@@ -124,9 +124,9 @@ void CGameProcLogIn::Init()
 	if(	iServer >= 0 && lstrlen(szIPs[iServer]) )
 	{
 		s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
-		//int iErr = s_pSocket->Connect(s_hWndBase, szIPs[iServer], SOCKET_PORT_LOGIN);
+		int iErr = s_pSocket->Connect(GetActiveWindow(), szIPs[iServer], SOCKET_PORT_LOGIN);
 		s_bNeedReportConnectionClosed = true; // 서버접속이 끊어진걸 보고해야 하는지..
-		/*
+		
 		if(iErr) this->ReportServerConnectionFailed("LogIn Server", iErr, true);
 		else
 		{
@@ -138,7 +138,6 @@ void CGameProcLogIn::Init()
 			CAPISocket::MP_AddByte(byBuffs, iOffset, N3_GAMESERVER_GROUP_LIST);					// 커멘드.
 			s_pSocket->Send(byBuffs, iOffset);											// 보낸다
 		}
-		*/
 	}
 	else
 	{
@@ -430,18 +429,13 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 int CGameProcLogIn::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // virtual
 {
 	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pDataPack, iOffset);
-	//if(iVersion == CURRENT_VERSION)
-	if(true)
+	if(iVersion == CURRENT_VERSION)
 	{
 		CGameProcedure::MsgSend_GameServerLogIn(); // 게임 서버에 로그인..
 		m_pUILogIn->ConnectButtonSetEnable(false);
 	}
 
-	return true;
-
-
-	//return iVersion;
-	return CURRENT_VERSION;
+	return iVersion;
 }
 
 int CGameProcLogIn::MsgRecv_GameServerLogIn(DataPack* pDataPack, int& iOffset) // virtual - 국가번호를 리턴한다.
@@ -524,9 +518,9 @@ void CGameProcLogIn::ConnectToGameServer() // 고른 게임 서버에 접속
 	if(false == m_pUILogIn->ServerInfoGetCur(GSI)) return; // 서버를 고른다음..
 
 	s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
-	//int iErr = s_pSocket->Connect(s_hWndBase, GSI.szIP.c_str(), SOCKET_PORT_GAME); // 게임서버 소켓 연결
+	int iErr = s_pSocket->Connect(GetActiveWindow(), GSI.szIP.c_str(), SOCKET_PORT_GAME); // 게임서버 소켓 연결
 	s_bNeedReportConnectionClosed = true; // 서버접속이 끊어진걸 보고해야 하는지..
-	/*
+	
 	if(iErr)
 	{
 		this->ReportServerConnectionFailed(GSI.szName, iErr, false);
@@ -537,7 +531,6 @@ void CGameProcLogIn::ConnectToGameServer() // 고른 게임 서버에 접속
 		s_szServer = GSI.szName;
 		this->MsgSend_VersionCheck();
 	}
-	*/
 }
 //	By : Ecli666 ( On 2002-07-15 오후 7:35:16 )
 //
