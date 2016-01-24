@@ -126,7 +126,7 @@ void CGameProcedure::Init()
 
 void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 {
-	//s_pKnightChr = new CKnightChrMgr(hWndMain);
+	s_pKnightChr = new CKnightChrMgr(GetActiveWindow());
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 게임 기본 3D 엔진 만들기..
@@ -155,14 +155,14 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 
 
 	RECT rc;
-	//::GetClientRect(hWndMain, &rc);
+	::GetClientRect(GetActiveWindow(), &rc);
 	s_pEng = new CGameEng();
 	if(false == s_pEng->Init(s_bWindowed, pWindow, CN3Base::s_Options.iViewWidth, CN3Base::s_Options.iViewHeight, CN3Base::s_Options.iViewColorDepth, TRUE)) exit(-1);
 	// 게임 기본 3D 엔진 만들기..
-	//::SetFocus(hWndMain); // Set focus this window..
+	::SetFocus(GetActiveWindow()); // Set focus this window..
 	
-	//RECT rcTmp = rc; rcTmp.left = (rc.right - rc.left) / 2; rcTmp.bottom = rcTmp.top + 30;
-	//CN3UIEdit::CreateEditWindow(hWndMain, rcTmp);
+	RECT rcTmp = rc; rcTmp.left = (rc.right - rc.left) / 2; rcTmp.bottom = rcTmp.top + 30;
+	CN3UIEdit::CreateEditWindow(GetActiveWindow(), rcTmp);
 	//////////////////////////////////////////////////////////////////////////////////////////
 
 	//s_hWndSubSocket = hWndSub; // 서브 소켓용 윈도우 핸들..
@@ -810,8 +810,8 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			// 다른 존 서버로 다시 접속한다.
 			int iLen = 0;
 			std::string szName, szIP;
-//			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 이름
-//			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iLen);
+			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 이름
+			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iLen);
 			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 IP
 			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szIP, iLen);
 			DWORD dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -823,10 +823,9 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
 			s_pSocket->Disconnect(); // 끊고...
 			Sleep(2000); // 2초 딜레이.. 서버가 처리할 시간을 준다.
-			//int iErr = s_pSocket->Connect(s_hWndBase, szIP.c_str(), dwPort);
+			int iErr = s_pSocket->Connect(GetActiveWindow(), szIP.c_str(), dwPort);
 			s_bNeedReportConnectionClosed = true; // 서버접속이 끊어진걸 보고해야 하는지..
 
-			/*
 			if(iErr) this->ReportServerConnectionFailed("Current Zone", iErr, true); // 서버 접속 오류.. Exit.
 			else
 			{
@@ -834,7 +833,6 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				// 메인 프로시저의 경우 Character_Select 를 보내고 로그인일경우 GameServer_LogIn 을 보낸다.
 				this->MsgSend_VersionCheck(); 
 			}
-			*/
 		}
 		return true;
 
@@ -967,8 +965,7 @@ int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // v
 	s_pSocket->m_bEnableSend = TRUE; // 보내기 가능..?
 #endif // #ifdef _CRYPTION
 
-	//if(iVersion != CURRENT_VERSION)
-	if(false)
+	if(iVersion != CURRENT_VERSION)
 	{
 		char szErr[256];
 
@@ -987,8 +984,7 @@ int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // v
 
 	}
 
-	//return iVersion;
-	return CURRENT_VERSION;
+	return iVersion;
 }
 
 int CGameProcedure::MsgRecv_GameServerLogIn(DataPack* pDataPack, int& iOffset) // virtual

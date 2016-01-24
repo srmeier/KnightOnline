@@ -100,6 +100,10 @@ int SDL_main(int argc, char** argv)
 		return false;
 	}
 
+	// TEMP: until we can get off windows
+	SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
+	//
+
 	if(TTF_Init() == -1) {
 		fprintf(stderr, "ER: %s\n", TTF_GetError());
 		return false;
@@ -142,8 +146,9 @@ int SDL_main(int argc, char** argv)
 	CGameProcedure::StaticMemberInit(s_pSDLWindow);
 
 	// NOTE: set the games current procedure to s_pProcLogIn
-	//CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
+	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
 
+	/*
 	// TESTING ----------
 	CGameBase::s_pPlayer->m_InfoBase.eRace = RACE_KA_ARKTUAREK;
 	CGameBase::s_pPlayer->m_InfoBase.eNation = NATION_KARUS;
@@ -159,6 +164,7 @@ int SDL_main(int argc, char** argv)
 	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcMain);
 	//CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcCharacterSelect);
 	// TESTING -----------
+	*/
 
 	BOOL bGotMsg = FALSE;
 	MSG msg; memset(&msg, 0, sizeof(MSG));
