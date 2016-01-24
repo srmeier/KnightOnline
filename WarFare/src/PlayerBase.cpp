@@ -777,16 +777,16 @@ void CPlayerBase::Tick()  // 회전, 지정된 에니메이션 Tick 및 색깔 지정 처리.. 등
 		//this->PositionSet(vPos, false);
 
 		// NOTE: old karus_start
-		//vPos.x = 358.0f;
-		//vPos.y = 120.0f;
-		//vPos.z = 1610.0f;
-		//this->PositionSet(vPos, false);
-
-		// NOTE: old moradon
-		vPos.x = 361.278503f;
-		vPos.y = 2.822370f;
-		vPos.z = 137.339859f;
+		vPos.x = 358.0f;
+		vPos.y = 120.0f;
+		vPos.z = 1610.0f;
 		this->PositionSet(vPos, false);
+
+		// NOTE: old/new moradon
+		//vPos.x = 361.278503f;
+		//vPos.y = 2.822370f;
+		//vPos.z = 137.339859f;
+		//this->PositionSet(vPos, false);
 
 		loopCount++;
 	}

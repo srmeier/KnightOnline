@@ -18,6 +18,7 @@
 #define N3FORMAT_VER_UNKN 0x00000000
 #define N3FORMAT_VER_1068 0x00000001
 #define N3FORMAT_VER_1298 0x00000002
+#define N3FORMAT_VER_CURR 0x80000000 // NOTE: not even going to attempting this right now
 
 static const int N3FORMAT_VER_DEFAULT = N3FORMAT_VER_1068;
 

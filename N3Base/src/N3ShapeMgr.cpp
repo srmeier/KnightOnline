@@ -101,6 +101,19 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 	DWORD dwRWC;
 	int nL = 0;
 
+	if(m_iVersion == N3FORMAT_VER_1298) {
+		int iIdk0;
+		ReadFile(hFile, &iIdk0, sizeof(int), &dwRWC, NULL);
+
+		int iNL;
+		ReadFile(hFile, &iNL, sizeof(int), &dwRWC, NULL);
+		if(iNL > 0) {
+			std::vector<char> buffer(iNL+1, NULL);
+			ReadFile(hFile, &buffer[0], iNL, &dwRWC, NULL);
+			m_szName = &buffer[0];
+		}
+	}
+
 	if(false == LoadCollisionData(hFile)) return false;
 
 #ifdef _N3GAME

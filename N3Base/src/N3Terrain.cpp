@@ -411,16 +411,29 @@ void CN3Terrain::TestAvailableTile()
 //
 bool CN3Terrain::Load(HANDLE hFile)
 {
+	DWORD dwRWC;
 	std::string szFNBackup = m_szFileName; // Init 를 하고 나면 파일 이름이 없어진다.... 그래서...
 
 	Init();
+
+	if(m_iVersion == N3FORMAT_VER_1298) {
+		int iIdk0;
+		ReadFile(hFile, &iIdk0, sizeof(int), &dwRWC, NULL);
+
+		int iNL;
+		ReadFile(hFile, &iNL, sizeof(int), &dwRWC, NULL);
+		if(iNL > 0) {
+			std::vector<char> buffer(iNL+1, NULL);
+			ReadFile(hFile, &buffer[0], iNL, &dwRWC, NULL);
+			m_szName = &buffer[0];
+		}
+	}
 
 	m_szFileName = szFNBackup;
 
 	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
 	if(pUILoading) pUILoading->Render("Allocating Terrain...", 0);
 
-	DWORD dwRWC;
 	ReadFile(hFile, &(m_ti_MapSize), sizeof(int), &dwRWC, NULL);
 	m_pat_MapSize = (m_ti_MapSize-1) / PATCH_TILE_SIZE;
 

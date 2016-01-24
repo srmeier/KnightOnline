@@ -583,6 +583,9 @@ typedef struct __TABLE_ZONE
 typedef struct __TABLE_ZONE
 {
 	DWORD		dwID; // zone ID
+
+	DWORD       dwVersion;
+
 	std::string	szTerrainFN; // Terrain FileName - Terrain, Tile Map, ColorMap....
 	std::string	szColorMapFN;
 	std::string	szLightMapFN;
