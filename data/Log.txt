@@ -1,442 +1,102 @@
 ---------------------------------------------------------------------------
-// Begin writing log... [01/23 19:49]
-    [19:49:25] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [19:49:25] 69107720->ClearDurationalMagic()
-    [19:49:25] 46564896->ClearAll()
-    [19:49:25] 8343608->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:49:25] 47674576->Release()
-    [19:49:25] 15589944->InitWorld()
-    [19:49:25] CN3WorldManager::InitWorld Pre delete
-    [19:49:25] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [19:49:25] CN3TerrainManager::InitWorld Pre Load	88097496
-    [19:49:26] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:49:27] CN3TerrainManager::InitWorld Pre Release Shapes	88116944
-    [19:49:27] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:49:30] CN3TerrainManager::InitWorld Pre Load Birds	69113624
-    [19:49:30] CN3TerrainManager::InitWorld Pre Load Sky	88379208
-    [19:49:30] 47605184->GetWidthByMeterWithTerrain()
-    [19:49:30] 69094000->LoadMap()
-    [19:49:30] 8112764->szMiniMapFNszMiniMapFN
-    [19:49:30] GetRepresentClass()
-    [19:49:30] 69094000->ZoomSet()
-    [19:49:30] 8112764->szTerrainFN.c_str()
-    [19:49:30] pCamera->LookAt()
-    [19:49:30] pCamera->Tick()
-    [19:49:30] pCamera->Apply()
-    [19:49:30] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:49:30] 47674576->Release()
-    [19:50:38] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:50]
+// Begin writing log... [01/24 09:16]
+    [09:16:41] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
+    [09:16:41] 79530032->ClearDurationalMagic()
+    [09:16:41] 55215544->ClearAll()
+    [09:16:41] 8194840->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [09:16:41] 56367616->Release()
+    [09:16:41] 8520280->InitWorld()
+    [09:16:41] CN3WorldManager::InitWorld Pre delete
+    [09:16:41] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
+    [09:16:41] CN3TerrainManager::InitWorld Pre Load	96156312
+    [09:16:44] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [09:16:45] CN3TerrainManager::InitWorld Pre Release Shapes	96175760
+    [09:16:45] CN3TerrainManager::InitWorld Pre Load Shapes
+    [09:16:49] CN3TerrainManager::InitWorld Pre Load Birds	79536032
+    [09:16:49] CN3TerrainManager::InitWorld Pre Load Sky	96438024
+    [09:16:49] 56255976->GetWidthByMeterWithTerrain()
+    [09:16:49] 79516312->LoadMap()
+    [09:16:49] 7981692->szMiniMapFNszMiniMapFN
+    [09:16:49] GetRepresentClass()
+    [09:16:49] 79516312->ZoomSet()
+    [09:16:49] 7981692->szTerrainFN.c_str()
+    [09:16:49] pCamera->LookAt()
+    [09:16:49] pCamera->Tick()
+    [09:16:49] pCamera->Apply()
+    [09:16:49] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [09:16:49] 56367616->Release()
+    [09:16:59] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [01/24 09:16]
 ---------------------------------------------------------------------------
-    [19:50:38] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:50:38] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:50:38] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:50:38] CN3TerrainManager::~CN3TerrainManager -> delete finished
+    [09:16:59] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [09:16:59] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [09:16:59] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [09:16:59] CN3TerrainManager::~CN3TerrainManager -> delete finished
 ---------------------------------------------------------------------------
-// Begin writing log... [01/23 19:56]
-    [19:56:56] CGameProcMain::InitZone -> Zone Change (-1 -> 2) Position(0.0, 0.0, 0.0)
-    [19:56:56] 70151648->ClearDurationalMagic()
-    [19:56:56] 46169384->ClearAll()
-    [19:56:56] 6584536->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:56:56] 47185672->Release()
-    [19:56:56] 42527880->InitWorld()
-    [19:56:56] CN3WorldManager::InitWorld Pre delete
-    [19:56:56] CN3WorldManager::InitWorld Pre new Terrain ZoneID(2)
-    [19:56:56] CN3TerrainManager::InitWorld Pre Load	89150856
-    [19:56:56] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:56:56] CN3TerrainManager::InitWorld Pre Release Shapes	89170304
-    [19:56:56] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:56:57] CN3TerrainManager::InitWorld Pre Load Birds	70157552
-    [19:56:57] CN3TerrainManager::InitWorld Pre Load Sky	89432568
-    [19:56:57] 47161528->GetWidthByMeterWithTerrain()
-    [19:56:57] 70137928->LoadMap()
-    [19:56:57] 6212436->szMiniMapFNszMiniMapFN
-    [19:56:57] GetRepresentClass()
-    [19:56:57] 70137928->ZoomSet()
-    [19:56:57] 6212436->szTerrainFN.c_str()
-    [19:56:57] pCamera->LookAt()
-    [19:56:57] pCamera->Tick()
-    [19:56:57] pCamera->Apply()
-    [19:56:57] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:56:57] 47185672->Release()
-    [19:57:12] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:57]
+// Begin writing log... [01/24 09:17]
+    [09:17:45] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
+    [09:17:45] 78774120->ClearDurationalMagic()
+    [09:17:45] 56554304->ClearAll()
+    [09:17:45] 7781824->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [09:17:45] 77599048->Release()
+    [09:17:45] 7813488->InitWorld()
+    [09:17:45] CN3WorldManager::InitWorld Pre delete
+    [09:17:45] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
+    [09:17:45] CN3TerrainManager::InitWorld Pre Load	96003624
+    [09:17:46] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [09:17:46] CN3TerrainManager::InitWorld Pre Release Shapes	96023072
+    [09:17:46] CN3TerrainManager::InitWorld Pre Load Shapes
+    [09:17:46] CN3TerrainManager::InitWorld Pre Load Birds	78780120
+    [09:17:46] CN3TerrainManager::InitWorld Pre Load Sky	96285336
+    [09:17:46] 77524984->GetWidthByMeterWithTerrain()
+    [09:17:46] 78760400->LoadMap()
+    [09:17:46] 7457404->szMiniMapFNszMiniMapFN
+    [09:17:46] GetRepresentClass()
+    [09:17:46] 78760400->ZoomSet()
+    [09:17:46] 7457404->szTerrainFN.c_str()
+    [09:17:46] pCamera->LookAt()
+    [09:17:46] pCamera->Tick()
+    [09:17:46] pCamera->Apply()
+    [09:17:46] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [09:17:46] 77599048->Release()
+    [09:17:50] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [01/24 09:17]
 ---------------------------------------------------------------------------
-    [19:57:12] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:57:12] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:57:12] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:57:12] CN3TerrainManager::~CN3TerrainManager -> delete finished
+    [09:17:50] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [09:17:50] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [09:17:50] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [09:17:50] CN3TerrainManager::~CN3TerrainManager -> delete finished
 ---------------------------------------------------------------------------
-// Begin writing log... [01/23 19:57]
-    [19:57:25] CGameProcMain::InitZone -> Zone Change (-1 -> 3) Position(0.0, 0.0, 0.0)
-    [19:57:25] 71022992->ClearDurationalMagic()
-    [19:57:25] 47173224->ClearAll()
-    [19:57:25] 11639008->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:57:25] 48282048->Release()
-    [19:57:25] 12022992->InitWorld()
-    [19:57:25] CN3WorldManager::InitWorld Pre delete
-    [19:57:25] CN3WorldManager::InitWorld Pre new Terrain ZoneID(3)
-    [19:57:25] CN3TerrainManager::InitWorld Pre Load	88258472
-    [19:57:25] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:57:25] CN3TerrainManager::InitWorld Pre Release Shapes	88277920
-    [19:57:25] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:57:25] CN3TerrainManager::InitWorld Pre Load Birds	71028896
-    [19:57:25] CN3TerrainManager::InitWorld Pre Load Sky	88540184
-    [19:57:25] 48212656->GetWidthByMeterWithTerrain()
-    [19:57:25] 71009272->LoadMap()
-    [19:57:25] 11389996->szMiniMapFNszMiniMapFN
-    [19:57:25] GetRepresentClass()
-    [19:57:25] 71009272->ZoomSet()
-    [19:57:25] 11389996->szTerrainFN.c_str()
-    [19:57:25] pCamera->LookAt()
-    [19:57:25] pCamera->Tick()
-    [19:57:25] pCamera->Apply()
-    [19:57:25] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:57:25] 48282048->Release()
-    [19:58:00] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:58]
+// Begin writing log... [01/24 09:20]
+    [09:20:07] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
+    [09:20:07] 77688312->ClearDurationalMagic()
+    [09:20:07] 55475552->ClearAll()
+    [09:20:07] 12651288->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [09:20:07] 56589136->Release()
+    [09:20:07] 12674904->InitWorld()
+    [09:20:07] CN3WorldManager::InitWorld Pre delete
+    [09:20:07] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
+    [09:20:07] CN3TerrainManager::InitWorld Pre Load	96671064
+    [09:20:07] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [09:20:07] CN3TerrainManager::InitWorld Pre Release Shapes	96690512
+    [09:20:07] CN3TerrainManager::InitWorld Pre Load Shapes
+    [09:20:07] CN3TerrainManager::InitWorld Pre Load Birds	77694312
+    [09:20:07] CN3TerrainManager::InitWorld Pre Load Sky	96952776
+    [09:20:07] 56519744->GetWidthByMeterWithTerrain()
+    [09:20:07] 77674592->LoadMap()
+    [09:20:07] 12438140->szMiniMapFNszMiniMapFN
+    [09:20:07] GetRepresentClass()
+    [09:20:07] 77674592->ZoomSet()
+    [09:20:07] 12438140->szTerrainFN.c_str()
+    [09:20:07] pCamera->LookAt()
+    [09:20:07] pCamera->Tick()
+    [09:20:07] pCamera->Apply()
+    [09:20:07] InitPlayerPosition() Position(0.0, 0.0, 0.0)
+    [09:20:07] 56589136->Release()
+    [09:20:36] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [01/24 09:20]
 ---------------------------------------------------------------------------
-    [19:58:00] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:58:00] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:58:00] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:58:00] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 19:58]
-    [19:58:13] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [19:58:13] 69906632->ClearDurationalMagic()
-    [19:58:13] 47697512->ClearAll()
-    [19:58:13] 6330592->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:58:13] 48806328->Release()
-    [19:58:13] 6714528->InitWorld()
-    [19:58:13] CN3WorldManager::InitWorld Pre delete
-    [19:58:13] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [19:58:13] CN3TerrainManager::InitWorld Pre Load	88903288
-    [19:58:13] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:58:14] CN3TerrainManager::InitWorld Pre Release Shapes	88922736
-    [19:58:14] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:58:14] CN3TerrainManager::InitWorld Pre Load Birds	69912536
-    [19:58:14] CN3TerrainManager::InitWorld Pre Load Sky	89185000
-    [19:58:14] 48736936->GetWidthByMeterWithTerrain()
-    [19:58:14] 69892912->LoadMap()
-    [19:58:14] 6081148->szMiniMapFNszMiniMapFN
-    [19:58:14] GetRepresentClass()
-    [19:58:14] 69892912->ZoomSet()
-    [19:58:14] 6081148->szTerrainFN.c_str()
-    [19:58:14] pCamera->LookAt()
-    [19:58:14] pCamera->Tick()
-    [19:58:14] pCamera->Apply()
-    [19:58:14] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:58:14] 48806328->Release()
-    [19:58:17] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:58]
----------------------------------------------------------------------------
-    [19:58:18] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:58:18] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:58:18] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:58:18] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 19:58]
-    [19:58:35] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [19:58:35] 71725064->ClearDurationalMagic()
-    [19:58:35] 47545888->ClearAll()
-    [19:58:35] 5263416->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:58:35] 48658640->Release()
-    [19:58:35] 45474360->InitWorld()
-    [19:58:35] CN3WorldManager::InitWorld Pre delete
-    [19:58:35] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [19:58:35] CN3TerrainManager::InitWorld Pre Load	87168728
-    [19:58:35] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:58:35] CN3TerrainManager::InitWorld Pre Release Shapes	87188176
-    [19:58:35] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:58:36] CN3TerrainManager::InitWorld Pre Load Birds	71730968
-    [19:58:36] CN3TerrainManager::InitWorld Pre Load Sky	87450440
-    [19:58:36] 48589248->GetWidthByMeterWithTerrain()
-    [19:58:36] 71711344->LoadMap()
-    [19:58:36] 5032572->szMiniMapFNszMiniMapFN
-    [19:58:36] GetRepresentClass()
-    [19:58:36] 71711344->ZoomSet()
-    [19:58:36] 5032572->szTerrainFN.c_str()
-    [19:58:36] pCamera->LookAt()
-    [19:58:36] pCamera->Tick()
-    [19:58:36] pCamera->Apply()
-    [19:58:36] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:58:36] 48658640->Release()
-    [19:58:40] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:58]
----------------------------------------------------------------------------
-    [19:58:40] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:58:40] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:58:40] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:58:40] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 19:58]
-    [19:58:56] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [19:58:56] 70365456->ClearDurationalMagic()
-    [19:58:56] 47173408->ClearAll()
-    [19:58:56] 8647240->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:58:56] 48282216->Release()
-    [19:58:56] 9007704->InitWorld()
-    [19:58:56] CN3WorldManager::InitWorld Pre delete
-    [19:58:56] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [19:58:56] CN3TerrainManager::InitWorld Pre Load	88183696
-    [19:58:56] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:58:56] CN3TerrainManager::InitWorld Pre Release Shapes	88203144
-    [19:58:56] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:58:57] CN3TerrainManager::InitWorld Pre Load Birds	70371360
-    [19:58:57] CN3TerrainManager::InitWorld Pre Load Sky	71696696
-    [19:58:57] 48212824->GetWidthByMeterWithTerrain()
-    [19:58:57] 70351736->LoadMap()
-    [19:58:57] 8374908->szMiniMapFNszMiniMapFN
-    [19:58:57] GetRepresentClass()
-    [19:58:57] 70351736->ZoomSet()
-    [19:58:57] 8374908->szTerrainFN.c_str()
-    [19:58:57] pCamera->LookAt()
-    [19:58:57] pCamera->Tick()
-    [19:58:57] pCamera->Apply()
-    [19:58:57] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:58:57] 48282216->Release()
-    [19:59:01] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:59]
----------------------------------------------------------------------------
-    [19:59:01] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:59:01] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:59:01] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:59:01] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 19:59]
-    [19:59:15] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [19:59:15] 70748248->ClearDurationalMagic()
-    [19:59:15] 46487488->ClearAll()
-    [19:59:15] 8616056->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:59:15] 47600144->Release()
-    [19:59:15] 44076912->InitWorld()
-    [19:59:15] CN3WorldManager::InitWorld Pre delete
-    [19:59:15] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [19:59:15] CN3TerrainManager::InitWorld Pre Load	89140888
-    [19:59:15] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:59:15] CN3TerrainManager::InitWorld Pre Release Shapes	89160336
-    [19:59:15] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:59:15] CN3TerrainManager::InitWorld Pre Load Birds	70754152
-    [19:59:16] CN3TerrainManager::InitWorld Pre Load Sky	89422600
-    [19:59:16] 47512512->GetWidthByMeterWithTerrain()
-    [19:59:16] 70717584->LoadMap()
-    [19:59:16] 8374908->szMiniMapFNszMiniMapFN
-    [19:59:16] GetRepresentClass()
-    [19:59:16] 70717584->ZoomSet()
-    [19:59:16] 8374908->szTerrainFN.c_str()
-    [19:59:16] pCamera->LookAt()
-    [19:59:16] pCamera->Tick()
-    [19:59:16] pCamera->Apply()
-    [19:59:16] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:59:16] 47600144->Release()
-    [19:59:20] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:59]
----------------------------------------------------------------------------
-    [19:59:20] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:59:20] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:59:20] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:59:20] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 19:59]
-    [19:59:32] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [19:59:32] 68514032->ClearDurationalMagic()
-    [19:59:32] 46304888->ClearAll()
-    [19:59:32] 6140776->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:59:32] 47413816->Release()
-    [19:59:32] 9302552->InitWorld()
-    [19:59:32] CN3WorldManager::InitWorld Pre delete
-    [19:59:32] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [19:59:32] CN3TerrainManager::InitWorld Pre Load	88742152
-    [19:59:32] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:59:32] CN3TerrainManager::InitWorld Pre Release Shapes	88761600
-    [19:59:32] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:59:33] CN3TerrainManager::InitWorld Pre Load Birds	68519936
-    [19:59:33] CN3TerrainManager::InitWorld Pre Load Sky	89023864
-    [19:59:33] 47344184->GetWidthByMeterWithTerrain()
-    [19:59:33] 68500304->LoadMap()
-    [19:59:33] 5884540->szMiniMapFNszMiniMapFN
-    [19:59:33] GetRepresentClass()
-    [19:59:33] 68500304->ZoomSet()
-    [19:59:33] 5884540->szTerrainFN.c_str()
-    [19:59:33] pCamera->LookAt()
-    [19:59:33] pCamera->Tick()
-    [19:59:33] pCamera->Apply()
-    [19:59:33] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:59:33] 47413816->Release()
-    [19:59:38] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:59]
----------------------------------------------------------------------------
-    [19:59:38] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:59:38] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:59:38] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:59:38] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 19:59]
-    [19:59:51] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [19:59:51] 69300464->ClearDurationalMagic()
-    [19:59:51] 46239352->ClearAll()
-    [19:59:51] 4174696->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [19:59:51] 47348280->Release()
-    [19:59:51] 43708952->InitWorld()
-    [19:59:51] CN3WorldManager::InitWorld Pre delete
-    [19:59:51] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [19:59:51] CN3TerrainManager::InitWorld Pre Load	88305528
-    [19:59:51] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [19:59:51] CN3TerrainManager::InitWorld Pre Release Shapes	88324976
-    [19:59:51] CN3TerrainManager::InitWorld Pre Load Shapes
-    [19:59:52] CN3TerrainManager::InitWorld Pre Load Birds	69306368
-    [19:59:52] CN3TerrainManager::InitWorld Pre Load Sky	87063992
-    [19:59:52] 47278648->GetWidthByMeterWithTerrain()
-    [19:59:52] 69286736->LoadMap()
-    [19:59:52] 3918460->szMiniMapFNszMiniMapFN
-    [19:59:52] GetRepresentClass()
-    [19:59:52] 69286736->ZoomSet()
-    [19:59:52] 3918460->szTerrainFN.c_str()
-    [19:59:52] pCamera->LookAt()
-    [19:59:52] pCamera->Tick()
-    [19:59:52] pCamera->Apply()
-    [19:59:52] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [19:59:52] 47348280->Release()
-    [19:59:56] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 19:59]
----------------------------------------------------------------------------
-    [19:59:56] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [19:59:56] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [19:59:56] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [19:59:56] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 20:00]
-    [20:00:08] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [20:00:08] 68005864->ClearDurationalMagic()
-    [20:00:08] 45333992->ClearAll()
-    [20:00:08] 6353616->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [20:00:08] 46446896->Release()
-    [20:00:08] 6710640->InitWorld()
-    [20:00:08] CN3WorldManager::InitWorld Pre delete
-    [20:00:08] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [20:00:08] CN3TerrainManager::InitWorld Pre Load	88161672
-    [20:00:08] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [20:00:09] CN3TerrainManager::InitWorld Pre Release Shapes	88181120
-    [20:00:09] CN3TerrainManager::InitWorld Pre Load Shapes
-    [20:00:09] CN3TerrainManager::InitWorld Pre Load Birds	68011768
-    [20:00:09] CN3TerrainManager::InitWorld Pre Load Sky	88443384
-    [20:00:09] 46377504->GetWidthByMeterWithTerrain()
-    [20:00:09] 67992144->LoadMap()
-    [20:00:09] 6081148->szMiniMapFNszMiniMapFN
-    [20:00:09] GetRepresentClass()
-    [20:00:09] 67992144->ZoomSet()
-    [20:00:09] 6081148->szTerrainFN.c_str()
-    [20:00:09] pCamera->LookAt()
-    [20:00:09] pCamera->Tick()
-    [20:00:09] pCamera->Apply()
-    [20:00:09] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [20:00:09] 46446896->Release()
-    [20:00:15] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 20:00]
----------------------------------------------------------------------------
-    [20:00:15] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [20:00:15] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [20:00:15] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [20:00:15] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 20:00]
-    [20:00:26] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [20:00:26] 71338008->ClearDurationalMagic()
-    [20:00:26] 4841600->ClearAll()
-    [20:00:26] 4568040->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [20:00:26] 48111784->Release()
-    [20:00:26] 46214680->InitWorld()
-    [20:00:26] CN3WorldManager::InitWorld Pre delete
-    [20:00:26] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [20:00:26] CN3TerrainManager::InitWorld Pre Load	88426264
-    [20:00:26] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [20:00:26] CN3TerrainManager::InitWorld Pre Release Shapes	88445712
-    [20:00:26] CN3TerrainManager::InitWorld Pre Load Shapes
-    [20:00:27] CN3TerrainManager::InitWorld Pre Load Birds	71343912
-    [20:00:27] CN3TerrainManager::InitWorld Pre Load Sky	88707976
-    [20:00:27] 70157344->GetWidthByMeterWithTerrain()
-    [20:00:27] 71326192->LoadMap()
-    [20:00:27] 4180604->szMiniMapFNszMiniMapFN
-    [20:00:27] GetRepresentClass()
-    [20:00:27] 71326192->ZoomSet()
-    [20:00:27] 4180604->szTerrainFN.c_str()
-    [20:00:27] pCamera->LookAt()
-    [20:00:27] pCamera->Tick()
-    [20:00:27] pCamera->Apply()
-    [20:00:27] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [20:00:27] 48111784->Release()
-    [20:00:31] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 20:00]
----------------------------------------------------------------------------
-    [20:00:31] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [20:00:31] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [20:00:31] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [20:00:31] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 20:00]
-    [20:00:51] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [20:00:51] 70807792->ClearDurationalMagic()
-    [20:00:51] 46567032->ClearAll()
-    [20:00:51] 11449192->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [20:00:51] 47675960->Release()
-    [20:00:51] 37155352->InitWorld()
-    [20:00:51] CN3WorldManager::InitWorld Pre delete
-    [20:00:51] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [20:00:51] CN3TerrainManager::InitWorld Pre Load	88631304
-    [20:00:51] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [20:00:51] CN3TerrainManager::InitWorld Pre Release Shapes	88650752
-    [20:00:51] CN3TerrainManager::InitWorld Pre Load Shapes
-    [20:00:52] CN3TerrainManager::InitWorld Pre Load Birds	70813696
-    [20:00:52] CN3TerrainManager::InitWorld Pre Load Sky	88913016
-    [20:00:52] 47606328->GetWidthByMeterWithTerrain()
-    [20:00:52] 70794064->LoadMap()
-    [20:00:52] 11192956->szMiniMapFNszMiniMapFN
-    [20:00:52] GetRepresentClass()
-    [20:00:52] 70794064->ZoomSet()
-    [20:00:52] 11192956->szTerrainFN.c_str()
-    [20:00:52] pCamera->LookAt()
-    [20:00:52] pCamera->Tick()
-    [20:00:52] pCamera->Apply()
-    [20:00:52] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [20:00:52] 47675960->Release()
-    [20:00:59] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 20:00]
----------------------------------------------------------------------------
-    [20:00:59] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [20:00:59] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [20:00:59] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [20:00:59] CN3TerrainManager::~CN3TerrainManager -> delete finished
----------------------------------------------------------------------------
-// Begin writing log... [01/23 20:01]
-    [20:01:10] CGameProcMain::InitZone -> Zone Change (-1 -> 1) Position(0.0, 0.0, 0.0)
-    [20:01:10] 71069280->ClearDurationalMagic()
-    [20:01:10] 47396088->ClearAll()
-    [20:01:10] 8550912->Find(s_pPlayer->m_InfoExt.iZoneCur)
-    [20:01:10] 48527176->Release()
-    [20:01:10] 8926624->InitWorld()
-    [20:01:10] CN3WorldManager::InitWorld Pre delete
-    [20:01:10] CN3WorldManager::InitWorld Pre new Terrain ZoneID(1)
-    [20:01:10] CN3TerrainManager::InitWorld Pre Load	88876280
-    [20:01:10] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [20:01:10] CN3TerrainManager::InitWorld Pre Release Shapes	88895728
-    [20:01:10] CN3TerrainManager::InitWorld Pre Load Shapes
-    [20:01:11] CN3TerrainManager::InitWorld Pre Load Birds	71075184
-    [20:01:11] CN3TerrainManager::InitWorld Pre Load Sky	89157992
-    [20:01:11] 48439544->GetWidthByMeterWithTerrain()
-    [20:01:11] 71055560->LoadMap()
-    [20:01:11] 8309372->szMiniMapFNszMiniMapFN
-    [20:01:11] GetRepresentClass()
-    [20:01:11] 71055560->ZoomSet()
-    [20:01:11] 8309372->szTerrainFN.c_str()
-    [20:01:11] pCamera->LookAt()
-    [20:01:11] pCamera->Tick()
-    [20:01:11] pCamera->Apply()
-    [20:01:11] InitPlayerPosition() Position(0.0, 0.0, 0.0)
-    [20:01:11] 48527176->Release()
-    [20:01:17] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [01/23 20:01]
----------------------------------------------------------------------------
-    [20:01:17] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [20:01:17] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [20:01:17] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [20:01:17] CN3TerrainManager::~CN3TerrainManager -> delete finished
+    [09:20:36] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [09:20:36] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [09:20:36] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [09:20:36] CN3TerrainManager::~CN3TerrainManager -> delete finished
