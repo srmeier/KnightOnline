@@ -2,6 +2,7 @@ git reset --hard 0d1d7fc32
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
+- need to get loading screen working
 - need to get the teleporter to work
 - add mouse wheel zooming
 - need to check progess UI on statebar
