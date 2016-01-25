@@ -20,7 +20,7 @@ public:
 	void InitSocket(class CEbenezerDlg* pServer, TCPsocket socket);
 
 	int Send(uint8_t* pBuf, uint16_t length);
-	void ReceivedData(uint8_t* pBuf, int length);
+	uint16_t ReceivedData(uint8_t* pBuf, int length);
 	virtual void Initialize(void);
 	virtual void Parsing(int length, uint8_t* pData);
 

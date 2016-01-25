@@ -38,6 +38,45 @@ void CUser::Parsing(int len, Byte *pData) {
 	BYTE command = GetByte(pData, index);
 
 	switch(command) {
+		case N3_GAME_SERVER_LOGIN: {
+			short sUsernameLen = GetShort(pData, index);
+			char* pUsername = (char*) calloc((sUsernameLen+1), sizeof(char));
+			GetString((Byte*)pUsername, pData, sUsernameLen, index);
+			short sPasswordLen = GetShort(pData, index);
+			char* pPassword = (char*) calloc((sPasswordLen+1), sizeof(char));
+			GetString((Byte*)pPassword, pData, sPasswordLen, index);
+
+			printf("DB: Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
+
+			free(pUsername); free(pPassword);
+
+
+			int send_index = 0;
+			Byte send_buf[1024];
+			memset(send_buf, 0x00, 1024);
+
+			// NOTE: send 0x01 for nation
+			SetByte(send_buf, N3_GAME_SERVER_LOGIN, send_index);
+			SetByte(send_buf, 0x01, send_index);
+
+			if(Send(send_buf, send_index) < send_index) {
+				printf("ER: %s\n", SDLNet_GetError());
+			}
+		} break;
+
+		case N3_VERSION_CHECK: {
+			int send_index = 0;
+			Byte send_buf[1024];
+			memset(send_buf, 0x00, 1024);
+
+			SetByte(send_buf, N3_VERSION_CHECK, send_index);
+			SetShort(send_buf, CURRENT_VERSION, send_index);
+
+			if(Send(send_buf, send_index) < send_index) {
+				printf("ER: %s\n", SDLNet_GetError());
+			}
+		} break;
+
 		case N3_ACCOUNT_LOGIN: {
 
 			short sUsernameLen = GetShort(pData, index);
@@ -50,6 +89,19 @@ void CUser::Parsing(int len, Byte *pData) {
 			printf("DB: Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
 
 			free(pUsername); free(pPassword);
+
+
+			int send_index = 0;
+			Byte send_buf[1024];
+			memset(send_buf, 0x00, 1024);
+
+			// NOTE: send 0x01 for successful login
+			SetByte(send_buf, N3_ACCOUNT_LOGIN, send_index);
+			SetByte(send_buf, 0x01, send_index);
+
+			if(Send(send_buf, send_index) < send_index) {
+				printf("ER: %s\n", SDLNet_GetError());
+			}
 
 			/*
 			CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());	// 아이디 길이..
@@ -101,9 +153,11 @@ void CUser::Parsing(int len, Byte *pData) {
 			*/
 		} break;
 
+		/*
 		case WIZ_LOGIN: {
 			LoginProcess(pData+index);
 		} break;
+		*/
 
 		case WIZ_GAMESTART: {
 			if(m_State == STATE_GAMESTART)
@@ -209,19 +263,6 @@ void CUser::MoveProcess(Byte *pBuf )
 void CUser::Initialize()
 {
 	//m_pMain = (CEbenezerDlg*)AfxGetMainWnd();
-
-	/*
-	int send_index = 0;
-	Byte send_buf[1024];
-	memset(send_buf, 0x00, 1024);
-
-	SetByte(send_buf, N3_VERSION_CHECK, send_index);
-	SetShort(send_buf, CURRENT_VERSION, send_index);
-
-	if(Send(send_buf, send_index) < send_index) {
-		printf("ER: %s\n", SDLNet_GetError());
-	}
-	*/
 
 	memset( m_UserId, 0x00, MAX_ID_SIZE );
 	m_curx = 0.0f;

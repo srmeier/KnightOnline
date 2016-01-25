@@ -28,20 +28,28 @@ void CIOCSocket::InitSocket(CEbenezerDlg* pServer, TCPsocket socket) {
 void CIOCSocket::Initialize(void) {}
 
 //-----------------------------------------------------------------------------
-void CIOCSocket::ReceivedData(uint8_t* pBuf, int length) {
+uint16_t CIOCSocket::ReceivedData(uint8_t* pBuf, int length) {
 	// TODO: maybe we can move the mutex from the worker thread and into this
 	// function?
 
-	if(length <= 6) return;
+	// TODO: this needs work because the SDL network functions return buffers
+	// with multiple packets in them... and we might not be able to use the
+	// SDLNet stuff anyways because of the multithread stuff
 
+	if(length <= 6) return length;
+
+	uint16_t sSize;
 	if(pBuf[0]==PACKET_START1 && pBuf[1]==PACKET_START2 &&
 		pBuf[length-2]==PACKET_END1 && pBuf[length-1]==PACKET_END2
 	) {
-		uint16_t sSize = *(uint16_t*) &pBuf[2];
+		sSize = *(uint16_t*) &pBuf[2];
 		printf("Got packet of size %d\n", (int) sSize);
 
-		Parsing(length-6, &pBuf[4]);
+		//Parsing(length-6, &pBuf[4]);
+		Parsing(sSize, &pBuf[4]);
 	}
+
+	return (sSize+6);
 }
 
 //-----------------------------------------------------------------------------
@@ -68,6 +76,11 @@ int CIOCSocket::Send(uint8_t* pBuf, uint16_t length) {
 	// TODO: add a try mutex since the send thread will just move to the next
 	// free socket
 	SDL_LockMutex(m_critData);
+	if(m_tcpSocket == NULL) {
+		fprintf(stderr, "Failed to send before socket was closed!\n");
+		return 0x00;
+	}
+
 	int size = SDLNet_TCP_Send(m_tcpSocket, pTBuf, index);
 	SDL_UnlockMutex(m_critData);
 

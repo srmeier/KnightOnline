@@ -34,35 +34,39 @@ int AcceptThread(void* pData) {
 
 	while(!SDL_AtomicGet(&pIocport->m_aCloseAcceptThread)) {
 		// NOTE: every so often check to see if this thread should exit
-		if(SDLNet_CheckSockets(SocketSet, 500)>0 &&
-			SDLNet_SocketReady(pIocport->m_ListenSocket)
-		) {
-			tcpSocket = SDLNet_TCP_Accept(pIocport->m_ListenSocket);
+		if(SDLNet_CheckSockets(SocketSet, 500)>0) {
 
-			if(tcpSocket) {
-				iSid = pIocport->GetNewSid();
-				if(iSid == -1) continue;
+			SDL_LockMutex(g_critical);
 
-				printf("\nSocket %d has connected - got Sid %d\n", tcpSocket, iSid);
+			if(SDLNet_SocketReady(pIocport->m_ListenSocket)) {
+				tcpSocket = SDLNet_TCP_Accept(pIocport->m_ListenSocket);
 
-				pIocsocket = pIocport->GetIOCSocket(iSid);
-				if(!pIocsocket) {
-					SDLNet_FreeSocketSet(SocketSet);
-					return -1;
+				if(tcpSocket) {
+
+					iSid = pIocport->GetNewSid();
+					if(iSid == -1) continue;
+
+					printf("\nSocket %d has connected - got Sid %d\n", tcpSocket, iSid);
+
+					pIocsocket = pIocport->GetIOCSocket(iSid);
+					if(!pIocsocket) {
+						SDLNet_FreeSocketSet(SocketSet);
+						return -1;
+					}
+
+					pIocsocket->InitSocket(pIocport->m_pServer, tcpSocket);
+
+					// NOTE: from this point on everyone else is aware of the
+					// socket and the worker threads (and the send thread) share
+					// the sockets
+
+					pIocport->m_SidReceivedQueue.push(iSid);
+
+					SDL_SemPost(pIocport->m_pWorkerSem);
 				}
-
-				pIocsocket->InitSocket(pIocport->m_pServer, tcpSocket);
-
-				// NOTE: from this point on everyone else is aware of the
-				// socket and the worker threads (and the send thread) share
-				// the sockets
-
-				SDL_LockMutex(g_critical);
-				pIocport->m_SidReceivedQueue.push(iSid);
-				SDL_UnlockMutex(g_critical);
-
-				SDL_SemPost(pIocport->m_pWorkerSem);
 			}
+
+			SDL_UnlockMutex(g_critical);
 		}
 	}
 
@@ -133,12 +137,15 @@ int ReceiveWorkerThread(void* pData) {
 				return -1;
 			}
 
-			SDL_UnlockMutex(g_critical);
 			mySids.push_back(iSid);
+
+			SDL_UnlockMutex(g_critical);
 
 		} else if(status == SDL_MUTEX_TIMEDOUT) {
 			// NOTE: if we don't have any new clients then check our current
 			// clients for packets
+			SDL_LockMutex(g_critical);
+
 			int numrdy = SDLNet_CheckSockets(SocketSet, 10);
 
 			if(numrdy > 0) {
@@ -167,15 +174,16 @@ int ReceiveWorkerThread(void* pData) {
 
 						if(result <= 0) {
 							SDLNet_TCP_DelSocket(SocketSet, pIocsocket->m_tcpSocket);
+
 							if(pIocsocket->m_tcpSocket) {
 								// TODO: need to move these to functions?
 								SDLNet_TCP_Close(pIocsocket->m_tcpSocket);
-								printf("Closed socket %d\n", pIocsocket->m_tcpSocket);
-
 								SDL_UnlockMutex(pIocsocket->m_critData);
-								pIocsocket = NULL;
 
-								SDL_LockMutex(g_critical);
+								printf("Closed socket %d\n", pIocsocket->m_tcpSocket);
+								pIocsocket->m_tcpSocket = NULL;
+
+								pIocsocket = NULL;
 
 								delete pIocport->m_SockArray[*iter];
 								pIocport->m_SockArray[*iter] = NULL;
@@ -184,8 +192,6 @@ int ReceiveWorkerThread(void* pData) {
 								// NOTE: it must be the front because otherwise m_AiSendSocket
 								// gets messed up and we fail to send packets
 								pIocport->m_SidList.push_front(*iter);
-
-								SDL_UnlockMutex(g_critical);
 
 								iter = mySids.erase(iter);
 
@@ -199,19 +205,26 @@ int ReceiveWorkerThread(void* pData) {
 							uint8_t* pRecvBuff = (uint8_t*) malloc(result*sizeof(uint8_t));
 							memcpy(pRecvBuff, buffer, result);
 
-							pIocsocket->ReceivedData(pRecvBuff, result); // TEMP
+							// NOTE: there could be multiple packets so this needs some working
+							//       this seems to work for now but is obviously not safe
+							uint16_t sOffset = 0;
+							while(sOffset < result) {
+								uint16_t sOldOffset = sOffset;
+								sOffset += pIocsocket->ReceivedData(&pRecvBuff[sOffset], result); // TEMP
+
+								for(int m=sOldOffset; m<sOffset; ++m)
+									printf("0x%02X ", buffer[m]);
+								printf("\n\n");
+							}
 
 							free(pRecvBuff);
-
-							for(int m=0; m<result; ++m)
-								printf("0x%02X ", buffer[m]);
-							printf("\n\n");
 						}
 
 						numrdy--;
 					}
 
-					SDL_UnlockMutex(pIocsocket->m_critData);
+					if(pIocsocket) SDL_UnlockMutex(pIocsocket->m_critData);
+
 					iter++;
 				}
 
@@ -221,6 +234,9 @@ int ReceiveWorkerThread(void* pData) {
 					return -1;
 				}
 			}
+
+			SDL_UnlockMutex(g_critical);
+
 		} else {
 			fprintf(stderr, "ERROR: \"%s\"\n", SDL_GetError());
 			SDLNet_FreeSocketSet(SocketSet);
@@ -265,6 +281,8 @@ int SendThreadMain(void* pData) {
 				count = -1;
 
 				for(int i=0; i<MAX_SOCKET; ++i) {
+					SDL_LockMutex(g_critical);
+
 					pSocket = (CGameSocket*) pIocport->m_SockArray[i]; // TODO: no need for mutex?
 					if(pSocket == NULL) continue;
 					count++;
@@ -301,6 +319,8 @@ int SendThreadMain(void* pData) {
 							count--;
 						}
 					}
+
+					SDL_UnlockMutex(g_critical);
 				}
 
 				if(pSendData) delete pSendData;
@@ -388,7 +408,7 @@ CIOCPort::~CIOCPort(void) {
 	SDLNet_Quit();
 
 	printf("\n");
-	//system("pause");
+	system("pause");
 }
 
 //-----------------------------------------------------------------------------
