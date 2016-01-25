@@ -810,8 +810,8 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			// 다른 존 서버로 다시 접속한다.
 			int iLen = 0;
 			std::string szName, szIP;
-			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 이름
-			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iLen);
+//			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 이름
+//			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iLen);
 			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 IP
 			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szIP, iLen);
 			DWORD dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);

@@ -398,11 +398,11 @@ void CGameProcMain::Init()
 
 	if(s_pUILoading) s_pUILoading->Render("Loading Character Data... 100 %", 100);
 
-	int offset = 0;
-	DataPack tempData = {};
+	this->MsgSend_GameStart();
 
-	//this->MsgSend_GameStart();
-	this->MsgRecv_MyInfo_All(&tempData, offset);
+	//int offset = 0;
+	//DataPack tempData = {};
+	//this->MsgRecv_MyInfo_All(&tempData, offset);
 
 	// 경로 돌리기..
 	::SetCurrentDirectory(szPathOld);
@@ -443,8 +443,8 @@ void CGameProcMain::Tick()
 {
 	CGameProcedure::Tick();	// 키, 마우스 입력 등등..
 
-	//if ( FALSE == m_bLoadComplete ) return;				// 로딩이 안되었으면.. 돌아간다.
-	//if(!s_pSocket->IsConnected()) return;
+	if ( FALSE == m_bLoadComplete ) return;				// 로딩이 안되었으면.. 돌아간다.
+	if(!s_pSocket->IsConnected()) return;
 
 #ifdef _DEBUG
 	if(s_pLocalInput->IsKeyPressed(SDL_SCANCODE_F8))
@@ -993,12 +993,10 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 {
 	// Loading이 된 후..
-	//if ( FALSE == m_bLoadComplete ) return; 
+	if ( FALSE == m_bLoadComplete ) return; 
 
-	/*
 	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
 		return;
-	*/
 
 	//////////////////////////////////////////
 	//

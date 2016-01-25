@@ -386,8 +386,7 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 
 			CAPISocket socketTmp;
 			s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
-			/*
-			if(0 == socketTmp.Connect(s_hWndBase, szIP.c_str(), dwPort))
+			if(0 == socketTmp.Connect(GetActiveWindow(), szIP.c_str(), dwPort))
 			{
 				// 로그인 서버에서 받은 겜서버 주소로 접속해서 짤르라고 꼰지른다.
 				int iOffset2 = 0;
@@ -400,7 +399,6 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 				socketTmp.Disconnect(); // 짜른다..
 			}
 			s_bNeedReportConnectionClosed = true; // 서버접속이 끊어진걸 보고해야 하는지..
-			*/
 
 			std::string szMsg;
 			std::string szTmp;

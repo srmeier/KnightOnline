@@ -6,6 +6,8 @@
 #include "User.h"
 #include "EbenezerDlg.h"
 
+extern int running;
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -38,6 +40,152 @@ void CUser::Parsing(int len, Byte *pData) {
 	BYTE command = GetByte(pData, index);
 
 	switch(command) {
+		case N3_ROTATE: {
+			float fYaw = ((float)GetShort(pData, index) / 100.0f);
+
+			printf("DB: (N3_ROTATE) New angle = %f\n", fYaw);
+
+			/*
+			CAPISocket::MP_AddShort(byBuff, iOffset, fYaw*100);
+			*/
+		} break;
+
+		case N3_TIME_NOTIFY: {
+			// NOTE: a two second time notification?
+		} break;
+
+		case N3_MOVE: {
+			MoveProcess(pData+index);
+		} break;
+
+		case N3_CHARACTER_SELECT: {
+
+			char IDName[0xFF] = {};
+			char AccName[0xFF] = {};
+
+			Byte ZoneInit;
+			Byte ZoneCur;
+
+			short sNameLen = GetShort(pData, index);
+			GetString((Byte*)AccName, pData, sNameLen, index);
+			sNameLen = GetShort(pData, index);
+			GetString((Byte*)IDName, pData, sNameLen, index);
+			ZoneInit = GetByte(pData, index);
+			ZoneCur = GetByte(pData, index);
+
+			printf("DB: (N3_CHARACTER_SELECT) Account Name = \"%s\", ID = \"%s\", ZoneInit = %d, ZoneCur = %d\n", AccName, IDName, ZoneInit, ZoneCur);
+
+			/*
+			CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());				// 계정 길이..
+			CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);						// 계정 문자열..
+			CAPISocket::MP_AddShort(byBuff, iOffset, s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
+			CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// 캐릭 아이디 문자열..
+			CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneInit);	// 처음 접속인지 아닌지 0x01:처음 접속
+			CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneCur);		// 캐릭터 선택창에서의 캐릭터 존 번호
+			*/
+
+			int send_index = 0;
+			Byte send_buf[1024];
+			memset(send_buf, 0x00, 1024);
+
+			SetByte(send_buf, N3_CHARACTER_SELECT, send_index);
+			SetByte(send_buf, 0x01, send_index);
+			SetByte(send_buf, 0x00, send_index);
+			SetShort(send_buf, 3580, send_index);
+			SetShort(send_buf, 1200, send_index);
+			SetShort(send_buf, 16100, send_index);
+			SetByte(send_buf, 0x01, send_index);
+
+			if(Send(send_buf, send_index) < send_index) {
+				printf("ER: %s\n", SDLNet_GetError());
+			}
+
+			/*
+			int iZoneCur = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+			float fX = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
+			float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
+			float fY = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
+			int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+			*/
+		} break;
+
+		case N3_ALL_CHARACTER_INFO_REQUEST: {
+
+			int send_index = 0;
+			Byte send_buf[1024];
+			memset(send_buf, 0x00, 1024);
+
+			SetByte(send_buf, N3_ALL_CHARACTER_INFO_REQUEST, send_index);
+
+			if(Send(send_buf, send_index) < send_index) {
+				printf("ER: %s\n", SDLNet_GetError());
+			}
+
+			//int iResult = 0x01;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 결과..
+			/*
+			for(int i = 0; i < MAX_AVAILABLE_CHARACTER; i++)
+			{
+				if(i!=0) {
+					m_InfoChrs[i].szID = "";
+					continue;
+				}
+				int iIDLength				= 0x04;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 캐릭터 아이디 길이 s,
+				//CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
+				m_InfoChrs[i].szID = "test";
+
+				m_InfoChrs[i].eRace			= (e_Race)0x01;//(e_Race)(CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset)); // 종족 b
+				m_InfoChrs[i].eClass		= (e_Class)101;//(e_Class)(CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset)); // 직업 b
+				m_InfoChrs[i].iLevel		= 1;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 레벨 b
+				m_InfoChrs[i].iFace			= 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 얼굴모양 b
+				m_InfoChrs[i].iHair			= 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리모양 b
+				m_InfoChrs[i].iZone			= 1;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // zone number
+
+				m_InfoChrs[i].dwItemHelmet				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 투구 dw
+				m_InfoChrs[i].iItemHelmetDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+				m_InfoChrs[i].dwItemUpper				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 상체 dw
+				m_InfoChrs[i].iItemUpperDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+				m_InfoChrs[i].dwItemCloak				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 어깨(망토) dw
+				m_InfoChrs[i].iItemCloakDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+				m_InfoChrs[i].dwItemLower				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
+				m_InfoChrs[i].iItemLowerDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+				m_InfoChrs[i].dwItemGloves				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 장갑 dw
+				m_InfoChrs[i].iItemGlovesDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+				m_InfoChrs[i].dwItemShoes				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 신발 dw
+				m_InfoChrs[i].iItemShoesDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			}
+			*/
+		} break;
+
+		case N3_GAMESTART: {
+
+			char ID[0xFF] = {};
+
+			Byte IDLen = GetByte(pData, index);
+			GetString((Byte*)ID, pData, IDLen, index);
+
+			printf("DB: (N3_GAMESTART) ID = \"%s\"\n", ID);
+
+			/*
+			CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->IDString().size());		// 아이디 길이 패킷에 넣기..
+			CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// 아이디 문자열 패킷에 넣기..
+			*/
+
+			SendMyInfo();
+		} break;
+
+		case N3_CHECK_SPEEDHACK: {
+
+			Byte bInit = GetByte(pData, index);
+			float time = Getfloat(pData, index);
+
+			printf("DB: (N3_CHECK_SPEEDHACK) is this the first? (%d) with time %f\n", bInit, time);
+
+			/*
+			s_pSocket->MP_AddByte(byBuff, iOffset, bInit);				// 서버가 기준 시간으로 쓸 타입 true 이면 기준시간 false면 체크타입
+			s_pSocket->MP_AddFloat(byBuff, iOffset, fTime);				// 클라이언트 시간
+			*/
+		} break;
+
 		case N3_GAME_SERVER_LOGIN: {
 			short sUsernameLen = GetShort(pData, index);
 			char* pUsername = (char*) calloc((sUsernameLen+1), sizeof(char));
@@ -46,7 +194,7 @@ void CUser::Parsing(int len, Byte *pData) {
 			char* pPassword = (char*) calloc((sPasswordLen+1), sizeof(char));
 			GetString((Byte*)pPassword, pData, sPasswordLen, index);
 
-			printf("DB: Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
+			printf("DB: (N3_GAME_SERVER_LOGIN) Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
 
 			free(pUsername); free(pPassword);
 
@@ -86,7 +234,7 @@ void CUser::Parsing(int len, Byte *pData) {
 			char* pPassword = (char*) calloc((sPasswordLen+1), sizeof(char));
 			GetString((Byte*)pPassword, pData, sPasswordLen, index);
 
-			printf("DB: Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
+			printf("DB: (N3_ACCOUNT_LOGIN) Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
 
 			free(pUsername); free(pPassword);
 
@@ -157,7 +305,6 @@ void CUser::Parsing(int len, Byte *pData) {
 		case WIZ_LOGIN: {
 			LoginProcess(pData+index);
 		} break;
-		*/
 
 		case WIZ_GAMESTART: {
 			if(m_State == STATE_GAMESTART)
@@ -170,6 +317,29 @@ void CUser::Parsing(int len, Byte *pData) {
 		case WIZ_MOVE: {
 			MoveProcess(pData+index);
 		} break;
+		*/
+
+		default: {
+			printf("DB: Need to take care of packet 0x%02X\n", command);
+			running = 0;
+		} break;
+	}
+}
+
+//-----------------------------------------------------------------------------
+void CUser::SendMyInfo(void) {
+	int send_index = 0;
+	Byte send_buf[1024];
+	memset(send_buf, 0x00, 1024);
+
+	// TODO: add the rest of this packet !!!
+	// current the client is filling in the rest
+	SetByte(send_buf, N3_MYINFO, send_index);
+
+	// probably want to hit this client function as well MsgRecv_UserInRequested
+
+	if(Send(send_buf, send_index) < send_index) {
+		printf("ER: %s\n", SDLNet_GetError());
 	}
 }
 
@@ -221,6 +391,25 @@ void CUser::LoginProcess(Byte *pBuf )
 
 void CUser::MoveProcess(Byte *pBuf )
 {
+	int index = 0;
+
+	short x = GetShort(pBuf, index);
+	short z = GetShort(pBuf, index);
+	short y = GetShort(pBuf, index);
+	short speed = GetShort(pBuf, index);
+	Byte moveflag = GetByte(pBuf, index);
+
+	printf("DB: (N3_MOVE) X:%d, Y:%d, Z:%d, SPEED:%d, MOVEFLAG:%d\n", x, y, z, speed, moveflag);
+
+	/*
+	CAPISocket::MP_AddWord(byBuff, iOffset, vPos.x*10);			// 다음 위치
+	CAPISocket::MP_AddWord(byBuff, iOffset, vPos.z*10);
+	CAPISocket::MP_AddShort(byBuff, iOffset, vPos.y*10);
+	CAPISocket::MP_AddWord(byBuff, iOffset, fSpeed*10);			// 속도 
+	CAPISocket::MP_AddByte(byBuff, iOffset, byMoveFlag );		// 움직임 플래그..
+	*/
+
+	/*
 	int index = 0, send_index = 0, region = 0;
 	float will_x, will_z, will_y, server_y;
 	Byte send_buf[1024];
@@ -237,7 +426,11 @@ void CUser::MoveProcess(Byte *pBuf )
 	m_RegionX = (int)(will_x / VIEW_DIST);
 	m_RegionZ = (int)(will_z / VIEW_DIST);
 	region = m_pMain->GetRegionCount(m_RegionX, m_RegionZ );
+	*/
 
+	//-------------
+
+	/*
 	SetByte( send_buf, WIZ_MOVE, send_index );
 	SetShort( send_buf, m_Sid, send_index );
 	Setfloat( send_buf, m_curx, send_index );
@@ -253,11 +446,8 @@ void CUser::MoveProcess(Byte *pBuf )
 	m_curz = will_z;
 	m_cury = will_y;
 
-	//TRACE("Project WILL: %.2f, %.2f, %.2f", m_curx, m_cury, m_curz );
-
-	m_pMain->Send_Region( send_buf, send_index, m_RegionX, m_RegionZ );
-
-	//TRACE("Send Move Result - %s\n", m_UserId);
+	//m_pMain->Send_Region( send_buf, send_index, m_RegionX, m_RegionZ );
+	*/
 }
 
 void CUser::Initialize()

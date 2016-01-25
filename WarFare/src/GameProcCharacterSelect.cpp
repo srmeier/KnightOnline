@@ -217,8 +217,9 @@ void CGameProcCharacterSelect::Init()
 			break;
 	}
 
-	//this->MsgSend_RequestAllCharacterInfo(); // 캐릭터 정보 요청..
+	this->MsgSend_RequestAllCharacterInfo(); // 캐릭터 정보 요청..
 
+	/*
 	int offset = 0;
 	DataPack tempData;
 
@@ -226,6 +227,7 @@ void CGameProcCharacterSelect::Init()
 	tempData.m_pData = NULL;
 
 	this->MsgRecv_AllCharacterInfo(&tempData, offset);
+	*/
 }
 
 void CGameProcCharacterSelect::Tick()
@@ -682,7 +684,7 @@ bool CGameProcCharacterSelect::MsgRecv_CharacterSelect(DataPack* pDataPack, int&
 
 void CGameProcCharacterSelect::ProcessOnReturn()
 {
-	//if(!m_bReceivedCharacterSelect) return;
+	if(!m_bReceivedCharacterSelect) return;
 	//엔터키 눌렸을때 라이트 때문에 깜빡이는것 없애기 위해...
 
 	if ( m_eCurProcess != PROCESS_ROTATEING )
@@ -724,7 +726,7 @@ void CGameProcCharacterSelect::ProcessOnReturn()
 		s_SndMgr.ReleaseStreamObj(&(CGameProcedure::s_pSnd_BGM));
 		CGameProcedure::ProcActiveSet((CGameProcedure*)s_pProcMain); // 캐릭터 고르기에 성공하면.. 메인으로 가자!!
 //		CGameProcedure::s_pEng->RestoreLighting();
-		//this->s_pUILoading->Render("Loading data...", 0);
+		this->s_pUILoading->Render("Loading data...", 0);
 	}
 }
 
