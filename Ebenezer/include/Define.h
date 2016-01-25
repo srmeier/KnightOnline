@@ -96,7 +96,7 @@ typedef union{
 #define N3_GAMESERVER_GROUP_LIST	0xf5
 #define N3_VERSION_CHECK		0x2B	// 버전 체크... s1 - Version
 #define N3_ACCOUNT_LOGIN			0xf3
-
+#define	N3_GAME_SERVER_LOGIN	0x01	// Game server 에 Log in..
 
 
 
