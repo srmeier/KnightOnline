@@ -766,10 +766,8 @@ void CPlayerBase::Tick()  // 회전, 지정된 에니메이션 Tick 및 색깔 지정 처리.. 등
 		this->PositionSet(vPos, false);
 	}
 
-	// TEMP search "player position" to get here
 	/*
-	- just here so player doesn't get stuck
-	*/
+	// TEMP search "player position" to get here
 	static int loopCount = 0;
 	if(loopCount==0) {
 		//vPos.x = vPos.x+5.0f;
@@ -791,6 +789,7 @@ void CPlayerBase::Tick()  // 회전, 지정된 에니메이션 Tick 및 색깔 지정 처리.. 등
 		loopCount++;
 	}
 	// TEMP
+	*/
 
 	if(vPos.y < m_fYNext)
 	{

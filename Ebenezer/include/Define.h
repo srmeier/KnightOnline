@@ -97,6 +97,14 @@ typedef union{
 #define N3_VERSION_CHECK		0x2B	// 버전 체크... s1 - Version
 #define N3_ACCOUNT_LOGIN			0xf3
 #define	N3_GAME_SERVER_LOGIN	0x01	// Game server 에 Log in..
+#define N3_CHECK_SPEEDHACK			0x41 // 스피드핵 체크용 패킷..
+#define	N3_GAMESTART			0x0D	// Game Start..
+#define	N3_ALL_CHARACTER_INFO_REQUEST	0x0C	// 모든 캐릭터 정보 요청하기..
+#define	N3_CHARACTER_SELECT		0x04	// Game start..
+#define	N3_MOVE					0x06	// Move..
+#define N3_TIME_NOTIFY				0x39	// 패킷에서 아무것도 안보낸지 2초 지나면.. 이걸 보낸다..
+#define	N3_ROTATE				0x09	// Rotate..
+#define	N3_MYINFO				0x0E	// NPC moveedge..
 
 
 

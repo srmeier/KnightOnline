@@ -22,6 +22,7 @@ protected:
 public:
 	int GetState(void) {return m_State;}
 
+	void SendMyInfo(void);
 	void UserInOut( Byte Type );
 	void Initialize();
 	void MoveProcess( Byte* pBuf );
