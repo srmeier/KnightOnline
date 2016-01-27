@@ -90,8 +90,8 @@ void CUser::Parsing(int len, Byte *pData) {
 
 			SetByte(send_buf, N3_CHARACTER_SELECT, send_index);
 			SetByte(send_buf, 0x01, send_index);
-			SetByte(send_buf, 0x00, send_index);
-			SetShort(send_buf, 3580, send_index);
+			SetByte(send_buf, 21, send_index); // NOTE: set the init player zone
+			SetShort(send_buf, 4000/*3580*/, send_index);
 			SetShort(send_buf, 1200, send_index);
 			SetShort(send_buf, 16100, send_index);
 			SetByte(send_buf, 0x01, send_index);
@@ -171,6 +171,28 @@ void CUser::Parsing(int len, Byte *pData) {
 			*/
 
 			SendMyInfo();
+
+			//UserInOut( USER_REGENE );
+			//m_pMain->UserInOutForMe(this);
+			//m_pMain->NpcInOutForMe(this);
+
+			SendNotice();
+
+			//SendTimeStatus();
+			/*
+			if(m_pMain->m_bPermanentChatMode) {		// If there is a permanent chat available!!!
+				int buffindex = 0;
+				char buff[1024]; memset( buff, 0x00, 1024 );
+
+				SetByte( buff, WIZ_CHAT, buffindex );
+				SetByte( buff, PERMANENT_CHAT, buffindex );
+				SetByte( buff, 0x01, buffindex );		// Nation
+				SetShort( buff, -1, buffindex );		// sid
+				SetShort( buff, strlen(m_pMain->m_strPermanentChat), buffindex );
+				SetString( buff, m_pMain->m_strPermanentChat, strlen(m_pMain->m_strPermanentChat), buffindex );
+				Send( buff, buffindex );			
+			}
+			*/
 		} break;
 
 		case N3_CHECK_SPEEDHACK: {
@@ -324,6 +346,30 @@ void CUser::Parsing(int len, Byte *pData) {
 			running = 0;
 		} break;
 	}
+}
+
+//-----------------------------------------------------------------------------
+void CUser::SendNotice(void) {
+	int send_index = 0, buff_index = 0;
+	char send_buff[2048], buff[1024];
+	memset( buff, NULL, 1024 );
+	memset( send_buff, NULL, 2048 );
+
+	char string[] = "Hello 123 Testing 123";
+
+	int count = 0;
+	SetByte((Byte*)send_buff, N3_NOTICE, send_index);
+	for( int i=0; i<20; i++ ) {
+		if( !strlen(string) )
+			continue;
+		SetByte((Byte*)buff, strlen(string), buff_index);
+		SetString((Byte*)buff, string, strlen(string), buff_index);
+		count++;
+	}
+
+	SetByte((Byte*)send_buff, count, send_index);
+	SetString((Byte*)send_buff, buff, buff_index, send_index);
+	Send((Byte*)send_buff, send_index);
 }
 
 //-----------------------------------------------------------------------------

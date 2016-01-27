@@ -231,7 +231,10 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	s_pFX = new CN3FXMgr();
 
 	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI->Find(NATION_ELMORAD); // 기본은 엘모라드 UI 로 한다..
-	__ASSERT(pTblUI, "기본 UI 가 없습니다.");
+	if(pTblUI == NULL) {
+		printf("ER: UI table is NULL.\n");
+		exit(-1);
+	}
 
 	s_pUIMgr = new CUIManager(); // 기본 UIManager
 	s_pMsgBoxMgr = new CUIMessageBoxManager(); //MessageBox Manager
