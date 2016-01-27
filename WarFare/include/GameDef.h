@@ -584,7 +584,7 @@ typedef struct __TABLE_ZONE
 {
 	DWORD		dwID; // zone ID
 
-	DWORD       dwVersion;
+	//DWORD       dwVersion;
 
 	std::string	szTerrainFN; // Terrain FileName - Terrain, Tile Map, ColorMap....
 	std::string	szColorMapFN;
@@ -595,6 +595,13 @@ typedef struct __TABLE_ZONE
 	BOOL		bIndicateEnemyPlayer;	// 적국 플레이어를 표시하나??
 	int			iFixedSundDirection;	// 해의 방향을 고정시키는지..
 	std::string szLightObjFN;		// 지형에 배치되어 있는 라이트정보파일..
+
+	// 1068
+	std::string szIdk0;
+	int         iIdk1;
+	std::string szIdk2;
+	float       fIdk3;
+	std::string szIdk4;
 } TABLE_ZONE;
 
 
@@ -669,6 +676,13 @@ typedef struct __TABLE_UI_RESRC
 	std::string szKaLoading;			// 52
 	std::string szNationSelect;			// 53
 
+	// 1068
+	std::string szIdk0;					// 54
+	std::string szIdk1;					// 55
+	std::string szIdk2;					// 56
+	//std::string szIdk3;					// 57
+	//std::string szIdk4;					// 58
+	//std::string szIdk5;					// 59
 } TABLE_UI_RESRC;
 
 typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...

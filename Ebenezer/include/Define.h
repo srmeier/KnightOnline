@@ -105,6 +105,7 @@ typedef union{
 #define N3_TIME_NOTIFY				0x39	// 패킷에서 아무것도 안보낸지 2초 지나면.. 이걸 보낸다..
 #define	N3_ROTATE				0x09	// Rotate..
 #define	N3_MYINFO				0x0E	// NPC moveedge..
+#define N3_NOTICE				0x2E	// 공지사항..
 
 
 

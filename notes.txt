@@ -2,9 +2,10 @@ git reset --hard 0d1d7fc32
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
-- need to get loading screen working
+- fix issue with setting player position when joining map (to see dungeon_a)
+- support all 1068 file formats
 - need to get the teleporter to work
-- add mouse wheel zooming
 - need to check progess UI on statebar
-- take a look at the new zone files 1298 added
+- take a look at the new zone files 1298 added (ens, gev, etc.)
 - fixed so that it compiles with debug config
+- setup dev server with no DB
