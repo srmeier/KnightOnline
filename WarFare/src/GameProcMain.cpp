@@ -579,7 +579,7 @@ void CGameProcMain::Tick()
 
 void CGameProcMain::Render()
 {
-	//if ( FALSE == m_bLoadComplete )	return; 		// 로딩이 끝났냐??
+	if ( FALSE == m_bLoadComplete )	return; 		// 로딩이 끝났냐??
 
 	D3DCOLOR crSky = ACT_WORLD->GetSkyColorWithSky();
 	s_pEng->Clear(crSky); // 안개 색깔을 넣어서 클리어.. -> 하늘색깔로 클리어 해야 하늘이 제대로 나온다..
@@ -1645,14 +1645,16 @@ bool CGameProcMain::MsgRecv_MyInfo_All(DataPack* pDataPack, int& iOffset)
 	s_pPlayer->Release(); // 일단 몽창 다 해제 하고....
 	s_pPlayer->m_InfoExt.iZoneCur = iZone;
 
-	int iID = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int iLen = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	std::string szID = ""; //CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szID, iLen);
+	int iID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+
+	std::string szID;
+	CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szID, iLen);
 	s_pPlayer->IDSet(iID, szID, D3DCOLOR_XRGB(100, 210, 255)); // 밝은 파란색과 하늘색 중간..
 
-	float fX = 358.0f;//(CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-	float fZ = 127.0f;//(CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-	float fY = 1610.0f;//(CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
+	float fX = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
+	float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
+	float fY = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
 	
 	s_pPlayer->m_InfoBase.eNation = (e_Nation)NATION_KARUS; //CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	s_pPlayer->m_InfoBase.eRace = (e_Race)RACE_KA_ARKTUAREK;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);

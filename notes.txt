@@ -2,10 +2,13 @@ git reset --hard 0d1d7fc32
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
-- fix issue with setting player position when joining map (to see dungeon_a)
 - support all 1068 file formats
-- need to get the teleporter to work
+	- requires testing of weapons and armor and stuff
 - need to check progess UI on statebar
-- take a look at the new zone files 1298 added (ens, gev, etc.)
-- fixed so that it compiles with debug config
+- need to get the teleporter to work
+	- a fully working tele would require a DB
+	- need something that will work well for a DevServe
 - setup dev server with no DB
+- fixed so that it compiles with debug config
+	- better to wait until I can start with blank new projects
+- take a look at the new zone files 1298 added (ens, gev, etc.)
