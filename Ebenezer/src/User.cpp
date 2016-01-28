@@ -8,19 +8,23 @@
 
 extern int running;
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+/*
+vPos.x = 358.0f;
+vPos.z = 1610.0f;
+vPos.y = 120.0f;
+*/
 
-CUser::CUser()
-{
+int player_zone = 21;
+int player_x = 2000;
+int player_z = 2000;
+int player_y = 0;
 
-}
+//-----------------------------------------------------------------------------
+CUser::CUser(void) {}
 
-CUser::~CUser()
-{
-
-}
+//-----------------------------------------------------------------------------
+CUser::~CUser(void) {}
 
 void CUser::CloseProcess()
 {
@@ -90,10 +94,13 @@ void CUser::Parsing(int len, Byte *pData) {
 
 			SetByte(send_buf, N3_CHARACTER_SELECT, send_index);
 			SetByte(send_buf, 0x01, send_index);
-			SetByte(send_buf, 21, send_index); // NOTE: set the init player zone
-			SetShort(send_buf, 4000/*3580*/, send_index);
-			SetShort(send_buf, 1200, send_index);
-			SetShort(send_buf, 16100, send_index);
+			SetByte(send_buf, player_zone, send_index); // NOTE: set the init player zone
+
+			// NOTE: need to figure out why the position gets sent twice
+			SetShort(send_buf, player_x, send_index);
+			SetShort(send_buf, player_z, send_index);
+			SetShort(send_buf, player_y, send_index);
+
 			SetByte(send_buf, 0x01, send_index);
 
 			if(Send(send_buf, send_index) < send_index) {
@@ -378,9 +385,18 @@ void CUser::SendMyInfo(void) {
 	Byte send_buf[1024];
 	memset(send_buf, 0x00, 1024);
 
-	// TODO: add the rest of this packet !!!
-	// current the client is filling in the rest
 	SetByte(send_buf, N3_MYINFO, send_index);
+
+	SetShort(send_buf, 0x00, send_index);
+	SetShort(send_buf, 0x04, send_index);
+	SetString(send_buf, "Test", 4, send_index);
+
+	// NOTE: actual player position
+	SetShort(send_buf, player_x, send_index);
+	SetShort(send_buf, player_z, send_index);
+	SetShort(send_buf, player_y, send_index);
+
+
 
 	// probably want to hit this client function as well MsgRecv_UserInRequested
 
