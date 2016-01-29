@@ -6,19 +6,17 @@
 #include "User.h"
 #include "EbenezerDlg.h"
 
-extern int running;
-
 //-----------------------------------------------------------------------------
-/*
-vPos.x = 358.0f;
-vPos.z = 1610.0f;
-vPos.y = 120.0f;
-*/
+extern int running;
 
 int player_zone = 21;
 int player_x = 2000;
 int player_z = 2000;
 int player_y = 0;
+
+e_Nation player_nation = NATION_KARUS;
+e_Race   player_race   = RACE_KA_PURITUAREK;
+e_Class  player_class  = CLASS_KINDOF_PRIEST;
 
 //-----------------------------------------------------------------------------
 CUser::CUser(void) {}
@@ -44,6 +42,16 @@ void CUser::Parsing(int len, Byte *pData) {
 	BYTE command = GetByte(pData, index);
 
 	switch(command) {
+		case N3_STATE_CHANGE: {
+			// NOTE: for sitting and standing - probably other things as well
+
+
+			/*
+			CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
+			CAPISocket::MP_AddByte(byBuff, iOffset, iState);
+			*/
+		} break;
+
 		case N3_ROTATE: {
 			float fYaw = ((float)GetShort(pData, index) / 100.0f);
 
@@ -381,6 +389,8 @@ void CUser::SendNotice(void) {
 
 //-----------------------------------------------------------------------------
 void CUser::SendMyInfo(void) {
+	//MsgRecv_MyInfo_All
+
 	int send_index = 0;
 	Byte send_buf[1024];
 	memset(send_buf, 0x00, 1024);
@@ -396,7 +406,9 @@ void CUser::SendMyInfo(void) {
 	SetShort(send_buf, player_z, send_index);
 	SetShort(send_buf, player_y, send_index);
 
-
+	SetByte(send_buf, player_nation, send_index);
+	SetByte(send_buf, player_race, send_index);
+	SetShort(send_buf, player_class, send_index);
 
 	// probably want to hit this client function as well MsgRecv_UserInRequested
 
