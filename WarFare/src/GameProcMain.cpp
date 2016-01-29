@@ -1656,9 +1656,9 @@ bool CGameProcMain::MsgRecv_MyInfo_All(DataPack* pDataPack, int& iOffset)
 	float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
 	float fY = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
 	
-	s_pPlayer->m_InfoBase.eNation = (e_Nation)NATION_KARUS; //CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoBase.eRace = (e_Race)RACE_KA_ARKTUAREK;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoBase.eClass = (e_Class)CLASS_KA_WARRIOR; //CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoBase.eNation = (e_Nation)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoBase.eRace = (e_Race)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoBase.eClass = (e_Class)CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	s_pPlayer->m_InfoExt.iFace = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 얼굴 모양..
 	s_pPlayer->m_InfoExt.iHair = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리카락
 
