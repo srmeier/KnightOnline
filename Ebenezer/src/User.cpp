@@ -15,8 +15,8 @@ int player_z = 2000;
 int player_y = 0;
 
 e_Nation player_nation = NATION_KARUS;
-e_Race   player_race   = RACE_KA_PURITUAREK;
-e_Class  player_class  = CLASS_KINDOF_PRIEST;
+e_Race   player_race   = RACE_KA_TUAREK;
+e_Class  player_class  = CLASS_KA_ROGUE;
 
 //-----------------------------------------------------------------------------
 CUser::CUser(void) {}
@@ -42,6 +42,23 @@ void CUser::Parsing(int len, Byte *pData) {
 	BYTE command = GetByte(pData, index);
 
 	switch(command) {
+		case N3_NEW_CHARACTER: {
+			/*
+			CAPISocket::MP_AddByte(byBuff, iOffset, CGameProcedure::s_iChrSelectIndex);	// 캐릭터 인덱스 b
+			CAPISocket::MP_AddShort(byBuff, iOffset, iIDLength);						// Id 길이 s
+			CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// ID 문자열 str
+			CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoBase.eRace);		// 종족 b
+			CAPISocket::MP_AddShort(byBuff, iOffset, s_pPlayer->m_InfoBase.eClass);		// 직업 b
+			CAPISocket::MP_AddByte(byBuff, iOffset, pInfoExt->iFace);					// 얼굴모양 b
+			CAPISocket::MP_AddByte(byBuff, iOffset, pInfoExt->iHair);					// 머리모양 b
+			CAPISocket::MP_AddByte(byBuff, iOffset, pInfoExt->iStrength);				// 힘 b
+			CAPISocket::MP_AddByte(byBuff, iOffset, pInfoExt->iStamina);				// 지구력 b
+			CAPISocket::MP_AddByte(byBuff, iOffset, pInfoExt->iDexterity);				// 민첩 b
+			CAPISocket::MP_AddByte(byBuff, iOffset, pInfoExt->iIntelligence);			// 지능 b
+			CAPISocket::MP_AddByte(byBuff, iOffset, pInfoExt->iMagicAttak);				// 마력 b
+			*/
+		} break;
+
 		case N3_STATE_CHANGE: {
 			// NOTE: for sitting and standing - probably other things as well
 
@@ -132,6 +149,26 @@ void CUser::Parsing(int len, Byte *pData) {
 
 			SetByte(send_buf, N3_ALL_CHARACTER_INFO_REQUEST, send_index);
 
+			SetByte(send_buf, 0x01, send_index);
+			for(int i=0; i<3; ++i) {
+				if(i == 0) {
+					char name[] = "test";
+					SetShort(send_buf, strlen(name), send_index);
+					SetString(send_buf, name, strlen(name), send_index);
+					SetByte(send_buf, player_race, send_index);
+					SetShort(send_buf, player_class, send_index);
+					SetByte(send_buf, 0x01, send_index);
+					SetByte(send_buf, 0x00, send_index);
+					SetByte(send_buf, 0x00, send_index);
+					SetByte(send_buf, player_zone, send_index);
+
+					SetDWORD(send_buf, 242001000/*242021000*/, send_index);
+					SetShort(send_buf, 4200, send_index);
+				} else {
+					SetShort(send_buf, 0x0000, send_index);
+				}
+			}
+
 			if(Send(send_buf, send_index) < send_index) {
 				printf("ER: %s\n", SDLNet_GetError());
 			}
@@ -140,10 +177,6 @@ void CUser::Parsing(int len, Byte *pData) {
 			/*
 			for(int i = 0; i < MAX_AVAILABLE_CHARACTER; i++)
 			{
-				if(i!=0) {
-					m_InfoChrs[i].szID = "";
-					continue;
-				}
 				int iIDLength				= 0x04;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 캐릭터 아이디 길이 s,
 				//CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
 				m_InfoChrs[i].szID = "test";
