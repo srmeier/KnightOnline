@@ -23,6 +23,7 @@ const int CURRENT_VERSION = 1068; // 현재 버전
 #define PACKET_END1 0x55
 #define PACKET_END2 0xAA
 #define N3_STATE_CHANGE			0x29	// 상태변화 Send - b2(Type, State) | Recv S1(ID) b2(Type, State) - // Type 1 앉기서기, 2 파티구함...
+#define	N3_NEW_CHARACTER		0x02	// 캐릭터 새로 만들기..
 
 
 

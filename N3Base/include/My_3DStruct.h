@@ -1106,7 +1106,7 @@ const DWORD OBJ_ANIM_CONTROL			= 0x40000000;
 #include "CrtDbg.h"
 
 #ifndef _DEBUG
-#define __ASSERT(expr, expMessage) void(0)
+#define __ASSERT(expr, expMessage) SDL_assert(expr)
 #else
 #define __ASSERT(expr, expMessage) \
 if(!(expr)) \

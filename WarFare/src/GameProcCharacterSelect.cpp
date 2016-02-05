@@ -122,8 +122,8 @@ void CGameProcCharacterSelect::Init()
 	CGameProcedure::s_iChrSelectIndex = 0;
 
 	e_Nation eNation = s_pPlayer->m_InfoBase.eNation;
-//	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->GetIndexedData(0);
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
+	//__TABLE_UI_RESRC* pTbl = s_pTbl_UI->GetIndexedData(0);
 
 	m_pUICharacterSelect = new CUICharacterSelect();
 	m_pUICharacterSelect->Init(s_pUIMgr);
@@ -1300,30 +1300,31 @@ void CGameProcCharacterSelect::DecreseLightFactor()
 
 void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int& iOffset)
 {
-	int iResult = 0x01;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 결과..
+	int iResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 결과..
 	if(0x1 == iResult)
 	{
 		for(int i = 0; i < MAX_AVAILABLE_CHARACTER; i++)
 		{
-			if(i!=0) {
+			int iIDLength = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 캐릭터 아이디 길이 s,
+
+			if(iIDLength == 0) {
 				m_InfoChrs[i].szID = "";
 				continue;
 			}
-			int iIDLength				= 0x04;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 캐릭터 아이디 길이 s,
-			//CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
-			m_InfoChrs[i].szID = "test";
 
-			m_InfoChrs[i].eRace			= (e_Race)0x01;//(e_Race)(CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset)); // 종족 b
-			m_InfoChrs[i].eClass		= (e_Class)101;//(e_Class)(CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset)); // 직업 b
-			m_InfoChrs[i].iLevel		= 1;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 레벨 b
-			m_InfoChrs[i].iFace			= 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 얼굴모양 b
-			m_InfoChrs[i].iHair			= 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리모양 b
-			m_InfoChrs[i].iZone			= 1;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // zone number
+			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
+
+			m_InfoChrs[i].eRace			= (e_Race)(CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset)); // 종족 b
+			m_InfoChrs[i].eClass		= (e_Class)(CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset)); // 직업 b
+			m_InfoChrs[i].iLevel		= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 레벨 b
+			m_InfoChrs[i].iFace			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 얼굴모양 b
+			m_InfoChrs[i].iHair			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리모양 b
+			m_InfoChrs[i].iZone			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // zone number
 
 			m_InfoChrs[i].dwItemHelmet				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 투구 dw
 			m_InfoChrs[i].iItemHelmetDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemUpper				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 상체 dw
-			m_InfoChrs[i].iItemUpperDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemUpper				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 상체 dw
+			m_InfoChrs[i].iItemUpperDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemCloak				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 어깨(망토) dw
 			m_InfoChrs[i].iItemCloakDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemLower				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
