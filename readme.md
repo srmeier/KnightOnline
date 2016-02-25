@@ -5,7 +5,7 @@ I started with project to learn more about how the MMORPG Knight Online works. M
 </p>
 
 <p align="left">
-This code is for academic purposes only! If you have questions or would like help feel free to contact my via email at “info@stephenmeier.net”
+This code is for academic purposes only! If you have questions or would like help feel free to contact me via email at “info@stephenmeier.net”
 </p>
 
 <p align="center">
