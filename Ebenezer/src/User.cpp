@@ -42,7 +42,28 @@ void CUser::Parsing(int len, Byte *pData) {
 	BYTE command = GetByte(pData, index);
 
 	switch(command) {
+		case N3_ITEM_MOVE: {
+
+			Byte bDir = GetByte(pData, index);
+			Uint32 iItemID = GetDWORD(pData, index);
+			Byte SrcPos = GetByte(pData, index);
+			Byte DestPos = GetByte(pData, index);
+
+			printf("DB: (N3_ITEM_MOVE): Request to move item (%d) from position %d to position %d\n", iItemID, SrcPos, DestPos);
+
+			/*
+			CAPISocket::MP_AddByte(byBuff, iOffset, bDir);
+			CAPISocket::MP_AddDword(byBuff, iOffset, iItemID);
+			CAPISocket::MP_AddByte(byBuff, iOffset, (byte)SrcPos);
+			CAPISocket::MP_AddByte(byBuff, iOffset, (byte)DestPos);
+
+			TRACE("Send Inv Move %d, %d, %d, %d \n", bDir, iItemID, SrcPos, DestPos );
+			*/
+		} break;
+
 		case N3_NEW_CHARACTER: {
+			printf("DB: (N3_NEW_CHARACTER):\n");
+
 			/*
 			CAPISocket::MP_AddByte(byBuff, iOffset, CGameProcedure::s_iChrSelectIndex);	// 캐릭터 인덱스 b
 			CAPISocket::MP_AddShort(byBuff, iOffset, iIDLength);						// Id 길이 s
@@ -61,7 +82,7 @@ void CUser::Parsing(int len, Byte *pData) {
 
 		case N3_STATE_CHANGE: {
 			// NOTE: for sitting and standing - probably other things as well
-
+			printf("DB: (N3_STATE_CHANGE):\n");
 
 			/*
 			CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
@@ -72,7 +93,7 @@ void CUser::Parsing(int len, Byte *pData) {
 		case N3_ROTATE: {
 			float fYaw = ((float)GetShort(pData, index) / 100.0f);
 
-			printf("DB: (N3_ROTATE) New angle = %f\n", fYaw);
+			printf("DB: (N3_ROTATE): New angle = %f\n", fYaw);
 
 			/*
 			CAPISocket::MP_AddShort(byBuff, iOffset, fYaw*100);
@@ -81,6 +102,7 @@ void CUser::Parsing(int len, Byte *pData) {
 
 		case N3_TIME_NOTIFY: {
 			// NOTE: a two second time notification?
+			printf("DB: (N3_TIME_NOTIFY):\n");
 		} break;
 
 		case N3_MOVE: {
@@ -102,7 +124,7 @@ void CUser::Parsing(int len, Byte *pData) {
 			ZoneInit = GetByte(pData, index);
 			ZoneCur = GetByte(pData, index);
 
-			printf("DB: (N3_CHARACTER_SELECT) Account Name = \"%s\", ID = \"%s\", ZoneInit = %d, ZoneCur = %d\n", AccName, IDName, ZoneInit, ZoneCur);
+			printf("DB: (N3_CHARACTER_SELECT): Account Name = \"%s\", ID = \"%s\", ZoneInit = %d, ZoneCur = %d\n", AccName, IDName, ZoneInit, ZoneCur);
 
 			/*
 			CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());				// 계정 길이..
@@ -142,6 +164,7 @@ void CUser::Parsing(int len, Byte *pData) {
 		} break;
 
 		case N3_ALL_CHARACTER_INFO_REQUEST: {
+			printf("DB: (N3_ALL_CHARACTER_INFO_REQUEST):\n");
 
 			int send_index = 0;
 			Byte send_buf[1024];
@@ -162,7 +185,20 @@ void CUser::Parsing(int len, Byte *pData) {
 					SetByte(send_buf, 0x00, send_index);
 					SetByte(send_buf, player_zone, send_index);
 
-					SetDWORD(send_buf, 242001000/*242021000*/, send_index);
+					// NOTE: helment item
+					SetDWORD(send_buf, /*246003000*/244003000, send_index); // (2_4402_30_0 full plate) (2_4400_30_00 table)
+					SetShort(send_buf, 4200, send_index);
+					// NOTE: upper armor item
+					SetDWORD(send_buf, 244001000/*242001000*//*242021000*/, send_index);
+					SetShort(send_buf, 4200, send_index);
+					// NOTE: lower armor item
+					SetDWORD(send_buf, 244002000, send_index);
+					SetShort(send_buf, 4200, send_index);
+					// NOTE: gloves armor item
+					SetDWORD(send_buf, 244004000, send_index);
+					SetShort(send_buf, 4200, send_index);
+					// NOTE: shoes armor item
+					SetDWORD(send_buf, 244005000, send_index);
 					SetShort(send_buf, 4200, send_index);
 				} else {
 					SetShort(send_buf, 0x0000, send_index);
@@ -211,7 +247,7 @@ void CUser::Parsing(int len, Byte *pData) {
 			Byte IDLen = GetByte(pData, index);
 			GetString((Byte*)ID, pData, IDLen, index);
 
-			printf("DB: (N3_GAMESTART) ID = \"%s\"\n", ID);
+			printf("DB: (N3_GAMESTART): ID = \"%s\"\n", ID);
 
 			/*
 			CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->IDString().size());		// 아이디 길이 패킷에 넣기..
@@ -248,7 +284,7 @@ void CUser::Parsing(int len, Byte *pData) {
 			Byte bInit = GetByte(pData, index);
 			float time = Getfloat(pData, index);
 
-			printf("DB: (N3_CHECK_SPEEDHACK) is this the first? (%d) with time %f\n", bInit, time);
+			printf("DB: (N3_CHECK_SPEEDHACK): is this the first? (%d) with time %f\n", bInit, time);
 
 			/*
 			s_pSocket->MP_AddByte(byBuff, iOffset, bInit);				// 서버가 기준 시간으로 쓸 타입 true 이면 기준시간 false면 체크타입
@@ -264,7 +300,7 @@ void CUser::Parsing(int len, Byte *pData) {
 			char* pPassword = (char*) calloc((sPasswordLen+1), sizeof(char));
 			GetString((Byte*)pPassword, pData, sPasswordLen, index);
 
-			printf("DB: (N3_GAME_SERVER_LOGIN) Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
+			printf("DB: (N3_GAME_SERVER_LOGIN): Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
 
 			free(pUsername); free(pPassword);
 
@@ -283,6 +319,8 @@ void CUser::Parsing(int len, Byte *pData) {
 		} break;
 
 		case N3_VERSION_CHECK: {
+			printf("DB: (N3_VERSION_CHECK):\n");
+
 			int send_index = 0;
 			Byte send_buf[1024];
 			memset(send_buf, 0x00, 1024);
@@ -304,7 +342,7 @@ void CUser::Parsing(int len, Byte *pData) {
 			char* pPassword = (char*) calloc((sPasswordLen+1), sizeof(char));
 			GetString((Byte*)pPassword, pData, sPasswordLen, index);
 
-			printf("DB: (N3_ACCOUNT_LOGIN) Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
+			printf("DB: (N3_ACCOUNT_LOGIN): Username \"%s\", Password \"%s\" attempted to login\n", pUsername, pPassword);
 
 			free(pUsername); free(pPassword);
 
@@ -330,6 +368,7 @@ void CUser::Parsing(int len, Byte *pData) {
 		} break;
 
 		case N3_GAMESERVER_GROUP_LIST: {
+			printf("DB: (N3_GAMESERVER_GROUP_LIST):\n");
 
 			int send_index = 0;
 			Byte send_buf[1024];
@@ -443,7 +482,88 @@ void CUser::SendMyInfo(void) {
 	SetByte(send_buf, player_race, send_index);
 	SetShort(send_buf, player_class, send_index);
 
-	// probably want to hit this client function as well MsgRecv_UserInRequested
+	// ITEM_SLOT_EAR_RIGHT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_HEAD
+	SetDWORD(send_buf, 244003000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_EAR_LEFT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_NECK
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_UPPER
+	SetDWORD(send_buf, 244001000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_SHOULDER
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_HAND_RIGHT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_BELT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_HAND_LEFT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_RING_RIGHT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_LOWER
+	SetDWORD(send_buf, 244002000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_RING_LEFT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_GLOVES
+	SetDWORD(send_buf, 244004000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_SHOES
+	SetDWORD(send_buf, 244005000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+
+	/*
+	for (int i = 0; i < ITEM_SLOT_COUNT; i++)				// 슬롯 갯수마큼..
+	{
+	iItemIDInSlots[i] = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	iItemDurabilityInSlots[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	iItemCountInSlots[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	}
+	*/
+
+	for (int i = 0; i < MAX_ITEM_INVENTORY; ++i) {
+		SetDWORD(send_buf, 244005000, send_index);
+		SetShort(send_buf, 4200, send_index);
+		SetShort(send_buf, 0, send_index);
+	}
+
+	/*
+	for (int i = 0; i < MAX_ITEM_INVENTORY; i++)				// 슬롯 갯수마큼..
+	{
+		iItemIDInInventorys[i] = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		iItemDurabilityInInventorys[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		iItemCountInInventorys[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	}
+	*/
+
+	// NOTE: probably want to hit this client function as well MsgRecv_UserInRequested
 
 	if(Send(send_buf, send_index) < send_index) {
 		printf("ER: %s\n", SDLNet_GetError());
@@ -506,7 +626,7 @@ void CUser::MoveProcess(Byte *pBuf )
 	short speed = GetShort(pBuf, index);
 	Byte moveflag = GetByte(pBuf, index);
 
-	printf("DB: (N3_MOVE) X:%d, Y:%d, Z:%d, SPEED:%d, MOVEFLAG:%d\n", x, y, z, speed, moveflag);
+	printf("DB: (N3_MOVE): X:%d, Y:%d, Z:%d, SPEED:%d, MOVEFLAG:%d\n", x, y, z, speed, moveflag);
 
 	/*
 	CAPISocket::MP_AddWord(byBuff, iOffset, vPos.x*10);			// 다음 위치

@@ -1321,18 +1321,18 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int
 			m_InfoChrs[i].iHair			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리모양 b
 			m_InfoChrs[i].iZone			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // zone number
 
-			m_InfoChrs[i].dwItemHelmet				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 투구 dw
-			m_InfoChrs[i].iItemHelmetDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemHelmet				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 투구 dw
+			m_InfoChrs[i].iItemHelmetDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemUpper				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 상체 dw
 			m_InfoChrs[i].iItemUpperDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemCloak				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 어깨(망토) dw
 			m_InfoChrs[i].iItemCloakDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemLower				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
-			m_InfoChrs[i].iItemLowerDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemGloves				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 장갑 dw
-			m_InfoChrs[i].iItemGlovesDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemShoes				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 신발 dw
-			m_InfoChrs[i].iItemShoesDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemLower				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
+			m_InfoChrs[i].iItemLowerDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemGloves				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 장갑 dw
+			m_InfoChrs[i].iItemGlovesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemShoes				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 신발 dw
+			m_InfoChrs[i].iItemShoesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 		}
 
 		// 캐릭터 추가..

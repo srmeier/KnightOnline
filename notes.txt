@@ -4,6 +4,9 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 ===============================================================================
 - the issue here is that item files in the data directory aren't accessable
 	from the item table
+- [244003000] (basic table)
+- [----2----] (added for some reason)
+- [---1-----] (seems that 0/1 is used to differentiate orc (0) from human (1))
 
 - got a chest piece for the rogue to work but I have to rename a .n3cpart file
 - get character creation working
