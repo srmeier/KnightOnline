@@ -2,6 +2,9 @@ git reset --hard 0d1d7fc32
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
+- the issue here is that item files in the data directory aren't accessable
+	from the item table
+
 - got a chest piece for the rogue to work but I have to rename a .n3cpart file
 - get character creation working
 
