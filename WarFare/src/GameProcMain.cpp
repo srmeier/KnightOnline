@@ -1739,9 +1739,9 @@ bool CGameProcMain::MsgRecv_MyInfo_All(DataPack* pDataPack, int& iOffset)
 
 	for ( int i = 0; i < ITEM_SLOT_COUNT; i++ )				// ΩΩ∑‘ ∞πºˆ∏∂≈≠..
 	{
-		iItemIDInSlots[i] = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-		iItemDurabilityInSlots[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		iItemCountInSlots[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		iItemIDInSlots[i] = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		iItemDurabilityInSlots[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		iItemCountInSlots[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	}
 
 	m_fMsgSendTimeMove		= 0;						// Network ReQuest ≈∏¿Ã∏” √ ±‚»≠..
@@ -1772,9 +1772,9 @@ bool CGameProcMain::MsgRecv_MyInfo_All(DataPack* pDataPack, int& iOffset)
 
 	for ( int i = 0; i < MAX_ITEM_INVENTORY; i++ )				// ΩΩ∑‘ ∞πºˆ∏∂≈≠..
 	{
-		iItemIDInInventorys[i] = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-		iItemDurabilityInInventorys[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		iItemCountInInventorys[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		iItemIDInInventorys[i] = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		iItemDurabilityInInventorys[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		iItemCountInInventorys[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	}
 
 	m_pUIInventory->ReleaseItem();

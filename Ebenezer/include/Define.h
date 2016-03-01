@@ -11,6 +11,8 @@
 
 const int CURRENT_VERSION = 1068; // 현재 버전
 
+const int MAX_ITEM_INVENTORY = 28;		// 소유 아템 MAX (인벤토리창)
+
 #define SUCCESS 0x02
 #define MAX_PACKET_SIZE  (1024*8)
 #define SOCKET_BUFF_SIZE (1024*32)
@@ -126,6 +128,25 @@ enum e_Class {
 	CLASS_UNKNOWN = 0xFFFFFFFF
 };
 
+enum e_ItemSlot {
+	ITEM_SLOT_EAR_RIGHT  = 0,
+	ITEM_SLOT_HEAD       = 1,
+	ITEM_SLOT_EAR_LEFT   = 2,
+	ITEM_SLOT_NECK       = 3,
+	ITEM_SLOT_UPPER      = 4,
+	ITEM_SLOT_SHOULDER   = 5,
+	ITEM_SLOT_HAND_RIGHT = 6,
+	ITEM_SLOT_BELT       = 7,
+	ITEM_SLOT_HAND_LEFT  = 8,
+	ITEM_SLOT_RING_RIGHT = 9,
+	ITEM_SLOT_LOWER      = 10,
+	ITEM_SLOT_RING_LEFT  = 11,
+	ITEM_SLOT_GLOVES     = 12,
+	ITEM_SLOT_SHOES      = 13,
+	ITEM_SLOT_COUNT      = 14,
+	ITEM_SLOT_UNKNOWN    = 0xFFFFFFFF
+};
+
 //-----------------------------------------------------------------------------
 typedef struct {
 	uint16_t sCurZone;
@@ -175,7 +196,7 @@ typedef union{
 #define	N3_ROTATE				0x09	// Rotate..
 #define	N3_MYINFO				0x0E	// NPC moveedge..
 #define N3_NOTICE				0x2E	// 공지사항..
-
+#define	N3_ITEM_MOVE			0x1F	// Item Move..
 
 
 // Reply packet define...
