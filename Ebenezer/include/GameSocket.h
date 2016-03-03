@@ -1,7 +1,7 @@
 #ifndef __GAMESOCKET_H_
 #define __GAMESOCKET_H_
 
-#include "Define.h"
+#include "Define.h" //#include "DefineTest.h"
 #include "IOCSocket.h"
 
 //-----------------------------------------------------------------------------
@@ -11,7 +11,7 @@ public:
 
 public:
 	void Initialize(void);
-	void Parsing(int length, uint8_t* pData);
+	virtual void Parsing(int len, char* pData);
 	void RecvServerConnect(uint8_t* pBuf);
 };
 

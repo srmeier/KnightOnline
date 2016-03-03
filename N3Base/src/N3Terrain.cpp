@@ -355,7 +355,9 @@ void CN3Terrain::TestAvailableTile()
 	if(CN3Base::s_DevCaps.MaxTextureBlendStages < 3 ||
 		((CN3Base::s_DevCaps.PrimitiveMiscCaps & D3DPMISCCAPS_BLENDOP)==0) )
 	{
+#ifdef _N3GAME
 		CLogWriter::Write("terrain tile not supported..");
+#endif
 		m_bAvailableTile = false; 
 	}
 
@@ -431,8 +433,8 @@ bool CN3Terrain::Load(HANDLE hFile)
 
 	m_szFileName = szFNBackup;
 
-	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
-	if(pUILoading) pUILoading->Render("Allocating Terrain...", 0);
+	//CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
+	//if(pUILoading) pUILoading->Render("Allocating Terrain...", 0);
 
 	ReadFile(hFile, &(m_ti_MapSize), sizeof(int), &dwRWC, NULL);
 	m_pat_MapSize = (m_ti_MapSize-1) / PATCH_TILE_SIZE;
@@ -441,16 +443,20 @@ bool CN3Terrain::Load(HANDLE hFile)
 
 	//m_pMapData = (LPMAPDATA)malloc(sizeof(MAPDATA)*m_ti_MapSize*m_ti_MapSize);
 	m_pMapData = (LPMAPDATA)GlobalAlloc(GMEM_FIXED, sizeof(MAPDATA)*m_ti_MapSize*m_ti_MapSize);
+#ifdef _N3GAME
 	if(m_pMapData==NULL) CLogWriter::Write("Terrain Error : MapData Memory Allocation Failed..-.-");
+#endif
 	__ASSERT(m_pMapData, "MapData Memory Allocation Failed..-.-");
 	ReadFile(hFile, m_pMapData, sizeof(MAPDATA)*m_ti_MapSize*m_ti_MapSize, &dwRWC, NULL);
 
 	m_pNormal = (__Vector3*)GlobalAlloc(GMEM_FIXED, sizeof(__Vector3)*m_ti_MapSize*m_ti_MapSize);
+#ifdef _N3GAME
 	if(m_pNormal==NULL) CLogWriter::Write("Terrain Error : Normal Vector Memory Allocation Failed..-.-");
+#endif
 	__ASSERT(m_pNormal, "Normal Vector Memory Allocation Failed..-.-");
 	SetNormals();
 
-	if(pUILoading) pUILoading->Render("", 100);
+	//if(pUILoading) pUILoading->Render("", 100);
 
 	//patch middleY & radius...
 
@@ -462,7 +468,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 		m_ppPatchRadius[x] = new float [m_pat_MapSize];
 	}
 
-	if(pUILoading) pUILoading->Render("Loading Terrain Patch Data...", 0);
+	//if(pUILoading) pUILoading->Render("Loading Terrain Patch Data...", 0);
 
 	char szLoadingBuff[128];
 	for(x=0; x<m_pat_MapSize; x++)
@@ -476,7 +482,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 		int iLoading = (x+1) * 100 / m_pat_MapSize;
 		sprintf(szLoadingBuff, "Loading Terrain Patch Data... %d %%", iLoading);
 
-		if(pUILoading) pUILoading->Render(szLoadingBuff, iLoading);
+		//if(pUILoading) pUILoading->Render(szLoadingBuff, iLoading);
 	}
 
 //	m_ppGrassAttr = new unsigned char* [m_ti_MapSize];
@@ -495,13 +501,17 @@ bool CN3Terrain::Load(HANDLE hFile)
 	
 	//m_pGrassAttr = (unsigned char*)malloc(sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
 	m_pGrassAttr = (unsigned char*)GlobalAlloc(GMEM_FIXED, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
+#ifdef _N3GAME
 	if(m_pGrassAttr==NULL) CLogWriter::Write("Terrain Error : GrassAttr Data Memory Allocation Failed..-.-");
+#endif
 	__ASSERT(m_pGrassAttr, "GrassAttr Data Memory Allocation Failed..-.-");
 	ReadFile(hFile, m_pGrassAttr, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize, &dwRWC, NULL);
 
 	//^^v풀갯수 정보 넣기...(조만간 넣어라..)
 	m_pGrassNum = (unsigned char*)GlobalAlloc(GMEM_FIXED, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
+#ifdef _N3GAME
 	if(m_pGrassNum==NULL) CLogWriter::Write("Terrain Error : GrassNum Data Memory Allocation Failed..-.-");
+#endif
 	__ASSERT(m_pGrassNum, "GrassNum Data Memory Allocation Failed..-.-");
 	//ReadFile(hFile, m_pGrassNum, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize, &dwRWC, NULL);	
 	memset(m_pGrassNum, 5, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
@@ -513,7 +523,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 	LoadTileInfo(hFile);
 
 	//load lightmap..
-	if(pUILoading) pUILoading->Render("Loading Lightmap Data...", 0);
+	//if(pUILoading) pUILoading->Render("Loading Lightmap Data...", 0);
 	
 	int NumLightMap = 0;
 	ReadFile(hFile, &NumLightMap, sizeof(int), &dwRWC, NULL);
@@ -529,15 +539,15 @@ bool CN3Terrain::Load(HANDLE hFile)
 		//loading bar...
 		int iLoading = (i+1) * 100 / NumLightMap;
 		sprintf(szLoadingBuff, "Loading Lightmap Data... %d %%", iLoading);
-		if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
+		//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
 	}
 	delete pTmpTex;
 
-	if(pUILoading) pUILoading->Render("Loading River Data...", 0);
+	//if(pUILoading) pUILoading->Render("Loading River Data...", 0);
 	m_pRiver->Load(hFile); // 맵데이터 올때까지만 잠시만 막자..2002.11.15
 	m_pPond->Load(hFile); 
 
-	if(pUILoading) pUILoading->Render("", 100);
+	//if(pUILoading) pUILoading->Render("", 100);
 	return true;
 }
 
@@ -623,7 +633,7 @@ MAPDATA	CN3Terrain::GetMapData(int x, int z)
 //
 void CN3Terrain::LoadGrassInfo()
 {
-	if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Grass Data...", 0);
+	//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Grass Data...", 0);
 
 	m_iNumGrass = 0;
 	if(strcmp(m_pGrassFileName,"")==0)
@@ -670,7 +680,7 @@ void CN3Terrain::LoadGrassInfo()
 		//loading bar...
 		int iLoading = (i+1) * 100 / m_iNumGrass;
 		sprintf(szLoadingBuff, "Loading Terrain Grass Data... %d %%", iLoading);
-		if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
+		//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
 	}
 	CloseHandle(hFile);
 }
@@ -681,7 +691,7 @@ void CN3Terrain::LoadGrassInfo()
 //
 void CN3Terrain::LoadTileInfo(HANDLE hFile)
 {
-	if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Tile Data...", 0);
+	//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Tile Data...", 0);
 
 	DWORD dwRWC;
 	ReadFile(hFile, &m_NumTileTex, sizeof(int), &dwRWC, NULL);
@@ -727,7 +737,7 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 		//loading bar...
 		int iLoading = (i+1) * 100 / m_NumTileTex;
 		sprintf(szLoadingBuff, "Loading Terrain Tile Data... %d %%", iLoading);
-		if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
+		//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
 
 		CloseHandle(hTTGFile);
 	}
@@ -961,6 +971,7 @@ void CN3Terrain::DispositionPatch()
 void CN3Terrain::SetLightMap(int dir)
 {
 	return;
+	/*
 	__TABLE_ZONE* pZoneData = CGameBase::s_pTbl_Zones->Find(CGameBase::s_pPlayer->m_InfoExt.iZoneCur);
 	if(!pZoneData) return;
 
@@ -1118,6 +1129,7 @@ void CN3Terrain::SetLightMap(int dir)
 
 	delete[] Addr;
 	CloseHandle(hFile);
+	*/
 }
 
 
@@ -2125,7 +2137,7 @@ bool CN3Terrain::CheckCollision(__Vector3& vPos, __Vector3& vDir, float fVelocit
 
 bool CN3Terrain::LoadColorMap(const std::string& szFN)
 {
-	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
+	//CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
 
 	int temp1 = PATCH_PIXEL_SIZE;
 	int temp2 = COLORMAPTEX_SIZE;
@@ -2143,7 +2155,9 @@ bool CN3Terrain::LoadColorMap(const std::string& szFN)
 	HANDLE hColorMapFile = CreateFile(szFN.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if(INVALID_HANDLE_VALUE == hColorMapFile)
 	{
+#ifdef _N3GAME
 		CLogWriter::Write("Failed to load ColorMap - %s", szFN.c_str());
+#endif
 		return false;
 	}
 
@@ -2157,7 +2171,7 @@ bool CN3Terrain::LoadColorMap(const std::string& szFN)
 		}
 
 		sprintf(szBuff, "Loading colormap %d %%", x * 100 / m_iNumColorMap);
-		if(pUILoading) pUILoading->Render(szBuff, 60 + 15 * x / m_iNumColorMap);
+		//if(pUILoading) pUILoading->Render(szBuff, 60 + 15 * x / m_iNumColorMap);
 	}
 
 	CloseHandle(hColorMapFile);

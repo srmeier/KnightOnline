@@ -1,6 +1,7 @@
 /*
 */
 
+#include "stdafx.h"
 #include "IOCSocket.h"
 #include "EbenezerDlg.h"
 
@@ -46,17 +47,17 @@ uint16_t CIOCSocket::ReceivedData(uint8_t* pBuf, int length) {
 		printf("Got packet of size %d\n", (int) sSize);
 
 		//Parsing(length-6, &pBuf[4]);
-		Parsing(sSize, &pBuf[4]);
+		Parsing(sSize, (char*) &pBuf[4]);
 	}
 
 	return (sSize+6);
 }
 
 //-----------------------------------------------------------------------------
-void CIOCSocket::Parsing(int length, uint8_t* pData) {}
+//void CIOCSocket::Parsing(int len, char* pData) {}
 
 //-----------------------------------------------------------------------------
-int CIOCSocket::Send(uint8_t* pBuf, uint16_t length) {
+int CIOCSocket::Send(char* pBuf, uint16_t length) {
 	if(length > MAX_PACKET_SIZE) return 0;
 
 	uint8_t pTBuf[MAX_PACKET_SIZE];
@@ -85,4 +86,9 @@ int CIOCSocket::Send(uint8_t* pBuf, uint16_t length) {
 	SDL_UnlockMutex(m_critData);
 
 	return size;
+}
+
+//-----------------------------------------------------------------------------
+void CIOCSocket::SendCompressingPacket(const char* pData, int len) {
+	Send((char*)pData, len);
 }

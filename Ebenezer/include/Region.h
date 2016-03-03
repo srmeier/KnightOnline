@@ -2,31 +2,31 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_REGION_H__46F2BE85_327F_40DE_9FE3_4D28B034CDC2__INCLUDED_)
-#define AFX_REGION_H__46F2BE85_327F_40DE_9FE3_4D28B034CDC2__INCLUDED_
+#if !defined(AFX_REGION_H__98237635_8ED6_4B3A_8AB8_933055C4995F__INCLUDED_)
+#define AFX_REGION_H__98237635_8ED6_4B3A_8AB8_933055C4995F__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include <list>
+#include "define.h"
+#include "GameDefine.h"
+#include "STLMap.h"
 
-class CN3VMesh;
+typedef CSTLMap <_ZONE_ITEM>	ZoneItemArray;
+typedef CSTLMap <int>			ZoneUserArray;
+typedef CSTLMap <int>			ZoneNpcArray;
 
-//typedef std::vector<void*> CPtrArray22;
-
-//CTypedPtrArray
-typedef std::list<CN3VMesh*> VMeshArray;
-
-class CRegion  
+class CRegion
 {
 public:
 	CRegion();
 	virtual ~CRegion();
 
-	VMeshArray	m_VMeshArray;
-protected:
-	int		m_nIndex;
+	ZoneItemArray	m_RegionItemArray;
+	ZoneUserArray	m_RegionUserArray;
+	ZoneNpcArray	m_RegionNpcArray;
+
 };
 
-#endif // !defined(AFX_REGION_H__46F2BE85_327F_40DE_9FE3_4D28B034CDC2__INCLUDED_)
+#endif // !defined(AFX_REGION_H__98237635_8ED6_4B3A_8AB8_933055C4995F__INCLUDED_)

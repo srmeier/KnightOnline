@@ -50,22 +50,30 @@ CN3TerrainManager::~CN3TerrainManager()
 	delete m_pTerrain;  m_pTerrain = NULL;
 
 	// Shape..
+#ifdef _N3GAME
 	CLogWriter::Write("CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape"); // TmpLog1122
+#endif
 	delete m_pShapes; m_pShapes = NULL;
 
 	// Sky..
+#ifdef _N3GAME
 	CLogWriter::Write("CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky"); // TmpLog1122
+#endif
 	delete m_pSky;		m_pSky = NULL;
 
 	// Bird..
+#ifdef _N3GAME
 	CLogWriter::Write("CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng"); // TmpLog1122
+#endif
 	delete m_pBirdMng; m_pBirdMng = NULL;
 
 	// Grass..
 //	CLogWriter::Write("CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pGrasses"); // TmpLog1122
 //	delete m_pGrasses; m_pGrasses = NULL;
 
+#ifdef _N3GAME
 	CLogWriter::Write("CN3TerrainManager::~CN3TerrainManager -> delete finished"); // TmpLog1122
+#endif
 }
 
 /////////////////////////////////////////////////////////////////////

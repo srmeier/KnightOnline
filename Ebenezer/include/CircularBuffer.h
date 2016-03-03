@@ -5,7 +5,7 @@
 #if !defined(AFX_CIRCULARBUFFER_H__F4D345A4_CE05_11D1_8BEE_0060979C5900__INCLUDED_)
 #define AFX_CIRCULARBUFFER_H__F4D345A4_CE05_11D1_8BEE_0060979C5900__INCLUDED_
 
-#include "Define.h"
+#include "Define.h" //#include "DefineTest.h"
 
 #if _MSC_VER >= 1000
 #pragma once

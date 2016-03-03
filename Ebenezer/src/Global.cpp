@@ -1,6 +1,7 @@
-//#include "stdafx.h"
-#include "define.h"
+#include "stdafx.h"
+#include "Define.h"//#include "defineTest.h"
 
+/*
 void GetString(Byte* tBuf, Byte* sBuf, int len, int& index)
 {
 	memcpy(tBuf, sBuf+index, len);
@@ -86,13 +87,11 @@ std::string GetProgPath()
 	char Buf[256], Path[256];
 	char drive[_MAX_DRIVE], dir[_MAX_DIR], fname[_MAX_FNAME], ext[_MAX_EXT];
 
-	/*
-	::GetModuleFileName(AfxGetApp()->m_hInstance, Buf, 256);
-	_splitpath(Buf,drive,dir,fname,ext);
-	strcpy(Path, drive);
-	strcat(Path, dir);
-	std::string _Path = Path;
-	*/
+	//::GetModuleFileName(AfxGetApp()->m_hInstance, Buf, 256);
+	//_splitpath(Buf,drive,dir,fname,ext);
+	//strcpy(Path, drive);
+	//strcat(Path, dir);
+	//std::string _Path = Path;
 
 	std::string _Path = "";
 
@@ -109,13 +108,12 @@ void LogFileWrite(std::string logstr )
 	ProgPath = GetProgPath();
 	loglength = logstr.length();//logstr.GetLength();
 
-	/*
-	LogFileName.Format("%s\\DBWorker.log", ProgPath);
+	//LogFileName.Format("%s\\DBWorker.log", ProgPath);
 	
-	file.Open( LogFileName, CFile::modeCreate|CFile::modeNoTruncate|CFile::modeWrite );
+	//file.Open( LogFileName, CFile::modeCreate|CFile::modeNoTruncate|CFile::modeWrite );
 
-	file.SeekToEnd();
-	file.Write(logstr, loglength);
-	file.Close();
-	*/
+	//file.SeekToEnd();
+	//file.Write(logstr, loglength);
+	//file.Close();
 }
+*/

@@ -118,7 +118,7 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 
 #ifdef _N3GAME
 #ifndef _REPENT
-	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
+	//CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
 #endif
 #endif // end of #ifndef _N3GAME
 

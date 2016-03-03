@@ -1,6 +1,7 @@
 /*
 */
 
+#include "stdafx.h"
 #include "IOCPort.h"
 #include "IOCSocket.h"
 #include "GameSocket.h"
@@ -90,7 +91,7 @@ int ReceiveWorkerThread(void* pData) {
 	std::list<int> mySids;
 	CIOCSocket* pIocsocket = NULL;
 
-	SDLNet_SocketSet SocketSet = SDLNet_AllocSocketSet(MAX_SOCKET);
+	SDLNet_SocketSet SocketSet = SDLNet_AllocSocketSet(MAX_USER);
 	if(!SocketSet) {
 		fprintf(stderr, "ERROR: \"%s\"\n", SDLNet_GetError());
 		return -1;
@@ -280,7 +281,7 @@ int SendThreadMain(void* pData) {
 				pSendData = *iter;
 				count = -1;
 
-				for(int i=0; i<MAX_SOCKET; ++i) {
+				for(int i=0; i<MAX_USER; ++i) {
 					SDL_LockMutex(g_critical);
 
 					pSocket = (CGameSocket*) pIocport->m_SockArray[i]; // TODO: no need for mutex?
