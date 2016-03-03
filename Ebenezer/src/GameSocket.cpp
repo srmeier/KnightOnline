@@ -1,6 +1,7 @@
 /*
 */
 
+#include "stdafx.h"
 //#include "Server.h"
 #include "GameSocket.h"
 
@@ -10,7 +11,7 @@ void CGameSocket::Initialize(void) {
 }
 
 //-----------------------------------------------------------------------------
-void CGameSocket::Parsing(int length, uint8_t* pData) {
+void CGameSocket::Parsing(int len, char* pData) {
 	/*
 	int index = 0;
 	uint8_t bType = GetByte(pData, index);

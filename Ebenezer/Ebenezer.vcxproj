@@ -120,14 +120,14 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\N3Base\include\;include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,28 +157,58 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\AIPacket.h" />
     <ClInclude Include="include\CircularBuffer.h" />
+    <ClInclude Include="include\CoefficientSet.h" />
     <ClInclude Include="include\Define.h" />
+    <ClInclude Include="include\DefineTest.h" />
     <ClInclude Include="include\EbenezerDlg.h" />
+    <ClInclude Include="include\EVENT.h" />
+    <ClInclude Include="include\EventSet.h" />
+    <ClInclude Include="include\EVENT_DATA.h" />
+    <ClInclude Include="include\EXEC.h" />
+    <ClInclude Include="include\GameDefine.h" />
+    <ClInclude Include="include\GameEvent.h" />
     <ClInclude Include="include\GameSocket.h" />
     <ClInclude Include="include\IOCPort.h" />
     <ClInclude Include="include\IOCSocket.h" />
+    <ClInclude Include="include\ItemTableSet.h" />
+    <ClInclude Include="include\LOGIC_ELSE.h" />
+    <ClInclude Include="include\MagicProcess.h" />
+    <ClInclude Include="include\MagicTableSet.h" />
     <ClInclude Include="include\Map.h" />
+    <ClInclude Include="include\Npc.h" />
+    <ClInclude Include="include\PacketDefine.h" />
     <ClInclude Include="include\Region.h" />
     <ClInclude Include="include\resource.h" />
+    <ClInclude Include="include\StdAfx.h" />
+    <ClInclude Include="include\STLMap.h" />
     <ClInclude Include="include\User.h" />
+    <ClInclude Include="include\ZoneInfoSet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CircularBuffer.cpp" />
+    <ClCompile Include="src\CoefficientSet.cpp" />
     <ClCompile Include="src\EbenezerDlg.cpp" />
+    <ClCompile Include="src\EVENT.cpp" />
+    <ClCompile Include="src\EventSet.cpp" />
+    <ClCompile Include="src\EVENT_DATA.cpp" />
+    <ClCompile Include="src\EXEC.cpp" />
+    <ClCompile Include="src\GameEvent.cpp" />
     <ClCompile Include="src\GameSocket.cpp" />
     <ClCompile Include="src\Global.cpp" />
     <ClCompile Include="src\IOCPort.cpp" />
     <ClCompile Include="src\IOCSocket.cpp" />
+    <ClCompile Include="src\ItemTableSet.cpp" />
+    <ClCompile Include="src\LOGIC_ELSE.cpp" />
+    <ClCompile Include="src\MagicProcess.cpp" />
+    <ClCompile Include="src\MagicTableSet.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Region.cpp" />
+    <ClCompile Include="src\StdAfx.cpp" />
     <ClCompile Include="src\User.cpp" />
+    <ClCompile Include="src\ZoneInfoSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,7 +3,7 @@
 
 #include <list>
 #include <queue>
-#include "Define.h"
+#include "Define.h"//#include "DefineTest.h"
 //#include "EbenezerDlg.h"
 
 //-----------------------------------------------------------------------------

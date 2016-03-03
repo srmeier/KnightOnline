@@ -1,18 +1,22 @@
 /*
 */
 
-#include "Define.h"
+#include "stdafx.h"
+#include "Define.h"//#include "DefineTest.h"
+
 #include "EbenezerDlg.h"
 #include <time.h>
 
-#include "User.h"
+#include "User.h" //#include "UserTest.h"
 
 //-----------------------------------------------------------------------------
 int running = 1;
 int next_ind = 0;
 TCPsocket server_socket;
-CUser* clients[MAX_USER];
+CUser* clients[MAX_USER]; //CUserTest* clients[MAX_USER];
 SDLNet_SocketSet socket_set;
+
+CEbenezerDlg server;
 
 //-----------------------------------------------------------------------------
 void SendData(int index, uint8_t* data, uint16_t length, uint16_t flag);
@@ -58,7 +62,7 @@ int AcceptSocket(int index) {
 		CloseSocket(index);
 	}
 
-	clients[index] = new CUser();
+	clients[index] = new CUser(&server);//CUserTest(&server);
 
 	clients[index]->m_tcpSocket = SDLNet_TCP_Accept(server_socket);
 	if(clients[index]->m_tcpSocket == NULL) return 0;
