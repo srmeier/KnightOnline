@@ -16,6 +16,16 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
+// TEMP:
+int player_zone = 21;
+int player_x = 2000;
+int player_z = 2000;
+int player_y = 0;
+
+int player_nation = 1;
+int player_race   = 2;
+int player_class  = 102;
+//
 
 //extern CRITICAL_SECTION g_region_critical;
 //extern CRITICAL_SECTION g_LogFile_critical;
@@ -927,7 +937,39 @@ void CUser::SelCharToAgent(char *pBuf)
 	GetString( userid, pBuf, idlen2, index );
 	bInit = GetByte( pBuf, index );
 	zone = GetByte( pBuf, index );
-	
+
+
+	// TEMP
+	printf("DB: (N3_CHARACTER_SELECT): Account Name = \"%s\", ID = \"%s\", ZoneInit = %d, ZoneCur = %d\n",
+		accountid, userid, bInit, zone
+	);
+
+	SetByte(send_buff, WIZ_SEL_CHAR, send_index);
+	SetByte(send_buff, 0x01, send_index);
+	SetByte(send_buff, player_zone, send_index); // NOTE: set the init player zone
+
+												// NOTE: need to figure out why the position gets sent twice
+	SetShort(send_buff, player_x, send_index);
+	SetShort(send_buff, player_z, send_index);
+	SetShort(send_buff, player_y, send_index);
+
+	SetByte(send_buff, 0x01, send_index);
+
+	if (Send(send_buff, send_index) < send_index) {
+		printf("ER: %s\n", SDLNet_GetError());
+	}
+
+	/*
+	int iZoneCur = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	float fX = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
+	float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
+	float fY = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
+	int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	*/
+	//
+
+
+	/*
 	if( _strnicmp( accountid, m_strAccountID, MAX_ID_SIZE ) != 0 ) {
 		pUser = m_pMain->GetUserPtr( accountid, 0x01 );
 		if( pUser && (pUser->m_Sid != m_Sid) ) {
@@ -942,6 +984,7 @@ void CUser::SelCharToAgent(char *pBuf)
 		pUser->CloseProcess(); // Close()?
 		goto fail_return;
 	}
+	*/
 
 	// À½³É,, ¿©±â¼­ Á¸À» ºñ±³,,,
 	if( zone <= 0 )	{
@@ -1624,7 +1667,8 @@ void CUser::Rotate( char* pBuf )
 	SetShort( buff, m_Sid, send_index );
 	SetShort( buff, dir, send_index );
 
-	m_pMain->Send_Region( buff, send_index, (int)m_pUserData->m_bZone, m_RegionX, m_RegionZ, NULL, false );
+	// TODO: need to set the m_pUserData struct!
+	//m_pMain->Send_Region( buff, send_index, (int)m_pUserData->m_bZone, m_RegionX, m_RegionZ, NULL, false );
 }
 
 void CUser::Attack(char *pBuf)
@@ -1818,6 +1862,117 @@ void CUser::Attack(char *pBuf)
 
 void CUser::SendMyInfo()
 {
+	//MsgRecv_MyInfo_All
+
+	int send_index = 0;
+	Byte send_buf[1024];
+	memset(send_buf, 0x00, 1024);
+
+	SetByte(send_buf, WIZ_MYINFO, send_index);
+
+	SetShort(send_buf, 0x00, send_index);
+	SetShort(send_buf, 0x04, send_index);
+	SetString(send_buf, "Test", 4, send_index);
+
+	// NOTE: actual player position
+	SetShort(send_buf, player_x, send_index);
+	SetShort(send_buf, player_z, send_index);
+	SetShort(send_buf, player_y, send_index);
+
+	SetByte(send_buf, player_nation, send_index);
+	SetByte(send_buf, player_race, send_index);
+	SetShort(send_buf, player_class, send_index);
+
+	// ITEM_SLOT_EAR_RIGHT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_HEAD
+	SetDWORD(send_buf, 244003000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_EAR_LEFT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_NECK
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_UPPER
+	SetDWORD(send_buf, 244001000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_SHOULDER
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_HAND_RIGHT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_BELT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_HAND_LEFT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_RING_RIGHT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_LOWER
+	SetDWORD(send_buf, 244002000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_RING_LEFT
+	SetDWORD(send_buf, 0, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_GLOVES
+	SetDWORD(send_buf, 244004000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+	// ITEM_SLOT_SHOES
+	SetDWORD(send_buf, 244005000, send_index);
+	SetShort(send_buf, 4200, send_index);
+	SetShort(send_buf, 0, send_index);
+
+	/*
+	for (int i = 0; i < ITEM_SLOT_COUNT; i++)				// ½½·Ô °¹¼ö¸¶Å­..
+	{
+	iItemIDInSlots[i] = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	iItemDurabilityInSlots[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	iItemCountInSlots[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	}
+	*/
+
+	for (int i = 0; i < 28; ++i) {
+		SetDWORD(send_buf, 244005000, send_index);
+		SetShort(send_buf, 4200, send_index);
+		SetShort(send_buf, 0, send_index);
+	}
+
+	/*
+	for (int i = 0; i < MAX_ITEM_INVENTORY; i++)				// ½½·Ô °¹¼ö¸¶Å­..
+	{
+	iItemIDInInventorys[i] = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	iItemDurabilityInInventorys[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	iItemCountInInventorys[i] = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	}
+	*/
+
+	// NOTE: probably want to hit this client function as well MsgRecv_UserInRequested
+
+	if (Send(send_buf, send_index) < send_index) {
+		printf("ER: %s\n", SDLNet_GetError());
+	}
+
+
+
+	/*
 	C3DMap* pMap = NULL;
 	//CKnights* pKnights = NULL;
 	pMap = (C3DMap*)m_pMain->m_ZoneArray[m_iZoneIndex];
@@ -1867,13 +2022,13 @@ void CUser::SendMyInfo()
 		m_pUserData->m_curx = x;
 		m_pUserData->m_curz = z;
 	}
-/* Mins	
-	if (m_pUserData->m_bZone == 51) {
-		m_pUserData->m_curx = 40;
-		m_pUserData->m_curz = 10;
-		m_pUserData->m_cury = 7;
-	}
-*/
+// Mins	
+//	if (m_pUserData->m_bZone == 51) {
+//		m_pUserData->m_curx = 40;
+//		m_pUserData->m_curz = 10;
+//		m_pUserData->m_cury = 7;
+//	}
+//
 
 	SetByte( send_buff, WIZ_MYINFO, send_index );
 	SetShort( send_buff, m_Sid, send_index );
@@ -1900,13 +2055,10 @@ void CUser::SendMyInfo()
 	SetShort( send_buff, m_pUserData->m_bKnights, send_index );
 	SetByte( send_buff, m_pUserData->m_bFame, send_index );
 
-	/*
 	if( m_pUserData->m_bKnights == 0 )	{
-	*/
 		SetShort( send_buff, 0, send_index );
 		SetByte( send_buff, 0, send_index );
 		SetByte( send_buff, 0, send_index );
-		/*
 	}
 	else {
 		pKnights = m_pMain->m_KnightsArray.GetData( m_pUserData->m_bKnights );
@@ -1923,7 +2075,7 @@ void CUser::SendMyInfo()
 			SetByte( send_buff, 0, send_index );
 			SetByte( send_buff, 0, send_index );
 		}
-	}*/
+	}
 
 	SetShort( send_buff, m_iMaxHp, send_index );
 	SetShort( send_buff, m_pUserData->m_sHp, send_index );
@@ -2004,6 +2156,7 @@ void CUser::SendMyInfo()
 //	if( m_pUserData->m_bKnights > 0 )	{
 //		m_pMain->m_KnightsManager.ModifyKnightsUser( m_pUserData->m_bKnights, m_pUserData->m_id, m_pUserData->m_bFame, m_pUserData->m_bLevel, m_pUserData->m_sClass, 1);
 //	}
+*/
 }
 
 void CUser::Chat(char *pBuf)

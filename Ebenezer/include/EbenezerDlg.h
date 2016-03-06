@@ -9,6 +9,7 @@
 #endif // _MSC_VER > 1000
 
 #include "afxdb.h"
+#include "ini.h"
 
 #include "Iocport.h"
 #include "Map.h"
@@ -86,8 +87,14 @@ public:
 	ServerArray			m_ServerGroupArray;
 	HomeArray				m_HomeArray;
 
+	int m_nCastleCapture;
+	int m_nBattleZoneOpenWeek, m_nBattleZoneOpenHourStart, m_nBattleZoneOpenHourEnd;
+
 	char	m_ppNotice[20][128];
 	short   m_sDiscount;	// 능력치와 포인트 초기화 할인 (0:할인없음, 1:할인(50%) )
+
+private:
+	CIni	m_Ini;
 
 public:
 	//void WriteEventLog(char* pBuf);
@@ -141,7 +148,7 @@ public:
 	//void SetGameTime();
 	//void UpdateWeather();
 	//void UpdateGameTime();
-	//void GetTimeFromIni();
+	void GetTimeFromIni();
 	//void Send_NearRegion(char* pBuf, int len, int zone, int region_x, int region_z, float curx, float curz, CUser* pExceptUser = NULL);
 	//void Send_FilterUnitRegion(char* pBuf, int len, int zoneindex, int x, int z, float ref_x, float ref_z, CUser* pExceptUser = NULL);
 	void Send_UnitRegion(char *pBuf, int len, int zoneindex, int x, int z, CUser* pExceptUser = NULL, bool bDirect = true);

@@ -1,4 +1,5 @@
 git reset --hard 0d1d7fc32
+%windir%\SysWOW64\odbcad32.exe
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================

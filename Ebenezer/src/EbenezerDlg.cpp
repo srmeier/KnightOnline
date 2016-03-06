@@ -13,6 +13,15 @@
 #include "CoefficientSet.h"
 #include "ZoneInfoSet.h"
 
+#define GAME_TIME       	100
+#define SEND_TIME			200
+#define PACKET_CHECK		300
+#define ALIVE_TIME			400
+#define MARKET_BBS_TIME		1000
+
+// TEMP: access to client sockets
+extern CUser* clients[MAX_USER];
+
 WORD	g_increase_serial = 1;
 
 CIOCPort	CEbenezerDlg::m_Iocport;
@@ -290,7 +299,7 @@ BOOL CEbenezerDlg::MapFileLoad()
 		//sZoneName = "karus_0730.smd";
 		szFullPath.Format(".\\MAP\\%s", sZoneName);
 
-		LogFileWrite("mapfile load\r\n");
+		//LogFileWrite("mapfile load\r\n");
 		if (!file.Open(szFullPath, CFile::modeRead)) {
 			errormsg.Format("File Open Fail - %s\n", szFullPath);
 			//AfxMessageBox(errormsg);
@@ -316,7 +325,7 @@ BOOL CEbenezerDlg::MapFileLoad()
 		m_ZoneArray.push_back(pMap);
 
 		// 스트립트를 읽어 들인다.
-		LogFileWrite("before script\r\n");
+		//LogFileWrite("before script\r\n");
 
 		pEvent = new EVENT;
 		if (!pEvent->LoadEvent(ZoneInfoSet.m_ZoneNo))
@@ -819,4 +828,70 @@ __int64 CEbenezerDlg::GenerateItemSerial()
 
 	//	TRACE("Generate Item Serial : %I64d\n", serial.i);
 	return serial.i;
+}
+
+//-----------------------------------------------------------------------------
+void CEbenezerDlg::GetTimeFromIni()
+{
+	int year = 0, month = 0, date = 0, hour = 0, server_count = 0, sgroup_count = 0, i = 0;
+	char ipkey[20]; memset(ipkey, 0x00, 20);
+
+	m_Ini.SetPath("server.ini");
+	m_nYear = m_Ini.GetProfileInt("TIMER", "YEAR", 1);
+	m_nMonth = m_Ini.GetProfileInt("TIMER", "MONTH", 1);
+	m_nDate = m_Ini.GetProfileInt("TIMER", "DATE", 1);
+	m_nHour = m_Ini.GetProfileInt("TIMER", "HOUR", 1);
+	m_nWeather = m_Ini.GetProfileInt("TIMER", "WEATHER", 1);
+
+	//	m_nBattleZoneOpenWeek  = m_Ini.GetProfileInt("BATTLE", "WEEK", 3);
+	m_nBattleZoneOpenWeek = m_Ini.GetProfileInt("BATTLE", "WEEK", 5);
+	m_nBattleZoneOpenHourStart = m_Ini.GetProfileInt("BATTLE", "START_TIME", 20);
+	m_nBattleZoneOpenHourEnd = m_Ini.GetProfileInt("BATTLE", "END_TIME", 0);
+
+	m_nCastleCapture = m_Ini.GetProfileInt("CASTLE", "NATION", 1);
+	m_nServerNo = m_Ini.GetProfileInt("ZONE_INFO", "MY_INFO", 1);
+	m_nServerGroup = m_Ini.GetProfileInt("ZONE_INFO", "SERVER_NUM", 0);
+	server_count = m_Ini.GetProfileInt("ZONE_INFO", "SERVER_COUNT", 1);
+	if (server_count < 1) {
+		AfxMessageBox("ServerCount Error!!");
+		return;
+	}
+
+	for (i = 0; i<server_count; i++) {
+		_ZONE_SERVERINFO *pInfo = new _ZONE_SERVERINFO;
+		sprintf(ipkey, "SERVER_%02d", i);
+		pInfo->sServerNo = m_Ini.GetProfileInt("ZONE_INFO", ipkey, 1);
+		sprintf(ipkey, "SERVER_IP_%02d", i);
+		strcpy(pInfo->strServerIP, m_Ini.GetProfileString("ZONE_INFO", ipkey, "210.92.91.242"));
+		pInfo->sPort = _LISTEN_PORT + pInfo->sServerNo;
+
+		m_ServerArray.PutData(pInfo->sServerNo, pInfo);
+	}
+
+	if (m_nServerGroup != 0) {
+		m_nServerGroupNo = m_Ini.GetProfileInt("SG_INFO", "GMY_INFO", 1);
+		sgroup_count = m_Ini.GetProfileInt("SG_INFO", "GSERVER_COUNT", 1);
+		if (server_count < 1) {
+			AfxMessageBox("ServerCount Error!!");
+			return;
+		}
+		for (i = 0; i<sgroup_count; i++) {
+			_ZONE_SERVERINFO *pInfo = new _ZONE_SERVERINFO;
+			sprintf(ipkey, "GSERVER_%02d", i);
+			pInfo->sServerNo = m_Ini.GetProfileInt("SG_INFO", ipkey, 1);
+			sprintf(ipkey, "GSERVER_IP_%02d", i);
+			strcpy(pInfo->strServerIP, m_Ini.GetProfileString("SG_INFO", ipkey, "210.92.91.242"));
+			pInfo->sPort = _LISTEN_PORT + pInfo->sServerNo;
+
+			m_ServerGroupArray.PutData(pInfo->sServerNo, pInfo);
+		}
+	}
+
+	/*
+	SetTimer(GAME_TIME, 6000, NULL);
+	SetTimer(SEND_TIME, 200, NULL);
+	SetTimer(ALIVE_TIME, 34000, NULL);
+	SetTimer(MARKET_BBS_TIME, 300000, NULL);
+	SetTimer(PACKET_CHECK, 360000, NULL);
+	*/
 }

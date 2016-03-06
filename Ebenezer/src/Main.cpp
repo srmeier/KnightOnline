@@ -194,6 +194,15 @@ int SDL_main(int argc, char** argv) {
 		exit(-1);
 	}
 
+	// TEMP: doing any server intialization here
+	server.GetTimeFromIni();
+
+	if (!server.MapFileLoad()) {
+		printf("ER: unable to load map files\n");
+		return -1;
+	}
+	//
+
 	while(running) {
 		int num_rdy = SDLNet_CheckSockets(socket_set, 100);
 
