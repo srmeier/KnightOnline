@@ -170,6 +170,7 @@
     <ClInclude Include="include\GameDefine.h" />
     <ClInclude Include="include\GameEvent.h" />
     <ClInclude Include="include\GameSocket.h" />
+    <ClInclude Include="include\Ini.h" />
     <ClInclude Include="include\IOCPort.h" />
     <ClInclude Include="include\IOCSocket.h" />
     <ClInclude Include="include\ItemTableSet.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="src\GameEvent.cpp" />
     <ClCompile Include="src\GameSocket.cpp" />
     <ClCompile Include="src\Global.cpp" />
+    <ClCompile Include="src\Ini.cpp" />
     <ClCompile Include="src\IOCPort.cpp" />
     <ClCompile Include="src\IOCSocket.cpp" />
     <ClCompile Include="src\ItemTableSet.cpp" />

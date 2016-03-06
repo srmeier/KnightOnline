@@ -41,7 +41,7 @@ CEventSet::CEventSet(CDatabase* pdb)
 
 CString CEventSet::GetDefaultConnect()
 {
-	return _T("ODBC;DSN=kosql;UID=knight_user;PWD=connect2knight");
+	return _T("ODBC;DSN=KN_online;UID=knight;PWD=knight");
 }
 
 CString CEventSet::GetDefaultSQL()

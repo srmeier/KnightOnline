@@ -36,13 +36,12 @@ CZoneInfoSet::CZoneInfoSet(CDatabase* pdb)
 
 CString CZoneInfoSet::GetDefaultConnect()
 {
-	return _T("ODBC;DSN=kosql;UID=knight_user;PWD=connect2knight");
+	return _T("ODBC;DSN=KN_online;UID=knight;PWD=knight");
 }
 
 CString CZoneInfoSet::GetDefaultSQL()
 {
 	return _T("[dbo].[ZONE_INFO]");
-	//return _T("[dbo].[ZONE_INFO2]"); 
 }
 
 void CZoneInfoSet::DoFieldExchange(CFieldExchange* pFX)
@@ -58,6 +57,9 @@ void CZoneInfoSet::DoFieldExchange(CFieldExchange* pFX)
 	RFX_Byte(pFX, _T("[Type]"), m_Type);
 	// dungeon work
 	RFX_Byte(pFX, _T("[RoomEvent]"), m_RoomEvent);
+
+	CString bz;
+	//RFX_Text(pFX, _T("[bz]"), bz);
 	//}}AFX_FIELD_MAP
 }
 
