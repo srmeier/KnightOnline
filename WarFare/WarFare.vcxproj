@@ -70,7 +70,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\external\lib\;..\N3Base\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_net.lib;SDL2_mixer.lib;SDL2_image.lib;implode.lib;jpegLib.lib;JvCryption.lib;winmm.lib;imm32.lib;d3d9.lib;d3dx9.lib;dsound.lib;dxguid.lib;dxerr.lib;wsock32.lib;DInput8.lib;N3Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_net.lib;SDL2_mixer.lib;SDL2_image.lib;implode.lib;jpegLib.lib;winmm.lib;imm32.lib;d3d9.lib;d3dx9.lib;dsound.lib;dxguid.lib;dxerr.lib;wsock32.lib;DInput8.lib;N3Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libc.lib</IgnoreSpecificDefaultLibraries>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <OptimizeReferences>true</OptimizeReferences>
@@ -95,7 +95,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\external\lib\;..\N3Base\lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_net.lib;SDL2_mixer.lib;SDL2_image.lib;implode.lib;jpegLib.lib;JvCryption.lib;winmm.lib;imm32.lib;d3d9.lib;d3dx9.lib;dsound.lib;dxguid.lib;dxerr.lib;wsock32.lib;DInput8.lib;N3Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_net.lib;SDL2_mixer.lib;SDL2_image.lib;implode.lib;jpegLib.lib;winmm.lib;imm32.lib;d3d9.lib;d3dx9.lib;dsound.lib;dxguid.lib;dxerr.lib;wsock32.lib;DInput8.lib;N3Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libc.lib</IgnoreSpecificDefaultLibraries>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
@@ -108,6 +108,7 @@
     <ClInclude Include="include\Catapult.h" />
     <ClInclude Include="include\Compress.h" />
     <ClInclude Include="include\CountableItemEditDlg.h" />
+    <ClInclude Include="include\crc32.h" />
     <ClInclude Include="include\DungeonManager.h" />
     <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\GameBase.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="src\Catapult.cpp" />
     <ClCompile Include="src\Compress.cpp" />
     <ClCompile Include="src\CountableItemEditDlg.cpp" />
+    <ClCompile Include="src\crc32.c" />
     <ClCompile Include="src\DungeonManager.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\GameBase.cpp" />
@@ -234,6 +236,7 @@
     <ClCompile Include="src\GrassBoard.cpp" />
     <ClCompile Include="src\GrassMng.cpp" />
     <ClCompile Include="src\ItemRepairMgr.cpp" />
+    <ClCompile Include="src\JvCryption.cpp" />
     <ClCompile Include="src\KnightChrMgr.cpp" />
     <ClCompile Include="src\LightMgr.cpp" />
     <ClCompile Include="src\LocalInput.cpp" />

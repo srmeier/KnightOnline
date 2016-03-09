@@ -11,6 +11,7 @@ using namespace std;
 
 CUser::CUser(uint16 socketID, SocketMgr *mgr) : KOSocket(socketID, mgr, -1, 16384, 3172), Unit(UnitPlayer)
 {
+	m_bHasCheckedClientVersion = false;
 }
 
 /**
@@ -220,11 +221,13 @@ bool CUser::HandlePacket(Packet & pkt)
 	TRACE("[SID=%d] Packet: %X (len=%d)\n", GetSocketID(), command, pkt.size());
 
 	// If crypto's not been enabled yet, force the version packet to be sent.
-	if (!isCryptoEnabled())
+	//if (!isCryptoEnabled())
+	if(!m_bHasCheckedClientVersion)
 	{
 		if (command == WIZ_VERSION_CHECK)
 			VersionCheck(pkt);
 
+		m_bHasCheckedClientVersion = true;
 		return true;
 	}
 	// If we're not authed yet, forced us to before we can do anything else.
@@ -930,7 +933,8 @@ void CUser::SendMyInfo()
 	else
 		m_bRank = 0; // totally not da King.
 
-	result.SByte(); // character name has a single byte length
+	//result.SByte(); // character name has a single byte length
+	result.DByte(); // character name has a single byte length
 	result	<< GetSocketID()
 		<< GetName()
 		<< GetSPosX() << GetSPosZ() << GetSPosY()

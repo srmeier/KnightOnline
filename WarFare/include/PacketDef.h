@@ -1,12 +1,8 @@
 #ifndef __PACKET_DEF_H_
 #define __PACKET_DEF_H_
 
-//const int SOCKET_PORT_GAME = 15001;//10000;//15001; // 소켓이 붙을 포트 번호..
-//const int SOCKET_PORT_LOGIN = 15100; // 소켓이 붙을 포트 번호..
-
-// NOTE: with this custom Ebenezer
-const int SOCKET_PORT_GAME = 15001; //10000;//10000;//15001; // 소켓이 붙을 포트 번호..
-const int SOCKET_PORT_LOGIN = 15100; //10000; // 소켓이 붙을 포트 번호..
+const int SOCKET_PORT_GAME = 15001;
+const int SOCKET_PORT_LOGIN = 15100;
 
 #define N3_ACCOUNT_LOGIN			0xf3
 #define N3_ACCOUNT_LOGIN_MGAME		0xf4	// !!! LOGIN_REQ !!! 와 동일

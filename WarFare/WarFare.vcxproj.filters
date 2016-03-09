@@ -87,9 +87,6 @@
     <ClInclude Include="include\ItemRepairMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\JvCryption.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\KnightChrMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -343,6 +340,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\WarMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\JvCryption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\crc32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -615,6 +618,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\WarMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\crc32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\JvCryption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

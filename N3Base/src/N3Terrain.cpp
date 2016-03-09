@@ -433,8 +433,8 @@ bool CN3Terrain::Load(HANDLE hFile)
 
 	m_szFileName = szFNBackup;
 
-	//CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
-	//if(pUILoading) pUILoading->Render("Allocating Terrain...", 0);
+	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
+	if(pUILoading) pUILoading->Render("Allocating Terrain...", 0);
 
 	ReadFile(hFile, &(m_ti_MapSize), sizeof(int), &dwRWC, NULL);
 	m_pat_MapSize = (m_ti_MapSize-1) / PATCH_TILE_SIZE;
@@ -456,7 +456,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 	__ASSERT(m_pNormal, "Normal Vector Memory Allocation Failed..-.-");
 	SetNormals();
 
-	//if(pUILoading) pUILoading->Render("", 100);
+	if(pUILoading) pUILoading->Render("", 100);
 
 	//patch middleY & radius...
 
@@ -468,7 +468,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 		m_ppPatchRadius[x] = new float [m_pat_MapSize];
 	}
 
-	//if(pUILoading) pUILoading->Render("Loading Terrain Patch Data...", 0);
+	if(pUILoading) pUILoading->Render("Loading Terrain Patch Data...", 0);
 
 	char szLoadingBuff[128];
 	for(x=0; x<m_pat_MapSize; x++)
@@ -482,7 +482,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 		int iLoading = (x+1) * 100 / m_pat_MapSize;
 		sprintf(szLoadingBuff, "Loading Terrain Patch Data... %d %%", iLoading);
 
-		//if(pUILoading) pUILoading->Render(szLoadingBuff, iLoading);
+		if(pUILoading) pUILoading->Render(szLoadingBuff, iLoading);
 	}
 
 //	m_ppGrassAttr = new unsigned char* [m_ti_MapSize];
@@ -523,7 +523,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 	LoadTileInfo(hFile);
 
 	//load lightmap..
-	//if(pUILoading) pUILoading->Render("Loading Lightmap Data...", 0);
+	if(pUILoading) pUILoading->Render("Loading Lightmap Data...", 0);
 	
 	int NumLightMap = 0;
 	ReadFile(hFile, &NumLightMap, sizeof(int), &dwRWC, NULL);
@@ -539,15 +539,15 @@ bool CN3Terrain::Load(HANDLE hFile)
 		//loading bar...
 		int iLoading = (i+1) * 100 / NumLightMap;
 		sprintf(szLoadingBuff, "Loading Lightmap Data... %d %%", iLoading);
-		//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
+		if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
 	}
 	delete pTmpTex;
 
-	//if(pUILoading) pUILoading->Render("Loading River Data...", 0);
+	if(pUILoading) pUILoading->Render("Loading River Data...", 0);
 	m_pRiver->Load(hFile); // 맵데이터 올때까지만 잠시만 막자..2002.11.15
 	m_pPond->Load(hFile); 
 
-	//if(pUILoading) pUILoading->Render("", 100);
+	if(pUILoading) pUILoading->Render("", 100);
 	return true;
 }
 
@@ -633,7 +633,7 @@ MAPDATA	CN3Terrain::GetMapData(int x, int z)
 //
 void CN3Terrain::LoadGrassInfo()
 {
-	//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Grass Data...", 0);
+	if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Grass Data...", 0);
 
 	m_iNumGrass = 0;
 	if(strcmp(m_pGrassFileName,"")==0)
@@ -680,7 +680,7 @@ void CN3Terrain::LoadGrassInfo()
 		//loading bar...
 		int iLoading = (i+1) * 100 / m_iNumGrass;
 		sprintf(szLoadingBuff, "Loading Terrain Grass Data... %d %%", iLoading);
-		//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
+		if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
 	}
 	CloseHandle(hFile);
 }
@@ -691,7 +691,7 @@ void CN3Terrain::LoadGrassInfo()
 //
 void CN3Terrain::LoadTileInfo(HANDLE hFile)
 {
-	//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Tile Data...", 0);
+	if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render("Loading Terrain Tile Data...", 0);
 
 	DWORD dwRWC;
 	ReadFile(hFile, &m_NumTileTex, sizeof(int), &dwRWC, NULL);
@@ -737,7 +737,7 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 		//loading bar...
 		int iLoading = (i+1) * 100 / m_NumTileTex;
 		sprintf(szLoadingBuff, "Loading Terrain Tile Data... %d %%", iLoading);
-		//if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
+		if(CGameProcedure::s_pUILoading) CGameProcedure::s_pUILoading->Render(szLoadingBuff, iLoading);
 
 		CloseHandle(hTTGFile);
 	}
@@ -2137,7 +2137,7 @@ bool CN3Terrain::CheckCollision(__Vector3& vPos, __Vector3& vDir, float fVelocit
 
 bool CN3Terrain::LoadColorMap(const std::string& szFN)
 {
-	//CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
+	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
 
 	int temp1 = PATCH_PIXEL_SIZE;
 	int temp2 = COLORMAPTEX_SIZE;
@@ -2171,7 +2171,7 @@ bool CN3Terrain::LoadColorMap(const std::string& szFN)
 		}
 
 		sprintf(szBuff, "Loading colormap %d %%", x * 100 / m_iNumColorMap);
-		//if(pUILoading) pUILoading->Render(szBuff, 60 + 15 * x / m_iNumColorMap);
+		if(pUILoading) pUILoading->Render(szBuff, 60 + 15 * x / m_iNumColorMap);
 	}
 
 	CloseHandle(hColorMapFile);

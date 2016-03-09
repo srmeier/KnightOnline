@@ -115,6 +115,8 @@ public:
 	std::string & GetAccountName() { return m_strAccountID; }
 	virtual std::string & GetName() { return m_strUserID; }
 
+	bool m_bHasCheckedClientVersion;
+
 	std::string	m_strAccountID, m_strUserID;
 
 	uint8	m_bRace;
