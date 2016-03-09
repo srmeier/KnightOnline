@@ -93,7 +93,7 @@ uint16 CDBProcess::AccountLogin(string & strAccountID, string & strPasswd)
 	// will also need to convert from @nRet nation return to the flag that the client is
 	// expecting. I am pertty sure it is like this because the login server and game server
 	// share the same SQL Procedure for logging in users
-	if(result==1 || result==2) {
+	if(result==1 || result==2 || result==3) {
 		// NOTE: 1298 returns 1 for "no nation selected" or "no characters on a nation"
 		// returns 2 if the user have characters on Karus and returns 3 if use has
 		// characters on elmorad. But we will ignore this bit and just access the fact

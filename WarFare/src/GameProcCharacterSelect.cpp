@@ -1325,8 +1325,8 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int
 			m_InfoChrs[i].iItemHelmetDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemUpper				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 상체 dw
 			m_InfoChrs[i].iItemUpperDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemCloak				= 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 어깨(망토) dw
-			m_InfoChrs[i].iItemCloakDurability		= 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemCloak				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 어깨(망토) dw
+			m_InfoChrs[i].iItemCloakDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemLower				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
 			m_InfoChrs[i].iItemLowerDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemGloves				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 장갑 dw

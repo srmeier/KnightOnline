@@ -1659,74 +1659,74 @@ bool CGameProcMain::MsgRecv_MyInfo_All(DataPack* pDataPack, int& iOffset)
 	s_pPlayer->m_InfoBase.eNation = (e_Nation)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	s_pPlayer->m_InfoBase.eRace = (e_Race)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	s_pPlayer->m_InfoBase.eClass = (e_Class)CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iFace = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 얼굴 모양..
-	s_pPlayer->m_InfoExt.iHair = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리카락
+	s_pPlayer->m_InfoExt.iFace = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 얼굴 모양..
+	s_pPlayer->m_InfoExt.iHair = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리카락
 
 	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
 	if(NULL == pLooks) CLogWriter::Write("CGameProcMain::MsgRecv_MyInfo_All : failed find character resource data (Race : %d)", s_pPlayer->m_InfoBase.eRace);
 	__ASSERT(pLooks, "failed find character resource data");
 	s_pPlayer->InitChr(pLooks); // 관절 세팅..
 
-	s_pPlayer->m_InfoExt.iRank = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iTitle = 0;// CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoBase.iLevel = 1;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iLevelPrev = 0;//s_pPlayer->m_InfoBase.iLevel;
-	s_pPlayer->m_InfoExt.iBonusPointRemain = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 남은 보너스 포인트..
+	s_pPlayer->m_InfoExt.iRank = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iTitle = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoBase.iLevel = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iLevelPrev = s_pPlayer->m_InfoBase.iLevel;
+	s_pPlayer->m_InfoExt.iBonusPointRemain = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 남은 보너스 포인트..
 
-	s_pPlayer->m_InfoExt.iExpNext = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
-	s_pPlayer->m_InfoExt.iExp = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
-	s_pPlayer->m_InfoExt.iRealmPoint = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iCity = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iExpNext = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
+	s_pPlayer->m_InfoExt.iExp = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
+	s_pPlayer->m_InfoExt.iRealmPoint = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iCity = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	
 	std::string szKnightsName = "";
-	int iKnightsID = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 소속 기사단 ID
-	e_KnightsDuty eKnightsDuty = (e_KnightsDuty)0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 기사단에서의 권한..
-	int iKnightNameLen = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 소속 기사단 이름 길이.
-	//CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szKnightsName, iKnightNameLen);
-	int iKnightsGrade = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 소속 기사단 등급
-	int	iKnightsRank = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 소속 기사단 순위
+	int iKnightsID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 소속 기사단 ID
+	e_KnightsDuty eKnightsDuty = (e_KnightsDuty)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 기사단에서의 권한..
+	int iKnightNameLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 소속 기사단 이름 길이.
+	CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szKnightsName, iKnightNameLen);
+	int iKnightsGrade = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 소속 기사단 등급
+	int	iKnightsRank = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 소속 기사단 순위
 	
 	// 기사단 관련 세팅..
 	s_pPlayer->m_InfoExt.eKnightsDuty = eKnightsDuty; // 기사단에서의 권한..
 	s_pPlayer->KnightsInfoSet(iKnightsID, szKnightsName, iKnightsGrade, iKnightsRank);
 	m_pUIVar->UpdateKnightsInfo();
 	
-	s_pPlayer->m_InfoBase.iHPMax = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	
-	s_pPlayer->m_InfoBase.iHP = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
-	s_pPlayer->m_InfoExt.iMSPMax = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iMSP = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iWeightMax = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
-	s_pPlayer->m_InfoExt.iWeight = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
+	s_pPlayer->m_InfoBase.iHPMax = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	
+	s_pPlayer->m_InfoBase.iHP = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
+	s_pPlayer->m_InfoExt.iMSPMax = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iMSP = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iWeightMax = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
+	s_pPlayer->m_InfoExt.iWeight = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
 
-	s_pPlayer->m_InfoExt.iStrength = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iStrength_Delta = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iStamina = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iStamina_Delta = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iDexterity = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iDexterity_Delta = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iIntelligence = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iIntelligence_Delta = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iMagicAttak = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iMagicAttak_Delta = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iStrength = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iStrength_Delta = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iStamina = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iStamina_Delta = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iDexterity = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iDexterity_Delta = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iIntelligence = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iIntelligence_Delta = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iMagicAttak = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iMagicAttak_Delta = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	
-	s_pPlayer->m_InfoExt.iAttack = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iAttack = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 //	s_pPlayer->m_InfoExt.iAttack_Delta		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iGuard = 0;//CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iGuard = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 //	s_pPlayer->m_InfoExt.iGuard_Delta		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iRegistFire = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iRegistCold = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iRegistLight = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iRegistMagic = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iRegistCurse = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoExt.iRegistPoison = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iRegistFire = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iRegistCold = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iRegistLight = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iRegistMagic = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iRegistCurse = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoExt.iRegistPoison = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 
-	s_pPlayer->m_InfoExt.iGold = 0;//CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	s_pPlayer->m_InfoBase.iAuthority = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); //권한.. 
+	s_pPlayer->m_InfoExt.iGold = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	s_pPlayer->m_InfoBase.iAuthority = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); //권한.. 
 
 	// 스킬 UI 갱신..
 	for ( int i = 0; i < 9; i++ )
 	{
-		m_pUISkillTreeDlg->m_iSkillInfo[i] = 0;//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		m_pUISkillTreeDlg->m_iSkillInfo[i] = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	}
 	m_pUISkillTreeDlg->InitIconUpdate();
 	m_pUIHotKeyDlg->ReleaseItem();

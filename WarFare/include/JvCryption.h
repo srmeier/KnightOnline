@@ -1,41 +1,29 @@
-///////////////////////////////////////////////////////////////////////////////
-/* ENCYPTION MAIN 
-/* AND ITS API                                */
-/* THIS PROGRAM IS PROGRAMMED FOR WIZGATE     */
-/* BUT ALL COPYRIGHT RESERVED BY JIYOON CHUNG */
-/* (c) ABLEX AND OHSUNGINC 2001.6.1           */
-/* Classed by ks2000 2001.6.1				  */	
-#ifndef __CJVCRYPTION_H
-#define __CJVCRYPTION_H
+#pragma once
 
-typedef unsigned char 	T_OCTET;
-typedef _int64			T_KEY;
+#include "StdAfx.h"
 
+#define USE_CRYPTION
+
+extern "C"
+{
+	#include "crc32.h"
+}
 
 class CJvCryption
 {
 private:
-	T_KEY m_public_key;
-	T_KEY m_private_key;
-	T_KEY m_tkey;
+	Uint64 m_public_key, m_tkey;
 
 public:
-	CJvCryption();
-	~CJvCryption();
+	CJvCryption() : m_public_key(0) {}
 
-	void SetPublicKey(T_KEY pk);
-	void SetPrivateKey(T_KEY pk);
+	inline Uint64 GetPublicKey() { return m_public_key; }
+	inline void SetPublicKey(Uint64 PublicKey) { m_public_key = PublicKey; }
 
 	void Init();
 
-	void JvEncryption(T_KEY private_key, int len, T_OCTET *datain, T_OCTET *dataout);
-	void JvDecryption(T_KEY private_key, int len, T_OCTET *datain, T_OCTET *dataout);
-
-	void JvEncryption( int len, T_OCTET *datain, T_OCTET *dataout );
-	void JvDecryption( int len, T_OCTET *datain, T_OCTET *dataout );
-	void JvEncryptionFast( int len, T_OCTET *datain, T_OCTET *dataout );
-	void JvDecryptionFast( int len, T_OCTET *datain, T_OCTET *dataout );
-
+	void JvEncryptionFast(int len, Uint8 *datain, Uint8 *dataout);
+	inline void JvDecryptionFast(int len, Uint8 *datain, Uint8 *dataout) { JvEncryptionFast(len, datain, dataout); };
+	
+	int JvDecryptionWithCRC32(int len, Uint8 *datain, Uint8 *dataout);
 };
-
-#endif

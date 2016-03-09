@@ -16,7 +16,6 @@
 #define WM_SOCKETMSG	(WM_USER+1)
 #define RECEIVE_BUF_SIZE	262144 // 최대 버퍼..
 
-// TEMP: disabling encryption
 //#define _CRYPTION		// 암호화 사용
 #ifdef _CRYPTION
 #include "JvCryption.h"
@@ -181,7 +180,7 @@ public:
 	{
 		s_JvCrypt.Init();
 		s_JvCrypt.SetPublicKey(PublicKey);
-		s_JvCrypt.SetPrivateKey(_int64(0x1234567890123456));
+		//s_JvCrypt.SetPrivateKey(_int64(0x1234567890123456));
 		s_wSendVal = 0;
 		s_wRcvVal = 0;
 		if (0 != PublicKey) s_bCryptionFlag = TRUE;
