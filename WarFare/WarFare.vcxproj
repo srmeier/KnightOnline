@@ -130,6 +130,7 @@
     <ClInclude Include="include\KnightChrMgr.h" />
     <ClInclude Include="include\LightMgr.h" />
     <ClInclude Include="include\LocalInput.h" />
+    <ClInclude Include="include\lzf.h" />
     <ClInclude Include="include\MachineBase.h" />
     <ClInclude Include="include\MachineMng.h" />
     <ClInclude Include="include\MagicSkillMng.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="src\KnightChrMgr.cpp" />
     <ClCompile Include="src\LightMgr.cpp" />
     <ClCompile Include="src\LocalInput.cpp" />
+    <ClCompile Include="src\lzf.cpp" />
     <ClCompile Include="src\MachineBase.cpp" />
     <ClCompile Include="src\MachineMng.cpp" />
     <ClCompile Include="src\MagicSkillMng.cpp" />

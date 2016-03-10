@@ -1369,7 +1369,7 @@ void CGameServerDlg::GetRegionUserIn(C3DMap *pMap, uint16 region_x, uint16 regio
 		if (nEventRoom > 0 && nEventRoom != pUser->GetEventRoom())
 			continue;
 
-		pkt << uint8(0) << pUser->GetSocketID();
+		pkt /*<< uint8(0)*/ << pUser->GetSocketID();
 		pUser->GetUserInfo(pkt);
 		t_count++;
 	}

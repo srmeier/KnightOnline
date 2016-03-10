@@ -74,6 +74,8 @@
 #include "N3SndMgr.h"
 #include "N3TableBase.h"
 
+#include "lzf.h"
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -5811,6 +5813,7 @@ void CGameProcMain::MsgRecv_KnightsListBasic(DataPack* pDataPack, int& iOffset) 
 
 void CGameProcMain::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 {
+	/*
 	short sCompLen, sOrgLen;
 	DWORD dwCrcValue;
 	sCompLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 압축된 데이타길이얻기... (Obtain compressed data length)
@@ -5818,10 +5821,8 @@ void CGameProcMain::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) 
 	dwCrcValue =	CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);	// CRC값 얻기... (Getting CRC value)
 
 	// TEMP: just to easily get the packet from the watch window
-	/*
-	char temp[0x0023];
-	memcpy(temp, (char*)(pDataPack->m_pData+iOffset), sCompLen);
-	*/
+	//char temp[0x0023];
+	//memcpy(temp, (char*)(pDataPack->m_pData+iOffset), sCompLen);
 
 	/// 압축 데이터 얻기 및 해제 (Obtaining and decompress data)	
 	CCompressMng Compressor;
@@ -5837,10 +5838,25 @@ void CGameProcMain::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) 
 
 	// 압축 풀린 데이타 읽기 (Read loose data compression)
 	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
+	*/
+
+	Uint32 compressedLength = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	Uint32 originalLength = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	Uint32 crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+
+	BYTE* pDecodeBuf = new BYTE[originalLength];
+
+	Uint32 result = lzf_decompress((char*)(pDataPack->m_pData + iOffset), compressedLength, pDecodeBuf, originalLength);
+	if (result
+		!= originalLength)
+	{
+		delete[] pDecodeBuf;
+		return;
+	}
 
 	// 임시로 데이터 팩 만들고.. (Create temporary data pack)
 	DataPack DataPackTemp;
-	DataPackTemp.m_Size = sOrgLen;
+	DataPackTemp.m_Size = originalLength;
 	DataPackTemp.m_pData = pDecodeBuf;
 	int iOffset2 = 0;
 	this->ProcessPacket(&DataPackTemp, iOffset2); // 바로 파싱... (Just parsing)

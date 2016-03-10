@@ -5,6 +5,8 @@
 #include "User.h"
 #include "NpcThread.h"
 
+#include "MAP.h"
+
 // 1m
 //float surround_fx[8] = {0.0f, -0.7071f, -1.0f, -0.7083f,  0.0f,  0.7059f,  1.0000f, 0.7083f};
 //float surround_fz[8] = {1.0f,  0.7071f,  0.0f, -0.7059f, -1.0f, -0.7083f, -0.0017f, 0.7059f};

@@ -650,10 +650,10 @@ void CN3Terrain::LoadGrassInfo()
 	_splitpath(szModuleFilePath, szDrive, szDir, NULL, NULL);
 	char szDir2[MAX_PATH];
 	sprintf(szDir2,"misc\\grass");
-	sprintf(szGrassDir, "%s%s", szDir, szDir2);	
+	sprintf(szGrassDir, "%s%s", "", szDir2); //sprintf(szGrassDir, "%s%s", szDir, szDir2);
 
 	char szFullPath[MAX_PATH];
-	_makepath(szFullPath, szDrive, szGrassDir, m_pGrassFileName, "grs");
+	sprintf(szFullPath, ".\\%s\\%s.%s", szGrassDir, "elmorad_start"/*m_pGrassFileName*/, "grs"); //_makepath(szFullPath, szDrive, szGrassDir, m_pGrassFileName, "grs");
 
 	DWORD dwRWC;
 	HANDLE hFile = CreateFile(szFullPath, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -673,7 +673,7 @@ void CN3Terrain::LoadGrassInfo()
 		if(!ReadFile(hFile, FileName, MAX_PATH, &dwRWC, NULL)) { CloseHandle(hFile); return; }
 
 		char szDxtFullPath[_MAX_PATH];
-		_makepath(szDxtFullPath, szDrive, szGrassDir, FileName, NULL);
+		sprintf(szDxtFullPath, ".\\%s\\%s", szGrassDir, FileName); //_makepath(szDxtFullPath, szDrive, szGrassDir, FileName, NULL);
 
 		strcpy(m_pGrassTextureName[Log2(id)], szDxtFullPath);
 

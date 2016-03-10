@@ -98,7 +98,7 @@ void CUser::UserInOut(uint8 bType)
 
 void CUser::GetUserInfo(Packet & pkt)
 {
-	pkt.SByte();
+	pkt.DByte(); //pkt.SByte();
 	pkt		
 		<< GetName()
 		<< GetNation() 
@@ -112,11 +112,11 @@ void CUser::GetUserInfo(Packet & pkt)
 	}
 	else
 	{
-		pkt	<< pKnights->GetAllianceID()
+		pkt << pKnights->GetAllianceID()
 			<< pKnights->m_strName
-			<< pKnights->m_byGrade << pKnights->m_byRanking
-			<< uint16(pKnights->m_sMarkVersion) // symbol/mark version
-			<< pKnights->GetCapeID(pKnights); // cape ID 
+			<< pKnights->m_byGrade << pKnights->m_byRanking ;
+			//<< uint16(pKnights->m_sMarkVersion) // symbol/mark version
+			//<< pKnights->GetCapeID(pKnights); // cape ID 
 	}
 
 	// There are two event-driven invisibility states; dispel on attack, and dispel on move.
@@ -127,12 +127,13 @@ void CUser::GetUserInfo(Packet & pkt)
 	if (bInvisibilityType != INVIS_NONE)
 		bInvisibilityType = INVIS_DISPEL_ON_MOVE;
 
-	pkt	<< GetLevel() << m_bRace << m_sClass
+	pkt << GetLevel() << m_bRace << m_sClass
 		<< GetSPosX() << GetSPosZ() << GetSPosY()
 		<< m_bFace << m_nHair
-		<< m_bResHpType << uint32(m_bAbnormalType)
+		<< m_bResHpType << uint8(m_bAbnormalType)//uint32(m_bAbnormalType)
 		<< m_bNeedParty
-		<< m_bAuthority
+		<< m_bAuthority ;
+		/*
 		<< m_bPartyLeader // is party leader (bool)
 		<< bInvisibilityType // visibility state
 		//<< uint8(m_teamColour) // team colour (i.e. in soccer, 0=none, 1=blue, 2=red)
@@ -141,6 +142,7 @@ void CUser::GetUserInfo(Packet & pkt)
 		<< m_bIsChicken // chicken/beginner flag
 		<< m_bRank // king flag
 		<< m_bKnightsRank << m_bPersonalRank; // NP ranks (total, monthly)
+		*/
 
 	uint8 equippedItems[] = 
 	{
@@ -154,10 +156,10 @@ void CUser::GetUserInfo(Packet & pkt)
 		if(pItem == nullptr)
 			continue; 
 
-		pkt << pItem->nNum << pItem->sDuration << pItem->bFlag;
+		pkt << pItem->nNum << pItem->sDuration ; //<< pItem->bFlag;
 	}
 
-	pkt << GetZoneID() /* << uint8(-1) << uint8(-1) << uint16(0) << uint16(0) << uint16(0)*/;
+	//pkt << GetZoneID() /* << uint8(-1) << uint8(-1) << uint16(0) << uint16(0) << uint16(0)*/;
 }
 
 void CUser::Rotate(Packet & pkt)
