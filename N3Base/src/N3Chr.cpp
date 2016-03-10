@@ -600,6 +600,8 @@ bool CN3CPlug::Load(HANDLE hFile)
 	if(iUseVMesh)
 	{
 		CN3PMesh* pPMesh = new CN3PMesh();
+		pPMesh->m_iVersion = m_iVersion; // NOTE: Setting the version for further components
+
 		pPMesh->Load(hFile);
 		static int iSN = 0;
 		char szFNTmp[256]; sprintf(szFNTmp, "Temp_Plug_%d.N3PMesh", iSN++);

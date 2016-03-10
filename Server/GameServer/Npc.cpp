@@ -137,8 +137,8 @@ void CNpc::SendInOut(uint8 bType, float fX, float fZ, float fY)
 */
 void CNpc::GetNpcInfo(Packet & pkt)
 {
-	pkt.SByte();
-	pkt << GetProtoID()
+	pkt.DByte(); //pkt.SByte();
+	pkt /*<< GetProtoID()*/
 		<< m_sPid
 		<< GetType()
 		<< m_iSellingGroup
@@ -149,9 +149,9 @@ void CNpc::GetNpcInfo(Packet & pkt)
 		<< GetLevel()
 		<< GetSPosX() << GetSPosZ() << GetSPosY()
 		<< uint32(isGateOpen())
-		<< m_byObjectType
-		<< uint16(0) << uint16(0) // unknown
-		<< int8(m_byDirection);
+		<< m_byObjectType ;
+		//<< uint16(0) << uint16(0) // unknown
+		//<< int8(m_byDirection);
 }
 
 /**

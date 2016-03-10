@@ -348,6 +348,9 @@
     <ClInclude Include="include\crc32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\lzf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\APISocket.cpp">
@@ -624,6 +627,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\JvCryption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lzf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
