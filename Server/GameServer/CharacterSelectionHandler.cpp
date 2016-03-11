@@ -281,9 +281,11 @@ void CUser::GameStart(Packet & pkt)
 
 		Packet result(WIZ_GAMESTART);
 		Send(&result);
+	/*
 	}
 	else if (opcode == 2)
 	{
+	*/
 		m_state = GAME_STATE_INGAME;
 		UserInOut(INOUT_RESPAWN);
 
