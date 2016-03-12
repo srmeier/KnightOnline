@@ -3934,28 +3934,26 @@ void CGameProcMain::MsgSend_UserInRequest(int iID) // User 정보가 없을 경우 요청
 
 
 void CGameProcMain::MsgSend_Warp() // 워프 - 존이동이 될수도 있다..
-{
-	// NOTE: !!! temp removing this for offline wrapping !!!
-	
+{	
 	__WarpInfo WI;
 	int iSel = m_pUIWarp->InfoGetCur(WI);
 	if(iSel < 0 || WI.szName.empty()) return;
 
-	/*
 	BYTE byBuff[8];
 	int iOffset = 0;
-	`
+	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WARP_LIST);
-	CAPISocket::MP_AddByte(byBuff, iOffset, WI.iID); // 워프 아이디 보내기...
+	CAPISocket::MP_AddShort(byBuff, iOffset, WI.iID); // 워프 아이디 보내기...
 	s_pSocket->Send(byBuff, iOffset);
-	*/
 
+	/*
 	__Vector3 vec3;
 	vec3.x = 361.278503f;
 	vec3.y = 2.822370f;
 	vec3.z = 137.339859f;
 
 	InitZone(WI.iZone, vec3);
+	*/
 }
 
 void CGameProcMain::MsgSend_ZoneChangeComplete() // 존 체인지 완료.. (맵 로딩 끝..)
@@ -7186,8 +7184,9 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 					{
 						// NOTE: !!! currently working on offline warp portal !!!
 
-						//this->MsgSend_ObjectEvent(pShape->m_iEventID, pShape->m_iNPC_ID); // 오브젝트 이벤트 보내기..
+						this->MsgSend_ObjectEvent(pShape->m_iEventID, pShape->m_iNPC_ID); // 오브젝트 이벤트 보내기..
 
+						/*
 						m_pUIWarp->Reset();
 
 						for(int i = 0; i < 1; i++)
@@ -7209,6 +7208,7 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 
 						m_pUIWarp->UpdateList();
 						m_pUIWarp->SetVisible(true);
+						*/
 					}
 				}
 			}

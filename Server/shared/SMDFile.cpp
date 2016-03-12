@@ -114,6 +114,7 @@ void SMDFile::LoadTerrain(FILE *fp)
 
 void SMDFile::LoadObjectEvent(FILE *fp)
 {
+	/*
 	int iEventObjectCount = 0;
 	if (fread(&iEventObjectCount, sizeof(int), 1, fp) != 1)
 		return OnInvalidMap();
@@ -123,6 +124,36 @@ void SMDFile::LoadObjectEvent(FILE *fp)
 	{
 		if (fread((new _OBJECT_EVENT), 24, 1, fp) != 1)
 			return OnInvalidMap();
+	}
+	*/
+
+	int iEventObjectCount = 0, zonenum = 0;
+	__Vector3 vPos(0, 0, 0);
+	_OBJECT_EVENT* pEvent = NULL;
+
+	fread(&iEventObjectCount, 4, 1, fp);
+	for (int i = 0; i<iEventObjectCount; i++)
+	{
+		pEvent = new _OBJECT_EVENT;
+		fread(&(pEvent->sBelong), 4, 1, fp);
+		fread(&(pEvent->sIndex), 2, 1, fp);
+		fread(&(pEvent->sType), 2, 1, fp);
+		fread(&(pEvent->sControlNpcID), 2, 1, fp);
+		fread(&(pEvent->sStatus), 2, 1, fp);
+		fread(&(pEvent->fPosX), 4, 1, fp);
+		fread(&(pEvent->fPosY), 4, 1, fp);
+		fread(&(pEvent->fPosZ), 4, 1, fp);
+
+		pEvent->nIndex  = 0; // NOTE: index into DB table?
+		pEvent->sZoneID = zonenum;
+		pEvent->byLife  = 0; // NOTE: I guess if the "NPC" can take damage?
+
+		if (pEvent->sIndex <= 0) continue;
+		if (!m_ObjectEventArray.PutData(pEvent->sIndex, pEvent)) {
+			TRACE("Object Event PutData Fail - %d\n", pEvent->sIndex);
+			delete pEvent;
+			pEvent = NULL;
+		}
 	}
 }
 

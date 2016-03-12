@@ -57,7 +57,26 @@ bool MAP::Initialize(_ZONE_INFO *pZone)
 	if (m_smdFile != nullptr)
 	{
 		SetZoneAttributes(m_nZoneNumber);
-		/*
+		
+		{ // NOTE: need a second scope because of foreach macro
+			foreach_stlmap(itr, m_smdFile->m_ObjectEventArray) {
+				_OBJECT_EVENT * pEvent = itr->second;
+				_OBJECT_EVENT * pEventMap = new _OBJECT_EVENT;
+
+				pEvent->nIndex  = 0; // NOTE: index into DB table?
+				pEvent->sZoneID = m_nZoneNumber;
+				pEvent->byLife  = 0; // NOTE: I guess if the "NPC" can take damage?
+
+				*pEventMap = *pEvent;
+
+				// NOTE: not sure how these should be actually indexed
+				int iIndex = g_pMain->m_ObjectEventArray.GetSize();
+				if (!g_pMain->m_ObjectEventArray.PutData(iIndex, pEventMap)) {
+					TRACE("Object Event PutData Fail - %d\n", pEvent->sIndex);
+				}
+			}
+		}
+
 		foreach_stlmap(itr, g_pMain->m_ObjectEventArray)
 		{
 			if (itr->second->sZoneID == m_nZoneNumber)
@@ -71,7 +90,6 @@ bool MAP::Initialize(_ZONE_INFO *pZone)
 					g_pMain->AddObjectEventNpc(pEvent, this);
 			}
 		}
-		*/
 
 		m_ppRegion = new CRegion*[m_smdFile->m_nXRegion];
 		for (int i = 0; i < m_smdFile->m_nXRegion; i++)
