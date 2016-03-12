@@ -133,6 +133,10 @@ bool CUIStateBar::Load(HANDLE hFile)
 	if(m_pProgress_ExpC) m_pProgress_ExpC->SetRange(0, 100);
 	if(m_pProgress_ExpP) m_pProgress_ExpP->SetRange(0, 100);
 
+	m_pText_HP = (CN3UIString*)GetChildByID("Text_HP");		__ASSERT(m_pText_HP, "NULL UI Component!!");
+	m_pText_MP = (CN3UIString*)GetChildByID("Text_MSP");		__ASSERT(m_pText_MP, "NULL UI Component!!");
+	m_pText_Exp = (CN3UIString*)GetChildByID("Text_ExpP");		__ASSERT(m_pText_Exp, "NULL UI Component!!");
+
 	// MiniMap
 	m_pGroup_MiniMap = GetChildByID("Group_MiniMap"); __ASSERT(m_pGroup_MiniMap, "NULL UI Component!!");
 	if(m_pGroup_MiniMap)
@@ -160,7 +164,6 @@ bool CUIStateBar::LoadMap(const std::string& szMiniMapFN, float fMapSizeX, float
 
 void CUIStateBar::UpdateExp(int iExp, int iExpNext, bool bUpdateImmediately)
 {
-	return; // srm 01/23/2015
 	__ASSERT(iExpNext, "Next Exp is 0");
 	if(iExpNext <= 0) return;
 	if(NULL == m_pProgress_ExpC || NULL == m_pProgress_ExpP) return;
@@ -183,6 +186,14 @@ void CUIStateBar::UpdateExp(int iExp, int iExpNext, bool bUpdateImmediately)
 
 	if(bUpdateImmediately) m_pProgress_ExpP->SetCurValue(iPercentage);	 //SetCurValue --> set경우 
 	else m_pProgress_ExpP->SetCurValue(iPercentage, 0.3f, 100.0f);
+
+	// NOTE: adding the EXP text
+	__ASSERT(iExp >= 0 && iExpNext > 0, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	if (NULL == m_pText_Exp) return;
+
+	char szVal[64] = "0 / 0";
+	sprintf(szVal, "%d / %d", iExp, iExpNext);
+	m_pText_Exp->SetString(szVal);
 }
 
 void CUIStateBar::UpdateMSP(int iMSP, int iMSPMax, bool bUpdateImmediately)
@@ -195,6 +206,14 @@ void CUIStateBar::UpdateMSP(int iMSP, int iMSPMax, bool bUpdateImmediately)
 
 	if(bUpdateImmediately) m_pProgress_MSP->SetCurValue(iPercentage);	 //SetCurValue --> set경우 
 	else m_pProgress_MSP->SetCurValue(iPercentage, 0.3f, 100.0f);
+
+	// NOTE: adding the MP text
+	__ASSERT(iMSP >= 0 && iMSPMax > 0, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	if (NULL == m_pText_MP) return;
+
+	char szVal[64] = "0 / 0";
+	sprintf(szVal, "%d / %d", iMSP, iMSPMax);
+	m_pText_MP->SetString(szVal);
 }
 
 void CUIStateBar::UpdateHP(int iHP, int iHPMax, bool bUpdateImmediately)
@@ -206,6 +225,14 @@ void CUIStateBar::UpdateHP(int iHP, int iHPMax, bool bUpdateImmediately)
 
 	if(bUpdateImmediately) m_pProgress_HP->SetCurValue(iPercentage);	 //SetCurValue --> set경우 
 	else m_pProgress_HP->SetCurValue(iPercentage, 0.3f, 100.0f);
+
+	// NOTE: adding the HP text
+	__ASSERT(iHP >= 0 && iHP < 10000 && iHPMax >= 0 && iHPMax < 10000, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	if (NULL == m_pText_HP) return;
+
+	char szVal[64] = "0 / 0";
+	sprintf(szVal, "%d / %d", iHP, iHPMax);
+	m_pText_HP->SetString(szVal);
 }
 
 void CUIStateBar::UpdatePosition(const __Vector3 &vPos, float fYaw)

@@ -108,7 +108,8 @@ void CUser::GetUserInfo(Packet & pkt)
 	CKnights * pKnights = g_pMain->GetClanPtr(GetClanID());
 	if (pKnights == nullptr)
 	{
-		pkt	<< uint32(0) << uint16(0) << uint8(0) << uint16(-1);
+		pkt << uint8(0) << uint16(0) << uint8(0) << uint8(0);
+		//pkt	<< uint32(0) << uint16(0) << uint8(0) << uint16(-1);
 	}
 	else
 	{
