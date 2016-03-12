@@ -29,6 +29,26 @@ bool C3DMap::Initialize(_ZONE_INFO *pZone)
 	if (m_smdFile != nullptr)
 	{
 		SetZoneAttributes(m_nZoneNumber);
+
+		// NOTE: implementing this for game server
+		// - was already on AIServer but for the game server it was replaced by K_OBJECTPOS table
+		foreach_stlmap(itr, m_smdFile->m_ObjectEventArray) {
+			_OBJECT_EVENT * pEvent = itr->second;
+			_OBJECT_EVENT * pEventMap = new _OBJECT_EVENT;
+
+			pEvent->nIndex  = 0; // NOTE: index into DB table?
+			pEvent->sZoneID = m_nZoneNumber;
+			pEvent->byLife  = 0; // NOTE: I guess if the "NPC" can take damage?
+
+			*pEventMap = *pEvent;
+
+			// NOTE: not sure how these should be actually indexed
+			int iIndex = g_pMain->m_ObjectEventArray.GetSize();
+			if (!g_pMain->m_ObjectEventArray.PutData(iIndex, pEventMap)) {
+				TRACE("Object Event PutData Fail - %d\n", pEvent->sIndex);
+			}
+		}
+
 		m_ppRegion = new CRegion*[m_smdFile->m_nXRegion];
 		for (int i = 0; i < m_smdFile->m_nXRegion; i++)
 			m_ppRegion[i] = new CRegion[m_smdFile->m_nZRegion];
@@ -173,14 +193,12 @@ bool C3DMap::CheckEvent(float x, float z, CUser* pUser)
 
 _OBJECT_EVENT * C3DMap::GetObjectEvent(int objectindex) 
 { 
-	/*
 	foreach_stlmap(itr, g_pMain->m_ObjectEventArray)
 	{
 		if (itr->second->sZoneID == m_nZoneNumber
 			&& itr->second->sIndex == objectindex)
 			return itr->second;
 	}
-	*/
 
 	return nullptr;
 }

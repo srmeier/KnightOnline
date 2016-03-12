@@ -4314,7 +4314,7 @@ void CUser::ServerChangeOk(Packet & pkt)
 
 bool CUser::GetWarpList(int warp_group)
 {
-	Packet result(WIZ_WARP_LIST, uint8(1));
+	Packet result(WIZ_WARP_LIST);//, uint8(1));
 	C3DMap* pMap = GetMap();
 	set<_WARP_INFO*> warpList;
 
@@ -4339,11 +4339,13 @@ bool CUser::GetWarpList(int warp_group)
 			&& (*itr)->sZone == ZONE_ARDREAM)))
 			continue;
 
-		result	<< (*itr)->sWarpID 
+		result << (*itr)->sWarpID
 			<< (*itr)->strWarpName << (*itr)->strAnnounce
 			<< (*itr)->sZone
 			<< pDstMap->m_sMaxUser
-			<< uint32((*itr)->dwPay);
+			<< uint32((*itr)->dwPay)//;
+
+			<< uint16((*itr)->fX*10.0f) << uint16((*itr)->fZ*10.0f) << uint16((*itr)->fY*10.0f);
 	}
 
 	Send(&result);
