@@ -391,8 +391,8 @@ struct __InfoPlayerMySelf : public __InfoPlayerOther
 			
 	int					iTargetHPPercent;
 	int					iGold;
-	int					iExpNext;
-	int					iExp; 
+	Uint64				iExpNext;
+	Uint64				iExp;
 	int					iRealmPoint;		// 국가 기여도
 	e_KnightsDuty		eKnightsDuty;		// 기사단 권한
 	int					iWeightMax;			// 아이템의 총무게

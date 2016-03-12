@@ -3337,8 +3337,8 @@ void CGameProcMain::MsgRecv_MyInfo_MSP(DataPack* pDataPack, int& iOffset)
 
 void CGameProcMain::MsgRecv_MyInfo_EXP(DataPack* pDataPack, int& iOffset)
 {
-	int iExp = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	int iExpChange = iExp - s_pPlayer->m_InfoExt.iExp;
+	Uint64 iExp = CAPISocket::Parse_GetInt64(pDataPack->m_pData, iOffset);
+	Uint64 iExpChange = iExp - s_pPlayer->m_InfoExt.iExp;
 	s_pPlayer->m_InfoExt.iExp = iExp;
 	m_pUIVar->m_pPageState->UpdateExp(iExp, s_pPlayer->m_InfoExt.iExpNext);
 	m_pUIStateBarAndMiniMap->UpdateExp(iExp, s_pPlayer->m_InfoExt.iExpNext, false);
@@ -3373,7 +3373,7 @@ bool CGameProcMain::MsgRecv_MyInfo_LevelChange(DataPack* pDataPack, int& iOffset
 		
 		int iLevelPrev = pInfoBase->iLevel;
 		pInfoBase->iLevel = iLevel;
-		pInfoExt->iBonusPointRemain = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 남은 보너스 포인트..
+		pInfoExt->iBonusPointRemain = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 남은 보너스 포인트..
 
 		BYTE	bExtraSkillPoint		= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 토탈 포인트
 		TRACE("Skill change Extra value %d\n", bExtraSkillPoint);
@@ -3518,8 +3518,7 @@ void CGameProcMain::InitUI()
 
 	e_Nation eNation = s_pPlayer->m_InfoBase.eNation; // 국가....
 
-//	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->GetIndexedData(0);
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
 	if(NULL == pTbl) return;
 	
 	m_pUICmd->Init(s_pUIMgr);

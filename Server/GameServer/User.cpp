@@ -933,8 +933,7 @@ void CUser::SendMyInfo()
 	else
 		m_bRank = 0; // totally not da King.
 
-	//result.SByte(); // character name has a single byte length
-	result.DByte(); // character name has a single byte length
+	result.DByte();
 	result	<< GetSocketID()
 		<< GetName()
 		<< GetSPosX() << GetSPosZ() << GetSPosY()
@@ -953,7 +952,8 @@ void CUser::SendMyInfo()
 
 	if (pKnights == nullptr)
 	{
-		result	<< uint64(0) << uint8(0) << uint16(-1);
+		result << uint8(0) << uint16(0) << uint8(0) << uint8(0);
+		//result	<< uint64(0) << uint8(0) << uint16(-1);
 	}
 	else 
 	{
@@ -1744,7 +1744,7 @@ void CUser::ExpChange(int64 iExp, bool bIsBonusReward)
 
 	// Tell the client our new XP
 	Packet result(WIZ_EXP_CHANGE);
-	result << uint8(0) << m_iExp; // NOTE: Use proper flag
+	result /*<< uint8(0)*/ << m_iExp; // NOTE: Use proper flag
 	Send(&result);
 
 	// If we've lost XP, save it for possible refund later.

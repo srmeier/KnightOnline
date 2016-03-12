@@ -232,7 +232,6 @@ void CUIState::UpdateMSP(int iVal, int iValMax)
 
 void CUIState::UpdateExp(int iVal, int iValMax)
 {
-	return; // srm 01/23/2015
 	__ASSERT(iVal >= 0 && iValMax > 0, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	if(NULL == m_pText_Exp) return;
 
