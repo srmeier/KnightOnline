@@ -133,6 +133,17 @@ bool CUIStateBar::Load(HANDLE hFile)
 	if(m_pProgress_ExpC) m_pProgress_ExpC->SetRange(0, 100);
 	if(m_pProgress_ExpP) m_pProgress_ExpP->SetRange(0, 100);
 
+	// NOTE: new components not previously used
+	CN3UIProgress* m_pProgress_HP_poison = (CN3UIProgress*)(this->GetChildByID("Progress_HP_poison"));	__ASSERT(m_pProgress_HP_poison, "NULL UI Component!!");
+	CN3UIProgress* m_pProgress_HP_curse = (CN3UIProgress*)(this->GetChildByID("Progress_HP_curse"));	__ASSERT(m_pProgress_HP_curse, "NULL UI Component!!");
+
+	if (m_pProgress_HP_poison) m_pProgress_HP_poison->SetRange(0, 100);
+	if (m_pProgress_HP_curse) m_pProgress_HP_curse->SetRange(0, 100);
+
+	m_pProgress_HP_poison->SetVisible(false);
+	m_pProgress_HP_curse->SetVisible(false);
+
+	// NOTE: new components to display the text
 	m_pText_HP = (CN3UIString*)GetChildByID("Text_HP");		__ASSERT(m_pText_HP, "NULL UI Component!!");
 	m_pText_MP = (CN3UIString*)GetChildByID("Text_MSP");		__ASSERT(m_pText_MP, "NULL UI Component!!");
 	m_pText_Exp = (CN3UIString*)GetChildByID("Text_ExpP");		__ASSERT(m_pText_Exp, "NULL UI Component!!");
@@ -191,8 +202,8 @@ void CUIStateBar::UpdateExp(int iExp, int iExpNext, bool bUpdateImmediately)
 	__ASSERT(iExp >= 0 && iExpNext > 0, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	if (NULL == m_pText_Exp) return;
 
-	char szVal[64] = "0 / 0";
-	sprintf(szVal, "%d / %d", iExp, iExpNext);
+	char szVal[64] = "0 %%";
+	sprintf(szVal, "%d %%", iPercentage);
 	m_pText_Exp->SetString(szVal);
 }
 
