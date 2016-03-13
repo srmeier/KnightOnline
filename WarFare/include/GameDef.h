@@ -691,10 +691,14 @@ typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...
 	BYTE 		byExtIndex;			// 01 확장 인덱스
 	std::string	szName;				// 02 이름	
 	std::string	szRemark;			// 03 아이템 설명	
-	DWORD		dwIDResrc;			// 04 코드화된 아이템 리소스	d
-	DWORD		dwIDIcon;			// 05 코드화된 아이템 아이콘 리소스	d
-	DWORD		dwSoundID0;			// 06 Sound ID - 0 이면 사운드 없다~..
-	DWORD		dwSoundID1;			// 07 Sound ID - 0 이면 사운드 없다~..
+
+	DWORD   dwIDK0;
+	BYTE    byIDK1;
+
+	DWORD   dwIDResrc;			// 04 코드화된 아이템 리소스	d
+	DWORD   dwIDIcon;			// 05 코드화된 아이템 아이콘 리소스	d
+	DWORD   dwSoundID0;			// 06 Sound ID - 0 이면 사운드 없다~..
+	DWORD   dwSoundID1;			// 07 Sound ID - 0 이면 사운드 없다~..
 
 	BYTE	byClass;			// 08 아이템 형태	b enum e_ItemClass 참조....
 	BYTE	byIsRobeType;		// 09 위아래가 통째로 된 로브타입의 아이템.....
@@ -716,6 +720,9 @@ typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...
 	DWORD	dwEffectID2;		// 23 마법 효과 ID1
 
 	char	cNeedLevel;		// 24 요구 레벨		플레이어의 iLeve.. - 음수값이 있을수도 있다..
+
+	char    cIDK2;
+
 	BYTE	byNeedRank;			// 25 요구 작위		플레이어의 iRank..
 	BYTE	byNeedTitle;		// 26 요구 타이틀 	플레이어의 iTitle..
 	BYTE	byNeedStrength;		// 27 요구 힘 		플레이어의 iStrength..
@@ -725,9 +732,11 @@ typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...
 	BYTE	byNeedMagicAttack;	// 31 요구 마력		플레이어의 iMagicAttak..
 
 	BYTE	bySellGroup;		// 32 상인이 파는데에 대한 그룹..
+
+	BYTE    byIDK3;
 } TABLE_ITEM_BASIC;
 
-const int MAX_ITEM_EXTENSION = 22; // 확장 아이템 테이블 갯수.
+const int MAX_ITEM_EXTENSION = 23; // 확장 아이템 테이블 갯수.
 const int LIMIT_FX_DAMAGE = 64;
 const int ITEM_UNIQUE = 4;
 const int ITEM_LIMITED_EXHAUST = 17;

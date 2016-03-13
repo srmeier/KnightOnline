@@ -7,7 +7,14 @@ public:
 		: OdbcRecordset(dbConnection), m_pMap(pMap) {}
 
 	virtual tstring GetTableName() { return _T("ITEM"); }
-	virtual tstring GetColumns() { return _T("Num, strName, Kind, Slot, Race, Class, Damage, Delay, Range, Weight, Duration, BuyPrice, SellPrice, Ac, Countable, Effect1, Effect2, ReqLevel, ReqLevelMax, ReqRank, ReqTitle, ReqStr, ReqSta, ReqDex, ReqIntel, ReqCha, SellingGroup, ItemType, Hitrate, Evasionrate, DaggerAc, SwordAc, MaceAc, AxeAc, SpearAc, BowAc, FireDamage, IceDamage, LightningDamage, PoisonDamage, HPDrain, MPDamage, MPDrain, MirrorDamage, StrB, StaB, DexB, IntelB, ChaB, MaxHpB, MaxMpB, FireR, ColdR, LightningR, MagicR, PoisonR, CurseR,ItemClass,ItemExt"); }
+	virtual tstring GetColumns() { return _T(
+		"Num, strName, Kind, Slot, Race, Class, Damage, Delay, Range, Weight, Duration, BuyPrice, SellPrice, "\
+		"Ac, Countable, Effect1, Effect2, ReqLevel, ReqLevelMax, ReqRank, ReqTitle, ReqStr, ReqSta, ReqDex, "\
+		"ReqIntel, ReqCha, SellingGroup, ItemType, Hitrate, Evasionrate, DaggerAc, SwordAc, MaceAc, AxeAc, "\
+		"SpearAc, BowAc, FireDamage, IceDamage, LightningDamage, PoisonDamage, HPDrain, MPDamage, MPDrain, "\
+		"MirrorDamage, StrB, StaB, DexB, IntelB, ChaB, MaxHpB, MaxMpB, FireR, ColdR, LightningR, MagicR, PoisonR, "\
+		"CurseR" //,ItemClass,ItemExt"
+	); }
 
 	virtual bool Fetch()
 	{
@@ -71,8 +78,8 @@ public:
 		_dbCommand->FetchInt16(i++, pData->m_bMagicR);
 		_dbCommand->FetchInt16(i++, pData->m_bPoisonR);
 		_dbCommand->FetchInt16(i++, pData->m_bCurseR);
-		_dbCommand->FetchInt16(i++, pData->ItemClass);
-		_dbCommand->FetchInt16(i++, pData->ItemExt);
+		//_dbCommand->FetchInt16(i++, pData->ItemClass);
+		//_dbCommand->FetchInt16(i++, pData->ItemExt);
 
 		if (!m_pMap->PutData(pData->m_iNum, pData))
 			delete pData;

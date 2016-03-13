@@ -501,15 +501,15 @@ void CGameProcCharacterSelect::AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo
 	m_pChrs[iPosIndex]->PlugSet(1, szPlug1FN);
 
 	// 상체..
-	this->AddChrPart(m_pChrs[iPosIndex], pLooks, PART_POS_UPPER, pInfo->dwItemUpper, pInfo->iItemUpperDurability);
+	this->AddChrPart(iPosIndex, pLooks, PART_POS_UPPER, pInfo->dwItemUpper, pInfo->iItemUpperDurability);
 	// 하체
 	__TABLE_ITEM_BASIC* pItemUpper = this->s_pTbl_Items_Basic->Find(pInfo->dwItemUpper);
 	if(pItemUpper && pItemUpper->byIsRobeType) m_pChrs[iPosIndex]->PartSet(PART_POS_LOWER, ""); // 하체일 경우 상체에 로브를 입었으면 ..
-	else this->AddChrPart(m_pChrs[iPosIndex], pLooks, PART_POS_LOWER, pInfo->dwItemLower, pInfo->iItemLowerDurability); //아님 입히고...
+	else this->AddChrPart(iPosIndex, pLooks, PART_POS_LOWER, pInfo->dwItemLower, pInfo->iItemLowerDurability); //아님 입히고...
 	// 팔
-	this->AddChrPart(m_pChrs[iPosIndex], pLooks, PART_POS_HANDS, pInfo->dwItemGloves, pInfo->iItemGlovesDurability);
+	this->AddChrPart(iPosIndex, pLooks, PART_POS_HANDS, pInfo->dwItemGloves, pInfo->iItemGlovesDurability);
 	// 다리
-	this->AddChrPart(m_pChrs[iPosIndex], pLooks, PART_POS_FEET, pInfo->dwItemShoes, pInfo->iItemShoesDurability);
+	this->AddChrPart(iPosIndex, pLooks, PART_POS_FEET, pInfo->dwItemShoes, pInfo->iItemShoesDurability);
 
 	char szBuff[256] = "";
 	std::string szResrcFN;
@@ -527,7 +527,7 @@ void CGameProcCharacterSelect::AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo
 	__TABLE_ITEM_BASIC* pItemHelmet = this->s_pTbl_Items_Basic->Find(pInfo->dwItemHelmet);
 	if(pItemHelmet && pItemHelmet->dwIDResrc) // 헬멧아이템의 리소스(그림이 있는거면..)
 	{
-		this->AddChrPart(m_pChrs[iPosIndex], pLooks, PART_POS_HAIR_HELMET, pInfo->dwItemHelmet, pInfo->iItemHelmetDurability);
+		this->AddChrPart(iPosIndex, pLooks, PART_POS_HAIR_HELMET, pInfo->dwItemHelmet, pInfo->iItemHelmetDurability);
 	}
 	else if(!pLooks->szPartFNs[PART_POS_HAIR_HELMET].empty()) // 아이템이 없으면 기본 머리..
 	{
@@ -603,13 +603,13 @@ void CGameProcCharacterSelect::AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo
 	}
 }
 
-void CGameProcCharacterSelect::AddChrPart(	CN3Chr* pChr,
+void CGameProcCharacterSelect::AddChrPart(	int iPosIndex,
 											const __TABLE_PLAYER_LOOKS* pLooks,
 											e_PartPosition ePartPos,
 											DWORD dwItemID,
 											int iItemDurability)
 {
-	if(NULL == pChr || NULL == pLooks)
+	if(NULL == m_pChrs[iPosIndex] || NULL == pLooks)
 	{
 		__ASSERT(0, "Invalid Chr Part");
 		return;
@@ -627,9 +627,9 @@ void CGameProcCharacterSelect::AddChrPart(	CN3Chr* pChr,
 	e_PartPosition ePartPosTmp = PART_POS_UNKNOWN;
 	e_PlugPosition ePlugPosTmp = PLUG_POS_UNKNOWN;
 
-	CGameProcedure::MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp);
-	if(szResrcFN.empty()) pPart = pChr->PartSet(ePartPos, pLooks->szPartFNs[ePartPos]);	// 기본 파트
-	else pPart = pChr->PartSet(ePartPos, szResrcFN);
+	CGameProcedure::MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, m_InfoChrs[iPosIndex].eRace);
+	if(szResrcFN.empty()) pPart = m_pChrs[iPosIndex]->PartSet(ePartPos, pLooks->szPartFNs[ePartPos]);	// 기본 파트
+	else pPart = m_pChrs[iPosIndex]->PartSet(ePartPos, szResrcFN);
 	if(pPart && pItem && pItem->siMaxDurability > 0)
 	{
 		int iPercentage = iItemDurability * 100 / pItem->siMaxDurability;
