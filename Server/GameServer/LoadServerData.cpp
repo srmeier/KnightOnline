@@ -63,9 +63,10 @@ HardwareInformation g_pHardwareInformation;
 
 bool CGameServerDlg::LoadItemTable()
 {
-	if (!g_pHardwareInformation.IsValidHardwareID(g_pMain->m_HardwareIDArray))
-		return true;
-	LOAD_TABLE(CItemTableSet, g_DBAgent.m_GameDB, &m_ItemtableArray, false, false);;
+	//if (!g_pHardwareInformation.IsValidHardwareID(g_pMain->m_HardwareIDArray))
+		//return true;
+	LOAD_TABLE(CItemTableSet, g_DBAgent.m_GameDB, &m_ItemtableArray, false, false);
+	return true;
 }
 
 bool CGameServerDlg::LoadSetItemTable()

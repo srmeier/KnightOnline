@@ -124,7 +124,7 @@ public:
 	void	RotateRight();
 
 	void	AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo);
-	void	AddChrPart(	CN3Chr* pChr, const __TABLE_PLAYER_LOOKS* pItemBasic, e_PartPosition ePartPos, DWORD dwItemID, int iItemDurability);
+	void	AddChrPart(int iPosIndex, const __TABLE_PLAYER_LOOKS* pItemBasic, e_PartPosition ePartPos, DWORD dwItemID, int iItemDurability);
 
 	void	DoJobLeft();
 	void	DojobRight();

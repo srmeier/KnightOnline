@@ -2418,8 +2418,9 @@ void CUser::BundleOpenReq(Packet & pkt)
 		return;
 
 	// Send all items in the bundle to the player
-	foreach (itr, pBundle->Items)
+	foreach(itr, pBundle->Items) {
 		result << itr->nItemID << itr->sCount;
+	}
 
 	// The client expects all n items, so if there's any excess...
 	// send placeholder data for them.
@@ -2720,8 +2721,9 @@ void CUser::StateChange(Packet & pkt)
 		return;
 
 	uint8 bType = pkt.read<uint8>(), buff;
-	uint16 nBuff = pkt.read<uint16>();
-	buff = *(uint8 *)&nBuff; // don't ask
+	buff = pkt.read<uint8>();
+	uint16 nBuff = buff;//pkt.read<uint16>();
+	//buff = *(uint8 *)&nBuff; // don't ask
 
 	switch (bType)
 	{
