@@ -75,5 +75,15 @@ bool CUITargetBar::Load(HANDLE hFile)
 		m_pStringID->SetFont(szFontID, dwH, FALSE, FALSE);
 	}
 
+	// NOTE: new target health bars depending on poison or curse
+	CN3UIProgress* m_pProgressHP_posion = (CN3UIProgress*)GetChildByID("pro_poison");	__ASSERT(m_pProgressHP_posion, "NULL UI Component!!");
+	CN3UIProgress* m_pProgressHP_curse = (CN3UIProgress*)GetChildByID("pro_curse");	__ASSERT(m_pProgressHP_curse, "NULL UI Component!!");
+
+	if (m_pProgressHP_posion) m_pProgressHP_posion->SetRange(0, 100);
+	if (m_pProgressHP_curse) m_pProgressHP_curse->SetRange(0, 100);
+
+	m_pProgressHP_posion->SetVisible(false);
+	m_pProgressHP_curse->SetVisible(false);
+
 	return true;
 }

@@ -32,3 +32,137 @@
 [ MONSTER - 1:22:30 ] Killer=test,SID=159,Target=Kecoon captain,Zone=21,X=75,Z=239
 [ MONSTER - 1:22:32 ] Killer=test,SID=159,Target=Kecoon captain,Zone=21,X=76,Z=238
 [ MONSTER - 1:22:35 ] Killer=test,SID=153,Target=Kecoon raider,Zone=21,X=73,Z=238
+[ MONSTER - 11:29:15 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=254,Z=299
+[ MONSTER - 11:29:23 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=251,Z=285
+[ MONSTER - 11:29:27 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=248,Z=290
+[ MONSTER - 11:29:37 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=234,Z=290
+[ MONSTER - 11:29:42 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=240,Z=289
+[ MONSTER - 11:29:47 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=245,Z=289
+[ MONSTER - 11:29:56 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=250,Z=293
+[ MONSTER - 11:54:20 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=255,Z=291
+[ MONSTER - 11:54:25 ] Killer=test,SID=751,Target=Earth worm,Zone=21,X=250,Z=278
+[ MONSTER - 11:54:32 ] Killer=test,SID=755,Target=Snatcher,Zone=21,X=253,Z=278
+[ MONSTER - 11:55:28 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1544,Z=461
+[ MONSTER - 11:57:35 ] Killer=test,SID=1005,Target=Hyde,Zone=2,X=1350,Z=650
+[ MONSTER - 12:1:14 ] Killer=test,SID=502,Target=Loup-garou,Zone=2,X=1363,Z=502
+[ MONSTER - 12:2:44 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=255,Z=297
+[ MONSTER - 12:3:8 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=248,Z=291
+[ MONSTER - 12:6:6 ] Killer=test2,SID=850,Target=Bandicoot,Zone=21,X=241,Z=303
+[ MONSTER - 12:6:24 ] Killer=test2,SID=752,Target=Blood worm,Zone=21,X=230,Z=294
+[ MONSTER - 12:7:23 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=240,Z=242
+[ MONSTER - 12:7:58 ] Killer=test2,SID=850,Target=Bandicoot,Zone=21,X=221,Z=309
+[ MONSTER - 12:8:8 ] Killer=test2,SID=850,Target=Bandicoot,Zone=21,X=213,Z=318
+[ MONSTER - 12:8:19 ] Killer=test2,SID=752,Target=Blood worm,Zone=21,X=207,Z=318
+[ MONSTER - 12:8:30 ] Killer=test2,SID=752,Target=Blood worm,Zone=21,X=209,Z=316
+[ MONSTER - 12:8:37 ] Killer=test2,SID=850,Target=Bandicoot,Zone=21,X=210,Z=314
+[ MONSTER - 12:14:36 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1514,Z=477
+[ MONSTER - 12:14:42 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1510,Z=467
+[ MONSTER - 12:14:48 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1507,Z=475
+[ MONSTER - 12:14:54 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1505,Z=464
+[ MONSTER - 12:15:3 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1514,Z=459
+[ MONSTER - 12:15:8 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1510,Z=469
+[ MONSTER - 12:15:14 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1503,Z=472
+[ MONSTER - 12:15:23 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1523,Z=454
+[ MONSTER - 12:15:28 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1525,Z=457
+[ MONSTER - 12:15:37 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1536,Z=457
+[ MONSTER - 12:15:45 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1542,Z=456
+[ MONSTER - 12:15:51 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1538,Z=455
+[ MONSTER - 12:15:56 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1534,Z=451
+[ MONSTER - 12:16:1 ] Killer=test,SID=303,Target=spoiler,Zone=2,X=1537,Z=451
+[ MONSTER - 12:16:34 ] Killer=test,SID=1672,Target=Dusk Orc,Zone=2,X=1323,Z=1026
+[ MONSTER - 12:16:50 ] Killer=test,SID=502,Target=Loup-garou,Zone=2,X=1362,Z=611
+[ MONSTER - 12:16:55 ] Killer=test,SID=502,Target=Loup-garou,Zone=2,X=1357,Z=604
+[ MONSTER - 12:17:0 ] Killer=test,SID=502,Target=Loup-garou,Zone=2,X=1366,Z=607
+[ MONSTER - 13:8:4 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=248,Z=301
+[ MONSTER - 13:8:12 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=241,Z=292
+[ MONSTER - 13:8:19 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=237,Z=285
+[ MONSTER - 13:10:47 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=233,Z=285
+[ MONSTER - 13:11:5 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=240,Z=295
+[ MONSTER - 13:11:14 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=248,Z=291
+[ MONSTER - 13:13:38 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=254,Z=298
+[ MONSTER - 13:28:44 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=255,Z=293
+[ MONSTER - 13:29:47 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=260,Z=291
+[ MONSTER - 13:40:55 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=255,Z=294
+[ MONSTER - 13:47:25 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=256,Z=284
+[ MONSTER - 13:47:37 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=249,Z=277
+[ MONSTER - 13:47:49 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=252,Z=280
+[ MONSTER - 13:48:13 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=253,Z=284
+[ MONSTER - 13:48:23 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=245,Z=283
+[ MONSTER - 13:48:28 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=245,Z=282
+[ MONSTER - 13:48:35 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=248,Z=284
+[ MONSTER - 13:49:5 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=245,Z=284
+[ MONSTER - 13:49:11 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=241,Z=287
+[ MONSTER - 13:49:17 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=248,Z=294
+[ MONSTER - 13:49:27 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=231,Z=276
+[ MONSTER - 13:49:34 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=232,Z=269
+[ MONSTER - 13:49:47 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=229,Z=274
+[ MONSTER - 13:50:7 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=220,Z=277
+[ MONSTER - 13:50:21 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=242,Z=291
+[ MONSTER - 13:50:35 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=243,Z=293
+[ MONSTER - 13:50:45 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=257,Z=288
+[ MONSTER - 13:50:55 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=256,Z=285
+[ MONSTER - 13:51:0 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=258,Z=291
+[ MONSTER - 13:51:7 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=249,Z=282
+[ MONSTER - 13:51:13 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=255,Z=278
+[ MONSTER - 13:51:17 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=254,Z=277
+[ MONSTER - 13:51:24 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=250,Z=268
+[ MONSTER - 13:51:30 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=256,Z=271
+[ MONSTER - 13:51:36 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=253,Z=267
+[ MONSTER - 13:51:42 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=242,Z=266
+[ MONSTER - 13:51:52 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=248,Z=277
+[ MONSTER - 13:51:58 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=245,Z=270
+[ MONSTER - 13:52:5 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=242,Z=279
+[ MONSTER - 13:52:12 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=241,Z=288
+[ MONSTER - 13:52:21 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=246,Z=292
+[ MONSTER - 13:52:28 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=256,Z=298
+[ MONSTER - 13:52:35 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=258,Z=299
+[ MONSTER - 13:52:44 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=256,Z=289
+[ MONSTER - 13:53:1 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=250,Z=279
+[ MONSTER - 13:53:9 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=245,Z=282
+[ MONSTER - 13:53:20 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=254,Z=278
+[ MONSTER - 13:53:30 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=245,Z=270
+[ MONSTER - 13:53:40 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=252,Z=276
+[ MONSTER - 13:54:51 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=266,Z=236
+[ MONSTER - 13:55:22 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=280,Z=224
+[ MONSTER - 13:59:4 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=273,Z=222
+[ MONSTER - 13:59:57 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=264,Z=223
+[ MONSTER - 14:0:18 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=267,Z=223
+[ MONSTER - 14:1:18 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=259,Z=239
+[ MONSTER - 14:1:48 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=256,Z=243
+[ MONSTER - 14:2:21 ] Killer=test2,SID=852,Target=Scavenger Bandicoot,Zone=21,X=243,Z=239
+[ MONSTER - 14:2:41 ] Killer=test2,SID=852,Target=Scavenger Bandicoot,Zone=21,X=239,Z=247
+[ MONSTER - 14:2:56 ] Killer=test2,SID=852,Target=Scavenger Bandicoot,Zone=21,X=241,Z=260
+[ MONSTER - 14:3:24 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=238,Z=253
+[ MONSTER - 14:3:47 ] Killer=test2,SID=852,Target=Scavenger Bandicoot,Zone=21,X=247,Z=249
+[ MONSTER - 14:4:10 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=256,Z=263
+[ MONSTER - 14:5:17 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=251,Z=294
+[ MONSTER - 14:5:28 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=247,Z=302
+[ MONSTER - 14:5:37 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=234,Z=294
+[ MONSTER - 15:31:11 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=244,Z=280
+[ MONSTER - 15:41:38 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=245,Z=283
+[ MONSTER - 15:41:45 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=247,Z=278
+[ MONSTER - 15:42:1 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=249,Z=275
+[ MONSTER - 15:42:17 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=250,Z=273
+[ MONSTER - 15:42:23 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=258,Z=276
+[ MONSTER - 15:42:30 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=252,Z=265
+[ MONSTER - 15:42:34 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=253,Z=268
+[ MONSTER - 15:42:38 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=255,Z=260
+[ MONSTER - 15:42:42 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=252,Z=265
+[ MONSTER - 15:42:49 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=244,Z=269
+[ MONSTER - 15:42:55 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=238,Z=274
+[ MONSTER - 15:43:2 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=236,Z=282
+[ MONSTER - 15:43:5 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=239,Z=291
+[ MONSTER - 15:43:41 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=267,Z=229
+[ MONSTER - 15:44:54 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=253,Z=209
+[ MONSTER - 15:45:13 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=258,Z=208
+[ MONSTER - 15:45:34 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=270,Z=213
+[ MONSTER - 15:46:18 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=270,Z=217
+[ MONSTER - 15:46:31 ] Killer=test2,SID=752,Target=Blood worm,Zone=21,X=276,Z=222
+[ MONSTER - 15:47:19 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=285,Z=219
+[ MONSTER - 15:47:47 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=283,Z=235
+[ MONSTER - 15:48:41 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=282,Z=242
+[ MONSTER - 15:49:2 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=275,Z=234
+[ MONSTER - 15:49:18 ] Killer=test2,SID=752,Target=Blood worm,Zone=21,X=271,Z=240
+[ MONSTER - 15:49:19 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=270,Z=239
+[ MONSTER - 15:49:26 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=260,Z=226
+[ MONSTER - 15:49:40 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=256,Z=211
