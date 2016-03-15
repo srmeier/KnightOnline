@@ -856,7 +856,7 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 		}
 		ERROR_EXCEPTION
 
-		if( (spItem->pItemBasic->byAttachPoint == ITEM_LIMITED_EXHAUST) && spItem->pItemBasic->cNeedLevel+spItem->pItemExt->siNeedLevel > 1)
+		if( /*(spItem->pItemBasic->byAttachPoint == ITEM_LIMITED_EXHAUST) &&*/ spItem->pItemBasic->cNeedLevel+spItem->pItemExt->siNeedLevel > 1)
 		{
 			szStr = "Required Level: %d";//::_LoadStringFromResource(IDS_TOOLTIP_NEEDLEVEL, szStr);
 			if (SetTooltipTextColor(CGameBase::s_pPlayer->m_InfoBase.iLevel, spItem->pItemBasic->cNeedLevel+spItem->pItemExt->siNeedLevel))

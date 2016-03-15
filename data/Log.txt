@@ -1,0 +1,409 @@
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 16:58]
+    [16:58:50] MsgSend_CharacterSelect - name(test2) zone(21)
+    [16:58:51] MsgRecv_CharacterSelect - name(test2) zone(21 -> 21)
+    [16:58:54] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(261.2, 7.7, 298.7)
+    [16:58:54] 103232800->ClearDurationalMagic()
+    [16:58:54] 79811624->ClearAll()
+    [16:58:54] s_pUILoading->Render()
+    [16:58:54] 5444616->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [16:58:54] 101969840->Release()
+    [16:58:54] 5766696->InitWorld()
+    [16:58:54] CN3WorldManager::InitWorld Pre delete
+    [16:58:54] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [16:58:54] CN3TerrainManager::InitWorld Pre Load	124835824
+    [16:59:01] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [16:59:01] CN3TerrainManager::InitWorld Pre Release Shapes	124855272
+    [16:59:01] CN3TerrainManager::InitWorld Pre Load Shapes
+    [16:59:10] CN3TerrainManager::InitWorld Pre Load Birds	103238704
+    [16:59:10] CN3TerrainManager::InitWorld Pre Load Sky	104990176
+    [16:59:10] 80020720->GetWidthByMeterWithTerrain()
+    [16:59:10] 103220032->LoadMap()
+    [16:59:10] 79841412->szMiniMapFNszMiniMapFN
+    [16:59:10] GetRepresentClass()
+    [16:59:10] 103220032->ZoomSet()
+    [16:59:10] 79841412->szTerrainFN.c_str()
+    [16:59:10] pCamera->LookAt()
+    [16:59:10] pCamera->Tick()
+    [16:59:10] pCamera->Apply()
+    [16:59:10] InitPlayerPosition() Position(261.2, 7.7, 298.7)
+    [16:59:10] 101969840->Release()
+    [16:59:32] Invalid Packet... (100)
+    [16:59:32] Invalid Packet... (94)
+    [16:59:32] Invalid Packet... (105)
+    [16:59:32] Invalid Packet... (13)
+    [16:59:32] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 16:59]
+    [17:00:12] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [17:00:13] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [17:00:18] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(252.1, 7.1, 293.6)
+    [17:00:18] 103564352->ClearDurationalMagic()
+    [17:00:18] 79149896->ClearAll()
+    [17:00:18] s_pUILoading->Render()
+    [17:00:18] 6005168->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:00:18] 80279368->Release()
+    [17:00:18] 46367936->InitWorld()
+    [17:00:18] CN3WorldManager::InitWorld Pre delete
+    [17:00:18] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:00:18] CN3TerrainManager::InitWorld Pre Load	132267080
+    [17:00:22] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:00:22] CN3TerrainManager::InitWorld Pre Release Shapes	132286528
+    [17:00:22] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:00:23] CN3TerrainManager::InitWorld Pre Load Birds	103570256
+    [17:00:23] CN3TerrainManager::InitWorld Pre Load Sky	78359672
+    [17:00:23] 79368360->GetWidthByMeterWithTerrain()
+    [17:00:23] 103551584->LoadMap()
+    [17:00:23] 79180020->szMiniMapFNszMiniMapFN
+    [17:00:23] GetRepresentClass()
+    [17:00:23] 103551584->ZoomSet()
+    [17:00:23] 79180020->szTerrainFN.c_str()
+    [17:00:23] pCamera->LookAt()
+    [17:00:23] pCamera->Tick()
+    [17:00:23] pCamera->Apply()
+    [17:00:23] InitPlayerPosition() Position(252.1, 7.1, 293.6)
+    [17:00:23] 80279368->Release()
+    [17:00:25] Invalid Packet... (100)
+    [17:00:27] Invalid Packet... (94)
+    [17:00:27] CPlayerOther::Init() Basic Resource Pointer is NULL Race(17)
+    [17:00:27] Invalid Packet... (105)
+    [17:00:27] Invalid Packet... (13)
+    [17:00:27] Invalid Packet... (95)
+    [17:00:30] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:31] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:00:32] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:32] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [17:00:33] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:33] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:00:34] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:35] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:36] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:36] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [17:00:40] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:42] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:00:46] Invalid Packet... (105)
+    [17:00:46] NPC In - Duplicated ID (13620, Blood worm) Pos(290.00,6.77,229.00)
+    [17:00:46] NPC In - Duplicated ID (13888, Gloomwing) Pos(207.00,1.33,221.00)
+    [17:00:46] Invalid Packet... (105)
+    [17:00:48] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:00:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:50] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:51] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:55] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:56] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:00:58] Invalid Packet... (105)
+    [17:00:59] Invalid Packet... (105)
+    [17:01:01] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:05] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:05] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [17:01:06] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:06] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [17:01:07] Invalid Packet... (105)
+    [17:01:07] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:07] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:07] Invalid Packet... (105)
+    [17:01:08] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:01:10] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:01:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:12] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:01:13] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:14] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:01:15] Invalid Packet... (105)
+    [17:01:16] Invalid Packet... (105)
+    [17:01:21] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:22] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:23] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:24] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:24] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:01:29] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:31] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:36] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:38] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:39] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:01:40] Invalid Packet... (105)
+    [17:01:41] Invalid Packet... (105)
+    [17:01:43] Invalid Packet... (105)
+    [17:01:46] Invalid Packet... (105)
+    [17:01:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:54] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:56] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:57] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:01:58] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:02:00] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:02:00] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:02:03] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/14 17:02]
+---------------------------------------------------------------------------
+    [17:02:03] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [17:02:03] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [17:02:03] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [17:02:03] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:02]
+    [17:02:46] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [17:02:46] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [17:02:48] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(260.2, 8.0, 301.9)
+    [17:02:48] 101467200->ClearDurationalMagic()
+    [17:02:48] 79149896->ClearAll()
+    [17:02:48] s_pUILoading->Render()
+    [17:02:48] 2990512->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:02:48] 80279368->Release()
+    [17:02:48] 37717184->InitWorld()
+    [17:02:48] CN3WorldManager::InitWorld Pre delete
+    [17:02:48] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:02:48] CN3TerrainManager::InitWorld Pre Load	132623504
+    [17:02:52] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:02:52] CN3TerrainManager::InitWorld Pre Release Shapes	132642952
+    [17:02:52] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:02:52] CN3TerrainManager::InitWorld Pre Load Birds	101473104
+    [17:02:52] CN3TerrainManager::InitWorld Pre Load Sky	102003464
+    [17:02:52] 79368360->GetWidthByMeterWithTerrain()
+    [17:02:52] 101454432->LoadMap()
+    [17:02:52] 79180020->szMiniMapFNszMiniMapFN
+    [17:02:52] GetRepresentClass()
+    [17:02:52] 101454432->ZoomSet()
+    [17:02:52] 79180020->szTerrainFN.c_str()
+    [17:02:52] pCamera->LookAt()
+    [17:02:52] pCamera->Tick()
+    [17:02:52] pCamera->Apply()
+    [17:02:52] InitPlayerPosition() Position(260.2, 8.0, 301.9)
+    [17:02:52] 80279368->Release()
+    [17:02:54] Invalid Packet... (100)
+    [17:02:57] Invalid Packet... (94)
+    [17:02:57] CPlayerOther::Init() Basic Resource Pointer is NULL Race(17)
+    [17:02:57] Invalid Packet... (105)
+    [17:02:57] Invalid Packet... (13)
+    [17:02:57] Invalid Packet... (95)
+    [17:06:50] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:06:50] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:06:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:01] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:07:04] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_lower.n3cpart - Can't open file (read)
+    [17:07:05] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:08] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:09] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:09] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [17:07:15] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:07:22] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:22] Invalid Packet... (105)
+    [17:07:23] Invalid Packet... (105)
+    [17:07:24] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:07:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:26] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:30] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [17:07:34] Invalid Packet... (105)
+    [17:07:35] Invalid Packet... (105)
+    [17:07:38] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:38] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:40] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:42] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:44] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:44] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [17:07:44] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:45] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:07:55] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/14 17:07]
+---------------------------------------------------------------------------
+    [17:07:56] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [17:07:56] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [17:07:56] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [17:07:56] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:08]
+    [17:09:14] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/14 17:09]
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:09]
+    [17:09:40] MsgSend_CharacterSelect - name(test2) zone(21)
+    [17:09:40] MsgRecv_CharacterSelect - name(test2) zone(21 -> 21)
+    [17:09:41] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(255.7, 7.3, 294.2)
+    [17:09:41] 101729064->ClearDurationalMagic()
+    [17:09:41] 78297768->ClearAll()
+    [17:09:41] s_pUILoading->Render()
+    [17:09:41] 2269616->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:09:41] 79427120->Release()
+    [17:09:41] 77428672->InitWorld()
+    [17:09:41] CN3WorldManager::InitWorld Pre delete
+    [17:09:41] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:09:41] CN3TerrainManager::InitWorld Pre Load	123957176
+    [17:09:46] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:09:46] CN3TerrainManager::InitWorld Pre Release Shapes	123976624
+    [17:09:46] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:09:48] CN3TerrainManager::InitWorld Pre Load Birds	101734968
+    [17:09:48] CN3TerrainManager::InitWorld Pre Load Sky	102265432
+    [17:09:48] 78516952->GetWidthByMeterWithTerrain()
+    [17:09:48] 101716296->LoadMap()
+    [17:09:48] 78327892->szMiniMapFNszMiniMapFN
+    [17:09:48] GetRepresentClass()
+    [17:09:48] 101716296->ZoomSet()
+    [17:09:48] 78327892->szTerrainFN.c_str()
+    [17:09:48] pCamera->LookAt()
+    [17:09:48] pCamera->Tick()
+    [17:09:48] pCamera->Apply()
+    [17:09:48] InitPlayerPosition() Position(255.7, 7.3, 294.2)
+    [17:09:48] 79427120->Release()
+    [17:09:56] Invalid Packet... (100)
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:18]
+    [17:18:15] MsgSend_CharacterSelect - name(test2) zone(21)
+    [17:18:15] MsgRecv_CharacterSelect - name(test2) zone(21 -> 21)
+    [17:18:17] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(255.7, 7.3, 294.2)
+    [17:18:17] 103433400->ClearDurationalMagic()
+    [17:18:17] 79346504->ClearAll()
+    [17:18:17] s_pUILoading->Render()
+    [17:18:17] 7643568->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:18:17] 80476376->Release()
+    [17:18:17] 77300928->InitWorld()
+    [17:18:17] CN3WorldManager::InitWorld Pre delete
+    [17:18:17] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:18:17] CN3TerrainManager::InitWorld Pre Load	123698528
+    [17:18:21] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:18:21] CN3TerrainManager::InitWorld Pre Release Shapes	123717976
+    [17:18:21] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:18:21] CN3TerrainManager::InitWorld Pre Load Birds	103439304
+    [17:18:21] CN3TerrainManager::InitWorld Pre Load Sky	105109584
+    [17:18:21] 79560152->GetWidthByMeterWithTerrain()
+    [17:18:21] 103420624->LoadMap()
+    [17:18:21] 79376628->szMiniMapFNszMiniMapFN
+    [17:18:21] GetRepresentClass()
+    [17:18:21] 103420624->ZoomSet()
+    [17:18:21] 79376628->szTerrainFN.c_str()
+    [17:18:21] pCamera->LookAt()
+    [17:18:21] pCamera->Tick()
+    [17:18:21] pCamera->Apply()
+    [17:18:21] InitPlayerPosition() Position(255.7, 7.3, 294.2)
+    [17:18:21] 80476376->Release()
+    [17:18:30] Invalid Packet... (100)
+    [17:18:32] Invalid Packet... (94)
+    [17:18:32] Invalid Packet... (105)
+    [17:18:32] Invalid Packet... (13)
+    [17:18:32] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:18]
+    [17:19:00] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [17:19:00] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [17:19:01] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(257.1, 7.7, 300.4)
+    [17:19:01] 102712416->ClearDurationalMagic()
+    [17:19:01] 78297928->ClearAll()
+    [17:19:01] s_pUILoading->Render()
+    [17:19:01] 10658224->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:19:01] 79427400->Release()
+    [17:19:01] 75859136->InitWorld()
+    [17:19:01] CN3WorldManager::InitWorld Pre delete
+    [17:19:01] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:19:01] CN3TerrainManager::InitWorld Pre Load	132090952
+    [17:19:05] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:19:05] CN3TerrainManager::InitWorld Pre Release Shapes	132110400
+    [17:19:05] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:19:06] CN3TerrainManager::InitWorld Pre Load Birds	102718320
+    [17:19:06] CN3TerrainManager::InitWorld Pre Load Sky	77507704
+    [17:19:06] 78516392->GetWidthByMeterWithTerrain()
+    [17:19:06] 102699648->LoadMap()
+    [17:19:06] 78328052->szMiniMapFNszMiniMapFN
+    [17:19:06] GetRepresentClass()
+    [17:19:06] 102699648->ZoomSet()
+    [17:19:06] 78328052->szTerrainFN.c_str()
+    [17:19:06] pCamera->LookAt()
+    [17:19:06] pCamera->Tick()
+    [17:19:06] pCamera->Apply()
+    [17:19:06] InitPlayerPosition() Position(257.1, 7.7, 300.4)
+    [17:19:06] 79427400->Release()
+    [17:19:07] Invalid Packet... (100)
+    [17:19:12] Invalid Packet... (94)
+    [17:20:16] Invalid Packet... (105)
+    [17:20:16] Invalid Packet... (13)
+    [17:20:16] Invalid Packet... (95)
+    [17:20:17] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:18] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:21] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:30] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:31] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:31] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [17:20:33] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:37] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:37] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:42] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:45] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:45] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:20:48] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:51] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:55] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:20:55] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:21:01] Invalid Packet... (105)
+    [17:21:03] Invalid Packet... (105)
+    [17:21:04] NPC In - Duplicated ID (13617, Blood worm) Pos(269.00,7.09,241.00)
+    [17:21:06] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:09] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:11] NPC In - Duplicated ID (13803, Bulcan) Pos(199.00,2.87,242.00)
+    [17:21:12] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:12] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:15] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:16] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:22] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:26] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:32] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:33] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:21:38] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:39] Invalid Packet... (105)
+    [17:21:40] Invalid Packet... (105)
+    [17:21:41] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:42] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:44] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\fx/damage0_1.fxb - Can't open file (read)
+    [17:21:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\fx/levelup_ka.fxb - Can't open file (read)
+    [17:21:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:50] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:56] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:58] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:59] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:21:59] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:03] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:05] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:05] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:05] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:14] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:16] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:18] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:20] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:22:22] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:23] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:27] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:22:29] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:30] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:32] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:22:32] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:35] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:38] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:38] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:39] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:22:40] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:40] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bulcan_body.n3cpart - Can't open file (read)
+    [17:22:43] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:48] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:48] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:50] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [17:22:53] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:33]
+    [17:33:19] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/14 17:33]
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:36]
+    [17:36:24] Can't create D3D Device - please, check DirectX or display card driver
+    [17:36:24] 
+---------------------------------------------------------------------------
+// Begin writing log... [03/14 17:36]
+    [17:37:06] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/14 17:37]
+---------------------------------------------------------------------------

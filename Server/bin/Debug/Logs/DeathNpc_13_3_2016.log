@@ -166,3 +166,51 @@
 [ MONSTER - 15:49:19 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=270,Z=239
 [ MONSTER - 15:49:26 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=260,Z=226
 [ MONSTER - 15:49:40 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=256,Z=211
+[ MONSTER - 17:28:1 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=257,Z=220
+[ MONSTER - 17:28:10 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=239,Z=212
+[ MONSTER - 17:28:22 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=263,Z=229
+[ MONSTER - 17:28:25 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=261,Z=235
+[ MONSTER - 17:29:26 ] Killer=test2,SID=853,Target=Rabid Bandicoot,Zone=21,X=263,Z=231
+[ MONSTER - 17:29:44 ] Killer=test2,SID=255,Target=Small bulcan,Zone=21,X=247,Z=176
+[ MONSTER - 17:29:48 ] Killer=test2,SID=255,Target=Small bulcan,Zone=21,X=248,Z=175
+[ MONSTER - 17:29:53 ] Killer=test2,SID=255,Target=Small bulcan,Zone=21,X=248,Z=172
+[ MONSTER - 17:30:0 ] Killer=test2,SID=255,Target=Small bulcan,Zone=21,X=244,Z=164
+[ MONSTER - 17:30:7 ] Killer=test2,SID=255,Target=Small bulcan,Zone=21,X=238,Z=158
+[ MONSTER - 17:30:17 ] Killer=test2,SID=854,Target=Cannibal Bandicoot,Zone=21,X=224,Z=160
+[ MONSTER - 17:31:31 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=203,Z=247
+[ MONSTER - 17:31:36 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=203,Z=248
+[ MONSTER - 17:31:45 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=202,Z=252
+[ MONSTER - 17:31:58 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=191,Z=247
+[ MONSTER - 17:32:5 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=187,Z=252
+[ MONSTER - 17:32:25 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=175,Z=246
+[ MONSTER - 17:32:34 ] Killer=test2,SID=851,Target=Wild Bandicoot,Zone=21,X=167,Z=271
+[ MONSTER - 19:43:48 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=252,Z=293
+[ MONSTER - 19:44:29 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=192,Z=261
+[ MONSTER - 19:44:34 ] Killer=test2,SID=851,Target=Wild Bandicoot,Zone=21,X=180,Z=254
+[ MONSTER - 19:44:43 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=176,Z=252
+[ MONSTER - 19:44:52 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=176,Z=244
+[ MONSTER - 19:45:6 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=191,Z=242
+[ MONSTER - 19:45:15 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=188,Z=236
+[ MONSTER - 19:45:28 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=197,Z=238
+[ MONSTER - 19:45:39 ] Killer=test2,SID=250,Target=Bulcan,Zone=21,X=193,Z=255
+[ MONSTER - 19:45:49 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=194,Z=258
+[ MONSTER - 19:46:4 ] Killer=test2,SID=755,Target=Snatcher,Zone=21,X=216,Z=249
+[ MONSTER - 19:47:57 ] Killer=Guard,SID=353,Target=spoiler,Zone=1,X=483,Z=1608
+[ MONSTER - 19:50:12 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1505,Z=532
+[ MONSTER - 19:50:17 ] Killer=test,SID=501,Target=Lycan,Zone=2,X=1503,Z=542
+[ MONSTER - 19:50:41 ] Killer=test,SID=1005,Target=Hyde,Zone=2,X=1327,Z=645
+[ MONSTER - 19:51:19 ] Killer=test,SID=4601,Target=GRAY OOZY,Zone=2,X=1325,Z=657
+[ MONSTER - 19:51:27 ] Killer=test,SID=1671,Target=Orc Watcher,Zone=2,X=1287,Z=681
+[ MONSTER - 19:51:32 ] Killer=test,SID=1671,Target=Orc Watcher,Zone=2,X=1288,Z=679
+[ MONSTER - 19:52:12 ] Killer=test,SID=600,Target=Smilodon,Zone=2,X=1584,Z=1036
+[ MONSTER - 19:52:18 ] Killer=test,SID=600,Target=Smilodon,Zone=2,X=1581,Z=1042
+[ MONSTER - 19:53:33 ] Killer=test,SID=1300,Target=Kongau,Zone=2,X=653,Z=286
+[ MONSTER - 19:53:39 ] Killer=test,SID=1300,Target=Kongau,Zone=2,X=646,Z=290
+[ MONSTER - 19:54:14 ] Killer=test,SID=1312,Target=Haunga Warrior,Zone=2,X=746,Z=548
+[ MONSTER - 20:14:33 ] Killer=Testing,SID=751,Target=Earth worm,Zone=21,X=248,Z=292
+[ MONSTER - 20:14:38 ] Killer=Testing,SID=751,Target=Earth worm,Zone=21,X=249,Z=295
+[ MONSTER - 20:14:46 ] Killer=Testing,SID=751,Target=Earth worm,Zone=21,X=256,Z=295
+[ MONSTER - 20:16:38 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=254,Z=289
+[ MONSTER - 20:16:43 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=252,Z=286
+[ MONSTER - 20:16:44 ] Killer=test2,SID=751,Target=Earth worm,Zone=21,X=251,Z=286
+[ MONSTER - 20:27:27 ] Killer=Testing,SID=751,Target=Earth worm,Zone=21,X=244,Z=291

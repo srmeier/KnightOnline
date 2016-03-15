@@ -118,7 +118,7 @@ uint8 CDBAgent::NationSelect(string & strAccountID, uint8 bNation)
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 
-	if (!dbCommand->Execute(string_format(_T("{? = CALL NATION_SELECT(?, %d)}"), bNation)))
+	if (!dbCommand->Execute(string_format(_T("{CALL NATION_SELECT(?, ?, %d)}"), bNation)))
 		ReportSQLError(m_GameDB->GetError());
 
 	return (bRet > 0 ? bNation : 0);
@@ -207,7 +207,7 @@ int8 CDBAgent::CreateNewChar(string & strAccountID, int index, string & strCharI
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 
-	if (!dbCommand->Execute(string_format(_T("{? = CALL CREATE_NEW_CHAR(?, %d, ?, %d, %d, %d, %d, %d, %d, %d, %d, %d)}"), 
+	if (!dbCommand->Execute(string_format(_T("{CALL CREATE_NEW_CHAR(?, ?, %d, ?, %d, %d, %d, %d, %d, %d, %d, %d, %d)}"), 
 		index, bRace, sClass, nHair, bFace, bStr, bSta, bDex, bInt, bCha)))
 		ReportSQLError(m_GameDB->GetError());
 

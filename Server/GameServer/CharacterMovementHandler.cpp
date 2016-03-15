@@ -108,12 +108,12 @@ void CUser::GetUserInfo(Packet & pkt)
 	CKnights * pKnights = g_pMain->GetClanPtr(GetClanID());
 	if (pKnights == nullptr)
 	{
-		pkt << uint8(0) << uint16(0) << uint8(0) << uint8(0);
+		pkt /*<< uint8(0)*/ << uint16(0) << uint8(0) << uint8(0);
 		//pkt	<< uint32(0) << uint16(0) << uint8(0) << uint16(-1);
 	}
 	else
 	{
-		pkt << pKnights->GetAllianceID()
+		pkt /*<< pKnights->GetAllianceID()*/
 			<< pKnights->m_strName
 			<< pKnights->m_byGrade << pKnights->m_byRanking ;
 			//<< uint16(pKnights->m_sMarkVersion) // symbol/mark version

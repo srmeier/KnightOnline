@@ -557,8 +557,7 @@ void CUser::ItemMove(Packet & pkt)
 	if (pTable == nullptr
 		//  || dir == ITEM_INVEN_SLOT && ((pTable->m_sWeight + m_sItemWeight) > m_sMaxWeight))
 			//  || dir > ITEM_MBAG_TO_MBAG || bSrcPos >= SLOT_MAX+HAVE_MAX+COSP_MAX+MBAG_MAX || bDstPos >= SLOT_MAX+HAVE_MAX+COSP_MAX+MBAG_MAX
-				|| ((dir == ITEM_INVEN_SLOT || dir == ITEM_SLOT_SLOT) 
-				&& (bDstPos > SLOT_MAX || !ItemEquipAvailable(pTable)))
+				|| ((dir == ITEM_INVEN_SLOT || dir == ITEM_SLOT_SLOT) && (bDstPos > SLOT_MAX || !ItemEquipAvailable(pTable)))
 				|| (dir == ITEM_SLOT_INVEN && bSrcPos > SLOT_MAX)
 				|| ((dir == ITEM_INVEN_SLOT || dir == ITEM_SLOT_SLOT) && bDstPos == RESERVED))
 				goto fail_return;
