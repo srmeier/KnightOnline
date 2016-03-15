@@ -249,7 +249,7 @@ const int SOCKET_PORT_LOGIN = 15100;
 							N3_SP_TYPE_REGISTER_CANCEL				= 0x02,		// 등록 해제하기
 							N3_SP_TYPE_BBS_DATA						= 0x03,		// 게시판 정보 요구
 							N3_SP_TYPE_BBS_OPEN						= 0x04,		// 상거래 게시판 열기
-							N3_SP_TYPE_BBS_TRADE					= 0X05};	// 게시판에서 거래 신청하기
+							N3_SP_TYPE_BBS_TRADE					= 0x05};	// 게시판에서 거래 신청하기
 #define N3_KICK_OUT						0x51	// Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
 #define N3_NPC_QUEST					0X52	// npc 퀘스트
 #define N3_ALIVE_CHECK					0x53	// 단순 에코
