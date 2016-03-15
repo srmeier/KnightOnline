@@ -222,6 +222,7 @@ bool CUser::HandlePacket(Packet & pkt)
 
 	// If crypto's not been enabled yet, force the version packet to be sent.
 	//if (!isCryptoEnabled())
+	/*
 	if(!m_bHasCheckedClientVersion)
 	{
 		if (command == WIZ_VERSION_CHECK)
@@ -229,12 +230,18 @@ bool CUser::HandlePacket(Packet & pkt)
 
 		m_bHasCheckedClientVersion = true;
 		return true;
-	}
+	}*/
+
+
 	// If we're not authed yet, forced us to before we can do anything else.
 	// NOTE: We're checking the account ID store here because it's only set on successful auth,
 	// at which time the other account ID will be cleared out (yes, it's messy -- need to clean it up).
-	else if (m_strAccountID.empty())
+	/*else*/ if (m_strAccountID.empty())
 	{
+		// TEMP
+		if (command == WIZ_VERSION_CHECK)
+			VersionCheck(pkt);
+
 		if (command == WIZ_LOGIN)
 			LoginProcess(pkt);
 
