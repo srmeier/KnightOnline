@@ -123,7 +123,6 @@ void CGameProcCharacterSelect::Init()
 
 	e_Nation eNation = s_pPlayer->m_InfoBase.eNation;
 	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
-	//__TABLE_UI_RESRC* pTbl = s_pTbl_UI->GetIndexedData(0);
 
 	m_pUICharacterSelect = new CUICharacterSelect();
 	m_pUICharacterSelect->Init(s_pUIMgr);
@@ -218,16 +217,6 @@ void CGameProcCharacterSelect::Init()
 	}
 
 	this->MsgSend_RequestAllCharacterInfo(); // 캐릭터 정보 요청..
-
-	/*
-	int offset = 0;
-	DataPack tempData;
-
-	tempData.m_Size = 0;
-	tempData.m_pData = NULL;
-
-	this->MsgRecv_AllCharacterInfo(&tempData, offset);
-	*/
 }
 
 void CGameProcCharacterSelect::Tick()

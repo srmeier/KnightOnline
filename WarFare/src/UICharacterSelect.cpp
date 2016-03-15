@@ -126,7 +126,7 @@ void CUICharacterSelect::DisplayChrInfo(__CharacterSelectInfo* pCSInfo)
 	{
 		std::string szFmt, szClass;
 		CGameProcedure::GetTextByClass(pCSInfo->eClass, szClass);
-		::_LoadStringFromResource(IDS_CHR_SELECT_FMT_INFO, szFmt);
+		szFmt = "Level: %d\nClass: %s\nID: %s";//::_LoadStringFromResource(IDS_CHR_SELECT_FMT_INFO, szFmt);
 		char szBuffer[256];
 		sprintf(szBuffer, szFmt.c_str(), pCSInfo->iLevel, szClass.c_str(), pCSInfo->szID.c_str());
 		szTotal = szBuffer;

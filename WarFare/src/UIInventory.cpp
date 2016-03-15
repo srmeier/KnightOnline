@@ -2341,7 +2341,7 @@ void CUIInventory::DurabilityChange(e_ItemSlot eSlot, int iDurability)
 			{
 				m_pMySlot[eSlot]->pUIIcon->SetStyle(m_pMySlot[eSlot]->pUIIcon->GetStyle() | UISTYLE_DURABILITY_EXHAUST);
 				// 메시지 박스 출력..
-				::_LoadStringFromResource(IDS_DURABILITY_EXOAST, szDur);
+				szDur = "Durability lost on %s";//::_LoadStringFromResource(IDS_DURABILITY_EXOAST, szDur);
 				wsprintf(szBuf, szDur.c_str(), m_pMySlot[eSlot]->pItemBasic->szName.c_str() );
 				CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			}

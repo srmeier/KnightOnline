@@ -2244,7 +2244,8 @@ bool CGameProcMain::MsgRecv_Weather(DataPack* pDataPack, int& iOffset)
 
 bool CGameProcMain::MsgRecv_UserInOut(DataPack* pDataPack, int& iOffset)
 {
-	int iType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	int iType = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);//CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
 	if ( 0x01 == iType ) // 유저 들어올때.(원래 게임상의 유저 지역 업뎃하면서 갱신..)
 		this->MsgRecv_UserIn(pDataPack, iOffset, false);
 	else if ( 0x02 == iType ) // User 나갈때.
