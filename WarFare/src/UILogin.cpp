@@ -75,12 +75,13 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 		}
 		else if (pSender == m_pBtn_Cancel)
 		{
-			PostQuitMessage(0);	// 종료...
+			//PostQuitMessage(0);	// 종료...
+			CGameBase::s_bRunning = false;
 		}
 		else if(pSender == m_pBtn_Option) // 옵션..
 		{
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_CONFIRM_EXECUTE_OPTION, szMsg);
+			szMsg = "Would you like to open the options?";//::_LoadStringFromResource(IDS_CONFIRM_EXECUTE_OPTION, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXECUTE_OPTION);
 		}
 	}

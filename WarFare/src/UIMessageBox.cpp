@@ -107,11 +107,13 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 						if(CGameProcedure::s_pProcActive == pProcMain) // 지금 메인 프로시저이면..
 						{
 							pProcMain->ReleaseSound();
-							::PostQuitMessage(0);
+							//::PostQuitMessage(0);
+							CGameBase::s_bRunning = false;
 						}
 						else
 						{
-							::PostQuitMessage(0);
+							//::PostQuitMessage(0);
+							CGameBase::s_bRunning = false;
 						}
 					}
 					break; // 끝낸다.. 
@@ -159,7 +161,8 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 				case BEHAVIOR_EXECUTE_OPTION:
 					{
 						::ShellExecute(NULL, "open", "Option.exe", NULL, NULL, SW_SHOWNORMAL); // 홈페이지로 이동..
-						PostQuitMessage(0);	// 종료...
+						//PostQuitMessage(0);	// 종료...
+						CGameBase::s_bRunning = false;
 					}
 					break;
 				default: break;
