@@ -223,7 +223,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	// Sound √ ±‚»≠..
 	if(CN3Base::s_Options.bSndEnable)
 	{
-		//CN3Base::s_SndMgr.Init(pWindow);
+		CN3Base::s_SndMgr.Init(GetActiveWindow());//pWindow);
 		CN3Base::s_SndMgr.SetDuplicated(CN3Base::s_Options.bSndDuplicated);
 	}
 	CN3FXBundle::SetEffectSndDistance(float(CN3Base::s_Options.iEffectSndDist));

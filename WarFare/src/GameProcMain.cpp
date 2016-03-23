@@ -5211,7 +5211,8 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 
 		case CMD_EXIT:
 		{
-			PostQuitMessage(0);
+			//PostQuitMessage(0);
+			CGameBase::s_bRunning = false;
 		}
 		break;
 
@@ -7182,33 +7183,7 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 					}
 					else if(OBJECT_TYPE_WARP_POINT == pShape->m_iEventType)
 					{
-						// NOTE: !!! currently working on offline warp portal !!!
-
 						this->MsgSend_ObjectEvent(pShape->m_iEventID, pShape->m_iNPC_ID); // 오브젝트 이벤트 보내기..
-
-						/*
-						m_pUIWarp->Reset();
-
-						for(int i = 0; i < 1; i++)
-						{
-							__WarpInfo WI;
-		
-							WI.iID = 0x0000;
-							WI.szName = "Moradon";
-							WI.szAgreement = "S:DLKFJS:LDKJF:LKJSDF";
-							WI.iZone = 0x0002;
-							WI.iMaxUser =0x0000;
-							WI.iGold = 0x00000000;
-							WI.vPos.x = 361.278503f;
-							WI.vPos.z = 2.822370f;
-							WI.vPos.y = 137.339859f;
-
-							m_pUIWarp->InfoAdd(WI);
-						}
-
-						m_pUIWarp->UpdateList();
-						m_pUIWarp->SetVisible(true);
-						*/
 					}
 				}
 			}

@@ -10,3 +10,11 @@ ODBC error occurred.
 Source: SQLDriverConnect
 Error: [Microsoft][SQL Server Native Client 10.0]Login timeout expired
 Description: Unable to establish connection.
+ODBC error occurred.
+Source: SQLDriverConnect
+Error: [Microsoft][SQL Server Native Client 10.0]SQL Server Network Interfaces: Error Locating Server/Instance Specified [xFFFFFFFF]. 
+Description: Unable to establish connection.
+ODBC error occurred.
+Source: SQLDriverConnect
+Error: [Microsoft][SQL Server Native Client 10.0]SQL Server Network Interfaces: Error Locating Server/Instance Specified [xFFFFFFFF]. 
+Description: Unable to establish connection.
