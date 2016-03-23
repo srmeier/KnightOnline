@@ -17,6 +17,8 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+// TESTING !@#$%@#$@#$
+
 CBird::CBird()
 {
 	m_pSnd = NULL;
