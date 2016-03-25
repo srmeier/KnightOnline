@@ -7217,7 +7217,8 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 				float fDLimit = (s_pPlayer->Radius() + pNPC->Radius()) * 3.0f;
 				if(fD > fDLimit) // 거리가 멀면
 				{
-					std::string szMsg; ::_LoadStringFromResource(IDS_ERR_REQUEST_NPC_EVENT_SO_FAR, szMsg);
+					std::string szMsg;
+					szMsg = "IDS_ERR_REQUEST_NPC_EVENT_SO_FAR"; //::_LoadStringFromResource(IDS_ERR_REQUEST_NPC_EVENT_SO_FAR, szMsg);
 					this->MsgOutput(szMsg, 0xffff8080);
 				}
 				else

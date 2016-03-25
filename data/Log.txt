@@ -1,33 +1,508 @@
-    [22:40:26] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
-    [22:40:26] CN3TerrainManager::InitWorld Pre Load	229954760
-    [22:40:30] CN3TerrainManager::InitWorld Pre Load ColorMap
-    [22:40:30] CN3TerrainManager::InitWorld Pre Release Shapes	231683792
-    [22:40:30] CN3TerrainManager::InitWorld Pre Load Shapes
-    [22:40:35] CN3TerrainManager::InitWorld Pre Load Birds	8057312
-    [22:40:35] CN3TerrainManager::InitWorld Pre Load Sky	336279056
-    [22:40:35] 86021528->GetWidthByMeterWithTerrain()
-    [22:40:35] 109518792->LoadMap()
-    [22:40:35] 85832148->szMiniMapFNszMiniMapFN
-    [22:40:35] GetRepresentClass()
-    [22:40:35] 109518792->ZoomSet()
-    [22:40:35] 85832148->szTerrainFN.c_str()
-    [22:40:35] pCamera->LookAt()
-    [22:40:35] pCamera->Tick()
-    [22:40:35] pCamera->Apply()
-    [22:40:35] InitPlayerPosition() Position(297.0, 0.0, 365.0)
-    [22:40:35] 86930744->Release()
-    [22:40:35] Invalid Packet... (95)
-    [22:40:35] Normal NPC In : [Name(Adien[Beginner helper]), ResourceID(2040)]
-    [22:40:35] Normal NPC In : [Name(Selith[Special Store]), ResourceID(2040)]
-    [22:40:35] Invalid Packet... (105)
-    [22:40:42] Invalid Packet... (105)
-    [22:40:45] Invalid Packet... (105)
-    [22:41:00] Invalid Packet... (105)
-    [22:41:00] Invalid Packet... (105)
-    [22:41:05] CNEng::~CN3Eng - Device reference count is bigger than 0
-// End writing log... [03/24 22:41]
+    [17:24:21] Invalid Packet... (94)
+    [17:24:21] Invalid Packet... (105)
+    [17:24:21] Invalid Packet... (13)
+    [17:24:21] Invalid Packet... (95)
 ---------------------------------------------------------------------------
-    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
-    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
-    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
-    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> delete finished
+// Begin writing log... [03/25 17:28]
+    [17:28:22] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [17:28:22] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [17:28:24] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(249.4, 6.7, 289.0)
+    [17:28:24] 96235856->ClearDurationalMagic()
+    [17:28:24] 96217416->ClearAll()
+    [17:28:24] s_pUILoading->Render()
+    [17:28:24] 7916000->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:28:24] 49199472->Release()
+    [17:28:24] 47942104->InitWorld()
+    [17:28:24] CN3WorldManager::InitWorld Pre delete
+    [17:28:24] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:28:24] CN3TerrainManager::InitWorld Pre Load	144608392
+    [17:28:28] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:28:28] CN3TerrainManager::InitWorld Pre Release Shapes	144627840
+    [17:28:28] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:28:28] CN3TerrainManager::InitWorld Pre Load Birds	96253296
+    [17:28:28] CN3TerrainManager::InitWorld Pre Load Sky	96723096
+    [17:28:28] 48230648->GetWidthByMeterWithTerrain()
+    [17:28:28] 96227552->LoadMap()
+    [17:28:28] 48101868->szMiniMapFNszMiniMapFN
+    [17:28:28] GetRepresentClass()
+    [17:28:28] 96227552->ZoomSet()
+    [17:28:28] 48101868->szTerrainFN.c_str()
+    [17:28:28] pCamera->LookAt()
+    [17:28:28] pCamera->Tick()
+    [17:28:28] pCamera->Apply()
+    [17:28:28] InitPlayerPosition() Position(249.4, 6.7, 289.0)
+    [17:28:28] 49199472->Release()
+    [17:28:29] Invalid Packet... (100)
+    [17:28:29] Invalid Packet... (94)
+    [17:28:29] Invalid Packet... (105)
+    [17:28:29] Invalid Packet... (13)
+    [17:28:29] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 17:40]
+    [17:40:48] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/25 17:40]
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 17:42]
+    [17:42:16] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [17:42:16] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [17:42:17] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(253.7, 6.9, 289.5)
+    [17:42:17] 93377848->ClearDurationalMagic()
+    [17:42:17] 93347920->ClearAll()
+    [17:42:17] s_pUILoading->Render()
+    [17:42:17] 4774384->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:42:17] 47372360->Release()
+    [17:42:17] 5154416->InitWorld()
+    [17:42:17] CN3WorldManager::InitWorld Pre delete
+    [17:42:17] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:42:17] CN3TerrainManager::InitWorld Pre Load	145023048
+    [17:42:21] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:42:21] CN3TerrainManager::InitWorld Pre Release Shapes	145042496
+    [17:42:21] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:42:21] CN3TerrainManager::InitWorld Pre Load Birds	93383848
+    [17:42:21] CN3TerrainManager::InitWorld Pre Load Sky	93555272
+    [17:42:21] 46243048->GetWidthByMeterWithTerrain()
+    [17:42:21] 93359120->LoadMap()
+    [17:42:21] 46272948->szMiniMapFNszMiniMapFN
+    [17:42:21] GetRepresentClass()
+    [17:42:21] 93359120->ZoomSet()
+    [17:42:21] 46272948->szTerrainFN.c_str()
+    [17:42:21] pCamera->LookAt()
+    [17:42:21] pCamera->Tick()
+    [17:42:21] pCamera->Apply()
+    [17:42:21] InitPlayerPosition() Position(253.7, 6.9, 289.5)
+    [17:42:21] 47372360->Release()
+    [17:42:22] Invalid Packet... (100)
+    [17:42:22] Invalid Packet... (94)
+    [17:42:22] Invalid Packet... (105)
+    [17:42:22] Invalid Packet... (13)
+    [17:42:22] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 17:47]
+    [17:47:14] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [17:47:14] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [17:47:14] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(251.2, 6.8, 289.2)
+    [17:47:14] 100904600->ClearDurationalMagic()
+    [17:47:14] 100884256->ClearAll()
+    [17:47:14] s_pUILoading->Render()
+    [17:47:14] 7382856->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:47:14] 53389552->Release()
+    [17:47:14] 52136408->InitWorld()
+    [17:47:14] CN3WorldManager::InitWorld Pre delete
+    [17:47:14] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:47:14] CN3TerrainManager::InitWorld Pre Load	146238536
+    [17:47:19] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:47:19] CN3TerrainManager::InitWorld Pre Release Shapes	146257984
+    [17:47:19] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:47:19] CN3TerrainManager::InitWorld Pre Load Birds	100964824
+    [17:47:19] CN3TerrainManager::InitWorld Pre Load Sky	101755112
+    [17:47:19] 52239736->GetWidthByMeterWithTerrain()
+    [17:47:19] 100894800->LoadMap()
+    [17:47:19] 52295676->szMiniMapFNszMiniMapFN
+    [17:47:19] GetRepresentClass()
+    [17:47:19] 100894800->ZoomSet()
+    [17:47:19] 52295676->szTerrainFN.c_str()
+    [17:47:19] pCamera->LookAt()
+    [17:47:19] pCamera->Tick()
+    [17:47:19] pCamera->Apply()
+    [17:47:19] InitPlayerPosition() Position(251.2, 6.8, 289.2)
+    [17:47:19] 53389552->Release()
+    [17:47:20] Invalid Packet... (100)
+    [17:47:20] Invalid Packet... (94)
+    [17:47:20] Invalid Packet... (105)
+    [17:47:20] Invalid Packet... (13)
+    [17:47:20] Invalid Packet... (95)
+    [17:52:33] Invalid Packet... (105)
+    [17:52:33] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 17:59]
+    [17:59:30] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [17:59:30] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [17:59:32] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(247.0, 6.6, 289.7)
+    [17:59:32] 94802240->ClearDurationalMagic()
+    [17:59:32] 94783824->ClearAll()
+    [17:59:32] s_pUILoading->Render()
+    [17:59:32] 2483944->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:59:32] 49598496->Release()
+    [17:59:32] 2928688->InitWorld()
+    [17:59:32] CN3WorldManager::InitWorld Pre delete
+    [17:59:32] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:59:32] CN3TerrainManager::InitWorld Pre Load	144325768
+    [17:59:36] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:59:36] CN3TerrainManager::InitWorld Pre Release Shapes	144345216
+    [17:59:36] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:59:36] CN3TerrainManager::InitWorld Pre Load Birds	94819680
+    [17:59:36] CN3TerrainManager::InitWorld Pre Load Sky	95462280
+    [17:59:36] 48472032->GetWidthByMeterWithTerrain()
+    [17:59:36] 94794184->LoadMap()
+    [17:59:36] 48508076->szMiniMapFNszMiniMapFN
+    [17:59:36] GetRepresentClass()
+    [17:59:36] 94794184->ZoomSet()
+    [17:59:36] 48508076->szTerrainFN.c_str()
+    [17:59:36] pCamera->LookAt()
+    [17:59:36] pCamera->Tick()
+    [17:59:36] pCamera->Apply()
+    [17:59:36] InitPlayerPosition() Position(247.0, 6.6, 289.7)
+    [17:59:36] 49598496->Release()
+    [17:59:37] Invalid Packet... (100)
+    [17:59:37] Invalid Packet... (94)
+    [17:59:37] Invalid Packet... (105)
+    [17:59:37] Invalid Packet... (13)
+    [17:59:37] Invalid Packet... (95)
+    [17:59:56] Invalid Packet... (105)
+    [18:00:01] Invalid Packet... (105)
+    [18:00:17] Invalid Packet... (105)
+    [18:00:19] Invalid Packet... (105)
+    [18:00:22] Invalid Packet... (105)
+    [18:00:23] Invalid Packet... (105)
+    [18:00:32] Invalid Packet... (105)
+    [18:00:33] Invalid Packet... (105)
+    [18:00:35] Invalid Packet... (105)
+    [18:00:35] Invalid Packet... (105)
+    [18:00:36] Invalid Packet... (105)
+    [18:00:36] Invalid Packet... (105)
+    [18:00:48] Invalid Packet... (105)
+    [18:00:50] Invalid Packet... (105)
+    [18:00:52] Invalid Packet... (105)
+    [18:00:53] Invalid Packet... (105)
+    [18:00:53] Invalid Packet... (105)
+    [18:00:55] Invalid Packet... (105)
+    [18:01:08] Invalid Packet... (105)
+    [18:01:14] Invalid Packet... (105)
+    [18:01:16] Invalid Packet... (105)
+    [18:01:20] Invalid Packet... (105)
+    [18:01:22] Invalid Packet... (105)
+    [18:01:23] Invalid Packet... (105)
+    [18:01:26] Invalid Packet... (105)
+    [18:01:43] Invalid Packet... (105)
+    [18:01:47] Invalid Packet... (105)
+    [18:01:55] Invalid Packet... (105)
+    [18:02:07] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 18:05]
+    [18:05:37] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [18:05:37] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [18:05:38] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(243.7, 6.7, 298.7)
+    [18:05:38] 96859320->ClearDurationalMagic()
+    [18:05:38] 96815520->ClearAll()
+    [18:05:38] s_pUILoading->Render()
+    [18:05:38] 5730424->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:05:38] 50841776->Release()
+    [18:05:38] 49593096->InitWorld()
+    [18:05:38] CN3WorldManager::InitWorld Pre delete
+    [18:05:38] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:05:38] CN3TerrainManager::InitWorld Pre Load	144971848
+    [18:05:42] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:05:42] CN3TerrainManager::InitWorld Pre Release Shapes	144991296
+    [18:05:42] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:05:42] CN3TerrainManager::InitWorld Pre Load Birds	96865320
+    [18:05:42] CN3TerrainManager::InitWorld Pre Load Sky	97020360
+    [18:05:42] 49713960->GetWidthByMeterWithTerrain()
+    [18:05:42] 96785304->LoadMap()
+    [18:05:42] 49747956->szMiniMapFNszMiniMapFN
+    [18:05:42] GetRepresentClass()
+    [18:05:42] 96785304->ZoomSet()
+    [18:05:42] 49747956->szTerrainFN.c_str()
+    [18:05:42] pCamera->LookAt()
+    [18:05:42] pCamera->Tick()
+    [18:05:42] pCamera->Apply()
+    [18:05:42] InitPlayerPosition() Position(243.7, 6.7, 298.7)
+    [18:05:42] 50841776->Release()
+    [18:05:43] Invalid Packet... (100)
+    [18:05:43] Invalid Packet... (94)
+    [18:05:43] Invalid Packet... (105)
+    [18:05:43] Invalid Packet... (13)
+    [18:05:43] Invalid Packet... (95)
+    [18:05:46] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 18:09]
+    [18:09:52] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [18:09:52] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [18:09:53] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(243.7, 6.7, 298.7)
+    [18:09:53] 95327736->ClearDurationalMagic()
+    [18:09:53] 95303928->ClearAll()
+    [18:09:53] s_pUILoading->Render()
+    [18:09:53] 4965960->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:09:53] 74084392->Release()
+    [18:09:53] 72778032->InitWorld()
+    [18:09:53] CN3WorldManager::InitWorld Pre delete
+    [18:09:53] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:09:53] CN3TerrainManager::InitWorld Pre Load	145460360
+    [18:09:58] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:09:58] CN3TerrainManager::InitWorld Pre Release Shapes	145479808
+    [18:09:58] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:09:58] CN3TerrainManager::InitWorld Pre Load Birds	95356200
+    [18:09:58] CN3TerrainManager::InitWorld Pre Load Sky	95870928
+    [18:09:58] 73069112->GetWidthByMeterWithTerrain()
+    [18:09:58] 95283928->LoadMap()
+    [18:09:58] 72939812->szMiniMapFNszMiniMapFN
+    [18:09:58] GetRepresentClass()
+    [18:09:58] 95283928->ZoomSet()
+    [18:09:58] 72939812->szTerrainFN.c_str()
+    [18:09:58] pCamera->LookAt()
+    [18:09:58] pCamera->Tick()
+    [18:09:58] pCamera->Apply()
+    [18:09:58] InitPlayerPosition() Position(243.7, 6.7, 298.7)
+    [18:09:58] 74084392->Release()
+    [18:09:59] Invalid Packet... (100)
+    [18:09:59] Invalid Packet... (94)
+    [18:09:59] Invalid Packet... (105)
+    [18:09:59] Invalid Packet... (13)
+    [18:09:59] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 18:31]
+    [18:31:14] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [18:31:14] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [18:31:15] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(243.7, 6.7, 298.7)
+    [18:31:15] 98668680->ClearDurationalMagic()
+    [18:31:15] 98646304->ClearAll()
+    [18:31:15] s_pUILoading->Render()
+    [18:31:15] 8047072->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:31:15] 47954520->Release()
+    [18:31:15] 46696600->InitWorld()
+    [18:31:15] CN3WorldManager::InitWorld Pre delete
+    [18:31:15] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:31:15] CN3TerrainManager::InitWorld Pre Load	143501384
+    [18:31:20] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:31:20] CN3TerrainManager::InitWorld Pre Release Shapes	143520832
+    [18:31:20] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:31:20] CN3TerrainManager::InitWorld Pre Load Birds	98682232
+    [18:31:20] CN3TerrainManager::InitWorld Pre Load Sky	99220808
+    [18:31:20] 46985696->GetWidthByMeterWithTerrain()
+    [18:31:20] 98616032->LoadMap()
+    [18:31:20] 46852404->szMiniMapFNszMiniMapFN
+    [18:31:20] GetRepresentClass()
+    [18:31:20] 98616032->ZoomSet()
+    [18:31:20] 46852404->szTerrainFN.c_str()
+    [18:31:20] pCamera->LookAt()
+    [18:31:20] pCamera->Tick()
+    [18:31:20] pCamera->Apply()
+    [18:31:20] InitPlayerPosition() Position(243.7, 6.7, 298.7)
+    [18:31:20] 47954520->Release()
+    [18:31:21] Invalid Packet... (100)
+    [18:31:21] Invalid Packet... (94)
+    [18:31:21] Invalid Packet... (105)
+    [18:31:21] Invalid Packet... (13)
+    [18:31:21] Invalid Packet... (95)
+    [18:31:27] Invalid Packet... (105)
+    [18:31:28] Invalid Packet... (105)
+    [18:31:30] Invalid Packet... (105)
+    [18:31:30] Invalid Packet... (105)
+    [18:31:37] Invalid Packet... (105)
+    [18:31:37] Invalid Packet... (105)
+    [18:31:38] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 18:33]
+    [18:33:18] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [18:33:18] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [18:33:19] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(243.7, 6.7, 298.7)
+    [18:33:19] 96366856->ClearDurationalMagic()
+    [18:33:19] 96348432->ClearAll()
+    [18:33:19] s_pUILoading->Render()
+    [18:33:19] 8178144->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:33:19] 48830664->Release()
+    [18:33:19] 47614456->InitWorld()
+    [18:33:19] CN3WorldManager::InitWorld Pre delete
+    [18:33:19] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:33:19] CN3TerrainManager::InitWorld Pre Load	144992328
+    [18:33:24] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:33:24] CN3TerrainManager::InitWorld Pre Release Shapes	145011776
+    [18:33:24] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:33:24] CN3TerrainManager::InitWorld Pre Load Birds	96400680
+    [18:33:24] CN3TerrainManager::InitWorld Pre Load Sky	96767640
+    [18:33:24] 47899472->GetWidthByMeterWithTerrain()
+    [18:33:24] 96319280->LoadMap()
+    [18:33:24] 47766020->szMiniMapFNszMiniMapFN
+    [18:33:24] GetRepresentClass()
+    [18:33:24] 96319280->ZoomSet()
+    [18:33:24] 47766020->szTerrainFN.c_str()
+    [18:33:24] pCamera->LookAt()
+    [18:33:24] pCamera->Tick()
+    [18:33:24] pCamera->Apply()
+    [18:33:24] InitPlayerPosition() Position(243.7, 6.7, 298.7)
+    [18:33:24] 48830664->Release()
+    [18:33:25] Invalid Packet... (100)
+    [18:33:25] Invalid Packet... (94)
+    [18:33:25] Invalid Packet... (105)
+    [18:33:25] Invalid Packet... (13)
+    [18:33:25] Invalid Packet... (95)
+    [18:33:29] Invalid Packet... (105)
+    [18:33:29] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 18:34]
+    [18:34:22] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [18:34:22] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [18:34:23] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(243.7, 6.7, 298.7)
+    [18:34:23] 95147208->ClearDurationalMagic()
+    [18:34:23] 95123904->ClearAll()
+    [18:34:23] s_pUILoading->Render()
+    [18:34:23] 7791160->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:34:23] 48085432->Release()
+    [18:34:23] 8178656->InitWorld()
+    [18:34:23] CN3WorldManager::InitWorld Pre delete
+    [18:34:23] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:34:23] CN3TerrainManager::InitWorld Pre Load	144792648
+    [18:34:27] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:34:27] CN3TerrainManager::InitWorld Pre Release Shapes	144812096
+    [18:34:27] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:34:28] CN3TerrainManager::InitWorld Pre Load Birds	95159760
+    [18:34:28] CN3TerrainManager::InitWorld Pre Load Sky	95605104
+    [18:34:28] 47132992->GetWidthByMeterWithTerrain()
+    [18:34:28] 95134448->LoadMap()
+    [18:34:28] 47003900->szMiniMapFNszMiniMapFN
+    [18:34:28] GetRepresentClass()
+    [18:34:28] 95134448->ZoomSet()
+    [18:34:28] 47003900->szTerrainFN.c_str()
+    [18:34:28] pCamera->LookAt()
+    [18:34:28] pCamera->Tick()
+    [18:34:28] pCamera->Apply()
+    [18:34:28] InitPlayerPosition() Position(243.7, 6.7, 298.7)
+    [18:34:28] 48085432->Release()
+    [18:34:29] Invalid Packet... (100)
+    [18:34:29] Invalid Packet... (94)
+    [18:34:29] Invalid Packet... (105)
+    [18:34:29] Invalid Packet... (13)
+    [18:34:29] Invalid Packet... (95)
+    [18:34:32] Invalid Packet... (105)
+    [18:34:33] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 18:43]
+    [18:43:33] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [18:43:33] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [18:43:35] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(243.7, 6.7, 298.7)
+    [18:43:35] 95940376->ClearDurationalMagic()
+    [18:43:35] 95893312->ClearAll()
+    [18:43:35] s_pUILoading->Render()
+    [18:43:35] 5554680->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:43:35] 47825392->Release()
+    [18:43:35] 46537968->InitWorld()
+    [18:43:35] CN3WorldManager::InitWorld Pre delete
+    [18:43:35] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:43:35] CN3TerrainManager::InitWorld Pre Load	145727560
+    [18:43:39] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:43:39] CN3TerrainManager::InitWorld Pre Release Shapes	145747008
+    [18:43:39] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:43:40] CN3TerrainManager::InitWorld Pre Load Birds	95946376
+    [18:43:40] CN3TerrainManager::InitWorld Pre Load Sky	96573968
+    [18:43:40] 46856520->GetWidthByMeterWithTerrain()
+    [18:43:40] 95921440->LoadMap()
+    [18:43:40] 46727636->szMiniMapFNszMiniMapFN
+    [18:43:40] GetRepresentClass()
+    [18:43:40] 95921440->ZoomSet()
+    [18:43:40] 46727636->szTerrainFN.c_str()
+    [18:43:40] pCamera->LookAt()
+    [18:43:40] pCamera->Tick()
+    [18:43:40] pCamera->Apply()
+    [18:43:40] InitPlayerPosition() Position(243.7, 6.7, 298.7)
+    [18:43:40] 47825392->Release()
+    [18:43:43] Invalid Packet... (100)
+    [18:43:43] Invalid Packet... (94)
+    [18:43:43] Invalid Packet... (105)
+    [18:43:43] Invalid Packet... (13)
+    [18:43:43] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 18:59]
+    [18:59:33] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [18:59:33] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [18:59:34] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(245.2, 6.8, 297.0)
+    [18:59:34] 95141728->ClearDurationalMagic()
+    [18:59:34] 95095208->ClearAll()
+    [18:59:34] s_pUILoading->Render()
+    [18:59:34] 6350752->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:59:34] 49126840->Release()
+    [18:59:34] 47821536->InitWorld()
+    [18:59:34] CN3WorldManager::InitWorld Pre delete
+    [18:59:34] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:59:34] CN3TerrainManager::InitWorld Pre Load	145394824
+    [18:59:39] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:59:39] CN3TerrainManager::InitWorld Pre Release Shapes	145414272
+    [18:59:39] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:59:39] CN3TerrainManager::InitWorld Pre Load Birds	95147728
+    [18:59:39] CN3TerrainManager::InitWorld Pre Load Sky	95767032
+    [18:59:39] 48158016->GetWidthByMeterWithTerrain()
+    [18:59:39] 95122792->LoadMap()
+    [18:59:39] 48025036->szMiniMapFNszMiniMapFN
+    [18:59:39] GetRepresentClass()
+    [18:59:39] 95122792->ZoomSet()
+    [18:59:39] 48025036->szTerrainFN.c_str()
+    [18:59:39] pCamera->LookAt()
+    [18:59:39] pCamera->Tick()
+    [18:59:39] pCamera->Apply()
+    [18:59:39] InitPlayerPosition() Position(245.2, 6.8, 297.0)
+    [18:59:39] 49126840->Release()
+    [18:59:41] Invalid Packet... (100)
+    [18:59:41] Invalid Packet... (94)
+    [18:59:41] Invalid Packet... (105)
+    [18:59:41] Invalid Packet... (13)
+    [18:59:41] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 19:09]
+    [19:09:35] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [19:09:35] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [19:09:36] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(247.3, 6.8, 293.1)
+    [19:09:36] 94119392->ClearDurationalMagic()
+    [19:09:36] 94089320->ClearAll()
+    [19:09:36] s_pUILoading->Render()
+    [19:09:36] 4773568->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [19:09:36] 48119648->Release()
+    [19:09:36] 46891448->InitWorld()
+    [19:09:36] CN3WorldManager::InitWorld Pre delete
+    [19:09:36] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [19:09:36] CN3TerrainManager::InitWorld Pre Load	146327624
+    [19:09:40] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [19:09:40] CN3TerrainManager::InitWorld Pre Release Shapes	146347072
+    [19:09:40] CN3TerrainManager::InitWorld Pre Load Shapes
+    [19:09:40] CN3TerrainManager::InitWorld Pre Load Birds	94125392
+    [19:09:40] CN3TerrainManager::InitWorld Pre Load Sky	94656680
+    [19:09:41] 47181160->GetWidthByMeterWithTerrain()
+    [19:09:41] 94049136->LoadMap()
+    [19:09:41] 47052068->szMiniMapFNszMiniMapFN
+    [19:09:41] GetRepresentClass()
+    [19:09:41] 94049136->ZoomSet()
+    [19:09:41] 47052068->szTerrainFN.c_str()
+    [19:09:41] pCamera->LookAt()
+    [19:09:41] pCamera->Tick()
+    [19:09:41] pCamera->Apply()
+    [19:09:41] InitPlayerPosition() Position(247.3, 6.8, 293.1)
+    [19:09:41] 48119648->Release()
+    [19:09:42] Invalid Packet... (100)
+    [19:09:42] Invalid Packet... (94)
+    [19:09:42] Invalid Packet... (105)
+    [19:09:42] Invalid Packet... (13)
+    [19:09:42] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/25 19:26]
+    [19:26:56] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [19:26:56] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [19:26:57] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(247.8, 6.9, 296.6)
+    [19:26:57] 96112848->ClearDurationalMagic()
+    [19:26:57] 96090400->ClearAll()
+    [19:26:57] s_pUILoading->Render()
+    [19:26:57] 8497056->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [19:26:57] 74824296->Release()
+    [19:26:57] 42830736->InitWorld()
+    [19:26:57] CN3WorldManager::InitWorld Pre delete
+    [19:26:57] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [19:26:57] CN3TerrainManager::InitWorld Pre Load	145431624
+    [19:27:02] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [19:27:02] CN3TerrainManager::InitWorld Pre Release Shapes	145451072
+    [19:27:02] CN3TerrainManager::InitWorld Pre Load Shapes
+    [19:27:02] CN3TerrainManager::InitWorld Pre Load Birds	96126400
+    [19:27:02] CN3TerrainManager::InitWorld Pre Load Sky	96761176
+    [19:27:02] 73855344->GetWidthByMeterWithTerrain()
+    [19:27:02] 96100824->LoadMap()
+    [19:27:02] 73726252->szMiniMapFNszMiniMapFN
+    [19:27:02] GetRepresentClass()
+    [19:27:02] 96100824->ZoomSet()
+    [19:27:02] 73726252->szTerrainFN.c_str()
+    [19:27:02] pCamera->LookAt()
+    [19:27:02] pCamera->Tick()
+    [19:27:02] pCamera->Apply()
+    [19:27:02] InitPlayerPosition() Position(247.8, 6.9, 296.6)
+    [19:27:02] 74824296->Release()
+    [19:27:04] Invalid Packet... (100)
+    [19:27:04] Invalid Packet... (94)
+    [19:27:04] Invalid Packet... (105)
+    [19:27:04] Invalid Packet... (13)
+    [19:27:04] Invalid Packet... (95)
+    [19:29:58] Socket Closed... Zone(21) Pos(254.7, 7.4, 296.9) Exp(387)

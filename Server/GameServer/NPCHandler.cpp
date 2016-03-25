@@ -354,7 +354,7 @@ void CUser::NpcEvent(Packet & pkt)
 	Packet result;
 	uint16 sNpcID = pkt.read<uint16>();
 	//uint8 bUnknown = pkt.read<uint8>();
-	int32 nQuestID = pkt.read<int32>();
+	//int32 nQuestID = pkt.read<int32>();
 
 	CNpc *pNpc = g_pMain->GetNpcPtr(sNpcID);
 	if (pNpc == nullptr
