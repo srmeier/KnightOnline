@@ -1,0 +1,33 @@
+    [22:40:26] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [22:40:26] CN3TerrainManager::InitWorld Pre Load	229954760
+    [22:40:30] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [22:40:30] CN3TerrainManager::InitWorld Pre Release Shapes	231683792
+    [22:40:30] CN3TerrainManager::InitWorld Pre Load Shapes
+    [22:40:35] CN3TerrainManager::InitWorld Pre Load Birds	8057312
+    [22:40:35] CN3TerrainManager::InitWorld Pre Load Sky	336279056
+    [22:40:35] 86021528->GetWidthByMeterWithTerrain()
+    [22:40:35] 109518792->LoadMap()
+    [22:40:35] 85832148->szMiniMapFNszMiniMapFN
+    [22:40:35] GetRepresentClass()
+    [22:40:35] 109518792->ZoomSet()
+    [22:40:35] 85832148->szTerrainFN.c_str()
+    [22:40:35] pCamera->LookAt()
+    [22:40:35] pCamera->Tick()
+    [22:40:35] pCamera->Apply()
+    [22:40:35] InitPlayerPosition() Position(297.0, 0.0, 365.0)
+    [22:40:35] 86930744->Release()
+    [22:40:35] Invalid Packet... (95)
+    [22:40:35] Normal NPC In : [Name(Adien[Beginner helper]), ResourceID(2040)]
+    [22:40:35] Normal NPC In : [Name(Selith[Special Store]), ResourceID(2040)]
+    [22:40:35] Invalid Packet... (105)
+    [22:40:42] Invalid Packet... (105)
+    [22:40:45] Invalid Packet... (105)
+    [22:41:00] Invalid Packet... (105)
+    [22:41:00] Invalid Packet... (105)
+    [22:41:05] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/24 22:41]
+---------------------------------------------------------------------------
+    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [22:41:05] CN3TerrainManager::~CN3TerrainManager -> delete finished
