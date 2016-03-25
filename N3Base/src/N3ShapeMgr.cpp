@@ -101,7 +101,7 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 	DWORD dwRWC;
 	int nL = 0;
 
-	if(m_iVersion == N3FORMAT_VER_1298) {
+	if(m_iFileFormatVersion == N3FORMAT_VER_1298) {
 		int iIdk0;
 		ReadFile(hFile, &iIdk0, sizeof(int), &dwRWC, NULL);
 
@@ -139,7 +139,7 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 			if(dwType & OBJ_SHAPE_EXTRA) pShape = new CN3ShapeExtra(); // 성문등 확장된 Object 로 쓸경우..
 			else pShape = new CN3Shape();
 
-			pShape->m_iVersion = m_iVersion;
+			pShape->m_iFileFormatVersion = m_iFileFormatVersion;
 
 			m_Shapes.push_back(pShape);
 

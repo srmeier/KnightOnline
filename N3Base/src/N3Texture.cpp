@@ -154,7 +154,7 @@ bool CN3Texture::CreateFromSurface(LPDIRECT3DSURFACE8 lpSurf, D3DFORMAT Format, 
 
 bool CN3Texture::LoadFromFile(const std::string& szFileName, int iVer)
 {
-	m_iVersion = iVer;
+	m_iFileFormatVersion = iVer;
 
 	if(m_lpTexture != NULL) this->Release();
 

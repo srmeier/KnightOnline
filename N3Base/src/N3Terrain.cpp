@@ -418,7 +418,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 
 	Init();
 
-	if(m_iVersion == N3FORMAT_VER_1298) {
+	if(m_iFileFormatVersion == N3FORMAT_VER_1298) {
 		int iIdk0;
 		ReadFile(hFile, &iIdk0, sizeof(int), &dwRWC, NULL);
 
@@ -701,7 +701,7 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 
 	// NOTE: kinda a temp thing...
 	for(int i=0; i<m_NumTileTex; ++i) {
-		m_pTileTex[i].m_iVersion = m_iVersion;
+		m_pTileTex[i].m_iFileFormatVersion = m_iFileFormatVersion;
 	}
 
 	int NumTileTexSrc;
@@ -2148,7 +2148,7 @@ bool CN3Terrain::LoadColorMap(const std::string& szFN)
 		m_ppColorMapTex[x] = new CN3Texture [m_iNumColorMap];
 
 		for(int i=0; i<m_iNumColorMap; ++i) {
-			m_ppColorMapTex[x][i].m_iVersion = m_iVersion;
+			m_ppColorMapTex[x][i].m_iFileFormatVersion = m_iFileFormatVersion;
 		}
 	}
 

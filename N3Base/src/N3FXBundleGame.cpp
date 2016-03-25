@@ -486,6 +486,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_PARTICLE;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}
@@ -506,6 +507,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_BOARD;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}
@@ -526,6 +528,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_MESH;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}
@@ -545,6 +548,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_BOTTOMBOARD;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}
@@ -576,6 +580,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_PARTICLE;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}
@@ -596,6 +601,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_BOARD;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}
@@ -616,6 +622,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_MESH;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}
@@ -635,6 +642,7 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefBundle = this;
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_BOTTOMBOARD;
+				m_pPart[i]->pPart->m_iFileFormatVersion = m_iFileFormatVersion;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
 				m_pPart[i]->pPart->Load(hFile);
 			}

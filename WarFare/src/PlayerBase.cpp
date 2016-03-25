@@ -1528,7 +1528,10 @@ bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 						CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_SWORD_LIGHTNING_TARGET, vCol);	//전격무기...
 					}
 				}			
-				if(!bAffected) CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_BLOOD, vCol);	//일반무기...
+				if (!bAffected) {
+					//CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_BLOOD, vCol);	//일반무기...
+					CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, 13000, vCol, 0, -1, N3FORMAT_VER_2062);
+				}
 
 				D3DCOLORVALUE crHit = { 1.0f, 0.2f, 0.2f, 1.0f };
 				pTarget->DurationColorSet(crHit, 0.3f); // 뻘건색 0.3초동안..
