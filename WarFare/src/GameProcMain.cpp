@@ -1080,9 +1080,6 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 
 	if (!IsUIKeyOperated() && NULL == CN3UIBase::GetFocusedEdit() )			// 채팅모드가 아닐때 
 	{
-		if ( s_pLocalInput->IsKeyDown(SDL_SCANCODE_Q) ) s_pPlayer->m_bTempMoveTurbo = true; // 엄청 빨리 움직이게 한다..  // 임시 함수.. 나중에 없애자..
-		else s_pPlayer->m_bTempMoveTurbo = false; // 엄청 빨리 움직이게 한다..  // 임시 함수.. 나중에 없애자..
-
 		if(s_pPlayer->m_InfoBase.iAuthority == AUTHORITY_MANAGER) //게임 운영자는 이 기능을 사용할수 있다.
 		{
 			if ( s_pLocalInput->IsKeyDown(SDL_SCANCODE_Q) ) s_pPlayer->m_bTempMoveTurbo = true; // 엄청 빨리 움직이게 한다..  // 임시 함수.. 나중에 없애자..
