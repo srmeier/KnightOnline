@@ -624,46 +624,6 @@ void CGameProcMain::Render()
 	if(m_pWarMessage) m_pWarMessage->RenderMessage();
 	if(s_pGameCursor) s_pGameCursor->Render();
 
-	////////////////////////////////////////////////////////
-	CDFont* m_pDFont = new CDFont("±¼¸²", 10);	// default ·Î ±¼¸² 16À¸·Î ¼³Á¤
-	m_pDFont->InitDeviceObjects(CN3Base::s_lpD3DDev);
-	m_pDFont->RestoreDeviceObjects();
-
-	static char szDebugs[4][256] = { "", "", "", "" };
-
-	sprintf(szDebugs[0], "nTerrain_Polygon(%d), nTerrain_Tile_Polygon(%d), nShape(%d), nShape_Part(%d), nShape_Polygon(%d)",
-		CN3Base::s_RenderInfo.nTerrain_Polygon,
-		CN3Base::s_RenderInfo.nTerrain_Tile_Polygon,
-		CN3Base::s_RenderInfo.nShape,
-		CN3Base::s_RenderInfo.nShape_Part,
-		CN3Base::s_RenderInfo.nShape_Polygon);
-						
-	sprintf(szDebugs[1], "nChr(%d), nChr_Part(%d), nChr_Polygon(%d), nChr_Plug(%d), nChr_Plug_Polygon(%d)",
-		CN3Base::s_RenderInfo.nChr,
-		CN3Base::s_RenderInfo.nChr_Part,
-		CN3Base::s_RenderInfo.nChr_Polygon,
-		CN3Base::s_RenderInfo.nChr_Plug,
-		CN3Base::s_RenderInfo.nChr_Plug_Polygon);
-
-	sprintf(szDebugs[2], "Camera : FieldOfView(%.1f), NearPlane(%.1f) FarPlane(%.1f)",
-		D3DXToDegree(CN3Base::s_CameraData.fFOV),
-		CN3Base::s_CameraData.fNP,
-		CN3Base::s_CameraData.fFP);
-
-	if(CGameProcedure::s_pProcMain && CGameBase::ACT_WORLD && CGameBase::ACT_WORLD->GetSkyRef()) {
-		int iYear = 0, iMonth = 0, iDay = 0, iH = 0, iM = 0;
-		CGameBase::ACT_WORLD->GetSkyRef()->GetGameTime(&iYear, &iMonth, &iDay, &iH, &iM);
-		sprintf(szDebugs[3], "%.2f:FPS, %d/%d/%d : %d:%d", CN3Base::s_fFrmPerSec, iYear, iMonth, iDay, iH, iM);
-	} else szDebugs[3][0] = NULL;
-
-	for(int i=0; i<4; ++i) {
-		m_pDFont->SetText(szDebugs[i]);
-		m_pDFont->DrawText(100, 100+i*18, 0xFFFFFFFF, 0);
-	}
-
-	delete m_pDFont;
-	////////////////////////////////////////////////////////
-
 	s_pEng->s_lpD3DDev->EndScene();
 	s_pEng->Present(CN3Base::s_hWndBase);
 }
