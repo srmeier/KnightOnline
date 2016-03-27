@@ -1529,8 +1529,8 @@ bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 					}
 				}			
 				if (!bAffected) {
-					//CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_BLOOD, vCol);	//老馆公扁...
-					CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, 13000, vCol, 0, -1, N3FORMAT_VER_2062);
+					CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_BLOOD, vCol);	//老馆公扁...
+					//CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, 13000, vCol, 0, -1, N3FORMAT_VER_2062);
 				}
 
 				D3DCOLORVALUE crHit = { 1.0f, 0.2f, 0.2f, 1.0f };
