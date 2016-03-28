@@ -40,3 +40,585 @@
     [14:30:15] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
     [14:30:15] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
     [14:30:15] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 16:02]
+    [16:03:03] MsgSend_CharacterSelect - name(test3) zone(21)
+    [16:03:03] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [16:03:05] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(202.0, 4.8, 312.4)
+    [16:03:05] 115189336->ClearDurationalMagic()
+    [16:03:05] 115167616->ClearAll()
+    [16:03:05] s_pUILoading->Render()
+    [16:03:05] 8017248->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [16:03:05] 93896520->Release()
+    [16:03:05] 19977176->InitWorld()
+    [16:03:05] CN3WorldManager::InitWorld Pre delete
+    [16:03:05] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [16:03:05] CN3TerrainManager::InitWorld Pre Load	159268664
+    [16:03:09] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [16:03:09] CN3TerrainManager::InitWorld Pre Release Shapes	159288112
+    [16:03:09] CN3TerrainManager::InitWorld Pre Load Shapes
+    [16:03:10] CN3TerrainManager::InitWorld Pre Load Birds	115088632
+    [16:03:10] CN3TerrainManager::InitWorld Pre Load Sky	115695080
+    [16:03:10] 92809728->GetWidthByMeterWithTerrain()
+    [16:03:10] 115179432->LoadMap()
+    [16:03:10] 92798452->szMiniMapFNszMiniMapFN
+    [16:03:10] GetRepresentClass()
+    [16:03:10] 115179432->ZoomSet()
+    [16:03:10] 92798452->szTerrainFN.c_str()
+    [16:03:10] pCamera->LookAt()
+    [16:03:10] pCamera->Tick()
+    [16:03:10] pCamera->Apply()
+    [16:03:10] InitPlayerPosition() Position(202.0, 4.8, 312.4)
+    [16:03:10] 93896520->Release()
+    [16:03:10] Invalid Packet... (100)
+    [16:03:11] Invalid Packet... (94)
+    [16:03:11] Invalid Packet... (105)
+    [16:03:11] Invalid Packet... (13)
+    [16:03:11] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 16:06]
+    [16:07:02] MsgSend_CharacterSelect - name(test3) zone(21)
+    [16:07:02] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [16:07:07] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(202.0, 4.8, 312.4)
+    [16:07:07] 49714672->ClearDurationalMagic()
+    [16:07:07] 49692952->ClearAll()
+    [16:07:07] s_pUILoading->Render()
+    [16:07:07] 3560800->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [16:07:07] 94645584->Release()
+    [16:07:07] 46652880->InitWorld()
+    [16:07:07] CN3WorldManager::InitWorld Pre delete
+    [16:07:07] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [16:07:07] CN3TerrainManager::InitWorld Pre Load	145821656
+    [16:07:12] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [16:07:12] CN3TerrainManager::InitWorld Pre Release Shapes	145841104
+    [16:07:12] CN3TerrainManager::InitWorld Pre Load Shapes
+    [16:07:12] CN3TerrainManager::InitWorld Pre Load Birds	49618064
+    [16:07:12] CN3TerrainManager::InitWorld Pre Load Sky	51854560
+    [16:07:12] 93555632->GetWidthByMeterWithTerrain()
+    [16:07:12] 49704768->LoadMap()
+    [16:07:12] 93588548->szMiniMapFNszMiniMapFN
+    [16:07:12] GetRepresentClass()
+    [16:07:12] 49704768->ZoomSet()
+    [16:07:12] 93588548->szTerrainFN.c_str()
+    [16:07:12] pCamera->LookAt()
+    [16:07:12] pCamera->Tick()
+    [16:07:12] pCamera->Apply()
+    [16:07:12] InitPlayerPosition() Position(202.0, 4.8, 312.4)
+    [16:07:12] 94645584->Release()
+    [16:07:13] Invalid Packet... (100)
+    [16:07:13] Invalid Packet... (94)
+    [16:07:13] Invalid Packet... (105)
+    [16:07:13] Invalid Packet... (13)
+    [16:07:13] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 16:51]
+    [16:51:58] MsgSend_CharacterSelect - name(test3) zone(21)
+    [16:51:58] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [16:52:00] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(202.0, 4.8, 312.4)
+    [16:52:00] 116102784->ClearDurationalMagic()
+    [16:52:00] 116081064->ClearAll()
+    [16:52:00] s_pUILoading->Render()
+    [16:52:00] 3429728->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [16:52:00] 94842416->Release()
+    [16:52:00] 47046096->InitWorld()
+    [16:52:00] CN3WorldManager::InitWorld Pre delete
+    [16:52:00] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [16:52:00] CN3TerrainManager::InitWorld Pre Load	54714288
+    [16:52:04] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [16:52:04] CN3TerrainManager::InitWorld Pre Release Shapes	54733736
+    [16:52:04] CN3TerrainManager::InitWorld Pre Load Shapes
+    [16:52:05] CN3TerrainManager::InitWorld Pre Load Birds	116006176
+    [16:52:05] CN3TerrainManager::InitWorld Pre Load Sky	116553440
+    [16:52:05] 93727112->GetWidthByMeterWithTerrain()
+    [16:52:05] 116092880->LoadMap()
+    [16:52:05] 93715836->szMiniMapFNszMiniMapFN
+    [16:52:05] GetRepresentClass()
+    [16:52:05] 116092880->ZoomSet()
+    [16:52:05] 93715836->szTerrainFN.c_str()
+    [16:52:05] pCamera->LookAt()
+    [16:52:05] pCamera->Tick()
+    [16:52:05] pCamera->Apply()
+    [16:52:05] InitPlayerPosition() Position(202.0, 4.8, 312.4)
+    [16:52:05] 94842416->Release()
+    [16:52:08] Invalid Packet... (100)
+    [16:52:08] Invalid Packet... (94)
+    [16:52:08] Invalid Packet... (105)
+    [16:52:08] Invalid Packet... (13)
+    [16:52:08] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 16:55]
+    [16:57:58] MsgSend_CharacterSelect - name(test3) zone(21)
+    [16:57:58] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [16:58:03] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(202.0, 4.8, 312.4)
+    [16:58:03] 50236432->ClearDurationalMagic()
+    [16:58:03] 50210696->ClearAll()
+    [16:58:03] s_pUILoading->Render()
+    [16:58:03] 6772064->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [16:58:03] 48873632->Release()
+    [16:58:03] 92385368->InitWorld()
+    [16:58:03] CN3WorldManager::InitWorld Pre delete
+    [16:58:03] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [16:58:03] CN3TerrainManager::InitWorld Pre Load	162483208
+    [16:58:07] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [16:58:07] CN3TerrainManager::InitWorld Pre Release Shapes	162502656
+    [16:58:07] CN3TerrainManager::InitWorld Pre Load Shapes
+    [16:58:08] CN3TerrainManager::InitWorld Pre Load Birds	50131408
+    [16:58:08] CN3TerrainManager::InitWorld Pre Load Sky	50779072
+    [16:58:08] 93460680->GetWidthByMeterWithTerrain()
+    [16:58:08] 50223168->LoadMap()
+    [16:58:08] 93449644->szMiniMapFNszMiniMapFN
+    [16:58:08] GetRepresentClass()
+    [16:58:08] 50223168->ZoomSet()
+    [16:58:08] 93449644->szTerrainFN.c_str()
+    [16:58:08] pCamera->LookAt()
+    [16:58:08] pCamera->Tick()
+    [16:58:08] pCamera->Apply()
+    [16:58:08] InitPlayerPosition() Position(202.0, 4.8, 312.4)
+    [16:58:08] 48873632->Release()
+    [16:58:10] Invalid Packet... (100)
+    [16:58:10] Invalid Packet... (94)
+    [16:58:10] Invalid Packet... (105)
+    [16:58:10] Invalid Packet... (13)
+    [16:58:10] Invalid Packet... (95)
+    [16:58:31] Invalid Packet... (105)
+    [16:58:31] Invalid Packet... (105)
+    [16:58:32] Invalid Packet... (105)
+    [16:58:43] Invalid Packet... (105)
+    [16:58:43] Invalid Packet... (105)
+    [16:58:45] Invalid Packet... (105)
+    [16:58:48] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 17:01]
+    [17:01:48] MsgSend_CharacterSelect - name(test3) zone(21)
+    [17:01:49] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [17:01:54] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(202.0, 4.8, 312.4)
+    [17:01:54] 102365616->ClearDurationalMagic()
+    [17:01:54] 102342968->ClearAll()
+    [17:01:54] s_pUILoading->Render()
+    [17:01:54] 7695056->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:01:54] 79879096->Release()
+    [17:01:54] 101105760->InitWorld()
+    [17:01:54] CN3WorldManager::InitWorld Pre delete
+    [17:01:54] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:01:54] CN3TerrainManager::InitWorld Pre Load	144428840
+    [17:01:58] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:01:58] CN3TerrainManager::InitWorld Pre Release Shapes	144448288
+    [17:01:58] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:01:59] CN3TerrainManager::InitWorld Pre Load Birds	101107584
+    [17:01:59] CN3TerrainManager::InitWorld Pre Load Sky	102913504
+    [17:01:59] 103565568->GetWidthByMeterWithTerrain()
+    [17:01:59] 102352352->LoadMap()
+    [17:01:59] 78791636->szMiniMapFNszMiniMapFN
+    [17:01:59] GetRepresentClass()
+    [17:01:59] 102352352->ZoomSet()
+    [17:01:59] 78791636->szTerrainFN.c_str()
+    [17:01:59] pCamera->LookAt()
+    [17:01:59] pCamera->Tick()
+    [17:01:59] pCamera->Apply()
+    [17:01:59] InitPlayerPosition() Position(202.0, 4.8, 312.4)
+    [17:01:59] 79879096->Release()
+    [17:02:01] Invalid Packet... (100)
+    [17:02:01] Invalid Packet... (94)
+    [17:02:01] Invalid Packet... (105)
+    [17:02:01] Invalid Packet... (13)
+    [17:02:01] Invalid Packet... (95)
+    [17:03:24] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/27 17:03]
+---------------------------------------------------------------------------
+    [17:03:24] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [17:03:24] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [17:03:24] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [17:03:24] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 17:49]
+    [17:49:43] MsgSend_CharacterSelect - name(test3) zone(21)
+    [17:49:43] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [17:49:48] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(216.0, 5.8, 310.2)
+    [17:49:48] 51291344->ClearDurationalMagic()
+    [17:49:48] 51269680->ClearAll()
+    [17:49:48] s_pUILoading->Render()
+    [17:49:48] 7820640->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [17:49:48] 96190504->Release()
+    [17:49:48] 47820912->InitWorld()
+    [17:49:48] CN3WorldManager::InitWorld Pre delete
+    [17:49:48] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [17:49:48] CN3TerrainManager::InitWorld Pre Load	147894192
+    [17:49:52] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [17:49:52] CN3TerrainManager::InitWorld Pre Release Shapes	147914664
+    [17:49:52] CN3TerrainManager::InitWorld Pre Load Shapes
+    [17:49:53] CN3TerrainManager::InitWorld Pre Load Birds	51191504
+    [17:49:53] CN3TerrainManager::InitWorld Pre Load Sky	51837584
+    [17:49:53] 95099408->GetWidthByMeterWithTerrain()
+    [17:49:53] 51281864->LoadMap()
+    [17:49:53] 95088132->szMiniMapFNszMiniMapFN
+    [17:49:53] GetRepresentClass()
+    [17:49:53] 51281864->ZoomSet()
+    [17:49:53] 95088132->szTerrainFN.c_str()
+    [17:49:53] pCamera->LookAt()
+    [17:49:53] pCamera->Tick()
+    [17:49:53] pCamera->Apply()
+    [17:49:53] InitPlayerPosition() Position(216.0, 5.8, 310.2)
+    [17:49:53] 96190504->Release()
+    [17:49:55] Invalid Packet... (100)
+    [17:49:55] Invalid Packet... (94)
+    [17:49:55] Invalid Packet... (105)
+    [17:49:55] Invalid Packet... (13)
+    [17:49:55] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 18:45]
+    [18:45:49] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/27 18:45]
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 18:45]
+    [18:46:10] MsgSend_CharacterSelect - name(test3) zone(21)
+    [18:46:10] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [18:46:16] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(216.0, 5.8, 310.2)
+    [18:46:16] 115840592->ClearDurationalMagic()
+    [18:46:16] 115818872->ClearAll()
+    [18:46:16] s_pUILoading->Render()
+    [18:46:16] 5920096->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:46:16] 93306832->Release()
+    [18:46:16] 17477744->InitWorld()
+    [18:46:16] CN3WorldManager::InitWorld Pre delete
+    [18:46:16] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:46:16] CN3TerrainManager::InitWorld Pre Load	55799752
+    [18:46:20] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [18:46:20] CN3TerrainManager::InitWorld Pre Release Shapes	55819200
+    [18:46:20] CN3TerrainManager::InitWorld Pre Load Shapes
+    [18:46:20] CN3TerrainManager::InitWorld Pre Load Birds	115744264
+    [18:46:20] CN3TerrainManager::InitWorld Pre Load Sky	116386856
+    [18:46:21] 92219920->GetWidthByMeterWithTerrain()
+    [18:46:21] 115830688->LoadMap()
+    [18:46:21] 92208644->szMiniMapFNszMiniMapFN
+    [18:46:21] GetRepresentClass()
+    [18:46:21] 115830688->ZoomSet()
+    [18:46:21] 92208644->szTerrainFN.c_str()
+    [18:46:21] pCamera->LookAt()
+    [18:46:21] pCamera->Tick()
+    [18:46:21] pCamera->Apply()
+    [18:46:21] InitPlayerPosition() Position(216.0, 5.8, 310.2)
+    [18:46:21] 93306832->Release()
+    [18:46:22] Invalid Packet... (100)
+    [18:46:22] Invalid Packet... (94)
+    [18:46:22] Invalid Packet... (105)
+    [18:46:22] Invalid Packet... (13)
+    [18:46:22] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 18:59]
+    [18:59:55] MsgSend_CharacterSelect - name(test3) zone(21)
+    [18:59:55] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [18:59:56] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(216.0, 5.8, 310.2)
+    [18:59:56] 116741432->ClearDurationalMagic()
+    [18:59:56] 116785976->ClearAll()
+    [18:59:56] s_pUILoading->Render()
+    [18:59:56] 5807424->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [18:59:56] 94759056->Release()
+    [18:59:56] 47884288->InitWorld()
+    [18:59:56] CN3WorldManager::InitWorld Pre delete
+    [18:59:56] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [18:59:56] CN3TerrainManager::InitWorld Pre Load	56651720
+    [19:00:00] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [19:00:00] CN3TerrainManager::InitWorld Pre Release Shapes	56671168
+    [19:00:00] CN3TerrainManager::InitWorld Pre Load Shapes
+    [19:00:01] CN3TerrainManager::InitWorld Pre Load Birds	116663104
+    [19:00:01] CN3TerrainManager::InitWorld Pre Load Sky	117309096
+    [19:00:01] 93663232->GetWidthByMeterWithTerrain()
+    [19:00:01] 116797408->LoadMap()
+    [19:00:01] 93651956->szMiniMapFNszMiniMapFN
+    [19:00:01] GetRepresentClass()
+    [19:00:01] 116797408->ZoomSet()
+    [19:00:01] 93651956->szTerrainFN.c_str()
+    [19:00:01] pCamera->LookAt()
+    [19:00:01] pCamera->Tick()
+    [19:00:01] pCamera->Apply()
+    [19:00:01] InitPlayerPosition() Position(216.0, 5.8, 310.2)
+    [19:00:01] 94759056->Release()
+    [19:00:03] Invalid Packet... (100)
+    [19:00:03] Invalid Packet... (94)
+    [19:00:03] Invalid Packet... (105)
+    [19:00:03] Invalid Packet... (13)
+    [19:00:03] Invalid Packet... (95)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 19:54]
+    [19:55:03] MsgSend_CharacterSelect - name(test3) zone(21)
+    [19:55:03] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [19:55:04] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(216.5, 5.8, 311.0)
+    [19:55:04] 52272016->ClearDurationalMagic()
+    [19:55:04] 52249848->ClearAll()
+    [19:55:04] s_pUILoading->Render()
+    [19:55:04] 4478304->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [19:55:04] 51023456->Release()
+    [19:55:04] 42839320->InitWorld()
+    [19:55:04] CN3WorldManager::InitWorld Pre delete
+    [19:55:04] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [19:55:04] CN3TerrainManager::InitWorld Pre Load	145579736
+    [19:55:08] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [19:55:08] CN3TerrainManager::InitWorld Pre Release Shapes	145599184
+    [19:55:08] CN3TerrainManager::InitWorld Pre Load Shapes
+    [19:55:09] CN3TerrainManager::InitWorld Pre Load Birds	52173968
+    [19:55:09] CN3TerrainManager::InitWorld Pre Load Sky	54106496
+    [19:55:09] 94444200->GetWidthByMeterWithTerrain()
+    [19:55:09] 52219784->LoadMap()
+    [19:55:09] 94432804->szMiniMapFNszMiniMapFN
+    [19:55:09] GetRepresentClass()
+    [19:55:09] 52219784->ZoomSet()
+    [19:55:09] 94432804->szTerrainFN.c_str()
+    [19:55:09] pCamera->LookAt()
+    [19:55:09] pCamera->Tick()
+    [19:55:09] pCamera->Apply()
+    [19:55:09] InitPlayerPosition() Position(216.5, 5.8, 311.0)
+    [19:55:09] 51023456->Release()
+    [19:55:10] Invalid Packet... (100)
+    [19:55:10] Invalid Packet... (94)
+    [19:55:10] Invalid Packet... (105)
+    [19:55:10] Invalid Packet... (13)
+    [19:55:10] Invalid Packet... (95)
+    [19:56:01] Invalid Packet... (105)
+    [19:56:09] Invalid Packet... (105)
+    [19:56:10] Invalid Packet... (105)
+    [19:56:15] Invalid Packet... (105)
+    [19:56:37] Invalid Packet... (105)
+    [19:56:42] Invalid Packet... (105)
+    [19:56:56] Invalid Packet... (105)
+    [19:57:00] Invalid Packet... (105)
+    [19:57:53] Invalid Packet... (105)
+    [19:57:54] Invalid Packet... (105)
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 19:58]
+    [19:58:27] MsgSend_CharacterSelect - name(Testing) zone(21)
+    [19:58:27] MsgRecv_CharacterSelect - name(Testing) zone(21 -> 21)
+    [19:58:28] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(239.0, 6.3, 294.0)
+    [19:58:28] 116315672->ClearDurationalMagic()
+    [19:58:28] 116289896->ClearAll()
+    [19:58:28] s_pUILoading->Render()
+    [19:58:28] 5231896->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [19:58:28] 95012456->Release()
+    [19:58:28] 5651888->InitWorld()
+    [19:58:28] CN3WorldManager::InitWorld Pre delete
+    [19:58:28] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [19:58:28] CN3TerrainManager::InitWorld Pre Load	155186320
+    [19:58:33] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [19:58:33] CN3TerrainManager::InitWorld Pre Release Shapes	155205768
+    [19:58:33] CN3TerrainManager::InitWorld Pre Load Shapes
+    [19:58:33] CN3TerrainManager::InitWorld Pre Load Birds	116201984
+    [19:58:33] CN3TerrainManager::InitWorld Pre Load Sky	116964320
+    [19:58:33] 93940832->GetWidthByMeterWithTerrain()
+    [19:58:33] 116303688->LoadMap()
+    [19:58:33] 93930876->szMiniMapFNszMiniMapFN
+    [19:58:33] GetRepresentClass()
+    [19:58:33] 116303688->ZoomSet()
+    [19:58:33] 93930876->szTerrainFN.c_str()
+    [19:58:33] pCamera->LookAt()
+    [19:58:33] pCamera->Tick()
+    [19:58:33] pCamera->Apply()
+    [19:58:33] InitPlayerPosition() Position(239.0, 6.3, 294.0)
+    [19:58:33] 95012456->Release()
+    [19:58:35] Invalid Packet... (100)
+    [19:58:35] Invalid Packet... (94)
+    [19:58:35] Invalid Packet... (105)
+    [19:58:35] Invalid Packet... (13)
+    [19:58:35] Invalid Packet... (95)
+    [19:58:40] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:58:46] Invalid Packet... (105)
+    [19:58:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:58:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_head.n3cpart - Can't open file (read)
+    [19:58:49] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_tail.n3cpart - Can't open file (read)
+    [19:58:51] Invalid Packet... (105)
+    [19:58:51] Invalid Packet... (105)
+    [19:58:54] Invalid Packet... (105)
+    [19:58:54] Invalid Packet... (105)
+    [19:58:56] Invalid Packet... (105)
+    [19:58:56] Invalid Packet... (105)
+    [19:58:57] Invalid Packet... (105)
+    [19:58:57] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [19:58:58] Invalid Packet... (105)
+    [19:59:02] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:07] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [19:59:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_tail.n3cpart - Can't open file (read)
+    [19:59:17] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:17] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_head.n3cpart - Can't open file (read)
+    [19:59:20] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:32] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:38] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:41] Invalid Packet... (105)
+    [19:59:43] Invalid Packet... (105)
+    [19:59:44] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:47] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [19:59:47] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:47] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\fx/fire_target0_1.fxb - Can't open file (read)
+    [19:59:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [19:59:53] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:56] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [19:59:56] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_head.n3cpart - Can't open file (read)
+    [20:00:00] Invalid Packet... (105)
+    [20:00:02] Invalid Packet... (105)
+    [20:00:03] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:00:06] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:00:08] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [20:00:11] Invalid Packet... (105)
+    [20:00:13] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:00:14] Invalid Packet... (105)
+    [20:00:17] Invalid Packet... (105)
+    [20:00:18] Invalid Packet... (105)
+    [20:00:19] Invalid Packet... (105)
+    [20:00:24] Invalid Packet... (105)
+    [20:00:25] Invalid Packet... (105)
+    [20:00:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:00:26] Invalid Packet... (105)
+    [20:00:27] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:00:31] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:00:35] Invalid Packet... (105)
+    [20:00:36] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:00:37] Invalid Packet... (105)
+    [20:00:42] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:00:42] Invalid Packet... (105)
+    [20:00:43] Invalid Packet... (105)
+    [20:00:43] Invalid Packet... (105)
+    [20:00:45] Invalid Packet... (105)
+    [20:00:45] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:00:48] Invalid Packet... (105)
+    [20:00:48] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:00:49] Invalid Packet... (105)
+    [20:00:51] Invalid Packet... (105)
+    [20:00:57] Invalid Packet... (105)
+    [20:00:58] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:00:58] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:00] Invalid Packet... (105)
+    [20:01:04] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:04] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:09] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:10] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:01:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:11] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:17] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:19] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/27 20:01]
+---------------------------------------------------------------------------
+    [20:01:19] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [20:01:19] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [20:01:19] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [20:01:19] CN3TerrainManager::~CN3TerrainManager -> delete finished
+---------------------------------------------------------------------------
+// Begin writing log... [03/27 20:01]
+    [20:01:44] MsgSend_CharacterSelect - name(test3) zone(21)
+    [20:01:44] MsgRecv_CharacterSelect - name(test3) zone(21 -> 21)
+    [20:01:46] CGameProcMain::InitZone -> Zone Change (-1 -> 21) Position(192.4, 4.1, 278.5)
+    [20:01:46] 116172376->ClearDurationalMagic()
+    [20:01:46] 116150656->ClearAll()
+    [20:01:46] s_pUILoading->Render()
+    [20:01:46] 5068128->Find(s_pPlayer->m_InfoExt.iZoneCur)
+    [20:01:46] 94158680->Release()
+    [20:01:46] 47100016->InitWorld()
+    [20:01:46] CN3WorldManager::InitWorld Pre delete
+    [20:01:46] CN3WorldManager::InitWorld Pre new Terrain ZoneID(21)
+    [20:01:46] CN3TerrainManager::InitWorld Pre Load	56540888
+    [20:01:50] CN3TerrainManager::InitWorld Pre Load ColorMap
+    [20:01:50] CN3TerrainManager::InitWorld Pre Release Shapes	56560336
+    [20:01:50] CN3TerrainManager::InitWorld Pre Load Shapes
+    [20:01:51] CN3TerrainManager::InitWorld Pre Load Birds	116071816
+    [20:01:51] CN3TerrainManager::InitWorld Pre Load Sky	118063704
+    [20:01:51] 93071888->GetWidthByMeterWithTerrain()
+    [20:01:51] 116162472->LoadMap()
+    [20:01:51] 93060612->szMiniMapFNszMiniMapFN
+    [20:01:51] GetRepresentClass()
+    [20:01:51] 116162472->ZoomSet()
+    [20:01:51] 93060612->szTerrainFN.c_str()
+    [20:01:51] pCamera->LookAt()
+    [20:01:51] pCamera->Tick()
+    [20:01:51] pCamera->Apply()
+    [20:01:51] InitPlayerPosition() Position(192.4, 4.1, 278.5)
+    [20:01:51] 94158680->Release()
+    [20:01:52] Invalid Packet... (100)
+    [20:01:52] Invalid Packet... (94)
+    [20:01:52] Invalid Packet... (105)
+    [20:01:52] Invalid Packet... (13)
+    [20:01:52] Invalid Packet... (95)
+    [20:01:53] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:01:57] Invalid Packet... (105)
+    [20:01:57] Invalid Packet... (105)
+    [20:02:01] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:06] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_kecoon_upper.n3cpart - Can't open file (read)
+    [20:02:06] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_kecoon_lower.n3cpart - Can't open file (read)
+    [20:02:06] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:15] Invalid Packet... (105)
+    [20:02:17] Invalid Packet... (105)
+    [20:02:17] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:17] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:17] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:18] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:23] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_kecoon_upper.n3cpart - Can't open file (read)
+    [20:02:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_kecoon_lower.n3cpart - Can't open file (read)
+    [20:02:25] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_kecoon_head.n3cpart - Can't open file (read)
+    [20:02:26] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:28] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:29] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:33] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:36] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_kecoon_upper.n3cpart - Can't open file (read)
+    [20:02:39] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:39] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:39] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_lower.n3cpart - Can't open file (read)
+    [20:02:42] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:45] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:48] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:50] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:52] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:53] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:02:54] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:02:57] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:01] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:01] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [20:03:03] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\1_2015_00_0.n3cplug - Can't open file (read)
+    [20:03:03] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:03:08] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:08] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_head.n3cpart - Can't open file (read)
+    [20:03:09] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:12] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:03:15] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:03:16] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:19] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:20] Invalid Packet... (105)
+    [20:03:21] Invalid Packet... (105)
+    [20:03:24] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:03:24] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:03:26] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:26] Invalid Packet... (105)
+    [20:03:30] Invalid Packet... (105)
+    [20:03:32] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:34] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:03:36] Invalid Packet... (105)
+    [20:03:37] Invalid Packet... (105)
+    [20:03:41] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:43] Invalid Packet... (105)
+    [20:03:44] Invalid Packet... (105)
+    [20:03:45] Invalid Packet... (105)
+    [20:03:48] Invalid Packet... (105)
+    [20:03:48] Invalid Packet... (105)
+    [20:03:50] Invalid Packet... (105)
+    [20:03:50] Invalid Packet... (105)
+    [20:03:54] Invalid Packet... (105)
+    [20:03:55] Invalid Packet... (105)
+    [20:03:55] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_bandicoot_upper.n3cpart - Can't open file (read)
+    [20:03:58] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\mob_worm_body.n3cpart - Can't open file (read)
+    [20:03:59] Invalid Packet... (105)
+    [20:04:00] c:\users\srmeier\documents\visual studio 2015\projects\knightonline\data\item\1_2015_00_0.n3cplug - Can't open file (read)
+    [20:04:01] Invalid Packet... (105)
+    [20:04:01] Invalid Packet... (105)
+    [20:04:01] Invalid Packet... (105)
+    [20:04:02] Invalid Packet... (105)
+    [20:04:07] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/27 20:04]
+---------------------------------------------------------------------------
+    [20:04:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [20:04:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [20:04:07] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [20:04:07] CN3TerrainManager::~CN3TerrainManager -> delete finished
+    [20:04:10] CNEng::~CN3Eng - Device reference count is bigger than 0
+// End writing log... [03/27 20:04]
+---------------------------------------------------------------------------
+    [20:04:10] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pShape
+    [20:04:10] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pSky
+    [20:04:10] CN3TerrainManager::~CN3TerrainManager -> Pre delete m_pBirdMng
+    [20:04:10] CN3TerrainManager::~CN3TerrainManager -> delete finished
