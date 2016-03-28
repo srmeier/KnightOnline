@@ -3,9 +3,9 @@ git reset --hard e2cec75
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
+- skill descriptions aren't word wrapping
 - get chat working
 	- add commands to give exp and items for quick testing
-
 - get the EVT system working
 - fix the UI issues and support 1298 UI
 	- this should include rewriting the UIF editor program
