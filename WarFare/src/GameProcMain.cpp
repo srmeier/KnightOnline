@@ -872,12 +872,14 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				e_ChatMode eCM = N3_CHAT_UNKNOWN;
 				if(szID.empty())
 				{
-					::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_FAIL, szMsg);
+					szMsg = "IDS_CHAT_SELECT_TARGET_FAIL";
+					//::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_FAIL, szMsg);
 					eCM = N3_CHAT_NORMAL;
 				}
 				else
 				{
-					::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_SUCCESS, szMsg);
+					szMsg = "IDS_CHAT_SELECT_TARGET_SUCCESS";
+					//::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_SUCCESS, szMsg);
 					eCM = N3_CHAT_PRIVATE;
 				}
 				
@@ -889,7 +891,8 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			{
 				int iUserCount = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// ID 문자열 길이..
 
-				std::string szFmt; ::_LoadStringFromResource(IDS_FMT_CONCURRENT_USER_COUNT, szFmt);
+				std::string szFmt = "IDS_FMT_CONCURRENT_USER_COUNT (%d)";
+				//::_LoadStringFromResource(IDS_FMT_CONCURRENT_USER_COUNT, szFmt);
 				char szBuff[128] = "";
 				sprintf(szBuff, szFmt.c_str(), iUserCount);
 				this->MsgOutput(szBuff, D3DCOLOR_ARGB(255,255,255,0));
@@ -2937,7 +2940,8 @@ bool CGameProcMain::MsgRecv_Attack(DataPack* pDataPack, int& iOffset)
 		if(pAttacker == s_pPlayer) // 공격하는 사람이 플레이어 자신이면..
 		{
 			char szBuf[128] = "";
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_TARGET_ATTACK_FAILED, szFmt);
+			std::string szFmt = "IDS_MSG_FMT_TARGET_ATTACK_FAILED (%s)";
+			//::_LoadStringFromResource(IDS_MSG_FMT_TARGET_ATTACK_FAILED, szFmt);
 			sprintf(szBuf, szFmt.c_str(), pTarget->IDString().c_str());
 			MsgOutput(szBuf, 0xffffffff);
 		}
@@ -3237,13 +3241,15 @@ void CGameProcMain::MsgRecv_MyInfo_HP(DataPack* pDataPack, int& iOffset)
 	char szBuf[256] = "";
 	if(iHPChange < 0)
 	{
-		std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_HP_LOST, szFmt);
+		std::string szFmt = "IDS_MSG_FMT_HP_LOST (%d)";
+		//::_LoadStringFromResource(IDS_MSG_FMT_HP_LOST, szFmt);
 		sprintf(szBuf, szFmt.c_str(), -iHPChange);
 		MsgOutput(szBuf, 0xffff3b3b);
 	}
 	else if(iHPChange > 0)
 	{
-		std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_HP_RECOVER, szFmt);
+		std::string szFmt = "IDS_MSG_FMT_HP_RECOVER (%d)";
+		//::_LoadStringFromResource(IDS_MSG_FMT_HP_RECOVER, szFmt);
 		sprintf(szBuf, szFmt.c_str(), iHPChange);
 		MsgOutput(szBuf, 0xff6565ff);
 	}
@@ -3269,16 +3275,16 @@ void CGameProcMain::MsgRecv_MyInfo_MSP(DataPack* pDataPack, int& iOffset)
 	if(iMSPChange < 0)
 	{
 		std::string szFmt;
-		if(bUseMP) ::_LoadStringFromResource(IDS_MSG_FMT_MP_USE, szFmt);
-		else ::_LoadStringFromResource(IDS_MSG_FMT_SP_USE, szFmt);
+		if (bUseMP) szFmt = "IDS_MSG_FMT_MP_USE (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_MP_USE, szFmt);
+		else szFmt = "IDS_MSG_FMT_SP_USE (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_SP_USE, szFmt);
 		sprintf(szBuf, szFmt.c_str(), -iMSPChange);
 		MsgOutput(szBuf, 0xffff3b3b);
 	}
 	else if(iMSPChange > 0)
 	{
 		std::string szFmt;
-		if(bUseMP) ::_LoadStringFromResource(IDS_MSG_FMT_MP_RECOVER, szFmt);
-		else ::_LoadStringFromResource(IDS_MSG_FMT_SP_RECOVER, szFmt);
+		if (bUseMP) szFmt = "IDS_MSG_FMT_MP_RECOVER (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_MP_RECOVER, szFmt);
+		else szFmt = "IDS_MSG_FMT_SP_RECOVER (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_SP_RECOVER, szFmt);
 		sprintf(szBuf, szFmt.c_str(), iMSPChange);
 		MsgOutput(szBuf, 0xff6565ff);
 	}
@@ -3306,12 +3312,14 @@ void CGameProcMain::MsgRecv_MyInfo_EXP(DataPack* pDataPack, int& iOffset)
 		char szBuf[256] = "";
 		if(iExpChange > 0)
 		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
+			std::string szFmt = "IDS_MSG_FMT_EXP_GET (%d)";
+			//::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
 			sprintf(szBuf, szFmt.c_str(), iExpChange);
 		}
 		else if(iExpChange < 0)
 		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_LOST, szFmt);
+			std::string szFmt = "IDS_MSG_FMT_EXP_LOST (%d)";
+			//::_LoadStringFromResource(IDS_MSG_FMT_EXP_LOST, szFmt);
 			sprintf(szBuf, szFmt.c_str(), -iExpChange);
 		}
 		MsgOutput(szBuf, 0xffffff00);
@@ -3348,12 +3356,14 @@ bool CGameProcMain::MsgRecv_MyInfo_LevelChange(DataPack* pDataPack, int& iOffset
 		char szBuf[256] = "";
 		if(iExpChange > 0)
 		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
+			std::string szFmt = "IDS_MSG_FMT_EXP_GET (%d)";
+			//::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
 			sprintf(szBuf, szFmt.c_str(), iExpChange);
 		}
 		else if(iExpChange < 0)
 		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_LOST, szFmt);
+			std::string szFmt = "IDS_MSG_FMT_EXP_LOST (%d)";
+			//::_LoadStringFromResource(IDS_MSG_FMT_EXP_LOST, szFmt);
 			sprintf(szBuf, szFmt.c_str(), -iExpChange);
 		}
 		MsgOutput(szBuf, 0xffffff00);
@@ -3837,13 +3847,15 @@ void CGameProcMain::MsgRecv_TargetHP(DataPack* pDataPack, int& iOffset)
 		char szBuf[256] = "";
 		if(iTargetHPChange < 0)
 		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_TARGET_HP_LOST, szFmt);
+			std::string szFmt = "IDS_MSG_FMT_TARGET_HP_LOST (%s, %d)";
+			//::_LoadStringFromResource(IDS_MSG_FMT_TARGET_HP_LOST, szFmt);
 			sprintf(szBuf, szFmt.c_str(), pTarget->IDString().c_str(), -iTargetHPChange);
 			MsgOutput(szBuf, 0xffffffff);
 		}
 		else if(iTargetHPChange > 0)
 		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_TARGET_HP_RECOVER, szFmt);
+			std::string szFmt = "IDS_MSG_FMT_TARGET_HP_RECOVER (%s, %d)";
+			//::_LoadStringFromResource(IDS_MSG_FMT_TARGET_HP_RECOVER, szFmt);
 			sprintf(szBuf, szFmt.c_str(), pTarget->IDString().c_str(), iTargetHPChange);
 			MsgOutput(szBuf, 0xff6565ff);
 		}
@@ -4231,7 +4243,7 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 	std::string szMsg;
 	if(	bEnable ) // 자동 공격!
 	{
-		::_LoadStringFromResource(IDS_MSG_ATTACK_START, szMsg);
+		szMsg = " IDS_MSG_ATTACK_START";//::_LoadStringFromResource(IDS_MSG_ATTACK_START, szMsg);
 		szMsg = pTarget->IDString() + szMsg;
 		this->PlayBGM_Battle();
 		
@@ -4240,7 +4252,7 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 	}
 	else // 자동 공격 아님.
 	{
-		::_LoadStringFromResource(IDS_MSG_ATTACK_STOP, szMsg);
+		szMsg = "IDS_MSG_ATTACK_STOP";//::_LoadStringFromResource(IDS_MSG_ATTACK_STOP, szMsg);
 		s_pPlayer->Action(PSA_BASIC, true, pTarget);
 	}
 
@@ -4249,7 +4261,8 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 
 	if(	bEnable && false == s_pPlayer->IsAttackableTarget(pTarget)) // 국가, 거리 및 각도 체크해서 공격 불가능하면 돌아가기..
 	{
-		std::string szMsg; ::_LoadStringFromResource(IDS_MSG_ATTACK_DISABLE, szMsg);
+		std::string szMsg = "IDS_MSG_ATTACK_DISABLE";
+		//::_LoadStringFromResource(IDS_MSG_ATTACK_DISABLE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		return;
 	}
@@ -4569,7 +4582,7 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 				m_pUIPartyOrForce->MemberAdd(iID, szID, iLevel, eClass, iHP, iHPMax); // 다른넘 파티에추가..
 				if(iID != s_pPlayer->IDNumber()) // 자기 자신이 아닌 경우 메시지 출력.
 				{
-					std::string szMsg; ::_LoadStringFromResource(IDS_PARTY_INSERT, szMsg);
+					std::string szMsg = " IDS_PARTY_INSERT"; //::_LoadStringFromResource(IDS_PARTY_INSERT, szMsg);
 					this->MsgOutput(szID + szMsg, D3DCOLOR_ARGB(255,255,255,255));
 				}
 			}
@@ -4577,10 +4590,10 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 			{
 				std::string szMsg;
 
-				if(-1 == iID) ::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_REJECTED, szMsg); // 상대방이 파티에 들어오기를 거절 하였다..
-				else if(-2 == iID) ::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_LEVEL_DIFFERENCE, szMsg); // 레벨 차이가 너무 난다...
-				else if(-3 == iID) ::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_INVALID_NATION, szMsg); // 파티를 맺을 수 없는 국가이다.
-				else ::_LoadStringFromResource(IDS_PARTY_INSERT_ERR, szMsg); // 상대방이 파티에 들어오기를 거절 하였다..
+				if (-1 == iID) szMsg = "IDS_PARTY_INSERT_ERR_REJECTED";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_REJECTED, szMsg); // 상대방이 파티에 들어오기를 거절 하였다..
+				else if (-2 == iID) szMsg = "IDS_PARTY_INSERT_ERR_LEVEL_DIFFERENCE";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_LEVEL_DIFFERENCE, szMsg); // 레벨 차이가 너무 난다...
+				else if (-3 == iID) szMsg = "IDS_PARTY_INSERT_ERR_INVALID_NATION";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_INVALID_NATION, szMsg); // 파티를 맺을 수 없는 국가이다.
+				else szMsg = "IDS_PARTY_INSERT_ERR";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR, szMsg); // 상대방이 파티에 들어오기를 거절 하였다..
 
 				this->MsgOutput(szMsg, D3DCOLOR_ARGB(255,255,255,255));
 				if(m_pUIPartyOrForce->MemberCount() == 1) m_pUIPartyOrForce->MemberDestroy(); // 멤버가 한명이면 내가 파티를 만든 경우다.
@@ -4596,7 +4609,8 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 
 			if(iID == s_pPlayer->IDNumber())
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_PARTY_DESTROY, szMsg); // 파티를 떠났다..
+				std::string szMsg = "IDS_PARTY_DESTROY";
+				//::_LoadStringFromResource(IDS_PARTY_DESTROY, szMsg); // 파티를 떠났다..
 				this->MsgOutput(szMsg, D3DCOLOR_ARGB(255,255,255,255));  // 파티 해제 메시지
 				m_pUIPartyOrForce->MemberDestroy(); // 자기 자신이면.. 파티를 뽀갠다..
 			}
@@ -4606,7 +4620,8 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 				const __InfoPartyOrForce* pInfo = m_pUIPartyOrForce->MemberInfoGetByID(iID, iMemberIndex);
 				if(pInfo)
 				{
-					std::string szMsg; ::_LoadStringFromResource(IDS_PARTY_LEAVE, szMsg); // 파티를 떠났다..
+					std::string szMsg = " IDS_PARTY_LEAVE";
+					//::_LoadStringFromResource(IDS_PARTY_LEAVE, szMsg); // 파티를 떠났다..
 					this->MsgOutput(pInfo->szID + szMsg, D3DCOLOR_ARGB(255,255,255,255)); // 누가 파티에서 떠났다는 메시지..
 					m_pUIPartyOrForce->MemberRemove(iID); // 남이면..
 				}
@@ -4619,7 +4634,7 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 		case N3_SP_PARTY_OR_FORCE_DESTROY:			// 0x04	// Send
 		{
 			m_pUIPartyOrForce->MemberDestroy(); // 파티 뽀갠다..
-			std::string szMsg; ::_LoadStringFromResource(IDS_PARTY_DESTROY, szMsg);
+			std::string szMsg = "IDS_PARTY_DESTROY"; //::_LoadStringFromResource(IDS_PARTY_DESTROY, szMsg);
 			this->MsgOutput(szMsg, D3DCOLOR_ARGB(255,255,255,255));
 
 			this->UpdateUI_PartyOrForceButtons(); // 커맨드 줄에 있는 파티 버튼을 상황에 따라 업데이트 해준다.
@@ -4811,8 +4826,8 @@ void CGameProcMain::MsgRecv_PerTrade(DataPack* pDataPack, int& iOffset)
 
 			if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
 			{
-				std::string stdMsg;
-				::_LoadStringFromResource(IDS_PER_TRADEING_OTHER, stdMsg);
+				std::string stdMsg = "IDS_PER_TRADEING_OTHER";
+				//::_LoadStringFromResource(IDS_PER_TRADEING_OTHER, stdMsg);
 				CGameProcedure::s_pProcMain->MsgOutput(stdMsg, 0xff9b9bff);
 				break;
 			}
@@ -5011,8 +5026,8 @@ void CGameProcMain::MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset)
 	if(OBJECT_TYPE_BINDPOINT == iType) // 바인드 포인트
 	{
 		std::string szMsg;
-		if(0x01 == iResult) ::_LoadStringFromResource(IDS_BIND_POINT_SUCCESS, szMsg);
-		else ::_LoadStringFromResource(IDS_BIND_POINT_FAILED, szMsg);
+		if (0x01 == iResult) szMsg = "IDS_BIND_POINT_SUCCESS";//::_LoadStringFromResource(IDS_BIND_POINT_SUCCESS, szMsg);
+		else szMsg = "IDS_BIND_POINT_FAILED";//::_LoadStringFromResource(IDS_BIND_POINT_FAILED, szMsg);
 		this->MsgOutput(szMsg, 0xff00ff00);
 	}
 	else if(OBJECT_TYPE_DOOR_LEFTRIGHT == iType ||
@@ -5036,20 +5051,38 @@ void CGameProcMain::MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset)
 				bool bShouldBeRotate = true; // 돌려야 하는지??
 				if(OBJECT_TYPE_DOOR_LEFTRIGHT == iType) // 좌우열림 성문
 				{
-					if(0x01 == iActivate) { fRadian = D3DXToRadian(80); ::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg); }
-					else { fRadian = D3DXToRadian(0); ::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg); }
+					if(0x01 == iActivate) {
+						fRadian = D3DXToRadian(80);
+						szMsg = "IDS_DOOR_OPENED";//::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg);
+					}
+					else {
+						fRadian = D3DXToRadian(0);
+						szMsg = "IDS_DOOR_CLOSED";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
+					}
 					vAxis.Set(0,1,0);
 				} 
 				else if(OBJECT_TYPE_DOOR_TOPDOWN == iType) // 상하열림 성문
 				{
-					if(0x01 == iActivate) { fRadian = D3DXToRadian(90); ::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg); }
-					else  { D3DXToRadian(0); ::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg); }
+					if(0x01 == iActivate) {
+						fRadian = D3DXToRadian(90);
+						szMsg = "IDS_DOOR_OPENED";//::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg);
+					}
+					else  {
+						D3DXToRadian(0);
+						szMsg = "IDS_DOOR_CLOSED";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
+					}
 					vAxis.Set(0,0,1);
 				}
 				else if(OBJECT_TYPE_LEVER_TOPDOWN == iType) // 상하 레버
 				{
-					if(0x01 == iActivate) { fRadian = D3DXToRadian(-45); ::_LoadStringFromResource(IDS_LEVER_ACTIVATE, szMsg); }
-					else  { fRadian = D3DXToRadian(45); ::_LoadStringFromResource(IDS_LEVER_DEACTIVATE, szMsg); }
+					if(0x01 == iActivate) {
+						fRadian = D3DXToRadian(-45);
+						szMsg = "IDS_LEVER_ACTIVATE";//::_LoadStringFromResource(IDS_LEVER_ACTIVATE, szMsg);
+					}
+					else  {
+						fRadian = D3DXToRadian(45);
+						szMsg = "IDS_LEVER_DEACTIVATE";//::_LoadStringFromResource(IDS_LEVER_DEACTIVATE, szMsg);
+					}
 					vAxis.Set(1,0,0);
 				}
 				else if(OBJECT_TYPE_FLAG == iType)
@@ -5062,7 +5095,7 @@ void CGameProcMain::MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset)
 				}
 				else // if(0x00 == iActivate);
 				{
-					::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
+					szMsg = "IDS_DOOR_CLOSED";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
 				}
 
 				CN3ShapeExtra* pSE = (CN3ShapeExtra*)pNPC->m_pShapeExtraRef;
@@ -5134,7 +5167,8 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 			}
 			else // HP가 반 이상 있어야 한다.
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_ERR_GOTO_TOWN_OUT_OF_HP, szMsg);
+				std::string szMsg;
+				szMsg = "IDS_ERR_GOTO_TOWN_OUT_OF_HP";//::_LoadStringFromResource(IDS_ERR_GOTO_TOWN_OUT_OF_HP, szMsg);
 				this->MsgOutput(szMsg, 0xffff00ff);
 			}
 		}
@@ -5147,7 +5181,8 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 				(pOPC->Position() - s_pPlayer->Position()).Magnitude() < (pOPC->Height() + 5.0f) && 
 				!m_pUITransactionDlg->IsVisible() ) // 타겟으로 다른 플레이어가 잡혀있고..  가까이 있으면.. // 개인간 아이템 거래.. // 상거래 중이 아니면..
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_PERSONAL_TRADE_REQUEST, szMsg);
+				std::string szMsg = " IDS_PERSONAL_TRADE_REQUEST";
+				//::_LoadStringFromResource(IDS_PERSONAL_TRADE_REQUEST, szMsg);
 				MsgOutput(pOPC->IDString() + szMsg, 0xffffff00);
 
 				MsgSend_PerTradeReq(pOPC->IDNumber());
@@ -5179,8 +5214,10 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 			if(pTarget)
 			{
 				std::string szMsg;
-				if(this->MsgSend_PartyOrForceCreate(0, pTarget->IDString())) ::_LoadStringFromResource(IDS_PARTY_INVITE, szMsg); // 파티 요청.. 
-				else  ::_LoadStringFromResource(IDS_PARTY_INVITE_FAILED, szMsg); // 파티 초대 실패
+				if (this->MsgSend_PartyOrForceCreate(0, pTarget->IDString()))
+					szMsg = " IDS_PARTY_INVITE";//::_LoadStringFromResource(IDS_PARTY_INVITE, szMsg); // 파티 요청.. 
+				else
+					szMsg = " IDS_PARTY_INVITE_FAILED";//::_LoadStringFromResource(IDS_PARTY_INVITE_FAILED, szMsg); // 파티 초대 실패
 				this->MsgOutput(pTarget->IDString() + szMsg, 0xffffff00);
 			}
 		}
@@ -5361,14 +5398,14 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 				m_fRequestGameSave = 0.0f;
 
 				std::string szMsg;
-				::_LoadStringFromResource(IDS_REQUEST_GAME_SAVE, szMsg);
+				szMsg = "IDS_REQUEST_GAME_SAVE";//::_LoadStringFromResource(IDS_REQUEST_GAME_SAVE, szMsg);
 				this->MsgOutput(szMsg, 0xffffff00);
 			}
 			else
 			{
 				char szBuf[256];
 				std::string szMsg;
-				::_LoadStringFromResource(IDS_DELAY_GAME_SAVE, szMsg);
+				szMsg = "IDS_DELAY_GAME_SAVE (%d)";//::_LoadStringFromResource(IDS_DELAY_GAME_SAVE, szMsg);
 				sprintf(szBuf, szMsg.c_str(), 5);
 				this->MsgOutput(szBuf, 0xffffff00);
 			}
@@ -5617,7 +5654,7 @@ void CGameProcMain::MsgRecv_Knights(DataPack* pDataPack, int& iOffset)
 			switch ( (e_SubPacket_KNights_Common)bSubCom )
 			{
 			case N3_SP_KNIGHTS_COMMON_SUCCESS: //클랜파괴 성공
-				::_LoadStringFromResource(IDS_CLAN_WITHDRAW_SUCCESS, szMsg);
+				szMsg = "IDS_CLAN_WITHDRAW_SUCCESS";//::_LoadStringFromResource(IDS_CLAN_WITHDRAW_SUCCESS, szMsg);
 				m_pUIKnightsOp->KnightsInfoDelete(s_pPlayer->m_InfoExt.iKnightsID);
 				this->MsgOutput(szMsg, 0xffffff00);
 				break;
@@ -5974,7 +6011,7 @@ void CGameProcMain::MsgRecv_AllPointInit(DataPack* pDataPack, int& iOffset)			//
 	switch (bType)
 	{
 		case 0x00:	// 돈이 부족..
-			::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
+			szMsg = "IDS_POINTINIT_NOT_ENOUGH_NOAH (%d)";//::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGold);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
@@ -6024,7 +6061,7 @@ void CGameProcMain::MsgRecv_AllPointInit(DataPack* pDataPack, int& iOffset)			//
 			break;
 
 		case 0x02:	// Already..
-			::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
+			szMsg = "IDS_POINTINIT_ALREADY";//::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
 			sprintf(szBuf, szMsg.c_str());
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
@@ -6042,7 +6079,7 @@ void CGameProcMain::MsgRecv_SkillPointInit(DataPack* pDataPack, int& iOffset)		/
 	switch (bType)
 	{
 		case 0x00:	// 돈이 부족..
-			::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
+			szMsg = "IDS_POINTINIT_NOT_ENOUGH_NOAH (%d)";//::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGold);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
@@ -6067,7 +6104,7 @@ void CGameProcMain::MsgRecv_SkillPointInit(DataPack* pDataPack, int& iOffset)		/
 			break;
 
 		case 0x02:	// Already..
-			::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
+			szMsg = "IDS_POINTINIT_ALREADY";//::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
 			sprintf(szBuf, szMsg.c_str());
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
@@ -6092,19 +6129,19 @@ void CGameProcMain::MsgRecv_NoahChange(DataPack* pDataPack, int& iOffset)		// 노
 	switch (bType)
 	{
 		case N3_SP_NOAH_GET:
-			::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg);
+			szMsg = "IDS_NOAH_CHANGE_GET (%d)";//::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
 			break;
 
 		case N3_SP_NOAH_LOST:
-			::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
+			szMsg = "IDS_NOAH_CHANGE_LOST (%d)";//::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case N3_SP_NOAH_SPEND:
-			::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
+			szMsg = "IDS_NOAH_CHANGE_LOST (%d)";//::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
@@ -6306,7 +6343,7 @@ void CGameProcMain::MsgRecv_Knights_Withdraw(DataPack* pDataPack, int& iOffset)
 				m_pUIVar->UpdateKnightsInfo();
 
 				s_pPlayer->KnightsInfoSet(s_pPlayer->m_InfoExt.iKnightsID, "", 0, 0);
-				::_LoadStringFromResource(IDS_CLAN_WITHDRAW_SUCCESS, szMsg);
+				szMsg = "IDS_CLAN_WITHDRAW_SUCCESS";//::_LoadStringFromResource(IDS_CLAN_WITHDRAW_SUCCESS, szMsg);
 				this->MsgOutput(szMsg, 0xffffff00);
 
 				if(m_pUIVar->m_pPageKnights->IsVisible())
@@ -6340,11 +6377,11 @@ void CGameProcMain::MsgRecv_Knights_Withdraw(DataPack* pDataPack, int& iOffset)
 	case N3_SP_KNIGHTS_COMMON_FAIL_FULL:
 	case N3_SP_KNIGHTS_COMMON_FAIL_ME:
 	case N3_SP_KNIGHTS_COMMON_FAIL_NOT_JOINED:
-		::_LoadStringFromResource(IDS_CLAN_WITHDRAW_FAIL, szMsg);
+		szMsg = "IDS_CLAN_WITHDRAW_FAIL";//::_LoadStringFromResource(IDS_CLAN_WITHDRAW_FAIL, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_BATTLEZONE:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_BATTLEZONE";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	}
@@ -6376,7 +6413,7 @@ void CGameProcMain::MsgRecv_Knights_Join(DataPack* pDataPack, int& iOffset)
 				s_pPlayer->KnightsInfoSet(iID, szKnightsName, iGrade, iRank);
 				m_pUIVar->UpdateKnightsInfo();
 
-				::_LoadStringFromResource(IDS_CLAN_JOIN_SUCCESS, szMsg);
+				szMsg = "IDS_CLAN_JOIN_SUCCESS";//::_LoadStringFromResource(IDS_CLAN_JOIN_SUCCESS, szMsg);
 				this->MsgOutput(szMsg, 0xffffff00);
 
 				if(m_pUIVar->m_pPageKnights->IsVisible())
@@ -6394,47 +6431,47 @@ void CGameProcMain::MsgRecv_Knights_Join(DataPack* pDataPack, int& iOffset)
 		}
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NONE_USER:	//없는 유저..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_NONE_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_DEAD_USER:	//상대유저가 죽어 있음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_DEAD_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_DEAD_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_DEAD_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_ENEMY_USER: //상대유저의 국가가 다름..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_ENEMY_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_ENEMY_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_ENEMY_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_OTHER_CLAN_USER: //상대유저가 이미 다른 클랜이나 기사단에 가입되어 있음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_INVALIDRIGHT: //권한이 없음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_INVALIDRIGHT, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_INVALIDRIGHT";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_INVALIDRIGHT, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NONE_CLAN:	//존재하지 않는 기사단..									
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_CLAN, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_NONE_CLAN";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_CLAN, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_FULL:	//인원이 풀..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_CLAN_FULL, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_CLAN_FULL";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_CLAN_FULL, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_ME:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_ME, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_ME";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_ME, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NOT_JOINED:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_NOTJOINED, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_NOTJOINED";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_NOTJOINED, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_REJECT:
-		::_LoadStringFromResource(IDS_CLAN_JOIN_REJECT, szMsg);
+		szMsg = "IDS_CLAN_JOIN_REJECT";//::_LoadStringFromResource(IDS_CLAN_JOIN_REJECT, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_BATTLEZONE:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_BATTLEZONE";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	}	
@@ -6466,7 +6503,7 @@ void CGameProcMain::MsgRecv_Knights_Leave(DataPack* pDataPack, int& iOffset)
 				s_pPlayer->KnightsInfoSet(iID, szKnightsName, iGrade, iRank);
 				m_pUIVar->UpdateKnightsInfo();
 				
-				::_LoadStringFromResource(IDS_CLAN_JOIN_SUCCESS, szMsg);
+				szMsg = "IDS_CLAN_JOIN_SUCCESS";//::_LoadStringFromResource(IDS_CLAN_JOIN_SUCCESS, szMsg);
 				this->MsgOutput(szMsg, 0xffffff00);
 
 				if(m_pUIVar->m_pPageKnights->IsVisible())
@@ -6484,43 +6521,43 @@ void CGameProcMain::MsgRecv_Knights_Leave(DataPack* pDataPack, int& iOffset)
 		}
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NONE_USER:	//없는 유저..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_NONE_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_DEAD_USER:	//상대유저가 죽어 있음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_DEAD_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_DEAD_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_DEAD_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_ENEMY_USER: //상대유저의 국가가 다름..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_ENEMY_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_ENEMY_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_ENEMY_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_OTHER_CLAN_USER: //상대유저가 이미 다른 클랜이나 기사단에 가입되어 있음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_INVALIDRIGHT: //권한이 없음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_INVALIDRIGHT, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_INVALIDRIGHT";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_INVALIDRIGHT, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NONE_CLAN:	//존재하지 않는 기사단..									
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_CLAN, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_NONE_CLAN";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_CLAN, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_FULL:	//인원이 풀..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_CLAN_FULL, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_CLAN_FULL";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_CLAN_FULL, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_ME:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_ME, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_ME";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_ME, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NOT_JOINED:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_NOTJOINED, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_NOTJOINED";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_NOTJOINED, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_BATTLEZONE:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_BATTLEZONE";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	}	
@@ -6544,7 +6581,7 @@ void CGameProcMain::MsgRecv_Knights_AppointViceChief(DataPack* pDataPack, int& i
 			s_pPlayer->m_InfoExt.eKnightsDuty = eDuty;
 			m_pUIVar->UpdateKnightsInfo();
 
-			::_LoadStringFromResource(IDS_CLAN_JOIN_SUCCESS, szMsg);
+			szMsg = "IDS_CLAN_JOIN_SUCCESS";//::_LoadStringFromResource(IDS_CLAN_JOIN_SUCCESS, szMsg);
 			this->MsgOutput(szMsg, 0xffffff00);
 
 			if(m_pUIVar->m_pPageKnights->IsVisible())
@@ -6555,43 +6592,43 @@ void CGameProcMain::MsgRecv_Knights_AppointViceChief(DataPack* pDataPack, int& i
 		}
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NONE_USER:	//없는 유저..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_NONE_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_DEAD_USER:	//상대유저가 죽어 있음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_DEAD_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_DEAD_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_DEAD_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_ENEMY_USER: //상대유저의 국가가 다름..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_ENEMY_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_ENEMY_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_ENEMY_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_OTHER_CLAN_USER: //상대유저가 이미 다른 클랜이나 기사단에 가입되어 있음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_OTHER_CLAN_USER, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_INVALIDRIGHT: //권한이 없음..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_INVALIDRIGHT, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_INVALIDRIGHT";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_INVALIDRIGHT, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NONE_CLAN:	//존재하지 않는 기사단..									
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_CLAN, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_NONE_CLAN";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_NONE_CLAN, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_FULL:	//인원이 풀..
-		::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_CLAN_FULL, szMsg);
+		szMsg = "IDS_CLAN_JOIN_FAIL_CLAN_FULL";//::_LoadStringFromResource(IDS_CLAN_JOIN_FAIL_CLAN_FULL, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_ME:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_ME, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_ME";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_ME, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_NOT_JOINED:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_NOTJOINED, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_NOTJOINED";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_NOTJOINED, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	case N3_SP_KNIGHTS_COMMON_FAIL_BATTLEZONE:
-		::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
+		szMsg = "IDS_CLAN_COMMON_FAIL_BATTLEZONE";//::_LoadStringFromResource(IDS_CLAN_COMMON_FAIL_BATTLEZONE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		break;
 	}	
@@ -6776,7 +6813,8 @@ void CGameProcMain::MsgSend_PerTradeBBSReq(std::string szName, int iDestID)
 {
 	if(	!m_pUITransactionDlg->IsVisible() ) //// 개인간 아이템 거래.. // 상거래 중이 아니면..
 	{
-		std::string szMsg; ::_LoadStringFromResource(IDS_PERSONAL_TRADE_REQUEST, szMsg);
+		std::string szMsg;
+		szMsg = " IDS_PERSONAL_TRADE_REQUEST";//::_LoadStringFromResource(IDS_PERSONAL_TRADE_REQUEST, szMsg);
 		MsgOutput(szName + szMsg, 0xffffff00);
 
 		MsgSend_PerTradeReq(iDestID, false);
@@ -7127,8 +7165,10 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 				if(fD > fDLimit) // 거리가 멀면
 				{
 					std::string szMsg; 
-					if(OBJECT_TYPE_BINDPOINT == pShape->m_iEventType) ::_LoadStringFromResource(IDS_BIND_POINT_REQUEST_FAIL, szMsg);
-					else ::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
+					if (OBJECT_TYPE_BINDPOINT == pShape->m_iEventType)
+						szMsg = "IDS_BIND_POINT_REQUEST_FAIL";//::_LoadStringFromResource(IDS_BIND_POINT_REQUEST_FAIL, szMsg);
+					else
+						szMsg = "IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR";//::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
 					this->MsgOutput(szMsg, 0xffff8080);
 				}
 				else
@@ -7156,7 +7196,8 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 				float fDLimit = (s_pPlayer->Radius() + pNPC->m_pShapeExtraRef->Radius()) * 2.0f;
 				if(fD > fDLimit) // 거리가 멀면
 				{
-					std::string szMsg; ::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
+					std::string szMsg;
+					szMsg = "IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR";//::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
 					this->MsgOutput(szMsg, 0xffff8080);
 				}
 				else
