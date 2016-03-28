@@ -249,9 +249,30 @@ void CGameProcMain::Init()
 	m_pLightMgr->Release();
 	s_pEng->SetDefaultLight(m_pLightMgr->Light(0), m_pLightMgr->Light(1), m_pLightMgr->Light(2));
 
+	// NOTE: set the chat commands
+	/*
+	enum e_ChatCmd {
+		CMD_WHISPER, CMD_TOWN, CMD_TRADE, CMD_EXIT, CMD_PARTY,
+		CMD_LEAVEPARTY, CMD_RECRUITPARTY, CMD_JOINCLAN, CMD_WITHDRAWCLAN, CMD_FIRECLAN,
+		CMD_APPOINTVICECHIEF, CMD_GREETING, CMD_EXCITE, CMD_VISIBLE, CMD_INVISIBLE,
+		CMD_CLEAN, CMD_RAINING, CMD_SNOWING, CMD_TIME, CMD_CU_COUNT,
+		CMD_NOTICE, CMD_ARREST, CMD_FORBIDCONNECT, CMD_FORBIDCHAT, CMD_PERMITCHAT,
+		CMD_GAME_SAVE,
+		CMD_COUNT,
+		CMD_UNKNOWN = 0xffffffff
+	};
+	*/
+	std::string szTemp[CMD_COUNT] = {
+		"whisper", "town",
+		"trade", "exit", "party", "leaveparty", "recruitparty", "joinclan", "withdrawclan", "fireclan",
+		"appointvicechief", "greeting", "excite", "visible", "invisible", "clean", "raining", "snowing",
+		"time", "count", "notice", "arrest", "forbidconnect", "forbidchat", "permitchat", "gamesave",
+	};
+
 	for( int i = IDS_CMD_WHISPER ; i <= IDS_CMD_GAME_SAVE ; i++ ) //명령어 로딩...
 	{
-		::_LoadStringFromResource(i, s_szCmdMsg[i - IDS_CMD_WHISPER]);
+		s_szCmdMsg[i - IDS_CMD_WHISPER] = szTemp[i - IDS_CMD_WHISPER];
+		//::_LoadStringFromResource(i, s_szCmdMsg[i - IDS_CMD_WHISPER]);
 	}
 
 	s_SndMgr.ReleaseStreamObj(&(CGameProcedure::s_pSnd_BGM));
@@ -2275,9 +2296,15 @@ bool CGameProcMain::MsgRecv_UserIn(DataPack* pDataPack, int& iOffset, bool bWith
 		CLogWriter::Write("User In - Duplicated ID (%d, %s) Pos(%.2f,%.2f,%.2f)", iID, szName.c_str(), fXPos, fYPos, fZPos);
 		TRACE("User In - Duplicated ID (%d, %s) Pos(%.2f,%.2f,%.2f)\n", iID, szName.c_str(), fXPos, fYPos, fZPos);
 
-		pUPC->Action(PSA_BASIC, true, NULL, true); // 강제로 살리고..
-		pUPC->m_fTimeAfterDeath = 0;
-		pUPC->PositionSet(__Vector3(fXPos, fYPos, fZPos), true);
+		// TEMP(srmeier): need to figure out what is going on here and how to fix it
+		// commenting out what's below to keep the OtherPlayer in the manager...
+
+		// NOTE(srmeier): probably shouldn't be requesting this player's info if it's already in the manager...
+
+		//pUPC->Action(PSA_BASIC, true, NULL, true); // 강제로 살리고..
+		//pUPC->m_fTimeAfterDeath = 0;
+		//pUPC->PositionSet(__Vector3(fXPos, fYPos, fZPos), true);
+
 		return false;
 	}
 	
@@ -4462,8 +4489,10 @@ void CGameProcMain::MsgRecv_UserState(DataPack* pDataPack, int& iOffset)
 	int iState = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 
 	CPlayerBase* pBPC = NULL;
-	if ( s_pPlayer->IDNumber() == iID ) pBPC = s_pPlayer;
-	else pBPC = s_pOPMgr->UPCGetByID(iID, false); 
+	if ( s_pPlayer->IDNumber() == iID )
+		pBPC = s_pPlayer;
+	else
+		pBPC = s_pOPMgr->UPCGetByID(iID, false); 
 	
 	if(NULL == pBPC) return;
 
@@ -4516,6 +4545,15 @@ void CGameProcMain::MsgRecv_UserState(DataPack* pDataPack, int& iOffset)
 		if(1 == iState) pBPC->AnimationAdd(ANI_GREETING0, true); // 인사
 		else if(11 == iState) pBPC->AnimationAdd(ANI_WAR_CRY1, true); // 도발
 	}
+	else if (N3_SP_STATE_CHANGE_VISIBLE == eSP)
+	{
+		if (pBPC->m_InfoBase.iAuthority == AUTHORITY_MANAGER) {
+			if (0 == iState)
+				pBPC->m_bVisible = true;
+			if (255 == iState && (s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER))
+				pBPC->m_bVisible = false;
+		}
+	}
 }
 
 void CGameProcMain::MsgRecv_Notice(DataPack* pDataPack, int& iOffset)
@@ -4561,7 +4599,8 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 			
 			if(iID >= 0)
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_PARTY_PERMIT, szMsg);
+				std::string szMsg = " IDS_PARTY_PERMIT";
+				//::_LoadStringFromResource(IDS_PARTY_PERMIT, szMsg);
 				CGameProcedure::MessageBoxPost(szID + szMsg, "", MB_YESNO, BEHAVIOR_PARTY_PERMIT);
 			}
 		}
@@ -4569,8 +4608,10 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 
 		case N3_SP_PARTY_OR_FORCE_INSERT:			// 0x02	// Send - s1(ID) | Recv - s3(ID, HPMax, HP) b2(Level, Class) - 문자열은 ID 로 알아낸다..
 		{
-			int iID			= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-			if(iID >= 0)
+			int iID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			int iErrorCode = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
+			if(iErrorCode >= 0)
 			{
 				int iIDLength	= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 				std::string szID; CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szID, iIDLength);
@@ -4578,6 +4619,12 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 				int iHP			= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 				int iLevel		= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 				e_Class eClass	= (e_Class)(CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset));
+
+				// NOTE: these parts where added to this packet at some later point and will need to be
+				// implemented...
+				int iMPMax		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+				int iMP			= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+				e_Nation eNation = (e_Nation)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 
 				m_pUIPartyOrForce->MemberAdd(iID, szID, iLevel, eClass, iHP, iHPMax); // 다른넘 파티에추가..
 				if(iID != s_pPlayer->IDNumber()) // 자기 자신이 아닌 경우 메시지 출력.
@@ -4590,9 +4637,9 @@ void CGameProcMain::MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset)
 			{
 				std::string szMsg;
 
-				if (-1 == iID) szMsg = "IDS_PARTY_INSERT_ERR_REJECTED";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_REJECTED, szMsg); // 상대방이 파티에 들어오기를 거절 하였다..
-				else if (-2 == iID) szMsg = "IDS_PARTY_INSERT_ERR_LEVEL_DIFFERENCE";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_LEVEL_DIFFERENCE, szMsg); // 레벨 차이가 너무 난다...
-				else if (-3 == iID) szMsg = "IDS_PARTY_INSERT_ERR_INVALID_NATION";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_INVALID_NATION, szMsg); // 파티를 맺을 수 없는 국가이다.
+				if (-1 == iErrorCode) szMsg = "IDS_PARTY_INSERT_ERR_REJECTED";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_REJECTED, szMsg); // 상대방이 파티에 들어오기를 거절 하였다..
+				else if (-2 == iErrorCode) szMsg = "IDS_PARTY_INSERT_ERR_LEVEL_DIFFERENCE";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_LEVEL_DIFFERENCE, szMsg); // 레벨 차이가 너무 난다...
+				else if (-3 == iErrorCode) szMsg = "IDS_PARTY_INSERT_ERR_INVALID_NATION";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR_INVALID_NATION, szMsg); // 파티를 맺을 수 없는 국가이다.
 				else szMsg = "IDS_PARTY_INSERT_ERR";//::_LoadStringFromResource(IDS_PARTY_INSERT_ERR, szMsg); // 상대방이 파티에 들어오기를 거절 하였다..
 
 				this->MsgOutput(szMsg, D3DCOLOR_ARGB(255,255,255,255));
@@ -5161,6 +5208,9 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 			if(s_pPlayer->m_bStun) return; // 기절해 있음 못함..
 			if(s_pPlayer->m_InfoBase.iHP * 2 >= s_pPlayer->m_InfoBase.iHPMax) // HP가 반 이상 있어야 한다.
 			{
+				// NOTE(srmeier): currently there is an issue where OtherPlayers may get
+				// duplicated in the player manager if they where there before the TP
+
 				int iOffset = 0;
 				CAPISocket::MP_AddWord(byBuff, iOffset, N3_HOME);		// 마을로 가기...
 				s_pSocket->Send(byBuff, iOffset);
@@ -5355,9 +5405,9 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 
 		case CMD_NOTICE:
 		{
-			if(szCmd.size() >= 7)
+			if(szCmd.size() >= (s_szCmdMsg[CMD_NOTICE].size()+2))//7)
 			{
-				std::string szChat = szCmd.substr(6); // "/공지 "를 제외한 나머지 문자열
+				std::string szChat = szCmd.substr(s_szCmdMsg[CMD_NOTICE].size()+2); // "/공지 "를 제외한 나머지 문자열
 				this->MsgSend_Chat(N3_CHAT_PUBLIC, szChat);
 			}
 		}

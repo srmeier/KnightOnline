@@ -3,12 +3,11 @@ git reset --hard e2cec75
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
-- skill descriptions aren't word wrapping
-- get chat working
-	- add commands to give exp and items for quick testing
+- check into the LOD
+
+
+
 - get the EVT system working
-- fix the UI issues and support 1298 UI
-	- this should include rewriting the UIF editor program
 
 
 - problem with item descriptions getting cutoff
@@ -17,8 +16,11 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	- should problem upgrade the structs and copy/paste from 1298
 	- this problem is typically detected when the server prevents an item equip
 		but the client is OK with it
+- fix the UI issues and support 1298 UI
+	- this should include rewriting the UIF editor program
 - support all 1068 file formats
 	- requires testing of weapons and armor and stuff
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
 - take a look at the new zone files 1298 added (ens, gev, etc.)
+- skill descriptions aren't word wrapping

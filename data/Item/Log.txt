@@ -1,1 +1,0 @@
-    [20:23:15] invalid file handle(-1) - Can't open texture file(ui/ui_ka_statebar.dxt)
