@@ -745,8 +745,15 @@ typedef struct __TABLE_ITEM_EXT // 장착 아이템에 관한 리소스 레코드...
 {
 	DWORD		dwID;				// 00 코드화된 아이템번호 - // 00 - Item 종류, 00 - Item 장착 위치(장착위치로 Plug 인지 Part 인지 판단이 가능하다.) - 0000 - ItemIndex
 	std::string	szHeader;			// 01 접두사
+
+	DWORD dwIDK1;
+
 	std::string	szRemark;			// 02 아이템 설명	
+
 	DWORD dwIDK0; // TODO: will need to implement this one
+	DWORD dwIDK2;
+	DWORD dwIDK3;
+
 	BYTE		byMagicOrRare;		// 03 매직 혹은 레어 아이템인지...
 
 	short	siDamage;				// 04 무기타격
@@ -912,11 +919,14 @@ typedef struct __TABLE_UPC_SKILL
 	int			iReCastTime;		// 다시 캐스팅할때까지 걸리는 시간.
 	
 	float fIDK0; // TODO: will need to implement this...?
+	float fIDK1; // 1298
 
 	int			iPercentSuccess;	// 성공률
 	DWORD		dw1stTableType;		// 첫번째 타입.
 	DWORD		dw2ndTableType;		// 두번째 타입.
 	int			iValidDist;			// 유효거리
+
+	int	iIDK2; // 1298
 	
 } TABLE_UPC_ATTACK_B;
 
