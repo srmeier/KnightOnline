@@ -3,24 +3,55 @@ git reset --hard e2cec75
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
-- check into the LOD
-
-
-
 - get the EVT system working
+---
+
+
+- it might be worth trying to manually add an item to the m_QuestNpcList object
+	to test this LUA script stuff
+- can get the scripts to work. need to add "SendDebugString" which the client
+	then prints out in the MsgOut UI
+
+
+- there is an EVENT class for each map zone
+- each of these class contains an array of EVENT_DATA classes
+- each "EVENT" -- "END" in the .EVT makes up an EVENT_DATA class
+- each EVENT_DATA class had an m_EventNum which is the number following the
+	"EVENT" keyword (this m_EventNum is used to index m_arEvent)
+- each EVENT_DATA has an array of EXEC classes (the 'E')
+- each EVETN_DATA has an array of LOGIC_ELSE classes (the 'A')
+
+- part of the m_EventNum has to do with the NPCs sSid (also is the tbl lookup)
+- or it could possible be the sPid... (sSid for depreciated)
+
+EVENT 22000; 
+E SELECT_MSG 16011 22003 22008 22002 22003 22003 22004 22004 22005 22005 30134 35540 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1;
+END
+
+16011 // job
+22003 // fingerprint numbers (text at top of quest box)
+
+22008 // 1 select statement
+22002 // event 1
+
+22003 22003
+22004 22004
+22005 22005
+30134 35540
+-1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+
+---
+
+- get colony zone working
 
 
 - problem with item descriptions getting cutoff
 	- they all should fit now but it isn't automatically setting the size
-- problem with some item exts being wrong
-	- should problem upgrade the structs and copy/paste from 1298
-	- this problem is typically detected when the server prevents an item equip
-		but the client is OK with it
+- skill descriptions aren't word wrapping
 - fix the UI issues and support 1298 UI
 	- this should include rewriting the UIF editor program
-- support all 1068 file formats
-	- requires testing of weapons and armor and stuff
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
 - take a look at the new zone files 1298 added (ens, gev, etc.)
-- skill descriptions aren't word wrapping
+- support all 1068 file formats
+	- requires testing of weapons and armor and stuff

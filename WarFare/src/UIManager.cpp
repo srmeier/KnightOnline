@@ -185,10 +185,10 @@ void CUIManager::Render()
 	if (s_pTooltipCtrl) s_pTooltipCtrl->Render();	// tooltip render
 
 	/*
-		NOTE: there is a very weird issue with setting the render state and displaying text.
-			- when the debug info is being displayed and you change window focus weird shit happens
-			- currently just sticking this in here. it will work here but will end up showing during
-				every game procedure which is somewhat unwanted right now...
+	NOTE: there is a very weird issue with setting the render state and displaying text.
+	- when the debug info is being displayed and you change window focus weird shit happens
+	- currently just sticking this in here. it will work here but will end up showing during
+	every game procedure which is somewhat unwanted right now...
 	*/
 	////////////////////////////////////////////////////////
 	if (false) {
@@ -203,19 +203,22 @@ void CUIManager::Render()
 			CN3Base::s_RenderInfo.nTerrain_Tile_Polygon,
 			CN3Base::s_RenderInfo.nShape,
 			CN3Base::s_RenderInfo.nShape_Part,
-			CN3Base::s_RenderInfo.nShape_Polygon);
+			CN3Base::s_RenderInfo.nShape_Polygon
+		);
 
 		sprintf(szDebugs[1], "nChr(%d), nChr_Part(%d), nChr_Polygon(%d), nChr_Plug(%d), nChr_Plug_Polygon(%d)",
 			CN3Base::s_RenderInfo.nChr,
 			CN3Base::s_RenderInfo.nChr_Part,
 			CN3Base::s_RenderInfo.nChr_Polygon,
 			CN3Base::s_RenderInfo.nChr_Plug,
-			CN3Base::s_RenderInfo.nChr_Plug_Polygon);
+			CN3Base::s_RenderInfo.nChr_Plug_Polygon
+		);
 
 		sprintf(szDebugs[2], "Camera : FieldOfView(%.1f), NearPlane(%.1f) FarPlane(%.1f)",
 			D3DXToDegree(CN3Base::s_CameraData.fFOV),
 			CN3Base::s_CameraData.fNP,
-			CN3Base::s_CameraData.fFP);
+			CN3Base::s_CameraData.fFP
+		);
 
 		if (CGameProcedure::s_pProcMain && CGameBase::ACT_WORLD && CGameBase::ACT_WORLD->GetSkyRef()) {
 			int iYear = 0, iMonth = 0, iDay = 0, iH = 0, iM = 0;

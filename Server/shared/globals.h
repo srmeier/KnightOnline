@@ -5,7 +5,6 @@
 #include "Packet.h"
 
 #define MAP_DIR				"./MAP/"
-#define QUEST_DIR			"./QUEST/"
 
 #define MAX_USER			3000
 
