@@ -339,9 +339,12 @@ bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32 nEventID, int8 
 	}
 
 
-	lua_tsetglobal(m_luaState, "UID", pUser->GetID());
-	lua_tsetglobal(m_luaState, "STEP", bSelectedReward);
-	lua_tsetglobal(m_luaState, "EVENT", nEventID);
+	//lua_tsetglobal(m_luaState, "UID", pUser->GetID());
+	lua_tsetglobal(m_luaState, "nEventID", nEventID);
+	lua_tsetglobal(m_luaState, "bSelectedReward", bSelectedReward);
+
+	lua_tsetglobal(m_luaState, "pNpc", pNpc);
+	lua_tsetglobal(m_luaState, "pUser", pUser);
 
 	// Try calling the script's entry point
 	err = lua_pcall(m_luaState, 

@@ -731,6 +731,17 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		}
 		return true;
 #endif
+		case N3_DEBUG_STRING_TEST: {
+			// NOTE(srmeier): testing this debug string functionality
+
+			int iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+
+			std::string szDebugString;
+			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szDebugString, iLen);
+
+			MsgOutput("DEBUG: "+szDebugString, D3DCOLOR_ARGB(255, 255, 255, 0));
+
+		} return true;
 
 
 		case N3_MYINFO:									// 나의 정보 메시지..

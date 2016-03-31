@@ -100,6 +100,47 @@ bool CGameServerDlg::LoadQuestHelperTable()
 {
 	Guard lock(m_questNpcLock);
 	m_QuestNpcList.clear();
+
+	// NOTE: testing their quest LUA script system
+	_QUEST_HELPER *pData = new _QUEST_HELPER;
+
+	pData->nIndex              = 0;
+	pData->bMessageType        = 0;
+	pData->bLevel              = 0;
+	pData->nExp                = 0;
+
+	pData->bClass              = 5; // checked before running
+	pData->bNation             = 3; // checked before running
+
+	pData->bQuestType          = 0;
+	pData->bZone               = 0;
+	pData->sNpcId              = 16011; // set to the NPC you want to use (sSid)
+
+	pData->sEventDataIndex     = 0; // checked before running
+	pData->bEventStatus        = 0; // checked before running
+
+	pData->nEventTriggerIndex  = 0; // nEventID
+	pData->nEventCompleteIndex = 0;
+	pData->nExchangeIndex      = 0;
+	pData->nEventTalkIndex     = 0;
+	pData->strLuaFilename      = "test.lua"; // script that gets executed
+
+	if (!m_QuestHelperArray.PutData(pData->nIndex, pData)) {
+		delete pData;
+	} else {
+		// Add the quest helper instance to the NPC's list
+		// so that we can perform faster searches.
+		QuestNpcList * pList = &/*g_pMain->*/m_QuestNpcList;
+		QuestNpcList::iterator itr = pList->find(pData->sNpcId);
+		if (itr == pList->end())
+		{
+			pList->insert(make_pair(pData->sNpcId, QuestHelperList()));
+			itr = pList->find(pData->sNpcId);
+		}
+
+		itr->second.push_back(pData);
+	}
+
 	//LOAD_TABLE(CQuestHelperSet, g_DBAgent.m_GameDB, &m_QuestHelperArray,true, false);
 	return true;
 }

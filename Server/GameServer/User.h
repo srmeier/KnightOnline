@@ -593,6 +593,10 @@ public:
 	void SendSay(int32 nTextID[8]);
 	void SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText, 
 		int32 menuButtonText[MAX_MESSAGE_EVENT], int32 menuButtonEvents[MAX_MESSAGE_EVENT]);
+
+	// NOTE(srmeier): testing this debug string functionality
+	void SendDebugString(const char* pString);
+
 	bool CheckClass(short class1, short class2 = -1, short class3 = -1, short class4 = -1, short class5 = -1, short class6 = -1);
 	bool GiveItem(uint32 nItemID, uint16 sCount = 1, bool send_packet = true, uint32 Time = 0);
 	bool RobItem(uint32 nItemID, uint32 sCount = 1);
@@ -1145,6 +1149,13 @@ public:
 	}
 
 	// The useful method wrappers
+
+	// NOTE(srmeier): testing this debug string functionality
+	DECLARE_LUA_FUNCTION(SendDebugString) {
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendDebugString(
+			LUA_ARG(const char*, 2)));
+	}
+
 	DECLARE_LUA_FUNCTION(GiveItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GiveItem(
 			LUA_ARG(uint32, 2), 
