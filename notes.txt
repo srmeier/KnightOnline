@@ -6,48 +6,22 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - get the EVT system working
 ---
 
-- Isaac[event]
-	- Young adventurer!! There are many dangers lurking...
-	- Worm extermination
-		- You need to be level 10 or above in order to do...
-			- OK
-	- Gavolt extermination
-	- Collecting Silan bones
-	- Collecting Bulture bones
-	- Wold man extermination
-	
-	
-
-- it might be worth trying to manually add an item to the m_QuestNpcList object
-	to test this LUA script stuff (should attempt to look at EVTs)
-
-
-- there is an EVENT class for each map zone
-- each of these class contains an array of EVENT_DATA classes
-- each "EVENT" -- "END" in the .EVT makes up an EVENT_DATA class
-- each EVENT_DATA class had an m_EventNum which is the number following the
-	"EVENT" keyword (this m_EventNum is used to index m_arEvent)
-- each EVENT_DATA has an array of EXEC classes (the 'E')
-- each EVETN_DATA has an array of LOGIC_ELSE classes (the 'A')
-
-- part of the m_EventNum has to do with the NPCs sSid (also is the tbl lookup)
-- or it could possible be the sPid... (sSid for depreciated)
-
-EVENT 22000; 
-E SELECT_MSG 16011 22003 22008 22002 22003 22003 22004 22004 22005 22005 30134 35540 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1;
-END
-
-16011 // job
-22003 // fingerprint numbers (text at top of quest box)
-
-22008 // 1 select statement
-22002 // event 1
-
-22003 22003
-22004 22004
-22005 22005
-30134 35540
--1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+nIndex;              -> useful for SaveEvent()
+bMessageType;        -> not used at all
+bLevel;              -> currently not used (checked in script like EVT)
+nExp;                -> currently not used
+bClass;
+bNation;
+bQuestType;          -> not currently used (requires packet from client)
+bZone;               -> zone where quest is located (doesn't seem to be in use)
+sNpcId;              -> NPCs sSid
+sEventDataIndex;     -> the quest ID (one quest has multiple states)
+bEventStatus;        -> the quest state
+nEventTriggerIndex;  -> returned by SearchQuest() to switch on quest state
+nEventCompleteIndex; -> not currently used (requires packet from client)
+nExchangeIndex;      -> not used at all
+nEventTalkIndex;     -> not used at all
+strLuaFilename;      -> Lua script executed
 
 ---
 
