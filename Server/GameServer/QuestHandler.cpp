@@ -327,9 +327,10 @@ uint16 CUser::QuestV2SearchEligibleQuest(uint16 sNpcID)
 		return 0;
 
 	// Loop through all the QuestHelper instances attached to that NPC.
+	_QUEST_HELPER * pHelper = NULL;
 	foreach (itr2, itr->second)
 	{
-		_QUEST_HELPER * pHelper = (*itr2);
+		pHelper = (*itr2);
 		if (pHelper->bLevel > GetLevel()
 			|| (pHelper->bLevel == GetLevel() && pHelper->nExp > m_iExp)
 			|| (pHelper->bClass != 5 && !JobGroupCheck(pHelper->bClass))
@@ -339,11 +340,11 @@ uint16 CUser::QuestV2SearchEligibleQuest(uint16 sNpcID)
 			|| !CheckExistEvent(pHelper->sEventDataIndex, pHelper->bEventStatus))
 			continue;
 
-
-		return 2;
+		return pHelper->nEventTriggerIndex;
 	}
 
-	return 0;
+	// NOTE: seems to work better when pulling straight from old EVTs
+	return pHelper->nEventTriggerIndex;
 }
 
 void CUser::QuestV2ShowMap(uint32 nQuestHelperID)

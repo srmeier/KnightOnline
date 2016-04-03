@@ -1235,8 +1235,8 @@ public:
 		uint32 arg = 2; // start from after the user instance.
 		int32 menuButtonText[MAX_MESSAGE_EVENT], 
 			menuButtonEvents[MAX_MESSAGE_EVENT];
-		uint8 bFlag = LUA_ARG(uint8, arg++);
-		int32 nQuestID = LUA_ARG_OPTIONAL(int32, -1, arg++);
+		uint8 bFlag = 0;//LUA_ARG(uint8, arg++);
+		int32 nQuestID = 0;//LUA_ARG_OPTIONAL(int32, -1, arg++);
 		int32 menuHeaderText = LUA_ARG(int32, arg++);
 
 		foreach_array(i, menuButtonText)
