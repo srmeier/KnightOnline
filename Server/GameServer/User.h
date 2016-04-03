@@ -1010,7 +1010,7 @@ public:
 		uint32 nUnk2, uint32 sUnk2,
 		uint32 nUnk3, uint32 sUnk3,
 		uint32 nUnk4, uint32 sUnk4);
-	uint16 QuestV2SearchEligibleQuest(uint16 sNpcID);
+	uint16 QuestV2SearchEligibleQuest(uint16 sEventDataIndex, uint16 sNpcID);
 	void QuestV2ShowMap(uint32 nQuestHelperID);
 	uint8 CheckMonsterCount(uint8 bGroup);
 
@@ -1201,7 +1201,10 @@ public:
 
 	DECLARE_LUA_FUNCTION(SearchQuest) {
 		CUser * pUser = LUA_GET_INSTANCE();
-		LUA_RETURN(pUser->QuestV2SearchEligibleQuest(LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 2))); // NPC ID
+		LUA_RETURN(pUser->QuestV2SearchEligibleQuest(
+			LUA_ARG(uint16, 2),
+			LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 3)
+		)); // NPC ID
 	}
 
 	DECLARE_LUA_FUNCTION(ShowMap) {

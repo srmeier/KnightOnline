@@ -101,6 +101,7 @@ bool CGameServerDlg::LoadQuestHelperTable()
 	Guard lock(m_questNpcLock);
 	m_QuestNpcList.clear();
 
+	/*
 	// NOTE: testing their quest LUA script system
 	_QUEST_HELPER *pData = new _QUEST_HELPER;
 
@@ -128,7 +129,7 @@ bool CGameServerDlg::LoadQuestHelperTable()
 	if (!m_QuestHelperArray.PutData(pData->nIndex, pData)) {
 		delete pData;
 	} else {
-		QuestNpcList * pList = &/*g_pMain->*/m_QuestNpcList;
+		QuestNpcList * pList = &m_QuestNpcList;
 		QuestNpcList::iterator itr = pList->find(pData->sNpcId);
 		if (itr == pList->end())
 		{
@@ -170,7 +171,7 @@ bool CGameServerDlg::LoadQuestHelperTable()
 		delete pData;
 	}
 	else {
-		QuestNpcList * pList = &/*g_pMain->*/m_QuestNpcList;
+		QuestNpcList * pList = &m_QuestNpcList;
 		QuestNpcList::iterator itr = pList->find(pData->sNpcId);
 		if (itr == pList->end())
 		{
@@ -211,7 +212,7 @@ bool CGameServerDlg::LoadQuestHelperTable()
 		delete pData;
 	}
 	else {
-		QuestNpcList * pList = &/*g_pMain->*/m_QuestNpcList;
+		QuestNpcList * pList = &m_QuestNpcList;
 		QuestNpcList::iterator itr = pList->find(pData->sNpcId);
 		if (itr == pList->end())
 		{
@@ -251,7 +252,7 @@ bool CGameServerDlg::LoadQuestHelperTable()
 		delete pData;
 	}
 	else {
-		QuestNpcList * pList = &/*g_pMain->*/m_QuestNpcList;
+		QuestNpcList * pList = &m_QuestNpcList;
 		QuestNpcList::iterator itr = pList->find(pData->sNpcId);
 		if (itr == pList->end())
 		{
@@ -260,9 +261,9 @@ bool CGameServerDlg::LoadQuestHelperTable()
 		}
 
 		itr->second.push_back(pData);
-	}
+	}*/
 
-	//LOAD_TABLE(CQuestHelperSet, g_DBAgent.m_GameDB, &m_QuestHelperArray,true, false);
+	LOAD_TABLE(CQuestHelperSet, g_DBAgent.m_GameDB, &m_QuestHelperArray,true, false);
 	return true;
 }
 

@@ -318,7 +318,7 @@ void CUser::QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1,
 	Send(&result);
 }
 
-uint16 CUser::QuestV2SearchEligibleQuest(uint16 sNpcID)
+uint16 CUser::QuestV2SearchEligibleQuest(uint16 sEventDataIndex, uint16 sNpcID)
 {
 	Guard lock(g_pMain->m_questNpcLock);
 	QuestNpcList::iterator itr = g_pMain->m_QuestNpcList.find(sNpcID);
@@ -331,20 +331,22 @@ uint16 CUser::QuestV2SearchEligibleQuest(uint16 sNpcID)
 	foreach (itr2, itr->second)
 	{
 		pHelper = (*itr2);
-		if (pHelper->bLevel > GetLevel()
+
+		if (pHelper->sEventDataIndex != sEventDataIndex) continue;
+
+		if (/*pHelper->bLevel > GetLevel()
 			|| (pHelper->bLevel == GetLevel() && pHelper->nExp > m_iExp)
-			|| (pHelper->bClass != 5 && !JobGroupCheck(pHelper->bClass))
+			||*/ (pHelper->bClass != 5 && !JobGroupCheck(pHelper->bClass))
 			|| (pHelper->bNation != 3 && pHelper->bNation != GetNation())
 			|| (pHelper->sEventDataIndex == 0)
-			|| (pHelper->bEventStatus < 0 || CheckExistEvent(pHelper->sEventDataIndex, 2))
+			//|| (pHelper->bEventStatus < 0 || CheckExistEvent(pHelper->sEventDataIndex, 2))
 			|| !CheckExistEvent(pHelper->sEventDataIndex, pHelper->bEventStatus))
 			continue;
 
 		return pHelper->nEventTriggerIndex;
 	}
 
-	// NOTE: seems to work better when pulling straight from old EVTs
-	return pHelper->nEventTriggerIndex;
+	return 0;
 }
 
 void CUser::QuestV2ShowMap(uint32 nQuestHelperID)
