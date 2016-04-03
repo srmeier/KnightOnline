@@ -6,11 +6,20 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - get the EVT system working
 ---
 
+- Isaac[event]
+	- Young adventurer!! There are many dangers lurking...
+	- Worm extermination
+		- You need to be level 10 or above in order to do...
+			- OK
+	- Gavolt extermination
+	- Collecting Silan bones
+	- Collecting Bulture bones
+	- Wold man extermination
+	
+	
 
 - it might be worth trying to manually add an item to the m_QuestNpcList object
-	to test this LUA script stuff
-- can get the scripts to work. need to add "SendDebugString" which the client
-	then prints out in the MsgOut UI
+	to test this LUA script stuff (should attempt to look at EVTs)
 
 
 - there is an EVENT class for each map zone
