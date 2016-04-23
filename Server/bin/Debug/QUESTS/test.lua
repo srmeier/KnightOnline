@@ -1,151 +1,160 @@
--- Testing script
-
--- nEventID
--- bSelectedReward
--- pNpc
--- pUser
-
 if nEventID == 35001 then
-
-	-- display the main menu
-	pUser:SelectMsg(35001, 2901, 35012, 2902, 35032, 2903, 35052, 2904, 35072, 2905, 35092);
-
+	pUser:SelectMsg(35001, 2901, 35012, 2902, 35032, 2903, 35052, 2904, 35072, 2905, 35092, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	return;
 elseif nEventID == 35012 then
-
-	-- WORM EXTERMINATION
-
-	local lvl = pUser:GetLevel();
-
-	if lvl >= 1 and lvl < 10 then
-		pUser:NpcSay(35002);
-	else
-		local nEventTriggerIndex = pUser:SearchQuest(30);
-
-		if nEventTriggerIndex == 35023 then -- 0
-			pUser:SelectMsg(35004, 2911, 35024, 2912, 35029);
-		elseif nEventTriggerIndex == 35025 then -- 1
-			if pUser:CheckExistItem(379048000, 10) then
-				pUser:SelectMsg(35007, 2914, 35030, 2915, 35029);
-			else
-				pUser:NpcSay(35006);
-			end
-		elseif nEventTriggerIndex == 35022 then -- 2
-			pUser:SelectMsg(35003, 2913, 35024, 2912, 35029);
-		end
-	end
-
-elseif nEventID == 35032 then
-
-	-- GAVOLT EXTERMINATION
-
-	local lvl = pUser:GetLevel();
-	
-	if lvl >= 1 and lvl < 10 then
-		pUser:NpcSay(35002);
-	else
-		local nEventTriggerIndex = pUser:SearchQuest(31);
-
-		if nEventTriggerIndex == 35043 then -- 0
-			pUser:SelectMsg(35011, 2911, 35044, 2912, 35049);
-		elseif nEventTriggerIndex == 35045 then -- 1
-			if pUser:CheckExistItem(379043000, 5) then
-				pUser:SelectMsg(35014, 2914, 35050, 2915, 35049);
-			else
-				pUser:NpcSay(35013);
-			end
-		elseif nEventTriggerIndex == 35042 then -- 2
-			pUser:SelectMsg(35010, 2913, 35044, 2912, 35049);
-		end
-	end
-
-elseif nEventID == 35052 then
-
-	-- COLLECTING SILAN BONES
-
-	local lvl = pUser:GetLevel();
-
-	if lvl >=1 and lvl < 10 then
-		pUser:NpcSay(35002);
-	else
-		local nEventTriggerIndex = pUser:SearchQuest(32);
-
-		if nEventTriggerIndex == 35063 then -- 0
-			pUser:SelectMsg(35018, 2911, 35064, 2912, 35069);
-		elseif nEventTriggerIndex == 35065 then -- 1
-			if pUser:CheckExistItem(379077000, 10) then
-				pUser:SelectMsg(35021, 2914, 35070, 2915, 35069);
-			else
-				pUser:NpcSay(35020);
-			end
-		elseif nEventTriggerIndex == 35062 then -- 2
-			pUser:SelectMsg(35018, 2911, 35064, 2912, 35069);
-		end
-	end
-
-elseif nEventID == 35072 then
-
-	pUser:SendDebugString("Fouth menu selected...");
-
-elseif nEventID == 35092 then
-
-	pUser:SendDebugString("Fifth menu selected...");
-
+local lvl = pUser:GetLevel();
+if lvl >= 1 and lvl < 10 then
+	pUser:NpcSay(35002);
+	return;
+end
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local count = pUser:HowMuchItem(379048000);
+if count >= 10 and count < 9999 then
+	pUser:SelectMsg(35007, 2914, 35030, 2915, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+local count = pUser:HowMuchItem(379048000);
+if count >= 0 and count < 9 then
+	pUser:NpcSay(35006);
+	return;
+end
+end
+end
+local state = pUser:SearchQuest(30);
+if state == 0 then
+local state = pUser:SearchQuest(30);
+if state == 0 then
+	pUser:SelectMsg(35004, 2911, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+end
+local state = pUser:SearchQuest(30);
+if state == 2 then
+local state = pUser:SearchQuest(30);
+if state == 2 then
+	pUser:SelectMsg(35003, 2913, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+end
+elseif nEventID == 35013 then
+local lvl = pUser:GetLevel();
+if lvl >= 1 and lvl < 10 then
+	pUser:NpcSay(35002);
+	return;
+end
+elseif nEventID == 35014 then
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local count = pUser:HowMuchItem(379048000);
+if count >= 10 and count < 9999 then
+	pUser:SelectMsg(35007, 2914, 35030, 2915, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+local count = pUser:HowMuchItem(379048000);
+if count >= 0 and count < 9 then
+	pUser:NpcSay(35006);
+	return;
+end
+end
+end
+local state = pUser:SearchQuest(30);
+if state == 0 then
+local state = pUser:SearchQuest(30);
+if state == 0 then
+	pUser:SelectMsg(35004, 2911, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+end
+local state = pUser:SearchQuest(30);
+if state == 2 then
+local state = pUser:SearchQuest(30);
+if state == 2 then
+	pUser:SelectMsg(35003, 2913, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+end
+elseif nEventID == 35015 then
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local count = pUser:HowMuchItem(379048000);
+if count >= 10 and count < 9999 then
+	pUser:SelectMsg(35007, 2914, 35030, 2915, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+local count = pUser:HowMuchItem(379048000);
+if count >= 0 and count < 9 then
+	pUser:NpcSay(35006);
+	return;
+end
+end
+end
+elseif nEventID == 35016 then
+local state = pUser:SearchQuest(30);
+if state == 0 then
+local state = pUser:SearchQuest(30);
+if state == 0 then
+	pUser:SelectMsg(35004, 2911, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+end
+elseif nEventID == 35017 then
+local state = pUser:SearchQuest(30);
+if state == 2 then
+local state = pUser:SearchQuest(30);
+if state == 2 then
+	pUser:SelectMsg(35003, 2913, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+end
+elseif nEventID == 35022 then
+local state = pUser:SearchQuest(30);
+if state == 2 then
+	pUser:SelectMsg(35003, 2913, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+elseif nEventID == 35023 then
+local state = pUser:SearchQuest(30);
+if state == 0 then
+	pUser:SelectMsg(35004, 2911, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
 elseif nEventID == 35024 then
-
+local state = pUser:SearchQuest(30);
+if state == 0 then
 	pUser:NpcSay(35005);
-	pUser:GiveItem(379048000, 10); -- temp for testing
-	pUser:SaveEvent(3); -- 1
-
+	pUser:SaveEvent(30, 1);
+end
+elseif nEventID == 35025 then
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local count = pUser:HowMuchItem(379048000);
+if count >= 10 and count < 9999 then
+	pUser:SelectMsg(35007, 2914, 35030, 2915, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+local count = pUser:HowMuchItem(379048000);
+if count >= 0 and count < 9 then
+	pUser:NpcSay(35006);
+	return;
+end
+end
+elseif nEventID == 35026 then
+local count = pUser:HowMuchItem(379048000);
+if count >= 10 and count < 9999 then
+	pUser:SelectMsg(35007, 2914, 35030, 2915, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+end
+elseif nEventID == 35027 then
+local count = pUser:HowMuchItem(379048000);
+if count >= 0 and count < 9 then
+	pUser:NpcSay(35006);
+	return;
+end
 elseif nEventID == 35029 then
-
 	pUser:NpcSay(35009);
-
 elseif nEventID == 35030 then
-
-	pUser:RobItem(379048000, 10);
-	pUser:ExpChange(500);
-	pUser:SaveEvent(4); -- 2
+local state = pUser:SearchQuest(30);
+if state == 1 then
+local count = pUser:HowMuchItem(379048000);
+if count >= 10 and count < 9999 then
+	pUser:SaveEvent(30, 2);
 	pUser:NpcSay(35008);
-
-elseif nEventID == 35044 then
-
-	pUser:NpcSay(35012);
-	pUser:GiveItem(379043000, 5); -- temp for testing
-	pUser:SaveEvent(6); -- 1
-
-elseif nEventID == 35049 then
-
-	pUser:NpcSay(35016);
-
-elseif nEventID == 35050 then
-
-	pUser:RobItem(379043000, 5);
-	pUser:ExpChange(700);
-	pUser:GiveItem(389062000, 5);
-	pUser:SaveEvent(7); -- 2
-	pUser:NpcSay(35015);
-
-elseif nEventID == 35064 then
-
-	pUser:NpcSay(35019);
-	pUser:GiveItem(379077000, 10); -- temp for testing
-	pUser:SaveEvent(9); -- 1
-
-elseif nEventID == 35069 then
-
-	pUser:NpcSay(35023);
-
-elseif nEventID == 35070 then
-
-	pUser:RobItem(379077000, 10);
-	pUser:ExpChange(1000);
-	pUser:GoldGain(50000);
-	pUser:SaveEvent(10); -- 2
-	pUser:NpcSay(35022);
-
+end
+end
 else
-
-	-- notice for missing nEventID
-	pUser:SendDebugString("Unprocessed event id ("..nEventID..")");
-
+	pUser:SendDebugString("Unprocessed event id("..nEventID..")");
 end
