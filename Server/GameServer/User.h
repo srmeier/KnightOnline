@@ -1004,7 +1004,7 @@ public:
 	void QuestV2CheckFulfill(_QUEST_HELPER * pQuestHelper);
 	bool QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32 nEventID, int8 bSelectedReward = 0);
 
-	void QuestV2SaveEvent(uint16 sQuestID);
+	void QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus);//uint16 sQuestID);
 	void QuestV2SendNpcMsg(uint32 nQuestID, uint16 sNpcID);
 	void QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1, 
 		uint32 nUnk2, uint32 sUnk2,
@@ -1156,6 +1156,13 @@ public:
 			LUA_ARG(const char*, 2)));
 	}
 
+	// NOTE(srmeier): for EVT compatibility. Also don't forget to make the method in lua_bindings.cpp!!
+	DECLARE_LUA_FUNCTION(HowMuchItem) {
+		LUA_RETURN(LUA_GET_INSTANCE()->GetItemCount(
+			LUA_ARG(uint32, 2)));
+	}
+
+
 	DECLARE_LUA_FUNCTION(GiveItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GiveItem(
 			LUA_ARG(uint32, 2), 
@@ -1196,7 +1203,10 @@ public:
 
 	DECLARE_LUA_FUNCTION(SaveEvent) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->QuestV2SaveEvent(
-			LUA_ARG(uint16, 2)));  // quest ID
+			//LUA_ARG(uint16, 2)));  // quest ID
+			LUA_ARG(uint16, 2), // sEventDataIndex
+			LUA_ARG(char, 3) // bEventStatus
+		));  // quest ID
 	}
 
 	DECLARE_LUA_FUNCTION(SearchQuest) {
