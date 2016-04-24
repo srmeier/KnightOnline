@@ -92,6 +92,7 @@ DEFINE_LUA_CLASS
 	// Here lie the useful methods.
 	MAKE_LUA_METHOD(SendDebugString)
 	MAKE_LUA_METHOD(HowMuchItem)
+	MAKE_LUA_METHOD(CheckClass)
 
 	MAKE_LUA_METHOD(GiveItem)
 	MAKE_LUA_METHOD(RobItem)

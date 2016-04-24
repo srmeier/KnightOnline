@@ -1162,6 +1162,19 @@ public:
 			LUA_ARG(uint32, 2)));
 	}
 
+	// NOTE(srmeier): the global CheckClass doesn't seem to match the Evt procedure I need
+	DECLARE_LUA_FUNCTION(CheckClass) {
+		LUA_RETURN(LUA_GET_INSTANCE()->CheckClass(
+			LUA_ARG(uint16, 2),
+			LUA_ARG_OPTIONAL(uint16, -1, 3),
+			LUA_ARG_OPTIONAL(uint16, -1, 4),
+			LUA_ARG_OPTIONAL(uint16, -1, 5),
+			LUA_ARG_OPTIONAL(uint16, -1, 6),
+			LUA_ARG_OPTIONAL(uint16, -1, 7)
+		));
+	}
+
+	//------------------------------------------------
 
 	DECLARE_LUA_FUNCTION(GiveItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GiveItem(

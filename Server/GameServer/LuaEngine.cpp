@@ -338,6 +338,8 @@ bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32 nEventID, int8 
 		return false;
 	}
 
+	printf("TEMP: running event %d.\n", nEventID);
+
 	lua_tsetglobal(m_luaState, "nEventID", nEventID);
 	lua_tsetglobal(m_luaState, "sUID", pUser->GetID());
 	lua_tsetglobal(m_luaState, "bSelectedReward", bSelectedReward);
