@@ -4,10 +4,12 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
 - issue where NPCs of opposite nation cannot be interacted with
+- need to get quests up and running
+
+
+
 - get colony zone working
-
-
-
+- there is an issue with the sprint skill. something with cooldown maybe
 - problem with item descriptions getting cutoff
 	- they all should fit now but it isn't automatically setting the size
 - skill descriptions aren't word wrapping
@@ -20,6 +22,7 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	- requires testing of weapons and armor and stuff
 
 ===============================================================================
+QUEST_HELPER
 nIndex;              -> useful for SaveEvent()
 bMessageType;        -> not used at all
 bLevel;              -> currently not used (checked in script like EVT)

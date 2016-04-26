@@ -299,6 +299,7 @@ void CUser::QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus)//uint16 
 	SaveEvent(pQuestHelper->sEventDataIndex, pQuestHelper->bEventStatus);
 	*/
 
+	// NOTE(srmeier): this allows for easy Evt convertion to new system
 	SaveEvent(sEventDataIndex, bEventStatus);
 }
 
