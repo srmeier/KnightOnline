@@ -3,9 +3,23 @@ git reset --hard e2cec75
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
-- get the EVT system working
----
+- issue where NPCs of opposite nation cannot be interacted with
+- get colony zone working
 
+
+
+- problem with item descriptions getting cutoff
+	- they all should fit now but it isn't automatically setting the size
+- skill descriptions aren't word wrapping
+- fix the UI issues and support 1298 UI
+	- this should include rewriting the UIF editor program
+- fixed so that it compiles with debug config
+	- better to wait until I can start with blank new projects
+- take a look at the new zone files 1298 added (ens, gev, etc.)
+- support all 1068 file formats
+	- requires testing of weapons and armor and stuff
+
+===============================================================================
 nIndex;              -> useful for SaveEvent()
 bMessageType;        -> not used at all
 bLevel;              -> currently not used (checked in script like EVT)
@@ -22,19 +36,3 @@ nEventCompleteIndex; -> not currently used (requires packet from client)
 nExchangeIndex;      -> not used at all
 nEventTalkIndex;     -> not used at all
 strLuaFilename;      -> Lua script executed
-
----
-
-- get colony zone working
-
-
-- problem with item descriptions getting cutoff
-	- they all should fit now but it isn't automatically setting the size
-- skill descriptions aren't word wrapping
-- fix the UI issues and support 1298 UI
-	- this should include rewriting the UIF editor program
-- fixed so that it compiles with debug config
-	- better to wait until I can start with blank new projects
-- take a look at the new zone files 1298 added (ens, gev, etc.)
-- support all 1068 file formats
-	- requires testing of weapons and armor and stuff
