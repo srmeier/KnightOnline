@@ -126,7 +126,7 @@ void CN3UIBase::SetParent(CN3UIBase* pParent)
 	m_pParent = pParent;
 	if (m_pParent) m_pParent->AddChild(this);
 
-	if(pParent) m_iVersion = pParent->m_iVersion;
+	if(pParent) m_iFileFormatVersion = pParent->m_iFileFormatVersion;
 }
 
 POINT CN3UIBase::GetPos() const
@@ -230,7 +230,7 @@ bool CN3UIBase::Load(HANDLE hFile)
 
 	// children Á¤º¸
 	int iCC = 0;
-	if(m_iVersion == N3FORMAT_VER_1298) {
+	if(m_iFileFormatVersion == N3FORMAT_VER_1298) {
 		//char temp[0xFF];
 
 		short sCC, sIdk0;

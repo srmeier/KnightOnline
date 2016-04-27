@@ -52,7 +52,7 @@ bool CN3CPartSkins::Load(HANDLE hFile)
 	CN3BaseFileAccess::Load(hFile);
 	for(int i = 0; i < MAX_CHR_LOD; i++)
 	{
-		m_Skins[i].m_iVersion = m_iVersion;
+		m_Skins[i].m_iFileFormatVersion = m_iFileFormatVersion;
 		m_Skins[i].Load(hFile);
 	}
 
@@ -600,7 +600,7 @@ bool CN3CPlug::Load(HANDLE hFile)
 	if(iUseVMesh)
 	{
 		CN3PMesh* pPMesh = new CN3PMesh();
-		pPMesh->m_iVersion = m_iVersion; // NOTE: Setting the version for further components
+		pPMesh->m_iFileFormatVersion = m_iFileFormatVersion; // NOTE: Setting the version for further components
 
 		pPMesh->Load(hFile);
 		static int iSN = 0;

@@ -147,7 +147,10 @@
 #define WIZ_DEATH_LIST			0x90
 #define WIZ_CLANPOINTS_BATTLE	0x91 // not sure
 
-#define WIZ_TEST_PACKET			0xff	// Test packet
+// NOTE(srmeier): testing this debug string functionality
+#define WIZ_DEBUG_STRING_PACKET 0xFE
+
+#define WIZ_TEST_PACKET			0xFF	// Test packet
 
 enum CoinChangeOpcodes
 {

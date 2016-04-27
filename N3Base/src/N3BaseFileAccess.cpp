@@ -17,7 +17,7 @@ static char THIS_FILE[]=__FILE__;
 
 CN3BaseFileAccess::CN3BaseFileAccess()
 {
-	m_iVersion = N3FORMAT_VER_UNKN;
+	m_iFileFormatVersion = N3FORMAT_VER_UNKN;
 
 	m_dwType |= OBJ_BASE_FILEACCESS;
 	m_szFileName = "";
@@ -47,7 +47,7 @@ void CN3BaseFileAccess::FileNameSet(const std::string& szFileName)
 
 bool CN3BaseFileAccess::Load(HANDLE hFile)
 {
-	if(m_iVersion == N3FORMAT_VER_UNKN) {
+	if(m_iFileFormatVersion == N3FORMAT_VER_UNKN) {
 		// NOTE: unknow version format
 		printf("Unknown version type\n");
 	}
@@ -112,7 +112,7 @@ bool CN3BaseFileAccess::LoadFromFile()
 
 bool CN3BaseFileAccess::LoadFromFile(const std::string& szFileName, int iVer)
 {
-	m_iVersion = iVer;
+	m_iFileFormatVersion = iVer;
 	this->FileNameSet(szFileName);
 	return this->LoadFromFile();
 }

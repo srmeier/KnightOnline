@@ -258,14 +258,10 @@ const int SOCKET_PORT_LOGIN = 15100;
 #define N3_QUEST_TALK					0x56	// 퀘스트 대화
 
 
+// NOTE(srmeier): testing this debug string functionality
+#define N3_DEBUG_STRING_TEST 0xFE
 
 
-
-
-
-
-
-#define N3_TEMP_TEST 0xff // 임시 테스트..
+#define N3_TEMP_TEST 0xFF // 임시 테스트..
 
 #endif // end of #ifndef __PACKET_DEF_H_
-

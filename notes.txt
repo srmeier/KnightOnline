@@ -3,22 +3,39 @@ git reset --hard e2cec75
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
-- the issue here is that item files in the data directory aren't accessable
-	from the item table
-- [244003000] (basic table)
-- [----2----] (added for some reason)
-- [---1-----] (seems that 0/1 is used to differentiate orc (0) from human (1))
+- issue where NPCs of opposite nation cannot be interacted with
+- need to get quests up and running
 
-- got a chest piece for the rogue to work but I have to rename a .n3cpart file
-- get character creation working
 
-- support all 1068 file formats
-	- requires testing of weapons and armor and stuff
-- need to check progess UI on statebar
-- need to get the teleporter to work
-	- a fully working tele would require a DB
-	- need something that will work well for a DevServe
-- setup dev server with no DB
+
+- get colony zone working
+- there is an issue with the sprint skill. something with cooldown maybe
+- problem with item descriptions getting cutoff
+	- they all should fit now but it isn't automatically setting the size
+- skill descriptions aren't word wrapping
+- fix the UI issues and support 1298 UI
+	- this should include rewriting the UIF editor program
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
 - take a look at the new zone files 1298 added (ens, gev, etc.)
+- support all 1068 file formats
+	- requires testing of weapons and armor and stuff
+
+===============================================================================
+QUEST_HELPER
+nIndex;              -> useful for SaveEvent()
+bMessageType;        -> not used at all
+bLevel;              -> currently not used (checked in script like EVT)
+nExp;                -> currently not used
+bClass;
+bNation;
+bQuestType;          -> not currently used (requires packet from client)
+bZone;               -> zone where quest is located (doesn't seem to be in use)
+sNpcId;              -> NPCs sSid
+sEventDataIndex;     -> the quest ID (one quest has multiple states)
+bEventStatus;        -> the quest state
+nEventTriggerIndex;  -> returned by SearchQuest() to switch on quest state
+nEventCompleteIndex; -> not currently used (requires packet from client)
+nExchangeIndex;      -> not used at all
+nEventTalkIndex;     -> not used at all
+strLuaFilename;      -> Lua script executed

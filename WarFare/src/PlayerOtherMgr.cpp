@@ -166,8 +166,11 @@ void CPlayerOtherMgr::Render(float fSunAngle)
 
 		for(int i = iUPCSize - 1; i >= 0; i--)
 		{
+			if (!UPCs[i]->m_bVisible) continue;
+			/*
 			if(UPCs[i]->m_InfoBase.iAuthority == AUTHORITY_MANAGER)
 				continue;//this_authority
+			*/
 
 			UPCs[i]->Render(fSunAngle);
 		}
