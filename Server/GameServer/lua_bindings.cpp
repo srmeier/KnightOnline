@@ -90,6 +90,10 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(hasManner)
 
 	// Here lie the useful methods.
+	MAKE_LUA_METHOD(SendDebugString)
+	MAKE_LUA_METHOD(HowMuchItem)
+	MAKE_LUA_METHOD(CheckClass)
+
 	MAKE_LUA_METHOD(GiveItem)
 	MAKE_LUA_METHOD(RobItem)
 	MAKE_LUA_METHOD(CheckExistItem)

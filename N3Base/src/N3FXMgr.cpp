@@ -50,7 +50,7 @@ CN3FXMgr::~CN3FXMgr()
 //
 //
 //
-void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int TargetID, int Joint, int idx, int MoveType)
+void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int TargetID, int Joint, int idx, int MoveType, int iVer)
 {
 	__TABLE_FX* pFX = s_pTbl_FXSource->Find(FXID);
 	if(!pFX) return;
@@ -85,7 +85,7 @@ void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int Target
 	{
 		LPFXBUNDLEORIGIN pSrc = new FXBUNDLEORIGIN;
 		pSrc->pBundle = new CN3FXBundleGame;
-		pSrc->pBundle->LoadFromFile(strTmp);
+		pSrc->pBundle->LoadFromFile(strTmp, iVer);
 
 		CN3FXBundleGame* pBundle = new CN3FXBundleGame;
 
@@ -109,7 +109,7 @@ void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int Target
 //
 //
 //
-void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 TargetPos, int idx, int MoveType)
+void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 TargetPos, int idx, int MoveType, int iVer)
 {
 	__TABLE_FX* pFX = s_pTbl_FXSource->Find(FXID);
 	if(!pFX) return; 
@@ -141,7 +141,7 @@ void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 
 	{
 		LPFXBUNDLEORIGIN pSrc = new FXBUNDLEORIGIN;
 		pSrc->pBundle = new CN3FXBundleGame;
-		pSrc->pBundle->LoadFromFile(pFX->szFN);
+		pSrc->pBundle->LoadFromFile(pFX->szFN, iVer);
 
 		CN3FXBundleGame* pBundle = new CN3FXBundleGame;
 

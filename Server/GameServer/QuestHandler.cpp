@@ -289,13 +289,18 @@ bool CUser::QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32 nEventID, int8 
 These are called by quest scripts. 
 */
 
-void CUser::QuestV2SaveEvent(uint16 sQuestID)
+void CUser::QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus)//uint16 sQuestID)
 {
+	/*
 	_QUEST_HELPER * pQuestHelper = g_pMain->m_QuestHelperArray.GetData(sQuestID);
 	if (pQuestHelper == nullptr)
 		return;
 
 	SaveEvent(pQuestHelper->sEventDataIndex, pQuestHelper->bEventStatus);
+	*/
+
+	// NOTE(srmeier): this allows for easy Evt convertion to new system
+	SaveEvent(sEventDataIndex, bEventStatus);
 }
 
 void CUser::QuestV2SendNpcMsg(uint32 nQuestID, uint16 sNpcID)
@@ -318,7 +323,7 @@ void CUser::QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1,
 	Send(&result);
 }
 
-uint16 CUser::QuestV2SearchEligibleQuest(uint16 sNpcID)
+uint16 CUser::QuestV2SearchEligibleQuest(uint16 sEventDataIndex, uint16 sNpcID)
 {
 	Guard lock(g_pMain->m_questNpcLock);
 	QuestNpcList::iterator itr = g_pMain->m_QuestNpcList.find(sNpcID);
@@ -327,20 +332,24 @@ uint16 CUser::QuestV2SearchEligibleQuest(uint16 sNpcID)
 		return 0;
 
 	// Loop through all the QuestHelper instances attached to that NPC.
+	_QUEST_HELPER * pHelper = NULL;
 	foreach (itr2, itr->second)
 	{
-		_QUEST_HELPER * pHelper = (*itr2);
-		if (pHelper->bLevel > GetLevel()
+		pHelper = (*itr2);
+
+		if (pHelper->sEventDataIndex != sEventDataIndex) continue;
+
+		if (/*pHelper->bLevel > GetLevel()
 			|| (pHelper->bLevel == GetLevel() && pHelper->nExp > m_iExp)
-			|| (pHelper->bClass != 5 && !JobGroupCheck(pHelper->bClass))
+			||*/ (pHelper->bClass != 5 && !JobGroupCheck(pHelper->bClass))
 			|| (pHelper->bNation != 3 && pHelper->bNation != GetNation())
 			|| (pHelper->sEventDataIndex == 0)
-			|| (pHelper->bEventStatus < 0 || CheckExistEvent(pHelper->sEventDataIndex, 2))
+			//|| (pHelper->bEventStatus < 0 || CheckExistEvent(pHelper->sEventDataIndex, 2))
 			|| !CheckExistEvent(pHelper->sEventDataIndex, pHelper->bEventStatus))
 			continue;
 
-
-		return 2;
+		// NOTE: testing the option to just return the status (makes EVT conversion easier)
+		return pHelper->bEventStatus;//pHelper->nEventTriggerIndex;
 	}
 
 	return 0;

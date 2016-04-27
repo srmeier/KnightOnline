@@ -235,13 +235,15 @@ BOOL CUIQuestMenu::MoveOffset(int iOffsetX, int iOffsetY)
 	return TRUE;
 }
 
-void CUIQuestMenu::MsgSend_SelectMenu(int index)
+void CUIQuestMenu::MsgSend_SelectMenu(Uint8 index)
 {
+	// TODO(srmeier): will have to look into whether bySelectedReward needs adding
+
 	BYTE byBuff[10];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_QUEST_SELECT);
-	CAPISocket::MP_AddDword(byBuff, iOffset, index);
+	CAPISocket::MP_AddByte(byBuff, iOffset, index);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
 
