@@ -445,6 +445,21 @@ bool CN3FXPartParticles::Load(HANDLE hFile)
 		ReadFile(hFile, &m_fScaleVelY, sizeof(float), &dwRWC, NULL);
 	}
 
+	if (m_iFileFormatVersion == N3FORMAT_VER_2062) {
+		// NOTE: this needs further testing
+		bool bIDK0;
+		ReadFile(hFile, &bIDK0, sizeof(bool), &dwRWC, NULL);
+
+		// NOTE: this needs further testing - there seems to be 72 bytes following this boolean if the
+		// boolean is set to true...
+		bool bIDK1;
+		ReadFile(hFile, &bIDK1, sizeof(bool), &dwRWC, NULL);
+		if (bIDK1) {
+			char pIDK3[72];
+			ReadFile(hFile, pIDK3, sizeof(char)*72, &dwRWC, NULL);
+		}
+	}
+
 	Init();
 
 	return true;

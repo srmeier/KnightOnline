@@ -50,8 +50,8 @@ public:
 	float						m_fOriginLimitedTime;
 	
 public:
-	void	TriggerBundle(int SourceID, int SourceJoint, int FXID, int TargetID, int TargetJoint, int idx = 0, int MoveType = FX_BUNDLE_MOVE_NONE);
-	void	TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 TargetPos, int idx = 0, int MoveType = FX_BUNDLE_MOVE_NONE);
+	void	TriggerBundle(int SourceID, int SourceJoint, int FXID, int TargetID, int TargetJoint, int idx = 0, int MoveType = FX_BUNDLE_MOVE_NONE, int iVer = N3FORMAT_VER_DEFAULT);
+	void	TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 TargetPos, int idx = 0, int MoveType = FX_BUNDLE_MOVE_NONE, int iVer = N3FORMAT_VER_DEFAULT);
 	void	Stop(int SourceID, int TargetID, int FXID = -1, int idx = 0, bool immediately = false);
 	void	StopMine();
 	void	Tick();

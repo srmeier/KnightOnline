@@ -15,6 +15,8 @@ enum e_LogInClassification { LIC_KNIGHTONLINE = 0, LIC_MGAME = 1, LIC_DAUM = 2 }
 #include "GameDef.h"
 #include "GameBase.h"
 
+#include "N3WorldManager.h"
+
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_ttf.h"
 #include "SDL2/SDL_net.h"
@@ -104,6 +106,9 @@ public:
 	static bool		s_bWindowed; // 창모드 실행??
 	static bool		s_bKeyPress;	//키가 눌려졌을때 ui에서 해당하는 조작된적이 있다면
 	static bool		s_bKeyPressed;	//키가 올라갔을때 ui에서 해당하는 조작된적이 있다면
+
+	// NOTE: adding boolean to check if window has focus or not
+	static bool		s_bIsWindowInFocus;
 
 public:
 	static std::string MessageBoxPost(const std::string& szMsg, const std::string& szTitle, int iStyle, e_Behavior eBehavior = BEHAVIOR_NOTHING);

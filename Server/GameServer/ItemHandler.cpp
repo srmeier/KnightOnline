@@ -461,6 +461,16 @@ bool CUser::RobAllItemParty(uint32 nItemID, uint16 sCount /*= 1*/)
 	return true;
 }
 
+// NOTE(srmeier): testing this debug string functionality
+void CUser::SendDebugString(const char* pString) {
+	Packet result(WIZ_DEBUG_STRING_PACKET);
+
+	std::string tempStr(pString);
+	result << tempStr;
+
+	Send(&result);
+}
+
 bool CUser::GiveItem(uint32 itemid, uint16 count, bool send_packet /*= true*/, uint32 Time)
 {
 	int8 pos;

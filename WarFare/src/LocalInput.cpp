@@ -260,6 +260,17 @@ void CLocalInput::Tick(void) {
 				m_byCurKeys[uSDLEvents.key.keysym.scancode] = 0x01;
 			} break;
 
+			case SDL_WINDOWEVENT: {
+				switch (uSDLEvents.window.event) {
+					case SDL_WINDOWEVENT_FOCUS_GAINED:
+						CGameProcedure::s_bIsWindowInFocus = true;
+						break;
+					case SDL_WINDOWEVENT_FOCUS_LOST:
+						CGameProcedure::s_bIsWindowInFocus = false;
+						break;
+				}
+			} break;
+
 			case SDL_SYSWMEVENT: {
 				// TEMP: until things become less window's dependent
 				WndProcMain(uSDLEvents.syswm.msg->msg.win.hwnd,

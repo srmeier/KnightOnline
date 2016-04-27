@@ -1256,7 +1256,7 @@ void CUser::RequestUserIn(Packet & pkt)
 		if (pUser == nullptr || !pUser->isInGame())
 			continue;
 
-		result << uint8(0) << pUser->GetSocketID();
+		result /*<< uint8(0)*/ << pUser->GetSocketID();
 		pUser->GetUserInfo(result);
 
 		online_count++;
@@ -2792,7 +2792,7 @@ void CUser::StateChange(Packet & pkt)
 */
 void CUser::StateChangeServerDirect(uint8 bType, uint32 nBuff)
 {
-	uint8 buff = *(uint8 *)&nBuff; // don't ask
+	uint8 buff = nBuff;//*(uint8 *)&nBuff; // don't ask
 	switch (bType)
 	{
 	case 1:
@@ -2811,15 +2811,15 @@ void CUser::StateChangeServerDirect(uint8 bType, uint32 nBuff)
 		if (isGM())
 			StateChangeServerDirect(5, 1);
 
-		m_bAbnormalType = nBuff;
+		m_bAbnormalType = buff;
 		break;
 
 	case 5:
-		m_bAbnormalType = nBuff;
+		m_bAbnormalType = buff;
 		break;
 
 	case 6:
-		nBuff = m_bPartyLeader; // we don't set this here.
+		buff = m_bPartyLeader; // we don't set this here.
 		break;
 
 	case 7:
@@ -2831,7 +2831,7 @@ void CUser::StateChangeServerDirect(uint8 bType, uint32 nBuff)
 	}
 
 	Packet result(WIZ_STATE_CHANGE);
-	result << GetSocketID() << bType << nBuff; 
+	result << GetSocketID() << bType << buff;//nBuff; 
 	SendToRegion(&result);
 }
 
