@@ -1,0 +1,7 @@
+*.tlog
+*.idb
+*.res
+*.map
+*.log
+*.pdb
+data/Log.txt

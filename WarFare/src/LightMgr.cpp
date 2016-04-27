@@ -168,7 +168,7 @@ void CLightMgr::LoadZoneLight(const char* szFN)
 	for(int i=0;i<cnt;i++)
 	{
 		CN3Light* pLgt = new CN3Light;
-		pLgt->m_iVersion = N3FORMAT_VER_DEFAULT;
+		pLgt->m_iFileFormatVersion = N3FORMAT_VER_DEFAULT;
 
 		pLgt->Load(hFile);
 		AddLight(pLgt);

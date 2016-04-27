@@ -438,6 +438,12 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 	ReadFile(hFile, &cTmp, sizeof(unsigned char), &dwRWC, NULL);
 	m_iBaseVersion = (int)cTmp;
 
+	if (m_iFileFormatVersion == N3FORMAT_VER_2062) {
+		int iIDK0, iIDK1;
+		ReadFile(hFile, &iIDK0, sizeof(int), &dwRWC, NULL);
+		ReadFile(hFile, &iIDK1, sizeof(int), &dwRWC, NULL);
+	}
+
 	ReadFile(hFile, &m_fLife, sizeof(float), &dwRWC, NULL);
 	if(m_fLife > 10.0f) m_fLife = 10.0f;
 
@@ -474,6 +480,11 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 		ReadFile(hFile, &m_fFadeIn, sizeof(float), &dwRWC, NULL);
 
 		ReadFile(hFile, &m_dwRenderFlag, sizeof(DWORD), &dwRWC, NULL);
+
+		if (m_iFileFormatVersion == N3FORMAT_VER_2062) {
+			char strIDK0[MAX_PATH] = "";
+			ReadFile(hFile, strIDK0, MAX_PATH, &dwRWC, NULL);
+		}
 		
 		if(m_dwRenderFlag & RF_NOTZBUFFER) m_dwZEnable = D3DZB_FALSE;
 		else m_dwZEnable = D3DZB_TRUE;

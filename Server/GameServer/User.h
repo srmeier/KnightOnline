@@ -593,6 +593,10 @@ public:
 	void SendSay(int32 nTextID[8]);
 	void SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText, 
 		int32 menuButtonText[MAX_MESSAGE_EVENT], int32 menuButtonEvents[MAX_MESSAGE_EVENT]);
+
+	// NOTE(srmeier): testing this debug string functionality
+	void SendDebugString(const char* pString);
+
 	bool CheckClass(short class1, short class2 = -1, short class3 = -1, short class4 = -1, short class5 = -1, short class6 = -1);
 	bool GiveItem(uint32 nItemID, uint16 sCount = 1, bool send_packet = true, uint32 Time = 0);
 	bool RobItem(uint32 nItemID, uint32 sCount = 1);
@@ -1000,13 +1004,13 @@ public:
 	void QuestV2CheckFulfill(_QUEST_HELPER * pQuestHelper);
 	bool QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32 nEventID, int8 bSelectedReward = 0);
 
-	void QuestV2SaveEvent(uint16 sQuestID);
+	void QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus);//uint16 sQuestID);
 	void QuestV2SendNpcMsg(uint32 nQuestID, uint16 sNpcID);
 	void QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1, 
 		uint32 nUnk2, uint32 sUnk2,
 		uint32 nUnk3, uint32 sUnk3,
 		uint32 nUnk4, uint32 sUnk4);
-	uint16 QuestV2SearchEligibleQuest(uint16 sNpcID);
+	uint16 QuestV2SearchEligibleQuest(uint16 sEventDataIndex, uint16 sNpcID);
 	void QuestV2ShowMap(uint32 nQuestHelperID);
 	uint8 CheckMonsterCount(uint8 bGroup);
 
@@ -1145,6 +1149,33 @@ public:
 	}
 
 	// The useful method wrappers
+
+	// NOTE(srmeier): testing this debug string functionality
+	DECLARE_LUA_FUNCTION(SendDebugString) {
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendDebugString(
+			LUA_ARG(const char*, 2)));
+	}
+
+	// NOTE(srmeier): for EVT compatibility. Also don't forget to make the method in lua_bindings.cpp!!
+	DECLARE_LUA_FUNCTION(HowMuchItem) {
+		LUA_RETURN(LUA_GET_INSTANCE()->GetItemCount(
+			LUA_ARG(uint32, 2)));
+	}
+
+	// NOTE(srmeier): the global CheckClass doesn't seem to match the Evt procedure I need
+	DECLARE_LUA_FUNCTION(CheckClass) {
+		LUA_RETURN(LUA_GET_INSTANCE()->CheckClass(
+			LUA_ARG(uint16, 2),
+			LUA_ARG_OPTIONAL(uint16, -1, 3),
+			LUA_ARG_OPTIONAL(uint16, -1, 4),
+			LUA_ARG_OPTIONAL(uint16, -1, 5),
+			LUA_ARG_OPTIONAL(uint16, -1, 6),
+			LUA_ARG_OPTIONAL(uint16, -1, 7)
+		));
+	}
+
+	//-------------------------------------------------------------------------
+
 	DECLARE_LUA_FUNCTION(GiveItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GiveItem(
 			LUA_ARG(uint32, 2), 
@@ -1185,12 +1216,18 @@ public:
 
 	DECLARE_LUA_FUNCTION(SaveEvent) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->QuestV2SaveEvent(
-			LUA_ARG(uint16, 2)));  // quest ID
+			//LUA_ARG(uint16, 2)));  // quest ID
+			LUA_ARG(uint16, 2), // sEventDataIndex
+			LUA_ARG(char, 3) // bEventStatus
+		));  // quest ID
 	}
 
 	DECLARE_LUA_FUNCTION(SearchQuest) {
 		CUser * pUser = LUA_GET_INSTANCE();
-		LUA_RETURN(pUser->QuestV2SearchEligibleQuest(LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 2))); // NPC ID
+		LUA_RETURN(pUser->QuestV2SearchEligibleQuest(
+			LUA_ARG(uint16, 2),
+			LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 3)
+		)); // NPC ID
 	}
 
 	DECLARE_LUA_FUNCTION(ShowMap) {
@@ -1224,8 +1261,8 @@ public:
 		uint32 arg = 2; // start from after the user instance.
 		int32 menuButtonText[MAX_MESSAGE_EVENT], 
 			menuButtonEvents[MAX_MESSAGE_EVENT];
-		uint8 bFlag = LUA_ARG(uint8, arg++);
-		int32 nQuestID = LUA_ARG_OPTIONAL(int32, -1, arg++);
+		uint8 bFlag = 0;//LUA_ARG(uint8, arg++);
+		int32 nQuestID = 0;//LUA_ARG_OPTIONAL(int32, -1, arg++);
 		int32 menuHeaderText = LUA_ARG(int32, arg++);
 
 		foreach_array(i, menuButtonText)

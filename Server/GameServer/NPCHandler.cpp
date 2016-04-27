@@ -287,10 +287,10 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 void CUser::RecvSelectMsg(Packet & pkt)	// Receive menu reply from client.
 {
 	uint8 bMenuID = pkt.read<uint8>();
-	string szLuaFilename;
+	//string szLuaFilename;
 	int8 bySelectedReward = -1;
-	pkt.SByte();
-	pkt >> szLuaFilename >> bySelectedReward;
+	//pkt.SByte();
+	//pkt >> szLuaFilename >> bySelectedReward;
 
 	if (!AttemptSelectMsg(bMenuID, bySelectedReward))
 		memset(&m_iSelMsgEvent, -1, sizeof(m_iSelMsgEvent));
@@ -317,7 +317,7 @@ bool CUser::AttemptSelectMsg(uint8 bMenuID, int8 bySelectedReward)
 void CUser::SendSay(int32 nTextID[8])
 {
 	Packet result(WIZ_NPC_SAY);
-	result << int32(-1) << int32(-1);
+	/*result << int32(-1) << int32(-1);*/
 	foreach_array_n(i, nTextID, 8)
 		result << nTextID[i];
 	Send(&result);
@@ -332,12 +332,12 @@ void CUser::SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText,
 
 	// Send the menu to the client
 	Packet result(WIZ_SELECT_MSG);
-	result.SByte();
+	//result.SByte();
 
-	result << m_sEventSid << bFlag << nQuestID << menuHeaderText;
+	result << m_sEventSid /*<< bFlag << nQuestID*/ << menuHeaderText;
 	foreach_array_n(i, menuButtonText, MAX_MESSAGE_EVENT)
 		result << menuButtonText[i];
-	result << pHelper->strLuaFilename;
+	/*result << pHelper->strLuaFilename;*/
 	Send(&result);
 
 	// and store the corresponding event IDs.
@@ -354,7 +354,7 @@ void CUser::NpcEvent(Packet & pkt)
 	Packet result;
 	uint16 sNpcID = pkt.read<uint16>();
 	//uint8 bUnknown = pkt.read<uint8>();
-	int32 nQuestID = pkt.read<int32>();
+	//int32 nQuestID = pkt.read<int32>();
 
 	CNpc *pNpc = g_pMain->GetNpcPtr(sNpcID);
 	if (pNpc == nullptr

@@ -787,7 +787,7 @@ void CUISkillTreeDlg::CheckButtonTooltipRenderEnable()
 			rect[SKILL_DEF_SPECIAL0]	= ((CN3UIButton* )GetChildByID("btn_blade0"))->GetClickRect();
 			rect[SKILL_DEF_SPECIAL1]	= ((CN3UIButton* )GetChildByID("btn_blade1"))->GetClickRect();
 			rect[SKILL_DEF_SPECIAL2]	= ((CN3UIButton* )GetChildByID("btn_blade2"))->GetClickRect();
-			rect[SKILL_DEF_SPECIAL3]	= ((CN3UIButton* )GetChildByID("btn_blade3"))->GetClickRect();
+			//rect[SKILL_DEF_SPECIAL3]	= ((CN3UIButton* )GetChildByID("btn_blade3"))->GetClickRect();
 			break;
 		case NATION_KARUS:
 			rect[SKILL_DEF_SPECIAL0]	= ((CN3UIButton* )GetChildByID("btn_berserker0"))->GetClickRect();

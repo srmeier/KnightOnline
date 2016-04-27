@@ -184,6 +184,58 @@ void CUIManager::Render()
 	CN3UIBase::Render();	// 자식들 render
 	if (s_pTooltipCtrl) s_pTooltipCtrl->Render();	// tooltip render
 
+	/*
+	NOTE: there is a very weird issue with setting the render state and displaying text.
+	- when the debug info is being displayed and you change window focus weird shit happens
+	- currently just sticking this in here. it will work here but will end up showing during
+	every game procedure which is somewhat unwanted right now...
+	*/
+	////////////////////////////////////////////////////////
+	if (false) {
+		CDFont* m_pDFont = new CDFont("굴림", 10);	// default 로 굴림 16으로 설정
+		m_pDFont->InitDeviceObjects(CN3Base::s_lpD3DDev);
+		m_pDFont->RestoreDeviceObjects();
+
+		static char szDebugs[4][256] = { "", "", "", "" };
+
+		sprintf(szDebugs[0], "nTerrain_Polygon(%d), nTerrain_Tile_Polygon(%d), nShape(%d), nShape_Part(%d), nShape_Polygon(%d)",
+			CN3Base::s_RenderInfo.nTerrain_Polygon,
+			CN3Base::s_RenderInfo.nTerrain_Tile_Polygon,
+			CN3Base::s_RenderInfo.nShape,
+			CN3Base::s_RenderInfo.nShape_Part,
+			CN3Base::s_RenderInfo.nShape_Polygon
+		);
+
+		sprintf(szDebugs[1], "nChr(%d), nChr_Part(%d), nChr_Polygon(%d), nChr_Plug(%d), nChr_Plug_Polygon(%d)",
+			CN3Base::s_RenderInfo.nChr,
+			CN3Base::s_RenderInfo.nChr_Part,
+			CN3Base::s_RenderInfo.nChr_Polygon,
+			CN3Base::s_RenderInfo.nChr_Plug,
+			CN3Base::s_RenderInfo.nChr_Plug_Polygon
+		);
+
+		sprintf(szDebugs[2], "Camera : FieldOfView(%.1f), NearPlane(%.1f) FarPlane(%.1f)",
+			D3DXToDegree(CN3Base::s_CameraData.fFOV),
+			CN3Base::s_CameraData.fNP,
+			CN3Base::s_CameraData.fFP
+		);
+
+		if (CGameProcedure::s_pProcMain && CGameBase::ACT_WORLD && CGameBase::ACT_WORLD->GetSkyRef()) {
+			int iYear = 0, iMonth = 0, iDay = 0, iH = 0, iM = 0;
+			CGameBase::ACT_WORLD->GetSkyRef()->GetGameTime(&iYear, &iMonth, &iDay, &iH, &iM);
+			sprintf(szDebugs[3], "%.2f:FPS, %d/%d/%d : %d:%d", CN3Base::s_fFrmPerSec, iYear, iMonth, iDay, iH, iM);
+		}
+		else szDebugs[3][0] = NULL;
+
+		for (int i = 0; i<4; ++i) {
+			m_pDFont->SetText(szDebugs[i]);
+			m_pDFont->DrawText(100, 100 + i * 18, 0xFFFFFFFF, 0);
+		}
+
+		delete m_pDFont;
+	}
+	////////////////////////////////////////////////////////
+
 	this->RenderStateRestore();
 }
 

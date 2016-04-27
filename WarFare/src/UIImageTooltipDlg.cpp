@@ -972,7 +972,7 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 		if( iNeedValue > 0)			
 		{
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			szStr = "Required Magic Attack: %d";//::_LoadStringFromResource(IDS_TOOLTIP_NEEDMAGICATTACK, szStr);
+			szStr = "Req Magic Attack: %d";//::_LoadStringFromResource(IDS_TOOLTIP_NEEDMAGICATTACK, szStr);
 			if (SetTooltipTextColor(pInfoExt->iMagicAttak, spItem->pItemBasic->byNeedMagicAttack+spItem->pItemExt->siNeedMagicAttack))
 				m_pStr[iIndex]->SetColor(m_CWhite);
 			else
