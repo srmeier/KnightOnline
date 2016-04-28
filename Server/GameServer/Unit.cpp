@@ -1150,6 +1150,7 @@ void KOMap::SetZoneAttributes(int zoneNumber)
 
 	default:
 		m_zoneType = ZoneAbilityPVP;
+		m_zoneFlags = ZF_ATTACK_OTHER_NATION;
 		break;
 	}
 }
