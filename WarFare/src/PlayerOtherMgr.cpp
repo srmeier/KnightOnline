@@ -491,6 +491,19 @@ CPlayerNPC*	CPlayerOtherMgr::CharacterGetByNearstEnemy(e_Nation eNation, const _
 	{
 		pNPC = it->second;
 		if(eNation == pNPC->m_InfoBase.eNation) continue;
+
+		//-------------------------------------------------------------------------
+		/*
+		// TODO(srmeier): need to use ZoneAbilityType here
+		// NOTE(srmeier): using zoneability information to determine if target is attackable
+		if (!ACT_WORLD->canAttackSameNation() && (pNPC->m_InfoBase.eNation == eNation))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_ELMORAD && pNPC->m_InfoBase.eNation == NATION_KARUS))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_KARUS && pNPC->m_InfoBase.eNation == NATION_ELMORAD))
+			return false;
+		*/
+		//-------------------------------------------------------------------------
 		
 		fDistTmp = pNPC->Distance(vPosPlayer);
 		if(fDistTmp < fDistMin)
@@ -505,6 +518,19 @@ CPlayerNPC*	CPlayerOtherMgr::CharacterGetByNearstEnemy(e_Nation eNation, const _
 	{
 		pNPC = it2->second;
 		if(eNation == pNPC->m_InfoBase.eNation) continue;
+
+		//-------------------------------------------------------------------------
+		/*
+		// TODO(srmeier): need to use ZoneAbilityType here
+		// NOTE(srmeier): using zoneability information to determine if target is attackable
+		if (!ACT_WORLD->canAttackSameNation() && (pNPC->m_InfoBase.eNation == eNation))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_ELMORAD && pNPC->m_InfoBase.eNation == NATION_KARUS))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_KARUS && pNPC->m_InfoBase.eNation == NATION_ELMORAD))
+			return false;
+		*/
+		//-------------------------------------------------------------------------
 		
 		fDistTmp = pNPC->Distance(vPosPlayer);
 		if(fDistTmp < fDistMin)

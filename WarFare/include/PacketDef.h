@@ -257,6 +257,8 @@ const int SOCKET_PORT_LOGIN = 15100;
 #define N3_QUEST_SELECT					0x55	// 퀘스트 메뉴 선택
 #define N3_QUEST_TALK					0x56	// 퀘스트 대화
 
+// NOTE(srmeier): implementing the zoneability packet
+#define N3_ZONEABILITY					0x5E
 
 // NOTE(srmeier): testing this debug string functionality
 #define N3_DEBUG_STRING_TEST 0xFE

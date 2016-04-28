@@ -3,12 +3,18 @@ git reset --hard e2cec75
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
-- issue where NPCs of opposite nation cannot be interacted with
-- need to get quests up and running
-
-
-
 - get colony zone working
+
+
+
+- issue where NPCs of opposite nation cannot be interacted with
+	- CGameProcMain::OnMouseRBtnPress()
+	- server-side "WIZ_ZONEABILITY" packet
+	- m_zoneFlags, m_zoneType, m_byTariff, m_byMinLevel, m_byMaxLevel
+- need to get quests up and running
+	- just need a way to automate QUEST_HELPER table
+		- not possible
+	- need to finish the EvtConverter where necessary
 - there is an issue with the sprint skill. something with cooldown maybe
 - problem with item descriptions getting cutoff
 	- they all should fit now but it isn't automatically setting the size

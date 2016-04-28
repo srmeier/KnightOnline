@@ -749,6 +749,19 @@ bool CPlayerMySelf::IsAttackableTarget(CPlayerBase* pTarget, bool bMesureAngle)
 	if(NULL == pTarget || pTarget->IsDead()) return false;  //죽은 상태의 캐릭은 공격하지 못하게 - 단 죽기 직전의 캐릭은 제외한다..
 	if(pTarget->m_InfoBase.eNation == m_InfoBase.eNation) return false; // 같은 국가이다..
 
+	//-------------------------------------------------------------------------
+	/*
+	// TODO(srmeier): need to use ZoneAbilityType here
+	// NOTE(srmeier): using zoneability information to determine if target is attackable
+	if (!ACT_WORLD->canAttackSameNation() && (pTarget->m_InfoBase.eNation==m_InfoBase.eNation))
+		return false;
+	if (!ACT_WORLD->canAttackOtherNation() && (m_InfoBase.eNation == NATION_ELMORAD && pTarget->m_InfoBase.eNation == NATION_KARUS))
+		return false;
+	if (!ACT_WORLD->canAttackOtherNation() && (m_InfoBase.eNation == NATION_KARUS && pTarget->m_InfoBase.eNation == NATION_ELMORAD))
+		return false;
+	*/
+	//-------------------------------------------------------------------------
+
 	float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude(); // 공격 거리를 구하고..
 	float fDistLimit = this->AttackableDistance(pTarget);
 	if(fDist > fDistLimit) return false; // 거리가 일정이상 떨어져 있으면 돌아간다.
@@ -796,6 +809,19 @@ bool CPlayerMySelf::CheckCollision()
 
 		if(pUPC->IsDead()) continue; //죽어 있는 상태의 캐릭터는 충돌체크를 하지 않는다.
 		if(m_InfoBase.eNation == pUPC->m_InfoBase.eNation) continue; // 같은 국가...
+
+		//-------------------------------------------------------------------------
+		/*
+		// TODO(srmeier): need to use ZoneAbilityType here
+		// NOTE(srmeier): using zoneability information to determine if target is colliable
+		if (!ACT_WORLD->canAttackSameNation() && (pUPC->m_InfoBase.eNation == m_InfoBase.eNation))
+			continue;
+		if (!ACT_WORLD->canAttackOtherNation() && (m_InfoBase.eNation == NATION_ELMORAD && pUPC->m_InfoBase.eNation == NATION_KARUS))
+			continue;
+		if (!ACT_WORLD->canAttackOtherNation() && (m_InfoBase.eNation == NATION_KARUS && pUPC->m_InfoBase.eNation == NATION_ELMORAD))
+			continue;
+		*/
+		//-------------------------------------------------------------------------
 		
 		fMag = (pUPC->Position() - vPos).Magnitude();
 		if(fMag < 32.0f)
@@ -823,9 +849,24 @@ bool CPlayerMySelf::CheckCollision()
 		pNPC = it_N->second;
 
 		if(pNPC->m_pShapeExtraRef) continue; // 성문등의 형태이면 충돌체크를 하지 않는다..
+
 		if(m_InfoBase.eNation == pNPC->m_InfoBase.eNation) continue; // 같은 국가...
+		// NOTE(srmeier): I believe these are for passing through monsters and such
 		if(m_InfoBase.eNation == NATION_KARUS && pNPC->m_InfoBase.eNation != NATION_ELMORAD) continue; // 적국 엔피씨는 충돌 체크를 한다.
 		if(m_InfoBase.eNation == NATION_ELMORAD && pNPC->m_InfoBase.eNation != NATION_KARUS) continue; // 
+
+		//-------------------------------------------------------------------------
+		/*
+		// TODO(srmeier): need to use ZoneAbilityType here
+		// NOTE(srmeier): using zoneability information to determine if target is colliable
+		if (!ACT_WORLD->canAttackSameNation() && (pNPC->m_InfoBase.eNation == m_InfoBase.eNation))
+			continue;
+		if (!ACT_WORLD->canAttackOtherNation() && (m_InfoBase.eNation == NATION_ELMORAD && pNPC->m_InfoBase.eNation == NATION_KARUS))
+			continue;
+		if (!ACT_WORLD->canAttackOtherNation() && (m_InfoBase.eNation == NATION_KARUS && pNPC->m_InfoBase.eNation == NATION_ELMORAD))
+			continue;
+		*/
+		//-------------------------------------------------------------------------
 
 		fMag = (pNPC->Position() - vPos).Magnitude();
 		if(fMag < 32.0f)

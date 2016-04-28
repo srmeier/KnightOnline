@@ -583,9 +583,9 @@ void CGameProcMain::Tick()
 	if(s_pPlayer->m_InfoBase.iLevel < 12 && fInterval4 > 20.0f) // 시간이 지나면 팁 하나씩 표시..
 	{
 		std::string szMsg;
-		::_LoadStringFromResource(IDS_HELP_TIP_ALL, szMsg);
+		szMsg = "IDS_HELP_TIP_ALL";//::_LoadStringFromResource(IDS_HELP_TIP_ALL, szMsg);
 		this->m_pUIMsgDlg->AddMsg(szMsg, 0xffffff00); // 헬프 표시..
-		::_LoadStringFromResource(IDS_HELP_TIP1 + rand()%30, szMsg);
+		szMsg = "IDS_HELP_TIP1";//::_LoadStringFromResource(IDS_HELP_TIP1 + rand()%30, szMsg);
 		this->m_pUIMsgDlg->AddMsg(szMsg, 0xffffff00); // 헬프 표시..
 		fInterval4 = 0;
 	}
@@ -624,7 +624,8 @@ void CGameProcMain::Render()
 	s_pOPMgr->Render(fSunAngle);				// 다른 플레이어 렌더..
 	s_pPlayer->Render(fSunAngle);			// 플레이어 렌더..
 
-	ACT_WORLD->RenderCollisionWithShape(s_pPlayer->Position());				// 충돌 메쉬 렌더..
+	// NOTE(srmeier): uncomment to render the collision meshes
+	//ACT_WORLD->RenderCollisionWithShape(s_pPlayer->Position());				// 충돌 메쉬 렌더..
 
 #ifdef _N3_64GRID_
 	m_SMesh.Render();							// 서버 메쉬 렌더..
@@ -696,9 +697,9 @@ void CGameProcMain::RenderTarget()
 	}
 	m_pTargetSymbol->Render();
 
-
-	if(pTarget) pTarget->RenderCollisionMesh();
-	if(s_pPlayer->m_pObjectTarget) s_pPlayer->m_pObjectTarget->RenderCollisionMesh();
+	// NOTE(srmeier): uncomment to render the collision meshes
+	//if(pTarget) pTarget->RenderCollisionMesh();
+	//if(s_pPlayer->m_pObjectTarget) s_pPlayer->m_pObjectTarget->RenderCollisionMesh();
 }
 
 bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
@@ -731,6 +732,27 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		}
 		return true;
 #endif
+		case N3_ZONEABILITY: {
+			// NOTE(srmeier): this is a custom packet used to set terrain zoneability
+			Uint8 opcode = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
+			switch (opcode) {
+				case 0x01:
+					Uint16 zoneFlags = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+					ZoneAbilityType zoneType = (ZoneAbilityType)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+					Uint8 zoneTariff = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+					Uint8 minLevel = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+					Uint8 maxLevel = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
+					ACT_WORLD->m_zoneFlags  = zoneFlags;
+					ACT_WORLD->m_zoneType   = zoneType;
+					ACT_WORLD->m_byTariff   = zoneTariff;
+					ACT_WORLD->m_byMinLevel = minLevel;
+					ACT_WORLD->m_byMaxLevel = maxLevel;
+				break;
+			}
+		} return true;
+
 		case N3_DEBUG_STRING_TEST: {
 			// NOTE(srmeier): testing this debug string functionality
 
@@ -742,7 +764,6 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			MsgOutput("DEBUG: "+szDebugString, D3DCOLOR_ARGB(255, 255, 255, 0));
 
 		} return true;
-
 
 		case N3_MYINFO:									// 나의 정보 메시지..
 			this->MsgRecv_MyInfo_All(pDataPack, iOffset);
@@ -4261,6 +4282,19 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 		if(NULL == pTarget) return;
 		s_pPlayer->RotateTo(pTarget); // 방향을 돌린다.
 		if(pTarget->m_InfoBase.eNation == s_pPlayer->m_InfoBase.eNation) return; // 국가가 같으면 넘어간다..
+
+		//-------------------------------------------------------------------------
+		/*
+		// TODO(srmeier): need to use ZoneAbilityType here
+		// NOTE(srmeier): using zoneability information to determine if target is attackable
+		if (!ACT_WORLD->canAttackSameNation() && (pTarget->m_InfoBase.eNation == s_pPlayer->m_InfoBase.eNation))
+			return;
+		if (!ACT_WORLD->canAttackOtherNation() && (s_pPlayer->m_InfoBase.eNation == NATION_ELMORAD && pTarget->m_InfoBase.eNation == NATION_KARUS))
+			return;
+		if (!ACT_WORLD->canAttackOtherNation() && (s_pPlayer->m_InfoBase.eNation == NATION_KARUS && pTarget->m_InfoBase.eNation == NATION_ELMORAD))
+			return;
+		*/
+		//-------------------------------------------------------------------------
 	}
 	s_pPlayer->m_bAttackContinous = bEnable; // 상태를 기록하고..
 
@@ -7270,7 +7304,9 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 		else // 보통 NPC 이면..
 		{
 			// NOTE: an NPC has been clicked on
-			if(pNPC->m_InfoBase.eNation == s_pPlayer->m_InfoBase.eNation) // 같은 국가 일때만..
+			// TODO(srmeier): need to use ZoneAbilityType here
+			// NOTE(srmeier): using the zone type to decide if you can talk with NPC
+			if(ACT_WORLD->GetZoneType()==ZoneAbilityNeutral || (pNPC->m_InfoBase.eNation == s_pPlayer->m_InfoBase.eNation)) // 같은 국가 일때만..
 			{
 				float fD = (s_pPlayer->Position() - pNPC->Position()).Magnitude();
 				float fDLimit = (s_pPlayer->Radius() + pNPC->Radius()) * 3.0f;

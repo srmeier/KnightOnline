@@ -265,7 +265,7 @@ void CUser::GameStart(Packet & pkt)
 	if (isInGame())
 		return;
 
-	uint8 opcode = pkt.read<uint8>();
+	//uint8 opcode = pkt.read<uint8>();
 
 	if (true)//(opcode == 1)
 	{
