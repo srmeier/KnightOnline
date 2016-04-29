@@ -371,7 +371,8 @@ bool CN3SkyMng::LoadFromTextFile(const char* szIniFN)
 		szMoon = szBuff;
 	}
 
-	for(int i = 0 ; i < NUM_SUNPART; i++)
+	int i;
+	for(i = 0 ; i < NUM_SUNPART; i++)
 	{
 		pResult = fgets(szLine, 512, fp);
 		if(pResult)
@@ -399,14 +400,14 @@ bool CN3SkyMng::LoadFromTextFile(const char* szIniFN)
 
 		if(iSDCC > 0)
 		{
-			m_DayChanges.assign(iSDCC);
+			m_DayChanges.reserve(iSDCC); //m_DayChanges.assign(iSDCC);
 			for(int i = 0; i < iSDCC; i++)
 			{
 				if(false == this->DayChangeParse(fp, &(m_DayChanges[i])))
 				{
 					char szErrLine[128];
 					sprintf(szErrLine, "From \"DayChage Count : \" -> Line : %d", i);
-					MessageBox(CN3Base::s_hWndBase, szErrLine, "하늘 환경설정 데이터 Parsing 실패", MB_OK);
+					MessageBox(GetActiveWindow(), szErrLine, "하늘 환경설정 데이터 Parsing 실패", MB_OK); //CN3Base::s_hWndBase
 					this->Release();
 					return false;
 				}
@@ -1378,7 +1379,8 @@ __SKY_DAYCHANGE* CN3SkyMng::DayChangeInsert(int iIndex)
 	it_SDC it = m_DayChanges.begin();
 	for(int i = 0; i < iIndex; i++, it++);
 	
-	it = m_DayChanges.insert(it);
+	// TODO(srmeier): need to figure this out
+	return NULL; //it = m_DayChanges.insert(it);
 	
 	return &(*it);
 }

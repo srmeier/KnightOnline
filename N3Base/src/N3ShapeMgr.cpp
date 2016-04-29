@@ -312,7 +312,8 @@ bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // 맵의 너비와 높이�
 void CN3ShapeMgr::GenerateCollisionData()
 {
 	int nFC = 0, iSC = m_Shapes.size();
-	for(int i = 0; i < iSC; i++) // Shape 에 있는 충돌 메시 만큼 생성.
+	int i;
+	for(i = 0; i < iSC; i++) // Shape 에 있는 충돌 메시 만큼 생성.
 	{
 		CN3VMesh* pVM = m_Shapes[i]->CollisionMesh();
 		if (NULL == pVM) continue;

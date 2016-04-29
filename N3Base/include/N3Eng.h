@@ -56,6 +56,9 @@ public:
 	static void ClearAuto(RECT* pRC = NULL);
 	static void ClearZBuffer(const RECT* pRC = NULL);
 	static void Present(SDL_Window* pWindow, RECT* pRC = NULL);
+#ifdef _N3TOOL
+	static void Present(HWND hWnd, RECT* pRC = NULL);
+#endif
 
 	void LookAt(__Vector3& vEye, __Vector3& vAt, __Vector3& vUp);
 	void SetProjection(float fNear, float fFar, float fLens, float fAspect);

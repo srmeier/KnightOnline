@@ -6,6 +6,7 @@
 
 #include "N3SkyMng.h"
 #include "N3ShapeMgr.h"
+#include "LogWriter.h"
 
 #include "N3TerrainManager.h"
 
