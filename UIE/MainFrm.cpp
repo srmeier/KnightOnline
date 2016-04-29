@@ -102,6 +102,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Engine »ý¼º
 	//m_Eng.InitEnv();
+
 	// TEMP(srmeier): This will probably cause crashes because I need input
 	if(!m_Eng.Init(TRUE, NULL/*GetRightPane()->m_hWnd*/, 64, 64, 0, TRUE)) return -1;
 	m_Eng.s_SndMgr.Init(m_hWnd);

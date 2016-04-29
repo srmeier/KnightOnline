@@ -263,8 +263,6 @@ BOOL CUIEView::OnEraseBkgnd(CDC* pDC)
 	}
 
 	pEng->s_lpD3DDev->EndScene();
-
-	// NOTE(srmeier): not actually using the SDL_Window pointer for the time being so this should be fine for now
 	pEng->Present(m_hWnd);
 
 	return TRUE;

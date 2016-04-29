@@ -158,8 +158,6 @@
     <ResourceCompile Include="UIE.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common Control\PropertyList.h" />
-    <ClInclude Include="..\N3BASE\N3UIList.h" />
     <ClInclude Include="DlgAnimate.h" />
     <ClInclude Include="DlgBar.h" />
     <ClInclude Include="DlgChangeImage.h" />

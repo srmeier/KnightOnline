@@ -72,7 +72,6 @@ BOOL CTexViewer::OnEraseBkgnd(CDC* pDC)
 	pEng->s_lpD3DDev->BeginScene();
 	Render();
 	pEng->s_lpD3DDev->EndScene();
-	// NOTE(srmeier): not using the SDL_Window* right now so this should be fine
 	pEng->Present(m_hWnd);
 
 	return CWnd::OnEraseBkgnd(pDC);
