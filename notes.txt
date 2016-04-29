@@ -3,10 +3,15 @@ git reset --hard e2cec75
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
+- fix the UI issues and support 1298 UI
+	- need to get english GUIs
+
+
+
+- "Reduce" doesn't seem to be implemented for items
 - get colony zone working
-
-
-
+	- the zoneability information gets set based on the DB ZoneID
+	- will need to update these for the 1298 zones
 - issue where NPCs of opposite nation cannot be interacted with
 	- CGameProcMain::OnMouseRBtnPress()
 	- server-side "WIZ_ZONEABILITY" packet
@@ -19,8 +24,6 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - problem with item descriptions getting cutoff
 	- they all should fit now but it isn't automatically setting the size
 - skill descriptions aren't word wrapping
-- fix the UI issues and support 1298 UI
-	- this should include rewriting the UIF editor program
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
 - take a look at the new zone files 1298 added (ens, gev, etc.)
