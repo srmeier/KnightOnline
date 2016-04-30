@@ -40,18 +40,19 @@ public:
 	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual void	Render();
 
-#ifdef _N3TOOL
 // 툴에서 사용하기 위한 함수
 public:
 	virtual void	operator = (const CN3UIButton& other);
-	virtual bool	Save(HANDLE hFile);
-	void			CreateImages();
-	CN3UIImage*		GetImageRef(eBTN_STATE eState) const {	return m_ImageRef[eState];}
 	void			SetSndOn(const std::string& strFileName);
 	void			SetSndClick(const std::string& strFileName);
 
 	std::string GetSndFName_On() const;
 	std::string GetSndFName_Click() const;
+
+#ifdef _N3TOOL
+	virtual bool	Save(HANDLE hFile);
+	void			CreateImages();
+	CN3UIImage*		GetImageRef(eBTN_STATE eState) const {	return m_ImageRef[eState];}
 #endif
 };
 

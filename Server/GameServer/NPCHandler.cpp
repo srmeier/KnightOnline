@@ -334,7 +334,7 @@ void CUser::SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText,
 	Packet result(WIZ_SELECT_MSG);
 	//result.SByte();
 
-	result << m_sEventSid /*<< bFlag << nQuestID*/ << menuHeaderText;
+	result << m_sEventNid/*m_sEventSid*/ /*<< bFlag << nQuestID*/ << menuHeaderText;
 	foreach_array_n(i, menuButtonText, MAX_MESSAGE_EVENT)
 		result << menuButtonText[i];
 	/*result << pHelper->strLuaFilename;*/

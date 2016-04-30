@@ -1,6 +1,7 @@
 git reset --hard e2cec75
 %windir%\SysWOW64\odbcad32.exe
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
+- be very careful with the "=" operator on GUI components
 
 ===============================================================================
 - fix the UI issues and support 1298 UI
