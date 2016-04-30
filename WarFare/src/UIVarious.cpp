@@ -1515,14 +1515,12 @@ void CUIFriends::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
 
 
 
+bool CUIQuest::Load(HANDLE hFile)
+{
+	if (false == CN3UIBase::Load(hFile)) return false;
 
 
-
-
-
-
-
-
+}
 
 CUIQuest::CUIQuest()
 {
@@ -1532,14 +1530,6 @@ CUIQuest::CUIQuest()
 CUIQuest::~CUIQuest()
 {
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -1628,7 +1618,7 @@ bool CUIVarious::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	{
 		if(pSender == m_pBtn_Close)			this->Close(); // ´Ý´Â´Ù..
 		else if(pSender == m_pBtn_State)	this->UpdatePageButtons(m_pBtn_State);
-//		else if(pSender == m_pBtn_Quest)	this->UpdatePageButtons(m_pBtn_Quest);		// Äù½ºÆ®...
+		else if(pSender == m_pBtn_Quest)	this->UpdatePageButtons(m_pBtn_Quest);		// Äù½ºÆ®...
 		else if(pSender == m_pBtn_Knights)	this->UpdatePageButtons(m_pBtn_Knights);	// ±â»ç´Ü... Àá½Ã ¸·ÀÚ..
 		else if(pSender == m_pBtn_Friends)	this->UpdatePageButtons(m_pBtn_Friends);
 	}
