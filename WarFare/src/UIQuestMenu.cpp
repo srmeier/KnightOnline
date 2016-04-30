@@ -61,15 +61,24 @@ bool CUIQuestMenu::Load(HANDLE hFile)
 {
 	if(CN3UIBase::Load(hFile)==false) return false;
 
-	m_pTextSample	= (CN3UIString*)(this->GetChildByID("Text_Menu"));	__ASSERT(m_pTextSample, "NULL UI Component!!!");
-	m_pTextTitle	= (CN3UIString*)(this->GetChildByID("Text_Title"));	__ASSERT(m_pTextTitle, "NULL UI Component!!!");
+	m_pTextSample	= (CN3UIString*)(this->GetChildByID("Text_Menu"));
+	__ASSERT(m_pTextSample, "NULL UI Component!!!");
+	m_pTextTitle	= (CN3UIString*)(this->GetChildByID("Text_Title"));
+	__ASSERT(m_pTextTitle, "NULL UI Component!!!");
 
-	m_pImageLeft	= (CN3UIImage*)(this->GetChildByID("img_lmenu"));	__ASSERT(m_pImageLeft	, "NULL UI Component!!!");
-	m_pImageCenter	= (CN3UIImage*)(this->GetChildByID("img_cmenu"));	__ASSERT(m_pImageCenter	, "NULL UI Component!!!");
-	m_pImageRight	= (CN3UIImage*)(this->GetChildByID("img_rmenu"));	__ASSERT(m_pImageRight	, "NULL UI Component!!!");
-	m_pImageBLeft	= (CN3UIImage*)(this->GetChildByID("img_lBottom"));	__ASSERT(m_pImageBLeft	, "NULL UI Component!!!");
-	m_pImageBCenter	= (CN3UIImage*)(this->GetChildByID("img_cBottom"));	__ASSERT(m_pImageBCenter, "NULL UI Component!!!");
-	m_pImageBRight	= (CN3UIImage*)(this->GetChildByID("img_rBottom"));	__ASSERT(m_pImageBRight	, "NULL UI Component!!!");
+	// NOTE: old images
+	m_pImageLeft	= (CN3UIImage*)(this->GetChildByID("img_lmenu"));
+	__ASSERT(m_pImageLeft	, "NULL UI Component!!!");
+	m_pImageCenter	= (CN3UIImage*)(this->GetChildByID("img_cmenu"));
+	__ASSERT(m_pImageCenter	, "NULL UI Component!!!");
+	m_pImageRight	= (CN3UIImage*)(this->GetChildByID("img_rmenu"));
+	__ASSERT(m_pImageRight	, "NULL UI Component!!!");
+	m_pImageBLeft	= (CN3UIImage*)(this->GetChildByID("img_lBottom"));
+	__ASSERT(m_pImageBLeft	, "NULL UI Component!!!");
+	m_pImageBCenter	= (CN3UIImage*)(this->GetChildByID("img_cBottom"));
+	__ASSERT(m_pImageBCenter, "NULL UI Component!!!");
+	m_pImageBRight	= (CN3UIImage*)(this->GetChildByID("img_rBottom"));
+	__ASSERT(m_pImageBRight	, "NULL UI Component!!!");
 
 	if(m_pImageLeft)
 		m_rcLImage = m_pImageLeft->GetRegion();

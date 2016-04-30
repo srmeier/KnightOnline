@@ -5,9 +5,18 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 ===============================================================================
 - fix the UI issues and support 1298 UI
 	- need to get english GUIs
+	- the current UIE is working like a converter to the 1068 format
 
 
 
+- fix the UIQuestMenu class to resize using the newer UIF
+- why isn't the loading screen texture different?
+- put the Notice UI on the right side of the window
+- need to work with GetChildByID() and CUISkillTreeDlg class
+- implement the CUIQuest object for the player quests
+	- this will probably require working with the quest packets I was ignoring
+		before
+- add back the FPS string in the UIStateBar class
 - "Reduce" doesn't seem to be implemented for items
 - get colony zone working
 	- the zoneability information gets set based on the DB ZoneID
