@@ -3591,8 +3591,10 @@ void CGameProcMain::InitUI()
 	m_pUIVar->m_pPageFriends->LoadFromFile(pTbl->szFriends);
 	m_pUIVar->m_pPageFriends->SetVisibleWithNoSound(false);
 	m_pUIVar->SetStyle(m_pUIVar->GetStyle() | UISTYLE_POS_LEFT);
-//	m_pUIVar->m_pPageQuest->LoadFromFile(pTbl->szQuest);
-//	m_pUIVar->m_pPageQuest->SetVisibleWithNoSound(false);
+
+	// TODO(srmeier): need to implement this
+	m_pUIVar->m_pPageQuest->LoadFromFile(pTbl->szQuest);
+	m_pUIVar->m_pPageQuest->SetVisibleWithNoSound(false);
 
 
 	

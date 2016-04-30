@@ -1203,9 +1203,6 @@ CUIFriends::~CUIFriends()
 
 bool CUIFriends::Load(HANDLE hFile)
 {
-	// TEMP: to avoid the "_.txt" file in the data directory
-	return false;
-
 	if(false == CN3UIBase::Load(hFile)) return false;
 
 	m_pList_Friends		= (CN3UIList*)this->GetChildByID("List_Friends");		__ASSERT(m_pList_Friends, "NULL UI Component!!");
