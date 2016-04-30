@@ -231,20 +231,17 @@ public:
 
 
 
-
-
-
-
 class CUIQuest : public CN3UIBase
 {
+protected:
+
+
 public:
+	virtual bool Load(HANDLE hFile);
+
 	CUIQuest();
 	virtual ~CUIQuest();
 };
-
-
-
-
 
 
 
