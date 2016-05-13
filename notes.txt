@@ -4,12 +4,13 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- put the Notice UI on the right side of the window
 
 
+- update the monster LOD
 - implement the Quest tab on the character screen
 - get "tab" to work on login screen
 - why isn't the loading screen texture different?
-- put the Notice UI on the right side of the window
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - implement the CUIQuest object for the player quests
 	- this will probably require working with the quest packets I was ignoring
