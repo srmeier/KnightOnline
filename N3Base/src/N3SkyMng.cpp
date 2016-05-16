@@ -754,13 +754,14 @@ int CN3SkyMng::GetLatestChange(eSKY_DAYCHANGE eSDC, int iPos)
 	return iFind;
 }
 
-// 하늘의 상태를 바꾸기 (pSDC->fHowLong 값과 fTakeTime값을 비교하여 정확한 변화율을 계산하여 준다.)
+// (It allows to calculate the precise rate of change by comparing the pSDC-> How Long fTakeTime value and the value.)
+// Changing the status of the sky
 void CN3SkyMng::ChangeSky(__SKY_DAYCHANGE* pSDC, float fTakeTime)
 {
 	if (NULL == pSDC) return;
 	float fPercentage = 1.0f - fTakeTime/pSDC->fHowLong;
 
-	// 하늘 변화명령 실행하기
+	// Execute command changes
 	switch(pSDC->eSkyDayChange)
 	{
 	case SDC_SKYCOLOR:
@@ -775,24 +776,24 @@ void CN3SkyMng::ChangeSky(__SKY_DAYCHANGE* pSDC, float fTakeTime)
 		m_pStar->SetStar(pSDC->dwParam1, fTakeTime);
 		break;
 	case SDC_MOONPHASE:
-		m_pMoon->SetMoonPhase(m_pMoon->GetMoonPhaseIndex()+1);	// phase index를 하나 증가시킨다.
+		m_pMoon->SetMoonPhase(m_pMoon->GetMoonPhaseIndex()+1);	// The phase index increased one.
 		break;
 	case SDC_SUNCOLOR:
-		m_pSun->m_Parts[SUNPART_SUN].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // 색
+		m_pSun->m_Parts[SUNPART_SUN].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // color
 		m_pSun->m_Parts[SUNPART_SUN].Color.SetPercentage(fPercentage);
-		m_pSun->m_Parts[SUNPART_SUN].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // 크기..
+		m_pSun->m_Parts[SUNPART_SUN].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // size..
 		m_pSun->m_Parts[SUNPART_SUN].Delta.SetPercentage(fPercentage);
 		break;
 	case SDC_GLOWCOLOR:
-		m_pSun->m_Parts[SUNPART_GLOW].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // 색
+		m_pSun->m_Parts[SUNPART_GLOW].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // color
 		m_pSun->m_Parts[SUNPART_GLOW].Color.SetPercentage(fPercentage);
-		m_pSun->m_Parts[SUNPART_GLOW].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // 크기..
+		m_pSun->m_Parts[SUNPART_GLOW].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // size..
 		m_pSun->m_Parts[SUNPART_GLOW].Delta.SetPercentage(fPercentage);
 		break;
 	case SDC_FLARECOLOR:
-		m_pSun->m_Parts[SUNPART_FLARE].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // 색
+		m_pSun->m_Parts[SUNPART_FLARE].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // color
 		m_pSun->m_Parts[SUNPART_FLARE].Color.SetPercentage(fPercentage);
-		m_pSun->m_Parts[SUNPART_FLARE].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // 크기..
+		m_pSun->m_Parts[SUNPART_FLARE].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // size..
 		m_pSun->m_Parts[SUNPART_FLARE].Delta.SetPercentage(fPercentage);
 		break;
 	case SDC_CLOUD1COLOR:
