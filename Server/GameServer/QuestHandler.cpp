@@ -289,13 +289,18 @@ bool CUser::QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32 nEventID, int8 
 These are called by quest scripts. 
 */
 
-void CUser::QuestV2SaveEvent(uint16 sQuestID)
+void CUser::QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus)//uint16 sQuestID)
 {
+	/*
 	_QUEST_HELPER * pQuestHelper = g_pMain->m_QuestHelperArray.GetData(sQuestID);
 	if (pQuestHelper == nullptr)
 		return;
 
 	SaveEvent(pQuestHelper->sEventDataIndex, pQuestHelper->bEventStatus);
+	*/
+
+	// NOTE(srmeier): this allows for easy Evt convertion to new system
+	SaveEvent(sEventDataIndex, bEventStatus);
 }
 
 void CUser::QuestV2SendNpcMsg(uint32 nQuestID, uint16 sNpcID)
@@ -343,7 +348,8 @@ uint16 CUser::QuestV2SearchEligibleQuest(uint16 sEventDataIndex, uint16 sNpcID)
 			|| !CheckExistEvent(pHelper->sEventDataIndex, pHelper->bEventStatus))
 			continue;
 
-		return pHelper->nEventTriggerIndex;
+		// NOTE: testing the option to just return the status (makes EVT conversion easier)
+		return pHelper->bEventStatus;//pHelper->nEventTriggerIndex;
 	}
 
 	return 0;
