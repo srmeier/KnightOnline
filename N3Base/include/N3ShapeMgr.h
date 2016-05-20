@@ -38,18 +38,38 @@ public:
 	struct __CellSub // 하위 셀 데이터
 	{
 		int 	nCCPolyCount; // Collision Check Polygon Count
+		unsigned int m_iFileFormatVersion;
 		DWORD*	pdwCCVertIndices; // Collision Check Polygon Vertex Indices - wCCPolyCount * 3 만큼 생성된다.
 
 		void Load(HANDLE hFile)
 		{
 			DWORD dwRWC = 0;
-			ReadFile(hFile, &nCCPolyCount, 4, &dwRWC, NULL);
+
+			if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
+				ReadFile(hFile, &nCCPolyCount, 2, &dwRWC, NULL);
+			}
+			else {
+				ReadFile(hFile, &nCCPolyCount, 4, &dwRWC, NULL);
+			}
+
 			if(nCCPolyCount > 0)
 			{
 				if(pdwCCVertIndices) delete [] pdwCCVertIndices;
 				pdwCCVertIndices = new DWORD[nCCPolyCount * 3];
 				__ASSERT(pdwCCVertIndices, "New memory failed");
-				ReadFile(hFile, pdwCCVertIndices, nCCPolyCount * 3 * 4, &dwRWC, NULL);
+
+				if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
+					WORD* pTemp = new WORD[nCCPolyCount * 3];
+
+					ReadFile(hFile, pTemp, nCCPolyCount * 3 * 2, &dwRWC, NULL);
+					for (int i = 0; i < nCCPolyCount * 3; ++i) pdwCCVertIndices[i] = pTemp[i];
+
+					delete[] pTemp;
+				}
+				else {
+					ReadFile(hFile, pdwCCVertIndices, nCCPolyCount * 3 * 4, &dwRWC, NULL);
+				}
+
 //#if _DEBUG				
 //				static char szTrace[256];
 //				sprintf(szTrace, "CollisionCheckPolygon : %d\n", nCCPolyCount);
@@ -67,20 +87,28 @@ public:
 		}
 #endif // end of _N3TOOL
 
-		__CellSub() { memset(this, 0, sizeof(__CellSub)); }
+		__CellSub() { memset(this, 0, sizeof(__CellSub)); m_iFileFormatVersion = N3FORMAT_VER_DEFAULT; }
 		~__CellSub() { delete [] pdwCCVertIndices; }
 	};
 
 	struct __CellMain // 기본 셀 데이터
 	{
 		int		nShapeCount; // Shape Count;
+		unsigned int m_iFileFormatVersion;
 		WORD*	pwShapeIndices; // Shape Indices
 		__CellSub SubCells[CELL_MAIN_DEVIDE][CELL_MAIN_DEVIDE];
 
 		void Load(HANDLE hFile)
 		{
 			DWORD dwRWC = 0;
-			ReadFile(hFile, &nShapeCount, 4, &dwRWC, NULL);
+
+			if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
+				ReadFile(hFile, &nShapeCount, 2, &dwRWC, NULL);
+			}
+			else {
+				ReadFile(hFile, &nShapeCount, 4, &dwRWC, NULL);
+			}
+
 			if(nShapeCount > 0)
 			{
 				if(pwShapeIndices) delete [] pwShapeIndices;
@@ -91,6 +119,7 @@ public:
 			{
 				for(int x = 0; x < CELL_MAIN_DEVIDE; x++)
 				{
+					SubCells[x][z].m_iFileFormatVersion = m_iFileFormatVersion;
 					SubCells[x][z].Load(hFile);
 				}
 			}
@@ -112,7 +141,7 @@ public:
 		}
 #endif // end of _N3TOOL
 		
-		__CellMain() { nShapeCount = 0; pwShapeIndices = NULL; }
+		__CellMain() { m_iFileFormatVersion = N3FORMAT_VER_DEFAULT; nShapeCount = 0; pwShapeIndices = NULL; }
 		~__CellMain() { delete [] pwShapeIndices; }
 	};
 

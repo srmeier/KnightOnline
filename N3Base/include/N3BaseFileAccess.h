@@ -19,7 +19,8 @@
 #define N3FORMAT_VER_1068 0x00000001 // (1<<0)
 #define N3FORMAT_VER_1298 0x00000002 // (1<<1)
 #define N3FORMAT_VER_2062 0x00000004 // (1<<2)
-#define N3FORMAT_VER_CURR 0x80000000 // NOTE: not even going to attempting this right now
+#define N3FORMAT_VER_CURR 0x40000000 // NOTE: not even going to attempting this right now
+#define N3FORMAT_VER_HERO 0x80000000 // NOTE: Hero Online formatting
 
 static const int N3FORMAT_VER_DEFAULT = N3FORMAT_VER_1068;
 
@@ -30,7 +31,7 @@ protected:
 	std::string		m_szFileName; // Base Path 를 제외한 로컬 경로 + 파일 이름
 
 public:
-	int m_iFileFormatVersion;
+	unsigned int m_iFileFormatVersion;
 	int m_iLOD; // 로딩할때 쓸 LOD
 
 public:
@@ -38,7 +39,7 @@ public:
 	void FileNameSet(const std::string& szFileName);
 
 	bool LoadFromFile(); // 파일에서 읽어오기.
-	virtual bool LoadFromFile(const std::string& szFileName, int iVer = N3FORMAT_VER_DEFAULT); // 파일에서 읽어오기.
+	virtual bool LoadFromFile(const std::string& szFileName, unsigned int iVer = N3FORMAT_VER_DEFAULT); // 파일에서 읽어오기.
 	virtual bool Load(HANDLE hFile); // 핸들에서 읽어오기..
 
 	virtual bool SaveToFile(); // 현재 파일 이름대로 저장.

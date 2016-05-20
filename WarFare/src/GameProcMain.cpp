@@ -4622,9 +4622,10 @@ void CGameProcMain::MsgRecv_Notice(DataPack* pDataPack, int& iOffset)
 	{
 		m_pUINotice->GenerateText();
 		
+		// NOTE(srmeier): set where on the screen the notice appears
 		RECT rc = m_pUINotice->GetRegion();
-		int x = (CN3Base::s_CameraData.vp.Width/2) - (rc.right - rc.left)/2;
-		int y = (CN3Base::s_CameraData.vp.Height/2) - (rc.bottom - rc.top)/2;
+		int x = CN3Base::s_CameraData.vp.Width - (rc.right - rc.left);//(CN3Base::s_CameraData.vp.Width/2) - (rc.right - rc.left)/2;
+		int y = 10;//(CN3Base::s_CameraData.vp.Height/2) - (rc.bottom - rc.top)/2;
 		m_pUINotice->SetPos(x, y);
 		m_pUINotice->SetVisible(true);
 	}
@@ -5930,8 +5931,8 @@ void CGameProcMain::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) 
 	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
 	*/
 
-	Uint32 compressedLength = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	Uint32 originalLength = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	Uint16 compressedLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
+	Uint16 originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
 	Uint32 crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 
 	BYTE* pDecodeBuf = new BYTE[originalLength];

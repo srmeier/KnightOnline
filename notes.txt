@@ -4,22 +4,27 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- put the Notice UI on the right side of the window
+- weird issue with right and left hand weapons at the character select screen
 
 
-- update the monster LOD
-- implement the Quest tab on the character screen
+- added a HERO format flag for OPD files but I haven't finished anything yet
+	- will eventually remove this
+
+
+- add back the FPS string in the UIStateBar class
 - get "tab" to work on login screen
+
+
+- implement the Quest tab on the character screen
 - why isn't the loading screen texture different?
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - implement the CUIQuest object for the player quests
 	- this will probably require working with the quest packets I was ignoring
 		before
-- add back the FPS string in the UIStateBar class
 - "Reduce" doesn't seem to be implemented for items
 - get colony zone working
 	- the zoneability information gets set based on the DB ZoneID
-	- will need to update these for the 1298 zones
+	- will need to update these for all the 1298 zones
 - issue where NPCs of opposite nation cannot be interacted with
 	- CGameProcMain::OnMouseRBtnPress()
 	- server-side "WIZ_ZONEABILITY" packet
@@ -33,6 +38,8 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - take a look at the new zone files 1298 added (ens, gev, etc.)
 - support all 1068 file formats
 	- requires testing of weapons and armor and stuff
+- update the monster LOD
+	- CHR_LOD_CALCULATION_VALUES array in N3Chr.cpp...?
 
 ===============================================================================
 QUEST_HELPER
