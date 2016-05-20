@@ -4,17 +4,16 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- issue with starting the binary client after source client
+- change the font on the monsters
+- try to add fog
+- change zoneability back to the 1298 packet
 
 
 - added a HERO format flag for OPD files but I haven't finished anything yet
-	- will eventually remove this
-
-
-- add back the FPS string in the UIStateBar class
+	- will eventually remove this?
 - get "tab" to work on login screen
-
-
+- issue with starting the binary client after source client
+	- this requires starting the binary client before the source version
 - implement the Quest tab on the character screen
 - why isn't the loading screen texture different?
 - need to work with GetChildByID() and CUISkillTreeDlg class
@@ -38,8 +37,6 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - take a look at the new zone files 1298 added (ens, gev, etc.)
 - support all 1068 file formats
 	- requires testing of weapons and armor and stuff
-- update the monster LOD
-	- CHR_LOD_CALCULATION_VALUES array in N3Chr.cpp...?
 
 ===============================================================================
 QUEST_HELPER

@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfx.h"
+#include "DFont.h"
 #include "PlayerOtherMgr.h"
 
 #include "N3ShapeExtra.h"
@@ -87,7 +88,7 @@ void CPlayerOtherMgr::Tick(const __Vector3& vPosPlayer)
 	for(; it2 != itEnd2; )
 	{
 		pNPC = it2->second;
-		
+
 		pNPC->Tick();
 		iLOD = pNPC->LODLevel();
 		if(iLOD >= 0 && iLOD < MAX_CHR_LOD) iLODTotal += MAX_CHR_LOD - iLOD; // 자동 LOD 계산할때 필요한 값..
@@ -97,10 +98,17 @@ void CPlayerOtherMgr::Tick(const __Vector3& vPosPlayer)
 			it2 = m_NPCs.erase(it2);
 			this->CorpseAdd(pNPC);
 		}
+		else if (pNPC->m_InfoBase.eNation==NATION_KARUS || pNPC->m_InfoBase.eNation==NATION_ELMORAD)
+		{
+			float fDist = pNPC->Distance(vPosPlayer);
+			if (fDist < 40.0f*SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(D3DFONT_BOLD); // SOUND_RANGE 안에 있으면.
+			else if (fDist > 40.0f*SOUND_RANGE_TO_RELEASE) pNPC->ReleaseSoundAndFont();
+			it2++;
+		}
 		else
 		{
 			float fDist = pNPC->Distance(vPosPlayer);
-			if(fDist < SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(); // SOUND_RANGE 안에 있으면.
+			if(fDist < SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(D3DFONT_BOLD); // SOUND_RANGE 안에 있으면.
 			else if(fDist > SOUND_RANGE_TO_RELEASE) pNPC->ReleaseSoundAndFont();
 			it2++;
 		}

@@ -40,6 +40,8 @@ CUIStateBar::CUIStateBar()
 	m_pProgress_ExpC = NULL;
 	m_pProgress_ExpP = NULL;
 
+	m_pText_FPS = NULL;
+
 	// 미니맵...
 	m_pGroup_MiniMap = NULL;
 	m_pImage_Map = NULL;
@@ -169,8 +171,7 @@ bool CUIStateBar::Load(HANDLE hFile)
 	CN3UIString* m_pText_SysTime = (CN3UIString*)GetChildByID("SystemTime");
 	if (m_pText_SysTime) m_pText_SysTime->SetVisible(false);
 
-	CN3UIString* m_pText_FPS = (CN3UIString*)GetChildByID("string_fps");
-	if (m_pText_FPS) m_pText_FPS->SetVisible(false);
+	m_pText_FPS = (CN3UIString*)GetChildByID("string_fps");
 
 	// MiniMap
 	m_pGroup_MiniMap = GetChildByID("Group_MiniMap"); __ASSERT(m_pGroup_MiniMap, "NULL UI Component!!");
@@ -442,6 +443,17 @@ void CUIStateBar::Tick()
 	if(!m_bVisible) return;
 
 	CN3UIBase::Tick();
+
+	// NOTE(srmeier): set the FPS string to be displayed
+	static int iCount = 0;
+	static char strFPS[0x10] = "";
+
+	if (iCount++ == 60) {
+		iCount = 0;
+		sprintf(strFPS, "%.1f", CN3Base::s_fFrmPerSec);
+		m_pText_FPS->SetString(strFPS);
+	}
+
 
 	TickMiniMap(); // 맵 이미지...
 	TickMagicIcon(); // 아이콘 처리..

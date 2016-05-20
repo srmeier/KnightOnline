@@ -1317,7 +1317,7 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int
 			m_InfoChrs[i].dwItemCloak				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // ¾î±ú(¸ÁÅä) dw
 			m_InfoChrs[i].iItemCloakDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // ³»±¸¼º°ª
 
-																											   // NOTE(srmeier): this was added for 1298
+			// NOTE(srmeier): this was added for 1298
 			DWORD dwRightHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 			int iItemRightHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 			DWORD dwLeftHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
