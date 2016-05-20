@@ -152,7 +152,7 @@ bool CN3Texture::CreateFromSurface(LPDIRECT3DSURFACE9 lpSurf, D3DFORMAT Format, 
 }
 #endif // end of _N3TOOL
 
-bool CN3Texture::LoadFromFile(const std::string& szFileName, int iVer)
+bool CN3Texture::LoadFromFile(const std::string& szFileName, unsigned int iVer)
 {
 	m_iFileFormatVersion = iVer;
 

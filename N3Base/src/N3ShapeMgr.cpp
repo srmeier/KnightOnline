@@ -220,10 +220,17 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 		{
 			delete m_pCells[x][z]; m_pCells[x][z] = NULL;
 
-			ReadFile(hFile, &bExist, 4, &dwRWC, NULL); // 데이터가 있는 셀인지 쓰고..
+			if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
+				ReadFile(hFile, &bExist, 4, &dwRWC, NULL);
+			}
+			else {
+				ReadFile(hFile, &bExist, 4, &dwRWC, NULL); // 데이터가 있는 셀인지 쓰고..
+			}
+
 			if(FALSE == bExist) continue;
 
 			m_pCells[x][z] = new __CellMain;
+			m_pCells[x][z]->m_iFileFormatVersion = m_iFileFormatVersion;
 			m_pCells[x][z]->Load(hFile);
 		}
 	}

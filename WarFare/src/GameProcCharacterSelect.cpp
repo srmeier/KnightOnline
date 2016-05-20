@@ -1322,6 +1322,12 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int
 			m_InfoChrs[i].iItemGlovesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemShoes				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 신발 dw
 			m_InfoChrs[i].iItemShoesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+
+			// NOTE(srmeier): this was added for 1298
+			//DWORD dwRightHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+			//int iItemRightHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			//DWORD dwLeftHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+			//int iItemLeftHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 		}
 
 		// 캐릭터 추가..
