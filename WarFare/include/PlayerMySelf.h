@@ -56,7 +56,7 @@ public:
 	void			InitFace(); // 갖고 있는 정보로 얼굴을 초기화 한다..
 	void			InitHair(); // 갖고 있는 정보로 머리카락을 초기화 한다..
 	void			KnightsInfoSet(int iID, const std::string& szName, int iGrade, int iRank);
-	void			SetSoundAndInitFont();
+	void			SetSoundAndInitFont(DWORD dwFontFlag = 0UL);
 
 	float			AttackableDistance(CPlayerBase* pTarget);
 	float			DistanceExceptRadius(CPlayerBase* pTarget);

@@ -88,8 +88,7 @@ void CN3SPart::Tick(const __Matrix44& mtxParent, const __Quaternion& qRot, float
 		return;
 	}
 	
-	// NOTE(srmeier): 0.5f seems to work very well for right now!!
-	float fDist = 0.5f * (vCenter - s_CameraData.vEye).Magnitude();
+	float fDist = (vCenter - s_CameraData.vEye).Magnitude();
 	float fLOD = fDist * s_CameraData.fFOV / fScale;
 //	float fLOD = fDist + fDist * (s_CameraData.fFOV - 1.0f) / 3.0f;
 //	float fLOD = fDist * s_CameraData.fFOV * (512.0f / s_CameraData.fFP);

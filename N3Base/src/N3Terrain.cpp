@@ -863,7 +863,7 @@ void CN3Terrain::SetBlunt()
 //	Tick..
 //
 void CN3Terrain::Tick()
-{	
+{
 	int iLOD = 0; // LOD 수준 계산.. 나중에 계산식을 바꾸어야 한다.
 	iLOD = (int)(3.0f * s_CameraData.fFP / 512.0f);
 	bool ChangeLOD = this->SetLODLevel(iLOD);
