@@ -63,7 +63,7 @@ void CUser::AddToRegion(int16 new_region_x, int16 new_region_z)
 void CUser::GetInOut(Packet & result, uint8 bType)
 {
 	result.Initialize(WIZ_USER_INOUT);
-	result << uint16(bType) << GetID();
+	result << uint8(bType) << GetID(); // uint8 for 1298 not uint16
 	if (bType != INOUT_OUT)
 		GetUserInfo(result);
 }
@@ -158,7 +158,8 @@ void CUser::GetUserInfo(Packet & pkt)
 		pkt << pItem->nNum << pItem->sDuration << pItem->bFlag;
 	}
 
-	pkt << GetZoneID() /* << uint8(-1) << uint8(-1) << uint16(0) << uint16(0) << uint16(0)*/;
+	// NOTE: not sure about the rest of this
+	pkt << GetZoneID(); //<< uint8(-1) << uint8(-1) << uint16(0) << uint16(0) << uint16(0);
 }
 
 void CUser::Rotate(Packet & pkt)

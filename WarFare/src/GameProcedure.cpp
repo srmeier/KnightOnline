@@ -105,7 +105,7 @@ bool CGameProcedure::s_bKeyPress = false;	//키가 눌려졌을때 ui에서 해당하는 조작
 bool CGameProcedure::s_bKeyPressed = false;	//키가 올라갔을때 ui에서 해당하는 조작된적이 있다면
 
 // NOTE: adding boolean to check if window has focus or not
-bool CGameProcedure::s_bIsWindowInFocus = false;
+bool CGameProcedure::s_bIsWindowInFocus = true;
 
 CGameProcedure::CGameProcedure()
 {

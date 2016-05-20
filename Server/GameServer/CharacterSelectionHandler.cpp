@@ -304,6 +304,7 @@ void CUser::GameStart(Packet & pkt)
 		{
 			m_iLostExp = 0;
 		}
+
 		BlinkStart();
 		SetUserAbility();
 		// rental
@@ -329,9 +330,10 @@ void CUser::GameStart(Packet & pkt)
 
 	if (GetZoneID() == ZONE_DELOS && pKnights != nullptr)
 	{
-	Packet result(WIZ_SIEGE, uint8(2));
-	result << pKnights->GetID() << pKnights->m_sMarkVersion;
-	Send(&result);	
+		Packet result(WIZ_SIEGE, uint8(2));
+		result << pKnights->GetID() << pKnights->m_sMarkVersion;
+		Send(&result);	
 	}
+
 	m_tHPLastTimeNormal = UNIXTIME;
 }
