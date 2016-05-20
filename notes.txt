@@ -4,7 +4,7 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- binary client can see source client but doesn't log them in or out correctly
+- issue with starting the binary client after source client
 
 
 - added a HERO format flag for OPD files but I haven't finished anything yet
