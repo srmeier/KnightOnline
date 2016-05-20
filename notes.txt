@@ -4,7 +4,7 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- weird issue with right and left hand weapons at the character select screen
+- binary client can see source client but doesn't log them in or out correctly
 
 
 - added a HERO format flag for OPD files but I haven't finished anything yet

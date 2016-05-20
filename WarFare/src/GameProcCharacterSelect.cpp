@@ -1316,18 +1316,19 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int
 			m_InfoChrs[i].iItemUpperDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemCloak				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 어깨(망토) dw
 			m_InfoChrs[i].iItemCloakDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+
+																											   // NOTE(srmeier): this was added for 1298
+			DWORD dwRightHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+			int iItemRightHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			DWORD dwLeftHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+			int iItemLeftHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+
 			m_InfoChrs[i].dwItemLower				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
 			m_InfoChrs[i].iItemLowerDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemGloves				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 장갑 dw
 			m_InfoChrs[i].iItemGlovesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 			m_InfoChrs[i].dwItemShoes				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 신발 dw
 			m_InfoChrs[i].iItemShoesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-
-			// NOTE(srmeier): this was added for 1298
-			//DWORD dwRightHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-			//int iItemRightHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-			//DWORD dwLeftHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-			//int iItemLeftHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 		}
 
 		// 캐릭터 추가..

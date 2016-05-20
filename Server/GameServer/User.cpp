@@ -940,7 +940,7 @@ void CUser::SendMyInfo()
 	else
 		m_bRank = 0; // totally not da King.
 
-	result.DByte();
+	result.SByte();
 	result	<< GetSocketID()
 		<< GetName()
 		<< GetSPosX() << GetSPosZ() << GetSPosY()
@@ -951,7 +951,7 @@ void CUser::SendMyInfo()
 		<< GetLevel()
 		<< int8(m_sPoints) // NOTE: int16 to int8
 		<< uint32(m_iMaxExp) << uint32(m_iExp)
-		<< GetLoyalty() //<< GetMonthlyLoyalty()
+		<< GetLoyalty() << GetMonthlyLoyalty()
 		<< m_bCity << GetClanID() ;
 
 	if (isInClan())
@@ -959,8 +959,8 @@ void CUser::SendMyInfo()
 
 	if (pKnights == nullptr)
 	{
-		result << uint8(0) << uint16(0) << uint8(0) << uint8(0);
-		//result	<< uint64(0) << uint8(0) << uint16(-1);
+		//result << uint8(0) << uint16(0) << uint8(0) << uint8(0);
+		result << uint64(0) << uint8(0) << uint16(-1);
 	}
 	else 
 	{
@@ -975,12 +975,23 @@ void CUser::SendMyInfo()
 
 		result
 			<< GetFame()
+			<< pKnights->GetAllianceID()
+			<< pKnights->m_byFlag
+			<< pKnights->m_strName
+			<< pKnights->m_byGrade << pKnights->m_byRanking
+			<< uint16(pKnights->m_sMarkVersion)
+			<< pKnights->GetCapeID(aKnights);
+
+		/* NOTE(srmeier): 1068 packet
+		result
+			<< GetFame()
 			//<< pKnights->GetAllianceID()
 			//<< pKnights->m_byFlag
 			<< pKnights->m_strName
 			<< pKnights->m_byGrade << pKnights->m_byRanking ;
 			//<< uint16(pKnights->m_sMarkVersion)
 			//<< pKnights->GetCapeID(aKnights);
+		*/
 	}
 
 	result
@@ -996,8 +1007,8 @@ void CUser::SendMyInfo()
 		<< uint8(m_sFireR) << uint8(m_sColdR) << uint8(m_sLightningR)
 		<< uint8(m_sMagicR) << uint8(m_sDiseaseR) << uint8(m_sPoisonR)
 		<< m_iGold
-		<< m_bAuthority ;
-		//<< m_bKnightsRank << m_bPersonalRank; // national rank, leader rank
+		<< m_bAuthority
+		<< m_bKnightsRank << m_bPersonalRank; // national rank, leader rank
 
 	result.append(m_bstrSkill, 9);
 
@@ -1005,9 +1016,9 @@ void CUser::SendMyInfo()
 	{
 		_ITEM_DATA *pItem = GetItem(i); 
 		result << pItem->nNum
-			<< pItem->sDuration << pItem->sCount ;
-			//<< pItem->bFlag	// item type flag (e.g. rented)
-			//<< pItem->sRemainingRentalTime;	// remaining time
+			<< pItem->sDuration << pItem->sCount
+			<< pItem->bFlag	// item type flag (e.g. rented)
+			<< pItem->sRemainingRentalTime;	// remaining time
 
 			// NOTE: gone from 1298
 			//<< uint32(0) // unknown
@@ -1032,16 +1043,15 @@ void CUser::SendMyInfo()
 	{
 		_ITEM_DATA *pItem = GetItem(i+SLOT_MAX); 
 		result << pItem->nNum
-			<< pItem->sDuration << pItem->sCount ;
-			//<< pItem->bFlag	// item type flag (e.g. rented)
-			//<< pItem->sRemainingRentalTime;	// remaining time
+			<< pItem->sDuration << pItem->sCount
+			<< pItem->bFlag	// item type flag (e.g. rented)
+			<< pItem->sRemainingRentalTime;	// remaining time
 
 			// NOTE: gone from 1298
 			//<< uint32(0) // unknown
 			//<< pItem->nExpirationTime; // expiration date in unix time
 	}
 
-	/*
 	m_bIsChicken = CheckExistEvent(50, 1);
 	result
 		//<< m_bAccountStatus	// account status (0 = none, 1 = normal prem with expiry in hours, 2 = pc room)
@@ -1052,7 +1062,6 @@ void CUser::SendMyInfo()
 		<< m_bIsChicken						// chicken/beginner flag
 		<< m_iMannerPoint;
 		//<< uint8(0x00); // extra byte?
-	*/
 
 	Send(&result);
 
