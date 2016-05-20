@@ -1479,7 +1479,6 @@ void CGameServerDlg::NpcInOutForMe(CUser* pSendUser)
 
 	result.put(0, npc_count);
 	pSendUser->SendCompressed(&result);
-	//pSendUser->Send(&result);
 }
 
 void CGameServerDlg::GetRegionNpcIn(C3DMap *pMap, uint16 region_x, uint16 region_z, Packet & pkt, uint16 & t_count, uint16 nEventRoom, CUser* pSendUser)
