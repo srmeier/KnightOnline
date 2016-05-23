@@ -1361,7 +1361,9 @@ void CUser::SetSlotItemValue()
 
 	// Apply stat bonuses from all equipped & cospre items.
 	// Total up the weight of all items.
-	for (int i = 0; i < INVENTORY_TOTAL; i++)
+
+	// NOTE(srmeier): changing max items to ignore the magic bag stuff
+	for (int i = 0; i < INVENTORY_COSP/*INVENTORY_TOTAL*/; i++)
 	{
 		_ITEM_DATA * pItem = nullptr;
 		pTable = GetItemPrototype(i, pItem);

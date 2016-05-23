@@ -4,17 +4,16 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- change the font on the monsters
-- try to add fog
+- fix merchant mode
 - change zoneability back to the 1298 packet
 
 
 - added a HERO format flag for OPD files but I haven't finished anything yet
 	- will eventually remove this?
+- work on FOG in the camera class
 - get "tab" to work on login screen
 - issue with starting the binary client after source client
 	- this requires starting the binary client before the source version
-- implement the Quest tab on the character screen
 - why isn't the loading screen texture different?
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - implement the CUIQuest object for the player quests

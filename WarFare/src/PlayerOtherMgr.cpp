@@ -100,9 +100,15 @@ void CPlayerOtherMgr::Tick(const __Vector3& vPosPlayer)
 		}
 		else if (pNPC->m_InfoBase.eNation==NATION_KARUS || pNPC->m_InfoBase.eNation==NATION_ELMORAD)
 		{
+			// TODO(srmeier): in 1299 the NPCs seem to have their own distance parameters
+			// keeping them the same for now but will probably want to look into this
+
+			// NOTE(srmeier): CPlayerBase::Tick() places a limit to the distance for which the names
+			// get displayed
+
 			float fDist = pNPC->Distance(vPosPlayer);
-			if (fDist < 40.0f*SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(D3DFONT_BOLD); // SOUND_RANGE 안에 있으면.
-			else if (fDist > 40.0f*SOUND_RANGE_TO_RELEASE) pNPC->ReleaseSoundAndFont();
+			if (fDist < SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(D3DFONT_BOLD); // SOUND_RANGE 안에 있으면.
+			else if (fDist > SOUND_RANGE_TO_RELEASE) pNPC->ReleaseSoundAndFont();
 			it2++;
 		}
 		else
