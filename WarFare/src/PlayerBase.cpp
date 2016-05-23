@@ -980,6 +980,8 @@ void CPlayerBase::Render(float fSunAngle)
 	if(m_InfoBase.bRenderID && m_pIDFont)
 	{
 		float fDist = (m_Chr.Pos() - s_CameraData.vEye).Magnitude();
+
+		// NOTE(srmeier): this will prevent the NPC text from displaying past a certain distance
 		if(fDist < 48.0f)
 		{
 			__Vector3 vHead = this->HeadPosition();
