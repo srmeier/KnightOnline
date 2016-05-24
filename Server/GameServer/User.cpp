@@ -4344,7 +4344,7 @@ void CUser::ServerChangeOk(Packet & pkt)
 
 bool CUser::GetWarpList(int warp_group)
 {
-	Packet result(WIZ_WARP_LIST);//, uint8(1));
+	Packet result(WIZ_WARP_LIST, uint8(1));
 	C3DMap* pMap = GetMap();
 	set<_WARP_INFO*> warpList;
 

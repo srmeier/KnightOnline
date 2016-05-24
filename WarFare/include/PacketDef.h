@@ -64,6 +64,12 @@ const int SOCKET_PORT_LOGIN = 15100;
 
 #define	N3_ITEM_DROPPED_GET		0x26	// 유저가 획득한 아이템에 대한 거..
 #define N3_ZONE_CHANGE			0x27	// 존체인지.. Recv - b1 존번호 f3 좌표 X, Z, Y | Recv
+	enum e_ZoneChangeOpcodes
+	{
+		ZoneChangeLoading = 1,
+		ZoneChangeLoaded = 2,
+		ZoneChangeTeleport = 3
+	};
 #define N3_POINT_CHANGE			0x28	// 레벨 체인지 -	 보낼때 b1(1힘 2체력 3민첩 4지능 5마력) s(-1 +1)  // 받을때 b1(1힘 2체력 3민첩 4지능 5매력) s(절대수치)
 #define N3_STATE_CHANGE			0x29	// 상태변화 Send - b2(Type, State) | Recv S1(ID) b2(Type, State) - // Type 1 앉기서기, 2 파티구함...
 	enum e_SubPacket_State {	N3_SP_STATE_CHANGE_SITDOWN = 0x01,

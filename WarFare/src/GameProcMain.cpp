@@ -903,7 +903,6 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			return true;
 		case N3_ZONE_CHANGE:
 			this->MsgRecv_ZoneChange(pDataPack, iOffset);
-			this->MsgSend_ZoneChangeComplete(); // Zone Loading 완료 패킷 보냄..
 			return true;
 		case N3_STATE_CHANGE:
 			this->MsgRecv_UserState(pDataPack, iOffset);
@@ -4069,15 +4068,6 @@ void CGameProcMain::MsgSend_Warp() // 워프 - 존이동이 될수도 있다..
 	*/
 }
 
-void CGameProcMain::MsgSend_ZoneChangeComplete() // 존 체인지 완료.. (맵 로딩 끝..)
-{
-	BYTE byBuff[4];
-	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ZONE_CHANGE);
-
-	s_pSocket->Send(byBuff, iOffset);
-}
-
 void CGameProcMain::DoCommercialTransaction(int iTradeID)
 {
 	if (m_pUITransactionDlg->IsVisible())
@@ -4582,37 +4572,59 @@ bool CGameProcMain::MsgRecv_ItemDroppedGetResult(DataPack* pDataPack, int& iOffs
 
 void CGameProcMain::MsgRecv_ZoneChange(DataPack* pDataPack, int& iOffset)
 {
-	int iZone	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	float fX	= (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-	float fZ	= (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-	float fY	= (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
-	int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	CGameProcedure::LoadingUIChange(iVictoryNation);
+	BYTE ZoneChangeFlag = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
+	switch (ZoneChangeFlag) {
+
+		case ZoneChangeTeleport: {
+			int iZone = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			float fX = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset)) / 10.0f;
+			float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset)) / 10.0f;
+			float fY = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset)) / 10.0f;
+			int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+			CGameProcedure::LoadingUIChange(iVictoryNation);
 
 
-	__Vector3 vPosPlayer;
-	vPosPlayer.x = fX;
-	vPosPlayer.y = fY;
-	vPosPlayer.z = fZ;
-	this->InitPlayerPosition(vPosPlayer); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
-	s_pPlayer->RegenerateCollisionMesh(); // 충돌 메시를 다시 만든다..
-	s_pPlayer->m_iSendRegeneration = 0; // 한번 보내면 다시 죽을때까지 안보내는 플래그
-	s_pPlayer->m_fTimeAfterDeath = 0; // 한번 보내면 다시 죽을때까지 안보내는 플래그
+			__Vector3 vPosPlayer;
+			vPosPlayer.x = fX;
+			vPosPlayer.y = fY;
+			vPosPlayer.z = fZ;
+			this->InitPlayerPosition(vPosPlayer); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
+			s_pPlayer->RegenerateCollisionMesh(); // 충돌 메시를 다시 만든다..
+			s_pPlayer->m_iSendRegeneration = 0; // 한번 보내면 다시 죽을때까지 안보내는 플래그
+			s_pPlayer->m_fTimeAfterDeath = 0; // 한번 보내면 다시 죽을때까지 안보내는 플래그
 
-	if(s_pPlayer->IsDead())
-	{
-		TRACE("ZoneChange - 다시 살아나기(%.1f, %.1f)\n", fX, fZ);
+			if (s_pPlayer->IsDead())
+			{
+				TRACE("ZoneChange - 다시 살아나기(%.1f, %.1f)\n", fX, fZ);
 
-		//마법 & 효과 초기화..
-		if(m_pUIStateBarAndMiniMap) m_pUIStateBarAndMiniMap->ClearMagic();
-		if(m_pMagicSkillMng) m_pMagicSkillMng->ClearDurationalMagic();
-		if(CGameProcedure::s_pFX) s_pFX->StopMine();
+				//마법 & 효과 초기화..
+				if (m_pUIStateBarAndMiniMap) m_pUIStateBarAndMiniMap->ClearMagic();
+				if (m_pMagicSkillMng) m_pMagicSkillMng->ClearDurationalMagic();
+				if (CGameProcedure::s_pFX) s_pFX->StopMine();
 
-		if(s_pPlayer->Nation()==NATION_KARUS) CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_KARUS, s_pPlayer->IDNumber(), -1);
-		else if(s_pPlayer->Nation()==NATION_ELMORAD) CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_ELMORAD, s_pPlayer->IDNumber(), -1);
+				if (s_pPlayer->Nation() == NATION_KARUS) CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_KARUS, s_pPlayer->IDNumber(), -1);
+				else if (s_pPlayer->Nation() == NATION_ELMORAD) CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_ELMORAD, s_pPlayer->IDNumber(), -1);
+			}
+
+			this->InitZone(iZone, __Vector3(fX, fY, fZ)); // Zone Update
+
+			BYTE byBuff[4];
+			int iOffset_send = 0;
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, N3_ZONE_CHANGE);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (Uint8)ZoneChangeLoading);
+			s_pSocket->Send(byBuff, iOffset_send);
+		} break;
+
+		case ZoneChangeLoaded: {
+			BYTE byBuff[4];
+			int iOffset_send = 0;
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, N3_ZONE_CHANGE);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (Uint8)ZoneChangeLoaded);
+			s_pSocket->Send(byBuff, iOffset_send);
+		} break;
+
 	}
-
-	this->InitZone(iZone, __Vector3(fX, fY, fZ)); // Zone Update
 }
 
 void CGameProcMain::MsgRecv_UserState(DataPack* pDataPack, int& iOffset)
@@ -6343,6 +6355,8 @@ void CGameProcMain::MsgRecv_NoahChange(DataPack* pDataPack, int& iOffset)		// 노
 
 void CGameProcMain::MsgRecv_WarpList(DataPack* pDataPack, int& iOffset)		// 워프 리스트 - 존 체인지가 될 수도 있다..
 {
+	int iByte = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
 	m_pUIWarp->Reset();
 
 	int iStrLen = 0;
