@@ -1222,6 +1222,7 @@ void CUser::SetZoneAbilityChange(uint16 sNewZone)
 	uint8 maxLevel   = pMap->GetMaxLevelReq();
 
 	result << zoneFlags << zoneType << zoneTariff << minLevel << maxLevel;
+
 	/*
 	result	<< pMap->canTradeWithOtherNation()
 		<< pMap->GetZoneType()
