@@ -451,7 +451,7 @@ void CUIStateBar::Tick()
 	if (iCount++ == 60) {
 		iCount = 0;
 		sprintf(strFPS, "%.1f", CN3Base::s_fFrmPerSec);
-		m_pText_FPS->SetString(strFPS);
+		if(m_pText_FPS) m_pText_FPS->SetString(strFPS);
 	}
 
 

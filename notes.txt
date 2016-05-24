@@ -4,6 +4,9 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- exp change, and level packets need work
+	- strange that some of these only seem to mess up after the failed sprint
+		skill?
 - fix merchant mode
 - change zoneability back to the 1298 packet
 
