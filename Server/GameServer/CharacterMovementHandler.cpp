@@ -471,8 +471,8 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 
 	SetRegion(GetNewRegionX(), GetNewRegionZ());
 
-	Packet result(WIZ_ZONE_CHANGE);//, uint8(ZoneChangeTeleport));
-	result << uint8(GetZoneID())/*uint16(GetZoneID())*/ << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
+	Packet result(WIZ_ZONE_CHANGE, uint8(ZoneChangeTeleport));
+	result << uint16(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
 	Send(&result);
 
 	if (!m_bZoneChangeSameZone)
@@ -675,20 +675,19 @@ void CUser::RecvZoneChange(Packet & pkt)
 	if (isDead()) // we also need to make sure we're actually waiting on this request...
 		return;
 
-	/*
 	uint8 opcode = pkt.read<uint8>();
 	if (opcode == ZoneChangeLoading)
-	{*/
+	{
 
 		g_pMain->RegionUserInOutForMe(this);
 		g_pMain->NpcInOutForMe(this);
 		g_pMain->MerchantUserInOutForMe(this);
 
-		//Packet result(WIZ_ZONE_CHANGE, uint8(ZoneChangeLoaded)); // finalise the zone change
-		//Send(&result);
-	/*}
+		Packet result(WIZ_ZONE_CHANGE, uint8(ZoneChangeLoaded)); // finalise the zone change
+		Send(&result);
+	}
 	else if (opcode == ZoneChangeLoaded)
-	{*/
+	{
 		UserInOut(INOUT_RESPAWN);
 
 		// TODO: Fix all this up (it's too messy/confusing)
@@ -702,5 +701,5 @@ void CUser::RecvZoneChange(Packet & pkt)
 		}
 		m_bZoneChangeFlag = false;
 		m_bWarp = false;
-	/*}*/
+	}
 }

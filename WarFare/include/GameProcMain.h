@@ -250,7 +250,6 @@ public:
 	void	MsgSend_NPCInRequest(int iID); // NPC 정보가 없을 경우 요청한다..
 	void	MsgSend_UserInRequest(int iID); // User 정보가 없을 경우 요청한다..
 	void	MsgSend_Warp(); // 워프?? - 존체인지가 될수도 있다..
-	void	MsgSend_ZoneChangeComplete(); // 존 체인지 완료.. (맵 로딩 끝..)
 	void	MsgSend_StateChange(enum e_SubPacket_State eSP, int iState);
 	void	MsgSend_PerTradeReq(int iDestID, bool bNear = true);
 	void	MsgSend_SpeedCheck(bool bInit = false);

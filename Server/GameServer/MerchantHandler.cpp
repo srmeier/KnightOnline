@@ -362,8 +362,8 @@ void CUser::MerchantInsert(Packet & pkt)
 	m_bMerchantState = MERCHANT_STATE_SELLING;
 
 	Packet result(WIZ_MERCHANT, uint8(MERCHANT_INSERT));
-	result << uint16(1) << advertMessage << GetSocketID()
-		<< m_bPremiumMerchant; 
+	result << uint16(1) << advertMessage << GetSocketID();
+		//<< m_bPremiumMerchant; 
 
 	for (int i = 0; i < MAX_MERCH_ITEMS; i++)
 		result << m_arMerchantItems[i].nNum;
