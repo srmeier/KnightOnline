@@ -91,7 +91,7 @@ void CN3TerrainManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Release Shapes\t%d", m_pShapes); // TmpLog_11_22
 	m_pShapes->Release();
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load Shapes"); // TmpLog_11_22
-	m_pShapes->LoadFromFile(pZone->szObjectPostDataFN, N3FORMAT_VER_1298);//, pZone->dwVersion);	// 오브젝트 데이터 로드..
+	m_pShapes->LoadFromFile(pZone->szObjectPostDataFN, N3FORMAT_VER_1298);//N3FORMAT_VER_1298);//, pZone->dwVersion);	// 오브젝트 데이터 로드..
 	
 	char szFName[_MAX_PATH];
 	_splitpath(pZone->szTerrainFN.c_str(), NULL, NULL, szFName, NULL);
