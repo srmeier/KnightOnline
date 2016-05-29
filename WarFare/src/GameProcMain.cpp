@@ -4164,7 +4164,12 @@ void CGameProcMain::InitZone(int iZone, const __Vector3& vPosPlayer)
 
 		CLogWriter::Write("%d->Find(s_pPlayer->m_InfoExt.iZoneCur)",s_pTbl_Zones); // TmpLog1122
 		__TABLE_ZONE* pZoneData = s_pTbl_Zones->Find(s_pPlayer->m_InfoExt.iZoneCur);
-		if(NULL == pZoneData) { CLogWriter::Write("can't find zone data. (zone : %d)", s_pPlayer->m_InfoExt.iZoneCur); __ASSERT(0, "Zone Data Not Found!"); return; }
+		if(NULL == pZoneData) {
+			CLogWriter::Write("can't find zone data. (zone : %d)", s_pPlayer->m_InfoExt.iZoneCur);
+			__ASSERT(0, "Zone Data Not Found!");
+			system("pause");
+			return;
+		}
 
 		CLogWriter::Write("%d->Release()",s_pOPMgr); // TmpLog1122
 

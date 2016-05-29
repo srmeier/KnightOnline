@@ -210,6 +210,13 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 		ReadFile(hFile, m_pvCollisions, sizeof(__Vector3) * m_nCollisionFaceCount * 3, &dwRWC, NULL);
 	}
 
+	if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
+		// NOTE(srmeier): for the "ah_hapbi_zone.opd" the jump seems to be specifically 0x338 bytes
+		BYTE* tmp = new BYTE[0x338];
+		ReadFile(hFile, tmp, 0x338, &dwRWC, NULL);
+		delete[] tmp;
+	}
+
 	// Cell Data 쓰기.
 	BOOL bExist = FALSE;
 	int z = 0;
@@ -220,12 +227,7 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 		{
 			delete m_pCells[x][z]; m_pCells[x][z] = NULL;
 
-			if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
-				ReadFile(hFile, &bExist, 4, &dwRWC, NULL);
-			}
-			else {
-				ReadFile(hFile, &bExist, 4, &dwRWC, NULL); // 데이터가 있는 셀인지 쓰고..
-			}
+			ReadFile(hFile, &bExist, 4, &dwRWC, NULL); // 데이터가 있는 셀인지 쓰고..
 
 			if(FALSE == bExist) continue;
 

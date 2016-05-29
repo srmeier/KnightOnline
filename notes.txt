@@ -4,13 +4,15 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- work on chat packets
+
+
+- fix inventory packet
 - exp change, and level packets need work
 	- strange that some of these only seem to mess up after the failed sprint
 		skill?
 - fix merchant mode
 - change zoneability back to the 1298 packet
-
-
 - added a HERO format flag for OPD files but I haven't finished anything yet
 	- will eventually remove this?
 - work on FOG in the camera class

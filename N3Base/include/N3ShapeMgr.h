@@ -45,12 +45,7 @@ public:
 		{
 			DWORD dwRWC = 0;
 
-			if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
-				ReadFile(hFile, &nCCPolyCount, 2, &dwRWC, NULL);
-			}
-			else {
-				ReadFile(hFile, &nCCPolyCount, 4, &dwRWC, NULL);
-			}
+			ReadFile(hFile, &nCCPolyCount, 4, &dwRWC, NULL);
 
 			if(nCCPolyCount > 0)
 			{
@@ -58,17 +53,7 @@ public:
 				pdwCCVertIndices = new DWORD[nCCPolyCount * 3];
 				__ASSERT(pdwCCVertIndices, "New memory failed");
 
-				if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
-					WORD* pTemp = new WORD[nCCPolyCount * 3];
-
-					ReadFile(hFile, pTemp, nCCPolyCount * 3 * 2, &dwRWC, NULL);
-					for (int i = 0; i < nCCPolyCount * 3; ++i) pdwCCVertIndices[i] = pTemp[i];
-
-					delete[] pTemp;
-				}
-				else {
-					ReadFile(hFile, pdwCCVertIndices, nCCPolyCount * 3 * 4, &dwRWC, NULL);
-				}
+				ReadFile(hFile, pdwCCVertIndices, nCCPolyCount * 3 * 4, &dwRWC, NULL);
 
 //#if _DEBUG				
 //				static char szTrace[256];
@@ -102,12 +87,7 @@ public:
 		{
 			DWORD dwRWC = 0;
 
-			if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
-				ReadFile(hFile, &nShapeCount, 2, &dwRWC, NULL);
-			}
-			else {
-				ReadFile(hFile, &nShapeCount, 4, &dwRWC, NULL);
-			}
+			ReadFile(hFile, &nShapeCount, 4, &dwRWC, NULL);
 
 			if(nShapeCount > 0)
 			{
