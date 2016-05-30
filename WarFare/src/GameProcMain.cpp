@@ -737,7 +737,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			Uint8 opcode = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 
 			switch (opcode) {
-				case 0x01:
+				case 0x03://0x01:
 					Uint16 zoneFlags = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 					ZoneAbilityType zoneType = (ZoneAbilityType)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 					Uint8 zoneTariff = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);

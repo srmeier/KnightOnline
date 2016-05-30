@@ -1211,26 +1211,29 @@ void CUser::SetZoneAbilityChange(uint16 sNewZone)
 		}
 	}
 
-
 	Packet result(WIZ_ZONEABILITY, uint8(1));
 
-	// NOTE(srmeier): custom zoneability packet
-	uint16 zoneFlags = pMap->GetZoneFlags();
-	uint8 zoneType   = pMap->GetZoneType();
-	uint8 zoneTariff = pMap->GetTariff();
-	uint8 minLevel   = pMap->GetMinLevelReq();
-	uint8 maxLevel   = pMap->GetMaxLevelReq();
-
-	result << zoneFlags << zoneType << zoneTariff << minLevel << maxLevel;
-
-	/*
 	result	<< pMap->canTradeWithOtherNation()
-		<< pMap->GetZoneType()
-		<< pMap->canTalkToOtherNation()
-		<< uint16(pMap->GetTariff());
-	*/
+	<< pMap->GetZoneType()
+	<< pMap->canTalkToOtherNation()
+	<< uint16(pMap->GetTariff());
 
 	Send(&result);
+
+	{
+		Packet result(WIZ_ZONEABILITY, uint8(3));
+
+		// NOTE(srmeier): temp custom zoneability packet for source client
+		uint16 zoneFlags = pMap->GetZoneFlags();
+		uint8 zoneType = pMap->GetZoneType();
+		uint8 zoneTariff = pMap->GetTariff();
+		uint8 minLevel = pMap->GetMinLevelReq();
+		uint8 maxLevel = pMap->GetMaxLevelReq();
+
+		result << zoneFlags << zoneType << zoneTariff << minLevel << maxLevel;
+
+		Send(&result);
+	}
 
 	if (!isGM())
 		PlayerRankingProcess(sNewZone,false);
