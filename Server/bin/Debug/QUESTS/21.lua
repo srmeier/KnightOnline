@@ -13,13 +13,12 @@ if false then -- unknown logic command (CHECK_MONSTER_CHALLENGE_USERCOUNT)
 	pUser:NpcSay(32, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 499999 then
 	pUser:NpcSay(34, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
 	do return; end
 end
@@ -46,13 +45,12 @@ if false then -- unknown logic command (CHECK_MONSTER_CHALLENGE_USERCOUNT)
 	pUser:NpcSay(32, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 99999 then
 	pUser:NpcSay(48, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(100000);
 	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
 	do return; end
 end
@@ -101,8 +99,7 @@ if false then -- unknown logic command (CHECK_MONSTER_CHALLENGE_USERCOUNT)
 	pUser:NpcSay(32, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(300000);
 	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
 	do return; end
 end
@@ -112,8 +109,8 @@ elseif nEventID == 53 then
 	pUser:NpcSay(25, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 62 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 299999 then
 	pUser:NpcSay(62, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -672,8 +669,8 @@ elseif nEventID == 7245 then
 elseif nEventID == 7251 then
 	pUser:SelectMsg(7150, 7201, 7261, 7202, 7262, 7203, 7263, 7204, 7264, 7205, 7265, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 7261 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 99999 then
 	pUser:NpcSay(7170, 7220, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -687,8 +684,7 @@ if count >= 1 and count <= 9999 then
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(100000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -721,8 +717,7 @@ end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(100000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -755,8 +750,7 @@ end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(100000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -789,8 +783,7 @@ end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(100000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -822,8 +815,8 @@ end
 end
 end
 elseif nEventID == 7262 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 79999 then
 	pUser:NpcSay(7170, 7230, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -837,8 +830,7 @@ if count >= 1 and count <= 9999 then
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(80000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -871,8 +863,7 @@ end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(80000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -905,8 +896,7 @@ end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(80000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -939,8 +929,7 @@ end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(80000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -972,8 +961,8 @@ end
 end
 end
 elseif nEventID == 7263 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 49999 then
 	pUser:NpcSay(7170, 7240, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -987,8 +976,7 @@ if count >= 1 and count <= 9999 then
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1021,8 +1009,7 @@ end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1055,8 +1042,7 @@ end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1089,8 +1075,7 @@ end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1122,8 +1107,8 @@ end
 end
 end
 elseif nEventID == 7264 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 39999 then
 	pUser:NpcSay(7170, 7250, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1137,8 +1122,7 @@ if count >= 1 and count <= 9999 then
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(40000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1171,8 +1155,7 @@ end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(40000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1205,8 +1188,7 @@ end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(40000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1239,8 +1221,7 @@ end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(40000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1272,8 +1253,8 @@ end
 end
 end
 elseif nEventID == 7265 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 29999 then
 	pUser:NpcSay(7170, 7260, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1287,8 +1268,7 @@ if count >= 1 and count <= 9999 then
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(30000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1321,8 +1301,7 @@ end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(30000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1355,8 +1334,7 @@ end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(30000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1389,8 +1367,7 @@ end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(30000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1429,8 +1406,8 @@ elseif nEventID == 7553 then
 elseif nEventID == 7558 then
 	pUser:SelectMsg(7558, 7561, 7561, 7562, 7562, 7563, 7563, 7564, 7564, 7565, 7565, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 7561 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 499999 then
 	pUser:NpcSay(7566, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1447,34 +1424,30 @@ end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 elseif nEventID == 7562 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 499999 then
 	pUser:NpcSay(7566, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1491,34 +1464,30 @@ end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 elseif nEventID == 7563 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 499999 then
 	pUser:NpcSay(7566, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1535,34 +1504,30 @@ end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 elseif nEventID == 7564 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 499999 then
 	pUser:NpcSay(7566, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1579,34 +1544,30 @@ end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 elseif nEventID == 7565 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 499999 then
 	pUser:NpcSay(7566, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1623,29 +1584,25 @@ end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 elseif nEventID == 7621 then
@@ -1659,8 +1616,8 @@ if count >= 0 and count <= 4 then
 	pUser:NpcSay(7631, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 499999 then
 	pUser:NpcSay(7632, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1680,8 +1637,7 @@ end
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1712,8 +1668,7 @@ end
 end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1747,8 +1702,7 @@ end
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1779,8 +1733,7 @@ end
 end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1814,8 +1767,7 @@ end
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1846,8 +1798,7 @@ end
 end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1881,8 +1832,7 @@ end
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1913,8 +1863,7 @@ end
 end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1952,8 +1901,8 @@ elseif nEventID == 7725 then
 	pUser:NpcSay(7703, 7704, 7705, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 7730 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 49999 then
 	pUser:NpcSay(7707, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -1968,8 +1917,7 @@ if count >= 0 and count <= 4 then
 	do return; end
 end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -1999,8 +1947,7 @@ if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 end
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -2030,8 +1977,7 @@ if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 end
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -2061,8 +2007,7 @@ if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 end
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(50000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
@@ -2092,103 +2037,83 @@ if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 end
 end
 elseif nEventID == 7801 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7802 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7803 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7804 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7805 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7806 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1005);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7807 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7808 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7809 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7810 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7811 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7812 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7813 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7814 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7815 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7816 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7817 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7818 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7819 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7820 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7821 then
@@ -2197,8 +2122,8 @@ elseif nEventID == 7823 then
 	pUser:NpcSay(7823, 7824, 7825, 7826, 7827, -1, -1, -1);
 	do return; end
 elseif nEventID == 7825 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 999 then
 	pUser:NpcSay(7832, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
@@ -2225,8 +2150,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7881, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7842 then
@@ -2235,8 +2159,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7882, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7843 then
@@ -2245,8 +2168,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7883, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7844 then
@@ -2255,8 +2177,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7884, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7845 then
@@ -2265,8 +2186,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7885, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7851 then
@@ -2275,8 +2195,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7886, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1005);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7852 then
@@ -2285,8 +2204,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7887, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7853 then
@@ -2295,8 +2213,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7888, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7854 then
@@ -2305,8 +2222,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7889, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7855 then
@@ -2315,8 +2231,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7890, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7861 then
@@ -2325,8 +2240,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7891, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7862 then
@@ -2335,8 +2249,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7892, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7863 then
@@ -2345,8 +2258,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7893, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7864 then
@@ -2355,8 +2267,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7894, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7865 then
@@ -2365,8 +2276,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7895, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7871 then
@@ -2375,8 +2285,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7896, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7872 then
@@ -2385,8 +2294,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7897, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7873 then
@@ -2395,8 +2303,7 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7898, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7874 then
@@ -2405,13 +2312,11 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7899, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7875 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(1000);
 	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7900 then
@@ -2765,8 +2670,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:NpcSay(20802, -1, -1, -1, -1, -1, -1, -1);
 	pUser:RobItem(910020000, 5);
 	pUser:ExpChange(1500);
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(10000);
 	pUser:SaveEvent(12, 2);
 	do return; end
 end
@@ -2880,15 +2784,13 @@ elseif nEventID == 21121 then
 	pUser:NpcSay(21121, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 21122 then
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOAH'.");
-if false then -- unknown logic command (CHECK_NOAH)
+local coins = pUser:GetCoins();
+if coins >= 0 and coins <= 2999 then
 	pUser:NpcSay(21123, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
-	pUser:SendDebugString("Unknown EXEC command 'PROMOTE_USER_NOVICE'."); -- unknown logic command (PROMOTE_USER_NOVICE)
-	do return; end
+	pUser:GoldLose(3000);
+	pUser:PromoteUserNovice();
 	pUser:NpcSay(21146, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21126 then
 local lvl = pUser:GetLevel();
@@ -3282,8 +3184,7 @@ if state == 2 then
 end
 local state = pUser:SearchQuest(30);
 if state == 1 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	pUser:SaveEvent(30, 2);
 	pUser:NpcSay(30141, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -3346,12 +3247,6 @@ elseif nEventID == 31188 then
 elseif nEventID == 31189 then
 	pUser:NpcSay(31189, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35001 then
-
-
-	--pUser:ExpChange(10000000);
-	pUser:GoldGain(900000000);
-
-
 	pUser:SelectMsg(35001, 2901, 35012, 2902, 35032, 2903, 35052, 2904, 35072, 2905, 35092, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 35012 then
@@ -4993,8 +4888,7 @@ elseif nEventID == 35535 then
 elseif nEventID == 35536 then
 local count = pUser:HowMuchItem(190250261);
 if count >= 1 and count <= 9999 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	do return; end
 end
 elseif nEventID == 35537 then
@@ -5006,8 +4900,7 @@ end
 elseif nEventID == 35539 then
 local count = pUser:HowMuchItem(190250261);
 if count >= 1 and count <= 9999 then
-	pUser:SendDebugString("Unknown EXEC command 'ROB_NOAH'."); -- unknown logic command (ROB_NOAH)
-	do return; end
+	pUser:GoldLose(500000);
 	do return; end
 end
 local count = pUser:HowMuchItem(190250261);
