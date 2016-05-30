@@ -4,12 +4,15 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- change zoneability back to the 1298 packet
 - check Inn hostest packets
+- there is an issue with the sprint skill. something with cooldown maybe
+	- this issue seems to be that the player in moving
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - work on chat packets
 
 
+- need to test mage skills, archer seems to work well
+	- something wrong with archer hide spell
 - exp change, and level packets need work
 - work on FOG in the camera class
 - get "tab" to work on login screen
@@ -23,7 +26,8 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	- CGameProcMain::OnMouseRBtnPress()
 	- server-side "WIZ_ZONEABILITY" packet
 	- m_zoneFlags, m_zoneType, m_byTariff, m_byMinLevel, m_byMaxLevel
-- there is an issue with the sprint skill. something with cooldown maybe
+- change zoneability back to the 1298 packet
+	- got a temp fix for this...
 - skill descriptions aren't word wrapping
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
