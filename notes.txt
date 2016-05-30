@@ -4,12 +4,13 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- change zoneability back to the 1298 packet
+- check Inn hostest packets
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - work on chat packets
 
 
 - exp change, and level packets need work
-- change zoneability back to the 1298 packet
 - work on FOG in the camera class
 - get "tab" to work on login screen
 - issue with starting the binary client after source client

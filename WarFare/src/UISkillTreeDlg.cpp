@@ -475,7 +475,7 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 	if ( iSkillExtra == 0 )
 	{
 		std::string szMsg;
-		::_LoadStringFromResource(IDS_SKILL_POINT_EXTRA_NOT_EXIST, szMsg);
+		szMsg = "IDS_SKILL_POINT_EXTRA_NOT_EXIST";//::_LoadStringFromResource(IDS_SKILL_POINT_EXTRA_NOT_EXIST, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 		return;
 	}
@@ -483,7 +483,7 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 	if ((iValue == 1) ||(iValue == 2) || (iValue == 3) ||(iValue == 4))	//.. 
 	{
 		std::string szMsg;
-		::_LoadStringFromResource(IDS_SKILL_POINT_NOT_YET, szMsg);
+		szMsg = "IDS_SKILL_POINT_NOT_YET";//::_LoadStringFromResource(IDS_SKILL_POINT_NOT_YET, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 		return;
 	}
@@ -504,7 +504,7 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 							case CLASS_KA_PRIEST:
 								{
 									std::string szMsg;
-									::_LoadStringFromResource(IDS_SKILL_POINT_BEFORE_CLASS_CHANGE, szMsg);
+									szMsg = "IDS_SKILL_POINT_BEFORE_CLASS_CHANGE";//::_LoadStringFromResource(IDS_SKILL_POINT_BEFORE_CLASS_CHANGE, szMsg);
 									CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 									return;
 								}
@@ -521,7 +521,7 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 							case CLASS_EL_PRIEST:
 								{
 									std::string szMsg;
-									::_LoadStringFromResource(IDS_SKILL_POINT_BEFORE_CLASS_CHANGE, szMsg);
+									szMsg = "IDS_SKILL_POINT_BEFORE_CLASS_CHANGE";//::_LoadStringFromResource(IDS_SKILL_POINT_BEFORE_CLASS_CHANGE, szMsg);
 									CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 									return;
 								}

@@ -3247,6 +3247,16 @@ elseif nEventID == 31188 then
 elseif nEventID == 31189 then
 	pUser:NpcSay(31189, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35001 then
+
+	--pUser:PromoteUser();
+	--pUser:ExpChange(20000000);
+
+	--pUser:GiveItem(246001009, 1);
+	--pUser:GiveItem(246002009, 1);
+	--pUser:GiveItem(246003009, 1);
+	--pUser:GiveItem(246004009, 1);
+	--pUser:GiveItem(246005009, 1);
+
 	pUser:SelectMsg(35001, 2901, 35012, 2902, 35032, 2903, 35052, 2904, 35072, 2905, 35092, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 35012 then
