@@ -204,7 +204,7 @@ void CUIStateBar::UpdateExp(int iExp, int iExpNext, bool bUpdateImmediately)
 	if(iExpNext <= 0) return;
 	if(NULL == m_pProgress_ExpC || NULL == m_pProgress_ExpP) return;
 
-	int iPercentage = 100 * iExp / iExpNext;
+	int iPercentage = 100.0f * ((float) iExp / (float) iExpNext);
 
 	if(iExpNext > 10)
 	{

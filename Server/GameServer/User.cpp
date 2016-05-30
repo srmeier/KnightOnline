@@ -1773,7 +1773,7 @@ void CUser::ExpChange(int64 iExp, bool bIsBonusReward)
 
 	// Tell the client our new XP
 	Packet result(WIZ_EXP_CHANGE);
-	result /*<< uint8(0)*/ << m_iExp; // NOTE: Use proper flag
+	result /*<< uint8(0)*/ << uint32(m_iExp); // NOTE: Use proper flag
 	Send(&result);
 
 	// If we've lost XP, save it for possible refund later.
@@ -1871,7 +1871,7 @@ void CUser::LevelChange(uint8 level, bool bLevelUp /*= true*/)
 
 	Packet result(WIZ_LEVEL_CHANGE);
 	result	<< GetSocketID()
-		<< GetLevel() << m_sPoints << m_bstrSkill[SkillPointFree]
+		<< GetLevel() << uint8(m_sPoints) << m_bstrSkill[SkillPointFree]
 		<< uint32(m_iMaxExp) << uint32(m_iExp)
 		<< m_iMaxHp << m_sHp 
 		<< m_iMaxMp << m_sMp
