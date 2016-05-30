@@ -4,26 +4,16 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- need to work with GetChildByID() and CUISkillTreeDlg class
 - work on chat packets
 
 
-- fix inventory packet
 - exp change, and level packets need work
-	- strange that some of these only seem to mess up after the failed sprint
-		skill?
-- fix merchant mode
 - change zoneability back to the 1298 packet
-- added a HERO format flag for OPD files but I haven't finished anything yet
-	- will eventually remove this?
 - work on FOG in the camera class
 - get "tab" to work on login screen
 - issue with starting the binary client after source client
-	- this requires starting the binary client before the source version
-- why isn't the loading screen texture different?
-- need to work with GetChildByID() and CUISkillTreeDlg class
-- implement the CUIQuest object for the player quests
-	- this will probably require working with the quest packets I was ignoring
-		before
+- implement the CUIQuest object for the player quests (UIVarious)
 - "Reduce" doesn't seem to be implemented for items
 - get colony zone working
 	- the zoneability information gets set based on the DB ZoneID
@@ -33,8 +23,6 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	- server-side "WIZ_ZONEABILITY" packet
 	- m_zoneFlags, m_zoneType, m_byTariff, m_byMinLevel, m_byMaxLevel
 - there is an issue with the sprint skill. something with cooldown maybe
-- problem with item descriptions getting cutoff
-	- they all should fit now but it isn't automatically setting the size
 - skill descriptions aren't word wrapping
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
