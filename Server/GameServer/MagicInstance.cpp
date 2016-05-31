@@ -324,9 +324,13 @@ SkillUseResult MagicInstance::CheckSkillPrerequisites()
 			if (pCaster->GetZoneID() == ZONE_PRISON)
 				return SkillUseFail;
 
-			if (//pSkill->sUseStanding == 1
-				/*&&*/ pCaster->m_sSpeed != 0) // Hacking prevention!
-				return SkillUseFail;
+			// NOTE(srmeier): fixed issue where this would stop rogues trying to use
+			// light feet
+			/*
+			if (//pSkill->sUseStanding == 1 &&
+				pCaster->m_sSpeed != 0
+			) return SkillUseFail; // Hacking prevention!
+			*/
 
 			if (pSkill->bType[0] == 3 || pSkill->bType[1] == 3)
 			{
