@@ -5,29 +5,22 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
 - check Inn hostest packets
-- there is an issue with the sprint skill. something with cooldown maybe
-	- this issue seems to be that the player in moving
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - work on chat packets
 
 
-- need to test mage skills, archer seems to work well
-	- something wrong with archer hide spell
-- exp change, and level packets need work
+- something wrong with archer hide spell
 - work on FOG in the camera class
 - get "tab" to work on login screen
 - issue with starting the binary client after source client
 - implement the CUIQuest object for the player quests (UIVarious)
 - "Reduce" doesn't seem to be implemented for items
-- get colony zone working
-	- the zoneability information gets set based on the DB ZoneID
-	- will need to update these for all the 1298 zones
+- the zoneability information gets set based on the DB ZoneID
+- will need to update these zoneabilities for all the 1298 zones
 - issue where NPCs of opposite nation cannot be interacted with
 	- CGameProcMain::OnMouseRBtnPress()
 	- server-side "WIZ_ZONEABILITY" packet
 	- m_zoneFlags, m_zoneType, m_byTariff, m_byMinLevel, m_byMaxLevel
-- change zoneability back to the 1298 packet
-	- got a temp fix for this...
 - skill descriptions aren't word wrapping
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
