@@ -9,6 +9,8 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - work on chat packets
 
 
+- need to figure out how best to check for player class when matching class to
+	spell, current checks do not work
 - something wrong with archer hide spell
 - work on FOG in the camera class
 - get "tab" to work on login screen
