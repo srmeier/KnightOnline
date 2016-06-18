@@ -145,7 +145,7 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 				case BEHAVIOR_KNIGHTS_DESTROY :			pProcMain->m_pUIKnightsOp->MsgSend_KnightsDestroy(); break; // 기사단 뽀개기..
 				case BEHAVIOR_KNIGHTS_WITHDRAW :		pProcMain->m_pUIKnightsOp->MsgSend_KnightsWithdraw(); break; // 기사단 탈퇴하기..
 				case BEHAVIOR_PERSONAL_TRADE_PERMIT :	pProcMain->m_pSubProcPerTrade->ProcessProceed(PER_TRADE_RESULT_MY_AGREE);	break;	// 내가 허락..
-				case BEHAVIOR_MGAME_LOGIN:				pProcLogIn->MsgSend_AccountLogIn(LIC_MGAME); break;
+				case BEHAVIOR_MGAME_LOGIN:				/*pProcLogIn->MsgSend_AccountLogIn(LIC_MGAME);*/ break;
 				case BEHAVIOR_DELETE_CHR: // 캐릭터 지우기..
 					{
 						std::string szKey;
