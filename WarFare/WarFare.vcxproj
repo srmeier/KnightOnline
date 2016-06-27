@@ -214,6 +214,7 @@
     <ClInclude Include="include\UIWarp.h" />
     <ClInclude Include="include\WarFareMain.h" />
     <ClInclude Include="include\WarMessage.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\APISocket.cpp" />
@@ -309,6 +310,9 @@
     <ClCompile Include="src\UIWarp.cpp" />
     <ClCompile Include="src\WarFareMain.cpp" />
     <ClCompile Include="src\WarMessage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WarFare.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -185,8 +185,9 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	SDL_Surface* pSurf4 = IMG_Load("cursor_attack.cur");
 	SDL_Surface* pSurf5 = IMG_Load("repair0.cur");
 	SDL_Surface* pSurf6 = IMG_Load("repair1.cur");
+	SDL_Surface* pSurf7 = IMG_Load("WarFare.ico");
 
-	if(pSurf0==NULL||pSurf1==NULL||pSurf2==NULL||pSurf3==NULL||pSurf4==NULL||pSurf5==NULL||pSurf6==NULL) {
+	if(pSurf0==NULL||pSurf1==NULL||pSurf2==NULL||pSurf3==NULL||pSurf4==NULL||pSurf5==NULL||pSurf6==NULL||pSurf7==NULL) {
 		printf("%s\n", IMG_GetError());
 		exit(-1);
 	}
@@ -200,6 +201,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	s_hCursorNowRepair = SDL_CreateColorCursor(pSurf6, 0, 0);
 
 	SDL_SetCursor(s_hCursorNormal);
+	SDL_SetWindowIcon(pWindow, pSurf7);
 
 	SDL_FreeSurface(pSurf0);
 	SDL_FreeSurface(pSurf1);
@@ -208,6 +210,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	SDL_FreeSurface(pSurf4);
 	SDL_FreeSurface(pSurf5);
 	SDL_FreeSurface(pSurf6);
+	SDL_FreeSurface(pSurf7);
 
 
 	/*
