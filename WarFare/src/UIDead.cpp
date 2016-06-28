@@ -58,10 +58,10 @@ bool CUIDead::Load(HANDLE hFile)
 
 
 	std::string szMsg;
-	::_LoadStringFromResource(IDS_DEAD_REVIVAL, szMsg);
+	szMsg = "IDS_DEAD_REVIVAL";//::_LoadStringFromResource(IDS_DEAD_REVIVAL, szMsg);
 	if(m_pTextAlive) m_pTextAlive->SetString(szMsg);
 
-	::_LoadStringFromResource(IDS_DEAD_RETURN_TOWN, szMsg);
+	szMsg = "IDS_DEAD_RETURN_TOWN";//::_LoadStringFromResource(IDS_DEAD_RETURN_TOWN, szMsg);
 	if(m_pTextTown) m_pTextTown->SetString(szMsg);
 
 	__TABLE_UI_RESRC*	pTblUI	= NULL;
@@ -95,7 +95,7 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 
 			if(iLevel < 6)
 			{
-				::_LoadStringFromResource(IDS_DEAD_LOW_LEVEL, szMsg);
+				szMsg = "IDS_DEAD_LOW_LEVEL";//::_LoadStringFromResource(IDS_DEAD_LOW_LEVEL, szMsg);
 				sprintf(szBuf, szMsg.c_str(), iNeedItemCnt);
 
 				m_MsgBox.SetBoxStyle(MB_OK);
@@ -106,7 +106,7 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 			}
 			else if(iItemCnt >= iNeedItemCnt)
 			{
-				::_LoadStringFromResource(IDS_DEAD_REVIVAL_MESSAGE, szMsg);
+				szMsg = "IDS_DEAD_REVIVAL_MESSAGE";//::_LoadStringFromResource(IDS_DEAD_REVIVAL_MESSAGE, szMsg);
 				sprintf(szBuf, szMsg.c_str(), iNeedItemCnt);
 
 				m_MsgBox.SetBoxStyle(MB_YESNO);
@@ -117,7 +117,7 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 			}
 			else
 			{
-				::_LoadStringFromResource(IDS_DEAD_LACK_LIFE_STONE, szMsg);
+				szMsg = "IDS_DEAD_LACK_LIFE_STONE";//::_LoadStringFromResource(IDS_DEAD_LACK_LIFE_STONE, szMsg);
 
 				m_MsgBox.SetBoxStyle(MB_OK);
 				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;

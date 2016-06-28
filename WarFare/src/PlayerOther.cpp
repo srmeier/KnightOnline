@@ -178,7 +178,7 @@ void CPlayerOther::KnightsInfoSet(int iID, const std::string& szName, int iGrade
 	{
 		if(!m_pClanFont)
 		{
-			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			std::string szFontID = "Arial"; //::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 			m_pClanFont = new CDFont(szFontID, 12);
 			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
 			m_pClanFont->RestoreDeviceObjects();

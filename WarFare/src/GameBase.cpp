@@ -240,13 +240,13 @@ bool CGameBase::GetTextByKnightsDuty(e_KnightsDuty eDuty, std::string& szText)
 {
 	switch(eDuty)
 	{
-		case KNIGHTS_DUTY_UNKNOWN:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szText); break; // ????? 쫓겨남??
-		case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szText); break; // 징계중.
-		case KNIGHTS_DUTY_TRAINEE:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szText); break; // 견습기사
-		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szText); break; // 일반기사
-		case KNIGHTS_DUTY_OFFICER:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szText); break; // 장교
-		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szText); break; // 부단장.
-		case KNIGHTS_DUTY_CHIEF:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szText); break; // 기사단장 직위..
+		case KNIGHTS_DUTY_UNKNOWN:		szText = "IDS_KNIGHTS_DUTY_UNKNOWN";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szText);*/ break; // ????? 쫓겨남??
+		case KNIGHTS_DUTY_PUNISH:		szText = "IDS_KNIGHTS_DUTY_PUNISH";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szText);*/ break; // 징계중.
+		case KNIGHTS_DUTY_TRAINEE:		szText = "IDS_KNIGHTS_DUTY_TRAINEE";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szText);*/ break; // 견습기사
+		case KNIGHTS_DUTY_KNIGHT:		szText = "IDS_KNIGHTS_DUTY_KNIGHT";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szText);*/ break; // 일반기사
+		case KNIGHTS_DUTY_OFFICER:		szText = "IDS_KNIGHTS_DUTY_OFFICER";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szText);*/ break; // 장교
+		case KNIGHTS_DUTY_VICECHIEF:	szText = "IDS_KNIGHTS_DUTY_VICECHIEF";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szText);*/ break; // 부단장.
+		case KNIGHTS_DUTY_CHIEF:		szText = "IDS_KNIGHTS_DUTY_CHIEF"; /*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szText);*/ break; // 기사단장 직위..
 		default: __ASSERT(0, "Invalid Knights Duty"); szText = "Unknown Duty"; return false;
 	}
 
@@ -364,12 +364,12 @@ bool CGameBase::GetTextByAttrib(e_ItemAttrib eAttrib, std::string& szAttrib)
 {
 	switch(eAttrib)
 	{
-		case ITEM_ATTRIB_GENERAL:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_GENERAL, szAttrib); break; // 단검(dagger)
-		case ITEM_ATTRIB_MAGIC:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_MAGIC, szAttrib); break; // 한손검(onehandsword)
-		case ITEM_ATTRIB_LAIR:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_LAIR, szAttrib); break; // 3 : 양손검(twohandsword)
-		case ITEM_ATTRIB_CRAFT:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_CRAFT, szAttrib); break; // 한손도끼(onehandaxe)
-		case ITEM_ATTRIB_UNIQUE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UNIQUE, szAttrib); break; // 두손도끼(twohandaxe)
-		case ITEM_ATTRIB_UPGRADE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UPGRADE, szAttrib); break; // 한손타격무기(mace)
+		case ITEM_ATTRIB_GENERAL:		szAttrib = "IDS_ITEM_ATTRIB_GENERAL"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_GENERAL, szAttrib);*/ break; // 단검(dagger)
+		case ITEM_ATTRIB_MAGIC:			szAttrib = "IDS_ITEM_ATTRIB_MAGIC"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_MAGIC, szAttrib);*/ break; // 한손검(onehandsword)
+		case ITEM_ATTRIB_LAIR:			szAttrib = "IDS_ITEM_ATTRIB_LAIR"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_LAIR, szAttrib);*/ break; // 3 : 양손검(twohandsword)
+		case ITEM_ATTRIB_CRAFT:			szAttrib = "IDS_ITEM_ATTRIB_CRAFT"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_CRAFT, szAttrib);*/ break; // 한손도끼(onehandaxe)
+		case ITEM_ATTRIB_UNIQUE:		szAttrib = "IDS_ITEM_ATTRIB_UNIQUE"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_UNIQUE, szAttrib);*/ break; // 두손도끼(twohandaxe)
+		case ITEM_ATTRIB_UPGRADE:		szAttrib = "IDS_ITEM_ATTRIB_UPGRADE"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_UPGRADE, szAttrib);*/ break; // 한손타격무기(mace)
 		default:
 			return false;
 	}
@@ -422,9 +422,9 @@ bool CGameBase::GetTextByNation(e_Nation eNation, std::string& szText)
 {
 	switch(eNation)
 	{
-		case NATION_ELMORAD:	::_LoadStringFromResource(IDS_NATION_ELMORAD, szText); break;
-		case NATION_KARUS:		::_LoadStringFromResource(IDS_NATION_KARUS, szText); break;
-		default: ::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText); return false;
+		case NATION_ELMORAD:	szText = "IDS_NATION_ELMORAD"; /*::_LoadStringFromResource(IDS_NATION_ELMORAD, szText);*/ break;
+		case NATION_KARUS:		szText = "IDS_NATION_KARUS"; /*::_LoadStringFromResource(IDS_NATION_KARUS, szText);*/ break;
+		default: szText = "IDS_NATION_UNKNOWN"; /*::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText);*/ return false;
 	}
 
 	return true;

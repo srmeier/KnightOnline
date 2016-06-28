@@ -824,7 +824,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			{
 //				if(m_pUIDead) m_pUIDead->MsgRecv_Revival(pDataPack, iOffset);
 				this->MsgRecv_Regen(pDataPack, iOffset);
-				std::string szMsg; ::_LoadStringFromResource(IDS_REGENERATION, szMsg);
+				std::string szMsg = "IDS_REGENERATION"; //::_LoadStringFromResource(IDS_REGENERATION, szMsg);
 				MessageBoxClose(szMsg);
 				m_pUITargetBar->SetVisible(false);
 			}
@@ -2481,7 +2481,7 @@ bool CGameProcMain::MsgRecv_UserIn(DataPack* pDataPack, int& iOffset, bool bWith
 
 		char szBuff[128];
 		std::string szMsg;
-		::_LoadStringFromResource(IDS_WANT_PARTY_MEMBER, szMsg);
+		szMsg = "IDS_WANT_PARTY_MEMBER";//::_LoadStringFromResource(IDS_WANT_PARTY_MEMBER, szMsg);
 		sprintf(szBuff, szMsg.c_str(), iLMin, iLMax);
 		pUPC->InfoStringSet(szBuff, 0xff00ff00);
 	}
@@ -3092,7 +3092,7 @@ bool CGameProcMain::MsgRecv_Attack(DataPack* pDataPack, int& iOffset)
 		if(pTarget == s_pPlayer)
 		{
 //			if(m_pUIDead) m_pUIDead->SetVisible(true);
-			std::string szMsg; ::_LoadStringFromResource(IDS_REGENERATION, szMsg);
+			std::string szMsg = "IDS_REGENERATION"; //::_LoadStringFromResource(IDS_REGENERATION, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION); // 다시 생성 메시지 보냄..
 		}
 		
@@ -3119,7 +3119,7 @@ bool CGameProcMain::MsgRecv_Dead(DataPack* pDataPack, int& iOffset)
 		pTarget = s_pPlayer;
 
 //		if(m_pUIDead) m_pUIDead->SetVisible(true);
-		std::string szMsg; ::_LoadStringFromResource(IDS_REGENERATION, szMsg);
+		std::string szMsg = "IDS_REGENERATION"; //::_LoadStringFromResource(IDS_REGENERATION, szMsg);
 		CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION); // 다시 생성 메시지 보냄..
 		CLogWriter::Write("Dead!!!");
 	}
@@ -4674,7 +4674,7 @@ void CGameProcMain::MsgRecv_UserState(DataPack* pDataPack, int& iOffset)
 
 			char szBuff[128];
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_WANT_PARTY_MEMBER, szMsg);
+			szMsg = "IDS_WANT_PARTY_MEMBER";//::_LoadStringFromResource(IDS_WANT_PARTY_MEMBER, szMsg);
 			sprintf(szBuff, szMsg.c_str(), iLMin, iLMax);
 			pBPC->InfoStringSet(szBuff, 0xff00ff00);
 		}
@@ -6949,7 +6949,7 @@ void CGameProcMain::MsgRecv_Knigts_Join_Req(DataPack* pDataPack, int& iOffset)
 //			}
 
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_CLAN_JOIN_REQ, szMsg);
+			szMsg = "IDS_CLAN_JOIN_REQ"; //::_LoadStringFromResource(IDS_CLAN_JOIN_REQ, szMsg);
 
 			char szTmp[256];
 			sprintf(szTmp, szMsg.c_str(), szKnightsName.c_str());
@@ -7378,7 +7378,7 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 				{
 					if(OBJECT_TYPE_BINDPOINT == pShape->m_iEventType)
 					{
-						std::string szMsg; ::_LoadStringFromResource(IDS_REQUEST_BINDPOINT, szMsg);
+						std::string szMsg = "IDS_REQUEST_BINDPOINT"; //::_LoadStringFromResource(IDS_REQUEST_BINDPOINT, szMsg);
 						this->MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_REQUEST_BINDPOINT); // 바인팅 포인트 설정 메시지 박스
 					}
 					else if(OBJECT_TYPE_WARP_POINT == pShape->m_iEventType)

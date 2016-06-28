@@ -110,28 +110,28 @@ void CUIRepairTooltipDlg::DisplayTooltipsEnable(int xpos, int ypos, __IconItemSk
 				(spItem->pItemBasic->siMaxDurability+spItem->pItemExt->siMaxDurability != 1) )
 		{
 			SetTooltipTextColor(bHaveEnough);
-			::_LoadStringFromResource(IDS_TOOLTIP_NOAH, szMsg);
+			szMsg = "IDS_TOOLTIP_NOAH";//::_LoadStringFromResource(IDS_TOOLTIP_NOAH, szMsg);
 			sprintf(szBuff, szMsg.c_str(), iRequiredGold);
 			if (!m_pStr[iIndex]->IsVisible())
 				m_pStr[iIndex]->SetVisible(true);
 			m_pStr[iIndex]->SetString(szBuff);
 			iIndex++;
 
-			::_LoadStringFromResource(IDS_TOOLTIP_MAX_DURABILITY, szMsg);
+			szMsg = "IDS_TOOLTIP_MAX_DURABILITY";//::_LoadStringFromResource(IDS_TOOLTIP_MAX_DURABILITY, szMsg);
 			sprintf(szBuff, szMsg.c_str(), spItem->pItemBasic->siMaxDurability+spItem->pItemExt->siMaxDurability);
 			if (!m_pStr[iIndex]->IsVisible())
 				m_pStr[iIndex]->SetVisible(true);
 			m_pStr[iIndex]->SetString(szBuff);
 			iIndex++;
 
-			::_LoadStringFromResource(IDS_TOOLTIP_CUR_DURABILITY, szMsg);
+			szMsg = "IDS_TOOLTIP_CUR_DURABILITY";//::_LoadStringFromResource(IDS_TOOLTIP_CUR_DURABILITY, szMsg);
 			sprintf(szBuff, szMsg.c_str(), spItem->iDurability);
 			if (!m_pStr[iIndex]->IsVisible())
 				m_pStr[iIndex]->SetVisible(true);
 			m_pStr[iIndex]->SetString(szBuff);
 			iIndex++;
 
-			::_LoadStringFromResource(IDS_TOOLTIP_REPAIR_PRICE, szMsg);
+			szMsg = "IDS_TOOLTIP_REPAIR_PRICE";//::_LoadStringFromResource(IDS_TOOLTIP_REPAIR_PRICE, szMsg);
 			sprintf(szBuff, szMsg.c_str());
 			if (!m_pStr[iIndex]->IsVisible())
 				m_pStr[iIndex]->SetVisible(true);
@@ -143,7 +143,7 @@ void CUIRepairTooltipDlg::DisplayTooltipsEnable(int xpos, int ypos, __IconItemSk
 		}
 		else
 		{
-			::_LoadStringFromResource(IDS_TOOLTIP_CANNOT, szMsg);
+			szMsg = "IDS_TOOLTIP_CANNOT";//::_LoadStringFromResource(IDS_TOOLTIP_CANNOT, szMsg);
 			m_pStr[0]->SetVisible(false);
 			m_pStr[1]->SetVisible(false);
 			m_pStr[2]->SetVisible(false);

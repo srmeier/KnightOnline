@@ -4,6 +4,7 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- get "tab" to work on login screen
 - check Inn hostest packets
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - work on chat packets
@@ -13,12 +14,11 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	spell, current checks do not work
 - something wrong with archer hide spell
 - work on FOG in the camera class
-- get "tab" to work on login screen
 - issue with starting the binary client after source client
 - implement the CUIQuest object for the player quests (UIVarious)
 - "Reduce" doesn't seem to be implemented for items
-- the zoneability information gets set based on the DB ZoneID
 - will need to update these zoneabilities for all the 1298 zones
+	- the zoneability information gets set based on the DB ZoneID
 - issue where NPCs of opposite nation cannot be interacted with
 	- CGameProcMain::OnMouseRBtnPress()
 	- server-side "WIZ_ZONEABILITY" packet
