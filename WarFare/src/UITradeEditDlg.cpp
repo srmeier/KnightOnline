@@ -88,9 +88,9 @@ void CUITradeEditDlg::Open(bool bCountGold)
 {
 	std::string szMsg;
 	if (bCountGold)
-		::_LoadStringFromResource(IDS_EDIT_BOX_GOLD, szMsg);
+		szMsg = "IDS_EDIT_BOX_GOLD";//::_LoadStringFromResource(IDS_EDIT_BOX_GOLD, szMsg);
 	else
-		::_LoadStringFromResource(IDS_EDIT_BOX_COUNT, szMsg);
+		szMsg = "IDS_EDIT_BOX_COUNT";//::_LoadStringFromResource(IDS_EDIT_BOX_COUNT, szMsg);
 
 	CN3UIString* pString = NULL;
 	pString = (CN3UIString*)this->GetChildByID("String_PersonTradeEdit_Msg");

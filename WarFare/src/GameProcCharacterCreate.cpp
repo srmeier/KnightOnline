@@ -270,34 +270,34 @@ void CGameProcCharacterCreate::ReportErrorCharacterCreate(e_ErrorCharacterCreate
 {
 	std::string szErr;
 
-	if(ERROR_CHARACTER_CREATE_NO_MORE_CHARACTER == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_NO_MORE_CHARACTER, szErr);
+	if (ERROR_CHARACTER_CREATE_NO_MORE_CHARACTER == eErrCode)
+		szErr = "IDS_ERR_NO_MORE_CHARACTER";//::_LoadStringFromResource(IDS_ERR_NO_MORE_CHARACTER, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NATION_AND_INVALID_RACE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_NATION_RACE, szErr);
+		szErr = "IDS_ERR_INVALID_NATION_RACE";//::_LoadStringFromResource(IDS_ERR_INVALID_NATION_RACE, szErr);
 	else if(ERROR_CHARACTER_CREATE_OVERLAPPED_ID == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_OVERLAPPED_ID, szErr);
+		szErr = "IDS_ERR_OVERLAPPED_ID";//::_LoadStringFromResource(IDS_ERR_OVERLAPPED_ID, szErr);
 	else if(ERROR_CHARACTER_CREATE_DB_CREATE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_DB_CREATE, szErr);
+		szErr = "IDS_ERR_DB_CREATE";//::_LoadStringFromResource(IDS_ERR_DB_CREATE, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NAME == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_NAME, szErr);
+		szErr = "IDS_ERR_INVALID_NAME";//::_LoadStringFromResource(IDS_ERR_INVALID_NAME, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NAME_HAS_SPECIAL_LETTER == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_NAME_HAS_SPECIAL_LETTER, szErr);
+		szErr = "IDS_ERR_INVALID_NAME_HAS_SPECIAL_LETTER";//::_LoadStringFromResource(IDS_ERR_INVALID_NAME_HAS_SPECIAL_LETTER, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_RACE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_RACE, szErr);
+		szErr = "IDS_ERR_INVALID_RACE";//::_LoadStringFromResource(IDS_ERR_INVALID_RACE, szErr);
 	else if(ERROR_CHARACTER_CREATE_NOT_SUPPORTED_RACE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_NOT_SUPPORTED_RACE, szErr);
+		szErr = "IDS_ERR_NOT_SUPPORTED_RACE";//::_LoadStringFromResource(IDS_ERR_NOT_SUPPORTED_RACE, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_CLASS == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_CLASS, szErr);
+		szErr = "IDS_ERR_INVALID_CLASS";//::_LoadStringFromResource(IDS_ERR_INVALID_CLASS, szErr);
 	else if(ERROR_CHARACTER_CREATE_REMAIN_BONUS_POINT == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_REMAIN_BONUS_POINT, szErr);
+		szErr = "IDS_ERR_REMAIN_BONUS_POINT";//::_LoadStringFromResource(IDS_ERR_REMAIN_BONUS_POINT, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_STAT_POINT == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
+		szErr = "IDS_ERR_UNKNOWN";//::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
 	else
-		::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
+		szErr = "IDS_ERR_UNKNOWN";//::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
 
 	///
 	//	정보를 잘못 입력해서 실패했다는 메시지를 받을 때...
-	std::string szTitle; ::_LoadStringFromResource(IDS_ERR_CHARACTER_CREATE, szTitle);
+	std::string szTitle = "IDS_ERR_CHARACTER_CREATE"; //::_LoadStringFromResource(IDS_ERR_CHARACTER_CREATE, szTitle);
 	MessageBoxPost(szErr, szTitle, MB_OK);
 }
 
