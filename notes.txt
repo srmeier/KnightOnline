@@ -4,7 +4,6 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- get "tab" to work on login screen
 - check Inn hostest packets
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - work on chat packets

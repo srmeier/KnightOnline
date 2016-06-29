@@ -98,6 +98,10 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 				CGameProcedure::s_pProcLogIn->MsgSend_AccountLogIn(LIC_KNIGHTONLINE);
 		}
 	}
+	else if (dwMsg == UIMSG_EDIT_TAB)
+	{
+		FocusCircular();
+	}
 
 	return true;
 }
