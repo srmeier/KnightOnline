@@ -2019,8 +2019,17 @@ bool CGameProcMain::MsgRecv_Chat(DataPack* pDataPack, int& iOffset)
 	e_ChatMode eCM	=	(e_ChatMode)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 채팅 타입
 	e_Nation eNation =	(e_Nation)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 보낸사람 국가
 	int iID =			CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);			// 보낸사람
-	int iChatLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);			// 채팅 문자열 길이..
-	CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szChat, iChatLen );
+
+	std::string szName;
+	int iNameLen = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iNameLen);
+
+	std::string szMsg;
+	int iMsgLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szMsg, iMsgLen);
+
+	szChat = szName + " : " + szMsg;
+	int iChatLen = szChat.size();
 	
 	if(eCM == N3_CHAT_CONTINUE_DELETE)
 	{//지속 공지 삭제...

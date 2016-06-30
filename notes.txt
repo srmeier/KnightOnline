@@ -4,7 +4,7 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- work on chat packets (should have the player names)
+- some issue with visible/invisible
 
 
 - need to work with GetChildByID() and CUISkillTreeDlg class

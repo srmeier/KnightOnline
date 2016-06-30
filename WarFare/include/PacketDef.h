@@ -22,6 +22,7 @@ const int SOCKET_PORT_LOGIN = 15100;
 #define	N3_ALL_CHARACTER_INFO_REQUEST	0x0C	// 모든 캐릭터 정보 요청하기..
 #define	N3_GAMESTART			0x0D	// Game Start..
 #define	N3_MYINFO				0x0E	// NPC moveedge..
+#define N3_LOGOUT				0x0F
 #define	N3_CHAT					0x10	// Chat..
 	enum e_ChatMode {	N3_CHAT_NORMAL = 1,
 						N3_CHAT_PRIVATE,
