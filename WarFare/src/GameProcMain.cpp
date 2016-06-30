@@ -6126,6 +6126,8 @@ void CGameProcMain::MsgRecv_WareHouseOpen(DataPack* pDataPack, int& iOffset)		//
 	if (m_pUIWareHouseDlg->IsVisible())
 		return;
 
+	Uint8 idk = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
 	int iWareGold, iItemID, iItemDurability, iItemCount;
 	iWareGold		= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 	m_pUIWareHouseDlg->EnterWareHouseStateStart(iWareGold);
