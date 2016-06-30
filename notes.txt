@@ -4,18 +4,20 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- check Inn hostest packets
+- work on chat packets (should have the player names)
+
+
 - need to work with GetChildByID() and CUISkillTreeDlg class
-- work on chat packets
-
-
 - need to figure out how best to check for player class when matching class to
 	spell, current checks do not work
 - something wrong with archer hide spell
 - work on FOG in the camera class
+- make enter key log into game server and select character
 - issue with starting the binary client after source client
 - implement the CUIQuest object for the player quests (UIVarious)
 - "Reduce" doesn't seem to be implemented for items
+- currently server is looking for NpcID to check distance from NPC when opening
+	Inn (eventually add this back?)
 - will need to update these zoneabilities for all the 1298 zones
 	- the zoneability information gets set based on the DB ZoneID
 - issue where NPCs of opposite nation cannot be interacted with
