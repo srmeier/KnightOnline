@@ -5,6 +5,10 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 
 ===============================================================================
 - some issue with visible/invisible
+	- binary Elmorad user can't see source Karus or Elmorad GM
+	- sitting and standing seems to work fine though
+	- souce Elmorad user can see binary Karus GM
+	- binary client is sending the /invisible /visible commands
 
 
 - need to work with GetChildByID() and CUISkillTreeDlg class

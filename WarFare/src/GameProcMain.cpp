@@ -972,9 +972,10 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		case N3_KNIGHTS_LIST_BASIC:
 			this->MsgRecv_KnightsListBasic(pDataPack, iOffset);
 			return true;
-		case N3_COMPRESSED_PACKET: // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
-			this->MsgRecv_CompressedPacket(pDataPack, iOffset);
-			return true;
+		// NOTE(srmeier): moved to GameProcedure class...
+//		case N3_COMPRESSED_PACKET: // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
+//			this->MsgRecv_CompressedPacket(pDataPack, iOffset);
+//			return true;
 		case N3_CONTINOUS_PACKET: // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 			this->MsgRecv_ContinousPacket(pDataPack, iOffset);
 			return true;
@@ -4645,7 +4646,7 @@ void CGameProcMain::MsgRecv_UserState(DataPack* pDataPack, int& iOffset)
 {
 	int iID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	e_SubPacket_State eSP = (e_SubPacket_State)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 0x01
-	int iState = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	int iState = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);//int iState = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 
 	CPlayerBase* pBPC = NULL;
 	if ( s_pPlayer->IDNumber() == iID )
@@ -4974,7 +4975,7 @@ void CGameProcMain::MsgSend_StateChange(e_SubPacket_State eSP, int iState)
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_STATE_CHANGE);	// 상태 변화..
 	CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
-	CAPISocket::MP_AddByte(byBuff, iOffset, iState);
+	CAPISocket::MP_AddShort(byBuff, iOffset, iState);//CAPISocket::MP_AddByte(byBuff, iOffset, iState);
 
 	s_pSocket->Send(byBuff, iOffset);	
 }
@@ -6014,34 +6015,33 @@ void CGameProcMain::MsgRecv_KnightsListBasic(DataPack* pDataPack, int& iOffset) 
 	}
 }
 
+/*
 void CGameProcMain::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 {
-	/*
-	short sCompLen, sOrgLen;
-	DWORD dwCrcValue;
-	sCompLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 압축된 데이타길이얻기... (Obtain compressed data length)
-	sOrgLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// 원래데이타길이얻기... (Getting the original data length)
-	dwCrcValue =	CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);	// CRC값 얻기... (Getting CRC value)
+	//short sCompLen, sOrgLen;
+	//DWORD dwCrcValue;
+	//sCompLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 압축된 데이타길이얻기... (Obtain compressed data length)
+	//sOrgLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// 원래데이타길이얻기... (Getting the original data length)
+	//dwCrcValue =	CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);	// CRC값 얻기... (Getting CRC value)
 
 	// TEMP: just to easily get the packet from the watch window
 	//char temp[0x0023];
 	//memcpy(temp, (char*)(pDataPack->m_pData+iOffset), sCompLen);
 
 	/// 압축 데이터 얻기 및 해제 (Obtaining and decompress data)	
-	CCompressMng Compressor;
-	Compressor.PreUncompressWork((char*)(pDataPack->m_pData+iOffset), sCompLen, sOrgLen);	// 압축 풀기... (Extracting)
-	iOffset += sCompLen;
+	//CCompressMng Compressor;
+	//Compressor.PreUncompressWork((char*)(pDataPack->m_pData+iOffset), sCompLen, sOrgLen);	// 압축 풀기... (Extracting)
+	//iOffset += sCompLen;
 
-	if (Compressor.Extract() == false || 
-		Compressor.m_nErrorOccurred != 0 ||
-		dwCrcValue != Compressor.m_dwCrc )
-	{
-		return;
-	}
+	//if (Compressor.Extract() == false || 
+//		Compressor.m_nErrorOccurred != 0 ||
+		//dwCrcValue != Compressor.m_dwCrc )
+	//{
+//		return;
+//	}
 
 	// 압축 풀린 데이타 읽기 (Read loose data compression)
-	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
-	*/
+//	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
 
 	Uint16 compressedLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
 	Uint16 originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
@@ -6066,6 +6066,7 @@ void CGameProcMain::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) 
 	DataPackTemp.m_Size = 0;
 	DataPackTemp.m_pData = NULL;
 }
+*/
 
 void CGameProcMain::MsgRecv_ContinousPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 {

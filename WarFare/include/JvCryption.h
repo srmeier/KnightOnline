@@ -18,7 +18,9 @@ public:
 	CJvCryption() : m_public_key(0) {}
 
 	inline Uint64 GetPublicKey() { return m_public_key; }
-	inline void SetPublicKey(Uint64 PublicKey) { m_public_key = PublicKey; }
+	inline void SetPublicKey(Uint64 PublicKey) {
+		m_public_key = PublicKey;
+	}
 
 	void Init();
 
