@@ -2753,9 +2753,9 @@ void CUser::StateChange(Packet & pkt)
 		return;
 
 	uint8 bType = pkt.read<uint8>(), buff;
-	buff = pkt.read<uint8>();
-	uint16 nBuff = buff;//pkt.read<uint16>();
-	//buff = *(uint8 *)&nBuff; // don't ask
+	//buff = pkt.read<uint8>();
+	uint16 nBuff = pkt.read<uint16>(); //buff;//
+	buff = *(uint8 *)&nBuff; // don't ask
 
 	switch (bType)
 	{
@@ -2817,7 +2817,7 @@ void CUser::StateChange(Packet & pkt)
 */
 void CUser::StateChangeServerDirect(uint8 bType, uint32 nBuff)
 {
-	uint8 buff = nBuff;//*(uint8 *)&nBuff; // don't ask
+	uint8 buff = *(uint8 *)&nBuff; // don't ask //nBuff;//
 	switch (bType)
 	{
 	case 1:
@@ -2856,7 +2856,7 @@ void CUser::StateChangeServerDirect(uint8 bType, uint32 nBuff)
 	}
 
 	Packet result(WIZ_STATE_CHANGE);
-	result << GetSocketID() << bType << buff;//nBuff; 
+	result << GetSocketID() << bType /*<< buff;*/ << nBuff;
 	SendToRegion(&result);
 }
 

@@ -173,13 +173,14 @@ protected:
 //	static _int64		s_PublicKey;
 //	static _int64		s_PrivateKey;				// = 0x1234567890123456;
 	static CJvCryption	s_JvCrypt;
-	static WORD			s_wSendVal;
-	static WORD			s_wRcvVal;
+	static DWORD			s_wSendVal;//static WORD			s_wSendVal;
+	static DWORD			s_wRcvVal;//static WORD			s_wRcvVal;
 public:
 	static void			InitCrypt(_int64 PublicKey)
 	{
-		s_JvCrypt.Init();
 		s_JvCrypt.SetPublicKey(PublicKey);
+		s_JvCrypt.Init();
+
 		//s_JvCrypt.SetPrivateKey(_int64(0x1234567890123456));
 		s_wSendVal = 0;
 		s_wRcvVal = 0;
