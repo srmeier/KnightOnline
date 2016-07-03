@@ -4,6 +4,10 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- some issue (possibly movement) causes binary server to close source client
+	connection
+	- doesn't seem to just be movement, maybe time spent on server and
+		something is overflowing?...
 - some issue with visible/invisible
 	- binary Elmorad user can't see source Karus or Elmorad GM
 	- sitting and standing seems to work fine though
