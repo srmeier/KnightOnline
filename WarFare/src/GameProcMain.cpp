@@ -930,6 +930,9 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			return true;
 		case N3_CHAT_SELECT_TARGET:
 			{
+				Uint8 type = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+				int err = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+
 				std::string szID, szMsg;
 				int iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// ID 문자열 길이..
 				CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szID, iLen);	// ID 문자열..
@@ -948,7 +951,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 					eCM = N3_CHAT_PRIVATE;
 				}
 				
-				this->MsgOutput(szID + szMsg, 0xffffff00);
+				this->MsgOutput(szID + " " + szMsg, 0xffffff00);
 				m_pUIChatDlg->ChangeChattingMode(eCM); // 자동으로 귓속말 모드로 바꾸어 준다..
 			}
 			return true;
@@ -1407,6 +1410,10 @@ void CGameProcMain::MsgSend_ChatSelectTarget(const std::string& szTargetID)
 	BYTE byBuff[32];
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CHAT_SELECT_TARGET);
+
+	// TEMP(srmeier): testing private messages
+	CAPISocket::MP_AddByte(byBuff, iOffset, 0x01);
+
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szTargetID.size() );
 	CAPISocket::MP_AddString(byBuff, iOffset, szTargetID );
 
@@ -2047,7 +2054,7 @@ bool CGameProcMain::MsgRecv_Chat(DataPack* pDataPack, int& iOffset)
 	switch(eCM)
 	{
 	case N3_CHAT_NORMAL:	crChat = D3DCOLOR_ARGB(255,255,255,255);	break;
-	case N3_CHAT_PRIVATE:	crChat = D3DCOLOR_ARGB(255,192,192,0);		break;
+	case N3_CHAT_PRIVATE:	crChat = D3DCOLOR_ARGB(255, 128, 255, 255);/*D3DCOLOR_ARGB(255,192,192,0);*/		break;
 	case N3_CHAT_PARTY:		crChat = D3DCOLOR_ARGB(255,0,192,192);		break;
 	case N3_CHAT_FORCE:		crChat = D3DCOLOR_ARGB(255,0,192,192);		break;
 	//case N3_CHAT_SHOUT:	crChat = D3DCOLOR_ARGB(255,255,0,0);		break;
@@ -2081,6 +2088,8 @@ bool CGameProcMain::MsgRecv_Chat(DataPack* pDataPack, int& iOffset)
 		N3_CHAT_PRIVATE == eCM || 
 		N3_CHAT_SHOUT == eCM )
 	{
+		// TEMP(srmeier): this again depends on zoneability and will need to be looked at
+		/*
 		if(eNation != s_pPlayer->m_InfoBase.eNation)
 		{
 			CPlayerBase* pTalker = s_pOPMgr->UPCGetByID(iID, false);
@@ -2099,6 +2108,7 @@ bool CGameProcMain::MsgRecv_Chat(DataPack* pDataPack, int& iOffset)
 				}
 			}
 		}
+		*/
 	}
 	
 	// 풍선말 넣기..
