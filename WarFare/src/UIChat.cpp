@@ -173,11 +173,17 @@ bool CUIChat::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			else if(iStrLen > 1 && '@' == m_szString[0])
 			{
 				int iTmp = m_szString.find(' ');
+
 				if(iTmp > 0)
 				{
 					std::string szID = m_szString.substr(1, iTmp-1);
+					std::string szMsg = m_szString.substr(iTmp);
+
+					int iTmp2 = szMsg.find_first_not_of(" ");
+					szMsg = szMsg.substr(iTmp2);
+
 					CGameProcedure::s_pProcMain->MsgSend_ChatSelectTarget(szID);
-					CGameProcedure::s_pProcMain->MsgSend_Chat(N3_CHAT_PRIVATE, &(m_szString[1]));
+					CGameProcedure::s_pProcMain->MsgSend_Chat(N3_CHAT_PRIVATE, szMsg);//&(m_szString[1]));
 				}
 			}
 			else if(iStrLen > 1 && '#' == m_szString[0]) // ÆÄÆ¼

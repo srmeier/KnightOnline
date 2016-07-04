@@ -3,7 +3,7 @@
 
 #include <string>
 #include "DInput.h"
-const int CURRENT_VERSION = 1298;//1068; // 현재 버전
+const int CURRENT_VERSION = 1298;//1299;//1068; // 현재 버전
 
 const float PACKET_INTERVAL_MOVE = 1.5f;				// 정기적으로 보내는 패킷 시간 간격..
 const float PACKET_INTERVAL_ROTATE = 4.0f;
@@ -13,6 +13,31 @@ const float PACKET_INTERVAL_REQUEST_TARGET_HP = 2.0f;
 #define N3_FORMAT_VER_1068 0x00000001
 #define N3_FORMAT_VER_1298 0x00000002
 
+enum ZoneFlags
+{
+	ZF_TRADE_OTHER_NATION = (1 << 0),
+	ZF_TALK_OTHER_NATION = (1 << 1),
+	ZF_ATTACK_OTHER_NATION = (1 << 2),
+	ZF_ATTACK_SAME_NATION = (1 << 3),
+	ZF_FRIENDLY_NPCS = (1 << 4),
+	ZF_WAR_ZONE = (1 << 5),
+	ZF_CLAN_UPDATE = (1 << 6)  // Joining, disbanding, creating etc.
+};
+
+enum ZoneAbilityType
+{
+	// these control neutrality-related settings client-side, 
+	// including whether collision is enabled for other players.
+	ZoneAbilityNeutral = 0, // Players cannot attack each other, or NPCs. Can walk through players.
+	ZoneAbilityPVP = 1, // Players can attack each other, and only NPCs from the opposite nation. Cannot walk through players.
+	ZoneAbilitySpectator = 2, // player is spectating a 1v1 match (ZoneAbilityPVP is sent for the attacker)
+	ZoneAbilitySiege1 = 3, // siege state 1 (unknown)
+	ZoneAbilitySiege2 = 4, // siege state 2/4: if they have 0 NP & this is set, it will not show the message telling them to buy more.
+	ZoneAbilitySiege3 = 5, // siege state 3 (unknown)
+	ZoneAbilitySiegeDisabled = 6, // CSW not running
+	ZoneAbilityCaitharosArena = 7, // Players can attack each other (don't seem to be able to anymore?), but not NPCs. Can walk through players.
+	ZoneAbilityPVPNeutralNPCs = 8 // Players can attack each other, but not NPCs. Cannot walk through players.
+};
 
 // 단축키 지정해 놓은 부분..
 enum eKeyMap {	KM_HOTKEY1 = SDL_SCANCODE_1, 
@@ -1103,7 +1128,7 @@ const int MAX_ITEM_EX_RE_NPC = 4; // 교환, 수리창 NPC 영역..
 const int MAX_SKILL_FROM_SERVER = 9;		// 서버에게서 받는 정보 슬롯 갯수..			
 
 const int MAX_SKILL_KIND_OF = 5;			// Base Skill 1개, 전문 스킬 4개..			
-const int MAX_SKILL_IN_PAGE = 8;			// 한 페이지 내의 아이콘 갯수..				
+const int MAX_SKILL_IN_PAGE = 6;//8;			// 한 페이지 내의 아이콘 갯수..				
 const int MAX_SKILL_PAGE_NUM = 3;			// 스킬 한개가 가지는 최대 페이지수..		
 
 

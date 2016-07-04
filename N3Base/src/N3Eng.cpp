@@ -437,6 +437,42 @@ void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 	////////////////////////////////////////////////////////////////////////////////
 }
 
+#ifdef _N3TOOL
+void CN3Eng::Present(HWND hWnd, RECT* pRC) {
+	RECT rc;
+	if(s_DevParam.Windowed)
+	{
+		GetClientRect(hWnd, &rc);
+		pRC = &rc;
+	}
+
+	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
+	if (D3D_OK == rval)
+	{
+		s_hWndPresent = hWnd; // Present window handle 을 저장해 놓는다.
+	}
+	else if (D3DERR_DEVICELOST == rval || D3DERR_DEVICENOTRESET == rval)
+	{
+		rval = s_lpD3DDev->Reset(&s_DevParam);
+		if (D3D_OK != rval)
+		{
+		}
+		else
+		{
+			rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
+		}
+		return;
+	}
+	else
+	{
+	}
+
+	s_fSecPerFrm = CN3Base::TimerProcess(TIMER_GETELAPSEDTIME);
+	if (s_fSecPerFrm <= 0.001f || s_fSecPerFrm >= 1.0f) s_fSecPerFrm = 0.033333f; // 너무 안나오면 기본 값인 30 프레임으로 맞춘다..
+	s_fFrmPerSec = 1.0f / s_fSecPerFrm; // 초당 프레임 수 측정..
+}
+#endif
+
 void CN3Eng::Clear(D3DCOLOR crFill, RECT* pRC)
 {
 	RECT rc;

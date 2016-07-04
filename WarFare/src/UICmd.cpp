@@ -134,7 +134,7 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 
 		else if(pSender == m_pBtn_Exit) // 캐릭터 캐릭터 선택창으로 간다..
 		{
-			std::string szMsg; ::_LoadStringFromResource(IDS_EXIT, szMsg);
+			std::string szMsg = "IDS_EXIT"; //::_LoadStringFromResource(IDS_EXIT, szMsg);
 //			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_RESTART_GAME); // 게임 다시시작 하기..??
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXIT); // 게임 다시시작 하기..??
 		}
@@ -168,14 +168,14 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			{
 				if(iMemberIndex > 0)
 				{
-					::_LoadStringFromResource(IDS_PARTY_CONFIRM_DISCHARGE, szMsg); // 파티에서 쫓아낼까여?
+					szMsg = "IDS_PARTY_CONFIRM_DISCHARGE";//::_LoadStringFromResource(IDS_PARTY_CONFIRM_DISCHARGE, szMsg); // 파티에서 쫓아낼까여?
 					szMsg = pTarget->IDString() + szMsg;
 				}
-				else ::_LoadStringFromResource(IDS_PARTY_CONFIRM_DESTROY, szMsg); // 파티 뽀갤까여?
+				else szMsg = "IDS_PARTY_CONFIRM_DESTROY";//::_LoadStringFromResource(IDS_PARTY_CONFIRM_DESTROY, szMsg); // 파티 뽀갤까여?
 			}
 			else if(bIAmMemberOfParty)
 			{
-				::_LoadStringFromResource(IDS_PARTY_CONFIRM_LEAVE, szMsg); // 파티에서 나갈까여?
+				szMsg = "IDS_PARTY_CONFIRM_LEAVE";//::_LoadStringFromResource(IDS_PARTY_CONFIRM_LEAVE, szMsg); // 파티에서 나갈까여?
 			}
 
 			if(!szMsg.empty()) CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_PARTY_DISBAND); // 파티 해체,축출,탈퇴하기..확인

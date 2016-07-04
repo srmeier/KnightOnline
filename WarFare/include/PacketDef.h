@@ -22,6 +22,7 @@ const int SOCKET_PORT_LOGIN = 15100;
 #define	N3_ALL_CHARACTER_INFO_REQUEST	0x0C	// 모든 캐릭터 정보 요청하기..
 #define	N3_GAMESTART			0x0D	// Game Start..
 #define	N3_MYINFO				0x0E	// NPC moveedge..
+#define N3_LOGOUT				0x0F
 #define	N3_CHAT					0x10	// Chat..
 	enum e_ChatMode {	N3_CHAT_NORMAL = 1,
 						N3_CHAT_PRIVATE,
@@ -64,6 +65,12 @@ const int SOCKET_PORT_LOGIN = 15100;
 
 #define	N3_ITEM_DROPPED_GET		0x26	// 유저가 획득한 아이템에 대한 거..
 #define N3_ZONE_CHANGE			0x27	// 존체인지.. Recv - b1 존번호 f3 좌표 X, Z, Y | Recv
+	enum e_ZoneChangeOpcodes
+	{
+		ZoneChangeLoading = 1,
+		ZoneChangeLoaded = 2,
+		ZoneChangeTeleport = 3
+	};
 #define N3_POINT_CHANGE			0x28	// 레벨 체인지 -	 보낼때 b1(1힘 2체력 3민첩 4지능 5마력) s(-1 +1)  // 받을때 b1(1힘 2체력 3민첩 4지능 5매력) s(절대수치)
 #define N3_STATE_CHANGE			0x29	// 상태변화 Send - b2(Type, State) | Recv S1(ID) b2(Type, State) - // Type 1 앉기서기, 2 파티구함...
 	enum e_SubPacket_State {	N3_SP_STATE_CHANGE_SITDOWN = 0x01,
@@ -257,6 +264,8 @@ const int SOCKET_PORT_LOGIN = 15100;
 #define N3_QUEST_SELECT					0x55	// 퀘스트 메뉴 선택
 #define N3_QUEST_TALK					0x56	// 퀘스트 대화
 
+// NOTE(srmeier): implementing the zoneability packet
+#define N3_ZONEABILITY					0x5E
 
 // NOTE(srmeier): testing this debug string functionality
 #define N3_DEBUG_STRING_TEST 0xFE

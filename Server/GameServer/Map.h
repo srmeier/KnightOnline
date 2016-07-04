@@ -49,13 +49,14 @@ public:
 
 	INLINE bool canTradeWithOtherNation() { return (m_zoneFlags & ZF_TRADE_OTHER_NATION) != 0; }
 	INLINE bool canTalkToOtherNation() { return (m_zoneFlags & ZF_TALK_OTHER_NATION) != 0; }
-	INLINE bool canAttackOtherNation() { return (m_zoneFlags & ZF_ATTACK_OTHER_NATION) != 0; } 
+	INLINE bool canAttackOtherNation() { return (m_zoneFlags & ZF_ATTACK_OTHER_NATION) != 0; }
 	INLINE bool canAttackSameNation() { return (m_zoneFlags & ZF_ATTACK_SAME_NATION) != 0; } 
 	INLINE bool isWarZone() { return (m_zoneFlags & ZF_WAR_ZONE) != 0; }
 	INLINE bool isNationPVPZone() { return canAttackOtherNation() && !canAttackSameNation(); }
 	INLINE bool areNPCsFriendly() { return (m_zoneFlags & ZF_FRIENDLY_NPCS) != 0; }
 	INLINE bool canUpdateClan() { return (m_zoneFlags & ZF_CLAN_UPDATE) != 0; }
 
+	INLINE uint16 GetZoneFlags(void) { return m_zoneFlags; }
 	INLINE uint8 GetZoneType() { return m_zoneType; }
 	INLINE uint8 GetTariff() { return m_byTariff; }
 	INLINE void SetTariff(uint8 tariff) { m_byTariff = tariff; }

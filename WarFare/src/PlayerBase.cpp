@@ -231,7 +231,7 @@ void CPlayerBase::Release()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void CPlayerBase::SetSoundAndInitFont()
+void CPlayerBase::SetSoundAndInitFont(DWORD dwFontFlag)
 {
 	if(!m_pLooksRef) return;
 	if(true == m_bSoundAllSet) return;
@@ -253,12 +253,12 @@ void CPlayerBase::SetSoundAndInitFont()
 	// Font 초기화..
 	if(!m_pIDFont) 
 	{
-		std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
-		m_pIDFont = new CDFont(szFontID, 12);
+		std::string szFontID = "Arial"; //::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+		m_pIDFont = new CDFont(szFontID, 12, dwFontFlag);//D3DFONT_BOLD);
 		m_pIDFont->InitDeviceObjects( s_lpD3DDev );
 		m_pIDFont->RestoreDeviceObjects();
 
-		m_pIDFont->SetText(m_InfoBase.szID.c_str(), D3DFONT_BOLD); // 폰트에 텍스트 지정.
+		m_pIDFont->SetText(m_InfoBase.szID.c_str()); // 폰트에 텍스트 지정.
 		m_pIDFont->SetFontColor(m_InfoBase.crID);
 	}
 }
@@ -318,7 +318,7 @@ void CPlayerBase::InfoStringSet(const std::string& szInfo, D3DCOLOR crFont)
 		if(NULL == m_pInfoFont)
 		{
 			// 기타 정보를 표시할 폰트..
-			std::string szFontInfo; ::_LoadStringFromResource(IDS_FONT_INFO, szFontInfo);
+			std::string szFontInfo = "IDS_FONT_INFO"; //::_LoadStringFromResource(IDS_FONT_INFO, szFontInfo);
 			m_pInfoFont = new CDFont(szFontInfo, 12);
 			m_pInfoFont->InitDeviceObjects( s_lpD3DDev );
 			m_pInfoFont->RestoreDeviceObjects();
@@ -341,7 +341,7 @@ void CPlayerBase::BalloonStringSet(const std::string& szBalloon, D3DCOLOR crFont
 		if(NULL == m_pBalloonFont)
 		{
 			// 기타 정보를 표시할 폰트..
-			std::string szFontBalloon; ::_LoadStringFromResource(IDS_FONT_BALLOON, szFontBalloon);
+			std::string szFontBalloon = "IDS_FONT_BALLOON"; //::_LoadStringFromResource(IDS_FONT_BALLOON, szFontBalloon);
 			m_pBalloonFont = new CDFont(szFontBalloon, 12);
 			m_pBalloonFont->InitDeviceObjects( s_lpD3DDev );
 			m_pBalloonFont->RestoreDeviceObjects();
@@ -980,6 +980,8 @@ void CPlayerBase::Render(float fSunAngle)
 	if(m_InfoBase.bRenderID && m_pIDFont)
 	{
 		float fDist = (m_Chr.Pos() - s_CameraData.vEye).Magnitude();
+
+		// NOTE(srmeier): this will prevent the NPC text from displaying past a certain distance
 		if(fDist < 48.0f)
 		{
 			__Vector3 vHead = this->HeadPosition();

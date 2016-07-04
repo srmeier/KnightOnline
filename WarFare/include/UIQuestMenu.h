@@ -21,28 +21,27 @@ protected:
 	class CN3UIString*		m_pTextTitle;
 	class CN3UIString*		m_pTextSample;
 	class CN3UIString*		m_pTextMenu[MAX_STRING_MENU];
-	class CN3UIImage*		m_pImageLeft;
-	class CN3UIImage*		m_pImageCenter;
-	class CN3UIImage*		m_pImageRight;
-	class CN3UIImage*		m_pImageBLeft;
-	class CN3UIImage*		m_pImageBCenter;
-	class CN3UIImage*		m_pImageBRight;
 
-	UIList	m_ReSizeChildren;		// children pointer list
+	int m_iMenuCnt;
 
-	int		m_iMenuCnt;
-	RECT	m_rcLImage;
-	RECT	m_rcRImage;
-	RECT	m_rcCImage;
+	// NOTE(srmeier): adding the components for the newer quest menu
+	CN3UIImage*  m_pTextMenuImg[MAX_STRING_MENU];
+	CN3UIImage*  m_pTextMenuImgBk[MAX_STRING_MENU];
+	CN3UIButton* m_pTextMenuBtn[MAX_STRING_MENU];
+
+	CN3UIButton*    m_pBtnClose;
+	CN3UIString*    m_pStrNpcName;
+	CN3UIScrollBar* m_pScrollBar;
+	CN3UIButton*    m_pBtnMenu;
+	CN3UIImage*     m_pImageBtn;
+	CN3UIImage*     m_pImageBottom;
+	CN3UIImage*     m_pImageMenu;
 
 public:
 	void SetVisible(bool bVisible);
 	bool OnKeyPress(int iKey);
 	void	MsgSend_SelectMenu(Uint8 index);
-	BOOL	MoveOffset(int iOffsetX, int iOffsetY);
 	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
-	DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	void	Render();
 	void	InitBase();
 	bool	Load(HANDLE hFile);
 	void	Open(class DataPack* pDataPack, int& iOffset);

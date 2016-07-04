@@ -19,8 +19,8 @@ BOOL		DataPack::s_bCryptionFlag = FALSE;			//0 : 비암호화 , 1 : 암호화
 //_int64		DataPack::s_PublicKey;
 //_int64		DataPack::s_PrivateKey = 0x1234567890123456;
 CJvCryption	DataPack::s_JvCrypt;
-WORD		DataPack::s_wSendVal = 0;
-WORD		DataPack::s_wRcvVal = 0;
+DWORD		DataPack::s_wSendVal = 0;
+DWORD		DataPack::s_wRcvVal = 0;
 #endif
 
 
@@ -62,6 +62,7 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 			// inmate - cryption
 			if(TRUE == s_bCryptionFlag)
 			{
+				/*
 				int clyp_size = size + (sizeof(WORD)+1+1);
 
 				++s_wSendVal;
@@ -77,6 +78,22 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 				m_Size = clyp_size;
 				m_pData = new BYTE[m_Size+1];
 				CopyMemory(m_pData, pTBuf, m_Size);
+				*/
+
+				++s_wSendVal;
+
+				memcpy(pTBuf, &s_wSendVal, sizeof(DWORD));
+				CopyMemory((pTBuf+4), pData, size);
+
+				*((Uint32*)(pTBuf + (size+4))) = crc32(pTBuf, (size+4), -1);
+
+				//s_JvCrypt.JvEncryptionFast(size, pTBuf, pTBuf);
+				s_JvCrypt.JvEncryptionFast((size+4+4), pTBuf, pTBuf);
+
+				//m_Size = size;
+				m_Size = m_Size = (size+4+4);
+				m_pData = new BYTE[m_Size];
+				CopyMemory(m_pData, pTBuf, m_Size);
 			}
 			else
 			{
@@ -88,7 +105,10 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 		else
 		{	// 서버로부터 받은 데이타(암호화된것 -> 일반)
 			s_JvCrypt.JvDecryptionFast( size, pData, pTBuf );
-			if(pTBuf[0] != 0xfc) // 압축 푼 데이터 오류 일경우
+
+			Uint16 sig = *(Uint16*)pTBuf;
+
+			if (sig != 0x1EFC) //if(pTBuf[0] != 0xfc) // 압축 푼 데이터 오류 일경우
 			{
 				m_Size = 0;
 				m_pData = NULL;
@@ -96,9 +116,13 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 			}
 			else
 			{
-				m_Size = size-4;
+				uint16_t sequence = *(uint16_t*)&pTBuf[2];
+				uint8_t  empty = pTBuf[4];
+				uint8_t* payload = &pTBuf[5];
+
+				m_Size = size - 5; //m_Size = size-4;
 				m_pData = new BYTE[m_Size+1];
-				CopyMemory(m_pData, &(pTBuf[4]), m_Size);
+				CopyMemory(m_pData, payload, m_Size);
 				m_pData[m_Size] = '\0';
 			}
 		}

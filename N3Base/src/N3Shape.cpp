@@ -88,8 +88,7 @@ void CN3SPart::Tick(const __Matrix44& mtxParent, const __Quaternion& qRot, float
 		return;
 	}
 	
-	// NOTE(srmeier): 0.5f seems to work very well for right now!!
-	float fDist = 0.5f * (vCenter - s_CameraData.vEye).Magnitude();
+	float fDist = (vCenter - s_CameraData.vEye).Magnitude();
 	float fLOD = fDist * s_CameraData.fFOV / fScale;
 //	float fLOD = fDist + fDist * (s_CameraData.fFOV - 1.0f) / 3.0f;
 //	float fLOD = fDist * s_CameraData.fFOV * (512.0f / s_CameraData.fFP);
@@ -266,7 +265,7 @@ void CN3SPart::RenderSelected(bool bWireFrame)
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3;
 #endif _DEBUG
 
-	LPDIRECT3DTEXTURE8 lpTex = NULL;
+	LPDIRECT3DTEXTURE9 lpTex = NULL;
 	int iTC = m_TexRefs.size();
 	if(iTC > 0)
 	{
@@ -1090,7 +1089,7 @@ void CN3Shape::MakeDefaultMaterial()
 	int iPC = m_Parts.size();
 	for(int i = 0; i < iPC; i++)
 	{
-		memcpy(&(m_Parts[i]->m_Mtl), &mtlBasic, sizeof(_D3DMATERIAL8));
+		memcpy(&(m_Parts[i]->m_Mtl), &mtlBasic, sizeof(_D3DMATERIAL9));
 	}
 }
 #endif // end of _N3TOOL
@@ -1113,7 +1112,8 @@ bool CN3Shape::SaveToSameFolder(const std::string& szFullPath)
 	if(szFullPath.empty()) return false;
 	
 	std::string szPath = szFullPath;
-	for(int i = szFullPath.size() - 1; i >= 0; i--)
+	int i;
+	for(i = szFullPath.size() - 1; i >= 0; i--)
 	{
 		if('\\' == szPath[i] || '/' == szPath[i])
 		{
@@ -1174,11 +1174,14 @@ bool CN3Shape::SaveToSameFolder(const std::string& szFullPath)
 
 //	By : Ecli666 ( On 2002-10-16 오전 11:44:19 )
 //
+	// TODO(srmeier): m_pvCollisions is undefined, if I need this I'll have to revisit this
+	/*
 	szOldFN = m_pvCollisions->FileName();
 	_splitpath(CollisionMesh()->FileName().c_str(), szDrive, szDir, szFName, szExt);
 	szNameTmp = szPath + szFName + szExt;
 	CollisionMesh()->SaveToFile(szNameTmp);
 	CollisionMesh()->FileNameSet(szOldFN);	
+	*/
 
 //	~(By Ecli666 On 2002-10-16 오전 11:44:19 )
 
@@ -1190,7 +1193,8 @@ bool CN3Shape::SaveToSameFolderAndMore(const std::string& szFullPath, const std:
 	if(szFullPath.empty()) return false;
 	
 	std::string szPath = szFullPath;
-	for(int i = szFullPath.size() - 1; i >= 0; i--)
+	int i;
+	for(i = szFullPath.size() - 1; i >= 0; i--)
 	{
 		if('\\' == szPath[i] || '/' == szPath[i])
 		{

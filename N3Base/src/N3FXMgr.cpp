@@ -50,7 +50,7 @@ CN3FXMgr::~CN3FXMgr()
 //
 //
 //
-void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int TargetID, int Joint, int idx, int MoveType, int iVer)
+void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int TargetID, int Joint, int idx, int MoveType, unsigned int iVer)
 {
 	__TABLE_FX* pFX = s_pTbl_FXSource->Find(FXID);
 	if(!pFX) return;
@@ -109,7 +109,7 @@ void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int Target
 //
 //
 //
-void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 TargetPos, int idx, int MoveType, int iVer)
+void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 TargetPos, int idx, int MoveType, unsigned int iVer)
 {
 	__TABLE_FX* pFX = s_pTbl_FXSource->Find(FXID);
 	if(!pFX) return; 
