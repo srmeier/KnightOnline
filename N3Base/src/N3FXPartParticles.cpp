@@ -62,7 +62,8 @@ CN3FXPartParticles::CN3FXPartParticles()
 	m_vPtEmitDir.Set(0.0f, 0.0f, -1.0f);
 	m_fPtVelocity = m_fPtAccel = m_fPtRotVelocity = m_fPtGravity = 0.0f;
 
-	for(int i=0;i<NUM_KEY_COLOR;i++) m_dwChangeColor[i] = 0xffffffff;
+	int i;
+	for(i=0;i<NUM_KEY_COLOR;i++) m_dwChangeColor[i] = 0xffffffff;
 	m_bChangeColor = false;
 
 	m_pRefShape = m_pShape = NULL;

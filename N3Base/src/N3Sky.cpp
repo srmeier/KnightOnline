@@ -45,7 +45,12 @@ void CN3Sky::Tick()
 	m_SkyColor.Tick();
 	m_FogColor.Tick();
 	int i;
-	D3DCOLOR FogColor = m_FogColor.GetCurColor();
+	/* 
+	* Temeporary Fix until future implementation 
+	* m_SkyColor stores as FogColor because of broken sky issue. 
+	* planning to implement the real fog to work properly as the newer versions.
+	*/
+	D3DCOLOR FogColor = m_FogColor.GetCurColor();//m_SkyColor.GetCurColor();
 	for (i=0; i<4; ++i)
 	{
 		m_vFronts[i].color = (m_vFronts[i].color&0xff000000) | (FogColor&0x00ffffff);

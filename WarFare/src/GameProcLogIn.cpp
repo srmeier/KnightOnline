@@ -94,7 +94,9 @@ void CGameProcLogIn::Init()
 	m_pUILogIn->Init(s_pUIMgr);
 	
 	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->GetIndexedData(0); // 국가 기준이 없기 때문이다...
-	if(pTbl) m_pUILogIn->LoadFromFile(pTbl->szLogIn);
+
+	// TODO(srmeier): the UIE saves in the old format...
+	if (pTbl) m_pUILogIn->LoadFromFile(pTbl->szLogIn);//, N3FORMAT_VER_1298);
 
 	RECT rc = m_pUILogIn->GetRegion();
 	int iX = (CN3Base::s_CameraData.vp.Width - (rc.right - rc.left))/2;

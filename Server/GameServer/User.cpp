@@ -940,7 +940,7 @@ void CUser::SendMyInfo()
 	else
 		m_bRank = 0; // totally not da King.
 
-	result.DByte();
+	result.SByte();
 	result	<< GetSocketID()
 		<< GetName()
 		<< GetSPosX() << GetSPosZ() << GetSPosY()
@@ -951,7 +951,7 @@ void CUser::SendMyInfo()
 		<< GetLevel()
 		<< int8(m_sPoints) // NOTE: int16 to int8
 		<< uint32(m_iMaxExp) << uint32(m_iExp)
-		<< GetLoyalty() //<< GetMonthlyLoyalty()
+		<< GetLoyalty() << GetMonthlyLoyalty()
 		<< m_bCity << GetClanID() ;
 
 	if (isInClan())
@@ -959,8 +959,8 @@ void CUser::SendMyInfo()
 
 	if (pKnights == nullptr)
 	{
-		result << uint8(0) << uint16(0) << uint8(0) << uint8(0);
-		//result	<< uint64(0) << uint8(0) << uint16(-1);
+		//result << uint8(0) << uint16(0) << uint8(0) << uint8(0);
+		result << uint64(0) << uint8(0) << uint16(-1);
 	}
 	else 
 	{
@@ -975,12 +975,23 @@ void CUser::SendMyInfo()
 
 		result
 			<< GetFame()
+			<< pKnights->GetAllianceID()
+			<< pKnights->m_byFlag
+			<< pKnights->m_strName
+			<< pKnights->m_byGrade << pKnights->m_byRanking
+			<< uint16(pKnights->m_sMarkVersion)
+			<< pKnights->GetCapeID(aKnights);
+
+		/* NOTE(srmeier): 1068 packet
+		result
+			<< GetFame()
 			//<< pKnights->GetAllianceID()
 			//<< pKnights->m_byFlag
 			<< pKnights->m_strName
 			<< pKnights->m_byGrade << pKnights->m_byRanking ;
 			//<< uint16(pKnights->m_sMarkVersion)
 			//<< pKnights->GetCapeID(aKnights);
+		*/
 	}
 
 	result
@@ -996,8 +1007,8 @@ void CUser::SendMyInfo()
 		<< uint8(m_sFireR) << uint8(m_sColdR) << uint8(m_sLightningR)
 		<< uint8(m_sMagicR) << uint8(m_sDiseaseR) << uint8(m_sPoisonR)
 		<< m_iGold
-		<< m_bAuthority ;
-		//<< m_bKnightsRank << m_bPersonalRank; // national rank, leader rank
+		<< m_bAuthority
+		<< m_bKnightsRank << m_bPersonalRank; // national rank, leader rank
 
 	result.append(m_bstrSkill, 9);
 
@@ -1005,9 +1016,9 @@ void CUser::SendMyInfo()
 	{
 		_ITEM_DATA *pItem = GetItem(i); 
 		result << pItem->nNum
-			<< pItem->sDuration << pItem->sCount ;
-			//<< pItem->bFlag	// item type flag (e.g. rented)
-			//<< pItem->sRemainingRentalTime;	// remaining time
+			<< pItem->sDuration << pItem->sCount
+			<< pItem->bFlag	// item type flag (e.g. rented)
+			<< pItem->sRemainingRentalTime;	// remaining time
 
 			// NOTE: gone from 1298
 			//<< uint32(0) // unknown
@@ -1032,16 +1043,15 @@ void CUser::SendMyInfo()
 	{
 		_ITEM_DATA *pItem = GetItem(i+SLOT_MAX); 
 		result << pItem->nNum
-			<< pItem->sDuration << pItem->sCount ;
-			//<< pItem->bFlag	// item type flag (e.g. rented)
-			//<< pItem->sRemainingRentalTime;	// remaining time
+			<< pItem->sDuration << pItem->sCount
+			<< pItem->bFlag	// item type flag (e.g. rented)
+			<< pItem->sRemainingRentalTime;	// remaining time
 
 			// NOTE: gone from 1298
 			//<< uint32(0) // unknown
 			//<< pItem->nExpirationTime; // expiration date in unix time
 	}
 
-	/*
 	m_bIsChicken = CheckExistEvent(50, 1);
 	result
 		//<< m_bAccountStatus	// account status (0 = none, 1 = normal prem with expiry in hours, 2 = pc room)
@@ -1052,7 +1062,6 @@ void CUser::SendMyInfo()
 		<< m_bIsChicken						// chicken/beginner flag
 		<< m_iMannerPoint;
 		//<< uint8(0x00); // extra byte?
-	*/
 
 	Send(&result);
 
@@ -1202,15 +1211,29 @@ void CUser::SetZoneAbilityChange(uint16 sNewZone)
 		}
 	}
 
-
 	Packet result(WIZ_ZONEABILITY, uint8(1));
 
 	result	<< pMap->canTradeWithOtherNation()
-		<< pMap->GetZoneType()
-		<< pMap->canTalkToOtherNation()
-		<< uint16(pMap->GetTariff());
+	<< pMap->GetZoneType()
+	<< pMap->canTalkToOtherNation()
+	<< uint16(pMap->GetTariff());
 
 	Send(&result);
+
+	{
+		Packet result(WIZ_ZONEABILITY, uint8(3));
+
+		// NOTE(srmeier): temp custom zoneability packet for source client
+		uint16 zoneFlags = pMap->GetZoneFlags();
+		uint8 zoneType = pMap->GetZoneType();
+		uint8 zoneTariff = pMap->GetTariff();
+		uint8 minLevel = pMap->GetMinLevelReq();
+		uint8 maxLevel = pMap->GetMaxLevelReq();
+
+		result << zoneFlags << zoneType << zoneTariff << minLevel << maxLevel;
+
+		Send(&result);
+	}
 
 	if (!isGM())
 		PlayerRankingProcess(sNewZone,false);
@@ -1342,7 +1365,9 @@ void CUser::SetSlotItemValue()
 
 	// Apply stat bonuses from all equipped & cospre items.
 	// Total up the weight of all items.
-	for (int i = 0; i < INVENTORY_TOTAL; i++)
+
+	// NOTE(srmeier): changing max items to ignore the magic bag stuff
+	for (int i = 0; i < INVENTORY_COSP/*INVENTORY_TOTAL*/; i++)
 	{
 		_ITEM_DATA * pItem = nullptr;
 		pTable = GetItemPrototype(i, pItem);
@@ -1751,7 +1776,7 @@ void CUser::ExpChange(int64 iExp, bool bIsBonusReward)
 
 	// Tell the client our new XP
 	Packet result(WIZ_EXP_CHANGE);
-	result /*<< uint8(0)*/ << m_iExp; // NOTE: Use proper flag
+	result /*<< uint8(0)*/ << uint32(m_iExp); // NOTE: Use proper flag
 	Send(&result);
 
 	// If we've lost XP, save it for possible refund later.
@@ -1849,7 +1874,7 @@ void CUser::LevelChange(uint8 level, bool bLevelUp /*= true*/)
 
 	Packet result(WIZ_LEVEL_CHANGE);
 	result	<< GetSocketID()
-		<< GetLevel() << m_sPoints << m_bstrSkill[SkillPointFree]
+		<< GetLevel() << uint8(m_sPoints) << m_bstrSkill[SkillPointFree]
 		<< uint32(m_iMaxExp) << uint32(m_iExp)
 		<< m_iMaxHp << m_sHp 
 		<< m_iMaxMp << m_sMp
@@ -2728,9 +2753,9 @@ void CUser::StateChange(Packet & pkt)
 		return;
 
 	uint8 bType = pkt.read<uint8>(), buff;
-	buff = pkt.read<uint8>();
-	uint16 nBuff = buff;//pkt.read<uint16>();
-	//buff = *(uint8 *)&nBuff; // don't ask
+	//buff = pkt.read<uint8>();
+	uint16 nBuff = pkt.read<uint16>(); //buff;//
+	buff = *(uint8 *)&nBuff; // don't ask
 
 	switch (bType)
 	{
@@ -2792,7 +2817,7 @@ void CUser::StateChange(Packet & pkt)
 */
 void CUser::StateChangeServerDirect(uint8 bType, uint32 nBuff)
 {
-	uint8 buff = nBuff;//*(uint8 *)&nBuff; // don't ask
+	uint8 buff = *(uint8 *)&nBuff; // don't ask //nBuff;//
 	switch (bType)
 	{
 	case 1:
@@ -2831,7 +2856,7 @@ void CUser::StateChangeServerDirect(uint8 bType, uint32 nBuff)
 	}
 
 	Packet result(WIZ_STATE_CHANGE);
-	result << GetSocketID() << bType << buff;//nBuff; 
+	result << GetSocketID() << bType /*<< buff;*/ << nBuff;
 	SendToRegion(&result);
 }
 
@@ -4323,7 +4348,7 @@ void CUser::ServerChangeOk(Packet & pkt)
 
 bool CUser::GetWarpList(int warp_group)
 {
-	Packet result(WIZ_WARP_LIST);//, uint8(1));
+	Packet result(WIZ_WARP_LIST, uint8(1));
 	C3DMap* pMap = GetMap();
 	set<_WARP_INFO*> warpList;
 

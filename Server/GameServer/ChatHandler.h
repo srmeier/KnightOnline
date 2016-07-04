@@ -11,9 +11,9 @@ public:
 		result->Initialize(WIZ_CHAT);
 		*result << bType << bNation << senderID;
 
-		//result->SByte();
-		//if (strSender == nullptr) *result << uint8(0);
-		//else *result << *strSender;
+		result->SByte();
+		if (strSender == nullptr) *result << uint8(0);
+		else *result << *strSender;
 
 		result->DByte();
 		if (strMessage == nullptr) *result << uint16(0);

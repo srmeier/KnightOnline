@@ -1,20 +1,38 @@
 git reset --hard e2cec75
 %windir%\SysWOW64\odbcad32.exe
 git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
+- be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- some issue (possibly movement) causes binary server to close source client
+	connection
+	- doesn't seem to just be movement, maybe time spent on server and
+		something is overflowing?...
+- some issue with visible/invisible
+	- binary Elmorad user can't see source Karus or Elmorad GM
+	- sitting and standing seems to work fine though
+	- souce Elmorad user can see binary Karus GM
+	- binary client is sending the /invisible /visible commands
+
+
+- need to work with GetChildByID() and CUISkillTreeDlg class
+- need to figure out how best to check for player class when matching class to
+	spell, current checks do not work
+- something wrong with archer hide spell
+- work on FOG in the camera class
+- make enter key log into game server and select character
+- issue with starting the binary client after source client
+- implement the CUIQuest object for the player quests (UIVarious)
+- "Reduce" doesn't seem to be implemented for items
+- currently server is looking for NpcID to check distance from NPC when opening
+	Inn (eventually add this back?)
+- will need to update these zoneabilities for all the 1298 zones
+	- the zoneability information gets set based on the DB ZoneID
 - issue where NPCs of opposite nation cannot be interacted with
-- need to get quests up and running
-
-
-
-- get colony zone working
-- there is an issue with the sprint skill. something with cooldown maybe
-- problem with item descriptions getting cutoff
-	- they all should fit now but it isn't automatically setting the size
+	- CGameProcMain::OnMouseRBtnPress()
+	- server-side "WIZ_ZONEABILITY" packet
+	- m_zoneFlags, m_zoneType, m_byTariff, m_byMinLevel, m_byMaxLevel
 - skill descriptions aren't word wrapping
-- fix the UI issues and support 1298 UI
-	- this should include rewriting the UIF editor program
 - fixed so that it compiles with debug config
 	- better to wait until I can start with blank new projects
 - take a look at the new zone files 1298 added (ens, gev, etc.)

@@ -68,7 +68,7 @@ bool CUICreateClanName::MakeClan()
 	if(m_szClanName.size()>20) m_szClanName.resize(20);
 
 	std::string szTmp;
-	::_LoadStringFromResource(IDS_CLAN_WARNING_COST, szTmp);
+	szTmp = "IDS_CLAN_WARNING_COST";//::_LoadStringFromResource(IDS_CLAN_WARNING_COST, szTmp);
 	char szMsg[80];
 	sprintf(szMsg, szTmp.c_str(), CLAN_COST);
 	CGameProcedure::s_pProcMain->MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_KNIGHTS_CREATE);
@@ -95,7 +95,7 @@ void CUICreateClanName::Open(int msg)
 	if(msg!=0)
 	{
 		std::string szMsg;
-		::_LoadStringFromResource(msg, szMsg);
+		szMsg = "CUICreateClanName::Open(int msg)";//::_LoadStringFromResource(msg, szMsg);
 		m_pText_Title->SetString(szMsg);
 	}
 	m_pEdit_ClanName->SetString("");

@@ -5,3 +5,16 @@
 *.log
 *.pdb
 data/Log.txt
+*.bsc
+KnightOnline.VC.VC.opendb
+KnightOnline.VC.db
+*.opendb
+*.sdf
+*.obj
+ipch/
+*.pch
+*.exe
+*.ilk
+N3Base/lib/N3Base.lib
+Server/bin/Debug/Lua.lib
+Server/bin/Debug/shared.lib

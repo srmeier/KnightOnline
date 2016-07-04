@@ -45,7 +45,7 @@ bool CUINotice::Load(HANDLE hFile)
 
 	m_pText_Notice = (CN3UIString*)GetChildByID("Text_Notice");
 	m_pScrollBar = (CN3UIScrollBar*)GetChildByID("ScrollBar");
-	m_pBtn_OK = (CN3UIButton*)GetChildByID("Btn_OK");
+	m_pBtn_OK = (CN3UIButton*)GetChildByID("Btn_Quit"); //m_pBtn_OK = (CN3UIButton*)GetChildByID("Btn_OK");
 
 	if(m_pScrollBar) 
 	{

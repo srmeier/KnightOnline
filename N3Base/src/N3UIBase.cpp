@@ -756,11 +756,13 @@ bool CN3UIBase::SwapChild(CN3UIBase* pChild1, CN3UIBase* pChild2)
 {
 	if(this->IsMyChild(pChild1) < 0 || IsMyChild(pChild2) < 0) return false;
 	
-	for(UIListItor itor1 = m_Children.begin(); m_Children.end() != itor1; itor1++)
+	UIListItor itor1;
+	for(itor1 = m_Children.begin(); m_Children.end() != itor1; itor1++)
 		if(*itor1 == pChild1) break;
 	if(itor1 == m_Children.end()) return false;
 
-	for(UIListItor itor2 = m_Children.begin(); m_Children.end() != itor2; itor2++)
+	UIListItor itor2;
+	for(itor2 = m_Children.begin(); m_Children.end() != itor2; itor2++)
 		if(*itor2 == pChild2) break;
 	if(itor2 == m_Children.end()) return false;
 
@@ -850,7 +852,8 @@ void CN3UIBase::ArrangeZOrder()
 	// 보통 image가 배경그림이 되므로 child list에서 맨 뒤로 보낸다.
 	// 왜냐하면 맨 뒤에 있는것이 맨 먼저 그려지므로
 	UIList tempList;
-	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor;)
+	UIListItor itor;
+	for(itor = m_Children.begin(); m_Children.end() != itor;)
 	{
 		CN3UIBase* pChild = (*itor);
 		if(UI_TYPE_IMAGE == pChild->UIType())

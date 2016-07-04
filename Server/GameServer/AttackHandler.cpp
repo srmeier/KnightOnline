@@ -24,7 +24,8 @@ void CUser::Attack(Packet & pkt)
 	_ITEM_TABLE *pTable = GetItemPrototype(RIGHTHAND);
 	if (pTable != nullptr && !isMage()) 
 	{
-		if (delaytime < (pTable->m_sDelay + 10) // client adds 0.1 onto the interval (0.1 of 100 is 10)
+		// NOTE(srmeier): the +10 prevents attacks, will need to understand this more
+		if (delaytime < (pTable->m_sDelay)//+ 10) // client adds 0.1 onto the interval (0.1 of 100 is 10)
 			|| distance > pTable->m_sRange)
 			return;	
 	}

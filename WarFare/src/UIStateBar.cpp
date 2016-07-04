@@ -40,6 +40,8 @@ CUIStateBar::CUIStateBar()
 	m_pProgress_ExpC = NULL;
 	m_pProgress_ExpP = NULL;
 
+	m_pText_FPS = NULL;
+
 	// 미니맵...
 	m_pGroup_MiniMap = NULL;
 	m_pImage_Map = NULL;
@@ -115,12 +117,12 @@ bool CUIStateBar::Load(HANDLE hFile)
 	if(CN3UIBase::Load(hFile)==false) return false;
 
 	CN3UIString* pText = (CN3UIString*)(this->GetChildByID("Text_Version")); __ASSERT(pText, "NULL UI Component!!");
-	if(pText)
-	{
+	if(pText) {
 		char szVersion[128];
 		sprintf(szVersion, "Ver. %.3f", CURRENT_VERSION / 1000.0f);
 		pText->SetString(szVersion);
 	}
+
 	m_pText_Position =	(CN3UIString*)(this->GetChildByID("Text_Position"));	__ASSERT(m_pText_Position, "NULL UI Component!!");
 
 	m_pProgress_HP =	(CN3UIProgress*)(this->GetChildByID("Progress_HP"));	__ASSERT(m_pProgress_HP, "NULL UI Component!!");
@@ -134,19 +136,42 @@ bool CUIStateBar::Load(HANDLE hFile)
 	if(m_pProgress_ExpP) m_pProgress_ExpP->SetRange(0, 100);
 
 	// NOTE: new components not previously used
-	CN3UIProgress* m_pProgress_HP_poison = (CN3UIProgress*)(this->GetChildByID("Progress_HP_poison"));	__ASSERT(m_pProgress_HP_poison, "NULL UI Component!!");
-	CN3UIProgress* m_pProgress_HP_curse = (CN3UIProgress*)(this->GetChildByID("Progress_HP_curse"));	__ASSERT(m_pProgress_HP_curse, "NULL UI Component!!");
 
-	if (m_pProgress_HP_poison) m_pProgress_HP_poison->SetRange(0, 100);
-	if (m_pProgress_HP_curse) m_pProgress_HP_curse->SetRange(0, 100);
+	//CN3UIProgress* m_pProgress_HP_poison = (CN3UIProgress*)(this->GetChildByID("Progress_HP_poison"));	__ASSERT(m_pProgress_HP_poison, "NULL UI Component!!");
+	CN3UIProgress* m_pProgress_HP_poison = (CN3UIProgress*)(this->GetChildByID("Progress_HP_slow"));
+	__ASSERT(m_pProgress_HP_poison, "NULL UI Component!!");
+	if (m_pProgress_HP_poison) {
+		m_pProgress_HP_poison->SetRange(0, 100);
+		m_pProgress_HP_poison->SetVisible(false);
+	}
 
-	m_pProgress_HP_poison->SetVisible(false);
-	m_pProgress_HP_curse->SetVisible(false);
+	//CN3UIProgress* m_pProgress_HP_curse = (CN3UIProgress*)(this->GetChildByID("Progress_HP_curse"));	__ASSERT(m_pProgress_HP_curse, "NULL UI Component!!");
+	CN3UIProgress* m_pProgress_HP_curse = (CN3UIProgress*)(this->GetChildByID("Progress_HP_drop"));
+	__ASSERT(m_pProgress_HP_curse, "NULL UI Component!!");
+	if (m_pProgress_HP_curse) {
+		m_pProgress_HP_curse->SetRange(0, 100);
+		m_pProgress_HP_curse->SetVisible(false);
+	}
+
+	CN3UIProgress* m_pProgress_HP_lasting = (CN3UIProgress*)(this->GetChildByID("Progress_HP_lasting"));
+	__ASSERT(m_pProgress_HP_curse, "NULL UI Component!!");
+	if (m_pProgress_HP_lasting) {
+		m_pProgress_HP_lasting->SetRange(0, 100);
+		m_pProgress_HP_lasting->SetVisible(false);
+	}
 
 	// NOTE: new components to display the text
-	m_pText_HP = (CN3UIString*)GetChildByID("Text_HP");		__ASSERT(m_pText_HP, "NULL UI Component!!");
-	m_pText_MP = (CN3UIString*)GetChildByID("Text_MSP");		__ASSERT(m_pText_MP, "NULL UI Component!!");
-	m_pText_Exp = (CN3UIString*)GetChildByID("Text_ExpP");		__ASSERT(m_pText_Exp, "NULL UI Component!!");
+	m_pText_HP = (CN3UIString*)GetChildByID("Text_HP");
+	__ASSERT(m_pText_HP, "NULL UI Component!!");
+	m_pText_MP = (CN3UIString*)GetChildByID("Text_MSP");
+	__ASSERT(m_pText_MP, "NULL UI Component!!");
+	m_pText_Exp = (CN3UIString*)GetChildByID("Text_ExpP");
+	__ASSERT(m_pText_Exp, "NULL UI Component!!");
+
+	CN3UIString* m_pText_SysTime = (CN3UIString*)GetChildByID("SystemTime");
+	if (m_pText_SysTime) m_pText_SysTime->SetVisible(false);
+
+	m_pText_FPS = (CN3UIString*)GetChildByID("string_fps");
 
 	// MiniMap
 	m_pGroup_MiniMap = GetChildByID("Group_MiniMap"); __ASSERT(m_pGroup_MiniMap, "NULL UI Component!!");
@@ -179,7 +204,7 @@ void CUIStateBar::UpdateExp(int iExp, int iExpNext, bool bUpdateImmediately)
 	if(iExpNext <= 0) return;
 	if(NULL == m_pProgress_ExpC || NULL == m_pProgress_ExpP) return;
 
-	int iPercentage = 100 * iExp / iExpNext;
+	int iPercentage = 100.0f * ((float) iExp / (float) iExpNext);
 
 	if(iExpNext > 10)
 	{
@@ -418,6 +443,17 @@ void CUIStateBar::Tick()
 	if(!m_bVisible) return;
 
 	CN3UIBase::Tick();
+
+	// NOTE(srmeier): set the FPS string to be displayed
+	static int iCount = 0;
+	static char strFPS[0x10] = "";
+
+	if (iCount++ == 60) {
+		iCount = 0;
+		sprintf(strFPS, "%.1f", CN3Base::s_fFrmPerSec);
+		if(m_pText_FPS) m_pText_FPS->SetString(strFPS);
+	}
+
 
 	TickMiniMap(); // 맵 이미지...
 	TickMagicIcon(); // 아이콘 처리..

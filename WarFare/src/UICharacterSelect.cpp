@@ -101,13 +101,13 @@ bool CUICharacterSelect::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 		if ( pSender->m_szID == "bt_exit" )	// Elmorad
 		{
 //			CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn); // 로그인으로 돌아간다..
-			std::string szMsg; ::_LoadStringFromResource(IDS_CONFIRM_EXIT_GAME, szMsg);
+			std::string szMsg = "IDS_CONFIRM_EXIT_GAME"; //::_LoadStringFromResource(IDS_CONFIRM_EXIT_GAME, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXIT);
 		}
 		else
 		if ( pSender->m_szID == "bt_delete" )	// Elmorad
 		{
-			std::string szMsg; ::_LoadStringFromResource(IDS_CONFIRM_DELETE_CHR, szMsg);
+			std::string szMsg = "IDS_CONFIRM_DELETE_CHR"; //::_LoadStringFromResource(IDS_CONFIRM_DELETE_CHR, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_DELETE_CHR);
 		}
 	}
@@ -131,7 +131,7 @@ void CUICharacterSelect::DisplayChrInfo(__CharacterSelectInfo* pCSInfo)
 		sprintf(szBuffer, szFmt.c_str(), pCSInfo->iLevel, szClass.c_str(), pCSInfo->szID.c_str());
 		szTotal = szBuffer;
 	}
-	else ::_LoadStringFromResource(IDS_CHR_SELECT_HINT, szTotal);
+	else szTotal = "IDS_CHR_SELECT_HINT";//::_LoadStringFromResource(IDS_CHR_SELECT_HINT, szTotal);
 
 	if ( m_pUserInfoStr )
 	{
