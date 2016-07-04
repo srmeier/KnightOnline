@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfx.h"
+#include "DFont.h"
 #include "PlayerOtherMgr.h"
 
 #include "N3ShapeExtra.h"
@@ -87,7 +88,7 @@ void CPlayerOtherMgr::Tick(const __Vector3& vPosPlayer)
 	for(; it2 != itEnd2; )
 	{
 		pNPC = it2->second;
-		
+
 		pNPC->Tick();
 		iLOD = pNPC->LODLevel();
 		if(iLOD >= 0 && iLOD < MAX_CHR_LOD) iLODTotal += MAX_CHR_LOD - iLOD; // 자동 LOD 계산할때 필요한 값..
@@ -97,10 +98,23 @@ void CPlayerOtherMgr::Tick(const __Vector3& vPosPlayer)
 			it2 = m_NPCs.erase(it2);
 			this->CorpseAdd(pNPC);
 		}
+		else if (pNPC->m_InfoBase.eNation==NATION_KARUS || pNPC->m_InfoBase.eNation==NATION_ELMORAD)
+		{
+			// TODO(srmeier): in 1299 the NPCs seem to have their own distance parameters
+			// keeping them the same for now but will probably want to look into this
+
+			// NOTE(srmeier): CPlayerBase::Tick() places a limit to the distance for which the names
+			// get displayed
+
+			float fDist = pNPC->Distance(vPosPlayer);
+			if (fDist < SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(D3DFONT_BOLD); // SOUND_RANGE 안에 있으면.
+			else if (fDist > SOUND_RANGE_TO_RELEASE) pNPC->ReleaseSoundAndFont();
+			it2++;
+		}
 		else
 		{
 			float fDist = pNPC->Distance(vPosPlayer);
-			if(fDist < SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(); // SOUND_RANGE 안에 있으면.
+			if(fDist < SOUND_RANGE_TO_SET) pNPC->SetSoundAndInitFont(D3DFONT_BOLD); // SOUND_RANGE 안에 있으면.
 			else if(fDist > SOUND_RANGE_TO_RELEASE) pNPC->ReleaseSoundAndFont();
 			it2++;
 		}
@@ -491,6 +505,19 @@ CPlayerNPC*	CPlayerOtherMgr::CharacterGetByNearstEnemy(e_Nation eNation, const _
 	{
 		pNPC = it->second;
 		if(eNation == pNPC->m_InfoBase.eNation) continue;
+
+		//-------------------------------------------------------------------------
+		/*
+		// TODO(srmeier): need to use ZoneAbilityType here
+		// NOTE(srmeier): using zoneability information to determine if target is attackable
+		if (!ACT_WORLD->canAttackSameNation() && (pNPC->m_InfoBase.eNation == eNation))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_ELMORAD && pNPC->m_InfoBase.eNation == NATION_KARUS))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_KARUS && pNPC->m_InfoBase.eNation == NATION_ELMORAD))
+			return false;
+		*/
+		//-------------------------------------------------------------------------
 		
 		fDistTmp = pNPC->Distance(vPosPlayer);
 		if(fDistTmp < fDistMin)
@@ -505,6 +532,19 @@ CPlayerNPC*	CPlayerOtherMgr::CharacterGetByNearstEnemy(e_Nation eNation, const _
 	{
 		pNPC = it2->second;
 		if(eNation == pNPC->m_InfoBase.eNation) continue;
+
+		//-------------------------------------------------------------------------
+		/*
+		// TODO(srmeier): need to use ZoneAbilityType here
+		// NOTE(srmeier): using zoneability information to determine if target is attackable
+		if (!ACT_WORLD->canAttackSameNation() && (pNPC->m_InfoBase.eNation == eNation))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_ELMORAD && pNPC->m_InfoBase.eNation == NATION_KARUS))
+			return false;
+		if (!ACT_WORLD->canAttackOtherNation() && (eNation == NATION_KARUS && pNPC->m_InfoBase.eNation == NATION_ELMORAD))
+			return false;
+		*/
+		//-------------------------------------------------------------------------
 		
 		fDistTmp = pNPC->Distance(vPosPlayer);
 		if(fDistTmp < fDistMin)

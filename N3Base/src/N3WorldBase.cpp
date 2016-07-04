@@ -17,7 +17,10 @@ static char THIS_FILE[]=__FILE__;
 
 CN3WorldBase::CN3WorldBase()
 {
-
+	m_byTariff = 0x00;
+	m_zoneFlags = 0x0000;
+	m_zoneType = ZoneAbilityNeutral;
+	m_byMinLevel = m_byMaxLevel = 0x00;
 }
 
 CN3WorldBase::~CN3WorldBase()

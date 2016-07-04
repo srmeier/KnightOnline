@@ -48,6 +48,8 @@
 #include "KnightChrMgr.h"
 #include "GameCursor.h"
 
+#include "lzf.h"
+
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -105,7 +107,7 @@ bool CGameProcedure::s_bKeyPress = false;	//키가 눌려졌을때 ui에서 해당하는 조작
 bool CGameProcedure::s_bKeyPressed = false;	//키가 올라갔을때 ui에서 해당하는 조작된적이 있다면
 
 // NOTE: adding boolean to check if window has focus or not
-bool CGameProcedure::s_bIsWindowInFocus = false;
+bool CGameProcedure::s_bIsWindowInFocus = true;
 
 CGameProcedure::CGameProcedure()
 {
@@ -185,8 +187,9 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	SDL_Surface* pSurf4 = IMG_Load("cursor_attack.cur");
 	SDL_Surface* pSurf5 = IMG_Load("repair0.cur");
 	SDL_Surface* pSurf6 = IMG_Load("repair1.cur");
+	SDL_Surface* pSurf7 = IMG_Load("WarFare.ico");
 
-	if(pSurf0==NULL||pSurf1==NULL||pSurf2==NULL||pSurf3==NULL||pSurf4==NULL||pSurf5==NULL||pSurf6==NULL) {
+	if(pSurf0==NULL||pSurf1==NULL||pSurf2==NULL||pSurf3==NULL||pSurf4==NULL||pSurf5==NULL||pSurf6==NULL||pSurf7==NULL) {
 		printf("%s\n", IMG_GetError());
 		exit(-1);
 	}
@@ -200,6 +203,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	s_hCursorNowRepair = SDL_CreateColorCursor(pSurf6, 0, 0);
 
 	SDL_SetCursor(s_hCursorNormal);
+	SDL_SetWindowIcon(pWindow, pSurf7);
 
 	SDL_FreeSurface(pSurf0);
 	SDL_FreeSurface(pSurf1);
@@ -208,6 +212,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	SDL_FreeSurface(pSurf4);
 	SDL_FreeSurface(pSurf5);
 	SDL_FreeSurface(pSurf6);
+	SDL_FreeSurface(pSurf7);
 
 
 	/*
@@ -803,6 +808,10 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
+		case N3_COMPRESSED_PACKET:
+			this->MsgRecv_CompressedPacket(pDataPack, iOffset);
+		return true;
+
 		case N3_VERSION_CHECK: // 암호화도 같이 받는다..
 			this->MsgRecv_VersionCheck(pDataPack, iOffset); // virtual
 			return true;
@@ -962,6 +971,59 @@ void CGameProcedure::MsgSend_AliveCheck()
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ALIVE_CHECK);				// 커멘드.
 	s_pSocket->Send(byBuff, iOffset);	// 보낸다
+}
+
+void CGameProcedure::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
+{
+	/*
+	short sCompLen, sOrgLen;
+	DWORD dwCrcValue;
+	sCompLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 압축된 데이타길이얻기... (Obtain compressed data length)
+	sOrgLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// 원래데이타길이얻기... (Getting the original data length)
+	dwCrcValue =	CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);	// CRC값 얻기... (Getting CRC value)
+
+	// TEMP: just to easily get the packet from the watch window
+	//char temp[0x0023];
+	//memcpy(temp, (char*)(pDataPack->m_pData+iOffset), sCompLen);
+
+	/// 압축 데이터 얻기 및 해제 (Obtaining and decompress data)
+	CCompressMng Compressor;
+	Compressor.PreUncompressWork((char*)(pDataPack->m_pData+iOffset), sCompLen, sOrgLen);	// 압축 풀기... (Extracting)
+	iOffset += sCompLen;
+
+	if (Compressor.Extract() == false ||
+	Compressor.m_nErrorOccurred != 0 ||
+	dwCrcValue != Compressor.m_dwCrc )
+	{
+	return;
+	}
+
+	// 압축 풀린 데이타 읽기 (Read loose data compression)
+	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
+	*/
+
+	Uint16 compressedLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
+	Uint16 originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
+	Uint32 crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+
+	BYTE* pDecodeBuf = new BYTE[originalLength];
+
+	Uint32 result = lzf_decompress((char*)(pDataPack->m_pData + iOffset), compressedLength, pDecodeBuf, originalLength);
+	if (result
+		!= originalLength)
+	{
+		delete[] pDecodeBuf;
+		return;
+	}
+
+	// 임시로 데이터 팩 만들고.. (Create temporary data pack)
+	DataPack DataPackTemp;
+	DataPackTemp.m_Size = originalLength;
+	DataPackTemp.m_pData = pDecodeBuf;
+	int iOffset2 = 0;
+	this->ProcessPacket(&DataPackTemp, iOffset2); // 바로 파싱... (Just parsing)
+	DataPackTemp.m_Size = 0;
+	DataPackTemp.m_pData = NULL;
 }
 
 int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // virtual

@@ -383,11 +383,14 @@ void CN3Camera::Apply()
 	// 안개 색깔 맞추기..
 	s_lpD3DDev->SetRenderState( D3DRS_FOGENABLE, m_bFogUse);
 	s_lpD3DDev->SetRenderState( D3DRS_FOGCOLOR,  m_FogColor);
-//	s_lpD3DDev->SetRenderState( D3DRS_FOGVERTEXMODE,  D3DFOG_EXP2);
-//	s_lpD3DDev->SetRenderState( D3DRS_FOGTABLEMODE,   D3DFOG_EXP2);
-	s_lpD3DDev->SetRenderState( D3DRS_FOGTABLEMODE,   D3DFOG_NONE);
-	s_lpD3DDev->SetRenderState( D3DRS_FOGVERTEXMODE,  D3DFOG_LINEAR);
+
+	s_lpD3DDev->SetRenderState( D3DRS_FOGVERTEXMODE,  D3DFOG_EXP2);
+	s_lpD3DDev->SetRenderState( D3DRS_FOGTABLEMODE,   D3DFOG_EXP2);
+//	s_lpD3DDev->SetRenderState( D3DRS_FOGTABLEMODE,   D3DFOG_NONE);
+//	s_lpD3DDev->SetRenderState( D3DRS_FOGVERTEXMODE,  D3DFOG_LINEAR);
+
 	s_lpD3DDev->SetRenderState( D3DRS_RANGEFOGENABLE, TRUE);
+
 	// Range Fog : 장점 - 거리기반으로 fog가 적용된다. 단점 - poligon단위로 같은 fog값이 적용된다.(큰 폴리곤이 있을경우 어색한 fog가 될 수 있다.)
 	// range fog = FALSE로 했을때는 depth버퍼 기반으로 fog가 계산되어 적용된다.
 
@@ -401,11 +404,16 @@ void CN3Camera::Apply()
 //	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *(DWORD*)&m_fFogStart);
 //	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *(DWORD*)&m_fFogEnd);
 //	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(DWORD*)&m_fFogDensity);
-	float fFogStart = m_Data.fFP * 0.1f;
+
+
+
+	float fFogDensity = 1.0f / (0.25f*m_Data.fFP);//0.33f/23.0f;
+	float fFogStart = m_Data.fFP * 0.75f;
 	float fFogEnd = m_Data.fFP;
+
 	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *(DWORD*)&fFogStart);
 	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *(DWORD*)&fFogEnd);
-//	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(DWORD*)&m_fFogDensity);
+	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(DWORD*)&fFogDensity);
 }
 
 void CN3Camera::Render(float fUnitSize)

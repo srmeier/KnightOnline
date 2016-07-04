@@ -150,7 +150,7 @@ public:
 	e_PlayerType	PlayerType() { return m_ePlayerType; }
 	e_Race			Race() { return m_InfoBase.eRace; }
 	e_Nation		Nation() { return m_InfoBase.eNation; }
-	virtual void	SetSoundAndInitFont();
+	virtual void	SetSoundAndInitFont(DWORD dwFontFlag = 0UL);
 	void			SetSoundPlug(__TABLE_ITEM_BASIC* pItemBasic);
 	void			ReleaseSoundAndFont();
 	void			RegenerateCollisionMesh(); // 최대 최소값을 다시 찾고 충돌메시를 다시 만든다..

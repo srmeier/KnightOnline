@@ -23,7 +23,7 @@ public:
 	void	InitFace();
 	void	InitHair();
 	void	KnightsInfoSet(int iID, const std::string& szName, int iGrade, int iRank);
-	void	SetSoundAndInitFont();
+	void	SetSoundAndInitFont(DWORD dwFontFlag = 0UL);
 
 	bool	Init(enum e_Race eRace, int iFace, int iHair, DWORD* pdwItemIDs, int* piItenDurabilities);
 	void	Tick();

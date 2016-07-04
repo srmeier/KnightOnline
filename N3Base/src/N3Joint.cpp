@@ -465,7 +465,8 @@ void CN3Joint::KeyDelete(CN3Joint *pJoint, int nKS, int nKE)
 {
 	CN3AnimKey* pAKs[3] = { &(pJoint->m_KeyPos), &(pJoint->m_KeyRot), &(pJoint->m_KeyScale) };
 
-	for(int i = 0; i < 3; i++)
+	int i;
+	for(i = 0; i < 3; i++)
 	{
 		int nKC = pAKs[i]->Count();
 		if(nKC > 0 && nKS > 0 && nKS < nKC && nKE > nKS && nKE < nKC)

@@ -691,9 +691,14 @@ void CAISocket::RecvGateOpen(Packet & pkt)
 
 void CAISocket::RecvCompressed(Packet & pkt)
 {
-	uint32 compressedLength, originalLength;
 	uint32 crc;
-	pkt >> compressedLength >> originalLength >> crc;
+	uint32 compressedLength, originalLength;
+
+	uint16 sCompressedLength, sOriginalLenth;
+	pkt >> sCompressedLength >> sOriginalLenth >> crc;
+
+	compressedLength = sCompressedLength;
+	originalLength = sOriginalLenth;
 
 	char *decompressedBuffer = new char[originalLength];
 

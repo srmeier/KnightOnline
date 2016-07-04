@@ -178,7 +178,7 @@ void CPlayerOther::KnightsInfoSet(int iID, const std::string& szName, int iGrade
 	{
 		if(!m_pClanFont)
 		{
-			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			std::string szFontID = "Arial"; //::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 			m_pClanFont = new CDFont(szFontID, 12);
 			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
 			m_pClanFont->RestoreDeviceObjects();
@@ -189,7 +189,7 @@ void CPlayerOther::KnightsInfoSet(int iID, const std::string& szName, int iGrade
 	}
 }
 
-void CPlayerOther::SetSoundAndInitFont()
+void CPlayerOther::SetSoundAndInitFont(DWORD dwFontFlag)
 {
 	CPlayerBase::SetSoundAndInitFont();
 
@@ -198,13 +198,13 @@ void CPlayerOther::SetSoundAndInitFont()
 	{
 		if(!m_pClanFont)
 		{
-			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
-			m_pClanFont = new CDFont(szFontID, 12); // 좀 작게 만든다..
+			std::string szFontID = "Arial";//; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			m_pClanFont = new CDFont(szFontID, 12, D3DFONT_BOLD); // 좀 작게 만든다..
 			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
 			m_pClanFont->RestoreDeviceObjects();
 		}
 
-		m_pClanFont->SetText(m_InfoExt.szKnights.c_str(), D3DFONT_BOLD); // 폰트에 텍스트 지정.
+		m_pClanFont->SetText(m_InfoExt.szKnights.c_str()); // 폰트에 텍스트 지정.
 		m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
 	}
 }

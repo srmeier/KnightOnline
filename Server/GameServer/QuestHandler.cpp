@@ -15,7 +15,7 @@ void CUser::QuestDataRequest()
 	// TODO: come back and fix this!!
 	Packet result(WIZ_QUEST);
 	result << 0x02 << 0x00 << 0x00 << 0x00;
-	Send(&result);
+	//Send(&result);
 }
 
 void CUser::QuestV2PacketProcess(Packet & pkt)

@@ -184,7 +184,7 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 		if (m_pStr[iIndex])
 		{
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNCENTER);
-			::_LoadStringFromResource(IDS_TOOLTIP_GOLD, szStr);
+			szStr = "IDS_TOOLTIP_GOLD";//::_LoadStringFromResource(IDS_TOOLTIP_GOLD, szStr);
 			if ( spItem->pItemBasic->szName == szStr )
 			{
 				sprintf(szBuff, "%d  %s", spItem->iCount, spItem->pItemBasic->szName.c_str());

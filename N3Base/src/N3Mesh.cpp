@@ -115,10 +115,12 @@ void CN3Mesh::MakeIndexed()
 
 	__VertexT1* pVs = new __VertexT1[m_nVC]; memcpy(pVs, m_pVertices, sizeof(__VertexT1) * m_nVC);
 	int nICount = 0, nVCount = 0;
-	for(int i = 0; i < m_nVC; i++)
+	int i;
+	for(i = 0; i < m_nVC; i++)
 	{
 		BOOL bAccord = FALSE;
-		for(int j = 0; j < nVCount; j++)
+		int j;
+		for(j = 0; j < nVCount; j++)
 		{
 			if(	m_pVertices[i].x == pVs[j].x && 
 				m_pVertices[i].y == pVs[j].y && 
@@ -278,7 +280,8 @@ void CN3Mesh::Create_Axis(float fLength)
 	
 	// y รเ
 	mtx.RotationZ(D3DX_PI / -2.0f);
-	for(int i = 0; i < 4; i++) 
+	int i;
+	for(i = 0; i < 4; i++) 
 	{
 		m_pVertices[4+i].Set(m_pVertices[i] * mtx, m_pVertices[i].n * mtx, 0, 0);
 	}

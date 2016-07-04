@@ -1286,7 +1286,8 @@ bool CN3Chr::Save(HANDLE hFile)
 	// 실제 저장..
 	int iPC = m_Parts.size();
 	WriteFile(hFile, &iPC, 4, &dwRWC, NULL);
-	for(int i = 0; i < iPC; i++)
+	int i;
+	for(i = 0; i < iPC; i++)
 	{
 		nL = m_Parts[i]->FileName().size();
 		if(nL <= 0)
