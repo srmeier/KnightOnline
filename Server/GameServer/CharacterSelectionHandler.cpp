@@ -256,18 +256,12 @@ void CUser::RecvLoginInfo(Packet & pkt)
 // This packet actually contains the char name after the opcode
 void CUser::GameStart(Packet & pkt)
 {
-	/*
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_GAMESTART);
-	CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->IDString().size());
-	CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());
-	*/
-
 	if (isInGame())
 		return;
 
 	uint8 opcode = pkt.read<uint8>();
 
-	if (true)//(opcode == 1)
+	if (opcode == 1)
 	{
 		SendMyInfo();
 		g_pMain->UserInOutForMe(this);
@@ -281,11 +275,9 @@ void CUser::GameStart(Packet & pkt)
 
 		Packet result(WIZ_GAMESTART);
 		Send(&result);
-	/*
 	}
 	else if (opcode == 2)
 	{
-	*/
 		m_state = GAME_STATE_INGAME;
 		UserInOut(INOUT_RESPAWN);
 
@@ -312,6 +304,7 @@ void CUser::GameStart(Packet & pkt)
 		{
 			m_iLostExp = 0;
 		}
+
 		BlinkStart();
 		SetUserAbility();
 		// rental
@@ -337,9 +330,10 @@ void CUser::GameStart(Packet & pkt)
 
 	if (GetZoneID() == ZONE_DELOS && pKnights != nullptr)
 	{
-	Packet result(WIZ_SIEGE, uint8(2));
-	result << pKnights->GetID() << pKnights->m_sMarkVersion;
-	Send(&result);	
+		Packet result(WIZ_SIEGE, uint8(2));
+		result << pKnights->GetID() << pKnights->m_sMarkVersion;
+		Send(&result);	
 	}
+
 	m_tHPLastTimeNormal = UNIXTIME;
 }

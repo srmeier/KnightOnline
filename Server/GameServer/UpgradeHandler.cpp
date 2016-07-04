@@ -92,7 +92,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 		goto fail_return;
 	}
 
-	pkt >> bType; // either preview or upgrade, need to allow for these types
+	//pkt >> bType; // either preview or upgrade, need to allow for these types
 	pkt >> sNpcID;
 	for (int i = 0; i < 10; i++)
 	{
@@ -123,7 +123,9 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 	}
 
 	{ // scoped lock to prevent race conditions
-		int nReqOriginItem = nItemID[0] % 100000;
+
+		int nReqOriginItem = nItemID[0] % 1000;//int nReqOriginItem = nItemID[0] % 100000;
+
 		_ITEM_UPGRADE * pUpgrade = nullptr;
 		foreach_stlmap (itr, g_pMain->m_ItemUpgradeArray)
 		{
@@ -489,7 +491,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 		}
 	} // end of scoped lock
 
-	result << bType;
+	//result << bType;
 
 	result << bResult;
 	foreach_array (i, nItemID)

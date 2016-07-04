@@ -28,7 +28,7 @@ void CWarMessage::InitFont()
 {
 	Release();
 
-	std::string szFont; ::_LoadStringFromResource(IDS_FONT_ID, szFont);
+	std::string szFont = "Arial"; //::_LoadStringFromResource(IDS_FONT_ID, szFont);
 	m_pMessageFont = new CDFont(szFont, MESSAGE_FONT_SIZE);
 	__ASSERT(m_pMessageFont, "Font Create Fail!!");
 

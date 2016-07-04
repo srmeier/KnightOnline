@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "resource.h"
 #include "N3WorldManager.h"
+#include "LogWriter.h"
 
 #include "N3TerrainManager.h"
 #include "DungeonManager.h"

@@ -295,7 +295,6 @@ bool CN3UIButton::Load(HANDLE hFile)
 	return true;
 }
 
-#ifdef _N3TOOL
 void CN3UIButton::operator = (const CN3UIButton& other)
 {
 	CN3UIBase::operator = (other);
@@ -317,6 +316,7 @@ void CN3UIButton::operator = (const CN3UIButton& other)
 	}
 }
 
+#ifdef _N3TOOL
 bool CN3UIButton::Save(HANDLE hFile)
 {
 	if (false == CN3UIBase::Save(hFile)) return false;
@@ -350,6 +350,7 @@ void CN3UIButton::CreateImages()
 		m_ImageRef[i]->SetReserved(i);		// 상태 번호(eBTN_STATE) 할당.
 	}
 }
+#endif
 
 void CN3UIButton::SetSndOn(const std::string& strFileName)
 {
@@ -387,4 +388,3 @@ std::string CN3UIButton::GetSndFName_Click() const
 	else return std::string("");
 }
 
-#endif

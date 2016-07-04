@@ -371,7 +371,8 @@ bool CN3SkyMng::LoadFromTextFile(const char* szIniFN)
 		szMoon = szBuff;
 	}
 
-	for(int i = 0 ; i < NUM_SUNPART; i++)
+	int i;
+	for(i = 0 ; i < NUM_SUNPART; i++)
 	{
 		pResult = fgets(szLine, 512, fp);
 		if(pResult)
@@ -399,14 +400,14 @@ bool CN3SkyMng::LoadFromTextFile(const char* szIniFN)
 
 		if(iSDCC > 0)
 		{
-			m_DayChanges.assign(iSDCC);
+			m_DayChanges.reserve(iSDCC); //m_DayChanges.assign(iSDCC);
 			for(int i = 0; i < iSDCC; i++)
 			{
 				if(false == this->DayChangeParse(fp, &(m_DayChanges[i])))
 				{
 					char szErrLine[128];
 					sprintf(szErrLine, "From \"DayChage Count : \" -> Line : %d", i);
-					MessageBox(CN3Base::s_hWndBase, szErrLine, "하늘 환경설정 데이터 Parsing 실패", MB_OK);
+					MessageBox(GetActiveWindow(), szErrLine, "하늘 환경설정 데이터 Parsing 실패", MB_OK); //CN3Base::s_hWndBase
 					this->Release();
 					return false;
 				}
@@ -754,13 +755,14 @@ int CN3SkyMng::GetLatestChange(eSKY_DAYCHANGE eSDC, int iPos)
 	return iFind;
 }
 
-// 하늘의 상태를 바꾸기 (pSDC->fHowLong 값과 fTakeTime값을 비교하여 정확한 변화율을 계산하여 준다.)
+// (It allows to calculate the precise rate of change by comparing the pSDC-> How Long fTakeTime value and the value.)
+// Changing the status of the sky
 void CN3SkyMng::ChangeSky(__SKY_DAYCHANGE* pSDC, float fTakeTime)
 {
 	if (NULL == pSDC) return;
 	float fPercentage = 1.0f - fTakeTime/pSDC->fHowLong;
 
-	// 하늘 변화명령 실행하기
+	// Execute command changes
 	switch(pSDC->eSkyDayChange)
 	{
 	case SDC_SKYCOLOR:
@@ -775,24 +777,24 @@ void CN3SkyMng::ChangeSky(__SKY_DAYCHANGE* pSDC, float fTakeTime)
 		m_pStar->SetStar(pSDC->dwParam1, fTakeTime);
 		break;
 	case SDC_MOONPHASE:
-		m_pMoon->SetMoonPhase(m_pMoon->GetMoonPhaseIndex()+1);	// phase index를 하나 증가시킨다.
+		m_pMoon->SetMoonPhase(m_pMoon->GetMoonPhaseIndex()+1);	// The phase index increased one.
 		break;
 	case SDC_SUNCOLOR:
-		m_pSun->m_Parts[SUNPART_SUN].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // 색
+		m_pSun->m_Parts[SUNPART_SUN].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // color
 		m_pSun->m_Parts[SUNPART_SUN].Color.SetPercentage(fPercentage);
-		m_pSun->m_Parts[SUNPART_SUN].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // 크기..
+		m_pSun->m_Parts[SUNPART_SUN].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // size..
 		m_pSun->m_Parts[SUNPART_SUN].Delta.SetPercentage(fPercentage);
 		break;
 	case SDC_GLOWCOLOR:
-		m_pSun->m_Parts[SUNPART_GLOW].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // 색
+		m_pSun->m_Parts[SUNPART_GLOW].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // color
 		m_pSun->m_Parts[SUNPART_GLOW].Color.SetPercentage(fPercentage);
-		m_pSun->m_Parts[SUNPART_GLOW].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // 크기..
+		m_pSun->m_Parts[SUNPART_GLOW].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // size..
 		m_pSun->m_Parts[SUNPART_GLOW].Delta.SetPercentage(fPercentage);
 		break;
 	case SDC_FLARECOLOR:
-		m_pSun->m_Parts[SUNPART_FLARE].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // 색
+		m_pSun->m_Parts[SUNPART_FLARE].Color.ChangeColor(pSDC->dwParam1, pSDC->fHowLong); // color
 		m_pSun->m_Parts[SUNPART_FLARE].Color.SetPercentage(fPercentage);
-		m_pSun->m_Parts[SUNPART_FLARE].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // 크기..
+		m_pSun->m_Parts[SUNPART_FLARE].Delta.ChangeDelta(pSDC->dwParam2/1000.0f, pSDC->fHowLong); // size..
 		m_pSun->m_Parts[SUNPART_FLARE].Delta.SetPercentage(fPercentage);
 		break;
 	case SDC_CLOUD1COLOR:
@@ -1378,7 +1380,8 @@ __SKY_DAYCHANGE* CN3SkyMng::DayChangeInsert(int iIndex)
 	it_SDC it = m_DayChanges.begin();
 	for(int i = 0; i < iIndex; i++, it++);
 	
-	it = m_DayChanges.insert(it);
+	// TODO(srmeier): need to figure this out
+	return NULL; //it = m_DayChanges.insert(it);
 	
 	return &(*it);
 }

@@ -31,12 +31,12 @@ void CUser::WarehouseProcess(Packet & pkt)
 			if(pItem == nullptr)
 				continue; 
 
-			result	<< pItem->nNum 
-				<< pItem->sDuration 
-				<< pItem->sCount
-				<< pItem->bFlag 
-				<< uint32(0)
-				<< pItem->nExpirationTime;
+			result << pItem->nNum
+				<< pItem->sDuration
+				<< pItem->sCount;
+				//<< pItem->bFlag 
+				//<< uint32(0)
+				//<< pItem->nExpirationTime;
 		}
 		if (isInPKZone())
 		{
@@ -52,13 +52,15 @@ void CUser::WarehouseProcess(Packet & pkt)
 		return;
 	}
 
-	pkt >> sNpcId >> nItemID >> page  >> bSrcPos >> bDstPos;
+	pkt /*>> sNpcId*/ >> nItemID >> page  >> bSrcPos >> bDstPos;
 
+	/*
 	pNpc = g_pMain->GetNpcPtr(sNpcId);
 	if (pNpc == nullptr
 		|| pNpc->GetType() != NPC_WAREHOUSE
 		|| !isInRange(pNpc, MAX_NPC_RANGE))
 		goto fail_return;
+	*/
 
 	pTable = g_pMain->GetItemPtr(nItemID);
 	if (pTable == nullptr)

@@ -172,6 +172,7 @@ void CUser::Chat(Packet & pkt)
 			if (pUser == nullptr || !pUser->isInGame()) 
 				return;
 
+			pUser->Send(&result);
 			chattype = "PRIVATE_CHAT";
 		}
 		break;

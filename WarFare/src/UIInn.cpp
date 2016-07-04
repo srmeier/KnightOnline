@@ -89,7 +89,7 @@ bool CUIInn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 void CUIInn::Message(int iMessageID)
 {
 	std::string szMsg;
-	::_LoadStringFromResource(iMessageID, szMsg);
+	szMsg = "CUIInn::Message(int iMessageID)";//::_LoadStringFromResource(iMessageID, szMsg);
 
 	if(iMessageID == IDS_CLAN_DENY_LOWGOLD)
 	{

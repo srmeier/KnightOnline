@@ -48,6 +48,9 @@ protected:
 	CN3UIButton*	m_pBtn_ZoomIn;
 	CN3UIButton*	m_pBtn_ZoomOut;
 
+	// NOTE(srmeier): new components
+	CN3UIString*	m_pText_FPS;
+
 	float			m_fZoom; // 지도의 배율..
 	float			m_fMapSizeX;
 	float			m_fMapSizeZ;

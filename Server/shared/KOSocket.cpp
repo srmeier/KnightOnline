@@ -208,7 +208,7 @@ bool KOSocket::SendCompressed(Packet * pkt)
 	crc = (uint32)crc32(buffer, inLength, 0);
 	outLength = lzf_compress(buffer, inLength, outBuffer, outLength);
 
-	result << outLength << inLength;
+	result << (short)outLength << (short)inLength;
 	result << uint32(crc);
 
 	result.append(outBuffer, outLength);

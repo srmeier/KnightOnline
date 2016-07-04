@@ -11,7 +11,9 @@
 //#define g_private_key 0x1257091582190465 //1453
 //#endif 
 
-void CJvCryption::Init() { m_tkey = m_public_key ^ g_private_key; }
+void CJvCryption::Init() {
+	m_tkey = m_public_key ^ g_private_key;
+}
 
 /*
 Uint64 CJvCryption::GenerateKey()

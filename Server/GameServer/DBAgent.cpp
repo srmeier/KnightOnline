@@ -190,8 +190,8 @@ void CDBAgent::LoadCharInfo(string & strCharID, ByteBuffer & result)
 		uint32 nItemID;
 		uint16 sDurability, sCount;
 		itemData >> nItemID >> sDurability >> sCount;
-		// NOTE: current client setup doesn't need the right/left hand items
-		if (i == HEAD || i == BREAST || i == SHOULDER || i == LEG || i == GLOVE || i == FOOT )//|| i == RIGHTHAND || i == LEFTHAND)
+
+		if (i == HEAD || i == BREAST || i == SHOULDER || i == LEG || i == GLOVE || i == FOOT || i == RIGHTHAND || i == LEFTHAND)
 			result << nItemID << sDurability;
 	}
 }

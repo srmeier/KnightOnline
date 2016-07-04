@@ -94,13 +94,13 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		if(NATION_KARUS == eNation)
 		{
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_SETTING_KARUS_SCREEN, szMsg);
+			szMsg = "IDS_SETTING_KARUS_SCREEN";//::_LoadStringFromResource(IDS_SETTING_KARUS_SCREEN, szMsg);
 			m_pStr_Desc->SetString(szMsg);
 		}
 		else if(NATION_ELMORAD == eNation)
 		{
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_SETTING_ELMORAD_SCREEN, szMsg);
+			szMsg = "IDS_SETTING_ELMORAD_SCREEN";//::_LoadStringFromResource(IDS_SETTING_ELMORAD_SCREEN, szMsg);
 			m_pStr_Desc->SetString(szMsg);
 		}
 	}
@@ -116,8 +116,15 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		m_pStr_Stats[i] = (CN3UIString*)(this->GetChildByID(szTexts[i])); __ASSERT(m_pStr_Stats[i], "NULL UI Component!!");
 		m_pArea_Stats[i] = (CN3UIArea*)(this->GetChildByID(szAreas[i])); __ASSERT(m_pArea_Stats[i], "NULL UI Component!!");
 		m_pImg_Stats[i] = (CN3UIImage*)(this->GetChildByID(szImgs[i]));	__ASSERT(m_pImg_Stats[i], "NULL UI Component!!");
-		if(m_pArea_Stats[i]) ::_LoadStringFromResource(dwResrcIDs[i], m_pArea_Stats[i]->m_szToolTip);
+		//if(m_pArea_Stats[i]) ::_LoadStringFromResource(dwResrcIDs[i], m_pArea_Stats[i]->m_szToolTip);
 	}
+
+	m_pArea_Stats[0]->m_szToolTip = "IDS_NEWCHR_POW";
+	m_pArea_Stats[1]->m_szToolTip = "IDS_NEWCHR_STA";
+	m_pArea_Stats[2]->m_szToolTip = "IDS_NEWCHR_DEX";
+	m_pArea_Stats[3]->m_szToolTip = "IDS_NEWCHR_INT";
+	m_pArea_Stats[4]->m_szToolTip = "IDS_NEWCHR_MAP";
+
 	m_pStr_Bonus = (CN3UIString*)(this->GetChildByID("text_bonus")); __ASSERT(m_pStr_Bonus, "NULL UI Component!!");
 	
 
@@ -156,7 +163,20 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 	{
 		if(szBtnIDs[i].empty()) continue;
 		m_pBtn_Races[i] = (CN3UIButton*)(this->GetChildByID(szBtnIDs[i])); __ASSERT(m_pBtn_Races[i], "NULL UI Component!!");
-		if(m_pBtn_Races[i]) ::_LoadStringFromResource(dwResrcID_Races[i], m_pBtn_Races[i]->m_szToolTip);
+		//if(m_pBtn_Races[i]) ::_LoadStringFromResource(dwResrcID_Races[i], m_pBtn_Races[i]->m_szToolTip);
+	}
+
+	if (eNation == NATION_KARUS) {
+		m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_KA_ARKTUAREK";
+		m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_KA_TUAREK";
+		m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_KA_WRINKLETUAREK";
+		m_pBtn_Races[3]->m_szToolTip = "IDS_NEWCHR_KA_PURITUAREK";
+	}
+	else if (eNation == NATION_ELMORAD) {
+		m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_EL_BABA";
+		m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_EL_MALE";
+		m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_EL_FEMALE";
+		m_pBtn_Races[3]->m_szToolTip = "dwResrcID_Races[3] = -1;";
 	}
 
 	std::string szBtns[MAX_CLASS_SELECT] = { "btn_class_warrior", "btn_class_rogue", "btn_class_mage", "btn_class_priest" };
@@ -181,7 +201,22 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 	{
 		m_pBtn_Classes[i] =	(CN3UIButton*)(this->GetChildByID(szBtns[i]));	__ASSERT(m_pBtn_Classes[i], "NULL UI Component!!");
 		m_pImg_Disable_Classes[i] = (CN3UIImage*)(this->GetChildByID(szImgs2[i]));	__ASSERT(m_pImg_Disable_Classes[i], "NULL UI Component!!");
-		::_LoadStringFromResource(dwResrcID_Classes[i], m_pBtn_Classes[i]->m_szToolTip);
+		//::_LoadStringFromResource(dwResrcID_Classes[i], m_pBtn_Classes[i]->m_szToolTip);
+	}
+
+	if (eNation == NATION_ELMORAD)
+	{
+		m_pBtn_Classes[0]->m_szToolTip = "IDS_NEWCHR_EL_WARRIOR";
+		m_pBtn_Classes[1]->m_szToolTip = "IDS_NEWCHR_EL_ROGUE";
+		m_pBtn_Classes[2]->m_szToolTip = "IDS_NEWCHR_EL_MAGE";
+		m_pBtn_Classes[3]->m_szToolTip = "IDS_NEWCHR_EL_PRIEST";
+	}
+	else if (eNation == NATION_KARUS)
+	{
+		m_pBtn_Classes[0]->m_szToolTip = "IDS_NEWCHR_KA_WARRIOR";
+		m_pBtn_Classes[1]->m_szToolTip = "IDS_NEWCHR_KA_ROGUE";
+		m_pBtn_Classes[2]->m_szToolTip = "IDS_NEWCHR_KA_MAGE";
+		m_pBtn_Classes[3]->m_szToolTip = "IDS_NEWCHR_KA_PRIEST";
 	}
 
 	RECT rc = this->GetRegion();

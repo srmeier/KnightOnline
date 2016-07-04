@@ -210,6 +210,13 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 		ReadFile(hFile, m_pvCollisions, sizeof(__Vector3) * m_nCollisionFaceCount * 3, &dwRWC, NULL);
 	}
 
+	if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
+		// NOTE(srmeier): for the "ah_hapbi_zone.opd" the jump seems to be specifically 0x338 bytes
+		BYTE* tmp = new BYTE[0x338];
+		ReadFile(hFile, tmp, 0x338, &dwRWC, NULL);
+		delete[] tmp;
+	}
+
 	// Cell Data 쓰기.
 	BOOL bExist = FALSE;
 	int z = 0;
@@ -221,9 +228,11 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 			delete m_pCells[x][z]; m_pCells[x][z] = NULL;
 
 			ReadFile(hFile, &bExist, 4, &dwRWC, NULL); // 데이터가 있는 셀인지 쓰고..
+
 			if(FALSE == bExist) continue;
 
 			m_pCells[x][z] = new __CellMain;
+			m_pCells[x][z]->m_iFileFormatVersion = m_iFileFormatVersion;
 			m_pCells[x][z]->Load(hFile);
 		}
 	}
@@ -312,7 +321,8 @@ bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // 맵의 너비와 높이�
 void CN3ShapeMgr::GenerateCollisionData()
 {
 	int nFC = 0, iSC = m_Shapes.size();
-	for(int i = 0; i < iSC; i++) // Shape 에 있는 충돌 메시 만큼 생성.
+	int i;
+	for(i = 0; i < iSC; i++) // Shape 에 있는 충돌 메시 만큼 생성.
 	{
 		CN3VMesh* pVM = m_Shapes[i]->CollisionMesh();
 		if (NULL == pVM) continue;

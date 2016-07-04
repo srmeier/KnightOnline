@@ -181,11 +181,25 @@ SkillUseResult MagicInstance::UserCanCast()
 	// NPCs do not need most of these checks.
 	if (pSkillCaster->isPlayer())
 	{
+		bool chk1 = (pSkill->sSkill != 0);
+
+		// NOTE(srmeier): adding check for second job change...?
+		//TO_USER(pSkillCaster)->m_sClass != (pSkill->sSkill / 10);
+		//bool chk2 = TO_USER(pSkillCaster)->GetBaseClassType() != (pSkill->sSkill / 10) % 10;
+
+		bool chk3 = pSkillCaster->GetLevel() < pSkill->sSkillLevel;
+		bool chk4 = pSkillCaster->GetZoneID() != ZONE_CHAOS_DUNGEON;
+
+		if ((chk1 && (/*chk2 ||*/ chk3)) && chk4)
+			return SkillUseFail;
+
+		/*
 		if ((pSkill->sSkill != 0
 			&& (TO_USER(pSkillCaster)->m_sClass != (pSkill->sSkill / 10)
-			|| pSkillCaster->GetLevel() < pSkill->sSkillLevel)) 
+			|| pSkillCaster->GetLevel() < pSkill->sSkillLevel))
 			&& pSkillCaster->GetZoneID() != ZONE_CHAOS_DUNGEON)
 			return SkillUseFail;
+		*/
 
 		if (pSkillCaster->GetZoneID() == ZONE_CHAOS_DUNGEON && !g_pMain->pTempleEvent.isAttackable)
 			return SkillUseFail;
@@ -324,9 +338,13 @@ SkillUseResult MagicInstance::CheckSkillPrerequisites()
 			if (pCaster->GetZoneID() == ZONE_PRISON)
 				return SkillUseFail;
 
-			if (//pSkill->sUseStanding == 1
-				/*&&*/ pCaster->m_sSpeed != 0) // Hacking prevention!
-				return SkillUseFail;
+			// NOTE(srmeier): fixed issue where this would stop rogues trying to use
+			// light feet
+			/*
+			if (//pSkill->sUseStanding == 1 &&
+				pCaster->m_sSpeed != 0
+			) return SkillUseFail; // Hacking prevention!
+			*/
 
 			if (pSkill->bType[0] == 3 || pSkill->bType[1] == 3)
 			{

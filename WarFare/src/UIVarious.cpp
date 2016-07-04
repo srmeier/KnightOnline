@@ -282,7 +282,7 @@ void CUIState::UpdateWeight(int iVal, int iValMax)
 
 	char szBuf[64] = "";
 	std::string szMsg;
-	::_LoadStringFromResource(IDS_INVEN_WEIGHT, szMsg);
+	szMsg = "IDS_INVEN_WEIGHT";//::_LoadStringFromResource(IDS_INVEN_WEIGHT, szMsg);
 	std::string str = szMsg;	str += szVal;
 
 	CUIInventory* pInv = CGameProcedure::s_pProcMain->m_pUIInventory;
@@ -600,7 +600,7 @@ bool CUIKnights::Load(HANDLE hFile)
 //	m_pText_Grade = (CN3UIString*)this->GetChildByID("Text_clan_Grade");	__ASSERT(m_pText_Grade, "NULL UI Component!!");
 //	m_pText_Rank = (CN3UIString*)this->GetChildByID("Text_clan_Rank");		__ASSERT(m_pText_Rank, "NULL UI Component!!");
 
-	m_pList_Members = (CN3UIList*)this->GetChildByID("List_clan_Member");		__ASSERT(m_pList_Members, "NULL UI Component!!");
+	//m_pList_Members = (CN3UIList*)this->GetChildByID("List_clan_Member");		__ASSERT(m_pList_Members, "NULL UI Component!!");
 
 	m_pBtn_Admit = (CN3UIButton*)(this->GetChildByID("btn_clan_admit"));		__ASSERT(m_pBtn_Admit, "NULL UI Component!!");
 	m_pBtn_Appoint = (CN3UIButton*)(this->GetChildByID("btn_clan_Appoint"));	__ASSERT(m_pBtn_Appoint, "NULL UI Component!!");
@@ -809,10 +809,10 @@ void CUIKnights::UpdateKnightsDuty(e_KnightsDuty eDuty)
 	std::string szDuty;
 	switch(eDuty)
 	{
-		case KNIGHTS_DUTY_CHIEF:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szDuty); break;
-		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szDuty); break;
+		case KNIGHTS_DUTY_CHIEF:		szDuty = "IDS_KNIGHTS_DUTY_CHIEF";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szDuty);*/ break;
+		case KNIGHTS_DUTY_VICECHIEF:	szDuty = "IDS_KNIGHTS_DUTY_VICECHIEF";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szDuty);*/ break;
 		//case KNIGHTS_DUTY_OFFICER:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szDuty); break;
-		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szDuty); break;
+		case KNIGHTS_DUTY_KNIGHT:		szDuty = "IDS_KNIGHTS_DUTY_KNIGHT";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szDuty);*/ break;
 		//case KNIGHTS_DUTY_TRAINEE:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szDuty); break;
 		//case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szDuty); break;
 		case KNIGHTS_DUTY_UNKNOWN:		szDuty.empty(); break;//::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szDuty); break;
@@ -1203,9 +1203,6 @@ CUIFriends::~CUIFriends()
 
 bool CUIFriends::Load(HANDLE hFile)
 {
-	// TEMP: to avoid the "_.txt" file in the data directory
-	return false;
-
 	if(false == CN3UIBase::Load(hFile)) return false;
 
 	m_pList_Friends		= (CN3UIList*)this->GetChildByID("List_Friends");		__ASSERT(m_pList_Friends, "NULL UI Component!!");
@@ -1364,8 +1361,8 @@ bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			if(it != m_MapFriends.end())
 			{
 				std::string szMsg;
-				if(pProcMain->MsgSend_PartyOrForceCreate(0, szID)) ::_LoadStringFromResource(IDS_PARTY_INVITE, szMsg); // 파티
-				else  ::_LoadStringFromResource(IDS_PARTY_INVITE_FAILED, szMsg); // 파티 초대 실패
+				if (pProcMain->MsgSend_PartyOrForceCreate(0, szID)) szMsg = "IDS_PARTY_INVITE";//::_LoadStringFromResource(IDS_PARTY_INVITE, szMsg); // 파티
+				else  szMsg = "IDS_PARTY_INVITE_FAILED";//::_LoadStringFromResource(IDS_PARTY_INVITE_FAILED, szMsg); // 파티 초대 실패
 				pProcMain->MsgOutput(it->second.szName + szMsg, 0xffffff00);
 			}
 		}
@@ -1518,14 +1515,12 @@ void CUIFriends::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
 
 
 
+bool CUIQuest::Load(HANDLE hFile)
+{
+	if (false == CN3UIBase::Load(hFile)) return false;
 
 
-
-
-
-
-
-
+}
 
 CUIQuest::CUIQuest()
 {
@@ -1535,14 +1530,6 @@ CUIQuest::CUIQuest()
 CUIQuest::~CUIQuest()
 {
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -1631,7 +1618,7 @@ bool CUIVarious::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	{
 		if(pSender == m_pBtn_Close)			this->Close(); // 닫는다..
 		else if(pSender == m_pBtn_State)	this->UpdatePageButtons(m_pBtn_State);
-//		else if(pSender == m_pBtn_Quest)	this->UpdatePageButtons(m_pBtn_Quest);		// 퀘스트...
+		else if(pSender == m_pBtn_Quest)	this->UpdatePageButtons(m_pBtn_Quest);		// 퀘스트...
 		else if(pSender == m_pBtn_Knights)	this->UpdatePageButtons(m_pBtn_Knights);	// 기사단... 잠시 막자..
 		else if(pSender == m_pBtn_Friends)	this->UpdatePageButtons(m_pBtn_Friends);
 	}
