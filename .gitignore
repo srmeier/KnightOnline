@@ -4,7 +4,7 @@
 *.map
 *.log
 *.pdb
-data/Log.txt
+data/
 *.bsc
 KnightOnline.VC.VC.opendb
 KnightOnline.VC.db
