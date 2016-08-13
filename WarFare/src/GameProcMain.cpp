@@ -3402,14 +3402,14 @@ void CGameProcMain::MsgRecv_MyInfo_HP(DataPack* pDataPack, int& iOffset)
 	char szBuf[256] = "";
 	if(iHPChange < 0)
 	{
-		std::string szFmt = "IDS_MSG_FMT_HP_LOST (%d)";
+		std::string szFmt = "%d HP Damage";
 		//::_LoadStringFromResource(IDS_MSG_FMT_HP_LOST, szFmt);
 		sprintf(szBuf, szFmt.c_str(), -iHPChange);
 		MsgOutput(szBuf, 0xffff3b3b);
 	}
 	else if(iHPChange > 0)
 	{
-		std::string szFmt = "IDS_MSG_FMT_HP_RECOVER (%d)";
+		std::string szFmt = "%d HP Damage";
 		//::_LoadStringFromResource(IDS_MSG_FMT_HP_RECOVER, szFmt);
 		sprintf(szBuf, szFmt.c_str(), iHPChange);
 		MsgOutput(szBuf, 0xff6565ff);
@@ -3473,7 +3473,7 @@ void CGameProcMain::MsgRecv_MyInfo_EXP(DataPack* pDataPack, int& iOffset)
 		char szBuf[256] = "";
 		if(iExpChange > 0)
 		{
-			std::string szFmt = "IDS_MSG_FMT_EXP_GET (%d)";
+			std::string szFmt = "Earned %d Experience Points";
 			//::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
 			sprintf(szBuf, szFmt.c_str(), iExpChange);
 		}
@@ -3517,7 +3517,7 @@ bool CGameProcMain::MsgRecv_MyInfo_LevelChange(DataPack* pDataPack, int& iOffset
 		char szBuf[256] = "";
 		if(iExpChange > 0)
 		{
-			std::string szFmt = "IDS_MSG_FMT_EXP_GET (%d)";
+			std::string szFmt = "Earned %d Experience Points";
 			//::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
 			sprintf(szBuf, szFmt.c_str(), iExpChange);
 		}
@@ -4010,7 +4010,7 @@ void CGameProcMain::MsgRecv_TargetHP(DataPack* pDataPack, int& iOffset)
 		char szBuf[256] = "";
 		if(iTargetHPChange < 0)
 		{
-			std::string szFmt = "IDS_MSG_FMT_TARGET_HP_LOST (%s, %d)";
+			std::string szFmt = "%s received %d damage";
 			//::_LoadStringFromResource(IDS_MSG_FMT_TARGET_HP_LOST, szFmt);
 			sprintf(szBuf, szFmt.c_str(), pTarget->IDString().c_str(), -iTargetHPChange);
 			MsgOutput(szBuf, 0xffffffff);
@@ -4418,8 +4418,8 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 	std::string szMsg;
 	if(	bEnable ) // 자동 공격!
 	{
-		szMsg = " IDS_MSG_ATTACK_START";//::_LoadStringFromResource(IDS_MSG_ATTACK_START, szMsg);
-		szMsg = pTarget->IDString() + szMsg;
+		//::_LoadStringFromResource(IDS_MSG_ATTACK_START, szMsg);
+		szMsg = "Beginning attack on " + pTarget->IDString();
 		this->PlayBGM_Battle();
 		
 		if(s_pPlayer->IsAttackableTarget(pTarget))
@@ -4427,7 +4427,7 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 	}
 	else // 자동 공격 아님.
 	{
-		szMsg = "IDS_MSG_ATTACK_STOP";//::_LoadStringFromResource(IDS_MSG_ATTACK_STOP, szMsg);
+		szMsg = "Stop Attack";//::_LoadStringFromResource(IDS_MSG_ATTACK_STOP, szMsg);
 		s_pPlayer->Action(PSA_BASIC, true, pTarget);
 	}
 
@@ -4436,7 +4436,7 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 
 	if(	bEnable && false == s_pPlayer->IsAttackableTarget(pTarget)) // 국가, 거리 및 각도 체크해서 공격 불가능하면 돌아가기..
 	{
-		std::string szMsg = "IDS_MSG_ATTACK_DISABLE";
+		std::string szMsg = "Could not attack because you're facing the wrong direction or the target is too far.";
 		//::_LoadStringFromResource(IDS_MSG_ATTACK_DISABLE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 		return;

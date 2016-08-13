@@ -1357,7 +1357,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 	if(pSkill->iCastTime==0)
 	{
 		char szBuff[80];
-		std::string buff = "IDS_SKILL_USE (%s)";
+		std::string buff = "Using %s";
 		//::_LoadStringFromResource(IDS_SKILL_USE, buff);
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
@@ -1494,7 +1494,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, sh
 		}			
 		
 		char szBuff[80];
-		std::string buff = "IDS_SKILL_USE (%s)";
+		std::string buff = "Using %s";
 		//::_LoadStringFromResource(IDS_SKILL_USE, buff);
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
@@ -1522,7 +1522,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, sh
 	if(pSkill->iCastTime==0)
 	{
 		char szBuff[80];
-		std::string buff = "IDS_SKILL_USE (%s)";
+		std::string buff = "Using %s";
 		//::_LoadStringFromResource(IDS_SKILL_USE, buff);
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
@@ -1681,7 +1681,7 @@ void CMagicSkillMng::Tick()
 			m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
 
 			char szBuff[80];
-			std::string buff = "IDS_SKILL_USE (%s)";
+			std::string buff = "Using %s";
 			//::_LoadStringFromResource(IDS_SKILL_USE, buff);
 			sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 			m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
@@ -1739,7 +1739,7 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 		}			
 		
 		char szBuff[80];
-		std::string buff = "IDS_SKILL_USE (%s)";
+		std::string buff = "Using %s";
 		//::_LoadStringFromResource(IDS_SKILL_USE, buff);
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
@@ -1765,7 +1765,7 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 	else
 	{
 		char szBuff[80];
-		std::string buff = "IDS_SKILL_USE (%s)";
+		std::string buff = "Using %s";
 		//::_LoadStringFromResource(IDS_SKILL_USE, buff);
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);

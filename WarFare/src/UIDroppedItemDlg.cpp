@@ -517,7 +517,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 		pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
 		// 絲 機等檜お..
-		stdMsg = "IDS_DROPPED_NOAH_GET";//::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
+		stdMsg = "Picked up %d Coins.";//::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
 		sprintf(szMsg, stdMsg.c_str(), iGold - pInfoExt->iGold);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
@@ -788,7 +788,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 			pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
 			// 絲 機等檜お..
-			stdMsg = "IDS_DROPPED_NOAH_GET";//::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
+			stdMsg = "Picked up %d Coins.";//::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
 			sprintf(szMsg, stdMsg.c_str(), iGold - pInfoExt->iGold);
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 

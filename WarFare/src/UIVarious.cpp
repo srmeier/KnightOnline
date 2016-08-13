@@ -282,7 +282,7 @@ void CUIState::UpdateWeight(int iVal, int iValMax)
 
 	char szBuf[64] = "";
 	std::string szMsg;
-	szMsg = "IDS_INVEN_WEIGHT";//::_LoadStringFromResource(IDS_INVEN_WEIGHT, szMsg);
+	szMsg = "Weight : ";//::_LoadStringFromResource(IDS_INVEN_WEIGHT, szMsg);
 	std::string str = szMsg;	str += szVal;
 
 	CUIInventory* pInv = CGameProcedure::s_pProcMain->m_pUIInventory;
