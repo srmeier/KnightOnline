@@ -8,8 +8,8 @@
 #include "UIEView.h"
 #include "MainFrm.h"
 #include "PropertyView.h"
-#include "N3UIButton.h"
-#include "N3SndMgr.h"
+#include "..\N3Base\include\N3UIButton.h"
+#include "..\N3Base\include\N3SndMgr.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
