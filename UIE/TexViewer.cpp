@@ -5,8 +5,8 @@
 #include "UIE.h"
 #include "TexViewer.h"
 #include "MainFrm.h"
-#include "N3UIDef.h"
-#include "N3Texture.h"
+#include "..\N3Base\include\N3UIDef.h"
+#include "..\N3Base\include\N3Texture.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
