@@ -4,9 +4,9 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- something wrong with archer hide spell
-
-
+- for some reason the icons aren't showing up though
+- need to add second "mastered" class to the
+	UISkillTreeDlg::ButtonVisibleStateSet()
 
 
 - some issue (possibly movement) causes binary server to close source client
@@ -19,6 +19,8 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	- souce Elmorad user can see binary Karus GM
 	- binary client is sending the /invisible /visible commands
 
+
+- something wrong with archer hide spell
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - need to figure out how best to check for player class when matching class to
 	spell, current checks do not work

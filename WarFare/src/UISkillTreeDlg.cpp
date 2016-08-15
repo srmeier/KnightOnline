@@ -1252,6 +1252,8 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			//pButton = (CN3UIButton* )GetChildByID("btn_berserker3");	ASSET_4
 			break;
 
+		// TODO: will need to add the "mastered" class to these as well...
+		case CLASS_KA_PENETRATOR:
 		case CLASS_KA_HUNTER:
 			pButton = (CN3UIButton* )GetChildByID("btn_hunter0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_hunter1");		ASSET_2
