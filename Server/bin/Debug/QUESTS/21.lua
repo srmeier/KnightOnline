@@ -19,7 +19,7 @@ if coins >= 0 and coins <= 499999 then
 	do return; end
 end
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 end
 	pUser:NpcSay(30, -1, -1, -1, -1, -1, -1, -1);
@@ -51,7 +51,7 @@ if coins >= 0 and coins <= 99999 then
 	do return; end
 end
 	pUser:GoldLose(100000);
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 end
 	pUser:NpcSay(44, -1, -1, -1, -1, -1, -1, -1);
@@ -100,7 +100,7 @@ if false then -- unknown logic command (CHECK_MONSTER_CHALLENGE_USERCOUNT)
 	do return; end
 end
 	pUser:GoldLose(300000);
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 end
 	pUser:NpcSay(55, -1, -1, -1, -1, -1, -1, -1);
@@ -125,23 +125,14 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 local lvl = pUser:GetLevel();
 if lvl >= 1 and lvl <= 99 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
-	do return; end
-end
-end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
-if false then -- unknown logic command (CHECK_EXIST_ITEM)
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
-if false then -- unknown logic command (CHECK_DICE)
-	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -150,7 +141,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -159,7 +150,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -168,7 +159,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -177,7 +168,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -186,7 +177,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -195,7 +186,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -204,7 +195,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -213,7 +204,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -222,7 +213,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -231,7 +222,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -240,7 +231,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -249,7 +240,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -258,7 +249,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -267,7 +258,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -276,7 +267,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -285,7 +276,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -294,7 +285,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -303,7 +294,16 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
+	do return; end
+end
+end
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
+if false then -- unknown logic command (CHECK_EXIST_ITEM)
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
+if false then -- unknown logic command (CHECK_DICE)
+	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -326,23 +326,14 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 local lvl = pUser:GetLevel();
 if lvl >= 1 and lvl <= 99 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
-	do return; end
-end
-end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
-if false then -- unknown logic command (CHECK_EXIST_ITEM)
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
-if false then -- unknown logic command (CHECK_DICE)
-	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -351,7 +342,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -360,7 +351,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -369,7 +360,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -378,7 +369,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -387,7 +378,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -396,7 +387,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -405,7 +396,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -414,7 +405,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -423,7 +414,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -432,7 +423,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -441,7 +432,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -450,7 +441,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -459,7 +450,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -468,7 +459,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -477,7 +468,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -486,7 +477,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -495,7 +486,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -504,7 +495,16 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
+	do return; end
+end
+end
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
+if false then -- unknown logic command (CHECK_EXIST_ITEM)
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
+if false then -- unknown logic command (CHECK_DICE)
+	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -524,7 +524,7 @@ elseif nEventID == 4003 then
 	pUser:NpcSay(4002, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 4004 then
-	pUser:SendDebugString("Unknown EXEC command 'OPEN_EDITBOX'."); -- unknown logic command (OPEN_EDITBOX)
+	pUser:SendDebugString("Unknown EXEC command 'OPEN_EDITBOX'."); -- unknown execute command (OPEN_EDITBOX)
 	do return; end
 elseif nEventID == 4005 then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_PPCARD_SERIAL'.");
@@ -535,13 +535,13 @@ end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
 if false then -- unknown logic command (CHECK_EMPTY_SLOT)
 	pUser:NpcSay(4009, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown logic command (RETURN;)
+	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown execute command (RETURN;)
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'GIVE_PPCARD_ITEM'."); -- unknown logic command (GIVE_PPCARD_ITEM)
+	pUser:SendDebugString("Unknown EXEC command 'GIVE_PPCARD_ITEM'."); -- unknown execute command (GIVE_PPCARD_ITEM)
 	do return; end
 	pUser:NpcSay(4005, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown logic command (RETURN;)
+	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown execute command (RETURN;)
 	do return; end
 elseif nEventID == 6001 then
 if false then
@@ -559,10 +559,10 @@ if pUser:CheckClass(111, 211, -1, -1, -1, -1) then
 end
 end
 elseif nEventID == 6030 then
-	pUser:SendDebugString("Unknown EXEC command 'GIVE_PROMOTION_QUEST'."); -- unknown logic command (GIVE_PROMOTION_QUEST)
+	pUser:SendDebugString("Unknown EXEC command 'GIVE_PROMOTION_QUEST'."); -- unknown execute command (GIVE_PROMOTION_QUEST)
 	do return; end
 elseif nEventID == 6040 then
-	pUser:SendDebugString("Unknown EXEC command 'PROMOTE_USER'."); -- unknown logic command (PROMOTE_USER)
+	pUser:SendDebugString("Unknown EXEC command 'PROMOTE_USER'."); -- unknown execute command (PROMOTE_USER)
 	do return; end
 	do return; end
 elseif nEventID == 7001 then
@@ -588,7 +588,7 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 local state = pUser:SearchQuest(5);
 if state == 1 then
@@ -605,7 +605,7 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 local state = pUser:SearchQuest(5);
 if state == 1 then
@@ -622,7 +622,7 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 local state = pUser:SearchQuest(5);
 if state == 1 then
@@ -639,7 +639,7 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 local state = pUser:SearchQuest(5);
 if state == 1 then
@@ -656,7 +656,7 @@ pUser:SendDebugString("Unknown LOGIC command 'NOEXIST_COM_EVENT'.");
 if false then -- unknown logic command (NOEXIST_COM_EVENT)
 	pUser:SelectMsg(10130, 601, 7070, 602, 7075, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	pUser:SaveEvent(5, 1);
-	pUser:SendDebugString("Unknown EXEC command 'SAVE_COM_EVENT'."); -- unknown logic command (SAVE_COM_EVENT)
+	pUser:SendDebugString("Unknown EXEC command 'SAVE_COM_EVENT'."); -- unknown execute command (SAVE_COM_EVENT)
 	do return; end
 end
 elseif nEventID == 7070 then
@@ -685,7 +685,7 @@ if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(100000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -718,7 +718,7 @@ if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(100000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -751,7 +751,7 @@ if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(100000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -784,7 +784,7 @@ if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(100000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -831,7 +831,7 @@ if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(80000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -864,7 +864,7 @@ if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(80000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -897,7 +897,7 @@ if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(80000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -930,7 +930,7 @@ if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(80000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -977,7 +977,7 @@ if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1010,7 +1010,7 @@ if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1043,7 +1043,7 @@ if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1076,7 +1076,7 @@ if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1123,7 +1123,7 @@ if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(40000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1156,7 +1156,7 @@ if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(40000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1189,7 +1189,7 @@ if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(40000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1222,7 +1222,7 @@ if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(40000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1269,7 +1269,7 @@ if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(30000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1302,7 +1302,7 @@ if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(30000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1335,7 +1335,7 @@ if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(30000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1368,7 +1368,7 @@ if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:GoldLose(30000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1422,25 +1422,25 @@ if count >= 0 and count <= 6 then
 	do return; end
 end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
@@ -1462,25 +1462,25 @@ if count >= 0 and count <= 4 then
 	do return; end
 end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
@@ -1502,25 +1502,25 @@ if count >= 0 and count <= 3 then
 	do return; end
 end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
@@ -1542,25 +1542,25 @@ if count >= 0 and count <= 2 then
 	do return; end
 end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
@@ -1582,25 +1582,25 @@ if count >= 0 and count <= 2 then
 	do return; end
 end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
@@ -1633,12 +1633,12 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7642, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1669,7 +1669,7 @@ end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1698,12 +1698,12 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7652, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1734,7 +1734,7 @@ end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1763,12 +1763,12 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7662, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1799,7 +1799,7 @@ end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1828,12 +1828,12 @@ if count >= 0 and count <= 0 then
 	pUser:NpcSay(7672, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 end
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1864,7 +1864,7 @@ end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1918,7 +1918,7 @@ if count >= 0 and count <= 4 then
 end
 if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1948,7 +1948,7 @@ end
 end
 if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -1978,7 +1978,7 @@ end
 end
 if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -2008,7 +2008,7 @@ end
 end
 if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
@@ -2038,83 +2038,83 @@ end
 end
 elseif nEventID == 7801 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7802 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7803 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7804 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7805 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7806 then
 	pUser:GoldLose(1005);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7807 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7808 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7809 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7810 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7811 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7812 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7813 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7814 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7815 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7816 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7817 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7818 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7819 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7820 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7821 then
 	pUser:SelectMsg(7821, 7823, 7823, 7825, 7825, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
@@ -2151,7 +2151,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7842 then
 local count = pUser:HowMuchItem(201002001);
@@ -2160,7 +2160,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7843 then
 local count = pUser:HowMuchItem(201003001);
@@ -2169,7 +2169,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7844 then
 local count = pUser:HowMuchItem(201004001);
@@ -2178,7 +2178,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7845 then
 local count = pUser:HowMuchItem(201005001);
@@ -2187,7 +2187,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7851 then
 local count = pUser:HowMuchItem(241001001);
@@ -2196,7 +2196,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1005);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7852 then
 local count = pUser:HowMuchItem(241002001);
@@ -2205,7 +2205,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7853 then
 local count = pUser:HowMuchItem(241003001);
@@ -2214,7 +2214,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7854 then
 local count = pUser:HowMuchItem(241004001);
@@ -2223,7 +2223,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7855 then
 local count = pUser:HowMuchItem(241005001);
@@ -2232,7 +2232,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7861 then
 local count = pUser:HowMuchItem(261001001);
@@ -2241,7 +2241,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7862 then
 local count = pUser:HowMuchItem(261002001);
@@ -2250,7 +2250,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7863 then
 local count = pUser:HowMuchItem(261003001);
@@ -2259,7 +2259,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7864 then
 local count = pUser:HowMuchItem(261004001);
@@ -2268,7 +2268,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7865 then
 local count = pUser:HowMuchItem(261005001);
@@ -2277,7 +2277,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7871 then
 local count = pUser:HowMuchItem(281001001);
@@ -2286,7 +2286,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7872 then
 local count = pUser:HowMuchItem(281002001);
@@ -2295,7 +2295,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7873 then
 local count = pUser:HowMuchItem(281003001);
@@ -2304,7 +2304,7 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7874 then
 local count = pUser:HowMuchItem(281004001);
@@ -2313,11 +2313,11 @@ if count >= 0 and count <= 0 then
 	do return; end
 end
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7875 then
 	pUser:GoldLose(1000);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 elseif nEventID == 7900 then
 local count = pUser:HowMuchItem(281005001);
@@ -2336,6 +2336,7 @@ if state == 1 then
 local lvl = pUser:GetLevel();
 if lvl >= 30 and lvl <= 99 then
 	pUser:NpcSay(10240, -1, -1, -1, -1, -1, -1, -1);
+	pUser:GiveItem(910013000, 1);
 	pUser:SaveEvent(6, 2);
 	do return; end
 end
@@ -2374,7 +2375,7 @@ if count >= 0 and count <= 0 then
 end
 local count = pUser:HowMuchItem(910015000);
 if count >= 1 and count <= 10 then
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 	pUser:NpcSay(10242, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2387,6 +2388,7 @@ end
 local count = pUser:HowMuchItem(379156000);
 if count >= 1 and count <= 99 then
 	pUser:RobItem(379156000, 1);
+	pUser:GiveItem(110110000, 1);
 	pUser:NpcSay(15059, -1, -1, -1, -1, -1, -1, -1);
 end
 	pUser:NpcSay(35724, -1, -1, -1, -1, -1, -1, -1);
@@ -2480,6 +2482,8 @@ local state = pUser:SearchQuest(16);
 if state == 1 then
 	pUser:NpcSay(20516, -1, -1, -1, -1, -1, -1, -1);
 	pUser:RobItem(910019000, 1);
+	pUser:GiveItem(389013000, 10);
+	pUser:GiveItem(389018000, 10);
 	pUser:ExpChange(3000);
 	pUser:SaveEvent(16, 2);
 	do return; end
@@ -2492,6 +2496,7 @@ end
 local count = pUser:HowMuchItem(910018000);
 if count >= 0 and count <= 0 then
 	pUser:NpcSay(20909, -1, -1, -1, -1, -1, -1, -1);
+	pUser:GiveItem(910018000, 1);
 end
 elseif nEventID == 20553 then
 	pUser:NpcSay(20516, -1, -1, -1, -1, -1, -1, -1);
@@ -2558,7 +2563,9 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:RobItem(910020000, 1);
 	pUser:RobItem(910017000, 1);
 	pUser:RobItem(910021000, 1);
+	pUser:GiveItem(379016000, 1);
 	pUser:ExpChange(3000);
+	pUser:GoldGain(100000);
 	pUser:SaveEvent(15, 2);
 end
 end
@@ -2620,6 +2627,8 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:NpcSay(20713, -1, -1, -1, -1, -1, -1, -1);
 	pUser:RobItem(910017000, 3);
 	pUser:ExpChange(5000);
+	pUser:GiveItem(389013000, 10);
+	pUser:GiveItem(389018000, 10);
 	pUser:SaveEvent(14, 2);
 	do return; end
 end
@@ -2743,6 +2752,8 @@ elseif nEventID == 20950 then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:RobItem(910018000, 1);
+	pUser:GoldGain(100000);
+	pUser:GiveItem(389076000, 2);
 	pUser:SaveEvent(13, 2);
 	pUser:NpcSay(20912, -1, -1, -1, -1, -1, -1, -1);
 end
@@ -2754,6 +2765,7 @@ end
 local count = pUser:HowMuchItem(910019000);
 if count >= 0 and count <= 0 then
 	pUser:NpcSay(20511, 20513, -1, -1, -1, -1, -1, -1);
+	pUser:GiveItem(910019000, 1);
 end
 elseif nEventID == 21001 then
 	pUser:SelectMsg(21001, 21001, 21101, 21126, 21126, 21002, 21951, 21004, 21151, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
@@ -2811,7 +2823,7 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_EVENT'.");
 if false then -- unknown logic command (CHECK_NOEXIST_EVENT)
 local lvl = pUser:GetLevel();
 if lvl >= 10 and lvl <= 99 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 end
 end
@@ -2828,6 +2840,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 	pUser:RobItem(910038000, 5);
 	pUser:SaveEvent(11, 2);
 	pUser:ExpChange(5000);
+	pUser:GoldGain(30000);
 	pUser:NpcSay(21145, -1, -1, -1, -1, -1, -1, -1);
 end
 end
@@ -2870,7 +2883,7 @@ end
 elseif nEventID == 21225 then
 	pUser:NpcSay(21225, 21226, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21230 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 elseif nEventID == 21235 then
 local lvl = pUser:GetLevel();
@@ -2915,7 +2928,7 @@ end
 elseif nEventID == 21275 then
 	pUser:NpcSay(21275, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21280 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 elseif nEventID == 21281 then
 	pUser:SelectMsg(21281, 21283, 21283, 21285, 21285, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
@@ -2939,10 +2952,10 @@ if lvl >= 54 and lvl <= 250 then
 	do return; end
 end
 elseif nEventID == 21951 then
-	pUser:SendDebugString("Unknown EXEC command 'STAT_POINT_DISTRIBUTE'."); -- unknown logic command (STAT_POINT_DISTRIBUTE)
+	pUser:SendDebugString("Unknown EXEC command 'STAT_POINT_DISTRIBUTE'."); -- unknown execute command (STAT_POINT_DISTRIBUTE)
 	do return; end
 elseif nEventID == 21981 then
-	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_DISTRIBUTE'."); -- unknown logic command (SKILL_POINT_DISTRIBUTE)
+	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_DISTRIBUTE'."); -- unknown execute command (SKILL_POINT_DISTRIBUTE)
 	do return; end
 elseif nEventID == 22000 then
 	pUser:SelectMsg(22003, 22008, 22002, 22003, 22003, 22004, 22004, 22005, 22005, 30134, 35540, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
@@ -3112,7 +3125,7 @@ end
 elseif nEventID == 30070 then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'CHANGE_NAME'."); -- unknown logic command (CHANGE_NAME)
+	pUser:SendDebugString("Unknown EXEC command 'CHANGE_NAME'."); -- unknown execute command (CHANGE_NAME)
 	do return; end
 end
 elseif nEventID == 30075 then
@@ -3130,7 +3143,7 @@ end
 elseif nEventID == 30120 then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_FREE'."); -- unknown logic command (SKILL_POINT_FREE)
+	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_FREE'."); -- unknown execute command (SKILL_POINT_FREE)
 	do return; end
 	pUser:RobItem(700001000, 1);
 	pUser:NpcSay(30121, -1, -1, -1, -1, -1, -1, -1);
@@ -3138,7 +3151,7 @@ end
 elseif nEventID == 30125 then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
-	pUser:SendDebugString("Unknown EXEC command 'STAT_POINT_FREE'."); -- unknown logic command (STAT_POINT_FREE)
+	pUser:SendDebugString("Unknown EXEC command 'STAT_POINT_FREE'."); -- unknown execute command (STAT_POINT_FREE)
 	do return; end
 	pUser:RobItem(700001000, 1);
 	pUser:NpcSay(30122, -1, -1, -1, -1, -1, -1, -1);
@@ -3163,7 +3176,7 @@ end
 local state = pUser:SearchQuest(50);
 if state == 0 then
 	pUser:SaveEvent(50, 1);
-	pUser:SendDebugString("Unknown EXEC command 'STATE_CHANGE'."); -- unknown logic command (STATE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'STATE_CHANGE'."); -- unknown execute command (STATE_CHANGE)
 	do return; end
 	pUser:NpcSay(30138, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -3198,13 +3211,13 @@ elseif nEventID == 31001 then
 elseif nEventID == 31011 then
 	pUser:NpcSay(31011, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 31021 then
-	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown logic command (SEND_WEBPAGE_ADDRESS)
+	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
 	do return; end
 elseif nEventID == 31031 then
-	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown logic command (SEND_WEBPAGE_ADDRESS)
+	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
 	do return; end
 elseif nEventID == 31041 then
-	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown logic command (SEND_WEBPAGE_ADDRESS)
+	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
 	do return; end
 elseif nEventID == 31101 then
 	pUser:SelectMsg(31101, 31110, 31110, 31173, 31173, 31174, 31174, 31176, 31176, 31175, 31178, 31172, 31182, 31177, 31183, 31180, 31187, 31181, 31188, 31179, 31189);
@@ -3248,14 +3261,7 @@ elseif nEventID == 31189 then
 	pUser:NpcSay(31189, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35001 then
 
-	--pUser:PromoteUser();
-	--pUser:ExpChange(20000000);
-
-	--pUser:GiveItem(246001009, 1);
-	--pUser:GiveItem(246002009, 1);
-	--pUser:GiveItem(246003009, 1);
-	--pUser:GiveItem(246004009, 1);
-	--pUser:GiveItem(246005009, 1);
+	--pUser:GiveItem(910017000, 5);
 
 	pUser:SelectMsg(35001, 2901, 35012, 2902, 35032, 2903, 35052, 2904, 35072, 2905, 35092, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -3376,6 +3382,7 @@ if count >= 5 and count <= 9999 then
 	pUser:NpcSay(35015, -1, -1, -1, -1, -1, -1, -1);
 	pUser:RobItem(379043000, 5);
 	pUser:ExpChange(700);
+	pUser:GiveItem(389062000, 5);
 	pUser:SaveEvent(31, 2);
 end
 end
@@ -3430,6 +3437,7 @@ if count >= 10 and count <= 9999 then
 	pUser:NpcSay(35022, -1, -1, -1, -1, -1, -1, -1);
 	pUser:RobItem(379077000, 10);
 	pUser:ExpChange(1000);
+	pUser:GoldGain(50000);
 	pUser:SaveEvent(32, 2);
 end
 end
@@ -3538,6 +3546,7 @@ if count >= 10 and count <= 9999 then
 	pUser:NpcSay(35036, -1, -1, -1, -1, -1, -1, -1);
 	pUser:RobItem(910020000, 10);
 	pUser:ExpChange(5000);
+	pUser:GiveItem(389063000, 10);
 	pUser:SaveEvent(34, 2);
 end
 end
@@ -3611,23 +3620,14 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 local lvl = pUser:GetLevel();
 if lvl >= 1 and lvl <= 20 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
-	do return; end
-end
-end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
-if false then -- unknown logic command (CHECK_EXIST_ITEM)
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
-if false then -- unknown logic command (CHECK_DICE)
-	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3636,7 +3636,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3645,7 +3645,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3654,7 +3654,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3663,7 +3663,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3672,7 +3672,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3681,7 +3681,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3690,7 +3690,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3699,7 +3699,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3708,7 +3708,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3717,7 +3717,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3726,7 +3726,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3735,7 +3735,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3744,7 +3744,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3753,7 +3753,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3762,7 +3762,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3771,7 +3771,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3780,7 +3780,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3789,7 +3789,16 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
+	do return; end
+end
+end
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
+if false then -- unknown logic command (CHECK_EXIST_ITEM)
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
+if false then -- unknown logic command (CHECK_DICE)
+	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3797,23 +3806,14 @@ end
 end
 local lvl = pUser:GetLevel();
 if lvl >= 21 and lvl <= 40 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
-	do return; end
-end
-end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
-if false then -- unknown logic command (CHECK_EXIST_ITEM)
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
-if false then -- unknown logic command (CHECK_DICE)
-	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3822,7 +3822,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3831,7 +3831,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3840,7 +3840,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3849,7 +3849,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3858,7 +3858,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3867,7 +3867,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3876,7 +3876,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3885,7 +3885,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3894,7 +3894,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3903,7 +3903,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3912,7 +3912,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3921,7 +3921,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3930,7 +3930,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3939,7 +3939,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3948,7 +3948,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3957,7 +3957,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3966,7 +3966,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -3975,30 +3975,30 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
+	do return; end
+end
+end
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
+if false then -- unknown logic command (CHECK_EXIST_ITEM)
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
+if false then -- unknown logic command (CHECK_DICE)
+	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
 end
 local lvl = pUser:GetLevel();
 if lvl >= 41 and lvl <= 99 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
 if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
-	do return; end
-end
-end
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
-if false then -- unknown logic command (CHECK_EXIST_ITEM)
-pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
-if false then -- unknown logic command (CHECK_DICE)
-	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4007,7 +4007,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4016,7 +4016,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4025,7 +4025,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4034,7 +4034,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4043,7 +4043,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4052,7 +4052,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4061,7 +4061,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4070,7 +4070,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4079,7 +4079,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4088,7 +4088,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4097,7 +4097,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4106,7 +4106,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4115,7 +4115,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4124,7 +4124,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4133,7 +4133,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4142,7 +4142,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4151,7 +4151,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4160,7 +4160,16 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
+	do return; end
+end
+end
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_EXIST_ITEM'.");
+if false then -- unknown logic command (CHECK_EXIST_ITEM)
+pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
+if false then -- unknown logic command (CHECK_DICE)
+	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4173,7 +4182,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4183,7 +4192,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4193,7 +4202,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4203,7 +4212,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4213,7 +4222,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4223,7 +4232,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4233,7 +4242,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4243,7 +4252,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4253,7 +4262,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4263,7 +4272,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4273,7 +4282,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4283,7 +4292,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4293,7 +4302,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4303,7 +4312,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4313,7 +4322,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4323,7 +4332,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4333,7 +4342,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4343,7 +4352,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4353,7 +4362,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4363,7 +4372,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4373,7 +4382,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4383,7 +4392,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4393,7 +4402,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4403,7 +4412,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4413,7 +4422,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4423,7 +4432,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4433,7 +4442,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4443,7 +4452,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4453,7 +4462,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4463,7 +4472,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4473,7 +4482,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4483,7 +4492,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4493,7 +4502,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4503,7 +4512,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4513,7 +4522,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4523,7 +4532,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4533,7 +4542,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4543,7 +4552,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4553,7 +4562,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4563,7 +4572,7 @@ if false then -- unknown logic command (CHECK_EXIST_ITEM)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_DICE'.");
 if false then -- unknown logic command (CHECK_DICE)
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown logic command (RUN_EXCHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'RUN_EXCHANGE'."); -- unknown execute command (RUN_EXCHANGE)
 	do return; end
 end
 end
@@ -4626,7 +4635,7 @@ elseif nEventID == 35380 then
 elseif nEventID == 35390 then
 local lvl = pUser:GetLevel();
 if lvl >= 1 and lvl <= 99 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 	do return; end
 	do return; end
@@ -4706,7 +4715,7 @@ end
 elseif nEventID == 35456 then
 local lvl = pUser:GetLevel();
 if lvl >= 1 and lvl <= 20 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 	do return; end
 	do return; end
@@ -4731,7 +4740,7 @@ if lvl >= 1 and lvl <= 20 then
 end
 local lvl = pUser:GetLevel();
 if lvl >= 21 and lvl <= 40 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 	do return; end
 	do return; end
@@ -4756,7 +4765,7 @@ if lvl >= 21 and lvl <= 40 then
 end
 local lvl = pUser:GetLevel();
 if lvl >= 41 and lvl <= 99 then
-	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown logic command (ROLL_DICE)
+	pUser:SendDebugString("Unknown EXEC command 'ROLL_DICE'."); -- unknown execute command (ROLL_DICE)
 	do return; end
 	do return; end
 	do return; end
@@ -4922,16 +4931,16 @@ elseif nEventID == 35540 then
 	pUser:NpcSay(35540, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 35550 then
-	pUser:SendDebugString("Unknown EXEC command 'CHECK_PCBANG_OWNER'."); -- unknown logic command (CHECK_PCBANG_OWNER)
+	pUser:SendDebugString("Unknown EXEC command 'CHECK_PCBANG_OWNER'."); -- unknown execute command (CHECK_PCBANG_OWNER)
 	do return; end
 elseif nEventID == 35551 then
-	pUser:SendDebugString("Unknown EXEC command 'CHECK_PCBANG_ITEM'."); -- unknown logic command (CHECK_PCBANG_ITEM)
+	pUser:SendDebugString("Unknown EXEC command 'CHECK_PCBANG_ITEM'."); -- unknown execute command (CHECK_PCBANG_ITEM)
 	do return; end
 elseif nEventID == 35552 then
-	pUser:SendDebugString("Unknown EXEC command 'CHECK_PCBANG_ITEM'."); -- unknown logic command (CHECK_PCBANG_ITEM)
+	pUser:SendDebugString("Unknown EXEC command 'CHECK_PCBANG_ITEM'."); -- unknown execute command (CHECK_PCBANG_ITEM)
 	do return; end
 elseif nEventID == 35553 then
-	pUser:SendDebugString("Unknown EXEC command 'SHOW_PCBANG_ITEM'."); -- unknown logic command (SHOW_PCBANG_ITEM)
+	pUser:SendDebugString("Unknown EXEC command 'SHOW_PCBANG_ITEM'."); -- unknown execute command (SHOW_PCBANG_ITEM)
 	do return; end
 elseif nEventID == 35554 then
 	pUser:NpcSay(35556, -1, -1, -1, -1, -1, -1, -1);
@@ -4952,7 +4961,7 @@ elseif nEventID == 35559 then
 elseif nEventID == 35560 then
 	pUser:SelectMsg(35560, 35561, 35561, 35562, 35562, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35561 then
-	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown logic command (SEND_WEBPAGE_ADDRESS)
+	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
 	do return; end
 elseif nEventID == 35562 then
 	do return; end
@@ -4977,7 +4986,7 @@ if lvl >= 6 and lvl <= 99 then
 end
 local lvl = pUser:GetLevel();
 if lvl >= 0 and lvl <= 5 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 end
 elseif nEventID == 35572 then
@@ -5000,7 +5009,7 @@ elseif nEventID == 35624 then
 elseif nEventID == 35625 then
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_CASTLE'.");
 if false then -- unknown logic command (CHECK_CASTLE)
-	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown logic command (SEND_WEBPAGE_ADDRESS)
+	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
 	do return; end
 end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_NO_CASTLE'.");
@@ -5013,7 +5022,7 @@ pUser:SendDebugString("Unknown LOGIC command 'CHECK_CHIEF'.");
 if false then -- unknown logic command (CHECK_CHIEF)
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_CLAN_RANKING'.");
 if false then -- unknown logic command (CHECK_CLAN_RANKING)
-	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown logic command (SEND_WEBPAGE_ADDRESS)
+	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
 	do return; end
 	do return; end
 end
@@ -5038,7 +5047,7 @@ if false then -- unknown logic command (CHECK_CLAN_RANKING)
 end
 pUser:SendDebugString("Unknown LOGIC command 'CHECK_CLAN_RANKING'.");
 if false then -- unknown logic command (CHECK_CLAN_RANKING)
-	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown logic command (SEND_WEBPAGE_ADDRESS)
+	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
 	do return; end
 end
 end
@@ -5050,7 +5059,7 @@ end
 elseif nEventID == 35640 then
 	pUser:SelectMsg(35640, 35641, 35641, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35641 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown logic command (ZONE_CHANGE)
+	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 elseif nEventID == 35643 then
 	pUser:NpcSay(35643, -1, -1, -1, -1, -1, -1, -1);
@@ -5080,6 +5089,7 @@ if false then -- unknown logic command (CHECK_EMPTY_SLOT)
 end
 local state = pUser:SearchQuest(56);
 if state == 0 then
+	pUser:GiveItem(910080000, 1);
 	pUser:SaveEvent(56, 1);
 	pUser:NpcSay(35671, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
