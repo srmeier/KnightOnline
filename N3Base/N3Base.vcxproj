@@ -107,6 +107,7 @@
     <ClInclude Include="include\WaveFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BitMapFile.cpp" />
     <ClCompile Include="src\DFont.cpp" />
     <ClCompile Include="src\JPEG.cpp" />
     <ClCompile Include="src\LogWriter.cpp" />

@@ -13,7 +13,7 @@
 #include "PacketDef.h"
 #include "APISocket.h"
 
-#define MAX_STRING_TALK		8//10
+#define MAX_STRING_TALK		10
 
 class CUIQuestTalk   : public CN3UIBase
 {

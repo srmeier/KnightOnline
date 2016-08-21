@@ -4,6 +4,15 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+
+
+
+- fix the [ITEM_EXCHANGE] for nIndex=35281 (rand_num==11 for abyss gem) some of
+	the items like item 389004000 don't exist
+- source client doesn't notify player when they receive an item
+- for some reason the icons aren't showing up though
+- need to add second "mastered" class to the
+	UISkillTreeDlg::ButtonVisibleStateSet()
 - some issue (possibly movement) causes binary server to close source client
 	connection
 	- doesn't seem to just be movement, maybe time spent on server and
@@ -13,12 +22,10 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	- sitting and standing seems to work fine though
 	- souce Elmorad user can see binary Karus GM
 	- binary client is sending the /invisible /visible commands
-
-
+- something wrong with archer hide spell
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - need to figure out how best to check for player class when matching class to
 	spell, current checks do not work
-- something wrong with archer hide spell
 - work on FOG in the camera class
 - make enter key log into game server and select character
 - issue with starting the binary client after source client

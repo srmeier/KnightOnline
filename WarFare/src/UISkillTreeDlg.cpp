@@ -277,10 +277,14 @@ bool CUISkillTreeDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 				(pSender->m_szID == "btn_cleric2") || (pSender->m_szID == "btn_hunter2") || (pSender->m_szID == "btn_berserker2") || 
 				(pSender->m_szID == "btn_sorcerer2") || (pSender->m_szID == "btn_shaman2") )
 			SetPageInIconRegion(3, 0);
+		if ((pSender->m_szID == "btn_master"))
+			SetPageInIconRegion(4, 0);
+		/*
 		if( (pSender->m_szID == "btn_ranger3") || (pSender->m_szID == "btn_blade3") || (pSender->m_szID == "btn_mage3") || 
 				(pSender->m_szID == "btn_cleric3") || (pSender->m_szID == "btn_hunter3") || (pSender->m_szID == "btn_berserker3") || 
 				(pSender->m_szID == "btn_sorcerer3") || (pSender->m_szID == "btn_shaman3") )
 			SetPageInIconRegion(4, 0);
+		*/
 	}
 
 // Temp Define
@@ -1197,19 +1201,19 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger0");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger1");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger2");	ASSET_0
-			pButton = (CN3UIButton* )GetChildByID("btn_ranger3");	ASSET_0
+			//pButton = (CN3UIButton* )GetChildByID("btn_ranger3");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_blade0");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_blade1");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_blade2");	ASSET_0
-			pButton = (CN3UIButton* )GetChildByID("btn_blade3");	ASSET_0
+			//pButton = (CN3UIButton* )GetChildByID("btn_blade3");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_mage0");		ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_mage1");		ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_mage2");		ASSET_0
-			pButton = (CN3UIButton* )GetChildByID("btn_mage3");		ASSET_0
+			//pButton = (CN3UIButton* )GetChildByID("btn_mage3");		ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric0");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric1");	ASSET_0
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric2");	ASSET_0
-			pButton = (CN3UIButton* )GetChildByID("btn_cleric3");	ASSET_0
+			//pButton = (CN3UIButton* )GetChildByID("btn_cleric3");	ASSET_0
 			break;
 
 	// Karus..
@@ -1245,56 +1249,58 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			pButton = (CN3UIButton* )GetChildByID("btn_berserker0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_berserker1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_berserker2");	ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_berserker3");	ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_berserker3");	ASSET_4
 			break;
 
+		// TODO: will need to add the "mastered" class to these as well...
+		case CLASS_KA_PENETRATOR:
 		case CLASS_KA_HUNTER:
 			pButton = (CN3UIButton* )GetChildByID("btn_hunter0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_hunter1");		ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_hunter2");		ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_hunter3");		ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_hunter3");		ASSET_4
 			break;
 
 		case CLASS_KA_SHAMAN:
 			pButton = (CN3UIButton* )GetChildByID("btn_shaman0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_shaman1");		ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_shaman2");		ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_shaman3");		ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_shaman3");		ASSET_4
 			break;
 
 		case CLASS_KA_SORCERER:
 			pButton = (CN3UIButton* )GetChildByID("btn_sorcerer0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_sorcerer1");		ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_sorcerer2");		ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_sorcerer3");		ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_sorcerer3");		ASSET_4
 			break;
 
 		case CLASS_EL_BLADE:
 			pButton = (CN3UIButton* )GetChildByID("btn_blade0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_blade1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_blade2");	ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_blade3");	ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_blade3");	ASSET_4
 			break;
 
 		case CLASS_EL_RANGER:
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger2");	ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_ranger3");	ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_ranger3");	ASSET_4
 			break;
 
 		case CLASS_EL_CLERIC:
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric2");	ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_cleric3");	ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_cleric3");	ASSET_4
 			break;
 
 		case CLASS_EL_MAGE:
 			pButton = (CN3UIButton* )GetChildByID("btn_mage0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_mage1");		ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_mage2");		ASSET_3
-			pButton = (CN3UIButton* )GetChildByID("btn_mage3");		ASSET_4
+			//pButton = (CN3UIButton* )GetChildByID("btn_mage3");		ASSET_4
 			break;
 	}
 }

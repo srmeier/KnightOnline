@@ -167,16 +167,16 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 	}
 
 	if (eNation == NATION_KARUS) {
-		m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_KA_ARKTUAREK";
-		m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_KA_TUAREK";
-		m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_KA_WRINKLETUAREK";
-		m_pBtn_Races[3]->m_szToolTip = "IDS_NEWCHR_KA_PURITUAREK";
+		if (m_pBtn_Races[0]) m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_KA_ARKTUAREK";
+		if (m_pBtn_Races[1]) m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_KA_TUAREK";
+		if (m_pBtn_Races[2]) m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_KA_WRINKLETUAREK";
+		if (m_pBtn_Races[3]) m_pBtn_Races[3]->m_szToolTip = "IDS_NEWCHR_KA_PURITUAREK";
 	}
 	else if (eNation == NATION_ELMORAD) {
-		m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_EL_BABA";
-		m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_EL_MALE";
-		m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_EL_FEMALE";
-		m_pBtn_Races[3]->m_szToolTip = "dwResrcID_Races[3] = -1;";
+		if (m_pBtn_Races[0]) m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_EL_BABA";
+		if (m_pBtn_Races[1]) m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_EL_MALE";
+		if (m_pBtn_Races[2]) m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_EL_FEMALE";
+		if (m_pBtn_Races[3]) m_pBtn_Races[3]->m_szToolTip = "dwResrcID_Races[3] = -1;";
 	}
 
 	std::string szBtns[MAX_CLASS_SELECT] = { "btn_class_warrior", "btn_class_rogue", "btn_class_mage", "btn_class_priest" };
