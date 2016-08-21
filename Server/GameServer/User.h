@@ -1246,7 +1246,7 @@ public:
 	DECLARE_LUA_FUNCTION(NpcSay) {
 		CUser * pUser = LUA_GET_INSTANCE();
 		uint32 arg = 2; // start from after the user instance.
-		int32 nTextID[8]; 
+		int32 nTextID[10]; 
 
 		foreach_array(i, nTextID)
 			nTextID[i] = LUA_ARG_OPTIONAL(int32, -1, arg++);

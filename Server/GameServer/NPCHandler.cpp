@@ -314,12 +314,14 @@ bool CUser::AttemptSelectMsg(uint8 bMenuID, int8 bySelectedReward)
 	return true;
 }
 
-void CUser::SendSay(int32 nTextID[8])
+void CUser::SendSay(int32 nTextID[10])
 {
 	Packet result(WIZ_NPC_SAY);
-	/*result << int32(-1) << int32(-1);*/
-	foreach_array_n(i, nTextID, 8)
+
+	result << int32(-1) << int32(-1);
+	foreach_array_n(i, nTextID, 10)
 		result << nTextID[i];
+
 	Send(&result);
 }
 
@@ -335,8 +337,11 @@ void CUser::SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText,
 	//result.SByte();
 
 	result << m_sEventNid/*m_sEventSid*/ /*<< bFlag << nQuestID*/ << menuHeaderText;
-	foreach_array_n(i, menuButtonText, MAX_MESSAGE_EVENT)
+
+	foreach_array_n(i, menuButtonText, MAX_MESSAGE_EVENT) {
 		result << menuButtonText[i];
+	}
+
 	/*result << pHelper->strLuaFilename;*/
 	Send(&result);
 

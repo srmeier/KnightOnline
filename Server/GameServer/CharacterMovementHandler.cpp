@@ -357,7 +357,7 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 	
 	if (sNewZone == ZONE_DELOS)
 	{
-		if (pKnightSiege->sMasterKnights == GetClanID() && GetClanID() != 0)
+		if (pKnightSiege && (pKnightSiege->sMasterKnights==GetClanID()) && (GetClanID()!=0))
 		{
 			if (GetNation() == KARUS)
 			{

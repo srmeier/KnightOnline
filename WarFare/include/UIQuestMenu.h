@@ -13,7 +13,7 @@
 #include "PacketDef.h"
 #include "APISocket.h"
 
-#define MAX_STRING_MENU	5
+#define MAX_STRING_MENU	10//5
 
 class CUIQuestMenu   : public CN3UIBase
 {
