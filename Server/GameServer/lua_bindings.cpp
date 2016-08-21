@@ -400,5 +400,6 @@ LUA_FUNCTION(CastSkill)
 }
 
 LUA_FUNCTION(RollDice) {
-	LUA_RETURN(myrand(0, LUA_ARG(uint16, 2)));
+	//LUA_RETURN(myrand(0, LUA_ARG(uint16, 2)));
+	LUA_RETURN(myrand(1, LUA_ARG(uint16, 2)));
 }
