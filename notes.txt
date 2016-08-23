@@ -4,6 +4,9 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- is there a way to generate the QUEST_HELPER table from the EVTs?
+- implement CHECK_ITEMCHANGE_NUM
+
 
 
 
