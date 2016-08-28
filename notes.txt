@@ -4,12 +4,13 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- is there a way to generate the QUEST_HELPER table from the EVTs?
+- finish the love letter quest
 - implement CHECK_ITEMCHANGE_NUM
 
 
 
-
+- is there a way to generate the QUEST_HELPER table from the EVTs?
+- Low Upgrade Scroll needs to be added to DB (379221000)
 - fix the [ITEM_EXCHANGE] for nIndex=35281 (rand_num==11 for abyss gem) some of
 	the items like item 389004000 don't exist
 - source client doesn't notify player when they receive an item
