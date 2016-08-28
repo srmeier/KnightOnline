@@ -596,6 +596,7 @@ public:
 
 	// NOTE(srmeier): testing this debug string functionality
 	void SendDebugString(const char* pString);
+	int NumEmptySlots(void);
 
 	bool CheckClass(short class1, short class2 = -1, short class3 = -1, short class4 = -1, short class5 = -1, short class6 = -1);
 	bool GiveItem(uint32 nItemID, uint16 sCount = 1, bool send_packet = true, uint32 Time = 0);
@@ -1172,6 +1173,11 @@ public:
 			LUA_ARG_OPTIONAL(uint16, -1, 6),
 			LUA_ARG_OPTIONAL(uint16, -1, 7)
 		));
+	}
+
+	// NOTE(srmeier): returns the number of empty slots in the inventory
+	DECLARE_LUA_FUNCTION(EmptySlotCount) {
+		LUA_RETURN(LUA_GET_INSTANCE()->NumEmptySlots());
 	}
 
 	//-------------------------------------------------------------------------

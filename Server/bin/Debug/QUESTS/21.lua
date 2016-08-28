@@ -408,8 +408,7 @@ elseif nEventID == 4005 then
 	pUser:NpcSay(4004, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(4009, -1, -1, -1, -1, -1, -1, -1);
 	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown execute command (RETURN;)
 	do return; end
@@ -2211,13 +2210,11 @@ elseif nEventID == 20546 then
 	pUser:NpcSay(20515, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 20550 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35653, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() > 0 then
 	pUser:NpcSay(35653, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -2694,8 +2691,7 @@ elseif nEventID == 21981 then
 elseif nEventID == 22000 then
 	pUser:SelectMsg(22003, 22008, 22002, 22003, 22003, 22004, 22004, 22005, 22005, 30134, 35540, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 22002 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35646, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -2726,8 +2722,7 @@ elseif nEventID == 22002 then
 	end
 	do return; end
 elseif nEventID == 22003 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35646, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -2758,8 +2753,7 @@ elseif nEventID == 22003 then
 	end
 	do return; end
 elseif nEventID == 22004 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35646, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -2790,8 +2784,7 @@ elseif nEventID == 22004 then
 	end
 	do return; end
 elseif nEventID == 22005 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35646, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -2829,8 +2822,7 @@ elseif nEventID == 22051 then
 	pUser:NpcSay(35469, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35646, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -4493,6 +4485,9 @@ elseif nEventID == 35663 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(56);
+
+	print(state)
+
 	if state == 2 then
 	pUser:NpcSay(35667, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -4502,8 +4497,7 @@ elseif nEventID == 35663 then
 	pUser:NpcSay(35668, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EMPTY_SLOT'.");
-	if false then -- unknown logic command (CHECK_EMPTY_SLOT)
+	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35670, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end

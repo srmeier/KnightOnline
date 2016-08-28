@@ -3740,6 +3740,24 @@ int CUser::GetEmptySlot()
 	return -1;
 }
 
+int CUser::NumEmptySlots()
+{
+	int iEmptySlotCount = 0;
+
+	for (int i = SLOT_MAX; i < SLOT_MAX + HAVE_MAX; i++)
+	{
+		_ITEM_DATA *pItem = GetItem(i);
+
+		if (!pItem)
+			continue;
+
+		if (pItem->nNum == 0)
+			iEmptySlotCount++;
+	}
+
+	return iEmptySlotCount;
+}
+
 void CUser::Home()
 {
 	if (isDead()
