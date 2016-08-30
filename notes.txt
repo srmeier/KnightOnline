@@ -50,6 +50,8 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - support all 1068 file formats
 	- requires testing of weapons and armor and stuff
 
+- clients doesn's show the noah user pays when they purchase something
+
 ===============================================================================
 QUEST_HELPER
 nIndex;              -> useful for SaveEvent()
