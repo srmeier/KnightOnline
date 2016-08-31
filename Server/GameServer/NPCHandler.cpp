@@ -128,12 +128,13 @@ void CUser::ClientEvent(uint16 sNpcID)
 	_QUEST_HELPER * pHelper = nullptr;
 	foreach (itr, pList)
 	{
-		if ((*itr) == nullptr
+		/*if ((*itr) == nullptr
 			|| (*itr)->sEventDataIndex
 			|| (*itr)->bEventStatus
 			|| ((*itr)->bNation != 3 && (*itr)->bNation != GetNation())
 			|| ((*itr)->bClass != 5 && !JobGroupCheck((*itr)->bClass)))
-			continue;
+			continue;*/
+		//This part must be modified because in this form it doesn't allow to run any event outside the moradan
 
 		pHelper = (*itr);
 		break;
