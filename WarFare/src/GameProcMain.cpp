@@ -3409,7 +3409,7 @@ void CGameProcMain::MsgRecv_MyInfo_HP(DataPack* pDataPack, int& iOffset)
 	}
 	else if(iHPChange > 0)
 	{
-		std::string szFmt = "%d HP Damage";
+		std::string szFmt = "%d HP Recover";
 		//::_LoadStringFromResource(IDS_MSG_FMT_HP_RECOVER, szFmt);
 		sprintf(szBuf, szFmt.c_str(), iHPChange);
 		MsgOutput(szBuf, 0xff6565ff);
@@ -3437,7 +3437,7 @@ void CGameProcMain::MsgRecv_MyInfo_MSP(DataPack* pDataPack, int& iOffset)
 	{
 		std::string szFmt;
 		if (bUseMP) szFmt = "IDS_MSG_FMT_MP_USE (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_MP_USE, szFmt);
-		else szFmt = "IDS_MSG_FMT_SP_USE (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_SP_USE, szFmt);
+		else szFmt = "%d SP Used ";//::_LoadStringFromResource(IDS_MSG_FMT_SP_USE, szFmt); //IDS_MSG_FMT_SP_USE
 		sprintf(szBuf, szFmt.c_str(), -iMSPChange);
 		MsgOutput(szBuf, 0xffff3b3b);
 	}
@@ -3445,7 +3445,7 @@ void CGameProcMain::MsgRecv_MyInfo_MSP(DataPack* pDataPack, int& iOffset)
 	{
 		std::string szFmt;
 		if (bUseMP) szFmt = "IDS_MSG_FMT_MP_RECOVER (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_MP_RECOVER, szFmt);
-		else szFmt = "IDS_MSG_FMT_SP_RECOVER (%d)";//::_LoadStringFromResource(IDS_MSG_FMT_SP_RECOVER, szFmt);
+		else szFmt = "%d SP Recovered";//::_LoadStringFromResource(IDS_MSG_FMT_SP_RECOVER, szFmt); //IDS_MSG_FMT_SP_RECOVER
 		sprintf(szBuf, szFmt.c_str(), iMSPChange);
 		MsgOutput(szBuf, 0xff6565ff);
 	}
@@ -3479,7 +3479,7 @@ void CGameProcMain::MsgRecv_MyInfo_EXP(DataPack* pDataPack, int& iOffset)
 		}
 		else if(iExpChange < 0)
 		{
-			std::string szFmt = "IDS_MSG_FMT_EXP_LOST (%d)";
+			std::string szFmt = "Lost %d Experience Points";
 			//::_LoadStringFromResource(IDS_MSG_FMT_EXP_LOST, szFmt);
 			sprintf(szBuf, szFmt.c_str(), -iExpChange);
 		}
