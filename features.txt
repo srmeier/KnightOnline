@@ -1,0 +1,79 @@
+/**
+ *The whole reason why there is such a document is 
+ *that showing exactly what feaures has been implemented and has not been implemented,
+ *so that every contributor doesn't have to test the whole system before actually start fixing. 
+ *
+ *Feel free to chance the structure, I just made a draft
+ *
+ *@Structure 
+ *		             ####System_Name####
+ *		
+ *			-Things that are working
+ *
+ *			***************************
+ *
+ *			-Things that are not working and should be done
+ *
+ *			**Additional_Features** (Optional)
+ *
+ *			-Extra informations about the system
+ *
+ *
+ *@Abbreviations
+ *
+ *			s.c -> Source Client
+ *
+ *			b.c -> Binary Client		
+**/
+
+####UPGRADE_SYSTEM####
+
+-Accessory upgrade is working  // %100 for every step
+
+-Item upgrade is working //Need additional tests
+
+***************************
+
+-
+
+**Additional_Features**
+
+-Trina add %20 chance to the upgrade
+
+
+####Skills_Rogue####
+
+-Hide is working, //In s.c
+
+-
+####Skills_General####
+
+-
+
+**********************
+
+-Skill descriptions are missing //in s.c
+
+-Skill images are missing in Rogue,  // in s.c
+
+####General####
+
+-In source client, you can send  a party invitation to someone by adding it as a friend, and sending through the friendlist
+
+
+-Adding friend is working // in s.c, b.c
+
+**********************
+
+-Commands tab (Key h) is missing
+
+-for clan chiefs, clan name is not underlined //in s.c
+
+
+####Clan_System####
+
+- Clan can be created and disband // b.c
+
+- Adding users to clans through Chief and Vice Chief is available // b.c
+
+- Ban from clan is available // b.c
