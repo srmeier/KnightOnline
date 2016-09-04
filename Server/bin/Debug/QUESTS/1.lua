@@ -2688,6 +2688,7 @@ elseif nEventID == 17634 then
 	do return; end
 elseif nEventID == 17637 then
 	local state = pUser:SearchQuest(68);
+	print(state)
 	if state == 1 then
 	if pUser:CheckExistItem(910089000, 1) then
 	pUser:RobItem(910089000, 1);

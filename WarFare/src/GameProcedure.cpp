@@ -191,6 +191,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 
 	if(pSurf0==NULL||pSurf1==NULL||pSurf2==NULL||pSurf3==NULL||pSurf4==NULL||pSurf5==NULL||pSurf6==NULL||pSurf7==NULL) {
 		printf("%s\n", IMG_GetError());
+		Sleep(1000 * 5);
 		exit(-1);
 	}
 
@@ -241,6 +242,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI->Find(NATION_ELMORAD); // 기본은 엘모라드 UI 로 한다..
 	if(pTblUI == NULL) {
 		printf("ER: UI table is NULL.\n");
+		Sleep(1000 * 5);
 		exit(-1);
 	}
 

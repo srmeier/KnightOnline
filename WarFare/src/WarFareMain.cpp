@@ -97,6 +97,7 @@ int SDL_main(int argc, char** argv)
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		fprintf(stderr, "ER: %s\n", SDL_GetError());
+		Sleep(1000 * 5);//If the user can't read the error, there is no point in warning them.
 		return false;
 	}
 
@@ -106,23 +107,27 @@ int SDL_main(int argc, char** argv)
 
 	if(TTF_Init() == -1) {
 		fprintf(stderr, "ER: %s\n", TTF_GetError());
+		Sleep(1000 * 5);
 		return false;
 	}
 
 	int flags = IMG_INIT_JPG|IMG_INIT_PNG;
 	if((IMG_Init(flags)&flags) != flags) {
 		fprintf(stderr, "ER: %s\n", IMG_GetError());
+		Sleep(1000 * 5);
 		return false;
 	}
 
 	flags = MIX_INIT_OGG|MIX_INIT_MP3;
 	if((Mix_Init(flags)&flags) != flags) {
 		fprintf(stderr, "ER: %s\n", Mix_GetError());
+		Sleep(1000 * 5);
 		return false;
 	}
 
 	if(SDLNet_Init() == -1) {
 		fprintf(stderr, "ER: %s\n", SDLNet_GetError());
+		Sleep(1000 * 5);
 		return false;
 	}
 
@@ -137,6 +142,7 @@ int SDL_main(int argc, char** argv)
 
 	if(s_pSDLWindow == NULL) {
 		fprintf(stderr, "ER: %s\n", SDL_GetError());
+		Sleep(1000 * 5);
 		return false;
 	}
 
