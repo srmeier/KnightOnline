@@ -632,10 +632,14 @@ void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 	if (MainClanID == 0 || TargetClanID == 0)
 	{
 		pTargetClan = g_pMain->GetClanPtr(pUser->m_bKnights);
-		pAlliance = g_pMain->GetAlliancePtr(pTargetClan->m_sAlliance);
-		pMainClan = g_pMain->GetClanPtr(pTargetClan->m_sAlliance);
-		MainClanID = pTargetClan->m_sAlliance;
-		TargetClanID = pUser->m_bKnights;
+		if (pTargetClan != NULL)
+		{
+			pAlliance = g_pMain->GetAlliancePtr(pTargetClan->m_sAlliance);
+			pMainClan = g_pMain->GetClanPtr(pTargetClan->m_sAlliance);
+			MainClanID = pTargetClan->m_sAlliance;
+			TargetClanID = pUser->m_bKnights;
+		}
+		
 	}
 
 	if (pAlliance != nullptr)
