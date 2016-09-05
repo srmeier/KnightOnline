@@ -175,7 +175,7 @@ void CUser::Initialize()
 void CUser::OnDisconnect()
 {
 	KOSocket::OnDisconnect();
-
+	
 	g_pMain->RemoveSessionNames(this);
 
 	if (isInGame())
@@ -377,8 +377,10 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_OBJECT_EVENT:
 		ObjectEvent(pkt);
 		break;
-	case WIZ_WEATHER:
 	case WIZ_TIME:
+		SendTime();
+		break;
+	case WIZ_WEATHER:
 		UpdateGameWeather(pkt);
 		break;
 	case WIZ_CLASS_CHANGE:
@@ -430,6 +432,8 @@ bool CUser::HandlePacket(Packet & pkt)
 		break;
 	case WIZ_SELECT_MSG:
 		RecvSelectMsg(pkt);
+		break;
+	case WIZ_NPC_SAY:
 		break;
 	case WIZ_ITEM_UPGRADE:
 		ItemUpgradeProcess(pkt);

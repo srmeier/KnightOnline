@@ -2627,6 +2627,7 @@ elseif nEventID == 17611 then
 	do return; end
 elseif nEventID == 17620 then
 	local state = pUser:SearchQuest(68);
+	print(state)
 	if state == 2 then
 	pUser:NpcSay(17621, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2664,6 +2665,7 @@ elseif nEventID == 17626 then
 	end
 elseif nEventID == 17630 then
 	local state = pUser:SearchQuest(68);
+	print(state)
 	if state == 2 then
 	pUser:SelectMsg(17631, 17634, 17634, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -2686,6 +2688,7 @@ elseif nEventID == 17634 then
 	do return; end
 elseif nEventID == 17637 then
 	local state = pUser:SearchQuest(68);
+	print(state)
 	if state == 1 then
 	if pUser:CheckExistItem(910089000, 1) then
 	pUser:RobItem(910089000, 1);
