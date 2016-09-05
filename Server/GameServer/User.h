@@ -590,7 +590,7 @@ public:
 	void KickOutZoneUser(bool home = false, uint8 nZoneID = 21);
 	void TrapProcess();
 	bool JobGroupCheck(short jobgroupid);
-	void SendSay(int32 nTextID[8]);
+	void SendSay(int32 nTextID[10]);
 	void SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText, 
 		int32 menuButtonText[MAX_MESSAGE_EVENT], int32 menuButtonEvents[MAX_MESSAGE_EVENT]);
 

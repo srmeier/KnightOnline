@@ -4,6 +4,7 @@
 #include "GameSocket.h"
 #include "Npc.h"
 #include "MAP.h"
+#include "define.h"
 
 #define MORAL_GOOD		0x01
 #define MORAL_BAD		0x02

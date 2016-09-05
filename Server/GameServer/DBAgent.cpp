@@ -931,7 +931,7 @@ FriendAddResult CDBAgent::AddFriend(short sid, short tid)
 	dbCommand->AddParameter(SQL_PARAM_INPUT, pSrcUser->GetName().c_str(), pSrcUser->GetName().length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, pTargetUser->GetName().c_str(), pTargetUser->GetName().length());
 
-	if (!dbCommand->Execute(_T("{? = CALL INSERT_FRIEND_LIST(?, ?)}")))
+	if (!dbCommand->Execute(string_format(_T("{? = CALL INSERT_FRIEND_LIST(%d, ?, ?)}"), sRet)))
 		ReportSQLError(m_GameDB->GetError());
 
 	return (FriendAddResult)sRet;
@@ -949,7 +949,7 @@ FriendRemoveResult CDBAgent::RemoveFriend(string & strCharID, CUser *pUser)
 	dbCommand->AddParameter(SQL_PARAM_INPUT, pUser->m_strUserID.c_str(), pUser->m_strUserID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 
-	if (!dbCommand->Execute(_T("{? = CALL DELETE_FRIEND_LIST(?, ?)}")))
+	if (!dbCommand->Execute(string_format(_T("{? = CALL DELETE_FRIEND_LIST(%d, ?, ?)}"), sRet)))
 		ReportSQLError(m_GameDB->GetError());
 
 	return (FriendRemoveResult)sRet;
@@ -1130,12 +1130,14 @@ int8 CDBAgent::CreateKnights(uint16 sClanID, uint8 bNation, string & strKnightsN
 	if (dbCommand.get() == nullptr)
 		return bRet;
 
+
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strKnightsName.c_str(), strKnightsName.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strChief.c_str(), strChief.length());
 
-	if (!dbCommand->Execute(string_format(_T("{? = CALL CREATE_KNIGHTS(%d, %d, %d, ?, ?)}"), sClanID, bNation, bFlag)))
+	if (!dbCommand->Execute(string_format(_T("{? = CALL CREATE_KNIGHTS (%d, %d, %d, %d, ?, ?)}"), bRet, sClanID, bNation, bFlag)))
 		ReportSQLError(m_GameDB->GetError());
+
 
 	return bRet;
 }
@@ -1150,7 +1152,7 @@ int CDBAgent::UpdateKnights(uint8 bType, string & strCharID, uint16 sClanID, uin
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &sRet);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 
-	if (!dbCommand->Execute(string_format(_T("{? = CALL UPDATE_KNIGHTS(%d, ?, %d, %d)}"), bType + 0x10, sClanID, bDomination)))
+	if (!dbCommand->Execute(string_format(_T("{? = CALL UPDATE_KNIGHTS(%d, %d, ?, %d, %d)}"), sRet, bType + 0x10, sClanID, bDomination)))
 		ReportSQLError(m_GameDB->GetError());
 
 	if (bType == KNIGHTS_VICECHIEF && sRet == 0)
@@ -1173,10 +1175,11 @@ int CDBAgent::UpdateKnights(uint8 bType, string & strCharID, uint16 sClanID, uin
 int CDBAgent::DeleteKnights(uint16 sClanID)
 {
 	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
+	
 
 	int16 sRet = -1;
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &sRet);
-	if (!dbCommand->Execute(string_format(_T("{? = CALL DELETE_KNIGHTS (%d)}"), sClanID)))
+	if (!dbCommand->Execute(string_format(_T("{? = CALL DELETE_KNIGHTS (%d, %d)}"), sRet, sClanID)))
 		ReportSQLError(m_GameDB->GetError());
 
 	return sRet;
