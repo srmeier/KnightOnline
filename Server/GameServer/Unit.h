@@ -10,6 +10,7 @@
 #include "GameDefine.h"
 #include "../shared/ReferenceObject.h"
 #include <map>
+#include "../shared/types.h"
 
 // Maximum range allowed between a player and an NPC.
 #define MAX_NPC_RANGE		(121.0f) // pow(11.0f, 2.0f), to save having to calculate it in the code.

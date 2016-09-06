@@ -24,8 +24,9 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - some issue with visible/invisible
 	- binary Elmorad user can't see source Karus or Elmorad GM
 	- sitting and standing seems to work fine though
-	- souce Elmorad user can see binary Karus GM
+	- souce Elmorad user can see binary Karus GM but not Elmorad GM
 	- binary client is sending the /invisible /visible commands
+	- source GM is always seeing the binary GM and doesn't pass through inside.
 - something wrong with archer hide spell
 - need to work with GetChildByID() and CUISkillTreeDlg class
 - need to figure out how best to check for player class when matching class to

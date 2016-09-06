@@ -34,7 +34,7 @@
 
 ***************************
 
--
+-there is a lot of +0 item whose +1, +2 .. are missing
 
 **Additional_Features**
 
@@ -46,6 +46,7 @@
 -Hide is working, //In s.c
 
 -
+
 ####Skills_General####
 
 -
@@ -60,19 +61,19 @@
 
 -In source client, you can send  a party invitation to someone by adding it as a friend, and sending through the friendlist
 
-
 -Adding friend is working // in s.c, b.c
+
+-binary users sees the both binary GMs
 
 **********************
 
--Commands tab (Key h) is missing
+-Commands tab (Key h) is missing // in s.c
 
 -for clan chiefs, clan name is not underlined //in s.c
 
-
 ####Clan_System####
 
-- Clan can be created and disband // b.c
+- Clan can be created and disband // b.c , 
 
 - Adding users to clans through Chief and Vice Chief is available // b.c
 
