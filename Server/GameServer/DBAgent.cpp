@@ -233,7 +233,8 @@ int8 CDBAgent::ChangeHair(std::string & strAccountID, std::string & strCharID, u
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
-
+	//TODO(onurcanbektas): Add Hair type to the USERDATA and create CHANCE_HAIR procedure
+	//Also, add this function to another parameter called bHairColor so that we won't need another function for changing hair color.
 	if (!dbCommand->Execute(string_format(_T("{? = CALL CHANGE_HAIR(?, ?, %d, %d, %d)}"), 
 		bOpcode, bFace, nHair)))
 		ReportSQLError(m_GameDB->GetError());
@@ -252,7 +253,7 @@ int8 CDBAgent::DeleteChar(string & strAccountID, int index, string & strCharID, 
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strSocNo.c_str(), strSocNo.length());
-
+	//TODO(onurcanbektas): implement the fuction.
 	if (!dbCommand->Execute(string_format(_T("{? = CALL DELETE_CHAR(?, %d, ?, ?)}"), index)))
 		ReportSQLError(m_GameDB->GetError());
 
@@ -753,39 +754,18 @@ bool CDBAgent::SetLogInInfo(string & strAccountID, string & strCharID, string & 
 	unique_ptr<OdbcCommand> dbCommand(m_AccountDB->CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return false;
-	/*
+	
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &result);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strServerIP.c_str(), strServerIP.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strClientIP.c_str(), strClientIP.length());
 
-	if (!dbCommand->Execute(string_format(_T("{? = CALL SET_LOGIN_INFO(?, ?, %d, ?, ?, %d)}"), sServerNo, bInit)))
+	if (!dbCommand->Execute(string_format(_T("{? = CALL SET_LOGIN_INFO(%d, ?, ?, %d, ?, ?, %d)}"), result, sServerNo, bInit)))
 		ReportSQLError(m_AccountDB->GetError());
 
 	return (bool)(result == 0 ? false : true);
-	*/
-
-	if(bInit == 0x01) {
-		if (!dbCommand->Execute(string_format(_T(
-				"INSERT INTO CURRENTUSER (strAccountID, strCharID, nServerNo, strServerIP, strClientIP) VALUES (\'%s\',\'%s\',%d,\'%s\',\'%s\')"),
-				strAccountID.c_str(), strCharID.c_str(), sServerNo, strServerIP.c_str(), strClientIP.c_str()))
-		) {
-			ReportSQLError(m_AccountDB->GetError());
-			return false;
-		}
-	}
-	else if (bInit == 0x02) {
-		if (!dbCommand->Execute(string_format(_T(
-				"UPDATE CURRENTUSER SET nServerNo=%d, strServerIP=\'%s\' WHERE strAccountID = \'%s\'"),
-				sServerNo, strServerIP.c_str(), strAccountID.c_str()))
-		) {
-			ReportSQLError(m_AccountDB->GetError());
-			return false;
-		}
-	} else return false;
-
-	return true;
+	
 }
 
 bool CDBAgent::LoadWebItemMall(std::vector<_ITEM_DATA> & itemList, CUser *pUser)
