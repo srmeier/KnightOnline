@@ -58,6 +58,7 @@ bool CDBAgent::Connect(bool bMarsEnabled,
 	return true;
 }
 
+
 void CDBAgent::ReportSQLError(OdbcError *pError)
 {
 	if (pError == nullptr)
@@ -81,6 +82,14 @@ void CDBAgent::ReportSQLError(OdbcError *pError)
 	TRACE("Database error: %s\n", errorMessage.c_str());
 	delete pError;
 }
+
+/*
+You may notice that while calling a stored procedure, some functions gives OUTPUT variable(bRet) to a initial value.
+it has to be done, I don't know why, but if you don't, there will be a parameter shift while passing the parameters to
+SP, so either you can pass a initial value to the OUTPUT parameter, as I did in while caliing the CREATE_KNIGHTS procedure,
+or you can simply put the OUTPUT parameter to the end in the SP and bind its pointer to the end of the execution command, 
+as it is done while calling the ACCOUNT_LOGIN procedure.
+*/
 
 int8 CDBAgent::AccountLogin(string & strAccountID, string & strPasswd)
 {
@@ -1137,7 +1146,6 @@ int8 CDBAgent::CreateKnights(uint16 sClanID, uint8 bNation, string & strKnightsN
 
 	if (!dbCommand->Execute(string_format(_T("{? = CALL CREATE_KNIGHTS (%d, %d, %d, %d, ?, ?)}"), bRet, sClanID, bNation, bFlag)))
 		ReportSQLError(m_GameDB->GetError());
-
 
 	return bRet;
 }
