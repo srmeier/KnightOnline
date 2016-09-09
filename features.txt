@@ -28,11 +28,21 @@
 
 ####UPGRADE_SYSTEM####
 
--Accessory upgrade is working  // %100 for every step
+-Accessory upgrade is working// +0 -> +1 (%100) //+1 -> +2 (%100)//+2 -> +3 (%10)// Others %0
 
--Item upgrade is working //Need additional tests
+-Enchant(& Blessed) (High) Enchant Scrolls are working
+
+-Immune(& Blessed) (High) Scroll are working
+
+-Elemental(& Blessed) (High) Scroll are working
+
+-Reduce(& Blessed) (High) Scroll are working
+
+-Dispell Scrolls (High) (Fire - Glacier - Lightning) are working
 
 ***************************
+
+-We will probably have to organize the whoel system with the table ITEM_UPGRADE from the beginning
 
 -there is a lot of +0 item whose +1, +2 .. are missing
 
@@ -69,12 +79,15 @@
 
 -Commands tab (Key h) is missing // in s.c
 
--for clan chiefs, clan name is not underlined //in s.c
 
 ####Clan_System####
 
-- Clan can be created and disband // b.c , 
+- Clan can be created and disband // b.c , s.c
 
 - Adding users to clans through Chief and Vice Chief is available // b.c
 
 - Ban from clan is available // b.c
+
+**********************
+
+-for clan chiefs, clan name is not underlined //in s.c

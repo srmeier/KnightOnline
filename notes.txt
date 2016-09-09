@@ -21,6 +21,8 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 	connection
 	- doesn't seem to just be movement, maybe time spent on server and
 		something is overflowing?...
+	-if it is  the "Too many users logged in" error, it happens whenever the server
+	encounters with the error in the lua scripts from the evtconverter
 - some issue with visible/invisible
 	- binary Elmorad user can't see source Karus or Elmorad GM
 	- sitting and standing seems to work fine though

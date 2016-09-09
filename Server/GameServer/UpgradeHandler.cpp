@@ -80,8 +80,9 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 
 	Packet result(WIZ_ITEM_UPGRADE, nUpgradeType);
 	_ITEM_DATA  * pOriginItem;
-	_ITEM_TABLE * proto;
-	int32 nItemID[10]; int8 bPos[10];
+	_ITEM_TABLE * proto;//The Upgrade item's itself in the ITEM table
+	int32 nItemID[10];//nItemID[0]=Upgrade item , nItemID[1,2,..]=Scrolls, Trinas,...
+	int8 bPos[10];//The positions of the items in the inventory that are included to the upgrade
 	uint16 sNpcID;
 	int8 bType = UpgradeTypeNormal, bResult = UpgradeNoMatch,ItemClass = 0;
 	bool trina=false,Accessories=false;
@@ -102,12 +103,10 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 			return;
 	}
 
-	pOriginItem = GetItem(SLOT_MAX + bPos[0]);
-	if (pOriginItem->nNum != nItemID[0]
-	|| (proto = g_pMain->GetItemPtr(nItemID[0])) == nullptr)
+	pOriginItem = GetItem(SLOT_MAX + bPos[0]);//The Upgrade Item's itself in the ITEM table
+	if (pOriginItem->nNum != nItemID[0] || (proto = g_pMain->GetItemPtr(nItemID[0])) == nullptr)
 		goto fail_return; // error with error code UpgradeNoMatch ("Items required for upgrade do not match")
-	else if (pOriginItem->isRented() 
-		|| pOriginItem->isSealed()) // unsure if there's another error code for sealed items
+	else if (pOriginItem->isRented() || pOriginItem->isSealed()) // unsure if there's another error code for sealed items
 	{
 		bResult = UpgradeRental;
 		goto fail_return;
@@ -116,20 +115,26 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 	// Invalid item in slot.
 	for (int x = 0; x < 10; x++)
 	{
-		if (bPos[x] != -1
-			&& (nItemID[x] > 0 
-			&& nItemID[x] != GetItem(SLOT_MAX + bPos[x])->nNum))
+		if (bPos[x] != -1 && 
+			(nItemID[x] > 0  && nItemID[x] != GetItem(SLOT_MAX + bPos[x])->nNum))
 			goto fail_return;
 	}
 
 	{ // scoped lock to prevent race conditions
-
-		int nReqOriginItem = nItemID[0] % 1000;//int nReqOriginItem = nItemID[0] % 100000;
+		//Take the last 3 digit of the nItemID[0], which will tell us in which from the item is.
+		int nReqOriginItem = nItemID[0] % 1000;
 
 		_ITEM_UPGRADE * pUpgrade = nullptr;
 		foreach_stlmap (itr, g_pMain->m_ItemUpgradeArray)
-		{
+		{ // beginning of foreach
+			bool worked = false;
 			pUpgrade = itr->second;
+			if (pUpgrade->nIndex == 200055) 
+			{
+				printf("We find it");
+				worked = true;
+			}
+
 			if (pUpgrade->sOriginItem != nReqOriginItem)
 				continue;
 
@@ -138,11 +143,10 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 				continue;
 
 			if( nItemID[1]== 700002000 || nItemID[2]== 700002000 || nItemID[1]== 379258000 || nItemID[2]== 379258000)
-				trina = true;
+				trina = true;//How many trina did I put there ?
 
 			if( pUpgrade->bRateType == 1)
-			if(
-				nItemID[1] == 	379221000	||
+			if( nItemID[1] == 	379221000	|| //Upgrade Scroll (Low)
 				nItemID[1] == 	379222000	||
 				nItemID[1] == 	379223000	||
 				nItemID[1] == 	379224000	||
@@ -180,7 +184,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 
 			if( pUpgrade->bRateType == 2)
 			if(
-				nItemID[1] == 	379205000	||
+				nItemID[1] == 	379205000	||//Upgrade Scroll (Middle)
 				nItemID[1] == 	379206000	||
 				nItemID[1] == 	379208000	||
 				nItemID[1] == 	379209000	||
@@ -209,15 +213,13 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 				nItemID[2] == 	379217000	||
 				nItemID[2] == 	379218000	||
 				nItemID[2] == 	379219000	||
-				nItemID[2] == 	379220000	
-				)
+				nItemID[2] == 	379220000	)
 				ItemClass = 2;
 				else
 					continue;
 
 			if( pUpgrade->bRateType == 3)
-			if(
-				nItemID[1] == 	379021000	||
+			if( nItemID[1] == 	379021000	||//Blessed Upgrade Scroll
 				nItemID[1] == 	379022000	||
 				nItemID[1] == 	379023000	||
 				nItemID[1] == 	379024000	||
@@ -248,8 +250,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 				nItemID[2] == 	379139000	||
 				nItemID[2] == 	379140000	||
 				nItemID[2] == 	379141000	||
-				nItemID[1] == 	379016000
-				)
+				nItemID[1] == 	379016000	)
 				ItemClass = 3;
 				else
 					continue;
@@ -264,18 +265,18 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 				else
 					continue;
 			
-			if (proto->ItemClass == 8) 
+			if (proto->m_bClass == 8) 
 			{
 					Accessories=true;
-					if (pUpgrade->bRateType != 8 || proto->ItemExt != pUpgrade->bOriginType)
+					if (pUpgrade->bRateType != 8 )//|| proto->ItemExt != pUpgrade->bOriginType
 					continue;
 			}
 			
 			if(bPos[0] == bPos[1] || bPos[1] == bPos[2] || bPos[0] == bPos[2])
 				continue;
 
-			if (!(proto->ItemClass <= ItemClass) && !Accessories)
-				continue;
+			/*if (!(proto->m_bClass <= ItemClass) && !Accessories)
+				continue;*/
 
 			if (((nItemID[1]== 700002000 || nItemID[2]== 700002000) && (ItemClass == 4 && pUpgrade->bRateType == 4))
 				|| (nItemID[1]== 379258000 || nItemID[2]== 379258000) && (ItemClass != 4 && pUpgrade->bRateType != 4))
@@ -292,52 +293,52 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 					break;
 
 				case 1:
-					if (proto->m_bKind != 21)
+					if (proto->m_bKind != 21)//proto->m_bKind - One handed swords
 						continue;
 					break;
 
 				case 2:
-					if (proto->m_bKind != 22)
+					if (proto->m_bKind != 22)//proto->m_bKind - Two handed swords
 						continue;
 					break;
 
 				case 3:
-					if (proto->m_bKind != 31) 
+					if (proto->m_bKind != 31)//proto->m_bKind - One handed Axes
 						continue;
 					break;
 
 				case 4:
-					if (proto->m_bKind != 32) 
+					if (proto->m_bKind != 32)//proto->m_bKind - Two haned Axes
 						continue;
 					break;
 
 				case 5:
-					if (proto->m_bKind != 41) 
+					if (proto->m_bKind != 41)//proto->m_bKind - Impacts, Mauls
 						continue;
 					break;
 
 				case 6:
-					if (proto->m_bKind != 42) 
+					if (proto->m_bKind != 42)//proto->m_bKind - Two handed clubs, stars
 						continue;
 					break;
 
 				case 7:
-					if (proto->m_bKind != 51) 
+					if (proto->m_bKind != 51)//proto->m_bKind- One hande spears
 						continue;
 					break;
 
 				case 8:
-					if (proto->m_bKind != 52) 
+					if (proto->m_bKind != 52)//proto->m_bKind - Two handed spears (Raptor)
 						continue;
 					break;
 
 				case 9:
-					if (proto->m_bKind != 70 && proto->m_bKind != 71) 
+					if (proto->m_bKind != 70 && proto->m_bKind != 71)//proto->m_bKind - Bows (70) - Crossbows (71)
 						continue;
 					break;
 
 				case 10:
-					if (proto->m_bKind != 110) 
+					if (proto->m_bKind != 110)//proto->m_bKind - Staffs
 						continue;
 					break;
 
@@ -347,29 +348,29 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 					break;
 
 				case 12:
-					if (proto->m_bKind != 60) 
+					if (proto->m_bKind != 60)//proto->m_bKind - Shields
 						continue;
 					break;
 
 				case 13:
 					if (proto->m_bKind != 210 && proto->m_bKind != 220 && proto->m_bKind != 230 && proto->m_bKind != 240) 
-						continue;
+						continue;//proto->m_bKind - Priest Armors (240) - Mage Armors (2300) - Rogue Armors (220) - Warrior Armors (210)
 					break;
 
 				case 14:
-					if (proto->m_bKind != 11)
+					if (proto->m_bKind != 11)//proto->m_bKind - Daggers
 						continue;
 					break;
 				}
 			}
 
-			if ((nItemID[0] / MIN_ITEM_ID) != (pUpgrade->nIndex / 100000) 
+			/*if ((nItemID[0] / MIN_ITEM_ID) != (pUpgrade->nIndex / 100000) 
 				&& ((pUpgrade->nIndex / 100000) == 1 
 				|| (pUpgrade->nIndex / 100000) == 2))
-				continue;
+				continue;*/
 
 
-			bool isValidMatch = true;
+			bool IsValidMatch = false;
 			// Does our upgrade attempt match the requirements for this upgrade entry?
 			for (int x = 1; x < MAX_ITEMS_REQ_FOR_UPGRADE; x++)
 			{
@@ -381,18 +382,15 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 
 				if (pItem == nullptr
 					|| nItemID[x] != pItem->nNum 
-					|| (nUpgradeType != ITEM_ACCESSORIES 
-					&& nItemID[x] != pUpgrade->nReqItem[x-1]))
+					|| (nUpgradeType != ITEM_ACCESSORIES && nItemID[x] != pUpgrade->nReqItem[x-1]))
 				{
-					if(!trina)
-					isValidMatch = false;
+					IsValidMatch = true;
 					break;
 				}
 			}
 
-			// Not a valid match, try another row.
-			if (!isValidMatch)
-				continue;
+			if (IsValidMatch) { continue; }
+
 
 			if (!hasCoins(pUpgrade->nReqNoah))
 			{
@@ -402,7 +400,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 
 			bResult = UpgradeSucceeded;
 			break;
-		}
+		}//end of foreach
 
 		// If we ran out of upgrades to search through, it failed.
 		if (bResult != UpgradeSucceeded
@@ -413,9 +411,9 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 		int rand = myrand(0, myrand(9000, 10000)),GenRate;
 		if(trina)
 		{
-		GenRate = (pUpgrade->sGenRate + (pUpgrade->sGenRate * 20) / 100);
-				if(GenRate>10000)
-					GenRate=10000;
+			GenRate = (pUpgrade->sGenRate + (pUpgrade->sGenRate * 20) / 100);
+			if(GenRate>10000)
+				GenRate=10000;
 		}
 		else 
 			GenRate = pUpgrade->sGenRate;
@@ -505,7 +503,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 	SendToRegion(&result);
 
 	return;
-fail_return:
+	fail_return:
 	result << bResult;
 
 	// The item data's only sent when not experiencing a general error

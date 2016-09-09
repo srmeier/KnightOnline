@@ -379,6 +379,7 @@ public:
 	ServerResourceArray					m_ServerResourceArray;
 	QuestHelperArray					m_QuestHelperArray;
 	QuestNpcList						m_QuestNpcList;
+	QuestEventIndex						m_QuestEventIndex;
 	QuestMonsterArray					m_QuestMonsterArray;
 	RentalItemArray						m_RentalItemArray;
 	ItemExchangeArray					m_ItemExchangeArray;
