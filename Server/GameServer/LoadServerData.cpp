@@ -102,6 +102,7 @@ bool CGameServerDlg::LoadQuestHelperTable()
 	m_QuestNpcList.clear();
 
 	LOAD_TABLE(CQuestHelperSet, g_DBAgent.m_GameDB, &m_QuestHelperArray,true, false);
+	//_LOAD_TABLE(QuestHelperList, g_DBAgent.m_GameDB, &m_QuestEventIndex, true , false);
 	return true;
 }
 

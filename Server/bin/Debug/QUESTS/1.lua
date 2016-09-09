@@ -1371,10 +1371,10 @@ elseif nEventID == 11001 then
 	if pUser:CheckClass(101, 105, 106, -1, -1, -1) then
 	pUser:SelectMsg(11008, 11001, 6010, 10000, 11050, 17010, 17027, 17070, 17070, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
+	--if false then -- unknown logic command (CHECK_NOCLASS)
 	pUser:SelectMsg(17073, 17070, 17070, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
+	--end
 elseif nEventID == 11010 then
 	if pUser:CheckClass(106, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
@@ -1422,10 +1422,10 @@ elseif nEventID == 12001 then
 	if pUser:CheckClass(107, 108, 102, -1, -1, -1) then
 	pUser:SelectMsg(12008, 11001, 6011, 10000, 12050, 17010, 17040, 17070, 17080, 17501, 17500, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
+	--if false then -- unknown logic command (CHECK_NOCLASS)
 	pUser:SelectMsg(17083, 17070, 17080, 17501, 17500, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
+	--end
 elseif nEventID == 12010 then
 	if pUser:CheckClass(108, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
@@ -1629,10 +1629,10 @@ elseif nEventID == 14001 then
 	if pUser:CheckClass(111, 112, 104, -1, -1, -1) then
 	pUser:SelectMsg(14008, 11001, 6010, 10000, 14050, 17010, 17060, 17070, 17070, 17660, 17660, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
+	--if false then -- unknown logic command (CHECK_NOCLASS)
 	pUser:SelectMsg(17074, 17070, 17070, 17660, 17660, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
+	--end
 elseif nEventID == 14010 then
 	if pUser:CheckClass(112, 212, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
@@ -2069,28 +2069,24 @@ elseif nEventID == 17000 then
 	pUser:SelectMsg(17000, 17002, 17002, 17010, 17010, 17610, 17610, 17620, 17620, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 17002 then
 	local state = pUser:SearchQuest(56);
-	print("State of the Quest is :",state)
 	if state == 2 then
 	pUser:NpcSay(17005, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	
-	local state = pUser:SearchQuest(56);
-	if state == 0 then
-	pUser:NpcSay(17008, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
+	do return; end 
 	end
-	
+	if state == 0 then
+	print("Fuck 0 ")
+	pUser:NpcSay(17008, -1, -1, -1, -1, -1, -1, -1);
+	do return; end 
+	end
 	if pUser:CheckExistItem(910080000, 1) then
 	pUser:RobItem(910080000, 1);
 	pUser:GoldGain(50000);
 	pUser:SaveEvent(56, 2);
 	pUser:NpcSay(17003, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
+	do return; end 
 	end
-	end
-	pUser:NpcSay(17004, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
 elseif nEventID == 17010 then
+	print("We are here")
 	local lvl = pUser:GetLevel();
 	if lvl >= 0 and lvl <= 14 then
 	pUser:NpcSay(35665, -1, -1, -1, -1, -1, -1, -1);
@@ -2107,6 +2103,7 @@ elseif nEventID == 17010 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(57);
+	print("state = 0")
 	if state == 0 then
 	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35670, -1, -1, -1, -1, -1, -1, -1);
@@ -2126,6 +2123,7 @@ elseif nEventID == 17010 then
 	end
 	end
 elseif nEventID == 17022 then
+	print("17022")
 	local state = pUser:SearchQuest(57);
 	if state == 0 then
 	pUser:GiveItem(910081000, 1);
@@ -2169,11 +2167,6 @@ elseif nEventID == 17027 then
 elseif nEventID == 17040 then
 	local state = pUser:SearchQuest(57);
 	if state == 1 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_ITEM'.");
-	if false then -- unknown logic command (CHECK_NOEXIST_ITEM)
-	pUser:NpcSay(17032, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
 	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35670, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2612,6 +2605,7 @@ elseif nEventID == 17601 then
 	pUser:NpcSay(17605, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 17610 then
+	pUser:GiveItem(392011000, 1);
 	pUser:SelectMsg(17610, 17611, 17611, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 17611 then
 	if pUser:EmptySlotCount() == 0 then

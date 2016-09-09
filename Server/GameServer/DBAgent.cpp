@@ -760,7 +760,8 @@ bool CDBAgent::SetLogInInfo(string & strAccountID, string & strCharID, string & 
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strServerIP.c_str(), strServerIP.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strClientIP.c_str(), strClientIP.length());
-
+	//If bInit = 1, it puts the users info in CURRENTUSER table,
+	//and if bInit = 2, it updates the sServerNo and strServerIP for corresponding user in CURRENTUSER
 	if (!dbCommand->Execute(string_format(_T("{? = CALL SET_LOGIN_INFO(%d, ?, ?, %d, ?, ?, %d)}"), result, sServerNo, bInit)))
 		ReportSQLError(m_AccountDB->GetError());
 
@@ -1063,7 +1064,7 @@ int8 CDBAgent::CreateAlliance(uint8 byType, uint16 shAlliancIndex, uint16 shKnig
 	if (dbCommand.get() == nullptr)
 		return bRet;
 	
-
+	//TODO(onurcanbektas): implement (Create, Insert, Remove, Destroy) Alliance, but I'm no sure whether it was in 1298
 	if (!dbCommand->Execute(string_format(_T("{CALL UPDATE_KNIGHTS_ALLIANCE(%d, %d, %d, %d, %d)}"), byType, shAlliancIndex, shKnightsIndex, byEmptyIndex,bySiegeFlag)))
 	ReportSQLError(m_GameDB->GetError());
 
@@ -1535,14 +1536,12 @@ void CDBAgent::AccountLogout(string & strAccountID)
 		return;
 
 	int iCode = 0;
-	uint8 bRet1 = 0;
-	uint8 bRet2 = 0;
+	uint8 bRet = 0;
 
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet1);
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet2);
+	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
 
-	if (!dbCommand->Execute(_T(string_format("{CALL ACCOUNT_LOGOUT(?, %d, ?, ?)}", iCode))))
+	if (!dbCommand->Execute(_T(string_format("{CALL ACCOUNT_LOGOUT(?, %d, ?)}", iCode))))
 		ReportSQLError(m_AccountDB->GetError());
 }
 
@@ -1991,7 +1990,7 @@ void CDBAgent::UpdateRanks()
 	if (dbCommand.get() == nullptr)
 		return;
 
-	if (!dbCommand->Execute(_T("{CALL UPDATE_RANKS}")))
+	if (!dbCommand->Execute(_T("{CALL UPDATE_PERSONAL_RANK}")))
 		ReportSQLError(m_GameDB->GetError());
 }
 
