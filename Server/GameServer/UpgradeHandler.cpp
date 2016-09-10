@@ -370,7 +370,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 				continue;*/
 
 
-			bool IsValidMatch = false;
+			bool IsValidMatch = true;
 			// Does our upgrade attempt match the requirements for this upgrade entry?
 			for (int x = 1; x < MAX_ITEMS_REQ_FOR_UPGRADE; x++)
 			{
@@ -384,12 +384,12 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 					|| nItemID[x] != pItem->nNum 
 					|| (nUpgradeType != ITEM_ACCESSORIES && nItemID[x] != pUpgrade->nReqItem[x-1]))
 				{
-					IsValidMatch = true;
+					IsValidMatch = false;
 					break;
 				}
 			}
 
-			if (IsValidMatch) { continue; }
+			if (!IsValidMatch) { continue; }
 
 
 			if (!hasCoins(pUpgrade->nReqNoah))
