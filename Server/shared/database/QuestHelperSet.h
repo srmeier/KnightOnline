@@ -50,7 +50,19 @@ public:
 				itr = pList->find(pData->sNpcId);
 			}
 
+			QuestEventIndex * pList3 = &g_pMain->m_QuestEventIndex;
+			QuestEventIndex::iterator itr3 = pList3->find(pData->sEventDataIndex);
+			if (itr3 == pList3->end())
+			{
+				pList3->insert(make_pair(pData->sEventDataIndex, QuestHelperList()));
+				itr3 = pList3->find(pData->sEventDataIndex);
+			}
+
 			itr->second.push_back(pData);
+			itr3->second.push_back(pData);
+			
+
+			
 		}
 
 		return true;
