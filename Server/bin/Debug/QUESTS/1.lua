@@ -235,15 +235,18 @@ elseif nEventID == 3002 then
 	end
 	end
 elseif nEventID == 6010 then
-if false then
+	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
+	if false then
 	pUser:SelectMsg(6000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 6011 then
-if false then
+	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
+	if false then
 	pUser:SelectMsg(7000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 6013 then
-if false then
+	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
+	if false then
 	pUser:SelectMsg(8000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 6030 then
@@ -1121,12 +1124,8 @@ elseif nEventID == 10013 then
 elseif nEventID == 10020 then
 	pUser:SelectMsg(10020, 601, 10021, 602, 10022, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 10021 then
-	pUser:NpcSay(10021, -1, -1, -1, -1, -1, -1, -1)
-	local state = pUser:SearchQuest(52);
-	if state == 0 then
-	pUser:SaveEvent(52 ,1);
+	pUser:NpcSay(10021, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
-	end
 elseif nEventID == 10022 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 0 and lvl <= 69 then
@@ -1176,7 +1175,6 @@ elseif nEventID == 10022 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(52);
-	print(state)
 	if state == 1 then
 	if pUser:CheckExistItem(379042000, 1) then
 	if pUser:CheckExistItem(379045000, 20) then
@@ -1375,11 +1373,11 @@ elseif nEventID == 10587 then
 elseif nEventID == 11001 then
 	if pUser:CheckClass(101, 105, 106, -1, -1, -1) then
 	pUser:SelectMsg(11008, 11001, 6010, 10000, 11050, 17010, 17027, 17070, 17070, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	do return end end
-	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	--if false then -- unknown logic command (CHECK_NOCLASS)
+	end
+	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
+	if false then -- unknown logic command (CHECK_NOCLASS)
 	pUser:SelectMsg(17073, 17070, 17070, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	--end
+	end
 elseif nEventID == 11010 then
 	if pUser:CheckClass(106, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
@@ -1426,11 +1424,11 @@ elseif nEventID == 11105 then
 elseif nEventID == 12001 then
 	if pUser:CheckClass(107, 108, 102, -1, -1, -1) then
 	pUser:SelectMsg(12008, 11001, 6011, 10000, 12050, 17010, 17040, 17070, 17080, 17501, 17500, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	do return end end
-	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	--if false then -- unknown logic command (CHECK_NOCLASS)
+	end
+	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
+	if false then -- unknown logic command (CHECK_NOCLASS)
 	pUser:SelectMsg(17083, 17070, 17080, 17501, 17500, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	--end
+	end
 elseif nEventID == 12010 then
 	if pUser:CheckClass(108, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
@@ -1477,11 +1475,11 @@ elseif nEventID == 12105 then
 elseif nEventID == 13001 then
 	if pUser:CheckClass(109, 110, 103, -1, -1, -1) then
 	pUser:SelectMsg(13008, 11001, 6013, 10000, 13050, 17010, 17050, 17070, 17090, 17640, 17640, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	do return end end
-	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	--if false then -- unknown logic command (CHECK_NOCLASS)
+	end
+	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
+	if false then -- unknown logic command (CHECK_NOCLASS)
 	pUser:SelectMsg(17093, 17070, 17090, 17640, 17640, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	--end
+	end
 elseif nEventID == 13010 then
 	if pUser:CheckClass(110, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
@@ -1631,13 +1629,13 @@ elseif nEventID == 13835 then
 	do return; end
 	do return; end
 elseif nEventID == 14001 then
-	if pUser:CheckClass(111, 112, 104, -1 , -1, -1) then
+	if pUser:CheckClass(111, 112, 104, -1, -1, -1) then
 	pUser:SelectMsg(14008, 11001, 6010, 10000, 14050, 17010, 17060, 17070, 17070, 17660, 17660, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	do return end end
-	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	--if false then -- unknown logic command (CHECK_NOCLASS)
+	end
+	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
+	if false then -- unknown logic command (CHECK_NOCLASS)
 	pUser:SelectMsg(17074, 17070, 17070, 17660, 17660, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	--end
+	end
 elseif nEventID == 14010 then
 	if pUser:CheckClass(112, 212, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
@@ -2074,24 +2072,28 @@ elseif nEventID == 17000 then
 	pUser:SelectMsg(17000, 17002, 17002, 17010, 17010, 17610, 17610, 17620, 17620, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 17002 then
 	local state = pUser:SearchQuest(56);
-	if state == 2 then
-	pUser:NpcSay(17005, -1, -1, -1, -1, -1, -1, -1);
-	do return; end 
-	end
-	if state == 0 then
-	print("Fuck 0 ")
-	pUser:NpcSay(17008, -1, -1, -1, -1, -1, -1, -1);
-	do return; end 
-	end
+	if state == 1 then
+	local state = pUser:SearchQuest(56);
+	if state == 1 then
 	if pUser:CheckExistItem(910080000, 1) then
 	pUser:RobItem(910080000, 1);
 	pUser:GoldGain(50000);
 	pUser:SaveEvent(56, 2);
 	pUser:NpcSay(17003, -1, -1, -1, -1, -1, -1, -1);
-	do return; end 
+	do return; end
 	end
+	end
+	pUser:NpcSay(17008, -1, -1, -1, -1, -1, -1, -1);
+	do return; end
+	end
+	local state = pUser:SearchQuest(56);
+	if state == 2 then
+	pUser:NpcSay(17005, -1, -1, -1, -1, -1, -1, -1);
+	do return; end
+	end
+	pUser:NpcSay(17004, -1, -1, -1, -1, -1, -1, -1);
+	do return; end
 elseif nEventID == 17010 then
-	print("We are here")
 	local lvl = pUser:GetLevel();
 	if lvl >= 0 and lvl <= 14 then
 	pUser:NpcSay(35665, -1, -1, -1, -1, -1, -1, -1);
@@ -2103,34 +2105,30 @@ elseif nEventID == 17010 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(57);
-	print(state)
 	if state == 1 then
 	pUser:NpcSay(17014, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	local state = pUser:SearchQuest(57);
-	print(state)
 	if state == 0 then
 	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35670, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	if pUser:CheckClass(101, 105, 106, 201, 205, 206) then
+	if pUser:CheckClass(101, 105, 106, -1, -1, -1) then
 	pUser:SelectMsg(17018, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	if pUser:CheckClass(102, 107, 108, 202, 207, 208) then
-	print("AAA")
+	if pUser:CheckClass(102, 107, 108, -1, -1, -1) then
 	pUser:SelectMsg(17019, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	if pUser:CheckClass(103, 109, 110, 203, 209, 210) then
+	if pUser:CheckClass(103, 109, 110, -1, -1, -1) then
 	pUser:SelectMsg(17020, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	if pUser:CheckClass(104, 111, 112, 204, 211, 212) then
+	if pUser:CheckClass(104, 111, 112, -1, -1, -1) then
 	pUser:SelectMsg(17021, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 	end
 elseif nEventID == 17022 then
-	print("17022")
 	local state = pUser:SearchQuest(57);
 	if state == 0 then
 	pUser:GiveItem(910081000, 1);
@@ -2174,6 +2172,11 @@ elseif nEventID == 17027 then
 elseif nEventID == 17040 then
 	local state = pUser:SearchQuest(57);
 	if state == 1 then
+	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_ITEM'.");
+	if false then -- unknown logic command (CHECK_NOEXIST_ITEM)
+	pUser:NpcSay(17032, -1, -1, -1, -1, -1, -1, -1);
+	do return; end
+	end
 	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35670, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2379,7 +2382,6 @@ elseif nEventID == 17505 then
 	if state == 1 then
 	if pUser:CheckExistItem(910082000, 5) then
 	pUser:RobItem(910082000, 5);
-	pUser:GoldGain(500000) -- a quest without a prize is ridiculous
 	pUser:SaveEvent(62, 2);
 	pUser:NpcSay(17512, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -2613,7 +2615,6 @@ elseif nEventID == 17601 then
 	pUser:NpcSay(17605, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 17610 then
-	--pUser:GiveItem(392011000, 1);
 	pUser:SelectMsg(17610, 17611, 17611, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 17611 then
 	if pUser:EmptySlotCount() == 0 then
@@ -2629,7 +2630,6 @@ elseif nEventID == 17611 then
 	do return; end
 elseif nEventID == 17620 then
 	local state = pUser:SearchQuest(68);
-	print(state)
 	if state == 2 then
 	pUser:NpcSay(17621, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2667,7 +2667,6 @@ elseif nEventID == 17626 then
 	end
 elseif nEventID == 17630 then
 	local state = pUser:SearchQuest(68);
-	print(state)
 	if state == 2 then
 	pUser:SelectMsg(17631, 17634, 17634, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -2690,7 +2689,6 @@ elseif nEventID == 17634 then
 	do return; end
 elseif nEventID == 17637 then
 	local state = pUser:SearchQuest(68);
-	print(state)
 	if state == 1 then
 	if pUser:CheckExistItem(910089000, 1) then
 	pUser:RobItem(910089000, 1);
