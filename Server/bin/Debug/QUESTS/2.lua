@@ -1,5 +1,5 @@
 if nEventID == 1 then
-	if pUser:CheckClass(111, 112, -1, -1, -1, -1) then
+	if pUser:CheckClass(211, 212, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
 	if false then -- unknown logic command (CHECK_SKILL_POINT)
 	pUser:SelectMsg(1, 3, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
@@ -164,6 +164,8 @@ elseif nEventID == 2101 then
 	do return; end
 elseif nEventID == 3001 then
 	do return; end
+	pUser:SendDebugString("Unknown EXEC command 'OPEN_EDITBOX'."); -- unknown execute command (OPEN_EDITBOX)
+	do return; end
 elseif nEventID == 3002 then
 	do return; end
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_EDITBOX'.");
@@ -253,676 +255,6 @@ elseif nEventID == 6040 then
 	pUser:SendDebugString("Unknown EXEC command 'PROMOTE_USER'."); -- unknown execute command (PROMOTE_USER)
 	do return; end
 	do return; end
-elseif nEventID == 7281 then
-	local count = pUser:HowMuchItem(379049000);
-	if count >= 0 and count <= 4 then
-	pUser:NpcSay(7160, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 7282 then
-	local count = pUser:HowMuchItem(379050000);
-	if count >= 0 and count <= 4 then
-	pUser:NpcSay(7160, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 7283 then
-	local count = pUser:HowMuchItem(379051000);
-	if count >= 0 and count <= 4 then
-	pUser:NpcSay(7160, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 7284 then
-	local count = pUser:HowMuchItem(379052000);
-	if count >= 0 and count <= 4 then
-	pUser:NpcSay(7160, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 7285 then
-	local count = pUser:HowMuchItem(379053000);
-	if count >= 0 and count <= 4 then
-	pUser:NpcSay(7160, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 7291 then
-	local count = pUser:HowMuchItem(379049000);
-	if count >= 1 and count <= 9999 then
-	if pUser:CheckExistItem(379049000, 5) then
-	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7110, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379049000, 5) then
-	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7120, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379049000, 5) then
-	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7130, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379049000, 5) then
-	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7140, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	end
-elseif nEventID == 7292 then
-	local count = pUser:HowMuchItem(379050000);
-	if count >= 1 and count <= 9999 then
-	if pUser:CheckExistItem(379050000, 5) then
-	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7150, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379050000, 5) then
-	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7160, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379050000, 5) then
-	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7170, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379050000, 5) then
-	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7180, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	end
-elseif nEventID == 7293 then
-	local count = pUser:HowMuchItem(379051000);
-	if count >= 1 and count <= 9999 then
-	if pUser:CheckExistItem(379051000, 5) then
-	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7190, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379051000, 5) then
-	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7200, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379051000, 5) then
-	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7210, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379051000, 5) then
-	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7220, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	end
-elseif nEventID == 7294 then
-	local count = pUser:HowMuchItem(379052000);
-	if count >= 1 and count <= 9999 then
-	if pUser:CheckExistItem(379052000, 5) then
-	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7230, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379052000, 5) then
-	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7240, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379052000, 5) then
-	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7250, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379052000, 5) then
-	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7260, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	end
-elseif nEventID == 7295 then
-	local count = pUser:HowMuchItem(379053000);
-	if count >= 1 and count <= 9999 then
-	if pUser:CheckExistItem(379053000, 5) then
-	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7270, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379053000, 5) then
-	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7280, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379053000, 5) then
-	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7290, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	if pUser:CheckExistItem(379053000, 5) then
-	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7300, 0);
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7320, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7330, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7340, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
-	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
-	pUser:NpcSay(7350, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	end
 elseif nEventID == 8001 then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_ITEM'.");
 	if false then -- unknown logic command (CHECK_NOEXIST_ITEM)
@@ -1016,7 +348,7 @@ elseif nEventID == 10004 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(51);
-	if state == 1 then
+	if state == 0 then
 	if pUser:CheckExistItem(379041000, 1) then
 	if pUser:CheckExistItem(389076000, 30) then
 	if pUser:CheckExistItem(910042000, 30) then
@@ -1091,7 +423,7 @@ elseif nEventID == 10013 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(51);
-	if state == 1 then
+	if state == 0 then
 	if pUser:CheckExistItem(379041000, 1) then
 	if pUser:CheckExistItem(389076000, 30) then
 	if pUser:CheckExistItem(910042000, 30) then
@@ -1121,7 +453,7 @@ elseif nEventID == 10013 then
 elseif nEventID == 10020 then
 	pUser:SelectMsg(10020, 601, 10021, 602, 10022, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 10021 then
-	pUser:NpcSay(10021, -1, -1, -1, -1, -1, -1, -1)
+	pUser:NpcSay(10021, -1, -1, -1, -1, -1, -1, -1);
 	local state = pUser:SearchQuest(52);
 	if state == 0 then
 	pUser:SaveEvent(52 ,1);
@@ -1176,7 +508,6 @@ elseif nEventID == 10022 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(52);
-	print(state)
 	if state == 1 then
 	if pUser:CheckExistItem(379042000, 1) then
 	if pUser:CheckExistItem(379045000, 20) then
@@ -1373,7 +704,7 @@ elseif nEventID == 10587 then
 	do return; end
 	end
 elseif nEventID == 11001 then
-	if pUser:CheckClass(101, 105, 106, -1, -1, -1) then
+	if pUser:CheckClass(201, 205, 206, -1, -1, -1) then
 	pUser:SelectMsg(11008, 11001, 6010, 10000, 11050, 17010, 17027, 17070, 17070, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return end end
 	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
@@ -1381,7 +712,7 @@ elseif nEventID == 11001 then
 	pUser:SelectMsg(17073, 17070, 17070, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	--end
 elseif nEventID == 11010 then
-	if pUser:CheckClass(106, -1, -1, -1, -1, -1) then
+	if pUser:CheckClass(206, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 61 then
 	pUser:NpcSay(11120, -1, -1, -1, -1, -1, -1, -1);
@@ -1412,7 +743,7 @@ elseif nEventID == 11010 then
 	do return; end
 	do return; end
 	end
-	if pUser:CheckClass(101, 105, -1, -1, -1, -1) then
+	if pUser:CheckClass(201, 205, -1, -1, -1, -1) then
 	pUser:NpcSay(11030, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -1424,15 +755,15 @@ elseif nEventID == 11105 then
 	pUser:NpcSay(11105, 11106, 11107, 11108, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 12001 then
-	if pUser:CheckClass(107, 108, 102, -1, -1, -1) then
-	pUser:SelectMsg(12008, 11001, 6011, 10000, 12050, 17010, 17040, 17070, 17080, 17501, 17500, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	if pUser:CheckClass(207, 208, 202, -1, -1, -1) then
+	pUser:SelectMsg(12008, 11001, 6011, 10000, 12050, 17010, 17040, 17070, 17080, 17500, 17500, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return end end
 	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
 	--if false then -- unknown logic command (CHECK_NOCLASS)
-	pUser:SelectMsg(17083, 17070, 17080, 17501, 17500, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SelectMsg(17083, 17070, 17080, 17500, 17500, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	--end
 elseif nEventID == 12010 then
-	if pUser:CheckClass(108, -1, -1, -1, -1, -1) then
+	if pUser:CheckClass(208, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 61 then
 	pUser:NpcSay(12120, -1, -1, -1, -1, -1, -1, -1);
@@ -1463,7 +794,7 @@ elseif nEventID == 12010 then
 	do return; end
 	do return; end
 	end
-	if pUser:CheckClass(102, 107, -1, -1, -1, -1) then
+	if pUser:CheckClass(202, 207, -1, -1, -1, -1) then
 	pUser:NpcSay(12030, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -1475,7 +806,7 @@ elseif nEventID == 12105 then
 	pUser:NpcSay(12105, 12106, 12107, 12108, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 13001 then
-	if pUser:CheckClass(109, 110, 103, -1, -1, -1) then
+	if pUser:CheckClass(209, 210, 203, -1, -1, -1) then
 	pUser:SelectMsg(13008, 11001, 6013, 10000, 13050, 17010, 17050, 17070, 17090, 17640, 17640, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return end end
 	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
@@ -1483,7 +814,7 @@ elseif nEventID == 13001 then
 	pUser:SelectMsg(17093, 17070, 17090, 17640, 17640, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	--end
 elseif nEventID == 13010 then
-	if pUser:CheckClass(110, -1, -1, -1, -1, -1) then
+	if pUser:CheckClass(210, -1, -1, -1, -1, -1) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 61 then
 	pUser:NpcSay(13120, -1, -1, -1, -1, -1, -1, -1);
@@ -1529,7 +860,7 @@ elseif nEventID == 13010 then
 	do return; end
 	do return; end
 	end
-	if pUser:CheckClass(103, 109, -1, -1, -1, -1) then
+	if pUser:CheckClass(203, 209, -1, -1, -1, -1) then
 	pUser:NpcSay(13030, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -1631,7 +962,7 @@ elseif nEventID == 13835 then
 	do return; end
 	do return; end
 elseif nEventID == 14001 then
-	if pUser:CheckClass(111, 112, 104, -1 , -1, -1) then
+	if pUser:CheckClass(211, 212, 204, -1, -1, -1) then
 	pUser:SelectMsg(14008, 11001, 6010, 10000, 14050, 17010, 17060, 17070, 17070, 17660, 17660, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return end end
 	--pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
@@ -1706,7 +1037,7 @@ elseif nEventID == 15054 then
 elseif nEventID == 15060 then
 	local state = pUser:SearchQuest(8);
 	if state == 0 then
-	pUser:NpcSay(15060, 15061, 15062, 15063, -1, -1, -1, -1);
+	pUser:NpcSay(15065, 15066, 15067, 15068, -1, -1, -1, -1);
 	pUser:GiveItem(910044000, 0);
 	do return; end
 	end
@@ -1905,10 +1236,8 @@ elseif nEventID == 15841 then
 	pUser:SelectMsg(15845, 15850, 15850, 15855, 15855, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 15850 then
-	if pUser:CheckExistItem(910052000, 0) then
 	pUser:RobItem(910052000, 0);
 	pUser:SelectMsg(15850, 15811, 15812, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
 elseif nEventID == 15855 then
 	local state = pUser:SearchQuest(9);
 	if state == 1 then
@@ -1960,10 +1289,8 @@ elseif nEventID == 15890 then
 	end
 	end
 elseif nEventID == 15895 then
-	if pUser:CheckExistItem(910054000, 0) then
 	pUser:RobItem(910054000, 0);
 	pUser:SelectMsg(15895, 15811, 15812, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
 elseif nEventID == 15901 then
 	local count = pUser:HowMuchItem(910055000);
 	if count >= 0 and count <= 0 then
@@ -1975,18 +1302,14 @@ elseif nEventID == 15901 then
 	pUser:SelectMsg(15905, 15910, 15910, 15915, 15915, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 15910 then
-	if pUser:CheckExistItem(910055000, 0) then
 	pUser:RobItem(910055000, 0);
 	pUser:SelectMsg(15910, 15811, 15812, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
 elseif nEventID == 15915 then
 	local state = pUser:SearchQuest(9);
 	if state == 1 then
-	if pUser:CheckExistItem(910055000, 0) then
 	pUser:RobItem(910055000, 0);
 	pUser:GiveItem(910056000, 0);
 	pUser:SelectMsg(15915, 15811, 15812, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
 	end
 elseif nEventID == 15921 then
 	local count = pUser:HowMuchItem(910056000);
@@ -2071,7 +1394,7 @@ elseif nEventID == 16958 then
 	pUser:NpcSay(15959, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 17000 then
-	pUser:SelectMsg(17000, 17002, 17002, 17010, 17010, 17610, 17610, 17620, 17620, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SelectMsg(17001, 17002, 17002, 17010, 17010, 17610, 17610, 17620, 17620, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 17002 then
 	local state = pUser:SearchQuest(56);
 	if state == 2 then
@@ -2079,7 +1402,6 @@ elseif nEventID == 17002 then
 	do return; end 
 	end
 	if state == 0 then
-	print("Fuck 0 ")
 	pUser:NpcSay(17008, -1, -1, -1, -1, -1, -1, -1);
 	do return; end 
 	end
@@ -2091,7 +1413,7 @@ elseif nEventID == 17002 then
 	do return; end 
 	end
 elseif nEventID == 17010 then
-	print("We are here")
+print("We are here")
 	local lvl = pUser:GetLevel();
 	if lvl >= 0 and lvl <= 14 then
 	pUser:NpcSay(35665, -1, -1, -1, -1, -1, -1, -1);
@@ -2103,34 +1425,31 @@ elseif nEventID == 17010 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(57);
-	print(state)
 	if state == 1 then
 	pUser:NpcSay(17014, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	local state = pUser:SearchQuest(57);
-	print(state)
 	if state == 0 then
 	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35670, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	if pUser:CheckClass(101, 105, 106, 201, 205, 206) then
-	pUser:SelectMsg(17018, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	if pUser:CheckClass(201, 205, 206, -1, -1, -1) then
+	pUser:SelectMsg(17023, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	if pUser:CheckClass(102, 107, 108, 202, 207, 208) then
-	print("AAA")
-	pUser:SelectMsg(17019, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	if pUser:CheckClass(202, 207, 208, -1, -1, -1) then
+	pUser:SelectMsg(17024, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	if pUser:CheckClass(103, 109, 110, 203, 209, 210) then
-	pUser:SelectMsg(17020, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	if pUser:CheckClass(203, 209, 210, -1, -1, -1) then
+	pUser:SelectMsg(17025, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	if pUser:CheckClass(104, 111, 112, 204, 211, 212) then
-	pUser:SelectMsg(17021, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	if pUser:CheckClass(204, 211, 212, -1, -1, -1) then
+	pUser:SelectMsg(17026, 35663, 17022, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 	end
 elseif nEventID == 17022 then
-	print("17022")
+	print("17022 lua 2")
 	local state = pUser:SearchQuest(57);
 	if state == 0 then
 	pUser:GiveItem(910081000, 1);
@@ -2173,6 +1492,7 @@ elseif nEventID == 17027 then
 	end
 elseif nEventID == 17040 then
 	local state = pUser:SearchQuest(57);
+	print(state)
 	if state == 1 then
 	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(35670, -1, -1, -1, -1, -1, -1, -1);
@@ -2282,7 +1602,7 @@ elseif nEventID == 17070 then
 	if lvl >= 15 and lvl <= 99 then
 	local state = pUser:SearchQuest(58);
 	if state == 2 then
-	pUser:NpcSay(17070, 17072, -1, -1, -1, -1, -1, -1);
+	pUser:NpcSay(17071, 17072, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	do return; end
@@ -2297,7 +1617,7 @@ elseif nEventID == 17080 then
 	if lvl >= 15 and lvl <= 99 then
 	local state = pUser:SearchQuest(59);
 	if state == 2 then
-	pUser:NpcSay(17080, 17082, -1, -1, -1, -1, -1, -1);
+	pUser:NpcSay(17081, 17082, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	do return; end
@@ -2315,37 +1635,6 @@ elseif nEventID == 17090 then
 	pUser:NpcSay(17090, 17092, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	do return; end
-	end
-elseif nEventID == 17100 then
-	pUser:SelectMsg(17100, 17101, 17101, 17102, 17105, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-elseif nEventID == 17101 then
-	pUser:NpcSay(17101, 17102, 17103, 17104, -1, -1, -1, -1);
-	do return; end
-elseif nEventID == 17105 then
-	pUser:SelectMsg(17106, 17106, 17107, 17107, 17108, 17108, 17109, 17109, 17110, 17110, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, 0);
-elseif nEventID == 17106 then
-	local coins = pUser:GetCoins();
-	if coins >= 0 and coins <= 99 then
-	pUser:NpcSay(7170, 7260, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 17107 then
-	local coins = pUser:GetCoins();
-	if coins >= 0 and coins <= 99 then
-	pUser:NpcSay(7170, 7230, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 17108 then
-	local coins = pUser:GetCoins();
-	if coins >= 0 and coins <= 99 then
-	pUser:NpcSay(7170, 7240, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 17109 then
-	local coins = pUser:GetCoins();
-	if coins >= 0 and coins <= 99 then
-	pUser:NpcSay(7170, 7250, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 elseif nEventID == 17500 then
@@ -2379,7 +1668,6 @@ elseif nEventID == 17505 then
 	if state == 1 then
 	if pUser:CheckExistItem(910082000, 5) then
 	pUser:RobItem(910082000, 5);
-	pUser:GoldGain(500000) -- a quest without a prize is ridiculous
 	pUser:SaveEvent(62, 2);
 	pUser:NpcSay(17512, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -2497,16 +1785,7 @@ elseif nEventID == 17550 then
 	pUser:SelectMsg(17550, 17558, 17558, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 17555 then
-	local state = pUser:SearchQuest(65);
-	if state == 1 then
-	if pUser:CheckExistItem(379204000, 5) then
-	pUser:RobItem(379204000, 5);
-	pUser:SaveEvent(65, 2);
-	pUser:ExpChange(5000);
-	pUser:NpcSay(17556, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
-	end
-	end
 	pUser:NpcSay(17557, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 17558 then
@@ -2594,6 +1873,7 @@ elseif nEventID == 17596 then
 	pUser:SaveEvent(67, 2);
 	pUser:GoldGain(500000);
 	pUser:NpcSay(17597, -1, -1, -1, -1, -1, -1, -1);
+	do return; end
 	end
 	end
 	pUser:NpcSay(17598, -1, -1, -1, -1, -1, -1, -1);
@@ -2629,7 +1909,6 @@ elseif nEventID == 17611 then
 	do return; end
 elseif nEventID == 17620 then
 	local state = pUser:SearchQuest(68);
-	print(state)
 	if state == 2 then
 	pUser:NpcSay(17621, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2667,7 +1946,6 @@ elseif nEventID == 17626 then
 	end
 elseif nEventID == 17630 then
 	local state = pUser:SearchQuest(68);
-	print(state)
 	if state == 2 then
 	pUser:SelectMsg(17631, 17634, 17634, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -2690,7 +1968,6 @@ elseif nEventID == 17634 then
 	do return; end
 elseif nEventID == 17637 then
 	local state = pUser:SearchQuest(68);
-	print(state)
 	if state == 1 then
 	if pUser:CheckExistItem(910089000, 1) then
 	pUser:RobItem(910089000, 1);
@@ -2705,7 +1982,7 @@ elseif nEventID == 17637 then
 elseif nEventID == 17640 then
 	local state = pUser:SearchQuest(69);
 	if state == 2 then
-	pUser:NpcSay(17641, -1, -1, -1, -1, -1, -1, -1);
+	pUser:NpcSay(17642, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	local lvl = pUser:GetLevel();
@@ -2713,23 +1990,23 @@ elseif nEventID == 17640 then
 	pUser:NpcSay(17643, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SelectMsg(17644, 17645, 17651, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SelectMsg(17645, 17646, 17651, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	local state = pUser:SearchQuest(69);
 	if state == 1 then
-	pUser:SelectMsg(17646, 17647, 17647, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	pUser:SelectMsg(17647, 17648, 17647, 35664, 17023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 17647 then
 	local state = pUser:SearchQuest(69);
 	if state == 1 then
-	if pUser:CheckExistItem(910090000, 1) then
-	pUser:RobItem(910090000, 1);
+	if pUser:CheckExistItem(910091000, 1) then
+	pUser:RobItem(910091000, 1);
 	pUser:ExpChange(10000000);
 	pUser:SaveEvent(69, 2);
 	pUser:NpcSay(17648, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	end
-	pUser:NpcSay(17649, -1, -1, -1, -1, -1, -1, -1);
+	pUser:NpcSay(17650, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 17651 then
 	local state = pUser:SearchQuest(69);
@@ -2778,7 +2055,7 @@ elseif nEventID == 17669 then
 elseif nEventID == 17681 then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NATION'.");
 	if false then -- unknown logic command (CHECK_NATION)
-	pUser:NpcSay(17682, -1, -1, -1, -1, -1, -1, -1);
+	pUser:NpcSay(17683, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_MIDDLE_STATUE_NOCAPTURE'.");

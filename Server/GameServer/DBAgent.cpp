@@ -58,6 +58,7 @@ bool CDBAgent::Connect(bool bMarsEnabled,
 	return true;
 }
 
+
 void CDBAgent::ReportSQLError(OdbcError *pError)
 {
 	if (pError == nullptr)
@@ -81,6 +82,14 @@ void CDBAgent::ReportSQLError(OdbcError *pError)
 	TRACE("Database error: %s\n", errorMessage.c_str());
 	delete pError;
 }
+
+/*
+You may notice that while calling a stored procedure, some functions gives OUTPUT variable(bRet) to a initial value.
+it has to be done, I don't know why, but if you don't, there will be a parameter shift while passing the parameters to
+SP, so either you can pass a initial value to the OUTPUT parameter, as I did in while caliing the CREATE_KNIGHTS procedure,
+or you can simply put the OUTPUT parameter to the end in the SP and bind its pointer to the end of the execution command, 
+as it is done while calling the ACCOUNT_LOGIN procedure.
+*/
 
 int8 CDBAgent::AccountLogin(string & strAccountID, string & strPasswd)
 {
@@ -224,7 +233,8 @@ int8 CDBAgent::ChangeHair(std::string & strAccountID, std::string & strCharID, u
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
-
+	//TODO(onurcanbektas): Add Hair type to the USERDATA and create CHANCE_HAIR procedure
+	//Also, add this function to another parameter called bHairColor so that we won't need another function for changing hair color.
 	if (!dbCommand->Execute(string_format(_T("{? = CALL CHANGE_HAIR(?, ?, %d, %d, %d)}"), 
 		bOpcode, bFace, nHair)))
 		ReportSQLError(m_GameDB->GetError());
@@ -243,7 +253,7 @@ int8 CDBAgent::DeleteChar(string & strAccountID, int index, string & strCharID, 
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strSocNo.c_str(), strSocNo.length());
-
+	//TODO(onurcanbektas): implement the fuction.
 	if (!dbCommand->Execute(string_format(_T("{? = CALL DELETE_CHAR(?, %d, ?, ?)}"), index)))
 		ReportSQLError(m_GameDB->GetError());
 
@@ -744,39 +754,19 @@ bool CDBAgent::SetLogInInfo(string & strAccountID, string & strCharID, string & 
 	unique_ptr<OdbcCommand> dbCommand(m_AccountDB->CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return false;
-	/*
+	
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &result);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strServerIP.c_str(), strServerIP.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strClientIP.c_str(), strClientIP.length());
-
-	if (!dbCommand->Execute(string_format(_T("{? = CALL SET_LOGIN_INFO(?, ?, %d, ?, ?, %d)}"), sServerNo, bInit)))
+	//If bInit = 1, it puts the users info in CURRENTUSER table,
+	//and if bInit = 2, it updates the sServerNo and strServerIP for corresponding user in CURRENTUSER
+	if (!dbCommand->Execute(string_format(_T("{? = CALL SET_LOGIN_INFO(%d, ?, ?, %d, ?, ?, %d)}"), result, sServerNo, bInit)))
 		ReportSQLError(m_AccountDB->GetError());
 
 	return (bool)(result == 0 ? false : true);
-	*/
-
-	if(bInit == 0x01) {
-		if (!dbCommand->Execute(string_format(_T(
-				"INSERT INTO CURRENTUSER (strAccountID, strCharID, nServerNo, strServerIP, strClientIP) VALUES (\'%s\',\'%s\',%d,\'%s\',\'%s\')"),
-				strAccountID.c_str(), strCharID.c_str(), sServerNo, strServerIP.c_str(), strClientIP.c_str()))
-		) {
-			ReportSQLError(m_AccountDB->GetError());
-			return false;
-		}
-	}
-	else if (bInit == 0x02) {
-		if (!dbCommand->Execute(string_format(_T(
-				"UPDATE CURRENTUSER SET nServerNo=%d, strServerIP=\'%s\' WHERE strAccountID = \'%s\'"),
-				sServerNo, strServerIP.c_str(), strAccountID.c_str()))
-		) {
-			ReportSQLError(m_AccountDB->GetError());
-			return false;
-		}
-	} else return false;
-
-	return true;
+	
 }
 
 bool CDBAgent::LoadWebItemMall(std::vector<_ITEM_DATA> & itemList, CUser *pUser)
@@ -1074,7 +1064,7 @@ int8 CDBAgent::CreateAlliance(uint8 byType, uint16 shAlliancIndex, uint16 shKnig
 	if (dbCommand.get() == nullptr)
 		return bRet;
 	
-
+	//TODO(onurcanbektas): implement (Create, Insert, Remove, Destroy) Alliance, but I'm no sure whether it was in 1298
 	if (!dbCommand->Execute(string_format(_T("{CALL UPDATE_KNIGHTS_ALLIANCE(%d, %d, %d, %d, %d)}"), byType, shAlliancIndex, shKnightsIndex, byEmptyIndex,bySiegeFlag)))
 	ReportSQLError(m_GameDB->GetError());
 
@@ -1137,7 +1127,6 @@ int8 CDBAgent::CreateKnights(uint16 sClanID, uint8 bNation, string & strKnightsN
 
 	if (!dbCommand->Execute(string_format(_T("{? = CALL CREATE_KNIGHTS (%d, %d, %d, %d, ?, ?)}"), bRet, sClanID, bNation, bFlag)))
 		ReportSQLError(m_GameDB->GetError());
-
 
 	return bRet;
 }
@@ -1547,14 +1536,12 @@ void CDBAgent::AccountLogout(string & strAccountID)
 		return;
 
 	int iCode = 0;
-	uint8 bRet1 = 0;
-	uint8 bRet2 = 0;
+	uint8 bRet = 0;
 
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet1);
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet2);
+	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
 
-	if (!dbCommand->Execute(_T(string_format("{CALL ACCOUNT_LOGOUT(?, %d, ?, ?)}", iCode))))
+	if (!dbCommand->Execute(_T(string_format("{CALL ACCOUNT_LOGOUT(?, %d, ?)}", iCode))))
 		ReportSQLError(m_AccountDB->GetError());
 }
 
@@ -2003,7 +1990,7 @@ void CDBAgent::UpdateRanks()
 	if (dbCommand.get() == nullptr)
 		return;
 
-	if (!dbCommand->Execute(_T("{CALL UPDATE_RANKS}")))
+	if (!dbCommand->Execute(_T("{CALL UPDATE_PERSONAL_RANK}")))
 		ReportSQLError(m_GameDB->GetError());
 }
 

@@ -354,8 +354,8 @@ struct _ITEM_TABLE
 	int16	m_bMagicR;
 	int16	m_bPoisonR;
 	int16	m_bCurseR;
-	int16	ItemClass;
-	int16	ItemExt;
+	//int16	ItemClass;
+	//int16	ItemExt;
 
 	INLINE bool isStackable() { return m_bCountable != 0; }
 
