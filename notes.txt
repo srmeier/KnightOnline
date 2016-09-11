@@ -4,8 +4,7 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- finish the love letter quest
-- implement CHECK_ITEMCHANGE_NUM
+- finish the 7 keys quest
 
 
 
