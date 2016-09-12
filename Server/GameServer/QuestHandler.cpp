@@ -437,6 +437,21 @@ bool CUser::PromoteUser()
 	CKnightsManager::CurrentKnightsMember(this, result); // TODO: Clean this up too.
 	return true;
 }
+bool CUser::CheckPromoteEligible()//For the time being, basic checks for promotion to master class
+{
+	if (!isNovice())
+		return false;
+
+	if (!(GetLevel() >= 60))
+		return false;
+
+	if (isMastered())
+		return false;
+	//TODO(onurcanbektas): Implement a proper CheckPromotionEligible()
+	//					 : Add total stat-skill point check
+	return true;
+}
+
 
 void CUser::PromoteClan(ClanTypeFlag byFlag)
 {

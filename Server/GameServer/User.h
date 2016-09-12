@@ -604,6 +604,7 @@ public:
 	bool RobItem(uint8 bPos, _ITEM_TABLE * pTable, uint32 sCount = 1);
 	bool RobAllItemParty(uint32 nItemID, uint16 sCount = 1);
 	bool CheckExistItem(int itemid, short count = 1);
+	bool CheckNoExistItem(int itemid, short count = 1);
 	bool CheckExistItemAnd(int32 nItemID1, int32 sCount1, int32 nItemID2, int32 sCount2,
 		int32 nItemID3, int32 sCount3, int32 nItemID4, int32 sCount4, int32 nItemID5, int32 sCount5,
 		int32 nItemID6, int32 sCount6, int32 nItemID7, int32 sCount7, int32 nItemID8, int32 sCount8,
@@ -1017,6 +1018,7 @@ public:
 
 	bool PromoteUserNovice();
 	bool PromoteUser();
+	bool CheckPromoteEligible();
 	void PromoteClan(ClanTypeFlag byFlag);
 
 	// Attack/zone checks
@@ -1206,6 +1208,12 @@ public:
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckExistItem(
 			LUA_ARG(uint32, 2), 
 			LUA_ARG_OPTIONAL(uint16, 1, 3)));
+	}//CheckNoExistItem
+
+	DECLARE_LUA_FUNCTION(CheckNoExistItem) {
+		LUA_RETURN(LUA_GET_INSTANCE()->CheckNoExistItem(
+			LUA_ARG(uint32, 2),
+			LUA_ARG_OPTIONAL(uint16, 1, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(GoldGain) {
@@ -1328,6 +1336,11 @@ public:
 
 	DECLARE_LUA_FUNCTION(PromoteUser) {
 		LUA_RETURN(LUA_GET_INSTANCE()->PromoteUser());
+	}
+	
+	DECLARE_LUA_FUNCTION(CheckPromoteEligible) {
+		LUA_RETURN(LUA_GET_INSTANCE()->CheckPromoteEligible());
+
 	}
 
 	DECLARE_LUA_FUNCTION(ShowEffect) {

@@ -267,6 +267,13 @@ bool CUser::CheckExistItem(int itemid, short count /*= 1*/)
 	return false;
 }
 
+bool CUser::CheckNoExistItem(int itemid, short count){
+
+	bool CheckResult = CheckExistItem(itemid, count);
+	return (!CheckResult);
+
+}
+
 uint32 CUser::GetItemCount(uint32 nItemID)
 {
 	uint32 result = 0;

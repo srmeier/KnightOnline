@@ -1,29 +1,23 @@
 if nEventID == 1 then
 	if pUser:CheckClass(111, 112, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 30, 39) then
 	pUser:SelectMsg(1, 3, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 40, 49) then
 	pUser:SelectMsg(1, 3, 8, 4, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 50, 59) then
 	pUser:SelectMsg(1, 3, 8, 4, 9, 5, 10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 60, 69) then
 	pUser:SelectMsg(1, 3, 8, 4, 9, 5, 10, 6, 11, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 70, 90) then
 	pUser:SelectMsg(1, 3, 8, 4, 9, 5, 10, 6, 11, 7, 12, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 	end
 elseif nEventID == 8 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(389011000, 10) then
 	pUser:NpcSay(3, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -37,13 +31,11 @@ elseif nEventID == 8 then
 	end
 	end
 elseif nEventID == 9 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(389012000, 10) then
 	pUser:NpcSay(3, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 40, 90) then
 	if pUser:CheckExistItem(389010000, 10) then
 	if pUser:CheckExistItem(379002000, 10) then
 	pUser:RobItem(389010000, 10);
@@ -55,13 +47,11 @@ elseif nEventID == 9 then
 	end
 	end
 elseif nEventID == 10 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(389013000, 10) then
 	pUser:NpcSay(3, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 50, 90) then
 	if pUser:CheckExistItem(389010000, 10) then
 	if pUser:CheckExistItem(379003000, 10) then
 	pUser:RobItem(389010000, 10);
@@ -73,13 +63,11 @@ elseif nEventID == 10 then
 	end
 	end
 elseif nEventID == 11 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(389014000, 10) then
 	pUser:NpcSay(3, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 60, 90) then
 	if pUser:CheckExistItem(389010000, 10) then
 	if pUser:CheckExistItem(379004000, 10) then
 	pUser:RobItem(389010000, 10);
@@ -91,13 +79,11 @@ elseif nEventID == 11 then
 	end
 	end
 elseif nEventID == 12 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(389015000, 10) then
 	pUser:NpcSay(3, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_POINT'.");
-	if false then -- unknown logic command (CHECK_SKILL_POINT)
+	if pUser:CheckSkillPoint(5, 70, 90) then
 	if pUser:CheckExistItem(389010000, 10) then
 	if pUser:CheckExistItem(379005000, 10) then
 	pUser:RobItem(389010000, 10);
@@ -111,8 +97,7 @@ elseif nEventID == 12 then
 elseif nEventID == 1001 then
 	pUser:SelectMsg(15952, 1001, 2001, 1002, 16951, 1006, 2101, 35578, 35623, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 2001 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_KNIGHT'.");
-	if false then -- unknown logic command (CHECK_KNIGHT)
+	if not pUser:CheckKnight() then
 	pUser:NpcSay(1059, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -181,8 +166,7 @@ elseif nEventID == 3002 then
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'RAND'.");
 	if false then -- unknown logic command (RAND)
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(120110163, 1) then
 	do return; end
 	pUser:GiveItem(120110163, 1);
 	pUser:SendDebugString("Unknown EXEC command 'LOG_COUPON_ITEM'."); -- unknown execute command (LOG_COUPON_ITEM)
@@ -195,8 +179,7 @@ elseif nEventID == 3002 then
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'RAND'.");
 	if false then -- unknown logic command (RAND)
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(160100163, 1) then
 	do return; end
 	pUser:GiveItem(160100163, 1);
 	pUser:SendDebugString("Unknown EXEC command 'LOG_COUPON_ITEM'."); -- unknown execute command (LOG_COUPON_ITEM)
@@ -209,8 +192,7 @@ elseif nEventID == 3002 then
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'RAND'.");
 	if false then -- unknown logic command (RAND)
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(180110163, 1) then
 	do return; end
 	pUser:GiveItem(180110163, 1);
 	pUser:SendDebugString("Unknown EXEC command 'LOG_COUPON_ITEM'."); -- unknown execute command (LOG_COUPON_ITEM)
@@ -223,8 +205,7 @@ elseif nEventID == 3002 then
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'RAND'.");
 	if false then -- unknown logic command (RAND)
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_WEIGHT'.");
-	if false then -- unknown logic command (CHECK_WEIGHT)
+	if not pUser:CheckWeight(190210163, 1) then
 	do return; end
 	pUser:GiveItem(190210163, 1);
 	pUser:SendDebugString("Unknown EXEC command 'LOG_COUPON_ITEM'."); -- unknown execute command (LOG_COUPON_ITEM)
@@ -235,26 +216,22 @@ elseif nEventID == 3002 then
 	end
 	end
 elseif nEventID == 6010 then
-	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
-	if false then
+	if pUser:CheckPromoteEligible() then
 	pUser:SelectMsg(6000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 6011 then
-	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
-	if false then
+	if pUser:CheckPromoteEligible() then
 	pUser:SelectMsg(7000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 6013 then
-	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
-	if false then
+	if pUser:CheckPromoteEligible() then
 	pUser:SelectMsg(8000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 6030 then
 	pUser:SendDebugString("Unknown EXEC command 'GIVE_PROMOTION_QUEST'."); -- unknown execute command (GIVE_PROMOTION_QUEST)
 	do return; end
 elseif nEventID == 6040 then
-	pUser:SendDebugString("Unknown EXEC command 'PROMOTE_USER'."); -- unknown execute command (PROMOTE_USER)
-	do return; end
+	pUser:PromoteUser();
 	do return; end
 elseif nEventID == 7281 then
 	local count = pUser:HowMuchItem(379049000);
@@ -927,8 +904,7 @@ elseif nEventID == 7295 then
 	end
 	end
 elseif nEventID == 8001 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_ITEM'.");
-	if false then -- unknown logic command (CHECK_NOEXIST_ITEM)
+	if pUser:CheckNoExistItem(910014000, 5) then
 	pUser:NpcSay(10310, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -1284,8 +1260,16 @@ elseif nEventID == 10042 then
 	end
 	end
 elseif nEventID == 10060 then
+	--pUser:GiveItem(379046000, 1);
+	--pUser:GiveItem(389075000, 30);
+	--pUser:GiveItem(379044000, 30);
+	--pUser:GiveItem(379112000 , 2);
+	--pUser:GiveItem(379202000, 50);
+	--pUser:GiveItem(379067000 , 1);
+	--pUser:GiveItem(379066000 , 1);
 	pUser:SelectMsg(10060, 601, 10061, 602, 10062, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 10061 then
+	pUser:SaveEvent(54 , 1);
 	pUser:NpcSay(10061, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 10062 then
@@ -1374,8 +1358,7 @@ elseif nEventID == 11001 then
 	if pUser:CheckClass(101, 105, 106, -1, -1, -1) then
 	pUser:SelectMsg(11008, 11001, 6010, 10000, 11050, 17010, 17027, 17070, 17070, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(101, 105, 106, -1, -1, -1) then
 	pUser:SelectMsg(17073, 17070, 17070, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 11010 then
@@ -1425,8 +1408,7 @@ elseif nEventID == 12001 then
 	if pUser:CheckClass(107, 108, 102, -1, -1, -1) then
 	pUser:SelectMsg(12008, 11001, 6011, 10000, 12050, 17010, 17040, 17070, 17080, 17501, 17500, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(107, 108, 102, -1, -1, -1) then
 	pUser:SelectMsg(17083, 17070, 17080, 17501, 17500, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 12010 then
@@ -1476,8 +1458,7 @@ elseif nEventID == 13001 then
 	if pUser:CheckClass(109, 110, 103, -1, -1, -1) then
 	pUser:SelectMsg(13008, 11001, 6013, 10000, 13050, 17010, 17050, 17070, 17090, 17640, 17640, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(109, 110, 103, -1, -1, -1) then
 	pUser:SelectMsg(17093, 17070, 17090, 17640, 17640, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 13010 then
@@ -1632,8 +1613,7 @@ elseif nEventID == 14001 then
 	if pUser:CheckClass(111, 112, 104, -1, -1, -1) then
 	pUser:SelectMsg(14008, 11001, 6010, 10000, 14050, 17010, 17060, 17070, 17070, 17660, 17660, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(111, 112, 104, -1, -1, -1) then
 	pUser:SelectMsg(17074, 17070, 17070, 17660, 17660, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 14010 then
@@ -1758,8 +1738,7 @@ elseif nEventID == 15085 then
 	pUser:NpcSay(15090, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	if pUser:CheckLoyalty(0, 499) then
 	pUser:NpcSay(15091, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -1797,8 +1776,7 @@ elseif nEventID == 15108 then
 	end
 	local state = pUser:SearchQuest(9);
 	if state == 1 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_ITEM'.");
-	if false then -- unknown logic command (CHECK_NOEXIST_ITEM)
+	if pUser:CheckNoExistItem(910050000, 1) then
 	pUser:GiveItem(910050000, 0);
 	pUser:NpcSay(15119, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2022,26 +2000,22 @@ elseif nEventID == 15951 then
 	end
 	end
 elseif nEventID == 16951 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	if pUser:CheckLoyalty(101, 5000000) then
 	pUser:NpcSay(15956, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	if pUser:CheckLoyalty(0, 100) then
 	pUser:SelectMsg(15957, 1003, 16956, 1004, 16957, 1005, 16958, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 16956 then
 	local coins = pUser:GetCoins();
 	if coins >= 0 and coins <= 1499999 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	if pUser:CheckLoyalty(0, 100) then
 	pUser:NpcSay(15961, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	if pUser:CheckLoyalty(0, 101) then
 	pUser:GoldLose(1500000);
 	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
 	do return; end
@@ -2049,16 +2023,14 @@ elseif nEventID == 16956 then
 	do return; end
 	end
 elseif nEventID == 16957 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	if pUser:CheckLoyalty(0, 1) then
 	local coins = pUser:GetCoins();
 	if coins >= 0 and coins <= 349999 then
 	pUser:NpcSay(15961, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	if pUser:CheckLoyalty(0, 1) then
 	pUser:GoldLose(350000);
 	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
 	do return; end
@@ -2069,6 +2041,7 @@ elseif nEventID == 16958 then
 	pUser:NpcSay(15959, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 17000 then
+	pUser:ExpChange(368000000);
 	pUser:SelectMsg(17000, 17002, 17002, 17010, 17010, 17610, 17610, 17620, 17620, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 17002 then
 	local state = pUser:SearchQuest(56);
@@ -2172,8 +2145,7 @@ elseif nEventID == 17027 then
 elseif nEventID == 17040 then
 	local state = pUser:SearchQuest(57);
 	if state == 1 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_ITEM'.");
-	if false then -- unknown logic command (CHECK_NOEXIST_ITEM)
+	if pUser:CheckNoExistItem(910081000, 1) then
 	pUser:NpcSay(17032, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -2804,36 +2776,28 @@ elseif nEventID == 22001 then
 elseif nEventID == 22010 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 30 and lvl <= 59 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(106, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(108, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(110, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(112, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	end
