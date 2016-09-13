@@ -123,6 +123,10 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:PromoteUser();\n");
 		} break;
 
+		case EXEC_PROMOTE_KNIGHT: {
+			fprintf(outputFile, "\tpUser:PromoteKnight();\n");
+		} break;
+
 		case EXEC_RUN_EXCHANGE: {
 			fprintf(outputFile, "\tRunCountExchange(sUID, %d, 0);\n", pExec->m_ExecInt[0]);
 		} break;
@@ -133,6 +137,10 @@ void AddExecCode(EXEC* pExec) {
 
 		case EXEC_ZONE_CHANGE: {
 			fprintf(outputFile, "\tpUser:ZoneChange(%d, %d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1], pExec->m_ExecInt[2]);
+		} break;
+
+		case EXEC_ZONE_CHANGE_CLAN: {
+			fprintf(outputFile, "\tpUser:ZoneChangeClan(%d, %d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1], pExec->m_ExecInt[2]);
 		} break;
 
 		case EXEC_CHANGE_LOYALTY: {
@@ -271,6 +279,36 @@ void FillEventID(EVENT_DATA* pEvent) {
 			case LOGIC_CHECK_KNIGHT: {
 
 				fprintf(outputFile, "\tif not pUser:CheckKnight() then\n");
+
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_CHIEF: {
+
+				fprintf(outputFile, "\tif pUser:CheckChief() then\n");
+
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_NO_CHIEF: {
+
+				fprintf(outputFile, "\tif not pUser:CheckChief() then\n");
+
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_CLAN_GRADE: {
+
+				fprintf(outputFile, "\tif (pUser:CheckClanGrade() >= %d or pUser:CheckClanGrade() <= %d)  then\n", 
+					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
+
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_NATION: {
+
+				fprintf(outputFile, "\tif pUser:CheckNation() == %d  then\n",
+					pLogicElse->m_LogicElseInt[0]);
 
 				num_logic_to_close++;
 			} break;

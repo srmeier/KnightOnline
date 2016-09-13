@@ -26,6 +26,10 @@
 #define LOGIC_CHECK_NOEXIST_ITEM	   0x13
 #define LOGIC_CHECK_KNIGHT			   0x14
 #define LOGIC_CHECK_LOYALTY			   0x15
+#define LOGIC_CHECK_CLAN_GRADE		   0x16
+#define LOGIC_CHECK_CHIEF			   0x17
+#define LOGIC_CHECK_NO_CHIEF		   0x18
+#define LOGIC_CHECK_NATION			   0x19
 
 
 

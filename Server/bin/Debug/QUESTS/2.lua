@@ -101,20 +101,16 @@ elseif nEventID == 2001 then
 	pUser:NpcSay(1059, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CHIEF'.");
-	if false then -- unknown logic command (CHECK_CHIEF)
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CLAN_GRADE'.");
-	if false then -- unknown logic command (CHECK_CLAN_GRADE)
+	if pUser:CheckChief() then
+	if (pUser:CheckClanGrade() >= 4 or pUser:CheckClanGrade() <= 5)  then
 	pUser:NpcSay(1055, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CLAN_GRADE'.");
-	if false then -- unknown logic command (CHECK_CLAN_GRADE)
+	if (pUser:CheckClanGrade() >= 1 or pUser:CheckClanGrade() <= 3)  then
 	pUser:SelectMsg(1051, 601, 2045, 603, 2056, 602, 2050, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NO_CHIEF'.");
-	if false then -- unknown logic command (CHECK_NO_CHIEF)
+	if not pUser:CheckChief() then
 	pUser:NpcSay(1050, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -133,15 +129,12 @@ elseif nEventID == 2050 then
 	end
 	pUser:GoldLose(10000000);
 	pUser:RobItem(910045000, 1);
-	pUser:SendDebugString("Unknown EXEC command 'PROMOTE_KNIGHT'."); -- unknown execute command (PROMOTE_KNIGHT)
-	do return; end
+	pUser:PromoteKnight();
 	pUser:NpcSay(1062, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 2056 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CLAN_GRADE'.");
-	if false then -- unknown logic command (CHECK_CLAN_GRADE)
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE_CLAN'."); -- unknown execute command (ZONE_CHANGE_CLAN)
-	do return; end
+	if (pUser:CheckClanGrade() >= 1 or pUser:CheckClanGrade() <= 3)  then
+	pUser:ZoneChangeClan(54, 150, 150);
 	do return; end
 	end
 elseif nEventID == 2101 then
@@ -2019,8 +2012,7 @@ elseif nEventID == 17669 then
 	pUser:NpcSay(17666, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 17681 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NATION'.");
-	if false then -- unknown logic command (CHECK_NATION)
+	if pUser:CheckNation() == 2  then
 	pUser:NpcSay(17683, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end

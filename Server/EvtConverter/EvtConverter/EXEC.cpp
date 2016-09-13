@@ -30,8 +30,7 @@ void EXEC::Parse(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
 
-	}
-	else if (!strcmp(temp, "SELECT_MSG")) {
+	} else if (!strcmp(temp, "SELECT_MSG")) {
 		m_Exec = EXEC_SELECT_MSG;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
@@ -67,56 +66,52 @@ void EXEC::Parse(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // 10
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // 10
 
-	}
-	else if (!strcmp(temp, "RUN_EVENT")) {
+	} else if (!strcmp(temp, "RUN_EVENT")) {
 		m_Exec = EXEC_RUN_EVENT;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
 
-	}
-	else if (!strcmp(temp, "GIVE_ITEM")) {
+	} else if (!strcmp(temp, "GIVE_ITEM")) {
 		m_Exec = EXEC_GIVE_ITEM;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // item number
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // item count
 
-	}
-	else if (!strcmp(temp, "ROB_ITEM")) {
+	} else if (!strcmp(temp, "ROB_ITEM")) {
 		m_Exec = EXEC_ROB_ITEM;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // item number
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // item count
 
-	}
-	else if (!strcmp(temp, "GIVE_NOAH")) {
+	} else if (!strcmp(temp, "GIVE_NOAH")) {
 		m_Exec = EXEC_GIVE_NOAH;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // amount
 
-	}
-	else if (!strcmp(temp, "SAVE_EVENT")) {
+	} else if (!strcmp(temp, "SAVE_EVENT")) {
 		m_Exec = EXEC_SAVE_COM_EVENT;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // event number
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // event state
 
-	}
-	else if (!strcmp(temp, "EXP_CHANGE")) {
+	} else if (!strcmp(temp, "EXP_CHANGE")) {
 		m_Exec = EXEC_EXP_CHANGE;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // amount
 
-	}
-	else if (!strcmp(temp, "ROB_NOAH")) {
+	} else if (!strcmp(temp, "ROB_NOAH")) {
 		m_Exec = EXEC_ROB_NOAH;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // amount
 
-	}else if (!strcmp(temp, "PROMOTE_USER_NOVICE")) {
+	} else if (!strcmp(temp, "PROMOTE_USER_NOVICE")) {
 		m_Exec = EXEC_PROMOTE_USER_NOVICE;
 
-	} else if (!strcmp(temp , "PROMOTE_USER")){
+	} else if (!strcmp(temp, "PROMOTE_USER")) {
 		m_Exec = EXEC_PROMOTE_USER;
+
+	} else if(!strcmp(temp, "PROMOTE_KNIGHT")){
+		m_Exec = EXEC_PROMOTE_KNIGHT;
 
 	} else if (!strcmp(temp, "RETURN")) {
 		m_Exec = EXEC_RETURN;
@@ -133,6 +128,13 @@ void EXEC::Parse(char* pBuf) {
 
 	} else if (!strcmp(temp, "ZONE_CHANGE")) {
 		m_Exec = EXEC_ZONE_CHANGE;
+
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+
+	} else if (!strcmp(temp, "ZONE_CHANGE_CLAN")){
+		m_Exec = EXEC_ZONE_CHANGE_CLAN;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);

@@ -352,6 +352,7 @@ LUA_WRAPPER_USER_FUNCTION(GenderChange);
 LUA_WRAPPER_USER_FUNCTION(JobChange);
 
 /* method aliases */
+_LUA_WRAPPER_USER_FUNCTION(CheckChief, isClanLeader);
 _LUA_WRAPPER_USER_FUNCTION(CheckClanGrade, GetClanGrade);
 _LUA_WRAPPER_USER_FUNCTION(CheckClanPoint, GetClanPoint);
 _LUA_WRAPPER_USER_FUNCTION(CheckLoyalty, GetLoyalty);
