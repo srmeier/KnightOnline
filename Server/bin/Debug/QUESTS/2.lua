@@ -1333,8 +1333,7 @@ elseif nEventID == 16956 then
 	end
 	if pUser:CheckLoyalty(0, 101) then
 	pUser:GoldLose(1500000);
-	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
-	do return; end
+	pUser:ChanceLoyalty(500);
 	pUser:NpcSay(15958, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -1348,8 +1347,7 @@ elseif nEventID == 16957 then
 	end
 	if pUser:CheckLoyalty(0, 1) then
 	pUser:GoldLose(350000);
-	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
-	do return; end
+	pUser:ChanceLoyalty(100);
 	pUser:NpcSay(15960, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -1638,6 +1636,7 @@ elseif nEventID == 17505 then
 	if state == 1 then
 	if pUser:CheckExistItem(910082000, 5) then
 	pUser:RobItem(910082000, 5);
+	pUser:GoldGain(500000);
 	pUser:SaveEvent(62, 2);
 	pUser:NpcSay(17512, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -1700,8 +1699,7 @@ elseif nEventID == 17532 then
 	if pUser:CheckExistItem(910084000, 1) then
 	pUser:RobItem(910084000, 1);
 	pUser:ExpChange(100000);
-	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
-	do return; end
+	pUser:ChanceLoyalty(200);
 	pUser:SaveEvent(63, 2);
 	pUser:NpcSay(17533, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -1715,8 +1713,7 @@ elseif nEventID == 17540 then
 	if pUser:CheckExistItem(910085000, 1) then
 	pUser:RobItem(910085000, 1);
 	pUser:ExpChange(300000);
-	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
-	do return; end
+	pUser:ChanceLoyalty(500);
 	pUser:SaveEvent(64, 2);
 	pUser:NpcSay(17533, -1, -1, -1, -1, -1, -1, -1);
 	do return; end

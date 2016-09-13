@@ -135,6 +135,10 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:ZoneChange(%d, %d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1], pExec->m_ExecInt[2]);
 		} break;
 
+		case EXEC_CHANGE_LOYALTY: {
+			fprintf(outputFile, "\tpUser:ChanceLoyalty(%d);\n", pExec->m_ExecInt[0]);
+		} break;
+
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");

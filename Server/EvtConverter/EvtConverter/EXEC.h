@@ -22,6 +22,7 @@
 #define EXEC_ROLL_DICE           0x0F
 #define EXEC_ZONE_CHANGE		 0x10
 #define EXEC_PROMOTE_USER		 0x11
+#define EXEC_CHANGE_LOYALTY		 0x12
 
 //-----------------------------------------------------------------------------
 class EXEC {

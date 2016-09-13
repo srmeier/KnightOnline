@@ -1398,6 +1398,10 @@ public:
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2)));	
 	}
 
+	DECLARE_LUA_FUNCTION(ChanceLoyalty) {
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2), false, true, false));
+	}
+
 	DECLARE_LUA_FUNCTION(RobLoyalty) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(-(LUA_ARG(int32, 2))));	
 	}
