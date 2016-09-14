@@ -117,10 +117,16 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		// NOTE: number of empty slots to check for
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
-	} else if (!strcmp(temp, "CHECK_SKILL_POINT")){
+	} else if (!strcmp(temp, "CHECK_SKILL_POINT")) {
 		m_LogicElse = LOGIC_CHECK_SKILL_POINT;
 
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+
+	} else if(!strcmp(temp, "CHECK_SKILL_TOTAL")) {
+		m_LogicElse = LOGIC_CHECK_SKILL_TOTAL;
+
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
@@ -148,10 +154,20 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
-	} else if (!strcmp(temp , "CHECK_LOYALTY")) {
+	} else if (!strcmp(temp, "CHECK_LOYALTY")) {
 		m_LogicElse = LOGIC_CHECK_LOYALTY;
 
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+
+	} else if (!strcmp(temp, "CHECK_MIDDLE_STATUE_CAPTURE")) {
+		m_LogicElse = LOGIC_CHECK_MIDDLE_STATUE_CAPTURE;
+
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+
+	} else if (!strcmp(temp, "CHECK_MIDDLE_STATUE_NOCAPTURE")){
+		m_LogicElse = LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE;
+
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
 	} else {

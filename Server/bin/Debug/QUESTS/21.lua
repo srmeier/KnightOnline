@@ -72,8 +72,7 @@ elseif nEventID == 52 then
 	pUser:NpcSay(58, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
-	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
+	if pUser:CheckTotalSkillPoints() >= 101 and pUser:CheckTotalSkillPoints() <= 9999 then
 	pUser:NpcSay(58, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -4422,8 +4421,7 @@ elseif nEventID == 35625 then
 	do return; end
 	end
 elseif nEventID == 35627 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CHIEF'.");
-	if false then -- unknown logic command (CHECK_CHIEF)
+	if pUser:CheckChief() then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CLAN_RANKING'.");
 	if false then -- unknown logic command (CHECK_CLAN_RANKING)
 	pUser:SendDebugString("Unknown EXEC command 'SEND_WEBPAGE_ADDRESS'."); -- unknown execute command (SEND_WEBPAGE_ADDRESS)
@@ -4433,8 +4431,7 @@ elseif nEventID == 35627 then
 	pUser:NpcSay(35638, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NO_CHIEF'.");
-	if false then -- unknown logic command (CHECK_NO_CHIEF)
+	if not pUser:CheckChief() then
 	pUser:NpcSay(35633, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -4442,8 +4439,7 @@ elseif nEventID == 35628 then
 	pUser:NpcSay(35628, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 35631 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CHIEF'.");
-	if false then -- unknown logic command (CHECK_CHIEF)
+	if pUser:CheckChief() then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_CLAN_RANKING'.");
 	if false then -- unknown logic command (CHECK_CLAN_RANKING)
 	pUser:NpcSay(35634, -1, -1, -1, -1, -1, -1, -1);
@@ -4455,8 +4451,7 @@ elseif nEventID == 35631 then
 	do return; end
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NO_CHIEF'.");
-	if false then -- unknown logic command (CHECK_NO_CHIEF)
+	if not pUser:CheckChief() then
 	pUser:NpcSay(35633, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end

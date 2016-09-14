@@ -147,6 +147,10 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:ChanceLoyalty(%d);\n", pExec->m_ExecInt[0]);
 		} break;
 
+		case EXEC_MOVE_MIDDLE_STATUE: {
+			fprintf(outputFile, "\tMoveMiddleStatue();\n");
+		} break;
+
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");
@@ -276,6 +280,13 @@ void FillEventID(EVENT_DATA* pEvent) {
 				num_logic_to_close++;
 			} break;
 
+			case LOGIC_CHECK_SKILL_TOTAL: {
+				fprintf(outputFile, "\tif pUser:CheckTotalSkillPoints() >= %d and pUser:CheckTotalSkillPoints() <= %d then\n",
+					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
+				);
+				num_logic_to_close++;
+			} break;
+
 			case LOGIC_CHECK_KNIGHT: {
 
 				fprintf(outputFile, "\tif not pUser:CheckKnight() then\n");
@@ -299,7 +310,7 @@ void FillEventID(EVENT_DATA* pEvent) {
 
 			case LOGIC_CHECK_CLAN_GRADE: {
 
-				fprintf(outputFile, "\tif (pUser:CheckClanGrade() >= %d or pUser:CheckClanGrade() <= %d)  then\n", 
+				fprintf(outputFile, "\tif (pUser:CheckClanGrade() >= %d and pUser:CheckClanGrade() <= %d)  then\n", 
 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
 
 				num_logic_to_close++;
@@ -318,6 +329,20 @@ void FillEventID(EVENT_DATA* pEvent) {
 				fprintf(outputFile, "\tif pUser:CheckLoyalty(%d, %d) then\n",
 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
 				);
+
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_MIDDLE_STATUE_CAPTURE: {
+
+				fprintf(outputFile, "\tif CheckMiddleStatueCapture() then\n" );
+
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE: {
+
+				fprintf(outputFile, "\tif not CheckMiddleStatueCapture() then\n");
 
 				num_logic_to_close++;
 			} break;

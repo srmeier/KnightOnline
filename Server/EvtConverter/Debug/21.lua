@@ -72,8 +72,7 @@ elseif nEventID == 52 then
 	pUser:NpcSay(58, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
-	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
+	if pUser:CheckTotalSkillPoints() >= 101 and pUser:CheckTotalSkillPoints() <= 9999 then
 	pUser:NpcSay(58, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end

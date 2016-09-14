@@ -113,6 +113,7 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(NpcMsg) // new automated quest prompt (does whatever's needed, menu, quest prompt, etc)
 	MAKE_LUA_METHOD(CheckWeight)
 	MAKE_LUA_METHOD(CheckSkillPoint)
+	MAKE_LUA_METHOD(CheckTotalSkillPoints)
 	MAKE_LUA_METHOD(isRoomForItem) // FindSlotForItem()
 	MAKE_LUA_METHOD(CountMonsterQuestSub)
 	MAKE_LUA_METHOD(CountMonsterQuestMain)
@@ -318,6 +319,7 @@ LUA_WRAPPER_USER_FUNCTION(NpcSay);
 LUA_WRAPPER_USER_FUNCTION(CheckWeight);
 LUA_WRAPPER_USER_FUNCTION(isRoomForItem);
 LUA_WRAPPER_USER_FUNCTION(SendNameChange);
+LUA_WRAPPER_USER_FUNCTION(CheckTotalSkillPoints);
 LUA_WRAPPER_USER_FUNCTION(ResetSkillPoints);
 LUA_WRAPPER_USER_FUNCTION(ResetStatPoints);
 LUA_WRAPPER_USER_FUNCTION(PromoteUserNovice);

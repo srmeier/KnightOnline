@@ -1308,6 +1308,11 @@ public:
 			LUA_ARG(uint8, 4)));	// max
 	}
 
+	DECLARE_LUA_FUNCTION(CheckTotalSkillPoints) {
+		LUA_RETURN(LUA_GET_INSTANCE()->GetTotalSkillPoints());
+
+	}
+
 	DECLARE_LUA_FUNCTION(isRoomForItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->FindSlotForItem(
 			LUA_ARG(uint32, 2),					// item ID

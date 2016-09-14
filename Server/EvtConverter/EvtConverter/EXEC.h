@@ -25,6 +25,7 @@
 #define EXEC_CHANGE_LOYALTY		 0x12
 #define EXEC_ZONE_CHANGE_CLAN	 0x13
 #define EXEC_PROMOTE_KNIGHT		 0x14
+#define EXEC_MOVE_MIDDLE_STATUE	 0x15
 
 //-----------------------------------------------------------------------------
 class EXEC {

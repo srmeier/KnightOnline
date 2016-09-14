@@ -102,11 +102,11 @@ elseif nEventID == 2001 then
 	do return; end
 	end
 	if pUser:CheckChief() then
-	if (pUser:CheckClanGrade() >= 4 or pUser:CheckClanGrade() <= 5)  then
+	if (pUser:CheckClanGrade() >= 4 and pUser:CheckClanGrade() <= 5)  then
 	pUser:NpcSay(1055, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	if (pUser:CheckClanGrade() >= 1 or pUser:CheckClanGrade() <= 3)  then
+	if (pUser:CheckClanGrade() >= 1 and pUser:CheckClanGrade() <= 3)  then
 	pUser:SelectMsg(1051, 601, 2045, 603, 2056, 602, 2050, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 	end
@@ -133,7 +133,7 @@ elseif nEventID == 2050 then
 	pUser:NpcSay(1062, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 2056 then
-	if (pUser:CheckClanGrade() >= 1 or pUser:CheckClanGrade() <= 3)  then
+	if (pUser:CheckClanGrade() >= 1 and pUser:CheckClanGrade() <= 3)  then
 	pUser:ZoneChangeClan(54, 150, 150);
 	do return; end
 	end
@@ -2731,22 +2731,18 @@ elseif nEventID == 17681 then
 	pUser:NpcSay(17682, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_MIDDLE_STATUE_NOCAPTURE'.");
-	if false then -- unknown logic command (CHECK_MIDDLE_STATUE_NOCAPTURE)
+	if not CheckMiddleStatueCapture() then
 	pUser:NpcSay(17684, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
 	pUser:SelectMsg(17685, 17686, 17686, 17687, 17687, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 17686 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_MIDDLE_STATUE_NOCAPTURE'.");
-	if false then -- unknown logic command (CHECK_MIDDLE_STATUE_NOCAPTURE)
+	if not CheckMiddleStatueCapture() then
 	pUser:NpcSay(17684, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_MIDDLE_STATUE_CAPTURE'.");
-	if false then -- unknown logic command (CHECK_MIDDLE_STATUE_CAPTURE)
-	pUser:SendDebugString("Unknown EXEC command 'MOVE_MIDDLE_STATUE'."); -- unknown execute command (MOVE_MIDDLE_STATUE)
-	do return; end
+	if CheckMiddleStatueCapture() then
+	MoveMiddleStatue();
 	do return; end
 	end
 elseif nEventID == 17687 then
@@ -2757,26 +2753,22 @@ elseif nEventID == 22010 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 30 and lvl <= 59 then
 	if not pUser:CheckClass(106, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
-	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
+	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
 	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	if not pUser:CheckClass(108, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
-	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
+	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
 	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	if not pUser:CheckClass(110, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
-	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
+	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
 	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	if not pUser:CheckClass(112, -1, -1, -1, -1, -1) then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
-	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
+	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
 	pUser:ZoneChange(201, 845, 140);
 	end
 	end

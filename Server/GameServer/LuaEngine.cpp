@@ -14,6 +14,7 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(CheckClass)
 						  MAKE_LUA_FUNCTION(CheckLevel)
 						  MAKE_LUA_FUNCTION(CheckSkillPoint)
+						  MAKE_LUA_FUNCTION(CheckTotalSkillPoints)
 						  MAKE_LUA_FUNCTION(SaveEvent)
 						  MAKE_LUA_FUNCTION(CheckExchange)
 						  MAKE_LUA_FUNCTION(RunExchange)

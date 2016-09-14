@@ -64,6 +64,7 @@ LUA_FUNCTION(RobLoyalty);
 LUA_FUNCTION(NpcSay); // dialog
 LUA_FUNCTION(CheckWeight);
 LUA_FUNCTION(CheckSkillPoint);
+LUA_FUNCTION(CheckTotalSkillPoints);
 LUA_FUNCTION(isRoomForItem); // FindSlotForItem();
 LUA_FUNCTION(SendNameChange);
 LUA_FUNCTION(SendStatSkillDistribute);
