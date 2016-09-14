@@ -358,7 +358,7 @@ _LUA_WRAPPER_USER_FUNCTION(CheckChief, isClanLeader);
 _LUA_WRAPPER_USER_FUNCTION(CheckClanGrade, GetClanGrade);
 _LUA_WRAPPER_USER_FUNCTION(CheckClanPoint, GetClanPoint);
 _LUA_WRAPPER_USER_FUNCTION(CheckLoyalty, GetLoyalty);
-_LUA_WRAPPER_USER_FUNCTION(CheckKnight, GetClanRank);
+_LUA_WRAPPER_USER_FUNCTION(CheckKnight, isInClan);//GetClanRank
 _LUA_WRAPPER_USER_FUNCTION(CheckStatPoint, GetStat); 
 _LUA_WRAPPER_USER_FUNCTION(CheckWarVictory, GetWarVictory);
 _LUA_WRAPPER_USER_FUNCTION(CheckBeefRoastVictory, GetBeefRoastVictory);

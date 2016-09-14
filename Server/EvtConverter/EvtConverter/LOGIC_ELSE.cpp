@@ -124,8 +124,14 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
-	} else if(!strcmp(temp, "CHECK_SKILL_TOTAL")) {
+	} else if (!strcmp(temp, "CHECK_SKILL_TOTAL")) {
 		m_LogicElse = LOGIC_CHECK_SKILL_TOTAL;
+
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+
+	} else if(!strcmp(temp, "CHECK_STAT_TOTAL")) {
+		m_LogicElse = LOGIC_CHECK_STAT_TOTAL;
 
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);

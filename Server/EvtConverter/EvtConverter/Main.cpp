@@ -281,7 +281,16 @@ void FillEventID(EVENT_DATA* pEvent) {
 			} break;
 
 			case LOGIC_CHECK_SKILL_TOTAL: {
-				fprintf(outputFile, "\tif pUser:CheckTotalSkillPoints() >= %d and pUser:CheckTotalSkillPoints() <= %d then\n",
+				fprintf(outputFile, "\tlocal points = pUser:CheckTotalSkillPoints();\n"\
+					"\tif points >= %d and points <= %d then\n",
+					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
+				);
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_STAT_TOTAL: {
+				fprintf(outputFile, "\tlocal points = pUser:CheckTotalStatPoints();\n"\
+					"\tif points >= %d and points <= %d then\n",
 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
 				);
 				num_logic_to_close++;
@@ -309,8 +318,8 @@ void FillEventID(EVENT_DATA* pEvent) {
 			} break;
 
 			case LOGIC_CHECK_CLAN_GRADE: {
-
-				fprintf(outputFile, "\tif (pUser:CheckClanGrade() >= %d and pUser:CheckClanGrade() <= %d)  then\n", 
+				fprintf(outputFile, "\tlocal grade = pUser:CheckClanGrade();\n"\
+					"\tif grade >= %d and grade <= %d then\n",
 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
 
 				num_logic_to_close++;

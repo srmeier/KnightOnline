@@ -102,11 +102,13 @@ elseif nEventID == 2001 then
 	do return; end
 	end
 	if pUser:CheckChief() then
-	if (pUser:CheckClanGrade() >= 4 and pUser:CheckClanGrade() <= 5)  then
+	local grade = pUser:CheckClanGrade();
+	if grade >= 4 and grade <= 5 then
 	pUser:NpcSay(1055, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	if (pUser:CheckClanGrade() >= 1 and pUser:CheckClanGrade() <= 3)  then
+	local grade = pUser:CheckClanGrade();
+	if grade >= 1 and grade <= 3 then
 	pUser:SelectMsg(1051, 601, 2045, 603, 2056, 602, 2050, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 	end
@@ -133,7 +135,8 @@ elseif nEventID == 2050 then
 	pUser:NpcSay(1062, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 2056 then
-	if (pUser:CheckClanGrade() >= 1 and pUser:CheckClanGrade() <= 3)  then
+	local grade = pUser:CheckClanGrade();
+	if grade >= 1 and grade <= 3 then
 	pUser:ZoneChangeClan(54, 150, 150);
 	do return; end
 	end
@@ -2038,22 +2041,26 @@ elseif nEventID == 22010 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 30 and lvl <= 59 then
 	if not pUser:CheckClass(206, -1, -1, -1, -1, -1) then
-	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
+	local points = pUser:CheckTotalSkillPoints();
+	if points >= 42 and points <= 100 then
 	pUser:ZoneChange(201, 190, 900);
 	end
 	end
 	if not pUser:CheckClass(208, -1, -1, -1, -1, -1) then
-	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
+	local points = pUser:CheckTotalSkillPoints();
+	if points >= 42 and points <= 100 then
 	pUser:ZoneChange(201, 190, 900);
 	end
 	end
 	if not pUser:CheckClass(210, -1, -1, -1, -1, -1) then
-	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
+	local points = pUser:CheckTotalSkillPoints();
+	if points >= 42 and points <= 100 then
 	pUser:ZoneChange(201, 190, 900);
 	end
 	end
 	if not pUser:CheckClass(212, -1, -1, -1, -1, -1) then
-	if pUser:CheckTotalSkillPoints() >= 42 and pUser:CheckTotalSkillPoints() <= 100 then
+	local points = pUser:CheckTotalSkillPoints();
+	if points >= 42 and points <= 100 then
 	pUser:ZoneChange(201, 190, 900);
 	end
 	end

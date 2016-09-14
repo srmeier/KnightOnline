@@ -72,12 +72,13 @@ elseif nEventID == 52 then
 	pUser:NpcSay(58, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	if pUser:CheckTotalSkillPoints() >= 101 and pUser:CheckTotalSkillPoints() <= 9999 then
+	local points = pUser:CheckTotalSkillPoints();
+	if points >= 101 and points <= 9999 then
 	pUser:NpcSay(58, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_STAT_TOTAL'.");
-	if false then -- unknown logic command (CHECK_STAT_TOTAL)
+	local points = pUser:CheckTotalStatPoints();
+	if points >= 475 and points <= 9999 then
 	pUser:NpcSay(58, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -406,13 +407,11 @@ elseif nEventID == 4005 then
 	end
 	if pUser:EmptySlotCount() == 0 then
 	pUser:NpcSay(4009, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown execute command (RETURN;)
 	do return; end
 	end
 	pUser:SendDebugString("Unknown EXEC command 'GIVE_PPCARD_ITEM'."); -- unknown execute command (GIVE_PPCARD_ITEM)
 	do return; end
 	pUser:NpcSay(4005, -1, -1, -1, -1, -1, -1, -1);
-	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown execute command (RETURN;)
 	do return; end
 elseif nEventID == 6001 then
 	if pUser:CheckPromoteEligible() then
