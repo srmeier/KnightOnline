@@ -26,6 +26,8 @@
 #define EXEC_ZONE_CHANGE_CLAN	 0x13
 #define EXEC_PROMOTE_KNIGHT		 0x14
 #define EXEC_MOVE_MIDDLE_STATUE	 0x15
+#define EXEC_STAT_POINT_DISTRIBUTE	0x16
+#define EXEC_SKILL_POINT_DISTRIBUTE	0x17
 
 //-----------------------------------------------------------------------------
 class EXEC {

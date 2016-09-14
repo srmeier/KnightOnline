@@ -110,6 +110,12 @@ void EXEC::Parse(char* pBuf) {
 	} else if (!strcmp(temp, "PROMOTE_USER")) {
 		m_Exec = EXEC_PROMOTE_USER;
 
+	} else if (!strcmp(temp, "STAT_POINT_DISTRIBUTE")) {
+		m_Exec = EXEC_STAT_POINT_DISTRIBUTE;
+
+	} else if(!strcmp(temp, "SKILL_POINT_DISTRIBUTE")) {
+		m_Exec = EXEC_SKILL_POINT_DISTRIBUTE;
+
 	} else if(!strcmp(temp, "PROMOTE_KNIGHT")){
 		m_Exec = EXEC_PROMOTE_KNIGHT;
 

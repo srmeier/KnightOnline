@@ -123,6 +123,14 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:PromoteUser();\n");
 		} break;
 
+		case EXEC_STAT_POINT_DISTRIBUTE: {
+			fprintf(outputFile, "\tpUser:ResetStatPoints();\n");
+		} break;
+
+		case EXEC_SKILL_POINT_DISTRIBUTE: {
+			fprintf(outputFile, "\tpUser:ResetSkillPoints();\n");
+		} break;
+
 		case EXEC_PROMOTE_KNIGHT: {
 			fprintf(outputFile, "\tpUser:PromoteKnight();\n");
 		} break;

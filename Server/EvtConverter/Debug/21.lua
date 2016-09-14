@@ -2674,11 +2674,9 @@ elseif nEventID == 21288 then
 	do return; end
 	end
 elseif nEventID == 21951 then
-	pUser:SendDebugString("Unknown EXEC command 'STAT_POINT_DISTRIBUTE'."); -- unknown execute command (STAT_POINT_DISTRIBUTE)
-	do return; end
+	pUser:ResetStatPoints();
 elseif nEventID == 21981 then
-	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_DISTRIBUTE'."); -- unknown execute command (SKILL_POINT_DISTRIBUTE)
-	do return; end
+	pUser:ResetSkillPoints();
 elseif nEventID == 22000 then
 	pUser:SelectMsg(22003, 22008, 22002, 22003, 22003, 22004, 22004, 22005, 22005, 30134, 35540, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 22002 then
