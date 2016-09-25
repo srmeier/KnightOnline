@@ -388,14 +388,9 @@ void CNpc::OnDeathProcess(Unit *pKiller)
 			{
 				_QUEST_HELPER * pQuestHelper ;
 				if (pUser->GetNation() == ELMORAD)
-				{
 					pQuestHelper = g_pMain->m_QuestHelperArray.GetData(5005);
-				}
-				else if (pUser->GetNation() == KARUS) {
+				else
 					pQuestHelper = g_pMain->m_QuestHelperArray.GetData(5002);
-				}
-				else//pQuestHelper was nullptr
-					return;
 
 				pUser->QuestV2RunEvent(pQuestHelper,pQuestHelper->nEventTriggerIndex);
 			}

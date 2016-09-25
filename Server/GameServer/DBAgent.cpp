@@ -754,19 +754,39 @@ bool CDBAgent::SetLogInInfo(string & strAccountID, string & strCharID, string & 
 	unique_ptr<OdbcCommand> dbCommand(m_AccountDB->CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return false;
-	
+
+	/*
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &result);
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strServerIP.c_str(), strServerIP.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strClientIP.c_str(), strClientIP.length());
-	//If bInit = 1, it puts the users info in CURRENTUSER table,
-	//and if bInit = 2, it updates the sServerNo and strServerIP for corresponding user in CURRENTUSER
-	if (!dbCommand->Execute(string_format(_T("{? = CALL SET_LOGIN_INFO(%d, ?, ?, %d, ?, ?, %d)}"), result, sServerNo, bInit)))
-		ReportSQLError(m_AccountDB->GetError());
-
+	if (!dbCommand->Execute(string_format(_T("{? = CALL SET_LOGIN_INFO(?, ?, %d, ?, ?, %d)}"), sServerNo, bInit)))
+	ReportSQLError(m_AccountDB->GetError());
 	return (bool)(result == 0 ? false : true);
-	
+	*/
+
+	if (bInit == 0x01) {
+		if (!dbCommand->Execute(string_format(_T(
+			"INSERT INTO CURRENTUSER (strAccountID, strCharID, nServerNo, strServerIP, strClientIP) VALUES (\'%s\',\'%s\',%d,\'%s\',\'%s\')"),
+			strAccountID.c_str(), strCharID.c_str(), sServerNo, strServerIP.c_str(), strClientIP.c_str()))
+		) {
+			ReportSQLError(m_AccountDB->GetError());
+			return false;
+		}
+	}
+	else if (bInit == 0x02) {
+		if (!dbCommand->Execute(string_format(_T(
+			"UPDATE CURRENTUSER SET nServerNo=%d, strServerIP=\'%s\' WHERE strAccountID = \'%s\'"),
+			sServerNo, strServerIP.c_str(), strAccountID.c_str()))
+		) {
+			ReportSQLError(m_AccountDB->GetError());
+			return false;
+		}
+	}
+	else return false;
+
+	return true;
 }
 
 bool CDBAgent::LoadWebItemMall(std::vector<_ITEM_DATA> & itemList, CUser *pUser)

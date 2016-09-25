@@ -433,8 +433,6 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_SELECT_MSG:
 		RecvSelectMsg(pkt);
 		break;
-	case WIZ_NPC_SAY:
-		break;
 	case WIZ_ITEM_UPGRADE:
 		ItemUpgradeProcess(pkt);
 		break;

@@ -283,8 +283,8 @@ void CKnightsManager::WithdrawKnights(CUser *pUser, Packet & pkt)
 	{
 		if (!pUser->isInClan())
 			bResult = 10;
-		/*else if (pUser->isClanLeader() && pUser->GetMap()->canUpdateClan())
-			bResult = 12;*/
+		else if (pUser->isClanLeader() && !pUser->GetMap()->canUpdateClan())
+			bResult = 12;
 
 		if (bResult != 0)
 			break;
