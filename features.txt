@@ -1,0 +1,93 @@
+/**
+ *The whole reason why there is such a document is 
+ *that showing exactly what feaures has been implemented and has not been implemented,
+ *so that every contributor doesn't have to test the whole system before actually start fixing. 
+ *
+ *Feel free to chance the structure, I just made a draft
+ *
+ *@Structure 
+ *		             ####System_Name####
+ *		
+ *			-Things that are working
+ *
+ *			***************************
+ *
+ *			-Things that are not working and should be done
+ *
+ *			**Additional_Features** (Optional)
+ *
+ *			-Extra informations about the system
+ *
+ *
+ *@Abbreviations
+ *
+ *			s.c -> Source Client
+ *
+ *			b.c -> Binary Client		
+**/
+
+####UPGRADE_SYSTEM####
+
+-Accessory upgrade is working// +0 -> +1 (%100) //+1 -> +2 (%100)//+2 -> +3 (%10)// Others %0
+
+-Enchant(& Blessed) (High) Enchant Scrolls are working
+
+-Immune(& Blessed) (High) Scroll are working
+
+-Elemental(& Blessed) (High) Scroll are working
+
+-Reduce(& Blessed) (High) Scroll are working
+
+-Dispell Scrolls (High) (Fire - Glacier - Lightning) are working
+
+***************************
+
+-We will probably have to organize the whoel system with the table ITEM_UPGRADE from the beginning
+
+-there is a lot of +0 item whose +1, +2 .. are missing
+
+**Additional_Features**
+
+-Trina add %20 chance to the upgrade
+
+
+####Skills_Rogue####
+
+-Hide is working, //In s.c
+
+-
+
+####Skills_General####
+
+-
+
+**********************
+
+-Skill descriptions are missing //in s.c
+
+-Skill images are missing in Rogue,  // in s.c
+
+####General####
+
+-In source client, you can send  a party invitation to someone by adding it as a friend, and sending through the friendlist
+
+-Adding friend is working // in s.c, b.c
+
+-binary users sees the both binary GMs
+
+**********************
+
+-Commands tab (Key h) is missing // in s.c
+
+
+####Clan_System####
+
+- Clan can be created and disband // b.c , s.c
+
+- Adding users to clans through Chief and Vice Chief is available // b.c
+
+- Ban from clan is available // b.c
+
+**********************
+
+-for clan chiefs, clan name is not underlined //in s.c

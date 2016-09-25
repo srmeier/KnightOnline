@@ -590,12 +590,13 @@ public:
 	void KickOutZoneUser(bool home = false, uint8 nZoneID = 21);
 	void TrapProcess();
 	bool JobGroupCheck(short jobgroupid);
-	void SendSay(int32 nTextID[8]);
+	void SendSay(int32 nTextID[10]);
 	void SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText, 
 		int32 menuButtonText[MAX_MESSAGE_EVENT], int32 menuButtonEvents[MAX_MESSAGE_EVENT]);
 
 	// NOTE(srmeier): testing this debug string functionality
 	void SendDebugString(const char* pString);
+	int NumEmptySlots(void);
 
 	bool CheckClass(short class1, short class2 = -1, short class3 = -1, short class4 = -1, short class5 = -1, short class6 = -1);
 	bool GiveItem(uint32 nItemID, uint16 sCount = 1, bool send_packet = true, uint32 Time = 0);
@@ -1010,7 +1011,7 @@ public:
 		uint32 nUnk2, uint32 sUnk2,
 		uint32 nUnk3, uint32 sUnk3,
 		uint32 nUnk4, uint32 sUnk4);
-	uint16 QuestV2SearchEligibleQuest(uint16 sEventDataIndex, uint16 sNpcID);
+	uint16 QuestV2SearchEligibleQuest(uint16 sEventDataIndex);//, uint16 sNpcID);
 	void QuestV2ShowMap(uint32 nQuestHelperID);
 	uint8 CheckMonsterCount(uint8 bGroup);
 
@@ -1174,6 +1175,11 @@ public:
 		));
 	}
 
+	// NOTE(srmeier): returns the number of empty slots in the inventory
+	DECLARE_LUA_FUNCTION(EmptySlotCount) {
+		LUA_RETURN(LUA_GET_INSTANCE()->NumEmptySlots());
+	}
+
 	//-------------------------------------------------------------------------
 
 	DECLARE_LUA_FUNCTION(GiveItem) {
@@ -1225,8 +1231,8 @@ public:
 	DECLARE_LUA_FUNCTION(SearchQuest) {
 		CUser * pUser = LUA_GET_INSTANCE();
 		LUA_RETURN(pUser->QuestV2SearchEligibleQuest(
-			LUA_ARG(uint16, 2),
-			LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 3)
+			LUA_ARG(uint16, 2)
+			//LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 3)
 		)); // NPC ID
 	}
 

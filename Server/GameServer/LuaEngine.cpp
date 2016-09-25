@@ -338,7 +338,7 @@ bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32 nEventID, int8 
 		return false;
 	}
 
-	printf("TEMP: running event %d.\n", nEventID);
+	printf("TEMP: EVENT ID = %d. NPC ID = %d.\n", nEventID, pNpc->GetProtoID());
 
 	lua_tsetglobal(m_luaState, "nEventID", nEventID);
 	lua_tsetglobal(m_luaState, "sUID", pUser->GetID());

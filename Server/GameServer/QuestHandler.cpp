@@ -323,11 +323,12 @@ void CUser::QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1,
 	Send(&result);
 }
 
-uint16 CUser::QuestV2SearchEligibleQuest(uint16 sEventDataIndex, uint16 sNpcID)
-{
+uint16 CUser::QuestV2SearchEligibleQuest(uint16 sEventDataIndex)//, uint16 sNpcID)
+{	//The quest must be searched by just its sEventDataIndex
 	Guard lock(g_pMain->m_questNpcLock);
-	QuestNpcList::iterator itr = g_pMain->m_QuestNpcList.find(sNpcID);
-	if (itr == g_pMain->m_QuestNpcList.end()
+	//QuestNpcList::iterator itr = g_pMain->m_QuestNpcList.find(sNpcID);
+	QuestEventIndex::iterator itr = g_pMain->m_QuestEventIndex.find(sEventDataIndex);
+	if (itr == g_pMain->m_QuestEventIndex.end()
 		|| itr->second.empty())
 		return 0;
 

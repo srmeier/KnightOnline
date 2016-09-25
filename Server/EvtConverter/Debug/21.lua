@@ -4485,9 +4485,6 @@ elseif nEventID == 35663 then
 	do return; end
 	end
 	local state = pUser:SearchQuest(56);
-
-	print(state)
-
 	if state == 2 then
 	pUser:NpcSay(35667, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
