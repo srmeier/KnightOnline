@@ -97,7 +97,7 @@ bool CUITradeBBSSelector::OnKeyPress(int iChar)
 {
 	switch(iChar)
 	{
-	case DIK_ESCAPE:
+	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 		SetVisible(false);
 		return true;
 	}

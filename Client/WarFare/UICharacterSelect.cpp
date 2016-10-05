@@ -154,17 +154,17 @@ bool CUICharacterSelect::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_ESCAPE:
+		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 			ReceiveMessage(m_pBtnExit, UIMSG_BUTTON_CLICK);
 			return true;
-		case DIK_LEFT:
+		case SDL_SCANCODE_LEFT://DIK_LEFT:
 			ReceiveMessage(m_pBtnLeft, UIMSG_BUTTON_CLICK);
 			return true;
-		case DIK_RIGHT:
+		case SDL_SCANCODE_RIGHT://DIK_RIGHT:
 			ReceiveMessage(m_pBtnRight, UIMSG_BUTTON_CLICK);
 			return true;
-		case DIK_NUMPADENTER:
-		case DIK_RETURN:
+		case SDL_SCANCODE_KP_ENTER://DIK_NUMPADENTER:
+		case SDL_SCANCODE_RETURN://DIK_RETURN:
 			CGameProcedure::s_pProcCharacterSelect->CharacterSelectOrCreate();
 			return true;
 		}

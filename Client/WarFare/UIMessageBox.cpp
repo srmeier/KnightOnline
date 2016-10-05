@@ -258,10 +258,10 @@ bool CUIMessageBox::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_ESCAPE:
+		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 			ReceiveMessage(m_pBtn_No, UIMSG_BUTTON_CLICK);
 			return true;
-		case DIK_RETURN:
+		case SDL_SCANCODE_RETURN://DIK_RETURN:
 			ReceiveMessage(m_pBtn_Yes, UIMSG_BUTTON_CLICK);
 			return true;
 		}
@@ -270,8 +270,8 @@ bool CUIMessageBox::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_ESCAPE:
-		case DIK_RETURN:
+		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+		case SDL_SCANCODE_RETURN://DIK_RETURN:
 			ReceiveMessage(m_pBtn_Cancel, UIMSG_BUTTON_CLICK);
 			return true;
 		}
@@ -280,8 +280,8 @@ bool CUIMessageBox::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_ESCAPE:
-		case DIK_RETURN:
+		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+		case SDL_SCANCODE_RETURN://DIK_RETURN:
 			ReceiveMessage(m_pBtn_OK, UIMSG_BUTTON_CLICK);
 			return true;
 		}

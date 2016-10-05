@@ -188,7 +188,7 @@ bool CUINPCChangeEvent::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case DIK_ESCAPE:
+	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 		ReceiveMessage(m_pBtn_Close, UIMSG_BUTTON_CLICK);
 		return true;
 	}

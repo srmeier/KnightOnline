@@ -91,15 +91,24 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	}
 	else if (dwMsg == UIMSG_EDIT_RETURN)
 	{
+		// TEMP(srmeier): there is a weird issue where the key inputs aren't going
+		// through CGameProcedure::ProcessUIKeyInput() so CUILogIn::OnKeyPress() isn't
+		// being called...
 		if(!m_bLogIn && m_pEdit_id && m_pEdit_pw)
 		{
 			CN3UIBase* pMsgBox = CGameProcedure::s_pMsgBoxMgr->GetFocusMsgBox();
 			if( !(pMsgBox && pMsgBox->IsVisible()) )
 				CGameProcedure::s_pProcLogIn->MsgSend_AccountLogIn(LIC_KNIGHTONLINE);
 		}
+		else {
+			ReceiveMessage(m_pBtn_Connect, UIMSG_BUTTON_CLICK);
+		}
 	}
 	else if (dwMsg == UIMSG_EDIT_TAB)
 	{
+		// TEMP(srmeier): there is a weird issue where the key inputs aren't going
+		// through CGameProcedure::ProcessUIKeyInput() so CUILogIn::OnKeyPress() isn't
+		// being called...
 		FocusCircular();
 	}
 
@@ -355,7 +364,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_TAB:
+		case SDL_SCANCODE_TAB://DIK_TAB:
 			FocusCircular();
 			return true;
 //		case DIK_NUMPADENTER:
@@ -368,7 +377,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_UP:
+		case SDL_SCANCODE_UP://DIK_UP:
 			{
 				if(NULL == m_pList_Server) return false;
 
@@ -378,7 +387,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 				int iCnt = m_pList_Server->GetCount();
 			}
 			return true;
-		case DIK_DOWN:
+		case SDL_SCANCODE_DOWN://DIK_DOWN:
 			{
 				if(NULL == m_pList_Server) return false;
 
@@ -388,8 +397,8 @@ bool CUILogIn::OnKeyPress(int iKey)
 				if(iCnt - iIndex > 1) m_pList_Server->SetCurSel(iIndex + 1);
 			}
 			return true;
-		case DIK_NUMPADENTER:
-		case DIK_RETURN:
+		case SDL_SCANCODE_KP_ENTER://DIK_NUMPADENTER:
+		case SDL_SCANCODE_RETURN://DIK_RETURN:
 			ReceiveMessage(m_pBtn_Connect, UIMSG_BUTTON_CLICK);
 			return true;
 		}

@@ -2767,14 +2767,14 @@ bool CUIInventory::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_RETURN:
+		case SDL_SCANCODE_RETURN://DIK_RETURN:
 			{
 				CN3UIButton* pBtnDestroyOk = (CN3UIButton* )m_pArea_Destroy->GetChildByID("btn_Destroy_ok");
 				if(pBtnDestroyOk) m_pArea_Destroy->ReceiveMessage(pBtnDestroyOk, UIMSG_BUTTON_CLICK);
 				else return false;
 			}
 			return true;
-		case DIK_ESCAPE:
+		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 			{
 				CN3UIButton* pBtnDestroyCancel = (CN3UIButton* )m_pArea_Destroy->GetChildByID("btn_Destroy_cancel");
 				if(pBtnDestroyCancel) m_pArea_Destroy->ReceiveMessage(pBtnDestroyCancel, UIMSG_BUTTON_CLICK);
@@ -2787,7 +2787,7 @@ bool CUIInventory::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case DIK_ESCAPE:
+		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 			if(!m_bClosingNow) this->Close();
 			if(m_pUITooltipDlg) m_pUITooltipDlg->DisplayTooltipsDisable();
 			return true;
