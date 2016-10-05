@@ -1,80 +1,63 @@
-// N3Eng.cpp: implementation of the CN3Eng class.
-//
-//////////////////////////////////////////////////////////////////////
-#include "StdAfxBase.h"
+/*
+*/
+
 #include "N3Eng.h"
 #include "N3Light.h"
 #include "LogWriter.h"
 
-#ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
-#endif
-
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
-
-CN3Eng::CN3Eng()
+//-----------------------------------------------------------------------------
+CN3Eng::CN3Eng(void)
 {
-	m_lpDD = NULL;
-	s_lpD3DDev = NULL;
-	memset(&m_DeviceInfo, 0, sizeof(__D3DDEV_INFO));
+	m_lpDD          = NULL;
+	m_lpD3D         = NULL;
+	s_lpD3DDev      = NULL;
+	m_nModeActive   = -1;
+	m_nAdapterCount =  1;
 
-	m_nModeActive = -1;
-	m_nAdapterCount = 1; // 그래픽 카드 갯수
+	memset(&m_DeviceInfo, 0x00, sizeof(__D3DDEV_INFO));
 
 	delete [] m_DeviceInfo.pModes;
-	memset(&m_DeviceInfo, 0, sizeof(m_DeviceInfo));
-
-	// Direct3D 생성
-	m_lpD3D = NULL;
-	m_lpD3D = Direct3DCreate9(D3D_SDK_VERSION);
-	if(NULL == m_lpD3D)
-	{
-		MessageBox(::GetActiveWindow(), "Direct3D8 is not installed or lower version.", "Initialization", MB_OK);
-//		{ for(int iii = 0; iii < 1; iii++) Beep(2000, 200); Sleep(300); } // 여러번 삑~
-#ifdef _N3GAME
-		CLogWriter::Write("Direct3D8 is not installed or lower version");
-#endif
-		this->Release();
-		exit(-1);
-	}
-
-	// 프로그램이 실행된 경로..
-	if(s_szPath.empty())
-	{
-		char szPath[256];
-		char szDrive[_MAX_DRIVE], szDir[_MAX_DIR];
-		::GetModuleFileName(NULL, szPath, 256);
-		_splitpath(szPath, szDrive, szDir, NULL, NULL);
-		sprintf(szPath, "%s%s", szDrive, szDir);
-		this->PathSet(szPath); // 경로 설정..	
-	}
+	memset(&m_DeviceInfo, 0x00, sizeof(m_DeviceInfo));
 
 #ifdef _N3GAME
 	CLogWriter::Open("Log.txt");
 #endif
+
+	m_lpD3D = Direct3DCreate9(D3D_SDK_VERSION);
+
+	if(m_lpD3D == NULL)
+	{
+#ifdef _N3GAME
+		CLogWriter::Write("Direct3D9 is not installed or lower version");
+#endif
+		Release();
+		exit(-1);
+	}
+
+	if(s_szPath.empty())
+		PathSet(SDL_GetBasePath());
 }
 
-CN3Eng::~CN3Eng()
+//-----------------------------------------------------------------------------
+CN3Eng::~CN3Eng(void)
 {
 	CN3Base::ReleaseResrc();
-
 	delete [] m_DeviceInfo.pModes;
 
 	if(s_lpD3DDev)
 	{
 		int nRefCount = s_lpD3DDev->Release();
-		if(0 == nRefCount) s_lpD3DDev = NULL;
-		else
-		{
+
+		if (nRefCount == 0) {
+			s_lpD3DDev = NULL;
+		} else {
 #ifdef _N3GAME
 			CLogWriter::Write("CNEng::~CN3Eng - Device reference count is bigger than 0");
 #endif
 		}
 	}
-	if(m_lpD3D) if(0 == m_lpD3D->Release()) m_lpD3D = NULL;
+
+	if(m_lpD3D) if(m_lpD3D->Release() == 0) m_lpD3D = NULL;
 	if(m_lpDD) m_lpDD->Release(); m_lpDD = NULL;
 
 #ifdef _N3GAME
@@ -82,10 +65,11 @@ CN3Eng::~CN3Eng()
 #endif
 }
 
-void CN3Eng::Release()
+//-----------------------------------------------------------------------------
+void CN3Eng::Release(void)
 {
-	m_nModeActive = -1;
-	m_nAdapterCount = 1; // 그래픽 카드 갯수
+	m_nModeActive   = -1;
+	m_nAdapterCount =  1;
 
 	delete [] m_DeviceInfo.pModes;
 	memset(&m_DeviceInfo, 0, sizeof(m_DeviceInfo));
@@ -93,9 +77,10 @@ void CN3Eng::Release()
 	if(s_lpD3DDev)
 	{
 		int nRefCount = s_lpD3DDev->Release();
-		if(0 == nRefCount) s_lpD3DDev = NULL;
-		else
-		{
+
+		if (nRefCount == 0) {
+			s_lpD3DDev = NULL;
+		} else {
 #ifdef _N3GAME
 			CLogWriter::Write("CNEng::Release Device reference count is bigger than 0");
 #endif
@@ -105,6 +90,177 @@ void CN3Eng::Release()
 	if(m_lpDD) m_lpDD->Release(); m_lpDD = NULL;
 }
 
+//-----------------------------------------------------------------------------
+void CN3Eng::SetViewPort(RECT& rc)
+{
+	if (s_lpD3DDev == NULL) return;
+
+	D3DVIEWPORT9 vp;
+	vp.X      = rc.left;
+	vp.Y      = rc.top;
+	vp.Width  = rc.right  - rc.left;
+	vp.Height = rc.bottom - rc.top;
+	vp.MinZ   = 0.0f;
+	vp.MaxZ   = 1.0f;
+
+	s_lpD3DDev->SetViewport(&vp);
+	memcpy(&s_CameraData.vp, &vp, sizeof(D3DVIEWPORT9));
+}
+
+//-----------------------------------------------------------------------------
+void CN3Eng::SetDefaultEnvironment(void)
+{
+	__Matrix44 matWorld; matWorld.Identity();
+
+	s_lpD3DDev->SetTransform(D3DTS_WORLD, &matWorld);
+	s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+	s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+
+	s_lpD3DDev->SetRenderState(D3DRS_DITHERENABLE, TRUE);
+	s_lpD3DDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+
+	s_lpD3DDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	s_lpD3DDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
+	s_lpD3DDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+	float fMipMapLODBias = -1.0f;
+
+	for (int i = 0; i < 8; ++i) {
+		s_lpD3DDev->SetTexture(i, NULL);
+		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MIPMAPLODBIAS, *((LPDWORD)(&fMipMapLODBias)));
+	}
+
+	D3DCLIPSTATUS9 cs;
+	cs.ClipUnion = cs.ClipIntersection = D3DCS_ALL;
+
+	s_lpD3DDev->SetClipStatus(&cs);
+}
+
+//-----------------------------------------------------------------------------
+/*!
+Used to set the view matrix for DirectX
+*/
+void CN3Eng::LookAt(__Vector3 &vEye, __Vector3 &vAt, __Vector3 &vUp)
+{
+	__Matrix44 matView;
+	D3DXMatrixLookAtLH(&matView, &vEye, &vAt, &vUp);
+	s_lpD3DDev->SetTransform(D3DTS_VIEW, &matView);
+}
+
+//-----------------------------------------------------------------------------
+bool CN3Eng::Reset(bool bWindowed, Uint32 dwWidth, Uint32 dwHeight, Uint32 dwBPP)
+{
+	if (s_lpD3DDev == NULL) return false;
+	if (dwWidth <= 0 || dwHeight <= 0) return false;
+
+	if (dwWidth == s_DevParam.BackBufferWidth && dwHeight == s_DevParam.BackBufferHeight)
+	{
+		if (0 == dwBPP) return false;
+		if (16 == dwBPP && D3DFMT_R5G6B5 == s_DevParam.BackBufferFormat) return false;
+		if (24 == dwBPP && D3DFMT_R8G8B8 == s_DevParam.BackBufferFormat) return false;
+		if (32 == dwBPP && D3DFMT_X8R8G8B8 == s_DevParam.BackBufferFormat) return false;
+	}
+
+	D3DPRESENT_PARAMETERS DevParamBackUp;
+	memcpy(&DevParamBackUp, &s_DevParam, sizeof(D3DPRESENT_PARAMETERS));
+
+	D3DFORMAT BBFormat = D3DFMT_UNKNOWN;
+
+	if (bWindowed)
+	{
+		D3DDISPLAYMODE dm;
+		m_lpD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &dm);
+
+		BBFormat = dm.Format;
+
+	} else
+	{
+		if (16 == dwBPP) BBFormat = D3DFMT_R5G6B5;
+		else if (24 == dwBPP) BBFormat = D3DFMT_R8G8B8;
+		else if (32 == dwBPP) BBFormat = D3DFMT_X8R8G8B8;
+	}
+
+	s_DevParam.Windowed         = bWindowed;
+	s_DevParam.BackBufferWidth  = dwWidth;
+	s_DevParam.BackBufferHeight = dwHeight;
+	s_DevParam.BackBufferFormat = BBFormat;
+
+	int nMC = m_DeviceInfo.nModeCount;
+	for (int i = 0; i < nMC; i++)
+	{
+		if (m_DeviceInfo.pModes[i].Format == s_DevParam.BackBufferFormat)
+		{
+			FindDepthStencilFormat(
+				0, m_DeviceInfo.DevType, m_DeviceInfo.pModes[i].Format,
+				&s_DevParam.AutoDepthStencilFormat
+			);
+
+			m_nModeActive = i;
+
+			break;
+		}
+	}
+
+	if (D3D_OK != s_lpD3DDev->Reset(&s_DevParam))
+	{
+#ifdef _N3GAME
+		CLogWriter::Write("CNEng::Reset - Insufficient video memory");
+#endif
+		memcpy(&s_DevParam, &DevParamBackUp, sizeof(D3DPRESENT_PARAMETERS));
+
+		if (D3D_OK != s_lpD3DDev->Reset(&s_DevParam))
+		{
+#ifdef _N3GAME
+			CLogWriter::Write("CNEng::Reset - Insufficient video memory");
+#endif
+		}
+
+		return false;
+	}
+
+	RECT rcView = {
+		0, 0, dwWidth, dwHeight
+	};
+
+	SetViewPort(rcView);
+	SetDefaultEnvironment();
+
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+/*!
+Set the projection matrix for DirectX
+*/
+void CN3Eng::SetProjection(float fNear, float fFar, float fLens, float fAspect)
+{
+	__Matrix44 matProjection;
+	D3DXMatrixPerspectiveFovLH(&matProjection, fLens, fAspect, fNear, fFar);
+	s_lpD3DDev->SetTransform(D3DTS_PROJECTION, &matProjection);
+}
+
+//-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------------------------
 bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW)
 {
 	/*
@@ -281,36 +437,8 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHe
 	return true;
 }
 
-void CN3Eng::LookAt(__Vector3 &vEye, __Vector3 &vAt, __Vector3 &vUp)
-{
-	__Matrix44 matView;
-	D3DXMatrixLookAtLH(&matView, &vEye, &vAt, &vUp);
-	s_lpD3DDev->SetTransform(D3DTS_VIEW, &matView);
-}
 
-void CN3Eng::SetProjection(float fNear, float fFar, float fLens, float fAspect)
-{
-	__Matrix44 matProjection;
-	::D3DXMatrixPerspectiveFovLH(&matProjection, fLens, fAspect, fNear, fFar);
-	s_lpD3DDev->SetTransform(D3DTS_PROJECTION, &matProjection);
-}
-
-void CN3Eng::SetViewPort(RECT& rc)
-{
-	if(NULL == s_lpD3DDev) return;
-	D3DVIEWPORT9 vp;
-
-	vp.X = rc.left;
-	vp.Y = rc.top;
-	vp.Width = rc.right - rc.left;
-	vp.Height = rc.bottom - rc.top;
-	vp.MinZ = 0.0f;
-	vp.MaxZ = 1.0f;
-
-	s_lpD3DDev->SetViewport(&vp);
-	memcpy(&s_CameraData.vp, &vp, sizeof(D3DVIEWPORT9));
-}
-
+/*
 LRESULT WINAPI CN3Eng::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
     switch( msg )
@@ -327,6 +455,7 @@ LRESULT WINAPI CN3Eng::MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
 
     return DefWindowProc( hWnd, msg, wParam, lParam );
 }
+*/
 
 BOOL CN3Eng::FindDepthStencilFormat(UINT iAdapter, D3DDEVTYPE DeviceType, D3DFORMAT TargetFormat, D3DFORMAT* pDepthStencilFormat)
 {
@@ -548,176 +677,4 @@ void CN3Eng::ClearZBuffer(const RECT* pRC)
 	{
 		s_lpD3DDev->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);
 	}
-}
-
-bool CN3Eng::Reset(BOOL bWindowed, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP)
-{
-	if(NULL == s_lpD3DDev) return false;
-	if(dwWidth <= 0 || dwHeight <= 0) return false;
-	if(	dwWidth == s_DevParam.BackBufferWidth && dwHeight == s_DevParam.BackBufferHeight) // 너비 높이가 같을때..
-	{
-		if(0 == dwBPP) return false;
-		if(16 == dwBPP && D3DFMT_R5G6B5 == s_DevParam.BackBufferFormat) return false;
-		if(24 == dwBPP && D3DFMT_R8G8B8 == s_DevParam.BackBufferFormat) return false;
-		if(32 == dwBPP && D3DFMT_X8R8G8B8 == s_DevParam.BackBufferFormat) return false;
-	}
-
-	D3DPRESENT_PARAMETERS DevParamBackUp; // Baclup
-	memcpy(&DevParamBackUp, &s_DevParam, sizeof(D3DPRESENT_PARAMETERS));
-
-	D3DFORMAT BBFormat = D3DFMT_UNKNOWN;
-	if(bWindowed)
-	{
-		D3DDISPLAYMODE dm;
-		m_lpD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &dm);
-		BBFormat = dm.Format;
-	}
-	else
-	{
-		if(16 == dwBPP) BBFormat = D3DFMT_R5G6B5;
-		else if(24 == dwBPP) BBFormat = D3DFMT_R8G8B8;
-		else if(32 == dwBPP) BBFormat = D3DFMT_X8R8G8B8;
-	}
-
-	s_DevParam.Windowed = bWindowed;
-	s_DevParam.BackBufferWidth = dwWidth;
-	s_DevParam.BackBufferHeight = dwHeight;
-	s_DevParam.BackBufferFormat = BBFormat;
-
-	int nMC = m_DeviceInfo.nModeCount;
-	for(int i = 0; i < nMC; i++)
-	{
-//		if(	m_DeviceInfo.pModes[i].Width == dwWidth && 
-//			m_DeviceInfo.pModes[i].Height == dwHeight && 
-		if(	m_DeviceInfo.pModes[i].Format == s_DevParam.BackBufferFormat) // 모드가 일치하면
-		{
-			this->FindDepthStencilFormat(0, m_DeviceInfo.DevType, m_DeviceInfo.pModes[i].Format, &s_DevParam.AutoDepthStencilFormat); // 깊이와 스텐실 버퍼를 찾는다.
-			m_nModeActive = i;
-			break;
-		}
-	}
-
-	if(D3D_OK != s_lpD3DDev->Reset(&s_DevParam))
-	{
-#ifdef _N3GAME
-		CLogWriter::Write("CNEng::Reset - Insufficient video memory"); 
-#endif
-		memcpy(&s_DevParam, &DevParamBackUp, sizeof(D3DPRESENT_PARAMETERS));
-		if(D3D_OK != s_lpD3DDev->Reset(&s_DevParam))
-		{
-#ifdef _N3GAME
-			CLogWriter::Write("CNEng::Reset - Insufficient video memory"); 
-#endif
-		}
-		return false;
-	}
-
-	RECT rcView = { 0, 0, dwWidth, dwHeight };
-	this->SetViewPort(rcView);
-
-	this->SetDefaultEnvironment();
-
-	return true;
-}
-
-void CN3Eng::SetDefaultEnvironment()
-{
-	// 기본 렌더링 상태 지정
-
-	__Matrix44 matWorld;	matWorld.Identity();
-	s_lpD3DDev->SetTransform(D3DTS_WORLD, &matWorld);
-//	s_lpD3DDev->SetRenderState( D3DRS_ZENABLE, D3DZB_USEW); // Z버퍼 사용가능
-	s_lpD3DDev->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE); // Z버퍼 사용가능
-	s_lpD3DDev->SetRenderState( D3DRS_LIGHTING, TRUE);
-
-	s_lpD3DDev->SetRenderState( D3DRS_DITHERENABLE,   TRUE );
-	s_lpD3DDev->SetRenderState( D3DRS_SPECULARENABLE, TRUE );
-//	s_lpD3DDev->SetRenderState( D3DRS_AMBIENT,        0x00444444 );
-
-	s_lpD3DDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	s_lpD3DDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER); // 기본 알파 펑션 - 안해주면 알파 텍스처들이 빵꾸나기도 한다.
-	
-	s_lpD3DDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
-	// 기본 텍스처 필터 지정.
-	float fMipMapLODBias = -1.0f;
-	for(int i = 0; i < 8; i++)
-	{
-		s_lpD3DDev->SetTexture( i, NULL );
-		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
-		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
-		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
-		s_lpD3DDev->SetSamplerState(i, D3DSAMP_MIPMAPLODBIAS, *((LPDWORD) (&fMipMapLODBias)));
-	}
-
-	// 클리핑 상태 지정
-	D3DCLIPSTATUS9 cs; cs.ClipUnion = cs.ClipIntersection = D3DCS_ALL;
-	s_lpD3DDev->SetClipStatus(&cs);	
-}
-
-HKEY CN3Eng::RegistryOpen(const std::string& szKey)
-{
-    HKEY hKey = NULL;
-	long lStatus = RegOpenKey(HKEY_CURRENT_USER, szKey.c_str(), &hKey);
-
-	return hKey;
-}
-
-bool CN3Eng::RegistryClose(HKEY& hKey)
-{
-	if(NULL == hKey) return false;
-
-	long lStatus = RegCloseKey(hKey);
-	hKey = NULL;
-
-	if(ERROR_SUCCESS == lStatus) return true;
-	return false;
-}
-
-bool CN3Eng::RegistryValueGet(HKEY hKey, const std::string& szName, std::string& szValue)
-{
-	if(NULL == hKey || szName.empty() || szValue.empty()) return false;
-
-	std::vector<char> buffer(256, NULL);
-
-	DWORD dwType = REG_SZ;
-	DWORD dwBytes = 0;
-	long lStatus = RegQueryValueEx(hKey, szName.c_str(), NULL, &dwType, (BYTE*)(&(buffer[0])), &dwBytes);
-	szValue = &(buffer[0]);
-
-	if(ERROR_SUCCESS == lStatus) return true;
-	return false;
-}
-
-bool CN3Eng::RegistryValueGet(HKEY hKey, const std::string& szName, void* pValue, DWORD dwBytes)
-{
-	if(NULL == hKey || szName.empty() || NULL == pValue || 0 == dwBytes) return false;
-
-	DWORD dwType = REG_BINARY;
-	long lStatus = RegQueryValueEx(hKey, szName.c_str(), NULL, &dwType, (BYTE*)pValue, &dwBytes);
-
-	if(ERROR_SUCCESS == lStatus) return true;
-	return false;
-}
-
-bool CN3Eng::RegistryValueSet(HKEY hKey, const std::string& szName, std::string& szValue)
-{
-	if(NULL == hKey || szName.empty() || szValue.empty()) return false;
-
-	DWORD dwBytes = szValue.size();
-	long lStatus = RegSetValueEx(hKey, szName.c_str(), NULL, REG_SZ, (BYTE*)(szValue.c_str()), dwBytes);
-
-	if(ERROR_SUCCESS == lStatus) return true;
-	return false;
-}
-
-bool CN3Eng::RegistryValueSet(HKEY hKey, const std::string& szName, void* pValue, DWORD dwBytes)
-{
-	if(NULL == hKey || szName.empty() || NULL == pValue || 0 == dwBytes) return false;
-
-	long lStatus = RegSetValueEx(hKey, szName.c_str(), NULL, REG_BINARY, (BYTE*)pValue, dwBytes);
-
-	if(ERROR_SUCCESS == lStatus) return true;
-	return false;
 }

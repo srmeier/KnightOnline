@@ -1667,13 +1667,13 @@ bool CUISkillTreeDlg::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case DIK_PRIOR:
+	case SDL_SCANCODE_PAGEUP://DIK_PRIOR:
 		PageLeft();
 		return true;
-	case DIK_NEXT:
+	case SDL_SCANCODE_PAGEDOWN://DIK_NEXT:
 		PageRight();
 		return true;
-	case DIK_ESCAPE:
+	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 		if(!m_bClosingNow) this->Close();
 		return true;
 	}

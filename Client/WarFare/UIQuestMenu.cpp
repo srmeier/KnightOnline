@@ -116,6 +116,12 @@ bool CUIQuestMenu::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 			}
 		}
 	}
+	else if (dwMsg == UIMSG_BUTTON_CLICK) {
+		if (pSender == m_pBtnClose) {
+			SetVisible(false);
+			return true;
+		}
+	}
 
 	return true;
 }
@@ -186,7 +192,6 @@ void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
 	rcImage = m_pImageMenu->GetRegion();
 	iIH = rcImage.bottom - rcImage.top;
 
-	//string 생성
 	int i = 0;
 	for(; i<m_iMenuCnt; i++)
 	{
@@ -222,7 +227,6 @@ void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
 	rcText = m_pTextMenuImgBk[m_iMenuCnt-1]->GetRegion();
 	m_pImageBottom->SetPos(0, rcText.bottom);
 
-	//이건 기본 유아이의 영역을 다시 설정해줌...
 	const int iWidth = CN3Base::s_CameraData.vp.Width;
 	const int iHeight = CN3Base::s_CameraData.vp.Height;
 	int iX = 0, iY = 0;
@@ -241,7 +245,7 @@ bool CUIQuestMenu::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case DIK_ESCAPE:
+	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 		SetVisible(false);
 		return true;
 	}
