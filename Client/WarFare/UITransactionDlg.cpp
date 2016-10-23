@@ -1607,13 +1607,13 @@ bool CUITransactionDlg::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case DIK_PRIOR:
+	case SDL_SCANCODE_PAGEUP://DIK_PRIOR:
 		ReceiveMessage(m_pBtnPageUp, UIMSG_BUTTON_CLICK);
 		return true;
-	case DIK_NEXT:
+	case SDL_SCANCODE_PAGEDOWN://DIK_NEXT:
 		ReceiveMessage(m_pBtnPageDown, UIMSG_BUTTON_CLICK);
 		return true;
-	case DIK_ESCAPE:
+	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
 		ReceiveMessage(m_pBtnClose, UIMSG_BUTTON_CLICK);
 		if(m_pUITooltipDlg) m_pUITooltipDlg->DisplayTooltipsDisable();
 		return true;

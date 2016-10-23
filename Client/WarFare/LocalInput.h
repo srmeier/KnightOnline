@@ -9,7 +9,7 @@ const int DK_NONE = 0;
 const int DK_RELEASE = 1;
 const int DK_PRESS = 2;
 const int DK_REPEAT = 4;
-const int NUMDIKEYS = 282;
+const int NUMDIKEYS = SDL_NUM_SCANCODES;//282;
 
 // 마우스 플래그 - 한개 이상의 플래그가 OR 연산으로 조합되어 있다..
 const int MOUSE_LBCLICK		= 0x1;
