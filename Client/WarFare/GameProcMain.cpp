@@ -582,9 +582,46 @@ void CGameProcMain::Tick()
 	if(s_pPlayer->m_InfoBase.iLevel < 12 && fInterval4 > 20.0f) // 시간이 지나면 팁 하나씩 표시..
 	{
 		std::string szMsg;
-		szMsg = "IDS_HELP_TIP_ALL";//::_LoadStringFromResource(IDS_HELP_TIP_ALL, szMsg);
-		this->m_pUIMsgDlg->AddMsg(szMsg, 0xffffff00); // 헬프 표시..
-		szMsg = "IDS_HELP_TIP1";//::_LoadStringFromResource(IDS_HELP_TIP1 + rand()%30, szMsg);
+		szMsg = "[Knight Online Tip of the Day!]";//::_LoadStringFromResource(IDS_HELP_TIP_ALL, szMsg);
+		this->m_pUIMsgDlg->AddMsg(szMsg, 0xffffff00);
+
+		int rand_int = rand() % 33; //Adding 1.298 TIPS via Switch Case - ForcePower
+		switch (rand_int) {
+		case 1:  szMsg = "Recover rapidly by sitting down - 'C'"; break;
+		case 2:  szMsg = "You can move using your mouse in the 'quarter-view' mode. "; break;
+		case 3:  szMsg = "Toggle Auto Walk/Run - 'E'"; break;
+		case 4:  szMsg = "When you want to teleport back to town - Type'/town'"; break;
+		case 5:  szMsg = "To find the nearest enemy/monster - Press the 'Z' key"; break;
+		case 6:  szMsg = "Using Skill : Drag the skill icon to the shortcut key window. "; break;
+		case 7:  szMsg = "Designate re-spawn spot : Right-click on the Resurrection Stone. "; break;
+		case 8:  szMsg = "Visit the blacksmith to increase the durability of an item. "; break;
+		case 9:  szMsg = "Item Storage : Right-click on the Inn-Keeper. "; break;
+		case 10:  szMsg = "Selecting Specialty : You can select your specialty when you reach level 10. "; break;
+		case 11: szMsg = "Pick up item : Click on the dead monster."; break;
+		case 12: szMsg = "Walk/Run : Press the 'Y' key"; break;
+		case 13: szMsg = "Toggle Attack : Press the 'R' key or double click on the target. "; break;
+		case 14: szMsg = "Toggle View : shortcut key 'F9'"; break;
+		case 15: szMsg = "You can move your character by pressing 'W,A,S,D's keys or the arrow keys. "; break;
+		case 16: szMsg = "Using Skill : Press the skill icon placed on the shortcut key window or press '1~8'"; break;
+		case 17: szMsg = "You can level up faster if you form a party. "; break;
+		case 18: szMsg = "Display request for party : Type'/Seeking_party'"; break;
+		case 19: szMsg = "Invite into a party : Type '/party'"; break;
+		case 20: szMsg = "Trade Item : Select a character and type '/trade'"; break;
+		case 21: szMsg = "Party Chat : Click on the 'Party Chat' button on the chat window"; break;
+		case 22: szMsg = "General Chat : Click on the 'General Chat' button on the chat window"; break;
+		case 23: szMsg = "Gaining Stat Points : Gain 3 stat points every time you level up. "; break;
+		case 24: szMsg = "Gaining Skill Points : You can gain 2 skill points every time you level up once you've reached level 10. "; break;
+		case 25: szMsg = "Destroy Item : Drag and drop the item you wish to destroy on to the red mark on the inventory window. "; break;
+		case 26: szMsg = "View Description of the Skill : Put your cursor over the skill icon."; break;
+		case 27: szMsg = "Private Message : Type '/pm' ID"; break;
+		case 28: szMsg = "View Mini-map : Press 'N'.  The red and orange dots are enemies. "; break;
+		case 29: szMsg = "Flip through shortcut key window : 'PageUp/PageDown'"; break;
+		case 30: szMsg = "Use the 'Home / End' keys to change views in the quarter-view mode. "; break;
+		case 31: szMsg = "Take 5 Silk Bundles to the Proconsul standing near the accessory vendor and he'll give you a weapon.   "; break;
+		case 32: szMsg = "Lock on the closest NPC - 'B' "; break;
+		case 33: szMsg = "View Overall Map : 'M'"; break;
+		}
+
 		this->m_pUIMsgDlg->AddMsg(szMsg, 0xffffff00); // 헬프 표시..
 		fInterval4 = 0;
 	}
