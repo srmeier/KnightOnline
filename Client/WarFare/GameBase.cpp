@@ -421,9 +421,9 @@ bool CGameBase::GetTextByNation(e_Nation eNation, std::string& szText)
 {
 	switch(eNation)
 	{
-		case NATION_ELMORAD:	szText = "IDS_NATION_ELMORAD"; /*::_LoadStringFromResource(IDS_NATION_ELMORAD, szText);*/ break;
-		case NATION_KARUS:		szText = "IDS_NATION_KARUS"; /*::_LoadStringFromResource(IDS_NATION_KARUS, szText);*/ break;
-		default: szText = "IDS_NATION_UNKNOWN"; /*::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText);*/ return false;
+		case NATION_ELMORAD:	szText = "El Morad"; /*::_LoadStringFromResource(IDS_NATION_ELMORAD, szText);(3011)*/ break;
+		case NATION_KARUS:		szText = "Karus"; /*::_LoadStringFromResource(IDS_NATION_KARUS, szText);(3012)*/ break;
+		default: szText = "Unknown Nation!!!"; /*::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText);*/ return false;
 	}
 
 	return true;
