@@ -3134,20 +3134,20 @@ bool CGameProcMain::MsgRecv_Attack(DataPack* pDataPack, int& iOffset)
 	{
 		if(pTarget->IsAlive() && 0 == pTarget->m_iSkillStep) // 죽은 넘이 아니고 스킬을 쓰즌 중이 아니면 막는 동작을 한다..
 		{
-			pTarget->m_bGuardSuccess = true; // 방어에 성공했는지에 대한 플래그..
+			pTarget->m_bGuardSuccess = true;
 			pTarget->Action(PSA_GUARD, false);
 		}
 
-		if(pAttacker == s_pPlayer) // 공격하는 사람이 플레이어 자신이면..
+		if(pAttacker == s_pPlayer) 
 		{
 			char szBuf[128] = "";
-			std::string szFmt = "IDS_MSG_FMT_TARGET_ATTACK_FAILED (%s)";
-			//::_LoadStringFromResource(IDS_MSG_FMT_TARGET_ATTACK_FAILED, szFmt);
+			std::string szFmt = "%s Missed."; //Again missing the right descrpition...
+			//::_LoadStringFromResource(IDS_MSG_FMT_TARGET_ATTACK_FAILED, szFmt); blah blah
 			sprintf(szBuf, szFmt.c_str(), pTarget->IDString().c_str());
 			MsgOutput(szBuf, 0xffffffff);
 		}
 	}
-	else if(0x2 == iResult) // Attack And Dead - 이번 공격으로 죽는다!!!
+	else if(0x2 == iResult) // Attack And Dead 
 	{
 		if(pTarget == s_pPlayer)
 		{
