@@ -132,16 +132,16 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			CGameProcedure::s_pProcMain->CommandToggleUIState();
 		}
 
-		else if(pSender == m_pBtn_Exit) // 캐릭터 캐릭터 선택창으로 간다..
+		else if(pSender == m_pBtn_Exit) 
 		{
-			std::string szMsg = "IDS_EXIT"; //::_LoadStringFromResource(IDS_EXIT, szMsg);
-//			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_RESTART_GAME); // 게임 다시시작 하기..??
-			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXIT); // 게임 다시시작 하기..??
+			std::string szMsg = "Are you sure you want to exit?"; //Once again lack of descrpiton(IDS_EXIT, szMsg);
+//			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_RESTART_GAME); 
+			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXIT); 
 		}
 
 		else if(pSender == m_pBtn_Camera)
 		{
-			CGameProcedure::s_pProcMain->CommandCameraChange(); // 카메라 시점 바꾸기..
+			CGameProcedure::s_pProcMain->CommandCameraChange(); 
 		}
 
 		else if(pSender == m_pBtn_Party_Invite)
