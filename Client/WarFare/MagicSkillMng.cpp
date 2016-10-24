@@ -2228,7 +2228,7 @@ void CMagicSkillMng::MsgRecv_Fail(DataPack* pDataPack, int& iOffset)
 		if(iSourceID == s_pPlayer->IDNumber())
 		{
 			s_pPlayer->m_dwMagicID = 0xffffffff;
-			m_pGameProcMain->CommandSitDown(false, false); // 혹시라도 앉아있음 일으켜 세운다..
+			m_pGameProcMain->CommandSitDown(false, false); 
 
 			std::string buff = "IDS_MSG_FMT_TARGET_ATTACK_FAILED (%s)";
 			//::_LoadStringFromResource(IDS_MSG_FMT_TARGET_ATTACK_FAILED, buff);
@@ -2255,7 +2255,7 @@ void CMagicSkillMng::MsgRecv_Fail(DataPack* pDataPack, int& iOffset)
 			s_pPlayer->m_dwMagicID = 0xffffffff;
 			m_pGameProcMain->CommandSitDown(false, false); // 혹시라도 앉아있음 일으켜 세운다..
 
-			std::string buff = "IDS_SKILL_FAIL_EFFECTING (%s)";
+			std::string buff = "%s failed";
 			//::_LoadStringFromResource(IDS_SKILL_FAIL_EFFECTING, buff);
 			char szBuff[256] = "";
 			sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
