@@ -128,7 +128,7 @@ void CPlayerMySelf::Tick()
 		if(0 == m_iSendRegeneration) 
 		{
 //			std::string szMsg; ::_LoadStringFromResource(IDS_REGENERATION, szMsg);
-//			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION); // 다시 생성 메시지 보냄..
+//			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION);
 //			CLogWriter::Write("Dead!!!");
 			m_iSendRegeneration = 1;
 		}
