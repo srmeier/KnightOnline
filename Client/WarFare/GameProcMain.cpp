@@ -864,7 +864,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			{
 //				if(m_pUIDead) m_pUIDead->MsgRecv_Revival(pDataPack, iOffset);
 				this->MsgRecv_Regen(pDataPack, iOffset);
-				std::string szMsg = "IDS_REGENERATION"; //::_LoadStringFromResource(IDS_REGENERATION, szMsg);
+				std::string szMsg = "Press OK to teleport back to the re-spawn point."; //IDS_REGENERATION (3701) in 1.298 client.
 				MessageBoxClose(szMsg);
 				m_pUITargetBar->SetVisible(false);
 			}
@@ -3152,7 +3152,7 @@ bool CGameProcMain::MsgRecv_Attack(DataPack* pDataPack, int& iOffset)
 		if(pTarget == s_pPlayer)
 		{
 //			if(m_pUIDead) m_pUIDead->SetVisible(true);
-			std::string szMsg = "IDS_REGENERATION"; //::_LoadStringFromResource(IDS_REGENERATION, szMsg);
+			std::string szMsg = "Press OK to teleport back to the re-spawn point."; //Again function IDS_REGENERATION was missing the right description.
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION); // 다시 생성 메시지 보냄..
 		}
 		
@@ -3179,8 +3179,8 @@ bool CGameProcMain::MsgRecv_Dead(DataPack* pDataPack, int& iOffset)
 		pTarget = s_pPlayer;
 
 //		if(m_pUIDead) m_pUIDead->SetVisible(true);
-		std::string szMsg = "IDS_REGENERATION"; //::_LoadStringFromResource(IDS_REGENERATION, szMsg);
-		CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION); // 다시 생성 메시지 보냄..
+		std::string szMsg = "Press OK to teleport back to the re-spawn point."; //and once again dead noitce was missing 
+		CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION); 
 		CLogWriter::Write("Dead!!!");
 	}
 	else
