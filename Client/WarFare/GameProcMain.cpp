@@ -6392,25 +6392,25 @@ void CGameProcMain::MsgRecv_NoahChange(DataPack* pDataPack, int& iOffset)		// 노
 	switch (bType)
 	{
 		case N3_SP_NOAH_GET:
-			szMsg = "IDS_NOAH_CHANGE_GET (%d)";//::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg);
+			szMsg = "Earned %d Coins.";//::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg)6088;
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
 			break;
 
 		case N3_SP_NOAH_LOST:
-			szMsg = "IDS_NOAH_CHANGE_LOST (%d)";//::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
+			szMsg = "Lost %d Coins.";//::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg) 6089;
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case N3_SP_NOAH_SPEND:
-			szMsg = "IDS_NOAH_CHANGE_LOST (%d)";//::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
+			szMsg = "Used %d Coins.";//::_LoadStringFromResource(IDS_NOAH_CHANGE_SPEND, szMsg) 6099;
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
 	}
 
-	// 돈 변경.. 인벤토리는 바꾸고 상거래.. 개인 거래와는 배타적..
+	
 	s_pPlayer->m_InfoExt.iGold = dwGold;
 	if (m_pUIInventory->IsVisible())
 		m_pUIInventory->GoldUpdate();
