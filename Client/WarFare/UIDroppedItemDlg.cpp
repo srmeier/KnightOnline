@@ -26,6 +26,7 @@
 //#include "Resource.h"
 
 #include "N3UIArea.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -787,7 +788,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 			pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
 			// µ· ¾÷µ¥ÀÌÆ®..
-			stdMsg = "Picked up %d Coins.";//::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
+			::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
 			sprintf(szMsg, stdMsg.c_str(), iGold - pInfoExt->iGold);
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
