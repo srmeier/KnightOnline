@@ -500,7 +500,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 			// 인벤토리가 꽉 차있으면.. break.. ^^
 			char szBuff[128] = "";
 			std::string stdMsg;
-			stdMsg = "IDS_INV_ITEM_FULL";//::_LoadStringFromResource(IDS_INV_ITEM_FULL, stdMsg);
+			::_LoadStringFromResource(IDS_INV_ITEM_FULL, stdMsg);
 			CGameProcedure::s_pProcMain->MsgOutput(stdMsg, 0xff9b9bff);
 		}
 
@@ -517,7 +517,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 		pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
 		// 돈 업데이트..
-		stdMsg = "Picked up %d Coins.";//::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
+		::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
 		sprintf(szMsg, stdMsg.c_str(), iGold - pInfoExt->iGold);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
@@ -575,7 +575,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 		}
 
 		char szBuff[128] = "";
-		stdMsg = "IDS_PARTY_ITEM_GET";//::_LoadStringFromResource(IDS_PARTY_ITEM_GET, stdMsg);
+		::_LoadStringFromResource(IDS_PARTY_ITEM_GET, stdMsg);
 		sprintf(szBuff, stdMsg.c_str(), strString.c_str(), pItem->szName.c_str());
 		CGameProcedure::s_pProcMain->MsgOutput(szBuff, 0xff9b9bff);
 
@@ -699,7 +699,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 			return;
 		}
 
-		stdMsg = "IDS_ITEM_GET_BY_RULE";//::_LoadStringFromResource(IDS_ITEM_GET_BY_RULE, stdMsg);
+		::_LoadStringFromResource(IDS_ITEM_GET_BY_RULE, stdMsg);
 		sprintf(szMsg, stdMsg.c_str(), pItem->szName.c_str());
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
@@ -710,14 +710,14 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 	if (bResult == 0x06)
 	{
 		// 메시지 박스 텍스트 표시..
-		std::string szMsg = "IDS_ITEM_TOOMANY_OR_HEAVY"; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, stdMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
 	if (bResult == 0x07)
 	{
 		// 메시지 박스 텍스트 표시..
-		std::string szMsg = "IDS_INV_ITEM_FULL"; //::_LoadStringFromResource(IDS_INV_ITEM_FULL, szMsg);
+		::_LoadStringFromResource(IDS_INV_ITEM_FULL, stdMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
