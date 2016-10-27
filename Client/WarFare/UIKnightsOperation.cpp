@@ -276,7 +276,7 @@ void CUIKnightsOperation::MsgSend_KnightsCreate()
 	std::string szKnightsName = m_pEdit_KnightsName->GetString();
 	if(szKnightsName.empty()) // 이름이 없으면 에러..
 	{
-		std::string szMsg = "IDS_ERR_KNIGHTS_CREATE_FAILED_NAME_EMPTY"; //::_LoadStringFromResource(IDS_ERR_KNIGHTS_CREATE_FAILED_NAME_EMPTY, szMsg);
+		std::string szMsg = "You need to have a name in order to create a Knights"; //::_LoadStringFromResource(IDS_ERR_KNIGHTS_CREATE_FAILED_NAME_EMPTY, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff00ff);
 		return;
 	}

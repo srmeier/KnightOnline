@@ -1126,19 +1126,16 @@ void CSubProcPerTrade::ReceiveMsgPerTradeDoneFail()
 	char szBuf[256] = "";
 	std::string szMsg; 
 
-	// 메시지 박스 텍스트 표시..
 	if (s_pOPMgr->UPCGetByID(m_iOtherID, false) != NULL )
 	{
 		szMsg = "IDS_PER_TRADE_FAIL";//::_LoadStringFromResource(IDS_PER_TRADE_FAIL, szMsg);
 		sprintf(szBuf, szMsg.c_str());			
 		CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffffff);
 
-		// 메시지 박스 텍스트 표시..
-		szMsg = "IDS_ITEM_TOOMANY_OR_HEAVY";//::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		szMsg = "You cannot trade or pick up items because you have either exceeded the possible quantity or the weight.";//::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
-	// 뒷 마무리..
 	PerTradeCompleteCancel();
 	FinalizePerTrade();
 }

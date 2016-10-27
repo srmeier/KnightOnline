@@ -974,32 +974,32 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				int err = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
 				std::string szID, szMsg;
-				int iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// ID 문자열 길이..
-				CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szID, iLen);	// ID 문자열..
+				int iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		
+				CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szID, iLen);	
 
 				e_ChatMode eCM = N3_CHAT_UNKNOWN;
 				if(szID.empty())
 				{
-					szMsg = "IDS_CHAT_SELECT_TARGET_FAIL";
-					//::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_FAIL, szMsg);
+					szMsg = "Failed to connect for a private chat";
+					//::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_FAIL, szMsg); 1101
 					eCM = N3_CHAT_NORMAL;
 				}
 				else
 				{
-					szMsg = "IDS_CHAT_SELECT_TARGET_SUCCESS";
-					//::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_SUCCESS, szMsg);
+					szMsg = "Successfully connected for a private chat";
+					//::_LoadStringFromResource(IDS_CHAT_SELECT_TARGET_SUCCESS, szMsg); 1102
 					eCM = N3_CHAT_PRIVATE;
 				}
 				
 				this->MsgOutput(szID + " " + szMsg, 0xffffff00);
-				m_pUIChatDlg->ChangeChattingMode(eCM); // 자동으로 귓속말 모드로 바꾸어 준다..
+				m_pUIChatDlg->ChangeChattingMode(eCM); 
 			}
 			return true;
 		case N3_CONCURRENT_USER_COUNT: // 동시 접속자수 ...
 			{
 				int iUserCount = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// ID 문자열 길이..
 
-				std::string szFmt = "IDS_FMT_CONCURRENT_USER_COUNT (%d)";
+				std::string szFmt = "*** Current concurrent user : %d ***";
 				//::_LoadStringFromResource(IDS_FMT_CONCURRENT_USER_COUNT, szFmt);
 				char szBuff[128] = "";
 				sprintf(szBuff, szFmt.c_str(), iUserCount);
@@ -5279,19 +5279,19 @@ void CGameProcMain::MsgRecv_ClassChange(DataPack* pDataPack, int& iOffset)			// 
 void CGameProcMain::MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset)
 {
 	int iType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);		// Event Type
-	int iResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 결과..
+	int iResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	
 
-	if(OBJECT_TYPE_BINDPOINT == iType) // 바인드 포인트
+	if(OBJECT_TYPE_BINDPOINT == iType) 
 	{
 		std::string szMsg;
-		if (0x01 == iResult) szMsg = "IDS_BIND_POINT_SUCCESS";//::_LoadStringFromResource(IDS_BIND_POINT_SUCCESS, szMsg);
-		else szMsg = "IDS_BIND_POINT_FAILED";//::_LoadStringFromResource(IDS_BIND_POINT_FAILED, szMsg);
+		if (0x01 == iResult) szMsg = "Successfully designated a re-spawn point.";//::_LoadStringFromResource(IDS_BIND_POINT_SUCCESS, szMsg) 1003;
+		else szMsg = "Failed designating re-spawn point.";//::_LoadStringFromResource(IDS_BIND_POINT_FAILED, szMsg); 10001
 		this->MsgOutput(szMsg, 0xff00ff00);
 	}
 	else if(OBJECT_TYPE_DOOR_LEFTRIGHT == iType ||
 			OBJECT_TYPE_DOOR_TOPDOWN == iType ||
 			OBJECT_TYPE_LEVER_TOPDOWN == iType ||
-			OBJECT_TYPE_FLAG == iType) // 오브젝트 다루기..
+			OBJECT_TYPE_FLAG == iType) 
 	{
 		int iID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 열고 닫을 성문 ID
 		int iActivate = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 열고 닫음..
@@ -5311,11 +5311,11 @@ void CGameProcMain::MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset)
 				{
 					if(0x01 == iActivate) {
 						fRadian = D3DXToRadian(80);
-						szMsg = "IDS_DOOR_OPENED";//::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg);
+						szMsg = "The Castle Gate has opened";//::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg);
 					}
 					else {
 						fRadian = D3DXToRadian(0);
-						szMsg = "IDS_DOOR_CLOSED";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
+						szMsg = "The Castle Gate has been closed";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
 					}
 					vAxis.Set(0,1,0);
 				} 
@@ -5323,11 +5323,11 @@ void CGameProcMain::MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset)
 				{
 					if(0x01 == iActivate) {
 						fRadian = D3DXToRadian(90);
-						szMsg = "IDS_DOOR_OPENED";//::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg);
+						szMsg = "The Castle Gate has opened";//::_LoadStringFromResource(IDS_DOOR_OPENED, szMsg);
 					}
 					else  {
 						D3DXToRadian(0);
-						szMsg = "IDS_DOOR_CLOSED";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
+						szMsg = "The Castle Gate has been closed";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
 					}
 					vAxis.Set(0,0,1);
 				}
@@ -5353,7 +5353,7 @@ void CGameProcMain::MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset)
 				}
 				else // if(0x00 == iActivate);
 				{
-					szMsg = "IDS_DOOR_CLOSED";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
+					szMsg = "The Castle Gate has been closed";//::_LoadStringFromResource(IDS_DOOR_CLOSED, szMsg);
 				}
 
 				CN3ShapeExtra* pSE = (CN3ShapeExtra*)pNPC->m_pShapeExtraRef;
@@ -5429,7 +5429,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 			else // HP가 반 이상 있어야 한다.
 			{
 				std::string szMsg;
-				szMsg = "IDS_ERR_GOTO_TOWN_OUT_OF_HP";//::_LoadStringFromResource(IDS_ERR_GOTO_TOWN_OUT_OF_HP, szMsg);
+				szMsg = "You cannot teleport back to town when you have half the HP or less";//::_LoadStringFromResource(IDS_ERR_GOTO_TOWN_OUT_OF_HP, szMsg);
 				this->MsgOutput(szMsg, 0xffff00ff);
 			}
 		}
@@ -7431,9 +7431,9 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 				{
 					std::string szMsg; 
 					if (OBJECT_TYPE_BINDPOINT == pShape->m_iEventType)
-						szMsg = "IDS_BIND_POINT_REQUEST_FAIL";//::_LoadStringFromResource(IDS_BIND_POINT_REQUEST_FAIL, szMsg);
+						szMsg = "The re-spawn point is too far away.";//::_LoadStringFromResource(IDS_BIND_POINT_REQUEST_FAIL, szMsg);
 					else
-						szMsg = "IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR";//::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
+						szMsg = "You are too far away from the object.";//::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
 					this->MsgOutput(szMsg, 0xffff8080);
 				}
 				else
@@ -7462,7 +7462,7 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 				if(fD > fDLimit) // 거리가 멀면
 				{
 					std::string szMsg;
-					szMsg = "IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR";//::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
+					szMsg = "You are too far away from the object.";//::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
 					this->MsgOutput(szMsg, 0xffff8080);
 				}
 				else
