@@ -161,69 +161,69 @@ bool CGameBase::GetTextByClass(e_Class eClass, std::string& szText)
 
 		case CLASS_EL_WARRIOR:
 		case CLASS_KA_WARRIOR:
-			szText = "EL KA Warrior";//::_LoadStringFromResource(IDS_CLASS_WARRIOR, szText);
+			szText = "Warrior";//::_LoadStringFromResource(IDS_CLASS_WARRIOR, szText);
 			break;
 		case CLASS_EL_ROGUE:
 		case CLASS_KA_ROGUE:
-			szText = "EL KA Rogue";//::_LoadStringFromResource(IDS_CLASS_ROGUE, szText);
+			szText = "Rogue";//::_LoadStringFromResource(IDS_CLASS_ROGUE, szText);
 			break;
 		case CLASS_EL_WIZARD:
 		case CLASS_KA_WIZARD:
-			szText = "EL KA Wizard";//::_LoadStringFromResource(IDS_CLASS_WIZARD, szText);
+			szText = "Magician";//::_LoadStringFromResource(IDS_CLASS_WIZARD, szText);
 			break;
 		case CLASS_EL_PRIEST:
 		case CLASS_KA_PRIEST:
-			szText = "EL KA Preist";//::_LoadStringFromResource(IDS_CLASS_PRIEST, szText);
+			szText = "Priest";//::_LoadStringFromResource(IDS_CLASS_PRIEST, szText);
 			break;
 		
 		case CLASS_KA_BERSERKER:
-			szText = "Berzerker";//::_LoadStringFromResource(IDS_CLASS_KA_BERSERKER, szText);
+			szText = "Berserker";//::_LoadStringFromResource(IDS_CLASS_KA_BERSERKER, szText);
 			break;
 		case CLASS_KA_GUARDIAN:
-			szText = "Guardian";//::_LoadStringFromResource(IDS_CLASS_KA_GUARDIAN, szText);
+			szText = "Berserker Hero";//::_LoadStringFromResource(IDS_CLASS_KA_GUARDIAN, szText);
 			break;
 		case CLASS_KA_HUNTER:
 			szText = "Hunter";//::_LoadStringFromResource(IDS_CLASS_KA_HUNTER, szText);
 			break;
 		case CLASS_KA_PENETRATOR:
-			szText = "Penetrator";//::_LoadStringFromResource(IDS_CLASS_KA_PENETRATOR, szText);
+			szText = "Shadow Vain";//::_LoadStringFromResource(IDS_CLASS_KA_PENETRATOR, szText);
 			break;
 		case CLASS_KA_SORCERER:
 			szText = "Sorcerer";//::_LoadStringFromResource(IDS_CLASS_KA_SORCERER, szText);
 			break;
 		case CLASS_KA_NECROMANCER:
-			szText = "Necromancer";//::_LoadStringFromResource(IDS_CLASS_KA_NECROMANCER, szText);
+			szText = "Elemental Lord";//::_LoadStringFromResource(IDS_CLASS_KA_NECROMANCER, szText);
 			break;
 		case CLASS_KA_SHAMAN:
 			szText = "Shaman";//::_LoadStringFromResource(IDS_CLASS_KA_SHAMAN, szText);
 			break;
 		case CLASS_KA_DARKPRIEST:
-			szText = "Dark Priest";//::_LoadStringFromResource(IDS_CLASS_KA_DARKPRIEST, szText);
+			szText = "Shadow Knight";//::_LoadStringFromResource(IDS_CLASS_KA_DARKPRIEST, szText);
 			break;
 		
 		case CLASS_EL_BLADE:
-			szText = "EL Blade";//::_LoadStringFromResource(IDS_CLASS_EL_BLADE, szText);
+			szText = "Blade";//::_LoadStringFromResource(IDS_CLASS_EL_BLADE, szText);
 			break;
 		case CLASS_EL_PROTECTOR:
-			szText = "EL Protector";//::_LoadStringFromResource(IDS_CLASS_EL_PROTECTOR, szText);
+			szText = "Blade Master";//::_LoadStringFromResource(IDS_CLASS_EL_PROTECTOR, szText);
 			break;
 		case CLASS_EL_RANGER:
-			szText = "EL Ranger";//::_LoadStringFromResource(IDS_CLASS_EL_RANGER, szText);
+			szText = "Ranger";//::_LoadStringFromResource(IDS_CLASS_EL_RANGER, szText);
 			break;
 		case CLASS_EL_ASSASIN:
-			szText = "EL Assassin";//::_LoadStringFromResource(IDS_CLASS_EL_ASSASIN, szText);
+			szText = "Kasar Hood";//::_LoadStringFromResource(IDS_CLASS_EL_ASSASIN, szText);
 			break;
 		case CLASS_EL_MAGE:
-			szText = "EL Mage";//::_LoadStringFromResource(IDS_CLASS_EL_MAGE, szText);
+			szText = "Mage";//::_LoadStringFromResource(IDS_CLASS_EL_MAGE, szText);
 			break;
 		case CLASS_EL_ENCHANTER:
-			szText = "EL Enchanter";//::_LoadStringFromResource(IDS_CLASS_EL_ENCHANTER, szText);
+			szText = "Arch Mage";//::_LoadStringFromResource(IDS_CLASS_EL_ENCHANTER, szText);
 			break;
 		case CLASS_EL_CLERIC:
-			szText = "EL Cleric";//::_LoadStringFromResource(IDS_CLASS_EL_CLERIC, szText);
+			szText = "Cleric";//::_LoadStringFromResource(IDS_CLASS_EL_CLERIC, szText);
 			break;
 		case CLASS_EL_DRUID:
-			szText = "EL Druid";//::_LoadStringFromResource(IDS_CLASS_EL_DRUID, szText);
+			szText = "Paladin";//::_LoadStringFromResource(IDS_CLASS_EL_DRUID, szText);
 			break;
 		
 		default:

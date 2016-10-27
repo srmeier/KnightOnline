@@ -501,32 +501,29 @@ void CUITransactionDlg::ItemCountOK()
 
 				case UIITEM_TYPE_COUNTABLE:
 					if ( iGold <= 0 ) return;
-					// short 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
-						std::string szMsg = "IDS_MANY_COUNTABLE_ITEM_BUY_FAIL"; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_BUY_FAIL, szMsg);
+						std::string szMsg = "You cannot buy more than 9,999 items at once."; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_BUY_FAIL, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
 					if (spItem->iCount + iGold > UIITEM_COUNT_MANY)
 					{
-						std::string szMsg = "IDS_MANY_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg = "You cannot carry more than 9,999 items at once."; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
-					// 매수가 X 갯수가 내가 가진 돈보다 많으면.. 그냥 리턴..
 					if ( (iGold * spItem->pItemBasic->iPrice)	> pInfoExt->iGold )	
 					{
-						std::string szMsg = "IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY"; //::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
+						std::string szMsg = "You don't have enough Coins."; //::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
 					iWeight = iGold * spItem->pItemBasic->siWeight;
 
-					// 무게 체크..
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
 						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
@@ -537,22 +534,21 @@ void CUITransactionDlg::ItemCountOK()
 
 				case UIITEM_TYPE_COUNTABLE_SMALL:
 					if ( iGold <= 0 ) return;
-					// short 범위이상은 살수 없다..
+
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
-						std::string szMsg = "IDS_SMALL_COUNTABLE_ITEM_BUY_FAIL"; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_BUY_FAIL, szMsg);
+						std::string szMsg = "You cannot buy more than 500 items at once."; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_BUY_FAIL, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
 					if (spItem->iCount + iGold > UIITEM_COUNT_FEW)
 					{
-						std::string szMsg = "IDS_SMALL_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg = "You cannot carry more than 500 items at once."; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
-					// 매수가 X 갯수가 내가 가진 돈보다 많으면.. 그냥 리턴..
 					if ( (iGold * spItem->pItemBasic->iPrice)	> pInfoExt->iGold )	
 					{
 						std::string szMsg = "IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY"; //::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
@@ -1174,14 +1170,12 @@ void CUITransactionDlg::ReceiveResultTradeFromServer(byte bResult, byte bType, i
 
 				if (bType == 0x04)
 				{
-					// 메시지 박스 텍스트 표시..
-					std::string szMsg = "IDS_ITEM_TOOMANY_OR_HEAVY"; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+					std::string szMsg = "You cannot trade or pick up items because you have either exceeded the possible quantity or the weight."; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
 					CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 				}
 			}
 			else
 			{
-				// 성공이면.. 돈 업데이트.. 먼저 인벤토리..
 				pInfoExt->iGold = iMoney;
 				pStatic = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); 
 				__ASSERT(pStatic, "NULL UI Component!!");
