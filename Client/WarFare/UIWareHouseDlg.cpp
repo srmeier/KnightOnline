@@ -1290,8 +1290,7 @@ void CUIWareHouseDlg::ReceiveResultFromWareMsg(BYTE bResult)	// 빼는 경우..
 			m_pMyWareInv[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder] = NULL;
 		}
 
-		// 메시지 박스 텍스트 표시..
-		std::string szMsg = "IDS_ITEM_TOOMANY_OR_HEAVY"; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		std::string szMsg = "You cannot trade or pick up items because you have either exceeded the possible quantity or the weight."; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 

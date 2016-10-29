@@ -318,8 +318,8 @@ void CPlayerBase::InfoStringSet(const std::string& szInfo, D3DCOLOR crFont)
 	{
 		if(NULL == m_pInfoFont)
 		{
-			// 기타 정보를 표시할 폰트..
-			std::string szFontInfo = "IDS_FONT_INFO"; //::_LoadStringFromResource(IDS_FONT_INFO, szFontInfo);
+
+			std::string szFontInfo = "Arial"; //::_LoadStringFromResource(IDS_FONT_INFO, szFontInfo);
 			m_pInfoFont = new CDFont(szFontInfo, 12);
 			m_pInfoFont->InitDeviceObjects( s_lpD3DDev );
 			m_pInfoFont->RestoreDeviceObjects();
@@ -341,8 +341,7 @@ void CPlayerBase::BalloonStringSet(const std::string& szBalloon, D3DCOLOR crFont
 	{
 		if(NULL == m_pBalloonFont)
 		{
-			// 기타 정보를 표시할 폰트..
-			std::string szFontBalloon = "IDS_FONT_BALLOON"; //::_LoadStringFromResource(IDS_FONT_BALLOON, szFontBalloon);
+			std::string szFontBalloon = "Arial"; //::_LoadStringFromResource(IDS_FONT_BALLOON, szFontBalloon);
 			m_pBalloonFont = new CDFont(szFontBalloon, 12);
 			m_pBalloonFont->InitDeviceObjects( s_lpD3DDev );
 			m_pBalloonFont->RestoreDeviceObjects();
