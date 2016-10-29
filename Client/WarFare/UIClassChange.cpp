@@ -81,10 +81,10 @@ void CUIClassChange::Open(int iCode)
 	__InfoPlayerBase*	pInfoBase = &(CGameBase::s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
-	std::string szSuccess = "IDS_CLASS_CHANGE_SUCCESS";	//::_LoadStringFromResource(IDS_CLASS_CHANGE_SUCCESS, szSuccess);
-	std::string szNotYet = "IDS_CLASS_CHANGE_NOT_YET";	//::_LoadStringFromResource(IDS_CLASS_CHANGE_NOT_YET, szNotYet);
-	std::string szAlready = "IDS_CLASS_CHANGE_ALREADY";	//::_LoadStringFromResource(IDS_CLASS_CHANGE_ALREADY, szAlready);
-	std::string	szItemInSlot = "IDS_MSG_HASITEMINSLOT"; //::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szItemInSlot);
+	std::string szSuccess = "You can now obtain a greater strength. From now, you shall be called..";	//1303::_LoadStringFromResource(IDS_CLASS_CHANGE_SUCCESS, szSuccess);
+	std::string szNotYet = "I think you need more training";	//::_LoadStringFromResource(IDS_CLASS_CHANGE_NOT_YET, szNotYet); 1302
+	std::string szAlready = "How are you? We need people like you to work hard for our victory!";	//::_LoadStringFromResource(IDS_CLASS_CHANGE_ALREADY, szAlready);
+	std::string	szItemInSlot = "You cannot change your stat while there are items equipped on you."; //6612::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szItemInSlot);
 
 	m_pBtn_Ok->SetVisible(false);
 	m_pBtn_Cancel->SetVisible(false);
