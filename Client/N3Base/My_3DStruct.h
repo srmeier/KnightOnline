@@ -1148,7 +1148,7 @@ bool			_CheckCollisionByBox(const __Vector3& vOrig, const __Vector3& vDir, const
 POINT			_Convert3D_To_2DCoordinate(const __Vector3 &vPos, const __Matrix44& mtxView, const __Matrix44& mtxProjection, int nVPW, int nVPH);
 void			_Convert2D_To_3DCoordinate(	int ixScreen, int iyScreen, const __Matrix44& mtxView, const __Matrix44& mtxPrj, const D3DVIEWPORT9& vp, __Vector3& vPosResult, __Vector3& vDirResult);
 float			_Yaw2D(float fDirX, float fDirZ);
-void			_LoadStringFromResource(DWORD dwID, std::string& szText);
+//void			_LoadStringFromResource(DWORD dwID, std::string& szText);
 
 
 inline D3DCOLOR _RGB_To_D3DCOLOR(COLORREF cr, DWORD dwAlpha)
@@ -1431,7 +1431,7 @@ inline float _Yaw2D(float fDirX, float fDirZ)
 	////////////////////////////////
 }
 
-
+/*
 inline void _LoadStringFromResource(DWORD dwID, std::string& szText)
 {
 	static char szBuffer[512];
@@ -1440,7 +1440,7 @@ inline void _LoadStringFromResource(DWORD dwID, std::string& szText)
 	::LoadString(NULL, dwID, szBuffer, 256);
 	szText = szBuffer;
 }
-
+*/
 
 inline short int _IsKeyDown(int iVirtualKey) { return (GetAsyncKeyState(iVirtualKey) & 0xff00); }
 inline short int _IsKeyDowned(int iVirtualKey) { return (GetAsyncKeyState(iVirtualKey) & 0x00ff); }

@@ -301,7 +301,6 @@
     <ClInclude Include="PlayerOtherMgr.h" />
     <ClInclude Include="PortalVolume.h" />
     <ClInclude Include="PvsMgr.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="ServerMesh.h" />
     <ClInclude Include="SharedMem.h" />
     <ClInclude Include="SubProcPerTrade.h" />
@@ -356,9 +355,6 @@
     <ClInclude Include="UIWarp.h" />
     <ClInclude Include="WarFareMain.h" />
     <ClInclude Include="WarMessage.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="WarFare.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
