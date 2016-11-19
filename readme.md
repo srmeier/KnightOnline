@@ -8,6 +8,10 @@ I started with project to learn more about how the MMORPG Knight Online works. M
 This code is for academic purposes only! If you have questions or would like help feel free to contact me via email at “info@stephenmeier.net”
 </p>
 
+#### Note:
+* The UIE project currently requires VS15 pro
+* The N3ME project currently requires VS6 to compile
+
 <p align="center">
 	<img src="http://stephenmeier.net/files/openko_ex_00.png" />
 </p>

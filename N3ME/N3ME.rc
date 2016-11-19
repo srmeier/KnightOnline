@@ -1,0 +1,1693 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\N3ME.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\N3ME.ico"
+IDR_N3METYPE            ICON    DISCARDABLE     "res\\N3MEDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+IDB_SCENE_NODES         BITMAP  DISCARDABLE     "res\\SceneNodes.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  32, 32
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+    SEPARATOR
+    BUTTON      ID_CURSOR_SELECT
+    BUTTON      ID_CURSOR_POS
+    BUTTON      ID_CURSOR_ROTATE
+    BUTTON      ID_CURSOR_SCALE
+    BUTTON      ID_CURSOR_OBJ_BRUSH
+    BUTTON      ID_CURSOR_EDIT_TERRAIN
+    BUTTON      ID_CURSOR_SMOOTH_TERRAIN
+    SEPARATOR
+    BUTTON      ID_TIP_DROP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "파일(&F)"
+    BEGIN
+        MENUITEM "Resource 경로 지정(&R)...\tCtrl+R", ID_RESOURCE_PATH_SET
+        MENUITEM "새 파일(&N)\tCtrl+N",         ID_FILE_NEW
+        MENUITEM "열기(&O)...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "저장(&S)\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM "다른 이름으로 저장(&A)...",   ID_FILE_SAVE_AS
+        MENUITEM "잘라서 저장",                 ID_FILE_SAVE_DIVIDE
+        MENUITEM SEPARATOR
+        MENUITEM "VMesh에서 높이값부르기",      ID_FILE_IMPORT_HEIGHT
+        MENUITEM "지형 VMesh Import(&I)",       ID_FILE_IMPORT
+        MENUITEM "Export HeightBMP",            ID_FILE_EXPORT_HEIGHT_BMP
+        MENUITEM "Import HegihtBMP",            ID_FILE_IMPORT_HEIGHT_BMP
+        MENUITEM SEPARATOR
+        MENUITEM "Shape 불러오기",              ID_FILE_IMPORT_SHAPES
+        MENUITEM "게임 파일로 저장하기(&E)...", ID_FILE_EXPORT
+        MENUITEM "서버 데이타 저장하기(&V)...", ID_FILE_SERVER_DATA
+        MENUITEM "컬러맵 불러오기(&C)",         ID_FILE_COLORMAP_LOAD
+        MENUITEM "컬러맵 저장하기",             ID_FILE_COLORMAP_SAVE
+        MENUITEM "게임용 타일 텍스쳐 데이타로 저장", 
+                                                ID_FILE_GAMETILETEX_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "*.N3Scene 으로 부터 오브젝트 배치 데이터 부르기", 
+                                                ID_FILE_IMPORT_POST_DATA_FROM_SCENE
+
+        MENUITEM SEPARATOR
+        MENUITEM "최근 파일",                   ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "종료(&X)",                    ID_APP_EXIT
+    END
+    POPUP "편집(&E)"
+    BEGIN
+        MENUITEM "취소(&U)\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "잘라내기(&T)\tCtrl+X",        ID_EDIT_CUT
+        MENUITEM "복사(&C)\tCtrl+C",            ID_EDIT_COPY
+        MENUITEM "붙여넣기(&P)\tCtrl+V",        ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "등록정보 (R)",                ID_EDIT_PROPERTY
+        MENUITEM "Detail Texture편집",          ID_EDIT_DTEX
+    END
+    POPUP "보기(&V)"
+    BEGIN
+        MENUITEM "도구 모음(&T)",               ID_VIEW_TOOLBAR
+        MENUITEM "상태 표시줄(&S)",             ID_VIEW_STATUS_BAR
+        MENUITEM "Source Object List(&C)",      ID_VIEW_SOURCEOBJECT
+        MENUITEM "Output Object List(&O)",      ID_VIEW_OUTPUTOBJECT
+        MENUITEM "Detail Texture List(&D)",     ID_VIEW_DTEX
+        MENUITEM SEPARATOR
+        MENUITEM "WIREFRAME MODE(&W)",          ID_VIEW_WIREFRAME
+        MENUITEM "SOLID MODE(&L)",              ID_VIEW_SOLID
+        MENUITEM "선택된 Object Wire Frame 으로 보기", 
+                                                ID_VIEW_SELECTED_OBJECT_WIREFRAME
+        , CHECKED
+        MENUITEM "축과 Grid 보기",              ID_VIEW_AXIS_AND_GRID
+        MENUITEM "오브젝트 숨기기\tH",          ID_VIEW_HIDE_OBJ
+        MENUITEM "원근감 없이 보기",            ID_VIEW_ORTH
+        MENUITEM "안개 켜기 / 끄기",            ID_VIEW_TOGGLE_FOG
+    END
+    POPUP "커서(&C)"
+    BEGIN
+        MENUITEM "선택\tQ",                     ID_CURSOR_SELECT
+        MENUITEM "객체 위치조정\tW",            ID_CURSOR_POS
+        MENUITEM "객체 회전\tE",                ID_CURSOR_ROTATE
+        MENUITEM "객체 축소/확대\tR",           ID_CURSOR_SCALE
+        MENUITEM "Object Brush\tT",             ID_CURSOR_OBJ_BRUSH
+        MENUITEM "지형편집",                    ID_CURSOR_EDIT_TERRAIN
+        MENUITEM "Smooth",                      ID_CURSOR_SMOOTH_TERRAIN
+        MENUITEM "디테일텍스쳐\tD",             ID_CURSOR_DTEX
+        MENUITEM "강물 편집",                   ID_CURSOR_EDIT_RIVER
+        MENUITEM "연못 편집",                   ID_CURSOR_EDIT_POND
+        MENUITEM "라이트맵 그리기",             ID_CURSOR_EDIT_LIGHTMAP
+        MENUITEM "NPC Path 만들기",             ID_CURSOR_MAKE_NPCPATH
+        MENUITEM "벽 만들기",                   ID_CURSOR_MAKE_WALL
+        MENUITEM "이벤트 편집",                 ID_CURSOR_EDIT_EVENT
+        MENUITEM "평면만들기",                  ID_CURSOR_FLAT_TERRAIN
+        MENUITEM "유저리젠영역",                ID_CURSOR_REGEN_USER
+        MENUITEM "환경소리효과넣기",            ID_CURSOR_SOUND
+        MENUITEM "라이트배치",                  ID_CURSOR_LIGHTOBJ
+    END
+    POPUP "기타기능(&T)"
+    BEGIN
+        MENUITEM "선택객체 포커스\tF",          ID_TIP_FOCUS_SELOBJ
+        MENUITEM "전체맵 포커스\tA",            ID_TIP_FOCUS_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "지형에 객체붙이기",           ID_TIP_DROP
+        MENUITEM "선택한객체 지우기\tDel",      ID_TIP_DELETE_OBJ
+        MENUITEM SEPARATOR
+        MENUITEM "컬러맵 만들기 \tC",           ID_TIP_GENERATE_COLORMAP
+        MENUITEM "전체 컬러맵 만들기\tX",       ID_TIP_GENERATE_COLORMAP_ALL
+        MENUITEM "현재타일로 전체 칠하기 \tV",  ID_TIP_TILING_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "기본재질로 만들기\t(&D)",     ID_TIP_DEFAULT_MATERIAL
+        MENUITEM "Alpha Blending Flag 제거\t(&R)", ID_TIP_REMOVE_ALPHAFLAG
+        MENUITEM SEPARATOR
+        MENUITEM "씨앗 뿌리기",                 ID_TIP_SOW_SEED
+        MENUITEM "안쓰는 파일 리스트 만들기",   ID_TIP_DELETE_UNUSED_FILES
+        MENUITEM "위치가 겹친 오브젝트 제거하기", 
+                                                ID_TIP_DELETE_OVERLAPPED_OBJECTS
+
+        MENUITEM "선택한 소스 오브젝트 모두 지우기", 
+                                                ID_TIP_DELETE_SELECTED_SOURCE_OBJECTS
+
+        MENUITEM SEPARATOR
+        MENUITEM "Warp Info 입력",              ID_TIP_SET_WARP_INFO
+        MENUITEM "전체 높이 스케일 맞추기",     ID_TIP_SET_HEIGHT_SCALE
+        MENUITEM SEPARATOR
+        MENUITEM "전체맵보기 && 부분 맵수정",   ID_SELECT_MAP_EDIT
+    END
+    POPUP "도움말(&H)"
+    BEGIN
+        MENUITEM "N3ME 정보(&A)...",            ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "A",            ID_TIP_FOCUS_ALL,       VIRTKEY, NOINVERT
+    "C",            ID_TIP_GENERATE_COLORMAP, VIRTKEY, NOINVERT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "D",            ID_CURSOR_DTEX,         VIRTKEY, NOINVERT
+    "E",            ID_CURSOR_ROTATE,       VIRTKEY, NOINVERT
+    "F",            ID_TIP_FOCUS_SELOBJ,    VIRTKEY, NOINVERT
+    "H",            ID_VIEW_HIDE_OBJ,       VIRTKEY, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "Q",            ID_CURSOR_SELECT,       VIRTKEY, NOINVERT
+    "R",            ID_CURSOR_SCALE,        VIRTKEY, NOINVERT
+    "R",            ID_RESOURCE_PATH_SET,   VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "T",            ID_CURSOR_OBJ_BRUSH,    VIRTKEY, NOINVERT
+    "V",            ID_TIP_TILING_ALL,      VIRTKEY, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    VK_DELETE,      ID_TIP_DELETE_OBJ,      VIRTKEY, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    "W",            ID_CURSOR_POS,          VIRTKEY, NOINVERT
+    "X",            ID_TIP_GENERATE_COLORMAP_ALL, VIRTKEY, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 339, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "N3ME 정보"
+FONT 9, "굴림"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Noah System Map Editor 버전 3",IDC_STATIC,40,10,146,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyleft (C) 2002",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "확인",IDOK,282,7,50,14,WS_GROUP
+END
+
+IDR_MAINFRAME DIALOG DISCARDABLE  0, 0, 459, 49
+STYLE WS_CHILD
+FONT 9, "굴림"
+BEGIN
+    EDITTEXT        IDC_E_PATH,69,0,177,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Resource 경로 설정",IDC_B_SET_RESOURCE_PATH,0,0,69,12
+    EDITTEXT        IDC_E_TRANSFORM_X,279,0,42,12,ES_AUTOHSCROLL
+    RTEXT           "Transform",IDC_STATIC_TRANSFORM,243,0,36,11,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_E_TRANSFORM_Y,321,0,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_E_TRANSFORM_Z,363,0,42,12,ES_AUTOHSCROLL
+    CONTROL         "Slider1",IDC_SLIDER_FARPLANE,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,36,15,162,15
+    CONTROL         "Slider1",IDC_SLIDER_TILEREGION,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,243,15,162,15
+    LTEXT           "Far Plane",IDC_STATIC,3,18,32,8
+    LTEXT           "타일영역",IDC_STATIC,210,18,28,8
+    EDITTEXT        IDC_E_ZONEID,417,15,40,14,ES_AUTOHSCROLL
+    LTEXT           "Zone ID",IDC_STATIC,423,3,26,8
+    CONTROL         "Slider1",IDC_SLIDER_LIGHT,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,23,32,428,15
+    LTEXT           "Light",IDC_STATIC,3,34,16,8
+END
+
+IDD_SCENE_GRAPH DIALOGEX 0, 0, 206, 336
+STYLE WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Scene Graph"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    CONTROL         "Tree1",IDC_TREE_OBJ,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | TVS_EDITLABELS | 
+                    TVS_SHOWSELALWAYS | WS_BORDER | WS_TABSTOP,0,0,207,231
+    CONTROL         "",IDC_PREVIEW,"Static",SS_GRAYFRAME,45,233,115,102
+END
+
+IDD_BRUSH DIALOGEX 0, 0, 126, 172
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_SHAPE,5,5,65,55,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "Slider1",IDC_SLIDER_SIZE,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,5,35,65,15
+    CONTROL         "Slider1",IDC_SLIDER_FALLOFF,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,5,70,65,15
+    LTEXT           "Size",IDC_STATIC,5,25,65,10
+    LTEXT           "Fall off",IDC_STATIC,5,60,65,10
+    EDITTEXT        IDC_EDIT_SIZE,80,35,25,15,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_EDIT_FALLOFF,80,70,25,15,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "평평하게",IDC_CHECK_FLAT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,76,92,43,10
+    CONTROL         "높이값정하기",IDC_RDO_GET_HEIGHT,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,12,128,57,10
+    CONTROL         "평면만들기",IDC_RDO_FLATEN,"Button",BS_AUTORADIOBUTTON,
+                    12,142,50,10
+    LTEXT           "높이값",IDC_STATIC,83,130,22,8
+    LTEXT           "0",IDC_FLAT_HEIGHT,82,142,28,8
+    GROUPBOX        "평면만들기",IDC_STATIC,7,114,113,47
+END
+
+IDD_TERRAINSIZE DIALOG DISCARDABLE  0, 0, 168, 26
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Set Terrain Size"
+FONT 9, "굴림"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,126,6,39,15
+    LTEXT           "Terrain Size :",IDC_STATIC,7,8,45,8
+    EDITTEXT        IDC_EDIT1,54,7,50,12,ES_AUTOHSCROLL
+    LTEXT           "m",IDC_STATIC,108,9,8,8
+    LTEXT           "2",IDC_STATIC,116,7,8,8
+END
+
+IDD_SETDETAILTEXTURE DIALOG DISCARDABLE  0, 0, 410, 445
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "텍스쳐속성 정의 & 편집"
+FONT 9, "굴림"
+BEGIN
+    DEFPUSHBUTTON   "닫          기",IDOK,323,419,75,16
+    COMBOBOX        IDC_COMBO_FILELIST,54,3,243,97,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_TEXTUREVIEW,"Static",SS_BLACKFRAME,105,41,37,35
+    LTEXT           "* 텍스쳐 파일: ",IDC_STATIC,3,6,48,8
+    LTEXT           "* 그룹 목록",IDC_STATIC,8,28,40,8
+    LTEXT           "* 속성 : ",IDC_STATIC,107,29,28,8
+    LTEXT           "길 - NORMAL",IDC_ATTR,136,29,212,8
+    LISTBOX         IDC_LIST_GROUP,7,41,95,362,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "추가",IDC_BTN_ADDGROUP,50,27,24,11
+    PUSHBUTTON      "삭제",IDC_BTN_DELGROUP,77,27,24,11
+    PUSHBUTTON      "텍스쳐추가",IDC_BTN_ADDDTEX,304,3,42,13
+    PUSHBUTTON      "텍스쳐삭제",IDC_BTN_DELDTEX,351,3,42,13
+    LTEXT           "* 현재 사용중인 타일셋트 :",IDC_STATIC,114,392,84,8
+    LTEXT           "아무것도 없는데여...^^",IDC_STATIC_TILESETNAME,202,392,
+                    191,8
+    PUSHBUTTON      "타일셋트 불러오기",IDC_BTN_LOAD_TILESET,14,419,74,16
+    PUSHBUTTON      "타일셋트 저장하기",IDC_BTN_SAVE_TILESET,102,419,84,16
+    PUSHBUTTON      "타일셋트 새이름으로 저장하기",
+                    IDC_BTN_SAVE_NEWNAME_TILESET,200,419,109,16
+END
+
+IDD_INPUT_ATTR DIALOGEX 0, 0, 111, 198
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "속성넣기"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "넣기",IDOK,3,174,51,21
+    PUSHBUTTON      "취소",IDCANCEL,60,174,48,21
+    LISTBOX         IDC_LB_GROUP,3,3,105,168,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_INPUT_GROUP DIALOGEX 0, 0, 151, 35
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "그룹추가"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_INPUTGROUP,42,2,108,14,ES_AUTOHSCROLL | 
+                    WS_GROUP
+    DEFPUSHBUTTON   "추가",IDOK,77,19,73,14
+    PUSHBUTTON      "취소",IDCANCEL,2,19,72,14
+    LTEXT           "그룹이름 : ",IDC_STATIC,3,4,39,8
+END
+
+IDD_DEL_GROUP DIALOGEX 0, 0, 129, 186
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "그룹 지우기"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    LISTBOX         IDC_LIST_DELGROUP,3,3,120,153,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "지우기",IDOK,3,162,57,21
+    PUSHBUTTON      "취소",IDCANCEL,66,162,57,21
+END
+
+IDD_DTEX_GROUP DIALOGEX 0, 0, 103, 483
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "디테일 텍스쳐 그룹 목록"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    CONTROL         "자동",IDC_TILEAUTO,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,0,3,23,10
+    CONTROL         "Tree1",IDC_TREE_DTEX_GROUP,"SysTreeView32",
+                    TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | 
+                    TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | WS_BORDER | 
+                    WS_TABSTOP,2,71,97,294
+    CONTROL         "수동",IDC_TILEMANUEL,"Button",BS_AUTORADIOBUTTON,25,3,
+                    25,10
+    CONTROL         "",IDC_PREVIEW_DTEX_GROUP,"Static",SS_BLACKFRAME,2,371,
+                    97,106
+    CONTROL         "Slider1",IDC_SLIDER_DTEX,"msctls_trackbar32",
+                    TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,3,30,97,29
+    GROUPBOX        "펜굵기",IDC_STATIC,0,17,102,48
+    CONTROL         "수동full",IDC_TILEMANUELNOMIX,"Button",
+                    BS_AUTORADIOBUTTON,54,4,37,10
+END
+
+IDD_RIVER_PROPERTY DIALOG DISCARDABLE  0, 0, 183, 205
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "River Properties"
+FONT 9, "굴림"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,1,153,126,50
+    PUSHBUTTON      "Cancel",IDCANCEL,125,153,57,50
+    LISTBOX         IDC_LP_RIVER,0,0,182,153,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    CTEXT           "Not Selected..",IDC_NOTSELECTED,6,19,164,30,
+                    SS_CENTERIMAGE | NOT WS_VISIBLE
+    PUSHBUTTON      "Extrude Edge",IDC_BUTTON_EXTRUDE,0,172,90,14
+    PUSHBUTTON      "Delete Vertex",IDC_BUTTON_DELETE_VERTEX,90,172,90,14
+    PUSHBUTTON      "Recalc UV",IDC_BUTTON_RECALC_UV,0,186,90,14
+    PUSHBUTTON      "Delete River",IDC_BUTTON_DELETE_RIVER,90,186,90,14
+    PUSHBUTTON      "Recalc Selected Vertex",IDC_BUTTON_RECALCVERTEX,0,156,
+                    90,15
+    COMBOBOX        IDC_COMBO_RIBER,90,155,92,115,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_BASE DIALOGEX 0, 0, 234, 387
+STYLE WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_E_NAME,0,9,234,12,ES_AUTOHSCROLL
+    LTEXT           "등록정보",IDC_STATIC_NAME,0,0,234,8
+    LISTBOX         IDC_LP_TRANSFORM,0,21,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_SHAPE,0,159,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CHR,0,214,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_PART_SHAPE,0,147,234,165,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_LOD,114,201,120,165,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_CB_PART_CHARACTER,0,201,111,165,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CAMERA,0,63,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_LIGHT,0,105,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_MATERIAL,0,348,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_PLUG_CHARACTER,0,295,234,165,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CHR_PART,0,253,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CHR_PLUG,0,309,234,39,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+END
+
+IDD_ADDDTEX DIALOG DISCARDABLE  0, 0, 222, 145
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "텍스쳐 추가하기"
+FONT 9, "굴림"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,168,2,50,66
+    PUSHBUTTON      "Cancel",IDCANCEL,168,74,50,66
+    LISTBOX         IDC_ADDDTEXLIST,1,1,165,141,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_MODIFY_DTEX DIALOGEX 0, 0, 42, 75
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Tile Control"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "CANCEL",IDCANCEL,0,60,42,15
+    DEFPUSHBUTTON   "MIRROR",ID_MODIFY_DTEX_MIRROR,0,0,42,15
+    DEFPUSHBUTTON   "CW90D",ID_MODIFY_DTEX_CW90D,0,15,42,15
+    DEFPUSHBUTTON   "CW180D",ID_MODIFY_DTEX_CW180D,0,30,42,15
+    DEFPUSHBUTTON   "CW270D",ID_MODIFY_DTEX_CW270D,0,45,42,15
+END
+
+IDD_BROWSE_PATH DIALOGEX 0, 0, 167, 272
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Browse Path"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,6,249,72,14
+    PUSHBUTTON      "Cancel",IDCANCEL,90,249,68,14
+    CONTROL         "Tree1",IDC_BROWSE_TREE,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | WS_BORDER | WS_TABSTOP,
+                    6,24,153,219
+    COMBOBOX        IDC_FILELIST,5,5,133,80,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "->",IDC_SYNCH_FOLDERS,144,6,15,14
+END
+
+IDD_SET_LIGHTMAP DIALOG DISCARDABLE  0, 0, 123, 263
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "라이트맵 그리기"
+FONT 9, "굴림"
+BEGIN
+    CONTROL         "Slider1",IDC_LM_SLD_PEN_SIZE,"msctls_trackbar32",
+                    TBS_AUTOTICKS | WS_TABSTOP,8,14,108,20
+    CONTROL         "Slider4",IDC_LM_SLD_HARD,"msctls_trackbar32",WS_TABSTOP,
+                    8,67,108,20
+    LTEXT           "small",IDC_STATIC,14,39,22,8
+    LTEXT           "large",IDC_STATIC,99,39,17,8
+    LTEXT           "1%",IDC_STATIC,12,90,11,8
+    LTEXT           "100%",IDC_STATIC,101,89,19,8
+    CONTROL         "칠하기",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,8,177,46,10
+    CONTROL         "지우기",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,65,177,
+                    46,10
+    GROUPBOX        "펜굵기",IDC_STATIC,4,5,117,46
+    GROUPBOX        "농도",IDC_STATIC,4,58,117,46
+    GROUPBOX        "칠하는 방법",IDC_STATIC,4,160,117,37
+    CONTROL         "",IDC_STATIC_SELECTEDCOLOR,"Static",SS_BLACKFRAME,11,
+                    216,41,20
+    GROUPBOX        "현재 색깔",IDC_STATIC,4,203,117,40
+    PUSHBUTTON      "색깔 고르기",IDC_BTN_SELECT_COLOR,61,218,50,14
+    LTEXT           " 마우스 오른쪽 버튼으로 라인을 그릴 수 있습니다.",
+                    IDC_STATIC,2,244,121,19
+    CONTROL         "Slider4",IDC_LM_SLD_OPACITY,"msctls_trackbar32",
+                    WS_TABSTOP,8,117,108,20
+    LTEXT           "1%",IDC_STATIC,12,139,11,8
+    LTEXT           "100%",IDC_STATIC,101,139,19,8
+    GROUPBOX        "Opacity",IDC_STATIC,4,107,117,46
+END
+
+IDD_LOAD_TILESET DIALOG DISCARDABLE  0, 0, 226, 253
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "타일셋트 불러오기"
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,169,8,50,111
+    PUSHBUTTON      "Cancel",IDCANCEL,169,134,50,111
+    LISTBOX         IDC_LIST_LOAD_TILESET,7,7,158,239,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_SAVE_NEW_TILESET DIALOG DISCARDABLE  0, 0, 327, 261
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "새이름으로 타일셋트 저장하기"
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "저장",IDOK,270,15,50,102
+    PUSHBUTTON      "취소",IDCANCEL,270,143,50,102
+    LISTBOX         IDC_LIST_TILESET,7,19,255,188,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_NEWTILESETNAME,7,227,254,14,ES_AUTOHSCROLL
+    LTEXT           "* 현재 존재하는 타일셋트",IDC_STATIC,7,7,80,8
+    LTEXT           "* 저장할 타일셋트 이름",IDC_STATIC,7,216,73,8
+END
+
+IDD_MAKE_NPCPATH DIALOG DISCARDABLE  0, 0, 153, 573
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Make NPC Path "
+FONT 9, "돋움"
+BEGIN
+    CONTROL         "시작영역만들기",IDC_RDO_START_RGN,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,11,252,60,10
+    CONTROL         "길만들기",IDC_RDO_MAKE_PATH,"Button",BS_AUTORADIOBUTTON,
+                    11,264,43,10
+    CONTROL         "활동영역만들기",IDC_RDO_MAKE_ACT_RGN,"Button",
+                    BS_AUTORADIOBUTTON,11,277,64,10
+    COMBOBOX        IDC_COMBO_NPC,4,112,145,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "NPC 종류 :",IDC_STATIC,5,99,36,8
+    EDITTEXT        IDC_EDIT_NUM_NPC,35,131,31,14,ES_AUTOHSCROLL
+    LTEXT           "마리",IDC_STATIC,70,135,15,8
+    PUSHBUTTON      "▼",IDC_BTN_RECORD,2,337,72,14
+    LTEXT           "* 배치된 NPC들",IDC_STATIC,6,357,51,8
+    LISTBOX         IDC_LIST_NPCPATH,3,369,147,180,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "불러오기",IDC_BTN_LOAD_PATHSET,4,39,31,14
+    PUSHBUTTON      "저장하기",IDC_BTN_SAVE_PATHSET,37,39,32,14
+    LTEXT           "* 현재 파일이름",IDC_STATIC,3,12,50,8
+    LTEXT           "/npclist/pathset.txt",IDC_PATHSETNAME,4,24,117,8
+    GROUPBOX        "* 파일관리 *",IDC_STATIC,0,1,153,58
+    LTEXT           "regen time :",IDC_STATIC,5,149,39,8
+    EDITTEXT        IDC_EDIT_REGENTIME,46,147,31,14,ES_AUTOHSCROLL
+    LTEXT           "sec.",IDC_STATIC,79,149,15,8
+    LTEXT           "행동타입 :",IDC_STATIC,5,167,33,8
+    COMBOBOX        IDC_COMBO_ACTIONTYPE,40,162,73,95,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "몇마리 ?",IDC_STATIC,6,133,27,8
+    PUSHBUTTON      "서버데이터저장",IDC_BTN_SAVE_SERVER_PATHSET,71,39,50,14
+    PUSHBUTTON      "▲",IDC_BTN_PATH_MODIFY,78,337,72,14
+    PUSHBUTTON      "삭제",IDC_BTN_PATH_DELETE,59,354,27,13
+    GROUPBOX        "",IDC_STATIC,3,243,147,48
+    EDITTEXT        IDC_EDT_NPCPATHNAME,4,319,146,14,ES_AUTOHSCROLL
+    LTEXT           "* NPC길 이름",IDC_STATIC,6,307,44,8
+    LTEXT           "* 찍을 수 있는 점의 수 :",IDC_STATIC,6,294,75,8
+    LTEXT           "32",IDC_NUM_POINT,83,294,8,8
+    GROUPBOX        "못가는 영역 볼래?",IDC_STATIC,0,63,153,31
+    CONTROL         "어. 볼래.^^",IDC_RDO_VIEW_NONMOVE,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,7,77,50,10
+    CONTROL         "싫어 안볼래.-.-",IDC_RDO_VIEW_NONE,"Button",
+                    BS_AUTORADIOBUTTON,56,77,64,10
+    PUSHBUTTON      "색깔넣기",IDC_BTN_SETCOLOR,119,302,33,14
+    PUSHBUTTON      "NPC종류 읽어오기",IDC_BTN_LOAD_NPCLIST,89,97,61,14
+    EDITTEXT        IDC_EDT_TRANS_X,12,554,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_TRANS_Z,54,554,27,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "통째로 위치 옮기기",IDC_BTN_TRANS,85,554,65,15
+    LTEXT           "x",IDC_STATIC,4,554,8,8
+    LTEXT           "z",IDC_STATIC,46,554,8,8
+    LTEXT           "집단속성:",IDC_STATIC,2,183,31,8
+    COMBOBOX        IDC_COMBO_NPC_ATTR_GROUP,33,181,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "리젠속성:",IDC_STATIC,2,198,31,8
+    COMBOBOX        IDC_COMBO_NPC_ATTR_REGEN,33,196,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "생성속성:",IDC_STATIC,2,213,31,8
+    COMBOBOX        IDC_COMBO_NPC_ATTR_CREATE,33,211,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "load",IDC_BTN_LOAD_GROUP,132,179,20,14
+    PUSHBUTTON      "load",IDC_BTN_LOAD_REGEN,132,195,20,14
+    PUSHBUTTON      "load",IDC_BTN_LOAD_CREATE,132,211,20,14
+    LTEXT           "기타옵션:",IDC_STATIC,2,228,31,8
+    COMBOBOX        IDC_COMBO_NPC_OPTION,33,225,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "load",IDC_BTN_LOAD_OPTION,132,225,20,14
+END
+
+IDD_LOAD_NPCPATH DIALOG DISCARDABLE  0, 0, 231, 209
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Load NPC Path"
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "Load",IDOK,180,6,50,95
+    PUSHBUTTON      "Cancel",IDCANCEL,180,108,50,95
+    LISTBOX         IDC_LIST_NPCPATH,1,1,177,207,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_SAVE_NPCPATH DIALOG DISCARDABLE  0, 0, 247, 265
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Save NPC Path"
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "Save",IDOK,190,43,50,74
+    PUSHBUTTON      "Cancel",IDCANCEL,190,148,50,74
+    LISTBOX         IDC_LIST_NPCPATHFILENAME,7,7,171,226,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_NPCPATHFILENAME,7,244,171,14,ES_AUTOHSCROLL
+END
+
+IDD_SOW_SEED DIALOG DISCARDABLE  0, 0, 301, 229
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "풀심기"
+FONT 9, "돋움"
+BEGIN
+    COMBOBOX        IDC_CB_SEED,141,177,149,170,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_TILEGROUP,1,177,137,171,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "* 심겨진 풀들",IDC_STATIC,7,137,43,8
+    PUSHBUTTON      "지우기",IDC_BTN_DEL_SEED,17,151,33,13
+    PUSHBUTTON      "풀 정보 파일 읽기",IDC_BTN_GRASSINFOLOAD,157,106,64,23
+    PUSHBUTTON      "겜데이타저장",IDC_BTN_SAVEGAME,0,201,214,28
+    CONTROL         "",IDC_STATIC_GRASS,"Static",SS_BLACKFRAME,5,5,130,121
+    PUSHBUTTON      "풀 정보 파일 저장",IDC_BTN_GRASSINFOSAVE,224,106,64,23
+    GROUPBOX        "타일당 디테일",IDC_STATIC,153,11,142,32
+    GROUPBOX        "Brush Size",IDC_STATIC,153,57,142,32
+    GROUPBOX        "선택",IDC_STATIC,153,135,142,32,WS_GROUP
+    CONTROL         "풀심기",IDC_RADIO_SOW,"Button",BS_AUTORADIOBUTTON,166,
+                    147,49,9
+    CONTROL         "그룹선택",IDC_RADIO_SELECT,"Button",BS_AUTORADIOBUTTON,
+                    224,147,49,9
+    PUSHBUTTON      "종료",IDC_SEED_EXIT,223,200,66,28
+    PUSHBUTTON      "섞기",IDC_BUTTON_RANDOM,89,141,53,24
+    CONTROL         "Slider1",IDC_S_TILE_DETAIL,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,161,27,128,12
+    CONTROL         "Slider2",IDC_SOW_BRUSH_SIZE,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,161,69,128,12
+END
+
+IDD_MAKE_WALL DIALOG DISCARDABLE  0, 0, 93, 249
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "벽 만들기"
+FONT 9, "돋움"
+BEGIN
+    EDITTEXT        IDC_EDIT_WALL,0,16,92,14,ES_AUTOHSCROLL
+    LISTBOX         IDC_LIST_WALL,0,69,92,180,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "▼",IDC_BTN_WALL_RECORD,8,33,36,14
+    PUSHBUTTON      "▲",IDC_BTN_WALL_EDIT,48,33,36,14
+    PUSHBUTTON      "삭제",IDC_BTN_DELETE,41,53,27,14
+    LTEXT           "* 현재 편집중인 벽",IDC_STATIC,2,5,59,8
+    LTEXT           "* 편집된 벽",IDC_STATIC,2,57,36,8
+END
+
+IDD_EDIT_EVENT DIALOG DISCARDABLE  0, 0, 106, 373
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "이벤트 편집"
+FONT 9, "돋움"
+BEGIN
+    LTEXT           "* 현재 편집중인 이벤트",IDC_STATIC,3,67,73,8
+    LTEXT           "* 만들어진 이벤트",IDC_STATIC,2,127,57,8
+    LISTBOX         IDC_EVENT_LIST,3,142,100,228,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "▼",IDC_BTN_EVENT_RECORD,3,100,48,14
+    PUSHBUTTON      "▲",IDC_BTN_EVENT_EDIT,55,100,48,14
+    PUSHBUTTON      "삭제",IDC_BTN_EVENT_DEL,64,124,35,13
+    LTEXT           "NONE",IDC_STATIC_CURR_EVENT,7,81,89,8
+    GROUPBOX        "* 편집중인 파일 *",IDC_STATIC,4,4,99,53
+    LTEXT           "^^",IDC_STATIC_CURR_FILENAME,8,17,91,10
+    PUSHBUTTON      "불러와봐",IDC_BTN_LOAD_EVTFILE,8,38,41,14
+    PUSHBUTTON      "저장할껴",IDC_BTN_SAVE_EVTFILE,56,38,41,14
+END
+
+IDD_EDIT_EVENT_ATTR DIALOG DISCARDABLE  0, 0, 245, 262
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "이벤트 편집"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,191,6,50,192
+    PUSHBUTTON      "Cancel",IDCANCEL,191,212,50,46
+    LTEXT           "* Event ID :",IDC_STATIC,3,41,38,8
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_ID,42,38,42,14,ES_AUTOHSCROLL
+    LTEXT           "* Event Type :",IDC_STATIC,3,58,47,8
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_TYPE,50,55,42,14,ES_AUTOHSCROLL
+    LTEXT           "* con1 :",IDC_STATIC,3,81,26,8
+    LTEXT           "* con2 :",IDC_STATIC,3,98,26,8
+    LTEXT           "* con3 :",IDC_STATIC,3,116,26,8
+    LTEXT           "* con4 :",IDC_STATIC,3,133,26,8
+    LTEXT           "* con5 :",IDC_STATIC,3,149,26,8
+    LTEXT           "* exe1 :",IDC_STATIC,3,179,26,8
+    LTEXT           "* exe2 :",IDC_STATIC,3,197,26,8
+    LTEXT           "* exe3 :",IDC_STATIC,3,214,26,8
+    LTEXT           "* exe4 :",IDC_STATIC,3,231,26,8
+    LTEXT           "* exe5 :",IDC_STATIC,3,248,26,8
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_CON1,32,78,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_CON2,32,95,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_CON3,32,112,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_CON4,32,129,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_CON5,32,146,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_EXE1,32,176,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_EXE2,32,193,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_EXE3,32,210,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_EXE4,32,227,150,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_EXE5,32,244,150,14,ES_AUTOHSCROLL
+    LTEXT           "* Event Name :",IDC_STATIC,3,24,50,8
+    EDITTEXT        IDC_EDIT_EVENT_ATTR_NAME,53,21,82,14,ES_AUTOHSCROLL
+    LTEXT           "* Zone ID : ",IDC_STATIC,3,6,38,8
+    EDITTEXT        IDC_EDIT_EVENT_ZONE_ID,41,4,49,14,ES_AUTOHSCROLL
+END
+
+IDD_POND_PROPERTY DIALOG DISCARDABLE  0, 0, 159, 228
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Pond Propertys"
+FONT 10, "System"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,0,133,159,58
+    PUSHBUTTON      "Cancel",IDCANCEL,0,190,159,37
+    LISTBOX         IDC_LP_POND,0,0,159,132,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Edit Pond",IDC_BUTTON_EDITPOND,79,182,80,15
+    PUSHBUTTON      "Move Pond",IDC_BUTTON_MOVE_POND,0,197,79,14
+    PUSHBUTTON      "재정렬",IDC_BUTTON_STATION_POND,0,211,79,15
+    PUSHBUTTON      "Delete Pond",IDC_BUTTON_DELETE_POND,79,211,80,15
+    LTEXT           "Static",IDC_WIDTHLENGTH,34,164,41,9
+    LTEXT           "Static",IDC_HEIGHTLENGTH,111,164,43,9
+    LTEXT           "x 거리 : ",IDC_STATICNAME1,6,164,26,9
+    LTEXT           "y 거리 : ",IDC_STATICNAME2,80,164,26,8
+    PUSHBUTTON      "UV 재 정렬",IDC_BU_RECALCUV,0,182,79,15
+    PUSHBUTTON      "그룹",IDC_GROUP,79,197,80,14
+    GROUPBOX        "셀간의 거리",IDC_STATIC3,2,153,157,25
+    COMBOBOX        IDC_COMBO_GOPOND,80,136,73,76,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "가고자하는 연못",IDC_STATIC4,5,138,70,11
+END
+
+IDD_LOAD_EVENT DIALOG DISCARDABLE  0, 0, 187, 217
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,141,8,43,55
+    PUSHBUTTON      "Cancel",IDCANCEL,141,69,43,55
+    LISTBOX         IDC_LIST_SAVED_EVT_FILE,3,4,135,209,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_SAVE_EVENT DIALOG DISCARDABLE  0, 0, 187, 283
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Save Event File "
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,137,172,47,51
+    PUSHBUTTON      "Cancel",IDCANCEL,137,227,47,51
+    LISTBOX         IDC_LIST_SAVED_EVT_FILE,3,16,131,232,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_NEW_EVT_FILE,3,265,131,14,ES_AUTOHSCROLL
+    LTEXT           "* 현재 있는 파일들",IDC_STATIC,2,5,59,8
+    LTEXT           "* 저장할 파일 이름",IDC_STATIC,2,255,59,8
+END
+
+IDD_UNUSED_FILES DIALOG DISCARDABLE  0, 0, 379, 363
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "안쓰는 파일 지우기"
+FONT 9, "돋움"
+BEGIN
+    LISTBOX         IDC_LIST_FILES,3,15,372,179,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "선택된 파일 지우기",IDC_DELETE,3,197,312,30
+    PUSHBUTTON      "닫기",ID_CANCEL,315,197,60,30
+    LTEXT           "에러 있는 오브젝트",IDC_STATIC,3,237,63,9
+    LISTBOX         IDC_LIST_INVALID_OBJECTS,3,249,372,111,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_MAKE_REGEN_USER DIALOG DISCARDABLE  0, 0, 125, 311
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Make Region Regen User"
+FONT 9, "돋움"
+BEGIN
+    LTEXT           "* 배치된 REGION",-1,3,85,55,8
+    LISTBOX         IDC_LIST_REGENUSERREGION,1,97,122,211,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "불러오기",IDC_BTN_LOAD_PATHSET,13,62,31,14
+    PUSHBUTTON      "저장하기",IDC_BTN_SAVE_PATHSET,46,62,32,14
+    LTEXT           "* 현재 파일이름",-1,3,13,50,8
+    GROUPBOX        "* 파일관리 *",-1,1,1,122,79
+    PUSHBUTTON      "새이름저장",IDC_BTN_SAVE_AS,80,62,41,14
+    PUSHBUTTON      "삭제",IDC_BTN_PATH_DELETE,63,83,27,13
+    EDITTEXT        IDC_EDT_PATHNAME,3,25,118,32,ES_MULTILINE | ES_READONLY | 
+                    NOT WS_BORDER
+END
+
+IDD_SHAPE_LIST DIALOGEX 0, 0, 166, 336
+STYLE WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Shape List"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_PREVIEW,"Static",SS_GRAYFRAME,3,233,88,98
+    LISTBOX         IDC_LIST_OBJ,0,18,165,212,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | LBS_EXTENDEDSEL | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "정  렬",IDC_BTN_SORT,0,0,50,14
+END
+
+IDD_EDIT_WARP DIALOG DISCARDABLE  0, 0, 173, 375
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "set warp "
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "닫기",IDOK,127,360,45,14
+    EDITTEXT        IDC_EDIT_ID,41,9,40,14,ES_AUTOHSCROLL
+    LTEXT           "ID :",IDC_STATIC,23,9,12,8
+    LTEXT           "이름 :",IDC_STATIC,16,25,19,8
+    EDITTEXT        IDC_EDIT_NAME,41,25,128,14,ES_AUTOHSCROLL
+    LTEXT           "동의문 :",IDC_STATIC,9,41,26,8
+    EDITTEXT        IDC_EDIT_AGREE,41,41,128,86,ES_MULTILINE | 
+                    ES_AUTOVSCROLL
+    EDITTEXT        IDC_EDIT_MONEY,41,130,40,14,ES_AUTOHSCROLL
+    LTEXT           "돈 :",IDC_STATIC,23,130,12,8
+    EDITTEXT        IDC_EDIT_ZONE,41,147,40,14,ES_AUTOHSCROLL
+    LTEXT           "Zone ID :",IDC_STATIC,2,147,31,8
+    EDITTEXT        IDC_EDIT_POS_X,41,164,40,14,ES_AUTOHSCROLL
+    LTEXT           "Pos. :",IDC_STATIC,15,164,20,8
+    EDITTEXT        IDC_EDIT_POS_Y,85,164,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_POS_Z,129,164,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_RAD,41,181,40,14,ES_AUTOHSCROLL
+    LTEXT           "Rad. :",IDC_STATIC,15,181,20,8
+    LISTBOX         IDC_LIST_WARP,0,216,172,140,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "List",IDC_STATIC,3,204,12,8
+    PUSHBUTTON      "지우기",IDC_BTN_DELETE,24,202,29,14
+    PUSHBUTTON      "▼",IDC_BTN_UPDATE,88,202,29,14
+    PUSHBUTTON      "▲",IDC_BTN_EDIT,56,202,29,14
+    GROUPBOX        "edit..",IDC_STATIC,0,0,172,199
+    PUSHBUTTON      "Export",IDC_BTN_EXPORT,1,360,41,14
+    PUSHBUTTON      "Import",IDC_BTN_IMPORT,47,360,41,14
+END
+
+IDD_SAVE_DIVIDE DIALOG DISCARDABLE  0, 0, 368, 423
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "잘라서 저장하기"
+FONT 9, "돋움체"
+BEGIN
+    DEFPUSHBUTTON   "Save",IDOK,316,409,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,1,409,50,14
+    LTEXT           "*전체 맵의 크기:",IDC_STATIC,4,4,64,8
+    LTEXT           "4096m",IDC_STC_TOTAL_SIZE,69,4,21,8
+    COMBOBOX        IDC_CB_DIVISION,133,0,67,122,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "*나누기:",IDC_STATIC,100,4,32,8
+    CONTROL         "",IDC_STATIC_MINIMAP,"Static",SS_BLACKFRAME,0,17,368,
+                    389
+END
+
+IDD_CONTROL_HEIGHT_SCALE DIALOG DISCARDABLE  0, 0, 83, 231
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "높이 스케일 조정"
+FONT 9, "돋움체"
+BEGIN
+    CONTROL         "Slider1",IDC_SLIDER1,"msctls_trackbar32",TBS_AUTOTICKS | 
+                    TBS_VERT | TBS_BOTH | WS_TABSTOP,5,0,37,231
+END
+
+IDD_EDIT_BGM DIALOG DISCARDABLE  0, 0, 298, 339
+STYLE DS_MODALFRAME | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "환경 소리효과 설정하기"
+FONT 9, "돋움"
+BEGIN
+    LISTBOX         IDC_LIST_SOUNDGROUP,5,13,90,306,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "none",IDC_BGM_NAME1,109,17,153,8
+    LTEXT           "Static",IDC_BGM_NAME2,109,33,153,8
+    LTEXT           "Static",IDC_BGM_NAME3,109,49,153,8
+    LTEXT           "Static",IDC_BGM_NAME4,109,65,153,8
+    GROUPBOX        "* 음악 *",IDC_STATIC,103,4,192,78,BS_CENTER
+    PUSHBUTTON      "추가",IDC_BTN_ADD_SOUNDGROUP,7,321,26,14
+    LTEXT           "Static",IDC_BGE_NAME1,109,101,153,8
+    LTEXT           "Static",IDC_BGE_NAME2,109,117,153,8
+    LTEXT           "Static",IDC_BGE_NAME3,109,133,153,8
+    LTEXT           "Static",IDC_BGE_NAME4,109,149,153,8
+    GROUPBOX        "* 효과 *",IDC_STATIC,103,87,192,78,BS_CENTER
+    LISTBOX         IDC_LIST_SOUNDINFO,126,178,165,155,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Static",IDC_BGM_REGENTIME1,268,17,19,8
+    LTEXT           "Static",IDC_BGM_REGENTIME2,268,33,19,8
+    LTEXT           "Static",IDC_BGM_REGENTIME3,268,49,19,8
+    LTEXT           "Static",IDC_BGM_REGENTIME4,268,65,19,8
+    LTEXT           "Static",IDC_BGE_REGENTIME1,268,101,19,8
+    LTEXT           "Static",IDC_BGE_REGENTIME2,268,117,19,8
+    LTEXT           "Static",IDC_BGE_REGENTIME3,268,133,19,8
+    LTEXT           "Static",IDC_BGE_REGENTIME4,268,149,19,8
+    PUSHBUTTON      "삭제",IDC_BTN_DELETE_SOUNDGROUP,35,321,26,14
+    PUSHBUTTON      "->",IDC_BTN_INPUT_INFO,106,180,17,18
+    GROUPBOX        "* 편집된 소리 정보 *",IDC_STATIC,103,167,192,170,
+                    BS_CENTER
+    PUSHBUTTON      "편집",IDC_BTN_INPUT_INFO_EDIT,106,202,17,18
+    PUSHBUTTON      "삭제",IDC_BTN_INPUT_INFO_DEL,106,224,17,18
+    GROUPBOX        "* 소리 묶음 목록 *",IDC_STATIC,2,4,97,334,BS_CENTER
+    PUSHBUTTON      "수정",IDC_BTN_MODIFY_SOUNDGROUP,63,321,26,14
+END
+
+IDD_ADD_SOUNDGROUP DIALOG DISCARDABLE  0, 0, 255, 233
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "소리묶음추가"
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,195,214,52,16
+    PUSHBUTTON      "Cancel",IDCANCEL,136,214,52,16
+    LTEXT           "묶음이름 :",IDC_STATIC,3,3,32,8
+    EDITTEXT        IDC_EDT_GROUPNAME,37,0,215,14,ES_AUTOHSCROLL
+    GROUPBOX        "* 음악 *",IDC_STATIC,0,21,255,91
+    LTEXT           "- 파일이름 -",IDC_STATIC,5,34,40,8
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGM_NAME1,192,46,30,14
+    LTEXT           "none",IDC_BGM_NAME1,5,46,153,8
+    LTEXT           "Static",IDC_BGM_NAME2,5,62,153,8
+    LTEXT           "Static",IDC_BGM_NAME3,5,78,153,8
+    LTEXT           "Static",IDC_BGM_NAME4,5,94,153,8
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGM_NAME2,192,62,30,14
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGM_NAME3,192,78,30,14
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGM_NAME4,192,94,30,14
+    EDITTEXT        IDC_EDT_BGM_REGEN1,225,46,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_BGM_REGEN2,225,62,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_BGM_REGEN3,225,78,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_BGM_REGEN4,225,94,27,14,ES_AUTOHSCROLL
+    LTEXT           "- 리젠타임 -",IDC_STATIC,206,34,40,8
+    GROUPBOX        "* 효과 *",IDC_STATIC,0,117,255,91
+    LTEXT           "- 파일이름 -",IDC_STATIC,5,129,40,8
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGE_NAME1,192,141,30,14
+    LTEXT           "none",IDC_BGE_NAME1,5,141,153,8
+    LTEXT           "Static",IDC_BGE_NAME2,5,157,153,8
+    LTEXT           "Static",IDC_BGE_NAME3,5,173,153,8
+    LTEXT           "Static",IDC_BGE_NAME4,5,189,153,8
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGE_NAME2,192,157,30,14
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGE_NAME3,192,173,30,14
+    PUSHBUTTON      "파일찾기",IDC_BTN_BGE_NAME4,192,189,30,14
+    EDITTEXT        IDC_EDT_BGE_REGEN1,225,141,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_BGE_REGEN2,225,157,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_BGE_REGEN3,225,173,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_BGE_REGEN4,225,189,27,14,ES_AUTOHSCROLL
+    LTEXT           "- 리젠타임 -",IDC_STATIC,206,129,40,8
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGM_NAME1,170,46,20,14
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGM_NAME2,170,62,20,14
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGM_NAME3,170,78,20,14
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGM_NAME4,170,94,20,14
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGE_NAME1,170,142,20,14
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGE_NAME2,170,158,20,14
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGE_NAME3,170,174,20,14
+    PUSHBUTTON      "삭제",IDC_BTN_DEL_BGE_NAME4,170,190,20,14
+END
+
+IDD_ALL_MAP_VIEW DIALOG DISCARDABLE  0, 0, 257, 276
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "전체 맵 보기"
+FONT 10, "System"
+BEGIN
+    CONTROL         "",IDC_MAP_VIEW,"Static",SS_BLACKFRAME,0,0,256,256
+    PUSHBUTTON      "맵 업데이트",IDC_MAP_UPDATA,39,260,76,12
+    PUSHBUTTON      "CANCEL",IDC_MAP_VIEW_CANCEL,119,259,76,12
+END
+
+IDD_LIGHT DIALOG DISCARDABLE  0, 0, 139, 329
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Lights"
+FONT 9, "돋움"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,0,0,6,6,NOT WS_VISIBLE
+    PUSHBUTTON      "Import",IDC_BTN_IMPORT,67,37,33,11
+    PUSHBUTTON      "Export",IDC_BTN_EXPORT,103,37,33,11
+    LTEXT           "^^",IDC_PATHNAME,4,12,131,20
+    GROUPBOX        "",IDC_STATIC,0,0,138,51,BS_LEFT
+    LISTBOX         IDC_LIST_LIGHTS,0,145,138,183,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_STC_COLOR,"Static",SS_BLACKFRAME,27,74,107,14
+    CONTROL         "Slider1",IDC_SLD_RANGE,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,29,90,106,15
+    LTEXT           "Color :",IDC_STATIC,2,77,23,8
+    EDITTEXT        IDC_EDT_NAME,27,57,107,14,ES_AUTOHSCROLL
+    GROUPBOX        "",IDC_STATIC,0,49,138,77
+    LTEXT           "Name :",IDC_STATIC,2,60,23,8
+    LTEXT           "Range :",IDC_STATIC,2,94,26,8
+    CONTROL         "Slider1",IDC_SLD_ATTEN,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,44,108,91,15
+    LTEXT           "Attenuation :",IDC_STATIC,2,111,41,8
+    PUSHBUTTON      "▲",IDC_BTN_DOWNLOAD,1,129,43,14
+    PUSHBUTTON      "▼",IDC_BTN_UPLOAD,47,129,43,14
+    PUSHBUTTON      "Delete",IDC_BTN_DELETE,93,129,43,14
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,4,2,1440
+ PRODUCTVERSION 2,4,2,1440
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "noah system\0"
+            VALUE "FileDescription", "N3ME_debug\0"
+            VALUE "FileVersion", "2, 4, 2, 1440\0"
+            VALUE "InternalName", "N3ME_debug\0"
+            VALUE "LegalCopyright", "Copyright ⓒ 2002\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "N3ME_debug.exe\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "noah system N3ME_debug\0"
+            VALUE "ProductVersion", "2, 4, 2, 1440\0"
+            VALUE "SpecialBuild", "\0"
+        END
+        BLOCK "041204b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "NoahSystem 3D Map Editor\0"
+            VALUE "FileVersion", "2, 4, 2, 1440\0"
+            VALUE "InternalName", "N3ME\0"
+            VALUE "LegalCopyright", "Copyright (C) 2001\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "N3ME.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "N3MapEditor\0"
+            VALUE "ProductVersion", "2, 4, 2, 1440\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200, 0x412, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 332
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_SCENE_GRAPH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 199
+        TOPMARGIN, 7
+    END
+
+    IDD_BRUSH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 119
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 165
+    END
+
+    IDD_TERRAINSIZE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 161
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 19
+    END
+
+    IDD_SETDETAILTEXTURE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+    END
+
+    IDD_DEL_GROUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 122
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 179
+    END
+
+    IDD_DTEX_GROUP, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 482
+    END
+
+    IDD_RIVER_PROPERTY, DIALOG
+    BEGIN
+        RIGHTMARGIN, 182
+        BOTTOMMARGIN, 203
+    END
+
+    IDD_BASE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 227
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 380
+    END
+
+    IDD_ADDDTEX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+    END
+
+    IDD_MODIFY_DTEX, DIALOG
+    BEGIN
+        RIGHTMARGIN, 36
+        BOTTOMMARGIN, 52
+    END
+
+    IDD_BROWSE_PATH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 160
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 265
+    END
+
+    IDD_LOAD_TILESET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 219
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 246
+    END
+
+    IDD_SAVE_NEW_TILESET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 320
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 254
+    END
+
+    IDD_SAVE_NPCPATH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 240
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 258
+    END
+
+    IDD_EDIT_EVENT, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 372
+    END
+
+    IDD_POND_PROPERTY, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 227
+    END
+
+    IDD_SAVE_EVENT, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 280
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_MOVE                CURSOR  DISCARDABLE     "res\\move.cur"
+IDC_ROTATE              CURSOR  DISCARDABLE     "res\\rotate.cur"
+IDC_ZOOM                CURSOR  DISCARDABLE     "res\\zoom.cur"
+IDC_TRANSFORM           CURSOR  DISCARDABLE     "res\\transform.cur"
+IDC_LOAD                CURSOR  DISCARDABLE     "res\\load.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_BRUSH DLGINIT
+BEGIN
+    IDC_SHAPE, 0x403, 7, 0
+0x6943, 0x6372, 0x656c, "\000" 
+    IDC_SHAPE, 0x403, 7, 0
+0x7153, 0x6175, 0x6572, "\000" 
+    0
+END
+
+IDD_BASE DLGINIT
+BEGIN
+    IDC_CB_LOD, 0x403, 4, 0
+0x4f4c, 0x0044, 
+    IDC_CB_PART_CHARACTER, 0x403, 5, 0
+0x6150, 0x7472, "\000" 
+    IDC_CB_PLUG_CHARACTER, 0x403, 5, 0
+0x6c50, 0x6775, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "N3ME\n\nN3ME\nN3ME 파일 (*.n3m)\n.n3m\nN3ME.Document\nN3ME Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "N3ME"
+    AFX_IDS_IDLEMESSAGE     "준비"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "새 문서를 작성합니다\n새 파일"
+    ID_FILE_OPEN            "기존 문서를 엽니다\n열기"
+    ID_FILE_CLOSE           "현재 열린 문서를 닫습니다\n닫기"
+    ID_FILE_SAVE            "현재 열린 문서를 저장합니다\n저장"
+    ID_FILE_SAVE_AS         "현재 열린 문서를 다른 이름으로 저장합니다\n다른 이름으로 저장"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "프로그램 정보와 버전 정보, 저작권 정보를 표시합니다\n정보"
+    ID_APP_EXIT             "응용 프로그램을 종료하기 위해 문서를 저장할 것인지 묻습니다\n종료"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE2       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE3       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE4       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE5       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE6       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE7       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE8       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE9       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE10      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE11      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE12      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE13      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE14      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE15      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE16      "이 문서를 엽니다"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "다음 창으로 전환합니다\n다음 창"
+    ID_PREV_PANE            "이전 창으로 전환합니다\n이전 창"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "현재 열린 창을 나눕니다\n나누기"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "선택 부분을 지웁니다\n지우기"
+    ID_EDIT_CLEAR_ALL       "모든 것을 지웁니다\n모두 지우기"
+    ID_EDIT_COPY            "선택 부분을 복사하여 클립보드에 넣습니다\n복사"
+    ID_EDIT_CUT             "선택 부분을 잘라내어 클립보드에 넣습니다\n잘라내기"
+    ID_EDIT_FIND            "지정한 문자열을 찾습니다\n찾기"
+    ID_EDIT_PASTE           "클립보드의 내용을 붙여 넣습니다\n붙여넣기"
+    ID_EDIT_REPEAT          "마지막으로 실행한 동작을 반복합니다\n반복"
+    ID_EDIT_REPLACE         "지정한 문자열을 다른 문자열로 바꿉니다\n바꾸기"
+    ID_EDIT_SELECT_ALL      "문서 전체를 선택합니다\n전체 선택"
+    ID_EDIT_UNDO            "마지막으로 한 동작을 취소합니다\n실행 취소"
+    ID_EDIT_REDO            "이전에 취소한 동작을 다시 수행합니다\n다시 실행"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "도구 모음을 보이거나 감춥니다\n도구 모음 전환"
+    ID_VIEW_STATUS_BAR      "상태 표시줄을 표시하거나 감춥니다\n상태 표시줄 전환"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "창의 크기를 변경합니다"
+    AFX_IDS_SCMOVE          "창의 위치를 변경합니다"
+    AFX_IDS_SCMINIMIZE      "창을 아이콘으로 줄여서 표시합니다"
+    AFX_IDS_SCMAXIMIZE      "창을 최대 크기로 확장합니다"
+    AFX_IDS_SCNEXTWINDOW    "다음 문서 창으로 전환합니다"
+    AFX_IDS_SCPREVWINDOW    "이전 문서 창으로 전환합니다"
+    AFX_IDS_SCCLOSE         "현재 열린 창을 닫고 문서를 저장할 것인지를 묻습니다"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "창을 원래 크기로 복원합니다"
+    AFX_IDS_SCTASKLIST      "작업 목록을 활성화합니다"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_CURSOR_SELECT        "객체를 선택합니다.\n선택"
+    ID_CURSOR_OBJ_BRUSH     "객체를 배치합니다.\n배치"
+    ID_FILLMODE_WIREFRAME   "와이어 프레임 모드로 봅니다\n와이어 프레임 모드"
+    ID_FILLMODE_SOLID       "솔리드 모드로 봅니다\n솔리드 모드"
+    ID_CURSOR_ROTATE        "선택한 객체를 회전시킵니다.\n회전"
+    ID_CURSOR_POS           "선택한 객체를 이동합니다.\n이동"
+    ID_CURSOR_SCALE         "선택한 객체를 확대/축소합니다.\n확대/축소"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_CURSOR_EDIT_TERRAIN  "지형을 수정합니다.\n지형수정"
+    ID_TIP_DROP             "선택한 객체를 지형에 붙입니다.\nDrop"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_CURSOR_SMOOTH_TERRAIN "Smooth Tool\nSmooth Tool"
+    ID_PROJECT_SET          "Project 경로를 지정합니다.\\Project 경로 지정"
+    ID_FILE_COLORMAP_LOAD   "컬러맵을 부릅니다.(*.bmp)\\컬러맵 읽기"
+    ID_FILE_COLORMAP_SAVE   "컬러맵을 저장합니다.(*.bmp)\\컬러맵 저장"
+    ID_RESOURCE_PATH_SET    "Resource File 들의 경로를 지정합니다.\nResource 경로 지정"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_SELECTED_OBJECT_WIREFRAME 
+                            "선택된 Object Wire Frame 으로 보기\n선택된 Object Wire Frame 으로 보기"
+    ID_FILE_IMPORT_POST_DATA_FROM_SCENE 
+                            "*.N3Scene 으로 부터 오브젝트 배치 데이터 부르기\n배치 데이터 Import"
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "File(&F)"
+    BEGIN
+        MENUITEM "Set resource path(&R)...\tCtrl+R", ID_RESOURCE_PATH_SET
+        MENUITEM "New(&N)\tCtrl+N",             ID_FILE_NEW
+        MENUITEM "Open(&O)...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "Save(&S)\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM "Save as(&A)...",              ID_FILE_SAVE_AS
+        MENUITEM "Save with cutted",            ID_FILE_SAVE_DIVIDE
+        MENUITEM SEPARATOR
+        MENUITEM "generate height data from VMesh", ID_FILE_IMPORT_HEIGHT
+        MENUITEM "Import height data from VMesh(&I)", ID_FILE_IMPORT
+        MENUITEM "Export HeightBMP",            ID_FILE_EXPORT_HEIGHT_BMP
+        MENUITEM "Import HegihtBMP",            ID_FILE_IMPORT_HEIGHT_BMP
+        MENUITEM SEPARATOR
+        MENUITEM "Open Shape",                  ID_FILE_IMPORT_SHAPES
+        MENUITEM "Save as game format(&E)...",  ID_FILE_EXPORT
+        MENUITEM "Save as server format(&V)",   ID_FILE_SERVER_DATA
+        MENUITEM "Import colormap(&C)",         ID_FILE_COLORMAP_LOAD
+        MENUITEM "Export colormap",             ID_FILE_COLORMAP_SAVE
+        MENUITEM "Save tile game formatted texture data", 
+                                                ID_FILE_GAMETILETEX_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "Import *.N3Scene object position data", 
+                                                ID_FILE_IMPORT_POST_DATA_FROM_SCENE
+
+        MENUITEM SEPARATOR
+        MENUITEM "Recent files",                ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "Exit(&X)",                    ID_APP_EXIT
+    END
+    POPUP "Edit(&E)"
+    BEGIN
+        MENUITEM "Undo(&U)\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cur(&T)\tCtrl+X",             ID_EDIT_CUT
+        MENUITEM "Copy(&C)\tCtrl+C",            ID_EDIT_COPY
+        MENUITEM "Paste(&P)\tCtrl+V",           ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "Property(R)",                 ID_EDIT_PROPERTY
+        MENUITEM "Edit Detail Texture",         ID_EDIT_DTEX
+    END
+    POPUP "View(&V)"
+    BEGIN
+        MENUITEM "Tool bar(&T)",                ID_VIEW_TOOLBAR
+        MENUITEM "status bar(&S)",              ID_VIEW_STATUS_BAR
+        MENUITEM "Source Object List(&C)",      ID_VIEW_SOURCEOBJECT
+        MENUITEM "Output Object List(&O)",      ID_VIEW_OUTPUTOBJECT
+        MENUITEM "Detail Texture List(&D)",     ID_VIEW_DTEX
+        MENUITEM SEPARATOR
+        MENUITEM "Focus selected object\tF",    ID_TIP_FOCUS_SELOBJ
+        MENUITEM "Focus whole map\tA",          ID_TIP_FOCUS_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "WIREFRAME MODE(&W)",          ID_VIEW_WIREFRAME
+        MENUITEM "SOLID MODE(&L)",              ID_VIEW_SOLID
+        MENUITEM "View selected object by wire Frame", 
+                                                ID_VIEW_SELECTED_OBJECT_WIREFRAME
+        , CHECKED
+        MENUITEM "View axis and grid",          ID_VIEW_AXIS_AND_GRID
+        MENUITEM "Hide objects\tH",             ID_VIEW_HIDE_OBJ
+        MENUITEM "View perspective",            ID_VIEW_ORTH
+        MENUITEM "Toggle fog",                  ID_VIEW_TOGGLE_FOG
+    END
+    POPUP "Edit mode(&C)"
+    BEGIN
+        MENUITEM "Select\tQ",                   ID_CURSOR_SELECT
+        MENUITEM "Move\tW",                     ID_CURSOR_POS
+        MENUITEM "Rotate\tE",                   ID_CURSOR_ROTATE
+        MENUITEM "Scale\tR",                    ID_CURSOR_SCALE
+        MENUITEM "Object Brush\tT",             ID_CURSOR_OBJ_BRUSH
+        MENUITEM "Edit terrain",                ID_CURSOR_EDIT_TERRAIN
+        MENUITEM "Smooth",                      ID_CURSOR_SMOOTH_TERRAIN
+        MENUITEM "Detail texture\tD",           ID_CURSOR_DTEX
+        MENUITEM "River",                       ID_CURSOR_EDIT_RIVER
+        MENUITEM "Pond",                        ID_CURSOR_EDIT_POND
+        MENUITEM "Light map",                   ID_CURSOR_EDIT_LIGHTMAP
+        MENUITEM "NPC Path",                    ID_CURSOR_MAKE_NPCPATH
+        MENUITEM "Wall",                        ID_CURSOR_MAKE_WALL
+        MENUITEM "Event",                       ID_CURSOR_EDIT_EVENT
+        MENUITEM "Plane",                       ID_CURSOR_FLAT_TERRAIN
+        MENUITEM "User regeneration region",    ID_CURSOR_REGEN_USER
+        MENUITEM "Environment sound effect",    ID_CURSOR_SOUND
+    END
+    POPUP "Tool(&T)"
+    BEGIN
+        MENUITEM "Attach object to terrain",    ID_TIP_DROP
+        MENUITEM "Delete selected object\tDel", ID_TIP_DELETE_OBJ
+        MENUITEM SEPARATOR
+        MENUITEM "Make colormap\tC",            ID_TIP_GENERATE_COLORMAP
+        MENUITEM "make whole colormap\tX",      ID_TIP_GENERATE_COLORMAP_ALL
+        MENUITEM "fill whole map with current tile\tV", ID_TIP_TILING_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "Set to basic material\t(&D)", ID_TIP_DEFAULT_MATERIAL
+        MENUITEM "Remove Alpha Blending Flag\t(&R)", ID_TIP_REMOVE_ALPHAFLAG
+        MENUITEM SEPARATOR
+        MENUITEM "Spread seed",                 ID_TIP_SOW_SEED
+        MENUITEM "Make unused file list",       ID_TIP_DELETE_UNUSED_FILES
+        MENUITEM "Remove overlapped objects",   ID_TIP_DELETE_OVERLAPPED_OBJECTS
+
+        MENUITEM "Remove selected source objects", 
+                                                ID_TIP_DELETE_SELECTED_SOURCE_OBJECTS
+
+        MENUITEM SEPARATOR
+        MENUITEM "Make warp info",              ID_TIP_SET_WARP_INFO
+        MENUITEM "Adjust height scale",         ID_TIP_SET_HEIGHT_SCALE
+        MENUITEM SEPARATOR
+        MENUITEM "View whole map && edit partial", ID_SELECT_MAP_EDIT
+    END
+    POPUP "Help(&H)"
+    BEGIN
+        MENUITEM "About N3MapEditor\t(&A)",     ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAKE_NPCPATH DIALOG DISCARDABLE  0, 0, 163, 571
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Make NPC Path "
+FONT 9, "돋움"
+BEGIN
+    CONTROL         "Edit Start Region",IDC_RDO_START_RGN,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,11,252,66,10
+    CONTROL         "Make Path",IDC_RDO_MAKE_PATH,"Button",
+                    BS_AUTORADIOBUTTON,11,264,50,10
+    CONTROL         "Edit Action Region",IDC_RDO_MAKE_ACT_RGN,"Button",
+                    BS_AUTORADIOBUTTON,11,277,75,10
+    COMBOBOX        IDC_COMBO_NPC,4,112,145,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "NPC Type :",IDC_STATIC,5,99,38,8
+    EDITTEXT        IDC_EDIT_NUM_NPC,46,131,31,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "▼",IDC_BTN_RECORD,2,337,72,14
+    LTEXT           "* NPC paths..",IDC_STATIC,6,357,46,8
+    LISTBOX         IDC_LIST_NPCPATH,3,369,158,180,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Load",IDC_BTN_LOAD_PATHSET,4,39,31,14
+    PUSHBUTTON      "Save",IDC_BTN_SAVE_PATHSET,37,39,32,14
+    LTEXT           "* 현재 파일이름",IDC_STATIC,3,12,50,8
+    LTEXT           "/npclist/pathset.txt",IDC_PATHSETNAME,4,24,117,8
+    GROUPBOX        "* File *",IDC_STATIC,0,1,159,58
+    LTEXT           "regen time :",IDC_STATIC,5,149,39,8
+    EDITTEXT        IDC_EDIT_REGENTIME,46,147,31,14,ES_AUTOHSCROLL
+    LTEXT           "sec.",IDC_STATIC,79,149,15,8
+    LTEXT           "Action Type:",IDC_STATIC,5,167,41,8
+    COMBOBOX        IDC_COMBO_ACTIONTYPE,48,164,73,95,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "How many? :",IDC_STATIC,2,133,42,8
+    PUSHBUTTON      "Save Server Data",IDC_BTN_SAVE_SERVER_PATHSET,71,39,61,
+                    14
+    PUSHBUTTON      "▲",IDC_BTN_PATH_MODIFY,78,337,72,14
+    PUSHBUTTON      "Del",IDC_BTN_PATH_DELETE,59,354,27,13
+    GROUPBOX        "",IDC_STATIC,3,243,147,48
+    EDITTEXT        IDC_EDT_NPCPATHNAME,4,319,146,14,ES_AUTOHSCROLL
+    LTEXT           "* Current NPC path name",IDC_STATIC,6,307,82,8
+    LTEXT           "* remaining path :",IDC_STATIC,6,294,58,8
+    LTEXT           "32",IDC_NUM_POINT,67,294,8,8
+    GROUPBOX        "View Movable Region",IDC_STATIC,0,63,162,31
+    CONTROL         "No",IDC_RDO_VIEW_NONMOVE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,7,77,25,10
+    CONTROL         "Yes",IDC_RDO_VIEW_NONE,"Button",BS_AUTORADIOBUTTON,56,
+                    77,29,10
+    PUSHBUTTON      "color",IDC_BTN_SETCOLOR,119,302,33,14
+    PUSHBUTTON      "Load NPC Type",IDC_BTN_LOAD_NPCLIST,89,97,61,14
+    EDITTEXT        IDC_EDT_TRANS_X,12,554,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_TRANS_Z,52,554,27,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Move Whole NPC Path",IDC_BTN_TRANS,82,554,78,15,
+                    WS_DISABLED
+    LTEXT           "x",IDC_STATIC,4,554,8,8
+    LTEXT           "z",IDC_STATIC,46,554,8,8
+    LTEXT           "Group Attr.:",IDC_STATIC,2,183,38,8
+    COMBOBOX        IDC_COMBO_NPC_ATTR_GROUP,41,181,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Regen Attr.:",IDC_STATIC,2,198,39,8
+    COMBOBOX        IDC_COMBO_NPC_ATTR_REGEN,41,196,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Create Attr.:",IDC_STATIC,2,213,39,8
+    COMBOBOX        IDC_COMBO_NPC_ATTR_CREATE,41,211,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "load",IDC_BTN_LOAD_GROUP,140,179,20,14
+    PUSHBUTTON      "load",IDC_BTN_LOAD_REGEN,140,195,20,14
+    PUSHBUTTON      "load",IDC_BTN_LOAD_CREATE,140,211,20,14
+    LTEXT           "Option:",IDC_STATIC,2,228,24,8
+    COMBOBOX        IDC_COMBO_NPC_OPTION,41,225,97,179,CBS_DROPDOWN | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "load",IDC_BTN_LOAD_OPTION,140,225,20,14
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\N3ME.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
