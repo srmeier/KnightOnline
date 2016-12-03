@@ -281,7 +281,7 @@ BOOL CTransDummy::MouseMsgFilter(LPMSG pMsg)
 
 void CTransDummy::GetPickRay(POINT point, __Vector3& vDir, __Vector3& vOrig)
 {
-	LPDIRECT3DDEVICE9 lpD3DDev = s_lpD3DDev;
+	LPDIRECT3DDEVICE8 lpD3DDev = s_lpD3DDev;
 
     // Get the pick ray from the mouse position
     D3DXMATRIX matProj;

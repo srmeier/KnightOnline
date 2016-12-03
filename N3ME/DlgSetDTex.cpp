@@ -170,12 +170,12 @@ void CDlgSetDTex::OnDestroy()
 }
 
 
-void CDlgSetDTex::RenderTex(LPDIRECT3DDEVICE9 lpDDev)
+void CDlgSetDTex::RenderTex(LPDIRECT3DDEVICE8 lpDDev)
 {
 	if(!m_pTexVB) return;
 	
 	HRESULT hr;	
-	LPDIRECT3DTEXTURE9 lpTex = NULL;
+	LPDIRECT3DTEXTURE8 lpTex = NULL;
 	int CurrTex = m_FileList.GetCurSel();
 	if(CurrTex<0) return;
 
@@ -256,7 +256,7 @@ void CDlgSetDTex::OnSelchangeComboFilelist()
 }
 
 
-void CDlgSetDTex::RenderGrid(LPDIRECT3DDEVICE9 lpDDev)
+void CDlgSetDTex::RenderGrid(LPDIRECT3DDEVICE8 lpDDev)
 {
 	HRESULT hr;
 	hr = lpDDev->SetTexture(0, NULL);

@@ -9,7 +9,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CDlgBase dialog
-#include "PropertyList.h"
+#include "../Common Control/PropertyList.h"
 #include "Resource.h"
 
 class CMapMng;

@@ -16,8 +16,8 @@ class CDlgSetDTex : public CDialog
 public:
 	float					m_fTexSurfaceSize;
 	CN3Texture*				m_pTex;
-	LPDIRECT3DVERTEXBUFFER9 m_pTexVB;
-	LPDIRECT3DVERTEXBUFFER9 m_pGridVB;
+	LPDIRECT3DVERTEXBUFFER8 m_pTexVB;
+	LPDIRECT3DVERTEXBUFFER8 m_pGridVB;
 		
 // Construction
 public:
@@ -62,8 +62,8 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 private:
-	void RenderGrid(LPDIRECT3DDEVICE9 lpDDev);
-	void RenderTex(LPDIRECT3DDEVICE9 lpDDev);
+	void RenderGrid(LPDIRECT3DDEVICE8 lpDDev);
+	void RenderTex(LPDIRECT3DDEVICE8 lpDDev);
 	void InitVB();
 };
 

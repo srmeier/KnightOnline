@@ -46,7 +46,7 @@ public:
 	POINT MousePoint;
 	BOOL lbuttondown;
 	CBitMapFile BMF;
-	LPDIRECT3DDEVICE9 m_pD3DDevice;
+	LPDIRECT3DDEVICE8 m_pD3DDevice;
 
 	int  Brush_Size;
 	HBRUSH hbrush,OldBrush ;

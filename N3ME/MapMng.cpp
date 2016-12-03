@@ -661,7 +661,7 @@ void CMapMng::RenderDragRect(RECT* rc)
 	Vertices[4] = Vertices[0];
 
 	CN3Eng* pEng = m_pMainFrm->m_pEng;
-	LPDIRECT3DDEVICE9 pD3DDev = pEng->s_lpD3DDev;
+	LPDIRECT3DDEVICE8 pD3DDev = pEng->s_lpD3DDev;
 
 	HRESULT hr;
 	hr = pD3DDev->SetTexture(0, NULL);
@@ -1282,14 +1282,14 @@ void CMapMng::SelectObjectByDragRect(RECT* pRect, BOOL bAdd)
 	if (bAdd == FALSE) m_SelOutputObjArray.RemoveAll();
 
 	CN3Eng* pEng = m_pMainFrm->m_pEng;
-	LPDIRECT3DDEVICE9 pD3DDev = pEng->s_lpD3DDev;
+	LPDIRECT3DDEVICE8 pD3DDev = pEng->s_lpD3DDev;
 
 	__Matrix44 matView, matProj, matVP;
 	pD3DDev->GetTransform(D3DTS_VIEW, &matView);
 	pD3DDev->GetTransform(D3DTS_PROJECTION, &matProj);
 	D3DXMatrixMultiply(&matVP, &matView, &matProj);
 
-	D3DVIEWPORT9 vp = pEng->s_CameraData.vp;
+	D3DVIEWPORT8 vp = pEng->s_CameraData.vp;
 
 	int i, iSC = m_pSceneOutput->ShapeCount();
 	for (i=0; i<iSC;)
@@ -1628,7 +1628,7 @@ void CMapMng::RenderObjectToWindow(CN3TransformCollision* pObj, HWND hWnd)
 	ASSERT(m_pMainFrm);
 
 	CN3Eng* pEng = m_pMainFrm->m_pEng;
-	LPDIRECT3DDEVICE9 pD3DDev = pEng->s_lpD3DDev;
+	LPDIRECT3DDEVICE8 pD3DDev = pEng->s_lpD3DDev;
 
 	// Save CameraData
 	__CameraData CameraDataBackUp;
@@ -1929,7 +1929,7 @@ void CMapMng::RenderGrid(float fGridSize, float fMaxDistance)	// fGridSizeÅ©±â·Î
 	if (m_pMainFrm == NULL) return;
 	CN3Eng* pEng = m_pMainFrm->m_pEng;
 	if (pEng == NULL) return;
-	LPDIRECT3DDEVICE9 pD3DDev = pEng->s_lpD3DDev;
+	LPDIRECT3DDEVICE8 pD3DDev = pEng->s_lpD3DDev;
 
 	static float fPrevGridSize = 0;
 	static float fPrevMaxDistance = 0;
