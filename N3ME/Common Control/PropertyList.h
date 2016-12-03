@@ -14,7 +14,7 @@
 #endif // _MSC_VER > 1000
 // PropertyList.h : header file
 //
-#include "D3D9.h"
+#include "D3D8.h"
 
 #define PIT_COMBO	0  //PIT = property item type
 #define PIT_EDIT	1

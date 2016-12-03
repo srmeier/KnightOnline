@@ -213,7 +213,7 @@ void CSowSeedMng::Random_Grass(void)
 	Render_Grass = TRUE;
 };
 
-void CSowSeedMng::Render(LPDIRECT3DDEVICE9 lpD3DDevice)
+void CSowSeedMng::Render(LPDIRECT3DDEVICE8 lpD3DDevice)
 {
 	if( bActive == FALSE)
 	{
@@ -593,7 +593,7 @@ void CSowSeedMng::CreateBox(__Vector3 vMax,__Vector3 vMin)
 
 };
 
-void CSowSeedMng::Render_Box(LPDIRECT3DDEVICE9 lpD3DDevice,__Vector3 Pos)
+void CSowSeedMng::Render_Box(LPDIRECT3DDEVICE8 lpD3DDevice,__Vector3 Pos)
 {
 
 	WORD m_Index[26] = {0,1 ,1,4 ,4,5 ,5,0, 3,2, 2,7, 7,6, 6,3, 1,2 ,0,3,

@@ -1727,7 +1727,7 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 				WriteFile(hFile, &(sz), sizeof(short), &dwRWC, NULL);
 
 				CN3Texture* pNewTex = new CN3Texture;
-				LPDIRECT3DSURFACE9 pSurf;
+				LPDIRECT3DSURFACE8 pSurf;
 				m_ppLightMapTexture[x][z]->Get()->GetSurfaceLevel(0, &pSurf);
 				pNewTex->CreateFromSurface(pSurf, m_ppLightMapTexture[x][z]->PixelFormat(), true);
 				pNewTex->Convert(D3DFMT_A4R4G4B4, LIGHTMAP_TEX_SIZE, LIGHTMAP_TEX_SIZE);
@@ -1854,7 +1854,7 @@ void CLyTerrain::MakeGameLightMap(char* szFullPathName)
 						WriteFile(hFile, &(tz), sizeof(int), &dwRWC, NULL); // 
 
 						CN3Texture* pNewTex = new CN3Texture;
-						LPDIRECT3DSURFACE9 pSurf;
+						LPDIRECT3DSURFACE8 pSurf;
 						m_ppLightMapTexture[tpx + tx][tpz + tz]->Get()->GetSurfaceLevel(0, &pSurf);
 						pNewTex->CreateFromSurface(pSurf, m_ppLightMapTexture[tpx + tx][tpz + tz]->PixelFormat(), true);
 						pNewTex->Convert(D3DFMT_A4R4G4B4, LIGHTMAP_TEX_SIZE, LIGHTMAP_TEX_SIZE);
@@ -1890,7 +1890,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 		{
 			ProgressBar.StepIt();
 			
-			LPDIRECT3DSURFACE9 lpSurfSrc = NULL;
+			LPDIRECT3DSURFACE8 lpSurfSrc = NULL;
 			m_pColorTexture[x][z].Get()->GetSurfaceLevel(0, &lpSurfSrc);
 			if(NULL == lpSurfSrc)
 			{
@@ -2798,7 +2798,7 @@ bool CLyTerrain::Pick(int x, int y, __Vector3* vec, POINT* pHeightMapPos)
 {
 	__Vector3 vec2, vec3;		// vec1 & vec2 is 2D..  vec3 & vec4 is 3D..
 	CRect rect;
-	D3DVIEWPORT9 vp = CN3Base::s_CameraData.vp;
+	D3DVIEWPORT8 vp = CN3Base::s_CameraData.vp;
 	rect.SetRect(vp.X, vp.Y, vp.X+vp.Width, vp.Y+vp.Height);
 
 	if(x < rect.left || x>=rect.right ) return false;
@@ -4311,7 +4311,7 @@ void CLyTerrain::SetColorMap(int x, int y)
 	//s_lpD3DDev->Present(&rcD, &rcD, hWnd, NULL);
 
 	//컬러맵 텍스쳐에 쓰기...
-	LPDIRECT3DSURFACE9 pBackBuff;
+	LPDIRECT3DSURFACE8 pBackBuff;
 	hr = s_lpD3DDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pBackBuff);
 
 	//POINT ptCopy = {0,0};
@@ -5384,7 +5384,7 @@ void CLyTerrain::GenerateMiniMap(LPCTSTR lpszPathName, int size)
 		{
 			ProgressBar.StepIt();
 				
-			LPDIRECT3DSURFACE9 lpSurface;
+			LPDIRECT3DSURFACE8 lpSurface;
 			m_pColorTexture[x][z].Get()->GetSurfaceLevel(0, &lpSurface);
 			TmpTex.CreateFromSurface( lpSurface, m_pColorTexture[x][z].PixelFormat(), TRUE);
 			lpSurface->Release();

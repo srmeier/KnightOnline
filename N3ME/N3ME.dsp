@@ -70,7 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "$(DXSDK_DIR)include" /I "..\Client\include" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_N3TOOL" /D "_KNIGHT" /FR /YX"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "./include/" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_N3TOOL" /D "_KNIGHT" /FR /YX"stdafx.h" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x412 /d "_DEBUG" /d "_AFXDLL"
@@ -80,7 +80,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 D3D8.lib D3DX8.lib dxerr8.lib dsound.lib dxguid.lib winmm.lib /nologo /subsystem:windows /map /debug /machine:I386 /force /out:"N3ME_debug.exe" /pdbtype:sept
+# ADD LINK32 D3D8.lib D3DX8.lib dxerr8.lib dsound.lib dxguid.lib winmm.lib /nologo /subsystem:windows /map /debug /machine:I386 /force /out:"N3ME_debug.exe" /pdbtype:sept /libpath:"./lib/"
 # SUBTRACT LINK32 /profile
 
 !ENDIF 
@@ -138,335 +138,335 @@ SOURCE=.\res\zoom.cur
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\Client\N3Base\BitMapFile.cpp
+SOURCE=N3Base\BitMapFile.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\BitMapFile.h
+SOURCE=N3Base\BitMapFile.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\LogWriter.cpp
+SOURCE=N3Base\LogWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\LogWriter.h
+SOURCE=N3Base\LogWriter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\My_3DStruct.h
+SOURCE=N3Base\My_3DStruct.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\My_Macro.h
+SOURCE=N3Base\My_Macro.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3AlphaPrimitiveManager.cpp
+SOURCE=N3Base\N3AlphaPrimitiveManager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3AlphaPrimitiveManager.h
+SOURCE=N3Base\N3AlphaPrimitiveManager.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3AnimControl.cpp
+SOURCE=N3Base\N3AnimControl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3AnimControl.h
+SOURCE=N3Base\N3AnimControl.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3AnimKey.cpp
+SOURCE=N3Base\N3AnimKey.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3AnimKey.h
+SOURCE=N3Base\N3AnimKey.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Base.cpp
+SOURCE=N3Base\N3Base.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Base.h
+SOURCE=N3Base\N3Base.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3BaseFileAccess.cpp
+SOURCE=N3Base\N3BaseFileAccess.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3BaseFileAccess.h
+SOURCE=N3Base\N3BaseFileAccess.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Camera.cpp
+SOURCE=N3Base\N3Camera.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Camera.h
+SOURCE=N3Base\N3Camera.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Chr.cpp
+SOURCE=N3Base\N3Chr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Chr.h
+SOURCE=N3Base\N3Chr.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Eng.cpp
+SOURCE=N3Base\N3Eng.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Eng.h
+SOURCE=N3Base\N3Eng.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3BASE\N3EngTool.cpp
+SOURCE=N3BASE\N3EngTool.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3BASE\N3EngTool.h
+SOURCE=N3BASE\N3EngTool.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXBundle.cpp
+SOURCE=N3Base\N3FXBundle.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXBundle.h
+SOURCE=N3Base\N3FXBundle.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXDef.h
+SOURCE=N3Base\N3FXDef.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartBase.cpp
+SOURCE=N3Base\N3FXPartBase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartBase.h
+SOURCE=N3Base\N3FXPartBase.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartBillBoard.cpp
+SOURCE=N3Base\N3FXPartBillBoard.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartBillBoard.h
+SOURCE=N3Base\N3FXPartBillBoard.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartBottomBoard.cpp
+SOURCE=N3Base\N3FXPartBottomBoard.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartBottomBoard.h
+SOURCE=N3Base\N3FXPartBottomBoard.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXParticle.cpp
+SOURCE=N3Base\N3FXParticle.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXParticle.h
+SOURCE=N3Base\N3FXParticle.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartMesh.cpp
+SOURCE=N3Base\N3FXPartMesh.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartMesh.h
+SOURCE=N3Base\N3FXPartMesh.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartParticles.cpp
+SOURCE=N3Base\N3FXPartParticles.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPartParticles.h
+SOURCE=N3Base\N3FXPartParticles.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPlug.cpp
+SOURCE=N3Base\N3FXPlug.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPlug.h
+SOURCE=N3Base\N3FXPlug.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPMesh.cpp
+SOURCE=N3Base\N3FXPMesh.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPMesh.h
+SOURCE=N3Base\N3FXPMesh.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPMeshInstance.cpp
+SOURCE=N3Base\N3FXPMeshInstance.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXPMeshInstance.h
+SOURCE=N3Base\N3FXPMeshInstance.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXShape.cpp
+SOURCE=N3Base\N3FXShape.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3FXShape.h
+SOURCE=N3Base\N3FXShape.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3IMesh.cpp
+SOURCE=N3Base\N3IMesh.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3IMesh.h
+SOURCE=N3Base\N3IMesh.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Joint.cpp
+SOURCE=N3Base\N3Joint.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Joint.h
+SOURCE=N3Base\N3Joint.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Light.cpp
+SOURCE=N3Base\N3Light.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Light.h
+SOURCE=N3Base\N3Light.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Mesh.cpp
+SOURCE=N3Base\N3Mesh.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Mesh.h
+SOURCE=N3Base\N3Mesh.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Mng.h
+SOURCE=N3Base\N3Mng.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3PMesh.cpp
+SOURCE=N3Base\N3PMesh.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3PMesh.h
+SOURCE=N3Base\N3PMesh.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3PMeshCreate.cpp
+SOURCE=N3Base\N3PMeshCreate.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3PMeshCreate.h
+SOURCE=N3Base\N3PMeshCreate.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3PMeshInstance.cpp
+SOURCE=N3Base\N3PMeshInstance.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3PMeshInstance.h
+SOURCE=N3Base\N3PMeshInstance.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Scene.cpp
+SOURCE=N3Base\N3Scene.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Scene.h
+SOURCE=N3Base\N3Scene.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Shape.cpp
+SOURCE=N3Base\N3Shape.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Shape.h
+SOURCE=N3Base\N3Shape.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3BASE\N3ShapeExtra.cpp
+SOURCE=N3BASE\N3ShapeExtra.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3BASE\N3ShapeExtra.h
+SOURCE=N3BASE\N3ShapeExtra.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3ShapeMgr.cpp
+SOURCE=N3Base\N3ShapeMgr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3ShapeMgr.h
+SOURCE=N3Base\N3ShapeMgr.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Skin.cpp
+SOURCE=N3Base\N3Skin.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Skin.h
+SOURCE=N3Base\N3Skin.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Texture.cpp
+SOURCE=N3Base\N3Texture.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Texture.h
+SOURCE=N3Base\N3Texture.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Transform.cpp
+SOURCE=N3Base\N3Transform.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3Transform.h
+SOURCE=N3Base\N3Transform.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3TransformCollision.cpp
+SOURCE=N3Base\N3TransformCollision.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3TransformCollision.h
+SOURCE=N3Base\N3TransformCollision.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3VMesh.cpp
+SOURCE=N3Base\N3VMesh.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\N3VMesh.h
+SOURCE=N3Base\N3VMesh.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\Pick.cpp
+SOURCE=N3Base\Pick.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\Pick.h
+SOURCE=N3Base\Pick.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Client\N3Base\StdAfxBase.h
+SOURCE=N3Base\StdAfxBase.h
 # End Source File
 # End Group
 # Begin Group "N3ME"
@@ -817,11 +817,11 @@ SOURCE=.\DlgUnusedFiles.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\PropertyList.cpp
+SOURCE="Common Control\PropertyList.cpp"
 # End Source File
 # Begin Source File
 
-SOURCE=.\PropertyList.h
+SOURCE="..\Common Control\PropertyList.h"
 # End Source File
 # Begin Source File
 
@@ -1115,22 +1115,22 @@ SOURCE=.\SowSeedMng.h
 # 	2:14:PropertyList.h:PropertyList1.h
 # 	2:19:Application Include:n3me.h
 # End Section
-# Section N3ME : {53B0972A-3F58-4A16-A9D8-9CB4A0DE837B}
-# 	1:8:IDD_BASE:106
-# 	2:16:Resource Include:resource.h
-# 	2:9:DlgBase.h:DlgBase1.h
-# 	2:10:ENUM: enum:enum
-# 	2:11:DlgBase.cpp:DlgBase1.cpp
-# 	2:15:CLASS: CDlgBase:CDlgBase
-# 	2:8:IDD_BASE:IDD_BASE
-# 	2:19:Application Include:n3me.h
-# End Section
 # Section N3ME : {498F2CC1-DEF6-4910-B793-61F5F8F18A25}
 # 	1:8:IDD_BASE:105
 # 	2:16:Resource Include:resource.h
 # 	2:9:DlgBase.h:DlgBase.h
 # 	2:10:ENUM: enum:enum
 # 	2:11:DlgBase.cpp:DlgBase.cpp
+# 	2:15:CLASS: CDlgBase:CDlgBase
+# 	2:8:IDD_BASE:IDD_BASE
+# 	2:19:Application Include:n3me.h
+# End Section
+# Section N3ME : {53B0972A-3F58-4A16-A9D8-9CB4A0DE837B}
+# 	1:8:IDD_BASE:106
+# 	2:16:Resource Include:resource.h
+# 	2:9:DlgBase.h:DlgBase1.h
+# 	2:10:ENUM: enum:enum
+# 	2:11:DlgBase.cpp:DlgBase1.cpp
 # 	2:15:CLASS: CDlgBase:CDlgBase
 # 	2:8:IDD_BASE:IDD_BASE
 # 	2:19:Application Include:n3me.h
