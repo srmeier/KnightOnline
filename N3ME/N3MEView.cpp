@@ -57,7 +57,7 @@ void CN3MEView::OnDraw(CDC* pDC)
 	CN3MEDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
-	Render();	
+	//Render();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -108,6 +108,7 @@ void CN3MEView::Render()
 
 LRESULT CN3MEView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) 
 {
+	/*
 	if (WM_MOUSEMOVE == message)
 	{
 		m_CurrMousePos.x = (short)(LOWORD(lParam));
@@ -124,6 +125,7 @@ LRESULT CN3MEView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		if (m_pMapMng->MouseMsgFilter(&msg)) this->Invalidate(FALSE);	
 	}
+	*/
 	
 	return CView::WindowProc(message, wParam, lParam);
 }

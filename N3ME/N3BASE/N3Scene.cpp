@@ -257,6 +257,7 @@ void CN3Scene::Render()
 
 void CN3Scene::Tick(float fFrm)
 {
+	/*
 	if(FRAME_SELFPLAY == fFrm || fFrm <  m_fFrmStart || fFrm > m_fFrmEnd)
 	{
 		m_fFrmCur += 30.0f / CN3Base::s_fFrmPerSec; // 일정하게 움직이도록 시간에 따라 움직이는 양을 조절..
@@ -271,6 +272,7 @@ void CN3Scene::Tick(float fFrm)
 	this->TickLights(m_fFrmCur);
 	this->TickShapes(m_fFrmCur);
 	this->TickChrs(m_fFrmCur);
+	*/
 }
 
 void CN3Scene::TickCameras(float fFrm)

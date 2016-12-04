@@ -171,9 +171,9 @@ bool CN3Eng::Init(BOOL bWindowed, HWND hWnd, DWORD dwWidth, DWORD dwHeight, DWOR
 	s_DevParam.BackBufferFormat = BBFormat;
 	s_DevParam.MultiSampleType = D3DMULTISAMPLE_NONE; // Swap Effect 가 Discard 형태가 아니면 반드시 이런 식이어야 한다.
 	s_DevParam.Flags = 0;
-//#ifdef _N3TOOL
+#ifdef _N3TOOL
 	s_DevParam.Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
-//#endif // end of _N3TOOL
+#endif // end of _N3TOOL
 
 	int nMC = m_DeviceInfo.nModeCount;
 	for(i = 0; i < nMC; i++)
