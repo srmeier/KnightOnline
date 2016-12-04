@@ -215,6 +215,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	GetCurrentDirectory(256, szPathCur);
 	CN3Base::PathSet(szPathCur);
 	
+	/*
 	// 엔진 초기화
 	m_pEng = new CN3EngTool();
 	//m_pEng->InitEnv();
@@ -222,6 +223,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pEng->GridCreate(1000, 1000);
 
 	//m_pEng->CreateExtraDevice(2, 2);
+	*/
 
  	m_pMapMng = new CMapMng(this);
 
