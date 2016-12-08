@@ -127,6 +127,10 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tlocal rand_num = RollDice(sUID, %d);\n", pExec->m_ExecInt[0]);
 		} break;
 
+		case EXEC_STATE_CHANGE: {
+			fprintf(outputFile, "\tpUser:StateChange(%d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1]);
+		} break;
+
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");

@@ -1180,6 +1180,14 @@ public:
 		LUA_RETURN(LUA_GET_INSTANCE()->NumEmptySlots());
 	}
 
+	// NOTE(srmeier): adding a function to change the player's state (EVT flag -> STATE_CHANGE)
+	DECLARE_LUA_FUNCTION(StateChange) {
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->StateChangeServerDirect(
+			LUA_ARG(uint8, 2),
+			LUA_ARG(uint32, 3)
+		));
+	}
+
 	//-------------------------------------------------------------------------
 
 	DECLARE_LUA_FUNCTION(GiveItem) {

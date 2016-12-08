@@ -20,6 +20,7 @@
 #define EXEC_PROMOTE_USER_NOVICE 0x0D
 #define EXEC_RUN_EXCHANGE        0x0E
 #define EXEC_ROLL_DICE           0x0F
+#define EXEC_STATE_CHANGE        0x10
 
 //-----------------------------------------------------------------------------
 class EXEC {
