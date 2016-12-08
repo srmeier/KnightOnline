@@ -419,7 +419,8 @@ elseif nEventID == 4005 then
 	pUser:SendDebugString("Unknown EXEC command 'RETURN;'."); -- unknown execute command (RETURN;)
 	do return; end
 elseif nEventID == 6001 then
-if false then
+	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
+	if false then
 	if pUser:CheckClass(105, 205, -1, -1, -1, -1) then
 	pUser:SelectMsg(6000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -2899,8 +2900,7 @@ elseif nEventID == 30132 then
 	local state = pUser:SearchQuest(50);
 	if state == 0 then
 	pUser:SaveEvent(50, 1);
-	pUser:SendDebugString("Unknown EXEC command 'STATE_CHANGE'."); -- unknown execute command (STATE_CHANGE)
-	do return; end
+	pUser:StateChange(8, 1);
 	pUser:NpcSay(30138, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end

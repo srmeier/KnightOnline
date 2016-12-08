@@ -115,10 +115,16 @@ void EXEC::Parse(char* pBuf) {
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // nIndex in ITEM_EXCHANGE table
 
-	} else if(!strcmp(temp, "ROLL_DICE")) {
+	} else if (!strcmp(temp, "ROLL_DICE")) {
 		m_Exec = EXEC_ROLL_DICE;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+
+	} else if(!strcmp(temp, "STATE_CHANGE")) {
+		m_Exec = EXEC_STATE_CHANGE;
+
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // state flag
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // state value
 
 	} else {
 		m_Exec = EXEC_UNKNOWN;
