@@ -500,7 +500,10 @@ void CUser::ItemTrade(Packet & pkt)
 	}
 
 	pkt >> type;
+
+	// NOTE(srmeier): the binary client doesn't send the information necessary to make this check
 	// Buy == 1, Sell == 2
+	/*
 	if (type == 1 || type == 2)
 	{
 		pkt >> group >> npcid;
@@ -511,6 +514,7 @@ void CUser::ItemTrade(Packet & pkt)
 			|| !isInRange(pNpc, MAX_NPC_RANGE))
 			goto fail_return;
 	}
+	*/
 
 	pkt >> itemid >> pos;
 
