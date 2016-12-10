@@ -503,8 +503,7 @@ void CUser::ItemTrade(Packet & pkt)
 
 	// NOTE(srmeier): the binary client doesn't send the information necessary to make this check
 	// Buy == 1, Sell == 2
-	/*
-	if (type == 1 || type == 2)
+	if (type == 1) //|| type == 2)
 	{
 		pkt >> group >> npcid;
 		if (!g_pMain->m_bPointCheckFlag
@@ -514,7 +513,6 @@ void CUser::ItemTrade(Packet & pkt)
 			|| !isInRange(pNpc, MAX_NPC_RANGE))
 			goto fail_return;
 	}
-	*/
 
 	pkt >> itemid >> pos;
 
@@ -614,24 +612,27 @@ void CUser::ItemTrade(Packet & pkt)
 			InsertTaxUpEvent(ZONE_ELMORAD, tariffTax);
 				break;
 			case ZONE_MORADON:
-			tariffTax = BuyPrice*pSiegeWar->sMoradonTariff/10;
-			if (pSiegeWar->sMoradonTariff < 10)
-			BuyPrice -= tariffTax - BuyPrice*pSiegeWar->sMoradonTariff/100;
-			else
-			BuyPrice += tariffTax + BuyPrice*pSiegeWar->sMoradonTariff/100;
-			pSiegeWar->nMoradonTax += tariffTax;
-			InsertTaxUpEvent(ZONE_MORADON, tariffTax);
+			if (pSiegeWar) {
+				tariffTax = BuyPrice*pSiegeWar->sMoradonTariff / 10;
+				if (pSiegeWar->sMoradonTariff < 10)
+					BuyPrice -= tariffTax - BuyPrice*pSiegeWar->sMoradonTariff / 100;
+				else
+					BuyPrice += tariffTax + BuyPrice*pSiegeWar->sMoradonTariff / 100;
+				pSiegeWar->nMoradonTax += tariffTax;
+				InsertTaxUpEvent(ZONE_MORADON, tariffTax);
+			}
 				break;
 			case ZONE_DELOS:
-			tariffTax = BuyPrice*pSiegeWar->sDellosTariff/10 ;
-			if (pSiegeWar->sDellosTariff < 10)
-			BuyPrice -= tariffTax - BuyPrice*pSiegeWar->sDellosTariff/100;
-			else
-			BuyPrice += tariffTax + BuyPrice*pSiegeWar->sDellosTariff/100;
-			pSiegeWar->nDellosTax += tariffTax;
-			InsertTaxUpEvent(ZONE_DELOS, tariffTax);
+			if (pSiegeWar) {
+				tariffTax = BuyPrice*pSiegeWar->sDellosTariff / 10;
+				if (pSiegeWar->sDellosTariff < 10)
+					BuyPrice -= tariffTax - BuyPrice*pSiegeWar->sDellosTariff / 100;
+				else
+					BuyPrice += tariffTax + BuyPrice*pSiegeWar->sDellosTariff / 100;
+				pSiegeWar->nDellosTax += tariffTax;
+				InsertTaxUpEvent(ZONE_DELOS, tariffTax);
+			}
 				break;
-
 			default:
 				break;
 			}
