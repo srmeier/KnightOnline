@@ -1374,8 +1374,7 @@ elseif nEventID == 11001 then
 	if pUser:CheckClass(101, 105, 106, -1, -1, -1) then
 	pUser:SelectMsg(11008, 11001, 6010, 10000, 11050, 17010, 17027, 17070, 17070, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(101, 105, 106, -1, -1, -1) then
 	pUser:SelectMsg(17073, 17070, 17070, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 11010 then
@@ -1425,8 +1424,7 @@ elseif nEventID == 12001 then
 	if pUser:CheckClass(107, 108, 102, -1, -1, -1) then
 	pUser:SelectMsg(12008, 11001, 6011, 10000, 12050, 17010, 17040, 17070, 17080, 17501, 17500, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(107, 108, 102, -1, -1, -1) then
 	pUser:SelectMsg(17083, 17070, 17080, 17501, 17500, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 12010 then
@@ -1476,8 +1474,7 @@ elseif nEventID == 13001 then
 	if pUser:CheckClass(109, 110, 103, -1, -1, -1) then
 	pUser:SelectMsg(13008, 11001, 6013, 10000, 13050, 17010, 17050, 17070, 17090, 17640, 17640, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(109, 110, 103, -1, -1, -1) then
 	pUser:SelectMsg(17093, 17070, 17090, 17640, 17640, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 13010 then
@@ -1632,8 +1629,7 @@ elseif nEventID == 14001 then
 	if pUser:CheckClass(111, 112, 104, -1, -1, -1) then
 	pUser:SelectMsg(14008, 11001, 6010, 10000, 14050, 17010, 17060, 17070, 17070, 17660, 17660, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(111, 112, 104, -1, -1, -1) then
 	pUser:SelectMsg(17074, 17070, 17070, 17660, 17660, 35664, 35664, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
 elseif nEventID == 14010 then
@@ -2804,32 +2800,28 @@ elseif nEventID == 22001 then
 elseif nEventID == 22010 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 30 and lvl <= 59 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(106, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
 	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(108, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
 	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(110, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
 	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
 	do return; end
 	end
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOCLASS'.");
-	if false then -- unknown logic command (CHECK_NOCLASS)
+	if not pUser:CheckClass(112, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
 	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)

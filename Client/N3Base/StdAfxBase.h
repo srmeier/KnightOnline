@@ -5,7 +5,7 @@
 #define AFX_STDAFX_H__N3BASE__INCLUDED_
 
 // TODO: reference additional headers your program requires here
-#include "AfxVer_.h"
+#include <windows.h>//#include "AfxVer_.h"
 
 #include "My_3DStruct.h"
 #include <string>
@@ -13,6 +13,8 @@
 #include <list>
 #include <map>
 #include <set>
+
+/*
 
 /////////////////////////////////////////////////////////////////////////////
 // Diagnostic memory management routines
@@ -149,5 +151,7 @@ void AFX_CDECL AfxTrace(const char* lpszFormat, ...);
 #else
 #define TRACE  1 ? (void)0 : printf
 #endif
+
+*/
 
 #endif // !defined(AFX_STDAFX_H__N3BASE__INCLUDED_)
