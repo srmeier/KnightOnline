@@ -152,7 +152,7 @@ bool CDBAgent::GetAllCharID(string & strAccountID, string & strCharID1, string &
 		ReportSQLError(m_GameDB->GetError());
 		return false;
 	}
-    //Make sure we got the date we needed
+    //Make sure we got the data we needed
 	if (!dbCommand->hasData())
 		return false;
 
