@@ -18,3 +18,4 @@ data/
 N3Base/lib/N3Base.lib
 Server/bin/Debug/Lua.lib
 Server/bin/Debug/shared.lib
+.DS_Store
