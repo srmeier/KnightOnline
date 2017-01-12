@@ -21,6 +21,12 @@ CDBAgent::~CDBAgent()
 	delete m_AccountDB;
 }
 
+/** \class CDBAgent
+ \note
+ You may notice that while calling a stored procedure, some functions sends the OUTPUT variable(bRet) as the first parameter.it has to be done in this way always, I don't know why, but if you don't, there will be a parameter shift while passing the values to SP, so either you can give a initial value to the OUTPUT parameter, as I did in while caliing the CREATE_KNIGHTS procedure, or you can simply put the OUTPUT parameter to the end in the SP and bind its pointer to the end of the execution command, as it is done while calling the ACCOUNT_LOGIN procedure.
+ **/
+
+
 bool CDBAgent::Startup(bool bMarsEnabled, 
 					   tstring & strAccountDSN, tstring & strAccountUID, tstring & strAccountPWD,
 					   tstring & strGameDSN, tstring & strGameUID, tstring & strGamePWD)
@@ -83,14 +89,6 @@ void CDBAgent::ReportSQLError(OdbcError *pError)
 	delete pError;
 }
 
-/*
-You may notice that while calling a stored procedure, some functions gives OUTPUT variable(bRet) to a initial value.
-it has to be done, I don't know why, but if you don't, there will be a parameter shift while passing the parameters to
-SP, so either you can pass a initial value to the OUTPUT parameter, as I did in while caliing the CREATE_KNIGHTS procedure,
-or you can simply put the OUTPUT parameter to the end in the SP and bind its pointer to the end of the execution command, 
-as it is done while calling the ACCOUNT_LOGIN procedure.
-*/
-
 int8 CDBAgent::AccountLogin(string & strAccountID, string & strPasswd)
 {
 	int8 bRet = -1;
@@ -133,6 +131,14 @@ uint8 CDBAgent::NationSelect(string & strAccountID, uint8 bNation)
 	return (bRet > 0 ? bNation : 0);
 }
 
+/*  @brief  Fetches all(max 3) characters that are on the account
+ *
+ *  @param  strAccountID    Account ID
+ *  @param  strCharID1  Character one
+ *  @param  strCharID2  Character two
+ *  @param  strCharID3  Character three
+ */
+
 bool CDBAgent::GetAllCharID(string & strAccountID, string & strCharID1, string & strCharID2, string & strCharID3)
 {
 	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
@@ -146,7 +152,7 @@ bool CDBAgent::GetAllCharID(string & strAccountID, string & strCharID1, string &
 		ReportSQLError(m_GameDB->GetError());
 		return false;
 	}
-
+    //Make sure we got the data we needed
 	if (!dbCommand->hasData())
 		return false;
 

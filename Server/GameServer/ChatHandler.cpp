@@ -88,6 +88,14 @@ void CUser::InitChatCommands()
 
 void CUser::CleanupChatCommands() { free_command_table(s_commandTable); }
 
+/**
+* @brief    Chat Proceess
+*
+*
+* @param pkt The packet
+*
+*/
+
 void CUser::Chat(Packet & pkt)
 {
 	Packet result;
