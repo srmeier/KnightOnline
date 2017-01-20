@@ -27,8 +27,8 @@
 #define EXEC_ZONE_CHANGE_CLAN	 0x14
 #define EXEC_PROMOTE_KNIGHT		 0x15
 #define EXEC_MOVE_MIDDLE_STATUE  0x16
-#define EXEC_STAT_POINT_DISTRIBUTE	0x1A //
-#define EXEC_SKILL_POINT_DISTRIBUTE	0x1B
+#define EXEC_STAT_POINT_DISTRIBUTE	0x17 //Haven't been started
+#define EXEC_SKILL_POINT_DISTRIBUTE	0x18
 
 
 //-----------------------------------------------------------------------------
