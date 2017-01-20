@@ -63,10 +63,12 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(GiveItem)
 						  MAKE_LUA_FUNCTION(RobItem)
 						  MAKE_LUA_FUNCTION(CheckExistItem)
+                          MAKE_LUA_FUNCTION(CheckNoExistItem)
 						  MAKE_LUA_FUNCTION(GoldGain)
 						  MAKE_LUA_FUNCTION(GoldLose)
 						  MAKE_LUA_FUNCTION(ExpChange)
 						  MAKE_LUA_FUNCTION(GiveLoyalty)
+                          MAKE_LUA_FUNCTION(ChanceLoyalty)
 						  MAKE_LUA_FUNCTION(RobLoyalty)
 						  MAKE_LUA_FUNCTION(NpcSay) // dialog
 						  MAKE_LUA_FUNCTION(CheckWeight)

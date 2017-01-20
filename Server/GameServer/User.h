@@ -1216,6 +1216,12 @@ public:
 			LUA_ARG_OPTIONAL(uint16, 1, 3)));
 	}
 
+    DECLARE_LUA_FUNCTION(CheckNoExistItem) {
+        LUA_RETURN(LUA_GET_INSTANCE()->CheckNoExistItem(
+            LUA_ARG(uint32, 2),
+            LUA_ARG_OPTIONAL(uint16, 1, 3)));
+    }
+    
 	DECLARE_LUA_FUNCTION(GoldGain) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->GoldGain(LUA_ARG(int32, 2)));	
 	}
@@ -1392,6 +1398,10 @@ public:
 	DECLARE_LUA_FUNCTION(GiveLoyalty) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2)));	
 	}
+    
+    DECLARE_LUA_FUNCTION(ChanceLoyalty) {
+        		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2), false, true, false));
+        	}
 
 	DECLARE_LUA_FUNCTION(RobLoyalty) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(-(LUA_ARG(int32, 2))));	
@@ -1405,6 +1415,10 @@ public:
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->PromoteClan((ClanTypeFlag) LUA_ARG_OPTIONAL(uint8, ClanTypePromoted, 2)));	
 	}
 
+    DECLARE_LUA_FUNCTION(PromoteKnight) {
+        LUA_NO_RETURN(LUA_GET_INSTANCE()->PromoteKnight((ClanTypeFlag) LUA_ARG_OPTIONAL(uint8, ClanTypePromoted, 2)));
+    }
+    
 	DECLARE_LUA_FUNCTION(GetStat) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetStat((StatType)(LUA_ARG(uint8, 2) + 1)));	
 	}

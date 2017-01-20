@@ -99,10 +99,12 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(GiveItem)
 	MAKE_LUA_METHOD(RobItem)
 	MAKE_LUA_METHOD(CheckExistItem)
+    MAKE_LUA_METHOD(CheckNoExistItem)
 	MAKE_LUA_METHOD(GoldGain)
 	MAKE_LUA_METHOD(GoldLose)
 	MAKE_LUA_METHOD(ExpChange)
 	MAKE_LUA_METHOD(GiveLoyalty)
+    MAKE_LUA_METHOD(ChanceLoyalty)
 	MAKE_LUA_METHOD(RobLoyalty)
 	MAKE_LUA_METHOD(SaveEvent)
 	MAKE_LUA_METHOD(SearchQuest)
@@ -133,6 +135,7 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(KissUser)
 	MAKE_LUA_METHOD(ChangeManner)
 	MAKE_LUA_METHOD(PromoteClan)
+    MAKE_LUA_METHOD(PromoteKnight)
 	MAKE_LUA_METHOD(RobClanPoint)
 	MAKE_LUA_METHOD(GetBeefRoastVictory)
 	MAKE_LUA_METHOD(RequestPersonalRankReward)
@@ -309,6 +312,7 @@ LUA_WRAPPER_USER_FUNCTION(GoldGain);
 LUA_WRAPPER_USER_FUNCTION(GoldLose);
 LUA_WRAPPER_USER_FUNCTION(ExpChange);
 LUA_WRAPPER_USER_FUNCTION(GiveLoyalty);
+LUA_WRAPPER_USER_FUNCTION(ChanceLoyalty);
 LUA_WRAPPER_USER_FUNCTION(RobLoyalty);
 LUA_WRAPPER_USER_FUNCTION(NpcSay);
 LUA_WRAPPER_USER_FUNCTION(CheckWeight);
@@ -326,6 +330,7 @@ LUA_WRAPPER_USER_FUNCTION(ZoneChangeClan);
 LUA_WRAPPER_USER_FUNCTION(KissUser);
 LUA_WRAPPER_USER_FUNCTION(ChangeManner);
 LUA_WRAPPER_USER_FUNCTION(PromoteClan);
+LUA_WRAPPER_USER_FUNCTION(PromoteKnight);
 LUA_WRAPPER_USER_FUNCTION(RobClanPoint);
 LUA_WRAPPER_USER_FUNCTION(RequestPersonalRankReward);
 LUA_WRAPPER_USER_FUNCTION(RequestReward);
@@ -346,7 +351,7 @@ LUA_WRAPPER_USER_FUNCTION(GetRace);
 LUA_WRAPPER_USER_FUNCTION(GenderChange);
 LUA_WRAPPER_USER_FUNCTION(JobChange);
 
-/* method aliases */
+/* method aliases (They don't work) */
 _LUA_WRAPPER_USER_FUNCTION(CheckClanGrade, GetClanGrade);
 _LUA_WRAPPER_USER_FUNCTION(CheckClanPoint, GetClanPoint);
 _LUA_WRAPPER_USER_FUNCTION(CheckLoyalty, GetLoyalty);
@@ -356,7 +361,7 @@ _LUA_WRAPPER_USER_FUNCTION(CheckWarVictory, GetWarVictory);
 _LUA_WRAPPER_USER_FUNCTION(CheckBeefRoastVictory, GetBeefRoastVictory);
 _LUA_WRAPPER_USER_FUNCTION(PartyCountMembers, GetPartyMemberAmount);
 _LUA_WRAPPER_USER_FUNCTION(ExistMonsterQuestSub, GetActiveQuestID);
-_LUA_WRAPPER_USER_FUNCTION(PromoteKnight, PromoteClan);
+//_LUA_WRAPPER_USER_FUNCTION(PromoteKnight, PromoteClan);
 _LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeTime, GetMonsterChallengeTime);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeUserCount,GetMonsterChallengeUserCount);
