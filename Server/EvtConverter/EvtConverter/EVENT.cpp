@@ -28,7 +28,7 @@ bool EVENT::LoadEvent(int zone) {
 	EVENT_DATA* eventData = NULL;
 
 	std::ostringstream stringStream;
-	stringStream << "./Debug/MAP/" << zone << ".evt";
+	stringStream << ".\\MAP\\" << zone << ".evt";
 	filename = stringStream.str();
 
 	pFile = fopen(filename.c_str(), "rb");
