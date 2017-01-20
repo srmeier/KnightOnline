@@ -151,7 +151,14 @@ void EXEC::Parse(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
 
- 			
+ 	} else if (!strcmp(temp, "CHANGE_LOYALTY")){
+ 		m_Exec = EXEC_CHANGE_LOYALTY;
+ 		
+ 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+
+ 	} else if (!strcmp(temp, "MOVE_MIDDLE_STATUE")){
+		m_Exec = EXEC_MOVE_MIDDLE_STATUE;
+
 	} else {
 		m_Exec = EXEC_UNKNOWN;
 		printf("Unknown execute command: %s\n", temp);
