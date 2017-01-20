@@ -26,10 +26,9 @@
 #define EXEC_ZONE_CHANGE		 0x13
 #define EXEC_ZONE_CHANGE_CLAN	 0x14
 #define EXEC_PROMOTE_KNIGHT		 0x15
-#define EXEC_CHANGE_LOYALTY		 0x16
-#define EXEC_MOVE_MIDDLE_STATUE  0x1A
-#define EXEC_STAT_POINT_DISTRIBUTE	0x1B //
-#define EXEC_SKILL_POINT_DISTRIBUTE	0x1C
+#define EXEC_MOVE_MIDDLE_STATUE  0x16
+#define EXEC_STAT_POINT_DISTRIBUTE	0x1A //
+#define EXEC_SKILL_POINT_DISTRIBUTE	0x1B
 
 
 //-----------------------------------------------------------------------------
