@@ -107,6 +107,12 @@ void EXEC::Parse(char* pBuf) {
 	} else if(!strcmp(temp, "PROMOTE_USER_NOVICE")) {
 		m_Exec = EXEC_PROMOTE_USER_NOVICE;
 
+	} else if (!strcmp(temp, "PROMOTE_USER")) {
+		m_Exec = EXEC_PROMOTE_USER;
+
+	} else if(!strcmp(temp, "PROMOTE_KNIGHT")){
+		m_Exec = EXEC_PROMOTE_KNIGHT;
+
 	} else if (!strcmp(temp, "RETURN")) {
 		m_Exec = EXEC_RETURN;
 
@@ -126,6 +132,26 @@ void EXEC::Parse(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // state flag
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // state value
 
+	} else if (!strcmp(temp, "CHANGE_LOYALTY")){
+ 		m_Exec = EXEC_CHANGE_LOYALTY;
+ 		
+ 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+
+ 	} else if (!strcmp(temp, "ZONE_CHANGE")) {
+		m_Exec = EXEC_ZONE_CHANGE;
+
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+
+	} else if (!strcmp(temp, "ZONE_CHANGE_CLAN")){
+		m_Exec = EXEC_ZONE_CHANGE_CLAN;
+
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+
+ 			
 	} else {
 		m_Exec = EXEC_UNKNOWN;
 		printf("Unknown execute command: %s\n", temp);
