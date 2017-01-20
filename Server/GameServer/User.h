@@ -1311,7 +1311,7 @@ public:
 			LUA_ARG_OPTIONAL(uint16, 1, 3)));	// stack size
 	}
 
-	DECLARE_LUA_FUNCTION() {
+	DECLARE_LUA_FUNCTION(CheckSkillPoint) {
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckSkillPoint(
 			LUA_ARG(uint8, 2),		// skill point category
 			LUA_ARG(uint8, 3),		// min
