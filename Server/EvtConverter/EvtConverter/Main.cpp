@@ -369,7 +369,7 @@ int main(int argc, char** argv) {
     int iZone = atoi(argv[1]);
 
 	char buf[0xFF] = "";
-	sprintf(buf, "./Debug/%d.lua", iZone);
+	sprintf(buf, "%d.lua", iZone);
 
 	outputFile = fopen(buf, "w"); //freopen("test.lua", "w", stdout);
 
