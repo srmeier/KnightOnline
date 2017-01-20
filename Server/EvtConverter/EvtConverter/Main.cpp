@@ -282,8 +282,7 @@ void FillEventID(EVENT_DATA* pEvent) {
 
 			case LOGIC_CHECK_LOYALTY: {
 
-				fprintf(outputFile, "\tif pUser:GetLoyalty() then\n",
-				);
+				fprintf(outputFile, "\tif pUser:GetLoyalty() then\n");
 
 				num_logic_to_close++;
 			} break;
