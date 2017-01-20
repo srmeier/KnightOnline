@@ -24,7 +24,16 @@
 #define LOGIC_CHECK_EMPTY_SLOT         0x11
 #define LOGIC_CHECK_NOCLASS            0x12
 #define LOGIC_CHECK_NOEXIST_ITEM	   0x13 
-#define LOGIC_CHECK_KNIGHT			   0x14
+#define LOGIC_CHECK_KNIGHT			   0x14 
+#define LOGIC_CHECK_LOYALTY			   0x15 
+#define LOGIC_CHECK_CLAN_GRADE		   0x16 
+#define LOGIC_CHECK_CHIEF			   0x17	
+#define LOGIC_CHECK_NO_CHIEF		   0x18
+#define LOGIC_CHECK_NATION			   0x19 
+#define LOGIC_CHECK_MIDDLE_STATUE_CAPTURE	0x1A 
+#define LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE 0x1B
+#define LOGIC_CHECK_SKILL_TOTAL		   0x1C 
+#define LOGIC_CHECK_STAT_TOTAL		   0x1D //
 
 //-----------------------------------------------------------------------------
 class LOGIC_ELSE {
