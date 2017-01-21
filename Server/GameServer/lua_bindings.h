@@ -63,6 +63,8 @@ LUA_FUNCTION(ChanceLoyalty);
 LUA_FUNCTION(RobLoyalty);
 LUA_FUNCTION(NpcSay); // dialog
 LUA_FUNCTION(CheckWeight);
+LUA_FUNCTION(GetWeight);
+LUA_FUNCTION(GetAvailableWeight);
 LUA_FUNCTION(CheckSkillPoint);
 LUA_FUNCTION(CheckTotalSkillPoint);
 LUA_FUNCTION(CheckTotalSkillPoint);
