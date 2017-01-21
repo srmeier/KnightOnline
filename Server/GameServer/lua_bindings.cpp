@@ -114,6 +114,8 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(NpcSay) // dialog
 	MAKE_LUA_METHOD(NpcMsg) // new automated quest prompt (does whatever's needed, menu, quest prompt, etc)
 	MAKE_LUA_METHOD(CheckWeight)
+    MAKE_LUA_METHOD(GetWeight)
+    MAKE_LUA_METHOD(GetAvailableWeight)
 	MAKE_LUA_METHOD(CheckSkillPoint)
     MAKE_LUA_METHOD(CheckTotalSkillPoint)
 	MAKE_LUA_METHOD(isRoomForItem) // FindSlotForItem()
@@ -331,6 +333,8 @@ LUA_WRAPPER_USER_FUNCTION(ChanceLoyalty);
 LUA_WRAPPER_USER_FUNCTION(RobLoyalty);
 LUA_WRAPPER_USER_FUNCTION(NpcSay);
 LUA_WRAPPER_USER_FUNCTION(CheckWeight);
+LUA_WRAPPER_USER_FUNCTION(GetWeight);
+LUA_WRAPPER_USER_FUNCTION(GetAvailableWeight);
 LUA_WRAPPER_USER_FUNCTION(isRoomForItem);
 LUA_WRAPPER_USER_FUNCTION(SendNameChange);
 LUA_WRAPPER_USER_FUNCTION(ResetSkillPoints);
@@ -377,7 +381,7 @@ _LUA_WRAPPER_USER_FUNCTION(CheckBeefRoastVictory, GetBeefRoastVictory);
 _LUA_WRAPPER_USER_FUNCTION(PartyCountMembers, GetPartyMemberAmount);
 _LUA_WRAPPER_USER_FUNCTION(ExistMonsterQuestSub, GetActiveQuestID);
 //_LUA_WRAPPER_USER_FUNCTION(PromoteKnight, PromoteClan);
-_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
+//_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeTime, GetMonsterChallengeTime);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeUserCount,GetMonsterChallengeUserCount);
 

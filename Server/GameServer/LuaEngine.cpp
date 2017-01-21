@@ -74,6 +74,8 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(RobLoyalty)
 						  MAKE_LUA_FUNCTION(NpcSay) // dialog
 						  MAKE_LUA_FUNCTION(CheckWeight)
+                          MAKE_LUA_FUNCTION(GetWeight)
+                          MAKE_LUA_FUNCTION(GetAvailableWeight)
 						  MAKE_LUA_FUNCTION(isRoomForItem) // FindSlotForItem()
 						  MAKE_LUA_FUNCTION(SendNameChange)
 						  MAKE_LUA_FUNCTION(SendStatSkillDistribute)

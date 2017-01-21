@@ -10,7 +10,7 @@
 #define LOGIC_CHECK_SKILL_POINT        0x03
 #define LOGIC_EXIST_ITEM               0x04
 #define LOGIC_CHECK_CLASS              0x05
-#define LOGIC_CHECK_WEIGHT             0x06 //Haven't finished
+#define LOGIC_CHECK_WEIGHT             0x06 //Haven't been tested whether the server side is working
 #define LOGIC_CHECK_EDITBOX            0x07
 #define LOGIC_RAND                     0x08
 #define LOGIC_HOWMUCH_ITEM             0x09
@@ -32,8 +32,9 @@
 #define LOGIC_CHECK_NATION			   0x19 
 #define LOGIC_CHECK_MIDDLE_STATUE_CAPTURE	0x1A 
 #define LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE 0x1B
-#define LOGIC_CHECK_SKILL_TOTAL		   0x1C //Haven't working for some reason
-#define LOGIC_CHECK_STAT_TOTAL		   0x1D //Haven't been started
+#define LOGIC_CHECK_SKILL_TOTAL		   0x1C
+#define LOGIC_CHECK_STAT_TOTAL		   0x1D //Haven't been tested whether the server side is working
+
 
 //-----------------------------------------------------------------------------
 class LOGIC_ELSE {
