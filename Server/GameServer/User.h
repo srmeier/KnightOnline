@@ -386,7 +386,7 @@ public:
 	INLINE uint8 GetPremium() { return m_bPremiumType; }
 	INLINE bool isLockableScroll(uint8 buffType) { return (buffType == BUFF_TYPE_HP_MP || buffType == BUFF_TYPE_AC || buffType == BUFF_TYPE_DAMAGE || buffType == BUFF_TYPE_SPEED || buffType == BUFF_TYPE_STATS); }
 	INLINE uint8 GetRace() { return m_bRace; }
-
+    
 	/**
 	* @brief	Gets the player's base class type, independent of nation.
 	*
@@ -417,7 +417,10 @@ public:
 	{
 		return GetClass() % 100;
 	}
-
+    
+    INLINE uint16 GetWeight() {  return m_sMaxWeight;  }
+    INLINE uint16 GetInvWeight() {  return m_sItemWeight;  }
+    INLINE uint16 GetAvailableWeight() { return (m_sMaxWeight - m_sItemWeight);  }
 	INLINE uint16 GetPartyID() { return m_sPartyIndex; }
 
 	INLINE int16 GetClanID() { return m_bKnights; }
@@ -428,7 +431,7 @@ public:
 	INLINE uint32 GetLoyalty() { return m_iLoyalty; }
 	INLINE uint32 GetMonthlyLoyalty() { return m_iLoyaltyMonthly; }
 	INLINE uint32 GetManner() { return m_iMannerPoint; }
-
+    
 	virtual int32 GetHealth() { return m_sHp; }
 	virtual int32 GetMaxHealth() { return m_iMaxHp; }
 	virtual int32 GetMana() { return m_sMp; }
@@ -1310,7 +1313,15 @@ public:
 			LUA_ARG(uint32, 2),		// item ID
 			LUA_ARG_OPTIONAL(uint16, 1, 3)));	// stack size
 	}
-
+    
+    DECLARE_LUA_FUNCTION(GetWeight) {
+        LUA_RETURN(LUA_GET_INSTANCE()->GetWeight()
+    }
+                   
+    DECLARE_LUA_FUNCTION(GetAvailableWeight) {
+        LUA_RETURN(LUA_GET_INSTANCE()->GetAvailableWeight()
+    }
+    
 	DECLARE_LUA_FUNCTION(CheckSkillPoint) {
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckSkillPoint(
 			LUA_ARG(uint8, 2),		// skill point category
@@ -1432,6 +1443,10 @@ public:
 	DECLARE_LUA_FUNCTION(GetStat) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetStat((StatType)(LUA_ARG(uint8, 2) + 1)));	
 	}
+    
+    DECLARE_LUA_FUNCTION(GetStatTotal) {
+        LUA_RETURN(LUA_GET_INSTANCE()->GetStatTotal((LUA_ARG(uint8, 2))));
+    }
 
 	DECLARE_LUA_FUNCTION(RobClanPoint) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendClanPointChange(-(LUA_ARG(int32, 2))));	
