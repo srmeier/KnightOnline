@@ -94,6 +94,12 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
+	} else if (!strcmp(temp, "CHECK_WEIGHT")) {
+		m_LogicElse = LOGIC_CHECK_WEIGHT;
+
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+
 	} else if (!strcmp(temp, "CHECK_EXIST_ITEM")) {
 		m_LogicElse = LOGIC_CHECK_EXIST_ITEM;
 
@@ -147,6 +153,26 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
+	} else if(!strcmp(temp, "CHECK_SKILL_TOTAL")) {
+ 		m_LogicElse = LOGIC_CHECK_SKILL_TOTAL;
+ 
+ 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+ 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+ 	
+ 	} else if(!strcmp(temp, "CHECK_SKILL_POINT")) {
+ 		m_LogicElse = LOGIC_CHECK_SKILL_POINT;
+ 
+ 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+ 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+ 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+ 
+
+ 	} else if(!strcmp(temp, "CHECK_STAT_TOTAL")) {
+ 		m_LogicElse = LOGIC_CHECK_STAT_TOTAL;
+ 
+ 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+ 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
+ 	
 	} else {
 		m_LogicElse = LOGIC_UNKNOWN;
 		printf("Unknown logic command: %s\n", temp);
