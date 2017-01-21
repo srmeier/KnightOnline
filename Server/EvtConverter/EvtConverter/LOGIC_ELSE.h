@@ -10,7 +10,7 @@
 #define LOGIC_CHECK_SKILL_POINT        0x03
 #define LOGIC_EXIST_ITEM               0x04
 #define LOGIC_CHECK_CLASS              0x05
-#define LOGIC_CHECK_WEIGHT             0x06 //Haven't been tested wheter the server side is working
+#define LOGIC_CHECK_WEIGHT             0x06 //Haven't been tested whether the server side is working
 #define LOGIC_CHECK_EDITBOX            0x07
 #define LOGIC_RAND                     0x08
 #define LOGIC_HOWMUCH_ITEM             0x09
