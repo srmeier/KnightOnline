@@ -155,6 +155,14 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tMoveMiddleStatue();\n");
 		} break;
 
+		case EXEC_STAT_POINT_DISTRIBUTE: {
+ 			fprintf(outputFile, "\tpUser:ResetStatPoints();\n");
+ 		} break;
+ 
+ 		case EXEC_SKILL_POINT_DISTRIBUTE: {
+ 			fprintf(outputFile, "\tpUser:ResetSkillPoints();\n");
+ 		} break;
+ 
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");

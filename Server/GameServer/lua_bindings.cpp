@@ -381,7 +381,7 @@ _LUA_WRAPPER_USER_FUNCTION(CheckBeefRoastVictory, GetBeefRoastVictory);
 _LUA_WRAPPER_USER_FUNCTION(PartyCountMembers, GetPartyMemberAmount);
 _LUA_WRAPPER_USER_FUNCTION(ExistMonsterQuestSub, GetActiveQuestID);
 //_LUA_WRAPPER_USER_FUNCTION(PromoteKnight, PromoteClan);
-_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
+//_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeTime, GetMonsterChallengeTime);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeUserCount,GetMonsterChallengeUserCount);
 
