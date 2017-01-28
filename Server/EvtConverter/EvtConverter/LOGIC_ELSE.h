@@ -10,7 +10,7 @@
 #define LOGIC_CHECK_SKILL_POINT        0x03
 #define LOGIC_EXIST_ITEM               0x04
 #define LOGIC_CHECK_CLASS              0x05
-#define LOGIC_CHECK_WEIGHT             0x06 //Haven't finished
+#define LOGIC_CHECK_WEIGHT             0x06
 #define LOGIC_CHECK_EDITBOX            0x07
 #define LOGIC_RAND                     0x08
 #define LOGIC_HOWMUCH_ITEM             0x09
@@ -24,16 +24,7 @@
 #define LOGIC_CHECK_EMPTY_SLOT         0x11
 #define LOGIC_CHECK_NOCLASS            0x12
 #define LOGIC_CHECK_NOEXIST_ITEM	   0x13 
-#define LOGIC_CHECK_KNIGHT			   0x14 
-#define LOGIC_CHECK_LOYALTY			   0x15 
-#define LOGIC_CHECK_CLAN_GRADE		   0x16 
-#define LOGIC_CHECK_CHIEF			   0x17	
-#define LOGIC_CHECK_NO_CHIEF		   0x18
-#define LOGIC_CHECK_NATION			   0x19 
-#define LOGIC_CHECK_MIDDLE_STATUE_CAPTURE	0x1A 
-#define LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE 0x1B
-#define LOGIC_CHECK_SKILL_TOTAL		   0x1C //Haven't working for some reason
-#define LOGIC_CHECK_STAT_TOTAL		   0x1D //Haven't been started
+#define LOGIC_CHECK_KNIGHT			   0x14
 
 //-----------------------------------------------------------------------------
 class LOGIC_ELSE {

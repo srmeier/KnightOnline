@@ -44,7 +44,6 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(GetCoins)
 	MAKE_LUA_METHOD(GetInnCoins)
 	MAKE_LUA_METHOD(GetLoyalty)
-    MAKE_LUA_METHOD(ChanceLoyalty)
 	MAKE_LUA_METHOD(GetMonthlyLoyalty)
 	MAKE_LUA_METHOD(GetManner)
 	MAKE_LUA_METHOD(GetActiveQuestID)
@@ -115,7 +114,6 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(NpcMsg) // new automated quest prompt (does whatever's needed, menu, quest prompt, etc)
 	MAKE_LUA_METHOD(CheckWeight)
 	MAKE_LUA_METHOD(CheckSkillPoint)
-    MAKE_LUA_METHOD(CheckTotalSkillPoint)
 	MAKE_LUA_METHOD(isRoomForItem) // FindSlotForItem()
 	MAKE_LUA_METHOD(CountMonsterQuestSub)
 	MAKE_LUA_METHOD(CountMonsterQuestMain)
@@ -256,18 +254,6 @@ LUA_FUNCTION(CheckSkillPoint)
 	LUA_RETURN(bPoints);
 }
 
-LUA_FUNCTION(CheckTotalSkillPoint)
-{
-    CUser * pUser = Lua_GetUser();
-    uint8 bPoints = 0;
-    
-    if (pUser != nullptr)
-        bPoints = pUser->GetTotalSkillPoints();
-    
-    LUA_RETURN(bPoints);
-}
-
-
 #define _LUA_WRAPPER_USER_FUNCTION(name, methodName) \
 	LUA_FUNCTION(name) { \
 	CUser * pUser = Lua_GetUser(); /* get the user from the stack using the specified user ID */ \
@@ -302,7 +288,6 @@ LUA_WRAPPER_USER_FUNCTION(GetClass);
 LUA_WRAPPER_USER_FUNCTION(GetInnCoins);
 LUA_WRAPPER_USER_FUNCTION(GetCoins);
 LUA_WRAPPER_USER_FUNCTION(GetLoyalty);
-LUA_WRAPPER_USER_FUNCTION(ChanceLoyalty);
 LUA_WRAPPER_USER_FUNCTION(GetMonthlyLoyalty);
 LUA_WRAPPER_USER_FUNCTION(GetManner);
 LUA_WRAPPER_USER_FUNCTION(GetActiveQuestID);
