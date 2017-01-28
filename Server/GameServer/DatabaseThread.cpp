@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "../shared/Condition.h"
 #include "KnightsManager.h"
 #include "KingSystem.h"
@@ -153,13 +153,7 @@ uint32 THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 	return 0;
 }
 
-/**
- * @brief Account login request
- *
- *
- * @param pkt The packet
- *
- */
+
 void CUser::ReqAccountLogIn(Packet & pkt)
 {
 	string strPasswd;
@@ -177,13 +171,6 @@ void CUser::ReqAccountLogIn(Packet & pkt)
 	Send(&result);
 }
 
-/**
- * @brief Nation select request
- *
- *
- * @param pkt The packet
- *
- */
 void CUser::ReqSelectNation(Packet & pkt)
 {
 	Packet result(WIZ_SEL_NATION);
@@ -194,15 +181,6 @@ void CUser::ReqSelectNation(Packet & pkt)
 	Send(&result);
 }
 
-/**
- * @brief Character information pull request.
- *        we pull the character informations 
- *        that are on the account from the database.
- *
- *
- * @param pkt The packet
- *
- */
 void CUser::ReqAllCharInfo(Packet & pkt)
 {
 	Packet result(WIZ_ALLCHAR_INFO_REQ);
@@ -220,13 +198,6 @@ void CUser::ReqAllCharInfo(Packet & pkt)
 	Send(&result);
 }
 
-/**
- * @brief Change hair request
- *
- *
- * @param pkt The packet
- *
- */
 void CUser::ReqChangeHair(Packet & pkt)
 {
 	Packet result(WIZ_CHANGE_HAIR);
@@ -239,13 +210,6 @@ void CUser::ReqChangeHair(Packet & pkt)
 	Send(&result);
 }
 
-/**
- * @brief New character create request
- *
- *
- * @param pkt The packet
- *
- */
 void CUser::ReqCreateNewChar(Packet & pkt)
 {
 	string strCharID;
@@ -260,13 +224,6 @@ void CUser::ReqCreateNewChar(Packet & pkt)
 	Send(&result);
 }
 
-/**
- * @brief Delete character request
- *
- *
- * @param pkt The packet
- *
- */
 void CUser::ReqDeleteChar(Packet & pkt)
 {
 	string strCharID, strSocNo;
