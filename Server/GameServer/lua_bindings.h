@@ -54,12 +54,10 @@ LUA_FUNCTION(hasManner);
 LUA_FUNCTION(GiveItem);
 LUA_FUNCTION(RobItem);
 LUA_FUNCTION(CheckExistItem);
-LUA_FUNCTION(CheckNoExistItem);
 LUA_FUNCTION(GoldGain);
 LUA_FUNCTION(GoldLose);
 LUA_FUNCTION(ExpChange);
 LUA_FUNCTION(GiveLoyalty);
-LUA_FUNCTION(ChanceLoyalty);
 LUA_FUNCTION(RobLoyalty);
 LUA_FUNCTION(NpcSay); // dialog
 LUA_FUNCTION(CheckWeight);

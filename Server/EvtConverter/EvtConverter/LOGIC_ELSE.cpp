@@ -28,12 +28,6 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		index += ParseSpace(temp, pBuf+index); m_LogicElseInt[i++] = atoi(temp); // event number
 		index += ParseSpace(temp, pBuf+index); m_LogicElseInt[i++] = atoi(temp); // state (is the event at this state?)
 
-	}else if (!strcmp(temp, "CHECK_NOEXIST_ITEM")){
-		m_LogicElse = LOGIC_CHECK_NOEXIST_ITEM;
-
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
 	} else if (!strcmp(temp, "HOWMUCH_ITEM")) {
 		m_LogicElse = LOGIC_HOWMUCH_ITEM;
 
@@ -110,12 +104,6 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 
 		// NOTE: number of empty slots to check for
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
-	} else if (!strcmp(temp, "CHECK_KNIGHT")) {
-		m_LogicElse = LOGIC_CHECK_KNIGHT;
-
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
 
 	} else {
 		m_LogicElse = LOGIC_UNKNOWN;

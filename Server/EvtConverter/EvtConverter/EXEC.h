@@ -21,12 +21,6 @@
 #define EXEC_RUN_EXCHANGE        0x0E
 #define EXEC_ROLL_DICE           0x0F
 #define EXEC_STATE_CHANGE        0x10
-#define EXEC_PROMOTE_USER		 0x11
-#define EXEC_CHANGE_LOYALTY		 0x12
-#define EXEC_ZONE_CHANGE		 0x13
-#define EXEC_ZONE_CHANGE_CLAN	 0x14
-#define EXEC_PROMOTE_KNIGHT		 0x15
-
 
 //-----------------------------------------------------------------------------
 class EXEC {
