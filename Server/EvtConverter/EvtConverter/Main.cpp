@@ -155,14 +155,6 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tMoveMiddleStatue();\n");
 		} break;
 
-		case EXEC_STAT_POINT_DISTRIBUTE: {
- 			fprintf(outputFile, "\tpUser:ResetStatPoints();\n");
- 		} break;
- 
- 		case EXEC_SKILL_POINT_DISTRIBUTE: {
- 			fprintf(outputFile, "\tpUser:ResetSkillPoints();\n");
- 		} break;
- 
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");
@@ -248,14 +240,6 @@ void FillEventID(EVENT_DATA* pEvent) {
 				fprintf(outputFile, "\tif coins >= %d and coins <= %d then\n",
 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
 				);
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_WEIGHT: {
-				fprintf(outputFile, "\tlocal weight = pUser:CheckWeight(%d, %d);\n",
-					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
-				);
-				fprintf(outputFile, "\tif weight > GetAvailableWeight()  then\n");
 				num_logic_to_close++;
 			} break;
 
@@ -349,27 +333,7 @@ void FillEventID(EVENT_DATA* pEvent) {
 			} break;
 
 			case LOGIC_CHECK_SKILL_TOTAL: {
-				fprintf(outputFile, "\tlocal points = pUser:CheckSkillPoint();\n");
- 				fprintf(outputFile, "\tif points >= %d and points <= %d then\n",
- 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
- 				);
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_SKILL_POINT: {
- 				fprintf(outputFile, "\tlocal points = pUser:CheckSkillPoint(%d);\n", 
- 					pLogicElse->m_LogicElseInt[0]
- 				);
- 				
- 				fprintf(outputFile, "\tif points >= %d and points <= %d then\n",
- 					pLogicElse->m_LogicElseInt[1], pLogicElse->m_LogicElseInt[2]
- 				);
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_STAT_TOTAL: {
-				fprintf(outputFile, "\tlocal points = pUser:GetStatTotal();\n");
- 				fprintf(outputFile, "\tif points >= %d and points <= %d then\n",
+ 				fprintf(outputFile, "\tif pUser:CheckTotalSkillPoints() >= %d and pUser:CheckTotalSkillPoints() <= %d then\n",
  					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
  				);
  				num_logic_to_close++;
