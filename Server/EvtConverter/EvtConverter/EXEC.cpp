@@ -159,12 +159,6 @@ void EXEC::Parse(char* pBuf) {
  	} else if (!strcmp(temp, "MOVE_MIDDLE_STATUE")){
 		m_Exec = EXEC_MOVE_MIDDLE_STATUE;
 
-	} else if (!strcmp(temp, "STAT_POINT_DISTRIBUTE")) {
- 		m_Exec = EXEC_STAT_POINT_DISTRIBUTE;
- 
- 	} else if(!strcmp(temp, "SKILL_POINT_DISTRIBUTE")) {
- 		m_Exec = EXEC_SKILL_POINT_DISTRIBUTE;
- 
 	} else {
 		m_Exec = EXEC_UNKNOWN;
 		printf("Unknown execute command: %s\n", temp);
