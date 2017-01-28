@@ -1219,19 +1219,15 @@ public:
 			LUA_ARG_OPTIONAL(uint16, 1, 3)));
 	}
     
-	/*
     DECLARE_LUA_FUNCTION(ChanceLoyalty) {
-        LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2), false, true, false));
-    }
-	*/
+            LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2), false, true, false));
+        	}
 
-	/*
     DECLARE_LUA_FUNCTION(CheckNoExistItem) {
         LUA_RETURN(LUA_GET_INSTANCE()->CheckNoExistItem(
             LUA_ARG(uint32, 2),
             LUA_ARG_OPTIONAL(uint16, 1, 3)));
     }
-	*/
     
 	DECLARE_LUA_FUNCTION(GoldGain) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->GoldGain(LUA_ARG(int32, 2)));	
@@ -1319,11 +1315,11 @@ public:
 	}
     
     DECLARE_LUA_FUNCTION(GetWeight) {
-		LUA_RETURN(LUA_GET_INSTANCE()->GetWeight());
+        LUA_RETURN(LUA_GET_INSTANCE()->GetWeight()
     }
                    
     DECLARE_LUA_FUNCTION(GetAvailableWeight) {
-		LUA_RETURN(LUA_GET_INSTANCE()->GetAvailableWeight());
+        LUA_RETURN(LUA_GET_INSTANCE()->GetAvailableWeight()
     }
     
 	DECLARE_LUA_FUNCTION(CheckSkillPoint) {
@@ -1333,13 +1329,11 @@ public:
 			LUA_ARG(uint8, 4)));	// max
 	}
     
-	/*
     DECLARE_LUA_FUNCTION(CheckTotalSkillPoint) {
         LUA_RETURN(LUA_GET_INSTANCE()->CheckTotalSkillPoint(
             LUA_ARG(uint8, 3),		// min
             LUA_ARG(uint8, 4)));	// max
     }
-	*/
 
 	DECLARE_LUA_FUNCTION(isRoomForItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->FindSlotForItem(
@@ -1427,8 +1421,8 @@ public:
 	}
     
     DECLARE_LUA_FUNCTION(ChanceLoyalty) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2), false, true, false));
-    }
+        		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2), false, true, false));
+        	}
 
 	DECLARE_LUA_FUNCTION(RobLoyalty) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(-(LUA_ARG(int32, 2))));	
@@ -1442,21 +1436,17 @@ public:
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->PromoteClan((ClanTypeFlag) LUA_ARG_OPTIONAL(uint8, ClanTypePromoted, 2)));	
 	}
 
-	/*
     DECLARE_LUA_FUNCTION(PromoteKnight) {
         LUA_NO_RETURN(LUA_GET_INSTANCE()->PromoteKnight((ClanTypeFlag) LUA_ARG_OPTIONAL(uint8, ClanTypePromoted, 2)));
     }
-	*/
     
 	DECLARE_LUA_FUNCTION(GetStat) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetStat((StatType)(LUA_ARG(uint8, 2) + 1)));	
 	}
     
-	/*
     DECLARE_LUA_FUNCTION(GetStatTotal) {
         LUA_RETURN(LUA_GET_INSTANCE()->GetStatTotal((LUA_ARG(uint8, 2))));
     }
-	*/
 
 	DECLARE_LUA_FUNCTION(RobClanPoint) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendClanPointChange(-(LUA_ARG(int32, 2))));	
