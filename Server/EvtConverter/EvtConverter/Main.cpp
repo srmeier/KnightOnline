@@ -151,10 +151,6 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:ZoneChangeClan(%d, %d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1], pExec->m_ExecInt[2]);
 		} break;
 
-		case EXEC_MOVE_MIDDLE_STATUE: {
-			fprintf(outputFile, "\tMoveMiddleStatue();\n");
-		} break;
-
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");
@@ -279,65 +275,6 @@ void FillEventID(EVENT_DATA* pEvent) {
 
 				num_logic_to_close++;
 			} break;
-
-			case LOGIC_CHECK_LOYALTY: {
-
-				fprintf(outputFile, "\tif pUser:GetLoyalty() then\n");
-
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_CLAN_GRADE: {
-
- 				fprintf(outputFile, "\tlocal grade = pUser:GetClanGrade();\n");
- 				fprintf(outputFile, "\tif (grade >= %d and grade <= %d)  then\n", 
- 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
- 
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_CHIEF: {
- 
- 				fprintf(outputFile, "\tif pUser:isClanLeader() then\n");
- 
- 				num_logic_to_close++;
- 			} break;
- 
-			case LOGIC_CHECK_NO_CHIEF: {
- 
-				fprintf(outputFile, "\tif not pUser:isClanLeader() then\n");
- 
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_NATION: {
- 
- 				fprintf(outputFile, "\tif pUser:CheckNation() == %d  then\n",
- 					pLogicElse->m_LogicElseInt[0]);
- 
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_MIDDLE_STATUE_CAPTURE: {
-
-				fprintf(outputFile, "\tif CheckMiddleStatueCapture() then\n" );
-
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE: {
-
-				fprintf(outputFile, "\tif not CheckMiddleStatueCapture() then\n");
-
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_SKILL_TOTAL: {
- 				fprintf(outputFile, "\tif pUser:CheckTotalSkillPoints() >= %d and pUser:CheckTotalSkillPoints() <= %d then\n",
- 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
- 				);
- 				num_logic_to_close++;
- 			} break;
 
 			default: {
 				printf("Missing LOGIC code for command %d.\n", pLogicElse->m_LogicElse);

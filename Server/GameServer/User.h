@@ -1215,10 +1215,6 @@ public:
 			LUA_ARG(uint32, 2), 
 			LUA_ARG_OPTIONAL(uint16, 1, 3)));
 	}
-    
-    DECLARE_LUA_FUNCTION(ChanceLoyalty) {
-            LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2), false, true, false));
-        	}
 
     DECLARE_LUA_FUNCTION(CheckNoExistItem) {
         LUA_RETURN(LUA_GET_INSTANCE()->CheckNoExistItem(
@@ -1317,12 +1313,6 @@ public:
 			LUA_ARG(uint8, 3),		// min
 			LUA_ARG(uint8, 4)));	// max
 	}
-    
-    DECLARE_LUA_FUNCTION(CheckTotalSkillPoint) {
-        LUA_RETURN(LUA_GET_INSTANCE()->CheckTotalSkillPoint(
-            LUA_ARG(uint8, 3),		// min
-            LUA_ARG(uint8, 4)));	// max
-    }
 
 	DECLARE_LUA_FUNCTION(isRoomForItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->FindSlotForItem(
