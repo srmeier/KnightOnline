@@ -19,3 +19,4 @@ data/
 .DS_Store
 *.ipdb
 *.iobj
+*.db
