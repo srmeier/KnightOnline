@@ -9,10 +9,10 @@
 #include "MainFrm.h"
 #include "UIEView.h"
 
-#include "..\N3Base\include\N3UIButton.h"
-#include "..\N3Base\include\N3UIProgress.h"
-#include "..\N3Base\include\N3UITrackBar.h"
-#include "..\N3Base\include\N3UIScrollBar.h"
+#include "..\Client\N3Base\N3UIButton.h"
+#include "..\Client\N3Base\N3UIProgress.h"
+#include "..\Client\N3Base\N3UITrackBar.h"
+#include "..\Client\N3Base\N3UIScrollBar.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

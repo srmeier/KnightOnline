@@ -41,7 +41,7 @@ __RenderInfo CN3Base::s_RenderInfo;			// Rendering Information
 #ifdef _N3GAME // 게임이 아닌 툴에서는 필요없다...
 CN3SndMgr CN3Base::s_SndMgr;	//사운드 메니저.
 #endif
-#ifdef _N3UIE	// ui 에디터일때는 필요하다.
+#ifdef _N3TOOL	// ui 에디터일때는 필요하다.
 CN3SndMgr CN3Base::s_SndMgr;	//사운드 메니저.
 #endif
 
