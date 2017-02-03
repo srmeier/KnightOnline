@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "..\N3Base\include\N3UIBase.h"
+#include "..\Client\N3Base\N3UIBase.h"
 
 #include <list>
 typedef std::list<CN3UIBase*>::iterator it_UI;

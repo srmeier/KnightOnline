@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 #include "DlgBar.h"
-#include "..\N3Base\include\N3EngTool.h"
+#include "..\Client\N3Base\N3EngTool.h"
 
 class CUIEView;
 class CHierarchyView;

@@ -25,7 +25,7 @@
 #if _N3GAME // 게임이 아닌 툴에서는 필요없다...
 #include "N3SndMgr.h"
 #endif
-#ifdef _N3UIE	// ui 에디터일때는 필요하다.
+#ifdef _N3TOOL	// ui 에디터일때는 필요하다.
 #include "N3SndMgr.h"
 #endif
 
@@ -184,7 +184,7 @@ public:
 #ifdef _N3GAME // 게임이 아닌 툴에서는 필요없다...
 	static CN3SndMgr				s_SndMgr;
 #endif
-#ifdef _N3UIE	// ui 에디터일때는 필요하다.
+#ifdef _N3TOOL	// ui 에디터일때는 필요하다.
 	static CN3SndMgr				s_SndMgr;
 #endif
 
