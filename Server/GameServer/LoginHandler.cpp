@@ -11,11 +11,17 @@ void CUser::VersionCheck(Packet & pkt)
 	return;
 	*/
 
+#if __VERSION <= 1264
+	result << uint16(__VERSION);
+#else
 	result << uint16(__VERSION) << m_crypto.GenerateKey(); // 0 = success, 1 = prem error
+#endif
 	Send(&result);
 
 	// Enable encryption
+#if __VERSION > 1264
 	EnableCrypto();
+#endif
 }
 
 void CUser::LoginProcess(Packet & pkt)

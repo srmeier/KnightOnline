@@ -206,7 +206,11 @@ void CDBAgent::LoadCharInfo(string & strCharID, ByteBuffer & result)
 		uint16 sDurability, sCount;
 		itemData >> nItemID >> sDurability >> sCount;
 
+#if __VERSION <= 1264
+		if (i == HEAD || i == BREAST || i == SHOULDER || i == LEG || i == GLOVE || i == FOOT)
+#else
 		if (i == HEAD || i == BREAST || i == SHOULDER || i == LEG || i == GLOVE || i == FOOT || i == RIGHTHAND || i == LEFTHAND)
+#endif
 			result << nItemID << sDurability;
 	}
 }
