@@ -3,12 +3,20 @@
 #include "packets.h"
 #include "version.h"
 
+void bb() {};		// nop function
+
 KOSocket::KOSocket(uint16 socketID, SocketMgr * mgr, SOCKET fd, uint32 sendBufferSize, uint32 recvBufferSize) 
 	: Socket(fd, sendBufferSize, recvBufferSize), 
 	m_socketID(socketID), m_remaining(0),  m_usingCrypto(false), 
 	m_readTries(0), m_sequence(0), m_lastResponse(0) 
 {
 	SetSocketMgr(mgr);
+
+	m_pCompressMng = new CCompressMng;
+}
+
+KOSocket::~KOSocket(void) {
+	delete m_pCompressMng;
 }
 
 void KOSocket::OnConnect()
@@ -194,6 +202,66 @@ bool KOSocket::Send(Packet * pkt)
 
 bool KOSocket::SendCompressed(Packet * pkt) 
 {
+#if __VERSION <= 1264
+
+	if (pkt->size() < 500)
+		return Send(pkt);
+
+	Packet result(WIZ_COMPRESS_PACKET);
+
+	int count = 0;
+	do {
+		if (m_pCompressMng->m_nBufferStatus == W) {
+			bb();
+			count++;
+			continue;
+		}
+		m_pCompressMng->m_nBufferStatus = W;
+		m_pCompressMng->m_dwThreadID = ::GetCurrentThreadId();
+		bb();
+		if (m_pCompressMng->m_dwThreadID != ::GetCurrentThreadId()) {	// Dual Lock System...
+			count++;
+			continue;
+		}
+
+		uint32 inLength = pkt->size()+1;
+		uint8 *buffer = new uint8[inLength];
+
+		*buffer = pkt->GetOpcode();
+		if (pkt->size() > 0)
+			memcpy(buffer+1, pkt->contents(), pkt->size());
+
+		m_pCompressMng->PreCompressWork((char*)buffer, inLength);
+		m_pCompressMng->Compress();
+
+		//SetByte(send_buff, WIZ_COMPRESS_PACKET, send_index);
+
+		//SetShort(send_buff, (short)m_pCompressMng->m_nOutputBufferCurPos, send_index);
+		//SetShort(send_buff, (short)m_pCompressMng->m_nOrgDataLength, send_index);
+		//SetDWORD(send_buff, m_pCompressMng->m_dwCrc, send_index);
+		result << (short)m_pCompressMng->m_nOutputBufferCurPos;
+		result << (short)m_pCompressMng->m_nOrgDataLength;
+		result << uint32(m_pCompressMng->m_dwCrc);
+
+		//SetString(send_buff, m_pCompressMng->m_pOutputBuffer, m_pCompressMng->m_nOutputBufferCurPos, send_index);
+		result.append(m_pCompressMng->m_pOutputBuffer, m_pCompressMng->m_nOutputBufferCurPos);
+
+		m_pCompressMng->Initialize();	// buffer clear
+		m_pCompressMng->m_nBufferStatus = E;
+
+		delete[] buffer;
+
+		break;
+	} while (count < 50);
+	if (count > 49) {
+		TRACE("Compressing Fail Packet\n");
+		return Send(pkt); //Send((char*)pData, len);
+	}
+	else
+		return Send(&result);
+
+#else
+
 	if (pkt->size() < 500)
 		return Send(pkt);
 
@@ -205,7 +273,7 @@ bool KOSocket::SendCompressed(Packet * pkt)
 	if (pkt->size() > 0)
 		memcpy(buffer + 1, pkt->contents(), pkt->size());
 
-	crc = (uint32)crc32(buffer, inLength, 0);
+	crc = (uint32)crc32_newer(buffer, inLength, 0);
 	outLength = lzf_compress(buffer, inLength, outBuffer, outLength);
 
 	result << (short)outLength << (short)inLength;
@@ -217,6 +285,8 @@ bool KOSocket::SendCompressed(Packet * pkt)
 	delete [] outBuffer;
 
 	return Send(&result);
+
+#endif
 }
 
 void KOSocket::OnDisconnect()

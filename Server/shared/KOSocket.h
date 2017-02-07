@@ -19,6 +19,9 @@ class KOSocket : public Socket
 {
 public:
 	KOSocket(uint16 socketID, SocketMgr * mgr, SOCKET fd, uint32 sendBufferSize, uint32 recvBufferSize);
+	~KOSocket(void);
+
+	class CCompressMng* m_pCompressMng;
 
 	INLINE bool isCryptoEnabled() { return m_usingCrypto; };
 	INLINE uint16 GetSocketID() { return m_socketID; };

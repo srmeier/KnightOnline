@@ -1333,7 +1333,6 @@ void CUser::RequestNpcIn(Packet & pkt)
 			else
 					pNpc->m_bNation = 0;
 		}
-		result << pNpc->GetID();
 		pNpc->GetNpcInfo(result);
 	}
 
