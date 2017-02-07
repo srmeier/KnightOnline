@@ -691,6 +691,34 @@ void CAISocket::RecvGateOpen(Packet & pkt)
 
 void CAISocket::RecvCompressed(Packet & pkt)
 {
+#if __VERSION <= 1264
+
+	int dwCrcValue;
+	short sCompLen, sOrgLen;
+
+	pkt >> sCompLen >> sOrgLen >> dwCrcValue;
+
+	CCompressMng Compressor;
+	Compressor.PreUncompressWork((char*)(pkt.contents()+pkt.rpos()), sCompLen, sOrgLen);
+
+	if (Compressor.Extract() == false ||
+		Compressor.m_nErrorOccurred != 0 ||
+		dwCrcValue != Compressor.m_dwCrc)
+	{
+		return;
+	}
+
+	// ¾ÐÃà Ç®¸° µ¥ÀÌÅ¸ ÀÐ±â (Read loose data compression)
+	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
+
+	pkt.Initialize(*pDecodeBuf);
+	if (sOrgLen > 1)
+		pkt.append(pDecodeBuf+1, sOrgLen-1);
+
+	HandlePacket(pkt);
+
+#else
+
 	uint32 crc;
 	uint32 compressedLength, originalLength;
 
@@ -718,6 +746,8 @@ void CAISocket::RecvCompressed(Packet & pkt)
 	delete [] decompressedBuffer;
 
 	HandlePacket(pkt);
+
+#endif
 }
 
 void CAISocket::RecvNpcHpChange(Packet & pkt)

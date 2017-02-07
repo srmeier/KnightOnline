@@ -90,7 +90,7 @@ void CNpc::MoveResult(float fPosX, float fPosY, float fPosZ, float fSpeed)
 void CNpc::GetInOut(Packet & result, uint8 bType)
 {
 	result.Initialize(WIZ_NPC_INOUT);
-	result << bType << GetID();
+	result << bType;
 	if (bType != INOUT_OUT)
 		GetNpcInfo(result);
 
@@ -139,9 +139,17 @@ void CNpc::GetNpcInfo(Packet & pkt)
 {
 	pkt.SByte();
 	pkt /*<< GetProtoID()*/
+		<< m_sNid
 		<< m_sPid
-		<< GetType()
-		<< m_iSellingGroup
+		<< m_sSid //
+		<< GetType();
+
+	if (GetType() == 15) {
+		return;
+	}
+
+	pkt
+		<< uint16(m_iSellingGroup)
 		<< m_sSize
 		<< m_iWeapon_1 << m_iWeapon_2
 		<< GetName()
