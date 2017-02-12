@@ -4,6 +4,7 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- need to update the NPC info packet for the source client
 
 
 - finish the 7 keys quest
