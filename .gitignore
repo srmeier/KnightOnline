@@ -15,9 +15,12 @@ data/
 *.pch
 *.exe
 *.ilk
-*.lib
 .DS_Store
 *.ipdb
 *.iobj
 *.db
 *.sbr
+Client/N3Base/Debug/N3Base.lib
+Client/N3Base/Tool_Release/N3Base_tool.lib
+Server/bin/Debug/Lua.lib
+Server/bin/Debug/shared.lib
