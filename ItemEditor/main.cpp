@@ -4,9 +4,14 @@
 #include <windows.h>
 #include <tchar.h>
 
+#include <string>
+#include <vector>
+
 #include <sql.h>
 #include <sqlext.h>
 #include <sqltypes.h>
+
+#include "STLMap.h"
 
 #include "config.h"
 #include "fl/fl.h"
@@ -23,12 +28,75 @@ const int _gl_width = 380;
 const int _gl_height = 1024/3;
 
 //-----------------------------------------------------------------------------
-typedef struct {
-	long Num;
-} ITEM_ROW;
+struct _ITEM_TABLE {
+	SQLUINTEGER m_iNum;
+	SQLCHAR* m_sName;
+	SQLCHAR m_bKind;
+	SQLCHAR m_bSlot;
+	SQLCHAR m_bRace;
+	SQLCHAR m_bClass;
+	SQLUSMALLINT m_sDamage;
+	SQLUSMALLINT m_sDelay;
+	SQLUSMALLINT m_sRange;
+	SQLUSMALLINT m_sWeight;
+	SQLUSMALLINT m_sDuration;
+	SQLUINTEGER m_iBuyPrice;
+	SQLUINTEGER m_iSellPrice;
+	SQLSMALLINT m_sAc;
+	SQLCHAR m_bCountable;
+	SQLUINTEGER m_iEffect1;
+	SQLUINTEGER m_iEffect2;
+	SQLCHAR m_bReqLevel;
+	SQLCHAR m_bReqLevelMax;
+	SQLCHAR m_bReqRank;
+	SQLCHAR m_bReqTitle;
+	SQLCHAR m_bReqStr;
+	SQLCHAR m_bReqSta;
+	SQLCHAR m_bReqDex;
+	SQLCHAR m_bReqIntel;
+	SQLCHAR m_bReqCha;
+	SQLCHAR m_bSellingGroup;
+	SQLCHAR m_ItemType;
+	SQLUSMALLINT m_sHitrate;
+	SQLUSMALLINT m_sEvarate;
+	SQLUSMALLINT m_sDaggerAc;
+	SQLUSMALLINT m_sSwordAc;
+	SQLUSMALLINT m_sMaceAc;
+	SQLUSMALLINT m_sAxeAc;
+	SQLUSMALLINT m_sSpearAc;
+	SQLUSMALLINT m_sBowAc;
+	SQLCHAR m_bFireDamage;
+	SQLCHAR m_bIceDamage;
+	SQLCHAR m_bLightningDamage;
+	SQLCHAR m_bPoisonDamage;
+	SQLCHAR m_bHPDrain;
+	SQLCHAR m_bMPDamage;
+	SQLCHAR m_bMPDrain;
+	SQLCHAR m_bMirrorDamage;
+	SQLSMALLINT m_sStrB;
+	SQLSMALLINT m_sStaB;
+	SQLSMALLINT m_sDexB;
+	SQLSMALLINT m_sIntelB;
+	SQLSMALLINT m_sChaB;
+	SQLSMALLINT m_MaxHpB;
+	SQLSMALLINT m_MaxMpB;
+	SQLSMALLINT m_bFireR;
+	SQLSMALLINT m_bColdR;
+	SQLSMALLINT m_bLightningR;
+	SQLSMALLINT m_bMagicR;
+	SQLSMALLINT m_bPoisonR;
+	SQLSMALLINT m_bCurseR;
 
-int item_table_count;
-ITEM_ROW* item_table;
+	_ITEM_TABLE(void) {
+		memset(this, 0x00, sizeof(_ITEM_TABLE));
+	}
+
+	~_ITEM_TABLE(void) {
+		if(m_sName) free(m_sName);
+	}
+};
+
+CSTLMap<_ITEM_TABLE> ItemTableMap;
 
 //-----------------------------------------------------------------------------
 class shape_window: public Fl_Gl_Window {
@@ -126,16 +194,20 @@ public:
 void ItemTableView::draw_cell(TableContext context,
 	int r, int c, int x, int y, int w, int h
 ) {
-	if(r>=item_table_count || c>=1) return;
-
 	static char s[40];
-	sprintf(s, "r:%d, c:%d", r, c);
+	memset(s, 0x00, 40*sizeof(char));
+
+	_ITEM_TABLE* item = NULL;
 
 	switch(context) {
 		case CONTEXT_STARTPAGE:
 			fl_font(FL_HELVETICA, 16);
 			return;
 		case CONTEXT_COL_HEADER:
+			switch(c) {
+				case 0: strcpy(s, "Num"); break;
+			}
+
 			fl_push_clip(x, y, w, h);
 			{
 				fl_draw_box(FL_THIN_UP_BOX, x, y, w, h, col_header_color());
@@ -145,6 +217,8 @@ void ItemTableView::draw_cell(TableContext context,
 			fl_pop_clip();
 			return;
 		case CONTEXT_ROW_HEADER:
+			sprintf(s, "%d", r+1);
+
 			fl_push_clip(x, y, w, h);
 			{
 				fl_draw_box(FL_THIN_UP_BOX, x, y, w, h, row_header_color());
@@ -154,7 +228,8 @@ void ItemTableView::draw_cell(TableContext context,
 			fl_pop_clip();
 			return;
 		case CONTEXT_CELL:
-			sprintf(s, "%d", item_table[r].Num);
+			item = ItemTableMap.GetData(r);
+			sprintf(s, "%d", item->m_iNum);
 
 			fl_push_clip(x, y, w, h);
 			{
@@ -201,14 +276,19 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	long item_Num = 0;
+	long count = 0;
 	SQLINTEGER cbData;
 	while(SQLFetch(hStmt) == SQL_SUCCESS) {
-		item_table = (ITEM_ROW*)realloc(item_table, ++item_table_count*sizeof(ITEM_ROW));
-		ITEM_ROW* item = &item_table[item_table_count-1];
-		memset(item, 0x00, sizeof(ITEM_ROW));
+		//item_table = (ITEM_ROW*)realloc(item_table, ++item_table_count*sizeof(ITEM_ROW));
+		//ITEM_ROW* item = &item_table[item_table_count-1];
+		//memset(item, 0x00, sizeof(ITEM_ROW));
 
-		SQLGetData(hStmt, 1, SQL_C_LONG, &(item->Num), sizeof(long), &cbData);
+		//SQLGetData(hStmt, 1, SQL_C_LONG, &(item->Num), sizeof(long), &cbData);
+
+		_ITEM_TABLE* item = new _ITEM_TABLE();
+		SQLGetData(hStmt, 1, SQL_C_ULONG, &(item->m_iNum), sizeof(SQLUINTEGER), &cbData);
+
+		ItemTableMap.PutData(count++, item);
 	}
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
@@ -236,7 +316,7 @@ int main(int argc, char** argv) {
 	demo_table.row_header(true);
 	demo_table.row_header_width(60);
 	demo_table.row_resize(true);
-	demo_table.rows(item_table_count);
+	demo_table.rows(ItemTableMap.GetSize());
 	demo_table.row_height_all(20);
 
 	demo_table.col_header(true);
