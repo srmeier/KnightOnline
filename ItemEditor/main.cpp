@@ -18,9 +18,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
-#define USE_GLEW 1
 #include "GL/glew.h"
-//#include <GL/gl.h>
 
 #include "config.h"
 #include "fl/fl.h"
@@ -100,12 +98,23 @@ int             m_iMaxNumVertices0;
 bool debugMode = true;
 
 //-----------------------------------------------------------------------------
-void N3LoadTexture(const char* szFN) {
+void N3LoadTexture(char* szFN) {
+
+	// NOTE: have to perform this check because for some reason these filenames suffer from this
+	int i = (strlen(szFN)-1);
+	for(; i>=2; --i) {
+		if((szFN[i-2]=='d'||szFN[i-2]=='D')&&(szFN[i-1]=='x'||szFN[i]=='X')&&(szFN[i]=='t'||szFN[i]=='T') ) {
+			break;
+		}
+	}
+
+	szFN[i+1] = '\0';
+
 	FILE* fpTexture = fopen(szFN, "rb");
 	if(fpTexture == NULL) {
 		fprintf(stderr, "ERROR: Missing texture %s\n", szFN);
-		system("pause");
-		exit(-1);
+		//system("pause");
+		return;//exit(-1);
 	}
 	/*
 	*/
@@ -189,8 +198,8 @@ void N3LoadMesh(const char* szFN) {
 	FILE* fpMesh = fopen(szFN, "rb");
 	if(fpMesh == NULL) {
 		fprintf(stderr, "\nERROR: Missing mesh %s\n", szFN);
-		system("pause");
-		exit(-1);
+		//system("pause");
+		return; //exit(-1);
 	}
 	/*
 	*/
@@ -735,6 +744,11 @@ private:
 
 public:
 	void build_shader(void);
+	static void Timer_CB(void* data) {
+		shape_window* sw = (shape_window*)data;
+		sw->redraw();
+		Fl::repeat_timeout(1.0/24.0, Timer_CB, data);
+	}
 
 public:
 	int sides;
@@ -748,6 +762,8 @@ shape_window::shape_window(int x, int y, int w, int h, const char* l):
 Fl_Gl_Window(x, y, w, h, l) {
 	sides = overlay_sides = 6;
 	built_shader = false;
+	Fl::add_timeout(1.0/24.0, Timer_CB, (void*)this);
+	end();
 }
 
 void shape_window::build_shader(void) {
@@ -892,7 +908,7 @@ void shape_window::build_shader(void) {
 void shape_window::draw(void) {
 
 	static glm::mat4 model = {};
-	static float angle = M_PI/4+M_PI/2; //(float) M_PI/500.0f;
+	static float angle = (float) M_PI/100.0f; //M_PI/4+M_PI/2;
 
 	if(!built_shader) {
 		built_shader = true;
@@ -902,7 +918,6 @@ void shape_window::draw(void) {
 		// ========================================================================
 
 		model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-
 		GLint uniModel = glGetUniformLocation(shaderProgram, "model");
 		glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -950,7 +965,9 @@ void shape_window::draw(void) {
 	*/
 
 	// TODO: would like a continuous rotation
-	//model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+	GLint uniModel = glGetUniformLocation(shaderProgram, "model");
+	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
 	// NOTE: draw to the screen
 	glDrawElements(GL_TRIANGLES, m_iMaxNumIndices0, GL_UNSIGNED_INT, 0);
@@ -1054,8 +1071,8 @@ void ItemTableView::event_callback_update_opengl(void) {
 	FILE* pFile = fopen(szResrcFN.c_str(), "rb");
 	if(pFile == NULL) {
 		fprintf(stderr, "ERROR: Missing N3Plug %s\n", szResrcFN.c_str());
-		system("pause");
-		exit(-1);
+		//system("pause");
+		return; //exit(-1);
 	}
 
 	CN3CPlug_Load(pFile);
@@ -1188,10 +1205,11 @@ void ItemTableView::event_callback_update_opengl(void) {
 			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
 		} break;
 		default: {
-			fprintf(stderr, "\nHERE\n");
-			fprintf(stderr, "\nERROR: Unknown texture format.\n");
-			system("pause");
-			exit(-1);
+			fprintf(stderr,
+				"\nERROR: Unknown texture format %d. (need to implement this)\n", HeaderOrg.Format
+			);
+			//system("pause");
+			return; //exit(-1);
 		} break;
 	}
 
@@ -1307,7 +1325,7 @@ int main(int argc, char** argv) {
 	//----
 	SQLHANDLE hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hConn, &hStmt);
-	if(SQLExecDirect(hStmt, _T("SELECT TOP(5000) Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {
+	if(SQLExecDirect(hStmt, _T("SELECT TOP(10000) Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {
 		printf("SQLExecDirect\n");
 		system("pause");
 		return -1;
