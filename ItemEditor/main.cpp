@@ -127,11 +127,17 @@ enum _D3DFORMAT {
 	D3DFMT_DXT1 = 827611204,
 	D3DFMT_DXT3 = 861165636,
 	D3DFMT_DXT5 = 894720068,
+	D3DFMT_A1R5G5B5 = 25,
+	D3DFMT_A4R4G4B4 = 26,
+	D3DFMT_R8G8B8 = 20,
+	D3DFMT_A8R8G8B8 = 21,
+	D3DFMT_X8R8G8B8 = 22
 };
 
 _N3TexHeader    HeaderOrg;
 unsigned char*  compTexData;
 int             compTexSize;
+int             iPixelSize;
 unsigned short* m_pIndices0;
 _N3VertexT1*    m_pVertices0;
 int             m_iMaxNumIndices0;
@@ -140,7 +146,7 @@ int             m_iMaxNumVertices0;
 bool debugMode = true;
 
 //-----------------------------------------------------------------------------
-void N3LoadTexture(char* szFN) {
+void N3LoadTexture(const char* szFN) {
 	FILE* fpTexture = fopen(szFN, "rb");
 	if(fpTexture == NULL) {
 		fprintf(stderr, "ERROR: Missing texture %s\n", szFN);
@@ -181,6 +187,7 @@ void N3LoadTexture(char* szFN) {
 	}
 
 	// NOTE: the textures contain multiple mipmap data "blocks"
+	iPixelSize = 0;
 	switch(HeaderOrg.Format) {
 		case D3DFMT_DXT1: {
 			compTexSize = (HeaderOrg.nWidth*HeaderOrg.nHeight/2);
@@ -192,31 +199,60 @@ void N3LoadTexture(char* szFN) {
 			compTexSize = (HeaderOrg.nWidth*HeaderOrg.nHeight*2);
 			printf("D3DFMT_DXT5 tex: need to verify size\n");
 		} break;
+		case D3DFMT_A1R5G5B5:
+		case D3DFMT_A4R4G4B4: {
+			iPixelSize = 2;
+		} break;
+		case D3DFMT_R8G8B8: {
+			iPixelSize = 3;
+		} break;
+		case D3DFMT_A8R8G8B8:
+		case D3DFMT_X8R8G8B8: {
+			iPixelSize = 4;
+		} break;
+		default: {
+			fprintf(stderr,
+				"\nERROR: Unknown texture format %d. (need to implement this)\n", HeaderOrg.Format
+			);
+			//system("pause");
+			return; //exit(-1);
+		} break;
 	}
 
-	if(compTexData) {
-		delete compTexData;
-		compTexData = NULL;
-	}
+	if(iPixelSize == 0) {
+		if(compTexData) {
+			delete compTexData;
+			compTexData = NULL;
+		}
 
-	compTexData = new unsigned char[compTexSize];
-	fread(compTexData, sizeof(unsigned char), compTexSize, fpTexture);
+		compTexData = new unsigned char[compTexSize];
+		fread(compTexData, sizeof(unsigned char), compTexSize, fpTexture);
 
-	int nMMC = 1;
-	if(HeaderOrg.bMipMap) {
-		// NOTE: calculate the number of MipMap which are possible with this
-		// texture
-		nMMC = 0;
-		for(
-			int nW=HeaderOrg.nWidth, nH=HeaderOrg.nHeight;
-			nW>=4 && nH>=4;
-			nW/=2, nH/=2
-		) nMMC++;
+		int nMMC = 1;
+		if(HeaderOrg.bMipMap) {
+			// NOTE: calculate the number of MipMap which are possible with this
+			// texture
+			nMMC = 0;
+			for(
+				int nW=HeaderOrg.nWidth, nH=HeaderOrg.nHeight;
+				nW>=4 && nH>=4;
+				nW/=2, nH/=2
+			) nMMC++;
+		} else {
+			// NOTE: not a mipmap
+			printf("HeaderOrg.bMipMap tex: need to implement non-mipmap textures\n");
+			//system("pause");
+			return; //exit(-1);
+		}
 	} else {
-		// NOTE: not a mipmap
-		printf("HeaderOrg.bMipMap tex: need to implement non-mipmap textures\n");
-		system("pause");
-		exit(-1);
+		if(compTexData) {
+			delete compTexData;
+			compTexData = NULL;
+		}
+
+		compTexSize = (HeaderOrg.nWidth*HeaderOrg.nHeight*iPixelSize);
+		compTexData = new unsigned char[compTexSize];
+		fread(compTexData, sizeof(unsigned char), compTexSize, fpTexture);
 	}
 
 	/*
@@ -1078,38 +1114,10 @@ void shape_window::draw(void) {
 	if(!built_shader) {
 		built_shader = true;
 		build_shader();
-
-		/* TESTING */
-		// ========================================================================
-
-		model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-		GLint uniModel = glGetUniformLocation(shaderProgram, "model");
-		glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
-
-		float pDist = 3.5f;//4.2f;
-		float pDistP = 0.2f;
-
-		glm::mat4 view = glm::lookAt(
-			glm::vec3(pDist, pDist, pDist),
-			glm::vec3(0.0f, pDistP, 0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)
-		);
-
-		GLint uniView = glGetUniformLocation(shaderProgram, "view");
-		glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-
-		glm::mat4 proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 1.0f, 120.0f);
-
-		GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
-		glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
-
-		/* END TESTING */
-		// ========================================================================
 	}
 
 	if(!valid()) {
 		valid(1);
-		//glLoadIdentity();
 		glViewport(0, 0, pixel_w(), pixel_h());
 	}
 
@@ -1117,10 +1125,26 @@ void shape_window::draw(void) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-	// TODO: would like a continuous rotation
+	//----
 	model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
 	GLint uniModel = glGetUniformLocation(shaderProgram, "model");
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+
+	float pDist = 2.0f;
+	float pDistP = 0.2f;
+	glm::mat4 view = glm::lookAt(
+		glm::vec3(pDist, pDist, pDist),
+		glm::vec3(0.0f, pDistP, 0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f)
+	);
+
+	GLint uniView = glGetUniformLocation(shaderProgram, "view");
+	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+
+	glm::mat4 proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 1.0f, 120.0f);
+	GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
+	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+	//----
 
 	// NOTE: draw to the screen
 	if(eType == ITEM_TYPE_PLUG) {
@@ -1132,7 +1156,17 @@ void shape_window::draw(void) {
 		glDrawElements(GL_TRIANGLES, 3*m_nFC, GL_UNSIGNED_INT, 0);
 
 	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
-		return;
+
+		glm::mat4 tmp_model = {};
+		uniModel = glGetUniformLocation(shaderProgram, "model");
+		glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(tmp_model));
+		GLint uniView = glGetUniformLocation(shaderProgram, "view");
+		glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(tmp_model));
+		GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
+		glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(tmp_model));
+		
+		glDrawElements(GL_TRIANGLES, 3*2, GL_UNSIGNED_INT, 0);
+
 	}
 }
 
@@ -1192,10 +1226,11 @@ void ItemTableView::event_callback_update_opengl(void) {
 	}
 
 	std::string szResrcFN;
+	std::string pszIconFN;
 	e_PartPosition ePartPosTmp = PART_POS_UNKNOWN;
 	e_PlugPosition ePlugPosTmp = PLUG_POS_UNKNOWN;
 
-	eType = MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_ALL);
+	eType = MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_UNKNOWN);
 	printf("%s\n", szResrcFN.c_str());
 	printf("--------------------\n");
 
@@ -1212,35 +1247,35 @@ void ItemTableView::event_callback_update_opengl(void) {
 	} else if(eType == ITEM_TYPE_PART) {
 		FILE* pFile = fopen(szResrcFN.c_str(), "rb");
 		if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_ARKTUAREK);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_ARKTUAREK);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_WOMEN);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_EL_WOMEN);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_MAN);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_EL_MAN);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_BABARIAN);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_EL_BABARIAN);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_PURITUAREK);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_PURITUAREK);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_WRINKLETUAREK);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_WRINKLETUAREK);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_TUAREK);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_TUAREK);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
-			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_NPC);
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_NPC);
 			printf("%s\n", szResrcFN.c_str());
 			pFile = fopen(szResrcFN.c_str(), "rb");
 			if(pFile == NULL) {
@@ -1254,8 +1289,9 @@ void ItemTableView::event_callback_update_opengl(void) {
 		CN3CPart_Load(pFile);
 		fclose(pFile);
 	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
-		printf("Implement this!\n");
-		return;
+		
+		N3LoadTexture(pszIconFN.c_str());
+		
 	} else {
 		printf("Unknown item type!\n");
 		return;
@@ -1264,21 +1300,21 @@ void ItemTableView::event_callback_update_opengl(void) {
 	printf("--------------------\n");
 
 	/*
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_ARKTUAREK);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_ARKTUAREK);
 	printf("%s\n", szResrcFN.c_str());
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_TUAREK);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_TUAREK);
 	printf("%s\n", szResrcFN.c_str());
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_WRINKLETUAREK);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_WRINKLETUAREK);
 	printf("%s\n", szResrcFN.c_str());
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_PURITUAREK);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_PURITUAREK);
 	printf("%s\n", szResrcFN.c_str());
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_BABARIAN);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_EL_BABARIAN);
 	printf("%s\n", szResrcFN.c_str());
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_MAN);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_EL_MAN);
 	printf("%s\n", szResrcFN.c_str());
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_WOMEN);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_EL_WOMEN);
 	printf("%s\n", szResrcFN.c_str());
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_NPC);
+	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_NPC);
 	printf("%s\n", szResrcFN.c_str());
 	*/
 
@@ -1381,7 +1417,30 @@ void ItemTableView::event_callback_update_opengl(void) {
 		delete elements;
 
 	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
-		return;
+		
+		float vertices[] = {
+			-0.25f,  0.25f, -0.1f, 0.0f, 0.0f, // Top-left
+			 0.25f,  0.25f, -0.1f, 1.0f, 0.0f, // Top-right
+			 0.25f, -0.25f, -0.1f, 1.0f, 1.0f, // Bottom-right
+			-0.25f, -0.25f, -0.1f, 0.0f, 1.0f  // Bottom-left
+		};
+
+		glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(posAttrib);
+		GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+		glEnableVertexAttribArray(texAttrib);
+
+		GLuint elements[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 	}
 
 	// NOTE: set the texture to unit 0
@@ -1390,6 +1449,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 	glBindTexture(GL_TEXTURE_2D, tex);
 	// NOTE: send the pixels to the GPU (will have to convert enums from dxd to
 	// opengl)
+	GLenum texType;
 	GLenum texFormat;
 	switch(HeaderOrg.Format) {
 		case D3DFMT_DXT1: {
@@ -1401,6 +1461,48 @@ void ItemTableView::event_callback_update_opengl(void) {
 		case D3DFMT_DXT5: {
 			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
 		} break;
+		case D3DFMT_A1R5G5B5: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_SHORT_5_5_5_1;
+
+			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
+				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
+				unsigned short p = *pp;
+				unsigned short np = ((p&0x7C00)>>10)<<11|((p&0x3E0)>>5)<<6|(p&0x1F)<<1|((p&0x8000)>>15);
+				*pp = np;
+			}
+
+		} break;
+		case D3DFMT_A4R4G4B4: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_SHORT_4_4_4_4;
+			
+			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
+				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
+				unsigned short p = *pp;
+				unsigned short np = ((p&0xF00)>>8)<<12|((p&0xF0)>>4)<<8|(p&0xF)<<4|((p&0xF000)>>12);
+				*pp = np;
+			}
+
+		} break;
+		case D3DFMT_R8G8B8: {
+			texFormat = GL_RGB;
+			texType = GL_UNSIGNED_BYTE;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		case D3DFMT_A8R8G8B8: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_INT_8_8_8_8;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_A8R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		case D3DFMT_X8R8G8B8: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_INT_8_8_8_8;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_X8R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
 		default: {
 			fprintf(stderr,
 				"\nERROR: Unknown texture format %d. (need to implement this)\n", HeaderOrg.Format
@@ -1410,7 +1512,12 @@ void ItemTableView::event_callback_update_opengl(void) {
 		} break;
 	}
 
-	glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
+	if(iPixelSize == 0) {
+		glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
+	} else {
+		glTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, texFormat, texType, compTexData);
+	}
+
 	// NOTE: bind the uniform "tex" in the fragment shader to the unit 0
 	// texture
 	glUniform1i(glGetUniformLocation(shaderProgram, "tex"), 0);
