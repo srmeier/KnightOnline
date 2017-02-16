@@ -18,6 +18,10 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+#define USE_GLEW 1
+#include "GL/glew.h"
+//#include <GL/gl.h>
+
 #include "config.h"
 #include "fl/fl.h"
 #include "fl/fl_window.h"
@@ -33,6 +37,14 @@
 
 const int _gl_width = 380;
 const int _gl_height = 1024/3;
+
+//-----------------------------------------------------------------------------
+GLuint verArray;
+GLuint verBuffer;
+GLuint eleBuffer;
+GLuint tex;
+GLuint shaderProgram;
+class shape_window* m_sw;
 
 //-----------------------------------------------------------------------------
 struct _N3Material {
@@ -359,12 +371,11 @@ enum e_PlugType{
 bool CN3BaseFileAccess_Load(FILE* hFile) {
 	std::string m_szName = "";
 
-	DWORD dwRWC = 0;
 	int nL = 0;
-	ReadFile(hFile, &nL, 4, &dwRWC, NULL);
+	fread(&nL, sizeof(int), 1, hFile);
 	if(nL > 0)  {
 		std::vector<char> buffer(nL+1, NULL);
-		ReadFile(hFile, &buffer[0], nL, &dwRWC, NULL);
+		fread(&buffer[0], sizeof(char), nL, hFile);
 		m_szName = &buffer[0];
 	}
 
@@ -375,37 +386,36 @@ bool CN3BaseFileAccess_Load(FILE* hFile) {
 bool CN3CPlugBase_Load(FILE* hFile) {
 	CN3BaseFileAccess_Load(hFile);
 
-	DWORD dwRWC = 0;
 	int nL = 0;
 	char szFN[512] = "";
 
 	e_PlugType m_ePlugType;
-	ReadFile(hFile, &m_ePlugType, 4, &dwRWC, NULL);
+	fread(&m_ePlugType, sizeof(e_PlugType), 1, hFile);
 	if(m_ePlugType > PLUGTYPE_MAX) {
 		m_ePlugType = PLUGTYPE_NORMAL;
 	}
 	int m_nJointIndex;
-	ReadFile(hFile, &m_nJointIndex, 4, &dwRWC, NULL);
+	fread(&m_nJointIndex, sizeof(int), 1, hFile);
 
 	glm::vec3 m_vPosition;
-	ReadFile(hFile, &m_vPosition, sizeof(m_vPosition), &dwRWC, NULL);
+	fread(&m_vPosition, sizeof(glm::vec3), 1, hFile);
 	_N3Matrix44 m_MtxRot;
-	ReadFile(hFile, &m_MtxRot, sizeof(m_MtxRot), &dwRWC, NULL);
+	fread(&m_MtxRot, sizeof(_N3Matrix44), 1, hFile);
 	glm::vec3 m_vScale;
-	ReadFile(hFile, &m_vScale, sizeof(m_vScale), &dwRWC, NULL);
+	fread(&m_vScale, sizeof(glm::vec3), 1, hFile);
 
 	_N3Material m_Mtl;
-	ReadFile(hFile, &m_Mtl, sizeof(_N3Material), &dwRWC, NULL);
+	fread(&m_Mtl, sizeof(_N3Material), 1, hFile);
 
-	ReadFile(hFile, &nL, 4, &dwRWC, NULL);
+	fread(&nL, sizeof(int), 1, hFile);
 	if(nL > 0) {
-		ReadFile(hFile, szFN, nL, &dwRWC, NULL); szFN[nL] = NULL;
+		fread(szFN, sizeof(char), nL, hFile);
 		N3LoadMesh(szFN); //this->PMeshSet(szFN);
 	}
 
-	ReadFile(hFile, &nL, 4, &dwRWC, NULL);
+	fread(&nL, sizeof(int), 1, hFile);
 	if(nL > 0) {
-		ReadFile(hFile, szFN, nL, &dwRWC, NULL); szFN[nL] = NULL;
+		fread(szFN, sizeof(char), nL, hFile);
 		N3LoadTexture(szFN); //this->TexSet(szFN);
 	}	
 
@@ -720,7 +730,11 @@ e_ItemType MakeResrcFileNameForUPC(
 class shape_window: public Fl_Gl_Window {
 private:
 	void draw(void);
-	void draw_overlay(void);
+	bool built_shader;
+	//void draw_overlay(void);
+
+public:
+	void build_shader(void);
 
 public:
 	int sides;
@@ -733,17 +747,199 @@ public:
 shape_window::shape_window(int x, int y, int w, int h, const char* l):
 Fl_Gl_Window(x, y, w, h, l) {
 	sides = overlay_sides = 6;
+	built_shader = false;
+}
+
+void shape_window::build_shader(void) {
+	//----
+
+	// NOTE: initialize the OpenGL library function calls
+	GLenum glError = glewInit();
+
+	// NOTE: check for error
+	if(glError != GLEW_OK) {
+		fprintf(stderr, "glewInit: %s\n", glewGetErrorString(glError));
+		system("pause");
+		exit(-1);
+	}
+
+	// NOTE: enable the depth test
+	glEnable(GL_DEPTH_TEST);
+
+	//----
+
+	/* SET SHADER PROGRAM */
+	// ========================================================================
+
+	// NOTE: source code for the vertex shader
+	const GLchar* vertSource = {
+		"#version 150 core\n"\
+		"\n"\
+		"in vec3 pos;\n"\
+		"in vec2 texcoord;\n"\
+		"\n"\
+		"out vec2 fragTexcoord;\n"\
+		"\n"\
+		"uniform mat4 model;\n"\
+		"uniform mat4 view;\n"\
+		"uniform mat4 proj;\n"\
+		"\n"\
+		"void main() {\n"\
+			"fragTexcoord = texcoord;\n"\
+			"gl_Position = proj*view*model*vec4(pos, 1.0);\n"\
+		"}\n"
+		"\0"
+	};
+
+	// NOTE: allocate vertex shader program
+	GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
+
+	// NOTE: load the vertex shader's source code
+	glShaderSource(vertShader, 1, &vertSource, NULL);
+
+	// NOTE: compile the vertex shader's source code
+	glCompileShader(vertShader);
+
+	// NOTE: get the status of the compilation
+	GLint status;
+	glGetShaderiv(vertShader, GL_COMPILE_STATUS, &status);
+
+	// NOTE: if the compilation failed print the error
+	if(status == GL_FALSE) {
+		char buffer[512];
+		glGetShaderInfoLog(vertShader, 512, NULL, buffer);
+		fprintf(stderr, "glCompileShader: Vertex\n%s\n", buffer);
+		system("pause");
+		exit(-1);
+	}
+
+	// NOTE: source code for the fragment shader
+	const GLchar* fragSource = {
+		"#version 150 core\n"\
+		"\n"\
+		"in vec2 fragTexcoord;\n"\
+		"uniform sampler2D tex;\n"\
+		"\n"\
+		"void main() {\n"\
+			"gl_FragColor = texture2D(tex, fragTexcoord)*vec4(1.0, 1.0, 1.0, 1.0);\n"\
+		"}\n"\
+		"\0"
+	};
+
+	// NOTE: allocate fragment shader program
+	GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	// NOTE: load the fragment shader's source code
+	glShaderSource(fragShader, 1, &fragSource, NULL);
+
+	// NOTE: compile the vertex shader's source code
+	glCompileShader(fragShader);
+
+	// NOTE: get the status of the compilation
+	glGetShaderiv(fragShader, GL_COMPILE_STATUS, &status);
+
+	// NOTE: if the compilation failed print the error
+	if(status == GL_FALSE) {
+		char buffer[512];
+		glGetShaderInfoLog(fragShader, 512, NULL, buffer);
+		fprintf(stderr, "glCompileShader: Fragment\n%s\n", buffer);
+		system("pause");
+		exit(-1);
+	}
+
+	// NOTE: create a shader program out of the vertex and fragment shaders
+	shaderProgram = glCreateProgram();
+
+	// NOTE: attach the vertex and fragment shaders
+	glAttachShader(shaderProgram, vertShader);
+	glAttachShader(shaderProgram, fragShader);
+
+	// NOTE: link the shader program
+	glLinkProgram(shaderProgram);
+
+	// NTOE: get the status of linking the program
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
+
+	// NOTE: if the program failed to link print the error
+	if(status == GL_FALSE) {
+		char buffer[512];
+		glGetProgramInfoLog(shaderProgram, 512, NULL, buffer);
+		fprintf(stderr, "glLinkProgram: \n%s\n", buffer);
+		system("pause");
+		exit(-1);
+	}
+
+	// NOTE: use the newly compiled shader program
+	glUseProgram(shaderProgram);
+
+	/* END SET SHADER PROGRAM */
+	// ========================================================================
+
+	// NOTE: create a vertex array object to store all the relationships
+	// between vertex buffer objects and shader program attributes
+	glGenVertexArrays(1, &verArray);
+
+	// NOTE: allocate an array buffer on the GPU
+	glGenBuffers(1, &verBuffer);
+
+	// NOTE: allocate a GPU buffer for the element data
+	glGenBuffers(1, &eleBuffer);
+
+	// NOTE: allocate a GPU texture
+	glGenTextures(1, &tex);
 }
 
 void shape_window::draw(void) {
+
+	static glm::mat4 model = {};
+	static float angle = M_PI/4+M_PI/2; //(float) M_PI/500.0f;
+
+	if(!built_shader) {
+		built_shader = true;
+		build_shader();
+
+		/* TESTING */
+		// ========================================================================
+
+		model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+
+		GLint uniModel = glGetUniformLocation(shaderProgram, "model");
+		glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
+
+		float pDist = 1.2f;//4.2f;
+		float pDistP = 0.2f;
+
+		glm::mat4 view = glm::lookAt(
+			glm::vec3(pDist, pDist, pDist),
+			glm::vec3(0.0f, pDistP, 0.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f)
+		);
+
+		GLint uniView = glGetUniformLocation(shaderProgram, "view");
+		glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+
+		glm::mat4 proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 1.0f, 120.0f);
+
+		GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
+		glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+
+		/* END TESTING */
+		// ========================================================================
+	}
+
 	if(!valid()) {
 		valid(1);
-		glLoadIdentity();
+		//glLoadIdentity();
 		glViewport(0, 0, pixel_w(), pixel_h());
 	}
 
-	glClear(GL_COLOR_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT);
 
+	// NOTE: clear the screen buffer
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+	/*
 	glBegin(GL_POLYGON);
 	for(int i=0; i<sides; ++i) {
 		double ang = i*2*M_PI/sides;
@@ -751,8 +947,16 @@ void shape_window::draw(void) {
 		glVertex3f(cos(ang), sin(ang), 0.0f);
 	}
 	glEnd();
+	*/
+
+	// TODO: would like a continuous rotation
+	//model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	// NOTE: draw to the screen
+	glDrawElements(GL_TRIANGLES, m_iMaxNumIndices0, GL_UNSIGNED_INT, 0);
 }
 
+/*
 void shape_window::draw_overlay(void) {
 	if(!valid()) {
 		valid(1);
@@ -782,6 +986,7 @@ void overlay_sides_cb(Fl_Widget* widget, void* data) {
 	sw->overlay_sides = int(((Fl_Slider*)widget)->value());
 	sw->redraw_overlay();
 }
+*/
 
 //-----------------------------------------------------------------------------
 class ItemTableView: public Fl_Table_Row {
@@ -845,6 +1050,19 @@ void ItemTableView::event_callback_update_opengl(void) {
 	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_ALL);
 	printf("%s\n", szResrcFN.c_str());
 	printf("--------------------\n");
+
+	FILE* pFile = fopen(szResrcFN.c_str(), "rb");
+	if(pFile == NULL) {
+		fprintf(stderr, "ERROR: Missing N3Plug %s\n", szResrcFN.c_str());
+		system("pause");
+		exit(-1);
+	}
+
+	CN3CPlug_Load(pFile);
+	fclose(pFile);
+
+	printf("--------------------\n");
+
 	/*
 	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_ARKTUAREK);
 	printf("%s\n", szResrcFN.c_str());
@@ -863,6 +1081,136 @@ void ItemTableView::event_callback_update_opengl(void) {
 	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_NPC);
 	printf("%s\n", szResrcFN.c_str());
 	*/
+
+	/* SET VERTEX INFORMATION */
+	// ========================================================================
+
+	// NOTE: bind to this vertex array when establishing all the connections
+	// for the shaderProgram
+	glBindVertexArray(verArray);
+	/*
+	- if I every need to switch raw vertex data to program attributes all I
+		need to do is bind a different vertex array object
+	*/
+
+	// NOTE: vertices for a triangle (clockwise)
+	GLfloat* vertices = new GLfloat[5*m_iMaxNumVertices0];
+	memset(vertices, 0, 5*m_iMaxNumVertices0);
+
+	for(int i=0; i<m_iMaxNumVertices0; i++) {
+		vertices[5*i+0] = m_pVertices0[i].x;
+		vertices[5*i+1] = m_pVertices0[i].y;
+		vertices[5*i+2] = m_pVertices0[i].z;
+
+		vertices[5*i+3] = m_pVertices0[i].tu;
+		vertices[5*i+4] = m_pVertices0[i].tv;
+	}
+
+	// NOTE: bind to the array buffer so that we may send our data to the GPU
+	glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
+
+	// NOTE: send our vertex data to the GPU and set as STAIC
+	glBufferData(GL_ARRAY_BUFFER, 5*m_iMaxNumVertices0*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+
+	delete vertices;
+
+	// NOTE: get a pointer to the position attribute variable in the shader
+	// program
+	GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
+
+	// NOTE: specify the stride (spacing) and offset for array buffer which
+	// will be used in place of the attribute variable in the shader program
+	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
+	/*
+	- this function call automatically directs the array buffer bound to
+		GL_ARRAY_BUFFER towards the attribute in the shader program
+	*/
+
+	// NOTE: enable the attribute
+	glEnableVertexAttribArray(posAttrib);
+
+	// NOTE: get a pointer to the position attribute variable in the shader
+	// program
+	GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+
+	// NOTE: specify the stride (spacing) and offset for array buffer which
+	// will be used in place of the attribute variable in the shader program
+	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+
+	// NOTE: enable the attribute
+	glEnableVertexAttribArray(texAttrib);
+
+	/* END SET VERTEX INFORMATION */
+	// ========================================================================
+
+	/* SET ELEMENT INFORMATION */
+	// ========================================================================
+
+	// NOTE: index into the raw vertex array
+	GLuint* elements = new GLuint[m_iMaxNumIndices0];
+	memset(elements, 0, m_iMaxNumIndices0*sizeof(GLuint));
+
+	for(int i=0; i<m_iMaxNumIndices0; i++) {
+		elements[i] = (GLuint) m_pIndices0[i];
+	}
+
+	// NOTE: bind to the element buffer so that we may send our data to the GPU
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
+
+	// NOTE: send our element data to the GPU and set as STAIC
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_iMaxNumIndices0*sizeof(GLuint), elements, GL_STATIC_DRAW);
+
+	delete elements;
+
+	/* END SET ELEMENT INFORMATION */
+	// ========================================================================
+
+	/* SET TEXTURE INFORMATION */
+	// ========================================================================
+
+	// NOTE: set the texture to unit 0
+	glActiveTexture(GL_TEXTURE0);
+
+	// NOTE: bind to the texture so that we may send our data to the GPU
+	glBindTexture(GL_TEXTURE_2D, tex);
+
+	// NOTE: send the pixels to the GPU (will have to convert enums from dxd to
+	// opengl)
+	GLenum texFormat;
+	switch(HeaderOrg.Format) {
+		case D3DFMT_DXT1: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+		} break;
+		case D3DFMT_DXT3: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+		} break;
+		case D3DFMT_DXT5: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+		} break;
+		default: {
+			fprintf(stderr, "\nHERE\n");
+			fprintf(stderr, "\nERROR: Unknown texture format.\n");
+			system("pause");
+			exit(-1);
+		} break;
+	}
+
+	glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
+
+	// NOTE: bind the uniform "tex" in the fragment shader to the unit 0
+	// texture
+	glUniform1i(glGetUniformLocation(shaderProgram, "tex"), 0);
+
+	// NOTE: generate the mipmaps for scaling
+	/*
+	- can probably get rid of this when I'm loading all iMMC
+	*/
+	glGenerateMipmapEXT(GL_TEXTURE_2D);
+
+	/* END SET TEXTURE INFORMATION */
+	// ========================================================================
+
+	m_sw->redraw();
 }
 
 void ItemTableView::draw_cell(TableContext context,
@@ -994,6 +1342,7 @@ int main(int argc, char** argv) {
 	Fl_Window window(1024, 720);
 
 	shape_window sw(window.w()-(_gl_width+10), 10, _gl_width, _gl_height);
+	m_sw = &sw;
 
 	ItemTableView demo_table(10, 10, window.w()-(_gl_width+30), _gl_height);
 	demo_table.selection_color(FL_YELLOW);
