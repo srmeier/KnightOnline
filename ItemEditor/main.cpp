@@ -37,6 +37,17 @@ const int _gl_width = 380;
 const int _gl_height = 1024/3;
 
 //-----------------------------------------------------------------------------
+enum e_ItemType {
+	ITEM_TYPE_PLUG = 1,
+	ITEM_TYPE_PART,
+	ITEM_TYPE_ICONONLY,
+	ITEM_TYPE_GOLD = 9,
+	ITEM_TYPE_SONGPYUN = 10,
+	ITEM_TYPE_UNKNOWN = 0xffffffff
+};
+
+e_ItemType eType;
+
 GLuint verArray;
 GLuint verBuffer;
 GLuint eleBuffer;
@@ -45,6 +56,37 @@ GLuint shaderProgram;
 class shape_window* m_sw;
 
 //-----------------------------------------------------------------------------
+struct __VertexSkinned {
+	glm::vec3 vOrigin;
+	int nAffect;
+	int* pnJoints;
+	float* pfWeights;
+
+	__VertexSkinned() {memset(this, 0, sizeof(__VertexSkinned));}
+	~__VertexSkinned() {delete [] pnJoints; delete [] pfWeights;}
+};
+
+struct __VertexXyzNormal : public glm::vec3 {
+public:
+	glm::vec3 n;
+public:
+	void Set(const glm::vec3& p, const glm::vec3& sn) {x = p.x; y = p.y; z = p.z; n = sn;}
+	void Set(float xx, float yy, float zz, float nxx, float nyy, float nzz) {
+		x = xx; y = yy; z = zz; n.x = nxx; n.y = nyy; n.z = nzz;
+	}
+
+	const __VertexXyzNormal& operator = (const glm::vec3& vec) {
+		x = vec.x; y = vec.y; z = vec.z;
+		return *this;
+	}
+
+	__VertexXyzNormal() {}
+	__VertexXyzNormal(const glm::vec3& p, const glm::vec3& n) {this->Set(p, n);}
+	__VertexXyzNormal(float sx, float sy, float sz, float xx, float yy, float zz) {
+		this->Set(sx, sy, sz, xx, yy, zz);
+	}
+};
+
 struct _N3Material {
 	unsigned char data[92];
 };
@@ -99,17 +141,6 @@ bool debugMode = true;
 
 //-----------------------------------------------------------------------------
 void N3LoadTexture(char* szFN) {
-
-	// NOTE: have to perform this check because for some reason these filenames suffer from this
-	int i = (strlen(szFN)-1);
-	for(; i>=2; --i) {
-		if((szFN[i-2]=='d'||szFN[i-2]=='D')&&(szFN[i-1]=='x'||szFN[i]=='X')&&(szFN[i]=='t'||szFN[i]=='T') ) {
-			break;
-		}
-	}
-
-	szFN[i+1] = '\0';
-
 	FILE* fpTexture = fopen(szFN, "rb");
 	if(fpTexture == NULL) {
 		fprintf(stderr, "ERROR: Missing texture %s\n", szFN);
@@ -424,7 +455,7 @@ bool CN3CPlugBase_Load(FILE* hFile) {
 
 	fread(&nL, sizeof(int), 1, hFile);
 	if(nL > 0) {
-		fread(szFN, sizeof(char), nL, hFile);
+		fread(szFN, sizeof(char), nL, hFile); szFN[nL] = '\0';
 		N3LoadTexture(szFN); //this->TexSet(szFN);
 	}	
 
@@ -468,9 +499,155 @@ bool CN3CPlug_Load(FILE* hFile) {
 }
 
 //-----------------------------------------------------------------------------
+int m_nVC;
+int m_nFC;
+int m_nUVC;
+
+__VertexSkinned* m_pSkinVertices;
+__VertexXyzNormal* m_pVertices;
+WORD* m_pwVtxIndices;
+float* m_pfUVs;
+WORD* m_pwUVsIndices;
+
+bool CN3IMesh_Create(int nFC, int nVC, int nUVC) {
+	if(nFC<=0 || nVC<=0) return false;
+
+	m_nFC = nFC;
+	m_nVC = nVC;
+
+	if(m_pVertices) delete m_pVertices;
+	if(m_pwVtxIndices) delete m_pwVtxIndices;
+	if(m_pfUVs) delete m_pfUVs;
+	if(m_pwUVsIndices) delete m_pwUVsIndices;
+
+	m_pVertices = new __VertexXyzNormal[nVC]; memset(m_pVertices, 0, sizeof(__VertexXyzNormal) * nVC);
+	m_pwVtxIndices = new WORD[nFC*3]; memset(m_pwVtxIndices, 0, 2 * nFC * 3); // unsigned short
+
+	if(nUVC > 0) {
+		m_nUVC = nUVC;
+		m_pfUVs = new float[nUVC*2]; memset(m_pfUVs, 0, 8 * nUVC);
+		m_pwUVsIndices = new WORD[nFC*3]; memset(m_pwUVsIndices, 0, 2 * nFC * 3); // unsigned short
+	}
+
+	return true;
+}
+
+bool CN3Skin_Create(int nFC, int nVC, int nUVC) {
+	if(false == CN3IMesh_Create(nFC, nVC, nUVC)) return false;
+
+	delete [] m_pSkinVertices;
+	m_pSkinVertices = new __VertexSkinned[nVC];
+	memset(m_pSkinVertices, 0, sizeof(__VertexSkinned)*nVC);
+
+	return true;
+}
+
+bool CN3IMesh_Load(FILE* hFile) {
+	CN3BaseFileAccess_Load(hFile);
+
+	int nFC = 0, nVC = 0, nUVC = 0;
+
+	fread(&nFC, sizeof(int), 1, hFile);
+	fread(&nVC, sizeof(int), 1, hFile);
+	fread(&nUVC, sizeof(int), 1, hFile);
+
+	if(nFC > 0 && nVC > 0) {
+		CN3Skin_Create(nFC, nVC, nUVC);
+
+		fread(m_pVertices, sizeof(__VertexXyzNormal), nVC, hFile);
+		fread(m_pwVtxIndices, 2*3, nFC, hFile);
+	}
+
+	if(m_nUVC > 0) {
+		fread(m_pfUVs, 8, nUVC, hFile);
+		fread(m_pwUVsIndices, 2*3, nFC, hFile);
+	}
+
+	//this->FindMinMax();
+
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+bool CN3Skin_Load(FILE* hFile) {
+	/*
+	for(int i = 0; i < m_nVC; i++) {
+		if(m_pSkinVertices[i].pnJoints) delete m_pSkinVertices[i].pnJoints;
+		if(m_pSkinVertices[i].pfWeights) delete m_pSkinVertices[i].pfWeights;
+	}
+	*/
+
+	CN3IMesh_Load(hFile);
+
+	// NOTE: will need this if planning to go to other LODs because I have to get past this info...
+	/*
+	for(int i = 0; i < m_nVC; i++) {
+		fread(&m_pSkinVertices[i], sizeof(__VertexSkinned), 1, hFile);
+		m_pSkinVertices[i].pnJoints = NULL;
+		m_pSkinVertices[i].pfWeights = NULL;
+
+		int nAffect = m_pSkinVertices[i].nAffect;
+		if(nAffect > 1) {
+			m_pSkinVertices[i].pnJoints = new int[nAffect];
+			m_pSkinVertices[i].pfWeights = new float[nAffect];
+
+			ReadFile(hFile, m_pSkinVertices[i].pnJoints, 4 * nAffect, &dwRWC, NULL);
+			ReadFile(hFile, m_pSkinVertices[i].pfWeights, 4 * nAffect, &dwRWC, NULL);
+		} else if(nAffect == 1) {
+			m_pSkinVertices[i].pnJoints = new int[1];
+			ReadFile(hFile, m_pSkinVertices[i].pnJoints, 4, &dwRWC, NULL);
+		}
+	}
+	*/
+
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+bool CN3CPart_Load(FILE* hFile) {
+	CN3BaseFileAccess_Load(hFile);
+
+	int nL = 0;
+	char szFN[256] = "";
+
+	int m_dwReserved;
+	fread(&m_dwReserved, sizeof(int), 1, hFile);
+	_N3Material m_MtlOrg;
+	fread(&m_MtlOrg, sizeof(_N3Material), 1, hFile);
+
+	fread(&nL, sizeof(int), 1, hFile);
+	if(nL > 0) {
+		fread(szFN, sizeof(char), nL, hFile);
+		N3LoadTexture(szFN); //CN3CPart_TexSet(szFN);
+	}
+
+	fread(&nL, sizeof(int), 1, hFile);
+	if(nL > 0) {
+		fread(szFN, sizeof(char), nL, hFile); szFN[nL] = '\0';
+		//s_MngSkins.Delete(&m_pSkinsRef);
+		//m_pSkinsRef = s_MngSkins.Get(szFN);
+
+		FILE* fpSkin = fopen(szFN, "rb");
+		if(fpSkin == NULL) {
+			fprintf(stderr, "\nERROR: Missing skin %s\n", szFN);
+			//system("pause");
+			return false; //exit(-1);
+		}
+
+		CN3BaseFileAccess_Load(fpSkin);
+		//for(int i=0; i<4; ++i) {
+			// NOTE: just load the first LOD
+			CN3Skin_Load(fpSkin);
+		//}
+	}
+
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 struct _ITEM_TABLE {
 	SQLUINTEGER m_iNum;
-	SQLCHAR m_sName[(25+1)];
+	SQLCHAR m_sName[(NAME_LENGTH+1)];
 	SQLCHAR m_bKind;
 	SQLCHAR m_bSlot;
 	SQLCHAR m_bRace;
@@ -589,15 +766,6 @@ enum e_Race {
 	RACE_EL_WOMEN = 13,
 	RACE_NPC = 100,
 	RACE_UNKNOWN = 0xffffffff
-};
-
-enum e_ItemType {
-	ITEM_TYPE_PLUG = 1,
-	ITEM_TYPE_PART,
-	ITEM_TYPE_ICONONLY,
-	ITEM_TYPE_GOLD = 9,
-	ITEM_TYPE_SONGPYUN = 10,
-	ITEM_TYPE_UNKNOWN = 0xffffffff
 };
 
 enum e_PartPosition	{
@@ -894,13 +1062,10 @@ void shape_window::build_shader(void) {
 	// NOTE: create a vertex array object to store all the relationships
 	// between vertex buffer objects and shader program attributes
 	glGenVertexArrays(1, &verArray);
-
 	// NOTE: allocate an array buffer on the GPU
 	glGenBuffers(1, &verBuffer);
-
 	// NOTE: allocate a GPU buffer for the element data
 	glGenBuffers(1, &eleBuffer);
-
 	// NOTE: allocate a GPU texture
 	glGenTextures(1, &tex);
 }
@@ -921,7 +1086,7 @@ void shape_window::draw(void) {
 		GLint uniModel = glGetUniformLocation(shaderProgram, "model");
 		glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
-		float pDist = 1.2f;//4.2f;
+		float pDist = 3.5f;//4.2f;
 		float pDistP = 0.2f;
 
 		glm::mat4 view = glm::lookAt(
@@ -948,21 +1113,9 @@ void shape_window::draw(void) {
 		glViewport(0, 0, pixel_w(), pixel_h());
 	}
 
-	//glClear(GL_COLOR_BUFFER_BIT);
-
 	// NOTE: clear the screen buffer
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-	/*
-	glBegin(GL_POLYGON);
-	for(int i=0; i<sides; ++i) {
-		double ang = i*2*M_PI/sides;
-		glColor3f(float(i)/sides, float(i)/sides, float(i)/sides);
-		glVertex3f(cos(ang), sin(ang), 0.0f);
-	}
-	glEnd();
-	*/
 
 	// TODO: would like a continuous rotation
 	model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -970,40 +1123,18 @@ void shape_window::draw(void) {
 	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
 
 	// NOTE: draw to the screen
-	glDrawElements(GL_TRIANGLES, m_iMaxNumIndices0, GL_UNSIGNED_INT, 0);
-}
+	if(eType == ITEM_TYPE_PLUG) {
 
-/*
-void shape_window::draw_overlay(void) {
-	if(!valid()) {
-		valid(1);
-		glLoadIdentity();
-		glViewport(0, 0, pixel_w(), pixel_h());
+		glDrawElements(GL_TRIANGLES, m_iMaxNumIndices0, GL_UNSIGNED_INT, 0);
+
+	} else if(eType == ITEM_TYPE_PART) {
+		
+		glDrawElements(GL_TRIANGLES, 3*m_nFC, GL_UNSIGNED_INT, 0);
+
+	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
+		return;
 	}
-
-	gl_color(FL_RED);
-	glBegin(GL_LINE_LOOP);
-	for(int i=0; i<overlay_sides; ++i) {
-		double ang = i*2*M_PI/overlay_sides;
-		glVertex3f(cos(ang), sin(ang), 0.0f);
-	}
-	glEnd();
 }
-
-//-----------------------------------------------------------------------------
-void sides_cb(Fl_Widget* widget, void* data) {
-	shape_window* sw = (shape_window*)data;
-	sw->sides = int(((Fl_Slider*)widget)->value());
-	sw->redraw();
-}
-
-//-----------------------------------------------------------------------------
-void overlay_sides_cb(Fl_Widget* widget, void* data) {
-	shape_window* sw = (shape_window*)data;
-	sw->overlay_sides = int(((Fl_Slider*)widget)->value());
-	sw->redraw_overlay();
-}
-*/
 
 //-----------------------------------------------------------------------------
 class ItemTableView: public Fl_Table_Row {
@@ -1064,19 +1195,71 @@ void ItemTableView::event_callback_update_opengl(void) {
 	e_PartPosition ePartPosTmp = PART_POS_UNKNOWN;
 	e_PlugPosition ePlugPosTmp = PLUG_POS_UNKNOWN;
 
-	MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_ALL);
+	eType = MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_ALL);
 	printf("%s\n", szResrcFN.c_str());
 	printf("--------------------\n");
 
-	FILE* pFile = fopen(szResrcFN.c_str(), "rb");
-	if(pFile == NULL) {
-		fprintf(stderr, "ERROR: Missing N3Plug %s\n", szResrcFN.c_str());
-		//system("pause");
-		return; //exit(-1);
-	}
+	if(eType == ITEM_TYPE_PLUG) {
+		FILE* pFile = fopen(szResrcFN.c_str(), "rb");
+		if(pFile == NULL) {
+			fprintf(stderr, "ERROR: Missing N3Plug %s\n", szResrcFN.c_str());
+			//system("pause");
+			return; //exit(-1);
+		}
 
-	CN3CPlug_Load(pFile);
-	fclose(pFile);
+		CN3CPlug_Load(pFile);
+		fclose(pFile);
+	} else if(eType == ITEM_TYPE_PART) {
+		FILE* pFile = fopen(szResrcFN.c_str(), "rb");
+		if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_ARKTUAREK);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_WOMEN);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_MAN);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_EL_BABARIAN);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_PURITUAREK);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_WRINKLETUAREK);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_KA_TUAREK);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+			MakeResrcFileNameForUPC(pItem, &szResrcFN, NULL, ePartPosTmp, ePlugPosTmp, RACE_NPC);
+			printf("%s\n", szResrcFN.c_str());
+			pFile = fopen(szResrcFN.c_str(), "rb");
+			if(pFile == NULL) {
+				fprintf(stderr, "ERROR: Missing N3Part %s\n", szResrcFN.c_str());
+				//system("pause");
+				return; //exit(-1);
+			}
+			}}}}}}}
+		}
+
+		CN3CPart_Load(pFile);
+		fclose(pFile);
+	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
+		printf("Implement this!\n");
+		return;
+	} else {
+		printf("Unknown item type!\n");
+		return;
+	}
 
 	printf("--------------------\n");
 
@@ -1099,98 +1282,112 @@ void ItemTableView::event_callback_update_opengl(void) {
 	printf("%s\n", szResrcFN.c_str());
 	*/
 
-	/* SET VERTEX INFORMATION */
 	// ========================================================================
 
-	// NOTE: bind to this vertex array when establishing all the connections
-	// for the shaderProgram
 	glBindVertexArray(verArray);
-	/*
-	- if I every need to switch raw vertex data to program attributes all I
-		need to do is bind a different vertex array object
-	*/
 
-	// NOTE: vertices for a triangle (clockwise)
-	GLfloat* vertices = new GLfloat[5*m_iMaxNumVertices0];
-	memset(vertices, 0, 5*m_iMaxNumVertices0);
+	if(eType == ITEM_TYPE_PLUG) {
 
-	for(int i=0; i<m_iMaxNumVertices0; i++) {
-		vertices[5*i+0] = m_pVertices0[i].x;
-		vertices[5*i+1] = m_pVertices0[i].y;
-		vertices[5*i+2] = m_pVertices0[i].z;
+		// NOTE: vertices for a triangle (clockwise)
+		GLfloat* vertices = new GLfloat[5*m_iMaxNumVertices0];
+		memset(vertices, 0, 5*m_iMaxNumVertices0);
+		for(int i=0; i<m_iMaxNumVertices0; i++) {
+			vertices[5*i+0] = m_pVertices0[i].x;
+			vertices[5*i+1] = m_pVertices0[i].y;
+			vertices[5*i+2] = m_pVertices0[i].z;
 
-		vertices[5*i+3] = m_pVertices0[i].tu;
-		vertices[5*i+4] = m_pVertices0[i].tv;
+			vertices[5*i+3] = m_pVertices0[i].tu;
+			vertices[5*i+4] = m_pVertices0[i].tv;
+		}
+
+		// NOTE: bind to the array buffer so that we may send our data to the GPU
+		glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
+		// NOTE: send our vertex data to the GPU and set as STAIC
+		glBufferData(GL_ARRAY_BUFFER, 5*m_iMaxNumVertices0*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+		delete vertices;
+
+		GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(posAttrib);
+
+		GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+		glEnableVertexAttribArray(texAttrib);
+
+		// NOTE: index into the raw vertex array
+		GLuint* elements = new GLuint[m_iMaxNumIndices0];
+		memset(elements, 0, m_iMaxNumIndices0*sizeof(GLuint));
+		for(int i=0; i<m_iMaxNumIndices0; i++) {
+			elements[i] = (GLuint) m_pIndices0[i];
+		}
+
+		// NOTE: bind to the element buffer so that we may send our data to the GPU
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
+		// NOTE: send our element data to the GPU and set as STAIC
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_iMaxNumIndices0*sizeof(GLuint), elements, GL_STATIC_DRAW);
+		delete elements;
+
+	} else if(eType == ITEM_TYPE_PART) {
+
+		/*
+		m_pVertices;
+		m_pwVtxIndices;
+		m_pfUVs;
+		m_pwUVsIndices;
+
+		m_nVC;
+		m_nFC;
+		m_nUVC;
+		*/
+
+		// NOTE: vertices for a triangle (clockwise)
+		GLfloat* vertices = new GLfloat[5*3*m_nFC];
+		memset(vertices, 0, 5*3*m_nFC);
+
+		for(int i=0; i<3*m_nFC; i++) {
+			vertices[5*i+0] = m_pVertices[m_pwVtxIndices[i]].x;
+			vertices[5*i+1] = m_pVertices[m_pwVtxIndices[i]].y;
+			vertices[5*i+2] = m_pVertices[m_pwVtxIndices[i]].z;
+
+			vertices[5*i+3] = m_pfUVs[2*m_pwUVsIndices[i]+0];
+			vertices[5*i+4] = m_pfUVs[2*m_pwUVsIndices[i]+1];
+		}
+
+		// NOTE: bind to the array buffer so that we may send our data to the GPU
+		glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
+		// NOTE: send our vertex data to the GPU and set as STAIC
+		glBufferData(GL_ARRAY_BUFFER, 5*3*m_nFC*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+		delete vertices;
+
+		GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(posAttrib);
+
+		GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+		glEnableVertexAttribArray(texAttrib);
+
+		// NOTE: index into the raw vertex array
+		GLuint* elements = new GLuint[3*m_nFC];
+		memset(elements, 0, 3*m_nFC*sizeof(GLuint));
+		for(int i=0; i<3*m_nFC; i++) {
+			elements[i] = (GLuint) (i);
+		}
+
+		// NOTE: bind to the element buffer so that we may send our data to the GPU
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
+		// NOTE: send our element data to the GPU and set as STAIC
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*m_nFC*sizeof(GLuint), elements, GL_STATIC_DRAW);
+		delete elements;
+
+	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
+		return;
 	}
-
-	// NOTE: bind to the array buffer so that we may send our data to the GPU
-	glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
-
-	// NOTE: send our vertex data to the GPU and set as STAIC
-	glBufferData(GL_ARRAY_BUFFER, 5*m_iMaxNumVertices0*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
-
-	delete vertices;
-
-	// NOTE: get a pointer to the position attribute variable in the shader
-	// program
-	GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
-
-	// NOTE: specify the stride (spacing) and offset for array buffer which
-	// will be used in place of the attribute variable in the shader program
-	glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
-	/*
-	- this function call automatically directs the array buffer bound to
-		GL_ARRAY_BUFFER towards the attribute in the shader program
-	*/
-
-	// NOTE: enable the attribute
-	glEnableVertexAttribArray(posAttrib);
-
-	// NOTE: get a pointer to the position attribute variable in the shader
-	// program
-	GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
-
-	// NOTE: specify the stride (spacing) and offset for array buffer which
-	// will be used in place of the attribute variable in the shader program
-	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
-
-	// NOTE: enable the attribute
-	glEnableVertexAttribArray(texAttrib);
-
-	/* END SET VERTEX INFORMATION */
-	// ========================================================================
-
-	/* SET ELEMENT INFORMATION */
-	// ========================================================================
-
-	// NOTE: index into the raw vertex array
-	GLuint* elements = new GLuint[m_iMaxNumIndices0];
-	memset(elements, 0, m_iMaxNumIndices0*sizeof(GLuint));
-
-	for(int i=0; i<m_iMaxNumIndices0; i++) {
-		elements[i] = (GLuint) m_pIndices0[i];
-	}
-
-	// NOTE: bind to the element buffer so that we may send our data to the GPU
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
-
-	// NOTE: send our element data to the GPU and set as STAIC
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_iMaxNumIndices0*sizeof(GLuint), elements, GL_STATIC_DRAW);
-
-	delete elements;
-
-	/* END SET ELEMENT INFORMATION */
-	// ========================================================================
-
-	/* SET TEXTURE INFORMATION */
-	// ========================================================================
 
 	// NOTE: set the texture to unit 0
 	glActiveTexture(GL_TEXTURE0);
-
 	// NOTE: bind to the texture so that we may send our data to the GPU
 	glBindTexture(GL_TEXTURE_2D, tex);
-
 	// NOTE: send the pixels to the GPU (will have to convert enums from dxd to
 	// opengl)
 	GLenum texFormat;
@@ -1214,19 +1411,10 @@ void ItemTableView::event_callback_update_opengl(void) {
 	}
 
 	glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
-
 	// NOTE: bind the uniform "tex" in the fragment shader to the unit 0
 	// texture
 	glUniform1i(glGetUniformLocation(shaderProgram, "tex"), 0);
-
-	// NOTE: generate the mipmaps for scaling
-	/*
-	- can probably get rid of this when I'm loading all iMMC
-	*/
 	glGenerateMipmapEXT(GL_TEXTURE_2D);
-
-	/* END SET TEXTURE INFORMATION */
-	// ========================================================================
 
 	m_sw->redraw();
 }
@@ -1234,8 +1422,8 @@ void ItemTableView::event_callback_update_opengl(void) {
 void ItemTableView::draw_cell(TableContext context,
 	int r, int c, int x, int y, int w, int h
 ) {
-	static char s[(25+1)];
-	memset(s, 0x00, (25+1)*sizeof(char));
+	static char s[(NAME_LENGTH+1)];
+	memset(s, 0x00, (NAME_LENGTH+1)*sizeof(char));
 
 	_ITEM_TABLE* item = NULL;
 
@@ -1325,7 +1513,7 @@ int main(int argc, char** argv) {
 	//----
 	SQLHANDLE hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hConn, &hStmt);
-	if(SQLExecDirect(hStmt, _T("SELECT TOP(10000) Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {
+	if(SQLExecDirect(hStmt, _T("SELECT Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {//TOP(10000)
 		printf("SQLExecDirect\n");
 		system("pause");
 		return -1;
@@ -1338,7 +1526,7 @@ int main(int argc, char** argv) {
 		_ITEM_TABLE* item = new _ITEM_TABLE();
 
 		SQLGetData(hStmt, 1, SQL_C_ULONG, &(item->m_iNum), sizeof(SQLUINTEGER), &cbData);
-		SQLGetData(hStmt, 2, SQL_C_CHAR, item->m_sName, 25, &cbData);
+		SQLGetData(hStmt, 2, SQL_C_CHAR, item->m_sName, NAME_LENGTH, &cbData);
 
 		ItemTableMap.PutData(count++, item);
 
