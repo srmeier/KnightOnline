@@ -12,6 +12,7 @@
 #include <sqltypes.h>
 
 #include "STLMap.h"
+#include "N3TableBase.h"
 
 #include "config.h"
 #include "fl/fl.h"
@@ -30,7 +31,7 @@ const int _gl_height = 1024/3;
 //-----------------------------------------------------------------------------
 struct _ITEM_TABLE {
 	SQLUINTEGER m_iNum;
-	SQLCHAR* m_sName;
+	SQLCHAR m_sName[(25+1)];
 	SQLCHAR m_bKind;
 	SQLCHAR m_bSlot;
 	SQLCHAR m_bRace;
@@ -90,13 +91,52 @@ struct _ITEM_TABLE {
 	_ITEM_TABLE(void) {
 		memset(this, 0x00, sizeof(_ITEM_TABLE));
 	}
-
-	~_ITEM_TABLE(void) {
-		if(m_sName) free(m_sName);
-	}
 };
 
 CSTLMap<_ITEM_TABLE> ItemTableMap;
+
+//-----------------------------------------------------------------------------
+typedef struct __TABLE_ITEM_BASIC {
+	DWORD dwID;
+	BYTE byExtIndex;
+	std::string szName;
+	std::string szRemark;
+	DWORD dwIDK0;
+	BYTE byIDK1;
+	DWORD dwIDResrc;
+	DWORD dwIDIcon;
+	DWORD dwSoundID0;
+	DWORD dwSoundID1;
+	BYTE byClass;
+	BYTE byIsRobeType;
+	BYTE byAttachPoint;
+	BYTE byNeedRace;
+	BYTE byNeedClass;
+	short siDamage;
+	short siAttackInterval;
+	short siAttackRange;
+	short siWeight;
+	short siMaxDurability;
+	int iPrice;
+	int iPriceSale;
+	short siDefense;
+	BYTE byContable;
+	DWORD dwEffectID1;
+	DWORD dwEffectID2;
+	char cNeedLevel;
+	char cIDK2;
+	BYTE byNeedRank;
+	BYTE byNeedTitle;
+	BYTE byNeedStrength;
+	BYTE byNeedStamina;
+	BYTE byNeedDexterity;
+	BYTE byNeedInteli;
+	BYTE byNeedMagicAttack;
+	BYTE bySellGroup;
+	BYTE byIDK3;
+} TABLE_ITEM_BASIC;
+
+CN3TableBase<__TABLE_ITEM_BASIC>* s_pTbl_Items_Basic;
 
 //-----------------------------------------------------------------------------
 class shape_window: public Fl_Gl_Window {
@@ -194,8 +234,8 @@ public:
 void ItemTableView::draw_cell(TableContext context,
 	int r, int c, int x, int y, int w, int h
 ) {
-	static char s[40];
-	memset(s, 0x00, 40*sizeof(char));
+	static char s[(25+1)];
+	memset(s, 0x00, (25+1)*sizeof(char));
 
 	_ITEM_TABLE* item = NULL;
 
@@ -205,7 +245,8 @@ void ItemTableView::draw_cell(TableContext context,
 			return;
 		case CONTEXT_COL_HEADER:
 			switch(c) {
-				case 0: strcpy(s, "Num"); break;
+				case 0: strcpy(s, "Num");     break;
+				case 1: strcpy(s, "strName"); break;
 			}
 
 			fl_push_clip(x, y, w, h);
@@ -229,14 +270,32 @@ void ItemTableView::draw_cell(TableContext context,
 			return;
 		case CONTEXT_CELL:
 			item = ItemTableMap.GetData(r);
-			sprintf(s, "%d", item->m_iNum);
+			switch(c) {
+				case 0: sprintf(s, "  %d", item->m_iNum);  break;
+				case 1: sprintf(s, "  %s", item->m_sName); break;
+			}
+
+			// TODO: set the click callback, don't do this for every draw call
+			if(row_selected(r) && (c==0)) {
+				__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic->Find(item->m_iNum/1000*1000);
+
+				if(pItem) {
+					printf("--------------------\n");
+					printf("%s:\n", pItem->szName.c_str());
+					printf("\tdwID:\t\t%d\n", pItem->dwID);
+					printf("\tbyExtIndex:\t%d\n", pItem->byExtIndex);
+					printf("\tszRemark:\t%s\n", pItem->szRemark.c_str());
+				} else {
+					printf("Item is missing from TBL!\n");
+				}
+			}
 
 			fl_push_clip(x, y, w, h);
 			{
 				fl_color(row_selected(r) ? selection_color() : cell_bgcolor);
 				fl_rectf(x, y, w, h);
 				fl_color(cell_fgcolor);
-				fl_draw(s, x, y, w, h, FL_ALIGN_CENTER);
+				fl_draw(s, x, y, w, h, FL_ALIGN_LEFT);
 				fl_color(color());
 				fl_rect(x, y, w, h);
 			}
@@ -256,6 +315,17 @@ void ItemTableView::draw_cell(TableContext context,
 int main(int argc, char** argv) {
 
 	//----
+
+	s_pTbl_Items_Basic = new CN3TableBase<__TABLE_ITEM_BASIC>;
+
+	std::string szFN = "Item_Org.tbl";
+	if(s_pTbl_Items_Basic->LoadFromFile(szFN.c_str()) == false) {
+		printf("Failed to load Item_Org.tbl\n");
+		system("pause");
+		return -1;
+	}
+
+	//----
 	SQLHANDLE hEnv, hConn;
 
 	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
@@ -270,7 +340,7 @@ int main(int argc, char** argv) {
 	//----
 	SQLHANDLE hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hConn, &hStmt);
-	if(SQLExecDirect(hStmt, _T("SELECT TOP(10) Num FROM ITEM;"), SQL_NTS) == SQL_ERROR) {
+	if(SQLExecDirect(hStmt, _T("SELECT TOP(5000) Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {
 		printf("SQLExecDirect\n");
 		system("pause");
 		return -1;
@@ -279,16 +349,16 @@ int main(int argc, char** argv) {
 	long count = 0;
 	SQLINTEGER cbData;
 	while(SQLFetch(hStmt) == SQL_SUCCESS) {
-		//item_table = (ITEM_ROW*)realloc(item_table, ++item_table_count*sizeof(ITEM_ROW));
-		//ITEM_ROW* item = &item_table[item_table_count-1];
-		//memset(item, 0x00, sizeof(ITEM_ROW));
-
-		//SQLGetData(hStmt, 1, SQL_C_LONG, &(item->Num), sizeof(long), &cbData);
 
 		_ITEM_TABLE* item = new _ITEM_TABLE();
+
 		SQLGetData(hStmt, 1, SQL_C_ULONG, &(item->m_iNum), sizeof(SQLUINTEGER), &cbData);
+		SQLGetData(hStmt, 2, SQL_C_CHAR, item->m_sName, 25, &cbData);
 
 		ItemTableMap.PutData(count++, item);
+
+		__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic->Find(item->m_iNum/1000*1000);
+		if(!pItem) printf("Item \"%s\" is missing from the TBL!\n", item->m_sName);
 	}
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
@@ -322,8 +392,8 @@ int main(int argc, char** argv) {
 	demo_table.col_header(true);
 	demo_table.col_header_height(25);
 	demo_table.col_resize(true);
-	demo_table.cols(1);
-	demo_table.col_width_all(80);
+	demo_table.cols(2);
+	demo_table.col_width_all(150);
 
 	window.end();
 	window.show(argc, argv);

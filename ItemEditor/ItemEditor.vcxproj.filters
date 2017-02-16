@@ -23,5 +23,8 @@
     <ClInclude Include="STLMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="N3TableBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
