@@ -25,3 +25,4 @@ Client/N3Base/Tool_Release/N3Base_tool.lib
 Server/bin/Debug/Lua.lib
 Server/bin/Debug/shared.lib
 Client/N3Base/Release/N3Base.lib
+ItemEditor/Item/
