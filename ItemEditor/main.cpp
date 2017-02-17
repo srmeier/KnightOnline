@@ -14,12 +14,6 @@
 #include "STLMap.h"
 #include "N3TableBase.h"
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
-
-#include "GL/glew.h"
-
 #include "config.h"
 #include "fl/fl.h"
 #include "fl/fl_window.h"
@@ -27,9 +21,11 @@
 #include "fl/fl_toggle_button.h"
 #include "fl/math.h"
 #include "fl/fl_draw.H"
-#include "fl/gl.h"
-#include "fl/fl_gl_window.h"
 #include "fl/fl_table_row.H"
+
+#include "GLItemViewer.h"
+
+
 
 #define NAME_LENGTH 0xFFF
 
