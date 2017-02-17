@@ -18,12 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GLItemViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="STLMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="N3TableBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GLItemViewer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
