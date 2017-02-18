@@ -1,135 +1,26 @@
 /*
 */
 
-#include <windows.h>
-#include <tchar.h>
-
-#include <string>
-#include <vector>
-
-#include <sql.h>
-#include <sqlext.h>
-#include <sqltypes.h>
+#include "defines.h"
 
 #include "STLMap.h"
 #include "N3TableBase.h"
 
-#include "config.h"
-#include "fl/fl.h"
-#include "fl/fl_window.h"
 #include "fl/fl_hor_slider.h"
 #include "fl/fl_toggle_button.h"
-#include "fl/math.h"
 #include "fl/fl_draw.H"
 #include "fl/fl_table_row.H"
 
 #include "GLItemViewer.h"
 
-
-
-#define NAME_LENGTH 0xFFF
-
 const int _gl_width = 380;
 const int _gl_height = 1024/3;
 
 //-----------------------------------------------------------------------------
-enum e_ItemType {
-	ITEM_TYPE_PLUG = 1,
-	ITEM_TYPE_PART,
-	ITEM_TYPE_ICONONLY,
-	ITEM_TYPE_GOLD = 9,
-	ITEM_TYPE_SONGPYUN = 10,
-	ITEM_TYPE_UNKNOWN = 0xffffffff
-};
-
 e_ItemType eType;
-
-GLuint verArray;
-GLuint verBuffer;
-GLuint eleBuffer;
-GLuint tex;
-GLuint shaderProgram;
-class shape_window* m_sw;
+class GLItemViewer* m_sw;
 
 //-----------------------------------------------------------------------------
-struct __VertexSkinned {
-	glm::vec3 vOrigin;
-	int nAffect;
-	int* pnJoints;
-	float* pfWeights;
-
-	__VertexSkinned() {memset(this, 0, sizeof(__VertexSkinned));}
-	~__VertexSkinned() {delete [] pnJoints; delete [] pfWeights;}
-};
-
-struct __VertexXyzNormal : public glm::vec3 {
-public:
-	glm::vec3 n;
-public:
-	void Set(const glm::vec3& p, const glm::vec3& sn) {x = p.x; y = p.y; z = p.z; n = sn;}
-	void Set(float xx, float yy, float zz, float nxx, float nyy, float nzz) {
-		x = xx; y = yy; z = zz; n.x = nxx; n.y = nyy; n.z = nzz;
-	}
-
-	const __VertexXyzNormal& operator = (const glm::vec3& vec) {
-		x = vec.x; y = vec.y; z = vec.z;
-		return *this;
-	}
-
-	__VertexXyzNormal() {}
-	__VertexXyzNormal(const glm::vec3& p, const glm::vec3& n) {this->Set(p, n);}
-	__VertexXyzNormal(float sx, float sy, float sz, float xx, float yy, float zz) {
-		this->Set(sx, sy, sz, xx, yy, zz);
-	}
-};
-
-struct _N3Material {
-	unsigned char data[92];
-};
-
-struct _N3Matrix44 {
-	unsigned char data[64];
-};
-
-struct _N3VertexT1: public glm::vec3 {
-	glm::vec3 n;
-	float tu, tv;
-};
-
-struct _N3TexHeader {
-	char szID[4];
-	int nWidth;
-	int nHeight;
-	int Format;
-	bool bMipMap;
-};
-
-struct _N3EdgeCollapse {
-	int NumIndicesToLose;
-	int NumIndicesToChange;
-	int NumVerticesToLose;
-	int iIndexChanges;
-	int CollapseTo;
-	bool bShouldCollapse;
-};
-
-struct _N3LODCtrlValue {
-	float fDist;
-	int iNumVertices;
-};
-
-enum _D3DFORMAT {
-	D3DFMT_UNKNOWN,
-	D3DFMT_DXT1 = 827611204,
-	D3DFMT_DXT3 = 861165636,
-	D3DFMT_DXT5 = 894720068,
-	D3DFMT_A1R5G5B5 = 25,
-	D3DFMT_A4R4G4B4 = 26,
-	D3DFMT_R8G8B8 = 20,
-	D3DFMT_A8R8G8B8 = 21,
-	D3DFMT_X8R8G8B8 = 22
-};
-
 _N3TexHeader    HeaderOrg;
 unsigned char*  compTexData;
 int             compTexSize;
@@ -432,14 +323,6 @@ void N3LoadMesh(const char* szFN) {
 }
 
 //-----------------------------------------------------------------------------
-enum e_PlugType{
-	PLUGTYPE_NORMAL=0,
-	PLUGTYPE_CLOAK,
-	PLUGTYPE_MAX=10,
-	PLUGTYPE_UNDEFINED=0xffffffff
-};
-
-//-----------------------------------------------------------------------------
 bool CN3BaseFileAccess_Load(FILE* hFile) {
 	std::string m_szName = "";
 
@@ -677,171 +560,10 @@ bool CN3CPart_Load(FILE* hFile) {
 }
 
 //-----------------------------------------------------------------------------
-struct _ITEM_TABLE {
-	SQLUINTEGER m_iNum;
-	SQLCHAR m_sName[(NAME_LENGTH+1)];
-	SQLCHAR m_bKind;
-	SQLCHAR m_bSlot;
-	SQLCHAR m_bRace;
-	SQLCHAR m_bClass;
-	SQLUSMALLINT m_sDamage;
-	SQLUSMALLINT m_sDelay;
-	SQLUSMALLINT m_sRange;
-	SQLUSMALLINT m_sWeight;
-	SQLUSMALLINT m_sDuration;
-	SQLUINTEGER m_iBuyPrice;
-	SQLUINTEGER m_iSellPrice;
-	SQLSMALLINT m_sAc;
-	SQLCHAR m_bCountable;
-	SQLUINTEGER m_iEffect1;
-	SQLUINTEGER m_iEffect2;
-	SQLCHAR m_bReqLevel;
-	SQLCHAR m_bReqLevelMax;
-	SQLCHAR m_bReqRank;
-	SQLCHAR m_bReqTitle;
-	SQLCHAR m_bReqStr;
-	SQLCHAR m_bReqSta;
-	SQLCHAR m_bReqDex;
-	SQLCHAR m_bReqIntel;
-	SQLCHAR m_bReqCha;
-	SQLCHAR m_bSellingGroup;
-	SQLCHAR m_ItemType;
-	SQLUSMALLINT m_sHitrate;
-	SQLUSMALLINT m_sEvarate;
-	SQLUSMALLINT m_sDaggerAc;
-	SQLUSMALLINT m_sSwordAc;
-	SQLUSMALLINT m_sMaceAc;
-	SQLUSMALLINT m_sAxeAc;
-	SQLUSMALLINT m_sSpearAc;
-	SQLUSMALLINT m_sBowAc;
-	SQLCHAR m_bFireDamage;
-	SQLCHAR m_bIceDamage;
-	SQLCHAR m_bLightningDamage;
-	SQLCHAR m_bPoisonDamage;
-	SQLCHAR m_bHPDrain;
-	SQLCHAR m_bMPDamage;
-	SQLCHAR m_bMPDrain;
-	SQLCHAR m_bMirrorDamage;
-	SQLSMALLINT m_sStrB;
-	SQLSMALLINT m_sStaB;
-	SQLSMALLINT m_sDexB;
-	SQLSMALLINT m_sIntelB;
-	SQLSMALLINT m_sChaB;
-	SQLSMALLINT m_MaxHpB;
-	SQLSMALLINT m_MaxMpB;
-	SQLSMALLINT m_bFireR;
-	SQLSMALLINT m_bColdR;
-	SQLSMALLINT m_bLightningR;
-	SQLSMALLINT m_bMagicR;
-	SQLSMALLINT m_bPoisonR;
-	SQLSMALLINT m_bCurseR;
-
-	_ITEM_TABLE(void) {
-		memset(this, 0x00, sizeof(_ITEM_TABLE));
-	}
-};
-
 CSTLMap<_ITEM_TABLE> ItemTableMap;
-
-//-----------------------------------------------------------------------------
-typedef struct __TABLE_ITEM_BASIC {
-	DWORD dwID;
-	BYTE byExtIndex;
-	std::string szName;
-	std::string szRemark;
-	DWORD dwIDK0;
-	BYTE byIDK1;
-	DWORD dwIDResrc;
-	DWORD dwIDIcon;
-	DWORD dwSoundID0;
-	DWORD dwSoundID1;
-	BYTE byClass;
-	BYTE byIsRobeType;
-	BYTE byAttachPoint;
-	BYTE byNeedRace;
-	BYTE byNeedClass;
-	short siDamage;
-	short siAttackInterval;
-	short siAttackRange;
-	short siWeight;
-	short siMaxDurability;
-	int iPrice;
-	int iPriceSale;
-	short siDefense;
-	BYTE byContable;
-	DWORD dwEffectID1;
-	DWORD dwEffectID2;
-	char cNeedLevel;
-	char cIDK2;
-	BYTE byNeedRank;
-	BYTE byNeedTitle;
-	BYTE byNeedStrength;
-	BYTE byNeedStamina;
-	BYTE byNeedDexterity;
-	BYTE byNeedInteli;
-	BYTE byNeedMagicAttack;
-	BYTE bySellGroup;
-	BYTE byIDK3;
-} TABLE_ITEM_BASIC;
-
 CN3TableBase<__TABLE_ITEM_BASIC>* s_pTbl_Items_Basic;
 
 //-----------------------------------------------------------------------------
-enum e_Race {
-	RACE_ALL = 0,
-	RACE_KA_ARKTUAREK = 1,
-	RACE_KA_TUAREK = 2,
-	RACE_KA_WRINKLETUAREK = 3,
-	RACE_KA_PURITUAREK = 4,
-	RACE_EL_BABARIAN = 11,
-	RACE_EL_MAN = 12,
-	RACE_EL_WOMEN = 13,
-	RACE_NPC = 100,
-	RACE_UNKNOWN = 0xffffffff
-};
-
-enum e_PartPosition	{
-	PART_POS_UPPER = 0,
-	PART_POS_LOWER,
-	PART_POS_FACE,
-	PART_POS_HANDS,
-	PART_POS_FEET,
-	PART_POS_HAIR_HELMET,
-	PART_POS_COUNT,
-	PART_POS_UNKNOWN = 0xffffffff
-};
-
-enum e_PlugPosition {
-	PLUG_POS_RIGHTHAND = 0,
-	PLUG_POS_LEFTHAND,
-	PLUG_POS_BACK,
-	PLUG_POS_KNIGHTS_GRADE,
-	PLUG_POS_COUNT,
-	PLUG_POS_UNKNOWN = 0xffffffff
-};
-
-enum e_ItemPosition {
-	ITEM_POS_DUAL = 0,
-	ITEM_POS_RIGHTHAND,
-	ITEM_POS_LEFTHAND,
-	ITEM_POS_TWOHANDRIGHT,
-	ITEM_POS_TWOHANDLEFT,
-	ITEM_POS_UPPER = 5,
-	ITEM_POS_LOWER,
-	ITEM_POS_HEAD,
-	ITEM_POS_GLOVES,
-	ITEM_POS_SHOES,
-	ITEM_POS_EAR = 10,
-	ITEM_POS_NECK,
-	ITEM_POS_FINGER,
-	ITEM_POS_SHOULDER,
-	ITEM_POS_BELT,
-	ITEM_POS_INVENTORY = 15,
-	ITEM_POS_GOLD = 16,
-	ITEM_POS_SONGPYUN = 17,
-	ITEM_POS_UNKNOWN = 0xffffffff
-};
-
 e_ItemType MakeResrcFileNameForUPC(
 	__TABLE_ITEM_BASIC* pItem, std::string* pszResrcFN,
 	std::string* pszIconFN, e_PartPosition& ePartPosition,
@@ -933,237 +655,6 @@ e_ItemType MakeResrcFileNameForUPC(
 	}
 
 	return eType;
-}
-
-//-----------------------------------------------------------------------------
-class shape_window: public Fl_Gl_Window {
-private:
-	void draw(void);
-	bool built_shader;
-	//void draw_overlay(void);
-
-public:
-	void build_shader(void);
-	static void Timer_CB(void* data) {
-		shape_window* sw = (shape_window*)data;
-		sw->redraw();
-		Fl::repeat_timeout(1.0/24.0, Timer_CB, data);
-	}
-
-public:
-	int sides;
-	int overlay_sides;
-
-public:
-	shape_window(int x, int y, int w, int h, const char* l = NULL);
-};
-
-shape_window::shape_window(int x, int y, int w, int h, const char* l):
-Fl_Gl_Window(x, y, w, h, l) {
-	sides = overlay_sides = 6;
-	built_shader = false;
-	Fl::add_timeout(1.0/24.0, Timer_CB, (void*)this);
-	end();
-}
-
-void shape_window::build_shader(void) {
-	//----
-
-	// NOTE: initialize the OpenGL library function calls
-	GLenum glError = glewInit();
-
-	// NOTE: check for error
-	if(glError != GLEW_OK) {
-		fprintf(stderr, "glewInit: %s\n", glewGetErrorString(glError));
-		system("pause");
-		exit(-1);
-	}
-
-	// NOTE: enable the depth test
-	glEnable(GL_DEPTH_TEST);
-
-	//----
-
-	/* SET SHADER PROGRAM */
-	// ========================================================================
-
-	// NOTE: source code for the vertex shader
-	const GLchar* vertSource = {
-		"#version 150 core\n"\
-		"\n"\
-		"in vec3 pos;\n"\
-		"in vec2 texcoord;\n"\
-		"\n"\
-		"out vec2 fragTexcoord;\n"\
-		"\n"\
-		"uniform mat4 model;\n"\
-		"uniform mat4 view;\n"\
-		"uniform mat4 proj;\n"\
-		"\n"\
-		"void main() {\n"\
-			"fragTexcoord = texcoord;\n"\
-			"gl_Position = proj*view*model*vec4(pos, 1.0);\n"\
-		"}\n"
-		"\0"
-	};
-
-	// NOTE: allocate vertex shader program
-	GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
-
-	// NOTE: load the vertex shader's source code
-	glShaderSource(vertShader, 1, &vertSource, NULL);
-
-	// NOTE: compile the vertex shader's source code
-	glCompileShader(vertShader);
-
-	// NOTE: get the status of the compilation
-	GLint status;
-	glGetShaderiv(vertShader, GL_COMPILE_STATUS, &status);
-
-	// NOTE: if the compilation failed print the error
-	if(status == GL_FALSE) {
-		char buffer[512];
-		glGetShaderInfoLog(vertShader, 512, NULL, buffer);
-		fprintf(stderr, "glCompileShader: Vertex\n%s\n", buffer);
-		system("pause");
-		exit(-1);
-	}
-
-	// NOTE: source code for the fragment shader
-	const GLchar* fragSource = {
-		"#version 150 core\n"\
-		"\n"\
-		"in vec2 fragTexcoord;\n"\
-		"uniform sampler2D tex;\n"\
-		"\n"\
-		"void main() {\n"\
-			"gl_FragColor = texture2D(tex, fragTexcoord)*vec4(1.0, 1.0, 1.0, 1.0);\n"\
-		"}\n"\
-		"\0"
-	};
-
-	// NOTE: allocate fragment shader program
-	GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-	// NOTE: load the fragment shader's source code
-	glShaderSource(fragShader, 1, &fragSource, NULL);
-
-	// NOTE: compile the vertex shader's source code
-	glCompileShader(fragShader);
-
-	// NOTE: get the status of the compilation
-	glGetShaderiv(fragShader, GL_COMPILE_STATUS, &status);
-
-	// NOTE: if the compilation failed print the error
-	if(status == GL_FALSE) {
-		char buffer[512];
-		glGetShaderInfoLog(fragShader, 512, NULL, buffer);
-		fprintf(stderr, "glCompileShader: Fragment\n%s\n", buffer);
-		system("pause");
-		exit(-1);
-	}
-
-	// NOTE: create a shader program out of the vertex and fragment shaders
-	shaderProgram = glCreateProgram();
-
-	// NOTE: attach the vertex and fragment shaders
-	glAttachShader(shaderProgram, vertShader);
-	glAttachShader(shaderProgram, fragShader);
-
-	// NOTE: link the shader program
-	glLinkProgram(shaderProgram);
-
-	// NTOE: get the status of linking the program
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
-
-	// NOTE: if the program failed to link print the error
-	if(status == GL_FALSE) {
-		char buffer[512];
-		glGetProgramInfoLog(shaderProgram, 512, NULL, buffer);
-		fprintf(stderr, "glLinkProgram: \n%s\n", buffer);
-		system("pause");
-		exit(-1);
-	}
-
-	// NOTE: use the newly compiled shader program
-	glUseProgram(shaderProgram);
-
-	/* END SET SHADER PROGRAM */
-	// ========================================================================
-
-	// NOTE: create a vertex array object to store all the relationships
-	// between vertex buffer objects and shader program attributes
-	glGenVertexArrays(1, &verArray);
-	// NOTE: allocate an array buffer on the GPU
-	glGenBuffers(1, &verBuffer);
-	// NOTE: allocate a GPU buffer for the element data
-	glGenBuffers(1, &eleBuffer);
-	// NOTE: allocate a GPU texture
-	glGenTextures(1, &tex);
-}
-
-void shape_window::draw(void) {
-
-	static glm::mat4 model = {};
-	static float angle = (float) M_PI/100.0f; //M_PI/4+M_PI/2;
-
-	if(!built_shader) {
-		built_shader = true;
-		build_shader();
-	}
-
-	if(!valid()) {
-		valid(1);
-		glViewport(0, 0, pixel_w(), pixel_h());
-	}
-
-	// NOTE: clear the screen buffer
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-	//----
-	model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-	GLint uniModel = glGetUniformLocation(shaderProgram, "model");
-	glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(model));
-
-	float pDist = 2.0f;
-	float pDistP = 0.2f;
-	glm::mat4 view = glm::lookAt(
-		glm::vec3(pDist, pDist, pDist),
-		glm::vec3(0.0f, pDistP, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f)
-	);
-
-	GLint uniView = glGetUniformLocation(shaderProgram, "view");
-	glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
-
-	glm::mat4 proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 1.0f, 120.0f);
-	GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
-	glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
-	//----
-
-	// NOTE: draw to the screen
-	if(eType == ITEM_TYPE_PLUG) {
-
-		glDrawElements(GL_TRIANGLES, m_iMaxNumIndices0, GL_UNSIGNED_INT, 0);
-
-	} else if(eType == ITEM_TYPE_PART) {
-		
-		glDrawElements(GL_TRIANGLES, 3*m_nFC, GL_UNSIGNED_INT, 0);
-
-	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
-
-		glm::mat4 tmp_model = {};
-		uniModel = glGetUniformLocation(shaderProgram, "model");
-		glUniformMatrix4fv(uniModel, 1, GL_FALSE, glm::value_ptr(tmp_model));
-		GLint uniView = glGetUniformLocation(shaderProgram, "view");
-		glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(tmp_model));
-		GLint uniProj = glGetUniformLocation(shaderProgram, "proj");
-		glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(tmp_model));
-		
-		glDrawElements(GL_TRIANGLES, 3*2, GL_UNSIGNED_INT, 0);
-
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1316,7 +807,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 
 	// ========================================================================
 
-	glBindVertexArray(verArray);
+	glBindVertexArray(m_sw->getVertArray());
 
 	if(eType == ITEM_TYPE_PLUG) {
 
@@ -1333,16 +824,16 @@ void ItemTableView::event_callback_update_opengl(void) {
 		}
 
 		// NOTE: bind to the array buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, m_sw->getVertBuffer());
 		// NOTE: send our vertex data to the GPU and set as STAIC
 		glBufferData(GL_ARRAY_BUFFER, 5*m_iMaxNumVertices0*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 		delete vertices;
 
-		GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
+		GLint posAttrib = glGetAttribLocation(m_sw->getProgram(), "pos");
 		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
 		glEnableVertexAttribArray(posAttrib);
 
-		GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+		GLint texAttrib = glGetAttribLocation(m_sw->getProgram(), "texcoord");
 		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
 		glEnableVertexAttribArray(texAttrib);
 
@@ -1354,7 +845,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 		}
 
 		// NOTE: bind to the element buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_sw->getEleBuffer());
 		// NOTE: send our element data to the GPU and set as STAIC
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_iMaxNumIndices0*sizeof(GLuint), elements, GL_STATIC_DRAW);
 		delete elements;
@@ -1386,16 +877,16 @@ void ItemTableView::event_callback_update_opengl(void) {
 		}
 
 		// NOTE: bind to the array buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, m_sw->getVertBuffer());
 		// NOTE: send our vertex data to the GPU and set as STAIC
 		glBufferData(GL_ARRAY_BUFFER, 5*3*m_nFC*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 		delete vertices;
 
-		GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
+		GLint posAttrib = glGetAttribLocation(m_sw->getProgram(), "pos");
 		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
 		glEnableVertexAttribArray(posAttrib);
 
-		GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+		GLint texAttrib = glGetAttribLocation(m_sw->getProgram(), "texcoord");
 		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
 		glEnableVertexAttribArray(texAttrib);
 
@@ -1407,7 +898,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 		}
 
 		// NOTE: bind to the element buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_sw->getEleBuffer());
 		// NOTE: send our element data to the GPU and set as STAIC
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*m_nFC*sizeof(GLuint), elements, GL_STATIC_DRAW);
 		delete elements;
@@ -1421,12 +912,12 @@ void ItemTableView::event_callback_update_opengl(void) {
 			-0.25f, -0.25f, -0.1f, 0.0f, 1.0f  // Bottom-left
 		};
 
-		glBindBuffer(GL_ARRAY_BUFFER, verBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, m_sw->getVertBuffer());
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
+		GLint posAttrib = glGetAttribLocation(m_sw->getProgram(), "pos");
 		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
 		glEnableVertexAttribArray(posAttrib);
-		GLint texAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+		GLint texAttrib = glGetAttribLocation(m_sw->getProgram(), "texcoord");
 		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
 		glEnableVertexAttribArray(texAttrib);
 
@@ -1435,14 +926,14 @@ void ItemTableView::event_callback_update_opengl(void) {
 			2, 3, 0
 		};
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eleBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_sw->getEleBuffer());
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 	}
 
 	// NOTE: set the texture to unit 0
 	glActiveTexture(GL_TEXTURE0);
 	// NOTE: bind to the texture so that we may send our data to the GPU
-	glBindTexture(GL_TEXTURE_2D, tex);
+	glBindTexture(GL_TEXTURE_2D, m_sw->getTexBuffer());
 	// NOTE: send the pixels to the GPU (will have to convert enums from dxd to
 	// opengl)
 	GLenum texType;
@@ -1516,7 +1007,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 
 	// NOTE: bind the uniform "tex" in the fragment shader to the unit 0
 	// texture
-	glUniform1i(glGetUniformLocation(shaderProgram, "tex"), 0);
+	glUniform1i(glGetUniformLocation(m_sw->getProgram(), "tex"), 0);
 	glGenerateMipmapEXT(GL_TEXTURE_2D);
 
 	m_sw->redraw();
@@ -1650,7 +1141,7 @@ int main(int argc, char** argv) {
 	Fl::use_high_res_GL(true);
 	Fl_Window window(1024, 720);
 
-	shape_window sw(window.w()-(_gl_width+10), 10, _gl_width, _gl_height);
+	GLItemViewer sw(window.w()-(_gl_width+10), 10, _gl_width, _gl_height);
 	m_sw = &sw;
 
 	ItemTableView demo_table(10, 10, window.w()-(_gl_width+30), _gl_height);
