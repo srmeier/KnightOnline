@@ -6,8 +6,21 @@
 //-----------------------------------------------------------------------------
 // TEMP
 extern e_ItemType eType;
-extern int m_iMaxNumIndices0;
-extern int m_nFC;
+
+extern int                m_nFC;
+extern __VertexXyzNormal* m_pVertices;
+extern WORD*              m_pwVtxIndices;
+extern float*             m_pfUVs;
+extern WORD*              m_pwUVsIndices;
+
+extern _N3TexHeader    HeaderOrg;
+extern unsigned char*  compTexData;
+extern int             compTexSize;
+extern int             iPixelSize;
+extern unsigned short* m_pIndices0;
+extern _N3VertexT1*    m_pVertices0;
+extern int             m_iMaxNumIndices0;
+extern int             m_iMaxNumVertices0;
 
 //-----------------------------------------------------------------------------
 GLItemViewer::GLItemViewer(int x, int y, int w, int h, const char* l):
@@ -111,6 +124,176 @@ bool GLItemViewer::BuildShaders(void) {
 	bShadersBuilt = true;
 
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+void GLItemViewer::PushDataToGPU(void) {
+	glBindVertexArray(glVertArray);
+
+	if(eType == ITEM_TYPE_PLUG) {
+		GLfloat* vertices = new GLfloat[5*m_iMaxNumVertices0];
+		memset(vertices, 0, 5*m_iMaxNumVertices0);
+
+		for(int i=0; i<m_iMaxNumVertices0; i++) {
+			vertices[5*i+0] = m_pVertices0[i].x;
+			vertices[5*i+1] = m_pVertices0[i].y;
+			vertices[5*i+2] = m_pVertices0[i].z;
+
+			vertices[5*i+3] = m_pVertices0[i].tu;
+			vertices[5*i+4] = m_pVertices0[i].tv;
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, glVertBuffer);
+		glBufferData(GL_ARRAY_BUFFER, 5*m_iMaxNumVertices0*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+		delete vertices;
+
+		GLint posAttrib = glGetAttribLocation(glProgram, "pos");
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(posAttrib);
+		GLint texAttrib = glGetAttribLocation(glProgram, "texcoord");
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+		glEnableVertexAttribArray(texAttrib);
+
+		GLuint* elements = new GLuint[m_iMaxNumIndices0];
+		memset(elements, 0, m_iMaxNumIndices0*sizeof(GLuint));
+		for(int i=0; i<m_iMaxNumIndices0; i++) {
+			elements[i] = (GLuint) m_pIndices0[i];
+		}
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, glEleBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_iMaxNumIndices0*sizeof(GLuint), elements, GL_STATIC_DRAW);
+		delete elements;
+
+	} else if(eType == ITEM_TYPE_PART) {
+		GLfloat* vertices = new GLfloat[5*3*m_nFC];
+		memset(vertices, 0, 5*3*m_nFC);
+
+		for(int i=0; i<3*m_nFC; i++) {
+			vertices[5*i+0] = m_pVertices[m_pwVtxIndices[i]].x;
+			vertices[5*i+1] = m_pVertices[m_pwVtxIndices[i]].y;
+			vertices[5*i+2] = m_pVertices[m_pwVtxIndices[i]].z;
+
+			vertices[5*i+3] = m_pfUVs[2*m_pwUVsIndices[i]+0];
+			vertices[5*i+4] = m_pfUVs[2*m_pwUVsIndices[i]+1];
+		}
+
+		glBindBuffer(GL_ARRAY_BUFFER, glVertBuffer);
+		glBufferData(GL_ARRAY_BUFFER, 5*3*m_nFC*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+		delete vertices;
+
+		GLint posAttrib = glGetAttribLocation(glProgram, "pos");
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(posAttrib);
+		GLint texAttrib = glGetAttribLocation(glProgram, "texcoord");
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+		glEnableVertexAttribArray(texAttrib);
+
+		GLuint* elements = new GLuint[3*m_nFC];
+		memset(elements, 0, 3*m_nFC*sizeof(GLuint));
+		for(int i=0; i<3*m_nFC; i++) {
+			elements[i] = (GLuint) (i);
+		}
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, glEleBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*m_nFC*sizeof(GLuint), elements, GL_STATIC_DRAW);
+		delete elements;
+
+	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
+		float vertices[] = {
+			-0.25f,  0.25f, -0.1f, 0.0f, 0.0f, // Top-left
+			 0.25f,  0.25f, -0.1f, 1.0f, 0.0f, // Top-right
+			 0.25f, -0.25f, -0.1f, 1.0f, 1.0f, // Bottom-right
+			-0.25f, -0.25f, -0.1f, 0.0f, 1.0f  // Bottom-left
+		};
+
+		glBindBuffer(GL_ARRAY_BUFFER, glVertBuffer);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		GLint posAttrib = glGetAttribLocation(glProgram, "pos");
+		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(posAttrib);
+		GLint texAttrib = glGetAttribLocation(glProgram, "texcoord");
+		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
+		glEnableVertexAttribArray(texAttrib);
+
+		GLuint elements[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, glEleBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+	}
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, glTeXBuffer);
+	
+	GLenum texType;
+	GLenum texFormat;
+	switch(HeaderOrg.Format) {
+		case D3DFMT_DXT1: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+		} break;
+		case D3DFMT_DXT3: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+		} break;
+		case D3DFMT_DXT5: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+		} break;
+		case D3DFMT_A1R5G5B5: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_SHORT_5_5_5_1;
+			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
+				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
+				unsigned short p = *pp;
+				unsigned short np = ((p&0x7C00)>>10)<<11|((p&0x3E0)>>5)<<6|(p&0x1F)<<1|((p&0x8000)>>15);
+				*pp = np;
+			}
+		} break;
+		case D3DFMT_A4R4G4B4: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_SHORT_4_4_4_4;
+			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
+				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
+				unsigned short p = *pp;
+				unsigned short np = ((p&0xF00)>>8)<<12|((p&0xF0)>>4)<<8|(p&0xF)<<4|((p&0xF000)>>12);
+				*pp = np;
+			}
+		} break;
+		case D3DFMT_R8G8B8: {
+			texFormat = GL_RGB;
+			texType = GL_UNSIGNED_BYTE;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		case D3DFMT_A8R8G8B8: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_INT_8_8_8_8;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_A8R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		case D3DFMT_X8R8G8B8: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_INT_8_8_8_8;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_X8R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		default: {
+			fprintf(stderr,
+				"\nERROR: Unknown texture format %d. (need to implement this)\n", HeaderOrg.Format
+			);
+			return;
+		} break;
+	}
+
+	if(iPixelSize == 0) {
+		glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
+	} else {
+		glTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, texFormat, texType, compTexData);
+	}
+
+	glUniform1i(glGetUniformLocation(glProgram, "tex"), 0);
+	glGenerateMipmapEXT(GL_TEXTURE_2D);
 }
 
 //-----------------------------------------------------------------------------

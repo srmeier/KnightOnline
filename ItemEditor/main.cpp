@@ -3,18 +3,29 @@
 
 #include "defines.h"
 
-#include "STLMap.h"
-#include "N3TableBase.h"
-
 #include "fl/fl_hor_slider.h"
 #include "fl/fl_toggle_button.h"
 #include "fl/fl_draw.H"
 #include "fl/fl_table_row.H"
 
+#include "ItemInfo.h"
 #include "GLItemViewer.h"
 
 const int _gl_width = 380;
 const int _gl_height = 1024/3;
+
+//-----------------------------------------------------------------------------
+std::wstring s2ws(const std::string& s)
+{
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	return r;
+}
 
 //-----------------------------------------------------------------------------
 e_ItemType eType;
@@ -807,209 +818,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 
 	// ========================================================================
 
-	glBindVertexArray(m_sw->getVertArray());
-
-	if(eType == ITEM_TYPE_PLUG) {
-
-		// NOTE: vertices for a triangle (clockwise)
-		GLfloat* vertices = new GLfloat[5*m_iMaxNumVertices0];
-		memset(vertices, 0, 5*m_iMaxNumVertices0);
-		for(int i=0; i<m_iMaxNumVertices0; i++) {
-			vertices[5*i+0] = m_pVertices0[i].x;
-			vertices[5*i+1] = m_pVertices0[i].y;
-			vertices[5*i+2] = m_pVertices0[i].z;
-
-			vertices[5*i+3] = m_pVertices0[i].tu;
-			vertices[5*i+4] = m_pVertices0[i].tv;
-		}
-
-		// NOTE: bind to the array buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ARRAY_BUFFER, m_sw->getVertBuffer());
-		// NOTE: send our vertex data to the GPU and set as STAIC
-		glBufferData(GL_ARRAY_BUFFER, 5*m_iMaxNumVertices0*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
-		delete vertices;
-
-		GLint posAttrib = glGetAttribLocation(m_sw->getProgram(), "pos");
-		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
-		glEnableVertexAttribArray(posAttrib);
-
-		GLint texAttrib = glGetAttribLocation(m_sw->getProgram(), "texcoord");
-		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
-		glEnableVertexAttribArray(texAttrib);
-
-		// NOTE: index into the raw vertex array
-		GLuint* elements = new GLuint[m_iMaxNumIndices0];
-		memset(elements, 0, m_iMaxNumIndices0*sizeof(GLuint));
-		for(int i=0; i<m_iMaxNumIndices0; i++) {
-			elements[i] = (GLuint) m_pIndices0[i];
-		}
-
-		// NOTE: bind to the element buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_sw->getEleBuffer());
-		// NOTE: send our element data to the GPU and set as STAIC
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_iMaxNumIndices0*sizeof(GLuint), elements, GL_STATIC_DRAW);
-		delete elements;
-
-	} else if(eType == ITEM_TYPE_PART) {
-
-		/*
-		m_pVertices;
-		m_pwVtxIndices;
-		m_pfUVs;
-		m_pwUVsIndices;
-
-		m_nVC;
-		m_nFC;
-		m_nUVC;
-		*/
-
-		// NOTE: vertices for a triangle (clockwise)
-		GLfloat* vertices = new GLfloat[5*3*m_nFC];
-		memset(vertices, 0, 5*3*m_nFC);
-
-		for(int i=0; i<3*m_nFC; i++) {
-			vertices[5*i+0] = m_pVertices[m_pwVtxIndices[i]].x;
-			vertices[5*i+1] = m_pVertices[m_pwVtxIndices[i]].y;
-			vertices[5*i+2] = m_pVertices[m_pwVtxIndices[i]].z;
-
-			vertices[5*i+3] = m_pfUVs[2*m_pwUVsIndices[i]+0];
-			vertices[5*i+4] = m_pfUVs[2*m_pwUVsIndices[i]+1];
-		}
-
-		// NOTE: bind to the array buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ARRAY_BUFFER, m_sw->getVertBuffer());
-		// NOTE: send our vertex data to the GPU and set as STAIC
-		glBufferData(GL_ARRAY_BUFFER, 5*3*m_nFC*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
-		delete vertices;
-
-		GLint posAttrib = glGetAttribLocation(m_sw->getProgram(), "pos");
-		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
-		glEnableVertexAttribArray(posAttrib);
-
-		GLint texAttrib = glGetAttribLocation(m_sw->getProgram(), "texcoord");
-		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
-		glEnableVertexAttribArray(texAttrib);
-
-		// NOTE: index into the raw vertex array
-		GLuint* elements = new GLuint[3*m_nFC];
-		memset(elements, 0, 3*m_nFC*sizeof(GLuint));
-		for(int i=0; i<3*m_nFC; i++) {
-			elements[i] = (GLuint) (i);
-		}
-
-		// NOTE: bind to the element buffer so that we may send our data to the GPU
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_sw->getEleBuffer());
-		// NOTE: send our element data to the GPU and set as STAIC
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*m_nFC*sizeof(GLuint), elements, GL_STATIC_DRAW);
-		delete elements;
-
-	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
-		
-		float vertices[] = {
-			-0.25f,  0.25f, -0.1f, 0.0f, 0.0f, // Top-left
-			 0.25f,  0.25f, -0.1f, 1.0f, 0.0f, // Top-right
-			 0.25f, -0.25f, -0.1f, 1.0f, 1.0f, // Bottom-right
-			-0.25f, -0.25f, -0.1f, 0.0f, 1.0f  // Bottom-left
-		};
-
-		glBindBuffer(GL_ARRAY_BUFFER, m_sw->getVertBuffer());
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		GLint posAttrib = glGetAttribLocation(m_sw->getProgram(), "pos");
-		glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), 0);
-		glEnableVertexAttribArray(posAttrib);
-		GLint texAttrib = glGetAttribLocation(m_sw->getProgram(), "texcoord");
-		glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), (void*)(3*sizeof(GLfloat)));
-		glEnableVertexAttribArray(texAttrib);
-
-		GLuint elements[] = {
-			0, 1, 2,
-			2, 3, 0
-		};
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_sw->getEleBuffer());
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-	}
-
-	// NOTE: set the texture to unit 0
-	glActiveTexture(GL_TEXTURE0);
-	// NOTE: bind to the texture so that we may send our data to the GPU
-	glBindTexture(GL_TEXTURE_2D, m_sw->getTexBuffer());
-	// NOTE: send the pixels to the GPU (will have to convert enums from dxd to
-	// opengl)
-	GLenum texType;
-	GLenum texFormat;
-	switch(HeaderOrg.Format) {
-		case D3DFMT_DXT1: {
-			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
-		} break;
-		case D3DFMT_DXT3: {
-			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-		} break;
-		case D3DFMT_DXT5: {
-			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-		} break;
-		case D3DFMT_A1R5G5B5: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_SHORT_5_5_5_1;
-
-			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
-				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
-				unsigned short p = *pp;
-				unsigned short np = ((p&0x7C00)>>10)<<11|((p&0x3E0)>>5)<<6|(p&0x1F)<<1|((p&0x8000)>>15);
-				*pp = np;
-			}
-
-		} break;
-		case D3DFMT_A4R4G4B4: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_SHORT_4_4_4_4;
-			
-			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
-				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
-				unsigned short p = *pp;
-				unsigned short np = ((p&0xF00)>>8)<<12|((p&0xF0)>>4)<<8|(p&0xF)<<4|((p&0xF000)>>12);
-				*pp = np;
-			}
-
-		} break;
-		case D3DFMT_R8G8B8: {
-			texFormat = GL_RGB;
-			texType = GL_UNSIGNED_BYTE;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_R8G8B8\n", HeaderOrg.Format);
-			return;
-		} break;
-		case D3DFMT_A8R8G8B8: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_INT_8_8_8_8;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_A8R8G8B8\n", HeaderOrg.Format);
-			return;
-		} break;
-		case D3DFMT_X8R8G8B8: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_INT_8_8_8_8;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_X8R8G8B8\n", HeaderOrg.Format);
-			return;
-		} break;
-		default: {
-			fprintf(stderr,
-				"\nERROR: Unknown texture format %d. (need to implement this)\n", HeaderOrg.Format
-			);
-			//system("pause");
-			return; //exit(-1);
-		} break;
-	}
-
-	if(iPixelSize == 0) {
-		glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
-	} else {
-		glTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, texFormat, texType, compTexData);
-	}
-
-	// NOTE: bind the uniform "tex" in the fragment shader to the unit 0
-	// texture
-	glUniform1i(glGetUniformLocation(m_sw->getProgram(), "tex"), 0);
-	glGenerateMipmapEXT(GL_TEXTURE_2D);
-
+	m_sw->PushDataToGPU();
 	m_sw->redraw();
 }
 

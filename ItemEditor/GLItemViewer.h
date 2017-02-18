@@ -15,19 +15,20 @@ class GLItemViewer: public Fl_Gl_Window {
 private:
 	bool bShadersBuilt;
 
+	GLint glUniModel;
+	GLint glUniView;
+	GLint glUniProj;
+
 	GLuint glVertArray;
 	GLuint glVertBuffer;
 	GLuint glEleBuffer;
 	GLuint glTeXBuffer;
 	GLuint glProgram;
 
-	GLint glUniModel;
-	GLint glUniView;
-	GLint glUniProj;
-
 private:
 	void draw(void);
 	bool BuildShaders(void);
+
 	static void RenderCallBack(void* data) {
 		GLItemViewer* item_viewer = (GLItemViewer*)data;
 		item_viewer->redraw();
@@ -35,11 +36,7 @@ private:
 	}
 
 public:
-	GLuint getVertArray(void) {return glVertArray;}
-	GLuint getVertBuffer(void) {return glVertBuffer;}
-	GLuint getEleBuffer(void) {return glEleBuffer;}
-	GLuint getTexBuffer(void) {return glTeXBuffer;}
-	GLuint getProgram(void) {return glProgram;}
+	void PushDataToGPU(void);
 
 public:
 	GLItemViewer(int x, int y, int w, int h, const char* l = NULL);
