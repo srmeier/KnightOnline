@@ -5,7 +5,7 @@ We started with project to learn more about how the MMORPG Knight Online works. 
 </p>
 
 <p align="left">
-This code is for academic purposes only! If you have questions, or would like help getting started, feel free visit the <a href="http://codingbackwards.in/index.php">forums</a>.
+This code is for academic purposes only! If you have questions, or would like help getting started, feel free visit the <a href="http://ko4life.net/topic/50-the-openko-project/">forums</a>.
 </p>
 
 #### Note:
