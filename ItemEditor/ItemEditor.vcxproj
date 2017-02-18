@@ -151,11 +151,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GLItemViewer.cpp" />
+    <ClCompile Include="ItemInfo.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defines.h" />
     <ClInclude Include="GLItemViewer.h" />
+    <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="N3TableBase.h" />
     <ClInclude Include="STLMap.h" />
   </ItemGroup>
