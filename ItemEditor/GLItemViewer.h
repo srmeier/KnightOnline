@@ -25,6 +25,14 @@ private:
 	GLuint glTeXBuffer;
 	GLuint glProgram;
 
+	float min_y;
+	float max_x;
+	float max_y;
+	float max_z;
+
+	float pDist;
+	float pDistP;
+
 private:
 	void draw(void);
 	bool BuildShaders(void);

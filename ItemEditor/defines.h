@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include <float.h>
+
 #include <sql.h>
 #include <sqlext.h>
 #include <sqltypes.h>
