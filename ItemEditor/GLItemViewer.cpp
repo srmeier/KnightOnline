@@ -221,11 +221,12 @@ void GLItemViewer::PushDataToGPU(void) {
 		delete elements;
 
 	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
+		// NOTE: need to offset the position to get the icon to display in the center
 		float vertices[] = {
-			-0.25f,  0.25f, -0.1f, 0.0f, 0.0f, // Top-left
-			 0.25f,  0.25f, -0.1f, 1.0f, 0.0f, // Top-right
-			 0.25f, -0.25f, -0.1f, 1.0f, 1.0f, // Bottom-right
-			-0.25f, -0.25f, -0.1f, 0.0f, 1.0f  // Bottom-left
+			-0.25f+0.25f/4.0f,  0.25f-0.25f/4.0f, -0.1f, 0.0f, 0.0f, // Top-left
+			 0.25f+0.25f/4.0f,  0.25f-0.25f/4.0f, -0.1f, 1.0f, 0.0f, // Top-right
+			 0.25f+0.25f/4.0f, -0.25f-0.25f/4.0f, -0.1f, 1.0f, 1.0f, // Bottom-right
+			-0.25f+0.25f/4.0f, -0.25f-0.25f/4.0f, -0.1f, 0.0f, 1.0f  // Bottom-left
 		};
 
 		glBindBuffer(GL_ARRAY_BUFFER, glVertBuffer);
@@ -317,8 +318,9 @@ void GLItemViewer::PushDataToGPU(void) {
 	glUniform1i(glGetUniformLocation(glProgram, "tex"), 0);
 	glGenerateMipmapEXT(GL_TEXTURE_2D);
 
+	// NOTE: need a better way, this doesn't always work well
 	pDistP = (max_y-min_y)/2.0f + min_y;
-	pDist  = sqrt(max_x*max_x + 2.0f*max_y*max_y + max_z*max_z);
+	pDist  = sqrt(max_x*max_x + 2.5f*max_y*max_y + max_z*max_z);
 }
 
 //-----------------------------------------------------------------------------

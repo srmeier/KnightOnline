@@ -1067,8 +1067,8 @@ int main(int argc, char** argv) {
 	SQLDisconnect(hConn);
 	SQLFreeHandle(SQL_HANDLE_DBC, hConn);
 	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
-	//----
 
+	//----
 	Fl::use_high_res_GL(true);
 	Fl_Window window(1024, 720, "KO Item Editor");
 
@@ -1102,6 +1102,9 @@ int main(int argc, char** argv) {
 		Fl_Group group(0, _gl_height+40+35, window.w(), window.h()-_gl_height-30-10, "Table Info");
 			Fl_Input input(10, _gl_height+30+35+20, 240, 30);
 		group.end();
+		Fl_Group group2(0, _gl_height+40+35, window.w(), window.h()-_gl_height-30-10, "Database Info");
+			Fl_Input input2(10, _gl_height+30+35+20, 240, 30);
+		group2.end();
 	info_tabs.end();
 
 	window.end();
