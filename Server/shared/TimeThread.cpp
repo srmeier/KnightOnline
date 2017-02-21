@@ -23,7 +23,12 @@ void CleanupTimeThread()
 	printf(" done.\n");
 }
 
+#if IsWinDef
 uint32 THREADCALL TimeThread(void * lpParam)
+#endif
+#if IsUnixDef
+void * TimeThread(void * lpParam)
+#endif
 {
 	g_bRunningThread = true;
 	while (g_bRunningThread)
@@ -35,8 +40,15 @@ uint32 THREADCALL TimeThread(void * lpParam)
 			g_localTime = *localtime(&t);
 		}
 
+		#if IsWinDef
 		sleep(1000);	// might need to run it twice a second 
 		// to be sure it does in fact update somewhat accurately.. depends on the use cases.
+		#endif
+		#if IsUnixDef
+		sleep(1);
+		#endif
+
+		
 	}
 
 	return 0;
