@@ -8,11 +8,16 @@
 #include "fl/fl_draw.H"
 #include "fl/fl_table_row.H"
 
+#include "fl/fl_tabs.h"
+#include "fl/fl_group.h"
+#include "fl/fl_input.h"
+#include "fl/fl_menu_bar.h"
+
 #include "ItemInfo.h"
 #include "GLItemViewer.h"
 
-const int _gl_width = 380;
-const int _gl_height = 1024/3;
+const int _gl_width = 380-60;
+const int _gl_height = 1024/4;
 
 //-----------------------------------------------------------------------------
 std::wstring s2ws(const std::string& s)
@@ -888,10 +893,130 @@ void ItemTableView::draw_cell(TableContext context,
 }
 
 //-----------------------------------------------------------------------------
+Fl_Menu_Item menu_table[] = {
+	{"&File",0,0,0,FL_SUBMENU},
+		{"&Open",	FL_ALT+'o', 0, 0, FL_MENU_INACTIVE},
+		{"&Close",	0,	0},
+		{"&Quit",	FL_ALT+'q', 0, 0, FL_MENU_DIVIDER},
+		{"shortcut",'a'},
+		{"shortcut",FL_SHIFT+'a'},
+		{"shortcut",FL_CTRL+'a'},
+		{"shortcut",FL_CTRL+FL_SHIFT+'a'},
+		{"shortcut",FL_ALT+'a'},
+		{"shortcut",FL_ALT+FL_SHIFT+'a'},
+		{"shortcut",FL_ALT+FL_CTRL+'a'},
+		{"shortcut",FL_ALT+FL_SHIFT+FL_CTRL+'a', 0,0, FL_MENU_DIVIDER},
+		{"shortcut",'\r'/*FL_Enter*/},
+		{"shortcut",FL_CTRL+FL_Enter, 0,0, FL_MENU_DIVIDER},
+		{"shortcut",FL_F+1},
+		{"shortcut",FL_SHIFT+FL_F+1},
+		{"shortcut",FL_CTRL+FL_F+1},
+		{"shortcut",FL_SHIFT+FL_CTRL+FL_F+1},
+		{"shortcut",FL_ALT+FL_F+1},
+		{"shortcut",FL_ALT+FL_SHIFT+FL_F+1},
+		{"shortcut",FL_ALT+FL_CTRL+FL_F+1},
+		{"shortcut",FL_ALT+FL_SHIFT+FL_CTRL+FL_F+1, 0,0, FL_MENU_DIVIDER},
+		{"&Submenus", FL_ALT+'S',	0, (void*)"Submenu1", FL_SUBMENU},
+			{"A very long menu item"},
+			{"&submenu",FL_CTRL+'S',	0, (void*)"submenu2", FL_SUBMENU},
+				{"item 1"},
+				{"item 2"},
+				{"item 3"},
+				{"item 4"},
+			{0},
+			{"after submenu"},
+		{0},
+	{0},
+	{"&Edit",FL_F+2,0,0,FL_SUBMENU},
+		{"Undo",	FL_ALT+'z',	0},
+		{"Redo",	FL_ALT+'r',	0, 0, FL_MENU_DIVIDER},
+		{"Cut",	FL_ALT+'x',	0},
+		{"Copy",	FL_ALT+'c',	0},
+		{"Paste",	FL_ALT+'v',	0},
+		{"Inactive",FL_ALT+'d',	0, 0, FL_MENU_INACTIVE},
+		{"Clear",	0,	0, 0, FL_MENU_DIVIDER},
+		{"Invisible",FL_ALT+'e',	0, 0, FL_MENU_INVISIBLE},
+		{"Preferences",0,	0},
+		{"Size",	0,	0},
+	{0},
+	{"&Checkbox",FL_F+3,0,0,FL_SUBMENU},
+		{"&Alpha",	FL_F+2,	0, (void *)1, FL_MENU_TOGGLE},
+		{"&Beta",	0,	0, (void *)2, FL_MENU_TOGGLE},
+		{"&Gamma",	0,	0, (void *)3, FL_MENU_TOGGLE},
+		{"&Delta",	0,	0, (void *)4, FL_MENU_TOGGLE|FL_MENU_VALUE},
+		{"&Epsilon",0,	0, (void *)5, FL_MENU_TOGGLE},
+		{"&Pi",	0,	0, (void *)6, FL_MENU_TOGGLE},
+		{"&Mu",	0,	0, (void *)7, FL_MENU_TOGGLE|FL_MENU_DIVIDER},
+		{"Red",	0,	0, (void *)1, FL_MENU_TOGGLE, 0, 0, 0, 1},
+		{"Black",	0,	0, (void *)1, FL_MENU_TOGGLE|FL_MENU_DIVIDER},
+		{"00",	0,	0, (void *)1, FL_MENU_TOGGLE},
+		{"000",	0,	0, (void *)1, FL_MENU_TOGGLE},
+	{0},
+	{"&Radio",0,0,0,FL_SUBMENU},
+		{"&Alpha",	0,	0, (void *)1, FL_MENU_RADIO},
+		{"&Beta",	0,	0, (void *)2, FL_MENU_RADIO},
+		{"&Gamma",	0,	0, (void *)3, FL_MENU_RADIO},
+		{"&Delta",	0,	0, (void *)4, FL_MENU_RADIO|FL_MENU_VALUE},
+		{"&Epsilon",0,	0, (void *)5, FL_MENU_RADIO},
+		{"&Pi",	0,	0, (void *)6, FL_MENU_RADIO},
+		{"&Mu",	0,	0, (void *)7, FL_MENU_RADIO|FL_MENU_DIVIDER},
+		{"Red",	0,	0, (void *)1, FL_MENU_RADIO},
+		{"Black",	0,	0, (void *)1, FL_MENU_RADIO|FL_MENU_DIVIDER},
+		{"00",	0,	0, (void *)1, FL_MENU_RADIO},
+		{"000",	0,	0, (void *)1, FL_MENU_RADIO},
+	{0},
+	{"&Font",0,0,0,FL_SUBMENU /*, 0, FL_BOLD, 20*/},
+		{"Normal",	0, 0, 0, 0, 0, 0, 14},
+		{"Bold",	0, 0, 0, 0, 0, FL_BOLD, 14},
+		{"Italic",	0, 0, 0, 0, 0, FL_ITALIC, 14},
+		{"BoldItalic",0,0,0, 0, 0, FL_BOLD+FL_ITALIC, 14},
+		{"Small",	0, 0, 0, 0, 0, FL_BOLD+FL_ITALIC, 10},
+		{"Emboss",	0, 0, 0, 0, (uchar)FL_EMBOSSED_LABEL},
+		{"Engrave",	0, 0, 0, 0, (uchar)FL_ENGRAVED_LABEL},
+		{"Shadow",	0, 0, 0, 0, (uchar)FL_SHADOW_LABEL},
+		{"@->",	0, 0, 0, 0, (uchar)FL_SYMBOL_LABEL},
+	{0},
+	{"&International",0,0,0,FL_SUBMENU},
+		{"Sharp Ess",0x0000df},
+		{"A Umlaut",0x0000c4},
+		{"a Umlaut",0x0000e4},
+		{"Euro currency",FL_COMMAND+0x0020ac},
+		{"the &\xc3\xbc Umlaut"},  // &uuml;
+		{"the capital &\xc3\x9c"}, // &Uuml;
+		{"convert \xc2\xa5 to &\xc2\xa3"}, // Yen to GBP
+		{"convert \xc2\xa5 to &\xe2\x82\xac"}, // Yen to Euro
+		{"Hangul character Sios &\xe3\x85\x85"},
+		{"Hangul character Cieuc", 0x003148},
+	{0},
+	{"E&mpty",0,0,0,FL_SUBMENU},
+	{0},
+	{"&Inactive", 0,	0, 0, FL_MENU_INACTIVE|FL_SUBMENU},
+		{"A very long menu item"},
+		{"A very long menu item"},
+	{0},
+	{"Invisible",0,	0, 0, FL_MENU_INVISIBLE|FL_SUBMENU},
+		{"A very long menu item"},
+		{"A very long menu item"},
+	{0},
+	{"button",FL_F+4, 0, 0, FL_MENU_TOGGLE},
+	{0}
+};
+
+//-----------------------------------------------------------------------------
+void test_cb(Fl_Widget* w, void*) {
+	Fl_Menu_* mw = (Fl_Menu_*)w;
+	const Fl_Menu_Item* m = mw->mvalue();
+	if (!m)
+		printf("NULL\n");
+	else if (m->shortcut())
+		printf("%s - %s\n", m->label(), fl_shortcut_label(m->shortcut()));
+	else
+		printf("%s\n", m->label());
+}
+
+//-----------------------------------------------------------------------------
 int main(int argc, char** argv) {
-
 	//----
-
 	s_pTbl_Items_Basic = new CN3TableBase<__TABLE_ITEM_BASIC>;
 
 	std::string szFN = "Item_Org.tbl";
@@ -939,21 +1064,18 @@ int main(int argc, char** argv) {
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
 	//----
-
 	SQLDisconnect(hConn);
 	SQLFreeHandle(SQL_HANDLE_DBC, hConn);
 	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
 	//----
 
-
-
 	Fl::use_high_res_GL(true);
-	Fl_Window window(1024, 720);
+	Fl_Window window(1024, 720, "KO Item Editor");
 
-	GLItemViewer sw(window.w()-(_gl_width+10), 10, _gl_width, _gl_height);
+	GLItemViewer sw(window.w()-_gl_width, 30, _gl_width, _gl_height);
 	m_sw = &sw;
 
-	ItemTableView demo_table(10, 10, window.w()-(_gl_width+30), _gl_height);
+	ItemTableView demo_table(0, 30, window.w()-(_gl_width+0), _gl_height);
 	demo_table.selection_color(FL_YELLOW);
 	demo_table.when(FL_WHEN_RELEASE|FL_WHEN_CHANGED);
 	demo_table.table_box(FL_NO_BOX);
@@ -972,12 +1094,21 @@ int main(int argc, char** argv) {
 	demo_table.cols(2);
 	demo_table.col_width_all(150);
 
+	Fl_Menu_Bar menubar(0, 0, window.w(), 30);
+	menubar.menu(menu_table);
+	menubar.callback(test_cb);
+
+	Fl_Tabs info_tabs(0, _gl_height+40, window.w(), window.h()-_gl_height-30-10);
+		Fl_Group group(0, _gl_height+40+35, window.w(), window.h()-_gl_height-30-10, "Table Info");
+			Fl_Input input(10, _gl_height+30+35+20, 240, 30);
+		group.end();
+	info_tabs.end();
+
 	window.end();
 	window.show(argc, argv);
 
 	sw.show();
 	sw.redraw_overlay();
 
-	//system("pause");
 	return Fl::run();
 }

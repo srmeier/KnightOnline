@@ -25,6 +25,8 @@ extern int             m_iMaxNumVertices0;
 //-----------------------------------------------------------------------------
 GLItemViewer::GLItemViewer(int x, int y, int w, int h, const char* l):
 Fl_Gl_Window(x, y, w, h, l) {
+	min_y = FLT_MAX;
+	max_x = max_y = max_z = FLT_MIN;
 	bShadersBuilt = false;
 	Fl::add_timeout(1.0/24.0, RenderCallBack, (void*)this);
 	end();
@@ -128,6 +130,8 @@ bool GLItemViewer::BuildShaders(void) {
 
 //-----------------------------------------------------------------------------
 void GLItemViewer::PushDataToGPU(void) {
+	min_y = FLT_MAX;
+	max_x = max_y = max_z = FLT_MIN;
 	glBindVertexArray(glVertArray);
 
 	if(eType == ITEM_TYPE_PLUG) {
@@ -135,6 +139,15 @@ void GLItemViewer::PushDataToGPU(void) {
 		memset(vertices, 0, 5*m_iMaxNumVertices0);
 
 		for(int i=0; i<m_iMaxNumVertices0; i++) {
+			if(m_pVertices0[i].y < min_y)
+				min_y = m_pVertices0[i].y;
+			if(fabs(m_pVertices0[i].x) > max_x)
+				max_x = fabs(m_pVertices0[i].x);
+			if(m_pVertices0[i].y > max_y)
+				max_y = m_pVertices0[i].y;
+			if(fabs(m_pVertices0[i].z) > max_z)
+				max_z = fabs(m_pVertices0[i].z);
+
 			vertices[5*i+0] = m_pVertices0[i].x;
 			vertices[5*i+1] = m_pVertices0[i].y;
 			vertices[5*i+2] = m_pVertices0[i].z;
@@ -169,6 +182,15 @@ void GLItemViewer::PushDataToGPU(void) {
 		memset(vertices, 0, 5*3*m_nFC);
 
 		for(int i=0; i<3*m_nFC; i++) {
+			if(m_pVertices[m_pwVtxIndices[i]].y < min_y)
+				min_y = m_pVertices[m_pwVtxIndices[i]].y;
+			if(fabs(m_pVertices[m_pwVtxIndices[i]].x) > max_x)
+				max_x = fabs(m_pVertices[m_pwVtxIndices[i]].x);
+			if(m_pVertices[m_pwVtxIndices[i]].y > max_y)
+				max_y = m_pVertices[m_pwVtxIndices[i]].y;
+			if(fabs(m_pVertices[m_pwVtxIndices[i]].z) > max_z)
+				max_z = fabs(m_pVertices[m_pwVtxIndices[i]].z);
+
 			vertices[5*i+0] = m_pVertices[m_pwVtxIndices[i]].x;
 			vertices[5*i+1] = m_pVertices[m_pwVtxIndices[i]].y;
 			vertices[5*i+2] = m_pVertices[m_pwVtxIndices[i]].z;
@@ -294,6 +316,9 @@ void GLItemViewer::PushDataToGPU(void) {
 
 	glUniform1i(glGetUniformLocation(glProgram, "tex"), 0);
 	glGenerateMipmapEXT(GL_TEXTURE_2D);
+
+	pDistP = (max_y-min_y)/2.0f + min_y;
+	pDist  = sqrt(max_x*max_x + 2.0f*max_y*max_y + max_z*max_z);
 }
 
 //-----------------------------------------------------------------------------
@@ -311,12 +336,10 @@ void GLItemViewer::draw(void) {
 	model = glm::rotate(model, (float)(M_PI/100.0), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	glm::mat4 proj;
-	proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 1.0f, 120.0f);
+	proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 0.1f, 10.0f);
 
-	float pDist  = 2.0f;
-	float pDistP = 0.2f;
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(pDist,  pDist, pDist),
+		glm::vec3(pDist, pDistP, pDist),
 		glm::vec3( 0.0f, pDistP,  0.0f),
 		glm::vec3( 0.0f,   1.0f,  0.0f)
 	);
