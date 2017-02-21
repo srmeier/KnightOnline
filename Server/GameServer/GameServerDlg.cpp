@@ -1519,7 +1519,6 @@ void CGameServerDlg::GetRegionNpcIn(C3DMap *pMap, uint16 region_x, uint16 region
 			else
 					pNpc->m_bNation = 0;
 		}
-		pkt << pNpc->GetID();
 		pNpc->GetNpcInfo(pkt);
 		t_count++;
 	}
