@@ -1,6 +1,13 @@
 #pragma once
 
+#if IsUnixDef
+#include <stdint.h>
+#define INLINE __attribute__((always_inline))
+#endif 
+
+#if  IsWinDef
 #define INLINE __forceinline
+#endif
 
 typedef int64_t int64;
 typedef int32_t int32;
