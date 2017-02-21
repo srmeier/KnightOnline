@@ -1009,8 +1009,12 @@ void CUser::SendMyInfo()
 		<< uint8(m_sFireR) << uint8(m_sColdR) << uint8(m_sLightningR)
 		<< uint8(m_sMagicR) << uint8(m_sDiseaseR) << uint8(m_sPoisonR)
 		<< m_iGold
+#if __VERSION > 1264
 		<< m_bAuthority
 		<< m_bKnightsRank << m_bPersonalRank; // national rank, leader rank
+#else
+		<< m_bAuthority;
+#endif
 
 	result.append(m_bstrSkill, 9);
 
@@ -1329,7 +1333,6 @@ void CUser::RequestNpcIn(Packet & pkt)
 			else
 					pNpc->m_bNation = 0;
 		}
-		result << pNpc->GetID();
 		pNpc->GetNpcInfo(result);
 	}
 

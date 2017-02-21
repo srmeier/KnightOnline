@@ -28,12 +28,6 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		index += ParseSpace(temp, pBuf+index); m_LogicElseInt[i++] = atoi(temp); // event number
 		index += ParseSpace(temp, pBuf+index); m_LogicElseInt[i++] = atoi(temp); // state (is the event at this state?)
 
-	}else if (!strcmp(temp, "CHECK_NOEXIST_ITEM")){
-		m_LogicElse = LOGIC_CHECK_NOEXIST_ITEM;
-
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
 	} else if (!strcmp(temp, "HOWMUCH_ITEM")) {
 		m_LogicElse = LOGIC_HOWMUCH_ITEM;
 
@@ -94,12 +88,6 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
-	} else if (!strcmp(temp, "CHECK_WEIGHT")) {
-		m_LogicElse = LOGIC_CHECK_WEIGHT;
-
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
 	} else if (!strcmp(temp, "CHECK_EXIST_ITEM")) {
 		m_LogicElse = LOGIC_CHECK_EXIST_ITEM;
 
@@ -117,62 +105,6 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		// NOTE: number of empty slots to check for
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
-	} else if (!strcmp(temp, "CHECK_KNIGHT")) {
-		m_LogicElse = LOGIC_CHECK_KNIGHT;
-
-
-	} else if (!strcmp(temp, "CHECK_CLAN_GRADE")) {
- 		m_LogicElse = LOGIC_CHECK_CLAN_GRADE;
- 
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
-	} else if (!strcmp(temp, "CHECK_LOYALTY")) {
-		m_LogicElse = LOGIC_CHECK_LOYALTY;
-
-	} else if (!strcmp(temp, "CHECK_CHIEF")) {
- 		m_LogicElse = LOGIC_CHECK_CHIEF;
- 
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);	
-
- 	} else if (!strcmp(temp, "CHECK_NO_CHIEF")) {
- 		m_LogicElse = LOGIC_CHECK_NO_CHIEF;
- 
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
- 	} else if (!strcmp(temp, "CHECK_NATION")){
- 		m_LogicElse = LOGIC_CHECK_NATION;
-
- 	} else if (!strcmp(temp, "CHECK_MIDDLE_STATUE_CAPTURE")) {
-		m_LogicElse = LOGIC_CHECK_MIDDLE_STATUE_CAPTURE;
-
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
-	} else if (!strcmp(temp, "CHECK_MIDDLE_STATUE_NOCAPTURE")){
-		m_LogicElse = LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE;
-
-		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
-
-	} else if(!strcmp(temp, "CHECK_SKILL_TOTAL")) {
- 		m_LogicElse = LOGIC_CHECK_SKILL_TOTAL;
- 
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 	
- 	} else if(!strcmp(temp, "CHECK_SKILL_POINT")) {
- 		m_LogicElse = LOGIC_CHECK_SKILL_POINT;
- 
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 
-
- 	} else if(!strcmp(temp, "CHECK_STAT_TOTAL")) {
- 		m_LogicElse = LOGIC_CHECK_STAT_TOTAL;
- 
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
- 	
 	} else {
 		m_LogicElse = LOGIC_UNKNOWN;
 		printf("Unknown logic command: %s\n", temp);

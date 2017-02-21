@@ -90,3 +90,4 @@ protected:
 #include "Thread.h"
 #include "Network.h"
 #include "TimeThread.h"
+#include "Compress.h"

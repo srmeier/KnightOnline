@@ -112,7 +112,7 @@ static unsigned int crc32_tab[] = {
 
 /* Return a 32-bit CRC of the contents of the buffer. */
 
-unsigned int crc32(const unsigned char *s, unsigned int len, unsigned int startVal)
+unsigned int crc32_newer(const unsigned char *s, unsigned int len, unsigned int startVal)
 {
 	unsigned int i, crc32val = startVal;
 	for (i = 0; i < len; i++)

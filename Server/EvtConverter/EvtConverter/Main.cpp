@@ -119,14 +119,6 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:PromoteUserNovice();\n");
 		} break;
 
-		case EXEC_PROMOTE_USER: {
-			fprintf(outputFile, "\tpUser:PromoteUser();\n");
-		} break;
-
-		case EXEC_PROMOTE_KNIGHT: {
-			fprintf(outputFile, "\tpUser:PromoteKnight();\n");
-		} break;
-
 		case EXEC_RUN_EXCHANGE: {
 			fprintf(outputFile, "\tRunCountExchange(sUID, %d, 0);\n", pExec->m_ExecInt[0]);
 		} break;
@@ -139,30 +131,6 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:StateChange(%d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1]);
 		} break;
 
-		case EXEC_CHANGE_LOYALTY: {
- 			fprintf(outputFile, "\tpUser:ChanceLoyalty(%d);\n", pExec->m_ExecInt[0]);
- 		} break;
-
- 		case EXEC_ZONE_CHANGE: {
-			fprintf(outputFile, "\tpUser:ZoneChange(%d, %d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1], pExec->m_ExecInt[2]);
-		} break;
-
-		case EXEC_ZONE_CHANGE_CLAN: {
-			fprintf(outputFile, "\tpUser:ZoneChangeClan(%d, %d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1], pExec->m_ExecInt[2]);
-		} break;
-
-		case EXEC_MOVE_MIDDLE_STATUE: {
-			fprintf(outputFile, "\tMoveMiddleStatue();\n");
-		} break;
-
-		case EXEC_STAT_POINT_DISTRIBUTE: {
- 			fprintf(outputFile, "\tpUser:ResetStatPoints();\n");
- 		} break;
- 
- 		case EXEC_SKILL_POINT_DISTRIBUTE: {
- 			fprintf(outputFile, "\tpUser:ResetSkillPoints();\n");
- 		} break;
- 
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");
@@ -251,23 +219,8 @@ void FillEventID(EVENT_DATA* pEvent) {
 				num_logic_to_close++;
 			} break;
 
-			case LOGIC_CHECK_WEIGHT: {
-				fprintf(outputFile, "\tlocal weight = pUser:CheckWeight(%d, %d);\n",
-					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
-				);
-				fprintf(outputFile, "\tif weight > GetAvailableWeight()  then\n");
-				num_logic_to_close++;
-			} break;
-
 			case LOGIC_CHECK_EXIST_ITEM: {
 				fprintf(outputFile, "\tif pUser:CheckExistItem(%d, %d) then\n",
-					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
-				);
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_NOEXIST_ITEM: {
-				fprintf(outputFile, "\tif pUser:CheckNoExistItem(%d, %d) then\n",
 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
 				);
 				num_logic_to_close++;
@@ -288,92 +241,6 @@ void FillEventID(EVENT_DATA* pEvent) {
 
 				num_logic_to_close++;
 			} break;
-
-			case LOGIC_CHECK_KNIGHT: {
-
-				fprintf(outputFile, "\tif not pUser:CheckKnight() then\n");
-
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_LOYALTY: {
-
-				fprintf(outputFile, "\tif pUser:GetLoyalty() then\n");
-
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_CLAN_GRADE: {
-
- 				fprintf(outputFile, "\tlocal grade = pUser:GetClanGrade();\n");
- 				fprintf(outputFile, "\tif (grade >= %d and grade <= %d)  then\n", 
- 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
- 
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_CHIEF: {
- 
- 				fprintf(outputFile, "\tif pUser:isClanLeader() then\n");
- 
- 				num_logic_to_close++;
- 			} break;
- 
-			case LOGIC_CHECK_NO_CHIEF: {
- 
-				fprintf(outputFile, "\tif not pUser:isClanLeader() then\n");
- 
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_NATION: {
- 
- 				fprintf(outputFile, "\tif pUser:CheckNation() == %d  then\n",
- 					pLogicElse->m_LogicElseInt[0]);
- 
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_MIDDLE_STATUE_CAPTURE: {
-
-				fprintf(outputFile, "\tif CheckMiddleStatueCapture() then\n" );
-
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_MIDDLE_STATUE_NOCAPTURE: {
-
-				fprintf(outputFile, "\tif not CheckMiddleStatueCapture() then\n");
-
-				num_logic_to_close++;
-			} break;
-
-			case LOGIC_CHECK_SKILL_TOTAL: {
-				fprintf(outputFile, "\tlocal points = pUser:CheckSkillPoint();\n");
- 				fprintf(outputFile, "\tif points >= %d and points <= %d then\n",
- 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
- 				);
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_SKILL_POINT: {
- 				fprintf(outputFile, "\tlocal points = pUser:CheckSkillPoint(%d);\n", 
- 					pLogicElse->m_LogicElseInt[0]
- 				);
- 				
- 				fprintf(outputFile, "\tif points >= %d and points <= %d then\n",
- 					pLogicElse->m_LogicElseInt[1], pLogicElse->m_LogicElseInt[2]
- 				);
- 				num_logic_to_close++;
- 			} break;
-
- 			case LOGIC_CHECK_STAT_TOTAL: {
-				fprintf(outputFile, "\tlocal points = pUser:GetStatTotal();\n");
- 				fprintf(outputFile, "\tif points >= %d and points <= %d then\n",
- 					pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]
- 				);
- 				num_logic_to_close++;
- 			} break;
 
 			default: {
 				printf("Missing LOGIC code for command %d.\n", pLogicElse->m_LogicElse);
@@ -402,7 +269,7 @@ void FillEventID(EVENT_DATA* pEvent) {
 
 //-----------------------------------------------------------------------------
 int main(int argc, char** argv) {
-    int iZone = atoi(argv[1]);
+	int iZone = atoi(argv[1]);
 
 	char buf[0xFF] = "";
 	sprintf(buf, "%d.lua", iZone);
@@ -435,7 +302,7 @@ int main(int argc, char** argv) {
 	fprintf(outputFile, "end\n");
 
 	fclose(outputFile);
-    
+
 	/*
 	printf("\n\n----- NODES -----\n");
 
