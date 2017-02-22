@@ -71,7 +71,7 @@ Thread::Thread(void *(*lpThreadFunc)(void *), void * lpParam)
  * @param lpThreadFunc The function that the thread will execute
  * @param lpParam the argument that the lpThreadFunction gets
  *
- * \example it will be added...
+ * \example it will be added... (didn't add)
  */
 bool Thread::start(void *(*lpThreadFunc)(void *), void * lpParam){
 
