@@ -3,10 +3,17 @@
 
 #if IsUnixDef //Start of #ifdef for Unix specific defines % includes
 
-Guard::Guard(){pthread_mutex_init(&m_target, NULL);}
+Guard::Guard(){pthread_mutex_init(m_target, NULL);}
+
+Guard::Guard(pthread_mutex_t * target) : m_target(target)
+{
+	//TODO(onurcanbektas): implement a efficient error checking mechanism
+	pthread_mutex_init(m_target, NULL);
+	lock();
+}
 
 void Guard::lock(){
-	m_lockReturnValue = pthread_mutex_lock(&m_target);
+	m_lockReturnValue = pthread_mutex_lock(m_target);
 	if (m_lockReturnValue == EDEADLK){
 		printf("A deadlock has occured, a thread is blocked waiting for the m_target.\n");
 	}else if(m_lockReturnValue == EINVAL){
@@ -15,7 +22,7 @@ void Guard::lock(){
 }
 
 void Guard::unlock(){
-	m_unlockReturnValue = pthread_mutex_unlock(&m_target);
+	m_unlockReturnValue = pthread_mutex_unlock(m_target);
 	if (m_unlockReturnValue == EINVAL)
 	{
 		printf("The value specified by m_target in Thread class is invalid.\n");
@@ -25,7 +32,8 @@ void Guard::unlock(){
 }
 
 Guard::~Guard(){
-	pthread_mutex_unlock(&m_target);
+	pthread_mutex_unlock(m_target);
+	free(m_target);
 }
 
 #endif //End of #ifdef for Unix specific defines & includes

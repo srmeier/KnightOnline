@@ -3,9 +3,12 @@
 #define IsUnixDef defined(__APPLE__)||defined(__gnu_linux__)||defined(__MACH__)||defined(Macintosh)||defined(__linux__)
 #define IsWinDef defined(_WIN32)
 
+
 /****************************************************/
 
 #if  IsWinDef
+
+#define MUTEX std::recursive_mutex
 
 #define WIN32_LEAN_AND_MEAN
 #define VC_EXTRALEAN
@@ -49,6 +52,8 @@ protected:
 
 #define nullptr NULL
 
+#define MUTEX Guard
+
 #include <pthread.h>
 #include <stdio.h>
 #include <errno.h>
@@ -65,11 +70,12 @@ class Guard
 {
 public:
 	Guard();
+	Guard(pthread_mutex_t * target);
 	void lock();
 	void unlock();
 	~Guard();
 
-	pthread_mutex_t m_target;
+	pthread_mutex_t * m_target;
 
 protected:
 	int m_lockReturnValue;
@@ -136,10 +142,12 @@ protected:
 #include <list>
 #include <vector>
 
-//#include "tstring.h"
-//#include "globals.h"
-//#include "Atomic.h"
-#include "Thread.h"
-//#include "Network.h"
-#include "TimeThread.h"
+#include "tstring.h"
+#include "globals.h"
+#include "Atomic.h"
+#include "Network.h"
 #include "Compress.h"
+
+#include "TimeThread.h"
+#include "Thread.h"
+

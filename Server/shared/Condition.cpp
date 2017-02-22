@@ -84,7 +84,6 @@ void Condition::Broadcast()
 #endif
 
 
-
 Condition::~Condition()
 {
 }
