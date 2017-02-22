@@ -1,9 +1,16 @@
 #pragma once
 
-#include <queue>
+#define IsUnixDef defined(__APPLE__)||defined(__gnu_linux__)||defined(__MACH__)||defined(Macintosh)||defined(__linux__)
+#define IsWinDef defined(_WIN32)
 
-#define VC_EXTRALEAN
+/****************************************************/
+
+#if  IsWinDef
+
 #define WIN32_LEAN_AND_MEAN
+#define VC_EXTRALEAN
+
+#include <queue>
 
 #include <Windows.h>
 #include <winsock2.h>
@@ -11,6 +18,68 @@
 
 #define THREADCALL WINAPI
 #define STRCASECMP _stricmp
+
+#include <random>
+
+#include <thread>
+#include <chrono>
+#include <atomic>
+#include <mutex>
+
+
+class Guard
+{
+public:
+	Guard(std::recursive_mutex& mutex) : target(mutex)  { target.lock(); }
+	Guard(std::recursive_mutex* mutex) : target(*mutex) { target.lock(); }
+	~Guard() { target.unlock(); }
+
+protected:
+	std::recursive_mutex& target;
+};
+
+
+#define sleep(ms) Sleep(ms)
+
+#endif	//End of #ifdef for Windows specific defines & includes
+
+/****************************************************/
+
+#if IsUnixDef //Start of #ifdef for Unix specific defines % includes
+
+#define nullptr NULL
+
+#include <pthread.h>
+#include <stdio.h>
+#include <errno.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+
+
+/* @brief The mutex system, for the time being we are using default 
+ *		  attribitues for the mutex.
+ *
+ */
+class Guard
+{
+public:
+	Guard();
+	void lock();
+	void unlock();
+	~Guard();
+
+	pthread_mutex_t m_target;
+
+protected:
+	int m_lockReturnValue;
+	int m_unlockReturnValue;
+};
+
+
+#endif //End of #ifdef for Unix specific defines & includes
+
+/****************************************************/
 
 #define I64FMT "%016I64X"
 #define I64FMTD "%I64u"
@@ -49,23 +118,6 @@
 #define STR(str) #str
 #define STRINGIFY(str) STR(str)
 
-#include <thread>
-#include <chrono>
-#include <atomic>
-#include <mutex>
-
-class Guard
-{
-public:
-	Guard(std::recursive_mutex& mutex) : target(mutex)  { target.lock(); }
-	Guard(std::recursive_mutex* mutex) : target(*mutex) { target.lock(); }
-	~Guard() { target.unlock(); }
-
-protected:
-	std::recursive_mutex& target;
-};
-
-#define sleep(ms) Sleep(ms)
 
 #ifdef min
 #undef min
@@ -78,16 +130,16 @@ protected:
 // define compiler-specific types
 #include "types.h"
 
-#include <random>
+
 #include <memory>
 #include <map>
 #include <list>
 #include <vector>
 
-#include "tstring.h"
-#include "globals.h"
-#include "Atomic.h"
+//#include "tstring.h"
+//#include "globals.h"
+//#include "Atomic.h"
 #include "Thread.h"
-#include "Network.h"
+//#include "Network.h"
 #include "TimeThread.h"
 #include "Compress.h"
