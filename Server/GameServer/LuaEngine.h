@@ -45,7 +45,14 @@ public:
 
 private:
 	lua_State * m_luaState;
+
+#if IsWinDef
 	std::recursive_mutex m_lock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+#endif
+	
 };
 
 class RWLock;
