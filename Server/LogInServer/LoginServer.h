@@ -48,7 +48,15 @@ private:
 
 	RWLock m_patchListLock;
 	Packet m_serverListPacket;
+
+#if IsWinDef
 	std::recursive_mutex m_lock, m_serverListLock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_t * m_serverListLock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+#endif
+	
 
 	FILE *m_fpLoginServer;
 public:

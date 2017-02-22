@@ -15,7 +15,14 @@ class CUser;
 class CRegion  
 {
 public:
-	std::recursive_mutex		m_lock;
+	
+#if IsWinDef
+	std::recursive_mutex m_lock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+#endif
+	
 	ZoneItemArray	m_RegionItemArray;
 	ZoneUserArray	m_RegionUserArray;
 	ZoneNpcArray	m_RegionNpcArray;
