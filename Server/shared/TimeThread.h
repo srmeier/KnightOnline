@@ -10,8 +10,6 @@ uint32 THREADCALL TimeThread(void * lpParam);
 void * TimeThread(void * lpParam);
 #endif
 
-
-
 extern time_t UNIXTIME;
 extern tm g_localTime;
 

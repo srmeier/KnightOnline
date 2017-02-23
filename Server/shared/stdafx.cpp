@@ -1,9 +1,10 @@
 #include "stdafx.h"
 
-
 #if IsUnixDef //Start of #ifdef for Unix specific defines % includes
 
-Guard::Guard(){pthread_mutex_init(m_target, NULL);}
+Guard::Guard(){
+	m_target  = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(m_target, NULL);}
 
 Guard::Guard(pthread_mutex_t * target)
 {
