@@ -1,9 +1,15 @@
 #pragma once
 
 #define IsUnixDef defined(__APPLE__)||defined(__gnu_linux__)||defined(__MACH__)||defined(Macintosh)||defined(__linux__)
-#define IsWinDef _WIN32 //defined(_WIN32)
-
+#define IsWinDef _WIN32 // defined(_WIN32)||defined(_WIN64) //
 /****************************************************/
+//Under Construction
+/*#if IsWinDef
+uint32 INLINE RETURN_THREAD(void *x){return *(uint32 *)x;}
+#endif
+#if IsUnixDef
+void* INLINE RETURN_THREAD(void *x){return x;}
+#endif*/
 
 #if  IsWinDef
 
@@ -17,6 +23,7 @@
 #include <ws2tcpip.h>
 
 #define THREADCALL WINAPI
+//uint32 inline RETURN_THREAD(uint32 r_Value){return r_Value;}
 #define STRCASECMP _stricmp
 
 #include <random>
@@ -25,6 +32,7 @@
 #include <chrono>
 #include <atomic>
 #include <mutex>
+
 
 
 class Guard
@@ -49,7 +57,7 @@ protected:
 
 #define nullptr NULL
 
-#define MUTEX Guard
+//void inline * RETURN_THREAD(void * r_Value){return r_Value;}
 
 #include <pthread.h>
 #include <stdio.h>

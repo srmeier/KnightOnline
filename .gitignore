@@ -28,4 +28,6 @@ Client/N3Base/Release/N3Base.lib
 ItemEditor/Item/
 ItemEditor/UI/
 Makefile
+*.o
+.dSYM
 
