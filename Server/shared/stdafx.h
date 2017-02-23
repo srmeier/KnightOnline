@@ -1,7 +1,7 @@
 #pragma once
 
 #define IsUnixDef defined(__APPLE__)||defined(__gnu_linux__)||defined(__MACH__)||defined(Macintosh)||defined(__linux__)
-#define IsWinDef defined(_WIN32)
+#define IsWinDef _WIN32 //defined(_WIN32)
 
 
 /****************************************************/
@@ -143,9 +143,8 @@ protected:
 #include "tstring.h"
 #include "globals.h"
 #include "Atomic.h"
-#include "Network.h"
-#include "Compress.h"
-
-#include "TimeThread.h"
 #include "Thread.h"
+#include "Network.h"
+#include "TimeThread.h"
+#include "Compress.h"
 
