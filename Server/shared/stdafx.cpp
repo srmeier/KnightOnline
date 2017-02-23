@@ -5,8 +5,10 @@
 
 Guard::Guard(){pthread_mutex_init(m_target, NULL);}
 
-Guard::Guard(pthread_mutex_t * target) : m_target(target)
+Guard::Guard(pthread_mutex_t * target)
 {
+	target = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	m_target = target; //It is critical to do the assignment after calling malloc.
 	//TODO(onurcanbektas): implement a efficient error checking mechanism
 	pthread_mutex_init(m_target, NULL);
 	lock();
