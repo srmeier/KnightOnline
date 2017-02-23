@@ -3,7 +3,6 @@
 #define IsUnixDef defined(__APPLE__)||defined(__gnu_linux__)||defined(__MACH__)||defined(Macintosh)||defined(__linux__)
 #define IsWinDef _WIN32 //defined(_WIN32)
 
-
 /****************************************************/
 
 #if  IsWinDef
