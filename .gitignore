@@ -29,5 +29,5 @@ ItemEditor/Item/
 ItemEditor/UI/
 Makefile
 *.o
-.dSYM
+*.dSYM
 

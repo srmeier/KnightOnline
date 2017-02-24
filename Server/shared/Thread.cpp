@@ -134,5 +134,4 @@ bool Thread::waitForExit()
 	}
 }
 
-
 #endif //End of #ifdef for Unix specific code
