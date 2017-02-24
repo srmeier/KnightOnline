@@ -30,6 +30,7 @@ uint32 THREADCALL TimeThread(void * lpParam)
 void * TimeThread(void * lpParam)
 #endif
 {
+
 	g_bRunningThread = true;
 	while (g_bRunningThread)
 	{
@@ -48,8 +49,7 @@ void * TimeThread(void * lpParam)
 		sleep(1);
 		#endif
 
-		
 	}
 
-	return 0;
+	return RETURN_THREAD((void *)0); 
 }

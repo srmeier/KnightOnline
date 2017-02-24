@@ -147,7 +147,13 @@ public:
 
 private:
 	OdbcConnection *m_GameDB, *m_AccountDB;
+	
+#if IsWinDef
 	std::recursive_mutex m_lock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock;
+#endif
 
 	friend class CGameServerDlg;
 };

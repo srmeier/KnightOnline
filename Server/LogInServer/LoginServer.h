@@ -1,4 +1,4 @@
-#pragma once
+f#pragma once
 
 #include "../shared/KOSocketMgr.h"
 
@@ -48,7 +48,15 @@ private:
 
 	RWLock m_patchListLock;
 	Packet m_serverListPacket;
+
+#if IsWinDef
 	std::recursive_mutex m_lock, m_serverListLock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock;
+	pthread_mutex_t * m_serverListLock;
+#endif
+	
 
 	FILE *m_fpLoginServer;
 public:

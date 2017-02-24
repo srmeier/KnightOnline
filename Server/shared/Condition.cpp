@@ -61,13 +61,13 @@ uint32 Condition::Wait(time_t timeout)
 {
 	struct timespec * abstime;
 	abstime->tv_nsec = (timeout % 1000) * 1000000;	
-	pthread_cond_timedwait(&m_condition, &m_lock.m_target, (timespec *)&abstime->tv_nsec);
+	pthread_cond_timedwait(&m_condition, m_lock.m_target, (timespec *)&abstime->tv_nsec);
 	return 0;
 }
 
 uint32 Condition::Wait()//Should we unlock the mutex also ?
 {
-	pthread_cond_wait(&m_condition, &m_lock.m_target);
+	pthread_cond_wait(&m_condition, m_lock.m_target);
 	return 0;
 }
 
@@ -82,7 +82,6 @@ void Condition::Broadcast()
 }
 
 #endif
-
 
 
 Condition::~Condition()

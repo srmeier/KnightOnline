@@ -16,6 +16,13 @@ public:
 
 public:
 	NpcSet m_pNpcs;
+
+#if IsWinDef
 	std::recursive_mutex m_lock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock;
+#endif
+	
 	Thread m_thread;
 };

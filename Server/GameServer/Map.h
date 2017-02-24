@@ -41,7 +41,13 @@ public:
 	uint32	m_wBundle;	// Zone Item Max Count
 
 	SMDFile *m_smdFile;
+
+#if IsWinDef
 	std::recursive_mutex m_lock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock;
+#endif
 
 	INLINE uint16 GetID() { return m_nZoneNumber; }
 
