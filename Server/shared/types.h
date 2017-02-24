@@ -4,7 +4,6 @@
 #include <stdint.h>
 #define INLINE __attribute__((always_inline))
 #endif 
-
 #if  IsWinDef
 #define INLINE __forceinline
 #endif

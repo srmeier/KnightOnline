@@ -1,8 +1,7 @@
 #pragma once
 
 #define IsUnixDef defined(__APPLE__)||defined(__gnu_linux__)||defined(__MACH__)||defined(Macintosh)||defined(__linux__)
-#define IsWinDef _WIN32 //defined(_WIN32)
-
+#define IsWinDef _WIN32 // defined(_WIN32)||defined(_WIN64) //
 /****************************************************/
 
 #if  IsWinDef
@@ -25,6 +24,7 @@
 #include <chrono>
 #include <atomic>
 #include <mutex>
+
 
 
 class Guard
@@ -56,7 +56,6 @@ protected:
 #include <stdlib.h>
 #include <sys/types.h>
 
-
 /* @brief The mutex system, for the time being we are using default 
  *		  attribitues for the mutex.
  *
@@ -65,11 +64,12 @@ class Guard
 {
 public:
 	Guard();
+	Guard(pthread_mutex_t * target);
 	void lock();
 	void unlock();
 	~Guard();
 
-	pthread_mutex_t m_target;
+	pthread_mutex_t * m_target;
 
 protected:
 	int m_lockReturnValue;
@@ -138,8 +138,15 @@ protected:
 
 #include "tstring.h"
 #include "globals.h"
-#include "Atomic.h"
+#include "Atomic.h"*/
 #include "Thread.h"
 #include "Network.h"
 #include "TimeThread.h"
 #include "Compress.h"
+
+#if IsWinDef
+uint32 INLINE RETURN_THREAD(void * x = NULL);
+#endif
+#if IsUnixDef
+void INLINE * RETURN_THREAD(void * x = NULL);
+#endif

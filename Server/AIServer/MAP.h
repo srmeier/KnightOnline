@@ -43,7 +43,12 @@ public:
 	short	m_sKarusRoom;			// karusÀÇ ¼º°¹¼ö
 	short	m_sElmoradRoom;			// elmoradÀÇ ¼º°¹¼ö
 
+#if IsWinDef
 	std::recursive_mutex m_lock;
+#endif
+#if IsUnixDef
+	pthread_mutex_t * m_lock;
+#endif
 
 public:
 	MAP();
