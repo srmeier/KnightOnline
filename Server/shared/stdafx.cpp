@@ -40,3 +40,25 @@ Guard::~Guard(){
 }
 
 #endif //End of #ifdef for Unix specific defines & includes
+
+/*
+*	@brief	The function that sets the return value 
+*			according to the OS that the server is running.
+*			Make sure that the argument x is passed in the type of void.
+*			
+*	@example	return RETURN_THREAD((void *)2);
+*/
+#if IsWinDef
+uint32 INLINE RETURN_THREAD(void * x)
+#endif
+#if IsUnixDef
+void INLINE * RETURN_THREAD(void * x)
+#endif
+{
+#if IsWinDef
+return *(uint32 *)x;
+#endif
+#if IsUnixDef
+return x;
+#endif
+}

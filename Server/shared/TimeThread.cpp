@@ -49,8 +49,7 @@ void * TimeThread(void * lpParam)
 		sleep(1);
 		#endif
 
-		
 	}
 
-	return 0;//RETURN_THREAD
+	return RETURN_THREAD((void *)0); 
 }

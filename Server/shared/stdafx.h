@@ -3,13 +3,6 @@
 #define IsUnixDef defined(__APPLE__)||defined(__gnu_linux__)||defined(__MACH__)||defined(Macintosh)||defined(__linux__)
 #define IsWinDef _WIN32 // defined(_WIN32)||defined(_WIN64) //
 /****************************************************/
-//Under Construction
-/*#if IsWinDef
-uint32 INLINE RETURN_THREAD(void *x){return *(uint32 *)x;}
-#endif
-#if IsUnixDef
-void* INLINE RETURN_THREAD(void *x){return x;}
-#endif*/
 
 #if  IsWinDef
 
@@ -23,7 +16,6 @@ void* INLINE RETURN_THREAD(void *x){return x;}
 #include <ws2tcpip.h>
 
 #define THREADCALL WINAPI
-//uint32 inline RETURN_THREAD(uint32 r_Value){return r_Value;}
 #define STRCASECMP _stricmp
 
 #include <random>
@@ -57,15 +49,12 @@ protected:
 
 #define nullptr NULL
 
-//void inline * RETURN_THREAD(void * r_Value){return r_Value;}
-
 #include <pthread.h>
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
-
 
 /* @brief The mutex system, for the time being we are using default 
  *		  attribitues for the mutex.
@@ -149,9 +138,15 @@ protected:
 
 #include "tstring.h"
 #include "globals.h"
-#include "Atomic.h"
+#include "Atomic.h"*/
 #include "Thread.h"
 #include "Network.h"
 #include "TimeThread.h"
 #include "Compress.h"
 
+#if IsWinDef
+uint32 INLINE RETURN_THREAD(void * x = NULL);
+#endif
+#if IsUnixDef
+void INLINE * RETURN_THREAD(void * x = NULL);
+#endif
