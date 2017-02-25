@@ -11,7 +11,7 @@
 	all their information be displayed
 - this can house all the items and create a copy of the selected one which the
 	user can modify until they go to save their changes (just need to keep
-	track of the index/itorator)
+	track of the index/itorator - and potentially the changes)
 */
 
 //-----------------------------------------------------------------------------
