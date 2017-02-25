@@ -138,7 +138,7 @@ protected:
 
 #include "tstring.h"
 #include "globals.h"
-#include "Atomic.h"*/
+#include "Atomic.h"
 #include "Thread.h"
 #include "Network.h"
 #include "TimeThread.h"
