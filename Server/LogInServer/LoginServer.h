@@ -1,4 +1,4 @@
-f#pragma once
+#pragma once
 
 #include "../shared/KOSocketMgr.h"
 
