@@ -11,6 +11,8 @@
 #include "fl/fl_tabs.h"
 #include "fl/fl_group.h"
 #include "fl/fl_input.h"
+#include "fl/fl_float_input.h"
+#include "fl/fl_int_input.h"
 #include "fl/fl_menu_bar.h"
 
 #include "ItemInfo.h"
@@ -18,6 +20,52 @@
 
 const int _gl_width = 380-60;
 const int _gl_height = 1024/4;
+
+//-----------------------------------------------------------------------------
+/*
+DWORD dwID;
+BYTE byExtIndex;
+std::string szName;
+std::string szRemark;
+DWORD dwIDK0;
+BYTE byIDK1;
+DWORD dwIDResrc;
+DWORD dwIDIcon;
+DWORD dwSoundID0;
+DWORD dwSoundID1;
+BYTE byClass;
+BYTE byIsRobeType;
+BYTE byAttachPoint;
+BYTE byNeedRace;
+BYTE byNeedClass;
+short siDamage;
+short siAttackInterval;
+short siAttackRange;
+short siWeight;
+short siMaxDurability;
+int iPrice;
+int iPriceSale;
+short siDefense;
+BYTE byContable;
+DWORD dwEffectID1;
+DWORD dwEffectID2;
+char cNeedLevel;
+char cIDK2;
+BYTE byNeedRank;
+BYTE byNeedTitle;
+BYTE byNeedStrength;
+BYTE byNeedStamina;
+BYTE byNeedDexterity;
+BYTE byNeedInteli;
+BYTE byNeedMagicAttack;
+BYTE bySellGroup;
+BYTE byIDK3;
+*/
+
+Fl_Int_Input* tbl_id;
+Fl_Int_Input* tbl_ext_index;
+Fl_Input*     tbl_name;
+Fl_Input*     tbl_remark;
 
 //-----------------------------------------------------------------------------
 std::wstring s2ws(const std::string& s)
@@ -718,6 +766,15 @@ void ItemTableView::event_callback_update_opengl(void) {
 	_ITEM_TABLE* item = ItemTableMap.GetData(r);
 	__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic->Find(item->m_iNum/1000*1000);
 
+	char tmp[0xFF] = {};
+
+	sprintf(tmp, "%d", pItem->dwID);
+	tbl_id->value(tmp);
+	sprintf(tmp, "%d", pItem->byExtIndex);
+	tbl_ext_index->value(tmp);
+	tbl_name->value(pItem->szName.c_str());
+	tbl_remark->value(pItem->szRemark.c_str());
+
 	if(pItem) {
 		printf("--------------------\n");
 		printf("%s:\n", pItem->szName.c_str());
@@ -1041,7 +1098,7 @@ int main(int argc, char** argv) {
 	//----
 	SQLHANDLE hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hConn, &hStmt);
-	if(SQLExecDirect(hStmt, _T("SELECT Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {//TOP(10000)
+	if(SQLExecDirect(hStmt, _T("SELECT TOP(5000) Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {//TOP(10000)
 		printf("SQLExecDirect\n");
 		system("pause");
 		return -1;
@@ -1098,9 +1155,13 @@ int main(int argc, char** argv) {
 	menubar.menu(menu_table);
 	menubar.callback(test_cb);
 
+	// TODO: need to add the positions and widths/heights as variables
 	Fl_Tabs info_tabs(0, _gl_height+40, window.w(), window.h()-_gl_height-30-10);
 		Fl_Group group(0, _gl_height+40+35, window.w(), window.h()-_gl_height-30-10, "Table Info");
-			Fl_Input input(10, _gl_height+30+35+20, 240, 30);
+			tbl_id        = new Fl_Int_Input(80, _gl_height+30+35+20+5, 240, 30, "ID:");
+			tbl_ext_index = new Fl_Int_Input(80, _gl_height+30+35+20+40+5, 240, 30, "Ext Index:");
+			tbl_name      = new Fl_Input    (80, _gl_height+30+35+20+80+5, 240, 30, "Name:");
+			tbl_remark    = new Fl_Input    (80, _gl_height+30+35+20+120+5, 240, 30, "Remark:");
 		group.end();
 		Fl_Group group2(0, _gl_height+40+35, window.w(), window.h()-_gl_height-30-10, "Database Info");
 			Fl_Input input2(10, _gl_height+30+35+20, 240, 30);
