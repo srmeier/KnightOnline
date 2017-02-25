@@ -4,7 +4,12 @@
 
 #define DELAY				250
 
-uint32 THREADCALL NpcThreadProc(void * pParam)
+#if IsWinDef
+uint32 THREADCALL NpcThreadProc(void * lpParam /* CNpcThread ptr */)ZoneEventThreadProc
+#endif
+#if IsUnixDef
+void * NpcThreadProc(void * pParam)
+#endif
 {
 	try
 	{
@@ -154,10 +159,15 @@ ThreadReloadNPC:
 	{
 		printf("[ %s ] Warning 2 : %s\n", __FUNCTION__, ex.what());
 	}
-	return 0;
+	return RETURN_THREAD((void *)0);
 }
 
-uint32 THREADCALL ZoneEventThreadProc(void * pParam /* = nullptr */)
+#if IsWinDef
+uint32 THREADCALL ZoneEventThreadProc(void * lpParam /* = nullptr */)
+#endif
+#if IsUnixDef
+void * ZoneEventThreadProc(void * pParam /* = nullptr */)
+#endif
 {
 	while (!g_bNpcExit)
 	{
@@ -185,7 +195,7 @@ uint32 THREADCALL ZoneEventThreadProc(void * pParam /* = nullptr */)
 		sleep(1000);
 	}
 
-	return 0;
+	return RETURN_THREAD((void *)0);
 }
 
 void CNpcThread::AddNPC(CNpc * pNpc)

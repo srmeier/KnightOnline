@@ -28,7 +28,12 @@ void DatabaseThread::AddRequest(Packet * pkt)
 	s_hEvent.Signal();
 }
 
+#if IsWinDef
 uint32 THREADCALL DatabaseThread::ThreadProc(void * lpParam)
+#endif
+#if IsUnixDef
+void * DatabaseThread::ThreadProc(void * lpParam)
+#endif
 {
 	while (true)
 	{
@@ -150,7 +155,7 @@ uint32 THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 	}
 
 	TRACE("[Thread %d] Exiting...\n", lpParam);
-	return 0;
+	return RETURN_THREAD((void *)0);
 }
 
 
