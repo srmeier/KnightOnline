@@ -590,24 +590,34 @@ void CServerDlg::CheckAliveTest()
 		DeleteAllUserList();
 }
 
-uint32 THREADCALL CServerDlg::Timer_CheckAliveTest(void * lpParam)
+#if IsWinDef
+uint32 THREADCALL Timer_CheckAliveTest(void * lpParam)
+#endif
+#if IsUnixDef
+void * CServerDlg::Timer_CheckAliveTest(void * lpParam)
+#endif
 {
 	while (g_bRunning)
 	{
 		g_pMain->CheckAliveTest();
 		sleep(10 * SECOND);
 	}
-	return 0;
+	return RETURN_THREAD((void *)0);
 }
 
-uint32 THREADCALL CServerDlg::Timer_CheckLiveTimes(void * lpParam)
+#if IsWinDef
+uint32 THREADCALL Timer_CheckLiveTimes(void * lpParam)
+#endif
+#if IsUnixDef
+void * CServerDlg::Timer_CheckLiveTimes(void * lpParam)
+#endif
 {
 	while (g_bRunning)
 	{
 		g_pMain->CheckLiveTimes();
 		sleep(1 * SECOND);
 	}
-	return 0;
+	return RETURN_THREAD((void *)0);
 }
 
 void CServerDlg::CheckLiveTimes()
