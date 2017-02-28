@@ -591,7 +591,7 @@ void CServerDlg::CheckAliveTest()
 }
 
 #if IsWinDef
-uint32 THREADCALL Timer_CheckAliveTest(void * lpParam)
+uint32 THREADCALL CServerDlg::Timer_CheckAliveTest(void * lpParam)
 #endif
 #if IsUnixDef
 void * CServerDlg::Timer_CheckAliveTest(void * lpParam)
@@ -606,7 +606,7 @@ void * CServerDlg::Timer_CheckAliveTest(void * lpParam)
 }
 
 #if IsWinDef
-uint32 THREADCALL Timer_CheckLiveTimes(void * lpParam)
+uint32 THREADCALL CServerDlg::Timer_CheckLiveTimes(void * lpParam)
 #endif
 #if IsUnixDef
 void * CServerDlg::Timer_CheckLiveTimes(void * lpParam)

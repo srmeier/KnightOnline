@@ -5,7 +5,7 @@
 #define DELAY				250
 
 #if IsWinDef
-uint32 THREADCALL NpcThreadProc(void * lpParam /* CNpcThread ptr */)ZoneEventThreadProc
+uint32 THREADCALL NpcThreadProc(void * pParam /* CNpcThread ptr */)//ZoneEventThreadProc
 #endif
 #if IsUnixDef
 void * NpcThreadProc(void * pParam)
