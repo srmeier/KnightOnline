@@ -79,9 +79,16 @@ public:
 	void DeleteUserPtr(uint16 sessionId);
 
 	MAP * GetZoneByID(int zonenumber);
-
-	static uint32 THREADCALL Timer_CheckAliveTest(void * lpParam);
-	static uint32 THREADCALL Timer_CheckLiveTimes(void * lpParam);
+#if IsWinDef
+static uint32 THREADCALL Timer_CheckAliveTest(void * lpParam);
+static uint32 THREADCALL Timer_CheckLiveTimes(void * lpParam);
+#endif
+#if IsUnixDef
+static void * Timer_CheckAliveTest(void * lpParam);
+static void * Timer_CheckLiveTimes(void * lpParam);
+#endif
+	
+	
 	void CheckAliveTest();
 	void CheckLiveTimes();
 	void DeleteAllUserList(CGameSocket *pSock = nullptr);
