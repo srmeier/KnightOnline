@@ -26,8 +26,8 @@ Server/bin/Debug/Lua.lib
 Server/bin/Debug/shared.lib
 Client/N3Base/Release/N3Base.lib
 ItemEditor/Item/
+ItemEditor/Item_old/
 ItemEditor/UI/
 Makefile
 *.o
 *.dSYM
-
