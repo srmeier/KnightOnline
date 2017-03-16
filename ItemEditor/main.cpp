@@ -15,11 +15,23 @@
 #include "fl/fl_int_input.h"
 #include "fl/fl_menu_bar.h"
 
+#include "fl/filename.h"
+
 #include "ItemInfo.h"
 #include "GLItemViewer.h"
 
+#include "assimp/scene.h"
+#include "assimp/exporter.hpp"
+#include "assimp/importer.hpp"
+#include "assimp/postprocess.h"
+
 const int _gl_width = 380-60;
 const int _gl_height = 1024/4;
+
+//-----------------------------------------------------------------------------
+class N3MeshConverter {
+
+};
 
 //-----------------------------------------------------------------------------
 /*
@@ -61,6 +73,9 @@ BYTE byNeedMagicAttack;
 BYTE bySellGroup;
 BYTE byIDK3;
 */
+
+int num_disp_files;
+char** disp_files;
 
 Fl_Int_Input* tbl_id;
 Fl_Int_Input* tbl_ext_index;
@@ -763,6 +778,41 @@ void ItemTableView::event_callback_update_opengl(void) {
 	if(r==-1 || c==-1) return;
 	if((int)Fl::event() != 1) return;
 
+	char* filename = disp_files[r];
+	int len_fn = strlen(filename);
+	char* exten = &filename[len_fn-7];
+
+	if(!strcmp(exten, "n3cplug")) {
+
+		eType = ITEM_TYPE_PLUG;
+
+		char tmp[0xFF] = "";
+		sprintf(tmp, "./item/%s", filename);
+		FILE* pFile = fopen(tmp, "rb");
+		if(pFile == NULL) {
+			fprintf(stderr, "ERROR: Missing N3Plug %s\n", tmp);
+			return;
+		}
+
+		CN3CPlug_Load(pFile);
+		fclose(pFile);
+	} else if(!strcmp(exten, "n3cpart")) {
+
+		eType = ITEM_TYPE_PART;
+
+		char tmp[0xFF] = "";
+		sprintf(tmp, "./item/%s", filename);
+		FILE* pFile = fopen(tmp, "rb");
+		if(pFile == NULL) {
+			fprintf(stderr, "ERROR: Missing N3Part %s\n", tmp);
+			return;
+		}
+
+		CN3CPart_Load(pFile);
+		fclose(pFile);
+	}
+
+	/*
 	_ITEM_TABLE* item = ItemTableMap.GetData(r);
 	__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic->Find(item->m_iNum/1000*1000);
 
@@ -858,6 +908,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 	}
 
 	printf("--------------------\n");
+	*/
 
 	/*
 	MakeResrcFileNameForUPC(pItem, &szResrcFN, &pszIconFN, ePartPosTmp, ePlugPosTmp, RACE_KA_ARKTUAREK);
@@ -898,8 +949,9 @@ void ItemTableView::draw_cell(TableContext context,
 			return;
 		case CONTEXT_COL_HEADER:
 			switch(c) {
-				case 0: strcpy(s, "Num");     break;
-				case 1: strcpy(s, "strName"); break;
+				case 0: strcpy(s, "Filename"); break;
+				//case 0: strcpy(s, "Num");     break;
+				//case 1: strcpy(s, "strName"); break;
 			}
 
 			fl_push_clip(x, y, w, h);
@@ -922,11 +974,16 @@ void ItemTableView::draw_cell(TableContext context,
 			fl_pop_clip();
 			return;
 		case CONTEXT_CELL:
+			switch(c) {
+				case 0: sprintf(s, "%s", disp_files[r]); break;
+			}
+			/*
 			item = ItemTableMap.GetData(r);
 			switch(c) {
 				case 0: sprintf(s, "  %d", item->m_iNum);  break;
 				case 1: sprintf(s, "  %s", item->m_sName); break;
 			}
+			*/
 
 			fl_push_clip(x, y, w, h);
 			{
@@ -1074,6 +1131,7 @@ void test_cb(Fl_Widget* w, void*) {
 //-----------------------------------------------------------------------------
 int main(int argc, char** argv) {
 	//----
+
 	s_pTbl_Items_Basic = new CN3TableBase<__TABLE_ITEM_BASIC>;
 
 	std::string szFN = "Item_Org.tbl";
@@ -1084,6 +1142,7 @@ int main(int argc, char** argv) {
 	}
 
 	//----
+
 	SQLHANDLE hEnv, hConn;
 
 	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
@@ -1095,7 +1154,6 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	//----
 	SQLHANDLE hStmt;
 	SQLAllocHandle(SQL_HANDLE_STMT, hConn, &hStmt);
 	if(SQLExecDirect(hStmt, _T("SELECT TOP(5000) Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {//TOP(10000)
@@ -1120,12 +1178,31 @@ int main(int argc, char** argv) {
 	}
 
 	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
-	//----
+	
 	SQLDisconnect(hConn);
 	SQLFreeHandle(SQL_HANDLE_DBC, hConn);
 	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
 
 	//----
+
+	dirent** dir_list;
+	int num_files = fl_filename_list("./item", &dir_list);
+
+	num_disp_files = 0;
+	for(int i=0; i<num_files; ++i) {
+		//printf("%s\n", dir_list[i]->d_name);
+		int len_fn = strlen(dir_list[i]->d_name);
+		if(!strcmp(&dir_list[i]->d_name[len_fn-7], "n3cplug") || !strcmp(&dir_list[i]->d_name[len_fn-7], "n3cpart")) {
+			disp_files = (char**)realloc(disp_files, ++num_disp_files*sizeof(char*));
+			disp_files[num_disp_files-1] = (char*)calloc(len_fn+1, sizeof(char));
+			memcpy(disp_files[num_disp_files-1], dir_list[i]->d_name, len_fn);
+		}
+	}
+
+	fl_filename_free_list(&dir_list, num_files);
+
+	//----
+
 	Fl::use_high_res_GL(true);
 	Fl_Window window(1024, 720, "KO Item Editor");
 
@@ -1142,13 +1219,13 @@ int main(int argc, char** argv) {
 	demo_table.row_header(true);
 	demo_table.row_header_width(60);
 	demo_table.row_resize(true);
-	demo_table.rows(ItemTableMap.GetSize());
+	demo_table.rows(num_disp_files /*ItemTableMap.GetSize()*/);
 	demo_table.row_height_all(20);
 
 	demo_table.col_header(true);
 	demo_table.col_header_height(25);
 	demo_table.col_resize(true);
-	demo_table.cols(2);
+	demo_table.cols(1 /*2*/);
 	demo_table.col_width_all(150);
 
 	Fl_Menu_Bar menubar(0, 0, window.w(), 30);
