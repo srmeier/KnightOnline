@@ -27,7 +27,11 @@ Server/bin/Debug/shared.lib
 Client/N3Base/Release/N3Base.lib
 ItemEditor/Item/
 ItemEditor/Item_old/
+ItemEditor/Item_output/
 ItemEditor/UI/
+ItemEditor/Debug/ItemEditor.lib
+ItemEditor/Release/ItemEditor.lib
 Makefile
 *.o
 *.dSYM
+*.exp

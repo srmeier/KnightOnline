@@ -77,6 +77,8 @@ BYTE byIDK3;
 int num_disp_files;
 char** disp_files;
 
+char pTexName[0xFF];
+
 Fl_Int_Input* tbl_id;
 Fl_Int_Input* tbl_ext_index;
 Fl_Input*     tbl_name;
@@ -113,6 +115,22 @@ bool debugMode = true;
 
 //-----------------------------------------------------------------------------
 void N3LoadTexture(const char* szFN) {
+
+	int last_slash = 0;
+	int last_point = 0;
+
+	memset(pTexName, 0x00, 0xFF);
+	while(szFN[last_slash++]!='\\' && last_slash<strlen(szFN));
+	while(szFN[last_point++]!='.' && last_point<strlen(szFN));
+	for(int i=last_slash; i<last_point-1; ++i) {
+		pTexName[i-last_slash] = szFN[i];
+	}
+
+	strcat(pTexName, ".PNG");
+	printf("Texture: %s (%s)\n", pTexName, szFN);
+
+	//system("pause");
+
 	FILE* fpTexture = fopen(szFN, "rb");
 	if(fpTexture == NULL) {
 		fprintf(stderr, "ERROR: Missing texture %s\n", szFN);
@@ -1129,6 +1147,243 @@ void test_cb(Fl_Widget* w, void*) {
 }
 
 //-----------------------------------------------------------------------------
+typedef struct {
+	float x, y, z;
+	float nx, ny, nz;
+	float u, v;
+} Vertex;
+
+aiScene  m_Scene;
+
+void GenerateScene(void) {
+
+	GLfloat* vertices = NULL;
+	GLuint* elements = NULL;
+
+	int iVC = 0;
+
+	if(eType == ITEM_TYPE_PLUG) {
+		vertices = new GLfloat[5*m_iMaxNumVertices0];
+		memset(vertices, 0, 5*m_iMaxNumVertices0);
+
+		for(int i=0; i<m_iMaxNumVertices0; i++) {
+			vertices[5*i+0] = m_pVertices0[i].x;
+			vertices[5*i+1] = m_pVertices0[i].y;
+			vertices[5*i+2] = m_pVertices0[i].z;
+
+			vertices[5*i+3] = m_pVertices0[i].tu;
+			vertices[5*i+4] = m_pVertices0[i].tv;
+		}
+
+		iVC = m_iMaxNumVertices0;
+
+		//delete vertices;
+
+		elements = new GLuint[m_iMaxNumIndices0];
+		memset(elements, 0, m_iMaxNumIndices0*sizeof(GLuint));
+		for(int i=0; i<m_iMaxNumIndices0; i++) {
+			elements[i] = (GLuint) m_pIndices0[i];
+		}
+
+		//delete elements;
+
+	} else if(eType == ITEM_TYPE_PART) {
+		vertices = new GLfloat[5*3*m_nFC];
+		memset(vertices, 0, 5*3*m_nFC*sizeof(GLfloat));
+
+		for(int i=0; i<3*m_nFC; i++) {
+			vertices[5*i+0] = m_pVertices[m_pwVtxIndices[i]].x;
+			vertices[5*i+1] = m_pVertices[m_pwVtxIndices[i]].y;
+			vertices[5*i+2] = m_pVertices[m_pwVtxIndices[i]].z;
+
+			vertices[5*i+3] = m_pfUVs[2*m_pwUVsIndices[i]+0];
+			vertices[5*i+4] = m_pfUVs[2*m_pwUVsIndices[i]+1];
+		}
+
+		iVC = 3*m_nFC;
+
+		//delete vertices;
+
+		elements = new GLuint[3*m_nFC];
+		memset(elements, 0, 3*m_nFC*sizeof(GLuint));
+		for(int i=0; i<3*m_nFC; i++) {
+			elements[i] = (GLuint) (i);
+		}
+
+		//delete elements;
+
+	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
+		// NOTE: need to offset the position to get the icon to display in the center
+		float _vertices[] = {
+			-0.25f+0.25f/4.0f,  0.25f-0.25f/4.0f, -0.1f, 0.0f, 0.0f, // Top-left
+			 0.25f+0.25f/4.0f,  0.25f-0.25f/4.0f, -0.1f, 1.0f, 0.0f, // Top-right
+			 0.25f+0.25f/4.0f, -0.25f-0.25f/4.0f, -0.1f, 1.0f, 1.0f, // Bottom-right
+			-0.25f+0.25f/4.0f, -0.25f-0.25f/4.0f, -0.1f, 0.0f, 1.0f  // Bottom-left
+		};
+
+		vertices = new GLfloat[5*3*2];
+		memset(vertices, 0, 5*3*2*sizeof(GLfloat));
+		for(int i=0; i<5*3*2; i++) {
+			vertices[i] = _vertices[i];
+		}
+
+		iVC = 3*2;
+
+		//delete vertices;
+
+		GLuint _elements[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		elements = new GLuint[3*2];
+		memset(elements, 0, 3*2*sizeof(GLuint));
+		for(int i=0; i<3*2; i++) {
+			elements[i] = _elements[i];
+		}
+
+		//delete elements;
+	}
+	
+	GLenum texType;
+	GLenum texFormat;
+	switch(HeaderOrg.Format) {
+		case D3DFMT_DXT1: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+		} break;
+		case D3DFMT_DXT3: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+		} break;
+		case D3DFMT_DXT5: {
+			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+		} break;
+		case D3DFMT_A1R5G5B5: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_SHORT_5_5_5_1;
+			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
+				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
+				unsigned short p = *pp;
+				unsigned short np = ((p&0x7C00)>>10)<<11|((p&0x3E0)>>5)<<6|(p&0x1F)<<1|((p&0x8000)>>15);
+				*pp = np;
+			}
+		} break;
+		case D3DFMT_A4R4G4B4: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_SHORT_4_4_4_4;
+			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
+				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
+				unsigned short p = *pp;
+				unsigned short np = ((p&0xF00)>>8)<<12|((p&0xF0)>>4)<<8|(p&0xF)<<4|((p&0xF000)>>12);
+				*pp = np;
+			}
+		} break;
+		case D3DFMT_R8G8B8: {
+			texFormat = GL_RGB;
+			texType = GL_UNSIGNED_BYTE;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		case D3DFMT_A8R8G8B8: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_INT_8_8_8_8;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_A8R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		case D3DFMT_X8R8G8B8: {
+			texFormat = GL_RGBA;
+			texType = GL_UNSIGNED_INT_8_8_8_8;
+			fprintf(stderr, "\nNeed to implement this D3DFMT_X8R8G8B8\n", HeaderOrg.Format);
+			return;
+		} break;
+		default: {
+			fprintf(stderr,
+				"\nERROR: Unknown texture format %d. (need to implement this)\n", HeaderOrg.Format
+			);
+			return;
+		} break;
+	}
+
+	if(iPixelSize == 0) {
+		//glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
+	} else {
+		//glTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, texFormat, texType, compTexData);
+	}
+
+	//----
+
+	m_Scene.mRootNode = new aiNode();
+
+	m_Scene.mMaterials = new aiMaterial*[1];
+	m_Scene.mMaterials[0] = NULL;
+	m_Scene.mNumMaterials = 1;
+
+	m_Scene.mMaterials[0] = new aiMaterial();
+
+	aiString strTex(pTexName/*"bow_boss_uer_nomal.png"*/);
+	m_Scene.mMaterials[0]->AddProperty(
+		&strTex, AI_MATKEY_TEXTURE(aiTextureType_DIFFUSE, 0)
+	);
+
+	if(vertices!=NULL && elements!=NULL) {
+
+		m_Scene.mMeshes = new aiMesh*[1];
+		m_Scene.mMeshes[0] = NULL;
+		m_Scene.mNumMeshes = 1;
+
+		m_Scene.mMeshes[0] = new aiMesh();
+		m_Scene.mMeshes[0]->mMaterialIndex = 0;
+
+		m_Scene.mRootNode->mMeshes = new unsigned int[1];
+		m_Scene.mRootNode->mMeshes[0] = 0;
+		m_Scene.mRootNode->mNumMeshes = 1;
+
+		aiMesh* pMesh = m_Scene.mMeshes[0];
+
+		pMesh->mVertices = new aiVector3D[iVC];
+		pMesh->mNumVertices = iVC;
+
+		pMesh->mTextureCoords[0] = new aiVector3D[iVC];
+		pMesh->mNumUVComponents[0] = iVC;
+
+		for(unsigned int i=0; i<iVC; ++i) {
+			Vertex v;
+			v.x = vertices[5*i+0];
+			v.y = vertices[5*i+1];
+			v.z = vertices[5*i+2];
+			v.u = vertices[5*i+3];
+			v.v = vertices[5*i+4];
+
+			pMesh->mVertices[i] = aiVector3D(v.x, v.y, v.z);
+			pMesh->mTextureCoords[0][i] = aiVector3D(v.u, (1.0f-v.v), 0);
+		}
+
+		pMesh->mFaces = new aiFace[(iVC/3)];
+		pMesh->mNumFaces = (iVC/3);
+
+		for(unsigned int i=0; i<(iVC/3); ++i) {
+			aiFace& face = pMesh->mFaces[i];
+
+			face.mIndices = new unsigned int[3];
+			face.mNumIndices = 3;
+
+			face.mIndices[0] = elements[3*i+0];
+			face.mIndices[1] = elements[3*i+1];
+			face.mIndices[2] = elements[3*i+2];
+		}
+	} else {
+		printf("Failed!\n");
+		printf("\nER: Mesh data missing!\n");
+		system("pause");
+		exit(-1);
+	}
+
+	delete vertices;
+	delete elements;
+
+	printf("Success!\n");
+}
+
+//-----------------------------------------------------------------------------
 int main(int argc, char** argv) {
 	//----
 
@@ -1188,6 +1443,8 @@ int main(int argc, char** argv) {
 	dirent** dir_list;
 	int num_files = fl_filename_list("./item", &dir_list);
 
+	Assimp::Exporter* pExporter = new Assimp::Exporter();
+
 	num_disp_files = 0;
 	for(int i=0; i<num_files; ++i) {
 		//printf("%s\n", dir_list[i]->d_name);
@@ -1196,8 +1453,62 @@ int main(int argc, char** argv) {
 			disp_files = (char**)realloc(disp_files, ++num_disp_files*sizeof(char*));
 			disp_files[num_disp_files-1] = (char*)calloc(len_fn+1, sizeof(char));
 			memcpy(disp_files[num_disp_files-1], dir_list[i]->d_name, len_fn);
+
+			// TEMP: converting to OBJ
+			char* filename = disp_files[num_disp_files-1];
+			int len_fn = strlen(filename);
+			char* exten = &filename[len_fn-7];
+
+			if(!strcmp(exten, "n3cplug")) {
+
+				eType = ITEM_TYPE_PLUG;
+
+				char tmp[0xFF] = "";
+				sprintf(tmp, "./item/%s", filename);
+				FILE* pFile = fopen(tmp, "rb");
+				if(pFile == NULL) {
+					fprintf(stderr, "ERROR: Missing N3Plug %s\n", tmp);
+					return -1;
+				}
+
+				CN3CPlug_Load(pFile);
+				fclose(pFile);
+			} else if(!strcmp(exten, "n3cpart")) {
+
+				eType = ITEM_TYPE_PART;
+
+				char tmp[0xFF] = "";
+				sprintf(tmp, "./item/%s", filename);
+				FILE* pFile = fopen(tmp, "rb");
+				if(pFile == NULL) {
+					fprintf(stderr, "ERROR: Missing N3Part %s\n", tmp);
+					return -1;
+				}
+
+				CN3CPart_Load(pFile);
+				fclose(pFile);
+			}
+
+			printf("\n\"%s\"", filename);
+			printf("\nGenerating scene... ");
+			GenerateScene();//pTextName);
+			printf("\nExporting to %s... ", "obj");
+
+			char output_fn[0xFFFF] = {};
+			dir_list[i]->d_name[len_fn-8] = '\0';
+			sprintf(output_fn, "./Item_output/%s.obj", dir_list[i]->d_name/*filename*/);
+
+			aiReturn ret = pExporter->Export(&m_Scene, "obj", output_fn);//pOutputFile);
+			if(ret == aiReturn_SUCCESS) {
+				printf("Done!\n");
+			} else {
+				printf("Failed!\n");
+			}
 		}
 	}
+
+	delete pExporter;
+	pExporter = NULL;
 
 	fl_filename_free_list(&dir_list, num_files);
 
