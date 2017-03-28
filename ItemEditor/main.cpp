@@ -126,7 +126,7 @@ void N3LoadTexture(const char* szFN) {
 		pTexName[i-last_slash] = szFN[i];
 	}
 
-	strcat(pTexName, ".PNG");
+	strcat(pTexName, ".bmp");
 	printf("Texture: %s (%s)\n", pTexName, szFN);
 
 	//system("pause");
@@ -1161,6 +1161,7 @@ void GenerateScene(void) {
 	GLuint* elements = NULL;
 
 	int iVC = 0;
+	int iFC = 0;
 
 	if(eType == ITEM_TYPE_PLUG) {
 		vertices = new GLfloat[5*m_iMaxNumVertices0];
@@ -1176,6 +1177,7 @@ void GenerateScene(void) {
 		}
 
 		iVC = m_iMaxNumVertices0;
+		iFC = m_iMaxNumIndices0/3;
 
 		//delete vertices;
 
@@ -1201,6 +1203,7 @@ void GenerateScene(void) {
 		}
 
 		iVC = 3*m_nFC;
+		iFC = m_nFC;
 
 		//delete vertices;
 
@@ -1228,6 +1231,7 @@ void GenerateScene(void) {
 		}
 
 		iVC = 3*2;
+		iFC = 2;
 
 		//delete vertices;
 
@@ -1243,70 +1247,6 @@ void GenerateScene(void) {
 		}
 
 		//delete elements;
-	}
-	
-	GLenum texType;
-	GLenum texFormat;
-	switch(HeaderOrg.Format) {
-		case D3DFMT_DXT1: {
-			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
-		} break;
-		case D3DFMT_DXT3: {
-			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-		} break;
-		case D3DFMT_DXT5: {
-			texFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-		} break;
-		case D3DFMT_A1R5G5B5: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_SHORT_5_5_5_1;
-			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
-				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
-				unsigned short p = *pp;
-				unsigned short np = ((p&0x7C00)>>10)<<11|((p&0x3E0)>>5)<<6|(p&0x1F)<<1|((p&0x8000)>>15);
-				*pp = np;
-			}
-		} break;
-		case D3DFMT_A4R4G4B4: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_SHORT_4_4_4_4;
-			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
-				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
-				unsigned short p = *pp;
-				unsigned short np = ((p&0xF00)>>8)<<12|((p&0xF0)>>4)<<8|(p&0xF)<<4|((p&0xF000)>>12);
-				*pp = np;
-			}
-		} break;
-		case D3DFMT_R8G8B8: {
-			texFormat = GL_RGB;
-			texType = GL_UNSIGNED_BYTE;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_R8G8B8\n", HeaderOrg.Format);
-			return;
-		} break;
-		case D3DFMT_A8R8G8B8: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_INT_8_8_8_8;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_A8R8G8B8\n", HeaderOrg.Format);
-			return;
-		} break;
-		case D3DFMT_X8R8G8B8: {
-			texFormat = GL_RGBA;
-			texType = GL_UNSIGNED_INT_8_8_8_8;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_X8R8G8B8\n", HeaderOrg.Format);
-			return;
-		} break;
-		default: {
-			fprintf(stderr,
-				"\nERROR: Unknown texture format %d. (need to implement this)\n", HeaderOrg.Format
-			);
-			return;
-		} break;
-	}
-
-	if(iPixelSize == 0) {
-		//glCompressedTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, compTexSize, compTexData);
-	} else {
-		//glTexImage2D(GL_TEXTURE_2D, 0, texFormat, HeaderOrg.nWidth, HeaderOrg.nHeight, 0, texFormat, texType, compTexData);
 	}
 
 	//----
@@ -1357,10 +1297,10 @@ void GenerateScene(void) {
 			pMesh->mTextureCoords[0][i] = aiVector3D(v.u, (1.0f-v.v), 0);
 		}
 
-		pMesh->mFaces = new aiFace[(iVC/3)];
-		pMesh->mNumFaces = (iVC/3);
+		pMesh->mFaces = new aiFace[iFC];
+		pMesh->mNumFaces = iFC;
 
-		for(unsigned int i=0; i<(iVC/3); ++i) {
+		for(unsigned int i=0; i<iFC; ++i) {
 			aiFace& face = pMesh->mFaces[i];
 
 			face.mIndices = new unsigned int[3];
