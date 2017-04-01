@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug-XP|Win32">
-      <Configuration>Debug-XP</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release-XP|Win32">
-      <Configuration>Release-XP</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{221DE5A1-4C5A-4DC7-82A0-0BB66E0ADD01}</ProjectGuid>
+    <ProjectGuid>{C2FEB024-8E46-4533-918B-7196CAAA4E7D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
     <RootNamespace>shared</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -30,12 +31,6 @@
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -43,102 +38,112 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\bin\$(Configuration)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'">
-    <OutDir>$(SolutionDir)..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'">
-    <OutDir>$(SolutionDir)..\bin\$(Configuration)\</OutDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\bin\$(Configuration)\</OutDir>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;_WIN32;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WINSOCK_DEPRECATED_NO_WARNINGS;WIN32;_WIN32;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;_MBCS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircularBuffer.cpp" />
     <ClCompile Include="Compress.cpp" />
@@ -148,51 +153,25 @@
     <ClCompile Include="database\OdbcConnection.cpp" />
     <ClCompile Include="database\OdbcParameter.cpp" />
     <ClCompile Include="database\OdbcRecordset.cpp" />
-    <ClCompile Include="DebugUtils.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'">Use</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="database\stdafx.cpp" />
+    <ClCompile Include="DebugUtils.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="HardwareInformation.cpp" />
-    <ClCompile Include="Ini.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'">Use</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="Ini.cpp" />
     <ClCompile Include="JvCryption.cpp" />
     <ClCompile Include="KOSocket.cpp" />
     <ClCompile Include="lzf.c" />
     <ClCompile Include="ReferenceObject.cpp" />
     <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="signal_handler.cpp" />
-    <ClCompile Include="SMDFile.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'">Use</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="SMDFile.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketMgr.cpp" />
     <ClCompile Include="SocketOpsWin32.cpp" />
     <ClCompile Include="SocketWin32.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Thread.cpp" />
-    <ClCompile Include="TimeThread.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-XP|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-XP|Win32'">Use</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="TimeThread.cpp" />
     <ClCompile Include="tstring.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -203,10 +182,69 @@
     <ClInclude Include="Compress.h" />
     <ClInclude Include="Condition.h" />
     <ClInclude Include="crc32.h" />
+    <ClInclude Include="database\BattleSet.h" />
+    <ClInclude Include="database\CoefficientSet.h" />
+    <ClInclude Include="database\EventSet.h" />
+    <ClInclude Include="database\EventTriggerSet.h" />
+    <ClInclude Include="database\ItemExchangeSet.h" />
+    <ClInclude Include="database\ItemOpSet.h" />
+    <ClInclude Include="database\ItemTableSet.h" />
+    <ClInclude Include="database\ItemUpgradeSet.h" />
+    <ClInclude Include="database\KingCandidacyNoticeBoardSet.h" />
+    <ClInclude Include="database\KingElectionListSet.h" />
+    <ClInclude Include="database\KingSystemSet.h" />
+    <ClInclude Include="database\KnightsAllianceSet.h" />
+    <ClInclude Include="database\KnightsCapeSet.h" />
+    <ClInclude Include="database\KnightsRankSet.h" />
+    <ClInclude Include="database\KnightsSet.h" />
+    <ClInclude Include="database\KnightsSiegeWar.h" />
+    <ClInclude Include="database\KnightsUserSet.h" />
+    <ClInclude Include="database\LevelUpTableSet.h" />
+    <ClInclude Include="database\MagicTableSet.h" />
+    <ClInclude Include="database\MagicType1Set.h" />
+    <ClInclude Include="database\MagicType2Set.h" />
+    <ClInclude Include="database\MagicType3Set.h" />
+    <ClInclude Include="database\MagicType4Set.h" />
+    <ClInclude Include="database\MagicType5Set.h" />
+    <ClInclude Include="database\MagicType6Set.h" />
+    <ClInclude Include="database\MagicType7Set.h" />
+    <ClInclude Include="database\MagicType8Set.h" />
+    <ClInclude Include="database\MagicType9Set.h" />
+    <ClInclude Include="database\MakeDefensiveTableSet.h" />
+    <ClInclude Include="database\MakeGradeItemTableSet.h" />
+    <ClInclude Include="database\MakeItemGroupSet.h" />
+    <ClInclude Include="database\MakeLareItemTableSet.h" />
+    <ClInclude Include="database\MakeWeaponTableSet.h" />
+    <ClInclude Include="database\MonsterChallenge.h" />
+    <ClInclude Include="database\MonsterChallengeSummonList.h" />
+    <ClInclude Include="database\MonsterRespawnListInformationSet.h" />
+    <ClInclude Include="database\MonsterRespawnListSet.h" />
+    <ClInclude Include="database\MonsterSummonListSet.h" />
+    <ClInclude Include="database\MonsterSummonListZoneSet.h" />
+    <ClInclude Include="database\NpcItemSet.h" />
+    <ClInclude Include="database\NpcPosSet.h" />
+    <ClInclude Include="database\NpcTableSet.h" />
+    <ClInclude Include="database\ObjectPosSet.h" />
     <ClInclude Include="database\OdbcCommand.h" />
     <ClInclude Include="database\OdbcConnection.h" />
     <ClInclude Include="database\OdbcParameter.h" />
     <ClInclude Include="database\OdbcRecordset.h" />
+    <ClInclude Include="database\PremiumItemExpSet.h" />
+    <ClInclude Include="database\PremiumItemSet.h" />
+    <ClInclude Include="database\QuestHelperSet.h" />
+    <ClInclude Include="database\QuestMonsterSet.h" />
+    <ClInclude Include="database\RentalItemSet.h" />
+    <ClInclude Include="database\ServerResourceSet.h" />
+    <ClInclude Include="database\SetItemTableSet.h" />
+    <ClInclude Include="database\StartPositionRandomSet.h" />
+    <ClInclude Include="database\StartPositionSet.h" />
+    <ClInclude Include="database\stdafx.h" />
+    <ClInclude Include="database\structs.h" />
+    <ClInclude Include="database\UserDailyOpSet.h" />
+    <ClInclude Include="database\UserItemSet.h" />
+    <ClInclude Include="database\UserKnightsRankSet.h" />
+    <ClInclude Include="database\UserPersonalRankSet.h" />
+    <ClInclude Include="database\ZoneInfoSet.h" />
     <ClInclude Include="DateTime.h" />
     <ClInclude Include="DebugUtils.h" />
     <ClInclude Include="globals.h" />
@@ -219,6 +257,8 @@
     <ClInclude Include="ListenSocketWin32.h" />
     <ClInclude Include="lzf.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="packets.h" />
     <ClInclude Include="ReferenceObject.h" />
     <ClInclude Include="RWLock.h" />
     <ClInclude Include="signal_handler.h" />
@@ -231,6 +271,9 @@
     <ClInclude Include="STLMap.h" />
     <ClInclude Include="Thread.h" />
     <ClInclude Include="TimeThread.h" />
+    <ClInclude Include="tstring.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="version.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

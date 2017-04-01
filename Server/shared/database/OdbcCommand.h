@@ -48,7 +48,7 @@ public:
 
 	INLINE bool FetchString(int pos, char *outBuffer, SQLLEN maxLength)
 	{
-		SQLINTEGER bufferSize = 0;
+		SQLLEN bufferSize = 0;
 		return FetchString(pos, outBuffer, maxLength, &bufferSize);
 	};
 
@@ -57,7 +57,7 @@ public:
 
 	INLINE bool FetchBinary(int pos, char *outBuffer, SQLLEN maxLength)
 	{
-		SQLINTEGER bufferSize = 0;
+		SQLLEN bufferSize = 0;
 		return FetchBinary(pos, outBuffer, maxLength, &bufferSize);
 	};
 	bool FetchBinary(int pos, char *charArray, SQLLEN maxLength, SQLLEN *bufferSize);

@@ -66,7 +66,7 @@ uint32 THREADCALL SocketMgr::SocketWorkerThread(void * lpParam)
 
 	while (socketMgr->m_bWorkerThreadsActive)
 	{
-		if (!GetQueuedCompletionStatus(cp, &len, (LPDWORD)&s, &ol_ptr, INFINITE))
+		if (!GetQueuedCompletionStatus(cp, &len, (PULONG_PTR)&s, &ol_ptr, INFINITE))
 		{
 			if (s != nullptr)
 				s->Disconnect();
