@@ -35,3 +35,4 @@ Makefile
 *.o
 *.dSYM
 *.exp
+Server/shared/Debug/shared.lib
