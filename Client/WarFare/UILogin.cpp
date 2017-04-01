@@ -149,6 +149,16 @@ bool CUILogIn::Load(HANDLE hFile)
 		m_pGroup_ServerList->SetVisible(false);
 	}
 
+
+#ifdef _DEBUG
+	/*
+		@Demircivi
+		Laziness. I don't want to type userName and password every time :D.
+	*/
+
+	m_pEdit_id->SetString("demircivi");
+	m_pEdit_pw->SetString("test");
+#endif
 	return true;
 }
 
