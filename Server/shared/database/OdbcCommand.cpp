@@ -155,8 +155,8 @@ bool OdbcCommand::MoveNextSet()
 }
 
 #define ADD_ODBC_PARAMETER(name, type, sqlType) void OdbcCommand::AddParameter(SQLSMALLINT paramType, type *value, SQLLEN maxLength) { m_params.insert(std::make_pair(m_params.size(), new OdbcParameter(paramType, sqlType, (SQLPOINTER)value, maxLength))); } \
-	type OdbcCommand::Fetch ## name(int pos) { type value; SQLINTEGER cb = SQL_NTS; SQLGetData(m_hStmt, pos, sqlType, &value, 0, &cb); return value; } \
-	void OdbcCommand::Fetch ## name(int pos, type & value) { SQLINTEGER cb = SQL_NTS; SQLGetData(m_hStmt, pos, sqlType, &value, 0, &cb); }
+	type OdbcCommand::Fetch ## name(int pos) { type value; SQLLEN cb = SQL_NTS; SQLGetData(m_hStmt, pos, sqlType, &value, 0, &cb); return value; } \
+	void OdbcCommand::Fetch ## name(int pos, type & value) { SQLLEN cb = SQL_NTS; SQLGetData(m_hStmt, pos, sqlType, &value, 0, &cb); }
 ADD_ODBC_PARAMETER(Byte, uint8, SQL_C_UTINYINT)
 	ADD_ODBC_PARAMETER(SByte, int8, SQL_C_STINYINT)
 	ADD_ODBC_PARAMETER(UInt16, uint16, SQL_C_USHORT)
@@ -187,7 +187,7 @@ bool OdbcCommand::FetchBinary(int pos, char *charArray, SQLLEN maxLength, SQLLEN
 
 bool OdbcCommand::FetchString(int pos, std::string & value)
 {
-	SQLINTEGER bufferSize = 0;
+	SQLLEN bufferSize = 0;
 	char buffer[256] = "";
 
 	// Attempt to fetch "small" string of 256 bytes at most (should fit everything we'll need)

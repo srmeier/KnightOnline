@@ -1,4 +1,4 @@
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "tstring.h"
 #include <stdarg.h>
 #include <cctype>
