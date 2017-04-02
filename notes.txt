@@ -4,8 +4,6 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
-- the editor is having issues rendering some of the items
-	- 1_8241_00_0.n3cplug (row 299)
 - need to update the NPC info packet for the source client
 
 
