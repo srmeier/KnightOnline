@@ -1395,6 +1395,7 @@ int main(int argc, char** argv) {
 			memcpy(disp_files[num_disp_files-1], dir_list[i]->d_name, len_fn);
 
 			// TEMP: converting to OBJ
+			/*
 			char* filename = disp_files[num_disp_files-1];
 			int len_fn = strlen(filename);
 			char* exten = &filename[len_fn-7];
@@ -1436,7 +1437,7 @@ int main(int argc, char** argv) {
 
 			char output_fn[0xFFFF] = {};
 			dir_list[i]->d_name[len_fn-8] = '\0';
-			sprintf(output_fn, "./Item_output/%s.obj", dir_list[i]->d_name/*filename*/);
+			sprintf(output_fn, "./Item_output/%s.obj", dir_list[i]->d_name);
 
 			aiReturn ret = pExporter->Export(&m_Scene, "obj", output_fn);//pOutputFile);
 			if(ret == aiReturn_SUCCESS) {
@@ -1444,6 +1445,7 @@ int main(int argc, char** argv) {
 			} else {
 				printf("Failed!\n");
 			}
+			*/
 		}
 	}
 
