@@ -4,6 +4,8 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - be very careful with the "=" operator on GUI components
 
 ===============================================================================
+- the editor is having issues rendering some of the items
+	- 1_8241_00_0.n3cplug (row 299)
 - need to update the NPC info packet for the source client
 
 
@@ -51,7 +53,6 @@ git filter-branch -f --tree-filter "rm -rf N3Base/lib/N3Base.lib" HEAD
 - take a look at the new zone files 1298 added (ens, gev, etc.)
 - support all 1068 file formats
 	- requires testing of weapons and armor and stuff
-
 - binary client doesn's show the noah user pays when they purchase something
 
 ===============================================================================

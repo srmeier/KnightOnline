@@ -338,7 +338,7 @@ void GLItemViewer::draw(void) {
 	model = glm::rotate(model, (float)(M_PI/100.0), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	glm::mat4 proj;
-	proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 0.1f, 10.0f);
+	proj = glm::perspective(45.0f, (float)pixel_w()/(float)pixel_h(), 0.1f, 500.0f);
 
 	glm::mat4 view = glm::lookAt(
 		glm::vec3(pDist, pDistP, pDist),
