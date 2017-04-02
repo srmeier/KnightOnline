@@ -180,8 +180,7 @@ void N3LoadTexture(const char* szFN) {
 			compTexSize = (HeaderOrg.nWidth*HeaderOrg.nHeight);
 		} break;
 		case D3DFMT_DXT5: {
-			compTexSize = (HeaderOrg.nWidth*HeaderOrg.nHeight*2);
-			printf("D3DFMT_DXT5 tex: need to verify size\n");
+			compTexSize = (HeaderOrg.nWidth*HeaderOrg.nHeight);
 		} break;
 		case D3DFMT_A1R5G5B5:
 		case D3DFMT_A4R4G4B4: {
@@ -349,12 +348,15 @@ void N3LoadMesh(const char* szFN) {
 
 	// NOTE: the actual number of indices and vertices for the specific
 	// collapse
-	if(m_pAllIndexChanges) {
+	if(m_pAllIndexChanges && m_iLODCtrlValueCount0) {
 		int m_iNumIndices = 0;
 		int m_iNumVertices = 0;
 
 		int c = 0;
 		int LOD = 0;
+		if(m_szName0[0] == 'a') {
+			LOD = 1;
+		}
 
 		int iDiff = m_pLODCtrlValues[LOD].iNumVertices - m_iNumVertices;
 
@@ -374,6 +376,9 @@ void N3LoadMesh(const char* szFN) {
 			}
 
 			c++;
+
+			m_iMaxNumIndices0 = m_iNumIndices;
+			m_iMaxNumVertices0 = m_iNumVertices;
 		}
 
 		// NOTE: if we break on a collapse that isn't intended to be one we
@@ -395,6 +400,9 @@ void N3LoadMesh(const char* szFN) {
 			}
 
 			c++;
+
+			m_iMaxNumIndices0 = m_iNumIndices;
+			m_iMaxNumVertices0 = m_iNumVertices;
 		}
 	}
 
@@ -1395,6 +1403,7 @@ int main(int argc, char** argv) {
 			memcpy(disp_files[num_disp_files-1], dir_list[i]->d_name, len_fn);
 
 			// TEMP: converting to OBJ
+			/*
 			char* filename = disp_files[num_disp_files-1];
 			int len_fn = strlen(filename);
 			char* exten = &filename[len_fn-7];
@@ -1436,7 +1445,7 @@ int main(int argc, char** argv) {
 
 			char output_fn[0xFFFF] = {};
 			dir_list[i]->d_name[len_fn-8] = '\0';
-			sprintf(output_fn, "./Item_output/%s.obj", dir_list[i]->d_name/*filename*/);
+			sprintf(output_fn, "./Item_output/%s.obj", dir_list[i]->d_name);
 
 			aiReturn ret = pExporter->Export(&m_Scene, "obj", output_fn);//pOutputFile);
 			if(ret == aiReturn_SUCCESS) {
@@ -1444,6 +1453,7 @@ int main(int argc, char** argv) {
 			} else {
 				printf("Failed!\n");
 			}
+			*/
 		}
 	}
 
