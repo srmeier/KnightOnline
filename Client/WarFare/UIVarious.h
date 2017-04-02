@@ -99,9 +99,9 @@ public:
 struct __KnightsMemberInfo // 기사 단원 정보..
 {
 	std::string		szName;
+	e_KnightsDuty	eDuty;	// 기사단 직위.
 	int				iLevel; // 플레이어 레벨..
 	e_Class			eClass; // 직업.
-	e_KnightsDuty	eDuty;	// 기사단 직위.
 	int				iConnected;
 };
 
@@ -118,11 +118,13 @@ protected:
 	CN3UIString*	m_pText_Duty;
 	CN3UIString*	m_pText_Page;
 	CN3UIString*	m_pText_MemberCount;
-	CN3UIString*	m_pText_Grade;
-	CN3UIString*	m_pText_Rank; 
 
 	CN3UIImage*		m_pImage_Grade[MAX_CLAN_GRADE];
-	CN3UIList*		m_pList_Members;
+
+	CN3UIList*		m_pList_CharGrades;
+	CN3UIList*		m_pList_CharIDs;
+	CN3UIList*		m_pList_CharLevels;
+	CN3UIList*		m_pList_CharJobs;
 
 	CN3UIButton*	m_pBtn_Admit;
 	CN3UIButton*	m_pBtn_Appoint;
@@ -141,19 +143,31 @@ public:
 	void	UpdateKnightsDuty(e_KnightsDuty eDuty);
 	void	UpdateKnightsGrade(int iVal);
 	void	UpdateKnightsRank(int iVal);
+	void	UpdateExceptList();
 
-	void	MemberListClear();
-	void	MemberListAdd(const std::string& szName, e_KnightsDuty eDuty, e_Class eClass, int iLevel, int connected);
 	void	MemberListUpdate();
 	void	MemberListSort();
 
-	void	RefreshPage(); 
+	void	RefreshList(); 
 
 	void	MsgSend_MemberInfoAll();
 
 	void	SetVisible(bool bVisible);		
 	virtual bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
 	virtual bool Load(HANDLE hFile);
+
+	void ClearLists();
+
+	void UpdatePageNumber(int nNewPageNr = -1);
+	void UpdateMemberCount(int nMemberCount);
+
+	void PreviousPageButtonHandler();
+	void NextPageButtonHandler();
+	void RefreshButtonHandler(bool blBypassTime = false);
+	void WhisperButtonHandler();
+	void AdmitButtonHandler();
+	void RemoveButtonHandler();
+	void AppointButtonHandler();
 
 	virtual void Release();
 	CUIKnights();

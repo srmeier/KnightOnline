@@ -507,27 +507,30 @@ void CUIState::MsgSendAblityPointChange(BYTE byType, short siValueDelta)
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
 
-
-
-
-
-
+#pragma region CUIKnights
+// @Demircivi: Rewrote most parts of class, 02.04.2017 04:36. It is now compatible with 1299 UIs.
+#pragma region Constructor & Destructor & Base
 CUIKnights::CUIKnights()
 {
 	m_iPageCur = 1;
+	// m_MemberList = NULL;
 
 	m_pText_Name = NULL;
 	m_pText_Duty = NULL;
 	m_pText_Page = NULL;
 	m_pText_MemberCount = NULL;
-	m_pText_Grade = NULL;
-	m_pText_Rank = NULL;
 
-	m_pList_Members = NULL;
+	// m_pImage_Grade = NULL;
+
+	m_pList_CharGrades = NULL;
+	m_pList_CharIDs = NULL;
+	m_pList_CharLevels = NULL;
+	m_pList_CharJobs = NULL;
 
 	m_pBtn_Admit = NULL;
 	m_pBtn_Appoint = NULL;
 	m_pBtn_Remove = NULL;
+	m_pBtn_Refresh = NULL;
 
 	m_fTimeLimit_Refresh = 0.0f;
 	m_fTimeLimit_Appoint = 0.0f;
@@ -539,20 +542,24 @@ CUIKnights::~CUIKnights()
 {
 }
 
-void CUIKnights::Release()
+void CUIKnights::Release() // TODO: check memory leaks
 {
 	CN3UIBase::Release();
 
 	m_iPageCur = 1;
+	// m_MemberList = NULL;
 
 	m_pText_Name = NULL;
 	m_pText_Duty = NULL;
 	m_pText_Page = NULL;
 	m_pText_MemberCount = NULL;
-	m_pText_Grade = NULL;
-	m_pText_Rank = NULL;
 
-	m_pList_Members = NULL;
+	// m_pImage_Grade = NULL;
+
+	m_pList_CharGrades = NULL;
+	m_pList_CharIDs = NULL;
+	m_pList_CharLevels = NULL;
+	m_pList_CharJobs = NULL;
 
 	m_pBtn_Admit = NULL;
 	m_pBtn_Appoint = NULL;
@@ -562,240 +569,364 @@ void CUIKnights::Release()
 
 void CUIKnights::Clear()
 {
-	m_iPageCur = 1;
-	MemberListClear();
-	m_pList_Members->ResetContent();
+	m_MemberList.clear();
+
+	ClearLists();
+	UpdatePageNumber(1);
+	UpdateMemberCount(0);
 
 	m_pText_Name->SetString("");
 	m_pText_Duty->SetString("");
 	m_pText_MemberCount->SetString("0");
-//	m_pText_Grade->SetString("");
-//	m_pText_Rank->SetString("");
 
 	this->ChangeUIByDuty(CGameProcedure::s_pPlayer->m_InfoExt.eKnightsDuty);
 }
 
 void CUIKnights::SetVisible(bool bVisible)
 {
-	if(bVisible==this->IsVisible()) return;
+	if (bVisible == this->IsVisible()) return;
 
-	if(bVisible)
-	{		
-		MsgSend_MemberInfoAll();
-		this->ChangeUIByDuty(CGameProcedure::s_pPlayer->m_InfoExt.eKnightsDuty);
-	}
+	if (bVisible)
+		RefreshButtonHandler(true);
 
 	CN3UIBase::SetVisible(bVisible);
 }
 
 bool CUIKnights::Load(HANDLE hFile)
 {
-	if(false == CN3UIBase::Load(hFile)) return false;
-	
-	m_pText_Name = (CN3UIString*)this->GetChildByID("Text_ClansName");		__ASSERT(m_pText_Name, "NULL UI Component!!");
-	m_pText_Duty = (CN3UIString*)this->GetChildByID("Text_clan_Duty");		__ASSERT(m_pText_Duty, "NULL UI Component!!");
-	m_pText_Page = (CN3UIString*)this->GetChildByID("Text_clan_Page");		__ASSERT(m_pText_Page, "NULL UI Component!!");
-	m_pText_MemberCount = (CN3UIString*)this->GetChildByID("Text_clan_MemberCount");	__ASSERT(m_pText_MemberCount, "NULL UI Component!!");
-//	m_pText_Grade = (CN3UIString*)this->GetChildByID("Text_clan_Grade");	__ASSERT(m_pText_Grade, "NULL UI Component!!");
-//	m_pText_Rank = (CN3UIString*)this->GetChildByID("Text_clan_Rank");		__ASSERT(m_pText_Rank, "NULL UI Component!!");
+	if (false == CN3UIBase::Load(hFile)) return false;
 
-	//m_pList_Members = (CN3UIList*)this->GetChildByID("List_clan_Member");		__ASSERT(m_pList_Members, "NULL UI Component!!");
+	m_pText_Name = (CN3UIString*)this->GetChildByID("Text_ClansName");			__ASSERT(m_pText_Name, "NULL UI Component!!");
+	m_pText_Duty = (CN3UIString*)this->GetChildByID("Text_clan_Duty");			__ASSERT(m_pText_Duty, "NULL UI Component!!");
+	m_pText_Page = (CN3UIString*)this->GetChildByID("Text_clan_Page");			__ASSERT(m_pText_Page, "NULL UI Component!!");
+	m_pText_MemberCount = (CN3UIString*)this->GetChildByID("Text_clan_MemberCount");	__ASSERT(m_pText_MemberCount, "NULL UI Component!!");
+
+	m_pList_CharGrades = (CN3UIList*)this->GetChildByID("List_clan_Grade");		__ASSERT(m_pList_CharGrades, "NULL UI Component!!");
+	m_pList_CharIDs = (CN3UIList*)this->GetChildByID("List_clan_ChrID");		__ASSERT(m_pList_CharIDs, "NULL UI Component!!");
+	m_pList_CharLevels = (CN3UIList*)this->GetChildByID("List_clan_Level");		__ASSERT(m_pList_CharLevels, "NULL UI Component!!");
+	m_pList_CharJobs = (CN3UIList*)this->GetChildByID("List_clan_Job");		__ASSERT(m_pList_CharJobs, "NULL UI Component!!");
 
 	m_pBtn_Admit = (CN3UIButton*)(this->GetChildByID("btn_clan_admit"));		__ASSERT(m_pBtn_Admit, "NULL UI Component!!");
-	m_pBtn_Appoint = (CN3UIButton*)(this->GetChildByID("btn_clan_Appoint"));	__ASSERT(m_pBtn_Appoint, "NULL UI Component!!");
-	m_pBtn_Remove =	(CN3UIButton*)(this->GetChildByID("btn_clan_Remove"));		__ASSERT(m_pBtn_Remove, "NULL UI Component!!");
-	m_pBtn_Refresh = (CN3UIButton*)(this->GetChildByID("btn_clan_refresh"));	__ASSERT(m_pBtn_Refresh, "NULL UI Component!!");
+	m_pBtn_Appoint = (CN3UIButton*)(this->GetChildByID("btn_clan_Appoint"));		__ASSERT(m_pBtn_Appoint, "NULL UI Component!!");
+	m_pBtn_Remove = (CN3UIButton*)(this->GetChildByID("btn_clan_Remove"));		__ASSERT(m_pBtn_Remove, "NULL UI Component!!");
+	m_pBtn_Refresh = (CN3UIButton*)(this->GetChildByID("btn_clan_refresh"));		__ASSERT(m_pBtn_Refresh, "NULL UI Component!!");
 
-
-//	if(m_pText_Grade)	m_pText_Grade->SetVisible(false);
-//	if(m_pText_Rank)	m_pText_Rank->SetVisible(false);
-	 	
 	char szBuf[128];
-	for(int i = 0; i < MAX_CLAN_GRADE; i++)
+	for (int i = 0; i < MAX_CLAN_GRADE; i++)
 	{
-		sprintf(szBuf,"image_grade%.2d",i);
+		sprintf(szBuf, "image_grade%.2d", i);
 		m_pImage_Grade[i] = (CN3UIImage*)(this->GetChildByID(szBuf));			__ASSERT(m_pImage_Grade[i], "NULL UI Component!!");;
-		if(m_pImage_Grade[i]) m_pImage_Grade[i]->SetVisible(false);
+		if (m_pImage_Grade[i]) m_pImage_Grade[i]->SetVisible(false);
 	}
+
+#pragma region Configuration
+	UpdatePageNumber(1);
+
+	m_pList_CharGrades->SetState(UI_STATE_LIST_DISABLE);
+	m_pList_CharLevels->SetState(UI_STATE_LIST_DISABLE);
+	m_pList_CharJobs->SetState(UI_STATE_LIST_DISABLE);
+#pragma endregion
+	return true;
+}
+#pragma endregion
+
+#pragma region Misc.
+void CUIKnights::UpdatePageNumber(int nNewPageNr) // @Demircivi: default value for nNewPageNr is -1.
+{
+	if (nNewPageNr != -1)
+		m_iPageCur = nNewPageNr;
+
+	char tmp[4];
+	sprintf(tmp, "%d", m_iPageCur);
+	m_pText_Page->SetString(tmp);
+}
+
+void CUIKnights::UpdateMemberCount(int nMemberCount)
+{
+	char tmp[4];
+	sprintf(tmp, "%d", nMemberCount); // TODO: @Demircivi: it should be %d/%d, second %d is clan max member count.
+	m_pText_MemberCount->SetString(tmp);
+}
+#pragma endregion
+
+#pragma region Button Handlers
+bool CUIKnights::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+{
+	if (dwMsg != UIMSG_BUTTON_CLICK)
+		return false; // @Demircivi: Since we don't care about anything else click.
+
+	if (pSender->m_szID == "btn_clan_up")
+		PreviousPageButtonHandler();
+	else if (pSender->m_szID == "btn_clan_down")
+		NextPageButtonHandler();
+	else if (pSender->m_szID == "btn_clan_refresh")
+		RefreshButtonHandler();
+	else if (pSender->m_szID == "btn_clan_whisper")
+		WhisperButtonHandler();
+	else if (pSender->m_szID == "btn_clan_admit")
+		AdmitButtonHandler();
+	else if (pSender->m_szID == "Btn_clan_Remove")
+		RemoveButtonHandler();
+	else if (pSender->m_szID == "Btn_clan_Appoint")
+		AppointButtonHandler();
+	else
+		return false;
 
 	return true;
 }
 
-bool CUIKnights::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+void CUIKnights::PreviousPageButtonHandler()
 {
-	CGameProcMain* pProcMain = CGameProcedure::s_pProcMain;
+	m_iPageCur--;
+	if (m_iPageCur < 1)
+		m_iPageCur = 1;
 
-	if (dwMsg == UIMSG_BUTTON_CLICK)					
-	{
-		if(pSender->m_szID == "btn_clan_up")
-		{
-			m_iPageCur--;
-			if(m_iPageCur<1) m_iPageCur = 1;
-
-			char tmp[4];
-			sprintf(tmp,"%d", m_iPageCur);
-			m_pText_Page->SetString(tmp);
-			RefreshPage();
-			return true;
-		}
-		if(pSender->m_szID == "btn_clan_down")
-		{
-			m_iPageCur++;
-			int MaxPage = m_MemberList.size()/10 + 1;
-			if(m_iPageCur > MaxPage) m_iPageCur = MaxPage;
-
-			char tmp[4];
-			sprintf(tmp,"%d", m_iPageCur);
-			m_pText_Page->SetString(tmp);
-			RefreshPage();
-			return true;
-		}
-		if(pSender->m_szID == "btn_clan_refresh")
-		{
-			if(m_fTimeLimit_Refresh>5.0f)
-			{
-				m_iPageCur = 1;
-				MemberListClear();
-				m_pList_Members->ResetContent();
-				m_pText_MemberCount->SetString("0");
-
-				MsgSend_MemberInfoAll();
-				this->ChangeUIByDuty(CGameProcedure::s_pPlayer->m_InfoExt.eKnightsDuty);
-				m_fTimeLimit_Refresh = 0.0f;
-			}
-			return true;
-		}
-
-		if(pSender->m_szID == "btn_clan_whisper")
-		{
-			std::string szName;
-			int idx = m_pList_Members->GetCurSel();
-			if(idx>=0)
-			{
-				m_pList_Members->GetString(idx, szName);
-				char szCmds[4][80] = { "", "", "", "" };
-				sscanf(szName.c_str(), "%s %s %s %s", szCmds[0], szCmds[1], szCmds[2], szCmds[3]);
-				szName = szCmds[1];
-				pProcMain->MsgSend_ChatSelectTarget(szName);
-			}
-			return true;
-		}
-
-		if(pSender->m_szID == "btn_clan_admit")
-		{
-			if(m_fTimeLimit_Admit > 3.0f)
-			{
-				pProcMain->MsgSend_KnightsJoin(CGameProcedure::s_pPlayer->m_iIDTarget);
-				m_fTimeLimit_Admit = 0.0f;
-			}
-			return true;
-		}
-		if(pSender->m_szID == "Btn_clan_Remove")
-		{
-			if(m_fTimeLimit_Remove > 3.0f)
-			{
-				std::string szName;
-				int idx = m_pList_Members->GetCurSel();
-				if(idx>=0)
-				{
-					m_pList_Members->GetString(idx, szName);
-					char szCmds[4][80] = { "", "", "", "" };
-					sscanf(szName.c_str(), "%s %s %s %s", szCmds[0], szCmds[1], szCmds[2], szCmds[3]);
-					szName = szCmds[1];
-					pProcMain->MsgSend_KnightsLeave(szName);
-				}
-				m_fTimeLimit_Remove = 0.0f;
-			}
-			return true;
-		}
-		if(pSender->m_szID == "Btn_clan_Appoint")
-		{
-			if(m_fTimeLimit_Appoint > 3.0f)
-			{
-				std::string szName;
-				int idx = m_pList_Members->GetCurSel();
-				if(idx>=0)
-				{
-					m_pList_Members->GetString(idx, szName);
-					char szCmds[4][80] = { "", "", "", "" };
-					sscanf(szName.c_str(), "%s %s %s %s", szCmds[0], szCmds[1], szCmds[2], szCmds[3]);
-					szName = szCmds[1];
-					pProcMain->MsgSend_KnightsAppointViceChief(szName);
-				}
-				m_fTimeLimit_Appoint = 0.0f;
-			}
-			return true;
-		}
-				
-		/*
-		if(pSender == m_pBtn_PrevPage ||	pSender == m_pBtn_NextPage)
-		{
-			if(pSender == m_pBtn_PrevPage) m_iPageCur--;
-			else m_iPageCur++;
-
-			if(m_iPageCur < 0) 
-			{
-				m_iPageCur = 0;
-			}
-			else
-			{
-				__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
-
-				if(	KNIGHTS_DUTY_CHIEF == pInfoExt->eKnightsDuty ||
-					KNIGHTS_DUTY_VICECHIEF == pInfoExt->eKnightsDuty || 
-					KNIGHTS_DUTY_OFFICER == pInfoExt->eKnightsDuty )
-				{
-					this->MsgSend_MemberInfoAll(m_iPageCur); // 직위가 있는 상태면.. 전체 리스트 보기..
-				}
-				else if(KNIGHTS_DUTY_UNKNOWN)
-				{
-				}
-				else
-				{
-					this->MsgSend_MemberInfoOnline(m_iPageCur); // 직위가 없는 일반기사면.. 접속한 넘들만 보기...
-				}
-			}
-		}
-		else if(pSender == m_pBtn_Close)
-			SetVisible(false);
-		else if(pSender == m_pBtn_MemberJoinAdmit) // 멤버 가입 허락.
-			this->MsgSend_MemberJoinAdmit();
-		else if(pSender == m_pBtn_MemberJoinReject) // 멤버 가입 거절.
-			this->MsgSend_MemberJoinReject();
-		else if(pSender == m_pBtn_MemberPunish) // 멤버 징계
-			this->MsgSend_MemberPunish();
-		else if(pSender == m_pBtn_MemberRemove) // 멤버 삭제
-			this->MsgSend_MemberRemove();
-		else if(pSender == m_pBtn_MemberAppoint) // 멤버 직위에 임명
-		{
-			this->VisibleAppointButtons(true); // 임명 버튼들 그룹 보이게 하기..
-		}
-		else if(pSender == m_pBtn_AppointChief)
-		{
-			this->MsgSend_DutyAppoint(KNIGHTS_DUTY_CHIEF);
-			this->VisibleAppointButtons(false); // 임명 버튼들 그룹 안보이게 하기..
-		}
-		else if(pSender == m_pBtn_AppointViceChief)
-		{
-			this->MsgSend_DutyAppoint(KNIGHTS_DUTY_VICECHIEF);
-			this->VisibleAppointButtons(false); // 임명 버튼들 그룹 안보이게 하기..
-		}
-		else if(pSender == m_pBtn_AppointOfficer)
-		{
-			this->MsgSend_DutyAppoint(KNIGHTS_DUTY_OFFICER);
-			this->VisibleAppointButtons(false); // 임명 버튼들 그룹 안보이게 하기..
-		}
-		else if(pSender == m_pBtn_Online) // 접속자만 보이게 한다..
-		{
-			m_iPageCur = 0;
-			this->MsgSend_MemberInfoOnline(0);
-		}
-*/
-	}
-
-	return false;
+	RefreshList();
 }
 
+void CUIKnights::NextPageButtonHandler()
+{
+	m_iPageCur++;
+	int MaxPage = m_MemberList.size() / 10 + 1;
+	if (m_iPageCur > MaxPage)
+		m_iPageCur = MaxPage;
+
+	UpdatePageNumber();
+	RefreshList();
+}
+
+void CUIKnights::RefreshButtonHandler(bool blBypassTime)
+{
+	if (m_fTimeLimit_Refresh < 5.0f && !blBypassTime)
+		return;
+
+	m_fTimeLimit_Refresh = 0.0f;
+
+	Clear();
+	UpdateExceptList();
+
+	MsgSend_MemberInfoAll();
+}
+
+void CUIKnights::WhisperButtonHandler()
+{
+	int index = m_pList_CharIDs->GetCurSel();
+
+	if (index == -1)
+		return;
+
+	std::string szName;
+	m_pList_CharIDs->GetString(index, szName);
+	CGameProcedure::s_pProcMain->MsgSend_ChatSelectTarget(szName);
+}
+
+void CUIKnights::AdmitButtonHandler()
+{
+	if (m_fTimeLimit_Admit < 3.0f)
+		return;
+
+	m_fTimeLimit_Admit = 0.0f;
+
+	CGameProcedure::s_pProcMain->MsgSend_KnightsJoin(CGameProcedure::s_pPlayer->m_iIDTarget);
+	m_fTimeLimit_Admit = 0.0f;
+}
+
+void CUIKnights::RemoveButtonHandler() // TODO: @Demircivi, maybe add confirmation dialog in further development? just saying.
+{
+	if (m_fTimeLimit_Remove < 3.0f)
+		return;
+
+	m_fTimeLimit_Remove = 0.0f;
+
+	int index = m_pList_CharIDs->GetCurSel();
+	if (index == -1)
+		return;
+
+	std::string szName;
+	m_pList_CharIDs->GetString(index, szName);
+	CGameProcedure::s_pProcMain->MsgSend_KnightsLeave(szName);
+}
+
+void CUIKnights::AppointButtonHandler()
+{
+	if (m_fTimeLimit_Appoint < 3.0f)
+		return;
+
+	m_fTimeLimit_Appoint = 0.0f;
+
+	int index = m_pList_CharIDs->GetCurSel();
+	if (index == -1)
+		return;
+
+	std::string szName;
+	m_pList_CharIDs->GetString(index, szName);
+	CGameProcedure::s_pProcMain->MsgSend_KnightsAppointViceChief(szName);
+}
+#pragma endregion
+
+#pragma region List Actions
+void CUIKnights::ClearLists()
+{
+	m_pList_CharGrades->ResetContent();
+	m_pList_CharIDs->ResetContent();
+	m_pList_CharLevels->ResetContent();
+	m_pList_CharJobs->ResetContent();
+}
+
+void CUIKnights::RefreshList()
+{
+	ClearLists();
+
+	it_KMI it = m_MemberList.begin();
+
+	int i = 10;
+	int e = m_iPageCur * 10;
+
+	for (; i < e; i++)
+	{
+		if (it == m_MemberList.end()) break;
+		it++;
+	}
+
+	char szBuff[80];
+	for (i = 0; i < 10; i++)
+	{
+		if (it == m_MemberList.end()) break;
+
+		__KnightsMemberInfo KMI = (*it);
+
+		if (KMI.iConnected)
+		{
+			std::string szClass, szDuty;
+			CGameProcedure::GetTextByKnightsDuty(KMI.eDuty, szDuty);
+			CGameProcedure::GetTextByClass(KMI.eClass, szClass);
+
+			char lvl[4];
+			sprintf(lvl, "%d", KMI.iLevel);
+
+			int index = m_pList_CharGrades->AddString(szDuty.c_str()); // TODO: @Demircivi, Char Grade is not loading from language files.
+			m_pList_CharIDs->AddString(KMI.szName.c_str());
+			m_pList_CharLevels->AddString(lvl);
+			m_pList_CharJobs->AddString(szClass.c_str());
+
+			m_pList_CharGrades->SetFontColor(index, 0xff00ff00);
+			m_pList_CharIDs->SetFontColor(index, 0xff00ff00);
+			m_pList_CharLevels->SetFontColor(index, 0xff00ff00);
+			m_pList_CharJobs->SetFontColor(index, 0xff00ff00);
+		}
+		else
+		{
+			int index = m_pList_CharGrades->AddString("....");
+			m_pList_CharIDs->AddString(KMI.szName.c_str());
+			m_pList_CharLevels->AddString("....");
+			m_pList_CharJobs->AddString("....");
+
+			m_pList_CharGrades->SetFontColor(index, 0xff808080);
+			m_pList_CharIDs->SetFontColor(index, 0xff808080);
+			m_pList_CharLevels->SetFontColor(index, 0xff808080);
+			m_pList_CharJobs->SetFontColor(index, 0xff808080);
+		}
+		it++;
+	}
+
+	m_pList_CharGrades->SetCurSel(-1);
+	m_pList_CharLevels->SetCurSel(-1);
+	m_pList_CharJobs->SetCurSel(-1);
+}
+#pragma endregion
+
+#pragma region Member List Actions
+void CUIKnights::MemberListSort()
+{
+	it_KMI it = m_MemberList.begin(), itEnd = m_MemberList.end();
+
+	__KnightsMemberInfo Chief; Chief.eDuty = KNIGHTS_DUTY_UNKNOWN;
+	__KnightsMemberInfo ViceChief[3];
+	ViceChief[0].eDuty = KNIGHTS_DUTY_UNKNOWN;
+	ViceChief[1].eDuty = KNIGHTS_DUTY_UNKNOWN;
+	ViceChief[2].eDuty = KNIGHTS_DUTY_UNKNOWN;
+
+	int iViceChiefCount = 0;
+	while (it != itEnd)
+	{
+		__KnightsMemberInfo kmi = (*it);
+
+		if (kmi.eDuty == KNIGHTS_DUTY_CHIEF)
+		{
+			Chief = kmi;
+			it = m_MemberList.erase(it);
+			continue;
+		}
+
+		if (kmi.eDuty == KNIGHTS_DUTY_VICECHIEF)
+		{
+			ViceChief[iViceChiefCount] = kmi;
+			it = m_MemberList.erase(it);
+			iViceChiefCount++;
+			continue;
+		}
+		it++;
+	}
+
+	for (int i = 0; i<3; i++)
+		if (ViceChief[i].eDuty != KNIGHTS_DUTY_UNKNOWN) m_MemberList.push_front(ViceChief[i]);
+
+	if (Chief.eDuty != KNIGHTS_DUTY_UNKNOWN) m_MemberList.push_front(Chief);
+}
+
+void CUIKnights::MemberListUpdate()
+{
+	MemberListSort();
+	RefreshList();
+}
+
+void CUIKnights::MsgSend_MemberInfoAll()
+{
+	int iOffset = 0;
+	BYTE byBuff[32];
+	
+	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_INFO_ALL);
+	
+	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
+}
+
+bool CUIKnights::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
+{
+	CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // @Demircivi: packet sizes, which are unused.
+	CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // @Demircivi: packet sizes, which are unused.
+	CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // @Demircivi: packet sizes, which are unused.
+
+	int iMemberCount = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+
+	UpdateMemberCount(iMemberCount);
+
+	for (int i = 0; i < iMemberCount; i++)
+	{
+		int iNameLength = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		__ASSERT(iNameLength > 0, "iNameLength was below 0!");
+
+		__KnightsMemberInfo KMI;
+
+		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, KMI.szName, iNameLength);
+		// KMI.szName = szName;
+		KMI.eDuty = (e_KnightsDuty)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		KMI.iLevel = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		KMI.eClass = (e_Class)CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		KMI.iConnected = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
+		m_MemberList.push_back(KMI);
+	}
+
+	UpdatePageNumber(1);
+
+	this->MemberListUpdate(); // List 에 다 넣었으면 UI Update!!
+	
+	return true;
+}
+#pragma endregion
+
+#pragma region Update Text Boxes & Button States
 void CUIKnights::UpdateKnightsName(const std::string& szName)
 {
 	if(NULL == m_pText_Name) return;
@@ -823,223 +954,28 @@ void CUIKnights::UpdateKnightsDuty(e_KnightsDuty eDuty)
 void CUIKnights::UpdateKnightsGrade(int iVal)
 {
 	for(int i = 0; i < MAX_CLAN_GRADE; i++)
-	{
-		if(m_pImage_Grade[i]) m_pImage_Grade[i]->SetVisible(false);
-	}
+		if(m_pImage_Grade[i])
+			m_pImage_Grade[i]->SetVisible(false);
 
 	if(iVal <= MAX_CLAN_GRADE && iVal > 0)
-	{
 		if(m_pImage_Grade[iVal - 1]) 
 			m_pImage_Grade[iVal - 1]->SetVisible(true);
-	}
-/*
-	if(NULL == m_pText_Grade) return;
-	
-	std::string szVal("등급 : ");
-	if(iVal <= 0) szVal += "없음";
-	else szVal += (char)('0'+iVal);
-	
-	m_pText_Grade->SetString(szVal);
-*/
 }
 
 void CUIKnights::UpdateKnightsRank(int iVal)
 {
-/*
-	if(NULL == m_pText_Rank) return;
-
-	std::string szVal("순위 : ");
-	if(iVal <= 0) szVal += "없음";
-	else szVal += (char)('0'+iVal);
-	
-	m_pText_Rank->SetString(szVal);
-*/
-}
-
-void CUIKnights::MemberListClear()
-{
-	m_MemberList.clear();
-}
-
-void CUIKnights::MemberListAdd(const std::string& szName, e_KnightsDuty eDuty, e_Class eClass, int iLevel, int iConnected)
-{
-	__KnightsMemberInfo KMI;
-	
-	KMI.szName = szName;
-	KMI.eDuty = eDuty;
-	KMI.eClass = eClass;
-	KMI.iLevel = iLevel;
-	KMI.iConnected = iConnected;
-	
-	m_MemberList.push_back(KMI);
-}
-
-void CUIKnights::MemberListSort()
-{
-	it_KMI it = m_MemberList.begin(), itEnd = m_MemberList.end();
-
-	__KnightsMemberInfo Chief; Chief.eDuty = KNIGHTS_DUTY_UNKNOWN;
-	__KnightsMemberInfo ViceChief[3]; 
-	ViceChief[0].eDuty = KNIGHTS_DUTY_UNKNOWN;
-	ViceChief[1].eDuty = KNIGHTS_DUTY_UNKNOWN;
-	ViceChief[2].eDuty = KNIGHTS_DUTY_UNKNOWN;
-
-	int iViceChiefCount = 0;
-	while(it!=itEnd)
-	{
-		__KnightsMemberInfo kmi = (*it);
-
-		if(kmi.eDuty == KNIGHTS_DUTY_CHIEF)
-		{
-			Chief = kmi;
-			it = m_MemberList.erase(it);
-			continue;
-		}
-
-		if(kmi.eDuty == KNIGHTS_DUTY_VICECHIEF)
-		{
-			ViceChief[iViceChiefCount] = kmi;
-			it = m_MemberList.erase(it);
-			iViceChiefCount++;
-			continue;
-		}
-		it++;
-	}
-
-	for(int i=0;i<3;i++)
-		if(ViceChief[i].eDuty != KNIGHTS_DUTY_UNKNOWN) m_MemberList.push_front(ViceChief[i]);
-
-	if(Chief.eDuty!=KNIGHTS_DUTY_UNKNOWN) m_MemberList.push_front(Chief);	
-}
-
-void CUIKnights::MemberListUpdate()
-{
-	if(NULL == m_pList_Members) return;
-
-	MemberListSort();	
-	RefreshPage();
-}
-
-void CUIKnights::RefreshPage()
-{
-	m_pList_Members->ResetContent();
-
-	it_KMI it = m_MemberList.begin();
-
-	int i = 10;
-	int e = m_iPageCur * 10;
-
-	for(;i<e;i++)
-	{
-		if(it==m_MemberList.end()) break;
-		it++;
-	}
-
-	std::string szDuty, szClass;
-	char szBuff[80];
-	for(i=0;i<10;i++)
-	{
-		if(it==m_MemberList.end()) break;
-
-		__KnightsMemberInfo KMI = (*it);
-
-		CGameProcedure::GetTextByClass(KMI.eClass, szClass);
-		CGameProcedure::GetTextByKnightsDuty(KMI.eDuty, szDuty);
-
-		if(KMI.iConnected)
-		{
-			sprintf(szBuff, "%-6s %-20s %-4d %-6s", szDuty.c_str(), KMI.szName.c_str(), KMI.iLevel, szClass.c_str());
-			int idx = m_pList_Members->AddString(szBuff);
-		
-			m_pList_Members->SetFontColor(idx, 0xff00ff00);
-		}
-		else
-		{
-			sprintf(szBuff, "%-6s %-20s", "....", KMI.szName.c_str());
-			int idx = m_pList_Members->AddString(szBuff);
-			
-			m_pList_Members->SetFontColor(idx, 0xff808080);
-		}
-		it++;
-	}
-}
-
-void CUIKnights::MsgSend_MemberInfoAll()
-{
-	int iOffset = 0;
-	BYTE byBuff[32];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_INFO_ALL);
-	
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
-}
-
-/*
-void CUIKnights::MsgSend_MemberInfoOnline(int iPage)
-{
-	int iOffset = 0;
-	BYTE byBuff[32];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_INFO_ONLINE);
-	CAPISocket::MP_AddShort(byBuff, iOffset, iPage);
-
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
-
-	// 페이지를 넘길때는 버튼들을 막아 놓는다.
-//	this->EnableKnightsUIs(false);
-}
-//*/
-
-bool CUIKnights::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
-{
-	this->MemberListClear();
-
-	int iPacketLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int iKC = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-
-	char tmp[4];
-	sprintf(tmp, "%d", iKC);
-	m_pText_MemberCount->SetString(tmp);
-
-	int iNameLength, iLevel;
-	e_KnightsDuty eDuty = KNIGHTS_DUTY_UNKNOWN;
-	e_Class eClass = CLASS_UNKNOWN;
-	std::string szName;
-	int iConnected;
-
-	for(int i=0;i<iKC;i++)
-	{
-		iNameLength = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		if(iNameLength<0) continue;
-
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iNameLength);
-		eDuty = (e_KnightsDuty)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-		iLevel = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-		eClass = (e_Class)CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		iConnected = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-		
-		this->MemberListAdd(szName, eDuty, eClass, iLevel, iConnected); // UI 에 추가..
-	}
-	m_iPageCur = 1;
-	sprintf(tmp,"%d", m_iPageCur);
-	m_pText_Page->SetString(tmp);
-
-	this->MemberListUpdate(); // List 에 다 넣었으면 UI Update!!
-	
-	return true;
+	// TODO: @Demircivi.
 }
 
 void CUIKnights::ChangeUIByDuty(e_KnightsDuty eDuty) // 권한에 따라 UI 변경..
 {
-	if(KNIGHTS_DUTY_CHIEF == eDuty) 
+	if (KNIGHTS_DUTY_CHIEF == eDuty)
 	{
 		m_pBtn_Admit->SetVisible(true);
 		m_pBtn_Appoint->SetVisible(true);
 		m_pBtn_Remove->SetVisible(true);
 	}
-	else if(KNIGHTS_DUTY_VICECHIEF == eDuty) 
+	else if (KNIGHTS_DUTY_VICECHIEF == eDuty)
 	{
 		m_pBtn_Admit->SetVisible(true);
 		m_pBtn_Appoint->SetVisible(false);
@@ -1051,128 +987,18 @@ void CUIKnights::ChangeUIByDuty(e_KnightsDuty eDuty) // 권한에 따라 UI 변경..
 		m_pBtn_Appoint->SetVisible(false);
 		m_pBtn_Remove->SetVisible(false);
 	}
-	/*
-	bool bVisibles[2] = { false, false };
-	if(KNIGHTS_DUTY_CHIEF == eDuty) 
-	{
-		bVisibles[0] = true;
-		bVisibles[1] = true;
-	}
-	else if(KNIGHTS_DUTY_VICECHIEF == eDuty || KNIGHTS_DUTY_OFFICER == eDuty)
-	{
-		bVisibles[1] = true;
-	}
-	else
-	{
-	}
-
-	this->VisibleAppointButtons(false); // 임명 버튼 숨기고..
-	if(m_pGroup_BossCmd) m_pGroup_BossCmd->SetVisible(bVisibles[0]);
-	if(m_pBtn_Online) m_pBtn_Online->SetVisible(bVisibles[1]);
-	*/
 }
 
-/*
-void CUIKnights::VisibleAppointButtons(bool bVisible) // 기사단장 전용 임명 Interface
+void CUIKnights::UpdateExceptList()
 {
-	if(NULL == m_pGroup_Appoint) return;
-	m_pGroup_Appoint->SetVisible(bVisible);
+	UpdateKnightsDuty(CGameProcedure::s_pPlayer->m_InfoExt.eKnightsDuty);
+	UpdateKnightsName(CGameProcedure::s_pPlayer->m_InfoExt.szKnights);
+	UpdateKnightsGrade(CGameProcedure::s_pPlayer->m_InfoExt.iKnightsGrade);
+	UpdateKnightsRank(CGameProcedure::s_pPlayer->m_InfoExt.iKnightsRank);
+	ChangeUIByDuty(CGameProcedure::s_pPlayer->m_InfoExt.eKnightsDuty);
 }
-//*/
-
-/*
-void CUIKnights::MsgSend_MemberJoinAdmit()
-{
-	int iOffset = 0;
-	BYTE byBuff[32];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_JOIN_ADMIT);
-
-	std::string szName = "???";
-	CAPISocket::MP_AddShort(byBuff, iOffset, szName.size());	// 아이디 길이..
-	CAPISocket::MP_AddString(byBuff, iOffset, szName);			// 실제 아이디..
-
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
-}
-//*/
-
-/*
-void CUIKnights::MsgSend_MemberJoinReject()
-{
-	int iOffset = 0;
-	BYTE byBuff[32];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_JOIN_REJECT);
-
-	std::string szName = "???";
-	CAPISocket::MP_AddShort(byBuff, iOffset, szName.size());	// 아이디 길이..
-	CAPISocket::MP_AddString(byBuff, iOffset, szName);			// 실제 아이디..
-
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
-}
-//*/
-
-/*
-void CUIKnights::MsgSend_MemberPunish()
-{
-	int iOffset = 0;
-	BYTE byBuff[32];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_PUNISH);
-
-	std::string szName = "???";
-	CAPISocket::MP_AddShort(byBuff, iOffset, szName.size());	// 아이디 길이..
-	CAPISocket::MP_AddString(byBuff, iOffset, szName);			// 실제 아이디..
-
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
-}
-//*/
-
-/*
-void CUIKnights::MsgSend_MemberRemove()
-{
-	int iOffset = 0;
-	BYTE byBuff[32];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_REMOVE);
-
-	std::string szName = "???";
-	CAPISocket::MP_AddShort(byBuff, iOffset, szName.size());	// 아이디 길이..
-	CAPISocket::MP_AddString(byBuff, iOffset, szName);			// 실제 아이디..
-
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset);	
-}
-//*/
-
-/*
-void CUIKnights::MsgSend_DutyAppoint(e_KnightsDuty eDuty)
-{
-	return;
-
-	int iOffset = 0;
-	BYTE byBuff[32];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
-	e_SubPacket_Knights eSP = N3_SP_KNIGHTS_UNKNOWN;
-	if(KNIGHTS_DUTY_CHIEF == eDuty) eSP = N3_SP_KNIGHTS_APPOINT_CHIEF;
-	else if(KNIGHTS_DUTY_VICECHIEF == eDuty) eSP = N3_SP_KNIGHTS_APPOINT_VICECHIEF;
-	else if(KNIGHTS_DUTY_OFFICER == eDuty) eSP = N3_SP_KNIGHTS_APPOINT_OFFICER;
-	else return;
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
-
-	std::string szName = "???";
-	CAPISocket::MP_AddShort(byBuff, iOffset, szName.size());	// 아이디 길이..
-	CAPISocket::MP_AddString(byBuff, iOffset, szName);			// 실제 아이디..
-
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset);	
-}
-//*/
-
+#pragma endregion
+#pragma endregion
 
 
 
@@ -1846,10 +1672,14 @@ void CUIVarious::UpdateKnightsInfo()
 {
 	if(NULL == m_pPageKnights) return;
 
+	/*
 	m_pPageKnights->UpdateKnightsDuty(CGameProcedure::s_pPlayer->m_InfoExt.eKnightsDuty);
 	m_pPageKnights->UpdateKnightsName(CGameProcedure::s_pPlayer->m_InfoExt.szKnights);
 	m_pPageKnights->UpdateKnightsGrade(CGameProcedure::s_pPlayer->m_InfoExt.iKnightsGrade);
 	m_pPageKnights->UpdateKnightsRank(CGameProcedure::s_pPlayer->m_InfoExt.iKnightsRank);
+	*/
+
+	m_pPageKnights->UpdateExceptList();
 }
 
 bool CUIVarious::OnKeyPress(int iKey)

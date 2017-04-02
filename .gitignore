@@ -36,3 +36,11 @@ Makefile
 *.dSYM
 *.exp
 Server/shared/Debug/shared.lib
+Server/scripting/Release/Lua.log
+Server/bin/Release/Lua.lib
+Server/LogInServer/Release/proj-LogInServer.log
+Server/AIServer/Release/proj-AIServer.log
+Server/GameServer/Release/proj-GameServer.log
+Server/shared/Release/shared.lib
+.vs/KnightOnline/v14/.suo
+UIE/.vs/UIE/v14/.suo
