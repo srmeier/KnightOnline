@@ -24,6 +24,13 @@
 #define NAME_LENGTH 0xFFF
 
 //-----------------------------------------------------------------------------
+typedef struct {
+	float x, y, z;
+	float nx, ny, nz;
+	float u, v;
+} Vertex;
+
+//-----------------------------------------------------------------------------
 enum e_ItemType {
 	ITEM_TYPE_PLUG = 1,
 	ITEM_TYPE_PART,
