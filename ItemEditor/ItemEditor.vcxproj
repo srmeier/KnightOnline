@@ -158,11 +158,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base.cpp" />
     <ClCompile Include="GLItemViewer.cpp" />
     <ClCompile Include="ItemInfo.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="GLItemViewer.h" />
     <ClInclude Include="ItemInfo.h" />

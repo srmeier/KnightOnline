@@ -33,6 +33,7 @@ ItemEditor/Item/
 ItemEditor/Item_old/
 ItemEditor/Item_output/
 ItemEditor/UI/
+ItemEditor/Object/
 ItemEditor/Debug/ItemEditor.lib
 ItemEditor/Release/ItemEditor.lib
 Makefile

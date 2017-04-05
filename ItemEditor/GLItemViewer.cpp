@@ -286,19 +286,19 @@ void GLItemViewer::PushDataToGPU(void) {
 		case D3DFMT_R8G8B8: {
 			texFormat = GL_RGB;
 			texType = GL_UNSIGNED_BYTE;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_R8G8B8\n", HeaderOrg.Format);
+			fprintf(stderr, "\nNeed to implement this D3DFMT_R8G8B8\n");
 			return;
 		} break;
 		case D3DFMT_A8R8G8B8: {
 			texFormat = GL_RGBA;
 			texType = GL_UNSIGNED_INT_8_8_8_8;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_A8R8G8B8\n", HeaderOrg.Format);
+			fprintf(stderr, "\nNeed to implement this D3DFMT_A8R8G8B8\n");
 			return;
 		} break;
 		case D3DFMT_X8R8G8B8: {
 			texFormat = GL_RGBA;
 			texType = GL_UNSIGNED_INT_8_8_8_8;
-			fprintf(stderr, "\nNeed to implement this D3DFMT_X8R8G8B8\n", HeaderOrg.Format);
+			fprintf(stderr, "\nNeed to implement this D3DFMT_X8R8G8B8\n");
 			return;
 		} break;
 		default: {
