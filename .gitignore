@@ -39,5 +39,7 @@ Makefile
 *.o
 *.dSYM
 *.exp
-.vs/KnightOnline/v14/.suo
-UIE/.vs/UIE/v14/.suo
+*.suo
+Client/WarFare/Debug/gameprocmain.new.obj.enc
+Client/WarFare/Debug/gameprocmain.obj.enc
+Client/WarFare/Debug/Log.txt
