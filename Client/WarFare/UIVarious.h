@@ -64,7 +64,7 @@ public:
 
 	void	UpdateID(const std::string& szID);
 	void	UpdateLevel(int iVal);
-	void	UpdateRealmPoint(int iVal); // 국가 기여도는 10을 나누어서 표시
+	void	UpdateRealmPoint(int iLoyalty, int iLoyaltyMonthly); // Edited by @Demircivi while integrating monthly np system. // 국가 기여도는 10을 나누어서 표시
 
 	void	UpdateHP(int iVal, int iValMax);
 	void	UpdateMSP(int iVal, int iValMax);

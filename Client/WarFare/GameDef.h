@@ -422,6 +422,7 @@ struct __InfoPlayerMySelf : public __InfoPlayerOther
 	Uint64				iExpNext;
 	Uint64				iExp;
 	int					iRealmPoint;		// 국가 기여도
+	int					iRealmPointMonthly;		// @Demircivi.
 	e_KnightsDuty		eKnightsDuty;		// 기사단 권한
 	int					iWeightMax;			// 아이템의 총무게
 	int					iWeight;			// 들수 있는 아이템 무게..
@@ -473,6 +474,7 @@ struct __InfoPlayerMySelf : public __InfoPlayerOther
 		iExpNext = 0;
 		iExp = 0; 
 		iRealmPoint = 0;		// 국가 기여도
+		iRealmPointMonthly = 0; // @Demircivi
 		eKnightsDuty = KNIGHTS_DUTY_UNKNOWN;		// 기사단 권한
 		iWeightMax = 0;			// 아이템의 총무게
 		iWeight = 0;			// 들수 있는 아이템 무게..

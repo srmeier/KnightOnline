@@ -203,10 +203,14 @@ void CUIState::UpdateLevel(int iVal)
 	m_pText_Level->SetStringAsInt(iVal);
 }
 
-void CUIState::UpdateRealmPoint(int iVal) // 국가 기여도는 10을 나누어서 표시
+void CUIState::UpdateRealmPoint(int iLoyalty, int iLoyaltyMonthly) // 국가 기여도는 10을 나누어서 표시
 {
 	if(NULL == m_pText_RealmPoint) return;
-	m_pText_RealmPoint->SetStringAsInt(iVal/10); // 국가 기여도는 10을 나누어서 표시
+
+	// Edited by @Demircivi while integrating monthly np system.
+	char szBuf[32];
+	sprintf(szBuf, "%d / %d", iLoyalty, iLoyaltyMonthly);
+	m_pText_RealmPoint->SetString(szBuf); // 국가 기여도는 10을 나누어서 표시
 }
 
 void CUIState::UpdateHP(int iVal, int iValMax)
@@ -1623,7 +1627,7 @@ void CUIVarious::UpdateAllStates(const __InfoPlayerBase* pInfoBase, const __Info
 	m_pPageState->UpdateRegistPoison(pInfoExt->iRegistPoison, pInfoExt->iRegistPoison_Delta);
 
 	// 기사단 관련 정보 업데이트...
-	m_pPageState->UpdateRealmPoint(pInfoExt->iRealmPoint); // 국가 기여도는 10을 나누어서 표시
+	m_pPageState->UpdateRealmPoint(pInfoExt->iRealmPoint, pInfoExt->iRealmPointMonthly); // Edited by @Demircivi while integrating monthly np system.  // 국가 기여도는 10을 나누어서 표시
 
 	// 캐릭터 능력치 포인트 이미지 업데이트..
 	if (m_pPageState->m_pImg_Str) m_pPageState->m_pImg_Str->SetVisible(false);
