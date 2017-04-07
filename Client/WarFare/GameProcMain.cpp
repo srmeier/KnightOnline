@@ -1762,8 +1762,8 @@ bool CGameProcMain::MsgRecv_MyInfo_All(DataPack* pDataPack, int& iOffset)
 	s_pPlayer->m_InfoExt.iExp = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
 	s_pPlayer->m_InfoExt.iRealmPoint = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 
-	// NOTE(srmeier): adding the monthly loyalty
-	int iMonthlyLoyalty = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	// @Demircivi, implemented monthly np system.
+	s_pPlayer->m_InfoExt.iRealmPointMonthly = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 
 	s_pPlayer->m_InfoExt.iCity = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	
@@ -3626,9 +3626,47 @@ bool CGameProcMain::MsgRecv_MyInfo_LevelChange(DataPack* pDataPack, int& iOffset
 
 void CGameProcMain::MsgRecv_MyInfo_RealmPoint(DataPack* pDataPack, int& iOffset)
 {
-	s_pPlayer->m_InfoExt.iRealmPoint	= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
-	if(m_pUIVar->m_pPageState)
-		m_pUIVar->m_pPageState->UpdateRealmPoint(s_pPlayer->m_InfoExt.iRealmPoint); // 국가 기여도는 10을 나누어서 표시
+	BYTE bType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+
+	if (bType == 1) // TODO: @Demircivi: LOYALTY_NATIONAL_POINTS is: 1, define it in header. 
+	{
+		// TODO: @Demircivi, implement missing
+
+		DWORD iLoyalty = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		DWORD iLoyaltyMonthly = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		DWORD iUnk = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);				// Clan donations(? Donations made by this user? For the clan overall?)
+		DWORD iClanLoyaltyAmount = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);	// Premium NP(? Additional NP gained?)
+
+		int32_t iLoyaltyDelta = iLoyalty- s_pPlayer->m_InfoExt.iRealmPoint;
+		if (iLoyaltyDelta > 0) // Got NP.
+		{
+			char szBuf[64];
+			sprintf(szBuf, "Earned %d national points.", iLoyaltyDelta); // TODO: @Demircivi, load string from resource.
+			MsgOutput(szBuf, 0xffa2a0c8);
+		}
+		else // Lost NP.
+		{
+			char szBuf[64];
+			sprintf(szBuf, "Lost %d national points.", -iLoyaltyDelta); // TODO: @Demircivi, load string from resource.
+			MsgOutput(szBuf, 0xffff3b3b);
+		}
+
+		s_pPlayer->m_InfoExt.iRealmPoint = iLoyalty;
+		s_pPlayer->m_InfoExt.iRealmPointMonthly = iLoyaltyMonthly;
+
+		if (m_pUIVar->m_pPageState)
+			m_pUIVar->m_pPageState->UpdateRealmPoint(s_pPlayer->m_InfoExt.iRealmPoint, s_pPlayer->m_InfoExt.iRealmPointMonthly); // 국가 기여도는 10을 나누어서 표시
+	}
+	else if (bType == 2)
+	{
+		// TODO: @Demircivi, after implementing Manner feature call its update method from here.
+		DWORD iNewManner = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		CLogWriter::Write("Got manner update packet but didn't update form since there is no manner feature New Manner: %d.", iNewManner);
+	}
+	else
+	{
+		CLogWriter::Write("Unhandled MsgRecv_MyInfo_RealmPoint subOpcode: %02x(hex).", bType);
+	}
 }
 
 void CGameProcMain::MsgRecv_MyInfo_PointChange(DataPack* pDataPack, int& iOffset)
