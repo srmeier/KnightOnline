@@ -455,7 +455,7 @@ e_ItemType MakeResrcFileNameForUPC(
 	__TABLE_ITEM_BASIC* pItem, std::string* pszResrcFN,
 	std::string* pszIconFN, e_PartPosition& ePartPosition,
 	e_PlugPosition& ePlugPosition, e_Race eRace
-) {	
+) {
 	ePartPosition = PART_POS_UNKNOWN;
 	ePlugPosition = PLUG_POS_UNKNOWN;
 

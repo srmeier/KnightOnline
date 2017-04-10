@@ -1,12 +1,13 @@
 /*
+- want to separate a KO item from a KO mesh to allow for easy swapping
 */
 
 #include "defines.h"
 
 #include "fl/fl_hor_slider.h"
 #include "fl/fl_toggle_button.h"
-#include "fl/fl_draw.H"
-#include "fl/fl_table_row.H"
+#include "fl/fl_draw.h"
+#include "fl/fl_table_row.h"
 
 #include "fl/fl_tabs.h"
 #include "fl/fl_group.h"
@@ -14,6 +15,7 @@
 #include "fl/fl_float_input.h"
 #include "fl/fl_int_input.h"
 #include "fl/fl_menu_bar.h"
+#include "fl/fl_choice.h"
 
 #include "fl/filename.h"
 
@@ -29,6 +31,7 @@ extern e_ItemType eType;
 
 //-----------------------------------------------------------------------------
 class GLItemViewer* m_sw;
+Fl_Choice* choice;
 
 int num_disp_files;
 char** disp_files;
@@ -84,7 +87,73 @@ void ItemTableView::event_callback_update_opengl(void) {
 	if(r==-1 || c==-1) return;
 	if((int)Fl::event() != 1) return;
 
-	char* filename = disp_files[r];
+	__TABLE_ITEM_BASIC* item_tbl = NULL;
+	item_tbl = s_pTbl_Items_Basic->GetIndexedData(r);
+
+	int num_ids_found = 0;
+	int ids_found[0xFF] = {};
+
+	std::string szResrcFN;
+	std::string szIconFN;
+	e_PartPosition ePartPosition;
+	e_PlugPosition ePlugPosition;
+	e_ItemType type;
+
+	// NOTE: if -1 then we need to see if there are ones for the different races
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN, &szIconFN, ePartPosition, ePlugPosition, RACE_ALL);
+
+	std::string szResrcFN1, szResrcFN2, szResrcFN3, szResrcFN4, szResrcFN5, szResrcFN6, szResrcFN7, szResrcFN8;
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN1, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_ARKTUAREK);
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN2, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_TUAREK);
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN3, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_WRINKLETUAREK);
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN4, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_PURITUAREK);
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN5, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_BABARIAN);
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN6, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_MAN);
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN7, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_WOMEN);
+	MakeResrcFileNameForUPC(item_tbl, &szResrcFN8, &szIconFN, ePartPosition, ePlugPosition, RACE_NPC);
+
+	char tmp[0xFFFF] = {};
+	for(int i=0; i<num_disp_files; ++i) {
+		sprintf(tmp, "Item\\%s", disp_files[i]);
+		if(!strcmp(szResrcFN.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+			choice->value(0);
+			break;
+		}
+		if(!strcmp(szResrcFN1.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+		if(!strcmp(szResrcFN2.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+		if(!strcmp(szResrcFN3.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+		if(!strcmp(szResrcFN4.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+		if(!strcmp(szResrcFN5.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+		if(!strcmp(szResrcFN6.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+		if(!strcmp(szResrcFN7.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+		if(!strcmp(szResrcFN8.c_str(), tmp)) {
+			ids_found[num_ids_found++] =  i;
+		}
+	}
+
+	char* filename = NULL;
+	if(num_ids_found != 0) {
+		filename = disp_files[ids_found[0]];
+	} else {
+		printf("Item does not have mesh.\n");
+		return;
+	}
+
 	int len_fn = strlen(filename);
 	char* exten = &filename[len_fn-7];
 
@@ -129,6 +198,76 @@ void ItemTableView::draw_cell(TableContext context,
 	memset(s, 0x00, (NAME_LENGTH+1)*sizeof(char));
 
 	_ITEM_TABLE* item = NULL;
+	__TABLE_ITEM_BASIC* item_tbl = NULL;
+
+	switch(context) {
+		case CONTEXT_STARTPAGE:
+			fl_font(FL_HELVETICA, 16);
+			return;
+		case CONTEXT_COL_HEADER:
+			switch(c) {
+				case 0: strcpy(s, "dwID");     break;
+				case 1: strcpy(s, "szName"); break;
+				case 2: strcpy(s, "szRemark"); break;
+			}
+
+			fl_push_clip(x, y, w, h);
+			{
+				fl_draw_box(FL_THIN_UP_BOX, x, y, w, h, col_header_color());
+				fl_color(FL_BLACK);
+				fl_draw(s, x, y, w, h, FL_ALIGN_CENTER);
+			}
+			fl_pop_clip();
+			return;
+		case CONTEXT_ROW_HEADER:
+			sprintf(s, "%d", r+1);
+
+			fl_push_clip(x, y, w, h);
+			{
+				fl_draw_box(FL_THIN_UP_BOX, x, y, w, h, row_header_color());
+				fl_color(FL_BLACK);
+				fl_draw(s, x, y, w, h, FL_ALIGN_CENTER);
+			}
+			fl_pop_clip();
+			return;
+		case CONTEXT_CELL: {
+			// NOTE: need to find a way to get the rows for the same item
+			item_tbl = s_pTbl_Items_Basic->GetIndexedData(r);
+
+			switch(c) {
+				case 0: sprintf(s, "  %d", item_tbl->dwID);  break;
+				case 1: sprintf(s, "  %s", item_tbl->szName.c_str()); break;
+				case 2: sprintf(s, "  %s", item_tbl->szRemark.c_str()); break;
+			}
+
+			fl_push_clip(x, y, w, h);
+			{
+				fl_color(row_selected(r) ? selection_color() : cell_bgcolor);
+				fl_rectf(x, y, w, h);
+				fl_color(cell_fgcolor);
+				fl_draw(s, x, y, w, h, FL_ALIGN_LEFT);
+				fl_color(color());
+				fl_rect(x, y, w, h);
+			}
+			fl_pop_clip();
+		} return;
+		case CONTEXT_TABLE:
+			printf("Table Context Called?\n");
+			return;
+		case CONTEXT_ENDPAGE:
+		case CONTEXT_RC_RESIZE:
+		case CONTEXT_NONE:
+			return;
+	}
+}
+/*
+void ItemTableView::draw_cell(TableContext context,
+	int r, int c, int x, int y, int w, int h
+) {
+	static char s[(NAME_LENGTH+1)];
+	memset(s, 0x00, (NAME_LENGTH+1)*sizeof(char));
+
+	_ITEM_TABLE* item = NULL;
 
 	switch(context) {
 		case CONTEXT_STARTPAGE:
@@ -164,13 +303,13 @@ void ItemTableView::draw_cell(TableContext context,
 			switch(c) {
 				case 0: sprintf(s, "%s", disp_files[r]); break;
 			}
-			/*
-			item = ItemTableMap.GetData(r);
-			switch(c) {
-				case 0: sprintf(s, "  %d", item->m_iNum);  break;
-				case 1: sprintf(s, "  %s", item->m_sName); break;
-			}
-			*/
+			
+			//item = ItemTableMap.GetData(r);
+			//switch(c) {
+			//	case 0: sprintf(s, "  %d", item->m_iNum);  break;
+			//	case 1: sprintf(s, "  %s", item->m_sName); break;
+			//}
+			
 
 			fl_push_clip(x, y, w, h);
 			{
@@ -192,6 +331,7 @@ void ItemTableView::draw_cell(TableContext context,
 			return;
 	}
 }
+*/
 
 //-----------------------------------------------------------------------------
 Fl_Menu_Item menu_table[] = {
@@ -398,6 +538,18 @@ int main(int argc, char** argv) {
 	GLItemViewer sw(window.w()-_gl_width, 30, _gl_width, _gl_height);
 	m_sw = &sw;
 
+	choice = new Fl_Choice(window.w()-_gl_width, 30+_gl_height, _gl_width, 25);
+	choice->add("RACE_ALL");
+	choice->add("RACE_KA_ARKTUAREK");
+	choice->add("RACE_KA_TUAREK");
+	choice->add("RACE_KA_WRINKLETUAREK");
+	choice->add("RACE_KA_PURITUAREK");
+	choice->add("RACE_EL_BABARIAN");
+	choice->add("RACE_EL_MAN");
+	choice->add("RACE_EL_WOMEN");
+	choice->add("RACE_NPC");
+	choice->add("RACE_UNKNOWN");
+
 	ItemTableView demo_table(0, 30, window.w()-(_gl_width+0), _gl_height);
 	demo_table.selection_color(FL_YELLOW);
 	demo_table.when(FL_WHEN_RELEASE|FL_WHEN_CHANGED);
@@ -408,13 +560,13 @@ int main(int argc, char** argv) {
 	demo_table.row_header(true);
 	demo_table.row_header_width(60);
 	demo_table.row_resize(true);
-	demo_table.rows(num_disp_files /*ItemTableMap.GetSize()*/);
+	demo_table.rows(s_pTbl_Items_Basic->GetSize());
 	demo_table.row_height_all(20);
 
 	demo_table.col_header(true);
 	demo_table.col_header_height(25);
 	demo_table.col_resize(true);
-	demo_table.cols(1 /*2*/);
+	demo_table.cols(3);
 	demo_table.col_width_all(150);
 
 	Fl_Menu_Bar menubar(0, 0, window.w(), 30);
@@ -422,6 +574,7 @@ int main(int argc, char** argv) {
 	menubar.callback(test_cb);
 
 	// TODO: need to add the positions and widths/heights as variables
+	/*
 	Fl_Tabs info_tabs(0, _gl_height+40, window.w(), window.h()-_gl_height-30-10);
 		Fl_Group group(0, _gl_height+40+35, window.w(), window.h()-_gl_height-30-10, "Table Info");
 			tbl_id        = new Fl_Int_Input(80, _gl_height+30+35+20+5, 240, 30, "ID:");
@@ -433,6 +586,7 @@ int main(int argc, char** argv) {
 			Fl_Input input2(10, _gl_height+30+35+20, 240, 30);
 		group2.end();
 	info_tabs.end();
+	*/
 
 	window.end();
 	window.show(argc, argv);
