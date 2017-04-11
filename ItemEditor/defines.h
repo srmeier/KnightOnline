@@ -13,12 +13,34 @@
 #include <sqlext.h>
 #include <sqltypes.h>
 
+#include "GL/glew.h"
+
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
 #include "config.h"
 #include "fl/fl.h"
+
+#include "fl/fl_hor_slider.h"
+#include "fl/fl_toggle_button.h"
+#include "fl/fl_draw.h"
+#include "fl/fl_table_row.h"
+
+#include "fl/fl_tabs.h"
+#include "fl/fl_group.h"
+#include "fl/fl_input.h"
+#include "fl/fl_float_input.h"
+#include "fl/fl_int_input.h"
+#include "fl/fl_menu_bar.h"
+#include "fl/fl_choice.h"
+
+#include "fl/filename.h"
+
+#include "fl/fl_window.h"
+#include "fl/gl.h"
+#include "fl/fl_gl_window.h"
+#include "fl/math.h"
 
 //-----------------------------------------------------------------------------
 #define NAME_LENGTH 0xFFF

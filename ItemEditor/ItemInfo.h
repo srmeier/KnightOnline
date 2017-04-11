@@ -6,19 +6,25 @@
 #include "STLMap.h"
 #include "N3TableBase.h"
 
-/*
-- goal is to be able to just plug one of these guys into the "Fl_Tabs" and have
-	all their information be displayed
-- this can house all the items and create a copy of the selected one which the
-	user can modify until they go to save their changes (just need to keep
-	track of the index/itorator - and potentially the changes)
-*/
+using namespace std;
 
 //-----------------------------------------------------------------------------
 class ItemInfo {
+public: //private:
+	static vector<class ItemInfo> _items;
+	static vector<string> _mesh_files_in_dir;
+	static CSTLMap<_ITEM_TABLE> _db_item_info;
+	static CN3TableBase<__TABLE_ITEM_BASIC>* _tbl_item_info;
+
+public:
+	static bool LoadInformation(void);
+	static void CreateItemsFromInfo(void);
+
 private:
-	CSTLMap<_ITEM_TABLE> dbItemInfo;
-	CN3TableBase<__TABLE_ITEM_BASIC>* tblItemInfo;
+	map<e_Race, vector<int>> mesh_file_inds_per_race;
+
+public:
+	string getItemMeshForRace(e_Race race);
 };
 
 #endif

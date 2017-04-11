@@ -3,13 +3,6 @@
 
 #include "defines.h"
 
-#include "GL/glew.h"
-
-#include "fl/fl_window.h"
-#include "fl/gl.h"
-#include "fl/fl_gl_window.h"
-#include "fl/math.h"
-
 //-----------------------------------------------------------------------------
 class GLItemViewer: public Fl_Gl_Window {
 private:

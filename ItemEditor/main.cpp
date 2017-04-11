@@ -4,21 +4,6 @@
 
 #include "defines.h"
 
-#include "fl/fl_hor_slider.h"
-#include "fl/fl_toggle_button.h"
-#include "fl/fl_draw.h"
-#include "fl/fl_table_row.h"
-
-#include "fl/fl_tabs.h"
-#include "fl/fl_group.h"
-#include "fl/fl_input.h"
-#include "fl/fl_float_input.h"
-#include "fl/fl_int_input.h"
-#include "fl/fl_menu_bar.h"
-#include "fl/fl_choice.h"
-
-#include "fl/filename.h"
-
 #include "base.h"
 #include "ItemInfo.h"
 #include "GLItemViewer.h"
@@ -33,8 +18,8 @@ extern e_ItemType eType;
 class GLItemViewer* m_sw;
 Fl_Choice* choice;
 
-int num_disp_files;
-char** disp_files;
+//int num_disp_files;
+//char** disp_files;
 
 Fl_Int_Input* tbl_id;
 Fl_Int_Input* tbl_ext_index;
@@ -42,8 +27,8 @@ Fl_Input*     tbl_name;
 Fl_Input*     tbl_remark;
 
 //-----------------------------------------------------------------------------
-CSTLMap<_ITEM_TABLE> ItemTableMap;
-CN3TableBase<__TABLE_ITEM_BASIC>* s_pTbl_Items_Basic;
+//CSTLMap<_ITEM_TABLE> ItemTableMap;
+//CN3TableBase<__TABLE_ITEM_BASIC>* s_pTbl_Items_Basic;
 
 //-----------------------------------------------------------------------------
 class ItemTableView: public Fl_Table_Row {
@@ -88,7 +73,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 	if((int)Fl::event() != 1) return;
 
 	__TABLE_ITEM_BASIC* item_tbl = NULL;
-	item_tbl = s_pTbl_Items_Basic->GetIndexedData(r);
+	item_tbl = ItemInfo::_tbl_item_info->GetIndexedData(r);
 
 	int num_ids_found = 0;
 	int ids_found[0xFF] = {};
@@ -113,8 +98,8 @@ void ItemTableView::event_callback_update_opengl(void) {
 	MakeResrcFileNameForUPC(item_tbl, &szResrcFN8, &szIconFN, ePartPosition, ePlugPosition, RACE_NPC);
 
 	char tmp[0xFFFF] = {};
-	for(int i=0; i<num_disp_files; ++i) {
-		sprintf(tmp, "Item\\%s", disp_files[i]);
+	for(int i=0; i<ItemInfo::_mesh_files_in_dir.size(); ++i) {
+		sprintf(tmp, "Item\\%s", ItemInfo::_mesh_files_in_dir[i].c_str());
 		if(!strcmp(szResrcFN.c_str(), tmp)) {
 			ids_found[num_ids_found++] =  i;
 			choice->value(0);
@@ -146,9 +131,9 @@ void ItemTableView::event_callback_update_opengl(void) {
 		}
 	}
 
-	char* filename = NULL;
+	char filename[0xFFFF] = "";
 	if(num_ids_found != 0) {
-		filename = disp_files[ids_found[0]];
+		strcpy(filename, ItemInfo::_mesh_files_in_dir[ids_found[0]].c_str());
 	} else {
 		printf("Item does not have mesh.\n");
 		return;
@@ -232,7 +217,7 @@ void ItemTableView::draw_cell(TableContext context,
 			return;
 		case CONTEXT_CELL: {
 			// NOTE: need to find a way to get the rows for the same item
-			item_tbl = s_pTbl_Items_Basic->GetIndexedData(r);
+			item_tbl = ItemInfo::_tbl_item_info->GetIndexedData(r);
 
 			switch(c) {
 				case 0: sprintf(s, "  %d", item_tbl->dwID);  break;
@@ -459,76 +444,8 @@ void test_cb(Fl_Widget* w, void*) {
 int main(int argc, char** argv) {
 	//----
 
-	s_pTbl_Items_Basic = new CN3TableBase<__TABLE_ITEM_BASIC>;
-
-	std::string szFN = "Item_Org.tbl";
-	if(s_pTbl_Items_Basic->LoadFromFile(szFN.c_str()) == false) {
-		printf("Failed to load Item_Org.tbl\n");
-		system("pause");
-		return -1;
-	}
-
-	//----
-
-	SQLHANDLE hEnv, hConn;
-
-	SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
-	SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (void *)SQL_OV_ODBC3, 0);
-	SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hConn);
-	if(SQLConnect(hConn, _T("KN_online"), SQL_NTS, _T("knight"), SQL_NTS, _T("knight"), SQL_NTS) == SQL_ERROR) {
-		printf("SQLConnect\n");
-		system("pause");
-		return -1;
-	}
-
-	SQLHANDLE hStmt;
-	SQLAllocHandle(SQL_HANDLE_STMT, hConn, &hStmt);
-	if(SQLExecDirect(hStmt, _T("SELECT TOP(5000) Num, strName FROM ITEM;"), SQL_NTS) == SQL_ERROR) {//TOP(10000)
-		printf("SQLExecDirect\n");
-		system("pause");
-		return -1;
-	}
-
-	long count = 0;
-	SQLINTEGER cbData;
-	while(SQLFetch(hStmt) == SQL_SUCCESS) {
-
-		_ITEM_TABLE* item = new _ITEM_TABLE();
-
-		SQLGetData(hStmt, 1, SQL_C_ULONG, &(item->m_iNum), sizeof(SQLUINTEGER), &cbData);
-		SQLGetData(hStmt, 2, SQL_C_CHAR, item->m_sName, NAME_LENGTH, &cbData);
-
-		ItemTableMap.PutData(count++, item);
-
-		__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic->Find(item->m_iNum/1000*1000);
-		if(!pItem) printf("Item \"%s\" is missing from the TBL!\n", item->m_sName);
-	}
-
-	SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
-	
-	SQLDisconnect(hConn);
-	SQLFreeHandle(SQL_HANDLE_DBC, hConn);
-	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
-
-	//----
-
-	dirent** dir_list;
-	int num_files = fl_filename_list("./item", &dir_list);
-
-	num_disp_files = 0;
-	for(int i=0; i<num_files; ++i) {
-		int len_fn = strlen(dir_list[i]->d_name);
-		if(!strcmp(&dir_list[i]->d_name[len_fn-7], "n3cplug") || !strcmp(&dir_list[i]->d_name[len_fn-7], "n3cpart")) {
-			disp_files = (char**)realloc(disp_files, ++num_disp_files*sizeof(char*));
-			disp_files[num_disp_files-1] = (char*)calloc(len_fn+1, sizeof(char));
-			memcpy(disp_files[num_disp_files-1], dir_list[i]->d_name, len_fn);
-
-			//char* filename = disp_files[num_disp_files-1];
-			//N3MeshConverter::Convert(filename);
-		}
-	}
-
-	fl_filename_free_list(&dir_list, num_files);
+	ItemInfo::LoadInformation();
+	ItemInfo::CreateItemsFromInfo();
 
 	//----
 
@@ -560,7 +477,7 @@ int main(int argc, char** argv) {
 	demo_table.row_header(true);
 	demo_table.row_header_width(60);
 	demo_table.row_resize(true);
-	demo_table.rows(s_pTbl_Items_Basic->GetSize());
+	demo_table.rows(ItemInfo::_tbl_item_info->GetSize());
 	demo_table.row_height_all(20);
 
 	demo_table.col_header(true);
