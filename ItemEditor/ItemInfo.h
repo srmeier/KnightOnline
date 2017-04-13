@@ -21,10 +21,17 @@ public:
 	static void CreateItemsFromInfo(void);
 
 private:
-	map<e_Race, vector<int>> mesh_file_inds_per_race;
+	int m_tbl_ind;
+	e_ItemType m_type;
+	map<e_Race, int> mesh_file_ind_for_race;
 
 public:
-	string getItemMeshForRace(e_Race race);
+	e_ItemType getItemType(void);
+	string getItemMeshFileForRace(e_Race race);
+
+public:
+	ItemInfo(void);
+	~ItemInfo(void);
 };
 
 #endif

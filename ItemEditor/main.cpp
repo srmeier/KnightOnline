@@ -84,18 +84,17 @@ void ItemTableView::event_callback_update_opengl(void) {
 	e_PlugPosition ePlugPosition;
 	e_ItemType type;
 
-	// NOTE: if -1 then we need to see if there are ones for the different races
 	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN, &szIconFN, ePartPosition, ePlugPosition, RACE_ALL);
 
 	std::string szResrcFN1, szResrcFN2, szResrcFN3, szResrcFN4, szResrcFN5, szResrcFN6, szResrcFN7, szResrcFN8;
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN1, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_ARKTUAREK);
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN2, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_TUAREK);
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN3, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_WRINKLETUAREK);
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN4, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_PURITUAREK);
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN5, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_BABARIAN);
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN6, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_MAN);
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN7, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_WOMEN);
-	MakeResrcFileNameForUPC(item_tbl, &szResrcFN8, &szIconFN, ePartPosition, ePlugPosition, RACE_NPC);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN1, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_ARKTUAREK);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN2, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_TUAREK);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN3, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_WRINKLETUAREK);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN4, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_PURITUAREK);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN5, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_BABARIAN);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN6, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_MAN);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN7, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_WOMEN);
+	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN8, &szIconFN, ePartPosition, ePlugPosition, RACE_NPC);
 
 	char tmp[0xFFFF] = {};
 	for(int i=0; i<ItemInfo::_mesh_files_in_dir.size(); ++i) {
@@ -134,42 +133,49 @@ void ItemTableView::event_callback_update_opengl(void) {
 	char filename[0xFFFF] = "";
 	if(num_ids_found != 0) {
 		strcpy(filename, ItemInfo::_mesh_files_in_dir[ids_found[0]].c_str());
+
+		int len_fn = strlen(filename);
+		char* exten = &filename[len_fn-7];
+
+		if(!strcmp(exten, "n3cplug")) {
+
+			eType = ITEM_TYPE_PLUG;
+
+			char tmp[0xFF] = "";
+			sprintf(tmp, "./item/%s", filename);
+			FILE* pFile = fopen(tmp, "rb");
+			if(pFile == NULL) {
+				fprintf(stderr, "ERROR: Missing N3Plug %s\n", tmp);
+				return;
+			}
+
+			CN3CPlug_Load(pFile);
+			fclose(pFile);
+		} else if(!strcmp(exten, "n3cpart")) {
+
+			eType = ITEM_TYPE_PART;
+
+			char tmp[0xFF] = "";
+			sprintf(tmp, "./item/%s", filename);
+			FILE* pFile = fopen(tmp, "rb");
+			if(pFile == NULL) {
+				fprintf(stderr, "ERROR: Missing N3Part %s\n", tmp);
+				return;
+			}
+
+			CN3CPart_Load(pFile);
+			fclose(pFile);
+		}
+
 	} else {
-		printf("Item does not have mesh.\n");
-		return;
-	}
-
-	int len_fn = strlen(filename);
-	char* exten = &filename[len_fn-7];
-
-	if(!strcmp(exten, "n3cplug")) {
-
-		eType = ITEM_TYPE_PLUG;
-
-		char tmp[0xFF] = "";
-		sprintf(tmp, "./item/%s", filename);
-		FILE* pFile = fopen(tmp, "rb");
-		if(pFile == NULL) {
-			fprintf(stderr, "ERROR: Missing N3Plug %s\n", tmp);
+		// TODO: need to generate a list of these textures as well...
+		if(type==ITEM_TYPE_ICONONLY || type==ITEM_TYPE_GOLD || type==ITEM_TYPE_SONGPYUN) {
+			eType = type;
+			N3LoadTexture(szIconFN.c_str());
+		} else {
+			printf("Item does not have mesh.\n");
 			return;
 		}
-
-		CN3CPlug_Load(pFile);
-		fclose(pFile);
-	} else if(!strcmp(exten, "n3cpart")) {
-
-		eType = ITEM_TYPE_PART;
-
-		char tmp[0xFF] = "";
-		sprintf(tmp, "./item/%s", filename);
-		FILE* pFile = fopen(tmp, "rb");
-		if(pFile == NULL) {
-			fprintf(stderr, "ERROR: Missing N3Part %s\n", tmp);
-			return;
-		}
-
-		CN3CPart_Load(pFile);
-		fclose(pFile);
 	}
 
 	m_sw->PushDataToGPU();
@@ -245,78 +251,6 @@ void ItemTableView::draw_cell(TableContext context,
 			return;
 	}
 }
-/*
-void ItemTableView::draw_cell(TableContext context,
-	int r, int c, int x, int y, int w, int h
-) {
-	static char s[(NAME_LENGTH+1)];
-	memset(s, 0x00, (NAME_LENGTH+1)*sizeof(char));
-
-	_ITEM_TABLE* item = NULL;
-
-	switch(context) {
-		case CONTEXT_STARTPAGE:
-			fl_font(FL_HELVETICA, 16);
-			return;
-		case CONTEXT_COL_HEADER:
-			switch(c) {
-				case 0: strcpy(s, "Filename"); break;
-				//case 0: strcpy(s, "Num");     break;
-				//case 1: strcpy(s, "strName"); break;
-			}
-
-			fl_push_clip(x, y, w, h);
-			{
-				fl_draw_box(FL_THIN_UP_BOX, x, y, w, h, col_header_color());
-				fl_color(FL_BLACK);
-				fl_draw(s, x, y, w, h, FL_ALIGN_CENTER);
-			}
-			fl_pop_clip();
-			return;
-		case CONTEXT_ROW_HEADER:
-			sprintf(s, "%d", r+1);
-
-			fl_push_clip(x, y, w, h);
-			{
-				fl_draw_box(FL_THIN_UP_BOX, x, y, w, h, row_header_color());
-				fl_color(FL_BLACK);
-				fl_draw(s, x, y, w, h, FL_ALIGN_CENTER);
-			}
-			fl_pop_clip();
-			return;
-		case CONTEXT_CELL:
-			switch(c) {
-				case 0: sprintf(s, "%s", disp_files[r]); break;
-			}
-			
-			//item = ItemTableMap.GetData(r);
-			//switch(c) {
-			//	case 0: sprintf(s, "  %d", item->m_iNum);  break;
-			//	case 1: sprintf(s, "  %s", item->m_sName); break;
-			//}
-			
-
-			fl_push_clip(x, y, w, h);
-			{
-				fl_color(row_selected(r) ? selection_color() : cell_bgcolor);
-				fl_rectf(x, y, w, h);
-				fl_color(cell_fgcolor);
-				fl_draw(s, x, y, w, h, FL_ALIGN_LEFT);
-				fl_color(color());
-				fl_rect(x, y, w, h);
-			}
-			fl_pop_clip();
-			return;
-		case CONTEXT_TABLE:
-			printf("Table Context Called?\n");
-			return;
-		case CONTEXT_ENDPAGE:
-		case CONTEXT_RC_RESIZE:
-		case CONTEXT_NONE:
-			return;
-	}
-}
-*/
 
 //-----------------------------------------------------------------------------
 Fl_Menu_Item menu_table[] = {
@@ -444,7 +378,12 @@ void test_cb(Fl_Widget* w, void*) {
 int main(int argc, char** argv) {
 	//----
 
-	ItemInfo::LoadInformation();
+	if(ItemInfo::LoadInformation() == false) {
+		printf("ERROR: unable to load item information.\n");
+		system("pause");
+		return -1;
+	}
+
 	ItemInfo::CreateItemsFromInfo();
 
 	//----

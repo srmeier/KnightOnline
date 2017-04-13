@@ -1,6 +1,7 @@
 /*
 */
 
+#include "base.h"
 #include "ItemInfo.h"
 
 using namespace std;
@@ -10,6 +11,17 @@ vector<class ItemInfo> ItemInfo::_items;
 vector<string> ItemInfo::_mesh_files_in_dir;
 CSTLMap<_ITEM_TABLE> ItemInfo::_db_item_info;
 CN3TableBase<__TABLE_ITEM_BASIC>* ItemInfo::_tbl_item_info; // TODO: clean up
+
+//-----------------------------------------------------------------------------
+ItemInfo::ItemInfo(void) {
+	m_tbl_ind = -1;
+	mesh_file_ind_for_race.clear();
+}
+
+//-----------------------------------------------------------------------------
+ItemInfo::~ItemInfo(void) {
+
+}
 
 //-----------------------------------------------------------------------------
 bool ItemInfo::LoadInformation(void) {
@@ -86,4 +98,25 @@ bool ItemInfo::LoadInformation(void) {
 //-----------------------------------------------------------------------------
 void ItemInfo::CreateItemsFromInfo(void) {
 
+}
+
+//-----------------------------------------------------------------------------
+string ItemInfo::getItemMeshFileForRace(e_Race race) {
+	std::string    szResrcFN;
+	std::string    szIconFN;
+	e_PartPosition ePartPosition;
+	e_PlugPosition ePlugPosition;
+
+	e_ItemType type = MakeResrcFileNameForUPC(_tbl_item_info->GetIndexedData(m_tbl_ind),
+		&szResrcFN, &szIconFN, ePartPosition, ePlugPosition, race
+	);
+
+	if(type != m_type) {
+		printf("ERROR: item has changed type.\n");
+		exit(-1);
+	}
+
+	if(type==ITEM_TYPE_PLUG || type==ITEM_TYPE_PART) {
+		return szIconFN;
+	} else return szResrcFN;
 }
