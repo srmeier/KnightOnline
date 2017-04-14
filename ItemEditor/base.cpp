@@ -221,9 +221,11 @@ void N3LoadMesh(const char* szFN) {
 		int LOD = 0;
 
 		// TEMP HACK
+		/*
 		if(m_szName0[0] == 'a') {
 			LOD = 1;
 		}
+		*/
 
 		int iDiff = m_pLODCtrlValues[LOD].iNumVertices - m_iNumVertices;
 

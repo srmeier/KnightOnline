@@ -65,12 +65,52 @@ void ItemTableView::event_callback(Fl_Widget* widget, void* data) {
 	item_table->event_callback_update_opengl();
 }
 
+// TEMP
+extern int                m_nFC;
+extern __VertexXyzNormal* m_pVertices;
+extern WORD*              m_pwVtxIndices;
+extern float*             m_pfUVs;
+extern WORD*              m_pwUVsIndices;
+
+// TEMP
+extern _N3TexHeader    HeaderOrg;
+extern unsigned char*  compTexData;
+extern int             compTexSize;
+extern int             iPixelSize;
+extern unsigned short* m_pIndices0;
+extern _N3VertexT1*    m_pVertices0;
+extern int             m_iMaxNumIndices0;
+extern int             m_iMaxNumVertices0;
+
 void ItemTableView::event_callback_update_opengl(void) {
 	int r = callback_row();
 	int c = callback_col();
 	TableContext context = callback_context();
 	if(r==-1 || c==-1) return;
 	if((int)Fl::event() != 1) return;
+
+	delete m_pVertices;
+	delete m_pwVtxIndices;
+	delete m_pfUVs;
+	delete m_pwUVsIndices;
+	delete compTexData;
+	delete m_pIndices0;
+	delete m_pVertices0;
+	memset(&HeaderOrg, 0x00, sizeof(_N3TexHeader));
+
+	eType              = ITEM_TYPE_UNKNOWN;
+	m_nFC              = 0;
+	m_pVertices        = NULL;
+	m_pwVtxIndices     = NULL;
+	m_pfUVs            = NULL;
+	m_pwUVsIndices     = NULL;
+	compTexData        = NULL;
+	compTexSize        = 0;
+	iPixelSize         = 0;
+	m_pIndices0        = NULL;
+	m_pVertices0       = NULL;
+	m_iMaxNumIndices0  = 0;
+	m_iMaxNumVertices0 = 0;
 
 	__TABLE_ITEM_BASIC* item_tbl = NULL;
 	item_tbl = ItemInfo::_tbl_item_info->GetIndexedData(r);
@@ -179,7 +219,7 @@ void ItemTableView::event_callback_update_opengl(void) {
 	}
 
 	m_sw->PushDataToGPU();
-	m_sw->redraw();
+	//m_sw->redraw();
 }
 
 void ItemTableView::draw_cell(TableContext context,

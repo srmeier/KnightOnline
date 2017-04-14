@@ -320,7 +320,7 @@ void GLItemViewer::PushDataToGPU(void) {
 
 	// NOTE: need a better way, this doesn't always work well
 	pDistP = (max_y-min_y)/2.0f + min_y;
-	pDist  = sqrt(max_x*max_x + 2.5f*max_y*max_y + max_z*max_z);
+	pDist  = sqrt(max_x*max_x + /*2.5f**/1.5f*max_y*max_y + max_z*max_z);
 }
 
 //-----------------------------------------------------------------------------

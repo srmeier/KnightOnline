@@ -19,11 +19,15 @@ public: //private:
 public:
 	static bool LoadInformation(void);
 	static void CreateItemsFromInfo(void);
+	static class ItemInfo* getItem(int i);
 
 private:
 	int m_tbl_ind;
 	e_ItemType m_type;
 	map<e_Race, int> mesh_file_ind_for_race;
+
+private:
+	void setMeshFileForRace(e_Race race, bool check_type = true);
 
 public:
 	e_ItemType getItemType(void);
