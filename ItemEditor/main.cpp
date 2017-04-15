@@ -26,6 +26,21 @@ Fl_Int_Input* tbl_ext_index;
 Fl_Input*     tbl_name;
 Fl_Input*     tbl_remark;
 
+ItemInfo* item_being_rendered;
+
+e_Race races[] = {
+	RACE_ALL,
+	RACE_KA_ARKTUAREK,
+	RACE_KA_TUAREK,
+	RACE_KA_WRINKLETUAREK,
+	RACE_KA_PURITUAREK,
+	RACE_EL_BABARIAN,
+	RACE_EL_MAN,
+	RACE_EL_WOMEN,
+	RACE_NPC,
+	RACE_UNKNOWN
+};
+
 //-----------------------------------------------------------------------------
 //CSTLMap<_ITEM_TABLE> ItemTableMap;
 //CN3TableBase<__TABLE_ITEM_BASIC>* s_pTbl_Items_Basic;
@@ -89,137 +104,14 @@ void ItemTableView::event_callback_update_opengl(void) {
 	if(r==-1 || c==-1) return;
 	if((int)Fl::event() != 1) return;
 
-	delete m_pVertices;
-	delete m_pwVtxIndices;
-	delete m_pfUVs;
-	delete m_pwUVsIndices;
-	delete compTexData;
-	delete m_pIndices0;
-	delete m_pVertices0;
-	memset(&HeaderOrg, 0x00, sizeof(_N3TexHeader));
-
-	eType              = ITEM_TYPE_UNKNOWN;
-	m_nFC              = 0;
-	m_pVertices        = NULL;
-	m_pwVtxIndices     = NULL;
-	m_pfUVs            = NULL;
-	m_pwUVsIndices     = NULL;
-	compTexData        = NULL;
-	compTexSize        = 0;
-	iPixelSize         = 0;
-	m_pIndices0        = NULL;
-	m_pVertices0       = NULL;
-	m_iMaxNumIndices0  = 0;
-	m_iMaxNumVertices0 = 0;
-
-	__TABLE_ITEM_BASIC* item_tbl = NULL;
-	item_tbl = ItemInfo::_tbl_item_info->GetIndexedData(r);
-
-	int num_ids_found = 0;
-	int ids_found[0xFF] = {};
-
-	std::string szResrcFN;
-	std::string szIconFN;
-	e_PartPosition ePartPosition;
-	e_PlugPosition ePlugPosition;
-	e_ItemType type;
-
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN, &szIconFN, ePartPosition, ePlugPosition, RACE_ALL);
-
-	std::string szResrcFN1, szResrcFN2, szResrcFN3, szResrcFN4, szResrcFN5, szResrcFN6, szResrcFN7, szResrcFN8;
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN1, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_ARKTUAREK);
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN2, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_TUAREK);
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN3, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_WRINKLETUAREK);
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN4, &szIconFN, ePartPosition, ePlugPosition, RACE_KA_PURITUAREK);
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN5, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_BABARIAN);
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN6, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_MAN);
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN7, &szIconFN, ePartPosition, ePlugPosition, RACE_EL_WOMEN);
-	type = MakeResrcFileNameForUPC(item_tbl, &szResrcFN8, &szIconFN, ePartPosition, ePlugPosition, RACE_NPC);
-
-	char tmp[0xFFFF] = {};
-	for(int i=0; i<ItemInfo::_mesh_files_in_dir.size(); ++i) {
-		sprintf(tmp, "Item\\%s", ItemInfo::_mesh_files_in_dir[i].c_str());
-		if(!strcmp(szResrcFN.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-			choice->value(0);
-			break;
-		}
-		if(!strcmp(szResrcFN1.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
-		if(!strcmp(szResrcFN2.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
-		if(!strcmp(szResrcFN3.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
-		if(!strcmp(szResrcFN4.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
-		if(!strcmp(szResrcFN5.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
-		if(!strcmp(szResrcFN6.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
-		if(!strcmp(szResrcFN7.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
-		if(!strcmp(szResrcFN8.c_str(), tmp)) {
-			ids_found[num_ids_found++] =  i;
-		}
+	int choice_i = choice->value();
+	if(choice_i == -1) {
+		choice_i = 0;
+		choice->value(choice_i);
 	}
 
-	char filename[0xFFFF] = "";
-	if(num_ids_found != 0) {
-		strcpy(filename, ItemInfo::_mesh_files_in_dir[ids_found[0]].c_str());
-
-		int len_fn = strlen(filename);
-		char* exten = &filename[len_fn-7];
-
-		if(!strcmp(exten, "n3cplug")) {
-
-			eType = ITEM_TYPE_PLUG;
-
-			char tmp[0xFF] = "";
-			sprintf(tmp, "./item/%s", filename);
-			FILE* pFile = fopen(tmp, "rb");
-			if(pFile == NULL) {
-				fprintf(stderr, "ERROR: Missing N3Plug %s\n", tmp);
-				return;
-			}
-
-			CN3CPlug_Load(pFile);
-			fclose(pFile);
-		} else if(!strcmp(exten, "n3cpart")) {
-
-			eType = ITEM_TYPE_PART;
-
-			char tmp[0xFF] = "";
-			sprintf(tmp, "./item/%s", filename);
-			FILE* pFile = fopen(tmp, "rb");
-			if(pFile == NULL) {
-				fprintf(stderr, "ERROR: Missing N3Part %s\n", tmp);
-				return;
-			}
-
-			CN3CPart_Load(pFile);
-			fclose(pFile);
-		}
-
-	} else {
-		// TODO: need to generate a list of these textures as well...
-		if(type==ITEM_TYPE_ICONONLY || type==ITEM_TYPE_GOLD || type==ITEM_TYPE_SONGPYUN) {
-			eType = type;
-			N3LoadTexture(szIconFN.c_str());
-		} else {
-			printf("Item does not have mesh.\n");
-			return;
-		}
-	}
-
-	m_sw->PushDataToGPU();
-	//m_sw->redraw();
+	item_being_rendered = ItemInfo::GetItem(r);
+	m_sw->RenderItem(item_being_rendered, races[choice_i]);
 }
 
 void ItemTableView::draw_cell(TableContext context,
@@ -230,6 +122,8 @@ void ItemTableView::draw_cell(TableContext context,
 
 	_ITEM_TABLE* item = NULL;
 	__TABLE_ITEM_BASIC* item_tbl = NULL;
+
+	ItemInfo* item_info;
 
 	switch(context) {
 		case CONTEXT_STARTPAGE:
@@ -263,12 +157,13 @@ void ItemTableView::draw_cell(TableContext context,
 			return;
 		case CONTEXT_CELL: {
 			// NOTE: need to find a way to get the rows for the same item
-			item_tbl = ItemInfo::_tbl_item_info->GetIndexedData(r);
+			item_info = ItemInfo::GetItem(r);
+			//item_tbl = ItemInfo::_tbl_item_info->GetIndexedData(r);
 
 			switch(c) {
-				case 0: sprintf(s, "  %d", item_tbl->dwID);  break;
-				case 1: sprintf(s, "  %s", item_tbl->szName.c_str()); break;
-				case 2: sprintf(s, "  %s", item_tbl->szRemark.c_str()); break;
+				case 0: sprintf(s, "  %d", item_info->tbl_info.dwID);  break;
+				case 1: sprintf(s, "  %s", item_info->tbl_info.szName.c_str()); break;
+				case 2: sprintf(s, "  %s", item_info->tbl_info.szRemark.c_str()); break;
 			}
 
 			fl_push_clip(x, y, w, h);
@@ -415,6 +310,19 @@ void test_cb(Fl_Widget* w, void*) {
 }
 
 //-----------------------------------------------------------------------------
+void choice_cb(Fl_Widget* w, void*) {
+	Fl_Choice* c = (Fl_Choice*)w;
+	int choice_i = c->value();
+
+	if(choice_i == -1) {
+		choice_i = 0;
+		choice->value(choice_i);
+	}
+
+	m_sw->RenderItem(item_being_rendered, races[choice_i]);
+}
+
+//-----------------------------------------------------------------------------
 int main(int argc, char** argv) {
 	//----
 
@@ -445,6 +353,7 @@ int main(int argc, char** argv) {
 	choice->add("RACE_EL_WOMEN");
 	choice->add("RACE_NPC");
 	choice->add("RACE_UNKNOWN");
+	choice->callback(choice_cb);
 
 	ItemTableView demo_table(0, 30, window.w()-(_gl_width+0), _gl_height);
 	demo_table.selection_color(FL_YELLOW);
@@ -456,7 +365,7 @@ int main(int argc, char** argv) {
 	demo_table.row_header(true);
 	demo_table.row_header_width(60);
 	demo_table.row_resize(true);
-	demo_table.rows(ItemInfo::_tbl_item_info->GetSize());
+	demo_table.rows(ItemInfo::GetNumTblItems());
 	demo_table.row_height_all(20);
 
 	demo_table.col_header(true);

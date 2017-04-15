@@ -1,6 +1,7 @@
 /*
 */
 
+#include "base.h"
 #include "GLItemViewer.h"
 
 //-----------------------------------------------------------------------------
@@ -360,5 +361,80 @@ void GLItemViewer::draw(void) {
 		glUniformMatrix4fv( glUniView, 1, GL_FALSE, glm::value_ptr(iden));
 		glUniformMatrix4fv( glUniProj, 1, GL_FALSE, glm::value_ptr(iden));
 		glDrawElements(GL_TRIANGLES, 3*2, GL_UNSIGNED_INT, 0);
+	}
+}
+
+//-----------------------------------------------------------------------------
+void GLItemViewer::RenderItem(ItemInfo* item, e_Race race) {
+	delete m_pVertices;
+	delete m_pwVtxIndices;
+	delete m_pfUVs;
+	delete m_pwUVsIndices;
+	delete compTexData;
+	delete m_pIndices0;
+	delete m_pVertices0;
+	memset(&HeaderOrg, 0x00, sizeof(_N3TexHeader));
+
+	eType              = ITEM_TYPE_UNKNOWN;
+	m_nFC              = 0;
+	m_pVertices        = NULL;
+	m_pwVtxIndices     = NULL;
+	m_pfUVs            = NULL;
+	m_pwUVsIndices     = NULL;
+	compTexData        = NULL;
+	compTexSize        = 0;
+	iPixelSize         = 0;
+	m_pIndices0        = NULL;
+	m_pVertices0       = NULL;
+	m_iMaxNumIndices0  = 0;
+	m_iMaxNumVertices0 = 0;
+
+	if(race == RACE_UNKNOWN) return;
+
+	std::string mesh_file = item->getItemMeshFileForRace(race);
+	e_ItemType type = item->getItemType();
+
+	char filename[0xFFFF] = "";
+	if(mesh_file != "") {
+		strcpy(filename, mesh_file.c_str());
+
+		int len_fn = strlen(filename);
+		char* exten = &filename[len_fn-7];
+
+		if(!strcmp(exten, "n3cplug")) {
+
+			eType = ITEM_TYPE_PLUG;
+
+			FILE* pFile = fopen(filename, "rb");
+			if(pFile == NULL) {
+				fprintf(stderr, "ERROR: Missing N3Plug %s\n", filename);
+				return;
+			}
+
+			CN3CPlug_Load(pFile);
+			fclose(pFile);
+		} else if(!strcmp(exten, "n3cpart")) {
+
+			eType = ITEM_TYPE_PART;
+
+			FILE* pFile = fopen(filename, "rb");
+			if(pFile == NULL) {
+				fprintf(stderr, "ERROR: Missing N3Part %s\n", filename);
+				return;
+			}
+
+			CN3CPart_Load(pFile);
+			fclose(pFile);
+		} else if(type==ITEM_TYPE_ICONONLY || type==ITEM_TYPE_GOLD || type==ITEM_TYPE_SONGPYUN) {
+			// TODO: need to generate a list of these textures as well...
+			eType = type;
+			N3LoadTexture(mesh_file.c_str());
+		} else {
+			printf("Item does not have mesh.\n");
+			return;
+		}
+
+		PushDataToGPU();
+		//redraw();
 	}
 }

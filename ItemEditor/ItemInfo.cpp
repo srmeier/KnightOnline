@@ -86,7 +86,21 @@ bool ItemInfo::LoadInformation(void) {
 			!strcmp(&dir_list[i]->d_name[len_fn-7], "n3cplug") || 
 			!strcmp(&dir_list[i]->d_name[len_fn-7], "n3cpart")
 		)) {
-			_mesh_files_in_dir.push_back(dir_list[i]->d_name);
+			_mesh_files_in_dir.push_back("Item\\"+string(dir_list[i]->d_name));
+		}
+	}
+
+	fl_filename_free_list(&dir_list, num_files);
+
+	// NOTE: grab the icon file information
+	num_files = fl_filename_list("./ui", &dir_list);
+
+	for(int i=0; i<num_files; ++i) {
+		int len_fn = strlen(dir_list[i]->d_name);
+		if(strlen(dir_list[i]->d_name)>3 && (
+			!strcmp(&dir_list[i]->d_name[len_fn-3], "dxt")
+		)) {
+			_mesh_files_in_dir.push_back("UI\\"+string(dir_list[i]->d_name));
 		}
 	}
 
@@ -108,6 +122,8 @@ void ItemInfo::CreateItemsFromInfo(void) {
 
 		ItemInfo item_info;
 		item_info.m_tbl_ind = i;
+		item_info.m_type = ITEM_TYPE_UNKNOWN;
+		item_info.tbl_info = *item;
 
 		pair<map<e_Race, int>::iterator, bool> ret;
 		ret = item_info.mesh_file_ind_for_race.insert(make_pair(RACE_ALL, -1));
@@ -145,15 +161,27 @@ void ItemInfo::setMeshFileForRace(e_Race race, bool check_type) {
 
 	string filename = "";
 	if(type==ITEM_TYPE_PLUG || type==ITEM_TYPE_PART) {
-		filename = szIconFN;
-	} else {
 		filename = szResrcFN;
+	} else {
+		filename = szIconFN;
 	}
 
 	int filename_ind = -1;
 	for(int i=0; i<_mesh_files_in_dir.size(); ++i) {
-		if(_mesh_files_in_dir[i] == filename) {
+		char tmp1[0xFFFF] = {};
+		char tmp2[0xFFFF] = {};
+
+		strcpy(tmp1, _mesh_files_in_dir[i].c_str());
+		strcpy(tmp2, filename.c_str());
+
+		for(int j=0; j<strlen(tmp1); ++j)
+			tmp1[j] = toupper(tmp1[j]);
+		for(int j=0; j<strlen(tmp2); ++j)
+			tmp2[j] = toupper(tmp2[j]);
+
+		if(!strcmp(tmp1, tmp2)) {
 			filename_ind = i;
+			break;
 		}
 	}
 
@@ -161,13 +189,23 @@ void ItemInfo::setMeshFileForRace(e_Race race, bool check_type) {
 }
 
 //-----------------------------------------------------------------------------
-ItemInfo* ItemInfo::getItem(int i) {
+ItemInfo* ItemInfo::GetItem(int i) {
 	if(i>_items.size() || i<0) return NULL;
 	return &_items[i];
 }
 
 //-----------------------------------------------------------------------------
+int ItemInfo::GetNumTblItems(void) {
+	return _tbl_item_info->GetSize();
+}
+
+//-----------------------------------------------------------------------------
 e_ItemType ItemInfo::getItemType(void) {
+	// NOTE: try and set the mesh type if we don't know
+	if(m_type == ITEM_TYPE_UNKNOWN) {
+		setMeshFileForRace(RACE_ALL, false);
+	}
+
 	return m_type;
 }
 

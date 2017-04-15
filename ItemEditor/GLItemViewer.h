@@ -2,6 +2,7 @@
 #define __GLITEMVIEWER_H_
 
 #include "defines.h"
+#include "ItemInfo.h"
 
 //-----------------------------------------------------------------------------
 class GLItemViewer: public Fl_Gl_Window {
@@ -29,6 +30,7 @@ private:
 private:
 	void draw(void);
 	bool BuildShaders(void);
+	void PushDataToGPU(void);
 
 	static void RenderCallBack(void* data) {
 		GLItemViewer* item_viewer = (GLItemViewer*)data;
@@ -37,7 +39,7 @@ private:
 	}
 
 public:
-	void PushDataToGPU(void);
+	void RenderItem(ItemInfo* item, e_Race race);
 
 public:
 	GLItemViewer(int x, int y, int w, int h, const char* l = NULL);

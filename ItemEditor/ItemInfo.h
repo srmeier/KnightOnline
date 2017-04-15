@@ -10,7 +10,7 @@ using namespace std;
 
 //-----------------------------------------------------------------------------
 class ItemInfo {
-public: //private:
+private:
 	static vector<class ItemInfo> _items;
 	static vector<string> _mesh_files_in_dir;
 	static CSTLMap<_ITEM_TABLE> _db_item_info;
@@ -19,7 +19,8 @@ public: //private:
 public:
 	static bool LoadInformation(void);
 	static void CreateItemsFromInfo(void);
-	static class ItemInfo* getItem(int i);
+	static class ItemInfo* GetItem(int i);
+	static int GetNumTblItems(void);
 
 private:
 	int m_tbl_ind;
@@ -28,6 +29,9 @@ private:
 
 private:
 	void setMeshFileForRace(e_Race race, bool check_type = true);
+
+public:
+	__TABLE_ITEM_BASIC tbl_info;
 
 public:
 	e_ItemType getItemType(void);
