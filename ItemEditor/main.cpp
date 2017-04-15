@@ -28,6 +28,8 @@ Fl_Input*     tbl_remark;
 
 ItemInfo* item_being_rendered;
 
+int num_races = 10;
+
 e_Race races[] = {
 	RACE_ALL,
 	RACE_KA_ARKTUAREK,
@@ -39,6 +41,19 @@ e_Race races[] = {
 	RACE_EL_WOMEN,
 	RACE_NPC,
 	RACE_UNKNOWN
+};
+
+char* race_names[] = {
+	"RACE_ALL",
+	"RACE_KA_ARKTUAREK",
+	"RACE_KA_TUAREK",
+	"RACE_KA_WRINKLETUAREK",
+	"RACE_KA_PURITUAREK",
+	"RACE_EL_BABARIAN",
+	"RACE_EL_MAN",
+	"RACE_EL_WOMEN",
+	"RACE_NPC",
+	"RACE_UNKNOWN"
 };
 
 //-----------------------------------------------------------------------------
@@ -102,16 +117,55 @@ void ItemTableView::event_callback_update_opengl(void) {
 	int c = callback_col();
 	TableContext context = callback_context();
 	if(r==-1 || c==-1) return;
-	if((int)Fl::event() != 1) return;
+	if((int)Fl::event()!=1 && Fl::event()!=FL_KEYDOWN) return;
 
-	int choice_i = choice->value();
-	if(choice_i == -1) {
-		choice_i = 0;
-		choice->value(choice_i);
+	for(int i=0; i<ItemInfo::GetNumTblItems(); ++i) {
+		if(row_selected(i)) select_row(i, 0);
 	}
 
+	select_row(r);
+
+	// NOTE: remove all the races and only add the ones we have stuff for
+	choice->clear();
+
+	int first_choice = -1;
+	int first_pos_race = num_races;
+
 	item_being_rendered = ItemInfo::GetItem(r);
-	m_sw->RenderItem(item_being_rendered, races[choice_i]);
+	e_ItemType type = item_being_rendered->getItemType();
+	if(type==ITEM_TYPE_PART) { //type==ITEM_TYPE_PLUG || 
+		for(int i=1; i<num_races-1; ++i) { // -1 so not to include RACE_UNKNOWN and i=0 because none should be race all?...
+			if(item_being_rendered->getItemMeshFileForRace(races[i]) != "") {
+				int j = choice->add(race_names[i]);
+				if(i < first_pos_race) {
+					first_choice = j;
+					first_pos_race = i;
+				}
+			}
+		}
+	} else {
+		if(item_being_rendered->getItemMeshFileForRace(races[0]) != "") {
+			int j = choice->add(race_names[0]);
+			if(0 < first_pos_race) {
+				first_choice = j;
+				first_pos_race = 0;
+			}
+		}
+	}
+
+	set_visible_focus();
+
+	if(first_choice == -1) {
+		m_sw->Clear();
+		choice->clear();
+		choice->add("RACE_UNKNOWN");
+		choice->value(0);
+		choice->clear_visible_focus();
+	} else {
+		choice->value(first_choice);
+		choice->clear_visible_focus();
+		m_sw->RenderItem(item_being_rendered, races[first_pos_race]);
+	}
 }
 
 void ItemTableView::draw_cell(TableContext context,
@@ -314,12 +368,38 @@ void choice_cb(Fl_Widget* w, void*) {
 	Fl_Choice* c = (Fl_Choice*)w;
 	int choice_i = c->value();
 
-	if(choice_i == -1) {
-		choice_i = 0;
-		choice->value(choice_i);
+	int pick = num_races-1;
+	for(int i=0; i<num_races; ++i) {
+		if(!strcmp(c->text(choice_i), race_names[i])) {
+			pick = i;
+		}
 	}
 
-	m_sw->RenderItem(item_being_rendered, races[choice_i]);
+	m_sw->RenderItem(item_being_rendered, races[pick]);
+}
+
+//-----------------------------------------------------------------------------
+void mesh_cb(Fl_Widget* w, void*) {
+	Fl_File_Chooser chooser("./item", "*.n3pmesh", Fl_File_Chooser::SINGLE, "test");
+	chooser.show();
+
+	while(chooser.shown()) {Fl::wait();}
+
+	if(chooser.value() == NULL) {
+		printf("asdf\n");
+		return;
+	}
+
+	fprintf(stderr, "--------------------\n");
+	fprintf(stderr, "DIRECTORY: '%s'\n", chooser.directory());
+	fprintf(stderr, "    VALUE: '%s'\n", chooser.value());
+	fprintf(stderr, "    COUNT: %d files selected\n", chooser.count());
+
+	if(chooser.count() > 1) {
+		for(int t=0; t<chooser.count(); ++t) {
+			fprintf(stderr, " VALUE[%d]: '%s'\n", t, chooser.value(t));
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -342,18 +422,11 @@ int main(int argc, char** argv) {
 	GLItemViewer sw(window.w()-_gl_width, 30, _gl_width, _gl_height);
 	m_sw = &sw;
 
-	choice = new Fl_Choice(window.w()-_gl_width, 30+_gl_height, _gl_width, 25);
-	choice->add("RACE_ALL");
-	choice->add("RACE_KA_ARKTUAREK");
-	choice->add("RACE_KA_TUAREK");
-	choice->add("RACE_KA_WRINKLETUAREK");
-	choice->add("RACE_KA_PURITUAREK");
-	choice->add("RACE_EL_BABARIAN");
-	choice->add("RACE_EL_MAN");
-	choice->add("RACE_EL_WOMEN");
-	choice->add("RACE_NPC");
-	choice->add("RACE_UNKNOWN");
+	choice = new Fl_Choice(window.w()-_gl_width, 30+_gl_height, _gl_width/2+50, 25);
 	choice->callback(choice_cb);
+
+	Fl_Button button(window.w()-_gl_width+_gl_width/2+50, 30+_gl_height, _gl_width-(_gl_width/2+50), 25, "Update Mesh");
+	button.callback(mesh_cb);
 
 	ItemTableView demo_table(0, 30, window.w()-(_gl_width+0), _gl_height);
 	demo_table.selection_color(FL_YELLOW);

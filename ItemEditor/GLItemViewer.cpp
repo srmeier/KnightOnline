@@ -365,7 +365,7 @@ void GLItemViewer::draw(void) {
 }
 
 //-----------------------------------------------------------------------------
-void GLItemViewer::RenderItem(ItemInfo* item, e_Race race) {
+void GLItemViewer::Clear(void) {
 	delete m_pVertices;
 	delete m_pwVtxIndices;
 	delete m_pfUVs;
@@ -388,7 +388,11 @@ void GLItemViewer::RenderItem(ItemInfo* item, e_Race race) {
 	m_pVertices0       = NULL;
 	m_iMaxNumIndices0  = 0;
 	m_iMaxNumVertices0 = 0;
+}
 
+//-----------------------------------------------------------------------------
+void GLItemViewer::RenderItem(ItemInfo* item, e_Race race) {
+	Clear();
 	if(race == RACE_UNKNOWN) return;
 
 	std::string mesh_file = item->getItemMeshFileForRace(race);

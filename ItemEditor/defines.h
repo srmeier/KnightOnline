@@ -34,6 +34,7 @@
 #include "fl/fl_int_input.h"
 #include "fl/fl_menu_bar.h"
 #include "fl/fl_choice.h"
+#include "fl/fl_file_chooser.h"
 
 #include "fl/filename.h"
 

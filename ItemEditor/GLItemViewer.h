@@ -39,6 +39,7 @@ private:
 	}
 
 public:
+	void Clear(void);
 	void RenderItem(ItemInfo* item, e_Race race);
 
 public:
