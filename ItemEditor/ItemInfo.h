@@ -36,6 +36,7 @@ public:
 public:
 	e_ItemType getItemType(void);
 	string getItemMeshFileForRace(e_Race race);
+	void setItemMeshFileForRace(e_Race race, string& filename);
 
 public:
 	ItemInfo(void);

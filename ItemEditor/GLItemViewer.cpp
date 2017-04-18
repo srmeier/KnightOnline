@@ -409,6 +409,7 @@ void GLItemViewer::RenderItem(ItemInfo* item, e_Race race) {
 
 			eType = ITEM_TYPE_PLUG;
 
+			printf("filename: %s\n", filename);
 			FILE* pFile = fopen(filename, "rb");
 			if(pFile == NULL) {
 				fprintf(stderr, "ERROR: Missing N3Plug %s\n", filename);
@@ -421,6 +422,7 @@ void GLItemViewer::RenderItem(ItemInfo* item, e_Race race) {
 
 			eType = ITEM_TYPE_PART;
 
+			printf("filename: %s\n", filename);
 			FILE* pFile = fopen(filename, "rb");
 			if(pFile == NULL) {
 				fprintf(stderr, "ERROR: Missing N3Part %s\n", filename);

@@ -218,3 +218,36 @@ string ItemInfo::getItemMeshFileForRace(e_Race race) {
 	if(mesh_file_ind_for_race[race] == -1) return "";
 	return _mesh_files_in_dir[mesh_file_ind_for_race[race]];
 }
+
+//-----------------------------------------------------------------------------
+void ItemInfo::setItemMeshFileForRace(e_Race race, string& filename) {
+	int filename_ind = -1;
+	for(int i=0; i<_mesh_files_in_dir.size(); ++i) {
+		char tmp1[0xFFFF] = {};
+		char tmp2[0xFFFF] = {};
+
+		// TODO: also check for UI dxts
+		strcpy(tmp1, _mesh_files_in_dir[i].c_str());
+		strcpy(tmp2, "Item\\");
+		strcat(tmp2, filename.c_str());
+
+		// TODO: if the mesh is something like .obj then we should probably
+		// convert it here
+
+		for(int j=0; j<strlen(tmp1); ++j)
+			tmp1[j] = toupper(tmp1[j]);
+		for(int j=0; j<strlen(tmp2); ++j)
+			tmp2[j] = toupper(tmp2[j]);
+
+		if(!strcmp(tmp1, tmp2)) {
+			filename_ind = i;
+			break;
+		}
+	}
+
+	if(filename_ind != -1) {
+		mesh_file_ind_for_race[race] = filename_ind;
+	} else {
+		printf("ERROR: failed to find mesh.\n");
+	}
+}

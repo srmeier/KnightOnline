@@ -380,13 +380,20 @@ void choice_cb(Fl_Widget* w, void*) {
 
 //-----------------------------------------------------------------------------
 void mesh_cb(Fl_Widget* w, void*) {
-	Fl_File_Chooser chooser("./item", "*.n3pmesh", Fl_File_Chooser::SINGLE, "test");
+	char file_ext[0xFF] = {};
+	if(item_being_rendered->getItemType() == ITEM_TYPE_PLUG) {
+		strcpy(file_ext, "*.n3cplug");
+	} else if(item_being_rendered->getItemType() == ITEM_TYPE_PART) {
+		strcpy(file_ext, "*.n3cpart");
+	}
+
+	Fl_File_Chooser chooser("./item", file_ext, Fl_File_Chooser::SINGLE, "test");
 	chooser.show();
 
 	while(chooser.shown()) {Fl::wait();}
 
 	if(chooser.value() == NULL) {
-		printf("asdf\n");
+		printf("Nothing selected\n");
 		return;
 	}
 
@@ -400,6 +407,26 @@ void mesh_cb(Fl_Widget* w, void*) {
 			fprintf(stderr, " VALUE[%d]: '%s'\n", t, chooser.value(t));
 		}
 	}
+
+	char tmp[0xFFF] = {};
+	strcpy(tmp, chooser.value());
+	int start = strlen(tmp);
+	for(; start>=0; --start) {
+		if(tmp[start] == '/') break;
+	} start++;
+
+	printf("filename: %s\n", &tmp[start]);
+
+	int choice_i = choice->value();
+	int pick = num_races-1;
+	for(int i=0; i<num_races; ++i) {
+		if(!strcmp(choice->text(choice_i), race_names[i])) {
+			pick = i;
+		}
+	}
+
+	item_being_rendered->setItemMeshFileForRace(races[pick], string(&tmp[start]));
+	m_sw->RenderItem(item_being_rendered, races[pick]);
 }
 
 //-----------------------------------------------------------------------------
