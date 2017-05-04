@@ -1091,6 +1091,8 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 
 	OnMouseMove(ptCur, ptPrev);
 
+	//static POINT ptPrev_RB ={};
+
 	if( dwMouseFlags & MOUSE_RBCLICK )
 	{
 		// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
@@ -1099,6 +1101,12 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 	if( dwMouseFlags & MOUSE_RBDOWN )
 	{
 		// NOTE: this is where the right click rotation and zoom out occur
+		//if(!SDL_GetRelativeMouseMode()) ptPrev_RB = ptCur;
+		//else {
+		//	int x, y;
+		//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
+		//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
+		//}
 		OnMouseRbtnDown(ptCur, ptPrev);
 	}
 	if( dwMouseFlags & MOUSE_RBCLICK )
@@ -1127,6 +1135,18 @@ void CGameProcMain::ProcessLocalInput(DWORD dwMouseFlags)
 	{
 		OnMouseLDBtnPress(ptCur, ptPrev);
 	}
+
+	// NOTE(srmeier): reset mouse visability
+	if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY)==SDL_DISABLE) {
+		SDL_ShowCursor(SDL_ENABLE);
+	}
+	//if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_GetRelativeMouseMode()) {
+	//	SDL_SetRelativeMouseMode(SDL_FALSE);
+	//	int x, y;
+	//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
+	//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
+	//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
+	//}
 
 	/*
 	if (!(dwMouseFlags & MOUSE_RBDOWN)) {
@@ -7556,7 +7576,7 @@ bool CGameProcMain::OnMouseRBtnPressd(POINT ptCur, POINT ptPrev)
 // 오른쪽 눌리고 있을때
 bool CGameProcMain::OnMouseRbtnDown(POINT ptCur, POINT ptPrev)
 {
-	float fMouseSensivity = 0.05f;//0.02f;
+	float fMouseSensivity = 0.02f;//0.05f;//
 	
 	float fRotY = D3DXToRadian(180.0f) * ((ptCur.x - ptPrev.x) * fMouseSensivity); // 회전할 양을 계산하고..
 	float fRotX = D3DXToRadian(180.0f) * ((ptCur.y - ptPrev.y) * fMouseSensivity);
@@ -7573,10 +7593,21 @@ bool CGameProcMain::OnMouseRbtnDown(POINT ptCur, POINT ptPrev)
 
 	if(fRotY || fRotX)
 	{
+		//SDL_SetRelativeMouseMode(SDL_TRUE);
+		if(SDL_ShowCursor(SDL_QUERY)==SDL_ENABLE) {
+			SDL_ShowCursor(SDL_DISABLE);
+		}
+
+		int x, y;
+		SDL_GetWindowPosition(s_hWndBase, &x, &y);
+		SetCursorPos(ptPrev.x+x, ptPrev.y+y);
+		s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
+
 		//SetGameCursor(NULL);
 		//::SetCursorPos(ptPrev.x, ptPrev.y);
 		//s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
 	}
+
 	return true;
 }
 
