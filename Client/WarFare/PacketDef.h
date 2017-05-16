@@ -267,6 +267,9 @@ const int SOCKET_PORT_LOGIN = 15100;
 // NOTE(srmeier): implementing the zoneability packet
 #define N3_ZONEABILITY					0x5E
 
+#define N3_EVENT						0x5F
+#define N3_MERCHANT_INOUT				0x69
+
 // NOTE(srmeier): testing this debug string functionality
 #define N3_DEBUG_STRING_TEST 0xFE
 

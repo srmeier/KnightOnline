@@ -86,6 +86,7 @@ public:
 
 // Attributes
 public:
+	void			PrintChildIDs(void);
 	eUI_TYPE		UIType() const { return m_eType; }
 	eUI_STATE 		GetState() const { return m_eState; }
 	bool			IsVisible()	const { return m_bVisible; }

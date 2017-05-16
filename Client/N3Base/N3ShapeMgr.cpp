@@ -100,7 +100,7 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 	DWORD dwRWC;
 	int nL = 0;
 
-	if(m_iFileFormatVersion == N3FORMAT_VER_1298) {
+	if(m_iFileFormatVersion >= N3FORMAT_VER_1264) {
 		int iIdk0;
 		ReadFile(hFile, &iIdk0, sizeof(int), &dwRWC, NULL);
 

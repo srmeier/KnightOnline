@@ -805,6 +805,11 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 
 		} return true;
 
+		case N3_EVENT:
+		case N3_MERCHANT_INOUT: {
+			// need to implement these
+		} return true;
+
 		case N3_GAMESTART: {
 			// NOTE(srmeier): send for the second half of the gamestart process
 
@@ -4710,7 +4715,13 @@ void CGameProcMain::MsgRecv_ZoneChange(DataPack* pDataPack, int& iOffset)
 	switch (ZoneChangeFlag) {
 
 		case ZoneChangeTeleport: {
-			int iZone = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			int iZone = -1;
+			if(N3FORMAT_VER_DEFAULT & N3FORMAT_VER_1264) {
+				iZone = 10 * CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			} else {
+				iZone = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			}
+
 			float fX = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset)) / 10.0f;
 			float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset)) / 10.0f;
 			float fY = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset)) / 10.0f;

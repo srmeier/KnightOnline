@@ -692,7 +692,7 @@ void GenerateScene(void) {
 		}
 	} else {
 		printf("Failed!\n");
-		printf("\nER: Mesh data missing!\n");
+		printf("\nERROR: Mesh data missing!\n");
 		system("pause");
 		exit(-1);
 	}

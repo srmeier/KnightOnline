@@ -404,7 +404,7 @@ bool CN3UIString::Load(HANDLE hFile)
 	}
 
 	// NOTE: testing UI string
-	if(m_iFileFormatVersion == N3FORMAT_VER_1298) {
+	if(m_iFileFormatVersion >= N3FORMAT_VER_1264) {
 		//char temp[0xFF];
 
 		//sprintf(temp, "\nm_dwReserved = %d\n", m_dwReserved);

@@ -417,7 +417,7 @@ bool CN3Terrain::Load(HANDLE hFile)
 
 	Init();
 
-	if(m_iFileFormatVersion == N3FORMAT_VER_1298) {
+	if(m_iFileFormatVersion >= N3FORMAT_VER_1264) {
 		int iIdk0;
 		ReadFile(hFile, &iIdk0, sizeof(int), &dwRWC, NULL);
 
@@ -980,8 +980,6 @@ void CN3Terrain::DispositionPatch()
 //
 void CN3Terrain::SetLightMap(int dir)
 {
-	return;
-	/*
 	__TABLE_ZONE* pZoneData = CGameBase::s_pTbl_Zones->Find(CGameBase::s_pPlayer->m_InfoExt.iZoneCur);
 	if(!pZoneData) return;
 
@@ -1139,7 +1137,6 @@ void CN3Terrain::SetLightMap(int dir)
 
 	delete[] Addr;
 	CloseHandle(hFile);
-	*/
 }
 
 
@@ -1201,6 +1198,8 @@ void CN3Terrain::SetLightMapPatch(int x, int z, HANDLE hFile, int* pAddr)
 		ReadFile(hFile, &tz, sizeof(int), &dwRWC, NULL);
 
 		CN3Texture* pTex = new CN3Texture;
+		pTex->m_iFileFormatVersion = m_iFileFormatVersion;
+
 		pTex->Load(hFile);
 		rtx = px*PATCH_TILE_SIZE + tx;
 		rtz = pz*PATCH_TILE_SIZE + tz;

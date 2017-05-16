@@ -1735,6 +1735,10 @@ void CN3Chr::Render()
 		
 		if(false == pPlug->m_bVisible) continue;
 
+		if(pPlug->m_nJointIndex < 0) {
+			continue;
+		}
+
 		pPlug->Render(m_Matrix, m_MtxJoints[pPlug->m_nJointIndex]);
 
 		////////////////////////////////////////////////////

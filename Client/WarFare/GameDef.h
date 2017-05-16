@@ -573,7 +573,6 @@ struct __InfoPartyBBS // 파티 지원 게시판 구조체..
 enum {	RESRC_UI_LOGIN = 0, RESRC_UI_CHARACTERSELECT, RESRC_UI_CHARACTERCREATE, RESRC_UI_INVENTORY, RESRC_UI_CHAT,
 		RESRC_UI_MYINFORMATION, RESRC_UI_TARGET, RESRC_UI_HOTKEY, RESRC_UI_FUNCTION };
 
-/*
 // NOTE: temp 1298 zone structure
 typedef struct __TABLE_ZONE
 {
@@ -586,7 +585,7 @@ typedef struct __TABLE_ZONE
 	std::string	szLightMapFN;         // TLT
 	std::string	szObjectPostDataFN;   // OPD
 
-	std::string szReserved;
+	//std::string szReserved; // temp remove for 1264
 
 	std::string	szMiniMapFN;          // DXT
 	std::string szSkySetting;         // N3Sky
@@ -607,9 +606,8 @@ typedef struct __TABLE_ZONE
 	int         iIdk6;
 	std::string szEVTSUB;             // EVTSUB
 } TABLE_ZONE;
-*/
 
-
+/*
 typedef struct __TABLE_ZONE
 {
 	DWORD		dwID; // zone ID
@@ -633,7 +631,7 @@ typedef struct __TABLE_ZONE
 	float       fIdk3;
 	std::string szIdk4;
 } TABLE_ZONE;
-
+*/
 
 typedef struct __TABLE_UI_RESRC
 {
@@ -710,6 +708,7 @@ typedef struct __TABLE_UI_RESRC
 	std::string szIdk0;					// 54
 	std::string szIdk1;					// 55
 	std::string szIdk2;					// 56
+	std::string szIdkOthers[73]; // 1264
 	//std::string szIdk3;					// 57
 	//std::string szIdk4;					// 58
 	//std::string szIdk5;					// 59
@@ -872,7 +871,10 @@ typedef struct __TABLE_PLAYER_LOOKS // NPC, Mob 모습 관한 리소스 레코드...
 	std::string	szName; // 캐릭터 이름
 	std::string	szJointFN; // 관절 파일 이름
 	std::string	szAniFN; // 에니메이션 파일 이름
-	std::string	szPartFNs[7]; // 각 Character Part - 상체, 하체, 머리, 팔, 다리, 머리카락, 망토
+	//std::string	szPartFNs[7]; // 각 Character Part - 상체, 하체, 머리, 팔, 다리, 머리카락, 망토
+	std::string	szPartFNs[13]; // temp for 1264 TBLs
+
+	int  iIdk1;
 
 	int			iJointRH;			// 오른손 끝 관절번호
 	int			iJointLH;			// 왼손 끝 관절번호
@@ -890,6 +892,12 @@ typedef struct __TABLE_PLAYER_LOOKS // NPC, Mob 모습 관한 리소스 레코드...
 	int			iSndID_Breathe1;
 	int			iSndID_Reserved0;
 	int			iSndID_Reserved1;
+
+	int  iIdk2;
+	int  iIdk3;
+	BYTE bIdk4;
+	BYTE bIdk5;
+	BYTE bIdk6;
 } TABLE_PLAYER;
 
 typedef struct __TABLE_EXCHANGE_QUEST
@@ -979,6 +987,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_2
 	DWORD		dwID;			// SKILL 고유 ID
 	int			iSuccessType;	// 성공타입.
 	int			iPower;			// 공격력
+	int iIdk1;
 	int			iAddDist;		// 거리증가
 	int			iNumArrow;		// 화살요구수
 } TABLE_UPC_SKILL_TYPE_2;
@@ -986,6 +995,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_2
 typedef struct __TABLE_UPC_SKILL_TYPE_3
 {
 	DWORD		dwID;			// SKILL 고유 ID
+	int iIdk1;
 	int			iDDType;
 	int			iStartDamage;
 	int			iDuraDamage;
@@ -1018,6 +1028,12 @@ typedef struct __TABLE_UPC_SKILL_TYPE_4
 	int			iMagicResist;	// 마법저항
 	int			iDeseaseResist;	// 저주저항
 	int			iPoisonResist;	// 독저항
+
+	int	iIdk2;
+	int	iIdk3;
+	int	iIdk4;
+	int	iIdk5;
+	int	iIdk6;
 } TABLE_UPC_SKILL_TYPE_4;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_5

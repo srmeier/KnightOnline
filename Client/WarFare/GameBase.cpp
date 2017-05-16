@@ -61,7 +61,7 @@ void CGameBase::StaticMemberInit()
 	s_pTbl_QuestMenu		= new CN3TableBase<__TABLE_QUEST_MENU>;
 	s_pTbl_QuestTalk		= new CN3TableBase<__TABLE_QUEST_TALK>;
 
-	std::string szLangTail = ".tbl";
+	std::string szLangTail = "_us.tbl";
 	int iLangID = ::GetUserDefaultLangID();
 	if(0x0404 == iLangID) szLangTail = "_TW.tbl"; // Taiwan Language
 

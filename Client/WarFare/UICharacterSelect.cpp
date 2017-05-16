@@ -50,10 +50,14 @@ bool CUICharacterSelect::Load(HANDLE hFile)
 {
 	CN3UIBase::Load(hFile);
 
+	//PrintChildIDs();
+
 	m_pBtnLeft = this->GetChildByID("bt_left");		__ASSERT(m_pBtnLeft, "NULL UI Component!!");
 	m_pBtnRight = this->GetChildByID("bt_right");	__ASSERT(m_pBtnRight, "NULL UI Component!!");
 	m_pBtnExit = this->GetChildByID("bt_exit");		__ASSERT(m_pBtnExit, "NULL UI Component!!");
 	m_pBtnDelete = this->GetChildByID("bt_delete");	__ASSERT(m_pBtnDelete, "NULL UI Component!!");
+
+	GetChildByID("bt_back")->SetVisible(false); // will want to add this
 
 	// 위치를 화면 해상도에 맞게 바꾸기...
 	POINT pt;

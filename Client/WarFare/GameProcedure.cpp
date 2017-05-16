@@ -189,8 +189,9 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	SDL_Surface* pSurf7 = IMG_Load("WarFare.ico");
 
 	if(pSurf0==NULL||pSurf1==NULL||pSurf2==NULL||pSurf3==NULL||pSurf4==NULL||pSurf5==NULL||pSurf6==NULL||pSurf7==NULL) {
-		printf("%s\n", IMG_GetError());
-		Sleep(1000 * 5);
+		printf("ERROR: Unable to load image. %s\n", IMG_GetError());
+		system("pause");
+		//Sleep(1000 * 5);
 		exit(-1);
 	}
 
@@ -240,8 +241,9 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 
 	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI->Find(NATION_ELMORAD); // 기본은 엘모라드 UI 로 한다..
 	if(pTblUI == NULL) {
-		printf("ER: UI table is NULL.\n");
-		Sleep(1000 * 5);
+		printf("ERROR: UI table is NULL.\n");
+		system("pause");
+		//Sleep(1000 * 5);
 		exit(-1);
 	}
 
@@ -1079,8 +1081,12 @@ bool CGameProcedure::MsgRecv_CharacterSelect(DataPack* pDataPack, int& iOffset) 
 		int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 		CGameProcedure::LoadingUIChange(iVictoryNation);
 
-		int iZonePrev = 
-		s_pPlayer->m_InfoExt.iZoneCur = iZoneCur;
+		int iZonePrev;
+		if(N3FORMAT_VER_DEFAULT & N3FORMAT_VER_1264) {
+			iZonePrev = s_pPlayer->m_InfoExt.iZoneCur = 10*iZoneCur;
+		} else {
+			iZonePrev = s_pPlayer->m_InfoExt.iZoneCur = iZoneCur;
+		}
 		s_pPlayer->PositionSet(__Vector3(fX, fY, fZ), true);
 
 		CLogWriter::Write("MsgRecv_CharacterSelect - name(%s) zone(%d -> %d)", s_pPlayer->m_InfoBase.szID.c_str(), iZonePrev, iZoneCur);

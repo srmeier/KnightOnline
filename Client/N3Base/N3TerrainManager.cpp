@@ -87,7 +87,7 @@ void CN3TerrainManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 
 
 	/*if(iZoneID == 1) m_pTerrain->LoadFromFile(pZone->szTerrainFN, N3FORMAT_VER_1068);//N3FORMAT_VER_1298);//pZone->dwVersion);
-	else*/ m_pTerrain->LoadFromFile(pZone->szTerrainFN, N3FORMAT_VER_1298);
+	else*/ m_pTerrain->LoadFromFile(pZone->szTerrainFN);//, N3FORMAT_VER_1298);
 
 
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load ColorMap"); // TmpLog_11_22
@@ -98,7 +98,7 @@ void CN3TerrainManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 
 
 	/*if(iZoneID == 1) m_pShapes->LoadFromFile(pZone->szObjectPostDataFN, N3FORMAT_VER_1068);
-	else*/ m_pShapes->LoadFromFile(pZone->szObjectPostDataFN, N3FORMAT_VER_1298);//, pZone->dwVersion);	// 오브젝트 데이터 로드..
+	else*/ m_pShapes->LoadFromFile(pZone->szObjectPostDataFN);//, N3FORMAT_VER_1298);//, pZone->dwVersion);	// 오브젝트 데이터 로드..
 	
 
 	char szFName[_MAX_PATH];

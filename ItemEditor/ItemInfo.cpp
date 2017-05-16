@@ -154,6 +154,7 @@ void ItemInfo::setMeshFileForRace(e_Race race, bool check_type) {
 
 	if(check_type && type!=m_type) {
 		printf("ERROR: item has changed type.\n");
+		system("pause");
 		exit(-1);
 	} else {
 		m_type = type;

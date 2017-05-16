@@ -132,7 +132,7 @@ int SDL_main(int argc, char** argv)
 	}
 
 	SDL_Window* s_pSDLWindow = SDL_CreateWindow(
-		"Knight Online",
+		"KnightOnline",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		CN3Base::s_Options.iViewWidth,

@@ -358,16 +358,22 @@ bool CN3Texture::Load(HANDLE hFile)
 							iTexSize = (sd.Width*sd.Height/2);
 						} break;
 						case D3DFMT_DXT2: {
+							printf("ERROR: D3DFMT_DXT2\n");
+							system("pause");
 							exit(-1);
 						} break;
 						case D3DFMT_DXT3: {
 							iTexSize = (sd.Width*sd.Height);
 						} break;
 						case D3DFMT_DXT4: {
+							printf("ERROR: D3DFMT_DXT4\n");
+							system("pause");
 							exit(-1);
 						} break;
 						case D3DFMT_DXT5: {
 							iTexSize = (sd.Width*sd.Height*2);
+							printf("ERROR: D3DFMT_DXT5\n");
+							system("pause");
 							exit(-1);
 						} break;
 					}
@@ -392,16 +398,22 @@ bool CN3Texture::Load(HANDLE hFile)
 						iTexSize = (sd.Width*sd.Height/2);
 					} break;
 					case D3DFMT_DXT2: {
+						printf("ERROR: D3DFMT_DXT2\n");
+						system("pause");
 						exit(-1);
 					} break;
 					case D3DFMT_DXT3: {
 						iTexSize = (sd.Width*sd.Height);
 					} break;
 					case D3DFMT_DXT4: {
+						printf("ERROR: D3DFMT_DXT4\n");
+						system("pause");
 						exit(-1);
 					} break;
 					case D3DFMT_DXT5: {
 						iTexSize = (sd.Width*sd.Height*2);
+						printf("ERROR: D3DFMT_DXT5\n");
+						system("pause");
 						exit(-1);
 					} break;
 				}

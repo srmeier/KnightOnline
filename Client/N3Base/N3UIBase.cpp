@@ -229,7 +229,7 @@ bool CN3UIBase::Load(HANDLE hFile)
 
 	// children Á¤º¸
 	int iCC = 0;
-	if(m_iFileFormatVersion == N3FORMAT_VER_1298) {
+	if(m_iFileFormatVersion >= N3FORMAT_VER_1264) {
 		//char temp[0xFF];
 
 		short sCC, sIdk0;
@@ -436,6 +436,15 @@ bool CN3UIBase::EnableTooltip(const std::string& szFN)
 void CN3UIBase::DestroyTooltip()
 {
 	if (s_pTooltipCtrl) {delete s_pTooltipCtrl; s_pTooltipCtrl = NULL;}
+}
+
+void CN3UIBase::PrintChildIDs(void) {
+	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
+	{
+		CN3UIBase* pChild = (*itor);
+		if(pChild->m_szID == "") continue;
+		printf("%s\n", pChild->m_szID.c_str());
+	}
 }
 
 CN3UIBase* CN3UIBase::GetChildByID(const std::string& szID)

@@ -1120,6 +1120,7 @@ if(!(expr)) {\
 if(!(expr)) {\
 	printf("ERROR-> %s\n%s: %d\n\n", expMessage, __FILE__, __LINE__);\
 }
+//system("pause");\
 
 /*
 #define __ASSERT(expr, expMessage) \

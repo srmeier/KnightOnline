@@ -775,7 +775,7 @@ HRESULT CDFont::DrawText( FLOAT sx, FLOAT sy, DWORD dwColor, DWORD dwFlags, FLOA
 {
 	if(NULL == m_pVB || NULL == s_hDC || NULL == m_hFont)
 	{
-		__ASSERT(0, "NULL Vertex Buffer or DC or Font Handle ");
+		//__ASSERT(0, "NULL Vertex Buffer or DC or Font Handle ");
 		return E_FAIL;
 	}
 
