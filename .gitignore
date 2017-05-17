@@ -21,6 +21,7 @@ Client/data/
 *.iobj
 *.db
 *.sbr
+*.lib
 Client/N3Base/Debug/N3Base.lib
 Client/N3Base/Release/N3Base.lib
 Client/N3Base/Tool_Release/N3Base_tool.lib
