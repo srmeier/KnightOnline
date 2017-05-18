@@ -3590,17 +3590,17 @@ void CGameProcMain::MsgRecv_MyInfo_RealmPoint(DataPack* pDataPack, int& iOffset)
 		DWORD iUnk = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);				// Clan donations(? Donations made by this user? For the clan overall?)
 		DWORD iClanLoyaltyAmount = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);	// Premium NP(? Additional NP gained?)
 
-		int32_t iLoyaltyDelta = iLoyalty- s_pPlayer->m_InfoExt.iRealmPoint;
+		int32_t iLoyaltyDelta = iLoyalty - s_pPlayer->m_InfoExt.iRealmPoint;
 		if (iLoyaltyDelta > 0) // Got NP.
 		{
-			char szBuf[64];
-			sprintf(szBuf, "Earned %d national points.", iLoyaltyDelta); // TODO: @Demircivi, load string from resource.
+			char szBuf[128]; std::string szFmt; ::_LoadStringFromResource(IDS_LOYALTY_CHANGE_GET, szFmt);
+			sprintf(szBuf, szFmt.c_str(), iLoyaltyDelta);
 			MsgOutput(szBuf, 0xffa2a0c8);
 		}
 		else // Lost NP.
 		{
-			char szBuf[64];
-			sprintf(szBuf, "Lost %d national points.", -iLoyaltyDelta); // TODO: @Demircivi, load string from resource.
+			char szBuf[128]; std::string szFmt; ::_LoadStringFromResource(IDS_LOYALTY_CHANGE_LOST, szFmt);
+			sprintf(szBuf, szFmt.c_str(), -iLoyaltyDelta);
 			MsgOutput(szBuf, 0xffff3b3b);
 		}
 
@@ -3613,7 +3613,7 @@ void CGameProcMain::MsgRecv_MyInfo_RealmPoint(DataPack* pDataPack, int& iOffset)
 	else if (bType == 2)
 	{
 		// TODO: @Demircivi, after implementing Manner feature call its update method from here.
-		DWORD iNewManner = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		DWORD iNewManner = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // IDS_MANNER_CHANGE_GET / IDS_MANNER_CHANGE_LOST
 		CLogWriter::Write("Got manner update packet but didn't update form since there is no manner feature New Manner: %d.", iNewManner);
 	}
 	else
