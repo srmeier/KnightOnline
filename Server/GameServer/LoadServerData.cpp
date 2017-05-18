@@ -7,7 +7,6 @@
 #include "DBAgent.h"
 #include "KingSystem.h"
 
-#include "../shared/HardwareInformation.h"
 #include "../shared/database/OdbcRecordset.h"
 #include "../shared/database/ItemTableSet.h"
 #include "../shared/database/SetItemTableSet.h"
@@ -59,12 +58,8 @@
 #include "../shared/database/UserItemSet.h"
 #include "../shared/database/KnightsSiegeWar.h"
 
-HardwareInformation g_pHardwareInformation;
-
 bool CGameServerDlg::LoadItemTable()
 {
-	//if (!g_pHardwareInformation.IsValidHardwareID(g_pMain->m_HardwareIDArray))
-		//return true;
 	LOAD_TABLE(CItemTableSet, g_DBAgent.m_GameDB, &m_ItemtableArray, false, false);
 	return true;
 }
