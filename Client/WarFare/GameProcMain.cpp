@@ -11,7 +11,6 @@
 #include "LocalInput.h"
 
 #include "APISocket.h"
-#include "Compress.h"
 #include "PacketDef.h"
 
 #include "PlayerMySelf.h"
@@ -73,8 +72,6 @@
 #include "N3SndObjStream.h"
 #include "N3SndMgr.h"
 #include "N3TableBase.h"
-
-#include "lzf.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -1020,10 +1017,6 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		case N3_KNIGHTS_LIST_BASIC:
 			this->MsgRecv_KnightsListBasic(pDataPack, iOffset);
 			return true;
-		// NOTE(srmeier): moved to GameProcedure class...
-//		case N3_COMPRESSED_PACKET: // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
-//			this->MsgRecv_CompressedPacket(pDataPack, iOffset);
-//			return true;
 		case N3_CONTINOUS_PACKET: // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 			this->MsgRecv_ContinousPacket(pDataPack, iOffset);
 			return true;

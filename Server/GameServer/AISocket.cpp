@@ -2,6 +2,7 @@
 #include "Map.h"
 #include "AISocket.h"
 #include "MagicProcess.h"
+#include "../shared/Compression.h"
 
 using std::string;
 
@@ -691,63 +692,21 @@ void CAISocket::RecvGateOpen(Packet & pkt)
 
 void CAISocket::RecvCompressed(Packet & pkt)
 {
-#if __VERSION <= 1264
-
-	int dwCrcValue;
-	short sCompLen, sOrgLen;
-
-	pkt >> sCompLen >> sOrgLen >> dwCrcValue;
-
-	CCompressMng Compressor;
-	Compressor.PreUncompressWork((char*)(pkt.contents()+pkt.rpos()), sCompLen, sOrgLen);
-
-	if (Compressor.Extract() == false ||
-		Compressor.m_nErrorOccurred != 0 ||
-		dwCrcValue != Compressor.m_dwCrc)
-	{
-		return;
-	}
-
-	// ¾ÐÃà Ç®¸° µ¥ÀÌÅ¸ ÀÐ±â (Read loose data compression)
-	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
-
-	pkt.Initialize(*pDecodeBuf);
-	if (sOrgLen > 1)
-		pkt.append(pDecodeBuf+1, sOrgLen-1);
-
-	HandlePacket(pkt);
-
-#else
-
 	uint32 crc;
-	uint32 compressedLength, originalLength;
+	uint16 inputLength, originalLength;
+	pkt >> inputLength >> originalLength >> crc;
 
-	uint16 sCompressedLength, sOriginalLenth;
-	pkt >> sCompressedLength >> sOriginalLenth >> crc;
-
-	compressedLength = sCompressedLength;
-	originalLength = sOriginalLenth;
-
-	char *decompressedBuffer = new char[originalLength];
-
-	// Does the length match what it's supposed to be
-	uint32 result = lzf_decompress(pkt.contents() + pkt.rpos(), compressedLength, decompressedBuffer, originalLength);
-	if (result
-		!= originalLength)
-	{
-		delete [] decompressedBuffer;
+	const uint8 * inputBuffer = pkt.contents() + pkt.rpos();
+	uint8 * decompressedBuffer = Compression::DecompressWithCRC32(inputBuffer, inputLength, originalLength, crc);
+	if (decompressedBuffer == nullptr)
 		return;
-	}
 
 	pkt.Initialize(*decompressedBuffer);
 	if (originalLength > 1)
 		pkt.append(decompressedBuffer + 1, originalLength - 1);
 
 	delete [] decompressedBuffer;
-
 	HandlePacket(pkt);
-
-#endif
 }
 
 void CAISocket::RecvNpcHpChange(Packet & pkt)

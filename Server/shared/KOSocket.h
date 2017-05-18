@@ -4,11 +4,6 @@
 #include "Packet.h"
 #include "JvCryption.h"
 
-extern "C"
-{
-	#include "lzf.h"
-}
-
 // KO sockets time out after at least 30 seconds of inactivity.
 #define KOSOCKET_TIMEOUT (30) 
 
@@ -19,9 +14,7 @@ class KOSocket : public Socket
 {
 public:
 	KOSocket(uint16 socketID, SocketMgr * mgr, SOCKET fd, uint32 sendBufferSize, uint32 recvBufferSize);
-	~KOSocket(void);
-
-	class CCompressMng* m_pCompressMng;
+	~KOSocket();
 
 	INLINE bool isCryptoEnabled() { return m_usingCrypto; };
 	INLINE uint16 GetSocketID() { return m_socketID; };
@@ -35,6 +28,7 @@ public:
 
 	virtual bool Send(Packet * pkt);
 	virtual bool SendCompressed(Packet * pkt);
+	bool BuildCompressed(const Packet * pkt, Packet & result);
 
 	virtual void OnDisconnect();
 

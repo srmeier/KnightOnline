@@ -56,7 +56,7 @@ int CJvCryption::JvDecryptionWithCRC32(int len, uint8 *datain, uint8 *dataout)
 	int result;
 	JvDecryptionFast(len, datain, dataout);
 
-	if (crc32_newer(dataout, len - 4, -1) == *(uint32 *)(len - 4 + dataout))
+	if (crc32(dataout, len - 4, -1) == *(uint32 *)(len - 4 + dataout))
 		result = len - 4;
 	else
 		result = -1;

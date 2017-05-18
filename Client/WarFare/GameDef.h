@@ -4,6 +4,7 @@
 #include <string>
 #include "DInput.h"
 
+#include "types.h"
 #include "SDL2\SDL.h"
 
 const int CURRENT_VERSION = 1298;//1299;//1068; // 현재 버전

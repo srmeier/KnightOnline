@@ -11,7 +11,6 @@
 #include "..\WarFare\DungeonManager.h"
 
 #include "..\WarFare\APISocket.h"
-#include "..\WarFare\Compress.h"
 #include "..\WarFare\PacketDef.h"
 
 #include "..\WarFare\GameProcedure.h"

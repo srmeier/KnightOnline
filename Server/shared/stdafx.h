@@ -142,7 +142,6 @@ protected:
 #include "Thread.h"
 #include "Network.h"
 #include "TimeThread.h"
-#include "Compress.h"
 
 #if IsWinDef
 uint32 INLINE RETURN_THREAD(void * x = NULL);
