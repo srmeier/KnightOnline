@@ -13,7 +13,6 @@
 #include "GameProcMain.h"
 #include "APISocket.h"
 #include "GameEng.h"
-#include "KnightChrMgr.h"
 
 //-----------------------------------------------------------------------------
 CLocalInput::CLocalInput(void) {
@@ -194,11 +193,6 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		} break;
 		*/
 		
-		case WM_RECEIVEDATA: {
-			if (CGameProcedure::s_pKnightChr)
-				CGameProcedure::s_pKnightChr->OnReceiveSmq(wParam, lParam);
-		} break;
-
 		case WM_MOUSEWHEEL: {
 			if(CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain) {
 				float fDelta = ((int16_t)HIWORD(wParam)) * 0.05f;

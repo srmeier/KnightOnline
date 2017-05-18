@@ -27,8 +27,6 @@
 #include "N3SndObj.h"
 #include "resource.h"
 
-#include "KnightChrMgr.h"
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -380,8 +378,6 @@ void CUITransactionDlg::EnterTransactionState()
 			ShowTitle(UI_STORE);
 			break;
 	}
-
-	CGameProcedure::s_pKnightChr->SendActionCommand(32);
 }
 
 void CUITransactionDlg::GoldUpdate()

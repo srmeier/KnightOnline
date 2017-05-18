@@ -11,7 +11,6 @@
 #include "APISocket.h"
 #include "PlayerMySelf.h"
 #include "GameProcMain.h"
-#include "KnightChrMgr.h"
 #include "N3WorldManager.h"
 
 #include "time.h"

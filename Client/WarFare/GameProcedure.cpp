@@ -45,7 +45,6 @@
 #include "JpegFile.h"
 
 #include "MagicSkillMng.h"
-#include "KnightChrMgr.h"
 #include "GameCursor.h"
 
 #include "Compression.h"
@@ -58,7 +57,6 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-CKnightChrMgr*		CGameProcedure::s_pKnightChr = NULL;		// 나이트 캐릭터..
 CN3SndObjStream*	CGameProcedure::s_pSnd_BGM = NULL;			// 메인 배경음악 포인터..
 CLocalInput*		CGameProcedure::s_pLocalInput = NULL;		// 마우스와 키보드 입력 객체 .. Direct Input 을 썼다.
 CAPISocket*			CGameProcedure::s_pSocket = NULL;			// 메인 소켓 객체
@@ -128,8 +126,6 @@ void CGameProcedure::Init()
 
 void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 {
-	s_pKnightChr = new CKnightChrMgr(GetActiveWindow());
-
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 게임 기본 3D 엔진 만들기..
 #if _DEBUG 
@@ -320,7 +316,6 @@ void CGameProcedure::StaticMemberRelease()
 	// 엔딩화면 보이기..
 	////////////////////////////////////////////////////////////////////////
 
-	delete s_pKnightChr;	s_pKnightChr = NULL;
 //	if ( (s_pProcMain) && (s_pProcMain->m_pUIHotKeyDlg) )
 //			s_pProcMain->m_pUIHotKeyDlg->CloseIconRegistry();
 

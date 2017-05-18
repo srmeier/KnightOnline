@@ -81,9 +81,6 @@
     <ClCompile Include="JvCryption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KnightChrMgr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LightMgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -124,9 +121,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ServerMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SharedMem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SubProcPerTrade.cpp">
@@ -353,9 +347,6 @@
     <ClInclude Include="JvCryption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KnightChrMgr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LightMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -441,9 +432,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ServerMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedMem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SubProcPerTrade.h">

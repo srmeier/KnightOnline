@@ -183,7 +183,6 @@
     <ClCompile Include="GrassMng.cpp" />
     <ClCompile Include="ItemRepairMgr.cpp" />
     <ClCompile Include="JvCryption.cpp" />
-    <ClCompile Include="KnightChrMgr.cpp" />
     <ClCompile Include="LightMgr.cpp" />
     <ClCompile Include="LocalInput.cpp" />
     <ClCompile Include="MachineBase.cpp" />
@@ -198,7 +197,6 @@
     <ClCompile Include="PortalVolume.cpp" />
     <ClCompile Include="PvsMgr.cpp" />
     <ClCompile Include="ServerMesh.cpp" />
-    <ClCompile Include="SharedMem.cpp" />
     <ClCompile Include="SubProcPerTrade.cpp" />
     <ClCompile Include="UICharacterCreate.cpp" />
     <ClCompile Include="UICharacterSelect.cpp" />
@@ -276,7 +274,6 @@
     <ClInclude Include="GrassMng.h" />
     <ClInclude Include="ItemRepairMgr.h" />
     <ClInclude Include="JvCryption.h" />
-    <ClInclude Include="KnightChrMgr.h" />
     <ClInclude Include="LightMgr.h" />
     <ClInclude Include="LocalInput.h" />
     <ClInclude Include="MachineBase.h" />
@@ -307,7 +304,6 @@
     <ClInclude Include="PvsMgr.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ServerMesh.h" />
-    <ClInclude Include="SharedMem.h" />
     <ClInclude Include="SubProcPerTrade.h" />
     <ClInclude Include="UICharacterCreate.h" />
     <ClInclude Include="UICharacterSelect.h" />

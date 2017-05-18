@@ -58,7 +58,6 @@ class DataPack;
 class CGameProcedure : public CGameBase
 {
 public:
-	static class CKnightChrMgr*		s_pKnightChr;		// 나이트 캐릭터..		
 	static class CN3SndObjStream*	s_pSnd_BGM;			// 메인 배경음악 포인터..
 	static class CLocalInput*		s_pLocalInput;		// 마우스와 키보드 입력 객체 .. Direct Input 을 썼다.
 	static class CAPISocket*		s_pSocket;			// 메인 소켓 객체
