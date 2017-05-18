@@ -45,7 +45,7 @@ public:
 	virtual ~CUIWarp();
 
 	void	InfoAdd(const __WarpInfo& ZW);
-	int		InfoGetCur(__WarpInfo& ZW);
+	bool	InfoGetCur(__WarpInfo& ZW);
 	void	UpdateList();
 	void	UpdateAgreement();
 

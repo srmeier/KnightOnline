@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UIPointInitDlg.h"
 
 #include "PacketDef.h"
@@ -86,12 +86,12 @@ void CUIPointInitDlg::PushOkButton()
 	switch (m_bAllpoint)
 	{
 		case true:
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_CLASS_CHANGE);
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_ALL_POINT);
 			break;
 
 		case false:
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_CLASS_CHANGE);
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_SKILL_POINT);
 			break;
 	}

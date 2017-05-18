@@ -768,11 +768,13 @@ bool CN3Shape::Save(HANDLE hFile)
 }
 #endif // end of _N3TOOL
 
-void CN3Shape::PartDelete(int iIndex)
+void CN3Shape::PartDelete(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_Parts.size()) return;
-	it_SPart it = m_Parts.begin();
-	for(int i = 0; i < iIndex; i++, it++);
+	if (iIndex >= m_Parts.size())
+		return;
+
+	auto it = m_Parts.begin();
+	std::advance(it, iIndex);
 	delete *it;
 	m_Parts.erase(it);
 }
@@ -1257,51 +1259,51 @@ void CN3Shape::SetMaxLOD()
 {
 	m_bDontRender = false;	
 
-	int iPC = m_Parts.size();
-	for(int i = 0; i < iPC; i++)
+	for (auto itr = m_Parts.begin(); itr != m_Parts.end(); ++itr)
 	{
-		m_Parts[i]->m_bOutOfCameraRange = FALSE;
-		m_Parts[i]->m_PMInst.SetLOD(0);
+		auto part = *itr;
+		part->m_bOutOfCameraRange = FALSE;
+		part->m_PMInst.SetLOD(0);
 	}
 }
 
-__Matrix44	CN3Shape::GetPartMatrix(int iPartIndex)
+__Matrix44	CN3Shape::GetPartMatrix(size_t iPartIndex)
 {
 	return m_Parts[iPartIndex]->m_Matrix;
 }
 
 #ifdef _USE_VERTEXBUFFER
-void CN3Shape::PartialRender(int iPartIndex, int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
+void CN3Shape::PartialRender(size_t iPartIndex, int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 {
-	if (iPartIndex >= m_Parts.size() )
+	if (iPartIndex >= m_Parts.size())
 		return;
 
 	m_Parts[iPartIndex]->PartialRender(iCount, pIB);
 }
 #else
-void CN3Shape::PartialRender(int iPartIndex, int iCount, WORD* pIndices)
+void CN3Shape::PartialRender(size_t iPartIndex, int iCount, WORD* pIndices)
 {
-	if (iPartIndex >= m_Parts.size() )
+	if (iPartIndex >= m_Parts.size())
 		return;
 
 	m_Parts[iPartIndex]->PartialRender(iCount, pIndices);
 }
 #endif
 
-int	CN3Shape::GetIndexbufferCount(int iPartIndex)
+int	CN3Shape::GetIndexbufferCount(size_t iPartIndex)
 {
-	if (iPartIndex >= m_Parts.size() )
+	if (iPartIndex >= m_Parts.size())
 		return 0;
 	
 	return m_Parts[iPartIndex]->MeshInstance()->GetNumIndices();
 }
 
-int CN3Shape::GetIndexByiOrder(int iPartIndex, int iOrder)
+int CN3Shape::GetIndexByiOrder(size_t iPartIndex, int iOrder)
 {
 	return m_Parts[iPartIndex]->MeshInstance()->GetIndexByiOrder(iOrder);
 }
 
-__Vector3	CN3Shape::GetVertexByIndex(int iPartIndex, int iIndex)
+__Vector3	CN3Shape::GetVertexByIndex(size_t iPartIndex, int iIndex)
 {
 	return m_Parts[iPartIndex]->MeshInstance()->GetVertexByIndex(iIndex);
 }

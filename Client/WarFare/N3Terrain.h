@@ -64,7 +64,7 @@ public:
 	POINT				m_ti_PrevCenterPos;
 
 	//Texture...
-	int					m_NumTileTex;				// Tile Texture °¹¼ö
+	uint32				m_NumTileTex;				// Tile Texture °¹¼ö
 	CN3Texture*			m_pTileTex;
 
 	//ColorMap..
@@ -115,7 +115,7 @@ protected:
 	
 public:
 	CN3Texture* GetLightMap(int tx, int tz);
-	float	GetWidthByMeter() { return (m_ti_MapSize - 1) * TILE_SIZE; }
+	float	GetWidthByMeter() { return (float)((m_ti_MapSize - 1) * TILE_SIZE); }
 	int		GetLODLevel() { return m_iLodLevel; }
 	bool	SetLODLevel(int level);
 	float	GetHeight(float x, float z);

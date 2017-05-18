@@ -5,7 +5,6 @@
 #include "../shared/ClientSocketMgr.h"
 #include "../shared/Ini.h"
 #include "../shared/DateTime.h"
-#include "../shared/HardwareInformation.h"
 
 #include <time.h>
 #include <iostream>
@@ -25,8 +24,6 @@ using namespace std;
 std::vector<Thread *> g_timerThreads;
 
 WORD	g_increase_serial = 1;
-
-HardwareInformation g_HardwareInformation;
 
 CGameServerDlg::CGameServerDlg()
 {
@@ -84,15 +81,6 @@ bool CGameServerDlg::Startup()
 	m_bServerCheckFlag = false;
 
 	GetTimeFromIni();
-
-	// License System Start
-	/*m_HardwareIDArray.push_back(4467444930295366338); // Heros
-	m_HardwareIDArray.push_back(4344044418295366338);
-	m_HardwareIDArray.push_back(236302953922330); // 5.175.225.30
-
-	if (!g_HardwareInformation.IsValidHardwareID(m_HardwareIDArray))
-		return false;
-	// License System End*/
 
 	if (!g_pMain->m_socketMgr.Listen(m_GameServerPort, MAX_USER))
 	{
@@ -628,12 +616,7 @@ void CGameServerDlg::DeleteParty(uint16 sIndex)
 	m_PartyArray.DeleteData(sIndex);
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_CheckGameEvents(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_CheckGameEvents(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -642,15 +625,10 @@ void * CGameServerDlg::Timer_CheckGameEvents(void * lpParam)
 		g_pMain->ForgettenTempleEventTimer();
 		sleep(1 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_BifrostTime(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_BifrostTime(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -718,15 +696,10 @@ void * CGameServerDlg::Timer_BifrostTime(void * lpParam)
 
 		sleep(60 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_UpdateGameTime(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_UpdateGameTime(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -737,15 +710,10 @@ void * CGameServerDlg::Timer_UpdateGameTime(void * lpParam)
 
 		sleep(6 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_UpdateSessions(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_UpdateSessions(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -774,22 +742,17 @@ void * CGameServerDlg::Timer_UpdateSessions(void * lpParam)
 		}
 		sleep(30 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_UpdateConcurrent(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_UpdateConcurrent(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
 		g_pMain->ReqUpdateConcurrent();
 		sleep(60 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
 void CGameServerDlg::ReqUpdateConcurrent()

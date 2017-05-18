@@ -295,29 +295,30 @@ public:
 	int				JointPartEnd(int nAniPart) { if(nAniPart < 0 || nAniPart >= MAX_CHR_ANI_PART) return -1; return m_nJointPartEnds[nAniPart]; }
 	void			JointPartSet(int nAniPart, int nJS, int nJE);
 
-	const __Matrix44*	MatrixGet(int nJointIndex) const
+	const __Matrix44*	MatrixGet(size_t nJointIndex) const
 	{
-		if(m_MtxJoints.size() > nJointIndex && nJointIndex >=0) 
-			return &(m_MtxJoints[nJointIndex]);
-		return NULL;
+		if (nJointIndex >= m_MtxJoints.size())
+			return NULL;
+
+		return &(m_MtxJoints[nJointIndex]);
 	}
 
 //	void		CollisionSkinSet(const std::string& szFN);
 //	CN3Skin*	CollisionSkin() { return m_pSkinCollision; }
 
-	void		PartDelete(int iIndex);
+	void		PartDelete(size_t iIndex);
 	void		PartAlloc(int nCount);
-	int			PartCount() { return m_Parts.size(); }
-	CN3CPart*	PartSet(int iIndex, const std::string& szFN);
+	size_t		PartCount() { return m_Parts.size(); }
+	CN3CPart*	PartSet(size_t iIndex, const std::string& szFN);
 	CN3CPart*  	PartAdd() { CN3CPart* pPart = new CN3CPart(); m_Parts.push_back(pPart); return pPart; }
-	CN3CPart*	Part(int iIndex) { if(iIndex < 0 || iIndex >= m_Parts.size()) return NULL; return m_Parts[iIndex]; }
+	CN3CPart*	Part(size_t iIndex) { if (iIndex >= m_Parts.size()) return NULL; return m_Parts[iIndex]; }
 
-	void		PlugDelete(int iIndex);
+	void		PlugDelete(size_t iIndex);
 	void		PlugAlloc(int nCount);
-	int			PlugCount() { return m_Plugs.size(); }
-	CN3CPlug*	PlugSet(int iIndex, const std::string& szFN);
+	size_t		PlugCount() { return m_Plugs.size(); }
+	CN3CPlug*	PlugSet(size_t iIndex, const std::string& szFN);
 	CN3CPlug*	PlugAdd(e_PlugType eType=PLUGTYPE_NORMAL) { CN3CPlug* pPlug = new CN3CPlug(); m_Plugs.push_back(pPlug); return pPlug; }
-	CN3CPlug*	Plug(int iIndex) { if(iIndex < 0 || iIndex >= m_Plugs.size()) return NULL; return m_Plugs[iIndex]; }
+	CN3CPlug*	Plug(size_t iIndex) { if (iIndex >= m_Plugs.size()) return NULL; return m_Plugs[iIndex]; }
 
 	void		Tick(float fFrm = FRAME_SELFPLAY);
 	void		TickAnimationFrame();

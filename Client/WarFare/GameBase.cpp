@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "StdAfx.h"
-//#include "Resource.h"
+#include "resource.h"
 #include "GameBase.h"
 #include "N3WorldManager.h"
 #include "PlayerOtherMgr.h"
@@ -18,6 +18,7 @@ static char THIS_FILE[]=__FILE__;
 
 bool CGameBase::s_bRunning = false;
 
+CN3TableBase<__TABLE_TEXTS>*			CGameBase::s_pTbl_Texts = NULL;
 CN3TableBase<__TABLE_ZONE>*				CGameBase::s_pTbl_Zones = NULL;				// Zone 정보에 관한 Table
 CN3TableBase<__TABLE_UI_RESRC>*			CGameBase::s_pTbl_UI = NULL;				// UI FileName Table
 CN3TableBase<__TABLE_ITEM_BASIC>*		CGameBase::s_pTbl_Items_Basic = NULL;			// 각 유저의(내 자신과 주위 다른 사람) 클레스별 장착 아이템 리소스 테이블
@@ -44,10 +45,21 @@ CGameBase::~CGameBase()
 {
 }
 
+void _LoadStringFromResource(DWORD dwID, std::string& szText)
+{
+	if (CGameBase::s_pTbl_Texts == nullptr)
+		return;
+
+	auto pText = CGameBase::s_pTbl_Texts->Find(dwID);
+	if (pText != nullptr)
+		szText = pText->szText;
+}
+
 void CGameBase::StaticMemberInit()
 {
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// Resource Table 로딩 및 초기화...
+	s_pTbl_Texts			= new CN3TableBase<__TABLE_TEXTS>;
 	s_pTbl_Zones			= new CN3TableBase<__TABLE_ZONE>;			// Zone 정보에 관한 Table
 	s_pTbl_UI				= new CN3TableBase<__TABLE_UI_RESRC>;		// UI Resource File Table loading
 	s_pTbl_UPC_Looks		= new CN3TableBase<__TABLE_PLAYER_LOOKS>;	// 플레이어들의 기본 모습이 되는 NPC Resource Table loading
@@ -66,6 +78,7 @@ void CGameBase::StaticMemberInit()
 	if(0x0404 == iLangID) szLangTail = "_TW.tbl"; // Taiwan Language
 
 	std::string szFN;
+	szFN = "Data\\Texts" + szLangTail;		s_pTbl_Texts->LoadFromFile(szFN.c_str());
 	szFN = "Data\\Zones.tbl";				s_pTbl_Zones->LoadFromFile(szFN.c_str());		// Zone 정보에 관한 Table
 	szFN = "Data\\UIs" + szLangTail;		s_pTbl_UI->LoadFromFile(szFN.c_str());			// UI Resource File Table loading
 	szFN = "Data\\UPC_DefaultLooks.tbl";	s_pTbl_UPC_Looks->LoadFromFile(szFN.c_str());	// 플레이어들의 기본 모습이 되는 NPC Resource Table loading
@@ -96,6 +109,7 @@ void CGameBase::StaticMemberInit()
 void CGameBase::StaticMemberRelease()
 {
 	// Tables ....
+	delete s_pTbl_Texts; s_pTbl_Texts = NULL;
 	delete s_pTbl_Zones; s_pTbl_Zones = NULL;		// Zone 정보에 관한 Table
 	delete s_pTbl_UI; s_pTbl_UI = NULL;					// UI Resource File Table loading
 	delete s_pTbl_UPC_Looks; s_pTbl_UPC_Looks = NULL;	// 플레이어들의 기본 모습이 되는 NPC Resource Table loading
@@ -123,107 +137,107 @@ bool CGameBase::GetTextByClass(e_Class eClass, std::string& szText)
 	switch(eClass)
 	{
 		case CLASS_KINDOF_WARRIOR:
-			szText = "Warrior";//::_LoadStringFromResource(IDS_CLASS_KINDOF_WARRIOR, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_WARRIOR, szText);
 			break;
 		case CLASS_KINDOF_ROGUE:
-			szText = "Rogue";//::_LoadStringFromResource(IDS_CLASS_KINDOF_ROGUE, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_ROGUE, szText);
 			break;
 		case CLASS_KINDOF_WIZARD:
-			szText = "Wizard";//::_LoadStringFromResource(IDS_CLASS_KINDOF_WIZARD, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_WIZARD, szText);
 			break;
 		case CLASS_KINDOF_PRIEST:
-			szText = "Priest";//::_LoadStringFromResource(IDS_CLASS_KINDOF_PRIEST, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_PRIEST, szText);
 			break;
 		case CLASS_KINDOF_ATTACK_WARRIOR:
-			szText = "Attack Warrior";//::_LoadStringFromResource(IDS_CLASS_KINDOF_ATTACK_WARRIOR, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_ATTACK_WARRIOR, szText);
 			break;
 		case CLASS_KINDOF_DEFEND_WARRIOR:
-			szText = "Defense Warrior";//::_LoadStringFromResource(IDS_CLASS_KINDOF_DEFEND_WARRIOR, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_DEFEND_WARRIOR, szText);
 			break;
 		case CLASS_KINDOF_ARCHER:
-			szText = "Archer";//::_LoadStringFromResource(IDS_CLASS_KINDOF_ARCHER, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_ARCHER, szText);
 			break;
 		case CLASS_KINDOF_ASSASSIN:
-			szText = "Assassin";//::_LoadStringFromResource(IDS_CLASS_KINDOF_ASSASSIN, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_ASSASSIN, szText);
 			break;
 		case CLASS_KINDOF_ATTACK_WIZARD:
-			szText = "Attack Wizard";//::_LoadStringFromResource(IDS_CLASS_KINDOF_ATTACK_WIZARD, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_ATTACK_WIZARD, szText);
 			break;
 		case CLASS_KINDOF_PET_WIZARD:
-			szText = "Pet Wizard";//::_LoadStringFromResource(IDS_CLASS_KINDOF_PET_WIZARD, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_PET_WIZARD, szText);
 			break;
 		case CLASS_KINDOF_HEAL_PRIEST:
-			szText = "Healing Priest";//::_LoadStringFromResource(IDS_CLASS_KINDOF_HEAL_PRIEST, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_HEAL_PRIEST, szText);
 			break;
 		case CLASS_KINDOF_CURSE_PRIEST:
-			szText = "Cursing Priest";//::_LoadStringFromResource(IDS_CLASS_KINDOF_CURSE_PRIEST, szText);
+			::_LoadStringFromResource(IDS_CLASS_KINDOF_CURSE_PRIEST, szText);
 			break;
 
 		case CLASS_EL_WARRIOR:
 		case CLASS_KA_WARRIOR:
-			szText = "Warrior";//::_LoadStringFromResource(IDS_CLASS_WARRIOR, szText);
+			::_LoadStringFromResource(IDS_CLASS_WARRIOR, szText);
 			break;
 		case CLASS_EL_ROGUE:
 		case CLASS_KA_ROGUE:
-			szText = "Rogue";//::_LoadStringFromResource(IDS_CLASS_ROGUE, szText);
+			::_LoadStringFromResource(IDS_CLASS_ROGUE, szText);
 			break;
 		case CLASS_EL_WIZARD:
 		case CLASS_KA_WIZARD:
-			szText = "Magician";//::_LoadStringFromResource(IDS_CLASS_WIZARD, szText);
+			::_LoadStringFromResource(IDS_CLASS_WIZARD, szText);
 			break;
 		case CLASS_EL_PRIEST:
 		case CLASS_KA_PRIEST:
-			szText = "Priest";//::_LoadStringFromResource(IDS_CLASS_PRIEST, szText);
+			::_LoadStringFromResource(IDS_CLASS_PRIEST, szText);
 			break;
 		
 		case CLASS_KA_BERSERKER:
-			szText = "Berserker";//::_LoadStringFromResource(IDS_CLASS_KA_BERSERKER, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_BERSERKER, szText);
 			break;
 		case CLASS_KA_GUARDIAN:
-			szText = "Berserker Hero";//::_LoadStringFromResource(IDS_CLASS_KA_GUARDIAN, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_GUARDIAN, szText);
 			break;
 		case CLASS_KA_HUNTER:
-			szText = "Hunter";//::_LoadStringFromResource(IDS_CLASS_KA_HUNTER, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_HUNTER, szText);
 			break;
 		case CLASS_KA_PENETRATOR:
-			szText = "Shadow Vain";//::_LoadStringFromResource(IDS_CLASS_KA_PENETRATOR, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_PENETRATOR, szText);
 			break;
 		case CLASS_KA_SORCERER:
-			szText = "Sorcerer";//::_LoadStringFromResource(IDS_CLASS_KA_SORCERER, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_SORCERER, szText);
 			break;
 		case CLASS_KA_NECROMANCER:
-			szText = "Elemental Lord";//::_LoadStringFromResource(IDS_CLASS_KA_NECROMANCER, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_NECROMANCER, szText);
 			break;
 		case CLASS_KA_SHAMAN:
-			szText = "Shaman";//::_LoadStringFromResource(IDS_CLASS_KA_SHAMAN, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_SHAMAN, szText);
 			break;
 		case CLASS_KA_DARKPRIEST:
-			szText = "Shadow Knight";//::_LoadStringFromResource(IDS_CLASS_KA_DARKPRIEST, szText);
+			::_LoadStringFromResource(IDS_CLASS_KA_DARKPRIEST, szText);
 			break;
 		
 		case CLASS_EL_BLADE:
-			szText = "Blade";//::_LoadStringFromResource(IDS_CLASS_EL_BLADE, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_BLADE, szText);
 			break;
 		case CLASS_EL_PROTECTOR:
-			szText = "Blade Master";//::_LoadStringFromResource(IDS_CLASS_EL_PROTECTOR, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_PROTECTOR, szText);
 			break;
 		case CLASS_EL_RANGER:
-			szText = "Ranger";//::_LoadStringFromResource(IDS_CLASS_EL_RANGER, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_RANGER, szText);
 			break;
 		case CLASS_EL_ASSASIN:
-			szText = "Kasar Hood";//::_LoadStringFromResource(IDS_CLASS_EL_ASSASIN, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_ASSASIN, szText);
 			break;
 		case CLASS_EL_MAGE:
-			szText = "Mage";//::_LoadStringFromResource(IDS_CLASS_EL_MAGE, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_MAGE, szText);
 			break;
 		case CLASS_EL_ENCHANTER:
-			szText = "Arch Mage";//::_LoadStringFromResource(IDS_CLASS_EL_ENCHANTER, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_ENCHANTER, szText);
 			break;
 		case CLASS_EL_CLERIC:
-			szText = "Cleric";//::_LoadStringFromResource(IDS_CLASS_EL_CLERIC, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_CLERIC, szText);
 			break;
 		case CLASS_EL_DRUID:
-			szText = "Paladin";//::_LoadStringFromResource(IDS_CLASS_EL_DRUID, szText);
+			::_LoadStringFromResource(IDS_CLASS_EL_DRUID, szText);
 			break;
 		
 		default:
@@ -239,13 +253,13 @@ bool CGameBase::GetTextByKnightsDuty(e_KnightsDuty eDuty, std::string& szText)
 {
 	switch(eDuty)
 	{
-		case KNIGHTS_DUTY_UNKNOWN:		szText = "IDS_KNIGHTS_DUTY_UNKNOWN";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szText);*/ break; // ????? 쫓겨남??
-		case KNIGHTS_DUTY_PUNISH:		szText = "IDS_KNIGHTS_DUTY_PUNISH";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szText);*/ break; // 징계중.
-		case KNIGHTS_DUTY_TRAINEE:		szText = "IDS_KNIGHTS_DUTY_TRAINEE";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szText);*/ break; // 견습기사
-		case KNIGHTS_DUTY_KNIGHT:		szText = "IDS_KNIGHTS_DUTY_KNIGHT";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szText);*/ break; // 일반기사
-		case KNIGHTS_DUTY_OFFICER:		szText = "IDS_KNIGHTS_DUTY_OFFICER";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szText);*/ break; // 장교
-		case KNIGHTS_DUTY_VICECHIEF:	szText = "IDS_KNIGHTS_DUTY_VICECHIEF";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szText);*/ break; // 부단장.
-		case KNIGHTS_DUTY_CHIEF:		szText = "IDS_KNIGHTS_DUTY_CHIEF"; /*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szText);*/ break; // 기사단장 직위..
+		case KNIGHTS_DUTY_UNKNOWN:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szText); break; // ????? 쫓겨남??
+		case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szText); break; // 징계중.
+		case KNIGHTS_DUTY_TRAINEE:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szText); break; // 견습기사
+		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szText); break; // 일반기사
+		case KNIGHTS_DUTY_OFFICER:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szText); break; // 장교
+		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szText); break; // 부단장.
+		case KNIGHTS_DUTY_CHIEF:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szText); break; // 기사단장 직위..
 		default: __ASSERT(0, "Invalid Knights Duty"); szText = "Unknown Duty"; return false;
 	}
 
@@ -257,99 +271,99 @@ bool CGameBase::GetTextByItemClass(e_ItemClass eItemClass, std::string& szText)
 	switch(eItemClass)
 	{
 		case ITEM_CLASS_DAGGER:
-			szText = "Dagger";//::_LoadStringFromResource(IDS_ITEM_CLASS_DAGGER, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_DAGGER, szText);
 			break; // 단검(dagger)
 		case ITEM_CLASS_SWORD:
-			szText = "Sword";//::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD, szText);
 			break; // 한손검(onehandsword)
 		case ITEM_CLASS_SWORD_2H:
-			szText = "2H Sword";//::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD_2H, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD_2H, szText);
 			break; // 3 : 양손검(twohandsword)
 		case ITEM_CLASS_AXE:
-			szText = "Axe";//::_LoadStringFromResource(IDS_ITEM_CLASS_AXE, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_AXE, szText);
 			break; // 한손도끼(onehandaxe)
 		case ITEM_CLASS_AXE_2H:
-			szText = "2H Axe";//::_LoadStringFromResource(IDS_ITEM_CLASS_AXE_2H, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_AXE_2H, szText);
 			break; // 두손도끼(twohandaxe)
 		case ITEM_CLASS_MACE:
-			szText = "Mase";//::_LoadStringFromResource(IDS_ITEM_CLASS_MACE, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_MACE, szText);
 			break; // 한손타격무기(mace)
 		case ITEM_CLASS_MACE_2H:
-			szText = "2H Mace";//::_LoadStringFromResource(IDS_ITEM_CLASS_MACE_2H, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_MACE_2H, szText);
 			break; // 두손타격무기(twohandmace)
 		case ITEM_CLASS_SPEAR:
-			szText = "Spear";//::_LoadStringFromResource(IDS_ITEM_CLASS_SPEAR, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_SPEAR, szText);
 			break; // 창(spear)
 		case ITEM_CLASS_POLEARM:
-			szText = "Polearm";//::_LoadStringFromResource(IDS_ITEM_CLASS_POLEARM, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_POLEARM, szText);
 			break; // 폴암(polearm)
 
 		case ITEM_CLASS_SHIELD:
-			szText = "Shield";//::_LoadStringFromResource(IDS_ITEM_CLASS_SHIELD, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_SHIELD, szText);
 			break; // 쉴드(shield)
 
 		case ITEM_CLASS_BOW:
-			szText = "Shortbow";//::_LoadStringFromResource(IDS_ITEM_CLASS_BOW, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW, szText);
 			break; //  쇼트보우(Shortbow)
 		case ITEM_CLASS_BOW_CROSS:
-			szText = "Crossbow";//::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_CROSS, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_CROSS, szText);
 			break; // 크로스보우(crossbow)
 		case ITEM_CLASS_BOW_LONG:
-			szText = "Longbow";//::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_LONG, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_LONG, szText);
 			break; // 롱보우(longbow)
 
 		case ITEM_CLASS_EARRING:
-			szText = "Earring";//::_LoadStringFromResource(IDS_ITEM_CLASS_EARRING, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_EARRING, szText);
 			break; // 귀걸이
 		case ITEM_CLASS_AMULET:
-			szText = "Amulet";//::_LoadStringFromResource(IDS_ITEM_CLASS_AMULET, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_AMULET, szText);
 			break; // 목걸이
 		case ITEM_CLASS_RING:
-			szText = "Ring";//::_LoadStringFromResource(IDS_ITEM_CLASS_RING, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_RING, szText);
 			break; // 반지
 		case ITEM_CLASS_BELT:
-			szText = "Belt";//::_LoadStringFromResource(IDS_ITEM_CLASS_BELT, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_BELT, szText);
 			break; // 허리띠
 		case ITEM_CLASS_CHARM:
-			szText = "Charm";//::_LoadStringFromResource(IDS_ITEM_CLASS_CHARM, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_CHARM, szText);
 			break; //인벤토리에 지니고 있는 아이템
 		case ITEM_CLASS_JEWEL:
-			szText = "Jewel";//::_LoadStringFromResource(IDS_ITEM_CLASS_JEWEL, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_JEWEL, szText);
 			break; //보석종류
 		case ITEM_CLASS_POTION:
-			szText = "Potion";//::_LoadStringFromResource(IDS_ITEM_CLASS_POTION, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_POTION, szText);
 			break; // 물약
 		case ITEM_CLASS_SCROLL:
-			szText = "Scroll";//::_LoadStringFromResource(IDS_ITEM_CLASS_SCROLL, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_SCROLL, szText);
 			break; // 스크롤
 
 
 
 		case ITEM_CLASS_LAUNCHER:
-			szText = "Launcher?";//::_LoadStringFromResource(IDS_ITEM_CLASS_LAUNCHER, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_LAUNCHER, szText);
 			break; 
 						
 		case ITEM_CLASS_STAFF:
-			szText = "Staff";//::_LoadStringFromResource(IDS_ITEM_CLASS_STAFF, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_STAFF, szText);
 			break; // 지팡이(staff)
 		case ITEM_CLASS_ARROW:
-			szText = "Arrow";//::_LoadStringFromResource(IDS_ITEM_CLASS_ARROW, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_ARROW, szText);
 			break; // 화살(Arrow)
 		case ITEM_CLASS_JAVELIN:
-			szText = "Javelin";//::_LoadStringFromResource(IDS_ITEM_CLASS_JAVELIN, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_JAVELIN, szText);
 			break; // 투창
 		
 		case ITEM_CLASS_ARMOR_WARRIOR:
-			szText = "Warrior Armor";//::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_WARRIOR, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_WARRIOR, szText);
 			break; // 전사 방어구
 		case ITEM_CLASS_ARMOR_ROGUE:
-			szText = "Rogue Armor";//::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_ROGUE, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_ROGUE, szText);
 			break; // 로그 방어구
 		case ITEM_CLASS_ARMOR_MAGE:
-			szText = "Mage Armor";//::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_MAGE, szText);
+			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_MAGE, szText);
 			break; // 마법사 방어구
 		case ITEM_CLASS_ARMOR_PRIEST:
-			szText = "Priest Armor";//::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_PRIEST, szText); 
+			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_PRIEST, szText); 
 			break; // 사제 방어구
 		default:
 //			__ASSERT(0, "Invalid Item Class"); szText = "Unknonw Item Class";
@@ -363,12 +377,12 @@ bool CGameBase::GetTextByAttrib(e_ItemAttrib eAttrib, std::string& szAttrib)
 {
 	switch(eAttrib)
 	{
-		case ITEM_ATTRIB_GENERAL:		szAttrib = "IDS_ITEM_ATTRIB_GENERAL"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_GENERAL, szAttrib);*/ break; // 단검(dagger)
-		case ITEM_ATTRIB_MAGIC:			szAttrib = "IDS_ITEM_ATTRIB_MAGIC"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_MAGIC, szAttrib);*/ break; // 한손검(onehandsword)
-		case ITEM_ATTRIB_LAIR:			szAttrib = "IDS_ITEM_ATTRIB_LAIR"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_LAIR, szAttrib);*/ break; // 3 : 양손검(twohandsword)
-		case ITEM_ATTRIB_CRAFT:			szAttrib = "IDS_ITEM_ATTRIB_CRAFT"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_CRAFT, szAttrib);*/ break; // 한손도끼(onehandaxe)
-		case ITEM_ATTRIB_UNIQUE:		szAttrib = "IDS_ITEM_ATTRIB_UNIQUE"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_UNIQUE, szAttrib);*/ break; // 두손도끼(twohandaxe)
-		case ITEM_ATTRIB_UPGRADE:		szAttrib = "IDS_ITEM_ATTRIB_UPGRADE"; /*::_LoadStringFromResource(IDS_ITEM_ATTRIB_UPGRADE, szAttrib);*/ break; // 한손타격무기(mace)
+		case ITEM_ATTRIB_GENERAL:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_GENERAL, szAttrib); break; // 단검(dagger)
+		case ITEM_ATTRIB_MAGIC:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_MAGIC, szAttrib); break; // 한손검(onehandsword)
+		case ITEM_ATTRIB_LAIR:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_LAIR, szAttrib); break; // 3 : 양손검(twohandsword)
+		case ITEM_ATTRIB_CRAFT:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_CRAFT, szAttrib); break; // 한손도끼(onehandaxe)
+		case ITEM_ATTRIB_UNIQUE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UNIQUE, szAttrib); break; // 두손도끼(twohandaxe)
+		case ITEM_ATTRIB_UPGRADE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UPGRADE, szAttrib); break; // 한손타격무기(mace)
 		default:
 			return false;
 	}
@@ -421,9 +435,9 @@ bool CGameBase::GetTextByNation(e_Nation eNation, std::string& szText)
 {
 	switch(eNation)
 	{
-		case NATION_ELMORAD:	szText = "El Morad"; /*::_LoadStringFromResource(IDS_NATION_ELMORAD, szText);(3011)*/ break;
-		case NATION_KARUS:		szText = "Karus"; /*::_LoadStringFromResource(IDS_NATION_KARUS, szText);(3012)*/ break;
-		default: szText = "Unknown Nation!!!"; /*::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText);*/ return false;
+		case NATION_ELMORAD:	::_LoadStringFromResource(IDS_NATION_ELMORAD, szText); break;
+		case NATION_KARUS:		::_LoadStringFromResource(IDS_NATION_KARUS, szText); break;
+		default: ::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText); return false;
 	}
 
 	return true;
@@ -434,30 +448,30 @@ bool CGameBase::GetTextByRace(e_Race eRace, std::string& szText)
 	switch(eRace)
 	{
 		case RACE_EL_BABARIAN:
-			szText = "EL Barbarian";//::_LoadStringFromResource(IDS_RACE_EL_BABARIAN, szText);
+			::_LoadStringFromResource(IDS_RACE_EL_BABARIAN, szText);
 			break;
 		case RACE_EL_MAN:
-			szText = "EL Man";//::_LoadStringFromResource(IDS_RACE_EL_MAN, szText);
+			::_LoadStringFromResource(IDS_RACE_EL_MAN, szText);
 			break;
 		case RACE_EL_WOMEN:
-			szText = "EL Woman";//::_LoadStringFromResource(IDS_RACE_EL_WOMEN, szText);
+			::_LoadStringFromResource(IDS_RACE_EL_WOMEN, szText);
 			break;
 
 		case RACE_KA_ARKTUAREK:
-			szText = "KA Ark Tuarek";//::_LoadStringFromResource(IDS_RACE_KA_ARKTUAREK, szText);
+			::_LoadStringFromResource(IDS_RACE_KA_ARKTUAREK, szText);
 			break;
 		case RACE_KA_TUAREK:
-			szText = "KA Tuarek";//::_LoadStringFromResource(IDS_RACE_KA_TUAREK, szText);
+			::_LoadStringFromResource(IDS_RACE_KA_TUAREK, szText);
 			break;
 		case RACE_KA_WRINKLETUAREK:
-			szText = "KA Wrinkle Tuarek";//::_LoadStringFromResource(IDS_RACE_KA_WRINKLETUAREK, szText);
+			::_LoadStringFromResource(IDS_RACE_KA_WRINKLETUAREK, szText);
 			break;
 		case RACE_KA_PURITUAREK:
-			szText = "KA Puri Tuarek";//::_LoadStringFromResource(IDS_RACE_KA_PURITUAREK, szText);
+			::_LoadStringFromResource(IDS_RACE_KA_PURITUAREK, szText);
 			break;
 			
 		default:
-			szText = "Unknow Race";//::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText); 
+			::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText); 
 			return false;
 	}
 

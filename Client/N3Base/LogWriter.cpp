@@ -57,7 +57,7 @@ void CLogWriter::Open(const std::string& szFN)
 	GetLocalTime(&time);
 	DWORD dwRWC = 0;
 
-	sprintf(szBuff, "---------------------------------------------------------------------------\r\n", time.wMonth, time.wDay, time.wHour, time.wMinute);
+	sprintf(szBuff, "---------------------------------------------------------------------------\r\n");
 	int iLength = lstrlen(szBuff);
 	WriteFile(hFile, szBuff, iLength, &dwRWC, NULL);
 
@@ -90,7 +90,7 @@ void CLogWriter::Close()
 		int iLength = lstrlen(szBuff);
 		WriteFile(hFile, szBuff, iLength, &dwRWC, NULL);
 
-		sprintf(szBuff, "---------------------------------------------------------------------------\r\n", time.wMonth, time.wDay, time.wHour, time.wMinute);
+		sprintf(szBuff, "---------------------------------------------------------------------------\r\n");
 		iLength = lstrlen(szBuff);
 		WriteFile(hFile, szBuff, iLength, &dwRWC, NULL);
 

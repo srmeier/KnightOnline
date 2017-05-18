@@ -42,9 +42,6 @@
     <ClCompile Include="CountableItemEditDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="crc32.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DungeonManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -91,9 +88,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LocalInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lzf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MachineBase.cpp">
@@ -323,9 +317,6 @@
     <ClInclude Include="CountableItemEditDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="crc32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DungeonManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -356,9 +347,6 @@
     <ClInclude Include="GrassMng.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IMPLODE.H">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ItemRepairMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -372,9 +360,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LocalInput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lzf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MachineBase.h">
@@ -611,10 +596,10 @@
     <ClInclude Include="UIWarp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WarFareMain.h">
+    <ClInclude Include="WarMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WarMessage.h">
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

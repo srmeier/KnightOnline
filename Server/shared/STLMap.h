@@ -9,13 +9,7 @@ public:
 	typedef typename std::map<uint32, T*>::iterator Iterator;
 	std::map<uint32, T*> m_UserTypeMap;
 
-#if IsWinDef
 	std::recursive_mutex m_lock;
-#endif
-#if IsUnixDef
-	pthread_mutex_t * m_lock;
-#endif
-	
 
 	int GetSize()
 	{

@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "CountableItemEditDlg.h"
 
 #include "GameProcedure.h"
@@ -153,9 +153,9 @@ void CCountableItemEditDlg::Open(e_UIWND eUW, e_UIWND_DISTRICT eUD, bool bCountG
 {
 	std::string szMsg;
 	if (bCountGold)
-		szMsg = "IDS_EDIT_BOX_GOLD";//::_LoadStringFromResource(IDS_EDIT_BOX_GOLD, szMsg);
+		::_LoadStringFromResource(IDS_EDIT_BOX_GOLD, szMsg);
 	else
-		szMsg = "IDS_EDIT_BOX_COUNT";//::_LoadStringFromResource(IDS_EDIT_BOX_COUNT, szMsg);
+		::_LoadStringFromResource(IDS_EDIT_BOX_COUNT, szMsg);
 
 	CN3UIString* pString = NULL;
 	pString = (CN3UIString*)this->GetChildByID("String_PersonTradeEdit_Msg");

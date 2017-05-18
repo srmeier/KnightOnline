@@ -163,7 +163,7 @@ protected:
 	std::vector<__AnimData>		m_Datas; // animation Data List
 
 public:
-	__AnimData* DataGet(int index) { if(index < 0 || index >= m_Datas.size()) return NULL; return &(m_Datas[index]); }
+	__AnimData* DataGet(size_t index) { if (index >= m_Datas.size()) return NULL; return &(m_Datas[index]); }
 	bool Load(HANDLE hFile);
 	int Count() { return m_Datas.size(); }
 

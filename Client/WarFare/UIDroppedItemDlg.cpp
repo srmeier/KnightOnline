@@ -23,7 +23,7 @@
 #include "UIHotKeyDlg.h"
 #include "UISkillTreeDlg.h"
 
-//#include "Resource.h"
+#include "resource.h"
 
 #include "N3UIArea.h"
 
@@ -440,7 +440,7 @@ bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			else
 				m_bSendedIconArray[iOrder] = true;
 
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_DROPPED_GET);
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_GET);
 			CAPISocket::MP_AddDword(byBuff, iOffset, m_iItemBundleID);
 
 			// 돈이 아니면 인벤토리 리스트에 추가.... 
@@ -574,8 +574,8 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 		}
 
 		char szBuff[128] = "";
-		stdMsg = "IDS_PARTY_ITEM_GET";//::_LoadStringFromResource(IDS_PARTY_ITEM_GET, stdMsg);
-		sprintf(szBuff, stdMsg.c_str(), strString.c_str(), pItem->szName.c_str());
+		std::string szMsg; ::_LoadStringFromResource(IDS_PARTY_ITEM_GET, szMsg);
+		sprintf(szBuff, szMsg.c_str(), strString.c_str(), pItem->szName.c_str());
 		CGameProcedure::s_pProcMain->MsgOutput(szBuff, 0xff9b9bff);
 
 		if (!IsVisible()) 
@@ -709,14 +709,14 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iG
 	if (bResult == 0x06)
 	{
 		// 메시지 박스 텍스트 표시..
-		std::string szMsg = "You cannot trade or pick up items because you have either exceeded the possible quantity or the weight."; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
 	if (bResult == 0x07)
 	{
 		// 메시지 박스 텍스트 표시..
-		std::string szMsg = "IDS_INV_ITEM_FULL"; //::_LoadStringFromResource(IDS_INV_ITEM_FULL, szMsg);
+		std::string szMsg; ::_LoadStringFromResource(IDS_INV_ITEM_FULL, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 

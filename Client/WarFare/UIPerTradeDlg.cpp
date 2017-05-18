@@ -22,7 +22,7 @@
 #include "N3UIButton.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -510,7 +510,7 @@ void CUIPerTradeDlg::SendToServerItemAddMsg(byte pos, int itemID, int iCount)
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_ADD);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, pos);		
 	CAPISocket::MP_AddDword(byBuff, iOffset, itemID);		

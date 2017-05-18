@@ -131,12 +131,7 @@ public:
 	std::string m_strKingName;
 	std::string m_strImRequestID;
 
-#if IsWinDef
 	std::recursive_mutex m_lock;
-#endif
-#if IsUnixDef
-	pthread_mutex_t * m_lock;
-#endif
 	
 	ClanIDSet m_top10ClanSet;
 

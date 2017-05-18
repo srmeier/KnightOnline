@@ -48,23 +48,23 @@ public:
 	virtual bool Save(HANDLE hFile);
 #endif // end of _N3TOOL
 	
-	int			TexCount() { return m_TexRefs.size(); }
-	CN3Texture* Tex(int iIndex)
+	size_t			TexCount() { return m_TexRefs.size(); }
+	CN3Texture* Tex(size_t iIndex)
 	{
-		if(iIndex < 0 || iIndex >= m_TexRefs.size()) return NULL;
+		if (iIndex >= m_TexRefs.size()) return NULL;
 		return m_TexRefs[iIndex];
 	}
-	void		TexAlloc(int m_nCount);
-	CN3Texture*	TexSet(int iIndex, const std::string& szFN)
+	void		TexAlloc(int nCount);
+	CN3Texture*	TexSet(size_t iIndex, const std::string& szFN)
 	{
-		if(iIndex < 0 || iIndex >= m_TexRefs.size()) return NULL;
+		if (iIndex >= m_TexRefs.size()) return NULL;
 		s_MngTex.Delete(&m_TexRefs[iIndex]);
 		m_TexRefs[iIndex] = s_MngTex.Get(szFN, true, s_Options.iTexLOD_Shape);
 		return m_TexRefs[iIndex];
 	}
-	void	TexSet(int iIndex, CN3Texture* pTex)
+	void	TexSet(size_t iIndex, CN3Texture* pTex)
 	{
-		if(iIndex < 0 || iIndex >= m_TexRefs.size()) return;
+		if (iIndex >= m_TexRefs.size()) return;
 		s_MngTex.Delete(&m_TexRefs[iIndex]);
 		m_TexRefs[iIndex] = pTex;
 	}
@@ -133,10 +133,10 @@ public:
 	virtual void	Tick(float fFrm = FRAME_SELFPLAY);
 	virtual void	Render();
 
-	CN3SPart*		Part(int iIndex) { if(iIndex < 0 || iIndex >= m_Parts.size()) return NULL; return m_Parts[iIndex]; }
+	CN3SPart*		Part(size_t iIndex) { if (iIndex >= m_Parts.size()) return NULL; return m_Parts[iIndex]; }
 	CN3SPart*		PartAdd() { CN3SPart* pPart = new CN3SPart(); m_Parts.push_back(pPart); return pPart; }
-	int				PartCount() { return m_Parts.size(); }
-	void			PartDelete(int iIndex);
+	size_t			PartCount() { return m_Parts.size(); }
+	void			PartDelete(size_t iIndex);
 	
 	bool			Load(HANDLE hFile);
 #ifdef _N3TOOL
@@ -153,15 +153,15 @@ public:
 //	By : Ecli666 ( On 2002-08-06 ¿ÀÈÄ 4:33:04 )
 //
 	void			SetMaxLOD();
-	__Matrix44	GetPartMatrix(int iPartIndex);
+	__Matrix44	GetPartMatrix(size_t iPartIndex);
 #ifdef _USE_VERTEXBUFFER
-	void			PartialRender(int iPartIndex, int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
+	void			PartialRender(size_t iPartIndex, int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
 #else
-	void			PartialRender(int iPartIndex, int iCount, WORD* pIndices);
+	void			PartialRender(size_t iPartIndex, int iCount, WORD* pIndices);
 #endif
-	int				GetIndexbufferCount(int iPartIndex);
-	int				GetIndexByiOrder(int iPartIndex, int iOrder);
-__Vector3		GetVertexByIndex(int iPartIndex, int iIndex); 
+	int				GetIndexbufferCount(size_t iPartIndex);
+	int				GetIndexByiOrder(size_t iPartIndex, int iOrder);
+__Vector3		GetVertexByIndex(size_t iPartIndex, int iIndex);
 	int				GetColIndexbufferCount();
 	int				GetColIndexByiOrder(int iOrder);
 __Vector3	  GetColVertexByIndex(int iIndex); 

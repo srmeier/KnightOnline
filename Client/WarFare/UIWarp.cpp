@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 
 #include "UIWarp.h"
 #include "GameProcMain.h"
@@ -79,18 +79,20 @@ void CUIWarp::InfoAdd(const __WarpInfo& WI)
 	m_ListInfos.push_back(WI);
 }
 
-int CUIWarp::InfoGetCur(__WarpInfo& WI)
+bool CUIWarp::InfoGetCur(__WarpInfo& WI)
 {
-	if(NULL == m_pList_Infos) return -1;
+	if (NULL == m_pList_Infos)
+		return false;
 	
-	int iSel = m_pList_Infos->GetCurSel();
-	if(iSel < 0 || iSel >= m_ListInfos.size()) return -1;
+	size_t iSel = m_pList_Infos->GetCurSel();
+	if (iSel >= m_ListInfos.size())
+		return false;
 	
-	it_WI it = m_ListInfos.begin(), itEnd = m_ListInfos.end();
-	for(int i = 0; i < iSel; i++, it++);
+	auto it = m_ListInfos.begin();
+	std::advance(it, iSel);
 	WI = *it;
 
-	return iSel;
+	return true;
 }
 
 void CUIWarp::UpdateList()
@@ -111,12 +113,12 @@ void CUIWarp::UpdateList()
 void CUIWarp::UpdateAgreement()
 {
 	if(NULL == m_pList_Infos || NULL == m_pText_Agreement) return;
-	int iSel = m_pList_Infos->GetCurSel();
-	if(iSel < 0 || iSel >= m_ListInfos.size()) return;
+	size_t iSel = m_pList_Infos->GetCurSel();
+	if (iSel >= m_ListInfos.size())
+		return;
 
-	it_WI it = m_ListInfos.begin();
-	for(int i = 0; i < iSel; i++, it++);
-	
+	auto it = m_ListInfos.begin();
+	std::advance(it, iSel);
 	m_pText_Agreement->SetString(it->szAgreement);
 }
 

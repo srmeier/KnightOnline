@@ -162,7 +162,7 @@ DWORD CN3UITrackBar::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& p
 //	if (m_pThumbImageRef) m_pThumbImageRef->Render();
 //}
 
-void CN3UITrackBar::SetRange(int iMin, int iMax)
+void CN3UITrackBar::SetRange(size_t iMin, size_t iMax)
 {
 	if (m_iMaxPos == iMax && m_iMinPos == iMin) return;
 	m_iMaxPos = iMax;		m_iMinPos = iMin;
@@ -171,7 +171,7 @@ void CN3UITrackBar::SetRange(int iMin, int iMax)
 	UpdateThumbPos();
 }
 
-void CN3UITrackBar::SetCurrentPos(int iPos)
+void CN3UITrackBar::SetCurrentPos(size_t iPos)
 {
 	if (iPos == m_iCurPos) return;
 	m_iCurPos = iPos;
@@ -184,19 +184,19 @@ void CN3UITrackBar::SetCurrentPos(int iPos)
 void CN3UITrackBar::UpdateThumbPos()
 {
 	if (NULL == m_pThumbImageRef) return;
-	float fDiff = m_iMaxPos - m_iMinPos;
+	float fDiff = (float)m_iMaxPos - (float)m_iMinPos;
 	if (0.0f == fDiff) return;
 	float fPercentage = (float)m_iCurPos/fDiff;
 	RECT rcThumb = m_pThumbImageRef->GetRegion();
 
 	if (UISTYLE_TRACKBAR_VERTICAL == m_dwStyle)
 	{
-		int iDY = fPercentage*((m_rcRegion.bottom - m_rcRegion.top) - (rcThumb.bottom - rcThumb.top));
+		int iDY = (int)(fPercentage*((m_rcRegion.bottom - m_rcRegion.top) - (rcThumb.bottom - rcThumb.top)));
 		m_pThumbImageRef->SetPos(	m_rcRegion.left, m_rcRegion.top + iDY);
 	}
 	else
 	{
-		int iDX = fPercentage*((m_rcRegion.right - m_rcRegion.left) - (rcThumb.right - rcThumb.left));
+		int iDX = (int)(fPercentage*((m_rcRegion.right - m_rcRegion.left) - (rcThumb.right - rcThumb.left)));
 		m_pThumbImageRef->SetPos( m_rcRegion.left + iDX, m_rcRegion.top );
 	}
 }
@@ -229,7 +229,7 @@ void CN3UITrackBar::UpDownThumbPos(int iDiff)
 		else
 		{
 			m_pThumbImageRef->SetPos(rcThumb.left, rcThumb.top+iDiff);
-			m_iCurPos = m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage;// SetCurrentPos함수를 호출하면 thumb위치를 다시 계산하기 때문에 직접 바꾸어줌.
+			m_iCurPos = (size_t)(m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage);// SetCurrentPos함수를 호출하면 thumb위치를 다시 계산하기 때문에 직접 바꾸어줌.
 		}
 	}
 	else											// 좌우로 움직일 때
@@ -254,7 +254,7 @@ void CN3UITrackBar::UpDownThumbPos(int iDiff)
 		else
 		{
 			m_pThumbImageRef->SetPos(rcThumb.left+iDiff, rcThumb.top);
-			m_iCurPos = m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage;// SetCurrentPos함수를 호출하면 thumb위치를 다시 계산하기 때문에 직접 바꾸어줌.
+			m_iCurPos = (size_t)(m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage);// SetCurrentPos함수를 호출하면 thumb위치를 다시 계산하기 때문에 직접 바꾸어줌.
 		}
 	}
 }

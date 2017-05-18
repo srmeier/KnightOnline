@@ -205,11 +205,11 @@ void CAPISocket::Release()
 
 	for(int i = 0; i < 255; i++)
 	{
-		if(i == N3_NPC_MOVE) lstrcpy(szCmd, "NPC Move");
-		else if(i == N3_ATTACK) lstrcpy(szCmd, "Attack");
-		else if(i == N3_MOVE) lstrcpy(szCmd, "User Move");
-		else if(i == N3_MAGIC) lstrcpy(szCmd, "Magic");
-		else if(i == N3_CHAT) lstrcpy(szCmd, "Chatting");
+		if(i == WIZ_NPC_MOVE) lstrcpy(szCmd, "NPC Move");
+		else if(i == WIZ_ATTACK) lstrcpy(szCmd, "Attack");
+		else if(i == WIZ_MOVE) lstrcpy(szCmd, "User Move");
+		else if(i == WIZ_MAGIC_PROCESS) lstrcpy(szCmd, "Magic");
+		else if(i == WIZ_CHAT) lstrcpy(szCmd, "Chatting");
 		else 
 		{
 			sprintf(szCmd, "ETC : %d", i);

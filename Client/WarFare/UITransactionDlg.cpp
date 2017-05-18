@@ -25,7 +25,7 @@
 #include "N3UIString.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #include "KnightChrMgr.h"
 
@@ -493,7 +493,7 @@ void CUITransactionDlg::ItemCountOK()
 					// 무게 체크..
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -503,21 +503,21 @@ void CUITransactionDlg::ItemCountOK()
 					if ( iGold <= 0 ) return;
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
-						std::string szMsg = "You cannot buy more than 9,999 items at once."; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_BUY_FAIL, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_BUY_FAIL, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
 					if (spItem->iCount + iGold > UIITEM_COUNT_MANY)
 					{
-						std::string szMsg = "You cannot carry more than 9,999 items at once."; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
 					if ( (iGold * spItem->pItemBasic->iPrice)	> pInfoExt->iGold )	
 					{
-						std::string szMsg = "You don't have enough Coins."; //::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -526,7 +526,7 @@ void CUITransactionDlg::ItemCountOK()
 
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -537,21 +537,21 @@ void CUITransactionDlg::ItemCountOK()
 
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
-						std::string szMsg = "You cannot buy more than 500 items at once."; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_BUY_FAIL, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_BUY_FAIL, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
 					if (spItem->iCount + iGold > UIITEM_COUNT_FEW)
 					{
-						std::string szMsg = "You cannot carry more than 500 items at once."; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
 
 					if ( (iGold * spItem->pItemBasic->iPrice)	> pInfoExt->iGold )	
 					{
-						std::string szMsg = "IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY"; //::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -561,7 +561,7 @@ void CUITransactionDlg::ItemCountOK()
 					// 무게 체크..
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -664,7 +664,7 @@ void CUITransactionDlg::SendToServerSellMsg(int itemID, byte pos, int iCount)
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_TRADE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_SELL);
 	CAPISocket::MP_AddDword(byBuff, iOffset, itemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, pos);
@@ -677,7 +677,7 @@ void CUITransactionDlg::SendToServerBuyMsg(int itemID, byte pos, int iCount)
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_TRADE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_BUY);
 	CAPISocket::MP_AddDword(byBuff, iOffset, m_iTradeID);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iNpcID);
@@ -692,7 +692,7 @@ void CUITransactionDlg::SendToServerMoveMsg(int itemID, byte startpos, byte dest
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_TRADE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_MOVE);
 	CAPISocket::MP_AddDword(byBuff, iOffset, itemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, startpos);
@@ -920,7 +920,7 @@ bool CUITransactionDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 					// 매수가 X 갯수가 내가 가진 돈보다 많으면.. 그냥 리턴..
 					if ( (CN3UIWndBase::m_sRecoveryJobInfo.pItemSource->pItemBasic->iPrice)	> pInfoExt->iGold )	
 					{
-						std::string szMsg = "IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY"; //::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_COUNTABLE_ITEM_BUY_NOT_ENOUGH_MONEY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 						CN3UIWndBase::m_sRecoveryJobInfo.pItemSource		= NULL;
@@ -931,7 +931,7 @@ bool CUITransactionDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 					// 무게 체크..
 					if ( (pInfoExt->iWeight + CN3UIWndBase::m_sRecoveryJobInfo.pItemSource->pItemBasic->siWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 						CN3UIWndBase::m_sRecoveryJobInfo.pItemSource		= NULL;
@@ -1170,7 +1170,7 @@ void CUITransactionDlg::ReceiveResultTradeFromServer(byte bResult, byte bType, i
 
 				if (bType == 0x04)
 				{
-					std::string szMsg = "You cannot trade or pick up items because you have either exceeded the possible quantity or the weight."; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+					std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
 					CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 				}
 			}

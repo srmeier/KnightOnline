@@ -4,6 +4,7 @@
 #include <string>
 #include "DInput.h"
 
+#include "types.h"
 #include "SDL2\SDL.h"
 
 const int CURRENT_VERSION = 1298;//1299;//1068; // 현재 버전
@@ -572,6 +573,12 @@ struct __InfoPartyBBS // 파티 지원 게시판 구조체..
 
 enum {	RESRC_UI_LOGIN = 0, RESRC_UI_CHARACTERSELECT, RESRC_UI_CHARACTERCREATE, RESRC_UI_INVENTORY, RESRC_UI_CHAT,
 		RESRC_UI_MYINFORMATION, RESRC_UI_TARGET, RESRC_UI_HOTKEY, RESRC_UI_FUNCTION };
+
+typedef struct __TABLE_TEXTS
+{
+	uint32		dwID;
+	std::string	szText;
+} TABLE_TEXTS;
 
 // NOTE: temp 1298 zone structure
 typedef struct __TABLE_ZONE
@@ -1285,15 +1292,6 @@ enum e_SkillMagicType3	{	DDTYPE_TYPE3_DUR_OUR = 100,
 };
 
 
-
-enum e_SkillMagicFailMsg {	SKILLMAGIC_FAIL_CASTING	= -100,		//캐스팅 실패..
-							SKILLMAGIC_FAIL_KILLFLYING = -101,	//Flying객체 죽여..
-							SKILLMAGIC_FAIL_ENDCOMBO = -102,	//combo 동작 끝났다.
-							SKILLMAGIC_FAIL_NOEFFECT = -103,	//Effecting 무산...
-							SKILLMAGIC_FAIL_ATTACKZERO = -104,	//타격치 0...(mp는 소모하고 타격실패..)
-
-							SKILLMAGIC_FAIL_UNKNOWN = 0xffffffff
-};
 
 enum e_ObjectType	{	OBJECT_TYPE_BINDPOINT,
 						OBJECT_TYPE_DOOR_LEFTRIGHT,

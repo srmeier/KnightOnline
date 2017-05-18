@@ -77,34 +77,34 @@ public:
 
 	int	 ShapeAdd(CN3Shape* pShape);
 	void ShapeDelete(CN3Shape* pShape);
-	void ShapeDelete(int iIndex);
-	int	 ShapeCount() { return m_Shapes.size(); }
-	CN3Shape* ShapeGet(int iIndex)
+	void ShapeDelete(size_t iIndex);
+	size_t	 ShapeCount() { return m_Shapes.size(); }
+	CN3Shape* ShapeGet(size_t iIndex)
 	{
-		if(m_Shapes.empty() || iIndex < 0 || iIndex >= m_Shapes.size()) return NULL;
+		if (iIndex >= m_Shapes.size()) return NULL;
 		return m_Shapes[iIndex];
 	}
 	CN3Shape* ShapeGetByFileName(std::string& str)
 	{
-		if(m_Shapes.empty()) return NULL;
-		int iSize = m_Shapes.size();
-		for( int i = 0; i < iSize; i++)
+		for (auto itr = m_Shapes.begin(); itr != m_Shapes.end(); ++itr)
 		{
-			if (str == m_Shapes[i]->FileName())
-				return m_Shapes[i];
+			auto shape = *itr;
+			if (str == shape->FileName())
+				return shape;
 		}
+
 		return NULL;
 	}
 
 	void ShapeRelease();
 
 	int	 ChrAdd(CN3Chr* pChr);
-	void ChrDelete(int iIndex);
+	void ChrDelete(size_t iIndex);
 	void ChrDelete(CN3Chr* pChr);
-	int	 ChrCount() { return m_Chrs.size(); }
-	CN3Chr* ChrGet(int iIndex)
+	size_t	 ChrCount() { return m_Chrs.size(); }
+	CN3Chr* ChrGet(size_t iIndex)
 	{
-		if(iIndex < 0 || iIndex >= m_Chrs.size()) return NULL;
+		if (iIndex >= m_Chrs.size()) return NULL;
 		return m_Chrs[iIndex];
 	}
 

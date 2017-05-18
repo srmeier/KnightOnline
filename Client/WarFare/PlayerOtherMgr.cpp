@@ -283,10 +283,9 @@ CPlayerOther* CPlayerOtherMgr::PickUPC(int ixScreen, int iyScreen, int& iIDResul
 		for(; it != itEnd; it++) UPCs.push_back(it->second);
 		qsort(&(UPCs[0]), UPCs.size(), 4, SortByCameraDistance);
 
-		CPlayerOther*	pUPC = NULL;
-		for(int i = 0; i < UPCs.size(); i++)
+		for (auto itr = UPCs.begin(); itr != UPCs.end(); ++itr)
 		{
-			pUPC = UPCs[i];
+			auto pUPC = *itr;
 			if(pUPC->LODLevel() < 0 || pUPC->LODLevel() >= MAX_CHR_LOD) continue; // Level Of Detail 이 없는건 지나간다.
 
 			CN3VMesh* pvMesh = pUPC->m_Chr.CollisionMesh();
@@ -317,10 +316,9 @@ CPlayerNPC* CPlayerOtherMgr::PickNPC(int ixScreen, int iyScreen, int& iIDResult,
 		for(; it != itEnd; it++) NPCs.push_back(it->second);
 		qsort(&(NPCs[0]), NPCs.size(), 4, SortByCameraDistance);
 
-		CPlayerNPC* pNPC = NULL; // NPC 를 먼저 찍어본다...
-		for(int i = 0; i < NPCs.size(); i++)
+		for (auto itr = NPCs.begin(); itr != NPCs.end(); ++itr)
 		{
-			pNPC = NPCs[i];
+			auto pNPC = *itr;
 			if(pNPC->LODLevel() < 0 || pNPC->LODLevel() >= MAX_CHR_LOD) continue; // Level Of Detail 이 없는건 지나간다.
 
 			CN3VMesh* pvMesh = NULL;
@@ -366,10 +364,9 @@ CPlayerNPC* CPlayerOtherMgr::PickCorpse(int ixScreen, int iyScreen, int& iIDResu
 	for(; it != itEnd; it++) Corpses.push_back(it->second);
 	qsort(&(Corpses[0]), Corpses.size(), 4, SortByCameraDistance);
 
-	CPlayerNPC*	pCorpse = NULL;
-	for(int i = 0; i < Corpses.size(); i++)
+	for (auto itr = Corpses.begin(); itr != Corpses.end(); ++itr)
 	{
-		pCorpse = Corpses[i];
+		auto pCorpse = *itr;
 		if(pCorpse->LODLevel() < 0 || pCorpse->LODLevel() >= MAX_CHR_LOD) continue; // Level Of Detail 이 없는건 지나간다.
 
 		CN3VMesh* pvMesh = pCorpse->m_Chr.CollisionMesh();
@@ -638,10 +635,9 @@ CPlayerNPC* CPlayerOtherMgr::PickAllPrecisely(int ixScreen, int iyScreen, int &i
 	}
 
 
-	int iCnt = 0;
-	for(int i = 0; i < NPCs.size(); i++)
+	for (auto itr = NPCs.begin(); itr != NPCs.end(); ++itr)
 	{
-		pNPC = NPCs[i];
+		pNPC = *itr;
 		if(pNPC == NULL) continue;
 		if(pNPC->LODLevel() < 0 || pNPC->LODLevel() >= MAX_CHR_LOD) continue; // Level Of Detail 이 없는건 지나간다.
 
@@ -686,10 +682,7 @@ CPlayerNPC* CPlayerOtherMgr::PickAllPrecisely(int ixScreen, int iyScreen, int &i
 //	충돌 체크를 해줘야 정확한 캐릭터를 찾아 낼수가 있다.
 ////////////////////////////////////////////////////////////////////////////
 
-	int iBufCnt = NUPCBufs.size();
-
-	if(iBufCnt < 0) return NULL;
-	if(iBufCnt == 1)
+	if(NUPCBufs.size() == 1)
 	{
 		pNPC = NUPCBufs[0];
 		if(pNPC)
@@ -699,9 +692,9 @@ CPlayerNPC* CPlayerOtherMgr::PickAllPrecisely(int ixScreen, int iyScreen, int &i
 		}
 	}
 
-	for(int i = 0; i < iBufCnt; i++)
+	for (auto itr = NUPCBufs.begin(); itr != NUPCBufs.end(); ++itr)
 	{
-		pNPC = NUPCBufs[i];
+		pNPC = *itr;
 		if(pNPC->LODLevel() < 0 || pNPC->LODLevel() >= MAX_CHR_LOD) continue; // Level Of Detail 이 없는건 지나간다.
 
 		CN3VMesh* pvMesh = NULL;
@@ -739,9 +732,9 @@ CPlayerNPC* CPlayerOtherMgr::PickNPCPrecisely(int ixScreen, int iyScreen, int &i
 		qsort(&(NPCs[0]), NPCs.size(), 4, SortByCameraDistance);
 
 		CPlayerNPC* pNPC = NULL; // NPC 를 먼저 찍어본다...
-		for(int i = 0; i < NPCs.size(); i++)
+		for (auto itr = NPCs.begin(); itr != NPCs.end(); ++itr)
 		{
-			pNPC = NPCs[i];
+			pNPC = *itr;
 			if(pNPC->LODLevel() < 0 || pNPC->LODLevel() >= MAX_CHR_LOD) continue; // Level Of Detail 이 없는건 지나간다.
 
 			CN3VMesh* pvMesh = NULL;
@@ -794,9 +787,9 @@ CPlayerOther* CPlayerOtherMgr::PickUPCPrecisely(int ixScreen, int iyScreen, int 
 		qsort(&(UPCs[0]), UPCs.size(), 4, SortByCameraDistance);
 
 		CPlayerOther*	pUPC = NULL;
-		for(int i = 0; i < UPCs.size(); i++)
+		for (auto itr = UPCs.begin(); itr != UPCs.end(); ++itr)
 		{
-			pUPC = UPCs[i];
+			pUPC = *itr;
 			if(pUPC->LODLevel() < 0 || pUPC->LODLevel() >= MAX_CHR_LOD) continue; // Level Of Detail 이 없는건 지나간다.
 
 			if(pUPC->m_Chr.CheckCollisionPrecisely(ixScreen ,iyScreen, pvPick) != -1)

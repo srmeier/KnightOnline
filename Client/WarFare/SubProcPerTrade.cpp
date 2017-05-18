@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #include "SubProcPerTrade.h"
 #include "GameProcedure.h"
@@ -148,8 +148,8 @@ void CSubProcPerTrade::EnterWaitMsgFromServerStatePerTradeReq()
 	m_ePerTradeState = PER_TRADE_STATE_WAIT_FOR_REQ;
 
 	// 메시지 박스 텍스트 표시..
-	char szBuff[256] = "";
-	std::string szFmt = "IDS_PERSONAL_TRADE_FMT_WAIT (%s, %s)"; //::_LoadStringFromResource(IDS_PERSONAL_TRADE_FMT_WAIT, szFmt);
+	char szBuff[128] = ""; std::string szFmt;
+	::_LoadStringFromResource(IDS_PERSONAL_TRADE_FMT_WAIT, szFmt);
 	sprintf(szBuff, szFmt.c_str(), s_pPlayer->IDString().c_str(), pTarget->IDString().c_str());
 	m_szMsg = CGameProcedure::MessageBoxPost(szBuff, "", MB_CANCEL, BEHAVIOR_PERSONAL_TRADE_FMT_WAIT);
 
@@ -161,8 +161,8 @@ void CSubProcPerTrade::EnterWaitMsgFromServerStatePerTradeReq(std::string szName
 	m_ePerTradeState = PER_TRADE_STATE_WAIT_FOR_REQ;
 
 	// 메시지 박스 텍스트 표시..
-	char szBuff[256] = "";
-	std::string szFmt = "IDS_PERSONAL_TRADE_FMT_WAIT (%s, %s)"; //::_LoadStringFromResource(IDS_PERSONAL_TRADE_FMT_WAIT, szFmt);
+	char szBuff[128] = ""; std::string szFmt;
+	::_LoadStringFromResource(IDS_PERSONAL_TRADE_FMT_WAIT, szFmt);
 	sprintf(szBuff, szFmt.c_str(), s_pPlayer->IDString().c_str(), szName.c_str());
 	m_szMsg = CGameProcedure::MessageBoxPost(szBuff, "", MB_CANCEL, BEHAVIOR_PERSONAL_TRADE_FMT_WAIT);
 
@@ -178,8 +178,8 @@ void CSubProcPerTrade::EnterWaitMyDecisionToPerTrade(int iOtherID)			// 내가 타�
 	m_ePerTradeState = PER_TRADE_STATE_WAIT_FOR_MY_DECISION_AGREE_OR_DISAGREE;
 
 	// 메시지 박스 텍스트 표시..
-	char szBuff[256] = "";
-	std::string szFmt = "IDS_PERSONAL_TRADE_PERMIT (%s, %s)"; //::_LoadStringFromResource(IDS_PERSONAL_TRADE_PERMIT, szFmt);
+	char szBuff[128] = ""; std::string szFmt;
+	::_LoadStringFromResource(IDS_PERSONAL_TRADE_PERMIT, szFmt);
 	sprintf(szBuff, szFmt.c_str(), s_pPlayer->IDString().c_str(), pTarget->IDString().c_str());
 	m_szMsg = CGameProcedure::MessageBoxPost(szBuff, "", MB_YESNO, BEHAVIOR_PERSONAL_TRADE_PERMIT);
 
@@ -422,7 +422,7 @@ void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이템 
 	{
 		case PER_TRADE_RESULT_MY_CANCEL:								// 거래를 신청한 내가 거래 신청을 취소..
 			// 서버에게 패킷 만들어서 날림..
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_CANCEL);
 			CGameProcedure::s_pSocket->Send(byBuff, iOffset);								// 보냄..
 
@@ -434,7 +434,7 @@ void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이템 
 
 		case PER_TRADE_RESULT_MY_DISAGREE:								// 거래를 신청받은 내가 거래 신청을 취소..
 			// 서버에게 패킷 만들어서 날림..
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_AGREE);		
 			CAPISocket::MP_AddByte(byBuff, iOffset, 0x00);		
 
@@ -449,7 +449,7 @@ void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이템 
 			//TRACE("상대방이 거래를 거절.. \n");
 			//this_ui
 			// 메시지 박스 텍스트 표시..
-			szMsg = "IDS_OTHER_PER_TRADE_ID_NO";//::_LoadStringFromResource(IDS_OTHER_PER_TRADE_ID_NO, szMsg);
+			::_LoadStringFromResource(IDS_OTHER_PER_TRADE_ID_NO, szMsg);
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 //			::_LoadStringFromResource(IDS_OTHER_PER_TRADE_NO, szMsg);
 //			sprintf(szBuf, szMsg.c_str(), 
@@ -470,7 +470,7 @@ void CSubProcPerTrade::ProcessProceed(e_PerTradeProceedCode ePTPC)		// 아이템 거
 	{
 		case PER_TRADE_RESULT_MY_AGREE:									// 거래를 신청받은 내가 거래 신청을 허락..
 			// 서버에게 패킷 만들어서 날림..
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_AGREE);		
 			CAPISocket::MP_AddByte(byBuff, iOffset, 0x01);		
 
@@ -575,7 +575,7 @@ void CSubProcPerTrade::ItemCountEditOK()
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_ADD);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, 0xff);		
 	CAPISocket::MP_AddDword(byBuff, iOffset, dwGold);		
@@ -619,7 +619,7 @@ void CSubProcPerTrade::PerTradeMyDecision()							// 내가 거래를 결정 했다..
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_DECIDE);		
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);			// 보냄..
@@ -1128,11 +1128,11 @@ void CSubProcPerTrade::ReceiveMsgPerTradeDoneFail()
 
 	if (s_pOPMgr->UPCGetByID(m_iOtherID, false) != NULL )
 	{
-		szMsg = "IDS_PER_TRADE_FAIL";//::_LoadStringFromResource(IDS_PER_TRADE_FAIL, szMsg);
+		::_LoadStringFromResource(IDS_PER_TRADE_FAIL, szMsg);
 		sprintf(szBuf, szMsg.c_str());			
 		CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffffff);
 
-		szMsg = "You cannot trade or pick up items because you have either exceeded the possible quantity or the weight.";//::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
@@ -1148,7 +1148,7 @@ void CSubProcPerTrade::ReceiveMsgPerTradeCancel()
 	// 메시지 박스 텍스트 표시..
 	if (s_pOPMgr->UPCGetByID(m_iOtherID, false) != NULL )
 	{
-		szMsg = "IDS_OTHER_PER_TRADE_CANCEL";//::_LoadStringFromResource(IDS_OTHER_PER_TRADE_CANCEL, szMsg);
+		::_LoadStringFromResource(IDS_OTHER_PER_TRADE_CANCEL, szMsg);
 		sprintf(szBuf, szMsg.c_str(), 
 			(s_pOPMgr->UPCGetByID(m_iOtherID, false))->IDString().c_str());
 		CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);

@@ -79,15 +79,9 @@ public:
 	void DeleteUserPtr(uint16 sessionId);
 
 	MAP * GetZoneByID(int zonenumber);
-#if IsWinDef
-static uint32 THREADCALL Timer_CheckAliveTest(void * lpParam);
-static uint32 THREADCALL Timer_CheckLiveTimes(void * lpParam);
-#endif
-#if IsUnixDef
-static void * Timer_CheckAliveTest(void * lpParam);
-static void * Timer_CheckLiveTimes(void * lpParam);
-#endif
-	
+
+	static uint32 THREADCALL Timer_CheckAliveTest(void * lpParam);
+	static uint32 THREADCALL Timer_CheckLiveTimes(void * lpParam);
 	
 	void CheckAliveTest();
 	void CheckLiveTimes();

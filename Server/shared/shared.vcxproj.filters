@@ -19,21 +19,21 @@
     <Filter Include="Header Files\database">
       <UniqueIdentifier>{6483c8fa-7bbb-4967-ac72-de38835bee1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Compression">
+      <UniqueIdentifier>{6fd0dbfb-2073-4526-9b04-732c71157705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compression\LZF">
+      <UniqueIdentifier>{109828ab-3858-4170-985f-86eb2ebb0efb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compression\PKWARE">
+      <UniqueIdentifier>{77bb0a72-f728-4617-9d58-1fcc2b493907}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="crc32.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lzf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CircularBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Compress.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Condition.cpp">
@@ -43,9 +43,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="globals.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HardwareInformation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Ini.cpp">
@@ -108,6 +105,24 @@
     <ClCompile Include="database\stdafx.cpp">
       <Filter>Source Files\database</Filter>
     </ClCompile>
+    <ClCompile Include="Compression.cpp">
+      <Filter>Compression</Filter>
+    </ClCompile>
+    <ClCompile Include="crc32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lzf.cpp">
+      <Filter>Compression\LZF</Filter>
+    </ClCompile>
+    <ClCompile Include="Compression_PKWARE.cpp">
+      <Filter>Compression\PKWARE</Filter>
+    </ClCompile>
+    <ClCompile Include="Compression_LZF.cpp">
+      <Filter>Compression\LZF</Filter>
+    </ClCompile>
+    <ClCompile Include="pkware\pklib.c">
+      <Filter>Compression\PKWARE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Atomic.h">
@@ -120,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ClientSocketMgr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Compress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Condition.h">
@@ -140,12 +152,6 @@
     <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HardwareInformation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IMPLODE.H">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Ini.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -159,9 +165,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListenSocketWin32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lzf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Network.h">
@@ -406,6 +409,21 @@
     </ClInclude>
     <ClInclude Include="database\ZoneInfoSet.h">
       <Filter>Header Files\database</Filter>
+    </ClInclude>
+    <ClInclude Include="Compression.h">
+      <Filter>Compression</Filter>
+    </ClInclude>
+    <ClInclude Include="lzf.h">
+      <Filter>Compression\LZF</Filter>
+    </ClInclude>
+    <ClInclude Include="pkware\pklib.h">
+      <Filter>Compression\PKWARE</Filter>
+    </ClInclude>
+    <ClInclude Include="Compression_PKWARE.h">
+      <Filter>Compression\PKWARE</Filter>
+    </ClInclude>
+    <ClInclude Include="Compression_LZF.h">
+      <Filter>Compression\LZF</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

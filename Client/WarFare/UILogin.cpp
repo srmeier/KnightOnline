@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UILogIn.h"
 #include "GameProcLogIn.h"
 
@@ -81,7 +81,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 		else if(pSender == m_pBtn_Option) // ¿É¼Ç..
 		{
 			std::string szMsg;
-			szMsg = "Would you like to open the options?";//::_LoadStringFromResource(IDS_CONFIRM_EXECUTE_OPTION, szMsg);
+			::_LoadStringFromResource(IDS_CONFIRM_EXECUTE_OPTION, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXECUTE_OPTION);
 		}
 	}
@@ -221,10 +221,11 @@ bool CUILogIn::ServerInfoAdd(const __GameServerInfo& GSI)
 	return true;
 }
 
-bool CUILogIn::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
+bool CUILogIn::ServerInfoGet(size_t iIndex, __GameServerInfo& GSI)
 {
-	if(NULL == m_pList_Server) return false;
-	if(iIndex < 0 || iIndex >= m_ListServerInfos.size()) return false;
+	if (NULL == m_pList_Server
+		|| iIndex >= m_ListServerInfos.size())
+		return false;
 
 	GSI = m_ListServerInfos[iIndex];
 	return true;

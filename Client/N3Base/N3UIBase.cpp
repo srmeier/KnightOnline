@@ -31,7 +31,7 @@ static char THIS_FILE[]=__FILE__;
 
 CN3UIEdit* CN3UIBase::s_pFocusedEdit = NULL;
 CN3UITooltip* CN3UIBase::s_pTooltipCtrl = NULL;
-std::string CN3UIStatic::s_szStringTmp; // 임시변수..
+std::string CN3UIBase::s_szStringTmp; // 임시변수..
 
 CN3UIBase::CN3UIBase()
 {

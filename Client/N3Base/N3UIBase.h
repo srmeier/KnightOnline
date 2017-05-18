@@ -139,11 +139,11 @@ public:
 	static	void	DestroyTooltip();	// tooltip ui에 관련된 것을 해제해준다.
 
 	int				GetChildrenCount() { return m_Children.size(); }
-	CN3UIBase*		GetChildByIndex(int iIndex)
+	CN3UIBase*		GetChildByIndex(size_t iIndex)
 	{
-		if(iIndex < 0 || iIndex >= m_Children.size()) return NULL;
-		UIListItor it = m_Children.begin();
-		for(int i = 0; i < iIndex; it++, i++);
+		if (iIndex >= m_Children.size()) return NULL;
+		auto it = m_Children.begin();
+		std::advance(it, iIndex);
 		return *it;
 	}
 	virtual void	operator = (const CN3UIBase& other);

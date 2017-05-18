@@ -5,7 +5,7 @@
 //#include "stdafx.h"
 #include "GameProcCharacterCreate.h"
 
-//#include "Resource.h"
+#include "resource.h"
 #include "GameEng.h"
 #include "UICharacterCreate.h"
 #include "UIMessageBox.h"
@@ -238,7 +238,7 @@ bool CGameProcCharacterCreate::MsgSendCharacterCreate()
 
 			BYTE byBuff[64];
 			int iOffset = 0;
-			CAPISocket::MP_AddByte(byBuff, iOffset,  N3_NEW_CHARACTER);					// 커멘드.
+			CAPISocket::MP_AddByte(byBuff, iOffset,  WIZ_NEW_CHAR);					// 커멘드.
 			CAPISocket::MP_AddByte(byBuff, iOffset, CGameProcedure::s_iChrSelectIndex);	// 캐릭터 인덱스 b
 			CAPISocket::MP_AddShort(byBuff, iOffset, iIDLength);						// Id 길이 s
 			CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// ID 문자열 str
@@ -270,32 +270,32 @@ void CGameProcCharacterCreate::ReportErrorCharacterCreate(e_ErrorCharacterCreate
 	std::string szErr;
 
 	if (ERROR_CHARACTER_CREATE_NO_MORE_CHARACTER == eErrCode)
-		szErr = "You cannot create anymore characters.";//::_LoadStringFromResource(IDS_ERR_NO_MORE_CHARACTER, szErr);
+		::_LoadStringFromResource(IDS_ERR_NO_MORE_CHARACTER, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NATION_AND_INVALID_RACE == eErrCode)
-		szErr = "The selected nation and the race does not match. ";//::_LoadStringFromResource(IDS_ERR_INVALID_NATION_RACE, szErr);
+		::_LoadStringFromResource(IDS_ERR_INVALID_NATION_RACE, szErr);
 	else if(ERROR_CHARACTER_CREATE_OVERLAPPED_ID == eErrCode)
-		szErr = "This ID is already used on another character.";//::_LoadStringFromResource(IDS_ERR_OVERLAPPED_ID, szErr);
+		::_LoadStringFromResource(IDS_ERR_OVERLAPPED_ID, szErr);
 	else if(ERROR_CHARACTER_CREATE_DB_CREATE == eErrCode)
-		szErr = "Failed creating Database";//::_LoadStringFromResource(IDS_ERR_DB_CREATE, szErr);
+		::_LoadStringFromResource(IDS_ERR_DB_CREATE, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NAME == eErrCode)
-		szErr = "Please enter your character ID.";//::_LoadStringFromResource(IDS_ERR_INVALID_NAME, szErr);
+		::_LoadStringFromResource(IDS_ERR_INVALID_NAME, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NAME_HAS_SPECIAL_LETTER == eErrCode)
-		szErr = "You cannot use this character ID.";//::_LoadStringFromResource(IDS_ERR_INVALID_NAME_HAS_SPECIAL_LETTER, szErr);
+		::_LoadStringFromResource(IDS_ERR_INVALID_NAME_HAS_SPECIAL_LETTER, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_RACE == eErrCode)
-		szErr = "Please select a race.";//::_LoadStringFromResource(IDS_ERR_INVALID_RACE, szErr);
+		::_LoadStringFromResource(IDS_ERR_INVALID_RACE, szErr);
 	else if(ERROR_CHARACTER_CREATE_NOT_SUPPORTED_RACE == eErrCode)
-		szErr = "This race is not available yet.";//::_LoadStringFromResource(IDS_ERR_NOT_SUPPORTED_RACE, szErr);
+		::_LoadStringFromResource(IDS_ERR_NOT_SUPPORTED_RACE, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_CLASS == eErrCode)
-		szErr = "Please select a specialty.";//::_LoadStringFromResource(IDS_ERR_INVALID_CLASS, szErr);
+		::_LoadStringFromResource(IDS_ERR_INVALID_CLASS, szErr);
 	else if(ERROR_CHARACTER_CREATE_REMAIN_BONUS_POINT == eErrCode)
-		szErr = "There are stat points still remaining.";//::_LoadStringFromResource(IDS_ERR_REMAIN_BONUS_POINT, szErr);
+		::_LoadStringFromResource(IDS_ERR_REMAIN_BONUS_POINT, szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_STAT_POINT == eErrCode)
-		szErr = "Unknown error.";//::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
+		::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
 	else
-		szErr = "Unknown error.";//::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
+		::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
 
 	
-	std::string szTitle = "Failed creating character"; //::_LoadStringFromResource(IDS_ERR_CHARACTER_CREATE, szTitle);
+	std::string szTitle; ::_LoadStringFromResource(IDS_ERR_CHARACTER_CREATE, szTitle);
 	MessageBoxPost(szErr, szTitle, MB_OK);
 }
 
@@ -308,7 +308,7 @@ bool CGameProcCharacterCreate::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
-		case N3_NEW_CHARACTER:				// 캐릭터 선택 메시지..
+		case WIZ_NEW_CHAR:				// 캐릭터 선택 메시지..
 		{
 			BYTE bySuccess = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 			if(0 == bySuccess) 

@@ -13,6 +13,7 @@
 
 #include "N3BaseFileAccess.h"
 #include "N3Shape.h"
+#include "N3ShapeExtra.h"
 
 #include "PortalVolume.h"
 #include <string>

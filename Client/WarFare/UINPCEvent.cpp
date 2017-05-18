@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UINPCEvent.h"
 
 #include "GameProcedure.h"
@@ -118,7 +118,7 @@ void CUINPCEvent::Open(e_NpcEvent eNpcEvent, int iTradeId, int iIDTarget)
 	switch(eNpcEvent)
 	{
 		case NPC_EVENT_ITEM_TRADE:
-			szStr = "IDS_NPC_EVENT_TITLE_TRADE";//::_LoadStringFromResource(IDS_NPC_EVENT_TITLE_TRADE, szStr);
+			::_LoadStringFromResource(IDS_NPC_EVENT_TITLE_TRADE, szStr);
 			m_pText_Title->SetString(szStr);
 			if (m_pBtn_Repair)
 			{
@@ -131,7 +131,7 @@ void CUINPCEvent::Open(e_NpcEvent eNpcEvent, int iTradeId, int iIDTarget)
 			break;
 
 		case NPC_EVENT_TRADE_REPAIR:
-			szStr = "IDS_NPCEVENT_TITLE_REPAIR";//::_LoadStringFromResource(IDS_NPCEVENT_TITLE_REPAIR, szStr);
+			::_LoadStringFromResource(IDS_NPCEVENT_TITLE_REPAIR, szStr);
 			m_pText_Title->SetString(szStr);
 			if (m_pBtn_Repair)
 			{

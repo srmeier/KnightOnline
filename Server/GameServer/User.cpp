@@ -310,7 +310,7 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_CHAT:
 		Chat(pkt);
 		break;
-	case WIZ_CHAT_TARGET:
+	case N3_CHAT_TARGET:
 		ChatTargetSelect(pkt);
 		break;
 	case WIZ_REGENE:	

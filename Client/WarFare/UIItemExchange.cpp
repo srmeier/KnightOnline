@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UIItemExchange.h"
 
 #include "PacketDef.h"
@@ -447,7 +447,7 @@ void CUIItemExchange::UserPressOK()
 	BYTE byBuff[16];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_REPAIR_REQUEST);			// 게임 스타트 패킷 커멘드..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_REPAIR);			// 게임 스타트 패킷 커멘드..
 	CAPISocket::MP_AddShort(byBuff, iOffset, iCount);		// 아이디 길이 패킷에 넣기..
 	for( int i = 0; i < iCount; i++ )
 	{

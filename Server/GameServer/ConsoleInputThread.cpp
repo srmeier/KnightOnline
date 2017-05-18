@@ -17,12 +17,7 @@ void CleanupConsoleInputThread()
 	s_consoleInputThread.waitForExit();
 }
 
-#if IsWinDef
 uint32 THREADCALL ConsoleInputThread(void * lpParam)
-#endif
-#if IsUnixDef
-void * ConsoleInputThread(void * lpParam)
-#endif
 {
 	size_t i = 0;
 	size_t len;
@@ -57,5 +52,5 @@ void * ConsoleInputThread(void * lpParam)
 		g_pMain->HandleConsoleCommand(cmd);
 	}
 
-	return RETURN_THREAD((void *)0);
+	return 0;
 }

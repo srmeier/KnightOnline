@@ -85,7 +85,7 @@ void CGameProcNationSelect::MsgSendNationSelect(e_Nation eNation)
 	BYTE byBuff[4];										// 패킷 버퍼..
 	int iOffset=0;										// 버퍼의 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_NATION_SELECT);	// 커멘드.
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_NATION);	// 커멘드.
 	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)eNation);		// 아이디 길이..
 		
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
@@ -102,7 +102,7 @@ bool CGameProcNationSelect::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
-		case N3_NATION_SELECT:							// 캐릭터 선택 메시지..
+		case WIZ_SEL_NATION:							// 캐릭터 선택 메시지..
 		{
 			int iNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 국가 - 0 실패.. 1 - 카루스 2 - 엘모라드..
 

@@ -18,7 +18,7 @@ typedef std::list<CN3UIString*>::iterator it_pString;
 class CN3UIList : public CN3UIBase  
 {
 protected:
-	int						m_iCurSel;		// 현재 선택..
+	size_t					m_iCurSel;		// 현재 선택..
 	std::list<CN3UIString*>	m_ListString;	// String List
 	class CN3UIScrollBar*	m_pScrollBarRef;
 
@@ -37,18 +37,18 @@ public:
 
 	void	SetFont(const std::string& szFontName, DWORD dwHeight, BOOL bBold, BOOL bItalic);
 	void	SetFontColor(D3DCOLOR color);
-	void	SetFontColor(int iIndex, D3DCOLOR color);
+	void	SetFontColor(size_t iIndex, D3DCOLOR color);
 
 	void	ResetContent();
 	void	UpdateChildRegions();
 	int		AddStrings(const std::string* pszStrings, int iStringCount);
 	int		AddString(const std::string& szString);
-	bool	InsertString(int iIndex, const std::string& szString);
-	bool	DeleteString(int iIndex);
-	bool	GetString(int iIndex, std::string& szString);
-	bool	SetString(int iIndex, const std::string& szString);
-	int		GetCurSel() { return m_iCurSel; }
-	bool	SetCurSel(int iIndex) { if(iIndex < 0 || iIndex >= m_ListString.size()) m_iCurSel = -1; else m_iCurSel = iIndex; return true; }
+	bool	InsertString(size_t iIndex, const std::string& szString);
+	bool	DeleteString(size_t iIndex);
+	bool	GetString(size_t iIndex, std::string& szString);
+	bool	SetString(size_t iIndex, const std::string& szString);
+	size_t	GetCurSel() { return m_iCurSel; }
+	bool	SetCurSel(size_t iIndex) { if (iIndex >= m_ListString.size()) m_iCurSel = ~((size_t)0); else m_iCurSel = iIndex; return true; }
 	int		GetCount() { return m_ListString.size(); }
 
 	int		GetScrollPos();

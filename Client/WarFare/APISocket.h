@@ -12,8 +12,6 @@
 #include "My_3DStruct.h"
 #include "N3Base.h"
 
-#include <winsock.h>
-
 #include <queue>
 #include <string>
 
@@ -286,13 +284,14 @@ public:
 	}
 
 	//패킷 Parsing 함수
-	static	BYTE&		Parse_GetByte(const BYTE* buf, int &iOffset) { iOffset ++; return *(BYTE*)(buf+iOffset-1); }
-	static	short&		Parse_GetShort(const BYTE* buf, int& iOffset) { iOffset += 2; return *(short*)(buf+iOffset-2); }
-	static  WORD&		Parse_GetWord(const BYTE* buf, int &iOffset) { iOffset += 2; return *(PWORD)(buf+iOffset-2); }
-	static	DWORD&		Parse_GetDword(const BYTE* buf, int &iOffset) { iOffset += 4; return *(DWORD*)(buf+iOffset-4); }
-	static	float&		Parse_GetFloat(const BYTE* buf, int& iOffset) { iOffset += 4; return *(float*)(buf+iOffset-4); }
+	static	bool		Parse_GetBool(const BYTE* buf, int &iOffset) { iOffset++; return *(BYTE*)(buf+iOffset-1) != 0; }
+	static	BYTE		Parse_GetByte(const BYTE* buf, int &iOffset) { iOffset ++; return *(BYTE*)(buf+iOffset-1); }
+	static	short		Parse_GetShort(const BYTE* buf, int& iOffset) { iOffset += 2; return *(short*)(buf+iOffset-2); }
+	static  WORD		Parse_GetWord(const BYTE* buf, int &iOffset) { iOffset += 2; return *(PWORD)(buf+iOffset-2); }
+	static	DWORD		Parse_GetDword(const BYTE* buf, int &iOffset) { iOffset += 4; return *(DWORD*)(buf+iOffset-4); }
+	static	float		Parse_GetFloat(const BYTE* buf, int& iOffset) { iOffset += 4; return *(float*)(buf+iOffset-4); }
 	static	void		Parse_GetString(const BYTE* buf, int &iOffset, std::string& szString, int len);
-	static	__int64&	Parse_GetInt64(const BYTE* buf, int &iOffset) { iOffset += 8; return *(__int64*)(buf+iOffset-8); }
+	static	__int64		Parse_GetInt64(const BYTE* buf, int &iOffset) { iOffset += 8; return *(__int64*)(buf+iOffset-8); }
 
 	CAPISocket();
 	virtual ~CAPISocket();

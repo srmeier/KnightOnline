@@ -5,7 +5,7 @@
 //#include "stdafx.h"
 #include "N3UITooltip.h"
 #include "N3UIString.h"
-//#include "resource.h"
+#include "resource.h"
 #include "PacketDef.h"
 #include "APISocket.h"
 #include "GameProcedure.h"
@@ -57,10 +57,10 @@ bool CUIDead::Load(HANDLE hFile)
 
 
 	std::string szMsg;
-	szMsg = "IDS_DEAD_REVIVAL";//::_LoadStringFromResource(IDS_DEAD_REVIVAL, szMsg);
+	::_LoadStringFromResource(IDS_DEAD_REVIVAL, szMsg);
 	if(m_pTextAlive) m_pTextAlive->SetString(szMsg);
 
-	szMsg = "IDS_DEAD_RETURN_TOWN";//::_LoadStringFromResource(IDS_DEAD_RETURN_TOWN, szMsg);
+	::_LoadStringFromResource(IDS_DEAD_RETURN_TOWN, szMsg);
 	if(m_pTextTown) m_pTextTown->SetString(szMsg);
 
 	__TABLE_UI_RESRC*	pTblUI	= NULL;
@@ -94,7 +94,7 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 
 			if(iLevel < 6)
 			{
-				szMsg = "IDS_DEAD_LOW_LEVEL";//::_LoadStringFromResource(IDS_DEAD_LOW_LEVEL, szMsg);
+				::_LoadStringFromResource(IDS_DEAD_LOW_LEVEL, szMsg);
 				sprintf(szBuf, szMsg.c_str(), iNeedItemCnt);
 
 				m_MsgBox.SetBoxStyle(MB_OK);
@@ -105,7 +105,7 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 			}
 			else if(iItemCnt >= iNeedItemCnt)
 			{
-				szMsg = "IDS_DEAD_REVIVAL_MESSAGE";//::_LoadStringFromResource(IDS_DEAD_REVIVAL_MESSAGE, szMsg);
+				::_LoadStringFromResource(IDS_DEAD_REVIVAL_MESSAGE, szMsg);
 				sprintf(szBuf, szMsg.c_str(), iNeedItemCnt);
 
 				m_MsgBox.SetBoxStyle(MB_YESNO);
@@ -116,7 +116,7 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 			}
 			else
 			{
-				szMsg = "IDS_DEAD_LACK_LIFE_STONE";//::_LoadStringFromResource(IDS_DEAD_LACK_LIFE_STONE, szMsg);
+				::_LoadStringFromResource(IDS_DEAD_LACK_LIFE_STONE, szMsg);
 
 				m_MsgBox.SetBoxStyle(MB_OK);
 				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
@@ -243,7 +243,7 @@ void CUIDead::MsgSend_Revival(BYTE byType)
 	BYTE byBuff[4];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_REGENE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_REGENE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, byType);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset); // º¸³½´Ù..
 

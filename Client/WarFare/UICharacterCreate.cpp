@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 #include "UICharacterCreate.h"
 #include "GameProcCharacterCreate.h"
 #include "PlayerMySelf.h"
@@ -94,13 +94,13 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		if(NATION_KARUS == eNation)
 		{
 			std::string szMsg;
-			szMsg = "IDS_SETTING_KARUS_SCREEN";//::_LoadStringFromResource(IDS_SETTING_KARUS_SCREEN, szMsg);
+			::_LoadStringFromResource(IDS_SETTING_KARUS_SCREEN, szMsg);
 			m_pStr_Desc->SetString(szMsg);
 		}
 		else if(NATION_ELMORAD == eNation)
 		{
 			std::string szMsg;
-			szMsg = "IDS_SETTING_ELMORAD_SCREEN";//::_LoadStringFromResource(IDS_SETTING_ELMORAD_SCREEN, szMsg);
+			::_LoadStringFromResource(IDS_SETTING_ELMORAD_SCREEN, szMsg);
 			m_pStr_Desc->SetString(szMsg);
 		}
 	}

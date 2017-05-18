@@ -295,7 +295,7 @@ void CUser::ChatTargetSelect(Packet & pkt)
 	// Attempt to find target player in-game
 	if (type == 1)
 	{
-		Packet result(WIZ_CHAT_TARGET, type);
+		Packet result(N3_CHAT_TARGET, type);
 		std::string strUserID;
 		pkt >> strUserID;
 		if (strUserID.empty() || strUserID.size() > MAX_ID_SIZE)

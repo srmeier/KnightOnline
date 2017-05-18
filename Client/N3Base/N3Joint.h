@@ -48,11 +48,11 @@ public:
 	void ChildAdd(CN3Joint* pChild);
 	CN3Joint* Parent() { return m_pParent; }
 	int ChildCount() { return m_Children.size(); }
-	CN3Joint* Child(int index)
+	CN3Joint* Child(size_t index)
 	{
-		if(index < 0 || index > m_Children.size()) return NULL;
-		it_Joint it = m_Children.begin();
-		for(int i = 0; i < index; i++, it++);
+		if (index > m_Children.size()) return NULL;
+		auto it = m_Children.begin();
+		std::advance(it, index);
 		return *it;
 	}
 

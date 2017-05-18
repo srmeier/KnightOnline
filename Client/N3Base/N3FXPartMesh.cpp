@@ -226,7 +226,7 @@ bool CN3FXPartMesh::Load(HANDLE hFile)
 		
 	if(m_pShape)
 	{
-		for(int i=0;i<m_pShape->PartCount();i++)
+		for(size_t i=0;i<m_pShape->PartCount();i++)
 		{
 			m_pShape->Part(i)->m_fTexFPS = m_fTexFPS;
 			m_pShape->Part(i)->m_bTexLoop = m_bTexLoop;
@@ -685,7 +685,7 @@ void CN3FXPartMesh::Duplicate(CN3FXPartMesh* pSrc)
 		
 	if(m_pShape)
 	{
-		for(int i=0;i<m_pShape->PartCount();i++)
+		for(size_t i=0;i<m_pShape->PartCount();i++)
 		{
 			m_pShape->Part(i)->m_fTexFPS = m_fTexFPS;
 			m_pShape->Part(i)->m_bTexLoop = m_bTexLoop;

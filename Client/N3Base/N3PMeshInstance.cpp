@@ -503,10 +503,10 @@ int CN3PMeshInstance::GetIndexByiOrder(int iOrder)
 #endif
 }
 
-__Vector3 CN3PMeshInstance::GetVertexByIndex(int iIndex)
+__Vector3 CN3PMeshInstance::GetVertexByIndex(size_t iIndex)
 {
 	__Vector3 vec; vec.Zero();
-	if (iIndex > GetNumVertices())
+	if (iIndex > (size_t)GetNumVertices())
 		return vec;
 
 #ifdef _USE_VERTEXBUFFER

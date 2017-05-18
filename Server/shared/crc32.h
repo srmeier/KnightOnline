@@ -31,6 +31,6 @@ Functions for computing 32-bit CRC.
 /* This computes a 32 bit CRC of the data in the buffer, and returns the
 CRC.  The polynomial used is 0xedb88320. */
 
-unsigned int crc32_newer(const unsigned char *s, unsigned int len, unsigned int startVal);
+unsigned int crc32(const unsigned char *s, unsigned int len, unsigned int startVal = 0);
 
 #endif /* CRC32_H */

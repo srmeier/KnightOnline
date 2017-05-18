@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #include "GameDef.h"
 #include "GameEng.h"
@@ -48,8 +48,7 @@
 #include "KnightChrMgr.h"
 #include "GameCursor.h"
 
-#include "lzf.h"
-
+#include "Compression.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -91,7 +90,6 @@ SDL_Cursor*	CGameProcedure::s_hCursorAttack    = NULL;
 SDL_Cursor*	CGameProcedure::s_hCursorPreRepair = NULL;
 SDL_Cursor*	CGameProcedure::s_hCursorNowRepair = NULL;
 
-e_Version CGameProcedure::s_eVersion =	W95;
 e_LogInClassification CGameProcedure::s_eLogInClassification; // 접속한 서비스.. MGame, Daum, KnightOnLine ....
 std::string	CGameProcedure::s_szAccount = ""; // 계정 문자열..
 std::string	CGameProcedure::s_szPassWord = ""; // 계정 비번..
@@ -261,30 +259,6 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	s_pProcCharacterCreate	= new CGameProcCharacterCreate();	// 캐릭터 만들기
 	s_pProcMain				= new CGameProcMain();				// 메인 게임 프로시져
 	s_pProcOption			= new CGameProcOption();			// 게임 옵션 프로시져
-
-	//////////////////////////////////////////////////////////////////////////////////////////
-	// 버전 정보.. ^^
-	OSVERSIONINFO winfo;
-	winfo.dwOSVersionInfoSize=sizeof(OSVERSIONINFO);
-	GetVersionEx(&winfo);
-	if(winfo.dwPlatformId==VER_PLATFORM_WIN32_NT)
-	{
-		if(winfo.dwMajorVersion>=5)
-			s_eVersion=W2K;
-		else
-			s_eVersion=WNT4;
-	}
-	else
-	if(winfo.dwPlatformId==VER_PLATFORM_WIN32_WINDOWS)
-	{
-		if(winfo.dwMinorVersion<10)
-			s_eVersion=W95;
-		else
-		if(winfo.dwMinorVersion<90)
-		   s_eVersion=W98;
-		else
-		   s_eVersion=WME;				
-	}
 }
 
 void CGameProcedure::StaticMemberRelease()
@@ -811,19 +785,19 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
-		case N3_COMPRESSED_PACKET:
+		case WIZ_COMPRESS_PACKET:
 			this->MsgRecv_CompressedPacket(pDataPack, iOffset);
-		return true;
+			return true;
 
-		case N3_VERSION_CHECK: // 암호화도 같이 받는다..
+		case WIZ_VERSION_CHECK: // 암호화도 같이 받는다..
 			this->MsgRecv_VersionCheck(pDataPack, iOffset); // virtual
 			return true;
 
-		case N3_GAME_SERVER_LOGIN:
+		case WIZ_LOGIN:
 			this->MsgRecv_GameServerLogIn(pDataPack, iOffset);
 			return true;
 
-		case N3_SERVER_CHANGE:				// 서버 바꾸기 메시지..
+		case WIZ_SERVER_CHANGE:				// 서버 바꾸기 메시지..
 		{
 			// 다른 존 서버로 다시 접속한다.
 			int iLen = 0;
@@ -854,15 +828,9 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		}
 		return true;
 
-		case N3_CHARACTER_SELECT:
+		case WIZ_SEL_CHAR:
 		{
 			this->MsgRecv_CharacterSelect(pDataPack, iOffset); // virtual
-		}
-		return true;
-
-		case N3_ALIVE_CHECK:
-		{
-			this->MsgSend_AliveCheck();
 		}
 		return true;
 	}
@@ -874,7 +842,7 @@ void CGameProcedure::ReportServerConnectionFailed(const std::string& szServerNam
 {
 	char szErr[256];
 	std::string szFmt;
-	szFmt = "%s: Connection Error (%d)";//::_LoadStringFromResource(IDS_FMT_CONNECT_ERROR, szFmt);
+	::_LoadStringFromResource(IDS_FMT_CONNECT_ERROR, szFmt);
 	sprintf(szErr, szFmt.c_str(), szServerName.c_str(), iErrCode);
 	
 	e_Behavior eBehavior = ((bNeedQuitGame) ? BEHAVIOR_EXIT : BEHAVIOR_NOTHING);
@@ -887,7 +855,7 @@ void CGameProcedure::ReportServerConnectionClosed(bool bNeedQuitGame)
 	if(!s_bNeedReportConnectionClosed) return;
 
 	std::string szMsg;
-	szMsg = "Disconnected from server";//::_LoadStringFromResource(IDS_CONNECTION_CLOSED, szMsg);
+	::_LoadStringFromResource(IDS_CONNECTION_CLOSED, szMsg);
 	e_Behavior eBehavior = ((bNeedQuitGame) ? BEHAVIOR_EXIT : BEHAVIOR_NOTHING);
 	CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, eBehavior);
 
@@ -917,7 +885,7 @@ void CGameProcedure::ReportDebugStringAndSendToServer(const std::string& szDebug
 		std::vector<BYTE> buffer;	// 버퍼.. 
 		buffer.assign(iLen + 4, 0x00);
 		int iOffset=0;												// 옵셋..
-		s_pSocket->MP_AddByte(&(buffer[0]), iOffset, N3_REPORT_DEBUG_STRING);
+		s_pSocket->MP_AddByte(&(buffer[0]), iOffset, WIZ_DEBUG_STRING_PACKET);
 		s_pSocket->MP_AddShort(&(buffer[0]), iOffset, iLen);
 		s_pSocket->MP_AddString(&(buffer[0]), iOffset, szDebug);
 		s_pSocket->Send(&(buffer[0]), iOffset);				// 보냄..
@@ -929,10 +897,10 @@ void CGameProcedure::MsgSend_GameServerLogIn()
 	BYTE byBuff[128];										// 패킷 버퍼..
 	int iOffset = 0;										// 버퍼의 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_GAME_SERVER_LOGIN);	// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());	// 아이디 길이..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_LOGIN);	// 커멘드.
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());	// 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);			// 실제 아이디..
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szPassWord.size());	// 패스워드 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szPassWord.size());	// 패스워드 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szPassWord);		// 실제 패스워드
 		
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
@@ -943,7 +911,7 @@ void CGameProcedure::MsgSend_VersionCheck() // virtual
 	// Version Check
 	int iOffset = 0;
 	BYTE byBuffs[4];
-	CAPISocket::MP_AddByte(byBuffs, iOffset, N3_VERSION_CHECK);				// 커멘드.
+	CAPISocket::MP_AddByte(byBuffs, iOffset, WIZ_VERSION_CHECK);				// 커멘드.
 	s_pSocket->Send(byBuffs, iOffset);	// 보낸다
 
 #ifdef _CRYPTION
@@ -955,10 +923,10 @@ void CGameProcedure::MsgSend_CharacterSelect() // virtual
 {
 	BYTE byBuff[64];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CHARACTER_SELECT);				// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());				// 계정 길이..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_CHAR);				// 커멘드.
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());				// 계정 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);						// 계정 문자열..
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// 캐릭 아이디 문자열..
 	CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneInit);	// 처음 접속인지 아닌지 0x01:처음 접속
 	CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneCur);		// 캐릭터 선택창에서의 캐릭터 존 번호
@@ -968,65 +936,22 @@ void CGameProcedure::MsgSend_CharacterSelect() // virtual
 		s_pPlayer->IDString().c_str(), s_pPlayer->m_InfoExt.iZoneCur); // 디버깅 로그..
 }
 
-void CGameProcedure::MsgSend_AliveCheck()
-{
-	BYTE byBuff[4];
-	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ALIVE_CHECK);				// 커멘드.
-	s_pSocket->Send(byBuff, iOffset);	// 보낸다
-}
-
 void CGameProcedure::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 {
-	/*
-	short sCompLen, sOrgLen;
-	DWORD dwCrcValue;
-	sCompLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 압축된 데이타길이얻기... (Obtain compressed data length)
-	sOrgLen =		CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// 원래데이타길이얻기... (Getting the original data length)
-	dwCrcValue =	CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);	// CRC값 얻기... (Getting CRC value)
-
-	// TEMP: just to easily get the packet from the watch window
-	//char temp[0x0023];
-	//memcpy(temp, (char*)(pDataPack->m_pData+iOffset), sCompLen);
-
-	/// 압축 데이터 얻기 및 해제 (Obtaining and decompress data)
-	CCompressMng Compressor;
-	Compressor.PreUncompressWork((char*)(pDataPack->m_pData+iOffset), sCompLen, sOrgLen);	// 압축 풀기... (Extracting)
-	iOffset += sCompLen;
-
-	if (Compressor.Extract() == false ||
-	Compressor.m_nErrorOccurred != 0 ||
-	dwCrcValue != Compressor.m_dwCrc )
-	{
-	return;
-	}
-
-	// 압축 풀린 데이타 읽기 (Read loose data compression)
-	BYTE* pDecodeBuf = (BYTE*)(Compressor.m_pOutputBuffer);
-	*/
-
 	Uint16 compressedLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
 	Uint16 originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
 	Uint32 crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 
-	BYTE* pDecodeBuf = new BYTE[originalLength];
-
-	Uint32 result = lzf_decompress((char*)(pDataPack->m_pData + iOffset), compressedLength, pDecodeBuf, originalLength);
-	if (result
-		!= originalLength)
-	{
-		delete[] pDecodeBuf;
+	uint8 * decompressedBuffer = Compression::DecompressWithCRC32(pDataPack->m_pData + iOffset, compressedLength, originalLength, crc);
+	if (decompressedBuffer == NULL)
 		return;
-	}
 
-	// 임시로 데이터 팩 만들고.. (Create temporary data pack)
 	DataPack DataPackTemp;
 	DataPackTemp.m_Size = originalLength;
-	DataPackTemp.m_pData = pDecodeBuf;
+	DataPackTemp.m_pData = decompressedBuffer;
 	int iOffset2 = 0;
-	this->ProcessPacket(&DataPackTemp, iOffset2); // 바로 파싱... (Just parsing)
-	DataPackTemp.m_Size = 0;
-	DataPackTemp.m_pData = NULL;
+	this->ProcessPacket(&DataPackTemp, iOffset2);
+	delete[] decompressedBuffer;
 }
 
 int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // virtual
@@ -1046,13 +971,13 @@ int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // v
 		if(0x0404 == iLangID)// Taiwan Language
 		{
 			std::string szFmt;
-			szFmt = "Wrong Version";//::_LoadStringFromResource(IDS_VERSION_CONFIRM_TW, szFmt);
+			::_LoadStringFromResource(IDS_VERSION_CONFIRM_TW, szFmt);
 			CGameProcedure::MessageBoxPost(szFmt, "", MB_OK, BEHAVIOR_EXIT);
 		}
 		else
 		{
 			std::string szFmt;
-			szFmt = "Version Mismatch (%.3f - %.3f)";// ::_LoadStringFromResource(IDS_VERSION_CONFIRM, szFmt);
+			::_LoadStringFromResource(IDS_VERSION_CONFIRM, szFmt);
 			sprintf(szErr, szFmt.c_str(), CURRENT_VERSION / 1000.0f, iVersion / 1000.0f);
 			CGameProcedure::MessageBoxPost(szErr, "", MB_OK, BEHAVIOR_EXIT);
 		}

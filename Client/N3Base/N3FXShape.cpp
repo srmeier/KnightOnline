@@ -73,23 +73,23 @@ void CN3FXSPart::TexAlloc(int nCount)
 	m_TexRefs.assign(nCount, NULL);
 }
 
-CN3Texture* CN3FXSPart::Tex(int iIndex)
+CN3Texture* CN3FXSPart::Tex(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_TexRefs.size()) return NULL;
+	if (iIndex >= m_TexRefs.size()) return NULL;
 	return m_TexRefs[iIndex];
 }
 
-CN3Texture* CN3FXSPart::TexSet(int iIndex, const std::string& szFN)
+CN3Texture* CN3FXSPart::TexSet(size_t iIndex, const std::string& szFN)
 {
-	if(iIndex < 0 || iIndex >= m_TexRefs.size()) return NULL;
+	if (iIndex >= m_TexRefs.size()) return NULL;
 	s_MngTex.Delete(&m_TexRefs[iIndex]);
 	m_TexRefs[iIndex] = s_MngTex.Get(szFN);
 	return m_TexRefs[iIndex];
 }
 
-void CN3FXSPart::TexSet(int iIndex, CN3Texture* pTex)
+void CN3FXSPart::TexSet(size_t iIndex, CN3Texture* pTex)
 {
-	if(iIndex < 0 || iIndex >= m_TexRefs.size()) return;
+	if (iIndex >= m_TexRefs.size()) return;
 	s_MngTex.Delete(&m_TexRefs[iIndex]);
 }
 
@@ -419,12 +419,14 @@ bool CN3FXShape::Save(HANDLE hFile)
 	return true;
 }
 
-void CN3FXShape::PartDelete(int iIndex)
+void CN3FXShape::PartDelete(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_Parts.size()) return;
-	std::vector<CN3FXSPart*>::iterator it = m_Parts.begin();
+	if (iIndex >= m_Parts.size())
+		return;
 
-	for(int i = 0; i < iIndex; i++, it++);
+	auto it = m_Parts.begin();
+	std::advance(it, iIndex);
+
 	delete *it;
 	m_Parts.erase(it);
 }

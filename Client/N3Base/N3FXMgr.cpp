@@ -353,7 +353,7 @@ void CN3FXMgr::Tick()
 						
 						BYTE byBuff[32];
 						int iOffset=0;
-						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
 						CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 						CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -370,7 +370,7 @@ void CN3FXMgr::Tick()
 						CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..	
 
 						iOffset=0;
-						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FAIL);
 						CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 						CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -408,7 +408,7 @@ void CN3FXMgr::Tick()
 						
 						BYTE byBuff[32];
 						int iOffset=0;
-						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
 						CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 						CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -425,7 +425,7 @@ void CN3FXMgr::Tick()
 						CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..	
 
 						iOffset=0;
-						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FAIL);
 						CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 						CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -478,7 +478,7 @@ void CN3FXMgr::Tick()
 								
 								BYTE byBuff[32];
 								int iOffset=0;
-								CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+								CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 								CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
 								CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 								CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -495,7 +495,7 @@ void CN3FXMgr::Tick()
 								CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
 								
 								iOffset=0;
-								CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+								CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 								CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FAIL);
 								CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 								CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -526,7 +526,7 @@ void CN3FXMgr::Tick()
 							
 							BYTE byBuff[32];
 							int iOffset=0;
-							CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+							CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 							CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
 							CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 							CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -543,7 +543,7 @@ void CN3FXMgr::Tick()
 							CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
 							
 							iOffset=0;
-							CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+							CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 							CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FAIL);
 							CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 							CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -577,7 +577,7 @@ void CN3FXMgr::Tick()
 					BYTE byBuff[32];
 					int iOffset=0;
 
-					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
 					CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 					CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -594,7 +594,7 @@ void CN3FXMgr::Tick()
 					CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
 
 					iOffset=0;
-					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FAIL);
 					CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 					CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -624,7 +624,7 @@ void CN3FXMgr::Tick()
 					BYTE byBuff[32];
 					int iOffset=0;
 
-					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
 					CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 					CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);
@@ -641,7 +641,7 @@ void CN3FXMgr::Tick()
 					CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
 
 					iOffset=0;
-					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FAIL);
 					CAPISocket::MP_AddDword(byBuff, iOffset, iMagicID);
 					CAPISocket::MP_AddShort(byBuff, iOffset, (short)pBundle->m_iSourceID);

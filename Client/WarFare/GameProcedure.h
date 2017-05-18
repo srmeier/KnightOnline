@@ -9,7 +9,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-enum e_Version { W95 = 1, W98, WME, WNT4, W2K };
 enum e_LogInClassification { LIC_KNIGHTONLINE = 0, LIC_MGAME = 1, LIC_DAUM = 2 };
 
 #include "GameDef.h"
@@ -91,7 +90,6 @@ public:
 	static SDL_Cursor* s_hCursorPreRepair;
 	static SDL_Cursor* s_hCursorNowRepair;
 
-	static e_Version				s_eVersion;
 	static e_LogInClassification	s_eLogInClassification; // 접속한 서비스.. MGame, Daum, KnightOnLine ....
 	static std::string				s_szAccount; // 계정 문자열..
 	static std::string				s_szPassWord; // 계정 비번..
@@ -129,7 +127,6 @@ public:
 	static void		MsgSend_GameServerLogIn();
 	void			MsgSend_VersionCheck();
 	virtual void	MsgSend_CharacterSelect();
-	void			MsgSend_AliveCheck();
 	void			MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset);
 
 

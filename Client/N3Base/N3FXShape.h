@@ -40,11 +40,11 @@ public:
 	bool Save(HANDLE hFile);
 	void Duplicate(CN3FXSPart* pSrc);
 		
-	int			TexCount() { return m_TexRefs.size(); }
-	CN3Texture* Tex(int iIndex);	
-	void		TexAlloc(int m_nCount);
-	CN3Texture*	TexSet(int iIndex, const std::string& szFN);
-	void		TexSet(int iIndex, CN3Texture* pTex);
+	size_t			TexCount() { return m_TexRefs.size(); }
+	CN3Texture* Tex(size_t iIndex);	
+	void		TexAlloc(int nCount);
+	CN3Texture*	TexSet(size_t iIndex, const std::string& szFN);
+	void		TexSet(size_t iIndex, CN3Texture* pTex);
 
 	__Vector3 Min() { if(m_FXPMInst.GetMesh()) return m_FXPMInst.GetMesh()->Min() * m_WorldMtx; else return __Vector3(0,0,0); } // 월드 상의 최소값
 	__Vector3 Max() { if(m_FXPMInst.GetMesh()) return m_FXPMInst.GetMesh()->Max() * m_WorldMtx; else return __Vector3(0,0,0); } // 월드 상의 최대값
@@ -95,10 +95,10 @@ public:
 
 	void			FindMinMax();
 
-	CN3FXSPart*		Part(int iIndex) { if(iIndex < 0 || iIndex >= m_Parts.size()) return NULL; return m_Parts[iIndex]; }
+	CN3FXSPart*		Part(size_t iIndex) { if (iIndex >= m_Parts.size()) return NULL; return m_Parts[iIndex]; }
 	CN3FXSPart*		PartAdd() { CN3FXSPart* pPart = new CN3FXSPart(); m_Parts.push_back(pPart); return pPart; }
-	int				PartCount() { return m_Parts.size(); }
-	void			PartDelete(int iIndex);
+	size_t			PartCount() { return m_Parts.size(); }
+	void			PartDelete(size_t iIndex);
 	
 	bool	Load(HANDLE hFile);
 	bool	Save(HANDLE hFile);

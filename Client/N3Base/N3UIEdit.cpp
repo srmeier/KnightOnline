@@ -555,7 +555,7 @@ void CN3UIEdit::SetCaretPos(UINT nPos)
 	s_Caret.SetPos(m_pBuffOutRef->m_ptDrawPos.x + size.cx, m_pBuffOutRef->m_ptDrawPos.y);
 }
 
-void CN3UIEdit::SetMaxString(int iMax)		// 최대 글씨 수를 정해준다
+void CN3UIEdit::SetMaxString(size_t iMax)		// 최대 글씨 수를 정해준다
 {
 	if (iMax <= 0) {__ASSERT(0, "최대 글씨 수를 0보다 크게 정해주세요"); return;}
 	m_iMaxStrLen = iMax;
@@ -658,7 +658,7 @@ void CN3UIEdit::SetString(const std::string& szString)
 	}
 
 	const std::string& szTempStr = m_pBuffOutRef->GetString();
-	int iStrLen = szTempStr.size();
+	size_t iStrLen = szTempStr.size();
 	if (m_nCaretPos > iStrLen) SetCaretPos(iStrLen);
 }
 

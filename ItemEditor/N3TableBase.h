@@ -35,27 +35,32 @@ public:
 		if(it == m_Datas.end()) return NULL; // Ã£±â¿¡ ½ÇÆÐ Çß´Ù!~!!
 		else return &(it->second);
 	}
-	int		GetSize() { return m_Datas.size(); }
-	Type*	GetIndexedData(int index)	//index·Î Ã£±â..
+	size_t	GetSize() { return m_Datas.size(); }
+	Type*	GetIndexedData(size_t index)	//index·Î Ã£±â..
 	{
-		if(index < 0 || m_Datas.empty()) return NULL;
-		if(index >= m_Datas.size()) return NULL;
+		if (index >= m_Datas.size()) return NULL;
 		
-		it_Table it = m_Datas.begin();
-		for(int i = 0; i < index; i++, it++);
+		auto it = m_Datas.begin();
+		std::advance(it, index);
 		return &(it->second);
 	}
-	int		IDToIndex(unsigned int dwID) // ÇØ´ç IDÀÇ Index ¸®ÅÏ..	Skill¿¡¼­ ¾´´Ù..
+	bool IDToIndex(unsigned int dwID, size_t * index) // ÇØ´ç IDÀÇ Index ¸®ÅÏ..	Skill¿¡¼­ ¾´´Ù..
 	{
-		it_Table it = m_Datas.find(dwID);
-		if(it == m_Datas.end()) return -1; // Ã£±â¿¡ ½ÇÆÐ Çß´Ù!~!!
+		auto it = m_Datas.find(dwID);
+		if (it == m_Datas.end())
+			return false; // Ã£±â¿¡ ½ÇÆÐ Çß´Ù!~!!
 
-		it_Table itSkill = m_Datas.begin();
-		int iSize = m_Datas.size();
-		for(int i = 0; i < iSize; i++, itSkill++)
-			if (itSkill == it)	return i;
-
-		return -1;
+		auto itSkill = m_Datas.begin();
+		size_t iSize = m_Datas.size();
+		for (size_t i = 0; i < iSize; i++, itSkill++)
+		{
+			if (itSkill == it)
+			{
+				*index = i;
+				return true;
+			}
+		}
+		return false;
 	}
 	BOOL	LoadFromFile(const std::string& szFN);
 protected:

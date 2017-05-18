@@ -417,15 +417,16 @@ int CN3Scene::ShapeAdd(CN3Shape *pShape)
 	return m_Shapes.size();
 }
 
-void CN3Scene::ShapeDelete(int iIndex)
+void CN3Scene::ShapeDelete(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_Shapes.size()) return;
+	if (iIndex >= m_Shapes.size())
+		return;
 
-	it_Shape it = m_Shapes.begin(), itEnd = m_Shapes.end();
-	for(int i = 0; i < iIndex; i++, it++);
-	CN3Shape* pShape = *it;
-	delete pShape;
-	it = m_Shapes.erase(it);
+	auto it = m_Shapes.begin();
+	std::advance(it, iIndex);
+
+	delete *it;
+	m_Shapes.erase(it);
 }
 
 void CN3Scene::ShapeDelete(CN3Shape* pShape)
@@ -445,11 +446,9 @@ void CN3Scene::ShapeDelete(CN3Shape* pShape)
 
 void CN3Scene::ShapeRelease()
 {
-	int iSC = m_Shapes.size();
-	for(int i = 0; i < iSC; i++)
-	{
-		delete m_Shapes[i];
-	}
+	for (auto itr = m_Shapes.begin(); itr != m_Shapes.end(); ++itr)
+		delete *itr;
+
 	m_Shapes.clear();
 }
 
@@ -461,14 +460,15 @@ int CN3Scene::ChrAdd(CN3Chr *pChr)
 	return m_Chrs.size();
 }
 
-void CN3Scene::ChrDelete(int iIndex)
+void CN3Scene::ChrDelete(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_Chrs.size()) return;
+	if (iIndex >= m_Chrs.size())
+		return;
 
-	it_Chr it = m_Chrs.begin(), itEnd = m_Chrs.end();
-	for(; it != itEnd; it++);
+	auto it = m_Chrs.begin();
+	std::advance(it, iIndex);
 
-	CN3Chr* pChr = *it; delete pChr;
+	delete *it;
 	m_Chrs.erase(it);
 }
 

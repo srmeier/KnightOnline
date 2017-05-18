@@ -133,7 +133,7 @@ void CUIQuestMenu::MsgSend_SelectMenu(Uint8 index)
 	BYTE byBuff[10];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_QUEST_SELECT);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SELECT_MSG);
 	CAPISocket::MP_AddByte(byBuff, iOffset, index);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
@@ -186,8 +186,8 @@ void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
 
 	SetVisible(true);
 
-	int iTW, iTH, iIW, iIH;
-	RECT rcImage, rcText, rcTemp;
+	int iIH;
+	RECT rcImage, rcText;
 
 	rcImage = m_pImageMenu->GetRegion();
 	iIH = rcImage.bottom - rcImage.top;

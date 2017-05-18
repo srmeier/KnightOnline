@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UIInn.h"
 #include "UICreateClanName.h"
 
@@ -89,7 +89,7 @@ bool CUIInn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 void CUIInn::Message(int iMessageID)
 {
 	std::string szMsg;
-	szMsg = "CUIInn::Message(int iMessageID)";//::_LoadStringFromResource(iMessageID, szMsg);
+	::_LoadStringFromResource(iMessageID, szMsg);
 
 	if(iMessageID == /*IDS_CLAN_DENY_LOWGOLD*/6501)
 	{
@@ -106,7 +106,7 @@ void CUIInn::MsgSend_OpenWareHouse()
 	BYTE byBuff[2];		// 패킷 버퍼..
 	int iOffset=0;		// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WAREHOUSE);		
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_OPEN);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
