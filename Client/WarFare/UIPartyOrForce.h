@@ -25,7 +25,7 @@ protected:
 	class CN3UIArea*		m_pAreas[MAX_PARTY_OR_FORCE];		// 부대원갯수 만큼... 이름들..
 
 	std::list<__InfoPartyOrForce>	m_Members; // 파티 멤버
-	int			m_iIndexSelected; // 현재 선택된 멤버인덱스..
+	size_t		m_iIndexSelected; // 현재 선택된 멤버인덱스..
 
 public:
 	int			m_iPartyOrForce; // 파티냐? 부대냐?? 1 이면 파티 2 이면 부대..
@@ -39,17 +39,17 @@ public:
 	void		MemberStatusChange(int iID, e_PartyStatus ePS, bool bSuffer);
 
 	void		MemberInfoReInit(); // 파티원 구성이 변경될때.. 순서 및 각종 정보 업데이트..
-	bool		TargetByIndex(int iIndex); // 순서대로 타겟 잡기..
+	bool		TargetByIndex(size_t iIndex); // 순서대로 타겟 잡기..
 
 	const __InfoPartyOrForce*	MemberInfoGetByID(int iID, int& iIndexResult);
-	const __InfoPartyOrForce*	MemberInfoGetByIndex(int iIndex);
+	const __InfoPartyOrForce*	MemberInfoGetByIndex(size_t iIndex);
 	const __InfoPartyOrForce*	MemberInfoGetSelected(); // 현재 선택된 멤버인덱스..
 	const __InfoPartyOrForce*	MemberAdd(int iID, const std::string szID, int iLevel, e_Class eClass, int iHP, int iHPMax);
 	class CPlayerOther*			MemberGetByNearst(const __Vector3& vPosPlayer);
 	bool						MemberRemove(int iID);
 	void						MemberDestroy();
-	int							MemberCount() { return m_Members.size(); }
-	void						MemberSelect(int iMemberIndex) { if(iMemberIndex < 0 || iMemberIndex > m_Members.size()) return; m_iIndexSelected = iMemberIndex; }
+	size_t						MemberCount() { return m_Members.size(); }
+	void						MemberSelect(size_t iMemberIndex) { if (iMemberIndex > m_Members.size()) return; m_iIndexSelected = iMemberIndex; }
 
 	bool Load(HANDLE hFile);
 	bool ReceiveMessage(class CN3UIBase* pSender, DWORD dwMsg);

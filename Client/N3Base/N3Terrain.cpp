@@ -704,13 +704,13 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 	if(pUILoading) pUILoading->Render("Loading Terrain Tile Data...", 0);
 
 	DWORD dwRWC;
-	ReadFile(hFile, &m_NumTileTex, sizeof(int), &dwRWC, NULL);
+	ReadFile(hFile, &m_NumTileTex, sizeof(uint32), &dwRWC, NULL);
 	if(m_NumTileTex==0) return;
 
 	m_pTileTex = new CN3Texture [m_NumTileTex];
 
 	// NOTE: kinda a temp thing...
-	for(int i=0; i<m_NumTileTex; ++i) {
+	for(uint32 i=0; i<m_NumTileTex; ++i) {
 		m_pTileTex[i].m_iFileFormatVersion = m_iFileFormatVersion;
 	}
 
@@ -728,7 +728,7 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 	short SrcIdx, TileIdx;
 	HANDLE hTTGFile;
 	char szLoadingBuff[128];
-	for(int i=0;i<m_NumTileTex;i++)
+	for(uint32 i=0;i<m_NumTileTex;i++)
 	{
 		ReadFile(hFile, &SrcIdx, sizeof(short), &dwRWC, NULL);
 		ReadFile(hFile, &TileIdx, sizeof(short), &dwRWC, NULL);
@@ -2210,7 +2210,7 @@ bool CN3Terrain::GetTileTexInfo(float x, float z, TERRAINTILETEXINFO& TexInfo1, 
 	MAPDATA MapData = m_pMapData[(tx*m_ti_MapSize) + tz];
 
 
-	if(MapData.Tex1Idx < 0 || MapData.Tex1Idx >= m_NumTileTex)
+	if (MapData.Tex1Idx >= m_NumTileTex)
 	{
 		TexInfo1.pTex = NULL;
 		TexInfo1.u = TexInfo1.v = 0.0f;
@@ -2241,7 +2241,7 @@ bool CN3Terrain::GetTileTexInfo(float x, float z, TERRAINTILETEXINFO& TexInfo1, 
 
 	}
 
-	if(MapData.Tex2Idx < 0 || MapData.Tex2Idx >= m_NumTileTex)
+	if (MapData.Tex2Idx >= m_NumTileTex)
 	{
 		TexInfo2.pTex = NULL;
 		TexInfo2.u = TexInfo2.v = 0.0f;

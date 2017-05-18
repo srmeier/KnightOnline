@@ -75,7 +75,7 @@ public:
 	void			PartialRender(int iCount, WORD* pIndices);
 #endif
 	int				 GetIndexByiOrder(int iOrder);
-__Vector3		GetVertexByIndex(int iIndex); 
+__Vector3		GetVertexByIndex(size_t iIndex);
 //	~(By Ecli666 On 2002-08-06 ¿ÀÈÄ 4:33:04 )
 };
 

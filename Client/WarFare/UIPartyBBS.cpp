@@ -95,7 +95,7 @@ bool CUIPartyBBS::SelectedString(CN3UIBase* pSender, int& iID)
 		if(pSender == m_pText[i])
 		{
 			iIndex = i % PARTY_BBS_MAXLINE;
-			if( iIndex >= m_Datas.size() )
+			if (iIndex >= (int)m_Datas.size())
 				return false;
 
 			iID = iIndex;

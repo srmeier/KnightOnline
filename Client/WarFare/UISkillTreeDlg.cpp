@@ -1050,11 +1050,11 @@ void CUISkillTreeDlg::InitIconWnd(e_UIWND eWnd)
 
 void CUISkillTreeDlg::InitIconUpdate()
 {
-	int i, j, k, iDivide;
+	int j, k, iDivide;
 	__TABLE_UPC_SKILL* pUSkill = NULL;
 
 	// 기존 아이콘 모두 클리어..
-	for( i = 0; i < MAX_SKILL_KIND_OF; i++ )
+	for(int i = 0; i < MAX_SKILL_KIND_OF; i++ )
 		for( j = 0; j < MAX_SKILL_PAGE_NUM; j++ )
 			for( k = 0; k < MAX_SKILL_IN_PAGE; k++ )
 				if ( m_pMySkillTree[i][j][k] != NULL )
@@ -1075,12 +1075,11 @@ void CUISkillTreeDlg::InitIconUpdate()
 
 
 	// 아이디 = 직업 코드*1000 + 001부터.. (직업 코드+1)*100 + 001까지..
-	int iSkillIDFirst, iSkillIndexFirst, iSkillIndexLast, iModulo;
+	size_t iSkillIDFirst, iSkillIndexFirst, iSkillIndexLast, iModulo;
 	iSkillIDFirst = CGameBase::s_pPlayer->m_InfoBase.eClass*1000+1;
-	iSkillIndexFirst = CGameBase::s_pTbl_Skill->IDToIndex(iSkillIDFirst);
 	iSkillIndexLast = CGameBase::s_pTbl_Skill->GetSize();
 
-	if ( iSkillIndexFirst == -1 ) 
+	if (!CGameBase::s_pTbl_Skill->IDToIndex(iSkillIDFirst, &iSkillIndexFirst))
 	{
 		PageButtonInitialize();
 		return;		// 첫번째 스킬이 없으면.. 안된다..
@@ -1088,7 +1087,7 @@ void CUISkillTreeDlg::InitIconUpdate()
 
 	if ( CGameBase::s_pPlayer->m_InfoBase.eClass != CLASS_EL_DRUID )
 	{
-		for( i = iSkillIndexFirst; i < CGameBase::s_pTbl_Skill->GetSize(); i++ )
+		for(size_t i = iSkillIndexFirst; i < CGameBase::s_pTbl_Skill->GetSize(); i++ )
 		{
 			pUSkill = CGameBase::s_pTbl_Skill->GetIndexedData(i);
 			iDivide = pUSkill->dwID / 1000;
@@ -1100,7 +1099,7 @@ void CUISkillTreeDlg::InitIconUpdate()
 		}
 	}
 
-	for( i = iSkillIndexFirst; i < iSkillIndexLast; i++ )
+	for(size_t i = iSkillIndexFirst; i < iSkillIndexLast; i++ )
 	{
 		__TABLE_UPC_SKILL* pUSkill = CGameBase::s_pTbl_Skill->GetIndexedData(i);
 		if ( pUSkill == NULL ) continue;

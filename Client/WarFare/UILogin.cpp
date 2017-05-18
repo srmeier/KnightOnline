@@ -221,10 +221,11 @@ bool CUILogIn::ServerInfoAdd(const __GameServerInfo& GSI)
 	return true;
 }
 
-bool CUILogIn::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
+bool CUILogIn::ServerInfoGet(size_t iIndex, __GameServerInfo& GSI)
 {
-	if(NULL == m_pList_Server) return false;
-	if(iIndex < 0 || iIndex >= m_ListServerInfos.size()) return false;
+	if (NULL == m_pList_Server
+		|| iIndex >= m_ListServerInfos.size())
+		return false;
 
 	GSI = m_ListServerInfos[iIndex];
 	return true;

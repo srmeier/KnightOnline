@@ -186,8 +186,8 @@ void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
 
 	SetVisible(true);
 
-	int iTW, iTH, iIW, iIH;
-	RECT rcImage, rcText, rcTemp;
+	int iIH;
+	RECT rcImage, rcText;
 
 	rcImage = m_pImageMenu->GetRegion();
 	iIH = rcImage.bottom - rcImage.top;

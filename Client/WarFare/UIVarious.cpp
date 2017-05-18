@@ -783,8 +783,8 @@ void CUIKnights::RefreshList()
 
 	it_KMI it = m_MemberList.begin();
 
-	int i = 10;
-	int e = m_iPageCur * 10;
+	size_t i = 10;
+	size_t e = m_iPageCur * 10;
 
 	for (; i < e; i++)
 	{
@@ -792,7 +792,6 @@ void CUIKnights::RefreshList()
 		it++;
 	}
 
-	char szBuff[80];
 	for (i = 0; i < 10; i++)
 	{
 		if (it == m_MemberList.end()) break;
@@ -1114,7 +1113,7 @@ bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	{
 		if(pSender == m_pBtn_PrevPage || pSender == m_pBtn_NextPage)
 		{
-			int iPagePrev = m_iPageCur;
+			size_t iPagePrev = m_iPageCur;
 
 			if(pSender == m_pBtn_PrevPage) m_iPageCur--;
 			else m_iPageCur++;
@@ -1122,7 +1121,7 @@ bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			if(m_iPageCur < 0) m_iPageCur = 0;
 			else
 			{
-				int iLinePerPage = 0;
+				size_t iLinePerPage = 0;
 				if(m_pList_Friends)
 				{
 //					RECT rc = m_pList_Friends->GetRegion();
@@ -1131,7 +1130,7 @@ bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 					iLinePerPage = 10;
 				}
 
-				int iPageMax = 0;
+				size_t iPageMax = 0;
 				if(iLinePerPage > 0) iPageMax = (m_MapFriends.size() / iLinePerPage) + 1;
 				
 				if(m_iPageCur >= iPageMax) m_iPageCur = iPageMax - 1;
@@ -1236,21 +1235,21 @@ void CUIFriends::UpdateList()
 //	RECT rc = m_pList_Friends->GetRegion();
 //	DWORD dwH = m_pList_Friends->FontHeight();
 //	int iLinePerPage = (rc.bottom - rc.top) / dwH;
-	int iLinePerPage = 10;
+	size_t iLinePerPage = 10;
 //	if(iLinePerPage <= 0) return;
 
-	int iPageMax = m_MapFriends.size() / iLinePerPage;
+	size_t iPageMax = m_MapFriends.size() / iLinePerPage;
 	if(m_iPageCur > iPageMax) return;
 
-	int iSkip = m_iPageCur * iLinePerPage;
+	size_t iSkip = m_iPageCur * iLinePerPage;
 	if(iSkip >= m_MapFriends.size()) return;
 
 	if(m_pText_Page) m_pText_Page->SetStringAsInt(m_iPageCur+1); // 페이지 표시..
 
-	it_FI it = m_MapFriends.begin(), itEnd = m_MapFriends.end();
-	for(int i = 0; i < iSkip; i++, it++);
+	auto it = m_MapFriends.begin();
+	std::advance(it, iSkip);
 
-	for(int i = 0; i < iLinePerPage && it != itEnd; i++, it++)
+	for (size_t i = 0; i < iLinePerPage && it != m_MapFriends.end(); i++, it++)
 	{
 		__FriendsInfo& FI = it->second;
 		int iIndex = m_pList_Friends->AddString(FI.szName);
@@ -1292,7 +1291,7 @@ void CUIFriends::MsgSend_MemberInfo(bool bDisableInterval)
 	{
 		std::string szID;
 		m_pList_Friends->GetString(i, szID);
-		CAPISocket::MP_AddShort(&(buffers[0]), iOffset, szID.size());
+		CAPISocket::MP_AddShort(&(buffers[0]), iOffset, (short)szID.size());
 		CAPISocket::MP_AddString(&(buffers[0]), iOffset, szID);
 	}
 
@@ -1310,7 +1309,7 @@ void CUIFriends::MsgSend_MemberInfo(const std::string& szID)
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_FRIEND_PROCESS); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
 	CAPISocket::MP_AddShort(byBuff, iOffset, iFC);
 
-	CAPISocket::MP_AddShort(byBuff, iOffset, szID.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szID.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szID);
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -1346,9 +1345,10 @@ void CUIFriends::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
 
 bool CUIQuest::Load(HANDLE hFile)
 {
-	if (false == CN3UIBase::Load(hFile)) return false;
+	if (!CN3UIBase::Load(hFile))
+		return false;
 
-
+	return true;
 }
 
 CUIQuest::CUIQuest()

@@ -2455,10 +2455,10 @@ bool CGameProcMain::MsgRecv_UserIn(DataPack* pDataPack, int& iOffset, bool bWith
 	BYTE byAuthority = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 권한...
 
 	// NOTE(srmeier): adding is party leader, invisibilitytype, direction, chicken, rank, knight rank, personal rank
-	bool bPartyLeader = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	bool bPartyLeader = CAPISocket::Parse_GetBool(pDataPack->m_pData, iOffset);
 	BYTE bInvisibilityType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	short sDirection = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	bool bIsChicken = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	bool bIsChicken = CAPISocket::Parse_GetBool(pDataPack->m_pData, iOffset);
 	BYTE bRank = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	BYTE m_bKnightsRank = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	BYTE m_bPersonalRank = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
@@ -3525,23 +3525,24 @@ void CGameProcMain::MsgRecv_MyInfo_MSP(DataPack* pDataPack, int& iOffset)
 void CGameProcMain::MsgRecv_MyInfo_EXP(DataPack* pDataPack, int& iOffset)
 {
 	Uint64 iExp = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	Uint64 iExpChange = iExp - s_pPlayer->m_InfoExt.iExp;
+	Uint64 iOldExp = s_pPlayer->m_InfoExt.iExp;
+
 	s_pPlayer->m_InfoExt.iExp = iExp;
 	m_pUIVar->m_pPageState->UpdateExp(iExp, s_pPlayer->m_InfoExt.iExpNext);
 	m_pUIStateBarAndMiniMap->UpdateExp(iExp, s_pPlayer->m_InfoExt.iExpNext, false);
 
-	if(s_pPlayer->m_InfoExt.iLevelPrev == s_pPlayer->m_InfoBase.iLevel && iExpChange != 0)
+	if(s_pPlayer->m_InfoExt.iLevelPrev == s_pPlayer->m_InfoBase.iLevel && iExp != iOldExp)
 	{
 		char szBuf[256] = "";
-		if(iExpChange > 0)
+		if (iExp > iOldExp)
 		{
 			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
-			sprintf(szBuf, szFmt.c_str(), iExpChange);
+			sprintf(szBuf, szFmt.c_str(), iExp - iOldExp);
 		}
-		else if(iExpChange < 0)
+		else if (iExp < iOldExp)
 		{
 			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_LOST, szFmt);
-			sprintf(szBuf, szFmt.c_str(), -iExpChange);
+			sprintf(szBuf, szFmt.c_str(), iOldExp - iExp);
 		}
 		MsgOutput(szBuf, 0xffffff00);
 	}
@@ -3565,28 +3566,8 @@ bool CGameProcMain::MsgRecv_MyInfo_LevelChange(DataPack* pDataPack, int& iOffset
 		BYTE	bExtraSkillPoint		= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 토탈 포인트
 		//TRACE("Skill change Extra value %d\n", bExtraSkillPoint);
 
-		int iExpNext	= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
-		int iExp		= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
-
-		// 새로 얻은 경험치를 계산해준다..
-		int iExpChange = 0;
-		if(iLevel > iLevelPrev)
-			iExpChange = (pInfoExt->iExpNext - pInfoExt->iExp) + iExp; // 레벨업 한경우..
-		else
-			iExpChange = -(pInfoExt->iExp + iExpNext - iExp); // 레벨다운 한경우..
-		char szBuf[256] = "";
-		if(iExpChange > 0)
-		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_GET, szFmt);
-			sprintf(szBuf, szFmt.c_str(), iExpChange);
-		}
-		else if(iExpChange < 0)
-		{
-			std::string szFmt; ::_LoadStringFromResource(IDS_MSG_FMT_EXP_LOST, szFmt);
-			sprintf(szBuf, szFmt.c_str(), -iExpChange);
-		}
-		MsgOutput(szBuf, 0xffffff00);
-
+		Uint64 iExpNext	= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); 
+		Uint64 iExp		= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 			
 		pInfoExt->iExpNext	= iExpNext; 
 		pInfoExt->iExp		= iExp; 
@@ -4162,8 +4143,9 @@ void CGameProcMain::MsgSend_UserInRequest(int iID) // User 정보가 없을 경우 요청
 void CGameProcMain::MsgSend_Warp() // 워프 - 존이동이 될수도 있다..
 {	
 	__WarpInfo WI;
-	int iSel = m_pUIWarp->InfoGetCur(WI);
-	if(iSel < 0 || WI.szName.empty()) return;
+	if (!m_pUIWarp->InfoGetCur(WI)
+		|| WI.szName.empty())
+		return;
 
 	BYTE byBuff[8];
 	int iOffset = 0;

@@ -301,9 +301,9 @@ bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 //	else if(LIC_DAUM == eLIC) byCmd = N3_ACCOUNT_LOGIN_DAUM;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, byCmd);				// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());	// 아이디 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());	// 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);		// 실제 아이디..
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szPassWord.size());	// 패스워드 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szPassWord.size());	// 패스워드 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szPassWord);		// 실제 패스워드
 		
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
@@ -393,7 +393,7 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 				int iOffset2 = 0;
 				BYTE Buff[32];
 				CAPISocket::MP_AddByte(Buff, iOffset2, WIZ_KICKOUT); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
-				CAPISocket::MP_AddShort(Buff, iOffset2, s_szAccount.size()); 
+				CAPISocket::MP_AddShort(Buff, iOffset2, (short)s_szAccount.size());
 				CAPISocket::MP_AddString(Buff, iOffset2, s_szAccount); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
 				
 				socketTmp.Send(Buff, iOffset2);

@@ -67,7 +67,7 @@ public:
 	virtual void	SetStringAsInt(int iVal);
 	void			SetString_NoWordWrap(const std::string& szString);	// 글자 정렬 하지 않는다.
 	virtual void	SetFont(const std::string& szFontName, DWORD dwHeight, BOOL bBold, BOOL bItalic); // dwHeight는 point size이다.
-	BOOL			GetTextExtent(const const std::string& szString, int iStrLen, SIZE* pSize )
+	BOOL			GetTextExtent(const std::string& szString, int iStrLen, SIZE* pSize )
 	{
 		if (m_pDFont) return m_pDFont->GetTextExtent(szString, iStrLen, pSize);
 		return FALSE;

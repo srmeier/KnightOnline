@@ -34,7 +34,7 @@ CUIPartyOrForce::CUIPartyOrForce()
 		m_pAreas[i]				= NULL;
 	}
 
-	m_iIndexSelected = -1; // 현재 선택된 멤버인덱스..
+	m_iIndexSelected = ((size_t)~0); // 현재 선택된 멤버인덱스..
 }
 
 CUIPartyOrForce::~CUIPartyOrForce()
@@ -135,9 +135,10 @@ void CUIPartyOrForce::Render()
 
 	CN3UIBase::Render();
 
-	if(	m_iIndexSelected < 0 ||
-		m_iIndexSelected >= m_Members.size() ||
-		m_iIndexSelected >= MAX_PARTY_OR_FORCE ) return;
+	if (m_iIndexSelected >= m_Members.size()
+		|| m_iIndexSelected >= MAX_PARTY_OR_FORCE)
+		return;
+
 	if(NULL == m_pStatic_IDs[m_iIndexSelected] || NULL == m_pProgress_HPs[m_iIndexSelected]) return;
 
 	RECT rc1 = m_pStatic_IDs[m_iIndexSelected]->GetRegion();
@@ -155,12 +156,13 @@ void CUIPartyOrForce::Render()
 	CN3Base::RenderLines(rc, 0xff00ff00); // 선택 표시..
 }
 
-bool CUIPartyOrForce::TargetByIndex(int iIndex)
+bool CUIPartyOrForce::TargetByIndex(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_Members.size()) return false;
+	if (iIndex >= m_Members.size())
+		return false;
 
-	it_PartyOrForce it = m_Members.begin();
-	for(int i = 0; i < iIndex; i++) it++;
+	auto it = m_Members.begin();
+	std::advance(it, iIndex);
 
 	__InfoPartyOrForce* pIP = &(*it);
 	m_iIndexSelected = iIndex; // 현재 선택된 멤버인덱스..
@@ -188,13 +190,14 @@ const __InfoPartyOrForce* CUIPartyOrForce::MemberInfoGetByID(int iID, int& iInde
 	return NULL;
 }
 
-const __InfoPartyOrForce* CUIPartyOrForce::MemberInfoGetByIndex(int iIndex)
+const __InfoPartyOrForce* CUIPartyOrForce::MemberInfoGetByIndex(size_t iIndex)
 {
-	if(m_Members.empty()) return NULL;
-	if(iIndex < 0 || iIndex > m_Members.size()) return NULL;
+	if(m_Members.empty()
+		|| iIndex > m_Members.size())
+		return NULL;
 
-	it_PartyOrForce it = m_Members.begin(), itEnd = m_Members.end();
-	for(int i = 0; i < iIndex; i++) it++;
+	auto it = m_Members.begin();
+	std::advance(it, iIndex);
 
 	return &(*it);
 }
@@ -325,11 +328,12 @@ void CUIPartyOrForce::MemberInfoReInit() // 파티원 구성이 변경될때.. 순서 및 각�
 
 const __InfoPartyOrForce* CUIPartyOrForce::MemberInfoGetSelected()
 {
-	if(m_Members.empty()) return NULL;
-	if(m_iIndexSelected < 0 || m_iIndexSelected > m_Members.size()) return NULL;
+	if (m_Members.empty()
+		|| m_iIndexSelected >= m_Members.size())
+		return NULL;
 
-	it_PartyOrForce it = m_Members.begin(), itEnd = m_Members.end();
-	for(int i = 0; i < m_iIndexSelected; i++) it++;
+	auto it = m_Members.begin();
+	std::advance(it, m_iIndexSelected);
 
 	return &(*it);
 }

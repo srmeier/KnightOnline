@@ -376,8 +376,8 @@ void CUITradeSellBBS::MsgSend_Register()
 	iPrice			= CGameProcedure::s_pProcMain->m_pUITradeBBSEdit->GetPrice();
 
 	sLen = 15;
-	sLen += szTitle.size();
-	sLen += szExplanation.size();
+	sLen += (short)szTitle.size();
+	sLen += (short)szExplanation.size();
 
 	BYTE* byBuff = new BYTE[sLen];
 	int iOffset=0;
@@ -385,9 +385,9 @@ void CUITradeSellBBS::MsgSend_Register()
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_REGISTER);
 	CAPISocket::MP_AddByte(byBuff, iOffset, m_byBBSKind);
-	CAPISocket::MP_AddShort(byBuff, iOffset, szTitle.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szTitle.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szTitle);
-	CAPISocket::MP_AddShort(byBuff, iOffset, szExplanation.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szExplanation.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szExplanation);
 	CAPISocket::MP_AddDword(byBuff, iOffset, iPrice);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -727,12 +727,12 @@ void CUITradeSellBBS::RenderSelectContent()
 bool CUITradeSellBBS::SelectedString(CN3UIBase* pSender, int& iID)
 {
 	int iIndex = -1;
-	for(int i = 0; i < TRADE_BBS_MAXSTRING ; i++)
+	for(size_t  i = 0; i < TRADE_BBS_MAXSTRING ; i++)
 	{
 		if(pSender == m_pText[i])
 		{
 			iIndex = i % TRADE_BBS_MAX_LINE;
-			if( iIndex >= m_Datas.size() )
+			if ((size_t)iIndex >= m_Datas.size())
 				return false;
 
 			iID = iIndex;

@@ -691,7 +691,7 @@ void CN3SkyMng::SetCheckGameTime(DWORD dwCheckGameTime)
 
 	// 큐에서 현재 게임시간에 맞는 순서를 찾는다.
 	m_iDayChangeCurPos = 0;
-	int iDCC = m_DayChanges.size();
+	size_t iDCC = m_DayChanges.size();
 	while(m_iDayChangeCurPos<iDCC &&
 		m_DayChanges[m_iDayChangeCurPos].dwWhen < dwCheckGameTime) ++m_iDayChangeCurPos;
 	if (m_iDayChangeCurPos >= iDCC) m_iDayChangeCurPos = iDCC - 1;
@@ -733,7 +733,7 @@ void CN3SkyMng::SetCheckGameTime(DWORD dwCheckGameTime)
 int CN3SkyMng::GetLatestChange(eSKY_DAYCHANGE eSDC, int iPos)
 {
 	int iFind = iPos-1;
-	if (iFind<0 || iFind >= m_DayChanges.size()) iFind = m_DayChanges.size()-1;
+	if (iFind<0 || iFind >= (int)m_DayChanges.size()) iFind = m_DayChanges.size()-1;
 	while(iFind>=0)
 	{
 		if (m_DayChanges[iFind].eSkyDayChange == eSDC) break;	// 가장 최근의 변화를 찾았다.
@@ -1143,7 +1143,7 @@ int	CN3SkyMng::GetDayChangePos_AfterNSec(DWORD dwCurGameTime, float fSec)
 {
 	// n초 후의 체크할 게임 시간을 계산
 	DWORD dwCheckGameTime = dwCurGameTime + (DWORD)(fSec*TIME_REAL_PER_GAME);	// 150초 후 게임시간
-	int iCheckDayChangeCurPos = m_iDayChangeCurPos;
+	size_t iCheckDayChangeCurPos = m_iDayChangeCurPos;
 	if (dwCheckGameTime>86400)	// 체크 시간이 게임시간의 24시를 넘으면
 	{
 		iCheckDayChangeCurPos = 0;

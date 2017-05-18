@@ -1054,15 +1054,16 @@ CN3Chr::~CN3Chr()
 {
 	s_MngJoint.Delete(&m_pRootJointRef);
 
-	int iPC = m_Parts.size();
-	for(int i = 0; i < iPC; i++) delete m_Parts[i];
+	for (auto itr = m_Parts.begin(); itr != m_Parts.end(); ++itr)
+		delete *itr;
 	m_Parts.clear();
 
-	iPC = m_Plugs.size();
-	for(int i = 0; i < iPC; i++) delete m_Plugs[i];
+	for (auto itr = m_Plugs.begin(); itr != m_Plugs.end(); ++itr)
+		delete *itr;
 	m_Plugs.clear();
 
-	for(int i = 0; i < m_vTraces.size(); i++) delete m_vTraces[i];
+	for (auto itr = m_vTraces.begin(); itr != m_vTraces.end(); ++itr)
+		delete *itr;
 	m_vTraces.clear();
 
 	// Animation Control
@@ -1084,15 +1085,16 @@ void CN3Chr::Release()
 	m_MtxJoints.clear();
 	m_MtxInverses.clear();
 
-	int iPC = m_Parts.size();
-	for(int i = 0; i < iPC; i++) delete m_Parts[i];
+	for (auto itr = m_Parts.begin(); itr != m_Parts.end(); ++itr)
+		delete *itr;
 	m_Parts.clear();
 
-	iPC = m_Plugs.size();
-	for(int i = 0; i < iPC; i++) delete m_Plugs[i];
+	for (auto itr = m_Plugs.begin(); itr != m_Plugs.end(); ++itr)
+		delete *itr;
 	m_Plugs.clear();
 
-	for(int i = 0; i < m_vTraces.size(); i++) delete m_vTraces[i];
+	for (auto itr = m_vTraces.begin(); itr != m_vTraces.end(); ++itr)
+		delete *itr;
 	m_vTraces.clear();
 
 //	s_MngSkin.Delete(m_pSkinCollision);
@@ -1665,14 +1667,16 @@ void CN3Chr::TickPlugs(float fLOD)
 
 void CN3Chr::RemakePlugTracePolygons()
 {
-	for(int i = 0; i < m_vTraces.size(); i++) delete m_vTraces[i];
+	for (auto itr = m_vTraces.begin(); itr != m_vTraces.end(); ++itr)
+		delete *itr;
 	m_vTraces.clear();
 
-	if(m_Plugs.empty()) return;
+	if (m_Plugs.empty())
+		return;
 
-	int iPC = m_Plugs.size();
+	size_t iPC = m_Plugs.size();
 	m_vTraces.assign(iPC, NULL);
-	for(int i = 0; i < iPC; i++)
+	for(size_t i = 0; i < iPC; i++)
 	{
 		int iTS = m_Plugs[i]->m_nTraceStep;
 		if(iTS <= 0) continue;
@@ -2000,45 +2004,47 @@ void CN3Chr::PartAlloc(int iCount)
 	}
 }
 
-void CN3Chr::PartDelete(int iIndex)
+void CN3Chr::PartDelete(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_Parts.size()) return;
+	if (iIndex >= m_Parts.size()) return;
 
-	it_CPart it = m_Parts.begin();
-	for(int i = 0; i < iIndex; i++, it++);
+	auto it = m_Parts.begin();
+	std::advance(it, iIndex);
+
 	delete *it;
 	m_Parts.erase(it);
 }
 
-CN3CPart* CN3Chr::PartSet(int iIndex, const std::string& szFN)
+CN3CPart* CN3Chr::PartSet(size_t iIndex, const std::string& szFN)
 {
-	if(iIndex < 0 || iIndex >= m_Parts.size()) return NULL;
-	if(m_Parts[iIndex]->FileName() == szFN) return m_Parts[iIndex];
+	if (iIndex >= m_Parts.size()) return NULL;
+	if (m_Parts[iIndex]->FileName() == szFN) return m_Parts[iIndex];
 
-	if(szFN.size() <= 0) m_Parts[iIndex]->Release();
+	if (szFN.empty()) m_Parts[iIndex]->Release();
 	else m_Parts[iIndex]->LoadFromFile(szFN);
 	
 	return m_Parts[iIndex];
 }
 
-void CN3Chr::PlugDelete(int iIndex)
+void CN3Chr::PlugDelete(size_t iIndex)
 {
-	if(iIndex < 0 || iIndex >= m_Plugs.size()) return;
+	if (iIndex >= m_Plugs.size())
+		return;
 
-	it_CPlug it = m_Plugs.begin();
-	for(int i = 0; i < iIndex; i++, it++);
-	
+	auto it = m_Plugs.begin();
+	std::advance(it, iIndex);
+
 	delete *it;
 	m_Plugs.erase(it);
 }
 
-CN3CPlug* CN3Chr::PlugSet(int iIndex, const std::string& szFN)
+CN3CPlug* CN3Chr::PlugSet(size_t iIndex, const std::string& szFN)
 {
-	if(iIndex < 0 || iIndex >= m_Plugs.size()) return NULL;
+	if (iIndex >= m_Plugs.size()) return NULL;
 		
-	if(m_Plugs[iIndex]->FileName() == szFN) return m_Plugs[iIndex];
+	if (m_Plugs[iIndex]->FileName() == szFN) return m_Plugs[iIndex];
 
-	if(szFN.size() <= 0) m_Plugs[iIndex]->Release();
+	 if(szFN.empty()) m_Plugs[iIndex]->Release();
 	else m_Plugs[iIndex]->LoadFromFile(szFN);
 	
 	this->RemakePlugTracePolygons();
@@ -2048,8 +2054,8 @@ CN3CPlug* CN3Chr::PlugSet(int iIndex, const std::string& szFN)
 
 void CN3Chr::PlugAlloc(int iCount)
 {
-	int iPC = m_Plugs.size();
-	for(int i = 0; i < iPC; i++) delete m_Plugs[i];
+	for (auto itr = m_Plugs.begin(); itr != m_Plugs.end(); ++itr)
+		delete *itr;
 	m_Plugs.clear();
 		
 	if(iCount > 0) 

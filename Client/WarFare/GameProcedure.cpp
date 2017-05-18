@@ -90,7 +90,6 @@ SDL_Cursor*	CGameProcedure::s_hCursorAttack    = NULL;
 SDL_Cursor*	CGameProcedure::s_hCursorPreRepair = NULL;
 SDL_Cursor*	CGameProcedure::s_hCursorNowRepair = NULL;
 
-e_Version CGameProcedure::s_eVersion =	W95;
 e_LogInClassification CGameProcedure::s_eLogInClassification; // 접속한 서비스.. MGame, Daum, KnightOnLine ....
 std::string	CGameProcedure::s_szAccount = ""; // 계정 문자열..
 std::string	CGameProcedure::s_szPassWord = ""; // 계정 비번..
@@ -260,30 +259,6 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	s_pProcCharacterCreate	= new CGameProcCharacterCreate();	// 캐릭터 만들기
 	s_pProcMain				= new CGameProcMain();				// 메인 게임 프로시져
 	s_pProcOption			= new CGameProcOption();			// 게임 옵션 프로시져
-
-	//////////////////////////////////////////////////////////////////////////////////////////
-	// 버전 정보.. ^^
-	OSVERSIONINFO winfo;
-	winfo.dwOSVersionInfoSize=sizeof(OSVERSIONINFO);
-	GetVersionEx(&winfo);
-	if(winfo.dwPlatformId==VER_PLATFORM_WIN32_NT)
-	{
-		if(winfo.dwMajorVersion>=5)
-			s_eVersion=W2K;
-		else
-			s_eVersion=WNT4;
-	}
-	else
-	if(winfo.dwPlatformId==VER_PLATFORM_WIN32_WINDOWS)
-	{
-		if(winfo.dwMinorVersion<10)
-			s_eVersion=W95;
-		else
-		if(winfo.dwMinorVersion<90)
-		   s_eVersion=W98;
-		else
-		   s_eVersion=WME;				
-	}
 }
 
 void CGameProcedure::StaticMemberRelease()
@@ -923,9 +898,9 @@ void CGameProcedure::MsgSend_GameServerLogIn()
 	int iOffset = 0;										// 버퍼의 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_LOGIN);	// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());	// 아이디 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());	// 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);			// 실제 아이디..
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szPassWord.size());	// 패스워드 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szPassWord.size());	// 패스워드 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szPassWord);		// 실제 패스워드
 		
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
@@ -949,9 +924,9 @@ void CGameProcedure::MsgSend_CharacterSelect() // virtual
 	BYTE byBuff[64];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_CHAR);				// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());				// 계정 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());				// 계정 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);						// 계정 문자열..
-	CAPISocket::MP_AddShort(byBuff, iOffset, s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// 캐릭 아이디 문자열..
 	CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneInit);	// 처음 접속인지 아닌지 0x01:처음 접속
 	CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneCur);		// 캐릭터 선택창에서의 캐릭터 존 번호

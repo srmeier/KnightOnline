@@ -148,8 +148,8 @@ void CN3TerrainPatch::Init(CN3Terrain* pTerrain)
 
 	for(int i=0;i<2;i++) 
 	{
-		m_pTileTexIndx[i] = new int [PATCH_TILE_SIZE*PATCH_TILE_SIZE];
-		memset(m_pTileTexIndx[i], -1, sizeof(int)*PATCH_TILE_SIZE*PATCH_TILE_SIZE);
+		m_pTileTexIndx[i] = new uint32 [PATCH_TILE_SIZE*PATCH_TILE_SIZE];
+		memset(m_pTileTexIndx[i], 0xff, sizeof(uint32)*PATCH_TILE_SIZE*PATCH_TILE_SIZE);
 	}
 	m_pIsTileFull = new bool [PATCH_TILE_SIZE*PATCH_TILE_SIZE];
 
@@ -248,7 +248,7 @@ void CN3TerrainPatch::Tick()
 				m_pTileTexIndx[1][TileCount] = MapData.Tex2Idx;
 				m_pIsTileFull[TileCount] = MapData.bIsTileFull;
 
-				if( m_pTileTexIndx[0][TileCount]<0 || m_pTileTexIndx[0][TileCount]>m_pRefTerrain->m_NumTileTex || m_pIsTileFull[TileCount]==false)	// Å¸ÀÏÀÌ ¾ø´Â °æ¿ì..ÄÃ·¯¸ÊÀ» Âï¾î¾ß µÅ...
+				if( m_pTileTexIndx[0][TileCount]>m_pRefTerrain->m_NumTileTex || m_pIsTileFull[TileCount]==false)	// Å¸ÀÏÀÌ ¾ø´Â °æ¿ì..ÄÃ·¯¸ÊÀ» Âï¾î¾ß µÅ...
 				{
 					u1[0] = u1[1] = UVConvert((float)(tx%UNITUV) / (float)UNITUV);
 					u1[2] = u1[3] = UVConvert(u1[0] + (1.0f/(float)UNITUV));
@@ -804,7 +804,7 @@ void CN3TerrainPatch::Render()
 
 			hr = CN3Base::s_lpD3DDev->SetTexture( 2, NULL );
 
-			if( (m_pTileTexIndx[0][i]<0) || m_pTileTexIndx[0][i] >= m_pRefTerrain->m_NumTileTex || (m_pIsTileFull[i]==false) )	// 0: ÄÃ·¯¸Ê, 1:¹«´Ì or 0:ºÎºÐÅ¸ÀÏ 1:NONE...
+			if( m_pTileTexIndx[0][i] >= m_pRefTerrain->m_NumTileTex || (m_pIsTileFull[i]==false) )	// 0: ÄÃ·¯¸Ê, 1:¹«´Ì or 0:ºÎºÐÅ¸ÀÏ 1:NONE...
 			{
 				hr = CN3Base::s_lpD3DDev->SetTexture( 0, m_pRefColorTex->Get());
 				hr = CN3Base::s_lpD3DDev->SetTexture( 1, m_pRefTerrain->m_pBaseTex.Get());
@@ -818,9 +818,9 @@ void CN3TerrainPatch::Render()
 				hr = CN3Base::s_lpD3DDev->SetTextureStageState( 2, D3DTSS_COLORARG1, D3DTA_CURRENT);
 				hr = CN3Base::s_lpD3DDev->SetTextureStageState( 2, D3DTSS_COLORARG2, D3DTA_DIFFUSE);			
 			}
-			else if(m_pTileTexIndx[0][i] >= 0 && m_pTileTexIndx[0][i] < m_pRefTerrain->m_NumTileTex)
+			else if(m_pTileTexIndx[0][i] < m_pRefTerrain->m_NumTileTex)
 			{
-				if(m_pTileTexIndx[1][i]>=0 && m_pTileTexIndx[1][i] < m_pRefTerrain->m_NumTileTex)	//0: tile, 1: tile..
+				if(m_pTileTexIndx[1][i] < m_pRefTerrain->m_NumTileTex)	//0: tile, 1: tile..
 				{
 					hr = CN3Base::s_lpD3DDev->SetTexture( 0, m_pRefTerrain->m_pTileTex[m_pTileTexIndx[0][i]].Get());
 					hr = CN3Base::s_lpD3DDev->SetTexture( 1, m_pRefTerrain->m_pTileTex[m_pTileTexIndx[1][i]].Get());
@@ -853,8 +853,8 @@ void CN3TerrainPatch::Render()
 			hr = CN3Base::s_lpD3DDev->DrawPrimitive( D3DPT_TRIANGLEFAN, (i<<2), 2);
 			
 			if( (!m_pRefTerrain->m_bAvailableTile) &&
-				m_pTileTexIndx[0][i] >= 0 && m_pTileTexIndx[0][i] < m_pRefTerrain->m_NumTileTex &&
-				m_pTileTexIndx[1][i] >= 0 && m_pTileTexIndx[1][i] < m_pRefTerrain->m_NumTileTex )
+				m_pTileTexIndx[0][i] < m_pRefTerrain->m_NumTileTex &&
+				m_pTileTexIndx[1][i] < m_pRefTerrain->m_NumTileTex )
 			{
 				DWORD dwAlphaEnable, dwSrcBlend, dwDestBlend;
 				hr = s_lpD3DDev->GetRenderState( D3DRS_ALPHABLENDENABLE, &dwAlphaEnable);

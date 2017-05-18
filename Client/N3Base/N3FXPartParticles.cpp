@@ -93,20 +93,17 @@ CN3FXPartParticles::~CN3FXPartParticles()
 
 	std::list<CN3FXParticle*>::iterator it;
 
-	int i;
-	it = m_pVBList_Alive.begin();
-	for(i=0;i<m_pVBList_Alive.size();i++, it++)
+	for (auto itr = m_pVBList_Alive.begin(); itr != m_pVBList_Alive.end(); ++itr)
 	{
-		CN3FXParticle* pParticle = (*it);
-		if(pParticle) delete pParticle;		
+		CN3FXParticle* pParticle = (*itr);
+		if (pParticle) delete pParticle;
 	}
 	m_pVBList_Alive.clear();
 
-	it = m_pVBList_Dead.begin();
-	for(i=0;i<m_pVBList_Dead.size();i++, it++)
+	for (auto itr = m_pVBList_Dead.begin(); itr != m_pVBList_Dead.end(); ++itr)
 	{
-		CN3FXParticle* pParticle = (*it);
-		if(pParticle) delete pParticle;
+		CN3FXParticle* pParticle = (*itr);
+		if (pParticle) delete pParticle;
 	}
 	m_pVBList_Dead.clear();
 	
@@ -328,23 +325,19 @@ void CN3FXPartParticles::Init()
 		m_bAnimKey = true;
 	}
 
-	std::list<CN3FXParticle*>::iterator it;
-	int i;
-	it = m_pVBList_Alive.begin();
-	for(i=0;i<m_pVBList_Alive.size();i++, it++)
-	{
-		m_pVBList_Dead.push_back((*it));
-	}
+	for (auto itr = m_pVBList_Alive.begin(); itr != m_pVBList_Alive.end(); ++itr)
+		m_pVBList_Dead.push_back(*itr);
+
 	m_pVBList_Alive.clear();
 
 	m_CurrCreateDelay = m_fCreateDelay;
 
-	it = m_pVBList_Dead.begin();
-	for(i=0;i<m_pVBList_Dead.size();i++, it++)
+	int i = 0;
+	for (auto itr = m_pVBList_Dead.begin(); itr != m_pVBList_Dead.end(); ++itr)
 	{
-		CN3FXParticle* pParticle = (*it);
+		CN3FXParticle* pParticle = *itr;
 
-		pParticle->m_iID = i * NUM_VERTEX_PARTICLE;
+		pParticle->m_iID = i++ * NUM_VERTEX_PARTICLE;
 		pParticle->m_dwColor = 0xffffffff;
 		pParticle->m_fCurrLife = 0.0f;
 		pParticle->m_fDropVel = 0.0f;
@@ -902,24 +895,15 @@ void CN3FXPartParticles::Render()
 //
 void CN3FXPartParticles::InitVB()
 {
-	std::list<CN3FXParticle*>::iterator it;
-
-	int i;
-	it = m_pVBList_Alive.begin();
-	for(i=0;i<m_pVBList_Alive.size();i++, it++)
-	{
-		delete (*it);		
-	}
+	for (auto itr = m_pVBList_Alive.begin(); itr != m_pVBList_Alive.end(); ++itr)
+		delete *itr;
 	m_pVBList_Alive.clear();
 
-	it = m_pVBList_Dead.begin();
-	for(i=0;i<m_pVBList_Dead.size();i++, it++)
-	{
-		delete (*it);		
-	}
+	for (auto itr = m_pVBList_Dead.begin(); itr != m_pVBList_Dead.end(); ++itr)
+		delete *itr;
 	m_pVBList_Dead.clear();
 
-	for(i=0;i<m_iNumParticle;i++)
+	for(int i=0;i<m_iNumParticle;i++)
 	{
 		CN3FXParticle* pParticle = new CN3FXParticle;
 		pParticle->m_iID = i * NUM_VERTEX_PARTICLE;

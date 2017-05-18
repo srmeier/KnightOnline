@@ -6,8 +6,11 @@
 #define VC_EXTRALEAN
 
 #include <Windows.h>
+
+#if !defined(_N3GAME)
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#endif
 
 #define THREADCALL WINAPI
 

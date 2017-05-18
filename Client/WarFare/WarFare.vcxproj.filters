@@ -596,9 +596,6 @@
     <ClInclude Include="UIWarp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WarFareMain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WarMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>

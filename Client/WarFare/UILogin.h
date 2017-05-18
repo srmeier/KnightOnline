@@ -78,7 +78,7 @@ public:
 
 	int		ServerInfoCount() { return m_ListServerInfos.size(); }
 	bool	ServerInfoAdd(const __GameServerInfo& GSI);
-	bool	ServerInfoGet(int iIndex, __GameServerInfo& GSI);
+	bool	ServerInfoGet(size_t iIndex, __GameServerInfo& GSI);
 	bool	ServerInfoGetCur(__GameServerInfo& GSI);
 	void	ServerInfoUpdate();
 

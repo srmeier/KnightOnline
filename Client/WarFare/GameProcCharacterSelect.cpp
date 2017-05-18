@@ -894,9 +894,9 @@ void CGameProcCharacterSelect::MsgSend_DeleteChr(const std::string& szKey)
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_DEL_CHAR);		// 커멘드.
 	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)iIndex);				// 인덱스 - b
-	CAPISocket::MP_AddShort(byBuff, iOffset, (BYTE)m_InfoChrs[iIndex].szID.size());		// 아이디 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_InfoChrs[iIndex].szID.size());		// 아이디 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, m_InfoChrs[iIndex].szID); // 아이디 문자열
-	CAPISocket::MP_AddShort(byBuff, iOffset, szKey.size());				// 주민등록번호 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szKey.size());				// 주민등록번호 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, szKey);					// 주민등록번호 문자열
 	
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다

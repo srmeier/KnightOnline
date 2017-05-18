@@ -9,7 +9,6 @@
 #include "N3UIEdit.h"
 #include "PacketDef.h"
 #include "APISocket.h"
-#include "Warfaremain.h"
 #include "PlayerMySelf.h"
 #include "GameProcMain.h"
 #include "KnightChrMgr.h"
