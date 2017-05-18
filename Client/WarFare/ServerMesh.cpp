@@ -13,7 +13,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-static const int SGRID_SIZE = 64;
+static const float SGRID_SIZE = 64.0f;
 static const int SMAP_SIZE  = 4096;
 
 
@@ -36,12 +36,12 @@ CServerMesh::~CServerMesh()
 void CServerMesh::Tick(CN3Terrain* pTerrain, const __Vector3& vPosPlayer)
 {
 	__Vector3 pos = vPosPlayer;
-	int ixposL, ixposR, izposL, izposR, ixpos, izpos;
+	float ixposL, ixposR, izposL, izposR, ixpos, izpos;
 	float fHeightLB, fHeightRB, fHeightTop, fHeightBottom;	
 
 	ixpos   = ((int)pos.x)/SGRID_SIZE; 
 	ixpos *= SGRID_SIZE;
-	izpos   = ((int)pos.z)/SGRID_SIZE; 
+	izpos   = ((int)pos.z)/SGRID_SIZE;
 	izpos *= SGRID_SIZE;
 
 	D3DCOLOR color = D3DCOLOR_RGBA(50,25,25,0);

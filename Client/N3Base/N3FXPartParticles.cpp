@@ -557,10 +557,10 @@ bool CN3FXPartParticles::Tick()
 	float fDist = (s_CameraData.vEye - m_pRefBundle->m_vPos).Magnitude();
 
 	if(fDist > 30.0f)
-		m_iNumLodParticle = m_iNumParticle / 3.0f;
+		m_iNumLodParticle = (int)(m_iNumParticle / 3.0f);
 	else
 	{
-		m_iNumLodParticle = m_iNumParticle * 1 / 3.0f + (m_iNumParticle * 2 / 3.0f) * ((30.0f - fDist) / 30.0f);
+		m_iNumLodParticle = (int)(m_iNumParticle * 1 / 3.0f + (m_iNumParticle * 2 / 3.0f) * ((30.0f - fDist) / 30.0f));
 	}
 #else
 	m_iNumLodParticle = m_iNumParticle;
@@ -575,9 +575,9 @@ bool CN3FXPartParticles::Tick()
 	{
 		//frm °è»ê..
 		float fFrm = m_fCurrLife * m_fMeshFPS;
-		int share = fFrm / m_pShape->GetWholeFrm();
+		float share = fFrm / m_pShape->GetWholeFrm();
 		//if(fFrm > m_pShape->GetWholeFrm()-1.0f) fFrm = m_pShape->GetWholeFrm()-1.0f;
-		fFrm -= ((float)share * m_pShape->GetWholeFrm());
+		fFrm -= (share * m_pShape->GetWholeFrm());
 		m_pShape->SetCurrFrm(fFrm);
 		//TRACE("Frm: %3.2f life: %3.2f\n", fFrm, m_fCurrLife);
 
@@ -1426,7 +1426,7 @@ bool CN3FXPartParticles::RotateQuaternion(__Vector3 vSrcDir, __Vector3 vDestDir,
 
 	vDirAxis.Cross(vSrcDir, vDestDir);
 
-	fDirAng = acos((double)vSrcDir.Dot(vDestDir));
+	fDirAng = acos(vSrcDir.Dot(vDestDir));
 
 	pQt->RotationAxis(vDirAxis, fDirAng);
 

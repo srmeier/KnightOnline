@@ -76,7 +76,7 @@ public:
 
 	bool	ToggleMiniMap();
 
-	void	UpdateExp(int iExp, int iExpNext, bool bUpdateImmediately);
+	void	UpdateExp(uint64 iExp, uint64 iExpNext, bool bUpdateImmediately);
 	void	UpdateMSP(int iMSP, int iMSPMax, bool bUpdateImmediately);
 	void	UpdateHP(int iHP, int iHPMax, bool bUpdateImmediately);
 

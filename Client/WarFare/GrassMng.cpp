@@ -442,8 +442,9 @@ void CGrassMng::ChkTileRange(float fCamX,float fCamZ)
 			{
 				if (!ACT_WORLD->GetTerrainRef())
 					continue;
-				usGrassInfo = ACT_WORLD->GetTerrainRef()->GetGrassAttr(((WORD)FineTile[iTileCount])/TILE_SIZE
-													,((WORD)FineTile[iTileCount+1])/TILE_SIZE);	//	현재 타일의 정보
+				usGrassInfo = ACT_WORLD->GetTerrainRef()->GetGrassAttr(
+					(FineTile[iTileCount+0]) / (int)TILE_SIZE,
+					(FineTile[iTileCount+1]) / (int)TILE_SIZE);	//	현재 타일의 정보
 
 				vCenter.Set(FineTile[iTileCount],0.0f,FineTile[iTileCount+1]);	//	왼쪽위의 좌표
 				vCenter.y = ACT_WORLD->GetTerrainRef()->GetHeight(vCenter.x,vCenter.z);
@@ -470,7 +471,7 @@ void CGrassMng::FineNewTile(WORD* Tile,int& iCount,float* fCompRange,float* fLar
 
 		for(int i=0;i<GRASS_TILENUM;++i)
 		{
-			Tile[iCount] = sx , Tile[iCount+1] = (sy+=TILE_SIZE);	iCount+=2;
+			Tile[iCount] = (WORD)sx , Tile[iCount+1] = (WORD)(sy+=TILE_SIZE);	iCount+=2;
 		}
 	}
 
@@ -488,7 +489,7 @@ void CGrassMng::FineNewTile(WORD* Tile,int& iCount,float* fCompRange,float* fLar
 		
 		for(int i=si;i<ei;++i)
 		{
-			Tile[iCount] = (sx+=TILE_SIZE) , Tile[iCount+1] = sy;	iCount+=2;
+			Tile[iCount] = (WORD)(sx+=TILE_SIZE) , Tile[iCount+1] = (WORD)sy;	iCount+=2;
 		}
 	}
 }

@@ -43,8 +43,8 @@ CN3UIEdit::CN3Caret::~CN3Caret()
 }
 void CN3UIEdit::CN3Caret::SetPos(int x, int y)
 {
-	m_pVB[0].x = x; m_pVB[0].y = y;
-	m_pVB[1].x = x; m_pVB[1].y = y+m_iSize;
+	m_pVB[0].x = (float)x; m_pVB[0].y = (float)y;
+	m_pVB[1].x = (float)x; m_pVB[1].y = (float)y+m_iSize;
 	this->InitFlckering();
 }
 void CN3UIEdit::CN3Caret::MoveOffset(int iOffsetX, int iOffsetY)

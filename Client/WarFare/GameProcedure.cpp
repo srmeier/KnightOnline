@@ -689,11 +689,11 @@ void CGameProcedure::UIPostData_Read(const std::string& szKey, CN3UIBase* pUI, i
 	RECT rc = pUI->GetRegion();
 
 	if (WI.ptPosition.x < 0) WI.ptPosition.x = 0;
-	if (WI.ptPosition.x + (rc.right - rc.left) > CN3Base::s_CameraData.vp.Width)
-		WI.ptPosition.x = CN3Base::s_CameraData.vp.Width - (rc.right - rc.left);
+	if (WI.ptPosition.x + (rc.right - rc.left) > (int)s_CameraData.vp.Width)
+		WI.ptPosition.x = s_CameraData.vp.Width - (rc.right - rc.left);
 	if (WI.ptPosition.y < 0) WI.ptPosition.y = 0;
-	if (WI.ptPosition.y + (rc.bottom - rc.top) > CN3Base::s_CameraData.vp.Height)
-		WI.ptPosition.y = CN3Base::s_CameraData.vp.Height - (rc.bottom - rc.top);
+	if (WI.ptPosition.y + (rc.bottom - rc.top) >(int)s_CameraData.vp.Height)
+		WI.ptPosition.y = s_CameraData.vp.Height - (rc.bottom - rc.top);
 
 	pUI->SetVisible(WI.bVisible);
 	if(0 == WI.ptPosition.x && 0 == WI.ptPosition.y)

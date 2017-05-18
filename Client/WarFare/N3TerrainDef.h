@@ -14,7 +14,7 @@
 
 // Constant Definitions..
 const int PATCH_TILE_SIZE = 8;		//	패치 하나에 타일이 8x8개 들어간다.
-const int TILE_SIZE = 4;			//	타일하나당 길이 4m
+const float TILE_SIZE = 4.0f;			//	타일하나당 길이 4m
 const int MAX_LOD_LEVEL = 10;		//	LOD수준이 가장 높은 단계 가장 Detail...
 const int MIN_LOD_LEVEL = 0;		//	LOD수준이 가장 낮은 단계 가장 Rough...
 const int MAX_PATCH_LEVEL = 3;		//	2 ^ 3 = 8.

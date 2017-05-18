@@ -14,7 +14,8 @@
 #ifndef __WAVE_H_
 #define __WAVE_H_
 
-#include <windows.h>
+#include <Windows.h>
+
 #include <mmsystem.h>
 #include <mmreg.h>
 #include "dxerr.h"

@@ -73,8 +73,8 @@ void CN3Sun::Render(__Matrix44& matView, __Matrix44& matProj)
 	vSun.z = vOut.z*rhw;
 	if (vSun.z < 0.0f || vSun.z > 1.0f) return;
 	// Mapping Screen Coordinate.
-	vSun.x = X + int((vOut.x*rhw + 1)*Width*0.5f);
-	vSun.y = Y + int((-vOut.y*rhw + 1)*Height*0.5f);
+	vSun.x = (float)X + int((vOut.x*rhw + 1)*Width*0.5f);
+	vSun.y = (float)Y + int((-vOut.y*rhw + 1)*Height*0.5f);
 
 	// back up render state
 	DWORD dwSrcBlend, dwDestBlend;
@@ -95,8 +95,8 @@ void CN3Sun::Render(__Matrix44& matView, __Matrix44& matProj)
 	{
 		__SunPart* pSP = &(m_Parts[i]);
 
-		int iWTmp = iWTmp = (Width * pSP->Delta.GetCurDelta())/2;
-		SetRect(&(rcSun[i]), vSun.x - iWTmp, vSun.y - iWTmp, vSun.x + iWTmp, vSun.y + iWTmp);
+		float iWTmp = iWTmp = (Width * pSP->Delta.GetCurDelta())/2;
+		SetRect(&(rcSun[i]), (int)(vSun.x - iWTmp), (int)(vSun.y - iWTmp), (int)(vSun.x + iWTmp), (int)(vSun.y + iWTmp));
 		// clipping with screen.
 		if ( rcSun[i].right < rcScreen.left ||
 			rcSun[i].bottom < rcScreen.top ||
@@ -104,10 +104,10 @@ void CN3Sun::Render(__Matrix44& matView, __Matrix44& matProj)
 			rcSun[i].top > rcScreen.bottom) continue;	// 화면 밖에 그려진다.
 
 		// 2D로 그리기
-		pSP->pVertices[0].x = rcSun[i].left;		pSP->pVertices[0].y = rcSun[i].top;
-		pSP->pVertices[1].x = rcSun[i].right;		pSP->pVertices[1].y = rcSun[i].top;
-		pSP->pVertices[2].x = rcSun[i].right;		pSP->pVertices[2].y = rcSun[i].bottom;
-		pSP->pVertices[3].x = rcSun[i].left;		pSP->pVertices[3].y = rcSun[i].bottom;
+		pSP->pVertices[0].x = (float)rcSun[i].left;		pSP->pVertices[0].y = (float)rcSun[i].top;
+		pSP->pVertices[1].x = (float)rcSun[i].right;	pSP->pVertices[1].y = (float)rcSun[i].top;
+		pSP->pVertices[2].x = (float)rcSun[i].right;	pSP->pVertices[2].y = (float)rcSun[i].bottom;
+		pSP->pVertices[3].x = (float)rcSun[i].left;		pSP->pVertices[3].y = (float)rcSun[i].bottom;
 
 		if(pSP->pTex) s_lpD3DDev->SetTexture(0, pSP->pTex->Get());
 		else s_lpD3DDev->SetTexture(0, NULL);

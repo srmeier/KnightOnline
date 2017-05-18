@@ -197,19 +197,19 @@ bool CUIStateBar::LoadMap(const std::string& szMiniMapFN, float fMapSizeX, float
 }
 
 
-void CUIStateBar::UpdateExp(int iExp, int iExpNext, bool bUpdateImmediately)
+void CUIStateBar::UpdateExp(uint64 iExp, uint64 iExpNext, bool bUpdateImmediately)
 {
 	__ASSERT(iExpNext, "Next Exp is 0");
 	if(iExpNext <= 0) return;
 	if(NULL == m_pProgress_ExpC || NULL == m_pProgress_ExpP) return;
 
-	int iPercentage = 100.0f * ((float) iExp / (float) iExpNext);
+	int iPercentage = (int)(100.0 * ((double) iExp / (double) iExpNext));
 
 	if(iExpNext > 10)
 	{
-		int iExpNext2 = iExpNext/10;
-		int iExp2 = iExp%iExpNext2;
-		int iPercentage2 = 100 * iExp2 / iExpNext2;
+		uint64 iExpNext2 = iExpNext/10;
+		uint64 iExp2 = iExp%iExpNext2;
+		int iPercentage2 = (int)(100 * iExp2 / iExpNext2);
 
 		if(bUpdateImmediately) m_pProgress_ExpC->SetCurValue(iPercentage2);	 //SetCurValue --> set°æ¿ì 
 		else m_pProgress_ExpC->SetCurValue(iPercentage2, 0.7f, 50.0f);
@@ -307,10 +307,10 @@ void CUIStateBar::Render()
 	__PositionInfo info;
 
 	RECT rc = m_pImage_Map->GetRegion();
-	float fWidth = rc.right - rc.left;
-	float fHeight = rc.bottom - rc.top;
-	float fCenterX = rc.left + fWidth / 2.0f;
-	float fCenterY = rc.top + fHeight / 2.0f;
+	float fWidth = (float)(rc.right - rc.left);
+	float fHeight = (float)(rc.bottom - rc.top);
+	float fCenterX = (float)(rc.left) + fWidth / 2.0f;
+	float fCenterY = (float)(rc.top) + fHeight / 2.0f;
 
 	DWORD dwZ, dwFog, dwAlpha, dwCOP, dwCA1, dwSrcBlend, dwDestBlend, dwVertexShader, dwAOP, dwAA1;
 	CN3Base::s_lpD3DDev->GetRenderState(D3DRS_ZENABLE, &dwZ);

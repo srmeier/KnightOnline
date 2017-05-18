@@ -985,15 +985,15 @@ void CN3SkyMng::SetWeather(eSKY_WEATHER eWeather, int iPercentage)
 
 
 		// 해
-		tmpWeatherChange.Init("Sun", SDC_SUNCOLOR, dwWhen, 0xff000000, this->GetSunRatio() * 1000, fHowLong);
+		tmpWeatherChange.Init("Sun", SDC_SUNCOLOR, dwWhen, 0xff000000, (uint32)(this->GetSunRatio() * 1000), fHowLong);
 		m_WeatherChanges.push_back(tmpWeatherChange);
 
 		// 해의 flare
-		tmpWeatherChange.Init("Flare", SDC_FLARECOLOR, dwWhen, 0xff000000, this->GetFlareRatio() * 1000, fHowLong);
+		tmpWeatherChange.Init("Flare", SDC_FLARECOLOR, dwWhen, 0xff000000, (uint32)(this->GetFlareRatio() * 1000), fHowLong);
 		m_WeatherChanges.push_back(tmpWeatherChange);
 
 		// 해의 glow
-		tmpWeatherChange.Init("Glow", SDC_GLOWCOLOR, dwWhen, 0xff000000, this->GetGlowRatio() * 1000, fHowLong);
+		tmpWeatherChange.Init("Glow", SDC_GLOWCOLOR, dwWhen, 0xff000000, (uint32)(this->GetGlowRatio() * 1000), fHowLong);
 		m_WeatherChanges.push_back(tmpWeatherChange);
 
 		//  하늘색

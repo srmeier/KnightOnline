@@ -645,16 +645,16 @@ __Vector3 CN3FXPartBillBoard::Rotate2AbsolutePos(__Vector3 vRelativePos)
 
 	vDirAxis.Cross(vAxisZ, m_pRefBundle->m_vDir);
 	int tmp;
-	tmp = vDirAxis.x*10000.0f;
+	tmp = (int)(vDirAxis.x*10000.0f);
 	vDirAxis.x = (float)(tmp)/10000.0f;
-	tmp = vDirAxis.y*10000.0f;
+	tmp = (int)(vDirAxis.y*10000.0f);
 	vDirAxis.y = (float)(tmp)/10000.0f;
-	tmp = vDirAxis.z*10000.0f;
+	tmp = (int)(vDirAxis.z*10000.0f);
 	vDirAxis.z = (float)(tmp)/10000.0f;
 
 	if(vDirAxis.x==0.0f && vDirAxis.y==0.0f && vDirAxis.z==0.0f) vDirAxis.Set(0,1,0);
 
-	float fDirAng = acos((double)vAxisZ.Dot(m_pRefBundle->m_vDir));
+	float fDirAng = acos(vAxisZ.Dot(m_pRefBundle->m_vDir));
 
 	qtRot.RotationAxis(vDirAxis, fDirAng);
 

@@ -1383,10 +1383,10 @@ void CGameProcMain::MsgSend_Move(bool bMove, bool bContinous)
 	int iOffset=0;											// 옵셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MOVE);			// 커멘드..
-	CAPISocket::MP_AddWord(byBuff, iOffset, vPos.x*10);			// 다음 위치
-	CAPISocket::MP_AddWord(byBuff, iOffset, vPos.z*10);
-	CAPISocket::MP_AddShort(byBuff, iOffset, vPos.y*10);
-	CAPISocket::MP_AddWord(byBuff, iOffset, fSpeed*10);			// 속도 
+	CAPISocket::MP_AddWord(byBuff, iOffset, (uint16)(vPos.x*10));			// 다음 위치
+	CAPISocket::MP_AddWord(byBuff, iOffset, (uint16)(vPos.z*10));
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16)(vPos.y*10));
+	CAPISocket::MP_AddWord(byBuff, iOffset, (uint16)(fSpeed*10));			// 속도 
 	CAPISocket::MP_AddByte(byBuff, iOffset, byMoveFlag );		// 움직임 플래그..
 	s_pSocket->Send(byBuff, iOffset);							// 패킷을 보냄..
 
@@ -1405,7 +1405,7 @@ void CGameProcMain::MsgSend_Rotation()
 	float fYaw = s_pPlayer->Yaw(); // 방향..
 	
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ROTATE);
-	CAPISocket::MP_AddShort(byBuff, iOffset, fYaw*100);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)(fYaw*100));
 
 	s_pSocket->Send(byBuff, iOffset);
 
@@ -1527,7 +1527,7 @@ bool CGameProcMain::MsgSend_PartyOrForceCreate(int iPartyOrForce, const std::str
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY);
 //	CAPISocket::MP_AddByte(byBuff, iOffset, iPartyOrForce);
 	CAPISocket::MP_AddByte(byBuff, iOffset, eCmdParty);
-	CAPISocket::MP_AddShort(byBuff, iOffset, szID.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szID.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szID);
 
 	s_pSocket->Send(byBuff, iOffset); // 보낸다..
@@ -1633,7 +1633,7 @@ void CGameProcMain::MsgSend_Administrator(e_SubPacket_Administrator eSP, const s
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_OPERATOR); // 관리자 전용패킷..
 	CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
-	CAPISocket::MP_AddShort(byBuff, iOffset, szID.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szID.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szID);	
 
 	s_pSocket->Send(byBuff, iOffset);
@@ -5391,8 +5391,8 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		
 		int iOffset = 0;
 		CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WARP);
-		CAPISocket::MP_AddWord(byBuff, iOffset, (fX * 10));
-		CAPISocket::MP_AddWord(byBuff, iOffset, (fZ * 10));
+		CAPISocket::MP_AddWord(byBuff, iOffset, (uint16)(fX * 10));
+		CAPISocket::MP_AddWord(byBuff, iOffset, (uint16)(fZ * 10));
 
 		s_pSocket->Send(byBuff, iOffset);
 	}

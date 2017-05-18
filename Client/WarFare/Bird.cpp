@@ -94,7 +94,7 @@ void CBird::Tick()
 
 	if(m_pSnd && m_fSndInterval > 30.0f)
 	{
-		m_fSndInterval = -(rand()%20);
+		m_fSndInterval = (float)(-(rand()%20));
 		m_pSnd->Play(&vNewPos);
 	}
 }

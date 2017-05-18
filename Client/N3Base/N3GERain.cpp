@@ -44,7 +44,7 @@ void CN3GERain::Tick()
 	{
 		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
 		{
-			iActiveCount = iCount * m_fFadeTimeCur / m_fFadeTime;
+			iActiveCount = (int)(iCount * m_fFadeTimeCur / m_fFadeTime);
 			if(iActiveCount > iCount) iActiveCount = iCount;
 			else if(iActiveCount < 0) iActiveCount = 0;
 		}
@@ -53,7 +53,7 @@ void CN3GERain::Tick()
 	{
 		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
 		{
-			iActiveCount = iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime);
+			iActiveCount = (int)(iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime));
 			if(iActiveCount > iCount) iActiveCount = iCount;
 			else if(iActiveCount < 0) iActiveCount = 0;
 		}
@@ -124,7 +124,7 @@ void CN3GERain::Render(__Vector3& vPos)
 	{
 		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
 		{
-			iActiveCount = iCount * m_fFadeTimeCur / m_fFadeTime;
+			iActiveCount = (int)(iCount * m_fFadeTimeCur / m_fFadeTime);
 			if(iActiveCount > iCount) iActiveCount = iCount;
 			else if(iActiveCount < 0) iActiveCount = 0;
 		}
@@ -133,7 +133,7 @@ void CN3GERain::Render(__Vector3& vPos)
 	{
 		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
 		{
-			iActiveCount = iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime);
+			iActiveCount = (int)(iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime));
 			if(iActiveCount > iCount) iActiveCount = iCount;
 			else if(iActiveCount < 0) iActiveCount = 0;
 		}

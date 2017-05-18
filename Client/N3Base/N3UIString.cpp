@@ -56,7 +56,7 @@ void CN3UIString::Render()
 	if(!m_bVisible) return;
 	
 	__ASSERT(m_pDFont,"m_pDFont is NULL");
-	m_pDFont->DrawText( m_ptDrawPos.x, m_ptDrawPos.y, m_Color, 0 );
+	m_pDFont->DrawText((float)m_ptDrawPos.x, (float)m_ptDrawPos.y, m_Color, 0 );
 
 	CN3UIBase::Render();
 }

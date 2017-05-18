@@ -68,7 +68,7 @@ public:
 
 	void	UpdateHP(int iVal, int iValMax);
 	void	UpdateMSP(int iVal, int iValMax);
-	void	UpdateExp(int iVal, int iValMax);
+	void	UpdateExp(uint64 iVal, uint64 iValMax);
 	void	UpdateAttackPoint(int iVal, int iDelta);
 	void	UpdateGuardPoint(int iVal, int iDelta);
 	void	UpdateWeight(int iVal, int iValMax);

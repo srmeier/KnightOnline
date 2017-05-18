@@ -67,10 +67,10 @@ bool CUICharacterSelect::Load(HANDLE hFile)
 //	if(pBtnRight) { pt = pBtnRight->GetPos(); pt.x *= fRatio; pt.y *= fRatio; pBtnRight->SetPos(pt.x, pt.y); }
 //	if(pBtnExit) { pt = pBtnExit->GetPos(); pt.x *= fRatio; pt.y *= fRatio; pBtnExit->SetPos(pt.x, pt.y); }
 //	if(pBtnDelete) { pt = pBtnDelete->GetPos(); pt.x *= fRatio; pt.y *= fRatio; pBtnDelete->SetPos(pt.x, pt.y); }
-	if(m_pBtnLeft) { pt = m_pBtnLeft->GetPos(); pt.x *= fRatio; pt.y = s_CameraData.vp.Height - 10 - m_pBtnLeft->GetHeight(); m_pBtnLeft->SetPos(pt.x, pt.y); }
-	if(m_pBtnRight) { pt = m_pBtnRight->GetPos(); pt.x *= fRatio; pt.y = s_CameraData.vp.Height - 10 - m_pBtnRight->GetHeight(); m_pBtnRight->SetPos(pt.x, pt.y); }
-	if(m_pBtnExit) { pt = m_pBtnExit->GetPos(); pt.x *= fRatio; pt.y = s_CameraData.vp.Height - 10 - m_pBtnExit->GetHeight(); m_pBtnExit->SetPos(pt.x, pt.y); }
-	if(m_pBtnDelete) { pt = m_pBtnDelete->GetPos(); pt.x *= fRatio; pt.y = 20; m_pBtnDelete->SetPos(pt.x, pt.y); }
+	if(m_pBtnLeft) { pt = m_pBtnLeft->GetPos(); pt.x = (int)(pt.x * fRatio); pt.y = s_CameraData.vp.Height - 10 - m_pBtnLeft->GetHeight(); m_pBtnLeft->SetPos(pt.x, pt.y); }
+	if(m_pBtnRight) { pt = m_pBtnRight->GetPos(); pt.x = (int)(pt.x * fRatio); pt.y = s_CameraData.vp.Height - 10 - m_pBtnRight->GetHeight(); m_pBtnRight->SetPos(pt.x, pt.y); }
+	if(m_pBtnExit) { pt = m_pBtnExit->GetPos(); pt.x = (int)(pt.x * fRatio); pt.y = s_CameraData.vp.Height - 10 - m_pBtnExit->GetHeight(); m_pBtnExit->SetPos(pt.x, pt.y); }
+	if(m_pBtnDelete) { pt = m_pBtnDelete->GetPos(); pt.x = (int)(pt.x * fRatio); pt.y = 20; m_pBtnDelete->SetPos(pt.x, pt.y); }
 
 	SetRect(&rc, 0, 0, s_CameraData.vp.Width, s_CameraData.vp.Height);
 	this->SetRegion(rc);

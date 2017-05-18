@@ -49,14 +49,14 @@ void CN3UITooltip::Render()
 		static const D3DCOLOR BkColor= 0x80000000;
 		static const D3DCOLOR BorderColorOut= 0xff808080;
 		static const D3DCOLOR BorderColorIn= 0xffc0c0c0;
-		pVB[0].Set(m_rcRegion.left,		m_rcRegion.top,		UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
-		pVB[1].Set(m_rcRegion.right,	m_rcRegion.top,		UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
-		pVB[2].Set(m_rcRegion.right,	m_rcRegion.bottom,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
-		pVB[3].Set(m_rcRegion.left,		m_rcRegion.bottom,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
-		pVB[4].Set(m_rcRegion.left+1,	m_rcRegion.top+1,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
-		pVB[5].Set(m_rcRegion.right-1,	m_rcRegion.top+1,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
-		pVB[6].Set(m_rcRegion.right-1,	m_rcRegion.bottom-1,UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
-		pVB[7].Set(m_rcRegion.left+1,	m_rcRegion.bottom-1,UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
+		pVB[0].Set((float)m_rcRegion.left,		(float)m_rcRegion.top,		UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
+		pVB[1].Set((float)m_rcRegion.right,		(float)m_rcRegion.top,		UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
+		pVB[2].Set((float)m_rcRegion.right,		(float)m_rcRegion.bottom,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
+		pVB[3].Set((float)m_rcRegion.left,		(float)m_rcRegion.bottom,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BkColor);
+		pVB[4].Set((float)m_rcRegion.left+1,	(float)m_rcRegion.top+1,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
+		pVB[5].Set((float)m_rcRegion.right-1,	(float)m_rcRegion.top+1,	UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
+		pVB[6].Set((float)m_rcRegion.right-1,	(float)m_rcRegion.bottom-1,UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
+		pVB[7].Set((float)m_rcRegion.left+1,	(float)m_rcRegion.bottom-1,UI_DEFAULT_Z, UI_DEFAULT_RHW, BorderColorIn);
 
 		// set texture stage state
 		s_lpD3DDev->SetTexture( 0, NULL);
@@ -130,13 +130,13 @@ void CN3UITooltip::SetText(const std::string& szText)
 	int iRegionWidth = m_rcRegion.right - m_rcRegion.left;
 	int iRegionHeight = m_rcRegion.bottom - m_rcRegion.top;
 
-	if (ptNew.x + iRegionWidth > vp.X+vp.Width)	// 화면 오른쪾으로 벗어난 경우
+	if (ptNew.x + iRegionWidth > (int)(vp.X+vp.Width))	// 화면 오른쪾으로 벗어난 경우
 		ptNew.x = vp.X+vp.Width - iRegionWidth;
-	if (ptNew.x < vp.X)	ptNew.x = vp.X;	// 화면 왼쪽으로 벗어난 경우
+	if (ptNew.x < (int)vp.X)	ptNew.x = vp.X;	// 화면 왼쪽으로 벗어난 경우
 
-	if (ptNew.y + iRegionHeight > vp.Y+vp.Height)	// 화면 하단으로 벗어난 경우
+	if (ptNew.y + iRegionHeight >(int)(vp.Y+vp.Height))	// 화면 하단으로 벗어난 경우
 		ptNew.y = vp.Y+vp.Height - iRegionHeight;
-	if (ptNew.y < vp.Y) ptNew.y = vp.Y;	// 화면 상단으로 벗어난 경우	
+	if (ptNew.y < (int)vp.Y) ptNew.y = vp.Y;	// 화면 상단으로 벗어난 경우	
 
 	SetPos(ptNew.x, ptNew.y);
 
@@ -145,7 +145,7 @@ void CN3UITooltip::SetText(const std::string& szText)
 
 void CN3UITooltip::Tick()
 {
-	int fOldTime = m_fHoverTime;
+	float fOldTime = m_fHoverTime;
 	m_fHoverTime += s_fSecPerFrm;
 	static const float fDisplayTime = 0.3f;
 	if (fOldTime < fDisplayTime && m_fHoverTime >= fDisplayTime)

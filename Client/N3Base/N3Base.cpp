@@ -339,10 +339,10 @@ void CN3Base::RenderLines(const RECT& rc, D3DCOLOR color)
 {
 	static __VertexTransformedColor vLines[5];
 	
-	vLines[0].Set(rc.left, rc.top, 0.9f, 1.0f, color);
-	vLines[1].Set(rc.right, rc.top, 0.9f, 1.0f, color);
-	vLines[2].Set(rc.right, rc.bottom, 0.9f, 1.0f, color);
-	vLines[3].Set(rc.left, rc.bottom, 0.9f, 1.0f, color);
+	vLines[0].Set((float)rc.left, (float)rc.top, 0.9f, 1.0f, color);
+	vLines[1].Set((float)rc.right, (float)rc.top, 0.9f, 1.0f, color);
+	vLines[2].Set((float)rc.right, (float)rc.bottom, 0.9f, 1.0f, color);
+	vLines[3].Set((float)rc.left, (float)rc.bottom, 0.9f, 1.0f, color);
 	vLines[4] = vLines[0];
 
 	DWORD dwZ, dwFog, dwAlpha, dwCOP, dwCA1, dwSrcBlend, dwDestBlend, dwVertexShader, dwAOP, dwAA1;

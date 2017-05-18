@@ -771,8 +771,8 @@ RECT CUIPerTradeDlg::GetSampleRect()
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
 	pArea = CN3UIWndBase::GetChildAreaByiOrder(UI_AREA_TYPE_PER_TRADE_MY, 0);
 	rect = pArea->GetRegion();
-	float fWidth = rect.right - rect.left;
-	float fHeight = rect.bottom - rect.top;
+	float fWidth = (float)(rect.right - rect.left);
+	float fHeight = (float)(rect.bottom - rect.top);
 	fWidth *= 0.5f; fHeight *= 0.5f;
 	rect.left = ptCur.x - (int)fWidth;  rect.right  = ptCur.x + (int)fWidth;
 	rect.top  = ptCur.y - (int)fHeight; rect.bottom = ptCur.y + (int)fHeight;

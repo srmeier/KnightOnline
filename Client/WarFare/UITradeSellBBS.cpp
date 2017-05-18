@@ -681,10 +681,10 @@ void CUITradeSellBBS::RenderSelectContent()
 		return;
 
 	__VertexTransformedColor vLines[5];
-	vLines[0].Set(rc.left, rc.top, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
-	vLines[1].Set(rc.right, rc.top, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
-	vLines[2].Set(rc.right, rc.bottom, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
-	vLines[3].Set(rc.left, rc.bottom, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
+	vLines[0].Set((float)rc.left, (float)rc.top, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
+	vLines[1].Set((float)rc.right, (float)rc.top, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
+	vLines[2].Set((float)rc.right, (float)rc.bottom, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
+	vLines[3].Set((float)rc.left, (float)rc.bottom, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
 	vLines[4] = vLines[0];
 
 	DWORD dwZ, dwFog, dwAlpha, dwCOP, dwCA1, dwSrcBlend, dwDestBlend, dwVertexShader, dwAOP, dwAA1;

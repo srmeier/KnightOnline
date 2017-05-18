@@ -233,13 +233,13 @@ void CUIState::UpdateMSP(int iVal, int iValMax)
 	m_pText_MP->SetString(szVal);
 }
 
-void CUIState::UpdateExp(int iVal, int iValMax)
+void CUIState::UpdateExp(uint64 iVal, uint64 iValMax)
 {
 	__ASSERT(iVal >= 0 && iValMax > 0, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	if(NULL == m_pText_Exp) return;
 
 	char szVal[64] = "0 / 0";
-	sprintf(szVal, "%d / %d", iVal, iValMax);
+	sprintf(szVal, I64FMTD " / " I64FMTD, iVal, iValMax);
 	m_pText_Exp->SetString(szVal);
 }
 
@@ -1558,8 +1558,8 @@ void CUIVarious::Tick()
 		if(fDelta < 2.0f) fDelta = 2.0f;
 		m_fMoveDelta += fDelta;
 
-		int iXLimit = -fWidth;
-		ptCur.x = -m_fMoveDelta;
+		int iXLimit = (int)-fWidth;
+		ptCur.x = (int)-m_fMoveDelta;
 		if(ptCur.x <= iXLimit) // ´Ù ´ÝÇû´Ù..!!
 		{
 			ptCur.x = iXLimit;

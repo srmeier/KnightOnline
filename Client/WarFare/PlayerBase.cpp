@@ -993,9 +993,9 @@ void CPlayerBase::Render(float fSunAngle)
 			pt.y -= size.cy + 5;
 			D3DCOLOR crFont = m_pIDFont->GetFontColor();
 
-			m_pIDFont->DrawText(pt.x - (size.cx / 2) - 1, pt.y - 1, 0xff000000, 0);
-			m_pIDFont->DrawText(pt.x - (size.cx / 2) + 1, pt.y + 1, 0xff000000, 0);
-			m_pIDFont->DrawText(pt.x - (size.cx / 2), pt.y, crFont, 0);
+			m_pIDFont->DrawText(pt.x - (size.cx / 2) - 1.0f, pt.y - 1.0f, 0xff000000, 0);
+			m_pIDFont->DrawText(pt.x - (size.cx / 2) + 1.0f, pt.y + 1.0f, 0xff000000, 0);
+			m_pIDFont->DrawText(pt.x - (size.cx / 2) + 0.0f, pt.y + 0.0f, crFont, 0);
 
 			//Knight & clan 렌더링..
 			if(m_pClanFont && m_pClanFont->IsSetText())
@@ -1003,9 +1003,9 @@ void CPlayerBase::Render(float fSunAngle)
 				size = m_pClanFont->GetSize();
 				pt.y -= size.cy + 5;
 				crFont = m_pClanFont->GetFontColor();
-				m_pClanFont->DrawText(pt.x - (size.cx / 2) - 1, pt.y - 1, 0xff000000, 0);
-				m_pClanFont->DrawText(pt.x - (size.cx / 2) + 1, pt.y + 1, 0xff000000, 0);
-				m_pClanFont->DrawText(pt.x - (size.cx / 2), pt.y, crFont, 0);
+				m_pClanFont->DrawText(pt.x - (size.cx / 2) - 1.0f, pt.y - 1.0f, 0xff000000, 0);
+				m_pClanFont->DrawText(pt.x - (size.cx / 2) + 1.0f, pt.y + 1.0f, 0xff000000, 0);
+				m_pClanFont->DrawText(pt.x - (size.cx / 2) + 0.0f, pt.y + 0.0f, crFont, 0);
 			}
 			
 			// 파티 모집...
@@ -1014,9 +1014,9 @@ void CPlayerBase::Render(float fSunAngle)
 				size = m_pInfoFont->GetSize();
 				pt.y -= size.cy + 5;
 				crFont = m_pInfoFont->GetFontColor();
-				m_pInfoFont->DrawText(pt.x - (size.cx / 2) - 1, pt.y - 1, 0xff000000, 0);
-				m_pInfoFont->DrawText(pt.x - (size.cx / 2) + 1, pt.y + 1, 0xff000000, 0);
-				m_pInfoFont->DrawText(pt.x - (size.cx / 2), pt.y, crFont, 0);
+				m_pInfoFont->DrawText(pt.x - (size.cx / 2) - 1.0f, pt.y - 1.0f, 0xff000000, 0);
+				m_pInfoFont->DrawText(pt.x - (size.cx / 2) + 1.0f, pt.y + 1.0f, 0xff000000, 0);
+				m_pInfoFont->DrawText(pt.x - (size.cx / 2) + 0.0f, pt.y + 0.0f, crFont, 0);
 			}
 
 			// 풍선 메시지..
@@ -1032,9 +1032,9 @@ void CPlayerBase::Render(float fSunAngle)
 
 				size = m_pBalloonFont->GetSize();
 				pt.y -= size.cy + 5;
-				m_pBalloonFont->DrawText(pt.x - (size.cx / 2) - 1, pt.y - 1, 0xff000000, 0);
-				m_pBalloonFont->DrawText(pt.x - (size.cx / 2) + 1, pt.y + 1, 0xff000000, 0);
-				m_pBalloonFont->DrawText(pt.x - (size.cx / 2), pt.y, crFont, D3DFONT_BOLD);
+				m_pBalloonFont->DrawText(pt.x - (size.cx / 2) - 1.0f, pt.y - 1.0f, 0xff000000, 0);
+				m_pBalloonFont->DrawText(pt.x - (size.cx / 2) + 1.0f, pt.y + 1.0f, 0xff000000, 0);
+				m_pBalloonFont->DrawText(pt.x - (size.cx / 2) + 0.0f, pt.y + 0.0f, crFont, D3DFONT_BOLD);
 			}
 		}
 	}

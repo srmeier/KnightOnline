@@ -101,9 +101,9 @@ protected:
 	void	MakeDistanceTable();
 
 	inline	int	Log2(int x);	//2의 승수 전용....
-	int Real2Tile(float x){ return ((int)x / TILE_SIZE); } // 실좌표 -> 타일좌표...(절대좌표)
+	int Real2Tile(float x){ return ((int)x / (int)TILE_SIZE); } // 실좌표 -> 타일좌표...(절대좌표)
 	int Tile2Patch(int x) { return (x / PATCH_TILE_SIZE); } // 타일좌표 -> 패치좌표...(절대좌표계)
-	int Real2Patch(float fX) { return ( ((int)fX / TILE_SIZE) / PATCH_TILE_SIZE ); } // 실좌표 -> 패치좌표..(절대좌표계)
+	int Real2Patch(float fX) { return ( ((int)fX / (int)TILE_SIZE) / PATCH_TILE_SIZE ); } // 실좌표 -> 패치좌표..(절대좌표계)
 		
 	void	LoadTileInfo(HANDLE hFile);
 	bool	CheckRenderablePatch();

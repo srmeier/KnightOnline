@@ -79,13 +79,13 @@ void CN3UITrackBar::SetRegion(const RECT& Rect)
 		RECT rc;
 		if (UISTYLE_TRACKBAR_VERTICAL == m_dwStyle)
 		{	// 세로
-			rc.left = Rect.left;		rc.top = Rect.top + iBkHeight*0.3f;
-			rc.right = Rect.right;	rc.bottom = rc.top + iBkHeight*0.3f;
+			rc.left = Rect.left;		rc.top = Rect.top + (int)(iBkHeight*0.3f);
+			rc.right = Rect.right;	rc.bottom = rc.top + (int)(iBkHeight*0.3f);
 		}
 		else
 		{	// 가로
-			rc.left = Rect.left + iBkWidth*0.3f;		rc.top = Rect.top;
-			rc.right = rc.left + iBkWidth*0.3f;			rc.bottom = Rect.bottom;
+			rc.left = Rect.left + (int)(iBkWidth*0.3f);		rc.top = Rect.top;
+			rc.right = rc.left + (int)(iBkWidth*0.3f);			rc.bottom = Rect.bottom;
 		}
 		m_pThumbImageRef->SetRegion(rc);
 	}

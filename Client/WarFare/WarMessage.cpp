@@ -72,9 +72,9 @@ void CWarMessage::RenderMessage()
 		POINT pt = m_ptMessage;
 		D3DCOLOR crFont = m_pMessageFont->GetFontColor();
 
-		m_pMessageFont->DrawText(pt.x - 1, pt.y - 1, 0xff000000, 0);
-		m_pMessageFont->DrawText(pt.x + 1, pt.y + 1, 0xff000000, 0);
-		m_pMessageFont->DrawText(pt.x , pt.y, crFont, 0);
+		m_pMessageFont->DrawText(pt.x - 1.0f, pt.y - 1.0f, 0xff000000, 0);
+		m_pMessageFont->DrawText(pt.x + 1.0f, pt.y + 1.0f, 0xff000000, 0);
+		m_pMessageFont->DrawText(pt.x + 0.0f, pt.y + 0.0f, crFont, 0);
 	}
 }
 
@@ -87,7 +87,7 @@ void CWarMessage::Tick()
 		return;
 	}
 
-	m_ptMessage.x -= CN3Base::s_fSecPerFrm * 100;
+	m_ptMessage.x -= (int)(CN3Base::s_fSecPerFrm * 100);
 	SIZE size = m_pMessageFont->GetSize();
 	if(m_ptMessage.x < (-size.cx))
 	{

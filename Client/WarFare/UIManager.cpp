@@ -228,7 +228,7 @@ void CUIManager::Render()
 
 	for (int i = 0; i<4; ++i) {
 		m_pDFont->SetText(szDebugs[i]);
-		m_pDFont->DrawText(0, 0 + i * 18, 0xFFFFFFFF, 0);
+		m_pDFont->DrawText(0.0f, 0.0f + i * 18, 0xFFFFFFFF, 0);
 	}
 
 	delete m_pDFont;

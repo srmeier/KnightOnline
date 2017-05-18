@@ -1807,7 +1807,7 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 
 			if(pSkill->dw1stTableType==2 || pSkill->dw2ndTableType==2)//È­»ì½î±â..
 			{
-				short Data[6] = { m_vTargetPos.x, m_vTargetPos.y, m_vTargetPos.z, idx, 0, 0 };
+				short Data[6] = { (short)m_vTargetPos.x, (short)m_vTargetPos.y, (short)m_vTargetPos.z, (short)idx, 0, 0 };
 				FlyingType2(pSkill, SourceID, m_iTarget, Data);
 				return;
 			}
@@ -3061,7 +3061,7 @@ void CMagicSkillMng::StunMySelf(__TABLE_UPC_SKILL_TYPE_3* pType3)
 
 	__InfoPlayerMySelf* pInfoExt = &(s_pPlayer->m_InfoExt);
 
-	float Regist = pInfoExt->iRegistLight + pInfoExt->iRegistLight_Delta;
+	float Regist = (float)(pInfoExt->iRegistLight + pInfoExt->iRegistLight_Delta);
 	if(Regist>80.0f) Regist = 80.0f;
 
 	float Prob = (30.0f+(40.0f-( 40.0f*(Regist/80.0f) )));

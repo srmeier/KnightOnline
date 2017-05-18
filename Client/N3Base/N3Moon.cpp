@@ -75,20 +75,20 @@ void CN3Moon::Render(__Matrix44& matView, __Matrix44& matProj)
 	vMoon.z = vOut.z*fRHW;
 	if (vMoon.z < 0.0f || vMoon.z > 1.0f) return;		// 화면 뒤에 그려진다.
 	// Mapping Screen Coordinate.
-	vMoon.x = X + int((vOut.x*fRHW + 1.0f)*Width*0.5f);
-	vMoon.y = Y + int((-vOut.y*fRHW + 1.0f)*Height*0.5f);
+	vMoon.x = (float)X + ((vOut.x*fRHW + 1.0f)*Width*0.5f);
+	vMoon.y = (float)Y + ((-vOut.y*fRHW + 1.0f)*Height*0.5f);
 	
 	RECT rcMoon;
-	int iMoonSize = (Width * m_fMoonRatio) / 2;
-	SetRect(&rcMoon, vMoon.x-iMoonSize, vMoon.y-iMoonSize, vMoon.x+iMoonSize, vMoon.y+iMoonSize);
+	int iMoonSize = (int)(Width * m_fMoonRatio) / 2;
+	SetRect(&rcMoon, (int)(vMoon.x-iMoonSize), (int)(vMoon.y-iMoonSize), (int)(vMoon.x+iMoonSize), (int)(vMoon.y+iMoonSize));
 	// clipping with screen.
 	if ( rcMoon.right < X|| rcMoon.bottom < Y || rcMoon.left > X+Width || rcMoon.top > Y+Height) return;	// 화면 밖에 그려진다.
 
 	// 2D로 그리기
-	m_pVertices[0].x = rcMoon.left;		m_pVertices[0].y = rcMoon.top;
-	m_pVertices[1].x = rcMoon.right;	m_pVertices[1].y = rcMoon.top;
-	m_pVertices[2].x = rcMoon.right;	m_pVertices[2].y = rcMoon.bottom;
-	m_pVertices[3].x = rcMoon.left;		m_pVertices[3].y = rcMoon.bottom;
+	m_pVertices[0].x = (float)rcMoon.left;		m_pVertices[0].y = (float)rcMoon.top;
+	m_pVertices[1].x = (float)rcMoon.right;		m_pVertices[1].y = (float)rcMoon.top;
+	m_pVertices[2].x = (float)rcMoon.right;		m_pVertices[2].y = (float)rcMoon.bottom;
+	m_pVertices[3].x = (float)rcMoon.left;		m_pVertices[3].y = (float)rcMoon.bottom;
 
 	if(m_pTexture) s_lpD3DDev->SetTexture(0, m_pTexture->Get());
 	else s_lpD3DDev->SetTexture(0, NULL);

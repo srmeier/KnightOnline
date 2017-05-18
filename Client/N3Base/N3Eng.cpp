@@ -224,7 +224,7 @@ bool CN3Eng::Reset(bool bWindowed, Uint32 dwWidth, Uint32 dwHeight, Uint32 dwBPP
 	}
 
 	RECT rcView = {
-		0, 0, dwWidth, dwHeight
+		0, 0, (int)dwWidth, (int)dwHeight
 	};
 
 	SetViewPort(rcView);
@@ -430,7 +430,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHe
 	this->LookAt(__Vector3(5,5,-10), __Vector3(0,0,0), __Vector3(0,1,0));
 	this->SetProjection(0.1f, 256.0f, D3DXToRadian(45.0f), (float)dwHeight/dwWidth);
 	
-	RECT rcView = { 0, 0, dwWidth, dwHeight };
+	RECT rcView = { 0, 0, (int)dwWidth, (int)dwHeight };
 	this->SetViewPort(rcView);
 	this->SetDefaultEnvironment(); // 기본 상태로 설정..
 

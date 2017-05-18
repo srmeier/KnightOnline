@@ -268,7 +268,7 @@ void CN3SndObjStream::Tick()
 		else
 		{
 			int vol = 0;			
-			if(m_fFadeInTime>0.0f) vol = ((m_fTmpSecPerFrm/m_fFadeInTime)*(float)m_iMaxVolume);
+			if(m_fFadeInTime>0.0f) vol = (int)((m_fTmpSecPerFrm/m_fFadeInTime)*(float)m_iMaxVolume);
 			SetVolume(vol);
 		}
 		RealPlay();
@@ -292,7 +292,7 @@ void CN3SndObjStream::Tick()
 		{
 			//볼륨 점점 작게....
 			int vol = 0;
-			if(m_fFadeOutTime>0.0f)  vol = (((m_fFadeOutTime - m_fTmpSecPerFrm)/m_fFadeOutTime)*(float)m_iMaxVolume);
+			if(m_fFadeOutTime>0.0f)  vol = (int)(((m_fFadeOutTime - m_fTmpSecPerFrm)/m_fFadeOutTime)*(float)m_iMaxVolume);
 			SetVolume(vol);
 			RealPlay();
 		}

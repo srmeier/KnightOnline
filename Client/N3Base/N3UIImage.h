@@ -34,7 +34,7 @@ protected:
 
 	float					m_fAnimFrame;	// 1초당 그려지는 이미지의 수
 	int						m_iAnimCount;	// Animate되는 이미지 수(Load할 때 child의 숫자로 파악)
-	int						m_fCurAnimFrame;	// 현재 그려질 animate frame index (소수는 버리고 사용하자)
+	float					m_fCurAnimFrame;	// 현재 그려질 animate frame index (소수는 버리고 사용하자)
 	CN3UIImage**			m_pAnimImagesRef;	// Animate 될 자식 이미지들 참조 포인터들
 
 //	Operations

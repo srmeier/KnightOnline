@@ -80,10 +80,10 @@ void CN3Cloud::Tick()
 //		float dv = 0.003*fCloudLayer;
 //		float du2 = 0.003*fCloudLayer;
 //		float dv2 = 0.005*fCloudLayer;
-		float du = 0.005*fCloudLayer;
-		float dv = 0.015*fCloudLayer;
-		float du2 = 0.015*fCloudLayer;
-		float dv2 = 0.025*fCloudLayer;
+		float du = 0.005f*fCloudLayer;
+		float dv = 0.015f*fCloudLayer;
+		float du2 = 0.015f*fCloudLayer;
+		float dv2 = 0.025f*fCloudLayer;
 
 		for (i=0; i<NUM_CLOUD_VERTEX; ++i)
 		{

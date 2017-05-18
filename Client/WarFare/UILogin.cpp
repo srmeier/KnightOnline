@@ -315,7 +315,7 @@ void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 			if(m_pText_Rights && m_pImg_MGameLogo)
 			{
 				// 아래쪽 중단으로 맞춘다..
-				RECT rcView = { 0, 0, s_CameraData.vp.Width, s_CameraData.vp.Height };
+				RECT rcView = { 0, 0, (int)s_CameraData.vp.Width, (int)s_CameraData.vp.Height };
 				int iX = (rcView.right - (m_pText_Rights->GetWidth() + m_pImg_MGameLogo->GetWidth()))/2;
 				int iY = rcView.bottom - m_pText_Rights->GetHeight() - 20;
 				m_pText_Rights->SetPos(iX, iY);
@@ -331,7 +331,7 @@ void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 			if(m_pText_Rights && m_pImg_DaumLogo)
 			{
 				// 아래쪽 중단으로 맞춘다..
-				RECT rcView = { 0, 0, s_CameraData.vp.Width, s_CameraData.vp.Height };
+				RECT rcView = { 0, 0, (int)s_CameraData.vp.Width, (int)s_CameraData.vp.Height };
 				int iX = (rcView.right - (m_pText_Rights->GetWidth() + m_pImg_DaumLogo->GetWidth()))/2;
 				int iY = rcView.bottom - m_pText_Rights->GetHeight() - 20;
 				m_pText_Rights->SetPos(iX, iY);
@@ -346,7 +346,7 @@ void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 		{
 			if(m_pText_Rights)
 			{
-				RECT rcView = { 0, 0, s_CameraData.vp.Width, s_CameraData.vp.Height };
+				RECT rcView = { 0, 0, (int)s_CameraData.vp.Width, (int)s_CameraData.vp.Height };
 				int iX = (rcView.right - m_pText_Rights->GetWidth())/2;
 				int iY = rcView.bottom - m_pText_Rights->GetHeight() - 20;
 				m_pText_Rights->SetPos(iX, iY);

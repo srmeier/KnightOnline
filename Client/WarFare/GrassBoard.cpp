@@ -177,7 +177,7 @@ DWORD CGrassBoard::SetBrightLevel(float Level)
 	if(Level>m_fBrightmin)	//	일정거리내만큼 보임
 	{
 		float brightper = (Level-m_fBrightmin)/m_fBrightmax;
-		DWORD alphaColor = 255 - 255*brightper;
+		DWORD alphaColor = (DWORD)(255 - 255*brightper);
 		Color = (alphaColor << 24) | 0x00ffffff;
 	}
 	else Color = 0xffffffff;	//	일정거리안은 완전히 보여줌
@@ -204,13 +204,13 @@ void CGrassBoard::SetInfo(__Vector3 vBoardPosion,unsigned short usData)
 	{
 		pGrass = &m_sGrassInfo[i];
 
-		mRand = rand();	pGrass->vPos.x = (mRand%40)/10.000 + vBoardPosion.x;
+		mRand = rand();	pGrass->vPos.x = (mRand%40)/10.0f + vBoardPosion.x;
 
 		pGrass->dwAlpColor = 0x00ffffff;
 		pGrass->iTexIndex = InputGrass[iCount];
 		if(++iCount>=GrassInputCount) iCount=0;
 
-		mRand = rand();	pGrass->vPos.z = (mRand%40)/10.000 + vBoardPosion.z;	//	랜더값를 좀더 벌리기 위해
+		mRand = rand();	pGrass->vPos.z = (mRand%40)/10.0f+ vBoardPosion.z;	//	랜더값를 좀더 벌리기 위해
 		pGrass->vPos.y = 0.0f;
 	}
 }

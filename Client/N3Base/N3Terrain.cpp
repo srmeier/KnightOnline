@@ -1461,8 +1461,8 @@ inline int CN3Terrain::Log2(int x)
 float CN3Terrain::GetHeight(float x, float z)
 {
 	int ix, iz;
-	ix = ((int)x) / TILE_SIZE;
-	iz = ((int)z) / TILE_SIZE;
+	ix = ((int)x) / (int)TILE_SIZE;
+	iz = ((int)z) / (int)TILE_SIZE;
 
 	if(ix<0 || ix>(m_ti_MapSize-2)) return -FLT_MAX;
 	if(iz<0 || iz>(m_ti_MapSize-2)) return -FLT_MAX;
@@ -1548,8 +1548,8 @@ void CN3Terrain::GetNormal(float x, float z, __Vector3& vNormal)
 	}
 
 	int ix, iz;
-	ix = ((int)x) / TILE_SIZE;
-	iz = ((int)z) / TILE_SIZE;
+	ix = ((int)x) / (int)TILE_SIZE;
+	iz = ((int)z) / (int)TILE_SIZE;
 
 	float dX, dZ;
 	dX = (x - ix*TILE_SIZE)/TILE_SIZE;
@@ -1652,8 +1652,8 @@ BOOL CN3Terrain::Pick(int x, int y, __Vector3& vPick)
 	__Vector3 A, B, C;
 	float t, u, v;
 	
-	int ix = ((int)vPosCur.x) / TILE_SIZE;
-	int iz = ((int)vPosCur.z) / TILE_SIZE;
+	int ix = ((int)vPosCur.x) / (int)TILE_SIZE;
+	int iz = ((int)vPosCur.z) / (int)TILE_SIZE;
 
 	if((ix+iz)%2==1)				// 당근.. 왼손 바인딩...
 	{
@@ -1754,8 +1754,8 @@ BOOL CN3Terrain::PickWide(int x, int y, __Vector3& vPick)
 	{
 		if ( bCollision )	return bCollision;
 	
-		int ix = ((int)vPosCur.x) / TILE_SIZE;
-		int iz = ((int)vPosCur.z) / TILE_SIZE;
+		int ix = ((int)vPosCur.x) / (int)TILE_SIZE;
+		int iz = ((int)vPosCur.z) / (int)TILE_SIZE;
 
 		for ( int i = 0; i < 10; i++ )
 		{
@@ -1908,8 +1908,8 @@ void CN3Terrain::CalcCollisionTerrainByOTPlayer(__Vector3 vOrig, __Vector3 vAt, 
 	vDir  = vec3;
 	vec4 = vec2;
 
-	int ix = ((int)vec2.x)/TILE_SIZE;
-	int iz = ((int)vec2.z)/TILE_SIZE;
+	int ix = ((int)vec2.x) / (int)TILE_SIZE;
+	int iz = ((int)vec2.z) / (int)TILE_SIZE;
 
 	if((ix+iz)%2==1)						// 당근.. 왼손 바인딩...
 	{
@@ -2202,8 +2202,8 @@ CN3Texture* CN3Terrain::GetTileTex(int x, int z)
 bool CN3Terrain::GetTileTexInfo(float x, float z, TERRAINTILETEXINFO& TexInfo1, TERRAINTILETEXINFO& TexInfo2)
 {
 	int tx, tz;
-	tx = x / TILE_SIZE;
-	tz = z / TILE_SIZE;
+	tx = (int)x / (int)TILE_SIZE;
+	tz = (int)z / (int)TILE_SIZE;
 
 	if(tx<0 || tx>=m_ti_MapSize || tz<0 || tz>=m_ti_MapSize) return false;
 

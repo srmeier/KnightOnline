@@ -486,15 +486,15 @@ void CN3FXPartMesh::Rotate()
 	
 	vDirAxis.Cross(m_vDir, m_pRefBundle->m_vDir);
 	int tmp;
-	tmp = vDirAxis.x*10000.0f;
+	tmp = (int)(vDirAxis.x*10000.0f);
 	vDirAxis.x = (float)(tmp)/10000.0f;
-	tmp = vDirAxis.y*10000.0f;
+	tmp = (int)(vDirAxis.y*10000.0f);
 	vDirAxis.y = (float)(tmp)/10000.0f;
-	tmp = vDirAxis.z*10000.0f;
+	tmp = (int)(vDirAxis.z*10000.0f);
 	vDirAxis.z = (float)(tmp)/10000.0f;
 
 	if(vDirAxis.x==0.0f && vDirAxis.y==0.0f && vDirAxis.z==0.0f) vDirAxis.Set(0,1,0);
-	fDirAng = acos((double)m_vDir.Dot(m_pRefBundle->m_vDir));
+	fDirAng = acos(m_vDir.Dot(m_pRefBundle->m_vDir));
 	qtBundle.RotationAxis(vDirAxis, fDirAng);
 	mtx = qtBundle;
 
@@ -516,16 +516,16 @@ void CN3FXPartMesh::Move()
 	
 	vDirAxis.Cross(m_vDir, m_pRefBundle->m_vDir);
 	int tmp;
-	tmp = vDirAxis.x*10000.0f;
+	tmp = (int)(vDirAxis.x*10000.0f);
 	vDirAxis.x = (float)(tmp)/10000.0f;
-	tmp = vDirAxis.y*10000.0f;
+	tmp = (int)(vDirAxis.y*10000.0f);
 	vDirAxis.y = (float)(tmp)/10000.0f;
-	tmp = vDirAxis.z*10000.0f;
+	tmp = (int)(vDirAxis.z*10000.0f);
 	vDirAxis.z = (float)(tmp)/10000.0f;
 
 	if(vDirAxis.x==0.0f && vDirAxis.y==0.0f && vDirAxis.z==0.0f) vDirAxis.Set(0,1,0);
 
-	fDirAng = acos((double)m_vDir.Dot(m_pRefBundle->m_vDir));
+	fDirAng = acos(m_vDir.Dot(m_pRefBundle->m_vDir));
 	qtBundle.RotationAxis(vDirAxis, fDirAng);
 
 	__Matrix44 mtx = qtBundle;
