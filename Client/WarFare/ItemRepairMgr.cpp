@@ -139,7 +139,7 @@ void CItemRepairMgr::Tick()
 					BYTE byBuff[8];															// 패킷 버퍼..
 					int iOffset=0;															// 패킷 오프셋..
 
-					CAPISocket::MP_AddByte(byBuff, iOffset,  N3_ITEM_REPAIR_REQUEST);			// 게임 스타트 패킷 커멘드..
+					CAPISocket::MP_AddByte(byBuff, iOffset,  WIZ_ITEM_REPAIR);			// 게임 스타트 패킷 커멘드..
 					CAPISocket::MP_AddByte(byBuff, iOffset,  iArm);							// 아이디 길이 패킷에 넣기..
 					CAPISocket::MP_AddByte(byBuff, iOffset,  iOrder);							// 아이디 길이 패킷에 넣기..
 					CAPISocket::MP_AddDword(byBuff, iOffset, spItem->pItemBasic->dwID+spItem->pItemExt->dwID);	// 아이디 문자열 패킷에 넣기..

@@ -81,7 +81,7 @@ void CUICreateClanName::MsgSend_MakeClan()
 	iLn = m_szClanName.size();
 	BYTE byBuff[40];									// 패킷 버퍼..
 	int iOffset=0;										// 패킷 오프셋..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);		
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_CREATE);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (BYTE)iLn);
 	CAPISocket::MP_AddString(byBuff, iOffset, m_szClanName);

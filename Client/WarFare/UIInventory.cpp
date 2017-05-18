@@ -583,7 +583,7 @@ void CUIInventory::SendInvMsg(BYTE bDir, int iItemID, int SrcPos, int DestPos)
 	BYTE byBuff[100];												// 버퍼.. 
 	int iOffset=0;												// 옵셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_MOVE);				// Item Move
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_MOVE);				// Item Move
 	CAPISocket::MP_AddByte(byBuff, iOffset, bDir);						
 	CAPISocket::MP_AddDword(byBuff, iOffset, iItemID);					
 	CAPISocket::MP_AddByte(byBuff, iOffset, (byte)SrcPos);				
@@ -2619,7 +2619,7 @@ void CUIInventory::ItemDestroyOK()
 	BYTE byBuff[32];															// 패킷 버퍼..
 	int iOffset=0;																// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_DESTROY);					// 게임 스타트 패킷 커멘드..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_REMOVE);					// 게임 스타트 패킷 커멘드..
 
 	switch ( CN3UIWndBase::m_sSelectedIconInfo.UIWndSelect.UIWndDistrict )
 	{

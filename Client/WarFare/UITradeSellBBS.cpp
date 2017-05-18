@@ -352,7 +352,7 @@ void CUITradeSellBBS::MsgSend_RefreshData(int iCurPage)
 	BYTE byBuff[10];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TRADE_BBS);	
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_BBS_DATA);
 	CAPISocket::MP_AddByte(byBuff, iOffset, m_byBBSKind);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iCurPage);
@@ -382,7 +382,7 @@ void CUITradeSellBBS::MsgSend_Register()
 	BYTE* byBuff = new BYTE[sLen];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TRADE_BBS);	
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_REGISTER);
 	CAPISocket::MP_AddByte(byBuff, iOffset, m_byBBSKind);
 	CAPISocket::MP_AddShort(byBuff, iOffset, szTitle.size());
@@ -403,7 +403,7 @@ void CUITradeSellBBS::MsgSend_RegisterCancel(short sIndex)
 	BYTE byBuff[10];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TRADE_BBS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_REGISTER_CANCEL);
 	CAPISocket::MP_AddByte(byBuff, iOffset, m_byBBSKind);
 	CAPISocket::MP_AddShort(byBuff, iOffset, sIndex);
@@ -640,7 +640,7 @@ void CUITradeSellBBS::MsgSend_PerTrade()
 
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TRADE_BBS);	
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_BBS_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, m_byBBSKind);
 	CAPISocket::MP_AddShort(byBuff, iOffset, m_ITSB.sIndex);

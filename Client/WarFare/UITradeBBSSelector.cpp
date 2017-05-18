@@ -76,7 +76,7 @@ void CUITradeBBSSelector::MsgSend_OpenTradeSellBBS()
 	BYTE byBuff[5];		// 패킷 버퍼..
 	int iOffset=0;		// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TRADE_BBS);		
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_BBS_OPEN);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_BBS_SELL);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -87,7 +87,7 @@ void CUITradeBBSSelector::MsgSend_OpenTradeBuyBBS()
 	BYTE byBuff[5];		// 패킷 버퍼..
 	int iOffset=0;		// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TRADE_BBS);		
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_BBS_OPEN);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_BBS_BUY);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);

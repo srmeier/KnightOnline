@@ -1073,7 +1073,7 @@ void CUIWareHouseDlg::SendToServerToWareMsg(int iItemID, byte page, byte startpo
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WAREHOUSE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_GET_IN);
 	CAPISocket::MP_AddDword(byBuff, iOffset, iItemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, page);
@@ -1088,7 +1088,7 @@ void CUIWareHouseDlg::SendToServerFromWareMsg(int iItemID, byte page, byte start
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WAREHOUSE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_GET_OUT);
 	CAPISocket::MP_AddDword(byBuff, iOffset, iItemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, page);
@@ -1103,7 +1103,7 @@ void CUIWareHouseDlg::SendToServerWareToWareMsg(int iItemID, byte page, byte sta
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WAREHOUSE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_WARE_MOVE);
 	CAPISocket::MP_AddDword(byBuff, iOffset, iItemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, page);	
@@ -1117,7 +1117,7 @@ void CUIWareHouseDlg::SendToServerInvToInvMsg(int iItemID, byte page, byte start
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WAREHOUSE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_INV_MOVE);
 	CAPISocket::MP_AddDword(byBuff, iOffset, iItemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, page);	

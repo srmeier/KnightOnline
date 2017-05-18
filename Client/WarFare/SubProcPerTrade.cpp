@@ -422,7 +422,7 @@ void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이템 
 	{
 		case PER_TRADE_RESULT_MY_CANCEL:								// 거래를 신청한 내가 거래 신청을 취소..
 			// 서버에게 패킷 만들어서 날림..
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_CANCEL);
 			CGameProcedure::s_pSocket->Send(byBuff, iOffset);								// 보냄..
 
@@ -434,7 +434,7 @@ void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이템 
 
 		case PER_TRADE_RESULT_MY_DISAGREE:								// 거래를 신청받은 내가 거래 신청을 취소..
 			// 서버에게 패킷 만들어서 날림..
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_AGREE);		
 			CAPISocket::MP_AddByte(byBuff, iOffset, 0x00);		
 
@@ -470,7 +470,7 @@ void CSubProcPerTrade::ProcessProceed(e_PerTradeProceedCode ePTPC)		// 아이템 거
 	{
 		case PER_TRADE_RESULT_MY_AGREE:									// 거래를 신청받은 내가 거래 신청을 허락..
 			// 서버에게 패킷 만들어서 날림..
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_AGREE);		
 			CAPISocket::MP_AddByte(byBuff, iOffset, 0x01);		
 
@@ -575,7 +575,7 @@ void CSubProcPerTrade::ItemCountEditOK()
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_ADD);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, 0xff);		
 	CAPISocket::MP_AddDword(byBuff, iOffset, dwGold);		
@@ -619,7 +619,7 @@ void CSubProcPerTrade::PerTradeMyDecision()							// 내가 거래를 결정 했다..
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_DECIDE);		
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);			// 보냄..

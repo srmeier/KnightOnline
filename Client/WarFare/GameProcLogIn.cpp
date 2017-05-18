@@ -392,7 +392,7 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 				// 로그인 서버에서 받은 겜서버 주소로 접속해서 짤르라고 꼰지른다.
 				int iOffset2 = 0;
 				BYTE Buff[32];
-				CAPISocket::MP_AddByte(Buff, iOffset2, N3_KICK_OUT); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
+				CAPISocket::MP_AddByte(Buff, iOffset2, WIZ_KICKOUT); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
 				CAPISocket::MP_AddShort(Buff, iOffset2, s_szAccount.size()); 
 				CAPISocket::MP_AddString(Buff, iOffset2, s_szAccount); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
 				

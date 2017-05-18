@@ -129,7 +129,6 @@ public:
 	static void		MsgSend_GameServerLogIn();
 	void			MsgSend_VersionCheck();
 	virtual void	MsgSend_CharacterSelect();
-	void			MsgSend_AliveCheck();
 	void			MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset);
 
 

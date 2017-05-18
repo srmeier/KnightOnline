@@ -185,7 +185,7 @@ void CUIPartyBBS::MsgSend_RefreshData(int iCurPage)
 	int iOffset=0;
 
 	short sPage = m_iCurPage;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PARTY_BBS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY_BBS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PARTY_BBS_DATA);
 	CAPISocket::MP_AddShort(byBuff, iOffset, sPage);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -255,7 +255,7 @@ void CUIPartyBBS::MsgSend_Register()
 	BYTE byBuff[4];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PARTY_BBS);	
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PARTY_REGISTER);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 
@@ -269,7 +269,7 @@ void CUIPartyBBS::MsgSend_RegisterCancel()
 	BYTE byBuff[4];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PARTY_BBS);	
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PARTY_REGISTER_CANCEL);	
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 

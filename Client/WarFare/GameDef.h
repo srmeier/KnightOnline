@@ -1293,15 +1293,6 @@ enum e_SkillMagicType3	{	DDTYPE_TYPE3_DUR_OUR = 100,
 
 
 
-enum e_SkillMagicFailMsg {	SKILLMAGIC_FAIL_CASTING	= -100,		//캐스팅 실패..
-							SKILLMAGIC_FAIL_KILLFLYING = -101,	//Flying객체 죽여..
-							SKILLMAGIC_FAIL_ENDCOMBO = -102,	//combo 동작 끝났다.
-							SKILLMAGIC_FAIL_NOEFFECT = -103,	//Effecting 무산...
-							SKILLMAGIC_FAIL_ATTACKZERO = -104,	//타격치 0...(mp는 소모하고 타격실패..)
-
-							SKILLMAGIC_FAIL_UNKNOWN = 0xffffffff
-};
-
 enum e_ObjectType	{	OBJECT_TYPE_BINDPOINT,
 						OBJECT_TYPE_DOOR_LEFTRIGHT,
 						OBJECT_TYPE_DOOR_TOPDOWN,

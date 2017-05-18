@@ -238,7 +238,7 @@ bool CGameProcCharacterCreate::MsgSendCharacterCreate()
 
 			BYTE byBuff[64];
 			int iOffset = 0;
-			CAPISocket::MP_AddByte(byBuff, iOffset,  N3_NEW_CHARACTER);					// 커멘드.
+			CAPISocket::MP_AddByte(byBuff, iOffset,  WIZ_NEW_CHAR);					// 커멘드.
 			CAPISocket::MP_AddByte(byBuff, iOffset, CGameProcedure::s_iChrSelectIndex);	// 캐릭터 인덱스 b
 			CAPISocket::MP_AddShort(byBuff, iOffset, iIDLength);						// Id 길이 s
 			CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// ID 문자열 str
@@ -308,7 +308,7 @@ bool CGameProcCharacterCreate::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
-		case N3_NEW_CHARACTER:				// 캐릭터 선택 메시지..
+		case WIZ_NEW_CHAR:				// 캐릭터 선택 메시지..
 		{
 			BYTE bySuccess = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 			if(0 == bySuccess) 

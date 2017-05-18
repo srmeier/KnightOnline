@@ -440,7 +440,7 @@ bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			else
 				m_bSendedIconArray[iOrder] = true;
 
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_DROPPED_GET);
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_GET);
 			CAPISocket::MP_AddDword(byBuff, iOffset, m_iItemBundleID);
 
 			// 돈이 아니면 인벤토리 리스트에 추가.... 

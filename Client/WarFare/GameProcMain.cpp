@@ -469,7 +469,7 @@ void CGameProcMain::Tick()
 	{
 		BYTE byBuff[32];
 		int iOffset = 0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, N3_TEMP_TEST);
+		CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_TEST_PACKET);
 		s_pSocket->Send(byBuff, iOffset);
 
 
@@ -528,7 +528,7 @@ void CGameProcMain::Tick()
 	if(m_pLightMgr) m_pLightMgr->Tick();
 	
 	////////////////////////////////////////////////////////////////////////////////////
-	// 아무 패킷도 안보냈으면 2초에 한번 N3_TIME_NOTIFY 보낸다..
+	// 아무 패킷도 안보냈으면 2초에 한번 WIZ_TIME_NOTIFY 보낸다..
 	float fTime = CN3Base::TimeGet();
 	static float fTimePrev = fTime;
 	
@@ -538,7 +538,7 @@ void CGameProcMain::Tick()
 		fTimeInterval1 += fTime - fTimePrev;
 		if(fTimeInterval1 >= 2.0f)
 		{
-			BYTE byCmd = N3_TIME_NOTIFY;
+			BYTE byCmd = WIZ_TIMENOTIFY;
 			s_pSocket->Send(&byCmd, 1);
 			s_pSocket->m_iSendByteCount = 0;
 			fTimeInterval1 = 0;
@@ -549,7 +549,7 @@ void CGameProcMain::Tick()
 		s_pSocket->m_iSendByteCount = 0;
 		fTimeInterval1 = 0;
 	}
-	// 아무 패킷도 안보냈으면 2초에 한번 N3_TIME_NOTIFY 보낸다..
+	// 아무 패킷도 안보냈으면 2초에 한번 WIZ_TIME_NOTIFY 보낸다..
 	////////////////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -564,7 +564,7 @@ void CGameProcMain::Tick()
 	{
 		BYTE byBuff[4];												// 버퍼.. 
 		int iOffset=0;												// 옵셋..
-		s_pSocket->MP_AddByte(byBuff, iOffset, N3_REQUEST_GAME_SAVE);	// 저장 요청 커멘드..
+		s_pSocket->MP_AddByte(byBuff, iOffset, WIZ_DATASAVE);	// 저장 요청 커멘드..
 		s_pSocket->Send(byBuff, iOffset);				// 보냄..
 
 		fInterval2 = 0.0f;
@@ -752,7 +752,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 
 
 #ifdef _DEBUG
-	case N3_TEMP_TEST:
+	case WIZ_TEST_PACKET:
 		{
 			int iNPC = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 			char szBuff[32];
@@ -768,7 +768,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		}
 		return true;
 #endif
-		case N3_ZONEABILITY: {
+		case WIZ_ZONEABILITY: {
 			// NOTE(srmeier): this is a custom packet used to set terrain zoneability
 			Uint8 opcode = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 
@@ -789,7 +789,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			}
 		} return true;
 
-		case N3_DEBUG_STRING_TEST: {
+		case WIZ_DEBUG_STRING_PACKET: {
 			// NOTE(srmeier): testing this debug string functionality
 
 			int iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -801,49 +801,49 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 
 		} return true;
 
-		case N3_EVENT:
-		case N3_MERCHANT_INOUT: {
+		case WIZ_EVENT:
+		case WIZ_MERCHANT_INOUT: {
 			// need to implement these
 		} return true;
 
-		case N3_GAMESTART: {
+		case WIZ_GAMESTART: {
 			// NOTE(srmeier): send for the second half of the gamestart process
 
 			BYTE byBuff[32];
 			int iOffset = 0;
 
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_GAMESTART);
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_GAMESTART);
 			CAPISocket::MP_AddByte(byBuff, iOffset, 0x02);
 
 			s_pSocket->Send(byBuff, iOffset);
 
 		} return true;
 
-		case N3_MYINFO:									// 나의 정보 메시지..
+		case WIZ_MYINFO:									// 나의 정보 메시지..
 			this->MsgRecv_MyInfo_All(pDataPack, iOffset);
 			return true;
-		case N3_HP_CHANGE:
+		case WIZ_HP_CHANGE:
 			this->MsgRecv_MyInfo_HP(pDataPack, iOffset);
 			return true;
-		case N3_MSP_CHANGE:
+		case WIZ_MSP_CHANGE:
 			this->MsgRecv_MyInfo_MSP(pDataPack, iOffset);
 			return true;
-		case N3_EXP_CHANGE:
+		case WIZ_EXP_CHANGE:
 			this->MsgRecv_MyInfo_EXP(pDataPack, iOffset);
 			return true;
-		case N3_REALM_POINT_CHANGE: // 국가 기여도..
+		case WIZ_LOYALTY_CHANGE:
 			this->MsgRecv_MyInfo_RealmPoint(pDataPack, iOffset);
 			return true;
-		case N3_LEVEL_CHANGE:
+		case WIZ_LEVEL_CHANGE:
 			this->MsgRecv_MyInfo_LevelChange(pDataPack, iOffset);
 			return true;
-		case N3_POINT_CHANGE:
+		case WIZ_POINT_CHANGE:
 			this->MsgRecv_MyInfo_PointChange(pDataPack, iOffset);
 			return true;
-		case N3_CHAT:														// 채팅 메시지..	
+		case WIZ_CHAT:														// 채팅 메시지..	
 			this->MsgRecv_Chat(pDataPack, iOffset);
 			return true;
-		case N3_WARP:
+		case WIZ_WARP:
 			{
 				float fX = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
 				float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
@@ -855,13 +855,13 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				this->InitPlayerPosition(__Vector3(fX, fY, fZ)); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
 			}
 			return true;
-		case N3_MOVE:
+		case WIZ_MOVE:
 			this->MsgRecv_UserMove(pDataPack, iOffset);
 			return true;
-		case N3_ROTATE:												// 회전 커멘드..
+		case WIZ_ROTATE:												// 회전 커멘드..
 			this->MsgRecv_Rotation(pDataPack, iOffset);
 			return true;
-		case N3_REGENE:
+		case WIZ_REGENE:
 			{
 //				if(m_pUIDead) m_pUIDead->MsgRecv_Revival(pDataPack, iOffset);
 				this->MsgRecv_Regen(pDataPack, iOffset);
@@ -870,106 +870,106 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				m_pUITargetBar->SetVisible(false);
 			}
 			return true;
-		case N3_DEAD:
+		case WIZ_DEAD:
 			this->MsgRecv_Dead(pDataPack, iOffset);
 			return true;
-		case N3_TIME:
+		case WIZ_TIME:
 			this->MsgRecv_Time(pDataPack, iOffset);
 			return true;
-		case N3_WEATHER:
+		case WIZ_WEATHER:
 			this->MsgRecv_Weather(pDataPack, iOffset);
 			return true;
-		case N3_USER_INOUT:												// 다른 유저 인/아웃..
+		case WIZ_USER_INOUT:												// 다른 유저 인/아웃..
 			this->MsgRecv_UserInOut(pDataPack, iOffset);
 			return true;
-		case N3_UPDATE_REGION_UPC:										// 첨에 로그온하면 그 주변 지역의 캐릭터들 업데이트...
+		case WIZ_REGIONCHANGE:										// 첨에 로그온하면 그 주변 지역의 캐릭터들 업데이트...
 			this->MsgRecv_UserInAndRequest(pDataPack, iOffset);
 			return true;
-		case N3_REQUEST_USER_IN:										// 서버에 요청한 UserIn 에 대한 자세한 정보 받기..
+		case WIZ_REQ_USERIN:										// 서버에 요청한 UserIn 에 대한 자세한 정보 받기..
 			this->MsgRecv_UserInRequested(pDataPack, iOffset);						// 
 			return true;
-		case N3_UPDATE_REGION_NPC:										// 첨에 로그온하면 그 주변 지역의 캐릭터들 업데이트...
+		case WIZ_NPC_REGION:										// 첨에 로그온하면 그 주변 지역의 캐릭터들 업데이트...
 			this->MsgRecv_NPCInAndRequest(pDataPack, iOffset);
 			return true;
-		case N3_REQUEST_NPC_IN:											// 서버에 요청한 UserIn 에 대한 자세한 정보 받기..
+		case WIZ_REQ_NPCIN:											// 서버에 요청한 UserIn 에 대한 자세한 정보 받기..
 			this->MsgRecv_NPCInRequested(pDataPack, iOffset);						// 
 			return true;
-		case N3_NPC_INOUT:												// NPC 인/아웃..
+		case WIZ_NPC_INOUT:												// NPC 인/아웃..
 			this->MsgRecv_NPCInOut(pDataPack, iOffset);
 			return true;
-		case N3_ATTACK:
+		case WIZ_ATTACK:
 			this->MsgRecv_Attack(pDataPack, iOffset);
 			return true;
-		case N3_NPC_MOVE:												// NPC 움직임 패킷..
+		case WIZ_NPC_MOVE:												// NPC 움직임 패킷..
 			this->MsgRecv_NPCMove(pDataPack, iOffset);
 			return true;
-		case N3_TARGET_HP:
+		case WIZ_TARGET_HP:
 			this->MsgRecv_TargetHP(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_MOVE:
+		case WIZ_ITEM_MOVE:
 			this->MsgRecv_ItemMove(pDataPack, iOffset);				// Item Move에 대한 응답..
 			return true;
-		case N3_ITEM_BUNDLE_DROP:
+		case WIZ_ITEM_DROP:
 			this->MsgRecv_ItemBundleDrop(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_BUNDLE_OPEN_REQUEST:
+		case WIZ_BUNDLE_OPEN_REQ:
 			this->MsgRecv_ItemBundleOpen(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_TRADE_START:
+		case WIZ_TRADE_NPC:
 			this->MsgRecv_ItemTradeStart(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_TRADE:
+		case WIZ_ITEM_TRADE:
 			this->MsgRecv_ItemTradeResult(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_DROPPED_GET:
+		case WIZ_ITEM_GET:
 			this->MsgRecv_ItemDroppedGetResult(pDataPack, iOffset);					// 땅에 떨어진 아이템 먹기 결과..
 			return true;
-		case N3_ITEM_TRADE_REPAIR:
+		case WIZ_REPAIR_NPC:
 			this->MsgRecv_NpcEvent(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_REPAIR_REQUEST:
+		case WIZ_ITEM_REPAIR:
 			this->MsgRecv_ItemRepair(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_COUNT_CHANGE:
+		case WIZ_ITEM_COUNT_CHANGE:
 			this->MsgRecv_ItemCountChange(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_DESTROY:
+		case WIZ_ITEM_REMOVE:
 			this->MsgRecv_ItemDestroy(pDataPack, iOffset);
 			return true;
-		case N3_ITEM_WEIGHT_CHANGE:
+		case WIZ_WEIGHT_CHANGE:
 			this->MsgRecv_ItemWeightChange(pDataPack, iOffset);
 			return true;
-		case N3_USER_LOOK_CHANGE:
+		case WIZ_USERLOOK_CHANGE:
 			this->MsgRecv_UserLookChange(pDataPack, iOffset);
 			return true;
-		case N3_ZONE_CHANGE:
+		case WIZ_ZONE_CHANGE:
 			this->MsgRecv_ZoneChange(pDataPack, iOffset);
 			return true;
-		case N3_STATE_CHANGE:
+		case WIZ_STATE_CHANGE:
 			this->MsgRecv_UserState(pDataPack, iOffset);
 			return true;
-		case N3_NOTICE:
+		case WIZ_NOTICE:
 			this->MsgRecv_Notice(pDataPack, iOffset);
 			return true;
-		case N3_PARTY_OR_FORCE:
+		case WIZ_PARTY:
 			this->MsgRecv_PartyOrForce(pDataPack, iOffset);
 			return true;
-		case N3_PER_TRADE:
+		case WIZ_EXCHANGE:
 			this->MsgRecv_PerTrade(pDataPack, iOffset);
 			return true;
-		case N3_SKILL_CHANGE:
+		case WIZ_SKILLPT_CHANGE:
 			this->MsgRecv_SkillChange(pDataPack, iOffset);
 			return true;
-		case N3_MAGIC:
+		case WIZ_MAGIC_PROCESS:
 			this->MsgRecv_MagicProcess(pDataPack, iOffset);
 			return true;
-		case N3_CLASS_CHANGE:
+		case WIZ_CLASS_CHANGE:
 			this->MsgRecv_NpcChangeOpen(pDataPack, iOffset);
 			return true;
-		case N3_OBJECT_EVENT:
+		case WIZ_OBJECT_EVENT:
 			this->MsgRecv_ObjectEvent(pDataPack, iOffset);
 			return true;
-		case N3_CHAT_SELECT_TARGET:
+		case N3_CHAT_TARGET:
 			{
 				Uint8 type = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 				int err = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -994,7 +994,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				m_pUIChatDlg->ChangeChattingMode(eCM); 
 			}
 			return true;
-		case N3_CONCURRENT_USER_COUNT: // 동시 접속자수 ...
+		case WIZ_CONCURRENTUSER: // 동시 접속자수 ...
 			{
 				int iUserCount = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		// ID 문자열 길이..
 
@@ -1005,49 +1005,49 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 				this->MsgOutput(szBuff, D3DCOLOR_ARGB(255,255,255,0));
 			}
 			return true;
-		case N3_DURABILITY_CHANGE:
+		case WIZ_DURATION:
 			this->MsgRecv_DurabilityChange(pDataPack, iOffset);
 			return true;
-		case N3_KNIGHTS:
+		case WIZ_KNIGHTS_PROCESS:
 			this->MsgRecv_Knights(pDataPack, iOffset);
 			return true;
-		case N3_KNIGHTS_LIST_BASIC:
+		case WIZ_KNIGHTS_LIST:
 			this->MsgRecv_KnightsListBasic(pDataPack, iOffset);
 			return true;
-		case N3_CONTINOUS_PACKET: // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
+		case WIZ_CONTINOUS_PACKET: // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 			this->MsgRecv_ContinousPacket(pDataPack, iOffset);
 			return true;
-		case N3_WAREHOUSE:	// 보관함..
+		case WIZ_WAREHOUSE:	// 보관함..
 			this->MsgRecv_WareHouse(pDataPack, iOffset);			// 보관함 관련 패킷..
 			return true;
-		case N3_FRIEND_INFO:
+		case WIZ_FRIEND_PROCESS:
 			if(m_pUIVar->m_pPageFriends) m_pUIVar->m_pPageFriends->MsgRecv_MemberInfo(pDataPack, iOffset);
 			return true;
-		case N3_NOAH_CHANGE:
+		case WIZ_GOLD_CHANGE:
 			this->MsgRecv_NoahChange(pDataPack, iOffset);
 			return true;
-		case N3_WARP_LIST:
+		case WIZ_WARP_LIST:
 			this->MsgRecv_WarpList(pDataPack, iOffset);
 			return true;
-//		case N3_SERVER_CHECK:
+//		case WIZ_VIRTUAL_SERVER:
 //			this->MsgRecv_ServerCheckAndRequestConcurrentUserCount(pDataPack, iOffset);
 //			return true;
-//		case N3_SERVER_CONCURRENT_CONNECT:
+//		case WIZ_ZONE_CONCURRENT:
 //			this->MsgRecv_ConcurrentUserCountAndSendServerCheck(pDataPack, iOffset);
 //			return true;
-		case N3_CORPSE_CHAR: //regen을 하여 주위 유저에게 시체임을 알린다.
+		case WIZ_CORPSE: //regen을 하여 주위 유저에게 시체임을 알린다.
 			this->MsgRecv_Corpse(pDataPack, iOffset);
 			return true;
-		case N3_PARTY_BBS:
+		case WIZ_PARTY_BBS:
 			if(m_pUIPartyBBS) m_pUIPartyBBS->MsgRecv_RefreshData(pDataPack, iOffset);
 			return true;
-		case N3_TRADE_BBS:
+		case WIZ_MARKET_BBS:
 			if(m_pUITradeBBS) m_pUITradeBBS->MsgRecv_TradeBBS(pDataPack, iOffset);
 			return true;
-		case N3_QUEST_SELECT:
+		case WIZ_SELECT_MSG:
 			if(m_pUIQuestMenu) m_pUIQuestMenu->Open(pDataPack, iOffset);
 			return true;
-		case N3_QUEST_TALK:
+		case WIZ_NPC_SAY:
 			if(m_pUIQuestTalk) m_pUIQuestTalk->Open(pDataPack, iOffset);
 			return true;
 //		case N3_CLAN:
@@ -1375,7 +1375,7 @@ void CGameProcMain::MsgSend_Attack(int iTargetID, float fInterval, float fDistan
 
 	BYTE bySuccess = true;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ATTACK);						// 공격 커멘드..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ATTACK);						// 공격 커멘드..
 	CAPISocket::MP_AddByte(byBuff, iOffset, 0x01);							// ??? 데미지??
 	CAPISocket::MP_AddByte(byBuff, iOffset, bySuccess);						// 성공 여부.. - 일단 성공으로 보낸다.
 
@@ -1418,7 +1418,7 @@ void CGameProcMain::MsgSend_Move(bool bMove, bool bContinous)
 	BYTE byBuff[64];											// 버퍼 설정..
 	int iOffset=0;											// 옵셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_MOVE);			// 커멘드..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MOVE);			// 커멘드..
 	CAPISocket::MP_AddWord(byBuff, iOffset, vPos.x*10);			// 다음 위치
 	CAPISocket::MP_AddWord(byBuff, iOffset, vPos.z*10);
 	CAPISocket::MP_AddShort(byBuff, iOffset, vPos.y*10);
@@ -1440,7 +1440,7 @@ void CGameProcMain::MsgSend_Rotation()
 
 	float fYaw = s_pPlayer->Yaw(); // 방향..
 	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ROTATE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ROTATE);
 	CAPISocket::MP_AddShort(byBuff, iOffset, fYaw*100);
 
 	s_pSocket->Send(byBuff, iOffset);
@@ -1458,7 +1458,7 @@ void CGameProcMain::MsgSend_Chat(e_ChatMode eMode, const std::string& szChat)
 	BYTE byBuff[512];
 	int iOffset=0;
 	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CHAT);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CHAT);
 	CAPISocket::MP_AddByte(byBuff, iOffset, eMode);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szChat.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szChat);
@@ -1474,7 +1474,7 @@ void CGameProcMain::MsgSend_ChatSelectTarget(const std::string& szTargetID)
 	int iOffset = 0;
 	BYTE byBuff[32];
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CHAT_SELECT_TARGET);
+	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CHAT_TARGET);
 
 	// TEMP(srmeier): testing private messages
 	CAPISocket::MP_AddByte(byBuff, iOffset, 0x01);
@@ -1492,7 +1492,7 @@ void CGameProcMain::MsgSend_Regen()
 	BYTE byBuff[4];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_REGENE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_REGENE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, 1); //1: 마을로 살아나기..
 	
 	CLogWriter::Write("Send Regeneration");
@@ -1518,7 +1518,7 @@ bool CGameProcMain::MsgSend_RequestItemBundleOpen(CPlayerNPC* pCorpse)
 	BYTE byBuff[8];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_BUNDLE_OPEN_REQUEST);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_BUNDLE_OPEN_REQ);
 	CAPISocket::MP_AddDword(byBuff, iOffset, iItemBundleID);
 
 	s_pSocket->Send(byBuff, iOffset); // 보낸다..
@@ -1531,7 +1531,7 @@ void CGameProcMain::MsgSend_PartyOrForcePermit(int iPartyOrForce, bool bYesNo)
 	BYTE byBuff[4];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PARTY_OR_FORCE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY);
 //	CAPISocket::MP_AddByte(byBuff, iOffset, iPartyOrForce);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PARTY_OR_FORCE_PERMIT);
 	CAPISocket::MP_AddByte(byBuff, iOffset, bYesNo);
@@ -1560,7 +1560,7 @@ bool CGameProcMain::MsgSend_PartyOrForceCreate(int iPartyOrForce, const std::str
 
 	m_pUIPartyOrForce->m_iPartyOrForce = iPartyOrForce;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PARTY_OR_FORCE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY);
 //	CAPISocket::MP_AddByte(byBuff, iOffset, iPartyOrForce);
 	CAPISocket::MP_AddByte(byBuff, iOffset, eCmdParty);
 	CAPISocket::MP_AddShort(byBuff, iOffset, szID.size());
@@ -1596,7 +1596,7 @@ void CGameProcMain::MsgSend_PartyOrForceLeave(int iPartyOrForce)
 	BYTE byBuff[8];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PARTY_OR_FORCE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY);
 //	CAPISocket::MP_AddByte(byBuff, iOffset, iPartyOrForce);
 	if(bIAmLeader) // 내가 리더일경우..
 	{
@@ -1623,7 +1623,7 @@ void CGameProcMain::MsgSend_ObjectEvent(int iEventID, int iNPCID)
 	BYTE byBuff[8];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_OBJECT_EVENT);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_OBJECT_EVENT);
 	CAPISocket::MP_AddShort(byBuff, iOffset, iEventID);	// Index
 	CAPISocket::MP_AddShort(byBuff, iOffset, iNPCID);	// Parameter
 
@@ -1638,7 +1638,7 @@ void CGameProcMain::MsgSend_Weather(int iWeather, int iPercent)
 	BYTE byBuff[8];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WEATHER); // -> byte - 기후.... 0x01 - 맑음.. 0x02 -  비 0x03
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WEATHER); // -> byte - 기후.... 0x01 - 맑음.. 0x02 -  비 0x03
 	CAPISocket::MP_AddByte(byBuff, iOffset, iWeather); // -> byte - 기후.... 0x01 - 맑음.. 0x02 -  비 0x03
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iPercent); // short -> 맑은날 안개, 비, 눈 의 양 퍼센트로 
 
@@ -1650,7 +1650,7 @@ void CGameProcMain::MsgSend_Time(int iHour, int iMin)
 	BYTE byBuff[12];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TIME); 
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_TIME); 
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// year
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// month
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// day
@@ -1667,7 +1667,7 @@ void CGameProcMain::MsgSend_Administrator(e_SubPacket_Administrator eSP, const s
 	BYTE byBuff[64];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ADMINISTRATOR); // 관리자 전용패킷..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_OPERATOR); // 관리자 전용패킷..
 	CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
 	CAPISocket::MP_AddShort(byBuff, iOffset, szID.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szID);	
@@ -1680,7 +1680,7 @@ void CGameProcMain::MsgSend_KnightsJoinReq(bool bJoin)
 	BYTE byBuff[8];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS); // 관리자 전용패킷..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS); // 관리자 전용패킷..
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_JOIN_REQ);
 	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)bJoin);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iJoinReqClanRequierID);
@@ -1694,7 +1694,7 @@ void CGameProcMain::MsgSend_KnightsJoin(int iTargetID)
 	BYTE byBuff[4];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS); // 관리자 전용패킷..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS); // 관리자 전용패킷..
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_JOIN);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iTargetID);
 	
@@ -1708,7 +1708,7 @@ void CGameProcMain::MsgSend_KnightsLeave(std::string& szName)
 
 	int iLen = szName.size();
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS); // 관리자 전용패킷..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS); // 관리자 전용패킷..
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_REMOVE);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iLen);
 	CAPISocket::MP_AddString(byBuff, iOffset, szName);	// 아이디 문자열 패킷에 넣기..
@@ -1720,7 +1720,7 @@ void CGameProcMain::MsgSend_KnightsWithdraw()
 	BYTE byBuff[2];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS); 
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS); 
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_WITHDRAW);
 	s_pSocket->Send(byBuff, iOffset);
 }
@@ -1732,7 +1732,7 @@ void CGameProcMain::MsgSend_KnightsAppointViceChief(std::string& szName)
 
 	int iLen = szName.size();
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS); // 관리자 전용패킷..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS); // 관리자 전용패킷..
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_APPOINT_VICECHIEF);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iLen);
 	CAPISocket::MP_AddString(byBuff, iOffset, szName);	// 아이디 문자열 패킷에 넣기..
@@ -2663,7 +2663,7 @@ bool CGameProcMain::MsgRecv_UserInAndRequest(DataPack* pDataPack, int& iOffset)
 	{
 		int iOffset=0;														// 버퍼의 오프셋..
 		std::vector<BYTE> byBuff(iNewUPCCount * 2 + 10, 0);					// 패킷 버퍼..
-		CAPISocket::MP_AddByte(&(byBuff[0]), iOffset, N3_REQUEST_USER_IN);	// 커멘드.
+		CAPISocket::MP_AddByte(&(byBuff[0]), iOffset, WIZ_REQ_USERIN);	// 커멘드.
 		CAPISocket::MP_AddShort(&(byBuff[0]), iOffset, iNewUPCCount);		// 아이디 갯수..
 		
 		itID = m_SetUPCID.begin(); itIDEnd = m_SetUPCID.end();
@@ -3022,7 +3022,7 @@ bool CGameProcMain::MsgRecv_NPCInAndRequest(DataPack* pDataPack, int& iOffset)
 	{
 		int iOffset=0;														// 버퍼의 오프셋..
 		std::vector<BYTE> byBuff(iNewNPCCount * 2 + 10, 0);					// 패킷 버퍼..
-		CAPISocket::MP_AddByte(&(byBuff[0]), iOffset, N3_REQUEST_NPC_IN);	// 커멘드.
+		CAPISocket::MP_AddByte(&(byBuff[0]), iOffset, WIZ_REQ_NPCIN);	// 커멘드.
 		CAPISocket::MP_AddShort(&(byBuff[0]), iOffset, iNewNPCCount);		// 아이디 갯수..
 		
 		itID = m_SetNPCID.begin(); itIDEnd = m_SetNPCID.end();
@@ -4064,7 +4064,7 @@ void CGameProcMain::MsgSend_RequestTargetHP(short siIDTarget, BYTE byUpdateImmed
 {
 	BYTE byBuff[4];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_TARGET_HP);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_TARGET_HP);
 	CAPISocket::MP_AddShort(byBuff, iOffset, siIDTarget);
 	CAPISocket::MP_AddByte(byBuff, iOffset, byUpdateImmediately); // 0x00 - 점차 늘어나게끔.. 0x01 - 즉시 업데이트..
 
@@ -4124,7 +4124,7 @@ bool CGameProcMain::MsgSend_NPCEvent(short siIDTarget)
 {
 	BYTE byBuff[4];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_NPC_EVENT);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_NPC_EVENT);
 	CAPISocket::MP_AddShort(byBuff, iOffset, siIDTarget);
 
 	s_pSocket->Send(byBuff, iOffset);
@@ -4138,7 +4138,7 @@ void CGameProcMain::MsgSend_NPCInRequest(int iID) // NPC 정보가 없을 경우 요청한
 
 	int iOffset=0;													// 버퍼의 오프셋..
 	BYTE byBuff[32];;												// 패킷 버퍼..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_REQUEST_NPC_IN);		// 커멘드.
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_REQ_NPCIN);		// 커멘드.
 	CAPISocket::MP_AddShort(byBuff, iOffset, 1);					// 아이디 갯수..
 	CAPISocket::MP_AddShort(byBuff, iOffset, iID);					// 자세한 정보가 필요한 아이디들..
 
@@ -4151,7 +4151,7 @@ void CGameProcMain::MsgSend_UserInRequest(int iID) // User 정보가 없을 경우 요청
 
 	int iOffset=0;													// 버퍼의 오프셋..
 	BYTE byBuff[32];;												// 패킷 버퍼..
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_REQUEST_USER_IN);	// 커멘드.
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_REQ_USERIN);	// 커멘드.
 	CAPISocket::MP_AddShort(byBuff, iOffset, 1);					// 아이디 갯수..
 	CAPISocket::MP_AddShort(byBuff, iOffset, iID);					// 자세한 정보가 필요한 아이디들..
 
@@ -4168,7 +4168,7 @@ void CGameProcMain::MsgSend_Warp() // 워프 - 존이동이 될수도 있다..
 	BYTE byBuff[8];
 	int iOffset = 0;
 	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WARP_LIST);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WARP_LIST);
 	CAPISocket::MP_AddShort(byBuff, iOffset, WI.iID); // 워프 아이디 보내기...
 	s_pSocket->Send(byBuff, iOffset);
 
@@ -4350,7 +4350,7 @@ void CGameProcMain::MsgSend_GameStart()
 	BYTE byBuff[32];															// 패킷 버퍼..
 	int iOffset=0;															// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_GAMESTART);						// 게임 스타트 패킷 커멘드..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_GAMESTART);						// 게임 스타트 패킷 커멘드..
 	//CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->IDString().size());		// 아이디 길이 패킷에 넣기..
 	//CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// 아이디 문자열 패킷에 넣기..
 
@@ -4735,7 +4735,7 @@ void CGameProcMain::MsgRecv_ZoneChange(DataPack* pDataPack, int& iOffset)
 
 			BYTE byBuff[4];
 			int iOffset_send = 0;
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, N3_ZONE_CHANGE);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, (Uint8)ZoneChangeLoading);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
@@ -4743,7 +4743,7 @@ void CGameProcMain::MsgRecv_ZoneChange(DataPack* pDataPack, int& iOffset)
 		case ZoneChangeLoaded: {
 			BYTE byBuff[4];
 			int iOffset_send = 0;
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, N3_ZONE_CHANGE);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, (Uint8)ZoneChangeLoaded);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
@@ -5079,7 +5079,7 @@ void CGameProcMain::MsgSend_StateChange(e_SubPacket_State eSP, int iState)
 	BYTE byBuff[4];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_STATE_CHANGE);	// 상태 변화..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_STATE_CHANGE);	// 상태 변화..
 	CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
 	CAPISocket::MP_AddShort(byBuff, iOffset, iState);//CAPISocket::MP_AddByte(byBuff, iOffset, iState);
 
@@ -5091,7 +5091,7 @@ void CGameProcMain::MsgSend_PerTradeReq(int iDestID, bool bNear)
 	BYTE byBuff[4];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_PER_TRADE);			
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_EXCHANGE);			
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PER_TRADE_REQ);		
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iDestID );			// 상대방 아이디..
 	if(bNear)
@@ -5444,7 +5444,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		float fZ = (float)atof(szCmds[2]);
 		
 		int iOffset = 0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, N3_WARP);
+		CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WARP);
 		CAPISocket::MP_AddWord(byBuff, iOffset, (fX * 10));
 		CAPISocket::MP_AddWord(byBuff, iOffset, (fZ * 10));
 
@@ -5478,7 +5478,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 				// duplicated in the player manager if they where there before the TP
 
 				int iOffset = 0;
-				CAPISocket::MP_AddWord(byBuff, iOffset, N3_HOME);		// 마을로 가기...
+				CAPISocket::MP_AddWord(byBuff, iOffset, WIZ_HOME);		// 마을로 가기...
 				s_pSocket->Send(byBuff, iOffset);
 			}
 			else // HP가 반 이상 있어야 한다.
@@ -5663,7 +5663,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		case CMD_CU_COUNT:
 		{
 			int iOffset=0;
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_CONCURRENT_USER_COUNT); 
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CONCURRENTUSER); 
 			s_pSocket->Send(byBuff, iOffset);
 		}
 		break;
@@ -5708,7 +5708,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 			{
 				BYTE byBuff[4];												// 버퍼.. 
 				int iOffset=0;												// 옵셋..
-				s_pSocket->MP_AddByte(byBuff, iOffset, N3_REQUEST_GAME_SAVE);	// 저장 요청 커멘드..
+				s_pSocket->MP_AddByte(byBuff, iOffset, WIZ_DATASAVE);	// 저장 요청 커멘드..
 				s_pSocket->Send(byBuff, iOffset);				// 보냄..
 				m_fRequestGameSave = 0.0f;
 
@@ -6533,7 +6533,7 @@ void CGameProcMain::MsgRecv_ServerCheckAndRequestConcurrentUserCount(DataPack* p
 	int iOffsetSend = 0;
 	BYTE byBuff[8];
 	
-	CAPISocket::MP_AddByte(byBuff, iOffsetSend, N3_SERVER_CONCURRENT_CONNECT);
+	CAPISocket::MP_AddByte(byBuff, iOffsetSend, WIZ_ZONE_CONCURRENT);
 	CAPISocket::MP_AddShort(byBuff, iOffsetSend, WI.iZone);
 	CAPISocket::MP_AddByte(byBuff, iOffsetSend, s_pPlayer->m_InfoBase.eNation); // 국가별 동접수..
 
@@ -6555,7 +6555,7 @@ void CGameProcMain::MsgRecv_ConcurrentUserCountAndSendServerCheck(DataPack* pDat
 		int iOffsetSend = 0;
 		BYTE byBuff[8];
 		
-		CAPISocket::MP_AddByte(byBuff, iOffsetSend, N3_SERVER_CHECK);
+		CAPISocket::MP_AddByte(byBuff, iOffsetSend, WIZ_VIRTUAL_SERVER);
 		CAPISocket::MP_AddShort(byBuff, iOffsetSend, WI.iID);
 
 		s_pSocket->Send(byBuff, iOffsetSend);
@@ -7635,7 +7635,7 @@ void CGameProcMain::MsgSend_SpeedCheck(bool bInit)
 	int		iOffset=0;											// 옵셋..
 	float	fTime = CN3Base::TimeGet();							// 클라이언트 시간
 
-	s_pSocket->MP_AddByte(byBuff, iOffset, N3_CHECK_SPEEDHACK);	// 스피드핵 체크 패킷..
+	s_pSocket->MP_AddByte(byBuff, iOffset, WIZ_SPEEDHACK_CHECK);	// 스피드핵 체크 패킷..
 	s_pSocket->MP_AddByte(byBuff, iOffset, bInit);				// 서버가 기준 시간으로 쓸 타입 true 이면 기준시간 false면 체크타입
 	s_pSocket->MP_AddFloat(byBuff, iOffset, fTime);				// 클라이언트 시간
 	s_pSocket->Send(byBuff, iOffset);							// 보냄..

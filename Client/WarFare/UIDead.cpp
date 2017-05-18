@@ -243,7 +243,7 @@ void CUIDead::MsgSend_Revival(BYTE byType)
 	BYTE byBuff[4];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_REGENE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_REGENE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, byType);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset); // º¸³½´Ù..
 

@@ -664,7 +664,7 @@ void CUITransactionDlg::SendToServerSellMsg(int itemID, byte pos, int iCount)
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_TRADE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_SELL);
 	CAPISocket::MP_AddDword(byBuff, iOffset, itemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, pos);
@@ -677,7 +677,7 @@ void CUITransactionDlg::SendToServerBuyMsg(int itemID, byte pos, int iCount)
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_TRADE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_BUY);
 	CAPISocket::MP_AddDword(byBuff, iOffset, m_iTradeID);
 	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iNpcID);
@@ -692,7 +692,7 @@ void CUITransactionDlg::SendToServerMoveMsg(int itemID, byte startpos, byte dest
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ITEM_TRADE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_MOVE);
 	CAPISocket::MP_AddDword(byBuff, iOffset, itemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, startpos);

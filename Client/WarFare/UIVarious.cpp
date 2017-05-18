@@ -504,7 +504,7 @@ void CUIState::MsgSendAblityPointChange(BYTE byType, short siValueDelta)
 {
 	BYTE byBuff[4];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_POINT_CHANGE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_POINT_CHANGE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, byType);
 	CAPISocket::MP_AddShort(byBuff, iOffset, siValueDelta); // 0x00 - 점차 늘어나게끔.. 0x01 - 즉시 업데이트..
 
@@ -889,7 +889,7 @@ void CUIKnights::MsgSend_MemberInfoAll()
 	int iOffset = 0;
 	BYTE byBuff[32];
 	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_INFO_ALL);
 	
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -1286,7 +1286,7 @@ void CUIFriends::MsgSend_MemberInfo(bool bDisableInterval)
 	int iOffset = 0;
 	std::vector<BYTE> buffers(iFC * 32, 0);
 
-	CAPISocket::MP_AddByte(&(buffers[0]), iOffset, N3_FRIEND_INFO); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
+	CAPISocket::MP_AddByte(&(buffers[0]), iOffset, WIZ_FRIEND_PROCESS); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
 	CAPISocket::MP_AddShort(&(buffers[0]), iOffset, iFC);
 	for(int i = 0; i < iFC; i++)
 	{
@@ -1307,7 +1307,7 @@ void CUIFriends::MsgSend_MemberInfo(const std::string& szID)
 	int iOffset = 0;
 	BYTE byBuff[32];
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_FRIEND_INFO); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_FRIEND_PROCESS); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
 	CAPISocket::MP_AddShort(byBuff, iOffset, iFC);
 
 	CAPISocket::MP_AddShort(byBuff, iOffset, szID.size());

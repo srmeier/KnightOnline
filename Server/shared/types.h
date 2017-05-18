@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #if _WIN32
 #define INLINE __forceinline
 #else

@@ -693,7 +693,7 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 	// 써버에게 보내고.. 숫자 업데이트..	
 	BYTE byBuff[4];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SKILL_CHANGE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SKILLPT_CHANGE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)iValue);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 

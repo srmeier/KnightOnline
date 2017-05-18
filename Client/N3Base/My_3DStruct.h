@@ -5,6 +5,8 @@
 #include "D3DX9Math.h"
 #include <string>
 
+#include "types.h"
+
 const float __PI = 3.141592654f;
 const float __PI2 = 6.283185308f;
 const float FRAME_SELFPLAY = FLT_MIN;

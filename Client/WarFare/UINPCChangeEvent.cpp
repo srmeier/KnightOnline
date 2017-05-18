@@ -145,7 +145,7 @@ void CUINPCChangeEvent::ClassChange()
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CLASS_CHANGE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_CHANGE_PURE);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
@@ -154,7 +154,7 @@ void CUINPCChangeEvent::PointChangePriceQuery(bool bAllPoint)
 {
 	BYTE byBuff[32];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CLASS_CHANGE);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_POINT_CHANGE_PRICE_QUERY);
 	if (bAllPoint)
 		CAPISocket::MP_AddByte(byBuff, iOffset, 1);

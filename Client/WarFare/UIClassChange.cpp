@@ -216,7 +216,7 @@ bool CUIClassChange::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 
 			BYTE byBuff[4];
 			int iOffset = 0;
-			CAPISocket::MP_AddByte(byBuff, iOffset, N3_CLASS_CHANGE);
+			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_CHANGE_REQ);
 			CAPISocket::MP_AddShort(byBuff, iOffset, (short)pInfoBase->eClass);
 			CGameProcedure::s_pSocket->Send(byBuff, iOffset);

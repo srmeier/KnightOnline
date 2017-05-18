@@ -284,7 +284,7 @@ void CUIKnightsOperation::MsgSend_KnightsCreate()
 	int iOffset = 0;
 	BYTE byBuff[128];
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_CREATE); // 积己 Send - s1(Name Length) str1 | Recv - b1(1:己傍 0:角菩)
 	CAPISocket::MP_AddShort(byBuff, iOffset, szKnightsName.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szKnightsName);
@@ -297,7 +297,7 @@ void CUIKnightsOperation::MsgSend_KnightsDestroy()
 	int iOffset = 0;
 	BYTE byBuff[8];
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_DESTROY); // 积己 Send - s1(Name Length) str1 | Recv - b1(1:己傍 0:角菩)
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -316,7 +316,7 @@ void CUIKnightsOperation::MsgSend_KnightsJoin()
 	int iOffset = 0;
 	BYTE byBuff[32];
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_JOIN);
 	CAPISocket::MP_AddShort(byBuff, iOffset, KIE.iID);
 
@@ -328,7 +328,7 @@ void CUIKnightsOperation::MsgSend_KnightsWithdraw()
 	BYTE byBuff[32];
 	int iOffset = 0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_WITHDRAW);
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -339,7 +339,7 @@ void CUIKnightsOperation::MsgSend_KnightsList(int iPage)
 	int iOffset = 0;
 	BYTE byBuff[32];
 	
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_KNIGHTS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_GRADE_CHANGE_ALL);
 	CAPISocket::MP_AddShort(byBuff, iOffset, iPage);
 

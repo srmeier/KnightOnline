@@ -810,19 +810,19 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
-		case N3_COMPRESSED_PACKET:
+		case WIZ_COMPRESS_PACKET:
 			this->MsgRecv_CompressedPacket(pDataPack, iOffset);
 			return true;
 
-		case N3_VERSION_CHECK: // 암호화도 같이 받는다..
+		case WIZ_VERSION_CHECK: // 암호화도 같이 받는다..
 			this->MsgRecv_VersionCheck(pDataPack, iOffset); // virtual
 			return true;
 
-		case N3_GAME_SERVER_LOGIN:
+		case WIZ_LOGIN:
 			this->MsgRecv_GameServerLogIn(pDataPack, iOffset);
 			return true;
 
-		case N3_SERVER_CHANGE:				// 서버 바꾸기 메시지..
+		case WIZ_SERVER_CHANGE:				// 서버 바꾸기 메시지..
 		{
 			// 다른 존 서버로 다시 접속한다.
 			int iLen = 0;
@@ -853,15 +853,9 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		}
 		return true;
 
-		case N3_CHARACTER_SELECT:
+		case WIZ_SEL_CHAR:
 		{
 			this->MsgRecv_CharacterSelect(pDataPack, iOffset); // virtual
-		}
-		return true;
-
-		case N3_ALIVE_CHECK:
-		{
-			this->MsgSend_AliveCheck();
 		}
 		return true;
 	}
@@ -916,7 +910,7 @@ void CGameProcedure::ReportDebugStringAndSendToServer(const std::string& szDebug
 		std::vector<BYTE> buffer;	// 버퍼.. 
 		buffer.assign(iLen + 4, 0x00);
 		int iOffset=0;												// 옵셋..
-		s_pSocket->MP_AddByte(&(buffer[0]), iOffset, N3_REPORT_DEBUG_STRING);
+		s_pSocket->MP_AddByte(&(buffer[0]), iOffset, WIZ_DEBUG_STRING_PACKET);
 		s_pSocket->MP_AddShort(&(buffer[0]), iOffset, iLen);
 		s_pSocket->MP_AddString(&(buffer[0]), iOffset, szDebug);
 		s_pSocket->Send(&(buffer[0]), iOffset);				// 보냄..
@@ -928,7 +922,7 @@ void CGameProcedure::MsgSend_GameServerLogIn()
 	BYTE byBuff[128];										// 패킷 버퍼..
 	int iOffset = 0;										// 버퍼의 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_GAME_SERVER_LOGIN);	// 커멘드.
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_LOGIN);	// 커멘드.
 	CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());	// 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);			// 실제 아이디..
 	CAPISocket::MP_AddShort(byBuff, iOffset, s_szPassWord.size());	// 패스워드 길이
@@ -942,7 +936,7 @@ void CGameProcedure::MsgSend_VersionCheck() // virtual
 	// Version Check
 	int iOffset = 0;
 	BYTE byBuffs[4];
-	CAPISocket::MP_AddByte(byBuffs, iOffset, N3_VERSION_CHECK);				// 커멘드.
+	CAPISocket::MP_AddByte(byBuffs, iOffset, WIZ_VERSION_CHECK);				// 커멘드.
 	s_pSocket->Send(byBuffs, iOffset);	// 보낸다
 
 #ifdef _CRYPTION
@@ -954,7 +948,7 @@ void CGameProcedure::MsgSend_CharacterSelect() // virtual
 {
 	BYTE byBuff[64];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CHARACTER_SELECT);				// 커멘드.
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_CHAR);				// 커멘드.
 	CAPISocket::MP_AddShort(byBuff, iOffset, s_szAccount.size());				// 계정 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);						// 계정 문자열..
 	CAPISocket::MP_AddShort(byBuff, iOffset, s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
@@ -965,14 +959,6 @@ void CGameProcedure::MsgSend_CharacterSelect() // virtual
 
 	CLogWriter::Write("MsgSend_CharacterSelect - name(%s) zone(%d)",
 		s_pPlayer->IDString().c_str(), s_pPlayer->m_InfoExt.iZoneCur); // 디버깅 로그..
-}
-
-void CGameProcedure::MsgSend_AliveCheck()
-{
-	BYTE byBuff[4];
-	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ALIVE_CHECK);				// 커멘드.
-	s_pSocket->Send(byBuff, iOffset);	// 보낸다
 }
 
 void CGameProcedure::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!

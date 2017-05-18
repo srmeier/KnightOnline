@@ -550,7 +550,7 @@ bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 					//¾ø¾Ö¶ó..
 					BYTE byBuff[32];
 					int iOffset=0;
-					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_MAGIC);
+					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
 					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_CANCEL);
 					CAPISocket::MP_AddDword(byBuff, iOffset, (int)MagicID);
 					CAPISocket::MP_AddShort(byBuff, iOffset, (short)CGameBase::s_pPlayer->IDNumber());

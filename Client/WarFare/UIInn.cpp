@@ -106,7 +106,7 @@ void CUIInn::MsgSend_OpenWareHouse()
 	BYTE byBuff[2];		// 패킷 버퍼..
 	int iOffset=0;		// 패킷 오프셋..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_WAREHOUSE);		
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_OPEN);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }

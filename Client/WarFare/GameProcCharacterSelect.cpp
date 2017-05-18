@@ -892,7 +892,7 @@ void CGameProcCharacterSelect::MsgSend_DeleteChr(const std::string& szKey)
 
 	BYTE byBuff[64];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_DELETE_CHARACTER);		// 커멘드.
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_DEL_CHAR);		// 커멘드.
 	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)iIndex);				// 인덱스 - b
 	CAPISocket::MP_AddShort(byBuff, iOffset, (BYTE)m_InfoChrs[iIndex].szID.size());		// 아이디 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, m_InfoChrs[iIndex].szID); // 아이디 문자열
@@ -1346,7 +1346,7 @@ void CGameProcCharacterSelect::MsgSend_RequestAllCharacterInfo()
 {
 	BYTE byBuff[4];
 	int iOffset = 0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_ALL_CHARACTER_INFO_REQUEST);	// 커멘드.
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ALLCHAR_INFO_REQ);	// 커멘드.
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
 }
 
@@ -1365,11 +1365,11 @@ bool CGameProcCharacterSelect::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
-		case N3_ALL_CHARACTER_INFO_REQUEST:				// 캐릭터 선택 메시지..
+		case WIZ_ALLCHAR_INFO_REQ:				// 캐릭터 선택 메시지..
 			this->MsgRecv_AllCharacterInfo(pDataPack, iOffset);
 			s_pUIMgr->EnableOperationSet(true); // 캐릭터 정보가 다오면 UI 조작하게 한다..
 			return true;
-		case N3_DELETE_CHARACTER:
+		case WIZ_DEL_CHAR:
 			this->MsgRecv_DeleteChr(pDataPack, iOffset);
 			return true;
 	}
