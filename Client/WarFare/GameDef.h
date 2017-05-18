@@ -7,7 +7,7 @@
 #include "types.h"
 #include "SDL2\SDL.h"
 
-const int CURRENT_VERSION = 1298;//1299;//1068; // 현재 버전
+const int CURRENT_VERSION = 1298;//1068; // 현재 버전
 
 const float PACKET_INTERVAL_MOVE = 1.5f;				// 정기적으로 보내는 패킷 시간 간격..
 const float PACKET_INTERVAL_ROTATE = 4.0f;
