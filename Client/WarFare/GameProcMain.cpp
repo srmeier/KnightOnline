@@ -933,7 +933,7 @@ bool CGameProcMain::ProcessPacket(DataPack* pDataPack, int& iOffset)
 		case WIZ_OBJECT_EVENT:
 			this->MsgRecv_ObjectEvent(pDataPack, iOffset);
 			return true;
-		case N3_CHAT_TARGET:
+		case WIZ_CHAT_TARGET:
 			{
 				Uint8 type = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 				int err = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -1438,7 +1438,7 @@ void CGameProcMain::MsgSend_ChatSelectTarget(const std::string& szTargetID)
 	int iOffset = 0;
 	BYTE byBuff[32];
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, N3_CHAT_TARGET);
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CHAT_TARGET);
 
 	// TEMP(srmeier): testing private messages
 	CAPISocket::MP_AddByte(byBuff, iOffset, 0x01);

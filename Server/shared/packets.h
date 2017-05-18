@@ -52,7 +52,7 @@
 #define WIZ_SKILLPT_CHANGE		0x32	// User changed particular skill point
 #define WIZ_OBJECT_EVENT		0x33	// Map Object Event Occur ( ex : Bind Point Setting )
 #define WIZ_CLASS_CHANGE		0x34	// 10 level over can change class 
-#define N3_CHAT_TARGET			0x35	// Select Private Chanting User
+#define WIZ_CHAT_TARGET			0x35	// Select Private Chanting User
 #define WIZ_CONCURRENTUSER		0x36	// Current Game User Count
 #define WIZ_DATASAVE			0x37	// User GameData DB Save Request
 #define WIZ_DURATION			0x38	// Item Durability Change
