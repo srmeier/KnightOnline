@@ -50,7 +50,7 @@ public:
 	static void ClearAuto(RECT* pRC = NULL);
 	static void ClearZBuffer(const RECT* pRC = NULL);
 	static void Clear(D3DCOLOR crFill, RECT* pRC = NULL);
-	static void Present(SDL_Window* pWindow, RECT* pRC = NULL);
+	static void Present(HWND hWnd, RECT* pRC = NULL);
 
 	bool Init(
 		BOOL bWindowed, SDL_Window* pWindow,

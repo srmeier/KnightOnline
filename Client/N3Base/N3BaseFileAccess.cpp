@@ -94,7 +94,7 @@ bool CN3BaseFileAccess::LoadFromFile()
 	{
 		std::string szErr = szFullPath + " - Can't open file (read)";
 #ifdef _N3TOOL
-		MessageBox(::GetActiveWindow(), szErr.c_str(), "File Handle error", MB_OK);
+		MessageBox(s_hWndBase, szErr.c_str(), "File Handle error", MB_OK);
 #endif
 #ifdef _N3GAME 
 		CLogWriter::Write(szErr.c_str());
@@ -121,7 +121,7 @@ bool CN3BaseFileAccess::SaveToFile()
 	if(m_szFileName.size() <= 0)
 	{
 		std::string szErr = m_szName + " Can't open file (write) - NULL String";
-		MessageBox(::GetActiveWindow(), szErr.c_str(), "File Open Error", MB_OK);
+		MessageBox(s_hWndBase, szErr.c_str(), "File Open Error", MB_OK);
 		return false;
 	}
 
@@ -142,7 +142,7 @@ bool CN3BaseFileAccess::SaveToFile()
 	if(hFile == INVALID_HANDLE_VALUE)
 	{
 		std::string szErr = szFullPath + " - Can't open file(write)";
-		MessageBox(::GetActiveWindow(), szErr.c_str(), "File Handle error", MB_OK);
+		MessageBox(s_hWndBase, szErr.c_str(), "File Handle error", MB_OK);
 		return false;
 	}
 

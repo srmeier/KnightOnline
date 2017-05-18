@@ -529,7 +529,7 @@ bool CN3Scene::CheckOverlappedShapesAndReport()
 				sprintf(szErr, "파일 이름이 같거나 위치가 같은 오브젝트가 있습니다\n첫번째 오브젝트 : \"%s\" - 위치(%f, %f, %f)\n두번째 오브젝트 : \"%s\" - 위치(%f, %f, %f)",
 					pShapes[i]->FileName().c_str(), vPos1.x, vPos1.y, vPos1.z,
 					pShapes[j]->FileName().c_str(), vPos2.x, vPos2.y, vPos2.z);
-				MessageBox(::GetActiveWindow(), szErr, "Scene 오브젝트 중복 점검", MB_OK);
+				MessageBox(s_hWndBase, szErr, "Scene 오브젝트 중복 점검", MB_OK);
 				bOverlapped = true;
 			}
 		}

@@ -4,6 +4,7 @@
 #include "N3Eng.h"
 #include "N3Light.h"
 #include "LogWriter.h"
+#include "SDL2/SDL_syswm.h"
 
 //-----------------------------------------------------------------------------
 CN3Eng::CN3Eng(void)
@@ -285,7 +286,12 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_
 
 	memset(&s_ResrcInfo, 0, sizeof(__ResrcInfo)); // Rendering Information 초기화..
 
-	s_hWndBase = pWindow;
+	SDL_SysWMinfo info;
+	SDL_VERSION(&info.version);
+	SDL_GetWindowWMInfo(pWindow, &info);
+
+	s_hWndBase = info.info.win.window; // TODO: Remove this when we move away from DX
+	s_pWindow = pWindow;
 
 	// FIX (srmeier): I really have no idea what the second arguement here should be
 	int nAMC = m_lpD3D->GetAdapterModeCount(0, D3DFMT_X8R8G8B8); // 디스플레이 모드 카운트
@@ -331,7 +337,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_
 		if(dwWidth <= 0) dwWidth = dm.Width;
 		if(dwHeight <= 0) dwHeight = dm.Height;
 		BBFormat = dm.Format;
-		s_DevParam.hDeviceWindow = ::GetActiveWindow();
+		s_DevParam.hDeviceWindow = s_hWndBase;
 	}
 	else
 	{
@@ -340,7 +346,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_
 		if(16 == dwBPP) BBFormat = D3DFMT_R5G6B5;
 		else if(24 == dwBPP) BBFormat = D3DFMT_R8G8B8;
 		else if(32 == dwBPP) BBFormat = D3DFMT_X8R8G8B8;
-		s_DevParam.hDeviceWindow = ::GetActiveWindow();
+		s_DevParam.hDeviceWindow = s_hWndBase;
 	}
 
 	s_DevParam.BackBufferWidth = dwWidth;
@@ -365,16 +371,15 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_
 		}
 	}
 
-	
-	HRESULT rval = m_lpD3D->CreateDevice(0, DevType, GetActiveWindow(), D3DCREATE_HARDWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
+	HRESULT rval = m_lpD3D->CreateDevice(0, DevType, s_hWndBase, D3DCREATE_HARDWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
 	if(rval != D3D_OK)
 	{
-		rval = m_lpD3D->CreateDevice(0, DevType, GetActiveWindow(), D3DCREATE_SOFTWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
+		rval = m_lpD3D->CreateDevice(0, DevType, s_hWndBase, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &s_DevParam, &s_lpD3DDev);
 		if(rval != D3D_OK)
 		{
 			char szDebug[256];
 			//D3DXGetErrorString(rval, szDebug, 256);
-			MessageBox(GetActiveWindow(), "Can't create D3D Device - please, check DirectX or display card driver", "initialization", MB_OK);
+			MessageBox(s_hWndBase, "Can't create D3D Device - please, check DirectX or display card driver", "initialization", MB_OK);
 #ifdef _N3GAME
 			CLogWriter::Write("Can't create D3D Device - please, check DirectX or display card driver");
 			CLogWriter::Write(szDebug);
@@ -398,7 +403,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_
 	s_lpD3DDev->GetDeviceCaps(&s_DevCaps);
 	if(s_DevCaps.MaxTextureWidth < 256 || s_DevCaps.MaxTextureHeight < 256) // 텍스처 지원 크기가 256 이하면.. 아예 포기..
 	{
-		MessageBox(::GetActiveWindow(), "Can't support this graphic card : Texture size is too small", "Initialization error", MB_OK);
+		MessageBox(s_hWndBase, "Can't support this graphic card : Texture size is too small", "Initialization error", MB_OK);
 #ifdef _N3GAME
 		CLogWriter::Write("Can't support this graphic card : Texture size is too small");
 #endif
@@ -479,7 +484,9 @@ BOOL CN3Eng::FindDepthStencilFormat(UINT iAdapter, D3DDEVTYPE DeviceType, D3DFOR
 
     return FALSE;
 }
-void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
+
+
+void CN3Eng::Present(HWND hWnd, RECT* pRC)
 {
 //	HRESULT rval = s_lpD3DDev->TestCooperativeLevel();
 //	if(D3D_OK != rval)
@@ -506,10 +513,8 @@ void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 	//SDL_Renderer* s_pRenderer = SDL_GetRenderer(pWindow);
 	//SDL_RenderPresent(s_pRenderer);
 
-
-
 	
-	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, GetActiveWindow(), NULL);
+	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
 	if(D3D_OK == rval)
 	{
 		//s_hWndPresent = hWnd; // Present window handle 을 저장해 놓는다.
@@ -528,7 +533,7 @@ void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 		}
 		else
 		{
-			rval = s_lpD3DDev->Present(pRC, pRC, GetActiveWindow(), NULL);
+			rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
 		}
 		return;
 	}
@@ -606,7 +611,7 @@ void CN3Eng::Clear(D3DCOLOR crFill, RECT* pRC)
 	RECT rc;
 	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
 	{
-		GetClientRect(::GetActiveWindow(), &rc);
+		GetClientRect(s_hWndBase, &rc);
 
 		//int x, y, w, h;
 		//SDL_GetWindowPosition(s_hWndBase, &x, &y);
@@ -658,7 +663,7 @@ void CN3Eng::ClearZBuffer(const RECT* pRC)
 	RECT rc;
 	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
 	{
-		GetClientRect(::GetActiveWindow(), &rc);
+		GetClientRect(s_hWndBase, &rc);
 
 		//int x, y, w, h;
 		//SDL_GetWindowPosition(s_hWndBase, &x, &y);

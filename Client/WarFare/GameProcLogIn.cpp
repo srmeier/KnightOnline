@@ -125,7 +125,7 @@ void CGameProcLogIn::Init()
 	if(	iServer >= 0 && lstrlen(szIPs[iServer]) )
 	{
 		s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
-		int iErr = s_pSocket->Connect(GetActiveWindow(), szIPs[iServer], SOCKET_PORT_LOGIN);
+		int iErr = s_pSocket->Connect(s_hWndBase, szIPs[iServer], SOCKET_PORT_LOGIN);
 		s_bNeedReportConnectionClosed = true; // 서버접속이 끊어진걸 보고해야 하는지..
 		
 		if(iErr) this->ReportServerConnectionFailed("LogIn Server", iErr, true);
@@ -387,7 +387,7 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 
 			CAPISocket socketTmp;
 			s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
-			if(0 == socketTmp.Connect(GetActiveWindow(), szIP.c_str(), dwPort))
+			if(0 == socketTmp.Connect(s_hWndBase, szIP.c_str(), dwPort))
 			{
 				// 로그인 서버에서 받은 겜서버 주소로 접속해서 짤르라고 꼰지른다.
 				int iOffset2 = 0;
@@ -518,7 +518,7 @@ void CGameProcLogIn::ConnectToGameServer() // 고른 게임 서버에 접속
 	if(false == m_pUILogIn->ServerInfoGetCur(GSI)) return; // 서버를 고른다음..
 
 	s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
-	int iErr = s_pSocket->Connect(GetActiveWindow(), GSI.szIP.c_str(), SOCKET_PORT_GAME); // 게임서버 소켓 연결
+	int iErr = s_pSocket->Connect(s_hWndBase, GSI.szIP.c_str(), SOCKET_PORT_GAME); // 게임서버 소켓 연결
 	s_bNeedReportConnectionClosed = true; // 서버접속이 끊어진걸 보고해야 하는지..
 	
 	if(iErr)

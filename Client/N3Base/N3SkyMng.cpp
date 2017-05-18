@@ -406,7 +406,7 @@ bool CN3SkyMng::LoadFromTextFile(const char* szIniFN)
 				{
 					char szErrLine[128];
 					sprintf(szErrLine, "From \"DayChage Count : \" -> Line : %d", i);
-					MessageBox(GetActiveWindow(), szErrLine, "하늘 환경설정 데이터 Parsing 실패", MB_OK); //CN3Base::s_hWndBase
+					MessageBox(CN3Base::s_hWndBase, szErrLine, "하늘 환경설정 데이터 Parsing 실패", MB_OK); //CN3Base::s_hWndBase
 					this->Release();
 					return false;
 				}

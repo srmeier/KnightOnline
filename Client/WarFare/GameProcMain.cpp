@@ -7531,7 +7531,7 @@ bool CGameProcMain::OnMouseRbtnDown(POINT ptCur, POINT ptPrev)
 		}
 
 		int x, y;
-		SDL_GetWindowPosition(s_hWndBase, &x, &y);
+		SDL_GetWindowPosition(s_pWindow, &x, &y);
 		SetCursorPos(ptPrev.x+x, ptPrev.y+y);
 		s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
 

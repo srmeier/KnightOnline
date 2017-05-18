@@ -194,7 +194,7 @@ void CN3Transform::GenerateSelectBox(__Vector3 &vMin, __Vector3 &vMax)
 		if(rval != D3D_OK)
 		{
 			char szDebug[256]; D3DXGetErrorString(rval, szDebug, 256);
-			MessageBox(::GetActiveWindow(), szDebug, "VertexBuffer 积己 角菩", MB_OK);
+			MessageBox(s_hWndBase, szDebug, "VertexBuffer 积己 角菩", MB_OK);
 			return;
 		}
 	}

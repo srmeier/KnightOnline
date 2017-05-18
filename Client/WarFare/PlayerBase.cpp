@@ -1805,7 +1805,7 @@ bool CPlayerBase::CheckCollisionToTargetByPlug(CPlayerBase* pTarget, int nPlug, 
 		m_pShapeExtraRef->CollisionMesh()->Render((D3DCOLOR)0xffff0000); // 충돌 박스를 그려본다.
 	}
 	CN3Base::s_lpD3DDev->EndScene();
-	CN3Base::s_lpD3DDev->Present(NULL, NULL, GetActiveWindow(), NULL);
+	CN3Base::s_lpD3DDev->Present(NULL, NULL, s_hWndBase, NULL);
 #endif
 
 	if(m_pShapeExtraRef && m_pShapeExtraRef->CollisionMesh())

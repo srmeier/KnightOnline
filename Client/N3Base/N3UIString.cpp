@@ -387,7 +387,7 @@ bool CN3UIString::Load(HANDLE hFile)
 	else
 	{
 		SetFont("굴림", 10, FALSE, FALSE);	// 임시로 글꼴 지정
-		MessageBox(GetActiveWindow(), "폰트가 지정되지 않은 UIString이 있어서 굴림(10)으로 설정하였습니다.", "No font", MB_OK);
+		MessageBox(s_hWndBase, "폰트가 지정되지 않은 UIString이 있어서 굴림(10)으로 설정하였습니다.", "No font", MB_OK);
 	}
 #else
 	__ASSERT(iStrLen>0, "No font name");

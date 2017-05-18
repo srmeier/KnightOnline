@@ -354,7 +354,7 @@ bool CN3SPart::Save(HANDLE hFile)
 	__ASSERT(pPMesh, "Progressive mesh pointer is NULL!");
 	int nL = 0;
 	if (pPMesh) nL = pPMesh->FileName().size();
-	else MessageBox(GetActiveWindow(), "Progressive mesh pointer is NULL! : object가 제대로 보이지 않을 수 있습니다.(리소스 파일이 Load되지 않았을 가능성이 큼)", "warning", MB_OK);
+	else MessageBox(s_hWndBase, "Progressive mesh pointer is NULL! : object가 제대로 보이지 않을 수 있습니다.(리소스 파일이 Load되지 않았을 가능성이 큼)", "warning", MB_OK);
 
 	WriteFile(hFile, &nL, 4, &dwRWC, NULL); // Mesh FileName
 	if(nL > 0)

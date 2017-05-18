@@ -147,7 +147,7 @@ bool CN3FXPMesh::Load(HANDLE hFile)
 		}
 #ifdef _DEBUG
 		if(bFixed)
-			::MessageBox(GetActiveWindow(), "잘못된 Progressive Mesh 수정", m_szName.c_str(), MB_OK);
+			::MessageBox(s_hWndBase, "잘못된 Progressive Mesh 수정", m_szName.c_str(), MB_OK);
 #endif
 	}
 	if (m_iTotalIndexChanges>0)
