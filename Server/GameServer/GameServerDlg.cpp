@@ -628,12 +628,7 @@ void CGameServerDlg::DeleteParty(uint16 sIndex)
 	m_PartyArray.DeleteData(sIndex);
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_CheckGameEvents(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_CheckGameEvents(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -642,15 +637,10 @@ void * CGameServerDlg::Timer_CheckGameEvents(void * lpParam)
 		g_pMain->ForgettenTempleEventTimer();
 		sleep(1 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_BifrostTime(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_BifrostTime(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -718,15 +708,10 @@ void * CGameServerDlg::Timer_BifrostTime(void * lpParam)
 
 		sleep(60 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_UpdateGameTime(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_UpdateGameTime(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -737,15 +722,10 @@ void * CGameServerDlg::Timer_UpdateGameTime(void * lpParam)
 
 		sleep(6 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_UpdateSessions(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_UpdateSessions(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
@@ -774,22 +754,17 @@ void * CGameServerDlg::Timer_UpdateSessions(void * lpParam)
 		}
 		sleep(30 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
-#if IsWinDef
 uint32 CGameServerDlg::Timer_UpdateConcurrent(void * lpParam)
-#endif
-#if IsUnixDef
-void * CGameServerDlg::Timer_UpdateConcurrent(void * lpParam)
-#endif
 {
 	while (g_bRunning)
 	{
 		g_pMain->ReqUpdateConcurrent();
 		sleep(60 * SECOND);
 	}
-	return RETURN_THREAD((void *)0);
+	return 0;
 }
 
 void CGameServerDlg::ReqUpdateConcurrent()

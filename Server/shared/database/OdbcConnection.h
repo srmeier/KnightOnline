@@ -65,12 +65,7 @@ private:
 	HENV m_envHandle;
 	HDBC m_connHandle;
 
-#if IsWinDef
 	std::recursive_mutex * m_lock;
-#endif
-#if IsUnixDef
-	pthread_mutex_t * m_lock;
-#endif
 
 	std::vector<OdbcError   *> m_odbcErrors;
 	std::set   <OdbcCommand *> m_commandSet;
