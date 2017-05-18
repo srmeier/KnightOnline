@@ -951,7 +951,9 @@ void CGameProcedure::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset)
 	DataPackTemp.m_pData = decompressedBuffer;
 	int iOffset2 = 0;
 	this->ProcessPacket(&DataPackTemp, iOffset2);
-	delete[] decompressedBuffer;
+
+	// NOTE: don't have to delete because DataPack does this for you
+	//delete[] decompressedBuffer;
 }
 
 int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // virtual
