@@ -298,23 +298,17 @@ bool KOSocket::SendCompressed(Packet * pkt)
 
 bool KOSocket::BuildCompressed(const Packet * pkt, Packet & result)
 {
-	uint32 inLength = pkt->size() + 1, crc = 0;
+	uint32 inLength = pkt->size(), crc = 0;
 	uint32 outLength = 0;
 
 	if(inLength < Compression::MinBytes)
 		return false;
 
-	uint8 *buffer = new uint8[inLength];
-
-	*buffer = pkt->GetOpcode();
-	if(pkt->size() > 0)
-		memcpy(buffer + 1, pkt->contents(), pkt->size());
-	uint8 * outBuffer = Compression::CompressWithCRC32(buffer, inLength, &outLength, &crc);
+	uint8 * outBuffer = Compression::CompressWithCRC32(pkt->contents(), inLength, &outLength, &crc);
 
 	result << uint16(outLength) << uint16(inLength) << crc;
 	result.append(outBuffer, outLength);
 
-	delete[] buffer;
 	delete[] outBuffer;
 	return true;
 }
