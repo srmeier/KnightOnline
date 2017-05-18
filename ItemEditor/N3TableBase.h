@@ -304,8 +304,8 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 	
 	// ÆÄÀÏ ¾ÏÈ£È­ Ç®±â.. .. ÀÓ½Ã ÆÄÀÏ¿¡´Ù ¾´´ÙÀ½ ..
 	std::string szFNTmp = szFN + ".tmp";
-	uint32_t dwSizeHigh = 0;
-	uint32_t dwSizeLow = ::GetFileSize(hFile, &dwSizeHigh);
+	DWORD dwSizeHigh = 0;
+	DWORD dwSizeLow = ::GetFileSize(hFile, &dwSizeHigh);
 	if(dwSizeLow <= 0)
 	{
 		CloseHandle(hFile);
