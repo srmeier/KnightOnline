@@ -55,7 +55,7 @@ void CNpc::Initialize()
 * @param	new_region_x	The new region x coordinate.
 * @param	new_region_z	The new region z coordinate.
 */
-void CNpc::AddToRegion(int16 new_region_x, int16 new_region_z)
+void CNpc::AddToRegion(int16_t new_region_x, int16_t new_region_z)
 {
 	GetRegion()->Remove(this);
 	SetRegion(new_region_x, new_region_z);
@@ -77,7 +77,7 @@ void CNpc::MoveResult(float fPosX, float fPosY, float fPosZ, float fSpeed)
 	SetPosition(fPosX, fPosY, fPosZ); 
 	RegisterRegion();
 
-	result << GetID() << GetSPosX() << GetSPosZ() << GetSPosY()  << uint16(fSpeed * 10);
+	result << GetID() << GetSPosX() << GetSPosZ() << GetSPosY()  << uint16_t(fSpeed * 10);
 	SendToRegion(&result);
 }
 
@@ -87,7 +87,7 @@ void CNpc::MoveResult(float fPosX, float fPosY, float fPosZ, float fSpeed)
 * @param	result	The packet buffer the constructed packet will be stored in.
 * @param	bType 	The type (in or out).
 */
-void CNpc::GetInOut(Packet & result, uint8 bType)
+void CNpc::GetInOut(Packet & result, uint8_t bType)
 {
 	result.Initialize(WIZ_NPC_INOUT);
 	result << bType;
@@ -106,7 +106,7 @@ void CNpc::GetInOut(Packet & result, uint8 bType)
 * @param	fZ   	The z coordinate.
 * @param	fY   	The y coordinate.
 */
-void CNpc::SendInOut(uint8 bType, float fX, float fZ, float fY)
+void CNpc::SendInOut(uint8_t bType, float fX, float fZ, float fY)
 {
 	if (GetRegion() == nullptr)
 	{
@@ -149,17 +149,17 @@ void CNpc::GetNpcInfo(Packet & pkt)
 	}
 
 	pkt
-		<< uint16(m_iSellingGroup)
+		<< uint16_t(m_iSellingGroup)
 		<< m_sSize
 		<< m_iWeapon_1 << m_iWeapon_2
 		<< GetName()
-		<< uint8(isMonster() ? 0 : GetNation())
+		<< uint8_t(isMonster() ? 0 : GetNation())
 		<< GetLevel()
 		<< GetSPosX() << GetSPosZ() << GetSPosY()
-		<< uint32(isGateOpen())
+		<< uint32_t(isGateOpen())
 		<< m_byObjectType
-		<< uint16(0) << uint16(0) // unknown
-		<< int8(m_byDirection);
+		<< uint16_t(0) << uint16_t(0) // unknown
+		<< int8_t(m_byDirection);
 }
 
 /**
@@ -169,14 +169,14 @@ void CNpc::GetNpcInfo(Packet & pkt)
 * @param	bFlag  	The flag (open or shut).
 * @param	bSendAI	true to update the AI server.
 */
-void CNpc::SendGateFlag(uint8 bFlag /*= -1*/, bool bSendAI /*= true*/)
+void CNpc::SendGateFlag(uint8_t bFlag /*= -1*/, bool bSendAI /*= true*/)
 {
-	uint8 objectType = OBJECT_FLAG_LEVER;
+	uint8_t objectType = OBJECT_FLAG_LEVER;
 
 	_OBJECT_EVENT * pObjectEvent = GetMap()->GetObjectEvent(GetProtoID());
 
 	if (pObjectEvent)
-		objectType = (uint8)pObjectEvent->sType;
+		objectType = (uint8_t)pObjectEvent->sType;
 
 	Packet result(WIZ_OBJECT_EVENT, objectType);
 
@@ -185,7 +185,7 @@ void CNpc::SendGateFlag(uint8 bFlag /*= -1*/, bool bSendAI /*= true*/)
 		m_byGateOpen = (bFlag == 1);
 
 	// Tell everyone nearby our new status.
-	result << uint8(1) << GetID() << m_byGateOpen;
+	result << uint8_t(1) << GetID() << m_byGateOpen;
 	SendToRegion(&result);
 
 	// Tell the AI server our new status
@@ -206,7 +206,7 @@ void CNpc::SendGateFlag(uint8 bFlag /*= -1*/, bool bSendAI /*= true*/)
 */
 void CNpc::HpChange(int amount, Unit *pAttacker /*= nullptr*/, bool bSendToAI /*= true*/) 
 {
-	uint16 tid = (pAttacker != nullptr ? pAttacker->GetID() : -1);
+	uint16_t tid = (pAttacker != nullptr ? pAttacker->GetID() : -1);
 
 	// Implement damage/HP cap.
 	if (amount < -MAX_DAMAGE)
@@ -233,7 +233,7 @@ void CNpc::HpChange(int amount, Unit *pAttacker /*= nullptr*/, bool bSendToAI /*
 
 void CNpc::HpChangeMagic(int amount, Unit *pAttacker /*= nullptr*/, AttributeType attributeType /*= AttributeNone*/)
 {
-	uint16 tid = (pAttacker != nullptr ? pAttacker->GetID() : -1);
+	uint16_t tid = (pAttacker != nullptr ? pAttacker->GetID() : -1);
 
 	// Implement damage/HP cap.
 	if (amount < -MAX_DAMAGE)
@@ -245,10 +245,10 @@ void CNpc::HpChangeMagic(int amount, Unit *pAttacker /*= nullptr*/, AttributeTyp
 	SendHpChangeToAI(tid, amount, attributeType);
 }
 
-void CNpc::SendHpChangeToAI(uint16 sTargetID, int amount, AttributeType attributeType /*= AttributeNone*/)
+void CNpc::SendHpChangeToAI(uint16_t sTargetID, int amount, AttributeType attributeType /*= AttributeNone*/)
 {
 	Packet result(AG_NPC_HP_CHANGE);
-	result << GetID() << sTargetID << m_iHP << amount << uint8(attributeType);
+	result << GetID() << sTargetID << m_iHP << amount << uint8_t(attributeType);
 	Send_AIServer(&result);
 }
 
@@ -274,7 +274,7 @@ void CNpc::MSpChange(int amount)
 #endif
 }
 
-bool CNpc::CastSkill(Unit * pTarget, uint32 nSkillID)
+bool CNpc::CastSkill(Unit * pTarget, uint32_t nSkillID)
 {
 	if (pTarget == nullptr)
 		return false;
@@ -291,7 +291,7 @@ bool CNpc::CastSkill(Unit * pTarget, uint32 nSkillID)
 	return (instance.bSkillSuccessful);
 }
 
-float CNpc::GetRewardModifier(uint8 byLevel)
+float CNpc::GetRewardModifier(uint8_t byLevel)
 {
 	int iLevelDifference = GetLevel() - byLevel;
 
@@ -305,7 +305,7 @@ float CNpc::GetRewardModifier(uint8 byLevel)
 	return 1.0f;
 }
 
-float CNpc::GetPartyRewardModifier(uint32 nPartyLevel, uint32 nPartyMembers)
+float CNpc::GetPartyRewardModifier(uint32_t nPartyLevel, uint32_t nPartyMembers)
 {
 	int iLevelDifference = GetLevel() - (nPartyLevel / nPartyMembers);
 
@@ -463,9 +463,9 @@ void CNpc::OnDeathProcess(Unit *pKiller)
 	}
 
 	if (pKillerPartyUsers.empty())
-		g_pMain->WriteDeathNpcLogFile(string_format("[ %s - %d:%d:%d ] Killer=%s,SID=%d,Target=%s,Zone=%d,X=%d,Z=%d\n",m_bMonster ? "MONSTER" : "NPC",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),GetProtoID(),GetName().c_str(),GetZoneID(),uint16(GetX()),uint16(GetZ())));
+		g_pMain->WriteDeathNpcLogFile(string_format("[ %s - %d:%d:%d ] Killer=%s,SID=%d,Target=%s,Zone=%d,X=%d,Z=%d\n",m_bMonster ? "MONSTER" : "NPC",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),GetProtoID(),GetName().c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 	else
-		g_pMain->WriteDeathNpcLogFile(string_format("[ %s - %d:%d:%d ] Killer=%s,KillerParty=%s,SID=%d,Target=%s,Zone=%d,X=%d,Z=%d\n",m_bMonster ? "MONSTER" : "NPC",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),pKillerPartyUsers.c_str(),GetProtoID(),GetName().c_str(),GetZoneID(),uint16(GetX()),uint16(GetZ())));
+		g_pMain->WriteDeathNpcLogFile(string_format("[ %s - %d:%d:%d ] Killer=%s,KillerParty=%s,SID=%d,Target=%s,Zone=%d,X=%d,Z=%d\n",m_bMonster ? "MONSTER" : "NPC",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),pKillerPartyUsers.c_str(),GetProtoID(),GetName().c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 }
 
 /**
@@ -486,7 +486,7 @@ void CNpc::OnRespawn()
 		_MONUMENT_INFORMATION * pData = new	_MONUMENT_INFORMATION();
 		pData->sSid = GetProtoID();
 		pData->sNid = m_sNid;
-		pData->RepawnedTime = int32(UNIXTIME);
+		pData->RepawnedTime = int32_t(UNIXTIME);
 
 		if (GetProtoID() == DODO_CAMP_MONUMENT_SID || GetProtoID() == LAON_CAMP_MONUMENT_SID)
 			g_pMain->m_bMiddleStatueNation = m_bNation; 
@@ -504,20 +504,20 @@ void CNpc::OnRespawn()
 * @param	pUser	The User.
 * @param	MonsterCount The Respawn boss count.
 */
-void CNpc::ChaosStoneProcess(CUser *pUser, uint16 MonsterCount)
+void CNpc::ChaosStoneProcess(CUser *pUser, uint16_t MonsterCount)
 {
 	if (pUser == nullptr)
 		return;
 
 	g_pMain->SendNotice<CHAOS_STONE_ENEMY_NOTICE>("",GetZoneID(), Nation::ALL);
 
-	std::vector<uint32> MonsterSpawned;
-	std::vector<uint32> MonsterSpawnedFamily;
+	std::vector<uint32_t> MonsterSpawned;
+	std::vector<uint32_t> MonsterSpawnedFamily;
 	bool bLoopBack = true;
 
-	for (uint8 i = 0; i < MonsterCount;i++)
+	for (uint8_t i = 0; i < MonsterCount;i++)
 	{
-		uint32 nMonsterNum = myrand(0, g_pMain->m_MonsterSummonListZoneArray.GetSize());
+		uint32_t nMonsterNum = myrand(0, g_pMain->m_MonsterSummonListZoneArray.GetSize());
 		_MONSTER_SUMMON_LIST_ZONE * pMonsterSummonListZone = g_pMain->m_MonsterSummonListZoneArray.GetData(nMonsterNum);
 
 		if (pMonsterSummonListZone != nullptr)
@@ -554,8 +554,8 @@ void CNpc::PVPMonumentProcess(CUser *pUser)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_CHAT, uint8(MONUMENT_NOTICE));
-	result << uint8(FORCE_CHAT) << pUser->GetNation() << pUser->GetName().c_str();
+	Packet result(WIZ_CHAT, uint8_t(MONUMENT_NOTICE));
+	result << uint8_t(FORCE_CHAT) << pUser->GetNation() << pUser->GetName().c_str();
 	g_pMain->Send_Zone(&result, GetZoneID(), nullptr, Nation::ALL);
 
 	g_pMain->m_nPVPMonumentNation[GetZoneID()] = pUser->GetNation();
@@ -611,7 +611,7 @@ void CNpc::NationMonumentProcess(CUser *pUser)
 		g_pMain->NpcUpdate(GetProtoID(), m_bMonster, pUser->GetNation());
 		g_pMain->Announcement(DECLARE_NATION_MONUMENT_STATUS, Nation::ALL, GetProtoID(), pUser);
 
-		uint16 sSid = 0;
+		uint16_t sSid = 0;
 
 		foreach_stlmap (itr, g_pMain->m_NationMonumentInformationArray)
 			if (itr->second->sSid == (pUser->GetNation() == KARUS ? GetProtoID() + 10000 : GetProtoID() - 10000))

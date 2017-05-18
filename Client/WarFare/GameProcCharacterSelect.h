@@ -37,17 +37,17 @@ struct __CharacterSelectInfo
 	int			iFace; // 얼굴모양 b
 	int			iHair; // 머리모양 b
 	int			iZone; //zone number
-	DWORD		dwItemUpper; // 상체 dw
+	uint32_t		dwItemUpper; // 상체 dw
 	int			iItemUpperDurability;
-	DWORD		dwItemLower; // 하체 dw
+	uint32_t		dwItemLower; // 하체 dw
 	int			iItemLowerDurability;
-	DWORD		dwItemHelmet; // 투구 dw
+	uint32_t		dwItemHelmet; // 투구 dw
 	int			iItemHelmetDurability;
-	DWORD		dwItemCloak; // 어깨(망토) dw
+	uint32_t		dwItemCloak; // 어깨(망토) dw
 	int			iItemCloakDurability;
-	DWORD		dwItemGloves; // 장갑 dw
+	uint32_t		dwItemGloves; // 장갑 dw
 	int			iItemGlovesDurability;
-	DWORD		dwItemShoes; // 신발 dw
+	uint32_t		dwItemShoes; // 신발 dw
 	int			iItemShoesDurability;
 
 	void clear()
@@ -124,7 +124,7 @@ public:
 	void	RotateRight();
 
 	void	AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo);
-	void	AddChrPart(int iPosIndex, const __TABLE_PLAYER_LOOKS* pItemBasic, e_PartPosition ePartPos, DWORD dwItemID, int iItemDurability);
+	void	AddChrPart(int iPosIndex, const __TABLE_PLAYER_LOOKS* pItemBasic, e_PartPosition ePartPos, uint32_t dwItemID, int iItemDurability);
 
 	void	DoJobLeft();
 	void	DojobRight();

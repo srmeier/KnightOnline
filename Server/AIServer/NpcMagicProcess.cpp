@@ -3,7 +3,7 @@
 #include "ServerDlg.h"
 #include "Npc.h"
 
-time_t CNpcMagicProcess::MagicPacket(uint8 opcode, uint32 nSkillID, int16 sCasterID, int16 sTargetID, int16 sData1, int16 sData2, int16 sData3)
+time_t CNpcMagicProcess::MagicPacket(uint8_t opcode, uint32_t nSkillID, int16_t sCasterID, int16_t sTargetID, int16_t sData1, int16_t sData2, int16_t sData3)
 {
 	_MAGIC_TABLE * pSkill = g_pMain->m_MagictableArray.GetData(nSkillID);
 	if (pSkill == nullptr)

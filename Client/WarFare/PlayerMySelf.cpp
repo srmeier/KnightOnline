@@ -421,10 +421,10 @@ void CPlayerMySelf::RotAdd(const float fRotRadianPerSec)			// y 축을 기준으로 초
 void CPlayerMySelf::InventoryChrRender(const RECT& Rect)
 {
 /*
-	DWORD dwUsefog = TRUE;
+	uint32_t dwUsefog = TRUE;
 	CN3Base::s_lpD3DDev->GetRenderState( D3DRS_FOGENABLE , &dwUsefog );
 
-	DWORD dwUseLighting=TRUE;
+	uint32_t dwUseLighting=TRUE;
 	CN3Base::s_lpD3DDev->GetRenderState( D3DRS_LIGHTING, &dwUseLighting );
 
 	int	bLight[8];
@@ -1015,7 +1015,7 @@ void CPlayerMySelf::KnightsInfoSet(int iID, const std::string& szName, int iGrad
 	}
 }
 
-void CPlayerMySelf::SetSoundAndInitFont(DWORD dwFontFlag)
+void CPlayerMySelf::SetSoundAndInitFont(uint32_t dwFontFlag)
 {
 	CPlayerBase::SetSoundAndInitFont();
 	

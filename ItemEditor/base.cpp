@@ -6,10 +6,10 @@
 //-----------------------------------------------------------------------------
 char               pTexName[0xFF];
 _N3TexHeader       HeaderOrg;
-unsigned char*     compTexData;
+uint8_t*     compTexData;
 int                compTexSize;
 int                iPixelSize;
-unsigned short*    m_pIndices0;
+uint16_t*    m_pIndices0;
 _N3VertexT1*       m_pVertices0;
 int                m_iMaxNumIndices0;
 int                m_iMaxNumVertices0;
@@ -18,9 +18,9 @@ int                m_nFC;
 int                m_nUVC;
 __VertexSkinned*   m_pSkinVertices;
 __VertexXyzNormal* m_pVertices;
-WORD*              m_pwVtxIndices;
+uint16_t*              m_pwVtxIndices;
 float*             m_pfUVs;
-WORD*              m_pwUVsIndices;
+uint16_t*              m_pwUVsIndices;
 aiScene            m_Scene;
 e_ItemType         eType;
 
@@ -75,7 +75,7 @@ void N3LoadTexture(const char* szFN) {
 		HeaderOrg.szID[0],
 		HeaderOrg.szID[1],
 		HeaderOrg.szID[2],
-		(unsigned char) HeaderOrg.szID[3]
+		(uint8_t) HeaderOrg.szID[3]
 	);
 	printf("H.nWidth  -> %d\n", HeaderOrg.nWidth);
 	printf("H.nHeight -> %d\n", HeaderOrg.nHeight);
@@ -119,8 +119,8 @@ void N3LoadTexture(const char* szFN) {
 			compTexData = NULL;
 		}
 
-		compTexData = new unsigned char[compTexSize];
-		fread(compTexData, sizeof(unsigned char), compTexSize, fpTexture);
+		compTexData = new uint8_t[compTexSize];
+		fread(compTexData, sizeof(uint8_t), compTexSize, fpTexture);
 
 	} else {
 		if(compTexData) {
@@ -129,8 +129,8 @@ void N3LoadTexture(const char* szFN) {
 		}
 
 		compTexSize = (HeaderOrg.nWidth*HeaderOrg.nHeight*iPixelSize);
-		compTexData = new unsigned char[compTexSize];
-		fread(compTexData, sizeof(unsigned char), compTexSize, fpTexture);
+		compTexData = new uint8_t[compTexSize];
+		fread(compTexData, sizeof(uint8_t), compTexSize, fpTexture);
 	}
 
 	fclose(fpTexture);
@@ -183,9 +183,9 @@ void N3LoadMesh(const char* szFN) {
 	}
 
 	if(m_iMaxNumIndices0 > 0) {
-		m_pIndices0 = new unsigned short[m_iMaxNumIndices0];
-		memset(m_pIndices0, 0, sizeof(unsigned short)*m_iMaxNumIndices0);
-		fread(m_pIndices0, sizeof(unsigned short), m_iMaxNumIndices0, fpMesh);
+		m_pIndices0 = new uint16_t[m_iMaxNumIndices0];
+		memset(m_pIndices0, 0, sizeof(uint16_t)*m_iMaxNumIndices0);
+		fread(m_pIndices0, sizeof(uint16_t), m_iMaxNumIndices0, fpMesh);
 	}
 
 	// NOTE: read in the "collapses" (I think this is used to set the vertices
@@ -364,12 +364,12 @@ bool CN3IMesh_Create(int nFC, int nVC, int nUVC) {
 	if(m_pwUVsIndices) delete m_pwUVsIndices;
 
 	m_pVertices = new __VertexXyzNormal[nVC]; memset(m_pVertices, 0, sizeof(__VertexXyzNormal) * nVC);
-	m_pwVtxIndices = new WORD[nFC*3]; memset(m_pwVtxIndices, 0, 2 * nFC * 3); // unsigned short
+	m_pwVtxIndices = new uint16_t[nFC*3]; memset(m_pwVtxIndices, 0, 2 * nFC * 3); // uint16_t
 
 	if(nUVC > 0) {
 		m_nUVC = nUVC;
 		m_pfUVs = new float[nUVC*2]; memset(m_pfUVs, 0, 8 * nUVC);
-		m_pwUVsIndices = new WORD[nFC*3]; memset(m_pwUVsIndices, 0, 2 * nFC * 3); // unsigned short
+		m_pwUVsIndices = new uint16_t[nFC*3]; memset(m_pwUVsIndices, 0, 2 * nFC * 3); // uint16_t
 	}
 
 	return true;
@@ -550,7 +550,7 @@ e_ItemType MakeResrcFileNameForUPC(
 void GenerateScene(void) {
 
 	float* vertices = NULL;
-	unsigned int* elements = NULL;
+	uint32_t* elements = NULL;
 
 	int iVC = 0;
 	int iFC = 0;
@@ -571,10 +571,10 @@ void GenerateScene(void) {
 		iVC = m_iMaxNumVertices0;
 		iFC = m_iMaxNumIndices0/3;
 
-		elements = new unsigned int[m_iMaxNumIndices0];
-		memset(elements, 0, m_iMaxNumIndices0*sizeof(unsigned int));
+		elements = new uint32_t[m_iMaxNumIndices0];
+		memset(elements, 0, m_iMaxNumIndices0*sizeof(uint32_t));
 		for(int i=0; i<m_iMaxNumIndices0; i++) {
-			elements[i] = (unsigned int) m_pIndices0[i];
+			elements[i] = (uint32_t) m_pIndices0[i];
 		}
 
 	} else if(eType == ITEM_TYPE_PART) {
@@ -593,10 +593,10 @@ void GenerateScene(void) {
 		iVC = 3*m_nFC;
 		iFC = m_nFC;
 
-		elements = new unsigned int[3*m_nFC];
-		memset(elements, 0, 3*m_nFC*sizeof(unsigned int));
+		elements = new uint32_t[3*m_nFC];
+		memset(elements, 0, 3*m_nFC*sizeof(uint32_t));
 		for(int i=0; i<3*m_nFC; i++) {
-			elements[i] = (unsigned int) (i);
+			elements[i] = (uint32_t) (i);
 		}
 
 	} else if(eType==ITEM_TYPE_ICONONLY || eType==ITEM_TYPE_GOLD || eType==ITEM_TYPE_SONGPYUN) {
@@ -617,13 +617,13 @@ void GenerateScene(void) {
 		iVC = 3*2;
 		iFC = 2;
 
-		unsigned int _elements[] = {
+		uint32_t _elements[] = {
 			0, 1, 2,
 			2, 3, 0
 		};
 
-		elements = new unsigned int[3*2];
-		memset(elements, 0, 3*2*sizeof(unsigned int));
+		elements = new uint32_t[3*2];
+		memset(elements, 0, 3*2*sizeof(uint32_t));
 		for(int i=0; i<3*2; i++) {
 			elements[i] = _elements[i];
 		}
@@ -653,7 +653,7 @@ void GenerateScene(void) {
 		m_Scene.mMeshes[0] = new aiMesh();
 		m_Scene.mMeshes[0]->mMaterialIndex = 0;
 
-		m_Scene.mRootNode->mMeshes = new unsigned int[1];
+		m_Scene.mRootNode->mMeshes = new uint32_t[1];
 		m_Scene.mRootNode->mMeshes[0] = 0;
 		m_Scene.mRootNode->mNumMeshes = 1;
 
@@ -665,7 +665,7 @@ void GenerateScene(void) {
 		pMesh->mTextureCoords[0] = new aiVector3D[iVC];
 		pMesh->mNumUVComponents[0] = iVC;
 
-		for(unsigned int i=0; i<iVC; ++i) {
+		for(uint32_t i=0; i<iVC; ++i) {
 			Vertex v;
 			v.x = vertices[5*i+0];
 			v.y = vertices[5*i+1];
@@ -680,10 +680,10 @@ void GenerateScene(void) {
 		pMesh->mFaces = new aiFace[iFC];
 		pMesh->mNumFaces = iFC;
 
-		for(unsigned int i=0; i<iFC; ++i) {
+		for(uint32_t i=0; i<iFC; ++i) {
 			aiFace& face = pMesh->mFaces[i];
 
-			face.mIndices = new unsigned int[3];
+			face.mIndices = new uint32_t[3];
 			face.mNumIndices = 3;
 
 			face.mIndices[0] = elements[3*i+0];

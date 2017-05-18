@@ -14,7 +14,7 @@
 
 typedef struct __TABLE_BIRD
 {
-	DWORD dwID; // zone ID
+	uint32_t dwID; // zone ID
 	char* pszTerrainFN; // Terrain FileName - Terrain, Tile Map, ColorMap....
 	char* pszColorMapFN;
 	char* pszObjectPostDataFN; // Object 위치 정보 - 이안에 충돌 체크 데이터도 들어 있다.

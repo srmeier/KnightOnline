@@ -10,7 +10,7 @@ void CKnightsManager::PacketProcess(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	TRACE("Clan packet: %X\n", opcode); 
 	switch (opcode)
 	{
@@ -69,7 +69,7 @@ void CKnightsManager::PacketProcess(CUser *pUser, Packet & pkt)
 		RequestClanSymbols(pUser, pkt);
 		break;
 	case KNIGHTS_MARK_REQ:
-		GetClanSymbol(pUser, pkt.read<uint16>());
+		GetClanSymbol(pUser, pkt.read<uint16_t>());
 		break;
 	case KNIGHTS_ALLY_CREATE:
 		KnightsAllianceCreate(pUser, pkt);
@@ -112,9 +112,9 @@ void CKnightsManager::CreateKnights(CUser* pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_CREATE));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_CREATE));
 	std::string idname;
-	uint8 ret_value = 0;
+	uint8_t ret_value = 0;
 	pkt >> idname;
 
 	if (idname.empty() || idname.size() > MAX_ID_SIZE
@@ -133,10 +133,10 @@ void CKnightsManager::CreateKnights(CUser* pUser, Packet & pkt)
 
 	if (ret_value == 0)
 	{
-		uint16 knightindex = GetKnightsIndex(pUser->m_bNation);
+		uint16_t knightindex = GetKnightsIndex(pUser->m_bNation);
 		if (knightindex >= 0)
 		{	
-			result	<< uint8(ClanTypeTraining) 
+			result	<< uint8_t(ClanTypeTraining) 
 				<< knightindex << pUser->GetNation()
 				<< idname << pUser->GetName();
 			g_pMain->AddDatabaseRequest(result, pUser);
@@ -192,7 +192,7 @@ void CKnightsManager::JoinKnights(CUser *pUser, Packet & pkt)
 		return;
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
-	uint8 bResult = 0;
+	uint8_t bResult = 0;
 
 	do
 	{
@@ -204,7 +204,7 @@ void CKnightsManager::JoinKnights(CUser *pUser, Packet & pkt)
 		if (bResult != 0)
 			break;
 
-		uint16 sClanID = pUser->GetClanID();
+		uint16_t sClanID = pUser->GetClanID();
 		CKnights *pKnights = g_pMain->GetClanPtr(sClanID);
 		if (pKnights == nullptr)
 		{
@@ -212,7 +212,7 @@ void CKnightsManager::JoinKnights(CUser *pUser, Packet & pkt)
 			break;
 		}
 
-		CUser *pTUser = g_pMain->GetUserPtr(pkt.read<uint16>());
+		CUser *pTUser = g_pMain->GetUserPtr(pkt.read<uint16_t>());
 		if (pTUser == nullptr)
 			bResult = 2;
 		else if (pTUser->isDead())
@@ -225,14 +225,14 @@ void CKnightsManager::JoinKnights(CUser *pUser, Packet & pkt)
 		if (bResult != 0)
 			break;
 
-		result	<< uint8(KNIGHTS_JOIN_REQ) << uint8(1)
+		result	<< uint8_t(KNIGHTS_JOIN_REQ) << uint8_t(1)
 			<< pUser->GetSocketID() << sClanID << pKnights->m_strName;
 		pTUser->Send(&result);
 		return;
 	} while (0);
 
 
-	result << uint8(KNIGHTS_JOIN) << bResult;
+	result << uint8_t(KNIGHTS_JOIN) << bResult;
 	pUser->Send(&result);
 }
 
@@ -241,9 +241,9 @@ void CKnightsManager::JoinKnightsReq(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_JOIN));
-	uint8 bFlag, bResult = 0;
-	uint16 sid, sClanID;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_JOIN));
+	uint8_t bFlag, bResult = 0;
+	uint16_t sid, sClanID;
 	pkt >> bFlag >> sid >> sClanID;
 	CUser *pTUser = g_pMain->GetUserPtr(sid);
 	if (pTUser == nullptr)
@@ -278,7 +278,7 @@ void CKnightsManager::WithdrawKnights(CUser *pUser, Packet & pkt)
 
 	CKnights * pKinghts = g_pMain->GetClanPtr(pUser->m_bKnights);
 	Packet result(WIZ_KNIGHTS_PROCESS);
-	uint8 bResult = 0;
+	uint8_t bResult = 0;
 	do
 	{
 		if (!pUser->isInClan())
@@ -289,7 +289,7 @@ void CKnightsManager::WithdrawKnights(CUser *pUser, Packet & pkt)
 		if (bResult != 0)
 			break;
 
-		result	<< uint8(pUser->isClanLeader() ? KNIGHTS_DESTROY : KNIGHTS_WITHDRAW)
+		result	<< uint8_t(pUser->isClanLeader() ? KNIGHTS_DESTROY : KNIGHTS_WITHDRAW)
 			<< pUser->GetClanID();
 		ReqKnightsAllianceRemove(pUser, pkt);
 		g_pMain->AddDatabaseRequest(result, pUser);
@@ -304,8 +304,8 @@ void CKnightsManager::DestroyKnights( CUser* pUser )
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_DESTROY));
-	uint8 bResult = 1;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_DESTROY));
+	uint8_t bResult = 1;
 	if (!pUser->isClanLeader())
 		bResult = 0;
 	else if (!pUser->GetMap()->canUpdateClan())
@@ -323,7 +323,7 @@ void CKnightsManager::DestroyKnights( CUser* pUser )
 	}
 }
 
-void CKnightsManager::ModifyKnightsLeader(CUser *pUser, Packet & pkt, uint8 opcode)
+void CKnightsManager::ModifyKnightsLeader(CUser *pUser, Packet & pkt, uint8_t opcode)
 {
 	if (pUser == nullptr)
 		return;
@@ -333,13 +333,13 @@ void CKnightsManager::ModifyKnightsLeader(CUser *pUser, Packet & pkt, uint8 opco
 	if (pKnights == nullptr)
 		return;
 
-	uint8 isClanLeader = pUser->isClanLeader() ? 1 : 2;
+	uint8_t isClanLeader = pUser->isClanLeader() ? 1 : 2;
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
 
 	if (opcode == KNIGHTS_HANDOVER_VICECHIEF_LIST)
 	{
-		uint16 ViceChiefCount = 0;
+		uint16_t ViceChiefCount = 0;
 
 		if (g_pMain->GetUserPtr(pKnights->m_strViceChief_1, TYPE_CHARACTER))
 			ViceChiefCount++;
@@ -372,16 +372,16 @@ void CKnightsManager::ModifyKnightsLeader(CUser *pUser, Packet & pkt, uint8 opco
 			else if (pKnights->m_strViceChief_3 == strUserID) pKnights->m_strViceChief_3 = "";
 			else return;
 
-			g_DBAgent.UpdateKnights((uint8)KNIGHTS_HANDOVER, strUserID, pUser->GetClanID(), 0);
+			g_DBAgent.UpdateKnights((uint8_t)KNIGHTS_HANDOVER, strUserID, pUser->GetClanID(), 0);
 
-			result << (uint8)KNIGHTS_HANDOVER << pUser->GetName() << strUserID;
+			result << (uint8_t)KNIGHTS_HANDOVER << pUser->GetName() << strUserID;
 			pUser->Send(&result);
 			pUser->ChangeFame(TRAINEE);
 			pUser->UserDataSaveToAgent();
 			AllKnightsMember(pUser);
 
 			result.clear();
-			result << (uint8)KNIGHTS_HANDOVER << strUserID << pUser->GetName();
+			result << (uint8_t)KNIGHTS_HANDOVER << strUserID << pUser->GetName();
 			pTUser->Send(&result);
 			pTUser->ChangeFame(CHIEF);
 			pTUser->UserDataSaveToAgent();
@@ -390,13 +390,13 @@ void CKnightsManager::ModifyKnightsLeader(CUser *pUser, Packet & pkt, uint8 opco
 	}
 }
 
-void CKnightsManager::ModifyKnightsMember(CUser *pUser, Packet & pkt, uint8 opcode)
+void CKnightsManager::ModifyKnightsMember(CUser *pUser, Packet & pkt, uint8_t opcode)
 {
 	if (pUser == nullptr)
 		return;
 
 	Packet result(WIZ_KNIGHTS_PROCESS, opcode);
-	uint8 bResult = 1, bRemoveFlag = 0;
+	uint8_t bResult = 1, bRemoveFlag = 0;
 	std::string strUserID;
 
 	pkt >> strUserID;
@@ -478,19 +478,19 @@ void CKnightsManager::ModifyKnightsPointMethod(CUser *pUser, Packet & pkt)
 	if (pKnights == nullptr)
 		return;
 
-	uint8 subCode = 0;
+	uint8_t subCode = 0;
 	pkt >> subCode;
 
-	uint8 bResult = 1;
+	uint8_t bResult = 1;
 
 	if (pKnights->m_byFlag >= ClanTypeAccredited5)
 		pKnights->m_sClanPointMethod  = subCode != 0 ? subCode - 1 : pKnights->m_sClanPointMethod;
 	else
 		bResult = 2;
 
-	g_DBAgent.UpdateKnights((uint8)KNIGHTS_POINT_METHOD, pUser->GetName(), pUser->GetClanID(), pKnights->GetClanPointMethod());
+	g_DBAgent.UpdateKnights((uint8_t)KNIGHTS_POINT_METHOD, pUser->GetName(), pUser->GetClanID(), pKnights->GetClanPointMethod());
 
-	Packet result(WIZ_KNIGHTS_PROCESS, (uint8)KNIGHTS_POINT_METHOD);
+	Packet result(WIZ_KNIGHTS_PROCESS, (uint8_t)KNIGHTS_POINT_METHOD);
 	result << bResult << pKnights->GetClanPointMethod();
 	pUser->Send(&result);
 }
@@ -500,9 +500,9 @@ void CKnightsManager::AllKnightsList(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLLIST_REQ));
-	uint16 sPage = pkt.read<uint16>(), start = sPage * 10, count = 0;
-	result << uint8(1) << sPage << count;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLLIST_REQ));
+	uint16_t sPage = pkt.read<uint16_t>(), start = sPage * 10, count = 0;
+	result << uint8_t(1) << sPage << count;
 
 	foreach_stlmap (itr, g_pMain->m_KnightsArray)
 	{
@@ -513,9 +513,9 @@ void CKnightsManager::AllKnightsList(CUser *pUser, Packet & pkt)
 			|| count++ < start) 
 			continue;
 
-		result	<< uint16(pKnights->m_sIndex) << pKnights->m_strName 
-			<< uint16(pKnights->m_sMembers) << pKnights->m_strChief 
-			<< uint32(pKnights->m_nPoints);
+		result	<< uint16_t(pKnights->m_sIndex) << pKnights->m_strName 
+			<< uint16_t(pKnights->m_sMembers) << pKnights->m_strChief 
+			<< uint32_t(pKnights->m_nPoints);
 		if (count >= start + 10)
 			break;
 	}
@@ -530,8 +530,8 @@ void CKnightsManager::AllKnightsMember(CUser *pUser)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_MEMBER_REQ));
-	uint8 bResult = 1;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MEMBER_REQ));
+	uint8_t bResult = 1;
 
 	if (!pUser->isInClan())
 		bResult = 2;
@@ -541,14 +541,14 @@ void CKnightsManager::AllKnightsMember(CUser *pUser)
 	result << bResult;
 	if (bResult == 1)
 	{
-		uint16 pktSize = 0, count = 0;
+		uint16_t pktSize = 0, count = 0;
 		result << pktSize << count << count << count; // placeholders
-		pktSize = (uint16)result.size();
+		pktSize = (uint16_t)result.size();
 		count = g_pMain->GetKnightsAllMembers(pUser->GetClanID(), result, pktSize, pUser->isClanLeader());
 		if (count > MAX_CLAN_USERS) 
 			return;
 
-		pktSize = ((uint16)result.size() - pktSize) + 6;
+		pktSize = ((uint16_t)result.size() - pktSize) + 6;
 		result.put(2, pktSize);
 		result.put(4, count);
 		result.put(6, count);
@@ -562,22 +562,22 @@ void CKnightsManager::CurrentKnightsMember(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_CURRENT_REQ));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_CURRENT_REQ));
 	CKnights *pKnights = nullptr;
 	if (!pUser->isInClan()
 		|| (pKnights = g_pMain->GetClanPtr(pUser->GetClanID())) == nullptr)
 	{
-		result << uint8(0); // failed
+		result << uint8_t(0); // failed
 		result << "is this error still used?";
 		pUser->Send(&result);
 		return;
 	}
 
-	uint16 page = pkt.read<uint16>();
-	uint16 start = page * 10;
-	uint16 count = 0;
+	uint16_t page = pkt.read<uint16_t>();
+	uint16_t start = page * 10;
+	uint16_t count = 0;
 
-	result	<< uint8(1) // success
+	result	<< uint8_t(1) // success
 		<< pKnights->m_strChief
 		<< page;
 
@@ -603,12 +603,12 @@ void CKnightsManager::CurrentKnightsMember(CUser *pUser, Packet & pkt)
 	pUser->Send(&result);
 }
 
-void CKnightsManager::RecvUpdateKnights(CUser *pUser, Packet & pkt, uint8 command)
+void CKnightsManager::RecvUpdateKnights(CUser *pUser, Packet & pkt, uint8_t command)
 {
 	if (pUser == nullptr) 
 		return;
 
-	uint16 sClanID = pkt.read<uint16>();
+	uint16_t sClanID = pkt.read<uint16_t>();
 	CKnights *pKnights = g_pMain->GetClanPtr(sClanID);
 	if (pKnights == nullptr)
 		return;
@@ -627,7 +627,7 @@ void CKnightsManager::RecvUpdateKnights(CUser *pUser, Packet & pkt, uint8 comman
 	}
 
 	Packet result(WIZ_KNIGHTS_PROCESS, command);
-	result	<< uint8(1) << pUser->GetSocketID() << pUser->GetClanID() << pUser->GetFame();
+	result	<< uint8_t(1) << pUser->GetSocketID() << pUser->GetClanID() << pUser->GetFame();
 	
 	CKnights *aKnights = g_pMain->GetClanPtr(pKnights->GetAllianceID());
 
@@ -636,21 +636,21 @@ void CKnightsManager::RecvUpdateKnights(CUser *pUser, Packet & pkt, uint8 comman
 		result << pKnights->m_byFlag
 			<< pKnights->GetAllianceID()
 			<< pKnights->GetCapeID(aKnights) 
-			<< int16(pKnights->m_sMarkVersion) 
+			<< int16_t(pKnights->m_sMarkVersion) 
 			<< pKnights->m_strName << pKnights->m_byGrade << pKnights->m_byRanking;
 	}
 
 	pUser->SendToRegion(&result);
 }
 
-void CKnightsManager::RecvModifyFame(CUser *pUser, Packet & pkt, uint8 command)
+void CKnightsManager::RecvModifyFame(CUser *pUser, Packet & pkt, uint8_t command)
 {
 	if (pUser == nullptr) 
 		return;
 
 	std::string clanNotice;
 	std::string strUserID;
-	uint16 sClanID;
+	uint16_t sClanID;
 
 	pkt >> sClanID >> strUserID;
 
@@ -735,7 +735,7 @@ bool CKnightsManager::RemoveKnightsUser(int index, std::string & strUserID)
 	return (pKnights == nullptr ? false : pKnights->RemoveUser(strUserID));
 }
 
-void CKnightsManager::UpdateKnightsGrade(uint16 sClanID, uint8 byFlag)
+void CKnightsManager::UpdateKnightsGrade(uint16_t sClanID, uint8_t byFlag)
 {
 	CKnights * pClan = g_pMain->GetClanPtr(sClanID);
 	if (pClan == nullptr)
@@ -755,12 +755,12 @@ void CKnightsManager::UpdateKnightsGrade(uint16 sClanID, uint8 byFlag)
 	pClan->SendUpdate();
 
 	// Update the database server
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_UPDATE_GRADE));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_UPDATE_GRADE));
 	result << sClanID << byFlag << pClan->m_sCape;
 	g_pMain->AddDatabaseRequest(result);
 }
 
-void CKnightsManager::UpdateClanPoint(uint16 sClanID, int32 nChangeAmount)
+void CKnightsManager::UpdateClanPoint(uint16_t sClanID, int32_t nChangeAmount)
 {
 	CKnights * pClan = g_pMain->GetClanPtr(sClanID);
 	if (pClan == nullptr)
@@ -775,7 +775,7 @@ void CKnightsManager::UpdateClanPoint(uint16 sClanID, int32 nChangeAmount)
 	}
 	else
 	{
-		uint32 pChangeAmount = -nChangeAmount;
+		uint32_t pChangeAmount = -nChangeAmount;
 
 		if (pChangeAmount > pClan->m_nClanPointFund)
 			pClan->m_nClanPointFund = 0;
@@ -786,7 +786,7 @@ void CKnightsManager::UpdateClanPoint(uint16 sClanID, int32 nChangeAmount)
 	pClan->UpdateClanFund();
 }
 
-void CKnightsManager::AddUserDonatedNP(int index, std::string & strUserID, uint32 nDonatedNP, bool bIsKillReward)
+void CKnightsManager::AddUserDonatedNP(int index, std::string & strUserID, uint32_t nDonatedNP, bool bIsKillReward)
 {
 	CKnights *pKnights = g_pMain->GetClanPtr(index);
 	if (pKnights == nullptr)
@@ -817,12 +817,12 @@ void CKnightsManager::AddUserDonatedNP(int index, std::string & strUserID, uint3
 
 void CKnightsManager::RecvKnightsAllList(Packet & pkt)
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLLIST_REQ));
-	uint8 count = pkt.read<uint8>(), send_count = 0;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLLIST_REQ));
+	uint8_t count = pkt.read<uint8_t>(), send_count = 0;
 	result << send_count; // placeholder for count
 	for (int i = 0; i < count; i++)
 	{
-		uint32 nPoints; uint16 sClanID; uint8 bRank;
+		uint32_t nPoints; uint16_t sClanID; uint8_t bRank;
 		pkt >> sClanID >> nPoints >> bRank;
 
 		CKnights *pKnights = g_pMain->GetClanPtr(sClanID);
@@ -850,10 +850,10 @@ void CKnightsManager::RegisterClanSymbol(CUser* pUser, Packet & pkt)
 	if (pUser == nullptr || !pUser->isInClan())
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_MARK_REGISTER));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MARK_REGISTER));
 	CKnights *pKnights = nullptr;
 	char clanSymbol[MAX_KNIGHTS_MARK];
-	uint16 sFailCode = 1, sSymbolSize = pkt.read<uint16>();
+	uint16_t sFailCode = 1, sSymbolSize = pkt.read<uint16_t>();
 
 	// Are they even a clan leader?
 	if (!pUser->isClanLeader())
@@ -899,8 +899,8 @@ void CKnightsManager::RequestClanSymbolVersion(CUser* pUser, Packet & pkt)
 		|| !pUser->isInClan())
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_MARK_VERSION_REQ));
-	int16 sFailCode = 1;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MARK_VERSION_REQ));
+	int16_t sFailCode = 1;
 
 	CKnights *pKnights = g_pMain->GetClanPtr(pUser->GetClanID());
 	if (pKnights == nullptr || !pKnights->isPromoted() || !pUser->isClanLeader())
@@ -911,7 +911,7 @@ void CKnightsManager::RequestClanSymbolVersion(CUser* pUser, Packet & pkt)
 	result << sFailCode;
 
 	if (sFailCode == 1)
-		result << uint16(pKnights->m_sMarkVersion);
+		result << uint16_t(pKnights->m_sMarkVersion);
 
 	pUser->Send(&result);
 }
@@ -928,13 +928,13 @@ void CKnightsManager::RequestClanSymbols(CUser* pUser, Packet & pkt)
 		|| !pUser->isInClan())
 		return;
 
-	uint16 sCount = pkt.read<uint16>();
+	uint16_t sCount = pkt.read<uint16_t>();
 	if (sCount > 100)
 		sCount = 100;
 
 	for (int i = 0; i < sCount; i++)
 	{
-		uint16 sid = pkt.read<uint16>();
+		uint16_t sid = pkt.read<uint16_t>();
 		CUser *pTUser = g_pMain->GetUserPtr(sid);
 		if (pTUser == nullptr
 			|| !pTUser->isInGame())
@@ -946,7 +946,7 @@ void CKnightsManager::RequestClanSymbols(CUser* pUser, Packet & pkt)
 	}
 }
 
-void CKnightsManager::GetClanSymbol(CUser* pUser, uint16 sClanID)
+void CKnightsManager::GetClanSymbol(CUser* pUser, uint16_t sClanID)
 {
 	if (pUser == nullptr)
 		return;
@@ -964,9 +964,9 @@ void CKnightsManager::GetClanSymbol(CUser* pUser, uint16 sClanID)
 			|| pKnights->m_sMarkLen <= 0)
 			return;
 
-	result	<< uint8(KNIGHTS_MARK_REQ) << uint16(1); // success
-	result	<< uint16(pKnights->m_byNation) << sClanID
-		<< uint16(pKnights->m_sMarkVersion) << uint16(pKnights->m_sMarkLen);
+	result	<< uint8_t(KNIGHTS_MARK_REQ) << uint16_t(1); // success
+	result	<< uint16_t(pKnights->m_byNation) << sClanID
+		<< uint16_t(pKnights->m_sMarkVersion) << uint16_t(pKnights->m_sMarkLen);
 	result.append(pKnights->m_Image, pKnights->m_sMarkLen);
 	pUser->SendCompressed(&result);
 }
@@ -1012,8 +1012,8 @@ void CKnightsManager::KnightsAllianceCreate(CUser* pUser, Packet & pkt)
 
 	if(pKnights->m_byFlag > 1 && pKnights->m_strChief == pUser->GetName())
 	{
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_CREATE));
-	result << uint8(1) << pUser->m_bKnights;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_CREATE));
+	result << uint8_t(1) << pUser->m_bKnights;
 	pUser->SendToRegion(&result);
 
 	g_pMain->AddDatabaseRequest(result, pUser);
@@ -1038,9 +1038,9 @@ void CKnightsManager::KnightsAllianceInsert(CUser* pUser, Packet & pkt)
 		|| pUser->isDead())
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_INSERT));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_INSERT));
 	CKnights * pKnights = g_pMain->GetClanPtr(pUser->m_bKnights);
-	uint16 TargetClanLeaderID = pkt.read<uint16>();
+	uint16_t TargetClanLeaderID = pkt.read<uint16_t>();
 	CUser * pTargetUser = g_pMain->GetUserPtr(TargetClanLeaderID);
 	CKnights * pTargetKnights = g_pMain->GetClanPtr(pTargetUser->m_bKnights);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(pUser->m_bKnights);
@@ -1068,7 +1068,7 @@ void CKnightsManager::KnightsAllianceInsert(CUser* pUser, Packet & pkt)
 		pAlliance->sMercenaryClan_2 != pTargetKnights->m_sIndex &&
 		pAlliance->sSubAllianceKnights != pTargetKnights->m_sIndex)
 	{
-		result << uint8(1) << pUser->m_bKnights << pTargetUser->m_bKnights << pKnights->m_sCape;
+		result << uint8_t(1) << pUser->m_bKnights << pTargetUser->m_bKnights << pKnights->m_sCape;
 		pTargetUser->SendToRegion(&result);
 		
 		g_pMain->AddDatabaseRequest(result, pUser);
@@ -1094,9 +1094,9 @@ void CKnightsManager::KnightsAllianceRequest(CUser* pUser, Packet & pkt)
 	else
 		KnightsAllianceInsert(pUser,pkt);
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_REQ));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_REQ));
 	CKnights * pKnights = g_pMain->GetClanPtr(pUser->m_bKnights);
-	uint16 TargetClanLeaderID = pkt.read<uint16>();
+	uint16_t TargetClanLeaderID = pkt.read<uint16_t>();
 	CUser * pTargetUser = g_pMain->GetUserPtr(TargetClanLeaderID);
 	CKnights * pTargetKnights = g_pMain->GetClanPtr(pTargetUser->m_bKnights);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(pUser->m_bKnights);
@@ -1125,7 +1125,7 @@ void CKnightsManager::KnightsAllianceRequest(CUser* pUser, Packet & pkt)
 		pAlliance->sSubAllianceKnights != pTargetKnights->m_sIndex)
 		{
 		result.SByte();
-		result << uint8(1) << pKnights->GetName();
+		result << uint8_t(1) << pKnights->GetName();
 		pTargetUser->Send(&result);
 		}
 		}
@@ -1137,7 +1137,7 @@ void CKnightsManager::KnightsAllianceRemove(CUser* pUser, Packet & pkt)
 	|| pUser->isDead())
 	return;
 	
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_REMOVE));  // ally disband
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_REMOVE));  // ally disband
 
 	CKnights * pKnights = g_pMain->GetClanPtr(pUser->m_bKnights) , *pTargetKnights = g_pMain->GetClanPtr(pKnights->m_sAlliance);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(pKnights->m_sAlliance);
@@ -1162,7 +1162,7 @@ void CKnightsManager::KnightsAllianceRemove(CUser* pUser, Packet & pkt)
 		pAlliance->sMercenaryClan_2 == pKnights->m_sIndex ||
 		pAlliance->sSubAllianceKnights == pKnights->m_sIndex)
 		{
-			result << uint8(1) << pKnights->m_sAlliance << pUser->m_bKnights << uint16(-1);
+			result << uint8_t(1) << pKnights->m_sAlliance << pUser->m_bKnights << uint16_t(-1);
 			pUser->SendToRegion(&result);
 
 			pTargetKnights->m_sCape = -1;
@@ -1187,8 +1187,8 @@ void CKnightsManager::KnightsAlliancePunish(CUser* pUser, Packet & pkt)
 	|| pUser->isDead())
 	return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_PUNISH)); // knights ban
-	uint16 TargetClanID = pkt.read<uint16>(),MainCapeID;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_PUNISH)); // knights ban
+	uint16_t TargetClanID = pkt.read<uint16_t>(),MainCapeID;
 	CKnights *pTargetKnights = g_pMain->GetClanPtr(TargetClanID) , *pKnights = g_pMain->GetClanPtr(pUser->m_bKnights);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(pUser->m_bKnights);
 	if( pAlliance != nullptr)
@@ -1221,12 +1221,12 @@ void CKnightsManager::KnightsAlliancePunish(CUser* pUser, Packet & pkt)
 		{
 		if (pTargetUser != nullptr)
 		{
-		result << uint8(1) << pUser->m_bKnights << pTargetUser->m_bKnights << MainCapeID;
+		result << uint8_t(1) << pUser->m_bKnights << pTargetUser->m_bKnights << MainCapeID;
 		pTargetUser->SendToRegion(&result);
 		}
 		else
 		{
-		result << uint8(1) << pUser->m_bKnights << TargetClanID << MainCapeID;
+		result << uint8_t(1) << pUser->m_bKnights << TargetClanID << MainCapeID;
 		pUser->SendToRegion(&result);
 		}
 
@@ -1258,7 +1258,7 @@ void CKnightsManager::KnightsAllianceList(CUser* pUser, Packet & pkt)
 		|| !pUser->isInClan())
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_LIST));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_LIST));
 	_KNIGHTS_ALLIANCE * pAlliance;
 	CKnights * pClan = g_pMain->GetClanPtr(pUser->GetClanID());
 
@@ -1266,25 +1266,25 @@ void CKnightsManager::KnightsAllianceList(CUser* pUser, Packet & pkt)
 		|| !pClan->isInAlliance()
 		|| (pAlliance = g_pMain->GetAlliancePtr(pClan->GetAllianceID())) == nullptr)
 	{
-		result << uint8(0);
+		result << uint8_t(0);
 		pUser->Send(&result);
 		return;
 	}
 
-	uint16 clans[] = 
+	uint16_t clans[] = 
 	{ 
 		pAlliance->sMainAllianceKnights, pAlliance->sSubAllianceKnights, 
 		pAlliance->sMercenaryClan_1, pAlliance->sMercenaryClan_2 
 	};
 
 	size_t wpos = result.wpos();
-	uint8 clanCount = 0;
+	uint8_t clanCount = 0;
 	result << clanCount;
 
 	result.SByte();
 	foreach_array(i, clans)
 	{
-		uint16 sClanID = clans[i]; 
+		uint16_t sClanID = clans[i]; 
 		CKnights * pTmp = g_pMain->GetClanPtr(sClanID);
 		if (pTmp == nullptr)
 			continue;
@@ -1302,13 +1302,13 @@ void CKnightsManager::KnightsAllianceList(CUser* pUser, Packet & pkt)
 
 void CKnightsManager::ListTop10Clans(CUser *pUser)
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_TOP10));
-	result << uint16(0);
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_TOP10));
+	result << uint16_t(0);
 
 	// List top 5 clans of each nation
 	for (int nation = KARUS_ARRAY; nation <= ELMORAD_ARRAY; nation++)
 	{
-		uint16 i = 1;
+		uint16_t i = 1;
 		foreach_stlmap (itr, g_pMain->m_KnightsRatingArray[nation])
 		{
 			if (i > 5)
@@ -1318,15 +1318,15 @@ void CKnightsManager::ListTop10Clans(CUser *pUser)
 
 			if (pKnights == nullptr)
 			{
-				result	<< int16(-1)	// Clan ID
+				result	<< int16_t(-1)	// Clan ID
 					<< ""			// Clan name (2 byte length)
-					<< int16(-1)	// Symbol version
-					<< int16(i-1);	// Rank (0 - 4)
+					<< int16_t(-1)	// Symbol version
+					<< int16_t(i-1);	// Rank (0 - 4)
 			}
 			else
 			{
 				if (pKnights->m_byNation == nation + 1)
-					result << pKnights->m_sIndex << pKnights->m_strName << pKnights->m_sMarkVersion << int16(i-1);
+					result << pKnights->m_sIndex << pKnights->m_strName << pKnights->m_sMarkVersion << int16_t(i-1);
 				else
 					continue;
 			}
@@ -1356,10 +1356,10 @@ void CKnightsManager::DonateNPReq(CUser * pUser, Packet & pkt)
 	if (pKnights == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_POINT_REQ));
-	result	<< uint8(1) 
-		<< uint32(pUser->GetLoyalty()) 
-		<< uint32(pKnights->m_nClanPointFund); // note: amount shown is in NP form
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_POINT_REQ));
+	result	<< uint8_t(1) 
+		<< uint32_t(pUser->GetLoyalty()) 
+		<< uint32_t(pKnights->m_nClanPointFund); // note: amount shown is in NP form
 	pUser->Send(&result);
 }
 
@@ -1408,8 +1408,8 @@ void CKnightsManager::DonationList(CUser *pUser, Packet & pkt)
 		|| pKnights->m_byFlag < ClanTypeAccredited5)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_DONATION_LIST));
-	uint8 count = 0;
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_DONATION_LIST));
+	uint8_t count = 0;
 	size_t wpos = result.wpos();
 	result << count;
 

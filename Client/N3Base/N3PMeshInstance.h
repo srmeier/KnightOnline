@@ -28,7 +28,7 @@ protected:
 #ifdef _USE_VERTEXBUFFER
 	LPDIRECT3DINDEXBUFFER8	m_pIB;
 #else
-	WORD* m_pIndices;
+	uint16_t* m_pIndices;
 #endif
 
 	int m_iNumIndices, m_iNumVertices; // number of triangles/vertices to use at this moment.
@@ -64,7 +64,7 @@ public:
 	LPDIRECT3DINDEXBUFFER8 GetIndexBuffer() const {return m_pIB;}
 #else
 	__VertexT1*	GetVertices() const;
-	WORD*		GetIndices() const { return m_pIndices;};
+	uint16_t*		GetIndices() const { return m_pIndices;};
 #endif
 
 //	By : Ecli666 ( On 2002-08-06 ¿ÀÈÄ 4:33:04 )
@@ -72,7 +72,7 @@ public:
 #ifdef _USE_VERTEXBUFFER
 	void			PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
 #else
-	void			PartialRender(int iCount, WORD* pIndices);
+	void			PartialRender(int iCount, uint16_t* pIndices);
 #endif
 	int				 GetIndexByiOrder(int iOrder);
 __Vector3		GetVertexByIndex(size_t iIndex);

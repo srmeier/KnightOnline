@@ -54,7 +54,7 @@ bool CUINPCEvent::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUINPCEvent::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUINPCEvent::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{

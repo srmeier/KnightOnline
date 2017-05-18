@@ -32,7 +32,7 @@ CPortalVolume::CPortalVolume()	: m_fOffs(0.001f), m_fHeightOffs(0.01f), m_fVolOf
 	m_pvVertex[6].Set( fBaseVolumnSize,  fBaseVolumnSize, -fBaseVolumnSize);
 	m_pvVertex[7].Set(-fBaseVolumnSize,  fBaseVolumnSize, -fBaseVolumnSize);
 
-	unsigned short*		pIdx = m_pIndex;
+	uint16_t*		pIdx = m_pIndex;
 
 	// ¾Æ·§¸é.
 	*pIdx++ = 0;  *pIdx++ = 1;  *pIdx++ = 3;
@@ -202,13 +202,13 @@ void CPortalVolume::RenderShape()
 		
 	#ifdef _USE_VERTEXBUFFER
 			LPDIRECT3DINDEXBUFFER8	pIB;
-			HRESULT hr = CN3Base::s_lpD3DDev->CreateIndexBuffer(iSize*sizeof(WORD),
+			HRESULT hr = CN3Base::s_lpD3DDev->CreateIndexBuffer(iSize*sizeof(uint16_t),
 											D3DUSAGE_DYNAMIC, D3DFMT_INDEX16, D3DPOOL_MANAGED, &pIB);
 			if (FAILED(hr)) return hr;
 
-			BYTE* pByte;
+			uint8_t* pByte;
 			hr = pIB->Lock(0, 0, &pByte, 0);
-			WORD* pIndices = (WORD*)pByte;
+			uint16_t* pIndices = (uint16_t*)pByte;
 			
 			Iit = vpi.m_ivVector.begin();
 			while(Iit != vpi.m_ivVector.end())
@@ -229,7 +229,7 @@ void CPortalVolume::RenderShape()
 			pIB->Release();
 	#else
 			LPWORD pIndices;
-			pIndices = new WORD[iSize]; memset(pIndices, 0, sizeof(WORD)*iSize);
+			pIndices = new uint16_t[iSize]; memset(pIndices, 0, sizeof(uint16_t)*iSize);
 			int iSizes = vpi.m_ivVector.size();
 			for( int k = 0; k < iSizes; k++)
 			{
@@ -263,9 +263,9 @@ void CPortalVolume::RenderCollision()
 
 		CN3Base::s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtxWorld);
 
-		LPDWORD pIndices;
+		uint32_t * pIndices;
 		int iSize = pCI->m_ivVector.size();
-		pIndices = new DWORD[iSize]; memset(pIndices, 0, sizeof(DWORD)*iSize);
+		pIndices = new uint32_t[iSize]; memset(pIndices, 0, sizeof(uint32_t)*iSize);
 		int iSizes = pCI->m_ivVector.size();
 		for( int k = 0; k < iSizes; k++)
 		{

@@ -12,7 +12,7 @@ public:
 	virtual bool Fetch()
 	{
 		_QUEST_HELPER *pData = new _QUEST_HELPER;
-		uint8 bEventStatus = 0xff;
+		uint8_t bEventStatus = 0xff;
 
 		_dbCommand->FetchUInt32(1, pData->nIndex);
 		_dbCommand->FetchByte  (2, pData->bMessageType);

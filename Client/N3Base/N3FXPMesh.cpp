@@ -44,7 +44,7 @@ HRESULT CN3FXPMesh::Create(int iNumVertices, int iNumIndices)
 	}
 	if (m_iMaxNumIndices>0)
 	{
-		m_pIndices = new WORD[m_iMaxNumIndices];
+		m_pIndices = new uint16_t[m_iMaxNumIndices];
 	}
 	if (m_iMaxNumVertices>0)
 	{
@@ -79,7 +79,7 @@ void CN3FXPMesh::operator=(const CN3FXPMesh& fxPMesh)
 	Create(m_iMaxNumVertices ,m_iMaxNumIndices);
 
 	memcpy(m_pColorVertices, fxPMesh.m_pColorVertices, sizeof(__VertexXyzColorT1)*m_iMaxNumVertices);
-	memcpy(m_pIndices, fxPMesh.m_pIndices, sizeof(WORD)*m_iMaxNumIndices);
+	memcpy(m_pIndices, fxPMesh.m_pIndices, sizeof(uint16_t)*m_iMaxNumIndices);
 
 	if (m_iNumCollapses>0)
 	{
@@ -128,7 +128,7 @@ bool CN3FXPMesh::Load(HANDLE hFile)
 	}
 
 	if (m_iMaxNumIndices>0)
-		ReadFile(hFile, m_pIndices, m_iMaxNumIndices*sizeof(WORD), &dwNum, NULL);
+		ReadFile(hFile, m_pIndices, m_iMaxNumIndices*sizeof(uint16_t), &dwNum, NULL);
 
 	if (m_iNumCollapses>0)
 	{
@@ -229,7 +229,7 @@ void CN3FXPMesh::FindMinMax()
 	m_fRadius  = (m_vMax - m_vMin).Magnitude() * 0.5f;
 }
 
-void CN3FXPMesh::SetColor(DWORD dwColor)
+void CN3FXPMesh::SetColor(uint32_t dwColor)
 {
 	if (m_pColorVertices == NULL)	return;
 	if (m_iMaxNumVertices <= 0)		return;

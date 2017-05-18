@@ -18,10 +18,10 @@ class CN3FXPartParticles : public CN3FXPartBase
 public:
 	//related whole particle system...
 	__VertexXyzColorT1			m_vUnit[NUM_VERTEX_PARTICLE];
-	//WORD						m_wUnitIB[6];
+	//uint16_t						m_wUnitIB[6];
 
 	__VertexXyzColorT1*			m_pVB;
-	//WORD*						m_pIB;
+	//uint16_t*						m_pIB;
 
 	__Matrix44					m_mtxVI;				//	inverse view mtx..
 
@@ -42,7 +42,7 @@ public:
 	__Vector3					m_MaxCreateRange;		//	파티클 생성 자유도 범위..max..
 
 	//emitter...
-	DWORD						m_dwEmitType;			//	발사형태..(spread, gather)..
+	uint32_t						m_dwEmitType;			//	발사형태..(spread, gather)..
 	PARTICLEEMITCONDITION		m_uEmitCon;				//	발사형태에 따른 필요 데이타..
 	__Vector3					m_vEmitterDir;
 	__Vector3					m_vPrevShapePos;
@@ -56,7 +56,7 @@ public:
 	float		m_fPtGravity;		//중력가속도..
 
 	//related particle color....
-	DWORD		m_dwChangeColor[NUM_KEY_COLOR];
+	uint32_t		m_dwChangeColor[NUM_KEY_COLOR];
 	bool		m_bChangeColor;
 
 	//related animation key
@@ -105,7 +105,7 @@ public:
 	bool	Save(HANDLE hFile);	//	게임파일 저장오기.
 	void	Duplicate(CN3FXPartParticles* pSrc);
 
-	bool	GetColor(int key, DWORD& color);
+	bool	GetColor(int key, uint32_t& color);
 
 	CN3FXPartParticles();	
 	virtual ~CN3FXPartParticles();	

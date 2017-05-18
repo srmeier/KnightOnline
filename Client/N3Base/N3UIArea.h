@@ -41,10 +41,10 @@ public:
 	virtual bool	Load(HANDLE);
 	virtual void	SetRegion(const RECT& Rect);
 
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 #ifndef _REPENT
 #ifdef _N3GAME
-	virtual	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 #endif
 #endif
 

@@ -28,7 +28,7 @@ void DatabaseThread::AddRequest(Packet * pkt)
 	s_hEvent.Signal();
 }
 
-uint32 THREADCALL DatabaseThread::ThreadProc(void * lpParam)
+uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 {
 	while (true)
 	{
@@ -59,7 +59,7 @@ uint32 THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 
 		// First 2 bytes are always going to be the socket ID
 		// or -1 for no user.
-		int16 uid = pkt.read<int16>();
+		int16_t uid = pkt.read<int16_t>();
 
 		// Attempt to lookup the user if necessary
 		CUser *pUser = nullptr;
@@ -72,7 +72,7 @@ uint32 THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 				continue;
 		}
 
-		uint8 subOpcode;
+		uint8_t subOpcode;
 		switch (pkt.GetOpcode())
 		{
 		case WIZ_LOGIN:
@@ -139,7 +139,7 @@ uint32 THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 			break;
 		case WIZ_ZONE_CONCURRENT:
 			{
-				uint32 serverNo, count;
+				uint32_t serverNo, count;
 				pkt >> serverNo >> count;
 				g_DBAgent.UpdateConCurrentUserCount(serverNo, 1, count);
 			} break;
@@ -159,7 +159,7 @@ void CUser::ReqAccountLogIn(Packet & pkt)
 	string strPasswd;
 	pkt >> strPasswd;
 
-	int8 nation = (g_DBAgent.AccountLogin(m_strAccountID, strPasswd)-1);
+	int8_t nation = (g_DBAgent.AccountLogin(m_strAccountID, strPasswd)-1);
 
 	if (nation >= 0)
 		g_pMain->AddAccountName(this);
@@ -174,7 +174,7 @@ void CUser::ReqAccountLogIn(Packet & pkt)
 void CUser::ReqSelectNation(Packet & pkt)
 {
 	Packet result(WIZ_SEL_NATION);
-	uint8 bNation = pkt.read<uint8>(), bResult;
+	uint8_t bNation = pkt.read<uint8_t>(), bResult;
 
 	bResult = g_DBAgent.NationSelect(m_strAccountID, bNation) ? bNation : 0;
 	result << bResult;
@@ -186,9 +186,9 @@ void CUser::ReqAllCharInfo(Packet & pkt)
 	Packet result(WIZ_ALLCHAR_INFO_REQ);
 	string strCharID1, strCharID2, strCharID3;
 
-	result << uint8(1);
+	result << uint8_t(1);
 #if __VERSION >= 1920
-	result << uint8(1); // 1.920+ flag, probably indicates whether there's any characters or not (stays 1 for 1+ characters though, so not a count :'(). Untested without.
+	result << uint8_t(1); // 1.920+ flag, probably indicates whether there's any characters or not (stays 1 for 1+ characters though, so not a count :'(). Untested without.
 #endif
 	g_DBAgent.GetAllCharID(m_strAccountID, strCharID1, strCharID2, strCharID3);
 	g_DBAgent.LoadCharInfo(strCharID1, result);
@@ -202,8 +202,8 @@ void CUser::ReqChangeHair(Packet & pkt)
 {
 	Packet result(WIZ_CHANGE_HAIR);
 	string strUserID;
-	uint8 nHair;
-	uint8 bOpcode, bFace;
+	uint8_t nHair;
+	uint8_t bOpcode, bFace;
 	pkt.SByte();
 	pkt >> bOpcode >> strUserID >> bFace >> nHair;
 	pkt.put(2, g_DBAgent.ChangeHair(m_strAccountID, strUserID, bOpcode, bFace, nHair));
@@ -213,9 +213,9 @@ void CUser::ReqChangeHair(Packet & pkt)
 void CUser::ReqCreateNewChar(Packet & pkt)
 {
 	string strCharID;
-	uint8 nHair;
-	uint16 sClass;
-	uint8 bCharIndex, bRace, bFace, bStr, bSta, bDex, bInt, bCha;
+	uint8_t nHair;
+	uint16_t sClass;
+	uint8_t bCharIndex, bRace, bFace, bStr, bSta, bDex, bInt, bCha;
 	pkt >> bCharIndex >> strCharID >> bRace >> sClass >> bFace >> nHair >> bStr >> bSta >> bDex >> bInt >> bCha;
 
 	Packet result(WIZ_NEW_CHAR);
@@ -227,12 +227,12 @@ void CUser::ReqCreateNewChar(Packet & pkt)
 void CUser::ReqDeleteChar(Packet & pkt)
 {
 	string strCharID, strSocNo;
-	uint8 bCharIndex;
+	uint8_t bCharIndex;
 	pkt >> bCharIndex >> strCharID >> strSocNo;
 
 	Packet result(WIZ_DEL_CHAR);
-	int8 retCode = g_DBAgent.DeleteChar(m_strAccountID, bCharIndex, strCharID, strSocNo);
-	result << retCode << uint8(retCode ? bCharIndex : -1);
+	int8_t retCode = g_DBAgent.DeleteChar(m_strAccountID, bCharIndex, strCharID, strSocNo);
+	result << retCode << uint8_t(retCode ? bCharIndex : -1);
 	Send(&result);
 
 #if 0
@@ -247,7 +247,7 @@ void CUser::ReqDeleteChar(Packet & pkt)
 void CUser::ReqSelectCharacter(Packet & pkt)
 {
 	Packet result(WIZ_SEL_CHAR);
-	uint8 bInit;
+	uint8_t bInit;
 	string strCharID;
 
 	pkt >> strCharID >> bInit;
@@ -257,11 +257,11 @@ void CUser::ReqSelectCharacter(Packet & pkt)
 		|| !g_DBAgent.LoadPremiumServiceUser(m_strAccountID, this)
 		|| !g_DBAgent.LoadSavedMagic(this))
 	{
-		result << uint8(0);
+		result << uint8_t(0);
 	}
 	else
 	{
-		result << uint8(1) << bInit;
+		result << uint8_t(1) << bInit;
 	}
 
 	SelectCharacter(result); 
@@ -269,7 +269,7 @@ void CUser::ReqSelectCharacter(Packet & pkt)
 
 void CUser::ReqShoppingMall(Packet & pkt)
 {
-	switch (pkt.read<uint8>())
+	switch (pkt.read<uint8_t>())
 	{
 	case STORE_CLOSE:
 		ReqLoadWebItemMall();
@@ -282,7 +282,7 @@ void CUser::ReqShoppingMall(Packet & pkt)
 
 void CUser::ReqSkillDataProcess(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	if (opcode == SKILL_DATA_LOAD)
 		ReqSkillDataLoad(pkt);
 	else if (opcode == SKILL_DATA_SAVE)
@@ -291,9 +291,9 @@ void CUser::ReqSkillDataProcess(Packet & pkt)
 
 void CUser::ReqSkillDataLoad(Packet & pkt)
 {
-	Packet result(WIZ_SKILLDATA, uint8(SKILL_DATA_LOAD));
+	Packet result(WIZ_SKILLDATA, uint8_t(SKILL_DATA_LOAD));
 	if (!g_DBAgent.LoadSkillShortcut(result, this))
-		//result << uint16(0);
+		//result << uint16_t(0);
 
 	Send(&result);
 }
@@ -302,17 +302,17 @@ void CUser::ReqSkillDataSave(Packet & pkt)
 {
 	// Initialize our buffer (not all skills are likely to be saved, we need to store the entire 260 bytes).
 	char buff[260] = {0};
-	short sCount;
+	int16_t sCount;
 
 	// Read in our skill count
 	pkt >> sCount;
 
-	// Make sure we're not going to copy too much (each skill is 1 uint32).
-	if ((sCount * sizeof(uint32)) > sizeof(buff))
+	// Make sure we're not going to copy too much (each skill is 1 uint32_t).
+	if ((sCount * sizeof(uint32_t)) > sizeof(buff))
 		return;
 
 	// Copy the skill data directly in from where we left off reading in the packet buffer
-	memcpy(buff, (char *)(pkt.contents() + pkt.rpos()), sCount * sizeof(uint32));
+	memcpy(buff, (char *)(pkt.contents() + pkt.rpos()), sCount * sizeof(uint32_t));
 
 	// Finally, save the skill data.
 	g_DBAgent.SaveSkillShortcut(sCount, buff, this);
@@ -320,7 +320,7 @@ void CUser::ReqSkillDataSave(Packet & pkt)
 
 void CUser::ReqFriendProcess(Packet & pkt)
 {
-	switch (pkt.read<uint8>())
+	switch (pkt.read<uint8_t>())
 	{
 	case FRIEND_REQUEST:
 		ReqRequestFriendList(pkt);
@@ -343,7 +343,7 @@ void CUser::ReqRequestFriendList(Packet & pkt)
 
 	g_DBAgent.RequestFriendList(friendList, this);
 
-	result << uint16(friendList.size());
+	result << uint16_t(friendList.size());
 	foreach (itr, friendList)
 		result << (*itr);
 
@@ -354,14 +354,14 @@ void CUser::ReqAddFriend(Packet & pkt)
 {
 	Packet result(WIZ_FRIEND_PROCESS);
 	string strCharID;
-	int16 tid;
+	int16_t tid;
 
 	pkt.SByte();
 	pkt >> tid >> strCharID;
 
 	FriendAddResult resultCode = g_DBAgent.AddFriend(GetSocketID(), tid);
 	result.SByte();
-	result << tid << uint8(resultCode) << strCharID;
+	result << tid << uint8_t(resultCode) << strCharID;
 
 	RecvFriendModify(result, FRIEND_ADD);
 }
@@ -376,7 +376,7 @@ void CUser::ReqRemoveFriend(Packet & pkt)
 
 	FriendRemoveResult resultCode = g_DBAgent.RemoveFriend(strCharID, this);
 	result.SByte();
-	result << uint8(resultCode) << strCharID;
+	result << uint8_t(resultCode) << strCharID;
 
 	RecvFriendModify(result, FRIEND_REMOVE);
 }
@@ -389,7 +389,7 @@ void CUser::ReqRemoveFriend(Packet & pkt)
 void CUser::ReqChangeName(Packet & pkt)
 {
 	NameChangeOpcode response;
-	uint8 opcode;
+	uint8_t opcode;
 	string strName;
 
 	pkt >> opcode >> strName;
@@ -427,8 +427,8 @@ void CUser::ReqChangeName(Packet & pkt)
 */
 void CUser::ReqChangeCape(Packet & pkt)
 {
-	uint16 sClanID, sCapeID;
-	uint8 r, g, b;
+	uint16_t sClanID, sCapeID;
+	uint8_t r, g, b;
 	pkt >> sClanID >> sCapeID >> r >> g >> b;
 
 	g_DBAgent.UpdateCape(sClanID, sCapeID, r, g, b);
@@ -473,7 +473,7 @@ void CUser::ReqSaveCharacter()
 
 void CKnightsManager::ReqKnightsPacket(CUser* pUser, Packet & pkt)
 {
-	uint8 opcode;
+	uint8_t opcode;
 	pkt >> opcode;
 	switch (opcode)
 	{
@@ -539,12 +539,12 @@ void CKnightsManager::ReqKnightsAllianceCreate(CUser *pUser, Packet & pkt)
 		if (pUser == nullptr)
 		return;
 
-	uint16 UserClanID = pUser->m_bKnights;
+	uint16_t UserClanID = pUser->m_bKnights;
 
 	CKnights *pMainClan = g_pMain->GetClanPtr(UserClanID);
-	uint8 byType = 44, byEmptyIndex = 0, bySiegeFlag = pMainClan->bySiegeFlag;
+	uint8_t byType = 44, byEmptyIndex = 0, bySiegeFlag = pMainClan->bySiegeFlag;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_CREATE));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_CREATE));
 	
 	g_DBAgent.CreateAlliance(byType, UserClanID, 0, 0, bySiegeFlag);
 
@@ -558,7 +558,7 @@ void CKnightsManager::ReqKnightsAllianceCreate(CUser *pUser, Packet & pkt)
 	g_pMain->m_KnightsAllianceArray.PutData(pAlliance->sMainAllianceKnights, pAlliance);
 
 
-	result << uint8(1) << UserClanID;
+	result << uint8_t(1) << UserClanID;
 	pUser->SendToRegion(&result);
 }
 
@@ -567,15 +567,15 @@ void CKnightsManager::ReqKnightsAllianceRequest(CUser *pUser, Packet & pkt)
 		if (pUser == nullptr)
 		return;
 		
-	uint16 MainClanID, TargetClanID, MainCapeID;
-	uint8 Type;
+	uint16_t MainClanID, TargetClanID, MainCapeID;
+	uint8_t Type;
 
 	pkt >> Type >> MainClanID >> TargetClanID >> MainCapeID;
 	
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_INSERT));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_INSERT));
 	CKnights *pMainClan = g_pMain->GetClanPtr(MainClanID);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(MainClanID);;
-	uint8 byType = 46, byEmptyIndex, bySiegeFlag = pMainClan->bySiegeFlag;
+	uint8_t byType = 46, byEmptyIndex, bySiegeFlag = pMainClan->bySiegeFlag;
 	CKnights *pTargetClan = g_pMain->GetClanPtr(TargetClanID);
 
 	if (pAlliance != nullptr)
@@ -618,16 +618,16 @@ void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 		if (pUser == nullptr)
 		return;
 		
-	uint8 Type;
-	uint16 MainClanID, TargetClanID, MainCapeID;
+	uint8_t Type;
+	uint16_t MainClanID, TargetClanID, MainCapeID;
 
 	pkt >> Type >> MainClanID >> TargetClanID >> MainCapeID;
 	
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_REMOVE));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_REMOVE));
 	CUser *pTargetUser = nullptr;
 	CKnights *pMainClan = g_pMain->GetClanPtr(MainClanID), * pTargetClan = g_pMain->GetClanPtr(TargetClanID);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(MainClanID);
-	uint8 byType = 47, byEmptyIndex, bySiegeFlag = 0;
+	uint8_t byType = 47, byEmptyIndex, bySiegeFlag = 0;
 
 	if (MainClanID == 0 || TargetClanID == 0)
 	{
@@ -679,7 +679,7 @@ void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 	pAlliance->sMainAllianceKnights = MainClanID;
 	g_pMain->m_KnightsAllianceArray.PutData(pAlliance->sMainAllianceKnights, pAlliance);	
 	
-	result << uint8(1) << MainClanID << TargetClanID  << MainCapeID;
+	result << uint8_t(1) << MainClanID << TargetClanID  << MainCapeID;
 	pUser->SendToRegion(&result);
 	}
 }
@@ -689,16 +689,16 @@ void CKnightsManager::ReqKnightsAlliancePunish(CUser *pUser, Packet & pkt)//bann
 		if (pUser == nullptr)
 		return;
 
-	uint8 Type;
-	uint16 MainClanID, TargetClanID, MainCapeID;
+	uint8_t Type;
+	uint16_t MainClanID, TargetClanID, MainCapeID;
 
 	pkt >> Type >> MainClanID >> TargetClanID >> MainCapeID;
 	
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_ALLY_PUNISH));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_PUNISH));
 	CUser *pTargetUser = nullptr;
 	CKnights *pMainClan = g_pMain->GetClanPtr(MainClanID), * pTargetClan = g_pMain->GetClanPtr(TargetClanID);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(MainClanID);;
-	uint8 byType = 47, byEmptyIndex, bySiegeFlag = pMainClan->bySiegeFlag;
+	uint8_t byType = 47, byEmptyIndex, bySiegeFlag = pMainClan->bySiegeFlag;
 
 	if (MainClanID == 0 || TargetClanID == 0)
 	{
@@ -749,7 +749,7 @@ void CKnightsManager::ReqKnightsAlliancePunish(CUser *pUser, Packet & pkt)//bann
 	pAlliance->sMainAllianceKnights = MainClanID;
 	g_pMain->m_KnightsAllianceArray.PutData(pAlliance->sMainAllianceKnights, pAlliance);
 
-	result << uint8(1) << MainClanID << TargetClanID << MainCapeID;
+	result << uint8_t(1) << MainClanID << TargetClanID << MainCapeID;
 	pTargetUser->SendToRegion(&result);
 }
 
@@ -758,11 +758,11 @@ void CKnightsManager::ReqCreateKnights(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_CREATE));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_CREATE));
 	string strKnightsName, strChief;
-	uint16 sClanID;
-	uint8 bFlag, bNation;
-	int8 bResult;
+	uint16_t sClanID;
+	uint8_t bFlag, bNation;
+	int8_t bResult;
 
 	pkt >> bFlag >> sClanID >> bNation >> strKnightsName >> strChief;
 	bResult = g_DBAgent.CreateKnights(sClanID, bNation, strKnightsName, strChief, bFlag);
@@ -793,7 +793,7 @@ void CKnightsManager::ReqCreateKnights(CUser *pUser, Packet & pkt)
 	// CKnights::AddUser() will default it to TRAINEE, so it needs to be set afterwards.
 	pUser->m_bFame = CHIEF;
 
-	result	<< uint8(1) << pUser->GetSocketID() 
+	result	<< uint8_t(1) << pUser->GetSocketID() 
 		<< sClanID << strKnightsName
 		<< pKnights->m_byGrade << pKnights->m_byRanking
 		<< pUser->m_iGold;
@@ -801,18 +801,18 @@ void CKnightsManager::ReqCreateKnights(CUser *pUser, Packet & pkt)
 	pUser->SendToRegion(&result);
 }
 
-void CKnightsManager::ReqUpdateKnights(CUser *pUser, Packet & pkt, uint8 opcode)
+void CKnightsManager::ReqUpdateKnights(CUser *pUser, Packet & pkt, uint8_t opcode)
 {
 	if (pUser == nullptr)
 		return;
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
-	uint16 sClanID = pkt.read<uint16>();
+	uint16_t sClanID = pkt.read<uint16_t>();
 	string strCharID = pUser->GetName();
-	int8 bResult = int8(g_DBAgent.UpdateKnights(opcode, strCharID, sClanID, 0));
+	int8_t bResult = int8_t(g_DBAgent.UpdateKnights(opcode, strCharID, sClanID, 0));
 	if (bResult < 0)
 	{
-		result << opcode << uint8(0);
+		result << opcode << uint8_t(0);
 		pUser->Send(&result);
 		return;
 	}
@@ -821,22 +821,22 @@ void CKnightsManager::ReqUpdateKnights(CUser *pUser, Packet & pkt, uint8 opcode)
 	RecvUpdateKnights(pUser, result, opcode);
 }
 
-void CKnightsManager::ReqModifyKnightsMember(CUser *pUser, Packet & pkt, uint8 command)
+void CKnightsManager::ReqModifyKnightsMember(CUser *pUser, Packet & pkt, uint8_t command)
 {
 	if (pUser == nullptr)
 		return;
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
 	string strCharID;
-	uint16 sClanID;
-	int8 bRemoveFlag, bResult;
+	uint16_t sClanID;
+	int8_t bRemoveFlag, bResult;
 
 	pkt >> sClanID >> strCharID >> bRemoveFlag;
-	bResult = int8(g_DBAgent.UpdateKnights(command, strCharID, sClanID, bRemoveFlag));
+	bResult = int8_t(g_DBAgent.UpdateKnights(command, strCharID, sClanID, bRemoveFlag));
 
 	if (bResult < 0)
 	{
-		result << command << uint8(0);
+		result << command << uint8_t(0);
 		pUser->Send(&result);
 		return;
 	}
@@ -847,20 +847,20 @@ void CKnightsManager::ReqModifyKnightsMember(CUser *pUser, Packet & pkt, uint8 c
 
 void CKnightsManager::ReqDestroyKnights(CUser *pUser, Packet & pkt)
 {
-	uint16 sClanID = pkt.read<uint16>();
+	uint16_t sClanID = pkt.read<uint16_t>();
 	CKnights *pKnights = g_pMain->GetClanPtr(sClanID);
 	if (pKnights == nullptr)
 		return;
 
-	int8 bResult = int8(g_DBAgent.DeleteKnights(sClanID));
+	int8_t bResult = int8_t(g_DBAgent.DeleteKnights(sClanID));
 	pKnights->Disband(pUser);
 }
 
 void CKnightsManager::ReqAllKnightsMember(CUser *pUser, Packet & pkt)
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_MEMBER_REQ));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MEMBER_REQ));
 	int nOffset;
-	uint16 sClanID, sCount;
+	uint16_t sClanID, sCount;
 
 	pkt >> sClanID;
 
@@ -868,16 +868,16 @@ void CKnightsManager::ReqAllKnightsMember(CUser *pUser, Packet & pkt)
 	if (pKnights == nullptr)
 		return;
 
-	result << uint8(1);
+	result << uint8_t(1);
 	nOffset = result.wpos(); // store offset
-	result	<< uint16(0) // placeholder for packet length 
-		<< uint16(0); // placeholder for user count
+	result	<< uint16_t(0) // placeholder for packet length 
+		<< uint16_t(0); // placeholder for user count
 
 	sCount = g_DBAgent.LoadKnightsAllMembers(sClanID, result);
 	if (sCount > MAX_CLAN_USERS)
 		return;
 
-	pkt.put(nOffset, uint16(result.size() - 3));
+	pkt.put(nOffset, uint16_t(result.size() - 3));
 	pkt.put(nOffset + 2, sCount);
 
 	pUser->Send(&result);
@@ -890,9 +890,9 @@ void CKnightsManager::ReqKnightsList(Packet & pkt)
 		return;
 
 	string strKnightsName; 
-	uint32 nPoints; 
-	uint16 sClanID = pkt.read<uint16>(), sMembers;
-	uint8 bNation, bRank;
+	uint32_t nPoints; 
+	uint16_t sClanID = pkt.read<uint16_t>(), sMembers;
+	uint8_t bNation, bRank;
 
 	if (!g_DBAgent.LoadKnightsInfo(sClanID, bNation, strKnightsName, sMembers, nPoints, bRank))
 		return;
@@ -924,9 +924,9 @@ void CKnightsManager::ReqRegisterClanSymbol(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_MARK_REGISTER));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MARK_REGISTER));
 	char clanSymbol[MAX_KNIGHTS_MARK];
-	uint16 sClanID, sSymbolSize, sErrorCode = 0, sNewVersion = 0;
+	uint16_t sClanID, sSymbolSize, sErrorCode = 0, sNewVersion = 0;
 
 	pkt >> sClanID >> sSymbolSize;
 	pkt.read(clanSymbol, sSymbolSize);
@@ -974,8 +974,8 @@ void CKnightsManager::ReqRegisterClanSymbol(CUser *pUser, Packet & pkt)
 */
 void CKnightsManager::ReqUpdateGrade(Packet & pkt)
 {
-	uint16 sClanID, sCapeID;
-	uint8 byFlag;
+	uint16_t sClanID, sCapeID;
+	uint8_t byFlag;
 
 	pkt >> sClanID >> byFlag >> sCapeID;
 	g_DBAgent.UpdateClanGrade(sClanID, byFlag, sCapeID);
@@ -988,7 +988,7 @@ void CKnightsManager::ReqUpdateGrade(Packet & pkt)
 */
 void CKnightsManager::ReqUpdateClanNotice(Packet & pkt)
 {
-	uint16 sClanID;
+	uint16_t sClanID;
 	string strClanNotice;
 
 	pkt >> sClanID >> strClanNotice;
@@ -998,8 +998,8 @@ void CKnightsManager::ReqUpdateClanNotice(Packet & pkt)
 void CUser::ReqSetLogInInfo(Packet & pkt)
 {
 	string strCharID, strServerIP, strClientIP;
-	uint16 sServerNo;
-	uint8 bInit;
+	uint16_t sServerNo;
+	uint8_t bInit;
 
 	pkt >> strCharID >> strServerIP >> sServerNo >> strClientIP >> bInit;
 	// if there was an error inserting to CURRENTUSER...
@@ -1010,7 +1010,7 @@ void CUser::ReqSetLogInInfo(Packet & pkt)
 void CUser::BattleEventResult(Packet & pkt)
 {
 	string strMaxUserName;
-	uint8 bType, bNation;
+	uint8_t bType, bNation;
 
 	pkt >> bType >> bNation >> strMaxUserName;
 	g_DBAgent.UpdateBattleEvent(strMaxUserName, bNation);
@@ -1025,7 +1025,7 @@ void CUser::BattleEventResult(Packet & pkt)
 */
 void CKingSystem::HandleDatabaseRequest(CUser * pUser, Packet & pkt)
 {
-	uint8 OpCode, KingNationTax = pkt[6], Nation = pkt[7];
+	uint8_t OpCode, KingNationTax = pkt[6], Nation = pkt[7];
 	pkt >> OpCode;
 
 	switch (OpCode)
@@ -1062,7 +1062,7 @@ void CKingSystem::HandleDatabaseRequest(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 {
-	uint8 opcode;
+	uint8_t opcode;
 	pkt >> opcode;
 
 	switch (opcode)
@@ -1070,7 +1070,7 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 		// Special king system/election database requests
 	case KING_ELECTION:
 		{
-			uint8 byNation, byType;
+			uint8_t byNation, byType;
 			pkt >> opcode >> byNation >> byType;
 			switch (opcode)
 			{
@@ -1081,8 +1081,8 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 			case KING_ELECTION_UPDATE_LIST: // 6
 				{
 					bool bDelete;
-					uint16 sKnights;
-					uint32 nVotes = 0;
+					uint16_t sKnights;
+					uint32_t nVotes = 0;
 					string strNominee;
 
 					pkt >> bDelete >> sKnights >> strNominee;
@@ -1096,9 +1096,9 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 			if (pUser == nullptr)
 				return;
 
-			Packet result(WIZ_KING, uint8(KING_ELECTION));
+			Packet result(WIZ_KING, uint8_t(KING_ELECTION));
 			std::string strNominee;
-			int16 resultCode;
+			int16_t resultCode;
 			pkt >> strNominee;
 			resultCode = g_DBAgent.UpdateCandidacyRecommend(pUser->m_strUserID, strNominee, pUser->GetNation());
 
@@ -1140,7 +1140,7 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::HandleDatabaseRequest_Event(CUser * pUser, Packet & pkt)
 {
-	uint8 opcode, byNation;
+	uint8_t opcode, byNation;
 	pkt >> opcode >> byNation;
 
 	switch (opcode)
@@ -1148,8 +1148,8 @@ void CKingSystem::HandleDatabaseRequest_Event(CUser * pUser, Packet & pkt)
 	case KING_EVENT_NOAH:
 	case KING_EVENT_EXP:
 		{
-			uint8 byAmount, byDay, byHour, byMinute;
-			uint16 sDuration;
+			uint8_t byAmount, byDay, byHour, byMinute;
+			uint16_t sDuration;
 			pkt >> byAmount >> byDay >> byHour >> byMinute >> sDuration;
 
 			g_DBAgent.UpdateNoahOrExpEvent(opcode, byNation, byAmount, byDay, byHour, byMinute, sDuration);
@@ -1157,7 +1157,7 @@ void CKingSystem::HandleDatabaseRequest_Event(CUser * pUser, Packet & pkt)
 
 	case KING_EVENT_PRIZE:
 		{
-			uint32 nCoins;
+			uint32_t nCoins;
 			string strUserID;
 			pkt >> nCoins >> strUserID;
 
@@ -1166,31 +1166,31 @@ void CKingSystem::HandleDatabaseRequest_Event(CUser * pUser, Packet & pkt)
 	}
 }
 
-void CKingSystem::SendUDP_ElectionStatus(uint8 m_byType)
+void CKingSystem::SendUDP_ElectionStatus(uint8_t m_byType)
 {
 	g_DBAgent.SendUDP_ElectionStatus(m_byType);
 }
 
-void CKingSystem::GetElectionResult(uint8 Nation)
+void CKingSystem::GetElectionResult(uint8_t Nation)
 {
 	//g_DBAgent.GetElectionResult(Nation);
 }
 
-void CKingSystem::HandleDatabaseRequest_Tax(uint8 TerritoryTariff, uint8 Nation, uint32 TerritoryTax)
+void CKingSystem::HandleDatabaseRequest_Tax(uint8_t TerritoryTariff, uint8_t Nation, uint32_t TerritoryTax)
 {
 	g_DBAgent.InsertTaxEvent(TerritoryTariff, Nation, TerritoryTax);
 }
 
-void CUser::InsertTaxUpEvent(uint8 Nation, uint32 TerritoryTax)
+void CUser::InsertTaxUpEvent(uint8_t Nation, uint32_t TerritoryTax)
 {
 	g_DBAgent.InsertTaxUpEvent(Nation, TerritoryTax);
 }
 
 void CUser::ReqSealItem(Packet & pkt)
 {
-	uint8 bSrcPos, bSealType, opcode, bSealResult;
-	uint32 nItemID;
-	uint64 nItemSerial;
+	uint8_t bSrcPos, bSealType, opcode, bSealResult;
+	uint32_t nItemID;
+	uint64_t nItemSerial;
 	string strSealPasswd;
 
 	pkt >> opcode >> bSealType >> nItemID >> bSrcPos >> strSealPasswd >> bSealResult;
@@ -1200,7 +1200,7 @@ void CUser::ReqSealItem(Packet & pkt)
 	if (!bSealResult)
 		bSealResult = g_DBAgent.SealItem(strSealPasswd, nItemSerial, nItemID, bSealType, this);
 
-	Packet result(WIZ_ITEM_UPGRADE, uint8(ITEM_SEAL));
+	Packet result(WIZ_ITEM_UPGRADE, uint8_t(ITEM_SEAL));
 	result << bSealType << bSealResult << nItemID << bSrcPos;
 	Send(&result);
 

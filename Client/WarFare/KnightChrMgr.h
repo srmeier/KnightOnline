@@ -26,7 +26,7 @@ public:
 	void RCommand(char rbuf[], int leng);
 	void TCommand(char);
 
-	LONG OnReceiveSmq(UINT WParam, LONG LParam);
+	int32_t OnReceiveSmq(UINT WParam, int32_t LParam);
 
 	void SendActionCommand(int iAc);
 };

@@ -7,10 +7,10 @@ void CUser::MoveProcess(Packet & pkt)
 	if (m_bWarp || isDead()) 
 		return;
 
-	uint16 will_x, will_z, will_y;
-	int16 speed=0;
+	uint16_t will_x, will_z, will_y;
+	int16_t speed=0;
 	float real_x, real_z, real_y;
-	uint8 echo;
+	uint8_t echo;
 
 	pkt >> will_x >> will_z >> will_y >> speed >> echo;
 	real_x = will_x/10.0f; real_z = will_z/10.0f; real_y = will_y/10.0f;
@@ -53,22 +53,22 @@ void CUser::MoveProcess(Packet & pkt)
 	Send_AIServer(&result);
 }
 
-void CUser::AddToRegion(int16 new_region_x, int16 new_region_z)
+void CUser::AddToRegion(int16_t new_region_x, int16_t new_region_z)
 {
 	GetRegion()->Remove(this);
 	SetRegion(new_region_x, new_region_z);
 	GetRegion()->Add(this);
 }
 
-void CUser::GetInOut(Packet & result, uint8 bType)
+void CUser::GetInOut(Packet & result, uint8_t bType)
 {
 	result.Initialize(WIZ_USER_INOUT);
-	result << uint8(bType) << GetID(); // uint8 for 1298 not uint16
+	result << uint8_t(bType) << GetID(); // uint8_t for 1298 not uint16_t
 	if (bType != INOUT_OUT)
 		GetUserInfo(result);
 }
 
-void CUser::UserInOut(uint8 bType)
+void CUser::UserInOut(uint8_t bType)
 {
 	if (GetRegion() == nullptr)
 		return;
@@ -108,15 +108,15 @@ void CUser::GetUserInfo(Packet & pkt)
 	CKnights * pKnights = g_pMain->GetClanPtr(GetClanID());
 	if (pKnights == nullptr)
 	{
-		//pkt /*<< uint8(0)*/ << uint16(0) << uint8(0) << uint8(0);
-		pkt << uint32(0) << uint16(0) << uint8(0) << uint16(-1);
+		//pkt /*<< uint8_t(0)*/ << uint16_t(0) << uint8_t(0) << uint8_t(0);
+		pkt << uint32_t(0) << uint16_t(0) << uint8_t(0) << uint16_t(-1);
 	}
 	else
 	{
 		pkt << pKnights->GetAllianceID()
 			<< pKnights->m_strName
 			<< pKnights->m_byGrade << pKnights->m_byRanking
-			<< uint16(pKnights->m_sMarkVersion) // symbol/mark version
+			<< uint16_t(pKnights->m_sMarkVersion) // symbol/mark version
 			<< pKnights->GetCapeID(pKnights); // cape ID 
 	}
 
@@ -124,26 +124,26 @@ void CUser::GetUserInfo(Packet & pkt)
 	// These are handled primarily server-side; from memory the client only cares about value 1 (which we class as 'dispel on move').
 	// As this is the only place where this flag is actually sent to the client, we'll just convert 'dispel on attack' 
 	// back to 'dispel on move' as the client expects.
-	uint8 bInvisibilityType = m_bInvisibilityType;
+	uint8_t bInvisibilityType = m_bInvisibilityType;
 	if (bInvisibilityType != INVIS_NONE)
 		bInvisibilityType = INVIS_DISPEL_ON_MOVE;
 
 	pkt << GetLevel() << m_bRace << m_sClass
 		<< GetSPosX() << GetSPosZ() << GetSPosY()
 		<< m_bFace << m_nHair
-		<< m_bResHpType << uint32(m_bAbnormalType)//uint8(m_bAbnormalType)
+		<< m_bResHpType << uint32_t(m_bAbnormalType)//uint8_t(m_bAbnormalType)
 		<< m_bNeedParty
 		<< m_bAuthority
 		<< m_bPartyLeader // is party leader (bool)
 		<< bInvisibilityType // visibility state
-		//<< uint8(m_teamColour) // team colour (i.e. in soccer, 0=none, 1=blue, 2=red)
+		//<< uint8_t(m_teamColour) // team colour (i.e. in soccer, 0=none, 1=blue, 2=red)
 		//<< m_bIsHidingHelmet // either this is correct and items are super buggy, or it causes baldness. You choose.
 		<< m_sDirection // direction
 		<< m_bIsChicken // chicken/beginner flag
 		<< m_bRank // king flag
 		<< m_bKnightsRank << m_bPersonalRank; // NP ranks (total, monthly)
 
-	uint8 equippedItems[] =
+	uint8_t equippedItems[] =
 	{
 		BREAST, LEG, HEAD, GLOVE, FOOT, SHOULDER, RIGHTHAND, LEFTHAND, CTOP, CHELMET
 	};
@@ -159,7 +159,7 @@ void CUser::GetUserInfo(Packet & pkt)
 	}
 
 	// NOTE: not sure about the rest of this
-	pkt << GetZoneID(); //<< uint8(-1) << uint8(-1) << uint16(0) << uint16(0) << uint16(0);
+	pkt << GetZoneID(); //<< uint8_t(-1) << uint8_t(-1) << uint16_t(0) << uint16_t(0) << uint16_t(0);
 }
 
 void CUser::Rotate(Packet & pkt)
@@ -294,10 +294,10 @@ bool CUser::CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason)
 	return true;
 }
 
-bool CUser::CanLevelQualify(uint8 sLevel)
+bool CUser::CanLevelQualify(uint8_t sLevel)
 {
-	int16 nStatTotal = 300 + (sLevel - 1) * 3;
-	uint8 nSkillTotal = (sLevel - 9) * 2;
+	int16_t nStatTotal = 300 + (sLevel - 1) * 3;
+	uint8_t nSkillTotal = (sLevel - 9) * 2;
 
 	if (sLevel > 60)
 		nStatTotal += 2 * (sLevel - 60);
@@ -308,7 +308,7 @@ bool CUser::CanLevelQualify(uint8 sLevel)
 	return true;
 }
 
-void CUser::ZoneChange(uint16 sNewZone, float x, float z)
+void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 {
 	C3DMap * pMap = g_pMain->GetZoneByID(sNewZone);
 	_KNIGHTS_SIEGE_WARFARE *pKnightSiege = g_pMain->GetSiegeMasterKnightsPtr(1);
@@ -322,9 +322,9 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 	WarpListResponse errorReason;
 	if (!CanChangeZone(pMap, errorReason))
 	{
-		Packet result(WIZ_WARP_LIST, uint8(2));
+		Packet result(WIZ_WARP_LIST, uint8_t(2));
 
-		result << uint8(errorReason);
+		result << uint8_t(errorReason);
 
 		if (errorReason == WarpListMinLevel)
 			result << pMap->GetMinLevelReq();
@@ -349,8 +349,8 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 	// Random respawn position...
 	if (sNewZone == ZONE_CHAOS_DUNGEON)
 	{
-		short sx, sz;
-		GetStartPositionRandom(sx,sz,(uint8)sNewZone);
+		int16_t sx, sz;
+		GetStartPositionRandom(sx,sz,(uint8_t)sNewZone);
 		x = (float)sx;
 		z = (float)sz;
 	}
@@ -376,7 +376,7 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 	m_LastX = x;
 	m_LastZ = z;
 
-	if (isInTempleEventZone((uint8)sNewZone) && !isGM())
+	if (isInTempleEventZone((uint8_t)sNewZone) && !isGM())
 	{
 		if (!isEventUser())
 			g_pMain->AddEventUser(this);
@@ -410,9 +410,9 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 			{
 				Packet clanPacket(WIZ_KNIGHTS_PROCESS);
 				if (pMap->isWarZone() || sNewZone == ZONE_MORADON)
-					clanPacket << uint8(0x17) << uint8(2);
+					clanPacket << uint8_t(0x17) << uint8_t(2);
 				else 
-					clanPacket << uint16(0x16) << uint16(0 /*nWarEnemyID*/);
+					clanPacket << uint16_t(0x16) << uint16_t(0 /*nWarEnemyID*/);
 
 				Send(&clanPacket);
 			}
@@ -435,7 +435,7 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 	else
 	{
 		m_bWarp = false;
-		Warp(uint16(x * 10), uint16(z * 10));
+		Warp(uint16_t(x * 10), uint16_t(z * 10));
 		return;
 	}
 
@@ -452,7 +452,7 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 	else if (sNewZone != ZONE_FORGOTTEN_TEMPLE && GetZoneID() == ZONE_FORGOTTEN_TEMPLE)
 		g_pMain->m_nForgettenTempleUsers.erase(std::remove(g_pMain->m_nForgettenTempleUsers.begin(), g_pMain->m_nForgettenTempleUsers.end(), GetSocketID()), g_pMain->m_nForgettenTempleUsers.end());
 
-	m_bZone = (uint8) sNewZone; // this is 2 bytes to support the warp data loaded from SMDs. It should not go above a byte, however.
+	m_bZone = (uint8_t) sNewZone; // this is 2 bytes to support the warp data loaded from SMDs. It should not go above a byte, however.
 	SetPosition(x, 0.0f, z);
 	m_pMap = pMap;
 
@@ -471,8 +471,8 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 
 	SetRegion(GetNewRegionX(), GetNewRegionZ());
 
-	Packet result(WIZ_ZONE_CHANGE, uint8(ZoneChangeTeleport));
-	result << uint16(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
+	Packet result(WIZ_ZONE_CHANGE, uint8_t(ZoneChangeTeleport));
+	result << uint16_t(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
 	Send(&result);
 
 	if (!m_bZoneChangeSameZone)
@@ -498,13 +498,13 @@ void CUser::ZoneChange(uint16 sNewZone, float x, float z)
 
 	if (pKnightsMaster != nullptr && GetZoneID() == ZONE_DELOS)
 	{
-	Packet result(WIZ_SIEGE, uint8(2));
+	Packet result(WIZ_SIEGE, uint8_t(2));
 	result << pKnightsMaster->GetID() << pKnightsMaster->m_sMarkVersion;
 	Send(&result);	
 	}
 }
 
-void CUser::PlayerRankingProcess(uint16 ZoneID, bool RemoveInZone)
+void CUser::PlayerRankingProcess(uint16_t ZoneID, bool RemoveInZone)
 {
 	if(m_bZoneChangeSameZone)
 		return;
@@ -527,7 +527,7 @@ void CUser::PlayerRankingProcess(uint16 ZoneID, bool RemoveInZone)
 		RemovePlayerRank();
 }
 
-void CUser::AddPlayerRank(uint16 ZoneID)
+void CUser::AddPlayerRank(uint16_t ZoneID)
 {
 	m_iLoyaltyDaily = 0;
 	m_iLoyaltyPremiumBonus = 0;
@@ -569,10 +569,10 @@ void CUser::UpdatePlayerRank()
 	pRankInfo->m_DeathCount = m_DeathCount;
 }
 
-void CUser::CheckWaiting(uint8 sNewZone, uint16 Time)
+void CUser::CheckWaiting(uint8_t sNewZone, uint16_t Time)
 {
-	Packet result(WIZ_BIFROST, uint8(MONSTER_SQUARD));
-	uint16 nRemainingTime = Time;
+	Packet result(WIZ_BIFROST, uint8_t(MONSTER_SQUARD));
+	uint16_t nRemainingTime = Time;
 	result << nRemainingTime;
 		g_pMain->Send_All(&result, nullptr, 0, sNewZone);
 }
@@ -585,13 +585,13 @@ void CUser::CheckWaiting(uint8 sNewZone, uint16 Time)
 * @param	x			The x coordinate.
 * @param	z			The z coordinate.
 */
-void CUser::ZoneChangeParty(uint16 sNewZone, float x, float z)
+void CUser::ZoneChangeParty(uint16_t sNewZone, float x, float z)
 {
 	_PARTY_GROUP * pParty = g_pMain->GetPartyPtr(GetPartyID());
 	if (pParty == nullptr)
 		return ZoneChange(sNewZone, x, z);
 
-	short partyUsers[MAX_PARTY_USERS];
+	int16_t partyUsers[MAX_PARTY_USERS];
 
 	for (int i = 0; i < MAX_PARTY_USERS; i++)
 		partyUsers[i] = pParty->uid[i];
@@ -612,7 +612,7 @@ void CUser::ZoneChangeParty(uint16 sNewZone, float x, float z)
 * @param	x			The x coordinate.
 * @param	z			The z coordinate.
 */
-void CUser::ZoneChangeClan(uint16 sNewZone, float x, float z)
+void CUser::ZoneChangeClan(uint16_t sNewZone, float x, float z)
 {
 	CKnights * pKnights = g_pMain->GetClanPtr(GetClanID());
 	if (pKnights == nullptr)
@@ -628,7 +628,7 @@ void CUser::ZoneChangeClan(uint16 sNewZone, float x, float z)
 	}
 }
 
-void CUser::Warp(uint16 sPosX, uint16 sPosZ)
+void CUser::Warp(uint16_t sPosX, uint16_t sPosZ)
 {
 	ASSERT(GetMap() != nullptr);
 	if (m_bWarp)
@@ -665,7 +665,7 @@ void CUser::Warp(uint16 sPosX, uint16 sPosZ)
 
 void CUser::RecvWarp(Packet & pkt)
 {
-	uint16 warp_x, warp_z;
+	uint16_t warp_x, warp_z;
 	pkt >> warp_x >> warp_z;
 	Warp(warp_x, warp_z);	
 }
@@ -675,7 +675,7 @@ void CUser::RecvZoneChange(Packet & pkt)
 	if (isDead()) // we also need to make sure we're actually waiting on this request...
 		return;
 
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	if (opcode == ZoneChangeLoading)
 	{
 
@@ -683,7 +683,7 @@ void CUser::RecvZoneChange(Packet & pkt)
 		g_pMain->NpcInOutForMe(this);
 		g_pMain->MerchantUserInOutForMe(this);
 
-		Packet result(WIZ_ZONE_CHANGE, uint8(ZoneChangeLoaded)); // finalise the zone change
+		Packet result(WIZ_ZONE_CHANGE, uint8_t(ZoneChangeLoaded)); // finalise the zone change
 		Send(&result);
 	}
 	else if (opcode == ZoneChangeLoaded)

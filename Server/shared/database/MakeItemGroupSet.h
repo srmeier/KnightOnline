@@ -16,7 +16,7 @@ public:
 		_dbCommand->FetchUInt32(1, pData->iItemGroupNum);
 		for (int i = 1; i <= 30; i++)
 		{
-			uint32 iItem;
+			uint32_t iItem;
 			_dbCommand->FetchUInt32(i + 1, iItem);
 
 			// Insert regardless of whether it's set or not. This is official behaviour.

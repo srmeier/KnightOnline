@@ -100,9 +100,9 @@ bool CN3FXPMeshInstance::Create(CN3FXPMesh* pN3FXPMesh)
 	if (iMaxNumIndices>0)
 	{
 		if(m_pIndices) { delete[] m_pIndices;m_pIndices = NULL;}
-		m_pIndices = new WORD[m_pFXPMesh->m_iMaxNumIndices];
+		m_pIndices = new uint16_t[m_pFXPMesh->m_iMaxNumIndices];
 		__ASSERT(m_pIndices, "Failed to create index buffer");
-		CopyMemory(m_pIndices, m_pFXPMesh->m_pIndices, m_pFXPMesh->m_iMaxNumIndices * sizeof(WORD));
+		CopyMemory(m_pIndices, m_pFXPMesh->m_pIndices, m_pFXPMesh->m_iMaxNumIndices * sizeof(uint16_t));
 	}
 
 	// lowest level of detail right now.
@@ -330,7 +330,7 @@ __VertexXyzColorT1*	CN3FXPMeshInstance::GetVertices() const
 
 
 
-void CN3FXPMeshInstance::SetColor(DWORD dwColor)
+void CN3FXPMeshInstance::SetColor(uint32_t dwColor)
 {
 	if (m_pColorVertices == NULL)	return;
 	if (m_iNumVertices <= 0)		return;

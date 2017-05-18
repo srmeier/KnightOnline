@@ -23,7 +23,7 @@ void CleanupTimeThread()
 	printf(" done.\n");
 }
 
-uint32 THREADCALL TimeThread(void * lpParam)
+uint32_t THREADCALL TimeThread(void * lpParam)
 {
 
 	g_bRunningThread = true;

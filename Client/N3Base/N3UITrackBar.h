@@ -33,7 +33,7 @@ public:
 	virtual void	Release();
 	virtual bool	Load(HANDLE hFile);
 	virtual void	SetRegion(const RECT& Rect);
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 //	virtual void	Render();
 
 	void			SetRange(size_t iMin, size_t iMax);

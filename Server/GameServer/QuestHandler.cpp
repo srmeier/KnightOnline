@@ -5,8 +5,8 @@ void CUser::QuestDataRequest()
 {
 	/*
 	// Sending this now is probably wrong, but it's cleaner than it was before.
-	Packet result(WIZ_QUEST, uint8(1));
-	result << uint16(m_questMap.size());
+	Packet result(WIZ_QUEST, uint8_t(1));
+	result << uint16_t(m_questMap.size());
 	foreach (itr, m_questMap)
 		result	<< itr->first << itr->second;
 	Send(&result);
@@ -23,8 +23,8 @@ void CUser::QuestV2PacketProcess(Packet & pkt)
 	//if (m_sEventNid < 0)
 	//	return;
 
-	uint8 opcode = pkt.read<uint8>();
-	uint32 nQuestID = pkt.read<uint32>();
+	uint8_t opcode = pkt.read<uint8_t>();
+	uint32_t nQuestID = pkt.read<uint32_t>();
 
 	CNpc *pNpc = g_pMain->GetNpcPtr(m_sEventNid);
 	_QUEST_HELPER * pQuestHelper = g_pMain->m_QuestHelperArray.GetData(nQuestID);
@@ -94,7 +94,7 @@ void CUser::QuestV2PacketProcess(Packet & pkt)
 	}
 }
 
-void CUser::SaveEvent(uint16 sQuestID, uint8 bQuestState)
+void CUser::SaveEvent(uint16_t sQuestID, uint8_t bQuestState)
 {
 	_QUEST_MONSTER * pQuestMonster = g_pMain->m_QuestMonsterArray.GetData(sQuestID);
 
@@ -109,7 +109,7 @@ void CUser::SaveEvent(uint16 sQuestID, uint8 bQuestState)
 	if (sQuestID >= QUEST_KILL_GROUP1)
 		return;
 
-	Packet result(WIZ_QUEST, uint8(2));
+	Packet result(WIZ_QUEST, uint8_t(2));
 	result << sQuestID << bQuestState;
 	Send(&result);
 
@@ -124,11 +124,11 @@ void CUser::SaveEvent(uint16 sQuestID, uint8 bQuestState)
 		&& pQuestMonster != nullptr)
 	{
 		// TODO: Decipher this into more meaningful code. :p
-		int16 v11 = ((int16)((uint32)(6711 * sQuestID) >> 16) >> 10) - (sQuestID >> 15);
-		int16 v12 = ((int16)((uint32)(5243 * (int16)(sQuestID - 10000 * v11)) >> 16) >> 3) - ((int16)(sQuestID - 10000 * v11) >> 15);
+		int16_t v11 = ((int16_t)((uint32_t)(6711 * sQuestID) >> 16) >> 10) - (sQuestID >> 15);
+		int16_t v12 = ((int16_t)((uint32_t)(5243 * (int16_t)(sQuestID - 10000 * v11)) >> 16) >> 3) - ((int16_t)(sQuestID - 10000 * v11) >> 15);
 
-		SaveEvent(32005, (uint8)v11);
-		SaveEvent(32006, (uint8)v12);
+		SaveEvent(32005, (uint8_t)v11);
+		SaveEvent(32006, (uint8_t)v12);
 		SaveEvent(32007, sQuestID - 100 * v12);
 		m_sEventDataIndex = sQuestID;
 		QuestV2MonsterDataRequest();
@@ -136,12 +136,12 @@ void CUser::SaveEvent(uint16 sQuestID, uint8 bQuestState)
 
 }
 
-void CUser::DeleteEvent(uint16 sQuestID)
+void CUser::DeleteEvent(uint16_t sQuestID)
 {
 	m_questMap.erase(sQuestID);
 }
 
-bool CUser::CheckExistEvent(uint16 sQuestID, uint8 bQuestState)
+bool CUser::CheckExistEvent(uint16_t sQuestID, uint8_t bQuestState)
 {
 	// Attempt to find a quest with that ID in the map
 	QuestMap::iterator itr = m_questMap.find(sQuestID);
@@ -155,7 +155,7 @@ bool CUser::CheckExistEvent(uint16 sQuestID, uint8 bQuestState)
 	return itr->second == bQuestState;
 }
 
-void CUser::QuestV2MonsterCountAdd(uint16 sNpcID)
+void CUser::QuestV2MonsterCountAdd(uint16_t sNpcID)
 {
 	if (m_sEventDataIndex == 0)
 		return;
@@ -163,7 +163,7 @@ void CUser::QuestV2MonsterCountAdd(uint16 sNpcID)
 	// it looks like they use an active quest ID which is kind of dumb
 	// we'd rather search through the player's active quests for applicable mob counts to increment
 	// but then, this system can't really handle that (static counts). More research is necessary.
-	uint16 sQuestNum = m_sEventDataIndex; // placeholder so that we can implement logic mockup
+	uint16_t sQuestNum = m_sEventDataIndex; // placeholder so that we can implement logic mockup
 	_QUEST_MONSTER *pQuestMonster = g_pMain->m_QuestMonsterArray.GetData(sQuestNum);
 	if (pQuestMonster == nullptr)
 		return;
@@ -182,18 +182,18 @@ void CUser::QuestV2MonsterCountAdd(uint16 sNpcID)
 			m_bKillCounts[group]++;
 			SaveEvent(QUEST_KILL_GROUP1 + group, m_bKillCounts[group]);
 			//1453
-			Packet result(WIZ_QUEST, uint8(9));
-			result << uint8(2) << uint8(group + 1) << m_bKillCounts[group];
+			Packet result(WIZ_QUEST, uint8_t(9));
+			result << uint8_t(2) << uint8_t(group + 1) << m_bKillCounts[group];
 			//18xx
-			//Packet result(WIZ_QUEST, uint8(9));
-			//result << uint8(2) << uint16(sQuestNum) << uint8(1) << uint16(m_bKillCounts[group]);
+			//Packet result(WIZ_QUEST, uint8_t(9));
+			//result << uint8_t(2) << uint16_t(sQuestNum) << uint8_t(1) << uint16_t(m_bKillCounts[group]);
 			Send(&result);
 			return;
 		}
 	}
 }
 
-uint8 CUser::QuestV2CheckMonsterCount(uint16 sQuestID)
+uint8_t CUser::QuestV2CheckMonsterCount(uint16_t sQuestID)
 {
 	// Attempt to find a quest with that ID in the map
 	QuestMap::iterator itr = m_questMap.find(sQuestID);
@@ -216,7 +216,7 @@ void CUser::QuestV2MonsterDataDeleteAll()
 
 void CUser::QuestV2MonsterDataRequest()
 {
-	Packet result(WIZ_QUEST, uint8(9));
+	Packet result(WIZ_QUEST, uint8_t(9));
 
 	// Still not sure, but it's generating an ID.
 	m_sEventDataIndex = 
@@ -230,7 +230,7 @@ void CUser::QuestV2MonsterDataRequest()
 	m_bKillCounts[2] = QuestV2CheckMonsterCount(QUEST_KILL_GROUP3);
 	m_bKillCounts[3] = QuestV2CheckMonsterCount(QUEST_KILL_GROUP4);
 
-	result	<< uint8(1)
+	result	<< uint8_t(1)
 		<< m_sEventDataIndex
 		<< m_bKillCounts[0] << m_bKillCounts[1]
 	<< m_bKillCounts[2] << m_bKillCounts[3];
@@ -256,7 +256,7 @@ void CUser::QuestV2CheckFulfill(_QUEST_HELPER * pQuestHelper)
 	QuestV2RunEvent(pQuestHelper, pQuestHelper->nEventCompleteIndex);
 }
 
-bool CUser::QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32 nEventID, int8 bSelectedReward /*= -1*/)
+bool CUser::QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32_t nEventID, int8_t bSelectedReward /*= -1*/)
 {
 	// Lookup the corresponding NPC.
 	if (pQuestHelper->strLuaFilename == "01_main.lua")
@@ -289,7 +289,7 @@ bool CUser::QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32 nEventID, int8 
 These are called by quest scripts. 
 */
 
-void CUser::QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus)//uint16 sQuestID)
+void CUser::QuestV2SaveEvent(uint16_t sEventDataIndex, int8_t bEventStatus)//uint16_t sQuestID)
 {
 	/*
 	_QUEST_HELPER * pQuestHelper = g_pMain->m_QuestHelperArray.GetData(sQuestID);
@@ -303,19 +303,19 @@ void CUser::QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus)//uint16 
 	SaveEvent(sEventDataIndex, bEventStatus);
 }
 
-void CUser::QuestV2SendNpcMsg(uint32 nQuestID, uint16 sNpcID)
+void CUser::QuestV2SendNpcMsg(uint32_t nQuestID, uint16_t sNpcID)
 {
-	Packet result(WIZ_QUEST, uint8(7));
+	Packet result(WIZ_QUEST, uint8_t(7));
 	result << nQuestID << sNpcID;
 	Send(&result);
 }
 
-void CUser::QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1, 
-								uint32 nUnk2, uint32 sUnk2,
-								uint32 nUnk3, uint32 sUnk3,
-								uint32 nUnk4, uint32 sUnk4)
+void CUser::QuestV2ShowGiveItem(uint32_t nUnk1, uint32_t sUnk1, 
+								uint32_t nUnk2, uint32_t sUnk2,
+								uint32_t nUnk3, uint32_t sUnk3,
+								uint32_t nUnk4, uint32_t sUnk4)
 {
-	Packet result(WIZ_QUEST, uint8(10));
+	Packet result(WIZ_QUEST, uint8_t(10));
 	result	<< nUnk1 << sUnk1
 		<< nUnk2 << sUnk2
 		<< nUnk3 << sUnk3
@@ -323,7 +323,7 @@ void CUser::QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1,
 	Send(&result);
 }
 
-uint16 CUser::QuestV2SearchEligibleQuest(uint16 sEventDataIndex)//, uint16 sNpcID)
+uint16_t CUser::QuestV2SearchEligibleQuest(uint16_t sEventDataIndex)//, uint16_t sNpcID)
 {	//The quest must be searched by just its sEventDataIndex
 	Guard lock(g_pMain->m_questNpcLock);
 	//QuestNpcList::iterator itr = g_pMain->m_QuestNpcList.find(sNpcID);
@@ -356,14 +356,14 @@ uint16 CUser::QuestV2SearchEligibleQuest(uint16 sEventDataIndex)//, uint16 sNpcI
 	return 0;
 }
 
-void CUser::QuestV2ShowMap(uint32 nQuestHelperID)
+void CUser::QuestV2ShowMap(uint32_t nQuestHelperID)
 {
-	Packet result(WIZ_QUEST, uint8(11));
+	Packet result(WIZ_QUEST, uint8_t(11));
 	result << nQuestHelperID;
 	Send(&result);
 }
 
-uint8 CUser::CheckMonsterCount(uint8 bGroup)
+uint8_t CUser::CheckMonsterCount(uint8_t bGroup)
 {
 	_QUEST_MONSTER * pQuestMonster = g_pMain->m_QuestMonsterArray.GetData(m_sEventDataIndex);
 	if (pQuestMonster == nullptr
@@ -377,28 +377,28 @@ uint8 CUser::CheckMonsterCount(uint8 bGroup)
 // First job change; you're a [novice], Harry!
 bool CUser::PromoteUserNovice()
 {
-	uint8 bNewClasses[] = { ClassWarriorNovice, ClassRogueNovice, ClassMageNovice, ClassPriestNovice };
-	uint8 bOldClass = GetClassType() - 1; // convert base class 1,2,3,4 to 0,1,2,3 to align with bNewClasses
+	uint8_t bNewClasses[] = { ClassWarriorNovice, ClassRogueNovice, ClassMageNovice, ClassPriestNovice };
+	uint8_t bOldClass = GetClassType() - 1; // convert base class 1,2,3,4 to 0,1,2,3 to align with bNewClasses
 
 	// Make sure it's a beginner class.
 	if (!isBeginner())
 		return false;
 
-	Packet result(WIZ_CLASS_CHANGE, uint8(6));
+	Packet result(WIZ_CLASS_CHANGE, uint8_t(6));
 
 	// Build the new class.
-	uint16 sNewClass = (GetNation() * 100) + bNewClasses[bOldClass];
+	uint16_t sNewClass = (GetNation() * 100) + bNewClasses[bOldClass];
 	result << sNewClass << GetID();
 	SendToRegion(&result);
 
 	// Change the class & update party.
 	result.clear();
-	result << uint8(2) << sNewClass;
+	result << uint8_t(2) << sNewClass;
 	ClassChange(result, false); // TODO: Clean this up. Shouldn't need to build a packet for this.
 
 	// Update the clan.
 	result.clear();
-	result << uint16(0);
+	result << uint16_t(0);
 	CKnightsManager::CurrentKnightsMember(this, result); // TODO: Clean this up too.
 	return true;
 }
@@ -407,33 +407,33 @@ bool CUser::PromoteUserNovice()
 bool CUser::PromoteUser()
 {
 	/* unlike the official, the checks & item removal should be handled in the script, not here */
-	uint8 bOldClass = GetClassType();
+	uint8_t bOldClass = GetClassType();
 
 	// We must be a novice before we can be promoted to master.
 	if (!isNovice()) 
 		return false;
 
-	Packet result(WIZ_CLASS_CHANGE, uint8(6));
+	Packet result(WIZ_CLASS_CHANGE, uint8_t(6));
 
 	// Build the new class.
-	uint16 sNewClass = (GetNation() * 100) + bOldClass + 1;
+	uint16_t sNewClass = (GetNation() * 100) + bOldClass + 1;
 	result << sNewClass << GetID();
 	SendToRegion(&result);
 
 	// Change the class & update party.
 	result.clear();
-	result << uint8(2) << sNewClass;
+	result << uint8_t(2) << sNewClass;
 	ClassChange(result, false); // TODO: Clean this up. Shouldn't need to build a packet for this.
 
 	// use integer division to get from 5/7/9/11 (novice classes) to 1/2/3/4 (base classes)
-	uint8 bBaseClass = (bOldClass / 2) - 1; 
+	uint8_t bBaseClass = (bOldClass / 2) - 1; 
 
 	// this should probably be moved to the script
 	SaveEvent(bBaseClass, 2); 
 
 	// Update the clan.
 	result.clear();
-	result << uint16(0);
+	result << uint16_t(0);
 	CKnightsManager::CurrentKnightsMember(this, result); // TODO: Clean this up too.
 	return true;
 }
@@ -446,7 +446,7 @@ void CUser::PromoteClan(ClanTypeFlag byFlag)
 	CKnightsManager::UpdateKnightsGrade(GetClanID(), byFlag);
 }
 
-void CUser::SendClanPointChange(int32 nChangeAmount)
+void CUser::SendClanPointChange(int32_t nChangeAmount)
 {
 	if (!isInClan())
 		return;
@@ -454,7 +454,7 @@ void CUser::SendClanPointChange(int32 nChangeAmount)
 	CKnightsManager::UpdateClanPoint(GetClanID(), nChangeAmount);
 }
 
-uint8 CUser::GetClanGrade()
+uint8_t CUser::GetClanGrade()
 {
 	if (!isInClan())
 		return 0;
@@ -466,7 +466,7 @@ uint8 CUser::GetClanGrade()
 	return pClan->m_byGrade;
 }
 
-uint32 CUser::GetClanPoint()
+uint32_t CUser::GetClanPoint()
 {
 	if (!isInClan())
 		return 0;
@@ -478,7 +478,7 @@ uint32 CUser::GetClanPoint()
 	return pClan->m_nClanPointFund;
 }
 
-uint8 CUser::GetClanRank()
+uint8_t CUser::GetClanRank()
 {
 	if (!isInClan())
 		return ClanTypeNone;
@@ -490,7 +490,7 @@ uint8 CUser::GetClanRank()
 	return pClan->m_byFlag;
 }
 
-uint8 CUser::GetBeefRoastVictory() 
+uint8_t CUser::GetBeefRoastVictory() 
 {
 	if( g_pMain->m_sBifrostTime <= 90 * MINUTE && g_pMain->m_BifrostVictory != ALL )
 		return g_pMain->m_sBifrostVictoryAll; 
@@ -498,10 +498,10 @@ uint8 CUser::GetBeefRoastVictory()
 			return g_pMain->m_BifrostVictory; 
 }
 
-uint8 CUser::GetWarVictory() { return g_pMain->m_bVictory; }
+uint8_t CUser::GetWarVictory() { return g_pMain->m_bVictory; }
 
-uint8 CUser::CheckMiddleStatueCapture() { return g_pMain->m_bMiddleStatueNation == GetNation() ? 1 : 0; }
+uint8_t CUser::CheckMiddleStatueCapture() { return g_pMain->m_bMiddleStatueNation == GetNation() ? 1 : 0; }
 
 void CUser::MoveMiddleStatue() { Warp((GetNation() == KARUS ? DODO_CAMP_WARP_X : LAON_CAMP_WARP_X) + myrand(0, DODO_LAON_WARP_RADIUS),(GetNation() == KARUS ? DODO_CAMP_WARP_Z : LAON_CAMP_WARP_Z) + myrand(0, DODO_LAON_WARP_RADIUS)); }
 
-uint8 CUser::GetPVPMonumentNation() { return g_pMain->m_nPVPMonumentNation[GetZoneID()]; }
+uint8_t CUser::GetPVPMonumentNation() { return g_pMain->m_nPVPMonumentNation[GetZoneID()]; }

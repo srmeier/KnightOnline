@@ -279,7 +279,7 @@ void CN3FXBundle::Init()
 //
 bool CN3FXBundle::Load(HANDLE hFile)
 {
-	DWORD			dwRWC = 0;
+	DWORD dwRWC = 0;
 
 	ReadFile(hFile, &m_iVersion, sizeof(int), &dwRWC, NULL);
 	
@@ -484,7 +484,7 @@ bool CN3FXBundle::Load(HANDLE hFile)
 //
 bool CN3FXBundle::Save(HANDLE hFile)
 {
-	DWORD			dwRWC = 0;
+	DWORD dwRWC = 0;
 	WriteFile(hFile, &m_iVersion, sizeof(int), &dwRWC, NULL);
 	WriteFile(hFile, &m_fLife0, sizeof(float), &dwRWC, NULL);
 	WriteFile(hFile, &m_fVelocity, sizeof(float), &dwRWC, NULL);

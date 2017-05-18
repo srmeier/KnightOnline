@@ -594,7 +594,7 @@ void CGameProcCharacterSelect::AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo
 void CGameProcCharacterSelect::AddChrPart(	int iPosIndex,
 											const __TABLE_PLAYER_LOOKS* pLooks,
 											e_PartPosition ePartPos,
-											DWORD dwItemID,
+											uint32_t dwItemID,
 											int iItemDurability)
 {
 	if(NULL == m_pChrs[iPosIndex] || NULL == pLooks)
@@ -629,7 +629,7 @@ void CGameProcCharacterSelect::AddChrPart(	int iPosIndex,
 
 void CGameProcCharacterSelect::MsgRecv_DeleteChr(DataPack* pDataPack, int& iOffset)
 {
-	BYTE byResult, byIndex; 
+	uint8_t byResult, byIndex; 
 	byResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	byIndex  = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	
@@ -890,13 +890,13 @@ void CGameProcCharacterSelect::MsgSend_DeleteChr(const std::string& szKey)
 		default: return;
 	}
 
-	BYTE byBuff[64];
+	uint8_t byBuff[64];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_DEL_CHAR);		// 커멘드.
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)iIndex);				// 인덱스 - b
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_InfoChrs[iIndex].szID.size());		// 아이디 길이
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)iIndex);				// 인덱스 - b
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_InfoChrs[iIndex].szID.size());		// 아이디 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, m_InfoChrs[iIndex].szID); // 아이디 문자열
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szKey.size());				// 주민등록번호 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)szKey.size());				// 주민등록번호 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, szKey);					// 주민등록번호 문자열
 	
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
@@ -1103,10 +1103,10 @@ void CGameProcCharacterSelect::FadeOutRender()
 {
     __VertexTransformedColor pVertices[4];
 
-	pVertices[0].Set( 0.0f, 0.0f, 0.000002f, 0.99f, D3DCOLOR_ARGB((BYTE)m_fFadeOut,0x00,0x00,0x00) );
-	pVertices[1].Set( (float)s_CameraData.vp.Width, 0.0f, 0.000002f, 0.99f, D3DCOLOR_ARGB((BYTE)m_fFadeOut,0x00,0x00,0x00) );
-	pVertices[2].Set( (float)s_CameraData.vp.Width, (float)s_CameraData.vp.Height, 0.000002f, 0.99f, 	D3DCOLOR_ARGB((BYTE)m_fFadeOut,0x00,0x00,0x00) );
-	pVertices[3].Set( 0.0f, (float)s_CameraData.vp.Height, 0.000002f, 0.99f, D3DCOLOR_ARGB((BYTE)m_fFadeOut,0x00,0x00,0x00) );
+	pVertices[0].Set( 0.0f, 0.0f, 0.000002f, 0.99f, D3DCOLOR_ARGB((uint8_t)m_fFadeOut,0x00,0x00,0x00) );
+	pVertices[1].Set( (float)s_CameraData.vp.Width, 0.0f, 0.000002f, 0.99f, D3DCOLOR_ARGB((uint8_t)m_fFadeOut,0x00,0x00,0x00) );
+	pVertices[2].Set( (float)s_CameraData.vp.Width, (float)s_CameraData.vp.Height, 0.000002f, 0.99f, 	D3DCOLOR_ARGB((uint8_t)m_fFadeOut,0x00,0x00,0x00) );
+	pVertices[3].Set( 0.0f, (float)s_CameraData.vp.Height, 0.000002f, 0.99f, D3DCOLOR_ARGB((uint8_t)m_fFadeOut,0x00,0x00,0x00) );
 
 	DWORD dwUsefog = TRUE;
 	CN3Base::s_lpD3DDev->GetRenderState( D3DRS_FOGENABLE , &dwUsefog );
@@ -1117,7 +1117,7 @@ void CGameProcCharacterSelect::FadeOutRender()
 	DWORD dwUseColorVertex=FALSE;
 	CN3Base::s_lpD3DDev->GetRenderState( D3DRS_COLORVERTEX , &dwUseColorVertex );
 
-	unsigned long  bUseAlphaBlend=TRUE;
+	DWORD  bUseAlphaBlend=TRUE;
 	CN3Base::s_lpD3DDev->GetRenderState( D3DRS_ALPHABLENDENABLE,	&bUseAlphaBlend );
 
 	int	bLight[8];
@@ -1312,9 +1312,9 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int
 			m_InfoChrs[i].iItemCloakDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
 
 			// NOTE(srmeier): this was added for 1298
-			DWORD dwRightHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+			uint32_t dwRightHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 			int iItemRightHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-			DWORD dwLeftHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+			uint32_t dwLeftHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 			int iItemLeftHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
 			m_InfoChrs[i].dwItemLower				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
@@ -1339,7 +1339,7 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int
 
 void CGameProcCharacterSelect::MsgSend_RequestAllCharacterInfo()
 {
-	BYTE byBuff[4];
+	uint8_t byBuff[4];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ALLCHAR_INFO_REQ);	// 커멘드.
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다

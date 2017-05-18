@@ -20,7 +20,7 @@ private:
 public:
 	void Tick();
 	void	RenderMessage();
-	void	SetMessage(const std::string& szText, DWORD dwFlags = D3DFONT_BOLD,DWORD dwColor = 0xffffffff);
+	void	SetMessage(const std::string& szText, uint32_t dwFlags = D3DFONT_BOLD,uint32_t dwColor = 0xffffffff);
 	void	Release();
 	void	InitFont();
 	CWarMessage();

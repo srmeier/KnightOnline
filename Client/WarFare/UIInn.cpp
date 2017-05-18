@@ -36,7 +36,7 @@ CUIInn::~CUIInn()
 {
 }
 
-bool CUIInn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIInn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
@@ -103,7 +103,7 @@ void CUIInn::Message(int iMessageID)
 
 void CUIInn::MsgSend_OpenWareHouse()
 {
-	BYTE byBuff[2];		// 패킷 버퍼..
+	uint8_t byBuff[2];		// 패킷 버퍼..
 	int iOffset=0;		// 패킷 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);		

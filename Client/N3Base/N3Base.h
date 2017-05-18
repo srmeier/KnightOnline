@@ -29,14 +29,14 @@
 #include "N3SndMgr.h"
 #endif
 
-const DWORD TEX_CAPS_DXT1 =			0x00000001;
-const DWORD TEX_CAPS_DXT2 =			0x00000002;
-const DWORD TEX_CAPS_DXT3 =			0x00000004;
-const DWORD TEX_CAPS_DXT4 =			0x00000008;
-const DWORD TEX_CAPS_DXT5 =			0x00000010;
-const DWORD TEX_CAPS_SQUAREONLY =	0x00000020;
-const DWORD TEX_CAPS_MIPMAP =		0x00000040;
-const DWORD TEX_CAPS_POW2 =			0x00000080;
+const uint32_t TEX_CAPS_DXT1 =			0x00000001;
+const uint32_t TEX_CAPS_DXT2 =			0x00000002;
+const uint32_t TEX_CAPS_DXT3 =			0x00000004;
+const uint32_t TEX_CAPS_DXT4 =			0x00000008;
+const uint32_t TEX_CAPS_DXT5 =			0x00000010;
+const uint32_t TEX_CAPS_SQUAREONLY =	0x00000020;
+const uint32_t TEX_CAPS_MIPMAP =		0x00000040;
+const uint32_t TEX_CAPS_POW2 =			0x00000080;
 
 const float CAMERA_RADIUS_UNIT = 2.0f;
 const int MAX_CAMERA_RADIUS = 512; // 2미터 단위로 128 개의 도트 프로덕트 미리 계산해 놓는다..
@@ -168,7 +168,7 @@ public:
 	static LPDIRECT3DDEVICE9		s_lpD3DDev; // Device 참조 포인터.. 멋대로 해제하면 안된다..
 	static D3DPRESENT_PARAMETERS	s_DevParam; // Device 생성 Present Parameter
 	static D3DCAPS9					s_DevCaps; // Device 호환성...
-	static DWORD					s_dwTextureCaps; // Texture 지원.. DXT1 ~ DXT5, Square Only
+	static uint32_t					s_dwTextureCaps; // Texture 지원.. DXT1 ~ DXT5, Square Only
 	static SDL_Window*						s_hWndBase; // Init 할때 쓴 Window Handle
 	static HWND						s_hWndPresent; // 최근에 Present 한 Window Handle
 
@@ -205,7 +205,7 @@ protected:
 	static std::string 				s_szPath; // 프로그램이 실행된 경로.. 
 
 protected:
-	DWORD							m_dwType; // "MESH", "CAMERA", "SCENE", "???" .... 등등등...
+	uint32_t							m_dwType; // "MESH", "CAMERA", "SCENE", "???" .... 등등등...
 
 public:
 	std::string 					m_szName;
@@ -220,7 +220,7 @@ public:
 	
 	static float		TimerProcess( TIMER_COMMAND command );
 
-	DWORD				Type() { return m_dwType; } // 객체 종류..
+	uint32_t				Type() { return m_dwType; } // 객체 종류..
 
 	void				ReleaseResrc();
 //#ifdef _N3TOOL

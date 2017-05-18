@@ -14,5 +14,5 @@ public:
 	virtual ~ReferenceObject() {}
 
 private:
-	Atomic<uint32> m_refCount;
+	Atomic<uint32_t> m_refCount;
 };

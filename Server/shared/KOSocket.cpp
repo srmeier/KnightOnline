@@ -4,7 +4,7 @@
 #include "version.h"
 #include "Compression.h"
 
-KOSocket::KOSocket(uint16 socketID, SocketMgr * mgr, SOCKET fd, uint32 sendBufferSize, uint32 recvBufferSize) 
+KOSocket::KOSocket(uint16_t socketID, SocketMgr * mgr, SOCKET fd, uint32_t sendBufferSize, uint32_t recvBufferSize) 
 	: Socket(fd, sendBufferSize, recvBufferSize), 
 	m_socketID(socketID), m_remaining(0),  m_usingCrypto(false), 
 	m_readTries(0), m_sequence(0), m_lastResponse(0) 
@@ -32,21 +32,21 @@ typedef struct
 {
 	int x;
 	int y;
-	unsigned char m[256];
+	uint8_t m[256];
 }
 arc4_context;
 
-void arc4_setup(arc4_context *ctx, unsigned char *key, int keylen)
+void arc4_setup(arc4_context *ctx, uint8_t *key, int keylen)
 {
 	int i, j, k, a;
-	unsigned char *m;
+	uint8_t *m;
 
 	ctx->x = 0;
 	ctx->y = 0;
 	m = ctx->m;
 
 	for(i = 0; i < 256; i++)
-		m[i] = (unsigned char)i;
+		m[i] = (uint8_t)i;
 
 	j = k = 0;
 
@@ -57,14 +57,14 @@ void arc4_setup(arc4_context *ctx, unsigned char *key, int keylen)
 		a = m[i];
 		j = (j + a + key[k]) & 0xFF;
 		m[i] = m[j];
-		m[j] = (unsigned char)a;
+		m[j] = (uint8_t)a;
 	}
 }
 
-void arc4_crypt(arc4_context *ctx, unsigned char *buf, int buflen)
+void arc4_crypt(arc4_context *ctx, uint8_t *buf, int buflen)
 {
 	int i, x, y, a, b;
-	unsigned char *m;
+	uint8_t *m;
 
 	x = ctx->x;
 	y = ctx->y;
@@ -75,11 +75,11 @@ void arc4_crypt(arc4_context *ctx, unsigned char *buf, int buflen)
 		x = (x + 1) & 0xFF; a = m[x];
 		y = (y + a) & 0xFF; b = m[y];
 
-		m[x] = (unsigned char)b;
-		m[y] = (unsigned char)a;
+		m[x] = (uint8_t)b;
+		m[y] = (uint8_t)a;
 
-		buf[i] = (unsigned char)
-			(buf[i] ^ m[(unsigned char)(a + b)]);
+		buf[i] = (uint8_t)
+			(buf[i] ^ m[(uint8_t)(a + b)]);
 	}
 
 	ctx->x = x;
@@ -97,17 +97,17 @@ void KOSocket::OnRead()
 		{
 			/*
 			bool found = false;
-			//unsigned char key[5] = {};
-			long long unsigned int key = 0xFFFFFFFFFFFFFFFF;
+			//uint8_t key[5] = {};
+			long long uint32_t key = 0xFFFFFFFFFFFFFFFF;
 			int len = GetReadBuffer().GetSize();
-			unsigned char* tmpbuffer = (unsigned char*)malloc(len*sizeof(unsigned char));
+			uint8_t* tmpbuffer = (uint8_t*)malloc(len*sizeof(uint8_t));
 
 			do {
 				memcpy(tmpbuffer, GetReadBuffer().GetBufferStart(), len);
 
 				arc4_context rc4_ctx;
-				long long unsigned int key2 = RandUInt64();
-				arc4_setup(&rc4_ctx, (unsigned char*)&key2, 5);//(unsigned char *)"\xC2\xBA\xE1\x87\xDB", 5);
+				long long uint32_t key2 = RandUInt64();
+				arc4_setup(&rc4_ctx, (uint8_t*)&key2, 5);//(uint8_t *)"\xC2\xBA\xE1\x87\xDB", 5);
 				arc4_crypt(&rc4_ctx, tmpbuffer, len);
 				key--;
 
@@ -128,7 +128,7 @@ void KOSocket::OnRead()
 			if (GetReadBuffer().GetSize() < 5)
 				return; //check for opcode as well
 
-			uint16 header = 0;
+			uint16_t header = 0;
 			GetReadBuffer().Read(&header, 2);
 			if (header != 0x55aa)
 			{
@@ -161,12 +161,12 @@ void KOSocket::OnRead()
 			return;
 		}
 
-		uint8 *in_stream = new uint8[m_remaining];
+		uint8_t *in_stream = new uint8_t[m_remaining];
 
 		m_readTries = 0;
 		GetReadBuffer().Read(in_stream, m_remaining);
 
-		uint16 footer = 0;
+		uint16_t footer = 0;
 		GetReadBuffer().Read(&footer, 2);
 
 		if (footer != 0xaa55
@@ -199,9 +199,9 @@ error_handler:
 	Disconnect();
 }
 
-bool KOSocket::DecryptPacket(uint8 *in_stream, Packet & pkt)
+bool KOSocket::DecryptPacket(uint8_t *in_stream, Packet & pkt)
 {
-	uint8* final_packet = nullptr;
+	uint8_t* final_packet = nullptr;
 
 	if (isCryptoEnabled())
 	{
@@ -210,7 +210,7 @@ bool KOSocket::DecryptPacket(uint8 *in_stream, Packet & pkt)
 			// Invalid checksum 
 				|| m_crypto.JvDecryptionWithCRC32(m_remaining, in_stream, in_stream) < 0 
 				// Invalid sequence ID
-				|| ++m_sequence != *(uint32 *)(in_stream)) 
+				|| ++m_sequence != *(uint32_t *)(in_stream)) 
 				return false;
 
 		m_remaining -= 8; // remove the sequence ID & CRC checksum
@@ -239,18 +239,18 @@ bool KOSocket::Send(Packet * pkt)
 
 	bool r;
 
-	uint8 opcode = pkt->GetOpcode();
-	uint8 * out_stream = nullptr;
-	uint16 len = (uint16)(pkt->size() + 1); // +1 for opcode
+	uint8_t opcode = pkt->GetOpcode();
+	uint8_t * out_stream = nullptr;
+	uint16_t len = (uint16_t)(pkt->size() + 1); // +1 for opcode
 
 	if (isCryptoEnabled())
 	{
 		len += 5; // +5 [1EFC][m_sequence][00]
 
-		out_stream = new uint8[len];
+		out_stream = new uint8_t[len];
 
-		*(uint16 *)&out_stream[0] = 0x1efc;
-		*(uint16 *)&out_stream[2] = (uint16)(m_sequence); // this isn't actually incremented here
+		*(uint16_t *)&out_stream[0] = 0x1efc;
+		*(uint16_t *)&out_stream[2] = (uint16_t)(m_sequence); // this isn't actually incremented here
 		out_stream[4] = 0;
 		out_stream[5] = pkt->GetOpcode();
 
@@ -261,7 +261,7 @@ bool KOSocket::Send(Packet * pkt)
 	}
 	else
 	{
-		out_stream = new uint8[len];
+		out_stream = new uint8_t[len];
 		out_stream[0] = pkt->GetOpcode();
 		if (pkt->size() > 0)
 			memcpy(&out_stream[1], pkt->contents(), pkt->size());
@@ -276,10 +276,10 @@ bool KOSocket::Send(Packet * pkt)
 		return false;
 	}
 
-	r = BurstSend((const uint8*)"\xaa\x55", 2);
-	if (r) r = BurstSend((const uint8*)&len, 2);
-	if (r) r = BurstSend((const uint8*)out_stream, len);
-	if (r) r = BurstSend((const uint8*)"\x55\xaa", 2);
+	r = BurstSend((const uint8_t*)"\xaa\x55", 2);
+	if (r) r = BurstSend((const uint8_t*)&len, 2);
+	if (r) r = BurstSend((const uint8_t*)out_stream, len);
+	if (r) r = BurstSend((const uint8_t*)"\x55\xaa", 2);
 	if (r) BurstPush();
 	BurstEnd();
 
@@ -298,15 +298,15 @@ bool KOSocket::SendCompressed(Packet * pkt)
 
 bool KOSocket::BuildCompressed(const Packet * pkt, Packet & result)
 {
-	uint32 inLength = pkt->size(), crc = 0;
-	uint32 outLength = 0;
+	uint32_t inLength = pkt->size(), crc = 0;
+	uint32_t outLength = 0;
 
 	if(inLength < Compression::MinBytes)
 		return false;
 
-	uint8 * outBuffer = Compression::CompressWithCRC32(pkt->contents(), inLength, &outLength, &crc);
+	uint8_t * outBuffer = Compression::CompressWithCRC32(pkt->contents(), inLength, &outLength, &crc);
 
-	result << uint16(outLength) << uint16(inLength) << crc;
+	result << uint16_t(outLength) << uint16_t(inLength) << crc;
 	result.append(outBuffer, outLength);
 
 	delete[] outBuffer;

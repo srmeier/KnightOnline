@@ -11,10 +11,10 @@
 
 #include "N3Transform.h"
 
-const DWORD BOARD_X				= 0;
-const DWORD BOARD_Y				= 1;
-const DWORD BOARD_Z				= 2;
-const DWORD BOARD_XYZ			= 3;
+const uint32_t BOARD_X				= 0;
+const uint32_t BOARD_Y				= 1;
+const uint32_t BOARD_Z				= 2;
+const uint32_t BOARD_XYZ			= 3;
 
 class CN3Terrain;
 
@@ -25,22 +25,22 @@ protected:
 	{
 		__Matrix44	mtxWorld;
 		__Vector3	vPos;	//	풀의 위치(지도상의)
-		DWORD		dwAlpColor;	//	풀의 알파
+		uint32_t		dwAlpColor;	//	풀의 알파
 		int			iTexIndex;	//	풀의 인덱스
 	}Grass_Info;
 //	__VertexXyzColorT1 m_vRects[4];
 	Grass_Info		m_sGrassInfo[20];
 
 	int				m_nTexIndex;
-	unsigned char	m_ucTexIndex;	//	그림인덱스
-	unsigned char	m_ucTexNum;	//	풀의 갯수
+	uint8_t	m_ucTexIndex;	//	그림인덱스
+	uint8_t	m_ucTexNum;	//	풀의 갯수
 
 //	float			m_fLeftPo;
 //	float			m_fTopPo;
 	__Vector3		m_vCenterPo;
 
 public:
-	DWORD m_dwBoardType; // Board Type
+	uint32_t m_dwBoardType; // Board Type
 
 	float	m_fBrightmin;	//	unit full bright lengs
 	float	m_fBrightmax;	//	unit shadow lengs	
@@ -50,24 +50,24 @@ public:
 	BOOL	m_bGroundInfo;	//	현재 셀이 풀을 그릴수 있는지 확인
 
 public:
-//	void TexSelectNum(int Texindex,unsigned char TexOrgIndex) {m_nTexIndex = Texindex, m_usTexIndex = TexOrgIndex;}
-//	BOOL ThisTexIsHave(unsigned char TexIndex) { return TexIndex & m_usTexIndex;}
+//	void TexSelectNum(int Texindex,uint8_t TexOrgIndex) {m_nTexIndex = Texindex, m_usTexIndex = TexOrgIndex;}
+//	BOOL ThisTexIsHave(uint8_t TexIndex) { return TexIndex & m_usTexIndex;}
 
-	void Init(__Vector3 vPos, DWORD dwBoardType);
+	void Init(__Vector3 vPos, uint32_t dwBoardType);
 	void Tick(CN3Terrain* pTerrain);
 	void Render(CN3Texture** ppTex);
 
 	void ReCalcMatrix();
 
 	bool Load(HANDLE hFile);
-	void LoadFromFile(int iTexIndex,unsigned char ucTexOrgIndex,__Vector3 vPos);
+	void LoadFromFile(int iTexIndex,uint8_t ucTexOrgIndex,__Vector3 vPos);
 
 	void SetBrightInit(float min,float max) {m_fBrightmin = min,m_fBrightmax = max - min;};
-	DWORD SetBrightLevel(float Level);
+	uint32_t SetBrightLevel(float Level);
 	
-	void SetInfo(__Vector3 vBoardPosion,unsigned short usData);
-//	WORD GetLeft() {return m_vCenterPo.x;}
-//	WORD GetTop()  {return m_vCenterPo.z;}
+	void SetInfo(__Vector3 vBoardPosion,uint16_t usData);
+//	uint16_t GetLeft() {return m_vCenterPo.x;}
+//	uint16_t GetTop()  {return m_vCenterPo.z;}
 	__Vector3	GetPo() {return m_vCenterPo;}
 
 #ifdef _N3TOOL
@@ -80,7 +80,7 @@ public:
 	virtual ~CGrassBoard();
 
 protected:
-	void FindGrassIndex(const unsigned char uCGrassMngOrder,int* pnInputGrass,int& nGrassTotNum);
+	void FindGrassIndex(const uint8_t uCGrassMngOrder,int* pnInputGrass,int& nGrassTotNum);
 
 };
 

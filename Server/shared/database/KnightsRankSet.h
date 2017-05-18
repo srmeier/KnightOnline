@@ -65,5 +65,5 @@ public:
 	}
 
 	char strKarusCaptain[5][50], strElmoCaptain[5][50];	
-	uint32 nKarusCount, nElmoCount;
+	uint32_t nKarusCount, nElmoCount;
 };

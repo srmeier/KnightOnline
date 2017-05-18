@@ -112,9 +112,9 @@ void CN3UIButton::Render()
 	}
 }
 
-DWORD CN3UIButton::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UIButton::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 
 #ifndef _REPENT

@@ -306,10 +306,10 @@ void CN3Scene::TickLights(float fFrm)
 	}
 
 	// Ambient Light ¹Ù²Ù±â..
-//	DWORD dwAmbient =	0xff000000 | 
-//						(((DWORD)(m_pLights[i]->m_Data.Diffuse.r * 255 * 0.5f)) << 16) | 
-//						(((DWORD)(m_pLights[i]->m_Data.Diffuse.g * 255 * 0.5f)) << 8) | 
-//						(((DWORD)(m_pLights[i]->m_Data.Diffuse.b * 255 * 0.5f)) << 0);
+//	uint32_t dwAmbient =	0xff000000 | 
+//						(((uint32_t)(m_pLights[i]->m_Data.Diffuse.r * 255 * 0.5f)) << 16) | 
+//						(((uint32_t)(m_pLights[i]->m_Data.Diffuse.g * 255 * 0.5f)) << 8) | 
+//						(((uint32_t)(m_pLights[i]->m_Data.Diffuse.b * 255 * 0.5f)) << 0);
 //	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_AMBIENT, dwAmbient);
 }
 

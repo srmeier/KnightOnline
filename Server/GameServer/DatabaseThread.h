@@ -10,7 +10,7 @@ public:
 	static void AddRequest(Packet * pkt);
 
 	// Main thread procedure
-	static uint32 THREADCALL ThreadProc(void * lpParam);
+	static uint32_t THREADCALL ThreadProc(void * lpParam);
 
 	// Shutdown threads.
 	static void Shutdown();

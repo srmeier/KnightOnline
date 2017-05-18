@@ -51,7 +51,7 @@ public:
 	virtual ~CCountableItemEditDlg();
 
 	virtual void		Release();
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	virtual void		Open(e_UIWND eUW, e_UIWND_DISTRICT eUD, bool bCountGold, bool bWareGold = false);
 	virtual void		Close();

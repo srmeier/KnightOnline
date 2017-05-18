@@ -69,7 +69,7 @@ void CGameProcNationSelect::Tick()
 
 void CGameProcNationSelect::Render()
 {
-	DWORD color = 0x00000000; // 검은색으로..
+	uint32_t color = 0x00000000; // 검은색으로..
 	s_pEng->Clear(color); // 클리어..
 	s_pEng->s_lpD3DDev->BeginScene();			// 씬 렌더 ㅅ작...
 
@@ -82,11 +82,11 @@ void CGameProcNationSelect::Render()
 
 void CGameProcNationSelect::MsgSendNationSelect(e_Nation eNation)
 {
-	BYTE byBuff[4];										// 패킷 버퍼..
+	uint8_t byBuff[4];										// 패킷 버퍼..
 	int iOffset=0;										// 버퍼의 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_NATION);	// 커멘드.
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)eNation);		// 아이디 길이..
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)eNation);		// 아이디 길이..
 		
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
 

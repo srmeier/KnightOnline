@@ -26,7 +26,7 @@
 */
 void CUser::ItemUpgradeProcess(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
 	case ITEM_UPGRADE:
@@ -64,7 +64,7 @@ void CUser::ItemUpgradeProcess(Packet & pkt)
 *
 * @param	pkt	The packet.
 */
-void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
+void CUser::ItemUpgrade(Packet & pkt, uint8_t nUpgradeType)
 {
 	enum UpgradeErrorCodes
 	{
@@ -81,10 +81,10 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 	Packet result(WIZ_ITEM_UPGRADE, nUpgradeType);
 	_ITEM_DATA  * pOriginItem;
 	_ITEM_TABLE * proto;//The Upgrade item's itself in the ITEM table
-	int32 nItemID[10];//nItemID[0]=Upgrade item , nItemID[1,2,..]=Scrolls, Trinas,...
-	int8 bPos[10];//The positions of the items in the inventory that are included to the upgrade
-	uint16 sNpcID;
-	int8 bType = UpgradeTypeNormal, bResult = UpgradeNoMatch,ItemClass = 0;
+	int32_t nItemID[10];//nItemID[0]=Upgrade item , nItemID[1,2,..]=Scrolls, Trinas,...
+	int8_t bPos[10];//The positions of the items in the inventory that are included to the upgrade
+	uint16_t sNpcID;
+	int8_t bType = UpgradeTypeNormal, bResult = UpgradeNoMatch,ItemClass = 0;
 	bool trina=false,Accessories=false;
 
 	if (isTrading() || isMerchanting() || isMining())
@@ -499,7 +499,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 	// Send the result to everyone in the area
 	// (i.e. make the anvil do its burned/upgraded indicator thing)
 	result.Initialize(WIZ_OBJECT_EVENT);
-	result << uint8(OBJECT_ANVIL) << bResult << sNpcID;
+	result << uint8_t(OBJECT_ANVIL) << bResult << sNpcID;
 	SendToRegion(&result);
 
 	return;
@@ -520,7 +520,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8 nUpgradeType)
 *
 * @param	pItem	The item.
 */
-void CUser::ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8 UpgradeResult)
+void CUser::ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8_t UpgradeResult)
 {
 	bool bSendUpgradeNotice = false;
 	std::string sUpgradeNotice;
@@ -573,17 +573,17 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 		EffectWhite	= 3 // It must be your lucky day.
 	};
 
-	uint16 nObjectID = 0;
-	uint32 nExchangeItemID = 0;
+	uint16_t nObjectID = 0;
+	uint32_t nExchangeItemID = 0;
 
 	pkt >> nObjectID >> nExchangeItemID;
 
-	std::vector<uint32> ExchangeIndexList;
+	std::vector<uint32_t> ExchangeIndexList;
 	ResultOpCodes resultOpCode = Success;
 	ResultMessages resultMessage = EffectNone;
-	uint32 nItemID = 0;
-	uint8 sItemSlot = 0;
-	uint8 sExchangeItemSlot = 0;
+	uint32_t nItemID = 0;
+	uint8_t sItemSlot = 0;
+	uint8_t sExchangeItemSlot = 0;
 
 	sExchangeItemSlot = FindSlotForItem(nExchangeItemID, 1) - SLOT_MAX;
 
@@ -603,8 +603,8 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 
 	if (ExchangeIndexList.size() > 0)
 	{
-		uint32 randIndex = myrand(0, (ExchangeIndexList.size() - 1));
-		uint32 nExchangeID = ExchangeIndexList[randIndex];
+		uint32_t randIndex = myrand(0, (ExchangeIndexList.size() - 1));
+		uint32_t nExchangeID = ExchangeIndexList[randIndex];
 
 		_ITEM_EXCHANGE * pExchange = g_pMain->m_ItemExchangeArray.GetData(nExchangeID);
 
@@ -619,7 +619,7 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 
 		if (pExchange->bRandomFlag == 101 && resultOpCode == Success)
 		{
-			uint32 nTotalPercent = 0;
+			uint32_t nTotalPercent = 0;
 			for (int i = 0; i < ITEMS_IN_EXCHANGE_GROUP; i++)
 				nTotalPercent += pExchange->sExchangeItemCount[i];
 
@@ -628,9 +628,9 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 
 			if (resultOpCode == Success)
 			{
-				uint8 bRandArray[10000];
+				uint8_t bRandArray[10000];
 				memset(&bRandArray, 0, sizeof(bRandArray)); 
-				uint16 sExchangeCount[ITEMS_IN_EXCHANGE_GROUP];
+				uint16_t sExchangeCount[ITEMS_IN_EXCHANGE_GROUP];
 				memcpy(&sExchangeCount, &pExchange->sExchangeItemCount, sizeof(pExchange->sExchangeItemCount));
 
 				int offset = 0;
@@ -643,7 +643,7 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 					}
 				}
 
-				uint8 bRandSlot = bRandArray[myrand(0, 9999)];
+				uint8_t bRandSlot = bRandArray[myrand(0, 9999)];
 				nItemID = pExchange->nExchangeItemNum[bRandSlot];
 
 				sItemSlot = GetEmptySlot() - SLOT_MAX;
@@ -666,12 +666,12 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 	} 
 
 	Packet result(WIZ_ITEM_UPGRADE);
-	result << (uint8)ITEM_BIFROST_EXCHANGE << (uint8)resultOpCode << nItemID << sItemSlot << nExchangeItemID << sExchangeItemSlot << (uint8)resultMessage;
+	result << (uint8_t)ITEM_BIFROST_EXCHANGE << (uint8_t)resultOpCode << nItemID << sItemSlot << nExchangeItemID << sExchangeItemSlot << (uint8_t)resultMessage;
 	Send(&result);
 
 	result.clear();
 	result.SetOpcode(WIZ_OBJECT_EVENT);
-	result << (uint8)OBJECT_ARTIFACT << (uint8)resultMessage << nObjectID;
+	result << (uint8_t)OBJECT_ARTIFACT << (uint8_t)resultMessage << nObjectID;
 
 	if (resultOpCode != Failed)
 		SendToRegion(&result);
@@ -694,17 +694,17 @@ void CUser::SpecialItemExchange(Packet & pkt)
 
 	ResultOpCodes resultOpCode = WrongMaterial;
 
-	uint16 sNpcID;
-	uint32 nShadowPiece;
-	uint8 nShadowPieceSlot;
-	uint8 nMaterialCount;
-	uint8 nItemSlot[10];
-	uint8 nDownFlag;
-	uint32 nItemID[10]; 
-	uint8 nItemCount[10];
+	uint16_t sNpcID;
+	uint32_t nShadowPiece;
+	uint8_t nShadowPieceSlot;
+	uint8_t nMaterialCount;
+	uint8_t nItemSlot[10];
+	uint8_t nDownFlag;
+	uint32_t nItemID[10]; 
+	uint8_t nItemCount[10];
 
-	uint32 nItemNumber = 0;
-	uint8 sItemSlot = 0;
+	uint32_t nItemNumber = 0;
+	uint8_t sItemSlot = 0;
 
 	pkt >> sNpcID >> nShadowPiece >> nShadowPieceSlot >> nMaterialCount;
 
@@ -721,7 +721,7 @@ void CUser::SpecialItemExchange(Packet & pkt)
 
 	for (int i = 0; i < nMaterialCount; i++)
 	{
-		uint8 nReadByte;
+		uint8_t nReadByte;
 		int nDigit = 100000000;
 		nItemID[i] = 0;
 		for( int x = 0; x < 9; x++ ) 
@@ -731,7 +731,7 @@ void CUser::SpecialItemExchange(Packet & pkt)
 			nDigit = nDigit / 10;
 		}
 
-		uint8 nCount[3] = { 0, 0, 0};
+		uint8_t nCount[3] = { 0, 0, 0};
 		pkt >> nCount[0];
 		pkt >> nCount[1];
 		pkt >> nCount[2];
@@ -742,7 +742,7 @@ void CUser::SpecialItemExchange(Packet & pkt)
 		nItemCount[i] = nCountFinish;
 	}
 
-	std::vector<uint32> ExchangeIndexList;
+	std::vector<uint32_t> ExchangeIndexList;
 
 	if (nMaterialCount > 3) // Minimum Required : 4 Material
 	{
@@ -756,8 +756,8 @@ void CUser::SpecialItemExchange(Packet & pkt)
 						continue;
 					else
 					{
-						uint8 nOriginItemCount = 0;
-						uint8 nMatchCount = 0;
+						uint8_t nOriginItemCount = 0;
+						uint8_t nMatchCount = 0;
 						bool bAddArray = false;
 
 						if (nMaterialCount == 4)
@@ -798,8 +798,8 @@ void CUser::SpecialItemExchange(Packet & pkt)
 
 	if (ExchangeIndexList.size() > 0)
 	{
-		uint32 randIndex = myrand(0, (ExchangeIndexList.size() - 1));
-		uint32 nExchangeID = ExchangeIndexList[randIndex];
+		uint32_t randIndex = myrand(0, (ExchangeIndexList.size() - 1));
+		uint32_t nExchangeID = ExchangeIndexList[randIndex];
 
 		_ITEM_EXCHANGE * pExchange = g_pMain->m_ItemExchangeArray.GetData(nExchangeID);
 
@@ -848,7 +848,7 @@ void CUser::SpecialItemExchange(Packet & pkt)
 				resultOpCode = WrongMaterial;
 			else
 			{
-				uint32 nTotalPercent = 0;
+				uint32_t nTotalPercent = 0;
 				for (int i = 0; i < ITEMS_IN_EXCHANGE_GROUP; i++)
 					nTotalPercent += pExchange->sExchangeItemCount[i];
 
@@ -856,9 +856,9 @@ void CUser::SpecialItemExchange(Packet & pkt)
 					resultOpCode = WrongMaterial;
 				else
 				{
-					uint8 bRandArray[10000];
+					uint8_t bRandArray[10000];
 					memset(&bRandArray, 0, sizeof(bRandArray)); 
-					uint16 sExchangeCount[ITEMS_IN_EXCHANGE_GROUP];
+					uint16_t sExchangeCount[ITEMS_IN_EXCHANGE_GROUP];
 					memcpy(&sExchangeCount, &pExchange->sExchangeItemCount, sizeof(pExchange->sExchangeItemCount));
 
 					int offset = 0;
@@ -871,9 +871,9 @@ void CUser::SpecialItemExchange(Packet & pkt)
 						}
 					}
 
-					uint8 bRandSlot = bRandArray[myrand(0, 9999)];				
+					uint8_t bRandSlot = bRandArray[myrand(0, 9999)];				
 					nItemNumber = pExchange->nExchangeItemNum[bRandSlot];
-					uint16 nItemRate = pExchange->sExchangeItemCount[bRandSlot];
+					uint16_t nItemRate = pExchange->sExchangeItemCount[bRandSlot];
 					int rand = myrand(0, myrand(9000, 10000));
 
 					if (nItemRate <= rand)
@@ -896,7 +896,7 @@ void CUser::SpecialItemExchange(Packet & pkt)
 	}
 
 	Packet result(WIZ_ITEM_UPGRADE);
-	result << (uint8)ITEM_SPECIAL_EXCHANGE << (uint8)resultOpCode << sNpcID;
+	result << (uint8_t)ITEM_SPECIAL_EXCHANGE << (uint8_t)resultOpCode << sNpcID;
 
 	if (resultOpCode == Success)
 		result << nItemNumber << sItemSlot;

@@ -55,7 +55,7 @@ void CN3UIList::Release()
 	m_crFont = 0xffffffff;
 }
 
-void CN3UIList::SetFont(const std::string& szFontName, DWORD dwHeight, BOOL bBold, BOOL bItalic)
+void CN3UIList::SetFont(const std::string& szFontName, uint32_t dwHeight, BOOL bBold, BOOL bItalic)
 {
 	m_szFontName = szFontName;
 	m_dwFontHeight = dwHeight;
@@ -343,9 +343,9 @@ void CN3UIList::operator = (const CN3UIList& other)
 }
 #endif // #ifdef _N3TOOL
 
-DWORD CN3UIList::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UIList::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible || UI_STATE_LIST_DISABLE == m_eState) return dwRet;
 
 	// 특정 이벤트에 대해 메시지 전송..
@@ -448,7 +448,7 @@ void CN3UIList::Render()
 	}
 }
 
-bool CN3UIList::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CN3UIList::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (UIMSG_SCROLLBAR_POS == dwMsg)
 	{

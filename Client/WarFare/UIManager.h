@@ -26,7 +26,7 @@ protected:
 	};
 	
 	static __RenderStateForUI s_sRSFU;	// RenderStateForUI
-	DWORD		m_dwMouseFlagsCur;
+	uint32_t		m_dwMouseFlagsCur;
 	bool		m_bEnableOperation;		// UI 조작이 가능한 상태인가?
 	CN3UIBase*	m_pUIFocused;
 
@@ -44,8 +44,8 @@ public:
 
 	void		Release();
 	void		Tick();
-	DWORD		MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	DWORD		GetCurMouseFlags() { return m_dwMouseFlagsCur; }
+	uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	uint32_t		GetCurMouseFlags() { return m_dwMouseFlagsCur; }
 	CN3UIBase*	GetFocusedUI() { return m_pUIFocused; } // 찍은 UI 가져오기..
 	void		SetFocusedUI(CN3UIBase* pUI); // 찍은 UI 가져오기..
 	CN3UIBase*	GetTopUI(bool bVisible); // 최상위에 있는 UI 가져오기.

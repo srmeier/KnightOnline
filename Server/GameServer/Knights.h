@@ -8,9 +8,9 @@
 class CUser;
 struct _KNIGHTS_USER
 {
-	uint8    byUsed;
+	uint8_t    byUsed;
 	std::string strUserName;
-	uint32	nDonatedNP;
+	uint32_t	nDonatedNP;
 	CUser	*pSession;
 
 	INLINE _KNIGHTS_USER() { Initialise(); }
@@ -43,36 +43,36 @@ enum ClanTypeFlag
 class CKnights  
 {
 public:
-	uint16	m_sIndex;
-	uint8	m_byFlag;			// 1 : Clan, 2 : Knights
-	uint8	m_byNation;			// nation
-	uint8	m_byGrade;
-	uint8	m_byRanking;
-	uint16	m_sMembers;
+	uint16_t	m_sIndex;
+	uint8_t	m_byFlag;			// 1 : Clan, 2 : Knights
+	uint8_t	m_byNation;			// nation
+	uint8_t	m_byGrade;
+	uint8_t	m_byRanking;
+	uint16_t	m_sMembers;
 
 	std::string m_strName;
 	std::string m_strChief, m_strViceChief_1, m_strViceChief_2, m_strViceChief_3;
 
-	uint64	m_nMoney;
-	uint16	m_sDomination;
-	uint32	m_nPoints;
-	Atomic<uint32> m_nClanPointFund; // stored in national point form
-	uint16	m_sMarkVersion, m_sMarkLen;
+	uint64_t	m_nMoney;
+	uint16_t	m_sDomination;
+	uint32_t	m_nPoints;
+	Atomic<uint32_t> m_nClanPointFund; // stored in national point form
+	uint16_t	m_sMarkVersion, m_sMarkLen;
 	char	m_Image[MAX_KNIGHTS_MARK];
-	uint16	m_sCape;
-	uint8	m_bCapeR, m_bCapeG, m_bCapeB;
-	uint16	m_sAlliance;
-	uint8	m_sClanPointMethod;
+	uint16_t	m_sCape;
+	uint8_t	m_bCapeR, m_bCapeG, m_bCapeB;
+	uint16_t	m_sAlliance;
+	uint8_t	m_sClanPointMethod;
 	std::string m_strClanNotice;
-	uint8	bySiegeFlag;
-	uint16	nLose,nVictory;
+	uint8_t	bySiegeFlag;
+	uint16_t	nLose,nVictory;
 
 
 	_KNIGHTS_USER m_arKnightsUser[MAX_CLAN_USERS];
 
-	INLINE uint16 GetID() { return m_sIndex; }
-	INLINE uint16 GetAllianceID() { return m_sAlliance; }
-	INLINE uint16 GetCapeID(CKnights *pKnights) 
+	INLINE uint16_t GetID() { return m_sIndex; }
+	INLINE uint16_t GetAllianceID() { return m_sAlliance; }
+	INLINE uint16_t GetCapeID(CKnights *pKnights) 
 	{
 		if (isInAlliance())
 			return m_sCape = pKnights->m_sCape;
@@ -80,7 +80,7 @@ public:
 			return m_sCape;
 	}
 	INLINE std::string & GetName() { return m_strName; }
-	INLINE uint8 GetClanPointMethod() { return m_sClanPointMethod; }
+	INLINE uint8_t GetClanPointMethod() { return m_sClanPointMethod; }
 
 	INLINE bool isPromoted() { return m_byFlag >= ClanTypePromoted; }
 	INLINE bool isInAlliance() { return m_sAlliance > 0; }
@@ -107,7 +107,7 @@ public:
 	bool RemoveUser(std::string & strUserID);
 	bool RemoveUser(CUser *pUser);
 
-	void RefundDonatedNP(uint32 nDonatedNP, CUser * pUser = nullptr, const char * strUserID = nullptr);
+	void RefundDonatedNP(uint32_t nDonatedNP, CUser * pUser = nullptr, const char * strUserID = nullptr);
 
 	void Disband(CUser *pLeader = nullptr);
 

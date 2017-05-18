@@ -21,7 +21,7 @@ public:
 
 public:
 	bool	Load(HANDLE hFile);
-	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	CUINationSelectDlg();
 	virtual ~CUINationSelectDlg();

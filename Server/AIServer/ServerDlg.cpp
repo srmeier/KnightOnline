@@ -205,7 +205,7 @@ bool CServerDlg::CreateNpcThread()
 		}
 	}
 
-	printf("Monster Init - %d, threads = %lld\n", (uint16) m_TotalNPC, (long long) m_arNpcThread.size());
+	printf("Monster Init - %d, threads = %lld\n", (uint16_t) m_TotalNPC, (long long) m_arNpcThread.size());
 	return true;
 }
 
@@ -219,16 +219,16 @@ bool CServerDlg::LoadSpawnCallback(OdbcCommand *dbCommand)
 	static CRoomEvent* pRoom = nullptr;
 	static char szPath[500];
 	static float fRandom_X = 0.0f, fRandom_Z = 0.0f;
-	static uint8 rand = myrand(1,4);
+	static uint8_t rand = myrand(1,4);
 	// Unfortunately we cannot simply read what we need directly
 	// into the CNpc instance. We have to resort to creating
 	// copies of the data to allow for the way they handle multiple spawns...
 	// Best we can do, I think, is to avoid allocating it on the stack.
-	static uint8	bNumNpc, bZoneID, bActType, bRegenType, bDungeonFamily, bSpecialType,
+	static uint8_t	bNumNpc, bZoneID, bActType, bRegenType, bDungeonFamily, bSpecialType,
 		bTrapNumber, bDirection, bDotCnt;	
-	static uint16	sSid, sRegTime;
-	static uint32	nServerNum;
-	static int32	iLeftX, iTopZ, iRightX, iBottomZ,
+	static uint16_t	sSid, sRegTime;
+	static uint32_t	nServerNum;
+	static int32_t	iLeftX, iTopZ, iRightX, iBottomZ,
 		iLimitMinX, iLimitMinZ, iLimitMaxX, iLimitMaxZ;
 
 	dbCommand->FetchByte(1, bZoneID);
@@ -253,13 +253,13 @@ bool CServerDlg::LoadSpawnCallback(OdbcCommand *dbCommand)
 	dbCommand->FetchString(20, szPath, sizeof(szPath));
 
 
-	uint8 bPathSerial = 1;
+	uint8_t bPathSerial = 1;
 	if(bTrapNumber==0 || bTrapNumber==rand 
 		|| bZoneID == ZONE_DESPERATION_ABYSS 
 		|| bZoneID == ZONE_HELL_ABYSS 
 		|| bZoneID == ZONE_DRAGON_CAVE 
 		|| bZoneID == ZONE_BATTLE4)
-	for (uint8 j = 0; j < bNumNpc; j++)
+	for (uint8_t j = 0; j < bNumNpc; j++)
 	{
 		CNpc * pNpc = new CNpc();
 
@@ -486,8 +486,8 @@ void CServerDlg::AllNpcInfo()
 	result.SByte();
 	foreach_stlmap (itr, g_arZone)
 	{
-		uint32 nZone = itr->first;
-		uint8 bCount = 0;
+		uint32_t nZone = itr->first;
+		uint8_t bCount = 0;
 
 		result.clear();
 		result << bCount;
@@ -518,13 +518,13 @@ void CServerDlg::AllNpcInfo()
 			m_socketMgr.SendAllCompressed(&result);
 		}
 
-		Packet serverInfo(AG_SERVER_INFO, uint8(nZone));
-		serverInfo << uint16(m_TotalNPC);
+		Packet serverInfo(AG_SERVER_INFO, uint8_t(nZone));
+		serverInfo << uint16_t(m_TotalNPC);
 		m_socketMgr.SendAll(&serverInfo);
 	}
 }
 
-Unit * CServerDlg::GetUnitPtr(uint16 id)
+Unit * CServerDlg::GetUnitPtr(uint16_t id)
 {
 	if (id < NPC_BAND)
 		return GetUserPtr(id);
@@ -532,12 +532,12 @@ Unit * CServerDlg::GetUnitPtr(uint16 id)
 	return GetNpcPtr(id);
 }
 
-CNpc * CServerDlg::GetNpcPtr(uint16 npcId)
+CNpc * CServerDlg::GetNpcPtr(uint16_t npcId)
 {
 	return m_arNpc.GetData(npcId);
 }
 
-CUser* CServerDlg::GetUserPtr(uint16 sessionId)
+CUser* CServerDlg::GetUserPtr(uint16_t sessionId)
 {
 	Guard lock(m_userLock);
 	auto itr = m_pUser.find(sessionId);
@@ -547,7 +547,7 @@ CUser* CServerDlg::GetUserPtr(uint16 sessionId)
 	return itr->second;
 }
 
-bool CServerDlg::SetUserPtr(uint16 sessionId, CUser * pUser)
+bool CServerDlg::SetUserPtr(uint16_t sessionId, CUser * pUser)
 {
 	if (sessionId >= MAX_USER)
 		return false;
@@ -564,7 +564,7 @@ bool CServerDlg::SetUserPtr(uint16 sessionId, CUser * pUser)
 	return true;
 }
 
-void CServerDlg::DeleteUserPtr(uint16 sessionId)
+void CServerDlg::DeleteUserPtr(uint16_t sessionId)
 {
 	Guard lock(m_userLock);
 	auto itr = m_pUser.find(sessionId);
@@ -579,7 +579,7 @@ void CServerDlg::CheckAliveTest()
 {
 	Packet result(AG_CHECK_ALIVE_REQ);
 	SessionMap sessMap = m_socketMgr.GetActiveSessionMap();
-	uint32 count = 0, sessCount = sessMap.size();
+	uint32_t count = 0, sessCount = sessMap.size();
 	foreach (itr, sessMap)
 	{
 		if (itr->second->Send(&result))
@@ -590,7 +590,7 @@ void CServerDlg::CheckAliveTest()
 		DeleteAllUserList();
 }
 
-uint32 THREADCALL CServerDlg::Timer_CheckAliveTest(void * lpParam)
+uint32_t THREADCALL CServerDlg::Timer_CheckAliveTest(void * lpParam)
 {
 	while (g_bRunning)
 	{
@@ -600,7 +600,7 @@ uint32 THREADCALL CServerDlg::Timer_CheckAliveTest(void * lpParam)
 	return 0;
 }
 
-uint32 THREADCALL CServerDlg::Timer_CheckLiveTimes(void * lpParam)
+uint32_t THREADCALL CServerDlg::Timer_CheckLiveTimes(void * lpParam)
 {
 	while (g_bRunning)
 	{
@@ -612,11 +612,11 @@ uint32 THREADCALL CServerDlg::Timer_CheckLiveTimes(void * lpParam)
 
 void CServerDlg::CheckLiveTimes()
 {
-	std::vector<uint16> deleted;
+	std::vector<uint16_t> deleted;
 
 	foreach_stlmap_nolock (itr, m_NpcLiveTimeArray)
 	{
-		if (int32(UNIXTIME) - itr->second->SpawnedTime > itr->second->Duration)
+		if (int32_t(UNIXTIME) - itr->second->SpawnedTime > itr->second->Duration)
 		{
 			CNpc *pNpc = GetNpcPtr(itr->second->Nid);
 
@@ -743,7 +743,7 @@ bool CServerDlg::AddObjectEventNpc(_OBJECT_EVENT* pEvent, MAP * pMap)
 	return true;
 }
 
-CNpc * CServerDlg::SpawnEventNpc(uint16 sSid, bool bIsMonster, uint8 byZone, float fX, float fY, float fZ, uint16 sDuration, uint8 nation, int16 socketID, uint16 nEventRoom)
+CNpc * CServerDlg::SpawnEventNpc(uint16_t sSid, bool bIsMonster, uint8_t byZone, float fX, float fY, float fZ, uint16_t sDuration, uint8_t nation, int16_t socketID, uint16_t nEventRoom)
 {
 	CNpcTable * proto = nullptr;
 	MAP * pZone = GetZoneByID(byZone);
@@ -790,7 +790,7 @@ CNpc * CServerDlg::SpawnEventNpc(uint16 sSid, bool bIsMonster, uint8 byZone, flo
 		pData->SocketID = socketID;
 		pData->Nid = pNpc->m_sNid;
 		pData->Duration = sDuration;
-		pData->SpawnedTime = int32(UNIXTIME);
+		pData->SpawnedTime = int32_t(UNIXTIME);
 		if (!m_NpcLiveTimeArray.PutData(pData->nIndex,pData))
 			delete pData;
 	}
@@ -808,7 +808,7 @@ void CServerDlg::RemoveEventNPC(CNpc * pNpc)
 	itr->second->RemoveNPC(pNpc);
 }
 
-void CServerDlg::NpcUpdate(uint16 sSid, bool bIsMonster, uint8 byGroup, uint16 sPid)
+void CServerDlg::NpcUpdate(uint16_t sSid, bool bIsMonster, uint8_t byGroup, uint16_t sPid)
 {
 	CNpcTable * proto = nullptr;
 
@@ -844,7 +844,7 @@ void CServerDlg::GetServerInfoIni()
 
 void CServerDlg::SendSystemMsg(std::string & pMsg, int type)
 {
-	Packet result(AG_SYSTEM_MSG, uint8(type));
+	Packet result(AG_SYSTEM_MSG, uint8_t(type));
 	result << pMsg;
 	Send(&result);
 }

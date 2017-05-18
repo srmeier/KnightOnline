@@ -59,7 +59,7 @@ bool LoginServer::Startup()
 	return true;
 }
 
-uint32 LoginServer::Timer_UpdateUserCount(void * lpParam)
+uint32_t LoginServer::Timer_UpdateUserCount(void * lpParam)
 {
 	while (g_bRunning)
 	{
@@ -84,7 +84,7 @@ void LoginServer::UpdateServerList()
 	Packet & result = m_serverListPacket;
 
 	result.clear();
-	result << uint8(m_ServerList.size());
+	result << uint8_t(m_ServerList.size());
 	foreach (itr, m_ServerList) 
 	{		
 		_SERVER_INFO *pServer = *itr;
@@ -98,15 +98,15 @@ void LoginServer::UpdateServerList()
 		if (pServer->sUserCount <= pServer->sPlayerCap)
 			result << pServer->sUserCount;
 		else
-			result << int16(-1);
+			result << int16_t(-1);
 #if __VERSION >= 1453
 		result << pServer->sServerID << pServer->sGroupID;
 		result << pServer->sPlayerCap << pServer->sFreePlayerCap;
 
 #if __VERSION < 1600
-		result << uint8(1); // unknown, 1 in 15XX samples, 0 in 18XX+
+		result << uint8_t(1); // unknown, 1 in 15XX samples, 0 in 18XX+
 #else
-		result << uint8(0); 
+		result << uint8_t(0); 
 #endif
 
 		// we read all this stuff from ini, TODO: make this more versatile.
@@ -180,8 +180,8 @@ void LoginServer::GetInfoFromIni()
 	}
 
 	// Read news from INI (max 3 blocks)
-#define BOX_START '#' << uint8(0) << '\n'
-#define LINE_ENDING uint8(0) << '\n'
+#define BOX_START '#' << uint8_t(0) << '\n'
+#define LINE_ENDING uint8_t(0) << '\n'
 #define BOX_END BOX_START << LINE_ENDING
 
 	m_news.Size = 0;

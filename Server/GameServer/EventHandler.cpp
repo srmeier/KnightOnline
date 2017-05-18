@@ -4,10 +4,10 @@
 using std::string;
 using std::vector;
 
-void CGameServerDlg::SendEventRemainingTime(bool bSendAll, CUser *pUser, uint8 ZoneID)
+void CGameServerDlg::SendEventRemainingTime(bool bSendAll, CUser *pUser, uint8_t ZoneID)
 {
-	Packet result(WIZ_BIFROST,uint8(BIFROST_EVENT));
-	uint16 nRemainingTime = 0;
+	Packet result(WIZ_BIFROST,uint8_t(BIFROST_EVENT));
+	uint16_t nRemainingTime = 0;
 
 	if (ZoneID == ZONE_BATTLE4)
 		nRemainingTime = m_byBattleRemainingTime / 2;
@@ -78,7 +78,7 @@ void CUser::CastleSiegeWarProcess(CUser * pUser)
 	g_pMain->KickOutZoneUsers(ZONE_DELOS, ZONE_DELOS);
 	if (pKnightSiegeWar != nullptr)
 	{
-	Packet result(WIZ_SIEGE, uint8(2));
+	Packet result(WIZ_SIEGE, uint8_t(2));
 	result << pKnights->GetID() << pKnights->m_sMarkVersion;
 	g_pMain->Send_Zone(&result,ZONE_DELOS);
 	}
@@ -86,7 +86,7 @@ void CUser::CastleSiegeWarProcess(CUser * pUser)
 
 void CUser::TempleProcess(Packet &pkt )
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 
 	switch (opcode)
 	{
@@ -111,11 +111,11 @@ void CUser::MonsterStoneProcess()
 	}
 } 
 
-void CUser::TempleOperations(uint8 bType)
+void CUser::TempleOperations(uint8_t bType)
 {
-	uint16 nActiveEvent = (uint16)g_pMain->pTempleEvent.ActiveEvent;
+	uint16_t nActiveEvent = (uint16_t)g_pMain->pTempleEvent.ActiveEvent;
 
-	uint8 bResult = 1;
+	uint8_t bResult = 1;
 	Packet result(WIZ_EVENT);
 
 	if(bType == TEMPLE_EVENT_JOIN && !isEventUser())
@@ -194,7 +194,7 @@ void CGameServerDlg::RemoveEventUser(CUser *pUser)
 	pUser->m_bEventRoom = 0;
 }
 
-void CGameServerDlg::UpdateEventUser(CUser *pUser, uint16 nEventRoom)
+void CGameServerDlg::UpdateEventUser(CUser *pUser, uint16_t nEventRoom)
 {
 	if (pUser == nullptr)
 	{
@@ -219,7 +219,7 @@ void CGameServerDlg::SetEventUser(CUser *pUser)
 		return;
 	}
 
-	uint8 nMaxUserCount = 0;
+	uint8_t nMaxUserCount = 0;
 
 	switch (g_pMain->pTempleEvent.ActiveEvent)
 	{
@@ -251,7 +251,7 @@ bool CUser::isEventUser()
 	return false;
 }
 
-uint8 CUser::GetMonsterChallengeTime() 
+uint8_t CUser::GetMonsterChallengeTime() 
 { 
 	if (g_pMain->m_bForgettenTempleIsActive
 		&& g_pMain->m_nForgettenTempleLevelMin != 0 
@@ -264,4 +264,4 @@ uint8 CUser::GetMonsterChallengeTime()
 	return 0;
 }
 
-uint8 CUser::GetMonsterChallengeUserCount() { return g_pMain->m_nForgettenTempleUsers.size(); }
+uint8_t CUser::GetMonsterChallengeUserCount() { return g_pMain->m_nForgettenTempleUsers.size(); }

@@ -19,11 +19,11 @@ enum RentalType
 struct _USER_RENTAL_ITEM
 {
 	std::string strUserID;
-	uint64 nSerialNum;
-	uint32 nRentalIndex, nItemID, nRentalMoney;
-	uint16 sDurability, sRentalTime;
-	int16 sMinutesRemaining;
-	uint8 byRentalType, byRegType;
+	uint64_t nSerialNum;
+	uint32_t nRentalIndex, nItemID, nRentalMoney;
+	uint16_t sDurability, sRentalTime;
+	int16_t sMinutesRemaining;
+	uint8_t byRentalType, byRegType;
 	char szTimeRental[30];
 
 	_USER_RENTAL_ITEM()
@@ -32,7 +32,7 @@ struct _USER_RENTAL_ITEM
 	}
 };
 
-typedef std::map<uint64, _USER_RENTAL_ITEM *> UserRentalMap;
+typedef std::map<uint64_t, _USER_RENTAL_ITEM *> UserRentalMap;
 
 class Packet;
 class CUser;
@@ -53,15 +53,15 @@ public:
 
 	void ReportSQLError(OdbcError *pError);
 
-	int8 AccountLogin(std::string & strAccountID, std::string & strPasswd);
-	uint8 NationSelect(std::string & strAccountID, uint8 bNation);
+	int8_t AccountLogin(std::string & strAccountID, std::string & strPasswd);
+	uint8_t NationSelect(std::string & strAccountID, uint8_t bNation);
 	bool GetAllCharID(std::string & strAccountID, std::string & strCharID1, std::string & strCharID2, std::string & strCharID3);
 	void LoadCharInfo(std::string & strCharID, ByteBuffer & result);
 
-	int8 ChangeHair(std::string & strAccountID, std::string & strCharID, uint8 bOpcode, uint8 bFace, uint8 nHair);
+	int8_t ChangeHair(std::string & strAccountID, std::string & strCharID, uint8_t bOpcode, uint8_t bFace, uint8_t nHair);
 
-	int8 CreateNewChar(std::string & strAccountID, int index, std::string & strCharID, uint8 bRace, uint16 sClass, uint8 nHair, uint8 bFace, uint8 bStr, uint8 bSta, uint8 bDex, uint8 bInt, uint8 bCha);
-	int8 DeleteChar(std::string & strAccountID, int index, std::string & strCharID, std::string & strSocNo);
+	int8_t CreateNewChar(std::string & strAccountID, int index, std::string & strCharID, uint8_t bRace, uint16_t sClass, uint8_t nHair, uint8_t bFace, uint8_t bStr, uint8_t bSta, uint8_t bDex, uint8_t bInt, uint8_t bCha);
+	int8_t DeleteChar(std::string & strAccountID, int index, std::string & strCharID, std::string & strSocNo);
 
 	void LoadRentalData(std::string & strAccountID, std::string & strCharID, UserRentalMap & rentalData);
 	void LoadItemSealData(std::string & strAccountID, std::string & strCharID, UserItemSealMap & itemSealData);
@@ -70,78 +70,78 @@ public:
 	bool LoadWarehouseData(std::string & strAccountID, CUser *pUser);
 	bool LoadPremiumServiceUser(std::string & strAccountID, CUser *pUser);
 	bool LoadSavedMagic(CUser *pUser);
-	bool SetLogInInfo(std::string & strAccountID, std::string & strCharID, std::string & strServerIP, short sServerNo, std::string & strClientIP, uint8 bInit);
+	bool SetLogInInfo(std::string & strAccountID, std::string & strCharID, std::string & strServerIP, int16_t sServerNo, std::string & strClientIP, uint8_t bInit);
 	bool SavePremiumServiceUser(CUser *pUser);
 
 	bool LoadWebItemMall(std::vector<_ITEM_DATA> & itemList, CUser *pUser);
 
 	bool LoadSkillShortcut(Packet & result, CUser *pUser);
-	void SaveSkillShortcut(short sCount, char *buff, CUser *pUser);
+	void SaveSkillShortcut(int16_t sCount, char *buff, CUser *pUser);
 
 	void RequestFriendList(std::vector<std::string> & friendList, CUser *pUser);
-	FriendAddResult AddFriend(short sid, short tid);
+	FriendAddResult AddFriend(int16_t sid, int16_t tid);
 	FriendRemoveResult RemoveFriend(std::string & strCharID, CUser *pUser);
 
 	bool UpdateUser(std::string & strCharID, UserUpdateType type, CUser *pUser);
 	bool UpdateWarehouseData(std::string & strAccountID, UserUpdateType type, CUser *pUser);
 	bool UpdateSavedMagic(CUser *pUser);
-	uint8 SealItem(std::string strSealPasswd, uint64 nItemSerial, uint32 nItemID, uint8 bSealType, CUser *pUser);
+	uint8_t SealItem(std::string strSealPasswd, uint64_t nItemSerial, uint32_t nItemID, uint8_t bSealType, CUser *pUser);
 
-	int8 CreateKnights(uint16 sClanID, uint8 bNation, std::string & strKnightsName, std::string & strChief, uint8 bFlag = 1);
-	int UpdateKnights(uint8 bType, std::string & strCharID, uint16 sClanID, uint8 bDomination);
-	int DeleteKnights(uint16 sClanID);
-	uint16 LoadKnightsAllMembers(uint16 sClanID, Packet & result);
-	bool LoadKnightsInfo(uint16 sClanID, uint8 & bNation, std::string & strKnightsName, uint16 & sMembers, uint32 & nPoints, uint8 & bRank);
-	int8 CreateAlliance(uint8 byType, uint16 shAlliancIndex, uint16 shKnightsIndex, uint8  byEmptyIndex, uint8 bySiegeFlag); 
-	int8 InsertAlliance(uint8 byType, uint16 shAlliancIndex, uint16 shKnightsIndex, uint8  byEmptyIndex, uint8 bySiegeFlag); 
-	int8 RemoveAlliance(uint8 byType, uint16 shAlliancIndex, uint16 shKnightsIndex, uint8  byEmptyIndex, uint8 bySiegeFlag); 
-	int8 DestoryAlliance(uint8 byType, uint16 shAlliancIndex, uint16 shKnightsIndex, uint8  byEmptyIndex, uint8 bySiegeFlag); 
+	int8_t CreateKnights(uint16_t sClanID, uint8_t bNation, std::string & strKnightsName, std::string & strChief, uint8_t bFlag = 1);
+	int UpdateKnights(uint8_t bType, std::string & strCharID, uint16_t sClanID, uint8_t bDomination);
+	int DeleteKnights(uint16_t sClanID);
+	uint16_t LoadKnightsAllMembers(uint16_t sClanID, Packet & result);
+	bool LoadKnightsInfo(uint16_t sClanID, uint8_t & bNation, std::string & strKnightsName, uint16_t & sMembers, uint32_t & nPoints, uint8_t & bRank);
+	int8_t CreateAlliance(uint8_t byType, uint16_t shAlliancIndex, uint16_t shKnightsIndex, uint8_t  byEmptyIndex, uint8_t bySiegeFlag); 
+	int8_t InsertAlliance(uint8_t byType, uint16_t shAlliancIndex, uint16_t shKnightsIndex, uint8_t  byEmptyIndex, uint8_t bySiegeFlag); 
+	int8_t RemoveAlliance(uint8_t byType, uint16_t shAlliancIndex, uint16_t shKnightsIndex, uint8_t  byEmptyIndex, uint8_t bySiegeFlag); 
+	int8_t DestoryAlliance(uint8_t byType, uint16_t shAlliancIndex, uint16_t shKnightsIndex, uint8_t  byEmptyIndex, uint8_t bySiegeFlag); 
 	void LoadKnightsAllList();
-	bool UpdateClanSymbol(uint16 sClanID, uint16 sSymbolSize, char *clanSymbol);
-	bool DonateClanPoints(CUser * pUser, uint32 amountNP);
-	void RefundNP(std::string & strUserID, uint32 nRefundNP);
-	void UpdateUserAuthority(std::string & strUserID, uint16 nAuthority);
-	void UpdateClanFund(uint16 sClanID, uint32 nClanPointFund);
-	void UpdateClanNotice(uint16 sClanID, std::string & strClanNotice);
+	bool UpdateClanSymbol(uint16_t sClanID, uint16_t sSymbolSize, char *clanSymbol);
+	bool DonateClanPoints(CUser * pUser, uint32_t amountNP);
+	void RefundNP(std::string & strUserID, uint32_t nRefundNP);
+	void UpdateUserAuthority(std::string & strUserID, uint16_t nAuthority);
+	void UpdateClanFund(uint16_t sClanID, uint32_t nClanPointFund);
+	void UpdateClanNotice(uint16_t sClanID, std::string & strClanNotice);
 	NameChangeOpcode UpdateCharacterName(std::string & strAccountID, std::string & strUserID, std::string & strNewUserID);
-	void UpdateCape(uint16 sClanID, uint16 sCapeID, uint8 r, uint8 g, uint8 b);
-	void UpdateClanGrade(uint16 sClanID, uint8 byFlag, uint16 sCapeID);
-	void UpdateAccountKnightCash(std::string & strAccountID, uint32 KnightCash = 0);
+	void UpdateCape(uint16_t sClanID, uint16_t sCapeID, uint8_t r, uint8_t g, uint8_t b);
+	void UpdateClanGrade(uint16_t sClanID, uint8_t byFlag, uint16_t sCapeID);
+	void UpdateAccountKnightCash(std::string & strAccountID, uint32_t KnightCash = 0);
 
-	void UpdateBattleEvent(std::string & strCharID, uint8 bNation);
+	void UpdateBattleEvent(std::string & strCharID, uint8_t bNation);
 	void AccountLogout(std::string & strAccountID);
 
 	void UpdateConCurrentUserCount(int nServerNo, int nZoneNo, int nCount);
 
-	uint8 GetUnreadLetterCount(std::string & strCharID);
+	uint8_t GetUnreadLetterCount(std::string & strCharID);
 	bool GetLetterList(std::string & strCharID, Packet & result, bool bNewLettersOnly = true);
-	int8 SendLetter(std::string & strSenderID, std::string & strRecipientID, std::string & strSubject, std::string & strMessage, uint8 bType, _ITEM_DATA * pItem, int32 nCoins);
-	bool ReadLetter(std::string & strCharID, uint32 nLetterID, std::string & strMessage);
-	int8 GetItemFromLetter(std::string & strCharID, uint32 nLetterID, uint32 & nItemID, uint16 & sCount, uint16 & sDurability, uint32 & nCoins, uint64 & nSerialNum);
-	void DeleteLetter(std::string & strCharID, uint32 nLetterID);
+	int8_t SendLetter(std::string & strSenderID, std::string & strRecipientID, std::string & strSubject, std::string & strMessage, uint8_t bType, _ITEM_DATA * pItem, int32_t nCoins);
+	bool ReadLetter(std::string & strCharID, uint32_t nLetterID, std::string & strMessage);
+	int8_t GetItemFromLetter(std::string & strCharID, uint32_t nLetterID, uint32_t & nItemID, uint16_t & sCount, uint16_t & sDurability, uint32_t & nCoins, uint64_t & nSerialNum);
+	void DeleteLetter(std::string & strCharID, uint32_t nLetterID);
 
-	void UpdateElectionStatus(uint8 byType, uint8 byNation);
-	void UpdateElectionList(uint8 byDBType, uint8 byType, uint8 byNation, uint16 sKnights, uint32 nAmount, std::string & strNominee, CUser * pUser);
-	int16 UpdateElectionProc(CUser * pUser);
-	int16 UpdateCandidacyRecommend(std::string & strNominator, std::string & strNominee, uint8 byNation);
+	void UpdateElectionStatus(uint8_t byType, uint8_t byNation);
+	void UpdateElectionList(uint8_t byDBType, uint8_t byType, uint8_t byNation, uint16_t sKnights, uint32_t nAmount, std::string & strNominee, CUser * pUser);
+	int16_t UpdateElectionProc(CUser * pUser);
+	int16_t UpdateCandidacyRecommend(std::string & strNominator, std::string & strNominee, uint8_t byNation);
 
-	void SendUDP_ElectionStatus(uint8 m_byType);
+	void SendUDP_ElectionStatus(uint8_t m_byType);
 
-	void UpdateCandidacyNoticeBoard(std::string & strCharID, uint8 byNation, std::string & strNotice);
-	void UpdateNoahOrExpEvent(uint8 byType, uint8 byNation, uint8 byAmount, uint8 byDay, uint8 byHour, uint8 byMinute, uint16 sDuration);
-	void InsertPrizeEvent(uint8 byType, uint8 byNation, uint32 nCoins, std::string & strCharID);
-	void InsertTaxEvent(uint8 KingNationTax, uint8 Nation, uint32 TerritoryTax = 0);
-	void InsertTaxUpEvent(uint8 Nation, uint32 TerritoryTax);
+	void UpdateCandidacyNoticeBoard(std::string & strCharID, uint8_t byNation, std::string & strNotice);
+	void UpdateNoahOrExpEvent(uint8_t byType, uint8_t byNation, uint8_t byAmount, uint8_t byDay, uint8_t byHour, uint8_t byMinute, uint16_t sDuration);
+	void InsertPrizeEvent(uint8_t byType, uint8_t byNation, uint32_t nCoins, std::string & strCharID);
+	void InsertTaxEvent(uint8_t KingNationTax, uint8_t Nation, uint32_t TerritoryTax = 0);
+	void InsertTaxUpEvent(uint8_t Nation, uint32_t TerritoryTax);
 	
 	void ResetLoyaltyMonthly();
 	void ClearRemainUsers();
 	void InsertUserDailyOp(_USER_DAILY_OP * pUserDailyOp);
-	void UpdateUserDailyOp(std::string strUserId, uint8 type, int32 sUnixTime);
+	void UpdateUserDailyOp(std::string strUserId, uint8_t type, int32_t sUnixTime);
 	void UpdateRanks();
-	void UpdateSiege(int16 m_sCastleIndex, int16 m_sMasterKnights, int16 m_bySiegeType, int16 m_byWarDay, int16 m_byWarTime, int16 m_byWarMinute);
-	void UpdateSiegeTax(uint8 Zone, int16 ZoneTarrif);
+	void UpdateSiege(int16_t m_sCastleIndex, int16_t m_sMasterKnights, int16_t m_bySiegeType, int16_t m_byWarDay, int16_t m_byWarTime, int16_t m_byWarMinute);
+	void UpdateSiegeTax(uint8_t Zone, int16_t ZoneTarrif);
 
-	int8 NationTransfer(std::string strAccountID);
+	int8_t NationTransfer(std::string strAccountID);
 
 	~CDBAgent();
 

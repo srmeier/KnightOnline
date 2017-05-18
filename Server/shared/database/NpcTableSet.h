@@ -14,7 +14,7 @@ public:
 	virtual bool Fetch()
 	{
 		CNpcTable *pData = new CNpcTable();
-		uint16 sBulk;
+		uint16_t sBulk;
 
 		int i = 1;
 		_dbCommand->FetchUInt16(i++, pData->m_sSid);

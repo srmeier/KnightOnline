@@ -10,7 +10,7 @@
 #pragma once
 
 template <class T>
-uint32 THREADCALL ListenSocketThread(void * lpParam)
+uint32_t THREADCALL ListenSocketThread(void * lpParam)
 {
 	ListenSocket<T> * ls = (ListenSocket<T> *)lpParam;
 	return ls->runnable() ? 0 : 1;
@@ -20,7 +20,7 @@ template<class T>
 class ListenSocket
 {
 public:
-	ListenSocket(SocketMgr *socketMgr, const char * ListenAddress, uint32 Port) : m_threadRunning(false)
+	ListenSocket(SocketMgr *socketMgr, const char * ListenAddress, uint32_t Port) : m_threadRunning(false)
 	{
 		m_socket = WSASocket(AF_INET, SOCK_STREAM, 0, nullptr, 0, WSA_FLAG_OVERLAPPED);
 
@@ -73,7 +73,7 @@ public:
 	bool runnable()
 	{
 		struct sockaddr_in m_tempAddress;
-		uint32 len = sizeof(sockaddr_in);
+		uint32_t len = sizeof(sockaddr_in);
 		m_threadRunning = true;
 
 		while (m_opened && m_threadRunning)

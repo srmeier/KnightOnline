@@ -2,96 +2,96 @@
 
 struct _MAGIC_TABLE
 {
-	uint32	iNum;
-	uint32	nBeforeAction;
-	uint8	bTargetAction;
-	uint8	bSelfEffect;
-	uint16	bFlyingEffect;
-	uint16	iTargetEffect;
-	uint8	bMoral;
-	uint16	sSkillLevel;	
-	uint16	sSkill;
-	uint16	sMsp;
-	uint16	sHP;
-	uint8	bItemGroup;
-	uint32	iUseItem;
-	uint8	bCastTime;
-	uint16	sReCastTime;
-	uint8	bSuccessRate;
-	uint8	bType[2];
-	uint16	sRange;
-	uint8	sUseStanding;
-	uint16	sEtc;
+	uint32_t	iNum;
+	uint32_t	nBeforeAction;
+	uint8_t	bTargetAction;
+	uint8_t	bSelfEffect;
+	uint16_t	bFlyingEffect;
+	uint16_t	iTargetEffect;
+	uint8_t	bMoral;
+	uint16_t	sSkillLevel;	
+	uint16_t	sSkill;
+	uint16_t	sMsp;
+	uint16_t	sHP;
+	uint8_t	bItemGroup;
+	uint32_t	iUseItem;
+	uint8_t	bCastTime;
+	uint16_t	sReCastTime;
+	uint8_t	bSuccessRate;
+	uint8_t	bType[2];
+	uint16_t	sRange;
+	uint8_t	sUseStanding;
+	uint16_t	sEtc;
 };
 
 struct _MAGIC_TYPE1
 {
-	uint32	iNum;
-	uint8	bHitType;
-	uint16	sHitRate;
-	uint16	sHit;
-	uint16	sAddDamage;
-	uint8	bDelay;
-	uint8	bComboType;
-	uint8	bComboCount;
-	uint16	sComboDamage;
-	uint16	sRange;
+	uint32_t	iNum;
+	uint8_t	bHitType;
+	uint16_t	sHitRate;
+	uint16_t	sHit;
+	uint16_t	sAddDamage;
+	uint8_t	bDelay;
+	uint8_t	bComboType;
+	uint8_t	bComboCount;
+	uint16_t	sComboDamage;
+	uint16_t	sRange;
 };
 
 struct _MAGIC_TYPE2
 {
-	uint32	iNum;
-	uint8	bHitType;
-	uint16	sHitRate;
-	uint16	sAddDamage;
-	uint16	sAddRange;
-	uint8	bNeedArrow;
+	uint32_t	iNum;
+	uint8_t	bHitType;
+	uint16_t	sHitRate;
+	uint16_t	sAddDamage;
+	uint16_t	sAddRange;
+	uint8_t	bNeedArrow;
 };
 
 struct _MAGIC_TYPE3
 {
-	uint32	iNum;
-	uint8	bDirectType;
-	uint16	sAngle;
-	int16	sFirstDamage;
-	int16	sEndDamage;
-	int16	sTimeDamage;
-	uint8	bRadius;
-	uint8	bDuration;  // duration, in seconds
-	uint8	bAttribute;
+	uint32_t	iNum;
+	uint8_t	bDirectType;
+	uint16_t	sAngle;
+	int16_t	sFirstDamage;
+	int16_t	sEndDamage;
+	int16_t	sTimeDamage;
+	uint8_t	bRadius;
+	uint8_t	bDuration;  // duration, in seconds
+	uint8_t	bAttribute;
 };
 
 struct _MAGIC_TYPE4
 {
-	uint32	iNum;
-	uint8	bBuffType;
-	uint8	bRadius;
-	uint16	sDuration;  // duration, in seconds
-	uint8	bAttackSpeed;
-	uint8	bSpeed;
-	int16	sAC;
-	uint16	sACPct;
-	uint8	bAttack;
-	uint8	bMagicAttack;
-	uint16	sMaxHP;
-	uint16	sMaxHPPct;
-	uint16	sMaxMP;
-	uint16	sMaxMPPct;
-	uint8	bHitRate;
-	uint16	sAvoidRate;
-	int8	bStr;
-	int8	bSta;
-	int8	bDex;
-	int8	bIntel;
-	int8	bCha;
-	uint8	bFireR;
-	uint8	bColdR;
-	uint8	bLightningR;
-	uint8	bMagicR;
-	uint8	bDiseaseR;
-	uint8	bPoisonR;
-	uint16	sExpPct;
-	uint16	sSpecialAmount;
+	uint32_t	iNum;
+	uint8_t	bBuffType;
+	uint8_t	bRadius;
+	uint16_t	sDuration;  // duration, in seconds
+	uint8_t	bAttackSpeed;
+	uint8_t	bSpeed;
+	int16_t	sAC;
+	uint16_t	sACPct;
+	uint8_t	bAttack;
+	uint8_t	bMagicAttack;
+	uint16_t	sMaxHP;
+	uint16_t	sMaxHPPct;
+	uint16_t	sMaxMP;
+	uint16_t	sMaxMPPct;
+	uint8_t	bHitRate;
+	uint16_t	sAvoidRate;
+	int8_t	bStr;
+	int8_t	bSta;
+	int8_t	bDex;
+	int8_t	bIntel;
+	int8_t	bCha;
+	uint8_t	bFireR;
+	uint8_t	bColdR;
+	uint8_t	bLightningR;
+	uint8_t	bMagicR;
+	uint8_t	bDiseaseR;
+	uint8_t	bPoisonR;
+	uint16_t	sExpPct;
+	uint16_t	sSpecialAmount;
 
 	bool	bIsBuff; // true if buff, false if debuff
 
@@ -101,38 +101,38 @@ struct _MAGIC_TYPE4
 
 struct _MAGIC_TYPE5
 {
-	uint32	iNum;
-	uint8	bType;
-	uint8	bExpRecover;
-	uint16	sNeedStone;
+	uint32_t	iNum;
+	uint8_t	bType;
+	uint8_t	bExpRecover;
+	uint16_t	sNeedStone;
 };
 
 struct _MAGIC_TYPE6
 {
-	uint32	iNum;
-	uint16	sSize;
-	uint16	sTransformID;
-	uint16	sDuration; // duration, in seconds
-	uint16	sMaxHp;
-	uint16	sMaxMp;
-	uint8	bSpeed;
-	uint16	sAttackSpeed;
-	uint16	sTotalHit;
-	uint16	sTotalAc;
-	uint16	sTotalHitRate;
-	uint16	sTotalEvasionRate;
-	uint16	sTotalFireR;
-	uint16	sTotalColdR;
-	uint16	sTotalLightningR;
-	uint16	sTotalMagicR;
-	uint16	sTotalDiseaseR;
-	uint16	sTotalPoisonR;
-	uint16	sClass;
-	uint8	bUserSkillUse;
-	uint8	bNeedItem;
-	uint8	bSkillSuccessRate;
-	uint8	bMonsterFriendly;
-	uint8	bNation;
+	uint32_t	iNum;
+	uint16_t	sSize;
+	uint16_t	sTransformID;
+	uint16_t	sDuration; // duration, in seconds
+	uint16_t	sMaxHp;
+	uint16_t	sMaxMp;
+	uint8_t	bSpeed;
+	uint16_t	sAttackSpeed;
+	uint16_t	sTotalHit;
+	uint16_t	sTotalAc;
+	uint16_t	sTotalHitRate;
+	uint16_t	sTotalEvasionRate;
+	uint16_t	sTotalFireR;
+	uint16_t	sTotalColdR;
+	uint16_t	sTotalLightningR;
+	uint16_t	sTotalMagicR;
+	uint16_t	sTotalDiseaseR;
+	uint16_t	sTotalPoisonR;
+	uint16_t	sClass;
+	uint8_t	bUserSkillUse;
+	uint8_t	bNeedItem;
+	uint8_t	bSkillSuccessRate;
+	uint8_t	bMonsterFriendly;
+	uint8_t	bNation;
 };
 
 
@@ -147,65 +147,65 @@ enum TransformationSkillUse
 
 struct _MAGIC_TYPE7
 {
-	uint32	iNum;
-	uint8	bValidGroup;
-	uint8	bNationChange;
-	uint16	sMonsterNum;
-	uint8	bTargetChange;
-	uint8	bStateChange;
-	uint8	bRadius;
-	uint16	sHitRate;
-	uint16	sDuration;
-	uint16	sDamage;
-	uint8	bVision;
-	uint32	nNeedItem;
+	uint32_t	iNum;
+	uint8_t	bValidGroup;
+	uint8_t	bNationChange;
+	uint16_t	sMonsterNum;
+	uint8_t	bTargetChange;
+	uint8_t	bStateChange;
+	uint8_t	bRadius;
+	uint16_t	sHitRate;
+	uint16_t	sDuration;
+	uint16_t	sDamage;
+	uint8_t	bVision;
+	uint32_t	nNeedItem;
 };
 
 struct _MAGIC_TYPE8
 {
-	uint32	iNum;
-	uint8	bTarget;
-	uint16	sRadius;
-	uint8	bWarpType;
-	uint16	sExpRecover;
-	uint16	sKickDistance; // used exclusively by soccer ball-control skills.
+	uint32_t	iNum;
+	uint8_t	bTarget;
+	uint16_t	sRadius;
+	uint8_t	bWarpType;
+	uint16_t	sExpRecover;
+	uint16_t	sKickDistance; // used exclusively by soccer ball-control skills.
 };
 
 struct _MAGIC_TYPE9
 {
-	uint32	iNum;
-	uint8	bValidGroup;
-	uint8	bNationChange;
-	uint16	sMonsterNum;
-	uint8	bTargetChange;
-	uint8	bStateChange;
-	uint16	sRadius;
-	uint16	sHitRate;
-	uint16	sDuration;
-	uint16	sDamage;
-	uint16	sVision;
-	uint32	nNeedItem;
+	uint32_t	iNum;
+	uint8_t	bValidGroup;
+	uint8_t	bNationChange;
+	uint16_t	sMonsterNum;
+	uint8_t	bTargetChange;
+	uint8_t	bStateChange;
+	uint16_t	sRadius;
+	uint16_t	sHitRate;
+	uint16_t	sDuration;
+	uint16_t	sDamage;
+	uint16_t	sVision;
+	uint32_t	nNeedItem;
 };
 
 struct _SERVER_RESOURCE
 {
-	uint32 nResourceID;
+	uint32_t nResourceID;
 	std::string strResource;
 };
 
 struct _OBJECT_EVENT
 {
 	int nIndex;
-	uint16 sZoneID;
+	uint16_t sZoneID;
 	int sBelong;
-	short sIndex;
-	short sType;
-	short sControlNpcID;
-	short sStatus;
+	int16_t sIndex;
+	int16_t sType;
+	int16_t sControlNpcID;
+	int16_t sStatus;
 	float fPosX;
 	float fPosY;
 	float fPosZ;
-	uint8 byLife;
+	uint8_t byLife;
 };
 
 #pragma pack(push, 1)
@@ -221,19 +221,19 @@ struct _REGENE_EVENT
 
 struct _WARP_INFO
 {
-	short	sWarpID;
+	int16_t	sWarpID;
 	char	strWarpName[32];
 	char	strAnnounce[256];
-	uint16	sUnk0; // padding?
-	uint32	dwPay;
-	short	sZone;
-	uint16	sUnk1; // padding?
+	uint16_t	sUnk0; // padding?
+	uint32_t	dwPay;
+	int16_t	sZone;
+	uint16_t	sUnk1; // padding?
 	float	fX;
 	float	fY;
 	float	fZ;
 	float	fR;
-	short	sNation;
-	uint16	sUnk2; // padding?
+	int16_t	sNation;
+	uint16_t	sUnk2; // padding?
 
 	_WARP_INFO() { memset(this, 0, sizeof(_WARP_INFO)); };
 };
@@ -241,63 +241,63 @@ struct _WARP_INFO
 
 struct _ZONE_INFO
 {
-	uint16	m_nServerNo;
-	uint16	m_nZoneNumber;
+	uint16_t	m_nServerNo;
+	uint16_t	m_nZoneNumber;
 	std::string	m_MapName;
 
 #if defined(AI_SERVER)
-	uint8	m_byRoomEvent;
+	uint8_t	m_byRoomEvent;
 #else
 	float m_fInitX, m_fInitY, m_fInitZ;
-	uint8 m_bType, isAttackZone;
+	uint8_t m_bType, isAttackZone;
 #endif
 };
 
 struct _MONSTER_SUMMON_LIST
 {
-	uint16	sSid;
-	uint16	sLevel;
-	uint16	sProbability;
-	uint8	bType;
+	uint16_t	sSid;
+	uint16_t	sLevel;
+	uint16_t	sProbability;
+	uint8_t	bType;
 };
 
 struct _MONSTER_SUMMON_LIST_ZONE
 {
-	uint32	nIndex;
-	uint16	ZoneID;
-	uint16	sSid;
-	uint8	byFamily;
+	uint32_t	nIndex;
+	uint16_t	ZoneID;
+	uint16_t	sSid;
+	uint8_t	byFamily;
 };
 
 struct _MONSTER_RESPAWN_LIST
 {
-	uint16	sIndex;
-	uint16	sSid;
-	uint16	sCount;
+	uint16_t	sIndex;
+	uint16_t	sSid;
+	uint16_t	sCount;
 };
 
 struct _MONSTER_RESPAWN_LIST_INFORMATION
 {
-	uint16 sIndex;
-	uint16 sSid;
-	uint8 ZoneID;
-	uint16 X;
-	uint16 Y;
-	uint16 Z;
-	uint16	sCount;
-	uint8 bRadius;
+	uint16_t sIndex;
+	uint16_t sSid;
+	uint8_t ZoneID;
+	uint16_t X;
+	uint16_t Y;
+	uint16_t Z;
+	uint16_t	sCount;
+	uint8_t bRadius;
 };
 
 #define MAX_PARTY_USERS		8
 struct	_PARTY_GROUP
 {
-	WORD	wIndex;
-	short	uid		[MAX_PARTY_USERS];
+	uint16_t	wIndex;
+	int16_t	uid		[MAX_PARTY_USERS];
 
 #ifdef GAMESERVER
-	uint8	bItemRouting;
+	uint8_t	bItemRouting;
 	std::string	WantedMessage;
-	uint16	sWantedClass;
+	uint16_t	sWantedClass;
 #endif
 
 	_PARTY_GROUP()
@@ -313,8 +313,8 @@ struct	_PARTY_GROUP
 
 struct _BUFF_TYPE4_INFO
 {
-	uint32	m_nSkillID;
-	uint8	m_bBuffType;
+	uint32_t	m_nSkillID;
+	uint8_t	m_bBuffType;
 	bool	m_bIsBuff; // Is it a buff or a debuff?
 	bool	m_bDurationExtended;
 	time_t	m_tEndTime;
@@ -330,10 +330,10 @@ struct _BUFF_TYPE4_INFO
 
 struct _BUFF_TYPE9_INFO
 {
-	uint32	nSkillID;
+	uint32_t	nSkillID;
 	time_t	tEndTime;
 
-	_BUFF_TYPE9_INFO(uint32 nSkillID, time_t tEndTime)
+	_BUFF_TYPE9_INFO(uint32_t nSkillID, time_t tEndTime)
 	{
 		this->nSkillID = nSkillID;
 		this->tEndTime = tEndTime;

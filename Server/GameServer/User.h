@@ -10,12 +10,12 @@ struct _KNIGHTS_USER;
 struct _EXCHANGE_ITEM;
 struct _USER_SEAL_ITEM;
 
-typedef std::map<uint64, _USER_SEAL_ITEM*>	UserItemSealMap;
+typedef std::map<uint64_t, _USER_SEAL_ITEM*>	UserItemSealMap;
 typedef	std::list<_EXCHANGE_ITEM*>			ItemList;
-typedef	std::map<uint32, time_t>			SkillCooldownList;
-typedef	std::map<uint8, time_t>				MagicTypeCooldownList;
-typedef	std::map<uint16, time_t>			RHitRepeatList; 
-typedef	std::map<uint32, time_t>			UserSavedMagicMap;
+typedef	std::map<uint32_t, time_t>			SkillCooldownList;
+typedef	std::map<uint8_t, time_t>				MagicTypeCooldownList;
+typedef	std::map<uint16_t, time_t>			RHitRepeatList; 
+typedef	std::map<uint32_t, time_t>			UserSavedMagicMap;
 
 // Time (in seconds) between each save request (3 min).
 #define PLAYER_SAVE_INTERVAL			(3 * 60)
@@ -92,10 +92,10 @@ enum TeamColour
 
 struct Arrow
 {
-	uint32 nSkillID;
+	uint32_t nSkillID;
 	time_t tFlyingTime;
 
-	Arrow(uint32 nSkillID, time_t tFlyingTime) 
+	Arrow(uint32_t nSkillID, time_t tFlyingTime) 
 	{
 		this->nSkillID = nSkillID;
 		this->tFlyingTime = tFlyingTime;
@@ -110,7 +110,7 @@ class CGameServerDlg;
 class CUser : public Unit, public KOSocket
 {
 public:
-	virtual uint16 GetID() { return GetSocketID(); }
+	virtual uint16_t GetID() { return GetSocketID(); }
 
 	std::string & GetAccountName() { return m_strAccountID; }
 	virtual std::string & GetName() { return m_strUserID; }
@@ -119,60 +119,60 @@ public:
 
 	std::string	m_strAccountID, m_strUserID;
 
-	uint8	m_bRace;
-	uint16	m_sClass;
+	uint8_t	m_bRace;
+	uint16_t	m_sClass;
 
-	uint8	m_nHair;
+	uint8_t	m_nHair;
 
-	uint8	m_bRank;
-	uint8	m_bTitle;
-	int64	m_iExp;	
-	uint32	m_iLoyalty, m_iLoyaltyMonthly;
-	uint32	m_iMannerPoint;
-	uint8	m_bFace;
-	uint8	m_bCity;
-	int16	m_bKnights;	
-	uint8	m_bFame;
-	int16	m_sHp, m_sMp, m_sSp;
-	uint8	m_bStats[STAT_COUNT];
-	uint8	m_bAuthority;
-	int16	m_sPoints; // this is just to shut the compiler up
-	uint32	m_iGold, m_iBank;
-	int16	m_sBind;
+	uint8_t	m_bRank;
+	uint8_t	m_bTitle;
+	int64_t	m_iExp;	
+	uint32_t	m_iLoyalty, m_iLoyaltyMonthly;
+	uint32_t	m_iMannerPoint;
+	uint8_t	m_bFace;
+	uint8_t	m_bCity;
+	int16_t	m_bKnights;	
+	uint8_t	m_bFame;
+	int16_t	m_sHp, m_sMp, m_sSp;
+	uint8_t	m_bStats[STAT_COUNT];
+	uint8_t	m_bAuthority;
+	int16_t	m_sPoints; // this is just to shut the compiler up
+	uint32_t	m_iGold, m_iBank;
+	int16_t	m_sBind;
 
-	uint8    m_bstrSkill[10];	
+	uint8_t    m_bstrSkill[10];	
 	_ITEM_DATA m_sItemArray[INVENTORY_TOTAL];
 	_ITEM_DATA m_sWarehouseArray[WAREHOUSE_MAX];
 
-	uint8	m_bLogout;
-	uint32	m_dwTime;
+	uint8_t	m_bLogout;
+	uint32_t	m_dwTime;
 	time_t	m_lastSaveTime;
 
-	uint8	m_bAccountStatus;
-	uint8	m_bPremiumType;
-	uint16	m_sPremiumTime;
-	uint32  m_nKnightCash;
+	uint8_t	m_bAccountStatus;
+	uint8_t	m_bPremiumType;
+	uint16_t	m_sPremiumTime;
+	uint32_t  m_nKnightCash;
 
 	bool	m_bSelectedCharacter;
 	bool	m_bStoreOpen;
 
-	int8	m_bMerchantState;
-	int16	m_sMerchantsSocketID;
-	std::list<uint16>	m_arMerchantLookers;
+	int8_t	m_bMerchantState;
+	int16_t	m_sMerchantsSocketID;
+	std::list<uint16_t>	m_arMerchantLookers;
 	_MERCH_DATA	m_arMerchantItems[MAX_MERCH_ITEMS]; //What is this person selling? Stored in "_MERCH_DATA" structure.
 	bool	m_bPremiumMerchant;
 	UserItemSealMap m_sealedItemMap;
 
-	uint8	m_bRequestingChallenge, // opcode of challenge request being sent by challenger
+	uint8_t	m_bRequestingChallenge, // opcode of challenge request being sent by challenger
 		m_bChallengeRequested;  // opcode of challenge request received by challengee
-	int16	m_sChallengeUser;
+	int16_t	m_sChallengeUser;
 
 	// Rival system
-	int16	m_sRivalID;			// rival's session ID
+	int16_t	m_sRivalID;			// rival's session ID
 	time_t	m_tRivalExpiryTime;	// time when the rivalry ends
 
 	// Anger gauge system 
-	uint8	m_byAngerGauge; // values range from 0-5
+	uint8_t	m_byAngerGauge; // values range from 0-5
 
 	// Magic System Cooldown checks
 	SkillCooldownList	m_CoolDownList;
@@ -187,9 +187,9 @@ public:
 	std::recursive_mutex m_arrowLock;
 
 	TransformationType m_transformationType;
-	uint16	m_sTransformID;
+	uint16_t	m_sTransformID;
 	time_t	m_tTransformationStartTime;
-	uint16	m_sTransformationDuration;
+	uint16_t	m_sTransformationDuration;
 
 	bool	m_bIsChicken; // Is the character taking the beginner/chicken quest?
 	bool	m_bIsHidingHelmet;
@@ -197,105 +197,105 @@ public:
 	bool	m_bMining;
 	time_t	m_tLastMiningAttempt;
 
-	int8	m_bPersonalRank;
-	int8	m_bKnightsRank;
+	int8_t	m_bPersonalRank;
+	int8_t	m_bKnightsRank;
 
 	float	m_oldx, m_oldy, m_oldz;
-	int16	m_sDirection;
+	int16_t	m_sDirection;
 
-	int64	m_iMaxExp;
+	int64_t	m_iMaxExp;
 
-	uint16	m_sMaxWeight;
-	uint16	m_sMaxWeightBonus;
-	uint16 CUser::MaxWeight (uint16 MaxWeight);
-	int16   m_sSpeed;
+	uint16_t	m_sMaxWeight;
+	uint16_t	m_sMaxWeightBonus;
+	uint16_t CUser::MaxWeight (uint16_t MaxWeight);
+	int16_t   m_sSpeed;
 
-	uint8	m_bPlayerAttackAmount;
-	uint8	m_bAddWeaponDamage;
-	uint16	m_sAddArmourAc; 
-	uint8	m_bPctArmourAc;
+	uint8_t	m_bPlayerAttackAmount;
+	uint8_t	m_bAddWeaponDamage;
+	uint16_t	m_sAddArmourAc; 
+	uint8_t	m_bPctArmourAc;
 
-	int16	m_sItemMaxHp;
-	int16	m_sItemMaxMp;
-	uint16	m_sItemWeight;
-	short	m_sItemAc;
-	short	m_sItemHitrate;
-	short	m_sItemEvasionrate;
+	int16_t	m_sItemMaxHp;
+	int16_t	m_sItemMaxMp;
+	uint16_t	m_sItemWeight;
+	int16_t	m_sItemAc;
+	int16_t	m_sItemHitrate;
+	int16_t	m_sItemEvasionrate;
 
-	uint8	m_byAPBonusAmount;
-	uint8	m_byAPClassBonusAmount[4]; // one for each of the 4 class types
-	uint8	m_byAcClassBonusAmount[4]; // one for each of the 4 class types
+	uint8_t	m_byAPBonusAmount;
+	uint8_t	m_byAPClassBonusAmount[4]; // one for each of the 4 class types
+	uint8_t	m_byAcClassBonusAmount[4]; // one for each of the 4 class types
 
-	int16	m_sStatItemBonuses[STAT_COUNT];
-	int8	m_bStatBuffs[STAT_COUNT];
+	int16_t	m_sStatItemBonuses[STAT_COUNT];
+	int8_t	m_bStatBuffs[STAT_COUNT];
 
-	uint16	m_sExpGainAmount;
-	uint8	m_bItemExpGainAmount;
-	uint8	m_bNPGainAmount, m_bItemNPBonus, m_bSkillNPBonus;
-	uint8	m_bNoahGainAmount, m_bItemNoahGainAmount;
-	uint8	m_bMaxWeightAmount; 
+	uint16_t	m_sExpGainAmount;
+	uint8_t	m_bItemExpGainAmount;
+	uint8_t	m_bNPGainAmount, m_bItemNPBonus, m_bSkillNPBonus;
+	uint8_t	m_bNoahGainAmount, m_bItemNoahGainAmount;
+	uint8_t	m_bMaxWeightAmount; 
 
-	short	m_iMaxHp, m_iMaxMp;
+	int16_t	m_iMaxHp, m_iMaxMp;
 
-	uint8	m_bResHpType;
+	uint8_t	m_bResHpType;
 	bool	m_bWarp;
-	uint8	m_bNeedParty;
+	uint8_t	m_bNeedParty;
 
-	uint16	m_sPartyIndex;
+	uint16_t	m_sPartyIndex;
 	bool	m_bInParty;
 	bool	m_bPartyLeader;
 
 	bool	m_bCanSeeStealth;
-	uint8	m_bInvisibilityType;
+	uint8_t	m_bInvisibilityType;
 
-	short	m_sExchangeUser;
-	uint8	m_bExchangeOK;
+	int16_t	m_sExchangeUser;
+	uint8_t	m_bExchangeOK;
 
 	ItemList	m_ExchangeItemList;
 
 	bool	m_bBlockPrivateChat;
-	short	m_sPrivateChatUser;
+	int16_t	m_sPrivateChatUser;
 
 	time_t	m_tHPLastTimeNormal;					// For Automatic HP recovery. 
 	time_t	m_tHPStartTimeNormal;
-	short	m_bHPAmountNormal;
-	uint8	m_bHPDurationNormal;
-	uint8	m_bHPIntervalNormal;
+	int16_t	m_bHPAmountNormal;
+	uint8_t	m_bHPDurationNormal;
+	uint8_t	m_bHPIntervalNormal;
 
 	time_t m_tGameStartTimeSavedMagic;
 
-	uint32	m_fSpeedHackClientTime, m_fSpeedHackServerTime;
-	uint8	m_bSpeedHackCheck;
+	uint32_t	m_fSpeedHackClientTime, m_fSpeedHackServerTime;
+	uint8_t	m_bSpeedHackCheck;
 
 	time_t	m_tBlinkExpiryTime;			// When you should stop blinking.
 
-	uint32	m_bAbnormalType;			// Is the player normal, a giant, or a dwarf?
-	uint32	m_nOldAbnormalType;
+	uint32_t	m_bAbnormalType;			// Is the player normal, a giant, or a dwarf?
+	uint32_t	m_nOldAbnormalType;
 
-	int16	m_sWhoKilledMe;				// ID of the unit that killed you.
-	int64	m_iLostExp;					// Experience points that were lost when you died.
+	int16_t	m_sWhoKilledMe;				// ID of the unit that killed you.
+	int64_t	m_iLostExp;					// Experience points that were lost when you died.
 
 	time_t	m_tLastTrapAreaTime;		// The last moment you were in the trap area.
 
 	bool	m_bZoneChangeFlag;
 
-	uint8	m_bRegeneType;				// Did you die and go home or did you type '/town'?
+	uint8_t	m_bRegeneType;				// Did you die and go home or did you type '/town'?
 
 	time_t	m_tLastRegeneTime;			// The last moment you got resurrected.
 
 	bool	m_bZoneChangeSameZone;		// Did the server change when you warped?
 
 	int		m_iSelMsgEvent[MAX_MESSAGE_EVENT];
-	short	m_sEventNid, m_sEventSid;
-	uint32	m_nQuestHelperID;
+	int16_t	m_sEventNid, m_sEventSid;
+	uint32_t	m_nQuestHelperID;
 
 	bool	m_bWeaponsDisabled;
 
 	TeamColour	m_teamColour;
-	uint32		m_iLoyaltyDaily;
-	uint16		m_iLoyaltyPremiumBonus;
-	uint16		m_KillCount;
-	uint16		m_DeathCount;
+	uint32_t		m_iLoyaltyDaily;
+	uint16_t		m_iLoyaltyPremiumBonus;
+	uint16_t		m_KillCount;
+	uint16_t		m_DeathCount;
 
 	float		m_LastX;
 	float		m_LastZ;
@@ -326,7 +326,7 @@ public:
 
 	INLINE bool isBeginner() 
 	{
-		uint16 sClass = GetClassType();
+		uint16_t sClass = GetClassType();
 		return (sClass <= ClassPriest);
 	}
 
@@ -337,7 +337,7 @@ public:
 
 	INLINE bool isNovice() 
 	{
-		uint16 sClass = GetClassType();
+		uint16_t sClass = GetClassType();
 		return (sClass == ClassWarriorNovice || sClass == ClassRogueNovice
 			|| sClass == ClassMageNovice || sClass == ClassPriestNovice); 
 	}
@@ -349,7 +349,7 @@ public:
 
 	INLINE bool isMastered() 
 	{
-		uint16 sClass = GetClassType();
+		uint16_t sClass = GetClassType();
 		return (sClass == ClassWarriorMaster || sClass == ClassRogueMaster 
 			|| sClass == ClassMageMaster || sClass == ClassPriestMaster); 
 	}
@@ -377,15 +377,15 @@ public:
 
 	INLINE bool isInPKZone() {  return GetZoneID() == ZONE_ARDREAM || GetZoneID() == ZONE_RONARK_LAND || GetZoneID() == ZONE_RONARK_LAND_BASE; }
 
-	INLINE int8 GetMerchantState() { return m_bMerchantState; }
+	INLINE int8_t GetMerchantState() { return m_bMerchantState; }
 
-	INLINE uint8 GetAuthority() { return m_bAuthority; }
-	INLINE uint8 GetFame() { return m_bFame; }
+	INLINE uint8_t GetAuthority() { return m_bAuthority; }
+	INLINE uint8_t GetFame() { return m_bFame; }
 
-	INLINE uint16 GetClass() { return m_sClass; }
-	INLINE uint8 GetPremium() { return m_bPremiumType; }
-	INLINE bool isLockableScroll(uint8 buffType) { return (buffType == BUFF_TYPE_HP_MP || buffType == BUFF_TYPE_AC || buffType == BUFF_TYPE_DAMAGE || buffType == BUFF_TYPE_SPEED || buffType == BUFF_TYPE_STATS); }
-	INLINE uint8 GetRace() { return m_bRace; }
+	INLINE uint16_t GetClass() { return m_sClass; }
+	INLINE uint8_t GetPremium() { return m_bPremiumType; }
+	INLINE bool isLockableScroll(uint8_t buffType) { return (buffType == BUFF_TYPE_HP_MP || buffType == BUFF_TYPE_AC || buffType == BUFF_TYPE_DAMAGE || buffType == BUFF_TYPE_SPEED || buffType == BUFF_TYPE_STATS); }
+	INLINE uint8_t GetRace() { return m_bRace; }
 
 	/**
 	* @brief	Gets the player's base class type, independent of nation.
@@ -403,7 +403,7 @@ public:
 			ClassPriest, ClassPriest	// job changed / mastered
 		}; 
 
-		uint8 classType = GetClassType();
+		uint8_t classType = GetClassType();
 		ASSERT(classType >= 1 && classType <= 12);
 		return classTypes[classType - 1];
 	}
@@ -413,63 +413,63 @@ public:
 	*
 	* @return	The class type.
 	*/
-	INLINE uint8 GetClassType()
+	INLINE uint8_t GetClassType()
 	{
 		return GetClass() % 100;
 	}
 
-	INLINE uint16 GetPartyID() { return m_sPartyIndex; }
+	INLINE uint16_t GetPartyID() { return m_sPartyIndex; }
 
-	INLINE int16 GetClanID() { return m_bKnights; }
-	INLINE void SetClanID(int16 val) { m_bKnights = val; }
+	INLINE int16_t GetClanID() { return m_bKnights; }
+	INLINE void SetClanID(int16_t val) { m_bKnights = val; }
 
-	INLINE uint32 GetCoins() { return m_iGold; }
-	INLINE uint32 GetInnCoins() { return m_iBank; }
-	INLINE uint32 GetLoyalty() { return m_iLoyalty; }
-	INLINE uint32 GetMonthlyLoyalty() { return m_iLoyaltyMonthly; }
-	INLINE uint32 GetManner() { return m_iMannerPoint; }
+	INLINE uint32_t GetCoins() { return m_iGold; }
+	INLINE uint32_t GetInnCoins() { return m_iBank; }
+	INLINE uint32_t GetLoyalty() { return m_iLoyalty; }
+	INLINE uint32_t GetMonthlyLoyalty() { return m_iLoyaltyMonthly; }
+	INLINE uint32_t GetManner() { return m_iMannerPoint; }
 
-	virtual int32 GetHealth() { return m_sHp; }
-	virtual int32 GetMaxHealth() { return m_iMaxHp; }
-	virtual int32 GetMana() { return m_sMp; }
-	virtual int32 GetMaxMana() { return m_iMaxMp; }
+	virtual int32_t GetHealth() { return m_sHp; }
+	virtual int32_t GetMaxHealth() { return m_iMaxHp; }
+	virtual int32_t GetMana() { return m_sMp; }
+	virtual int32_t GetMaxMana() { return m_iMaxMp; }
 
 	// Shortcuts for lazy people
-	INLINE bool hasCoins(uint32 amount) { return (GetCoins() >= amount); }
-	INLINE bool hasInnCoins(uint32 amount) { return (GetInnCoins() >= amount); }
-	INLINE bool hasLoyalty(uint32 amount) { return (GetLoyalty() >= amount); }
-	INLINE bool hasMonthlyLoyalty(uint32 amount) { return (GetMonthlyLoyalty() >= amount); }
-	INLINE bool hasManner(uint32 amount) { return (GetManner() >= amount); }
+	INLINE bool hasCoins(uint32_t amount) { return (GetCoins() >= amount); }
+	INLINE bool hasInnCoins(uint32_t amount) { return (GetInnCoins() >= amount); }
+	INLINE bool hasLoyalty(uint32_t amount) { return (GetLoyalty() >= amount); }
+	INLINE bool hasMonthlyLoyalty(uint32_t amount) { return (GetMonthlyLoyalty() >= amount); }
+	INLINE bool hasManner(uint32_t amount) { return (GetManner() >= amount); }
 
-	INLINE uint8 GetAngerGauge() { return m_byAngerGauge; }
+	INLINE uint8_t GetAngerGauge() { return m_byAngerGauge; }
 	INLINE bool hasFullAngerGauge() { return GetAngerGauge() >= MAX_ANGER_GAUGE; }
 
 	INLINE bool hasRival() { return GetRivalID() >= 0; }
 	INLINE bool hasRivalryExpired() { return UNIXTIME >= m_tRivalExpiryTime; }
-	INLINE int16 GetRivalID() { return m_sRivalID; }
+	INLINE int16_t GetRivalID() { return m_sRivalID; }
 
 	INLINE GameState GetState() { return m_state; }
 
-	INLINE uint16 GetActiveQuestID() { return m_sEventDataIndex; }
+	INLINE uint16_t GetActiveQuestID() { return m_sEventDataIndex; }
 
-	uint8 GetClanGrade();
-	uint8 GetClanRank();
-	uint32 GetClanPoint();
-	void SendClanPointChange(int32 nChangeAmount = 0);
+	uint8_t GetClanGrade();
+	uint8_t GetClanRank();
+	uint32_t GetClanPoint();
+	void SendClanPointChange(int32_t nChangeAmount = 0);
 
-	uint8 GetBeefRoastVictory();
-	uint8 GetRankReward(bool isMonthly);
-	uint8 GetWarVictory();
+	uint8_t GetBeefRoastVictory();
+	uint8_t GetRankReward(bool isMonthly);
+	uint8_t GetWarVictory();
 
-	uint8 CheckMiddleStatueCapture();
+	uint8_t CheckMiddleStatueCapture();
 	void MoveMiddleStatue();	
 
-	uint8 GetPVPMonumentNation();
+	uint8_t GetPVPMonumentNation();
 
-	uint8 GetMonsterChallengeTime();
-	uint8 GetMonsterChallengeUserCount();
+	uint8_t GetMonsterChallengeTime();
+	uint8_t GetMonsterChallengeUserCount();
 
-	INLINE uint8 GetStat(StatType type)
+	INLINE uint8_t GetStat(StatType type)
 	{
 		if (type >= STAT_COUNT)
 			return 0;
@@ -477,77 +477,77 @@ public:
 		return m_bStats[type];
 	}
 
-	INLINE void SetStat(StatType type, uint8 val)
+	INLINE void SetStat(StatType type, uint8_t val)
 	{
 		ASSERT(type < STAT_COUNT);
 		m_bStats[type] = val;
 	}
 
-	INLINE int32 GetStatTotal() // NOTE: Shares name with another, but lack-of args should be self-explanatory
+	INLINE int32_t GetStatTotal() // NOTE: Shares name with another, but lack-of args should be self-explanatory
 	{
-		int32 total = 0; // NOTE: this loop should be unrolled by the compiler
+		int32_t total = 0; // NOTE: this loop should be unrolled by the compiler
 		foreach_array (i, m_bStats)
 			total += m_bStats[i];
 		return total;
 	}
 
-	INLINE int16 GetStatItemBonus(StatType type)
+	INLINE int16_t GetStatItemBonus(StatType type)
 	{
 		ASSERT(type < STAT_COUNT);
 		return m_sStatItemBonuses[type];
 	}
 
-	INLINE int16 GetStatWithItemBonus(StatType type)
+	INLINE int16_t GetStatWithItemBonus(StatType type)
 	{
 		return GetStat(type) + GetStatItemBonus(type);
 	}
 
-	INLINE int32 GetStatItemBonusTotal()
+	INLINE int32_t GetStatItemBonusTotal()
 	{
-		int32 total = 0; // NOTE: this loop should be unrolled by the compiler
+		int32_t total = 0; // NOTE: this loop should be unrolled by the compiler
 		foreach_array (i, m_sStatItemBonuses)
 			total += m_sStatItemBonuses[i];
 		return total;
 	}
 
-	INLINE uint16 GetStatBonusTotal(StatType type)
+	INLINE uint16_t GetStatBonusTotal(StatType type)
 	{
 		return GetStatBuff(type) + GetStatItemBonus(type);
 	}
 
-	INLINE uint8 GetStatBuff(StatType type)
+	INLINE uint8_t GetStatBuff(StatType type)
 	{
 		ASSERT(type < STAT_COUNT);
 		return m_bStatBuffs[type];
 	}
 
-	INLINE void SetStatBuff(StatType type, uint8 val)
+	INLINE void SetStatBuff(StatType type, uint8_t val)
 	{
 		ASSERT(type < STAT_COUNT);
 		m_bStatBuffs[type] = val;
 	}
 
-	INLINE uint32 GetStatBuffTotal()
+	INLINE uint32_t GetStatBuffTotal()
 	{
-		uint32 total = 0; // NOTE: this loop should be unrolled by the compiler
+		uint32_t total = 0; // NOTE: this loop should be unrolled by the compiler
 		foreach_array (i, m_bStatBuffs)
 			total += m_bStatBuffs[i];
 		return total;
 	}
 
-	INLINE uint16 getStatTotal(StatType type)
+	INLINE uint16_t getStatTotal(StatType type)
 	{
 		return GetStat(type) + GetStatItemBonus(type) + GetStatBuff(type);
 	}
 
-	INLINE uint16 GetTotalSkillPoints()
+	INLINE uint16_t GetTotalSkillPoints()
 	{
 		return m_bstrSkill[SkillPointFree] + m_bstrSkill[SkillPointCat1] 
 		+ m_bstrSkill[SkillPointCat2] + m_bstrSkill[SkillPointCat3] 
 		+ m_bstrSkill[SkillPointMaster];
 	}
 
-	INLINE uint8 GetSkillPoints(SkillPointCategory category)
+	INLINE uint8_t GetSkillPoints(SkillPointCategory category)
 	{
 		if (category < SkillPointFree || category > SkillPointMaster)
 			return 0;
@@ -555,24 +555,24 @@ public:
 		return m_bstrSkill[category];
 	}
 
-	INLINE _ITEM_DATA * GetItem(uint8 pos) 
+	INLINE _ITEM_DATA * GetItem(uint8_t pos) 
 	{
 		ASSERT(pos < INVENTORY_TOTAL);
 		return &m_sItemArray[pos]; 
 	}
 
-	INLINE _ITEM_TABLE * GetItemPrototype(uint8 pos) 
+	INLINE _ITEM_TABLE * GetItemPrototype(uint8_t pos) 
 	{
 		_ITEM_DATA * pItem;
 		ASSERT(pos < INVENTORY_TOTAL);
 		return GetItemPrototype(pos, pItem);
 	}
 
-	_ITEM_TABLE * GetItemPrototype(uint8 pos, _ITEM_DATA *& pItem);
+	_ITEM_TABLE * GetItemPrototype(uint8_t pos, _ITEM_DATA *& pItem);
 
 	INLINE KOMap * GetMap() { return m_pMap; }
 
-	CUser(uint16 socketID, SocketMgr *mgr); 
+	CUser(uint16_t socketID, SocketMgr *mgr); 
 
 	virtual void OnConnect();
 	virtual void OnDisconnect();
@@ -580,65 +580,65 @@ public:
 
 	void Update();
 
-	virtual void AddToRegion(int16 new_region_x, int16 new_region_z);
+	virtual void AddToRegion(int16_t new_region_x, int16_t new_region_z);
 
 	void SetRival(CUser * pRival);
 	void RemoveRival();
-	void SendLoyaltyChange(int32 nChangeAmount = 0, bool bIsKillReward = false, bool bIsBonusTime = false, bool bIsAddLoyaltyMonthly = true);
+	void SendLoyaltyChange(int32_t nChangeAmount = 0, bool bIsKillReward = false, bool bIsBonusTime = false, bool bIsAddLoyaltyMonthly = true);
 
 	void NativeZoneReturn();
-	void KickOutZoneUser(bool home = false, uint8 nZoneID = 21);
+	void KickOutZoneUser(bool home = false, uint8_t nZoneID = 21);
 	void TrapProcess();
-	bool JobGroupCheck(short jobgroupid);
-	void SendSay(int32 nTextID[10]);
-	void SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText, 
-		int32 menuButtonText[MAX_MESSAGE_EVENT], int32 menuButtonEvents[MAX_MESSAGE_EVENT]);
+	bool JobGroupCheck(int16_t jobgroupid);
+	void SendSay(int32_t nTextID[10]);
+	void SelectMsg(uint8_t bFlag, int32_t nQuestID, int32_t menuHeaderText, 
+		int32_t menuButtonText[MAX_MESSAGE_EVENT], int32_t menuButtonEvents[MAX_MESSAGE_EVENT]);
 
 	// NOTE(srmeier): testing this debug string functionality
 	void SendDebugString(const char* pString);
 	int NumEmptySlots(void);
 
-	bool CheckClass(short class1, short class2 = -1, short class3 = -1, short class4 = -1, short class5 = -1, short class6 = -1);
-	bool GiveItem(uint32 nItemID, uint16 sCount = 1, bool send_packet = true, uint32 Time = 0);
-	bool RobItem(uint32 nItemID, uint32 sCount = 1);
-	bool RobItem(uint8 bPos, _ITEM_TABLE * pTable, uint32 sCount = 1);
-	bool RobAllItemParty(uint32 nItemID, uint16 sCount = 1);
-	bool CheckExistItem(int itemid, short count = 1);
-	bool CheckExistItemAnd(int32 nItemID1, int32 sCount1, int32 nItemID2, int32 sCount2,
-		int32 nItemID3, int32 sCount3, int32 nItemID4, int32 sCount4, int32 nItemID5, int32 sCount5,
-		int32 nItemID6, int32 sCount6, int32 nItemID7, int32 sCount7, int32 nItemID8, int32 sCount8,
-		int32 nItemID9, int32 sCount9, int32 nItemID10, int32 sCount10, int32 nItemID11, int32 sCount11);
-	uint32 GetItemCount(uint32 nItemID);
-	bool CheckWeight(uint32 nItemID, uint32 sCount);
-	bool CheckWeight(_ITEM_TABLE * pTable, uint32 nItemID, uint32 sCount);
-	bool CheckSkillPoint(uint8 skillnum, uint8 min, uint8 max);
-	bool GoldLose(uint32 gold, bool bSendPacket = true);
-	void GoldGain(uint32 gold, bool bSendPacket = true, bool bApplyBonus = false);
+	bool CheckClass(int16_t class1, int16_t class2 = -1, int16_t class3 = -1, int16_t class4 = -1, int16_t class5 = -1, int16_t class6 = -1);
+	bool GiveItem(uint32_t nItemID, uint16_t sCount = 1, bool send_packet = true, uint32_t Time = 0);
+	bool RobItem(uint32_t nItemID, uint32_t sCount = 1);
+	bool RobItem(uint8_t bPos, _ITEM_TABLE * pTable, uint32_t sCount = 1);
+	bool RobAllItemParty(uint32_t nItemID, uint16_t sCount = 1);
+	bool CheckExistItem(int itemid, int16_t count = 1);
+	bool CheckExistItemAnd(int32_t nItemID1, int32_t sCount1, int32_t nItemID2, int32_t sCount2,
+		int32_t nItemID3, int32_t sCount3, int32_t nItemID4, int32_t sCount4, int32_t nItemID5, int32_t sCount5,
+		int32_t nItemID6, int32_t sCount6, int32_t nItemID7, int32_t sCount7, int32_t nItemID8, int32_t sCount8,
+		int32_t nItemID9, int32_t sCount9, int32_t nItemID10, int32_t sCount10, int32_t nItemID11, int32_t sCount11);
+	uint32_t GetItemCount(uint32_t nItemID);
+	bool CheckWeight(uint32_t nItemID, uint32_t sCount);
+	bool CheckWeight(_ITEM_TABLE * pTable, uint32_t nItemID, uint32_t sCount);
+	bool CheckSkillPoint(uint8_t skillnum, uint8_t min, uint8_t max);
+	bool GoldLose(uint32_t gold, bool bSendPacket = true);
+	void GoldGain(uint32_t gold, bool bSendPacket = true, bool bApplyBonus = false);
 	void SendItemWeight();
 	void UpdateVisibility(InvisibilityType bNewType);
 	void ResetGMVisibility();
 	void BlinkStart();
 	void BlinkTimeCheck();
-	void GoldChange(short tid, int gold);
-	CUser * GetItemRoutingUser(uint32 nItemID, uint32 sCount);
-	bool GetStartPosition(short & x, short & y, uint8 bZone = 0);
-	bool GetStartPositionRandom(short & x, short & z, uint8 bZone = 0);
-	int FindSlotForItem(uint32 nItemID, uint16 sCount = 1);
+	void GoldChange(int16_t tid, int gold);
+	CUser * GetItemRoutingUser(uint32_t nItemID, uint32_t sCount);
+	bool GetStartPosition(int16_t & x, int16_t & y, uint8_t bZone = 0);
+	bool GetStartPositionRandom(int16_t & x, int16_t & z, uint8_t bZone = 0);
+	int FindSlotForItem(uint32_t nItemID, uint16_t sCount = 1);
 	int GetEmptySlot();
 	void SendAllKnightsID();
-	void SendStackChange(uint32 nItemID, uint32 nCount /* needs to be 4 bytes, not a bug */, uint16 sDurability, uint8 bPos, bool bNewItem = false, uint32 Time = 0);
+	void SendStackChange(uint32_t nItemID, uint32_t nCount /* needs to be 4 bytes, not a bug */, uint16_t sDurability, uint8_t bPos, bool bNewItem = false, uint32_t Time = 0);
 
 	void Type4Duration();
 	void HPTimeChange();
 	void HPTimeChangeType3();
 
-	short GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
+	int16_t GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
 	void OnAttack(Unit * pTarget, AttackType attackType);
 	void OnDefend(Unit * pAttacker, AttackType attackType);
-	bool TriggerProcItem(uint8 bSlot, Unit * pTarget, ItemTriggerType triggerType);
+	bool TriggerProcItem(uint8_t bSlot, Unit * pTarget, ItemTriggerType triggerType);
 
-	void SendDurability(uint8 slot, uint16 durability);
-	void SendItemMove(uint8 subcommand);
+	void SendDurability(uint8_t slot, uint16_t durability);
+	void SendItemMove(uint8_t subcommand);
 	void ItemWoreOut( int type, int damage );
 	void Dead();
 	void GetUserInfoForAI(Packet & result);
@@ -646,16 +646,16 @@ public:
 	virtual void HpChange(int amount, Unit *pAttacker = nullptr, bool bSendToAI = true);
 	virtual void MSpChange(int amount);
 	void SendPartyHPUpdate();
-	void ShowEffect(uint32 nSkillID);
-	void ShowNpcEffect(uint32 nEffectID, bool bSendToRegion = false);
-	void SendAnvilRequest(uint16 sNpcID, uint8 bType = ITEM_UPGRADE_REQ);
-	void RecastSavedMagic(uint8 buffType = 0);
-	void RecastLockableScrolls(uint8 buffType);
+	void ShowEffect(uint32_t nSkillID);
+	void ShowNpcEffect(uint32_t nEffectID, bool bSendToRegion = false);
+	void SendAnvilRequest(uint16_t sNpcID, uint8_t bType = ITEM_UPGRADE_REQ);
+	void RecastSavedMagic(uint8_t buffType = 0);
+	void RecastLockableScrolls(uint8_t buffType);
 
 	// packet handlers start here
 	void VersionCheck(Packet & pkt);
 	void LoginProcess(Packet & pkt);
-	bool WordGuardSystem(std::string Word, uint8 WordStr);
+	bool WordGuardSystem(std::string Word, uint8_t WordStr);
 
 	void SelNationToAgent(Packet & pkt);
 	void AllCharInfoToAgent();
@@ -664,12 +664,12 @@ public:
 	void DelCharToAgent(Packet & pkt);
 	void SelCharToAgent(Packet & pkt);
 	void SelectCharacter(Packet & pkt); // from the database
-	void SetLogInInfoToDB(uint8 bInit);
+	void SetLogInInfoToDB(uint8_t bInit);
 	void RecvLoginInfo(Packet & pkt); // from the database
 
 	void SpeedHackTime(Packet & pkt);
 	void TempleProcess(Packet & pkt );
-	void TempleOperations(uint8 bType = 0);
+	void TempleOperations(uint8_t bType = 0);
 
 	void MonsterStoneProcess(); 
 
@@ -691,21 +691,21 @@ public:
 
 	bool ProcessChatCommand(std::string & message);
 
-	uint8 GetUserDailyOp(uint8 type = 0);
-	void SetUserDailyOp(uint8 type = 0, bool isInsert = false);
+	uint8_t GetUserDailyOp(uint8_t type = 0);
+	void SetUserDailyOp(uint8_t type = 0, bool isInsert = false);
 
-	uint32 GetEventTrigger();
+	uint32_t GetEventTrigger();
 
 	void RemoveStealth();
 
-	void GivePremium(uint8 bPremiumType, uint16 sPremiumTime);
+	void GivePremium(uint8_t bPremiumType, uint16_t sPremiumTime);
 	void RobChaosSkillItems();
 
 	// Nation Transfer, Gender Change and Job Change (in game)
-	uint8 NationChange();
-	uint8 GetNewRace();
-	bool GenderChange(uint8 nRace = 0);
-	uint8 JobChange(uint8 NewJob = 0);
+	uint8_t NationChange();
+	uint8_t GetNewRace();
+	bool GenderChange(uint8_t nRace = 0);
+	uint8_t JobChange(uint8_t NewJob = 0);
 
 	COMMAND_HANDLER(HandleTestCommand);
 	COMMAND_HANDLER(HandleGiveItemCommand);
@@ -735,11 +735,11 @@ public:
 	COMMAND_HANDLER(HandleWarResultCommand);
 	COMMAND_HANDLER(HandleResetPlayerRankingCommand);
 
-	void Regene(uint8 regene_type, uint32 magicid = 0);
+	void Regene(uint8_t regene_type, uint32_t magicid = 0);
 	void RequestUserIn(Packet & pkt);
 	void RequestNpcIn(Packet & pkt);
 	void RecvWarp(Packet & pkt);
-	void Warp(uint16 sPosX, uint16 sPosZ);
+	void Warp(uint16_t sPosX, uint16_t sPosZ);
 	void ItemMove(Packet & pkt);
 	void NpcEvent(Packet & pkt);
 
@@ -753,11 +753,11 @@ public:
 	void PointChange(Packet & pkt);
 
 	void StateChange(Packet & pkt);
-	virtual void StateChangeServerDirect(uint8 bType, uint32 nBuff);
+	virtual void StateChangeServerDirect(uint8_t bType, uint32_t nBuff);
 
 	void PartyProcess(Packet & pkt);
 	void PartyDelete();
-	void PartyPromote(uint16 sMemberID);
+	void PartyPromote(uint16_t sMemberID);
 	void PartyRemove( int memberid );
 	void PartyInsert();
 	void PartyCancel();
@@ -826,10 +826,10 @@ public:
 
 	void FriendProcess(Packet & pkt);
 	void FriendRequest();
-	void FriendModify(Packet & pkt, uint8 opcode);
-	void RecvFriendModify(Packet & pkt, uint8 opcode);
+	void FriendModify(Packet & pkt, uint8_t opcode);
+	void RecvFriendModify(Packet & pkt, uint8_t opcode);
 	void FriendReport(Packet & pkt);
-	uint8 GetFriendStatus(std::string & charName, int16 & sid);
+	uint8_t GetFriendStatus(std::string & charName, int16_t & sid);
 
 	void SelectWarpList(Packet & pkt);
 	bool GetWarpList( int warp_group );
@@ -839,29 +839,29 @@ public:
 	void PartyBBS(Packet & pkt);
 	void PartyBBSRegister(Packet & pkt);
 	void PartyBBSDelete(Packet & pkt);
-	void PartyBBSNeeded(Packet & pkt, uint8 type);
+	void PartyBBSNeeded(Packet & pkt, uint8_t type);
 	void PartyBBSWanted(Packet & pkt);
-	uint8 GetPartyMemberAmount(_PARTY_GROUP *pParty = nullptr);
+	uint8_t GetPartyMemberAmount(_PARTY_GROUP *pParty = nullptr);
 
-	void SendPartyBBSNeeded(uint16 page_index, uint8 bType);
+	void SendPartyBBSNeeded(uint16_t page_index, uint8_t bType);
 	
 
-	void ClientEvent(uint16 sNpcID);
+	void ClientEvent(uint16_t sNpcID);
 	void KissUser();
 
 	void RecvSelectMsg(Packet & pkt);
-	bool AttemptSelectMsg(uint8 bMenuID, int8 bySelectedReward);
+	bool AttemptSelectMsg(uint8_t bMenuID, int8_t bySelectedReward);
 
 	// from the client
 	void ItemUpgradeProcess(Packet & pkt);
-	void ItemUpgrade(Packet & pkt, uint8 nUpgradeType = ITEM_UPGRADE);
-	void ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8 UpgradeResult);
+	void ItemUpgrade(Packet & pkt, uint8_t nUpgradeType = ITEM_UPGRADE);
+	void ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8_t UpgradeResult);
 	void ItemUpgradeAccessories(Packet & pkt);
 	void BifrostPieceProcess(Packet & pkt); // originally named BeefRoastPieceProcess() -- that's not happening.
 	void SpecialItemExchange(Packet & pkt);
 	void ItemUpgradeRebirth(Packet & pkt);
 	void ItemSealProcess(Packet & pkt);
-	void SealItem(uint8 bSealType, uint8 bSrcPos);
+	void SealItem(uint8_t bSealType, uint8_t bSrcPos);
 	void CharacterSealProcess(Packet & pkt);
 
 	void ShoppingMall(Packet & pkt);
@@ -889,11 +889,11 @@ public:
 	void HandleChallengeRequestCVC(Packet & pkt);
 	void HandleChallengeAcceptPVP(Packet & pkt);
 	void HandleChallengeAcceptCVC(Packet & pkt);
-	void HandleChallengeCancelled(uint8 opcode);
-	void HandleChallengeRejected(uint8 opcode);
+	void HandleChallengeCancelled(uint8_t opcode);
+	void HandleChallengeRejected(uint8_t opcode);
 
 	void HandlePlayerRankings(Packet & pkt);
-	uint16 GetPlayerRank(uint8 nRankType);
+	uint16_t GetPlayerRank(uint8_t nRankType);
 
 	void HandleMiningSystem(Packet & pkt);
 	void HandleMiningStart(Packet & pkt);
@@ -903,96 +903,96 @@ public:
 	void HandleSoccer(Packet & pkt);
 
 	void SendNotice();
-	void AppendNoticeEntry(Packet & pkt, uint8 & elementCount, const char * message, const char * title);
-	void AppendExtraNoticeData(Packet & pkt, uint8 & elementCount);
+	void AppendNoticeEntry(Packet & pkt, uint8_t & elementCount, const char * message, const char * title);
+	void AppendExtraNoticeData(Packet & pkt, uint8_t & elementCount);
 	void UserLookChange( int pos, int itemid, int durability );
 	void SpeedHackUser();
-	void LoyaltyChange(int16 tid, uint16 bonusNP = 0);
-	void LoyaltyDivide(int16 tid, uint16 bonusNP = 0);
-	int16 GetLoyaltyDivideSource(uint8 totalmember = 0);
-	int16 GetLoyaltyDivideTarget();
+	void LoyaltyChange(int16_t tid, uint16_t bonusNP = 0);
+	void LoyaltyDivide(int16_t tid, uint16_t bonusNP = 0);
+	int16_t GetLoyaltyDivideSource(uint8_t totalmember = 0);
+	int16_t GetLoyaltyDivideTarget();
 	void GrantChickenManner();
-	void SendMannerChange(int32 iMannerPoints);
+	void SendMannerChange(int32_t iMannerPoints);
 
-	bool CanLevelQualify(uint8 sLevel);
+	bool CanLevelQualify(uint8_t sLevel);
 	bool CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason);
-	void CheckWaiting(uint8 sNewZone, uint16 Time);
-	void ZoneChange(uint16 sNewZone, float x, float z);
-	void ZoneChangeParty(uint16 sNewZone, float x, float z);
-	void ZoneChangeClan(uint16 sNewZone, float x, float z);
-	void PlayerRankingProcess(uint16 ZoneID, bool RemoveInZone = false);
-	void AddPlayerRank(uint16 ZoneID);
+	void CheckWaiting(uint8_t sNewZone, uint16_t Time);
+	void ZoneChange(uint16_t sNewZone, float x, float z);
+	void ZoneChangeParty(uint16_t sNewZone, float x, float z);
+	void ZoneChangeClan(uint16_t sNewZone, float x, float z);
+	void PlayerRankingProcess(uint16_t ZoneID, bool RemoveInZone = false);
+	void AddPlayerRank(uint16_t ZoneID);
 	void RemovePlayerRank();
 	void UpdatePlayerRank();
 
 	bool isEventUser();
 
-	void SendTargetHP( uint8 echo, int tid, int damage = 0 );
+	void SendTargetHP( uint8_t echo, int tid, int damage = 0 );
 	bool IsValidSlotPos( _ITEM_TABLE* pTable, int destpos );
 	void SetUserAbility(bool bSendPacket = true);
-	void LevelChange(uint8 level, bool bLevelUp = true);
+	void LevelChange(uint8_t level, bool bLevelUp = true);
 	void SetSlotItemValue();
 	void ApplySetItemBonuses(_SET_ITEM * pItem);
 	void SendTime();
 	void SendWeather();
 	void SendPremiumInfo();
-	void SetZoneAbilityChange(uint16 sNewZone);
+	void SetZoneAbilityChange(uint16_t sNewZone);
 	void SetMaxMp();
 	void SetMaxHp(int iFlag = 0);
 	void RecvUserExp(Packet & pkt);
-	void ExpChange(int64 iExp, bool bIsBonusReward = false);
+	void ExpChange(int64_t iExp, bool bIsBonusReward = false);
 	void LogOut();
 	void SendMyInfo();
-	void SendServerChange(std::string & ip, uint8 bInit);
+	void SendServerChange(std::string & ip, uint8_t bInit);
 	void Send2AI_UserUpdateInfo(bool initialInfo = false);
-	uint16 GetPremiumProperty(PremiumPropertyOpCodes type);
+	uint16_t GetPremiumProperty(PremiumPropertyOpCodes type);
 	void BifrostProcess(CUser * pUser);
 	void CastleSiegeWarProcess(CUser * pUser);
 	void SiegeWarFareNpc(Packet & pkt);
 	void LogosShout(Packet & pkt);
 
-	virtual void GetInOut(Packet & result, uint8 bType);
-	void UserInOut(uint8 bType);
+	virtual void GetInOut(Packet & result, uint8_t bType);
+	void UserInOut(uint8_t bType);
 
 	void GetUserInfo(Packet & pkt);
 	void SendUserStatusUpdate(UserStatus type, UserStatusBehaviour status);
 	virtual void Initialize();
 
-	void ChangeFame(uint8 bFame);
+	void ChangeFame(uint8_t bFame);
 	void SendServerIndex();
 
-	void SendToRegion(Packet *pkt, CUser *pExceptUser = nullptr, uint16 nEventRoom = 0);
-	void SendToZone(Packet *pkt, CUser *pExceptUser = nullptr, uint16 nEventRoom = 0, float fRange = 0.0f);
+	void SendToRegion(Packet *pkt, CUser *pExceptUser = nullptr, uint16_t nEventRoom = 0);
+	void SendToZone(Packet *pkt, CUser *pExceptUser = nullptr, uint16_t nEventRoom = 0, float fRange = 0.0f);
 
 	virtual void OnDeath(Unit *pKiller);
-	void UpdateAngerGauge(uint8 byAngerGauge);
+	void UpdateAngerGauge(uint8_t byAngerGauge);
 	void InitializeStealth();
 
 	// Exchange system
 	bool CheckExchange(int nExchangeID);
-	bool RunExchange(int nExchangeID, uint32 count = 0 /* No random flag */);
+	bool RunExchange(int nExchangeID, uint32_t count = 0 /* No random flag */);
 	bool RunSelectExchange(int nExchangeID);
-	uint32 GetMaxExchange(int nExchangeID);	
+	uint32_t GetMaxExchange(int nExchangeID);	
 
 	// Clan system
 	void SendClanUserStatusUpdate(bool bToRegion = true);
 
-	void SendPartyStatusUpdate(uint8 bStatus, uint8 bResult = 0);
+	void SendPartyStatusUpdate(uint8_t bStatus, uint8_t bResult = 0);
 
-	bool CanUseItem(uint32 nItemID, uint32 sCount = 1);
+	bool CanUseItem(uint32_t nItemID, uint32_t sCount = 1);
 
 	void CheckSavedMagic();
-	virtual void InsertSavedMagic(uint32 nSkillID, uint16 sDuration);
-	virtual void RemoveSavedMagic(uint32 nSkillID);
-	virtual bool HasSavedMagic(uint32 nSkillID);
-	virtual int16 GetSavedMagicDuration(uint32 nSkillID);
+	virtual void InsertSavedMagic(uint32_t nSkillID, uint16_t sDuration);
+	virtual void RemoveSavedMagic(uint32_t nSkillID);
+	virtual bool HasSavedMagic(uint32_t nSkillID);
+	virtual int16_t GetSavedMagicDuration(uint32_t nSkillID);
 
-	void SaveEvent(uint16 sQuestID, uint8 bQuestState);
-	void DeleteEvent(uint16 sQuestID);
-	bool CheckExistEvent(uint16 sQuestID, uint8 bQuestState);
+	void SaveEvent(uint16_t sQuestID, uint8_t bQuestState);
+	void DeleteEvent(uint16_t sQuestID);
+	bool CheckExistEvent(uint16_t sQuestID, uint8_t bQuestState);
 
-	void QuestV2MonsterCountAdd(uint16 sNpcID);
-	uint8 QuestV2CheckMonsterCount(uint16 sQuestID);
+	void QuestV2MonsterCountAdd(uint16_t sNpcID);
+	uint8_t QuestV2CheckMonsterCount(uint16_t sQuestID);
 	void QuestV2MonsterDataDeleteAll();
 
 	// Sends the quest completion statuses
@@ -1003,17 +1003,17 @@ public:
 	void QuestV2MonsterDataRequest();
 	void QuestV2ExecuteHelper(_QUEST_HELPER * pQuestHelper);
 	void QuestV2CheckFulfill(_QUEST_HELPER * pQuestHelper);
-	bool QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32 nEventID, int8 bSelectedReward = 0);
+	bool QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32_t nEventID, int8_t bSelectedReward = 0);
 
-	void QuestV2SaveEvent(uint16 sEventDataIndex, int8 bEventStatus);//uint16 sQuestID);
-	void QuestV2SendNpcMsg(uint32 nQuestID, uint16 sNpcID);
-	void QuestV2ShowGiveItem(uint32 nUnk1, uint32 sUnk1, 
-		uint32 nUnk2, uint32 sUnk2,
-		uint32 nUnk3, uint32 sUnk3,
-		uint32 nUnk4, uint32 sUnk4);
-	uint16 QuestV2SearchEligibleQuest(uint16 sEventDataIndex);//, uint16 sNpcID);
-	void QuestV2ShowMap(uint32 nQuestHelperID);
-	uint8 CheckMonsterCount(uint8 bGroup);
+	void QuestV2SaveEvent(uint16_t sEventDataIndex, int8_t bEventStatus);//uint16_t sQuestID);
+	void QuestV2SendNpcMsg(uint32_t nQuestID, uint16_t sNpcID);
+	void QuestV2ShowGiveItem(uint32_t nUnk1, uint32_t sUnk1, 
+		uint32_t nUnk2, uint32_t sUnk2,
+		uint32_t nUnk3, uint32_t sUnk3,
+		uint32_t nUnk4, uint32_t sUnk4);
+	uint16_t QuestV2SearchEligibleQuest(uint16_t sEventDataIndex);//, uint16_t sNpcID);
+	void QuestV2ShowMap(uint32_t nQuestHelperID);
+	uint8_t CheckMonsterCount(uint8_t bGroup);
 
 	bool PromoteUserNovice();
 	bool PromoteUser();
@@ -1056,18 +1056,18 @@ public:
 	void ReqChangeName(Packet & pkt);
 	void ReqChangeCape(Packet & pkt);
 	void ReqSealItem(Packet & pkt);
-	void InsertTaxUpEvent(uint8 Nation, uint32 TerritoryTax);
+	void InsertTaxUpEvent(uint8_t Nation, uint32_t TerritoryTax);
 
 	//private:
 	static ChatCommandTable s_commandTable;
 	GameState m_state;
 
 	// quest ID | quest state (need to replace with enum)
-	typedef std::map<uint16, uint8> QuestMap;
+	typedef std::map<uint16_t, uint8_t> QuestMap;
 	QuestMap m_questMap;
 
-	uint8 m_bKillCounts[QUEST_MOB_GROUPS];
-	uint16 m_sEventDataIndex;
+	uint8_t m_bKillCounts[QUEST_MOB_GROUPS];
+	uint16_t m_sEventDataIndex;
 
 	UserSavedMagicMap m_savedMagicMap;
 	std::recursive_mutex m_savedMagicLock;
@@ -1130,23 +1130,23 @@ public:
 
 	// Shortcuts for lazy people
 	DECLARE_LUA_FUNCTION(hasCoins)  {
-		LUA_RETURN(LUA_GET_INSTANCE()->hasCoins(LUA_ARG(uint32, 2))); 
+		LUA_RETURN(LUA_GET_INSTANCE()->hasCoins(LUA_ARG(uint32_t, 2))); 
 	}
 
 	DECLARE_LUA_FUNCTION(hasInnCoins) {
-		LUA_RETURN(LUA_GET_INSTANCE()->hasInnCoins(LUA_ARG(uint32, 2))); 
+		LUA_RETURN(LUA_GET_INSTANCE()->hasInnCoins(LUA_ARG(uint32_t, 2))); 
 	}
 
 	DECLARE_LUA_FUNCTION(hasLoyalty) {
-		LUA_RETURN(LUA_GET_INSTANCE()->hasLoyalty(LUA_ARG(uint32, 2))); 
+		LUA_RETURN(LUA_GET_INSTANCE()->hasLoyalty(LUA_ARG(uint32_t, 2))); 
 	}
 
 	DECLARE_LUA_FUNCTION(hasMonthlyLoyalty) {
-		LUA_RETURN(LUA_GET_INSTANCE()->hasMonthlyLoyalty(LUA_ARG(uint32, 2)));
+		LUA_RETURN(LUA_GET_INSTANCE()->hasMonthlyLoyalty(LUA_ARG(uint32_t, 2)));
 	}
 
 	DECLARE_LUA_FUNCTION(hasManner) {
-		LUA_RETURN(LUA_GET_INSTANCE()->hasManner(LUA_ARG(uint32, 2))); 
+		LUA_RETURN(LUA_GET_INSTANCE()->hasManner(LUA_ARG(uint32_t, 2))); 
 	}
 
 	// The useful method wrappers
@@ -1160,18 +1160,18 @@ public:
 	// NOTE(srmeier): for EVT compatibility. Also don't forget to make the method in lua_bindings.cpp!!
 	DECLARE_LUA_FUNCTION(HowMuchItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetItemCount(
-			LUA_ARG(uint32, 2)));
+			LUA_ARG(uint32_t, 2)));
 	}
 
 	// NOTE(srmeier): the global CheckClass doesn't seem to match the Evt procedure I need
 	DECLARE_LUA_FUNCTION(CheckClass) {
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckClass(
-			LUA_ARG(uint16, 2),
-			LUA_ARG_OPTIONAL(uint16, -1, 3),
-			LUA_ARG_OPTIONAL(uint16, -1, 4),
-			LUA_ARG_OPTIONAL(uint16, -1, 5),
-			LUA_ARG_OPTIONAL(uint16, -1, 6),
-			LUA_ARG_OPTIONAL(uint16, -1, 7)
+			LUA_ARG(uint16_t, 2),
+			LUA_ARG_OPTIONAL(uint16_t, -1, 3),
+			LUA_ARG_OPTIONAL(uint16_t, -1, 4),
+			LUA_ARG_OPTIONAL(uint16_t, -1, 5),
+			LUA_ARG_OPTIONAL(uint16_t, -1, 6),
+			LUA_ARG_OPTIONAL(uint16_t, -1, 7)
 		));
 	}
 
@@ -1183,8 +1183,8 @@ public:
 	// NOTE(srmeier): adding a function to change the player's state (EVT flag -> STATE_CHANGE)
 	DECLARE_LUA_FUNCTION(StateChange) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->StateChangeServerDirect(
-			LUA_ARG(uint8, 2),
-			LUA_ARG(uint32, 3)
+			LUA_ARG(uint8_t, 2),
+			LUA_ARG(uint32_t, 3)
 		));
 	}
 
@@ -1192,46 +1192,46 @@ public:
 
 	DECLARE_LUA_FUNCTION(GiveItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GiveItem(
-			LUA_ARG(uint32, 2), 
-			LUA_ARG_OPTIONAL(uint16, 1, 3), 
+			LUA_ARG(uint32_t, 2), 
+			LUA_ARG_OPTIONAL(uint16_t, 1, 3), 
 			true,
-			LUA_ARG_OPTIONAL(uint32, 0, 4)));
+			LUA_ARG_OPTIONAL(uint32_t, 0, 4)));
 	}
 
 	DECLARE_LUA_FUNCTION(RobItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->RobItem(
-			LUA_ARG(uint32, 2), 
-			LUA_ARG_OPTIONAL(uint16, 1, 3)));
+			LUA_ARG(uint32_t, 2), 
+			LUA_ARG_OPTIONAL(uint16_t, 1, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(RobAllItemParty) {
 		LUA_RETURN(LUA_GET_INSTANCE()->RobAllItemParty(
-			LUA_ARG(uint32, 2), 
-			LUA_ARG_OPTIONAL(uint16, 1, 3)));
+			LUA_ARG(uint32_t, 2), 
+			LUA_ARG_OPTIONAL(uint16_t, 1, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(CheckExistItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckExistItem(
-			LUA_ARG(uint32, 2), 
-			LUA_ARG_OPTIONAL(uint16, 1, 3)));
+			LUA_ARG(uint32_t, 2), 
+			LUA_ARG_OPTIONAL(uint16_t, 1, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(GoldGain) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->GoldGain(LUA_ARG(int32, 2)));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->GoldGain(LUA_ARG(int32_t, 2)));	
 	}
 
 	DECLARE_LUA_FUNCTION(GoldLose) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->GoldLose(LUA_ARG(uint32, 2)));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->GoldLose(LUA_ARG(uint32_t, 2)));	
 	}
 
 	DECLARE_LUA_FUNCTION(ExpChange) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->ExpChange(LUA_ARG(int32, 2)));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->ExpChange(LUA_ARG(int32_t, 2)));	
 	}
 
 	DECLARE_LUA_FUNCTION(SaveEvent) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->QuestV2SaveEvent(
-			//LUA_ARG(uint16, 2)));  // quest ID
-			LUA_ARG(uint16, 2), // sEventDataIndex
+			//LUA_ARG(uint16_t, 2)));  // quest ID
+			LUA_ARG(uint16_t, 2), // sEventDataIndex
 			LUA_ARG(char, 3) // bEventStatus
 		));  // quest ID
 	}
@@ -1239,31 +1239,31 @@ public:
 	DECLARE_LUA_FUNCTION(SearchQuest) {
 		CUser * pUser = LUA_GET_INSTANCE();
 		LUA_RETURN(pUser->QuestV2SearchEligibleQuest(
-			LUA_ARG(uint16, 2)
-			//LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 3)
+			LUA_ARG(uint16_t, 2)
+			//LUA_ARG_OPTIONAL(uint16_t, pUser->m_sEventSid, 3)
 		)); // NPC ID
 	}
 
 	DECLARE_LUA_FUNCTION(ShowMap) {
 		CUser * pUser = LUA_GET_INSTANCE();
-		LUA_NO_RETURN(pUser->QuestV2ShowMap(LUA_ARG_OPTIONAL(uint32, pUser->m_nQuestHelperID, 2))); // quest helper ID
+		LUA_NO_RETURN(pUser->QuestV2ShowMap(LUA_ARG_OPTIONAL(uint32_t, pUser->m_nQuestHelperID, 2))); // quest helper ID
 	}
 
 	DECLARE_LUA_FUNCTION(CountMonsterQuestSub) {
-		LUA_RETURN(LUA_GET_INSTANCE()->QuestV2CheckMonsterCount((LUA_ARG(uint16, 2))));
+		LUA_RETURN(LUA_GET_INSTANCE()->QuestV2CheckMonsterCount((LUA_ARG(uint16_t, 2))));
 	}
 
 	DECLARE_LUA_FUNCTION(CountMonsterQuestMain) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->QuestV2MonsterCountAdd((LUA_ARG(uint16, 2))));
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->QuestV2MonsterCountAdd((LUA_ARG(uint16_t, 2))));
 	} 
 
 	DECLARE_LUA_FUNCTION(NpcSay) {
 		CUser * pUser = LUA_GET_INSTANCE();
-		uint32 arg = 2; // start from after the user instance.
-		int32 nTextID[10]; 
+		uint32_t arg = 2; // start from after the user instance.
+		int32_t nTextID[10]; 
 
 		foreach_array(i, nTextID)
-			nTextID[i] = LUA_ARG_OPTIONAL(int32, -1, arg++);
+			nTextID[i] = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
 
 		LUA_NO_RETURN(pUser->SendSay(nTextID));
 	}
@@ -1272,17 +1272,17 @@ public:
 	// For now, we'll just copy existing behaviour: that is, pass along a set of text IDs & button IDs.
 	DECLARE_LUA_FUNCTION(SelectMsg) {
 		CUser * pUser = LUA_GET_INSTANCE();
-		uint32 arg = 2; // start from after the user instance.
-		int32 menuButtonText[MAX_MESSAGE_EVENT], 
+		uint32_t arg = 2; // start from after the user instance.
+		int32_t menuButtonText[MAX_MESSAGE_EVENT], 
 			menuButtonEvents[MAX_MESSAGE_EVENT];
-		uint8 bFlag = 0;//LUA_ARG(uint8, arg++);
-		int32 nQuestID = 0;//LUA_ARG_OPTIONAL(int32, -1, arg++);
-		int32 menuHeaderText = LUA_ARG(int32, arg++);
+		uint8_t bFlag = 0;//LUA_ARG(uint8_t, arg++);
+		int32_t nQuestID = 0;//LUA_ARG_OPTIONAL(int32_t, -1, arg++);
+		int32_t menuHeaderText = LUA_ARG(int32_t, arg++);
 
 		foreach_array(i, menuButtonText)
 		{
-			menuButtonText[i] = LUA_ARG_OPTIONAL(int32, -1, arg++);
-			menuButtonEvents[i] = LUA_ARG_OPTIONAL(int32, -1, arg++);
+			menuButtonText[i] = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
+			menuButtonEvents[i] = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
 		}
 
 		LUA_NO_RETURN(pUser->SelectMsg(bFlag, nQuestID, menuHeaderText, menuButtonText, menuButtonEvents));
@@ -1291,39 +1291,39 @@ public:
 	DECLARE_LUA_FUNCTION(NpcMsg) {
 		CUser * pUser = LUA_GET_INSTANCE();
 		LUA_NO_RETURN(pUser->QuestV2SendNpcMsg(
-			LUA_ARG(uint32, 2),
-			LUA_ARG_OPTIONAL(uint16, pUser->m_sEventSid, 3)));
+			LUA_ARG(uint32_t, 2),
+			LUA_ARG_OPTIONAL(uint16_t, pUser->m_sEventSid, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(CheckWeight) {
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckWeight(
-			LUA_ARG(uint32, 2),		// item ID
-			LUA_ARG_OPTIONAL(uint16, 1, 3)));	// stack size
+			LUA_ARG(uint32_t, 2),		// item ID
+			LUA_ARG_OPTIONAL(uint16_t, 1, 3)));	// stack size
 	}
 
 	DECLARE_LUA_FUNCTION(CheckSkillPoint) {
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckSkillPoint(
-			LUA_ARG(uint8, 2),		// skill point category
-			LUA_ARG(uint8, 3),		// min
-			LUA_ARG(uint8, 4)));	// max
+			LUA_ARG(uint8_t, 2),		// skill point category
+			LUA_ARG(uint8_t, 3),		// min
+			LUA_ARG(uint8_t, 4)));	// max
 	}
 
 	DECLARE_LUA_FUNCTION(isRoomForItem) {
 		LUA_RETURN(LUA_GET_INSTANCE()->FindSlotForItem(
-			LUA_ARG(uint32, 2),					// item ID
-			LUA_ARG_OPTIONAL(uint16, 1, 3)));	// stack size
+			LUA_ARG(uint32_t, 2),					// item ID
+			LUA_ARG_OPTIONAL(uint16_t, 1, 3)));	// stack size
 	}
 
 	DECLARE_LUA_FUNCTION(CheckExchange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->CheckExchange(LUA_ARG(uint32, 2)));	// exchange ID
+		LUA_RETURN(LUA_GET_INSTANCE()->CheckExchange(LUA_ARG(uint32_t, 2)));	// exchange ID
 	}
 
 	DECLARE_LUA_FUNCTION(RunExchange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->RunExchange(LUA_ARG(uint32, 2)));	// exchange ID
+		LUA_RETURN(LUA_GET_INSTANCE()->RunExchange(LUA_ARG(uint32_t, 2)));	// exchange ID
 	}
 
 	DECLARE_LUA_FUNCTION(RunSelectExchange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->RunSelectExchange(LUA_ARG(uint32, 2)));	// exchange ID
+		LUA_RETURN(LUA_GET_INSTANCE()->RunSelectExchange(LUA_ARG(uint32_t, 2)));	// exchange ID
 	}
 
 	DECLARE_LUA_FUNCTION(KissUser) {
@@ -1339,36 +1339,36 @@ public:
 	}
 
 	DECLARE_LUA_FUNCTION(ShowEffect) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->ShowEffect(LUA_ARG(uint32, 2))); // effect ID
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->ShowEffect(LUA_ARG(uint32_t, 2))); // effect ID
 	}
 
 	DECLARE_LUA_FUNCTION(ShowNpcEffect) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->ShowNpcEffect(LUA_ARG(uint32, 2))); // effect ID
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->ShowNpcEffect(LUA_ARG(uint32_t, 2))); // effect ID
 	}
 
 	DECLARE_LUA_FUNCTION(CheckWaiting) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->CheckWaiting(
-			LUA_ARG(uint8, 2),		// zone ID
-			LUA_ARG(uint16, 3)));	// Time
+			LUA_ARG(uint8_t, 2),		// zone ID
+			LUA_ARG(uint16_t, 3)));	// Time
 	}
 
 	DECLARE_LUA_FUNCTION(ZoneChange) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->ZoneChange(
-			LUA_ARG(uint16, 2),		// zone ID
+			LUA_ARG(uint16_t, 2),		// zone ID
 			LUA_ARG(float, 3),		// x
 			LUA_ARG(float, 4)));	// z
 	}
 
 	DECLARE_LUA_FUNCTION(ZoneChangeParty) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->ZoneChangeParty(
-			LUA_ARG(uint16, 2),		// zone ID
+			LUA_ARG(uint16_t, 2),		// zone ID
 			LUA_ARG(float, 3),		// x
 			LUA_ARG(float, 4)));	// z
 	}
 
 	DECLARE_LUA_FUNCTION(ZoneChangeClan) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->ZoneChangeClan(
-			LUA_ARG(uint16, 2),		// zone ID
+			LUA_ARG(uint16_t, 2),		// zone ID
 			LUA_ARG(float, 3),		// x
 			LUA_ARG(float, 4)));	// z
 	}
@@ -1390,27 +1390,27 @@ public:
 	}
 
 	DECLARE_LUA_FUNCTION(GiveLoyalty) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32, 2)));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(LUA_ARG(int32_t, 2)));	
 	}
 
 	DECLARE_LUA_FUNCTION(RobLoyalty) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(-(LUA_ARG(int32, 2))));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendLoyaltyChange(-(LUA_ARG(int32_t, 2))));	
 	}
 
 	DECLARE_LUA_FUNCTION(ChangeManner) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendMannerChange(LUA_ARG(int32, 2)));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendMannerChange(LUA_ARG(int32_t, 2)));	
 	}
 
 	DECLARE_LUA_FUNCTION(PromoteClan) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->PromoteClan((ClanTypeFlag) LUA_ARG_OPTIONAL(uint8, ClanTypePromoted, 2)));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->PromoteClan((ClanTypeFlag) LUA_ARG_OPTIONAL(uint8_t, ClanTypePromoted, 2)));	
 	}
 
 	DECLARE_LUA_FUNCTION(GetStat) {
-		LUA_RETURN(LUA_GET_INSTANCE()->GetStat((StatType)(LUA_ARG(uint8, 2) + 1)));	
+		LUA_RETURN(LUA_GET_INSTANCE()->GetStat((StatType)(LUA_ARG(uint8_t, 2) + 1)));	
 	}
 
 	DECLARE_LUA_FUNCTION(RobClanPoint) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendClanPointChange(-(LUA_ARG(int32, 2))));	
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendClanPointChange(-(LUA_ARG(int32_t, 2))));	
 	}
 
 	DECLARE_LUA_FUNCTION(RequestPersonalRankReward) {
@@ -1424,7 +1424,7 @@ public:
 	DECLARE_LUA_FUNCTION(RunCountExchange) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->RunExchange(
 			LUA_ARG(int, 2),		
-			LUA_ARG(uint32, 3)));
+			LUA_ARG(uint32_t, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(GetMaxExchange) {
@@ -1432,7 +1432,7 @@ public:
 	}
 
 	DECLARE_LUA_FUNCTION(GetUserDailyOp) {
-		LUA_RETURN(LUA_GET_INSTANCE()->GetUserDailyOp((LUA_ARG(uint8, 2))));
+		LUA_RETURN(LUA_GET_INSTANCE()->GetUserDailyOp((LUA_ARG(uint8_t, 2))));
 	}
 
 	DECLARE_LUA_FUNCTION(GetEventTrigger) {
@@ -1448,11 +1448,11 @@ public:
 	}
 
 	DECLARE_LUA_FUNCTION(LevelChange) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->LevelChange(LUA_ARG(uint8, 2), false));
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->LevelChange(LUA_ARG(uint8_t, 2), false));
 	}
 
 	DECLARE_LUA_FUNCTION(GivePremium) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->GivePremium(LUA_ARG(uint8, 2), LUA_ARG_OPTIONAL(uint8, 1, 3)));
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->GivePremium(LUA_ARG(uint8_t, 2), LUA_ARG_OPTIONAL(uint8_t, 1, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(GetPVPMonumentNation) {
@@ -1464,10 +1464,10 @@ public:
 	}
 
 	DECLARE_LUA_FUNCTION(GenderChange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->GenderChange((LUA_ARG(uint8, 2))));
+		LUA_RETURN(LUA_GET_INSTANCE()->GenderChange((LUA_ARG(uint8_t, 2))));
 	}
 
 	DECLARE_LUA_FUNCTION(JobChange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->JobChange((LUA_ARG(uint8, 2))));
+		LUA_RETURN(LUA_GET_INSTANCE()->JobChange((LUA_ARG(uint8_t, 2))));
 	}
 };

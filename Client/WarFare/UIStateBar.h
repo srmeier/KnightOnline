@@ -20,7 +20,7 @@ struct __PositionInfo
 
 struct __DurationMagicImg
 {
-	DWORD		dwSkillID;
+	uint32_t		dwSkillID;
 	class CN3UIDBCLButton* pIcon;
 	float		fDuration;
 };
@@ -67,7 +67,7 @@ protected:
 // Attributes
 public:
 	bool OnKeyPress(int iKey);
-	DWORD MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	uint32_t MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	void	AddMagic(__TABLE_UPC_SKILL* pSkill, float fDuration);
 	void	DelMagic(__TABLE_UPC_SKILL* pSkill);
 	void	ClearMagic();
@@ -76,7 +76,7 @@ public:
 
 	bool	ToggleMiniMap();
 
-	void	UpdateExp(uint64 iExp, uint64 iExpNext, bool bUpdateImmediately);
+	void	UpdateExp(uint64_t iExp, uint64_t iExpNext, bool bUpdateImmediately);
 	void	UpdateMSP(int iMSP, int iMSPMax, bool bUpdateImmediately);
 	void	UpdateHP(int iHP, int iHPMax, bool bUpdateImmediately);
 
@@ -87,7 +87,7 @@ public:
 	void PositionInfoClear();
 	bool LoadMap(const std::string& szMiniMapFN, float fMapSizeX, float fMapSizeZ); // 미니맵 비트맵 파일 이름, 매의 너비 길이..(Meter);
 	
-	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg); // 메시지를 받는다.. 보낸놈, msg
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // 메시지를 받는다.. 보낸놈, msg
 
 	virtual void	Tick();
 	virtual void	Render(); // 미니맵 렌더링..

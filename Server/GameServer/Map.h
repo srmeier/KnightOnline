@@ -24,27 +24,27 @@ public:
 
 	C3DMap();
 	bool Initialize(_ZONE_INFO *pZone);
-	CRegion * GetRegion(uint16 regionX, uint16 regionZ);
+	CRegion * GetRegion(uint16_t regionX, uint16_t regionZ);
 	bool CheckEvent( float x, float z, CUser* pUser = nullptr );
 	void RegionItemRemove(CRegion * pRegion, _LOOT_BUNDLE * pBundle, _LOOT_ITEM * pItem);
-	bool RegionItemAdd(uint16 rx, uint16 rz, _LOOT_BUNDLE * pBundle);
+	bool RegionItemAdd(uint16_t rx, uint16_t rz, _LOOT_BUNDLE * pBundle);
 	virtual ~C3DMap();
 
 	EventArray	m_EventArray;
 
 	int	m_nServerNo, m_nZoneNumber;
 	float m_fInitX, m_fInitZ, m_fInitY;
-	short	m_sMaxUser;
+	int16_t	m_sMaxUser;
 
 	CRegion**	m_ppRegion;
 
-	uint32	m_wBundle;	// Zone Item Max Count
+	uint32_t	m_wBundle;	// Zone Item Max Count
 
 	SMDFile *m_smdFile;
 
 	std::recursive_mutex m_lock;
 
-	INLINE uint16 GetID() { return m_nZoneNumber; }
+	INLINE uint16_t GetID() { return m_nZoneNumber; }
 
 	/* the following should all be duplicated to AI server's map class for now */
 
@@ -57,19 +57,19 @@ public:
 	INLINE bool areNPCsFriendly() { return (m_zoneFlags & ZF_FRIENDLY_NPCS) != 0; }
 	INLINE bool canUpdateClan() { return (m_zoneFlags & ZF_CLAN_UPDATE) != 0; }
 
-	INLINE uint16 GetZoneFlags(void) { return m_zoneFlags; }
-	INLINE uint8 GetZoneType() { return m_zoneType; }
-	INLINE uint8 GetTariff() { return m_byTariff; }
-	INLINE void SetTariff(uint8 tariff) { m_byTariff = tariff; }
+	INLINE uint16_t GetZoneFlags(void) { return m_zoneFlags; }
+	INLINE uint8_t GetZoneType() { return m_zoneType; }
+	INLINE uint8_t GetTariff() { return m_byTariff; }
+	INLINE void SetTariff(uint8_t tariff) { m_byTariff = tariff; }
 
-	INLINE uint8 GetMinLevelReq() { return m_byMinLevel; }
-	INLINE uint8 GetMaxLevelReq() { return m_byMaxLevel; }
+	INLINE uint8_t GetMinLevelReq() { return m_byMinLevel; }
+	INLINE uint8_t GetMaxLevelReq() { return m_byMaxLevel; }
 
 protected:
 	void SetZoneAttributes(int zoneNumber);
 
 	ZoneAbilityType m_zoneType;
-	uint16 m_zoneFlags;
-	uint8 m_byTariff;
-	uint8 m_byMinLevel, m_byMaxLevel;
+	uint16_t m_zoneFlags;
+	uint8_t m_byTariff;
+	uint8_t m_byMinLevel, m_byMaxLevel;
 };

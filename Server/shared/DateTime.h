@@ -20,7 +20,7 @@ public:
 	}
 
 	// Constructs a date/time using the specified date parts.
-	DateTime(uint16 sYear, uint8 bMonth, uint8 bDay, uint8 bHour = 0, uint8 bMinute = 0, uint8 bSecond = 0)
+	DateTime(uint16_t sYear, uint8_t bMonth, uint8_t bDay, uint8_t bHour = 0, uint8_t bMinute = 0, uint8_t bSecond = 0)
 	{
 		// Get the current time
 		time_t now;
@@ -46,13 +46,13 @@ public:
 	}
 
 	// Simple getters to retrieve & convert time data to a more conventional form
-	uint16 GetYear() { return _tm->tm_year + 1900; }
-	uint8 GetMonth() { return _tm->tm_mon + 1; }
-	uint8 GetDay() { return _tm->tm_mday; }
-	uint8 GetDayOfWeek() { return _tm->tm_wday; }
-	uint8 GetHour() { return _tm->tm_hour; }
-	uint8 GetMinute() { return _tm->tm_min; }
-	uint8 GetSecond() { return _tm->tm_sec; }
+	uint16_t GetYear() { return _tm->tm_year + 1900; }
+	uint8_t GetMonth() { return _tm->tm_mon + 1; }
+	uint8_t GetDay() { return _tm->tm_mday; }
+	uint8_t GetDayOfWeek() { return _tm->tm_wday; }
+	uint8_t GetHour() { return _tm->tm_hour; }
+	uint8_t GetMinute() { return _tm->tm_min; }
+	uint8_t GetSecond() { return _tm->tm_sec; }
 
 	// NOTE: If any of these overflow, they'll be handled by mktime() accordingly.
 	// This makes our life *much* easier; date/time logic is not pretty.

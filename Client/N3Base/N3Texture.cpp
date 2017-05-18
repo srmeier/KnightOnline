@@ -151,7 +151,7 @@ bool CN3Texture::CreateFromSurface(LPDIRECT3DSURFACE9 lpSurf, D3DFORMAT Format, 
 }
 #endif // end of _N3TOOL
 
-bool CN3Texture::LoadFromFile(const std::string& szFileName, unsigned int iVer)
+bool CN3Texture::LoadFromFile(const std::string& szFileName, uint32_t iVer)
 {
 	m_iFileFormatVersion = iVer;
 
@@ -378,7 +378,7 @@ bool CN3Texture::Load(HANDLE hFile)
 						} break;
 					}
 
-					ReadFile(hFile, (BYTE*)LR.pBits, iTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+					ReadFile(hFile, (uint8_t*)LR.pBits, iTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
 					m_lpTexture->UnlockRect(i);
 				}
 
@@ -418,7 +418,7 @@ bool CN3Texture::Load(HANDLE hFile)
 					} break;
 				}
 
-				ReadFile(hFile, (BYTE*)LR.pBits, iTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+				ReadFile(hFile, (uint8_t*)LR.pBits, iTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
 				m_lpTexture->UnlockRect(0);
 
 				// 텍스처 압축안되는 비디오 카드를 위한 여분의 데이터 건너뛰기.. 
@@ -458,7 +458,7 @@ bool CN3Texture::Load(HANDLE hFile)
 					m_lpTexture->LockRect(i, &LR, NULL, NULL);
 					int nH = sd.Height;
 					for(int y = 0; y < nH; y++)
-						ReadFile(hFile, (BYTE*)LR.pBits + y * LR.Pitch, 2 * sd.Width, &dwRWC, NULL);
+						ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, 2 * sd.Width, &dwRWC, NULL);
 					m_lpTexture->UnlockRect(i);
 				}
 			}
@@ -504,7 +504,7 @@ bool CN3Texture::Load(HANDLE hFile)
 				m_lpTexture->GetLevelDesc(i, &sd);
 				m_lpTexture->LockRect(i, &LR, NULL, NULL);
 				for(int y = 0; y < (int)sd.Height; y++)
-					ReadFile(hFile, (BYTE*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
+					ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
 				m_lpTexture->UnlockRect(i);
 			}
 		}
@@ -517,7 +517,7 @@ bool CN3Texture::Load(HANDLE hFile)
 			m_lpTexture->GetLevelDesc(0, &sd);
 			m_lpTexture->LockRect(0, &LR, NULL, NULL);
 			for(int y = 0; y < (int)sd.Height; y++)
-				ReadFile(hFile, (BYTE*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
+				ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
 			m_lpTexture->UnlockRect(0);
 
 			if(m_Header.nWidth >= 512 && m_Header.nHeight >= 512)
@@ -687,7 +687,7 @@ bool CN3Texture::Save(HANDLE hFile)
 			m_lpTexture->GetLevelDesc(i, &sd);
 
 			m_lpTexture->LockRect(i, &LR, NULL, NULL);
-			WriteFile(hFile, (BYTE*)LR.pBits, sd.Size, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+			WriteFile(hFile, (uint8_t*)LR.pBits, sd.Size, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
 			m_lpTexture->UnlockRect(i);
 		}
 
@@ -711,7 +711,7 @@ bool CN3Texture::Save(HANDLE hFile)
 			lpSurfDest->LockRect(&LR, NULL, NULL);
 			for(int y = 0; y < nH; y++)
 			{
-				WriteFile(hFile, (BYTE*)LR.pBits + y * LR.Pitch, nW * 2, &dwRWC, NULL);
+				WriteFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, nW * 2, &dwRWC, NULL);
 			}
 			lpSurfDest->UnlockRect();
 			lpSurfDest->Release(); lpSurfDest = NULL; 
@@ -729,7 +729,7 @@ bool CN3Texture::Save(HANDLE hFile)
 			lpSurfDest->LockRect(&LR, NULL, NULL);
 			for(int y = 0; y < nH; y++)
 			{
-				WriteFile(hFile, (BYTE*)LR.pBits + y * LR.Pitch, nW * 2, &dwRWC, NULL);
+				WriteFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, nW * 2, &dwRWC, NULL);
 			}
 			lpSurfDest->UnlockRect();
 			lpSurfDest->Release(); lpSurfDest = NULL; 
@@ -755,7 +755,7 @@ bool CN3Texture::Save(HANDLE hFile)
 			m_lpTexture->LockRect(i, &LR, NULL, 0); // 각 레벨 Lock
 			int nH = sd.Height;
 			for(int y = 0; y < nH; y++) // 그냥 픽셀 저장..
-				WriteFile(hFile, (BYTE*)LR.pBits + y * LR.Pitch, sd.Width * nPixelSize, &dwRWC, NULL);
+				WriteFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, sd.Width * nPixelSize, &dwRWC, NULL);
 			m_lpTexture->UnlockRect(i);
 		}
 
@@ -771,7 +771,7 @@ bool CN3Texture::Save(HANDLE hFile)
 			lpSurfDest->LockRect(&LR, NULL, NULL);
 			for(int y = 0; y < nH; y++)
 			{
-				WriteFile(hFile, (BYTE*)LR.pBits + y * LR.Pitch, nW * 2, &dwRWC, NULL);
+				WriteFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, nW * 2, &dwRWC, NULL);
 			}
 			lpSurfDest->UnlockRect();
 			lpSurfDest->Release(); lpSurfDest = NULL; 
@@ -868,7 +868,7 @@ bool CN3Texture::GenerateMipMap(LPDIRECT3DSURFACE9 lpSurfSrc)
 		{
 			LPDIRECT3DSURFACE9 lpSurfDest;
 			m_lpTexture->GetSurfaceLevel(0, &lpSurfDest);
-			DWORD dwFilter = D3DX_FILTER_TRIANGLE; // 기본 필터는 없다..
+			uint32_t dwFilter = D3DX_FILTER_TRIANGLE; // 기본 필터는 없다..
 			HRESULT rval = D3DXLoadSurfaceFromSurface(lpSurfDest, NULL, NULL, lpSurfSrc, NULL, NULL, dwFilter, 0); // 작은 맵 체인에 서피스 이미지 축소 복사 
 			lpSurfDest->Release(); lpSurfDest = NULL;
 		}
@@ -878,7 +878,7 @@ bool CN3Texture::GenerateMipMap(LPDIRECT3DSURFACE9 lpSurfSrc)
 			LPDIRECT3DSURFACE9 lpSurfDest, lpSurfUp;
 			m_lpTexture->GetSurfaceLevel(i-1, &lpSurfUp);
 			m_lpTexture->GetSurfaceLevel(i, &lpSurfDest);
-			DWORD dwFilter = D3DX_FILTER_TRIANGLE; // 기본 필터는 없다..
+			uint32_t dwFilter = D3DX_FILTER_TRIANGLE; // 기본 필터는 없다..
 			HRESULT rval = D3DXLoadSurfaceFromSurface(lpSurfDest, NULL, NULL, lpSurfUp, NULL, NULL, dwFilter, 0); // 작은 맵 체인에 서피스 이미지 축소 복사 
 			lpSurfDest->Release();
 			lpSurfUp->Release();
@@ -935,8 +935,8 @@ bool CN3Texture::SaveToBitmapFile(const std::string& szFN)
 	lpSurfDest->LockRect(&LR, NULL, 0);
 	for(int y = 0; y < m_Header.nHeight; y++)
 	{
-		BYTE* pPixelsSrc = ((BYTE*)LR.pBits) + y * LR.Pitch;
-		BYTE* pPixelsDest = (BYTE*)(bmpf.Pixels(0, y));
+		uint8_t* pPixelsSrc = ((uint8_t*)LR.pBits) + y * LR.Pitch;
+		uint8_t* pPixelsDest = (uint8_t*)(bmpf.Pixels(0, y));
 		for(int x = 0; x < m_Header.nWidth; x++)
 		{
 			pPixelsDest[0] = pPixelsSrc[0];

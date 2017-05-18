@@ -17,6 +17,6 @@ namespace Compression
 	using LZF::DecompressWithCRC32;
 #endif
 
-	uint8 * Compress(const uint8 * in_data, uint32 in_len, uint32 * out_len);
-	uint8 * Decompress(const uint8 * in_data, uint32 in_len, uint32 original_len);
+	uint8_t * Compress(const uint8_t * in_data, uint32_t in_len, uint32_t * out_len);
+	uint8_t * Decompress(const uint8_t * in_data, uint32_t in_len, uint32_t original_len);
 }

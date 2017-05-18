@@ -15,8 +15,8 @@
 struct _SMQ_HEADER 
 {
 	BOOL	Connect;	
-	WORD	Head;
-	WORD	Tail;
+	uint16_t	Head;
+	uint16_t	Tail;
 	char	*Data;	
 };
 
@@ -30,7 +30,7 @@ public:
 
 	void	DestroySMQ();
 	int		GetData( char* pBuf );
-	BOOL	PutData( char* pBuf, WORD);
+	BOOL	PutData( char* pBuf, uint16_t);
 	BOOL	IsPartner();
 
 	BOOL	CreateSmq(BOOL Server);
@@ -48,7 +48,7 @@ public:
 	HANDLE	m_hsMMFile;
 	char*	m_lpMMFile;
 	HWND	m_hwnd;			//메세지를 전달할 윈도우 플러그
-	BYTE    abIn[1024+1];//컴포트에서 들어오는 데이타
+	uint8_t    abIn[1024+1];//컴포트에서 들어오는 데이타
 	BOOL	fConnected;
 	_SMQ_HEADER		*Txd, *Rxd;
 };

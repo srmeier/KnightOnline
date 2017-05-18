@@ -318,7 +318,7 @@ int	 CUIItemExchange::CalcRepairGold(__IconItemSkill* spItem)
 	return (int)fValue;
 }
 
-bool CUIItemExchange::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIItemExchange::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 // Temp Define
 #define FAIL_CODE {		\
@@ -343,7 +343,7 @@ bool CUIItemExchange::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	e_UIWND_DISTRICT eUIWnd;
 	int iOrder;
 
-	DWORD dwBitMask = 0x000f0000;
+	uint32_t dwBitMask = 0x000f0000;
 
 	switch (dwMsg & dwBitMask)
 	{
@@ -388,9 +388,9 @@ bool CUIItemExchange::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	return true;
 }
 
-DWORD CUIItemExchange::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUIItemExchange::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 
@@ -444,7 +444,7 @@ void CUIItemExchange::UserPressOK()
 		UserPressCancel();
 
 	// 서버에게 보내고.. 
-	BYTE byBuff[16];											// 패킷 버퍼..
+	uint8_t byBuff[16];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_REPAIR);			// 게임 스타트 패킷 커멘드..

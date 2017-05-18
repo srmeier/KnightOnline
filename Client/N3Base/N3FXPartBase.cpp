@@ -60,18 +60,18 @@ CN3FXPartBase::CN3FXPartBase()
 	m_dwLight = FALSE;
 	m_dwDoubleSide = D3DCULL_NONE;
 /*
-const DWORD RF_NOTHING			= 0x0;
-const DWORD RF_ALPHABLENDING	= 0x1;		// Alpha blending
-const DWORD RF_NOTUSEFOG		= 0x2;		// 안개 무시
-const DWORD RF_DOUBLESIDED		= 0x4;		// 양면 - D3DCULL_NONE
-const DWORD RF_BOARD_Y			= 0x8;		// Y 축으로 해서.. 카메라를 본다.
-const DWORD RF_POINTSAMPLING	= 0x10;		// MipMap 에서.. PointSampling 으로 한다..
-const DWORD RF_WINDY			= 0x20;		// 바람에 날린다.. 바람의 값은 CN3Base::s_vWindFactor 를 참조 한다..
-const DWORD RF_NOTUSELIGHT		= 0x40;		// Light Off
-const DWORD RF_DIFFUSEALPHA		= 0x80;		// Diffuse 값을 갖고 투명하게 Alpha blending
-const DWORD RF_NOTZWRITE		= 0x100;	// ZBuffer 에 안쓴다.
-const DWORD RF_UV_CLAMP			= 0x200;	// texture UV적용을 Clamp로 한다..default는 wrap이다..
-const DWORD RF_NOTZBUFFER		= 0x400;	// ZBuffer 무시.
+const uint32_t RF_NOTHING			= 0x0;
+const uint32_t RF_ALPHABLENDING	= 0x1;		// Alpha blending
+const uint32_t RF_NOTUSEFOG		= 0x2;		// 안개 무시
+const uint32_t RF_DOUBLESIDED		= 0x4;		// 양면 - D3DCULL_NONE
+const uint32_t RF_BOARD_Y			= 0x8;		// Y 축으로 해서.. 카메라를 본다.
+const uint32_t RF_POINTSAMPLING	= 0x10;		// MipMap 에서.. PointSampling 으로 한다..
+const uint32_t RF_WINDY			= 0x20;		// 바람에 날린다.. 바람의 값은 CN3Base::s_vWindFactor 를 참조 한다..
+const uint32_t RF_NOTUSELIGHT		= 0x40;		// Light Off
+const uint32_t RF_DIFFUSEALPHA		= 0x80;		// Diffuse 값을 갖고 투명하게 Alpha blending
+const uint32_t RF_NOTZWRITE		= 0x100;	// ZBuffer 에 안쓴다.
+const uint32_t RF_UV_CLAMP			= 0x200;	// texture UV적용을 Clamp로 한다..default는 wrap이다..
+const uint32_t RF_NOTZBUFFER		= 0x400;	// ZBuffer 무시.
 */
 }
 
@@ -428,13 +428,13 @@ void CN3FXPartBase::Render()
 //
 bool CN3FXPartBase::Load(HANDLE hFile)
 {	
-	unsigned char	cTmp;
+	uint8_t	cTmp;
 	DWORD			dwRWC = 0;
 	
-	ReadFile(hFile, &cTmp, sizeof(unsigned char), &dwRWC, NULL);
+	ReadFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 	m_iVersion = (int)cTmp;
 
-	ReadFile(hFile, &cTmp, sizeof(unsigned char), &dwRWC, NULL);
+	ReadFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 	m_iBaseVersion = (int)cTmp;
 
 	if (m_iFileFormatVersion == N3FORMAT_VER_2062) {
@@ -446,7 +446,7 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 	ReadFile(hFile, &m_fLife, sizeof(float), &dwRWC, NULL);
 	if(m_fLife > 10.0f) m_fLife = 10.0f;
 
-	ReadFile(hFile, &cTmp, sizeof(unsigned char), &dwRWC, NULL);
+	ReadFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 	m_iType = (int)cTmp;
 
 	ReadFile(hFile, &m_vVelocity, sizeof(__Vector3), &dwRWC, NULL);
@@ -464,21 +464,21 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 	if(m_iBaseVersion<2)
 	{
 		ReadFile(hFile, &m_bAlpha, sizeof(BOOL), &dwRWC, NULL);
-		ReadFile(hFile, &m_dwSrcBlend, sizeof(DWORD), &dwRWC, NULL);
-		ReadFile(hFile, &m_dwDestBlend, sizeof(DWORD), &dwRWC, NULL);
+		ReadFile(hFile, &m_dwSrcBlend, sizeof(uint32_t), &dwRWC, NULL);
+		ReadFile(hFile, &m_dwDestBlend, sizeof(uint32_t), &dwRWC, NULL);
 
 		ReadFile(hFile, &m_fFadeOut, sizeof(float), &dwRWC, NULL);	
 		ReadFile(hFile, &m_fFadeIn, sizeof(float), &dwRWC, NULL);
 	}
 	if(m_iBaseVersion>=2)
 	{
-		ReadFile(hFile, &m_dwSrcBlend, sizeof(DWORD), &dwRWC, NULL);
-		ReadFile(hFile, &m_dwDestBlend, sizeof(DWORD), &dwRWC, NULL);
+		ReadFile(hFile, &m_dwSrcBlend, sizeof(uint32_t), &dwRWC, NULL);
+		ReadFile(hFile, &m_dwDestBlend, sizeof(uint32_t), &dwRWC, NULL);
 
 		ReadFile(hFile, &m_fFadeOut, sizeof(float), &dwRWC, NULL);	
 		ReadFile(hFile, &m_fFadeIn, sizeof(float), &dwRWC, NULL);
 
-		ReadFile(hFile, &m_dwRenderFlag, sizeof(DWORD), &dwRWC, NULL);
+		ReadFile(hFile, &m_dwRenderFlag, sizeof(uint32_t), &dwRWC, NULL);
 
 		if (m_iFileFormatVersion == N3FORMAT_VER_2062) {
 			char strIDK0[MAX_PATH] = "";
@@ -520,19 +520,19 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 //
 bool CN3FXPartBase::Save(HANDLE hFile)
 {
-	unsigned char	cTmp;
+	uint8_t	cTmp;
 	DWORD			dwRWC = 0;
 	
-	cTmp = (unsigned char)m_iVersion;
-	WriteFile(hFile, &cTmp, sizeof(unsigned char), &dwRWC, NULL);
+	cTmp = (uint8_t)m_iVersion;
+	WriteFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 
-	cTmp = (unsigned char)m_iBaseVersion;
-	WriteFile(hFile, &cTmp, sizeof(unsigned char), &dwRWC, NULL);
+	cTmp = (uint8_t)m_iBaseVersion;
+	WriteFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 
 	WriteFile(hFile, &m_fLife, sizeof(float), &dwRWC, NULL);
 
-	cTmp = (unsigned char)m_iType;
-	WriteFile(hFile, &cTmp, sizeof(unsigned char), &dwRWC, NULL);
+	cTmp = (uint8_t)m_iType;
+	WriteFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 
 	WriteFile(hFile, &m_vVelocity, sizeof(__Vector3), &dwRWC, NULL);
 	WriteFile(hFile, &m_vAcceleration, sizeof(__Vector3), &dwRWC, NULL);
@@ -552,8 +552,8 @@ bool CN3FXPartBase::Save(HANDLE hFile)
 	if(m_iBaseVersion<2)
 	{
 		WriteFile(hFile, &m_bAlpha, sizeof(BOOL), &dwRWC, NULL);
-		WriteFile(hFile, &m_dwSrcBlend, sizeof(DWORD), &dwRWC, NULL);
-		WriteFile(hFile, &m_dwDestBlend, sizeof(DWORD), &dwRWC, NULL);
+		WriteFile(hFile, &m_dwSrcBlend, sizeof(uint32_t), &dwRWC, NULL);
+		WriteFile(hFile, &m_dwDestBlend, sizeof(uint32_t), &dwRWC, NULL);
 
 		WriteFile(hFile, &m_fFadeOut, sizeof(float), &dwRWC, NULL);
 		WriteFile(hFile, &m_fFadeIn, sizeof(float), &dwRWC, NULL);
@@ -562,8 +562,8 @@ bool CN3FXPartBase::Save(HANDLE hFile)
 
 	// m_iBaseVersion >= 2 
 	//
-	WriteFile(hFile, &m_dwSrcBlend, sizeof(DWORD), &dwRWC, NULL);
-	WriteFile(hFile, &m_dwDestBlend, sizeof(DWORD), &dwRWC, NULL);
+	WriteFile(hFile, &m_dwSrcBlend, sizeof(uint32_t), &dwRWC, NULL);
+	WriteFile(hFile, &m_dwDestBlend, sizeof(uint32_t), &dwRWC, NULL);
 
 	WriteFile(hFile, &m_fFadeOut, sizeof(float), &dwRWC, NULL);
 	WriteFile(hFile, &m_fFadeIn, sizeof(float), &dwRWC, NULL);
@@ -575,7 +575,7 @@ bool CN3FXPartBase::Save(HANDLE hFile)
 	if(m_dwLight == TRUE) m_dwRenderFlag ^= RF_NOTUSELIGHT;
 	if(m_bAlpha != TRUE) m_dwRenderFlag ^= RF_ALPHABLENDING;
 	
-	WriteFile(hFile, &m_dwRenderFlag, sizeof(DWORD), &dwRWC, NULL);
+	WriteFile(hFile, &m_dwRenderFlag, sizeof(uint32_t), &dwRWC, NULL);
 
 	return true;
 }

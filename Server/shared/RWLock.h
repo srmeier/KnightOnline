@@ -13,6 +13,6 @@ public:
 
 private:
 	Condition _cond;
-	volatile unsigned int _readers;
-	volatile unsigned int _writers;
+	volatile uint32_t _readers;
+	volatile uint32_t _writers;
 }; 

@@ -17,7 +17,7 @@ void CleanupConsoleInputThread()
 	s_consoleInputThread.waitForExit();
 }
 
-uint32 THREADCALL ConsoleInputThread(void * lpParam)
+uint32_t THREADCALL ConsoleInputThread(void * lpParam)
 {
 	size_t i = 0;
 	size_t len;

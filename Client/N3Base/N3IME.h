@@ -13,8 +13,8 @@
 #include <string>
 using namespace std;
 
-const DWORD IME_IN_COMPOSITION	= 0x00000001;
-const DWORD IME_IN_CHOSECAND	= 0x00000002;
+const uint32_t IME_IN_COMPOSITION	= 0x00000001;
+const uint32_t IME_IN_CHOSECAND	= 0x00000002;
 
 #define MAX_LISTCAND 32
 #define MAX_CHARS_PER_LINE		10
@@ -35,8 +35,8 @@ protected:
 	HWND			m_hWnd;
 	HIMC			m_hIMC;
 	HKL				m_hKeyLayout;
-	DWORD			m_dwProperty;
-	DWORD			m_dwState;
+	uint32_t			m_dwProperty;
+	uint32_t			m_dwState;
 
 // Operations
 public:
@@ -66,14 +66,14 @@ protected:
 	LRESULT OnChar(WPARAM wParam);
 	LRESULT OnKeyDown(WPARAM wParam);
 
-	BOOL OpenCandidate(LONG lParam);
-	BOOL CloseCandidate(LONG CandList);
-	BOOL ChangeCandidate(LONG CandList);
+	BOOL OpenCandidate(int32_t lParam);
+	BOOL CloseCandidate(int32_t CandList);
+	BOOL ChangeCandidate(int32_t CandList);
 	BOOL SetOpenStatus();
 
 	void ClearData();
 	BOOL GetResultString();
-	BOOL GetCompString(LONG flag);
+	BOOL GetCompString(int32_t flag);
 };
 
 #endif // !defined(AFX_N3IME_H__87E26E3B_B5EB_403B_8126_2884169AFEE9__INCLUDED_)

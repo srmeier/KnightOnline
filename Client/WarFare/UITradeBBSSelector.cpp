@@ -35,7 +35,7 @@ CUITradeBBSSelector::~CUITradeBBSSelector()
 
 }
 
-bool CUITradeBBSSelector::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
+bool CUITradeBBSSelector::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)
 	{
@@ -73,7 +73,7 @@ bool CUITradeBBSSelector::Load(HANDLE hFile)
 
 void CUITradeBBSSelector::MsgSend_OpenTradeSellBBS()
 {
-	BYTE byBuff[5];		// 패킷 버퍼..
+	uint8_t byBuff[5];		// 패킷 버퍼..
 	int iOffset=0;		// 패킷 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);		
@@ -84,7 +84,7 @@ void CUITradeBBSSelector::MsgSend_OpenTradeSellBBS()
 
 void CUITradeBBSSelector::MsgSend_OpenTradeBuyBBS()
 {
-	BYTE byBuff[5];		// 패킷 버퍼..
+	uint8_t byBuff[5];		// 패킷 버퍼..
 	int iOffset=0;		// 패킷 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);		

@@ -5,7 +5,7 @@ void CUser::RentalSystem(Packet & pkt)
 	if (isDead())
 		return;
 
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 
 	// TODO
 	/*if (opcode == 1)

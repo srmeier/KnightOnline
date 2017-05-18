@@ -42,7 +42,7 @@ typedef struct __SoundSource
 
 typedef struct __TABLE_SOUND // Sound 리소스 레코드...
 {
-	DWORD		dwID;		// 고유 ID
+	uint32_t		dwID;		// 고유 ID
 	std::string	szFN;		// wave file name
 	int			iType;		// 사운드 타입...
 	int			iNumInst;	// 최대 사용할 수 있는 인스턴스의 갯수..

@@ -35,7 +35,7 @@ public:
 	int					m_iSendRegeneration;	// 한번 보내면 다시 죽을때까지 안보내는 플래그 0 일때는 메시지 박스를 띄운다..
 	bool				m_bTempMoveTurbo;		// 개발을 위해 임시로 넣은 코드.. 무지 빠르게 움직이게 한다.. Tick 참조.
 
-	DWORD				m_dwMagicID;			// 쓰고 있는 마법..
+	uint32_t				m_dwMagicID;			// 쓰고 있는 마법..
 	float				m_fCastingTime;			// 마법 주문 거는 시간..
 	
 	class CN3Shape*		m_pObjectTarget;		// 타겟 오브젝트 포인터..
@@ -56,7 +56,7 @@ public:
 	void			InitFace(); // 갖고 있는 정보로 얼굴을 초기화 한다..
 	void			InitHair(); // 갖고 있는 정보로 머리카락을 초기화 한다..
 	void			KnightsInfoSet(int iID, const std::string& szName, int iGrade, int iRank);
-	void			SetSoundAndInitFont(DWORD dwFontFlag = 0UL);
+	void			SetSoundAndInitFont(uint32_t dwFontFlag = 0UL);
 
 	float			AttackableDistance(CPlayerBase* pTarget);
 	float			DistanceExceptRadius(CPlayerBase* pTarget);

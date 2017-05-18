@@ -55,13 +55,13 @@ bool CUINotice::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUINotice::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUINotice::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 
 	//s_CameraData.vp;  //불러 오는 과정을 살펴본다 
-	//DWORD mm = s_CameraData.vp.Height;
-	//DWORD ss = s_CameraData.vp.Width;	
+	//uint32_t mm = s_CameraData.vp.Height;
+	//uint32_t ss = s_CameraData.vp.Width;	
 
 	if (dwMsg == UIMSG_BUTTON_CLICK)
 	{

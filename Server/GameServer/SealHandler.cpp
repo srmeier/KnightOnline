@@ -30,9 +30,9 @@ enum SealErrorCodes
 void CUser::ItemSealProcess(Packet & pkt)
 {
 	// Seal type
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 
-	Packet result(WIZ_ITEM_UPGRADE, uint8(ITEM_SEAL));
+	Packet result(WIZ_ITEM_UPGRADE, uint8_t(ITEM_SEAL));
 	result << opcode;
 
 	switch (opcode)
@@ -41,9 +41,9 @@ void CUser::ItemSealProcess(Packet & pkt)
 	case SEAL_TYPE_SEAL:
 		{
 			string strPasswd;
-			uint32 nItemID; 
-			int16 unk0; // set to -1 in this case
-			uint8 bSrcPos, bResponse = SealErrorNone;
+			uint32_t nItemID; 
+			int16_t unk0; // set to -1 in this case
+			uint8_t bSrcPos, bResponse = SealErrorNone;
 			pkt >> unk0 >> nItemID >> bSrcPos >> strPasswd;
 
 			/* 
@@ -97,9 +97,9 @@ void CUser::ItemSealProcess(Packet & pkt)
 	case SEAL_TYPE_UNSEAL:
 		{
 			string strPasswd;
-			uint32 nItemID; 
-			int16 unk0; // set to -1 in this case
-			uint8 bSrcPos, bResponse = SealErrorNone;
+			uint32_t nItemID; 
+			int16_t unk0; // set to -1 in this case
+			uint8_t bSrcPos, bResponse = SealErrorNone;
 			pkt >> unk0 >> nItemID >> bSrcPos >> strPasswd;
 
 			if (bSrcPos >= HAVE_MAX
@@ -129,9 +129,9 @@ void CUser::ItemSealProcess(Packet & pkt)
 	case SEAL_TYPE_KROWAZ:
 		{
 			string strPasswd = "0"; //Dummy, not actually used.
-			uint32 nItemID;
-			uint8 bSrcPos = 0 , unk3, bResponse = SealErrorNone;
-			uint16 unk1, unk2;
+			uint32_t nItemID;
+			uint8_t bSrcPos = 0 , unk3, bResponse = SealErrorNone;
+			uint16_t unk1, unk2;
 			pkt >> unk1 >> nItemID >> bSrcPos >> unk3 >> unk2;
 
 			if (bSrcPos >= HAVE_MAX
@@ -148,7 +148,7 @@ void CUser::ItemSealProcess(Packet & pkt)
 	}
 }
 
-void CUser::SealItem(uint8 bSealType, uint8 bSrcPos)
+void CUser::SealItem(uint8_t bSealType, uint8_t bSrcPos)
 {
 	_ITEM_DATA * pItem = GetItem(SLOT_MAX + bSrcPos);
 	if (pItem == nullptr)

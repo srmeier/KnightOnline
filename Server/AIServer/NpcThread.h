@@ -1,7 +1,7 @@
 #pragma once
 
-uint32 THREADCALL NpcThreadProc(void * lpParam /* CNpcThread ptr */);
-uint32 THREADCALL ZoneEventThreadProc(void * lpParam /* = nullptr */);
+uint32_t THREADCALL NpcThreadProc(void * lpParam /* CNpcThread ptr */);
+uint32_t THREADCALL ZoneEventThreadProc(void * lpParam /* = nullptr */);
 
 typedef std::set<CNpc *> NpcSet;
 

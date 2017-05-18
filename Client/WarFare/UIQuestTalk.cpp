@@ -60,7 +60,7 @@ void CUIQuestTalk::Open(DataPack *pDataPack, int &iOffset)
 	SetVisible(true);
 }
 
-bool CUIQuestTalk::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
+bool CUIQuestTalk::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 {
 	if( dwMsg == UIMSG_BUTTON_CLICK )
 	{

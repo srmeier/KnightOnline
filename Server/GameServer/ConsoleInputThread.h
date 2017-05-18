@@ -2,4 +2,4 @@
 
 void StartConsoleInputThread();
 void CleanupConsoleInputThread();
-uint32 THREADCALL ConsoleInputThread(void * lpParam);
+uint32_t THREADCALL ConsoleInputThread(void * lpParam);

@@ -19,17 +19,17 @@ protected:
 	enum DATA_TYPE {DT_NONE, DT_CHAR, DT_BYTE, DT_SHORT, DT_WORD, DT_INT, DT_DWORD, DT_STRING, DT_FLOAT, DT_DOUBLE};
 	typedef typename std::vector<DATA_TYPE>::iterator it_DataType;
 	
-	typedef typename std::map<unsigned int, Type>::iterator		it_Table;
-	typedef typename std::map<unsigned int, Type>::value_type	val_Table;
-	typedef typename std::pair<typename std::map<unsigned int, Type>::iterator, bool> pair_Table;
+	typedef typename std::map<uint32_t, Type>::iterator		it_Table;
+	typedef typename std::map<uint32_t, Type>::value_type	val_Table;
+	typedef typename std::pair<typename std::map<uint32_t, Type>::iterator, bool> pair_Table;
 
 	typename std::vector<DATA_TYPE> m_DataTypes;	// ½ÇÁ¦ »ç¿ëµÇ´Â Á¤º¸ÀÇ µ¥ÀÌÅ¸ Å¸ÀÔ
-	typename std::map<unsigned int, Type> m_Datas; // ½ÇÁ¦ »ç¿ëµÇ´Â Á¤º¸
+	typename std::map<uint32_t, Type> m_Datas; // ½ÇÁ¦ »ç¿ëµÇ´Â Á¤º¸
 
 // Operations
 public:
 	void	Release();
-	Type*	Find(unsigned int dwID) // ID·Î data Ã£±â
+	Type*	Find(uint32_t dwID) // ID·Î data Ã£±â
 	{
 		it_Table it = m_Datas.find(dwID);
 		if(it == m_Datas.end()) return NULL; // Ã£±â¿¡ ½ÇÆÐ Çß´Ù!~!!
@@ -44,7 +44,7 @@ public:
 		std::advance(it, index);
 		return &(it->second);
 	}
-	bool IDToIndex(unsigned int dwID, size_t * index) // ÇØ´ç IDÀÇ Index ¸®ÅÏ..	Skill¿¡¼­ ¾´´Ù..
+	bool IDToIndex(uint32_t dwID, size_t * index) // ÇØ´ç IDÀÇ Index ¸®ÅÏ..	Skill¿¡¼­ ¾´´Ù..
 	{
 		auto it = m_Datas.find(dwID);
 		if (it == m_Datas.end())
@@ -117,12 +117,12 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 		break;
 	case DT_BYTE:
 		{
-			BYTE byteWrite;
+			uint8_t byteWrite;
 			if (isdigit(lpszData[0]))
 			{
 				int iTemp = atoi(lpszData);
 				if (iTemp < 0 || iTemp > 255) return FALSE; // ¹üÀ§°¡ ¹þ¾î³µ¾î~
-				byteWrite = (BYTE)iTemp;
+				byteWrite = (uint8_t)iTemp;
 			}
 			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
 
@@ -131,12 +131,12 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 		break;
 	case DT_SHORT:
 		{
-			short iWrite;
+			int16_t iWrite;
 			if (isdigit(lpszData[0]) || '-' == lpszData[0] )
 			{
 				int iTemp = atoi(lpszData);
 				if (iTemp < -32767 || iTemp > 32768) return FALSE; // ¹üÀ§°¡ ¹þ¾î³µ¾î~
-				iWrite = (short)iTemp;
+				iWrite = (int16_t)iTemp;
 			}
 			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
 
@@ -145,12 +145,12 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 		break;
 	case DT_WORD:
 		{
-			WORD iWrite;
+			uint16_t iWrite;
 			if (isdigit(lpszData[0]) )
 			{
 				int iTemp = atoi(lpszData);
 				if (iTemp < 0 || iTemp > 65535) return FALSE; // ¹üÀ§°¡ ¹þ¾î³µ¾î~
-				iWrite = (short)iTemp;
+				iWrite = (int16_t)iTemp;
 			}
 			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
 
@@ -168,7 +168,7 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 		break;
 	case DT_DWORD:
 		{
-			DWORD iWrite;
+			uint32_t iWrite;
 			if (isdigit(lpszData[0]) )	iWrite = strtoul(lpszData, NULL, 10);
 			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
 
@@ -221,17 +221,17 @@ BOOL CN3TableBase<Type>::ReadData(HANDLE hFile, DATA_TYPE DataType, void* pData)
 		break;
 	case DT_BYTE:
 		{
-			ReadFile(hFile, pData, sizeof(BYTE), &dwNum, NULL);
+			ReadFile(hFile, pData, sizeof(uint8_t), &dwNum, NULL);
 		}
 		break;
 	case DT_SHORT:
 		{
-			ReadFile(hFile, pData, sizeof(short), &dwNum, NULL);
+			ReadFile(hFile, pData, sizeof(int16_t), &dwNum, NULL);
 		}
 		break;
 	case DT_WORD:
 		{
-			ReadFile(hFile, pData, sizeof(WORD), &dwNum, NULL);
+			ReadFile(hFile, pData, sizeof(uint16_t), &dwNum, NULL);
 		}
 		break;
 	case DT_INT:
@@ -241,7 +241,7 @@ BOOL CN3TableBase<Type>::ReadData(HANDLE hFile, DATA_TYPE DataType, void* pData)
 		break;
 	case DT_DWORD:
 		{
-			ReadFile(hFile, pData, sizeof(DWORD), &dwNum, NULL);
+			ReadFile(hFile, pData, sizeof(uint32_t), &dwNum, NULL);
 		}
 		break;
 	case DT_STRING:
@@ -304,8 +304,8 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 	
 	// ÆÄÀÏ ¾ÏÈ£È­ Ç®±â.. .. ÀÓ½Ã ÆÄÀÏ¿¡´Ù ¾´´ÙÀ½ ..
 	std::string szFNTmp = szFN + ".tmp";
-	DWORD dwSizeHigh = 0;
-	DWORD dwSizeLow = ::GetFileSize(hFile, &dwSizeHigh);
+	uint32_t dwSizeHigh = 0;
+	uint32_t dwSizeLow = ::GetFileSize(hFile, &dwSizeHigh);
 	if(dwSizeLow <= 0)
 	{
 		CloseHandle(hFile);
@@ -314,27 +314,27 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 	}
 
 	// ¿ø·¡ ÆÄÀÏÀ» ÀÐ°í..
-	BYTE* pDatas = new BYTE[dwSizeLow];
+	uint8_t* pDatas = new uint8_t[dwSizeLow];
 	DWORD dwRWC = 0;
 	::ReadFile(hFile, pDatas, dwSizeLow, &dwRWC, NULL); // ¾ÏÈ£È­µÈ µ¥ÀÌÅÍ ÀÐ°í..
 	CloseHandle(hFile); // ¿ø·¡ ÆÄÀÏ ´Ý°í
 
 // Å×ÀÌºí ¸¸µå´Â Åø¿¡¼­ ¾²´Â Å°¿Í °°Àº Å°..
-	WORD key_r = 0x0816;
-	WORD key_c1 = 0x6081;
-	WORD key_c2 = 0x1608;
+	uint16_t key_r = 0x0816;
+	uint16_t key_c1 = 0x6081;
+	uint16_t key_c2 = 0x1608;
 
-//BYTE Encrypt(BYTE plain)
+//uint8_t Encrypt(uint8_t plain)
 //{
-//	BYTE cipher;
+//	uint8_t cipher;
 //	cipher = (plain ^ (key_r>>8));
 //	key_r = (cipher + key_r) * key_c1 + key_c2;
 //	return cipher;
 //}
 
-//BYTE Decrypt(BYTE cipher)
+//uint8_t Decrypt(uint8_t cipher)
 //{
-//	BYTE plain;
+//	uint8_t plain;
 //	plain = (cipher ^ (m_r>>8));
 //	m_r = (cipher + m_r) * m_c1 + m_c2;
 //	return plain;
@@ -343,7 +343,7 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 	// ¾ÏÈ£È­ Ç®°í..
 	for(int i = 0; i < dwSizeLow; i++)
 	{
-		BYTE byData = (pDatas[i] ^ (key_r>>8));
+		uint8_t byData = (pDatas[i] ^ (key_r>>8));
 		key_r = (pDatas[i] + key_r) * key_c1 + key_c2;
 		pDatas[i] = byData;
 	}
@@ -425,7 +425,7 @@ BOOL CN3TableBase<Type>::Load(HANDLE hFile)
 			ReadData(hFile, m_DataTypes[j], (char*)(&Data) + offsets[j]);
 		}
 
-		unsigned int dwKey = *((unsigned int*)(&Data));
+		uint32_t dwKey = *((uint32_t*)(&Data));
 		pair_Table pt = m_Datas.insert(val_Table(dwKey, Data));
 
 	}
@@ -440,15 +440,15 @@ int CN3TableBase<Type>::SizeOf(DATA_TYPE DataType) const
 	case DT_CHAR:
 		return sizeof(char);
 	case DT_BYTE:
-		return sizeof(BYTE);
+		return sizeof(uint8_t);
 	case DT_SHORT:
-		return sizeof(short);
+		return sizeof(int16_t);
 	case DT_WORD:
-		return sizeof(WORD);
+		return sizeof(uint16_t);
 	case DT_INT:
 		return sizeof(int);
 	case DT_DWORD:
-		return sizeof(DWORD);
+		return sizeof(uint32_t);
 	case DT_STRING:
 		return sizeof(std::string);
 	case DT_FLOAT:

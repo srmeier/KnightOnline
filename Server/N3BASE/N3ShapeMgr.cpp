@@ -95,7 +95,7 @@ bool CN3ShapeMgr::LoadCollisionData(FILE *fp)
 				m_pCells[x][z] = nullptr;
 			}
 
-			uint32 bExist;
+			uint32_t bExist;
 			if (fread(&bExist, 4, 1, fp) != 1)
 			{
 				ASSERT(0);

@@ -362,7 +362,7 @@ void CGameProcedure::Tick()
 
 	ProcessUIKeyInput();
 
-	DWORD dwMouseFlags = s_pLocalInput->MouseGetFlag();
+	uint32_t dwMouseFlags = s_pLocalInput->MouseGetFlag();
 	POINT ptPrev = s_pLocalInput->MouseGetPosOld();
 	POINT ptCur = s_pLocalInput->MouseGetPos();
 
@@ -377,7 +377,7 @@ void CGameProcedure::Tick()
 			SDL_SetCursor(((NATION_ELMORAD == eNation) ? s_hCursorNormal1 : s_hCursorNormal));
 	}
 
-	DWORD dwRet = 0;
+	uint32_t dwRet = 0;
 	dwRet = s_pMsgBoxMgr->MouseProcAndTick(dwMouseFlags, s_pLocalInput->MouseGetPos(), s_pLocalInput->MouseGetPosOld());
 
 	if(0 == dwRet)
@@ -522,15 +522,15 @@ bool CGameProcedure::CaptureScreenAndSaveToFile(const std::string& szFN)
 				D3DLOCKED_RECT LR;
 				if(D3D_OK == lpDDSTmp->LockRect(&LR, NULL, 0))
 				{
-//					std::vector<BYTE> buff(iW * iH * 3, 0);
+//					std::vector<uint8_t> buff(iW * iH * 3, 0);
 					CBitMapFile bmf;
 					bmf.Create(iW, iH);
 
 					for(int y = 0; y < iH; y++)
 					{
-						BYTE* pPS = ((BYTE*)LR.pBits) + LR.Pitch * y;
-//						BYTE* pPD = (BYTE*)(&(buff[y * (iW * 3)]));
-						BYTE* pPD = (BYTE*)(bmf.Pixels(0, y));
+						uint8_t* pPS = ((uint8_t*)LR.pBits) + LR.Pitch * y;
+//						uint8_t* pPD = (uint8_t*)(&(buff[y * (iW * 3)]));
+						uint8_t* pPD = (uint8_t*)(bmf.Pixels(0, y));
 
 						for(int x = 0; x < iW; x++, pPS += 4, pPD +=3 )
 						{
@@ -614,7 +614,7 @@ bool CGameProcedure::RegPutSetting( const char *ValueName, void *pValueData, lon
 	}
 
 	// set the value
-	if ( RegSetValueEx( hKey, ValueName, 0, REG_BINARY, (const BYTE *)pValueData, length ) != ERROR_SUCCESS )
+	if ( RegSetValueEx( hKey, ValueName, 0, REG_BINARY, (const uint8_t *)pValueData, length ) != ERROR_SUCCESS )
 	{
 		__ASSERT(0, "Registry Write Failed!!!");
 		RegCloseKey( hKey );
@@ -645,7 +645,7 @@ bool CGameProcedure::RegGetSetting( const char *ValueName, void *pValueData, lon
 	}
 
 	// get the value
-	if ( RegQueryValueEx( hKey, ValueName, NULL, &Type, (BYTE *)pValueData, &len ) != ERROR_SUCCESS )
+	if ( RegQueryValueEx( hKey, ValueName, NULL, &Type, (uint8_t *)pValueData, &len ) != ERROR_SUCCESS )
 	{
 //		__ASSERT(0, "Registry Query Failed!!!");
 		RegCloseKey( hKey );
@@ -806,7 +806,7 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 //			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iLen);
 			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 IP
 			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szIP, iLen);
-			DWORD dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			uint32_t dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 			s_pPlayer->m_InfoExt.iZoneInit = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 			s_pPlayer->m_InfoExt.iZoneCur = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 			int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
@@ -882,7 +882,7 @@ void CGameProcedure::ReportDebugStringAndSendToServer(const std::string& szDebug
 	if(s_pSocket && s_pSocket->IsConnected())
 	{
 		int iLen = szDebug.size();
-		std::vector<BYTE> buffer;	// 버퍼.. 
+		std::vector<uint8_t> buffer;	// 버퍼.. 
 		buffer.assign(iLen + 4, 0x00);
 		int iOffset=0;												// 옵셋..
 		s_pSocket->MP_AddByte(&(buffer[0]), iOffset, WIZ_DEBUG_STRING_PACKET);
@@ -894,13 +894,13 @@ void CGameProcedure::ReportDebugStringAndSendToServer(const std::string& szDebug
 
 void CGameProcedure::MsgSend_GameServerLogIn()
 {
-	BYTE byBuff[128];										// 패킷 버퍼..
+	uint8_t byBuff[128];										// 패킷 버퍼..
 	int iOffset = 0;										// 버퍼의 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_LOGIN);	// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());	// 아이디 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szAccount.size());	// 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);			// 실제 아이디..
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szPassWord.size());	// 패스워드 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szPassWord.size());	// 패스워드 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szPassWord);		// 실제 패스워드
 		
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
@@ -910,7 +910,7 @@ void CGameProcedure::MsgSend_VersionCheck() // virtual
 {
 	// Version Check
 	int iOffset = 0;
-	BYTE byBuffs[4];
+	uint8_t byBuffs[4];
 	CAPISocket::MP_AddByte(byBuffs, iOffset, WIZ_VERSION_CHECK);				// 커멘드.
 	s_pSocket->Send(byBuffs, iOffset);	// 보낸다
 
@@ -921,12 +921,12 @@ void CGameProcedure::MsgSend_VersionCheck() // virtual
 
 void CGameProcedure::MsgSend_CharacterSelect() // virtual
 {
-	BYTE byBuff[64];
+	uint8_t byBuff[64];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_CHAR);				// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());				// 계정 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szAccount.size());				// 계정 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);						// 계정 문자열..
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDString().size());		// 캐릭 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_pPlayer->IDString());			// 캐릭 아이디 문자열..
 	CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneInit);	// 처음 접속인지 아닌지 0x01:처음 접속
 	CAPISocket::MP_AddByte(byBuff, iOffset, s_pPlayer->m_InfoExt.iZoneCur);		// 캐릭터 선택창에서의 캐릭터 존 번호
@@ -942,7 +942,7 @@ void CGameProcedure::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset)
 	Uint16 originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
 	Uint32 crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 
-	uint8 * decompressedBuffer = Compression::DecompressWithCRC32(pDataPack->m_pData + iOffset, compressedLength, originalLength, crc);
+	uint8_t * decompressedBuffer = Compression::DecompressWithCRC32(pDataPack->m_pData + iOffset, compressedLength, originalLength, crc);
 	if (decompressedBuffer == NULL)
 		return;
 

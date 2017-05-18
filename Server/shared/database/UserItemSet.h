@@ -11,8 +11,8 @@ public:
 
 	virtual bool Fetch()
 	{
-		uint32 nItemID = _dbCommand->FetchUInt32(1);
-		uint64 nItemSerial = _dbCommand->FetchUInt64(2);
+		uint32_t nItemID = _dbCommand->FetchUInt32(1);
+		uint64_t nItemSerial = _dbCommand->FetchUInt64(2);
 
 		_USER_ITEM * pData = m_pMap->GetData(nItemID);
 

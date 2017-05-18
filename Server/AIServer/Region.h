@@ -11,5 +11,5 @@ public:
 	CRegion() : m_byMoving(0) {}
 	ZoneUserArray	m_RegionUserArray;
 	ZoneNpcArray	m_RegionNpcArray;
-	uint8	m_byMoving;			// move : 1, not moving : 0
+	uint8_t	m_byMoving;			// move : 1, not moving : 0
 };

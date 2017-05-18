@@ -52,7 +52,7 @@ public:
 	void						MemberSelect(size_t iMemberIndex) { if (iMemberIndex > m_Members.size()) return; m_iIndexSelected = iMemberIndex; }
 
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(class CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(class CN3UIBase* pSender, uint32_t dwMsg);
 	void Render();
 	
 	void Release();

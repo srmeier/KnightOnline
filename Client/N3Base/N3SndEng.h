@@ -25,7 +25,7 @@ protected:
 
 protected:
 	HRESULT RestoreBuffer( LPDIRECTSOUNDBUFFER pDSB, BOOL* pbWasRestored );
-	bool SetPrimaryBufferFormat( DWORD dwPrimaryChannels, DWORD dwPrimaryFreq, DWORD dwPrimaryBitRate );
+	bool SetPrimaryBufferFormat( uint32_t dwPrimaryChannels, uint32_t dwPrimaryFreq, uint32_t dwPrimaryBitRate );
 	bool Get3DListenerInterface( LPDIRECTSOUND3DLISTENER* ppDSListener );
 
 	bool FillBufferWithSound( LPSOUNDSOURCE pSrc, CWaveFile* pWaveFile);
@@ -43,7 +43,7 @@ public:
 	void SetListenerPos(D3DVECTOR* pVPos, bool IsDeferred = true);
 	
 	bool LoadSource(LPSOUNDSOURCE pSrc);
-	bool Init( HWND hWnd, DWORD dwCoopLevel = DSSCL_PRIORITY, DWORD dwPrimaryChannels = 2, DWORD dwPrimaryFreq = 22050, DWORD dwPrimaryBitRate = 16 );
+	bool Init( HWND hWnd, uint32_t dwCoopLevel = DSSCL_PRIORITY, uint32_t dwPrimaryChannels = 2, uint32_t dwPrimaryFreq = 22050, uint32_t dwPrimaryBitRate = 16 );
 	void Release();
 
 	CN3SndEng();

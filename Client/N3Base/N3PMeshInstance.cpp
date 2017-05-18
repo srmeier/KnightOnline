@@ -103,23 +103,23 @@ bool CN3PMeshInstance::Create(CN3PMesh* pN3PMesh)
 	if (iMaxNumIndices>0)
 	{
 #ifdef _USE_VERTEXBUFFER
-		HRESULT hr = s_lpD3DDev->CreateIndexBuffer(m_pPMesh->m_iMaxNumIndices*sizeof(WORD),
+		HRESULT hr = s_lpD3DDev->CreateIndexBuffer(m_pPMesh->m_iMaxNumIndices*sizeof(uint16_t),
 									D3DUSAGE_DYNAMIC, D3DFMT_INDEX16, D3DPOOL_MANAGED, &m_pIB);
 		__ASSERT(SUCCEEDED(hr), "Failed to create index Buffer");
 
-		BYTE* pDestByte, *pSrcByte;
+		uint8_t* pDestByte, *pSrcByte;
 		hr = m_pIB->Lock(0, 0, &pDestByte, 0);
 		hr = m_pPMesh->m_pIB->Lock(0, 0, &pSrcByte, 0);
 
-		CopyMemory(pDestByte, pSrcByte, m_pPMesh->m_iMaxNumIndices * sizeof(WORD));
+		CopyMemory(pDestByte, pSrcByte, m_pPMesh->m_iMaxNumIndices * sizeof(uint16_t));
 		m_pPMesh->m_pIB->Unlock();
 		m_pIB->Unlock();
 
 #else
 		if(m_pIndices) delete [] m_pIndices; m_pIndices = NULL;
-		m_pIndices = new WORD[m_pPMesh->m_iMaxNumIndices];
+		m_pIndices = new uint16_t[m_pPMesh->m_iMaxNumIndices];
 		__ASSERT(m_pIndices, "Failed to create index buffer");
-		CopyMemory(m_pIndices, m_pPMesh->m_pIndices, m_pPMesh->m_iMaxNumIndices * sizeof(WORD));
+		CopyMemory(m_pIndices, m_pPMesh->m_pIndices, m_pPMesh->m_iMaxNumIndices * sizeof(uint16_t));
 #endif
 	}
 
@@ -247,10 +247,10 @@ bool CN3PMeshInstance::CollapseOne()
 	m_iNumIndices -= m_pCollapseUpTo->NumIndicesToLose;
 	
 #ifdef _USE_VERTEXBUFFER
-	BYTE* pByte;
-	WORD* pIndices;
+	uint8_t* pByte;
+	uint16_t* pIndices;
 	HRESULT hr = m_pIB->Lock(0, 0, &pByte, 0);
-	pIndices = (WORD*)pByte;
+	pIndices = (uint16_t*)pByte;
 
 	for (	int *i = m_pPMesh->m_pAllIndexChanges + m_pCollapseUpTo->iIndexChanges;
 			i < m_pPMesh->m_pAllIndexChanges + m_pCollapseUpTo->iIndexChanges + m_pCollapseUpTo->NumIndicesToChange;
@@ -286,11 +286,11 @@ bool CN3PMeshInstance::SplitOne()
 	if(m_pPMesh->m_pAllIndexChanges)
 	{
 #ifdef _USE_VERTEXBUFFER
-		BYTE* pByte;
-		WORD* pIndices;
+		uint8_t* pByte;
+		uint16_t* pIndices;
 		__ASSERT(m_pIB, "Index buffer pointer is NULL!");
 		HRESULT hr = m_pIB->Lock(0, 0, &pByte, 0);
-		pIndices = (WORD*)pByte;
+		pIndices = (uint16_t*)pByte;
 
 		for (	int *i = m_pPMesh->m_pAllIndexChanges + m_pCollapseUpTo->iIndexChanges;
 				i < m_pPMesh->m_pAllIndexChanges + m_pCollapseUpTo->iIndexChanges + m_pCollapseUpTo->NumIndicesToChange;
@@ -447,7 +447,7 @@ void CN3PMeshInstance::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 		if(iRPC > 0) s_lpD3DDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, m_iNumVertices, i*iPCToRender*3, iRPC);
 }
 #else
-void CN3PMeshInstance::PartialRender(int iCount, WORD* pIndices)
+void CN3PMeshInstance::PartialRender(int iCount, uint16_t* pIndices)
 {
 	if (m_pPMesh == NULL) return;
 	s_lpD3DDev->SetFVF(FVF_VNT1);
@@ -492,7 +492,7 @@ int CN3PMeshInstance::GetIndexByiOrder(int iOrder)
 
 #ifdef _USE_VERTEXBUFFER
 	int	iIndex = 0;	
-	BYTE* pByte;
+	uint8_t* pByte;
 	hr = m_pIB->Lock(0, 0, &pByte, 0);
 	LPWORD pIndices = (LPWORD)pByte;
 	iIndex = pIndices[iOrder];
@@ -512,7 +512,7 @@ __Vector3 CN3PMeshInstance::GetVertexByIndex(size_t iIndex)
 #ifdef _USE_VERTEXBUFFER
 	HRESULT hr;
 	__VertexT1* pVB;
-	hr = GetMesh()->m_pVB->Lock(0, 0, (BYTE**)&pVB, 0);
+	hr = GetMesh()->m_pVB->Lock(0, 0, (uint8_t**)&pVB, 0);
 	if (FAILED(hr)) 
 		return vec;
 	vec = (__Vector3)pVB[iIndex];

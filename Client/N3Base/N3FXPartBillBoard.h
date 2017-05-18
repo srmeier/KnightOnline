@@ -16,7 +16,7 @@ public:
 	bool				m_bTexLoop;
 	
 	int					m_iTexIdx;
-	DWORD				m_dwCurrColor;
+	uint32_t				m_dwCurrColor;
 
 	float				m_fRadius;
 

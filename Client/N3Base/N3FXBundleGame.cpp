@@ -449,7 +449,7 @@ void CN3FXBundleGame::Duplicate(CN3FXBundleGame* pDestBundle)
 //
 bool CN3FXBundleGame::Load(HANDLE hFile)
 {
-	DWORD			dwRWC = 0;
+	DWORD dwRWC = 0;
 
 	ReadFile(hFile, &m_iVersion, sizeof(int), &dwRWC, NULL);
 	

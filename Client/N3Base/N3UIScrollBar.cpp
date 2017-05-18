@@ -68,7 +68,7 @@ void CN3UIScrollBar::SetRegion(const RECT& Rect)
 //	}
 }
 
-bool CN3UIScrollBar::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CN3UIScrollBar::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (UIMSG_TRACKBAR_POS == dwMsg)
 	{
@@ -87,7 +87,7 @@ bool CN3UIScrollBar::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	return true;
 }
 
-void CN3UIScrollBar::SetStyle(DWORD dwStyle)
+void CN3UIScrollBar::SetStyle(uint32_t dwStyle)
 {
 	CN3UIBase::SetStyle(dwStyle);
 	if (UISTYLE_SCROLLBAR_HORIZONTAL == dwStyle)

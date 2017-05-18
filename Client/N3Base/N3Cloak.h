@@ -63,7 +63,7 @@ protected:
 	//
 	CN3Texture			*m_pTex;
 	__VertexT1*			m_pVertex;
-	WORD				*m_pIndex;
+	uint16_t				*m_pIndex;
 	int					m_nVertexCount, m_nIndexCount;
 
 	int					m_nGridW, m_nGridH;

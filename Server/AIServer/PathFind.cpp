@@ -54,7 +54,7 @@ void CPathFind::ClearData()
 	}
 }
 
-void CPathFind::SetMap(int x, int y, MAP * pMap, int16 min_x, int16 min_y)
+void CPathFind::SetMap(int x, int y, MAP * pMap, int16_t min_x, int16_t min_y)
 {
 	m_vMapSize.cx = x;
 	m_vMapSize.cy = y;

@@ -120,7 +120,7 @@ public:
 	void operator = (D3DCOLOR cr) { r = ((cr & 0x00ff0000)>>16)/255.0f; g = ((cr & 0x0000ff00)>>8)/255.0f; b = (cr & 0x000000ff)/255.0f; a = ((cr & 0xff000000) >> 24)/255.0f; }
 	void Set(float r2, float g2, float b2, float a2) { r = r2; g = g2; b = b2; a = a2; }
 
-	D3DCOLOR ToD3DCOLOR() { return	(((DWORD)(a*255.0f))<<24) | (((DWORD)(r*255.0f))<<16) | (((DWORD)(g*255.0f))<<8) | (((DWORD)(b*255.0f))); }
+	D3DCOLOR ToD3DCOLOR() { return	(((uint32_t)(a*255.0f))<<24) | (((uint32_t)(r*255.0f))<<16) | (((uint32_t)(g*255.0f))<<8) | (((uint32_t)(b*255.0f))); }
 
 	__ColorValue() {}
 	__ColorValue(D3DCOLOR cr) { *this = cr; }
@@ -719,46 +719,46 @@ inline __Quaternion::__Quaternion(const D3DXQUATERNION& qt)
 	x = qt.x; y = qt.y; z = qt.z; w = qt.w;
 }
 
-const DWORD FVF_VNT1 = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1;
-const DWORD FVF_VNT2 = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX2;
-const DWORD FVF_CV = D3DFVF_XYZ | D3DFVF_DIFFUSE;
-const DWORD FVF_CSV = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR;
-const DWORD FVF_TRANSFORMED = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1;
-const DWORD FVF_TRANSFORMEDT2 = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX2;
-const DWORD FVF_TRANSFORMEDCOLOR = D3DFVF_XYZRHW | D3DFVF_DIFFUSE;
-const DWORD FVF_PARTICLE = D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE;
+const uint32_t FVF_VNT1 = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1;
+const uint32_t FVF_VNT2 = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX2;
+const uint32_t FVF_CV = D3DFVF_XYZ | D3DFVF_DIFFUSE;
+const uint32_t FVF_CSV = D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR;
+const uint32_t FVF_TRANSFORMED = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+const uint32_t FVF_TRANSFORMEDT2 = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX2;
+const uint32_t FVF_TRANSFORMEDCOLOR = D3DFVF_XYZRHW | D3DFVF_DIFFUSE;
+const uint32_t FVF_PARTICLE = D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE;
 
 //..
-const DWORD FVF_XYZT1				= D3DFVF_XYZ | D3DFVF_TEX1;
-const DWORD FVF_XYZT2				= D3DFVF_XYZ | D3DFVF_TEX2;
-const DWORD FVF_XYZNORMAL			= D3DFVF_XYZ | D3DFVF_NORMAL;
-const DWORD FVF_XYZCOLORT1			= D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
-const DWORD FVF_XYZCOLORT2			= D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX2;
-const DWORD FVF_XYZCOLORSPECULART1	= D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1;
-const DWORD FVF_XYZCOLOR			= D3DFVF_XYZ | D3DFVF_DIFFUSE;
-const DWORD FVF_XYZNORMALCOLOR		= D3DFVF_XYZ | D3DFVF_NORMAL  | D3DFVF_DIFFUSE;
-const DWORD FVF_XYZNORMALCOLORT1	= D3DFVF_XYZ | D3DFVF_NORMAL  | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+const uint32_t FVF_XYZT1				= D3DFVF_XYZ | D3DFVF_TEX1;
+const uint32_t FVF_XYZT2				= D3DFVF_XYZ | D3DFVF_TEX2;
+const uint32_t FVF_XYZNORMAL			= D3DFVF_XYZ | D3DFVF_NORMAL;
+const uint32_t FVF_XYZCOLORT1			= D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1;
+const uint32_t FVF_XYZCOLORT2			= D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX2;
+const uint32_t FVF_XYZCOLORSPECULART1	= D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1;
+const uint32_t FVF_XYZCOLOR			= D3DFVF_XYZ | D3DFVF_DIFFUSE;
+const uint32_t FVF_XYZNORMALCOLOR		= D3DFVF_XYZ | D3DFVF_NORMAL  | D3DFVF_DIFFUSE;
+const uint32_t FVF_XYZNORMALCOLORT1	= D3DFVF_XYZ | D3DFVF_NORMAL  | D3DFVF_DIFFUSE | D3DFVF_TEX1;
 
-const DWORD RF_NOTHING			= 0x0;
-const DWORD RF_ALPHABLENDING	= 0x1;		// Alpha blending
-const DWORD RF_NOTUSEFOG		= 0x2;		// 안개 무시
-const DWORD RF_DOUBLESIDED		= 0x4;		// 양면 - D3DCULL_NONE
-const DWORD RF_BOARD_Y			= 0x8;		// Y 축으로 해서.. 카메라를 본다.
-const DWORD RF_POINTSAMPLING	= 0x10;		// MipMap 에서.. PointSampling 으로 한다..
-const DWORD RF_WINDY			= 0x20;		// 바람에 날린다.. 바람의 값은 CN3Base::s_vWindFactor 를 참조 한다..
-const DWORD RF_NOTUSELIGHT		= 0x40;		// Light Off
-const DWORD RF_DIFFUSEALPHA		= 0x80;		// Diffuse 값을 갖고 투명하게 Alpha blending
-const DWORD RF_NOTZWRITE		= 0x100;	// ZBuffer 에 안쓴다.
-const DWORD RF_UV_CLAMP			= 0x200;	// texture UV적용을 Clamp로 한다..default는 wrap이다..
-const DWORD RF_NOTZBUFFER		= 0x400;	// ZBuffer 무시.
+const uint32_t RF_NOTHING			= 0x0;
+const uint32_t RF_ALPHABLENDING	= 0x1;		// Alpha blending
+const uint32_t RF_NOTUSEFOG		= 0x2;		// 안개 무시
+const uint32_t RF_DOUBLESIDED		= 0x4;		// 양면 - D3DCULL_NONE
+const uint32_t RF_BOARD_Y			= 0x8;		// Y 축으로 해서.. 카메라를 본다.
+const uint32_t RF_POINTSAMPLING	= 0x10;		// MipMap 에서.. PointSampling 으로 한다..
+const uint32_t RF_WINDY			= 0x20;		// 바람에 날린다.. 바람의 값은 CN3Base::s_vWindFactor 를 참조 한다..
+const uint32_t RF_NOTUSELIGHT		= 0x40;		// Light Off
+const uint32_t RF_DIFFUSEALPHA		= 0x80;		// Diffuse 값을 갖고 투명하게 Alpha blending
+const uint32_t RF_NOTZWRITE		= 0x100;	// ZBuffer 에 안쓴다.
+const uint32_t RF_UV_CLAMP			= 0x200;	// texture UV적용을 Clamp로 한다..default는 wrap이다..
+const uint32_t RF_NOTZBUFFER		= 0x400;	// ZBuffer 무시.
 
 struct __Material : public _D3DMATERIAL9
 {
 public:
-	DWORD	dwColorOp, dwColorArg1, dwColorArg2;
+	uint32_t	dwColorOp, dwColorArg1, dwColorArg2;
 	BOOL	nRenderFlags; // 1-AlphaBlending | 2-안개랑 관계없음 | 4-Double Side | 8- ??
-	DWORD	dwSrcBlend; // 소스 블렌딩 방법
-	DWORD	dwDestBlend; // 데스트 블렌딩 방법
+	uint32_t	dwSrcBlend; // 소스 블렌딩 방법
+	uint32_t	dwDestBlend; // 데스트 블렌딩 방법
 
 public:
 	void Init(const _D3DCOLORVALUE& diffuseColor)
@@ -1062,37 +1062,37 @@ public:
 
 const int MAX_MIPMAP_COUNT = 10; // 1024 * 1024 단계까지 생성
 
-const DWORD OBJ_UNKNOWN					= 0;
-const DWORD OBJ_BASE					= 0x1;
-const DWORD OBJ_BASE_FILEACCESS			= 0x2;
-const DWORD OBJ_TEXTURE					= 0x4;
-const DWORD OBJ_TRANSFORM 				= 0x8;
-const DWORD OBJ_TRANSFORM_COLLISION		= 0x10;
-const DWORD OBJ_SCENE					= 0x20;
+const uint32_t OBJ_UNKNOWN					= 0;
+const uint32_t OBJ_BASE					= 0x1;
+const uint32_t OBJ_BASE_FILEACCESS			= 0x2;
+const uint32_t OBJ_TEXTURE					= 0x4;
+const uint32_t OBJ_TRANSFORM 				= 0x8;
+const uint32_t OBJ_TRANSFORM_COLLISION		= 0x10;
+const uint32_t OBJ_SCENE					= 0x20;
 
-const DWORD OBJ_CAMERA					= 0x100;
-const DWORD OBJ_LIGHT					= 0x200;
-const DWORD OBJ_SHAPE					= 0x400;
-const DWORD OBJ_SHAPE_PART				= 0x800;
-const DWORD OBJ_SHAPE_EXTRA				= 0x1000;
-const DWORD OBJ_CHARACTER				= 0x2000;
-const DWORD OBJ_CHARACTER_PART			= 0x4000;
-const DWORD OBJ_CHARACTER_PLUG			= 0x8000;
-const DWORD OBJ_BOARD					= 0x1000;
-const DWORD OBJ_FX_PLUG					= 0x20000;
-const DWORD OBJ_FX_PLUG_PART			= 0x40000;
+const uint32_t OBJ_CAMERA					= 0x100;
+const uint32_t OBJ_LIGHT					= 0x200;
+const uint32_t OBJ_SHAPE					= 0x400;
+const uint32_t OBJ_SHAPE_PART				= 0x800;
+const uint32_t OBJ_SHAPE_EXTRA				= 0x1000;
+const uint32_t OBJ_CHARACTER				= 0x2000;
+const uint32_t OBJ_CHARACTER_PART			= 0x4000;
+const uint32_t OBJ_CHARACTER_PLUG			= 0x8000;
+const uint32_t OBJ_BOARD					= 0x1000;
+const uint32_t OBJ_FX_PLUG					= 0x20000;
+const uint32_t OBJ_FX_PLUG_PART			= 0x40000;
 
-const DWORD OBJ_MESH					= 0x100000;
-const DWORD OBJ_MESH_PROGRESSIVE		= 0x200000;
-const DWORD OBJ_MESH_INDEXED			= 0x400000;
-const DWORD OBJ_MESH_VECTOR3			= 0x800000;
-const DWORD OBJ_JOINT					= 0x1000000;
-const DWORD OBJ_SKIN					= 0x2000000;
-const DWORD OBJ_CHARACTER_PART_SKINS	= 0x4000000;
+const uint32_t OBJ_MESH					= 0x100000;
+const uint32_t OBJ_MESH_PROGRESSIVE		= 0x200000;
+const uint32_t OBJ_MESH_INDEXED			= 0x400000;
+const uint32_t OBJ_MESH_VECTOR3			= 0x800000;
+const uint32_t OBJ_JOINT					= 0x1000000;
+const uint32_t OBJ_SKIN					= 0x2000000;
+const uint32_t OBJ_CHARACTER_PART_SKINS	= 0x4000000;
 
-const DWORD OBJ_DUMMY					= 0x10000000;
-const DWORD OBJ_EFFECT					= 0x20000000;
-const DWORD OBJ_ANIM_CONTROL			= 0x40000000;
+const uint32_t OBJ_DUMMY					= 0x10000000;
+const uint32_t OBJ_EFFECT					= 0x20000000;
+const uint32_t OBJ_ANIM_CONTROL			= 0x40000000;
 
 
 
@@ -1151,10 +1151,10 @@ bool			_CheckCollisionByBox(const __Vector3& vOrig, const __Vector3& vDir, const
 POINT			_Convert3D_To_2DCoordinate(const __Vector3 &vPos, const __Matrix44& mtxView, const __Matrix44& mtxProjection, int nVPW, int nVPH);
 void			_Convert2D_To_3DCoordinate(	int ixScreen, int iyScreen, const __Matrix44& mtxView, const __Matrix44& mtxPrj, const D3DVIEWPORT9& vp, __Vector3& vPosResult, __Vector3& vDirResult);
 float			_Yaw2D(float fDirX, float fDirZ);
-void			_LoadStringFromResource(DWORD dwID, std::string& szText);
+void			_LoadStringFromResource(uint32_t dwID, std::string& szText);
 
 
-inline D3DCOLOR _RGB_To_D3DCOLOR(COLORREF cr, DWORD dwAlpha)
+inline D3DCOLOR _RGB_To_D3DCOLOR(COLORREF cr, uint32_t dwAlpha)
 {
 	D3DCOLOR cr2 =	(dwAlpha << 24) | 
 					((cr & 0x000000ff)<<16) | // R
@@ -1173,18 +1173,18 @@ inline COLORREF _D3DCOLOR_To_RGB(D3DCOLOR cr)
 
 inline COLORREF _D3DCOLORVALUE_To_RGB(const D3DCOLORVALUE& cr)
 {
-	COLORREF cr2 =	(((DWORD)(cr.r*255.0f))) | // R
-					(((DWORD)(cr.g*255.0f))<<8) | // G
-					(((DWORD)(cr.b*255.0f))<<16); // B
+	COLORREF cr2 =	(((uint32_t)(cr.r*255.0f))) | // R
+					(((uint32_t)(cr.g*255.0f))<<8) | // G
+					(((uint32_t)(cr.b*255.0f))<<16); // B
 	return cr2;
 };
 
 inline D3DCOLOR _D3DCOLORVALUE_To_D3DCOLOR(const D3DCOLORVALUE& cr)
 {
-	COLORREF cr2 =	(((DWORD)(cr.a*255.0f))<<24) | // A
-					(((DWORD)(cr.r*255.0f))<<16) | // R
-					(((DWORD)(cr.g*255.0f))<<8) | // G
-					(((DWORD)(cr.b*255.0f))); // B
+	COLORREF cr2 =	(((uint32_t)(cr.a*255.0f))<<24) | // A
+					(((uint32_t)(cr.r*255.0f))<<16) | // R
+					(((uint32_t)(cr.g*255.0f))<<8) | // G
+					(((uint32_t)(cr.b*255.0f))); // B
 	return cr2;
 };
 
@@ -1434,8 +1434,8 @@ inline float _Yaw2D(float fDirX, float fDirZ)
 	////////////////////////////////
 }
 
-inline short int _IsKeyDown(int iVirtualKey) { return (GetAsyncKeyState(iVirtualKey) & 0xff00); }
-inline short int _IsKeyDowned(int iVirtualKey) { return (GetAsyncKeyState(iVirtualKey) & 0x00ff); }
+inline int16_t _IsKeyDown(int iVirtualKey) { return (GetAsyncKeyState(iVirtualKey) & 0xff00); }
+inline int16_t _IsKeyDowned(int iVirtualKey) { return (GetAsyncKeyState(iVirtualKey) & 0x00ff); }
 
 
 //macro.. -> Template 로 바꿨다..

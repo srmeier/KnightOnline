@@ -47,7 +47,7 @@ void CJpeg::LoadJPG(LPCSTR FileName)
 	// File Open & Load Entire Contents //
 	HFILE hFile = _lopen(FileName, OF_READWRITE);
 	int FileSize = GetFileSize((HANDLE)hFile, NULL);
-	m_pBuf = new BYTE[FileSize];
+	m_pBuf = new uint8_t[FileSize];
 	_lread(hFile, m_pBuf, FileSize);
 	_lclose(hFile);
 	m_Index = 0;
@@ -85,16 +85,16 @@ void CJpeg::FindDHT()
 {
 	if( (m_pBuf[m_Index] == 0xff) && (m_pBuf[m_Index+1] == 0xc4) )
 	{
-		WORD SegSize = m_pBuf[m_Index+2]*256 + m_pBuf[m_Index+3];
+		uint16_t SegSize = m_pBuf[m_Index+2]*256 + m_pBuf[m_Index+3];
 		//버퍼의 현재 위치를 포인터로 설정한다.
-		BYTE *p = &m_pBuf[m_Index+4];		
+		uint8_t *p = &m_pBuf[m_Index+4];		
 
 		do
 		{
 			int i, j, k, LASTK;
 			int Num = 0;
-			BYTE BITS[17];		
-			BYTE Th = *p; // Table Number
+			uint8_t BITS[17];		
+			uint8_t Th = *p; // Table Number
 			memcpy(BITS, p, 17);
 			p = p + 17;
 			//17개의 값을 모두 더해서 Num에 저장
@@ -103,9 +103,9 @@ void CJpeg::FindDHT()
 
 			TbH[Th].Flag = TRUE;
 			
-			TbH[Th].HUFFCODE = new WORD[Num+1];			
-			TbH[Th].HUFFSIZE = new BYTE[Num+1];
-			TbH[Th].HUFFVAL = new BYTE[Num+1];
+			TbH[Th].HUFFCODE = new uint16_t[Num+1];			
+			TbH[Th].HUFFSIZE = new uint8_t[Num+1];
+			TbH[Th].HUFFVAL = new uint8_t[Num+1];
 			//Huffman Value 값을 Num크기만큼 p에서 읽는다.
 			memcpy(TbH[Th].HUFFVAL, p, Num);			
 			//p가 증가
@@ -118,7 +118,7 @@ void CJpeg::FindDHT()
 			{
 				while(j<=BITS[i])
 				{
-					TbH[Th].HUFFSIZE[k] = (BYTE)i;				
+					TbH[Th].HUFFSIZE[k] = (uint8_t)i;				
 					k++;
 					j++;
 				}
@@ -132,8 +132,8 @@ void CJpeg::FindDHT()
 			
 			// Generation of table of Huffman codes
 			k=0;
-			WORD CODE = 0; 
-			BYTE SI = TbH[Th].HUFFSIZE[0];		
+			uint16_t CODE = 0; 
+			uint8_t SI = TbH[Th].HUFFSIZE[0];		
 			
 			while(TRUE)
 			{
@@ -186,13 +186,13 @@ void CJpeg::FindDQT()
 {
 	if( (m_pBuf[m_Index] == 0xff) && (m_pBuf[m_Index+1] == 0xdb) )
 	{		
-		WORD SegSize = m_pBuf[m_Index+2]*256 + m_pBuf[m_Index+3];
+		uint16_t SegSize = m_pBuf[m_Index+2]*256 + m_pBuf[m_Index+3];
 		
-		BYTE *p = &m_pBuf[m_Index+4];
+		uint8_t *p = &m_pBuf[m_Index+4];
 
 		do
 		{
-			BYTE Tq = *(p++) & 0x0f; // Table Number
+			uint8_t Tq = *(p++) & 0x0f; // Table Number
 			memcpy(TbQ[Tq].Q, &m_pBuf[m_Index+5], 64);
 			p = p + 64;
 		}while(*p != 0xff);		
@@ -206,7 +206,7 @@ void CJpeg::FindSOF()
 	if((m_pBuf[m_Index] == 0xff)&&(m_pBuf[m_Index + 1] == 0xc0))
 	{
 		int i;
-		WORD SegSize = m_pBuf[m_Index + 2] * 256 + m_pBuf[m_Index + 3];
+		uint16_t SegSize = m_pBuf[m_Index + 2] * 256 + m_pBuf[m_Index + 3];
 		FrameHeader.Y = m_pBuf[m_Index + 5] * 256 + m_pBuf[m_Index + 6];
 		FrameHeader.X = m_pBuf[m_Index + 7] * 256 + m_pBuf[m_Index + 8];
 		FrameHeader.Nf = m_pBuf[m_Index + 9];
@@ -227,14 +227,14 @@ void CJpeg::FindETC()
 {
 	if((m_pBuf[m_Index] == 0xff)&& (( (m_pBuf[m_Index + 1] & 0xf0) == 0xe0) || (m_pBuf[m_Index + 1] & 0xf0) == 0xf0))
 	{
-		WORD SegSize = m_pBuf[m_Index + 2] * 256 + m_pBuf[m_Index + 3];
+		uint16_t SegSize = m_pBuf[m_Index + 2] * 256 + m_pBuf[m_Index + 3];
 		m_Index = m_Index + SegSize + 2;
 	}
 
 	// DRI(Define Restart Interval //
 	if((m_pBuf[m_Index] == 0xff) && (m_pBuf[m_Index+1] == 0xdd))
 	{
-		WORD Lr = m_pBuf[m_Index+2]*256+m_pBuf[m_Index+3];
+		uint16_t Lr = m_pBuf[m_Index+2]*256+m_pBuf[m_Index+3];
 		Ri = m_pBuf[m_Index+4]*256+m_pBuf[m_Index+5];
 
 		m_Index = m_Index + 6;
@@ -246,7 +246,7 @@ void CJpeg::FindSOS()
 	if((m_pBuf[m_Index] == 0xff)&&(m_pBuf[m_Index + 1] == 0xda))
 	{
 		int i;		
-		WORD SegSize = m_pBuf[m_Index + 2] * 256 + m_pBuf[m_Index + 3];
+		uint16_t SegSize = m_pBuf[m_Index + 2] * 256 + m_pBuf[m_Index + 3];
 		ScanHeader.Ns = m_pBuf[m_Index + 4];
 		for(i=0; i<ScanHeader.Ns; i++)
 		{
@@ -286,11 +286,11 @@ void CJpeg::FindSOS()
 	}
 }
 
-WORD CJpeg::NextBit()
+uint16_t CJpeg::NextBit()
 {	
-	WORD Bit;
-	BYTE B2;
-	static BYTE B;	
+	uint16_t Bit;
+	uint8_t B2;
+	static uint8_t B;	
 
 	while(cnt == 0)
 	{
@@ -310,16 +310,16 @@ WORD CJpeg::NextBit()
 	return Bit;
 }
 
-BYTE CJpeg::NextByte()
+uint8_t CJpeg::NextByte()
 {
 	return *(pByte++);
 }
 
-BYTE CJpeg::hDecode(int Th)
+uint8_t CJpeg::hDecode(int Th)
 {
 	int i = 1, j;
-	WORD CODE = NextBit();
-	BYTE Value;	
+	uint16_t CODE = NextBit();
+	uint8_t Value;	
 
 	while((CODE > TbH[Th].MAXCODE[i])||(TbH[Th].MAXCODE[i] == 65535))
 	{
@@ -334,10 +334,10 @@ BYTE CJpeg::hDecode(int Th)
 	return Value;
 }
 
-WORD CJpeg::Receive(BYTE SSSS)
+uint16_t CJpeg::Receive(uint8_t SSSS)
 {
-	BYTE i=0;
-	WORD V = 0;
+	uint8_t i=0;
+	uint16_t V = 0;
 	while(i != SSSS)
 	{
 		i++;
@@ -346,28 +346,28 @@ WORD CJpeg::Receive(BYTE SSSS)
 	return V;
 }
 
-short CJpeg::Extend(WORD V, BYTE T)
+int16_t CJpeg::Extend(uint16_t V, uint8_t T)
 {
-	WORD Vt = 1 << (T-1);
+	uint16_t Vt = 1 << (T-1);
 	if( V < Vt )
 	{
 		Vt = (-1 << T) + 1;
 		V = V + Vt;
 	}
-	return (short)V;
+	return (int16_t)V;
 }
 
 void CJpeg::DecodeDC(int Th)
 {
-	BYTE T = hDecode(Th);
+	uint8_t T = hDecode(Th);
 	ZZ[0] = Extend(Receive(T), T);
 }
 
 void CJpeg::DecodeAC(int Th)
 {
 	int k = 1;
-	memset((LPSTR)&ZZ[1], 0, 63 * sizeof(short));
-	BYTE RS, SSSS, RRRR, R;
+	memset((LPSTR)&ZZ[1], 0, 63 * sizeof(int16_t));
+	uint8_t RS, SSSS, RRRR, R;
 
 	// RRRR : ZZ에서 0 이 아닌 전 값으로부터의 상대적인 위치
 	// SSSS : 0이 아닌 값의 범위(category)
@@ -401,7 +401,7 @@ void CJpeg::DecodeAC(int Th)
 void CJpeg::DecodeDU(int N) // N = Component ID 0/1/2
 {	
 	int i;
-	short *pos;
+	int16_t *pos;
 
 	DecodeDC(ScanHeader.Td[N]);
 	DecodeAC(ScanHeader.Ta[N] + 16);
@@ -452,8 +452,8 @@ void CJpeg::Zigzag()
 	 21, 34, 37, 47, 50, 56, 59, 61,
 	 35, 36, 48, 49, 57, 58, 62, 63};
 	
-	short Temp[64];
-	memcpy(Temp, ZZ, 64 * sizeof(short));
+	int16_t Temp[64];
+	memcpy(Temp, ZZ, 64 * sizeof(int16_t));
 	int i, j, idx;
 	for(i=0; i<8; i++)
 		for(j=0; j<8; j++)
@@ -512,7 +512,7 @@ void CJpeg::IDCT()
 				tmp2[y][coeff] += tmp1[y][index] * dct_coeff[index][coeff];
 			}				
 			idx = (y<<3)+coeff;			
-			ZZ[idx] = (short)(tmp2[y][coeff]/4.);			
+			ZZ[idx] = (int16_t)(tmp2[y][coeff]/4.);			
 		}		
 	}
 
@@ -552,7 +552,7 @@ void CJpeg::DecodeMCU(int mx, int my)
 						{
 							for(o = 0; o<Rh; o++)
 							{
-								MCU[(idx1+n) * mWidth + (idx2+o)].C[k] = (BYTE)ZZ[(i<<3)+j];
+								MCU[(idx1+n) * mWidth + (idx2+o)].C[k] = (uint8_t)ZZ[(i<<3)+j];
 							}
 						}
 					}
@@ -584,7 +584,7 @@ void CJpeg::Decode()
 	if(m_pData != NULL)
 		delete [] m_pData;
 
-	m_pData = new BYTE[FrameHeader.X * FrameHeader.Y * 3];
+	m_pData = new uint8_t[FrameHeader.X * FrameHeader.Y * 3];
 
 	for(i=0; i<Ns; i++)
 		PrevDC[i] = 0;
@@ -643,9 +643,9 @@ void CJpeg::ConvertYUV2RGB()
 	int Size = Width * Height * ScanHeader.Ns;
 	float Y, Cb, Cr;
 	float R, G, B;
-	BYTE *pTemp = m_pData;
-	BYTE *pBuf = new BYTE[Size];
-	BYTE *pos = pBuf;	
+	uint8_t *pTemp = m_pData;
+	uint8_t *pBuf = new uint8_t[Size];
+	uint8_t *pos = pBuf;	
 	
 	memcpy(pos, pTemp, Size);
 
@@ -666,15 +666,15 @@ void CJpeg::ConvertYUV2RGB()
 				if(R>255) R = 255; if(R<0) R = 0;
 				if(G>255) G = 255; if(G<0) G = 0;
 				if(B>255) B = 255; if(B<0) B = 0;
-				*pTemp = (BYTE)B;pTemp++;
-				*pTemp = (BYTE)G;pTemp++;
-				*pTemp = (BYTE)R;pTemp++;
+				*pTemp = (uint8_t)B;pTemp++;
+				*pTemp = (uint8_t)G;pTemp++;
+				*pTemp = (uint8_t)R;pTemp++;
 			}
 			else if(ScanHeader.Ns == 1)
 			{
-				*pTemp = (BYTE)Y;pTemp++;
-				*pTemp = (BYTE)Y;pTemp++;
-				*pTemp = (BYTE)Y;pTemp++;
+				*pTemp = (uint8_t)Y;pTemp++;
+				*pTemp = (uint8_t)Y;pTemp++;
+				*pTemp = (uint8_t)Y;pTemp++;
 			}
 		}
 	delete [] pBuf;
@@ -684,7 +684,7 @@ void CJpeg::ConvertYUV2RGB()
 
 	if((Width != m_rWidth)||(Height != m_rHeight))
 	{
-		BYTE *pBuf2 = new BYTE [RealBMPWidth  * m_rHeight];
+		uint8_t *pBuf2 = new uint8_t [RealBMPWidth  * m_rHeight];
 
 		for(i=0; i<m_rHeight; i++)
 		{
@@ -701,7 +701,7 @@ void CJpeg::ConvertYUV2RGB()
 
 
 	// Flip for BMP Structure //
-	BYTE *pLine = new BYTE[RealBMPWidth];
+	uint8_t *pLine = new uint8_t[RealBMPWidth];
 	for(i=0; i<m_rHeight/2; i++)
 	{
 		pTemp = &m_pData[i*RealBMPWidth];
@@ -714,7 +714,7 @@ void CJpeg::ConvertYUV2RGB()
 
 }
 
-void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
+void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, uint8_t *pp)
 {
 	m_rWidth = Width;
 	m_rHeight = Height;	
@@ -755,7 +755,7 @@ void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
 	// 버퍼를 마련합시다! //
 	if(m_pData != NULL)
 		delete [] m_pData;	
-	m_pData = new BYTE[(bWidth * 3) * bHeight];
+	m_pData = new uint8_t[(bWidth * 3) * bHeight];
 
 	memset(m_pData, 0, (bWidth * 3) * bHeight); // 0으로 초기화 //
 
@@ -766,7 +766,7 @@ void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
 	// RGB Color를 YCbCr Color로 변환합니다. //
 	float R, G, B;
 	float y, cb, cr;
-	BYTE *pos;	
+	uint8_t *pos;	
 
 	for(i=0; i<Height; i++)
 	{
@@ -789,9 +789,9 @@ void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
 			if(cb>255.) cb = 255.; if(cb<0.) cb = 0.;
 			if(cr>255.) cr = 255.; if(cr<0.) cr = 0.;			
 
-			*pos = (BYTE)y;
-			*(pos+1) = (BYTE)cb;
-			*(pos+2) = (BYTE)cr;
+			*pos = (uint8_t)y;
+			*(pos+1) = (uint8_t)cb;
+			*(pos+2) = (uint8_t)cr;
 
 			pos = pos + 3;
 		}
@@ -799,12 +799,12 @@ void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
 
 	
 	// Y, Cb, Cr Plane Buffer //
-	Y = new short[bWidth * bHeight];
-	memset(Y, 0, sizeof(short) * bWidth * bHeight);
-	Cb = new short[bWidth * bHeight];
-	memset(Cb, 0, sizeof(short) * bWidth * bHeight);
-	Cr = new short[bWidth * bHeight];
-	memset(Cr, 0, sizeof(short) * bWidth * bHeight);
+	Y = new int16_t[bWidth * bHeight];
+	memset(Y, 0, sizeof(int16_t) * bWidth * bHeight);
+	Cb = new int16_t[bWidth * bHeight];
+	memset(Cb, 0, sizeof(int16_t) * bWidth * bHeight);
+	Cr = new int16_t[bWidth * bHeight];
+	memset(Cr, 0, sizeof(int16_t) * bWidth * bHeight);
 
 	int idx1, idx2;
 
@@ -840,9 +840,9 @@ void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
 	int Num_Y = bHeight/8;
 	int idx = 0;
 
-	short *DC1 = new short[Num_X * Num_Y];
-	short *DC2 = new short[Num_X * Num_Y];
-	short *DC3 = new short[Num_X * Num_Y];
+	int16_t *DC1 = new int16_t[Num_X * Num_Y];
+	int16_t *DC2 = new int16_t[Num_X * Num_Y];
+	int16_t *DC3 = new int16_t[Num_X * Num_Y];
 
 	for(i=0; i<bHeight; i = i + 8)
 	{
@@ -908,7 +908,7 @@ void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
 
 	/* HUFFMAN CODE ENCODEING!! */
 	 
-	m_pBuf = new BYTE[bWidth * bHeight * 3]; // 실제로 인코딩된 데이터가 저장될 버퍼
+	m_pBuf = new uint8_t[bWidth * bHeight * 3]; // 실제로 인코딩된 데이터가 저장될 버퍼
 	m_Index = 0; // 인덱스 리셋
 	cnt = 0; // Bit총 리셋 
 	
@@ -936,9 +936,9 @@ void CJpeg::SaveJPG(LPCSTR FileName, int Width, int Height, BYTE *pp)
 		for(j=0; j<bWidth; j++)
 		{
 			idx1 = i*bWidth*3 + j*3;
-			m_pData[idx1] = (BYTE)Y[i*bWidth+j];
-			m_pData[idx1+1] = (BYTE)Cb[i*bWidth+j];
-			m_pData[idx1+2] = (BYTE)Cr[i*bWidth+j];
+			m_pData[idx1] = (uint8_t)Y[i*bWidth+j];
+			m_pData[idx1+1] = (uint8_t)Cb[i*bWidth+j];
+			m_pData[idx1+2] = (uint8_t)Cr[i*bWidth+j];
 		}	
 	
 	delete [] Y;
@@ -955,14 +955,14 @@ void CJpeg::PutSOI(HANDLE hFile)
 {
 	// SOI 저장 //
 	DWORD dwWritten;
-	WORD Marker = (0xd8 << 8) | 0xff;
+	uint16_t Marker = (0xd8 << 8) | 0xff;
 	WriteFile(hFile,(LPSTR)&Marker,2,&dwWritten,NULL);
 }
 
 void CJpeg::PutSOF(HANDLE hFile, int Width, int Height)
 {
-	WORD Marker, SegSize, w;
-	BYTE c;
+	uint16_t Marker, SegSize, w;
+	uint8_t c;
 	int i;
 
 	DWORD dwWritten;
@@ -977,17 +977,17 @@ void CJpeg::PutSOF(HANDLE hFile, int Width, int Height)
 	WriteFile(hFile,(LPSTR)&c,1,&dwWritten,NULL);
 
 	
-	w = (WORD)Height; w = (w << 8) | (w >> 8);
+	w = (uint16_t)Height; w = (w << 8) | (w >> 8);
 	WriteFile(hFile,(LPSTR)&w,2,&dwWritten,NULL);
 
-	w = (WORD)Width; w = (w << 8) | (w >> 8);
+	w = (uint16_t)Width; w = (w << 8) | (w >> 8);
 	WriteFile(hFile,(LPSTR)&w,2,&dwWritten,NULL);
 
 	c = 3; 
 	WriteFile(hFile,(LPSTR)&c,1,&dwWritten,NULL);
 	for(i=1; i<=3; i++)
 	{
-		c = (BYTE)i; // Component Identifier
+		c = (uint8_t)i; // Component Identifier
 		WriteFile(hFile,(LPSTR)&c,1,&dwWritten,NULL);
 
 		c = 17;    // HiVi
@@ -1004,8 +1004,8 @@ void CJpeg::PutSOF(HANDLE hFile, int Width, int Height)
 
 void CJpeg::PutSOS(HANDLE hFile)
 {
-	WORD Marker, SegSize;
-	BYTE c;
+	uint16_t Marker, SegSize;
+	uint8_t c;
 	int i;
 	DWORD dwWritten;
 
@@ -1022,7 +1022,7 @@ void CJpeg::PutSOS(HANDLE hFile)
 
 	for(i=1; i<=3; i++)
 	{
-		c = (BYTE)i; // Scan Component Selector		
+		c = (uint8_t)i; // Scan Component Selector		
 		WriteFile(hFile,(LPSTR)&c,1,&dwWritten,NULL);
 		if(i==1)
 			c=0;
@@ -1042,11 +1042,11 @@ void CJpeg::PutSOS(HANDLE hFile)
 
 void CJpeg::PutDQT(HANDLE hFile)
 {
-	WORD Marker, SegSize;
-	BYTE c;
+	uint16_t Marker, SegSize;
+	uint8_t c;
 	DWORD dwWritten;
 	// Luminance Quantization Table //
-	BYTE Qtb0[64] = {16, 11, 12, 14, 12, 10, 16, 14,
+	uint8_t Qtb0[64] = {16, 11, 12, 14, 12, 10, 16, 14,
 					13, 14, 18, 17, 16, 19, 24, 40,
 					26, 24, 22, 22, 24, 49, 36, 37,
 					29, 40, 58, 51, 61, 60, 57, 51,
@@ -1055,7 +1055,7 @@ void CJpeg::PutDQT(HANDLE hFile)
 					95, 98, 103, 104, 103, 62, 77, 113,
 					121, 112, 100, 120, 92, 101, 103, 99};
 	// Chrominance Quantization Table //
-	BYTE Qtb1[64] = {17, 18, 18, 24, 21, 24, 47, 26,
+	uint8_t Qtb1[64] = {17, 18, 18, 24, 21, 24, 47, 26,
 					26, 47, 99, 66, 56, 66, 99, 99,
 					99 ,99, 99, 99, 99, 99, 99, 99, 
 					99, 99, 99, 99, 99, 99, 99, 99, 
@@ -1093,11 +1093,11 @@ void CJpeg::PutDQT(HANDLE hFile)
 	WriteFile(hFile,(LPSTR)&Qtb1,64,&dwWritten,NULL);
 }
 
-void CJpeg::DCT(short * pos, int bWidth, BOOL Flag)
+void CJpeg::DCT(int16_t * pos, int bWidth, BOOL Flag)
 {
 	// DCT 분만 아니라, DCT 후의 Zigzag 까지... 게다가 Quantization 까지!?//
 	
-	BYTE Qtb0[64] ={16, 11, 12, 14, 12, 10, 16, 14, 
+	uint8_t Qtb0[64] ={16, 11, 12, 14, 12, 10, 16, 14, 
 					13, 14, 18, 17, 16, 19, 24, 40, 
 					26, 24, 22, 22, 24, 49, 36, 37, 
 					29, 40, 58, 51, 61, 60, 57, 51, 
@@ -1106,7 +1106,7 @@ void CJpeg::DCT(short * pos, int bWidth, BOOL Flag)
 					95, 98, 103, 104, 103, 62, 77, 113,
 					121, 112, 100, 120, 92, 101, 103, 99};
 	
-	BYTE Qtb1[64] ={17, 18, 18, 24, 21, 24, 47, 26,
+	uint8_t Qtb1[64] ={17, 18, 18, 24, 21, 24, 47, 26,
 					26, 47, 99, 66, 56, 66, 99, 99,
 					99 ,99, 99, 99, 99, 99, 99, 99, 
 					99, 99, 99, 99, 99, 99, 99, 99, 
@@ -1144,7 +1144,7 @@ void CJpeg::DCT(short * pos, int bWidth, BOOL Flag)
 			
 			Cu = 1.; if(u == 0) Cu = 0.7071f;
 			Cv = 1.; if(v == 0) Cv = 0.7071f;
-			ZZ[(int)(v*8+u)] = (short)(Cu * Cv * Sum / 4.);			
+			ZZ[(int)(v*8+u)] = (int16_t)(Cu * Cv * Sum / 4.);			
 		}
 	}	
 	
@@ -1177,8 +1177,8 @@ void CJpeg::Zigzag2()
 	 21, 34, 37, 47, 50, 56, 59, 61,
 	 35, 36, 48, 49, 57, 58, 62, 63};
 	
-	short Temp[64];
-	memcpy(Temp, ZZ, 64 * sizeof(short));
+	int16_t Temp[64];
+	memcpy(Temp, ZZ, 64 * sizeof(int16_t));
 	int i, j, idx;
 	for(i=0; i<8; i++)
 		for(j=0; j<8; j++)
@@ -1194,8 +1194,8 @@ void CJpeg::PutDHT(HANDLE hFile)
 	/* standard 허프만 테이블을 읽어들여서 멤버 구조체에 설정한
 	   후 저장하고자 하는 파일에 적어넣는 함수입니다. */	
 	
-	m_pBuf = new BYTE[421];	
-	BYTE HuffTb[421] = {255, 196, 1, 162, 0, 0, 1, 5, 1, 1, 1, 
+	m_pBuf = new uint8_t[421];	
+	uint8_t HuffTb[421] = {255, 196, 1, 162, 0, 0, 1, 5, 1, 1, 1, 
 						1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 
 						3, 4, 5, 6, 7, 8, 9, 10, 11, 16, 0, 2, 
 						1, 3, 3, 2, 4, 3, 5, 5, 4, 4, 0, 0, 1,
@@ -1250,9 +1250,9 @@ void CJpeg::PutDHT(HANDLE hFile)
 }
 
 // 주어진 값이 어느 케티고리에 소속되는 지를 반환하는 함수 //
-BYTE CJpeg::GetCategory(short V)
+uint8_t CJpeg::GetCategory(int16_t V)
 {	
-	BYTE Num = 0;
+	uint8_t Num = 0;
 	if(V < 0)
 		V = -V;
 	while(V != 0)
@@ -1280,13 +1280,13 @@ void CJpeg::hEncode(int bWidth, int bHeight)
 
 }
 
-void CJpeg::EncodeDU(short * pos, BOOL Flag, int bWidth)
+void CJpeg::EncodeDU(int16_t * pos, BOOL Flag, int bWidth)
 {
-	WORD Code;
-	BYTE Val, Size;	
-	BYTE SSSS, Rs;	
-	short XX[64], DIFF;	
-	BYTE ThDC, ThAC;
+	uint16_t Code;
+	uint8_t Val, Size;	
+	uint8_t SSSS, Rs;	
+	int16_t XX[64], DIFF;	
+	uint8_t ThDC, ThAC;
 	int idx = 0;	
 	int i, j;
 	
@@ -1313,10 +1313,10 @@ void CJpeg::EncodeDU(short * pos, BOOL Flag, int bWidth)
 	if(DIFF < 0)
 		DIFF--;	
 	ChargeCode(Code, Size);
-	ChargeCode((WORD)DIFF, Val);
+	ChargeCode((uint16_t)DIFF, Val);
 
 	// AC Encode //	
-	BYTE k = 0, R = 0;	
+	uint8_t k = 0, R = 0;	
 	while(TRUE)
 	{
 		k++;
@@ -1327,7 +1327,7 @@ void CJpeg::EncodeDU(short * pos, BOOL Flag, int bWidth)
 				Rs = 0x00;
 				Code = TbH[ThAC].HUFFCODE[TbH[ThAC].PT[Rs]];
 				Size = TbH[ThAC].HUFFSIZE[TbH[ThAC].PT[Rs]];
-				ChargeCode((WORD)Code, Size);
+				ChargeCode((uint16_t)Code, Size);
 				break;
 			}
 			else
@@ -1340,7 +1340,7 @@ void CJpeg::EncodeDU(short * pos, BOOL Flag, int bWidth)
 				Rs = 0xf0;
 				Code = TbH[ThAC].HUFFCODE[TbH[ThAC].PT[Rs]];
 				Size = TbH[ThAC].HUFFSIZE[TbH[ThAC].PT[Rs]];
-				ChargeCode((WORD)Code, Size);
+				ChargeCode((uint16_t)Code, Size);
 				R = R - 16;
 			}
 			
@@ -1349,11 +1349,11 @@ void CJpeg::EncodeDU(short * pos, BOOL Flag, int bWidth)
 			Rs = (R * 16) + SSSS;
 			Code = TbH[ThAC].HUFFCODE[TbH[ThAC].PT[Rs]];
 			Size = TbH[ThAC].HUFFSIZE[TbH[ThAC].PT[Rs]];
-			ChargeCode((WORD)Code, Size);
+			ChargeCode((uint16_t)Code, Size);
 			DIFF = XX[k];
 			if(DIFF < 0)
 				DIFF = DIFF - 1;
-			ChargeCode((WORD)DIFF, SSSS);
+			ChargeCode((uint16_t)DIFF, SSSS);
 			R = 0;
 
 			if(k==63)
@@ -1364,10 +1364,10 @@ void CJpeg::EncodeDU(short * pos, BOOL Flag, int bWidth)
 	
 }
 
-void CJpeg::ChargeCode(WORD Code, int Size)
+void CJpeg::ChargeCode(uint16_t Code, int Size)
 {
 	int i;
-	BYTE Bit;	
+	uint8_t Bit;	
 
 	for(i=0; i<Size; i++)
 	{
@@ -1376,9 +1376,9 @@ void CJpeg::ChargeCode(WORD Code, int Size)
 	}
 }
 
-void CJpeg::ShotBit(BYTE Bit)
+void CJpeg::ShotBit(uint8_t Bit)
 {
-	static BYTE Bullet = 0;
+	static uint8_t Bullet = 0;
 
 	Bit = Bit << (7-cnt);
 
@@ -1403,7 +1403,7 @@ void CJpeg::ShotBit(BYTE Bit)
 void CJpeg::PutEOI(HANDLE hFile)
 {
 	// EOI 저장 //
-	WORD Marker = (0xd9 << 8) | 0xff;
+	uint16_t Marker = (0xd9 << 8) | 0xff;
 	DWORD	dwWritten;
 	WriteFile(hFile,(LPSTR)&Marker,2,&dwWritten,NULL);
 	//_lwrite(hFile, (LPSTR)&Marker, 2);	

@@ -53,7 +53,7 @@ bool CBitMapFile::Load(HANDLE hFile)
 	ReadFile(hFile, &m_bmInfoHeader, sizeof(m_bmInfoHeader), &dwRWC, NULL);
 
 	// 픽셀당 비트 수 확인
-	WORD wBitCount = m_bmInfoHeader.biBitCount;
+	uint16_t wBitCount = m_bmInfoHeader.biBitCount;
 	if (24 != wBitCount || m_bmInfoHeader.biWidth <= 0 || m_bmInfoHeader.biHeight <= 0)		// 24비트 bmp가 아니면 return해 버린다.
 	{
 		MessageBox(::GetActiveWindow(), "원본 bitmap이 너비, 높이에 이상이 있거나 24bit파일이 아닙니다.", "error", NULL);
@@ -75,7 +75,7 @@ bool CBitMapFile::Load(HANDLE hFile)
 	// 픽셀을 읽는다..
 	for(int y = m_bmInfoHeader.biHeight - 1; y >= 0; y--) // 비트맵은 위아래가 거꾸로 있다..
 	{
-		ReadFile(hFile, (BYTE*)m_pPixels + y * iRealWidth, iRealWidth, &dwRWC, NULL);
+		ReadFile(hFile, (uint8_t*)m_pPixels + y * iRealWidth, iRealWidth, &dwRWC, NULL);
 	}
 
 	return TRUE;
@@ -106,7 +106,7 @@ bool CBitMapFile::Save(HANDLE hFile)
 	// 픽셀을 저장한다...
 	for(int y = m_bmInfoHeader.biHeight - 1; y >= 0; y--) // 비트맵은 위아래가 거꾸로 있다..
 	{
-		WriteFile(hFile, (BYTE*)m_pPixels + y * iRealWidth, iRealWidth, &dwRWC, NULL);
+		WriteFile(hFile, (uint8_t*)m_pPixels + y * iRealWidth, iRealWidth, &dwRWC, NULL);
 	}
 
 	return true;

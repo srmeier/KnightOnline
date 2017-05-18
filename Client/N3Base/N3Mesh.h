@@ -18,7 +18,7 @@ class CN3Mesh : public CN3BaseFileAccess
 {
 protected:
 	__VertexT1*	m_pVertices; // 점 버퍼
-	WORD*		m_psnIndices; // 인덱스 버퍼
+	uint16_t*		m_psnIndices; // 인덱스 버퍼
 
 	int		m_nVC; // 점 갯수
 	int		m_nIC; // 점 갯수
@@ -32,7 +32,7 @@ public:
 	int			VertexCount() { return m_nVC; }
 	__VertexT1*	Vertices() { return m_pVertices; }
 	int			IndexCount() { return m_nIC; }
-	WORD*		Indices() { return m_psnIndices; } // 인덱스 버퍼
+	uint16_t*		Indices() { return m_psnIndices; } // 인덱스 버퍼
 
 	bool	Load(HANDLE hFile);
 

@@ -69,7 +69,7 @@ public:
 	virtual void Stop(float fFadeOutTime = 0.0f);
 	virtual void Tick();
 
-	virtual void SetConeOutSizeVolume(LONG vol) {}
+	virtual void SetConeOutSizeVolume(int32_t vol) {}
 	virtual void SetMaxDistance(D3DVALUE max) {}
 	virtual void SetMinDistance(D3DVALUE min) {}	
 	virtual void SetPos(const D3DVECTOR* pPos) {}

@@ -45,7 +45,7 @@ void CN3UITooltip::Render()
 	if (NULL == m_pImageBkGnd)
 	{	// 이미지가 없으면 디폴트로 그려주자
 		static __VertexTransformedColor	pVB[8];
-		static const WORD	pIB[16]= {0,1,1,2,2,3,3,0,4,5,5,6,6,7,7,4};
+		static const uint16_t	pIB[16]= {0,1,1,2,2,3,3,0,4,5,5,6,6,7,7,4};
 		static const D3DCOLOR BkColor= 0x80000000;
 		static const D3DCOLOR BorderColorOut= 0xff808080;
 		static const D3DCOLOR BorderColorIn= 0xffc0c0c0;
@@ -154,9 +154,9 @@ void CN3UITooltip::Tick()
 	}
 }
 
-DWORD CN3UITooltip::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UITooltip::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 
 	// 마우스를 움직이면 m_fHoverTime를 0으로 만들기

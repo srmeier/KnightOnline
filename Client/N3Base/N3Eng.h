@@ -54,7 +54,7 @@ public:
 
 	bool Init(
 		BOOL bWindowed, SDL_Window* pWindow,
-		DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW
+		uint32_t dwWidth, uint32_t dwHeight, uint32_t dwBPP, BOOL bUseHW
 	);
 
 	BOOL FindDepthStencilFormat(

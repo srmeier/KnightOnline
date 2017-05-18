@@ -38,7 +38,7 @@ int MAP::GetMapSize() { return m_smdFile->GetMapSize(); }
 float MAP::GetUnitDistance() { return m_smdFile->GetUnitDistance(); }
 int MAP::GetXRegionMax() { return m_smdFile->GetXRegionMax(); }
 int MAP::GetZRegionMax() { return m_smdFile->GetZRegionMax(); }
-short * MAP::GetEventIDs() { return m_smdFile->GetEventIDs(); }
+int16_t * MAP::GetEventIDs() { return m_smdFile->GetEventIDs(); }
 
 MAP::MAP() : m_smdFile(nullptr), m_ppRegion(nullptr),
 	m_fHeight(nullptr), m_byRoomType(0), m_byRoomEvent(0),
@@ -204,7 +204,7 @@ bool MAP::RegionNpcRemove(int rx, int rz, int nid)
 }
 
 
-CRegion * MAP::GetRegion(uint16 regionX, uint16 regionZ)
+CRegion * MAP::GetRegion(uint16_t regionX, uint16_t regionZ)
 {
 	if (regionX > GetXRegionMax()
 		|| regionZ > GetZRegionMax())
@@ -216,7 +216,7 @@ CRegion * MAP::GetRegion(uint16 regionX, uint16 regionZ)
 
 bool MAP::LoadRoomEvent()
 {
-	uint32		length, count;
+	uint32_t		length, count;
 	string		filename = string_format(MAP_DIR "%d.evt", m_byRoomEvent);
 	char		byte;
 	char		buf[4096];
@@ -235,7 +235,7 @@ bool MAP::LoadRoomEvent()
 	}
 
 	is.seekg(0, is.end);
-	length = (uint32)is.tellg();
+	length = (uint32_t)is.tellg();
 	is.seekg (0, is.beg);
 
 	count = 0;
@@ -248,7 +248,7 @@ bool MAP::LoadRoomEvent()
 		if( byte != '\r' && byte != '\n' ) buf[index++] = byte;
 
 		if((byte == '\n' || count == length ) && index > 1 )	{
-			buf[index] = (uint8) 0;
+			buf[index] = (uint8_t) 0;
 			t_index = 0;
 
 			if( buf[t_index] == ';' || buf[t_index] == '/' )	{		// 주석에 대한 처리

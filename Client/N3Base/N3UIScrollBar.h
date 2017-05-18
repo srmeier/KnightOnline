@@ -31,8 +31,8 @@ public:
 	virtual void	Release();
 	virtual bool	Load(HANDLE hFile);
 	virtual void	SetRegion(const RECT& Rect);
-	virtual void	SetStyle(DWORD dwStyle);
-	virtual bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg); // 메시지를 받는다.. 보낸놈, msg
+	virtual void	SetStyle(uint32_t dwStyle);
+	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // 메시지를 받는다.. 보낸놈, msg
 
 	void			SetRange(int iMin, int iMax) {if(m_pTrackBarRef) m_pTrackBarRef->SetRange(iMin,iMax);}
 	void			SetRangeMax(int iMax) {if(m_pTrackBarRef) m_pTrackBarRef->SetRangeMax(iMax);}

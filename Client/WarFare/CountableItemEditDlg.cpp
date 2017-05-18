@@ -52,7 +52,7 @@ void CCountableItemEditDlg::Release()
 
 }
 
-bool CCountableItemEditDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CCountableItemEditDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 	if(IsVisible() == false) return false;

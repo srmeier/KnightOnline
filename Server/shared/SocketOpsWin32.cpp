@@ -26,14 +26,14 @@ namespace SocketOps
 	// Disable nagle buffering algorithm
 	bool DisableBuffering(SOCKET fd)
 	{
-		uint32 arg = 1;
+		uint32_t arg = 1;
 		return (setsockopt(fd, 0x6, TCP_NODELAY, (const char*)&arg, sizeof(arg)) == 0);
 	}
 
 	// Enable nagle buffering algorithm
 	bool EnableBuffering(SOCKET fd)
 	{
-		uint32 arg = 0;
+		uint32_t arg = 0;
 		return (setsockopt(fd, 0x6, TCP_NODELAY, (const char*)&arg, sizeof(arg)) == 0);
 	}
 

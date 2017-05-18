@@ -506,7 +506,7 @@ void CUIPerTradeDlg::ItemCountCancel()
 void CUIPerTradeDlg::SendToServerItemAddMsg(byte pos, int itemID, int iCount)
 {
 	// 서버에게 전송한다..
-	BYTE byBuff[16];											// 패킷 버퍼..
+	uint8_t byBuff[16];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
@@ -728,9 +728,9 @@ void CUIPerTradeDlg::IconRestore()
 	}
 }
 
-DWORD CUIPerTradeDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUIPerTradeDlg::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if ( !IsVisible() ) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 
@@ -779,7 +779,7 @@ RECT CUIPerTradeDlg::GetSampleRect()
 	return rect;
 }
 
-bool CUIPerTradeDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIPerTradeDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 // Temp Define
 #define FAIL_CODE {		\
@@ -811,7 +811,7 @@ bool CUIPerTradeDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	__IconItemSkill* spItem = NULL;
 	int iOrder;
 
-	DWORD dwBitMask = 0x000f0000;
+	uint32_t dwBitMask = 0x000f0000;
 
 	switch (dwMsg & dwBitMask)
 	{

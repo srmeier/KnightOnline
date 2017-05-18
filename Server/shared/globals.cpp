@@ -8,24 +8,24 @@ INLINE void SeedRNG()
 {
 	if (!s_rngSeeded)
 	{
-		s_randomNumberGenerator.seed((unsigned long)getMSTime());
+		s_randomNumberGenerator.seed((uint32_t)getMSTime());
 		s_rngSeeded = true;
 	}
 }
 
-int32 myrand(int32 min, int32 max)
+int32_t myrand(int32_t min, int32_t max)
 {
 	Guard lock(s_rngLock);
 	SeedRNG();
 	if (min > max) std::swap(min, max);
-	std::uniform_int_distribution<int32> dist(min, max);
+	std::uniform_int_distribution<int32_t> dist(min, max);
 	return dist(s_randomNumberGenerator);
 }
 
-uint64 RandUInt64()
+uint64_t RandUInt64()
 {
 	Guard lock(s_rngLock);
 	SeedRNG();
-	std::uniform_int_distribution<uint64> dist;
+	std::uniform_int_distribution<uint64_t> dist;
 	return dist(s_randomNumberGenerator);
 }

@@ -36,7 +36,7 @@ public:
 	void				SetQuantity(int iQuantity); // "edit_trade" Edit Control 에서 정수값을 문자열로 세팅한다..
 
 	virtual void		Release();
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	void				Open(bool bCountGold);
 	void				Close();

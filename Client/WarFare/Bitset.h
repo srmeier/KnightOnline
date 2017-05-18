@@ -40,7 +40,7 @@ public:
 		}
 
 		// Allocate the bits and initialize them
-		m_bits = new unsigned int[m_size];
+		m_bits = new uint32_t[m_size];
 		ClearAll();
 	}
 
@@ -65,13 +65,13 @@ public:
 	// This initializes the bits to 0
 	void ClearAll() 
 	{
-		memset(m_bits, 0, sizeof(unsigned int) * m_size);
+		memset(m_bits, 0, sizeof(uint32_t) * m_size);
 	}
 
 private:
 
 	// Our private bit data that holds the bits and size
-	unsigned int *m_bits;
+	uint32_t *m_bits;
 	int m_size;
 };
 

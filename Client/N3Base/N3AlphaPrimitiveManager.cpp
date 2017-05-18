@@ -248,8 +248,8 @@ void CN3AlphaPrimitiveManager::Render()
 
 	struct __RenderState
 	{
-		DWORD dwAlpha, dwFog, dwCull, dwLgt, dwZWrite, dwAO, dwAA1, dwAA2, dwCO, dwCA1, dwCA2, dwPointSampling;
-		DWORD dwSrcBlend, dwDestBlend;
+		uint32_t dwAlpha, dwFog, dwCull, dwLgt, dwZWrite, dwAO, dwAA1, dwAA2, dwCO, dwCA1, dwCA2, dwPointSampling;
+		uint32_t dwSrcBlend, dwDestBlend;
 	};
 	__RenderState RS_old;		// 이전 render state (나중에 되돌려놓기 위해)
 	__RenderState RS_current;	// 현재 render state (현재 어떤 상태인가 판단하기 위해)
@@ -434,14 +434,14 @@ __AlphaPrimitive* CN3AlphaPrimitiveManager::Add()
 
 /*
 __AlphaPrimitive* CN3AlphaPrimitiveManager::Add(	__Vector3& vCamera, 
-													DWORD dwBlendSrc, 
-													DWORD dwBlendDest, 
+													uint32_t dwBlendSrc, 
+													uint32_t dwBlendDest, 
 													int	nRenderFlags, 
 													LPDIRECT3DTEXTURE8 lpTex, 
-													DWORD dwFVF, 
+													uint32_t dwFVF, 
 													int nPrimitiveCount, 
 													D3DPRIMITIVETYPE ePrimitiveType, 
-													DWORD dwPrimitiveSize, 
+													uint32_t dwPrimitiveSize, 
 													BOOL bUseVB,
 													const void* pwIndices, 
 													int nVertexCount,

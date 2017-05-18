@@ -14,7 +14,7 @@
 class CEventCell
 {
 public:
-	short	m_sEventType;
+	int16_t	m_sEventType;
 	RECT	m_Rect;
 
 	void	Load(HANDLE hFile);
@@ -30,13 +30,13 @@ class CEventManager
 {
 private:
 	EventList	m_lstEvents;
-	short		m_sEventType;
+	int16_t		m_sEventType;
 	RECT		m_rcEvent;
 
 public:
-	void Behavior(short sEventType, short sPreEventType);
+	void Behavior(int16_t sEventType, int16_t sPreEventType);
 	bool PtInRect(int x, int z, RECT rc);
-	short SetPos(float fX, float fZ);
+	int16_t SetPos(float fX, float fZ);
 	void Release();
 	bool LoadFromFile(const char* szFileName);
 	CEventManager();

@@ -95,9 +95,9 @@ void CN3UIString::SetString_NoWordWrap(const std::string& szString)
 	m_pDFont->SetText(szString.c_str());
 }
 
-void CN3UIString::SetFont(const std::string& szFontName, DWORD dwHeight, BOOL bBold, BOOL bItalic)
+void CN3UIString::SetFont(const std::string& szFontName, uint32_t dwHeight, BOOL bBold, BOOL bItalic)
 {
-	DWORD dwFlag = 0;
+	uint32_t dwFlag = 0;
 	if (bBold) dwFlag |= D3DFONT_BOLD;
 	if (bItalic) dwFlag |= D3DFONT_ITALIC;
 	if (m_pDFont)
@@ -113,7 +113,7 @@ void CN3UIString::SetRegion(const RECT& Rect)
 	WordWrap();
 }
 
-void CN3UIString::SetStyle(DWORD dwStyle)
+void CN3UIString::SetStyle(uint32_t dwStyle)
 {
 	CN3UIBase::SetStyle(dwStyle);
 	WordWrap();
@@ -377,7 +377,7 @@ bool CN3UIString::Load(HANDLE hFile)
 		std::string szFontName(iStrLen, '?');
 		ReadFile(hFile, &(szFontName[0]), iStrLen, &dwNum, NULL);				// string
 
-		DWORD dwFontFlags = 0, dwFontHeight = 0;
+		uint32_t dwFontFlags = 0, dwFontHeight = 0;
 		ReadFile(hFile, &dwFontHeight, sizeof(dwFontHeight), &dwNum, NULL);	// font height
 		ReadFile(hFile, &dwFontFlags, sizeof(dwFontFlags), &dwNum, NULL);	// font flag (bold, italic)
 
@@ -430,7 +430,7 @@ void CN3UIString::operator = (const CN3UIString& other)
 	m_Color = other.m_Color;			// 글자 색
 
 	// 폰트 설정
-	DWORD dwFontFlags = other.GetFontFlags();
+	uint32_t dwFontFlags = other.GetFontFlags();
 	SetFont(other.GetFontName(), other.GetFontHeight(), dwFontFlags & D3DFONT_BOLD, dwFontFlags & D3DFONT_ITALIC);
 
 	// 글씨 설정
@@ -452,7 +452,7 @@ bool CN3UIString::Save(HANDLE hFile)
 	if (iStrLen>0)
 	{
 		WriteFile(hFile, strFontName.c_str(), iStrLen, &dwNum, NULL);				// string
-		DWORD dwFontFlags = 0, dwFontHeight = 0;
+		uint32_t dwFontFlags = 0, dwFontHeight = 0;
 		if (m_pDFont)
 		{
 			dwFontHeight = m_pDFont->GetFontHeight();
@@ -478,7 +478,7 @@ void CN3UIString::ChangeFont(const std::string& szFont)
 {
 	if(m_pDFont)
 	{
-		DWORD dwFlag = m_pDFont->GetFontFlags();
+		uint32_t dwFlag = m_pDFont->GetFontFlags();
 		bool bBold = (dwFlag & D3DFONT_BOLD) ? true : false;
 		bool bItalic = (dwFlag & D3DFONT_ITALIC) ? true : false;
 		this->SetFont(szFont, m_pDFont->GetFontHeight(), bBold, bItalic);
@@ -498,18 +498,18 @@ int CN3UIString::GetStringRealWidth(int iNum)
 	return (size.cx*iLength); 
 }
 
-void CN3UIString::SetStyle(DWORD dwType, DWORD dwStyleEx)
+void CN3UIString::SetStyle(uint32_t dwType, uint32_t dwStyleEx)
 {
 	if (dwType == UI_STR_TYPE_LINE)
 	{
-		DWORD dwStyle = m_dwStyle;
+		uint32_t dwStyle = m_dwStyle;
 		if (UISTYLE_STRING_SINGLELINE == dwStyleEx) dwStyle |= UISTYLE_STRING_SINGLELINE;
 		else if (UISTYLE_STRING_MULTILINE == dwStyleEx) dwStyle &= (~UISTYLE_STRING_SINGLELINE);
 		SetStyle(dwStyle);
 	}
 	else if (dwType == UI_STR_TYPE_HALIGN)
 	{
-		DWORD dwStyle = m_dwStyle;
+		uint32_t dwStyle = m_dwStyle;
 		dwStyle &= (~UISTYLE_STRING_ALIGNLEFT);
 		dwStyle &= (~UISTYLE_STRING_ALIGNCENTER);
 		dwStyle &= (~UISTYLE_STRING_ALIGNRIGHT);
@@ -520,7 +520,7 @@ void CN3UIString::SetStyle(DWORD dwType, DWORD dwStyleEx)
 	}
 	else if (dwType == UI_STR_TYPE_VALIGN)
 	{
-		DWORD dwStyle = m_dwStyle;
+		uint32_t dwStyle = m_dwStyle;
 		dwStyle &= (~UISTYLE_STRING_ALIGNTOP);
 		dwStyle &= (~UISTYLE_STRING_ALIGNVCENTER);
 		dwStyle &= (~UISTYLE_STRING_ALIGNBOTTOM);
@@ -531,9 +531,9 @@ void CN3UIString::SetStyle(DWORD dwType, DWORD dwStyleEx)
 	}
 }
 
-DWORD CN3UIString::MouseProc(DWORD dwFlags, const POINT &ptCur, const POINT &ptOld)
+uint32_t CN3UIString::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POINT &ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 
 #ifndef _REPENT

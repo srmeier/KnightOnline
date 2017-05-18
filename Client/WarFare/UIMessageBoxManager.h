@@ -28,7 +28,7 @@ public:
 	CUIMessageBox*	ReFocusMsgBox();
 	CUIMessageBox*	GetFocusMsgBox(){ return m_pMsgBoxLatestRef; }
 	void			Release();
-	DWORD			MouseProcAndTick(DWORD& dwFlags, const POINT& ptCur, const POINT& ptOld );
+	uint32_t			MouseProcAndTick(uint32_t& dwFlags, const POINT& ptCur, const POINT& ptOld );
 	void			MessageBoxCloseAll();
 	void			Render();
 	int				GetCount();

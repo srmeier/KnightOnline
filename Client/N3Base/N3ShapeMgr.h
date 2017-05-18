@@ -38,8 +38,8 @@ public:
 	struct __CellSub // 하위 셀 데이터
 	{
 		int 	nCCPolyCount; // Collision Check Polygon Count
-		unsigned int m_iFileFormatVersion;
-		DWORD*	pdwCCVertIndices; // Collision Check Polygon Vertex Indices - wCCPolyCount * 3 만큼 생성된다.
+		uint32_t m_iFileFormatVersion;
+		uint32_t*	pdwCCVertIndices; // Collision Check Polygon Vertex Indices - wCCPolyCount * 3 만큼 생성된다.
 
 		void Load(HANDLE hFile)
 		{
@@ -50,7 +50,7 @@ public:
 			if(nCCPolyCount > 0)
 			{
 				if(pdwCCVertIndices) delete [] pdwCCVertIndices;
-				pdwCCVertIndices = new DWORD[nCCPolyCount * 3];
+				pdwCCVertIndices = new uint32_t[nCCPolyCount * 3];
 				__ASSERT(pdwCCVertIndices, "New memory failed");
 
 				ReadFile(hFile, pdwCCVertIndices, nCCPolyCount * 3 * 4, &dwRWC, NULL);
@@ -79,8 +79,8 @@ public:
 	struct __CellMain // 기본 셀 데이터
 	{
 		int		nShapeCount; // Shape Count;
-		unsigned int m_iFileFormatVersion;
-		WORD*	pwShapeIndices; // Shape Indices
+		uint32_t m_iFileFormatVersion;
+		uint16_t*	pwShapeIndices; // Shape Indices
 		__CellSub SubCells[CELL_MAIN_DEVIDE][CELL_MAIN_DEVIDE];
 
 		void Load(HANDLE hFile)
@@ -92,7 +92,7 @@ public:
 			if(nShapeCount > 0)
 			{
 				if(pwShapeIndices) delete [] pwShapeIndices;
-				pwShapeIndices = new WORD[nShapeCount];
+				pwShapeIndices = new uint16_t[nShapeCount];
 				ReadFile(hFile, pwShapeIndices, nShapeCount * 2, &dwRWC, NULL);
 			}
 			for(int z = 0; z < CELL_MAIN_DEVIDE; z++)
@@ -191,7 +191,7 @@ public:
 	bool		LoadCollisionData(HANDLE hFile);
 
 #ifdef _N3TOOL
-	void		MakeMoveTable(short** pMoveArray);	//지형에서 shape가 있는 타일은 1, 없는 타일은 0으로 셋팅한 테이블을 만든다.
+	void		MakeMoveTable(int16_t** pMoveArray);	//지형에서 shape가 있는 타일은 1, 없는 타일은 0으로 셋팅한 테이블을 만든다.
 	int			Add(CN3Shape* pShape);
 	bool		AddCollisionTriangle(const __Vector3& v1, const __Vector3& v2, const __Vector3& v3);
 	void		GenerateCollisionData();

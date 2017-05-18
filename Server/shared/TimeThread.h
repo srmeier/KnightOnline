@@ -3,7 +3,7 @@
 void StartTimeThread();
 void CleanupTimeThread();
 
-uint32 THREADCALL TimeThread(void * lpParam);
+uint32_t THREADCALL TimeThread(void * lpParam);
 
 extern time_t UNIXTIME;
 extern tm g_localTime;

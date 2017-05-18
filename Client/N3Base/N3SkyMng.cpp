@@ -189,9 +189,9 @@ void CN3SkyMng::RenderWeather()
 
 void CN3SkyMng::Tick()
 {
-	DWORD dwCurTickCount = timeGetTime();
+	uint32_t dwCurTickCount = timeGetTime();
 	__ASSERT(dwCurTickCount >= m_dwCheckTick,"음수이다.");
-	DWORD dwCurGameTime = m_dwCheckGameTime + (DWORD)((dwCurTickCount - m_dwCheckTick)*TIME_REAL_PER_GAME*0.001f);
+	uint32_t dwCurGameTime = m_dwCheckGameTime + (uint32_t)((dwCurTickCount - m_dwCheckTick)*TIME_REAL_PER_GAME*0.001f);
 	if (!m_DayChanges.empty())
 	{
 		// dwCurGameTime 가 24*60*60을 넘었을 경우
@@ -230,7 +230,7 @@ void CN3SkyMng::Tick()
 		{
 			__SKY_DAYCHANGE* pSDC = &(m_DayChanges[m_iDayChangeCurPos]);
 			// 실행할 명령의 시간과 현재 시간 차이
-			DWORD dwDiffTime = dwCurGameTime - pSDC->dwWhen;
+			uint32_t dwDiffTime = dwCurGameTime - pSDC->dwWhen;
 
 			// 변화에 걸리는 시간 조정 
 			float fTakeTime = pSDC->fHowLong - dwDiffTime*TIME_GAME_PER_REAL;	// 걸리는 시간
@@ -260,7 +260,7 @@ void CN3SkyMng::Tick()
 			{
 				__SKY_DAYCHANGE* pSDC = &(m_WeatherChanges[m_iWeatherChangeCurPos]);
 				// 실행할 명령의 시간과 현재 시간 차이
-				DWORD dwDiffTime = dwCurGameTime - pSDC->dwWhen;
+				uint32_t dwDiffTime = dwCurGameTime - pSDC->dwWhen;
 
 				// 변화에 걸리는 시간 조정 
 				float fTakeTime = pSDC->fHowLong - dwDiffTime*TIME_GAME_PER_REAL;	// 걸리는 시간
@@ -518,7 +518,7 @@ void CN3SkyMng::InitToDefaultHardCoding()
 	// 임시 hard coding
 	__SKY_DAYCHANGE tmpDayChange;
 	m_DayChanges.resize(64);
-	DWORD dwTime = 0;
+	uint32_t dwTime = 0;
 
 	// 해뜨기..
 	dwTime = CONVERT_SEC(5,0,0); // 5시에 해가 뜬다..
@@ -676,10 +676,10 @@ void CN3SkyMng::InitToDefaultHardCoding()
 
 
 //	CheckGameTime을 정해주고 현재시간을 다시 세팅한다.(특정 시간으로 강제적으로 만들때 호출한다.)
-void CN3SkyMng::SetCheckGameTime(DWORD dwCheckGameTime)
+void CN3SkyMng::SetCheckGameTime(uint32_t dwCheckGameTime)
 {
 	dwCheckGameTime %= 86400;
-	DWORD dwCheckTick = timeGetTime();
+	uint32_t dwCheckTick = timeGetTime();
 	m_dwCheckGameTime = dwCheckGameTime;
 	m_dwCheckTick = dwCheckTick;
 
@@ -705,7 +705,7 @@ void CN3SkyMng::SetCheckGameTime(DWORD dwCheckGameTime)
 		int iPos = GetLatestChange((eSKY_DAYCHANGE)i, m_iDayChangeCurPos);
 		if (iPos<0) continue;	// 한바퀴를 다 돌았는데도 변화값을 찾을 수 없다.
 		__SKY_DAYCHANGE* pSDC = &(m_DayChanges[iPos]);
-		DWORD dwEnd = pSDC->dwWhen + (DWORD)(TIME_REAL_PER_GAME * pSDC->fHowLong);	// 변화가 끝나는 시간
+		uint32_t dwEnd = pSDC->dwWhen + (uint32_t)(TIME_REAL_PER_GAME * pSDC->fHowLong);	// 변화가 끝나는 시간
 		if (dwEnd>86400) dwEnd -= 86400;	// 24시간이 넘었을경우 24시간을 빼준다.
 		if ( dwEnd < dwCheckGameTime)
 		{	// 현재 겜시간에서 변화가 이미 끝났을 경우
@@ -720,7 +720,7 @@ void CN3SkyMng::SetCheckGameTime(DWORD dwCheckGameTime)
 
 			// 변화상태로 만들기
 			// 실행할 명령의 시간과 현재 시간 차이
-			DWORD dwDiffTime = dwCheckGameTime - pSDC->dwWhen;
+			uint32_t dwDiffTime = dwCheckGameTime - pSDC->dwWhen;
 			// 변화에 걸리는 시간 조정 
 			float fTakeTime = pSDC->fHowLong - dwDiffTime*TIME_GAME_PER_REAL;	// 걸리는 시간
 			if (fTakeTime<0.0f) fTakeTime = 0.0f;	// 0보다 작으면 즉시 변화하게 하자
@@ -848,9 +848,9 @@ void CN3SkyMng::SetWeather(eSKY_WEATHER eWeather, int iPercentage)
 	m_eWeather = eWeather;
 
 	// 현재 게임 시간 구하기
-	DWORD dwCurTickCount = timeGetTime();
+	uint32_t dwCurTickCount = timeGetTime();
 	__ASSERT(dwCurTickCount >= m_dwCheckTick,"음수이다.");
-	DWORD dwCurGameTime = m_dwCheckGameTime + (DWORD)((dwCurTickCount - m_dwCheckTick)*TIME_REAL_PER_GAME*0.001f);
+	uint32_t dwCurGameTime = m_dwCheckGameTime + (uint32_t)((dwCurTickCount - m_dwCheckTick)*TIME_REAL_PER_GAME*0.001f);
 	BOOL	IsNight = (dwCurGameTime < CONVERT_SEC(6,0,0) || dwCurGameTime > CONVERT_SEC(19,0,0));
 
 	if(SW_CLEAR == m_eWeather) // 맑은 날씨. 퍼센트는 안개...
@@ -858,8 +858,8 @@ void CN3SkyMng::SetWeather(eSKY_WEATHER eWeather, int iPercentage)
 		if (SW_CLEAR == ePrevWeather) return;	// 이전 날씨가 맑았으면 변화시키지 않는다.
 		int iAfterNSecPos = GetDayChangePos_AfterNSec(dwCurGameTime, 10);	// 60초 후에 DayChangePos구하기
 		float fHowLong = 10.0f;
-		DWORD dwWhen = dwCurGameTime + CONVERT_SEC(0, 0,0);
-		DWORD dwParam1 = 0, dwParam2 = 0;
+		uint32_t dwWhen = dwCurGameTime + CONVERT_SEC(0, 0,0);
+		uint32_t dwParam1 = 0, dwParam2 = 0;
 
 		// 날씨 변화 큐 만들기
 		m_WeatherChanges.clear();
@@ -973,7 +973,7 @@ void CN3SkyMng::SetWeather(eSKY_WEATHER eWeather, int iPercentage)
 		__SKY_DAYCHANGE tmpWeatherChange;
 		__ColorValue crTmp1, crTmp2;
 		float fDelta = (0.5f + 0.3f * (100 - iPercentage) / 100.0f);
-		DWORD dwWhen = dwCurGameTime + CONVERT_SEC(0, 0, 10);
+		uint32_t dwWhen = dwCurGameTime + CONVERT_SEC(0, 0, 10);
 
 		// 라이트 세팅 변수 구하기..
 		__ColorValue crLgt(1,1,1,1);
@@ -985,15 +985,15 @@ void CN3SkyMng::SetWeather(eSKY_WEATHER eWeather, int iPercentage)
 
 
 		// 해
-		tmpWeatherChange.Init("Sun", SDC_SUNCOLOR, dwWhen, 0xff000000, (uint32)(this->GetSunRatio() * 1000), fHowLong);
+		tmpWeatherChange.Init("Sun", SDC_SUNCOLOR, dwWhen, 0xff000000, (uint32_t)(this->GetSunRatio() * 1000), fHowLong);
 		m_WeatherChanges.push_back(tmpWeatherChange);
 
 		// 해의 flare
-		tmpWeatherChange.Init("Flare", SDC_FLARECOLOR, dwWhen, 0xff000000, (uint32)(this->GetFlareRatio() * 1000), fHowLong);
+		tmpWeatherChange.Init("Flare", SDC_FLARECOLOR, dwWhen, 0xff000000, (uint32_t)(this->GetFlareRatio() * 1000), fHowLong);
 		m_WeatherChanges.push_back(tmpWeatherChange);
 
 		// 해의 glow
-		tmpWeatherChange.Init("Glow", SDC_GLOWCOLOR, dwWhen, 0xff000000, (uint32)(this->GetGlowRatio() * 1000), fHowLong);
+		tmpWeatherChange.Init("Glow", SDC_GLOWCOLOR, dwWhen, 0xff000000, (uint32_t)(this->GetGlowRatio() * 1000), fHowLong);
 		m_WeatherChanges.push_back(tmpWeatherChange);
 
 		//  하늘색
@@ -1017,7 +1017,7 @@ void CN3SkyMng::SetWeather(eSKY_WEATHER eWeather, int iPercentage)
 		m_WeatherChanges.push_back(tmpWeatherChange);
 		
 		// 구름 텍스쳐
-		DWORD dwTex1, dwTex2;
+		uint32_t dwTex1, dwTex2;
 		if (iPercentage>80)			{ dwTex1 = CLOUD_OVERCAST;	dwTex2 = CLOUD_DENSE; }
 		else if (iPercentage>60)	{ dwTex1 = CLOUD_DENSE;		dwTex2 = CLOUD_STREAKS; }
 		else if (iPercentage>40)	{ dwTex1 = CLOUD_STREAKS;	dwTex2 = CLOUD_TATTERS; }
@@ -1114,9 +1114,9 @@ void CN3SkyMng::SunAndMoonDirectionFixByHour(int iHour) // 해와 달 각도 관리
 
 void CN3SkyMng::GetGameTime(int* piYear, int* piMonth, int* piDay, int* piHour, int*piMin)
 {
-	DWORD dwCurTickCount = timeGetTime();
+	uint32_t dwCurTickCount = timeGetTime();
 	__ASSERT(dwCurTickCount >= m_dwCheckTick,"음수이다.");
-	DWORD dwCurGameTime = m_dwCheckGameTime + (DWORD)((dwCurTickCount - m_dwCheckTick)*TIME_REAL_PER_GAME*0.001f);
+	uint32_t dwCurGameTime = m_dwCheckGameTime + (uint32_t)((dwCurTickCount - m_dwCheckTick)*TIME_REAL_PER_GAME*0.001f);
 
 	// dwCurGameTime - 초
 	int iSecond = dwCurGameTime%3600;
@@ -1139,10 +1139,10 @@ void CN3SkyMng::SetGameTime(int iYear, int iMonth, int iDay, int iHour, int iMin
 	SetCheckGameTime(CONVERT_SEC(iHour, iMin,0));
 }
 
-int	CN3SkyMng::GetDayChangePos_AfterNSec(DWORD dwCurGameTime, float fSec)
+int	CN3SkyMng::GetDayChangePos_AfterNSec(uint32_t dwCurGameTime, float fSec)
 {
 	// n초 후의 체크할 게임 시간을 계산
-	DWORD dwCheckGameTime = dwCurGameTime + (DWORD)(fSec*TIME_REAL_PER_GAME);	// 150초 후 게임시간
+	uint32_t dwCheckGameTime = dwCurGameTime + (uint32_t)(fSec*TIME_REAL_PER_GAME);	// 150초 후 게임시간
 	size_t iCheckDayChangeCurPos = m_iDayChangeCurPos;
 	if (dwCheckGameTime>86400)	// 체크 시간이 게임시간의 24시를 넘으면
 	{

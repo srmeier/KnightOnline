@@ -202,7 +202,7 @@ public:
 	bool	OnMouseRBtnPressd(POINT ptCur, POINT ptPrev);
 	bool	OnMouseRBtnPress(POINT ptCur, POINT ptPrev);
 	bool	OnMouseRDBtnPress(POINT ptCur, POINT ptPrev);
-	void	ControlViewVDegree(short sValue);
+	void	ControlViewVDegree(int16_t sValue);
 	void	PlayBGM_Town();
 	void	PlayBGM_Battle();
 
@@ -244,9 +244,9 @@ public:
 	void	MsgSend_ChatSelectTarget(const std::string& szTargetID); // 일대일 채팅 상대 정하기.
 	void	MsgSend_Regen();
 	bool	MsgSend_RequestItemBundleOpen(CPlayerNPC* pCorpse); // 아이템 상자를 열거나 시체를 뒤진다..
-	void	MsgSend_RequestTargetHP(short siIDTarget, BYTE byUpdateImmediately); // 0x00 - 점차 늘어나게끔.. 0x01 - 즉시 업데이트..
+	void	MsgSend_RequestTargetHP(int16_t siIDTarget, uint8_t byUpdateImmediately); // 0x00 - 점차 늘어나게끔.. 0x01 - 즉시 업데이트..
 	void	MsgSend_GameStart();
-	bool	MsgSend_NPCEvent(short siIDTarget);
+	bool	MsgSend_NPCEvent(int16_t siIDTarget);
 	void	MsgSend_NPCInRequest(int iID); // NPC 정보가 없을 경우 요청한다..
 	void	MsgSend_UserInRequest(int iID); // User 정보가 없을 경우 요청한다..
 	void	MsgSend_Warp(); // 워프?? - 존체인지가 될수도 있다..
@@ -273,7 +273,7 @@ public:
 
 
 	void	ProcessPlayerInclination();				// 경사 처리..(가만히 있어도 경사가 급하면 미끄러짐..).
-	void	ProcessLocalInput(DWORD dwMouseFlags);	// 키보드 눌린것을 처리한다..
+	void	ProcessLocalInput(uint32_t dwMouseFlags);	// 키보드 눌린것을 처리한다..
 	void	ParseChattingCommand(const std::string& szCmd);
 	
 

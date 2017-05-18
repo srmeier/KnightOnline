@@ -12,7 +12,7 @@ public:
 	virtual bool Fetch()
 	{
 		CGameEvent *pData = new CGameEvent();
-		uint8 bZone;
+		uint8_t bZone;
 		int i = 1;
 
 		_dbCommand->FetchByte(i++, bZone);

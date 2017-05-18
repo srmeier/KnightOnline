@@ -79,7 +79,7 @@ void CKnightChrMgr::TCommand(char Cmd)
 
 //////////////////////////////////////////////////////////////////////
 
-LONG CKnightChrMgr::OnReceiveSmq(UINT WParam, LONG LParam)
+int32_t CKnightChrMgr::OnReceiveSmq(UINT WParam, int32_t LParam)
 {
 #ifdef _N3_KNIGHT_CHR
 //	UpdateData(TRUE);

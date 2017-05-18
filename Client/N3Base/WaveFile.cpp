@@ -52,7 +52,7 @@ CWaveFile::~CWaveFile()
 // Name: CWaveFile::Open()
 // Desc: Opens a wave file for reading
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::Open( LPCSTR strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags )
+HRESULT CWaveFile::Open( LPCSTR strFileName, WAVEFORMATEX* pwfx, uint32_t dwFlags )
 {
     HRESULT hr;
 
@@ -75,7 +75,7 @@ HRESULT CWaveFile::Open( LPCSTR strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags )
         {
             HRSRC   hResInfo;
             HGLOBAL hResData;
-            DWORD   dwSize;
+            uint32_t   dwSize;
             VOID*   pvRes;
 
             // Loading it as a file failed, so try it as a resource
@@ -145,8 +145,8 @@ HRESULT CWaveFile::Open( LPCSTR strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags )
 // Name: CWaveFile::OpenFromMemory()
 // Desc: copy data to CWaveFile member variable from memory
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::OpenFromMemory( BYTE* pbData, ULONG ulDataSize, 
-                                   WAVEFORMATEX* pwfx, DWORD dwFlags )
+HRESULT CWaveFile::OpenFromMemory( uint8_t* pbData, ULONG ulDataSize, 
+                                   WAVEFORMATEX* pwfx, uint32_t dwFlags )
 {
     m_pwfx       = pwfx;
     m_ulDataSize = ulDataSize;
@@ -198,7 +198,7 @@ HRESULT CWaveFile::ReadMMIO()
         return E_FAIL;
 
     // Allocate the waveformatex, but if its not pcm format, read the next
-    // word, and thats how many extra bytes to allocate.
+    // uint16_t, and thats how many extra bytes to allocate.
     if( pcmWaveFormat.wf.wFormatTag == WAVE_FORMAT_PCM )
     {
         m_pwfx = (WAVEFORMATEX*)new CHAR[ sizeof(WAVEFORMATEX) ];
@@ -212,8 +212,8 @@ HRESULT CWaveFile::ReadMMIO()
     else
     {
         // Read in length of extra bytes.
-        WORD cbExtraBytes = 0L;
-        if( mmioRead( m_hmmio, (CHAR*)&cbExtraBytes, sizeof(WORD)) != sizeof(WORD) )
+        uint16_t cbExtraBytes = 0L;
+        if( mmioRead( m_hmmio, (CHAR*)&cbExtraBytes, sizeof(uint16_t)) != sizeof(uint16_t) )
             return E_FAIL;
 
         m_pwfx = (WAVEFORMATEX*)new CHAR[ sizeof(WAVEFORMATEX) + cbExtraBytes ];
@@ -225,7 +225,7 @@ HRESULT CWaveFile::ReadMMIO()
         m_pwfx->cbSize = cbExtraBytes;
 
         // Now, read those extra bytes into the structure, if cbExtraAlloc != 0.
-        if( mmioRead( m_hmmio, (CHAR*)(((BYTE*)&(m_pwfx->cbSize))+sizeof(WORD)),
+        if( mmioRead( m_hmmio, (CHAR*)(((uint8_t*)&(m_pwfx->cbSize))+sizeof(uint16_t)),
                       cbExtraBytes ) != cbExtraBytes )
         {
 			if(m_pwfx)
@@ -256,7 +256,7 @@ HRESULT CWaveFile::ReadMMIO()
 // Name: CWaveFile::GetSize()
 // Desc: Retuns the size of the read access wave file 
 //-----------------------------------------------------------------------------
-DWORD CWaveFile::GetSize()
+uint32_t CWaveFile::GetSize()
 {
     return m_dwSize;
 }
@@ -316,7 +316,7 @@ HRESULT CWaveFile::ResetFile()
 //       subsequent calls will be continue where the last left off unless 
 //       Reset() is called.
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
+HRESULT CWaveFile::Read( uint8_t* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
 {
     if( m_bIsReadingFromMemory )
     {
@@ -325,10 +325,10 @@ HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
         if( pdwSizeRead != NULL )
             *pdwSizeRead = 0;
 
-        if( (BYTE*)(m_pbDataCur + dwSizeToRead) > 
-            (BYTE*)(m_pbData + m_ulDataSize) )
+        if( (uint8_t*)(m_pbDataCur + dwSizeToRead) > 
+            (uint8_t*)(m_pbData + m_ulDataSize) )
         {
-            dwSizeToRead = m_ulDataSize - (DWORD)(m_pbDataCur - m_pbData);
+            dwSizeToRead = m_ulDataSize - (uint32_t)(m_pbDataCur - m_pbData);
         }
         
         CopyMemory( pBuffer, m_pbDataCur, dwSizeToRead );
@@ -359,7 +359,7 @@ HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
 
         m_ck.cksize -= cbDataIn;
     
-        for( DWORD cT = 0; cT < cbDataIn; cT++ )
+        for( uint32_t cT = 0; cT < cbDataIn; cT++ )
         {
             // Copy the bytes from the io to the buffer.
             if( mmioinfoIn.pchNext == mmioinfoIn.pchEndRead )
@@ -372,7 +372,7 @@ HRESULT CWaveFile::Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead )
             }
 
             // Actual copy.
-            *((BYTE*)pBuffer+cT) = *((BYTE*)mmioinfoIn.pchNext);
+            *((uint8_t*)pBuffer+cT) = *((uint8_t*)mmioinfoIn.pchNext);
             mmioinfoIn.pchNext++;
         }
 
@@ -426,8 +426,8 @@ HRESULT CWaveFile::Close()
 
         if( 0 == mmioDescend( m_hmmio, &m_ck, &m_ckRiff, MMIO_FINDCHUNK ) ) 
         {
-            DWORD dwSamples = 0;
-            mmioWrite( m_hmmio, (HPSTR)&dwSamples, sizeof(DWORD) );
+            uint32_t dwSamples = 0;
+            mmioWrite( m_hmmio, (HPSTR)&dwSamples, sizeof(uint32_t) );
             mmioAscend( m_hmmio, &m_ck, 0 ); 
         }
     
@@ -453,10 +453,10 @@ HRESULT CWaveFile::Close()
 //-----------------------------------------------------------------------------
 HRESULT CWaveFile::WriteMMIO( WAVEFORMATEX *pwfxDest )
 {
-    DWORD    dwFactChunk; // Contains the actual fact chunk. Garbage until WaveCloseWriteFile.
+    uint32_t    dwFactChunk; // Contains the actual fact chunk. Garbage until WaveCloseWriteFile.
     MMCKINFO ckOut1;
     
-    dwFactChunk = (DWORD)-1;
+    dwFactChunk = (uint32_t)-1;
 
     // Create the output file RIFF chunk of form type 'WAVE'.
     m_ckRiff.fccType = mmioFOURCC('W', 'A', 'V', 'E');       
@@ -519,7 +519,7 @@ HRESULT CWaveFile::WriteMMIO( WAVEFORMATEX *pwfxDest )
 // Name: CWaveFile::Write()
 // Desc: Writes data to the open wave file
 //-----------------------------------------------------------------------------
-HRESULT CWaveFile::Write( UINT nSizeToWrite, BYTE* pbSrcData, UINT* pnSizeWrote )
+HRESULT CWaveFile::Write( UINT nSizeToWrite, uint8_t* pbSrcData, UINT* pnSizeWrote )
 {
     UINT cT;
 
@@ -541,8 +541,8 @@ HRESULT CWaveFile::Write( UINT nSizeToWrite, BYTE* pbSrcData, UINT* pnSizeWrote 
 				return S_FALSE;//DXTRACE_ERR( TEXT("mmioAdvance"), E_FAIL );
         }
 
-        *((BYTE*)m_mmioinfoOut.pchNext) = *((BYTE*)pbSrcData+cT);
-        (BYTE*)m_mmioinfoOut.pchNext++;
+        *((uint8_t*)m_mmioinfoOut.pchNext) = *((uint8_t*)pbSrcData+cT);
+        (uint8_t*)m_mmioinfoOut.pchNext++;
 
         (*pnSizeWrote)++;
     }

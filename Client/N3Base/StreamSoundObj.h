@@ -21,17 +21,17 @@ class CStreamSoundObj : public CN3SndObj
 		int					m_FinalByte;
 				
 		DSBUFFERDESC		m_dsbd;
-		DWORD				m_BufferSize;
-		DWORD				m_BlockSize;	//buffer를 초단위로 나눈 것.
+		uint32_t				m_BufferSize;
+		uint32_t				m_BlockSize;	//buffer를 초단위로 나눈 것.
 		
 		int					m_CurrState;	//현재 어느 블럭에 있는지..
 		int					m_PrevState;	//지금 바로 전에 어느 블럭에 있었는지..
-		DWORD				m_CurrPos;		//현재 버퍼에서의 위치 
+		uint32_t				m_CurrPos;		//현재 버퍼에서의 위치 
 		int					m_PastTime;		//전체 플레이 타임에서 남은 시간
 
 		//related wave data
 		WAVEFORMATEX		m_WaveFormat;
-		DWORD				m_WaveSize;
+		uint32_t				m_WaveSize;
 		LPSTR				m_pWaveMem;
 		HGLOBAL				m_hWaveMem;
 		MMCKINFO			mmCkInfoRIFF;

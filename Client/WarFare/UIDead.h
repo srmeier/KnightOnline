@@ -25,10 +25,10 @@ public:
 	void SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false);
 	void SetVisible(bool bVisible);
 	void MsgRecv_Revival(class DataPack *pDataPack, int &iOffset);
-	void MsgSend_Revival(BYTE byType);
-	void CallBackProc(int iID, DWORD dwFlag);
-	DWORD MouseProc(DWORD dwFlags, const POINT &ptCur, const POINT &ptOld);
-	bool ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg);
+	void MsgSend_Revival(uint8_t byType);
+	void CallBackProc(int iID, uint32_t dwFlag);
+	uint32_t MouseProc(uint32_t dwFlags, const POINT &ptCur, const POINT &ptOld);
+	bool ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg);
 	bool Load(HANDLE hFile);
 	CUIDead();
 	virtual ~CUIDead();

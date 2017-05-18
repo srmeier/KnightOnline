@@ -233,7 +233,7 @@ void CUIState::UpdateMSP(int iVal, int iValMax)
 	m_pText_MP->SetString(szVal);
 }
 
-void CUIState::UpdateExp(uint64 iVal, uint64 iValMax)
+void CUIState::UpdateExp(uint64_t iVal, uint64_t iValMax)
 {
 	__ASSERT(iVal >= 0 && iValMax > 0, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	if(NULL == m_pText_Exp) return;
@@ -481,7 +481,7 @@ void CUIState::UpdateRegistPoison(int iVal, int iDelta)
 }
 
 
-bool CUIState::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIState::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
@@ -500,9 +500,9 @@ bool CUIState::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	return true;
 }
 
-void CUIState::MsgSendAblityPointChange(BYTE byType, short siValueDelta)
+void CUIState::MsgSendAblityPointChange(uint8_t byType, int16_t siValueDelta)
 {
-	BYTE byBuff[4];
+	uint8_t byBuff[4];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_POINT_CHANGE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, byType);
@@ -654,7 +654,7 @@ void CUIKnights::UpdateMemberCount(int nMemberCount)
 #pragma endregion
 
 #pragma region Button Handlers
-bool CUIKnights::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIKnights::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg != UIMSG_BUTTON_CLICK)
 		return false; // @Demircivi: Since we don't care about anything else click.
@@ -886,7 +886,7 @@ void CUIKnights::MemberListUpdate()
 void CUIKnights::MsgSend_MemberInfoAll()
 {
 	int iOffset = 0;
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_MEMBER_INFO_ALL);
@@ -1105,7 +1105,7 @@ void CUIFriends::SaveListToTextFile(const std::string& szID) // 문자열이 있으면 
 	fclose(pFile);
 }
 
-bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	CGameProcMain* pProcMain = CGameProcedure::s_pProcMain;
 
@@ -1125,7 +1125,7 @@ bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 				if(m_pList_Friends)
 				{
 //					RECT rc = m_pList_Friends->GetRegion();
-//					DWORD dwH = m_pList_Friends->FontHeight();
+//					uint32_t dwH = m_pList_Friends->FontHeight();
 //					iLinePerPage = (rc.bottom - rc.top) / dwH;
 					iLinePerPage = 10;
 				}
@@ -1233,7 +1233,7 @@ void CUIFriends::UpdateList()
 	if(m_MapFriends.empty()) return;
 
 //	RECT rc = m_pList_Friends->GetRegion();
-//	DWORD dwH = m_pList_Friends->FontHeight();
+//	uint32_t dwH = m_pList_Friends->FontHeight();
 //	int iLinePerPage = (rc.bottom - rc.top) / dwH;
 	size_t iLinePerPage = 10;
 //	if(iLinePerPage <= 0) return;
@@ -1283,7 +1283,7 @@ void CUIFriends::MsgSend_MemberInfo(bool bDisableInterval)
 	if(iFC <= 0) return;
 
 	int iOffset = 0;
-	std::vector<BYTE> buffers(iFC * 32, 0);
+	std::vector<uint8_t> buffers(iFC * 32, 0);
 
 	CAPISocket::MP_AddByte(&(buffers[0]), iOffset, WIZ_FRIEND_PROCESS); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
 	CAPISocket::MP_AddShort(&(buffers[0]), iOffset, iFC);
@@ -1291,7 +1291,7 @@ void CUIFriends::MsgSend_MemberInfo(bool bDisableInterval)
 	{
 		std::string szID;
 		m_pList_Friends->GetString(i, szID);
-		CAPISocket::MP_AddShort(&(buffers[0]), iOffset, (short)szID.size());
+		CAPISocket::MP_AddShort(&(buffers[0]), iOffset, (int16_t)szID.size());
 		CAPISocket::MP_AddString(&(buffers[0]), iOffset, szID);
 	}
 
@@ -1304,12 +1304,12 @@ void CUIFriends::MsgSend_MemberInfo(const std::string& szID)
 	int iFC = 1;
 
 	int iOffset = 0;
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_FRIEND_PROCESS); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
 	CAPISocket::MP_AddShort(byBuff, iOffset, iFC);
 
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szID.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)szID.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szID);
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -1320,7 +1320,7 @@ void CUIFriends::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
 	std::string szID;
 	int iLen = 0;
 	int iID = 0;
-	BYTE bStatus = 0;
+	uint8_t bStatus = 0;
 
 	int iFC = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
 	for(int i = 0; i < iFC; i++)
@@ -1441,7 +1441,7 @@ bool CUIVarious::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUIVarious::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIVarious::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{

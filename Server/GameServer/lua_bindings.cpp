@@ -188,16 +188,16 @@ LUA_FUNCTION(CheckPercent)
 	LUA_RETURN(CheckPercent(LUA_ARG(int, 1)));
 }
 
-#define Lua_GetUser() g_pMain->GetUserPtr(LUA_ARG(uint16, 1))
+#define Lua_GetUser() g_pMain->GetUserPtr(LUA_ARG(uint16_t, 1))
 
 LUA_FUNCTION(HowmuchItem) 
 {
 	CUser * pUser = Lua_GetUser();
-	uint32 result = 0;
+	uint32_t result = 0;
 
 	if (pUser != nullptr) 
 	{
-		uint32 nItemID = LUA_ARG(uint32, 2);
+		uint32_t nItemID = LUA_ARG(uint32_t, 2);
 		if (nItemID == ITEM_GOLD)
 			result = pUser->GetCoins();
 		else
@@ -210,7 +210,7 @@ LUA_FUNCTION(HowmuchItem)
 LUA_FUNCTION(CheckNation)
 {
 	CUser * pUser = Lua_GetUser();
-	uint8 bNation = Nation::NONE;
+	uint8_t bNation = Nation::NONE;
 
 	if (pUser != nullptr)
 		bNation = pUser->GetNation();
@@ -221,7 +221,7 @@ LUA_FUNCTION(CheckNation)
 LUA_FUNCTION(CheckClass)
 {
 	CUser * pUser = Lua_GetUser();
-	uint8 bClassType = 0;
+	uint8_t bClassType = 0;
 
 	if (pUser != nullptr)
 		bClassType = pUser->GetClassType();
@@ -232,7 +232,7 @@ LUA_FUNCTION(CheckClass)
 LUA_FUNCTION(CheckLevel)
 {
 	CUser * pUser = Lua_GetUser();
-	uint8 bClassType = 0;
+	uint8_t bClassType = 0;
 
 	if (pUser != nullptr)
 		bClassType = pUser->GetLevel();
@@ -243,10 +243,10 @@ LUA_FUNCTION(CheckLevel)
 LUA_FUNCTION(CheckSkillPoint)
 {
 	CUser * pUser = Lua_GetUser();
-	uint8 bPoints = 0;
+	uint8_t bPoints = 0;
 
 	if (pUser != nullptr)
-		bPoints = pUser->GetSkillPoints((SkillPointCategory)LUA_ARG(uint32, 2));
+		bPoints = pUser->GetSkillPoints((SkillPointCategory)LUA_ARG(uint32_t, 2));
 
 	LUA_RETURN(bPoints);
 }
@@ -367,17 +367,17 @@ LUA_FUNCTION(SelectMsg)
 	if (pUser == nullptr) 
 		return LUA_NO_RESULTS;
 
-	uint32 arg = 2; // start from after the user instance.
-	int32 menuButtonText[MAX_MESSAGE_EVENT], 
+	uint32_t arg = 2; // start from after the user instance.
+	int32_t menuButtonText[MAX_MESSAGE_EVENT], 
 		menuButtonEvents[MAX_MESSAGE_EVENT];
-	uint8 bFlag = LUA_ARG(uint8, arg++);
-	int32 nQuestID = LUA_ARG_OPTIONAL(int32, -1, arg++);
-	int32 menuHeaderText = LUA_ARG(int32, arg++);
+	uint8_t bFlag = LUA_ARG(uint8_t, arg++);
+	int32_t nQuestID = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
+	int32_t menuHeaderText = LUA_ARG(int32_t, arg++);
 	arg++; // skip the NPC ID
 	foreach_array(i, menuButtonText)
 	{
-		menuButtonText[i] = LUA_ARG_OPTIONAL(int32, -1, arg++);
-		menuButtonEvents[i] = LUA_ARG_OPTIONAL(int32, -1, arg++);
+		menuButtonText[i] = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
+		menuButtonEvents[i] = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
 	}
 
 	LUA_NO_RETURN(pUser->SelectMsg(bFlag, nQuestID, menuHeaderText, menuButtonText, menuButtonEvents));
@@ -394,7 +394,7 @@ LUA_FUNCTION(CastSkill)
 		{
 			bResult = pNpc->CastSkill(
 				reinterpret_cast<Unit *>(pUser),
-				LUA_ARG(uint32, 2)
+				LUA_ARG(uint32_t, 2)
 				);
 		}
 	}
@@ -402,6 +402,6 @@ LUA_FUNCTION(CastSkill)
 }
 
 LUA_FUNCTION(RollDice) {
-	//LUA_RETURN(myrand(0, LUA_ARG(uint16, 2)));
-	LUA_RETURN(myrand(1, LUA_ARG(uint16, 2)));
+	//LUA_RETURN(myrand(0, LUA_ARG(uint16_t, 2)));
+	LUA_RETURN(myrand(1, LUA_ARG(uint16_t, 2)));
 }

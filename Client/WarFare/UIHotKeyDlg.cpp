@@ -99,9 +99,9 @@ void CUIHotKeyDlg::ReleaseItem()
 	m_iCurPage = 0;
 }
 
-DWORD CUIHotKeyDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUIHotKeyDlg::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if ( !IsVisible() ) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 	// 실제로 쓰진 않는다..
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
@@ -119,7 +119,7 @@ DWORD CUIHotKeyDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& pt
 	return CN3UIWndBase::MouseProc(dwFlags, ptCur, ptOld);
 }
 
-bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	//..
 	if(pSender->m_szID == "btn_up")
@@ -129,7 +129,7 @@ bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 
 	__IconItemSkill* spSkill;
 
-	DWORD dwBitMask = 0x0f0f0000;
+	uint32_t dwBitMask = 0x0f0f0000;
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
 
 	switch (dwMsg & dwBitMask)
@@ -385,7 +385,7 @@ void CUIHotKeyDlg::InitIconUpdate()
 	char szSkill[32];
 	int iSkillCount = 0;
 	CHotkeyData HD;
-//	DWORD bitMask;
+//	uint32_t bitMask;
 
 	while(iHCount--)
 	{
@@ -440,7 +440,7 @@ void CUIHotKeyDlg::InitIconUpdate()
 void CUIHotKeyDlg::UpdateDisableCheck()
 {
 	int i, j;
-	DWORD bitMask;
+	uint32_t bitMask;
 
 	for( i = 0; i < MAX_SKILL_HOTKEY_PAGE; i++ )
 	{
@@ -901,7 +901,7 @@ bool CUIHotKeyDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 		spSkill->pUIIcon->SetUIType(UI_TYPE_ICON);
 		spSkill->pUIIcon->SetStyle(UISTYLE_ICON_SKILL);
 
-		DWORD bitMask = UISTYLE_ICON_SKILL;
+		uint32_t bitMask = UISTYLE_ICON_SKILL;
 		if (!CGameProcedure::s_pProcMain->m_pMagicSkillMng->CheckValidSkillMagic(spSkill->pSkill))
 			bitMask |= UISTYLE_DISABLE_SKILL;
 		spSkill->pUIIcon->SetStyle(bitMask);

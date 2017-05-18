@@ -3,15 +3,15 @@
 class CircularBuffer
 {
 	// allocated whole block pointer
-	uint8 * m_buffer;
-	uint8 * m_bufferEnd;
+	uint8_t * m_buffer;
+	uint8_t * m_bufferEnd;
 
 	// region A pointer, and size
-	uint8 * m_regionAPointer;
+	uint8_t * m_regionAPointer;
 	size_t m_regionASize;
 
 	// region size
-	uint8 * m_regionBPointer;
+	uint8_t * m_regionBPointer;
 	size_t m_regionBSize;
 
 	// allocated size

@@ -29,7 +29,7 @@ enum e_ErrorCharacterCreate {	ERROR_CHARACTER_CREATE_SUCCESS = 0,
 
 typedef struct __TABLE_NEW_CHR
 {
-	DWORD		dwID;	// NPC 고유 ID
+	uint32_t		dwID;	// NPC 고유 ID
 	std::string	szName;	// 종족이름..
 	int			iStr;
 	int			iSta;

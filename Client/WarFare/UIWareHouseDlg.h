@@ -62,8 +62,8 @@ public:
 	bool				OnKeyPress(int iKey);
 	//this_ui_add_end
 
-	virtual DWORD		MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void				Render();
 	void				LeaveWareHouseState();
 	void				EnterWareHouseStateStart(int iWareGold);
@@ -86,10 +86,10 @@ public:
 	void				SendToServerFromWareMsg(int iItemID, byte page, byte startpos, byte pos, int iCount);
 	void				SendToServerWareToWareMsg(int iItemID, byte page, byte startpos, byte destpos);
 	void				SendToServerInvToInvMsg(int iItemID, byte page, byte startpos, byte destpos);
-	void				ReceiveResultToWareMsg(BYTE bResult);
-	void				ReceiveResultFromWareMsg(BYTE bResult);
-	void				ReceiveResultWareToWareMsg(BYTE bResult);
-	void				ReceiveResultInvToInvMsg(BYTE bResult);
+	void				ReceiveResultToWareMsg(uint8_t bResult);
+	void				ReceiveResultFromWareMsg(uint8_t bResult);
+	void				ReceiveResultWareToWareMsg(uint8_t bResult);
+	void				ReceiveResultInvToInvMsg(uint8_t bResult);
 	void				ReceiveResultGoldToWareFail();
 	void				ReceiveResultGoldFromWareFail();
 

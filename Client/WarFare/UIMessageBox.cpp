@@ -78,13 +78,13 @@ void CUIMessageBox::SetTitle(const std::string& szTitle)
 	m_pText_Title->SetString(szTitle);
 }
 
-bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 
 	//s_CameraData.vp;  //불러 오는 과정을 살펴본다 
-	//DWORD mm = s_CameraData.vp.Height;
-	//DWORD ss = s_CameraData.vp.Width;	
+	//uint32_t mm = s_CameraData.vp.Height;
+	//uint32_t ss = s_CameraData.vp.Width;	
 
 	if (dwMsg == UIMSG_BUTTON_CLICK)
 	{
@@ -122,7 +122,7 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 						if(CGameProcedure::s_pProcActive == pProcMain) // 지금 메인 프로시저이면..
 						{
 							std::string szIP = CGameProcedure::s_pSocket->GetCurrentIP();
-							DWORD dwPort = CGameProcedure::s_pSocket->GetCurrentPort();
+							uint32_t dwPort = CGameProcedure::s_pSocket->GetCurrentPort();
 							
 							CGameProcedure::s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
 							CGameProcedure::s_pSocket->Disconnect();

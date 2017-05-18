@@ -86,9 +86,9 @@ void CN3Star::Init()
 	Release();
 
 	int i;
-	BYTE alpha = 0xff;
-	BYTE alpha_min = 0x80;
-	BYTE alpha_max = 0xff;
+	uint8_t alpha = 0xff;
+	uint8_t alpha_min = 0x80;
+	uint8_t alpha_max = 0xff;
 	float fInc = ((float)(alpha_max - alpha_min))/MAX_STAR;
 	for (i=0; i<MAX_STAR; ++i)
 	{
@@ -103,7 +103,7 @@ void CN3Star::Init()
 			fZ = ((float)(rand()%10000))/1000.f - 5.0f;
 		}
 
-		alpha = alpha_max - (BYTE)(fInc*i);
+		alpha = alpha_max - (uint8_t)(fInc*i);
 		m_Stars[i].Set(fX, fY, fZ, (alpha<<24)|0x00ffffff);
 	}
 	m_iCurNumStar = 0;

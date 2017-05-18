@@ -130,7 +130,7 @@ bool CUISkillTreeDlg::HasIDSkill(int iID)
 void CUISkillTreeDlg::UpdateDisableCheck()
 {
 	int i, j, k;
-	DWORD bitMask;
+	uint32_t bitMask;
 
 	for( i = 0; i < MAX_SKILL_KIND_OF; i++ )
 		for( j = 0; j < MAX_SKILL_PAGE_NUM; j++ )
@@ -194,9 +194,9 @@ void CUISkillTreeDlg::Tick()
 	CN3UIBase::Tick();
 }
 
-DWORD CUISkillTreeDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUISkillTreeDlg::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if ( !IsVisible() ) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 	// 실제로 쓰진 않는다..
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
@@ -231,7 +231,7 @@ int CUISkillTreeDlg::GetIndexInArea(POINT pt)
 	return -1;
 }	
 
-bool CUISkillTreeDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUISkillTreeDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 
@@ -294,12 +294,12 @@ bool CUISkillTreeDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 
 	__IconItemSkill* spSkill, *spSkillCopy;
 
-	DWORD dwLBitMask = 0x000f0000;
-	DWORD dwRBitMask = 0x0f000000;
-	DWORD dwBitMask = dwLBitMask | dwRBitMask;
+	uint32_t dwLBitMask = 0x000f0000;
+	uint32_t dwRBitMask = 0x0f000000;
+	uint32_t dwBitMask = dwLBitMask | dwRBitMask;
 
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
-	DWORD bitMask;
+	uint32_t bitMask;
 
 	switch (dwMsg & dwBitMask)
 	{
@@ -691,10 +691,10 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 	}
 
 	// 써버에게 보내고.. 숫자 업데이트..	
-	BYTE byBuff[4];
+	uint8_t byBuff[4];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SKILLPT_CHANGE);
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)iValue);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)iValue);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 
 	// 스킬 포인트 업데이트..

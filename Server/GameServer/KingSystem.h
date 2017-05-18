@@ -5,8 +5,8 @@
 
 struct _KING_ELECTION_LIST
 {
-	uint16 sKnights;
-	uint32 nVotes;
+	uint16_t sKnights;
+	uint32_t nVotes;
 };
 
 struct ci_compare
@@ -16,7 +16,7 @@ struct ci_compare
 	}
 };
 
-typedef std::set<uint16> ClanIDSet;
+typedef std::set<uint16_t> ClanIDSet;
 typedef std::map<std::string, std::string, ci_compare> KingCandidacyNoticeBoardMap; 
 typedef std::map<std::string, _KING_ELECTION_LIST *, ci_compare> KingElectionList; 
 typedef std::set<std::string, ci_compare> ResignedCandidateList;
@@ -47,8 +47,8 @@ public:
 	void CheckKingTimer();
 
 	// Updates the election status
-	void UpdateElectionStatus(uint8 byElectionState);
-	void UpdateElectionList(uint8 byElectionListType, bool bDeleteList, uint16 sClanID, std::string & strUserID, CUser * pUser = nullptr);
+	void UpdateElectionStatus(uint8_t byElectionState);
+	void UpdateElectionList(uint8_t byElectionListType, bool bDeleteList, uint16_t sClanID, std::string & strUserID, CUser * pUser = nullptr);
 
 	// Checks to see if a special (coin/XP) event should end.
 	void CheckSpecialEvent();
@@ -56,7 +56,7 @@ public:
 	// Generates a list of the top 10 clan leaders eligible to nominate a King.
 	void LoadRecommendList();
 
-	void KingNotifyMessage(uint32 nResourceID, int byNation, ChatType byChatType);
+	void KingNotifyMessage(uint32_t nResourceID, int byNation, ChatType byChatType);
 
 	// Wrapper to lookup the appropriate King system instance
 	static void PacketProcess(CUser * pUser, Packet & pkt);
@@ -85,48 +85,48 @@ public:
 	void KingTaxSystem(CUser * pUser, Packet & pkt);
 	void KingSpecialEvent(CUser * pUser, Packet & pkt);
 
-	void SendUDP_ElectionStatus(uint8 m_byType);
-	void GetElectionResult(uint8 Nation);
+	void SendUDP_ElectionStatus(uint8_t m_byType);
+	void GetElectionResult(uint8_t Nation);
 	static void HandleDatabaseRequest(CUser * pUser, Packet & pkt);
 	static void HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt);
 	static void HandleDatabaseRequest_Event(CUser * pUser, Packet & pkt);
-	static void HandleDatabaseRequest_Tax(uint8 TerritoryTariff, uint8 Nation, uint32 TerritoryTax = 0);
+	static void HandleDatabaseRequest_Tax(uint8_t TerritoryTariff, uint8_t Nation, uint32_t TerritoryTax = 0);
 
 	void ResetElectionLists();
 	~CKingSystem();
 
-	uint8	m_byNation;
+	uint8_t	m_byNation;
 
-	uint8	m_byType;
-	uint16	m_sYear;
-	uint8	m_byMonth;
-	uint8	m_byDay;
-	uint8	m_byHour;
-	uint8	m_byMinute;
+	uint8_t	m_byType;
+	uint16_t	m_sYear;
+	uint8_t	m_byMonth;
+	uint8_t	m_byDay;
+	uint8_t	m_byHour;
+	uint8_t	m_byMinute;
 
-	uint8	m_byImType;
-	uint16	m_sImYear;
-	uint8	m_byImMonth;
-	uint8	m_byImDay;
-	uint8	m_byImHour;
-	uint8	m_byImMinute;
+	uint8_t	m_byImType;
+	uint16_t	m_sImYear;
+	uint8_t	m_byImMonth;
+	uint8_t	m_byImDay;
+	uint8_t	m_byImHour;
+	uint8_t	m_byImMinute;
 
-	uint8	m_byNoahEvent;
-	uint8	m_byNoahEvent_Day;
-	uint8	m_byNoahEvent_Hour;
-	uint8	m_byNoahEvent_Minute;
-	uint16	m_sNoahEvent_Duration;
+	uint8_t	m_byNoahEvent;
+	uint8_t	m_byNoahEvent_Day;
+	uint8_t	m_byNoahEvent_Hour;
+	uint8_t	m_byNoahEvent_Minute;
+	uint16_t	m_sNoahEvent_Duration;
 
-	uint8	m_byExpEvent;
-	uint8	m_byExpEvent_Day;
-	uint8	m_byExpEvent_Hour;
-	uint8	m_byExpEvent_Minute;
-	uint16	m_sExpEvent_Duration;
+	uint8_t	m_byExpEvent;
+	uint8_t	m_byExpEvent_Day;
+	uint8_t	m_byExpEvent_Hour;
+	uint8_t	m_byExpEvent_Minute;
+	uint16_t	m_sExpEvent_Duration;
 
-	uint32	m_nTribute;
-	uint8  m_nTerritoryTariff;
-	uint32	m_nTerritoryTax;
-	uint32	m_nNationalTreasury;
+	uint32_t	m_nTribute;
+	uint8_t  m_nTerritoryTariff;
+	uint32_t	m_nTerritoryTax;
+	uint32_t	m_nNationalTreasury;
 
 	std::string m_strKingName;
 	std::string m_strImRequestID;

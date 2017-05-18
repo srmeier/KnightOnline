@@ -5,7 +5,7 @@
 // From the client
 void CUser::FriendProcess(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
 	case FRIEND_REQUEST:
@@ -24,12 +24,12 @@ void CUser::FriendProcess(Packet & pkt)
 // Request friend list.
 void CUser::FriendRequest()
 {
-	Packet result(WIZ_FRIEND_PROCESS, uint8(FRIEND_REQUEST));
+	Packet result(WIZ_FRIEND_PROCESS, uint8_t(FRIEND_REQUEST));
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
 // Add or remove a friend from your list.
-void CUser::FriendModify(Packet & pkt, uint8 opcode)
+void CUser::FriendModify(Packet & pkt, uint8_t opcode)
 {
 	std::string strUserID;
 	CUser *pUser;
@@ -51,8 +51,8 @@ void CUser::FriendModify(Packet & pkt, uint8 opcode)
 // Refresh the status of your friends.
 void CUser::FriendReport(Packet & pkt)
 {
-	Packet result(WIZ_FRIEND_PROCESS, uint8(FRIEND_REPORT));
-	uint16 usercount = pkt.read<uint16>();
+	Packet result(WIZ_FRIEND_PROCESS, uint8_t(FRIEND_REPORT));
+	uint16_t usercount = pkt.read<uint16_t>();
 
 	if (usercount > MAX_FRIEND_COUNT) 
 		return;
@@ -61,13 +61,13 @@ void CUser::FriendReport(Packet & pkt)
 	for (int i = 0; i < usercount; i++) 
 	{
 		std::string strUserID;
-		int16 sid;
+		int16_t sid;
 
 		pkt >> strUserID;
 		if (strUserID.empty() || strUserID.size() > MAX_ID_SIZE)
 			return; // malformed packet, just ignore it.
 
-		uint8 status = GetFriendStatus(strUserID, sid);
+		uint8_t status = GetFriendStatus(strUserID, sid);
 		result << strUserID << sid << status;
 	}
 
@@ -75,7 +75,7 @@ void CUser::FriendReport(Packet & pkt)
 }
 
 // Retrieves the status (and socket ID) of a character.
-uint8 CUser::GetFriendStatus(std::string & charName, int16 & sid)
+uint8_t CUser::GetFriendStatus(std::string & charName, int16_t & sid)
 {
 	CUser *pUser;
 	if (charName.empty()
@@ -92,12 +92,12 @@ uint8 CUser::GetFriendStatus(std::string & charName, int16 & sid)
 	return 1; // user not in party
 }
 
-void CUser::RecvFriendModify(Packet & pkt, uint8 opcode)
+void CUser::RecvFriendModify(Packet & pkt, uint8_t opcode)
 {
 	Packet result(WIZ_FRIEND_PROCESS);
 	std::string strUserID;
-	int16 sid = -1;
-	uint8 bResult = 0;
+	int16_t sid = -1;
+	uint8_t bResult = 0;
 
 	if (opcode == FRIEND_ADD)
 		pkt >> sid;
@@ -107,7 +107,7 @@ void CUser::RecvFriendModify(Packet & pkt, uint8 opcode)
 	pkt.SByte();
 	pkt >> strUserID;
 
-	uint8 status = GetFriendStatus(strUserID, sid);
+	uint8_t status = GetFriendStatus(strUserID, sid);
 	result << opcode << bResult << strUserID << sid << status;
 	Send(&result);
 }

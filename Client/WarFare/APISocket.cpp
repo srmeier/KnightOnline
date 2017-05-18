@@ -19,8 +19,8 @@ BOOL		DataPack::s_bCryptionFlag = FALSE;			//0 : 비암호화 , 1 : 암호화
 //_int64		DataPack::s_PublicKey;
 //_int64		DataPack::s_PrivateKey = 0x1234567890123456;
 CJvCryption	DataPack::s_JvCrypt;
-DWORD		DataPack::s_wSendVal = 0;
-DWORD		DataPack::s_wRcvVal = 0;
+uint32_t		DataPack::s_wSendVal = 0;
+uint32_t		DataPack::s_wRcvVal = 0;
 #endif
 
 
@@ -28,8 +28,8 @@ DWORD		DataPack::s_wRcvVal = 0;
 
 //#define STX 1007
 //#define ETX 1005
-const WORD PACKET_HEADER = 0XAA55;
-const WORD PACKET_TAIL = 0X55AA;
+const uint16_t PACKET_HEADER = 0XAA55;
+const uint16_t PACKET_TAIL = 0X55AA;
 
 #ifdef _N3GAME
 #include "LogWriter.h"
@@ -50,10 +50,10 @@ const WORD PACKET_TAIL = 0X55AA;
 
 #ifdef _CRYPTION
 // bSend가 TRUE이면 Encrypt, FALSE이면 Decrypt해준다.
-DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
+DataPack::DataPack(int size, uint8_t *pData, BOOL bSend)
 {
-	static BYTE pTIBuf[RECEIVE_BUF_SIZE];
-	static BYTE pTBuf[RECEIVE_BUF_SIZE];
+	static uint8_t pTIBuf[RECEIVE_BUF_SIZE];
+	static uint8_t pTBuf[RECEIVE_BUF_SIZE];
 	__ASSERT(size, "size is 0");
 	if (TRUE == s_bCryptionFlag)
 	{
@@ -63,26 +63,26 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 			if(TRUE == s_bCryptionFlag)
 			{
 				/*
-				int clyp_size = size + (sizeof(WORD)+1+1);
+				int clyp_size = size + (sizeof(uint16_t)+1+1);
 
 				++s_wSendVal;
 
 				pTIBuf[0] = 0xfc; // 암호가 정확한지
-				memcpy( pTIBuf+1, &s_wSendVal, sizeof(WORD) );
+				memcpy( pTIBuf+1, &s_wSendVal, sizeof(uint16_t) );
 				pTIBuf[3] = 0x00;
 				memcpy( pTIBuf+4, pData, size );
 				s_JvCrypt.JvEncryptionFast( clyp_size, pTIBuf, pTBuf );
 
-				BYTE* pTmp = pTIBuf;
+				uint8_t* pTmp = pTIBuf;
 				
 				m_Size = clyp_size;
-				m_pData = new BYTE[m_Size+1];
+				m_pData = new uint8_t[m_Size+1];
 				CopyMemory(m_pData, pTBuf, m_Size);
 				*/
 
 				++s_wSendVal;
 
-				memcpy(pTBuf, &s_wSendVal, sizeof(DWORD));
+				memcpy(pTBuf, &s_wSendVal, sizeof(uint32_t));
 				CopyMemory((pTBuf+4), pData, size);
 
 				*((Uint32*)(pTBuf + (size+4))) = crc32(pTBuf, (size+4), -1);
@@ -92,13 +92,13 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 
 				//m_Size = size;
 				m_Size = m_Size = (size+4+4);
-				m_pData = new BYTE[m_Size];
+				m_pData = new uint8_t[m_Size];
 				CopyMemory(m_pData, pTBuf, m_Size);
 			}
 			else
 			{
 				m_Size = size;
-				m_pData = new BYTE[m_Size+1];
+				m_pData = new uint8_t[m_Size+1];
 				CopyMemory(m_pData, pData, m_Size);
 			}
 		}
@@ -121,7 +121,7 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 				uint8_t* payload = &pTBuf[5];
 
 				m_Size = size - 5; //m_Size = size-4;
-				m_pData = new BYTE[m_Size+1];
+				m_pData = new uint8_t[m_Size+1];
 				CopyMemory(m_pData, payload, m_Size);
 				m_pData[m_Size] = '\0';
 			}
@@ -130,7 +130,7 @@ DataPack::DataPack(int size, BYTE *pData, BOOL bSend)
 	else
 	{	// 암호화가 아니다.
 		m_Size = size;
-		m_pData = new BYTE[size+1];
+		m_pData = new uint8_t[size+1];
 		CopyMemory(m_pData, pData, size);
 	}
 }
@@ -259,7 +259,7 @@ void CAPISocket::Disconnect()
 #endif // #ifdef _CRYPTION
 }
 
-int CAPISocket::Connect(HWND hWnd, const char* pszIP, DWORD dwPort)
+int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 {	
 	if (!pszIP || !dwPort) return -1;
 
@@ -358,8 +358,8 @@ void CAPISocket::Receive()
 {
 	if (INVALID_SOCKET == m_hSocket || FALSE == m_bConnected)	return;
 
-	DWORD	dwPktSize;
-	DWORD	dwRead = 0;
+	u_long	dwPktSize;
+	u_long	dwRead = 0;
 	int		count = 0;
 
 	ioctlsocket(m_hSocket, FIONREAD, &dwPktSize);
@@ -393,16 +393,16 @@ BOOL CAPISocket::ReceiveProcess()
 	BOOL bFoundTail = FALSE;
 	if (iCount >=7 )
 	{
-		BYTE *pData = new BYTE[iCount];
+		uint8_t *pData = new uint8_t[iCount];
 		m_CB.GetData(pData, iCount);
 		int head_inc_size = 0;
 
-		if ( PACKET_HEADER == ntohs(*((WORD*)pData)) )
+		if ( PACKET_HEADER == ntohs(*((uint16_t*)pData)) )
 		{
-			short siCore = *((short*)(pData+2));
+			int16_t siCore = *((int16_t*)(pData+2));
 			if ( siCore <= iCount )
 			{
-				if ( PACKET_TAIL == ntohs(*((WORD*)(pData+iCount-2))) ) // 패킷 꼬리 부분 검사..
+				if ( PACKET_TAIL == ntohs(*((uint16_t*)(pData+iCount-2))) ) // 패킷 꼬리 부분 검사..
 				{
 					
 #ifdef _CRYPTION
@@ -415,7 +415,7 @@ BOOL CAPISocket::ReceiveProcess()
 					m_CB.HeadIncrease(siCore + 6); // 환형 버퍼 인덱스 증가 시키기..
 					bFoundTail = TRUE;
 #ifdef _DEBUG
-					BYTE byCmd = pData[4];
+					uint8_t byCmd = pData[4];
 					m_Statistics_Recv_Sum[byCmd].dwTime++;
 					m_Statistics_Recv_Sum[byCmd].iSize += siCore;
 #endif
@@ -435,7 +435,7 @@ BOOL CAPISocket::ReceiveProcess()
 	return bFoundTail;
 }
 
-void CAPISocket::Send(BYTE* pData, int nSize)
+void CAPISocket::Send(uint8_t* pData, int nSize)
 {
 	if(!m_bEnableSend) return; // 보내기 가능..?
 	if (INVALID_SOCKET == m_hSocket || FALSE == m_bConnected)	return;
@@ -453,11 +453,11 @@ void CAPISocket::Send(BYTE* pData, int nSize)
 	
 	
 	int nTotalSize = nSize+6;
-	BYTE *pSendData = m_RecvBuf;
-	*((WORD*)pSendData) = htons(PACKET_HEADER);	pSendData+=2;
-	*((WORD*)pSendData) = nSize;				pSendData+=2;
+	uint8_t *pSendData = m_RecvBuf;
+	*((uint16_t*)pSendData) = htons(PACKET_HEADER);	pSendData+=2;
+	*((uint16_t*)pSendData) = nSize;				pSendData+=2;
 	memcpy(pSendData, pData, nSize);			pSendData += nSize;
-	*((WORD*)pSendData) = htons(PACKET_TAIL);	pSendData+=2;
+	*((uint16_t*)pSendData) = htons(PACKET_TAIL);	pSendData+=2;
 
 	int nSent = 0;
 	int count = 0;
@@ -482,7 +482,7 @@ void CAPISocket::Send(BYTE* pData, int nSize)
 	}
 
 #ifdef _DEBUG
-	BYTE byCmd = pData[0]; // 통계 넣기..
+	uint8_t byCmd = pData[0]; // 통계 넣기..
 
 //	__SocketStatisics SS;
 //	SS.dwTime = GetTickCount();
@@ -496,7 +496,7 @@ void CAPISocket::Send(BYTE* pData, int nSize)
 	m_iSendByteCount += nTotalSize;
 }
 
-void CAPISocket::Parse_GetString(const BYTE* buf, int &iOffset, std::string& szString, int len)
+void CAPISocket::Parse_GetString(const uint8_t* buf, int &iOffset, std::string& szString, int len)
 {
 	if (len > 0)
 	{

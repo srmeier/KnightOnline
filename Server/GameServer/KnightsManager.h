@@ -11,8 +11,8 @@ public:
 	static void CreateKnights(CUser* pUser, Packet & pkt);
 	static void JoinKnights(CUser* pUser, Packet & pkt);
 	static void WithdrawKnights(CUser* pUser, Packet & pkt);
-	static void ModifyKnightsMember(CUser* pUser, Packet & pkt, uint8 opcode);
-	static void ModifyKnightsLeader(CUser* pUser, Packet & pkt, uint8 opcode);
+	static void ModifyKnightsMember(CUser* pUser, Packet & pkt, uint8_t opcode);
+	static void ModifyKnightsLeader(CUser* pUser, Packet & pkt, uint8_t opcode);
 	static void ModifyKnightsPointMethod(CUser* pUser, Packet & pkt);
 	static void DestroyKnights(CUser* pUser);
 	static void AllKnightsList(CUser* pUser, Packet & pkt);
@@ -22,7 +22,7 @@ public:
 	static void RegisterClanSymbol(CUser* pUser, Packet & pkt);
 	static void RequestClanSymbolVersion(CUser* pUser, Packet & pkt);
 	static void RequestClanSymbols(CUser* pUser, Packet & pkt);
-	static void GetClanSymbol(CUser* pUser, uint16 sClanID);
+	static void GetClanSymbol(CUser* pUser, uint16_t sClanID);
 	static bool CheckAlliance(CKnights * pMainClan, CKnights * pTargetClan);
 	static void KnightsAllianceDestroy(CUser* pUser, Packet & pkt);
 	static void KnightsAllianceCreate(CUser* pUser, Packet & pkt);
@@ -37,18 +37,18 @@ public:
 	static void DonationList(CUser *pUser, Packet & pkt);
 
 	static bool AddKnightsUser(int index, std::string & strUserID);
-	static void AddUserDonatedNP(int index, std::string & strUserID, uint32 nDonatedNP, bool bIsKillReward = false);
+	static void AddUserDonatedNP(int index, std::string & strUserID, uint32_t nDonatedNP, bool bIsKillReward = false);
 	static bool RemoveKnightsUser(int index, std::string & strUserID);
 	static bool LoadKnightsIndex(int index);
 	static bool LoadAllKnights();
-	static void UpdateKnightsGrade(uint16 sClanID, uint8 byFlag);
-	static void UpdateClanPoint(uint16 sClanID, int32 nChangeAmount);
+	static void UpdateKnightsGrade(uint16_t sClanID, uint8_t byFlag);
+	static void UpdateClanPoint(uint16_t sClanID, int32_t nChangeAmount);
 
 	// database requests go here
 	static void ReqKnightsPacket(CUser* pUser, Packet & pkt);
 	static void ReqCreateKnights(CUser* pUser, Packet & pkt);
-	static void ReqUpdateKnights(CUser* pUser, Packet & pkt, uint8 opcode);
-	static void ReqModifyKnightsMember(CUser* pUser, Packet & pkt, uint8 command);
+	static void ReqUpdateKnights(CUser* pUser, Packet & pkt, uint8_t opcode);
+	static void ReqModifyKnightsMember(CUser* pUser, Packet & pkt, uint8_t command);
 	static void ReqDestroyKnights(CUser* pUser, Packet & pkt);
 	static void ReqAllKnightsMember(CUser *pUser, Packet & pkt);
 	static void ReqKnightsList(Packet & pkt);
@@ -63,8 +63,8 @@ public:
 	static void ReqUpdateNP(Packet & pkt);
 	static void ReqUpdateClanNotice(Packet & pkt);
 
-	static void RecvUpdateKnights(CUser* pUser, Packet & pkt, uint8 command);
-	static void RecvModifyFame(CUser* pUser, Packet & pkt, uint8 command);
+	static void RecvUpdateKnights(CUser* pUser, Packet & pkt, uint8_t command);
+	static void RecvModifyFame(CUser* pUser, Packet & pkt, uint8_t command);
 	static void RecvKnightsAllList(Packet & pkt);
 
 	static int GetKnightsIndex( int nation );

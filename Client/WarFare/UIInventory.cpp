@@ -531,9 +531,9 @@ RECT CUIInventory::GetSampleRect()
 	return rect;
 }
 
-DWORD CUIInventory::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUIInventory::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 
@@ -578,9 +578,9 @@ DWORD CUIInventory::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& pt
 	return CN3UIWndBase::MouseProc(dwFlags, ptCur, ptOld);
 }
 
-void CUIInventory::SendInvMsg(BYTE bDir, int iItemID, int SrcPos, int DestPos)
+void CUIInventory::SendInvMsg(uint8_t bDir, int iItemID, int SrcPos, int DestPos)
 {
-	BYTE byBuff[100];												// 버퍼.. 
+	uint8_t byBuff[100];												// 버퍼.. 
 	int iOffset=0;												// 옵셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_MOVE);				// Item Move
@@ -1192,7 +1192,7 @@ bool CUIInventory::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 	return false;
 }
 
-void CUIInventory::ReceiveResultFromServer(BYTE bResult)
+void CUIInventory::ReceiveResultFromServer(uint8_t bResult)
 {
 	CN3UIArea* pArea = NULL;
 
@@ -1438,7 +1438,7 @@ int CUIInventory::GetIndexInArea(POINT pt)
 	return -1;
 }
 
-bool CUIInventory::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIInventory::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 // Temp Define
 #define FAIL_CODE {		\
@@ -1451,7 +1451,7 @@ bool CUIInventory::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	__IconItemSkill* spItem = NULL;
 	e_UIWND_DISTRICT eUIWnd;
 	int iOrder;
-	DWORD dwBitMask = 0x0f1f0000;
+	uint32_t dwBitMask = 0x0f1f0000;
 
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
@@ -2616,7 +2616,7 @@ void CUIInventory::ItemDestroyOK()
 {
 	m_bDestoyDlgAlive = false;
 
-	BYTE byBuff[32];															// 패킷 버퍼..
+	uint8_t byBuff[32];															// 패킷 버퍼..
 	int iOffset=0;																// 패킷 오프셋..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_REMOVE);					// 게임 스타트 패킷 커멘드..
@@ -2846,7 +2846,7 @@ void CUIInventory::SetVisibleWithNoSound(bool bVisible, bool bWork, bool bReFocu
 	m_iRBtnDownOffs = -1;
 }
 
-int CUIInventory::GetIndexItemCount(DWORD dwIndex)
+int CUIInventory::GetIndexItemCount(uint32_t dwIndex)
 {
 	int iCnt = 0;
 

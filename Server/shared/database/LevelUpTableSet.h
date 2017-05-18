@@ -11,7 +11,7 @@ public:
 
 	virtual bool Fetch()
 	{
-		std::pair<uint8, int64> pData;
+		std::pair<uint8_t, int64_t> pData;
 
 		_dbCommand->FetchByte(1, pData.first);
 		_dbCommand->FetchInt64(2, pData.second);

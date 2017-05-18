@@ -197,7 +197,7 @@ bool CN3FXPartMesh::Load(HANDLE hFile)
 {
 	if(!CN3FXPartBase::Load(hFile)) return false;
 
-	DWORD			dwRWC = 0;
+	DWORD dwRWC = 0;
 
 	char szShapeFileName[_MAX_PATH];
 	ReadFile(hFile, szShapeFileName, _MAX_PATH, &dwRWC, NULL);
@@ -246,7 +246,7 @@ bool CN3FXPartMesh::Save(HANDLE hFile)
 {
 	if(!CN3FXPartBase::Save(hFile)) return false;
 
-	DWORD			dwRWC = 0;
+	DWORD dwRWC = 0;
 
 	char szShapeFileName[_MAX_PATH];
 	sprintf(szShapeFileName, m_pShape->FileName().c_str());
@@ -328,7 +328,7 @@ bool CN3FXPartMesh::Tick()
 
 	if(m_fCurrLife<=m_fFadeIn)
 	{
-		DWORD Alpha = (DWORD)(255.0f * m_fCurrLife / m_fFadeIn);
+		uint32_t Alpha = (uint32_t)(255.0f * m_fCurrLife / m_fFadeIn);
 		m_dwCurrColor = (Alpha<<24) + 0x00ffffff;
 		
 		int PartCount = m_pShape->PartCount();
@@ -359,7 +359,7 @@ bool CN3FXPartMesh::Tick()
 		}
 		else
 		{
-			DWORD Alpha = (DWORD)(255.0f * (TotalLife - m_fCurrLife) / m_fFadeOut);
+			uint32_t Alpha = (uint32_t)(255.0f * (TotalLife - m_fCurrLife) / m_fFadeOut);
 			m_dwCurrColor = (Alpha<<24) + 0x00ffffff;
 		}
 
@@ -450,7 +450,7 @@ bool CN3FXPartMesh::Tick()
 			LPDIRECT3DVERTEXBUFFER8 pVB = m_pShape->Part(i)->Mesh()->GetVertexBuffer();
 			
 			__VertexXyzColorT1* pVertex;
-			HRESULT hr = pVB->Lock(0, 0, (BYTE**)&pVertex, 0);
+			HRESULT hr = pVB->Lock(0, 0, (uint8_t**)&pVertex, 0);
 			if (FAILED(hr)) continue;
 
 			for(int j=0;j<VertexCount;j++)

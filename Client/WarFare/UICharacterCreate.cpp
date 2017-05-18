@@ -110,7 +110,7 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 	std::string szTexts[MAX_STATS] = { "text_str", "text_sta", "text_dex", "text_int", "text_map" };
 	std::string szAreas[MAX_STATS] = { "area_str", "area_sta", "area_dex", "area_int", "area_map" };
 	std::string szImgs[MAX_STATS] = { "img_str", "img_sta", "img_dex", "img_int", "img_map" };
-	DWORD dwResrcIDs[MAX_STATS] = { /*IDS_NEWCHR_POW*/3219, /*IDS_NEWCHR_STA*/3220, /*IDS_NEWCHR_DEX*/3202, /*IDS_NEWCHR_INT*/3210, /*IDS_NEWCHR_MAP*/3201 };
+	uint32_t dwResrcIDs[MAX_STATS] = { /*IDS_NEWCHR_POW*/3219, /*IDS_NEWCHR_STA*/3220, /*IDS_NEWCHR_DEX*/3202, /*IDS_NEWCHR_INT*/3210, /*IDS_NEWCHR_MAP*/3201 };
 	for(int i = 0; i < MAX_STATS; i++)
 	{
 		m_pStr_Stats[i] = (CN3UIString*)(this->GetChildByID(szTexts[i])); __ASSERT(m_pStr_Stats[i], "NULL UI Component!!");
@@ -134,7 +134,7 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 	m_pBtn_Hair_Right = (CN3UIButton*)(this->GetChildByID("btn_hair_right"));	__ASSERT(m_pBtn_Hair_Right, "NULL UI Component!!");
 	
 	std::string szBtnIDs[MAX_RACE_SELECT];
-	DWORD dwResrcID_Races[MAX_RACE_SELECT];
+	uint32_t dwResrcID_Races[MAX_RACE_SELECT];
 
 	if(eNation==NATION_KARUS)
 	{
@@ -181,7 +181,7 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 
 	std::string szBtns[MAX_CLASS_SELECT] = { "btn_class_warrior", "btn_class_rogue", "btn_class_mage", "btn_class_priest" };
 	std::string szImgs2[MAX_CLASS_SELECT] = { "img_warrior", "img_rogue", "img_mage", "img_priest" };
-	DWORD dwResrcID_Classes[MAX_CLASS_SELECT];
+	uint32_t dwResrcID_Classes[MAX_CLASS_SELECT];
 	if(eNation==NATION_ELMORAD)
 	{
 		dwResrcID_Classes[0] = /*IDS_NEWCHR_EL_WARRIOR*/3209;
@@ -228,7 +228,7 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUICharacterCreate::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUICharacterCreate::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if( dwMsg == UIMSG_BUTTON_CLICK )
 	{
@@ -500,7 +500,7 @@ void CUICharacterCreate::Reset()
 	if(m_pStr_Bonus) m_pStr_Bonus->SetStringAsInt(m_iBonusPoint);
 }
 
-DWORD CUICharacterCreate::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUICharacterCreate::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
 	if(m_pStr_Desc)
 	{

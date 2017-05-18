@@ -219,9 +219,9 @@ void CUIDroppedItemDlg::LeaveDroppedState()
 	for( int i = 0; i < MAX_ITEM_BUNDLE_DROP_PIECE; i++ )	m_bSendedIconArray[i] = false;
 }
 
-DWORD CUIDroppedItemDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUIDroppedItemDlg::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if ( !IsVisible() ) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 
 	dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
@@ -378,7 +378,7 @@ int	CUIDroppedItemDlg::GetItemiOrder(__IconItemSkill* spItem)
 	return -1;
 }
 
-bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 // Temp Define
 #define FAIL_CODE {		\
@@ -391,7 +391,7 @@ bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 
 	int iOrder, iOrderInv = -1;
 
-	DWORD dwBitMask = 0x000f0000;
+	uint32_t dwBitMask = 0x000f0000;
 
 	__TABLE_ITEM_BASIC*	pItem;
 	__IconItemSkill*	spItem;
@@ -401,7 +401,7 @@ bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	e_ItemType eType;
 
 	// 서버에 보내지 않은 아이템이니까.. 서버에 보낸다..
-	BYTE byBuff[16];
+	uint8_t byBuff[16];
 	int iOffset = 0;
 
 	switch (dwMsg & dwBitMask)
@@ -447,7 +447,7 @@ bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			if ( ITEM_TYPE_GOLD != eType ) 
 			{
 				CAPISocket::MP_AddDword(byBuff, iOffset, spItem->pItemBasic->dwID+spItem->pItemExt->dwID);
-//				CAPISocket::MP_AddDword(byBuff, iOffset, (BYTE)iOrderInv);
+//				CAPISocket::MP_AddDword(byBuff, iOffset, (uint8_t)iOrderInv);
 			}
 			else
 			{
@@ -477,7 +477,7 @@ bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	return true;
 }
 
-void CUIDroppedItemDlg::GetItemByIDToInventory(BYTE bResult, int iItemID, int iGold, int iPos, int iItemCount, int iStrLen, 
+void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int iGold, int iPos, int iItemCount, int iStrLen, 
 											   std::string strString)
 {
 	// 아이템 리스트에서 아이템을 찾고..

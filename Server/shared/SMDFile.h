@@ -34,7 +34,7 @@ public:
 	INLINE int GetXRegionMax() { return m_nXRegion - 1; }
 	INLINE int GetZRegionMax() { return m_nZRegion - 1; }
 
-	INLINE short * GetEventIDs() { return m_ppnEvent; }
+	INLINE int16_t * GetEventIDs() { return m_ppnEvent; }
 
 	INLINE ObjectEventArray	* GetObjectEventArray() { return &m_ObjectEventArray; }
 	INLINE _OBJECT_EVENT * GetObjectEvent(int objectindex) { return m_ObjectEventArray.GetData(objectindex); }
@@ -48,7 +48,7 @@ public:
 private:
 	std::string m_MapName;
 
-	short*		m_ppnEvent;
+	int16_t*		m_ppnEvent;
 	WarpArray	m_WarpArray;
 
 	ObjectEventArray	m_ObjectEventArray;

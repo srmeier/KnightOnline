@@ -5,10 +5,10 @@ class Socket
 {
 public:
 	// Constructor. If fd = 0, it will be assigned 
-	Socket(SOCKET fd, uint32 sendbuffersize, uint32 recvbuffersize);
+	Socket(SOCKET fd, uint32_t sendbuffersize, uint32_t recvbuffersize);
 
 	// Open a connection to another machine.
-	bool Connect(const char * Address, uint32 Port);
+	bool Connect(const char * Address, uint32_t Port);
 
 	// Disconnect the socket.
 	void Disconnect();
@@ -16,7 +16,7 @@ public:
 	// Accept from the already-set fd.
 	void Accept(sockaddr_in * address);
 
-	void ReadCallback(uint32 len);
+	void ReadCallback(uint32_t len);
 	void WriteCallback();
 
 	/* Implementable methods */
@@ -33,13 +33,13 @@ public:
 	/* Send Operations */
 
 	// Locks sending std::recursive_mutex, adds bytes, unlocks std::recursive_mutex.
-	bool Send(const uint8 * Bytes, uint32 Size);
+	bool Send(const uint8_t * Bytes, uint32_t Size);
 
 	// Burst system - Locks the sending mutex.
 	INLINE  void BurstBegin() { m_writeMutex.lock(); }
 
 	// Burst system - Adds bytes to output buffer.
-	bool BurstSend(const uint8 * Bytes, uint32 Size);
+	bool BurstSend(const uint8_t * Bytes, uint32_t Size);
 
 	// Burst system - Pushes event to queue - do at the end of write events.
 	void BurstPush();
@@ -53,7 +53,7 @@ public:
 	std::string GetRemoteIP();
 	INLINE sockaddr_in & GetRemoteStruct() { return m_client; }
 	INLINE in_addr GetRemoteAddress() { return m_client.sin_addr; }
-	INLINE uint32 GetRemotePort() { return ntohs(m_client.sin_port); }
+	INLINE uint32_t GetRemotePort() { return ntohs(m_client.sin_port); }
 	INLINE SOCKET GetFd() { return m_fd; }
 	INLINE SocketMgr * GetSocketMgr() { return m_socketMgr; }
 
@@ -120,6 +120,6 @@ public:
 	}
 private:
 	// Write lock, stops multiple write events from being posted.
-	uint32 m_writeLock;
+	uint32_t m_writeLock;
 	std::recursive_mutex m_writeLockMutex;
 };

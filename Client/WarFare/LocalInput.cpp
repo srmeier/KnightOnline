@@ -94,11 +94,11 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	switch(message)
 	{
 		case WM_COMMAND: {
-			WORD wNotifyCode = HIWORD(wParam); // notification code
+			uint16_t wNotifyCode = HIWORD(wParam); // notification code
 			CN3UIEdit* pEdit = CN3UIEdit::GetFocusedEdit();
 
 			if(wNotifyCode == EN_CHANGE && pEdit) {
-				WORD wID = LOWORD(wParam); // item, control, or accelerator identifier
+				uint16_t wID = LOWORD(wParam); // item, control, or accelerator identifier
 				HWND hwndCtl = (HWND)lParam;
 
 				if(CN3UIEdit::s_hWndEdit == hwndCtl) {
@@ -201,7 +201,7 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
 		case WM_MOUSEWHEEL: {
 			if(CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain) {
-				float fDelta = ((short)HIWORD(wParam)) * 0.05f;
+				float fDelta = ((int16_t)HIWORD(wParam)) * 0.05f;
 				CGameProcedure::s_pEng->CameraZoom(fDelta);
 			}
 		} break;
@@ -301,24 +301,24 @@ void CLocalInput::Tick(void) {
 	if((m_nMouseFlagOld & MOUSE_MBDOWN) && (m_nMouseFlag & MOUSE_MBDOWN) == FALSE) m_nMouseFlag |= MOUSE_MBCLICKED;
 	if((m_nMouseFlagOld & MOUSE_RBDOWN) && (m_nMouseFlag & MOUSE_RBDOWN) == FALSE) m_nMouseFlag |= MOUSE_RBCLICKED;
 	
-	static DWORD dwDblClk = GetDoubleClickTime();
+	static uint32_t dwDblClk = GetDoubleClickTime();
 
 	if(m_nMouseFlag & MOUSE_LBCLICKED) {
-		static DWORD dwCLicked = 0;
+		static uint32_t dwCLicked = 0;
 		if(timeGetTime() < dwCLicked + dwDblClk)
 			m_nMouseFlag |= MOUSE_LBDBLCLK;
 		dwCLicked = timeGetTime();
 	}
 
 	if(m_nMouseFlag & MOUSE_MBCLICKED) {
-		static DWORD dwCLicked = 0;
+		static uint32_t dwCLicked = 0;
 		if(timeGetTime() < dwCLicked + dwDblClk)
 			m_nMouseFlag |= MOUSE_MBDBLCLK;
 		dwCLicked = timeGetTime();
 	}
 
 	if(m_nMouseFlag & MOUSE_RBCLICKED) {
-		static DWORD dwCLicked = 0;
+		static uint32_t dwCLicked = 0;
 		if(timeGetTime() < dwCLicked + dwDblClk)
 			m_nMouseFlag |= MOUSE_RBDBLCLK;
 		dwCLicked = timeGetTime();

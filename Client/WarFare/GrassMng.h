@@ -34,7 +34,7 @@ protected:
 
 //	__Vector3		m_vCamPo;
 	bool			m_bChkZoneChange;
-	unsigned short	m_usDrawIndex;
+	uint16_t	m_usDrawIndex;
 
 	CN3Texture*		m_txTexture[8];
 #ifdef _DEBUG
@@ -44,15 +44,15 @@ protected:
 
 protected:
 	void	LoadFromFile(const char* szFileName,__Vector3 CamPo);
-	int		SetFile(int iTexIndex,unsigned char ucTexOrgIndex,__Vector3 CamPo);
+	int		SetFile(int iTexIndex,uint8_t ucTexOrgIndex,__Vector3 CamPo);
 	float	RandomGenf(float max, float min);
 	void	ChkThisZoneUseGrass(int nGrassUseOrder);
 
-	void	FindGrassIndex(unsigned char GrassIndex,int& nFineGrass,unsigned char& ucFineIndex);
-	void	FindGrassIndex(const unsigned char uCGrassMngOrder,int* pnInputGrass,unsigned char* GrassIndex,int& nGrassTotNum);
+	void	FindGrassIndex(uint8_t GrassIndex,int& nFineGrass,uint8_t& ucFineIndex);
+	void	FindGrassIndex(const uint8_t uCGrassMngOrder,int* pnInputGrass,uint8_t* GrassIndex,int& nGrassTotNum);
 
 	void	ChkTileRange(float fCamX,float fCamZ);	//	타일간움직임 채크,tick
-	void	FineNewTile(WORD* Tile,int& iCount,float* ChkRange,float* LargeRange);
+	void	FineNewTile(uint16_t* Tile,int& iCount,float* ChkRange,float* LargeRange);
 
 public:
 	void	Init(__Vector3 CamPo);

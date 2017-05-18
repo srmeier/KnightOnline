@@ -11,7 +11,7 @@ class C3DMap;
 class CKingSystem;
 
 typedef CSTLMap <C3DMap>					ZoneArray;
-typedef std::map<int, int64>				LevelUpArray;
+typedef std::map<int, int64_t>				LevelUpArray;
 typedef CSTLMap <_CLASS_COEFFICIENT>		CoefficientArray;
 typedef CSTLMap <_ITEM_TABLE>				ItemtableArray;
 typedef CSTLMap <_MAGIC_TABLE>				MagictableArray;
@@ -43,11 +43,11 @@ typedef CSTLMap <CKingSystem>				KingSystemArray;
 typedef CSTLMap <_SET_ITEM>					SetItemArray;
 
 typedef std::map<std::string, _USER_RANK *>			UserNameRankMap; 
-typedef std::map<uint8, _USER_RANK *>				UserRankMap;
+typedef std::map<uint8_t, _USER_RANK *>				UserRankMap;
 
 typedef std::vector<_QUEST_HELPER *>				QuestHelperList;
-typedef std::map<uint16, QuestHelperList>			QuestNpcList;
-typedef std::map<uint16, QuestHelperList>			QuestEventIndex;
+typedef std::map<uint16_t, QuestHelperList>			QuestNpcList;
+typedef std::map<uint16_t, QuestHelperList>			QuestEventIndex;
 
 typedef std::vector<_MONSTER_SUMMON_LIST>			MonsterSummonList;
 typedef CSTLMap <MonsterSummonList>					MonsterSummonListArray;

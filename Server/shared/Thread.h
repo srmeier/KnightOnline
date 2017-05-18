@@ -1,6 +1,6 @@
 #pragma once
 
-typedef uint32 (THREADCALL lpfnThreadFunc)(void *);
+typedef uint32_t (THREADCALL lpfnThreadFunc)(void *);
 
 class Thread
 {

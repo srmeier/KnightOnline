@@ -84,8 +84,8 @@ void CKnights::ConstructClanNoticePacket(Packet *result)
 {
 	result->Initialize(WIZ_NOTICE);
 	result->DByte();
-	*result	<< uint8(4)			// type
-		<< uint8(1)			// total blocks
+	*result	<< uint8_t(4)			// type
+		<< uint8_t(1)			// total blocks
 		<< m_strName	// header
 		<< m_strClanNotice;
 }
@@ -117,7 +117,7 @@ void CKnights::UpdateClanNotice(std::string & clanNotice)
 
 	// Tell the database to update the clan notice.
 	result.Initialize(WIZ_CHAT);
-	result << uint8(CLAN_NOTICE) << GetID() << clanNotice;
+	result << uint8_t(CLAN_NOTICE) << GetID() << clanNotice;
 	g_pMain->AddDatabaseRequest(result);
 }
 
@@ -126,8 +126,8 @@ void CKnights::UpdateClanNotice(std::string & clanNotice)
 */
 void CKnights::UpdateClanFund()
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_UPDATE_FUND));
-	result << GetID() << uint32(m_nClanPointFund);
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_UPDATE_FUND));
+	result << GetID() << uint32_t(m_nClanPointFund);
 	g_pMain->AddDatabaseRequest(result);
 }
 
@@ -238,7 +238,7 @@ bool CKnights::RemoveUser(CUser *pUser)
 
 	// Ensure users are refunded when they leave/are removed from a clan.
 	// NOTE: If we bring back multiserver setups, this is going to cause synchronisation issues.
-	uint32 nDonatedNP = pUser->m_pKnightsUser->nDonatedNP;
+	uint32_t nDonatedNP = pUser->m_pKnightsUser->nDonatedNP;
 	if (nDonatedNP > 0)
 		RefundDonatedNP(nDonatedNP, pUser);
 
@@ -267,7 +267,7 @@ bool CKnights::RemoveUser(CUser *pUser)
 * 						Used to refund logged out characters' national points 
 * 						when pUser is set to nullptr.
 */
-void CKnights::RefundDonatedNP(uint32 nDonatedNP, CUser * pUser /*= nullptr*/, const char * strUserID /*= nullptr*/)
+void CKnights::RefundDonatedNP(uint32_t nDonatedNP, CUser * pUser /*= nullptr*/, const char * strUserID /*= nullptr*/)
 {
 	// Refund 30% of NP unless the user has the item "CONT Recovery".
 	// In this case, ALL of the donated NP will be refunded.
@@ -285,7 +285,7 @@ void CKnights::RefundDonatedNP(uint32 nDonatedNP, CUser * pUser /*= nullptr*/, c
 	}
 
 	// For logged out players, we must update the player's national points in the database.
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_REFUND_POINTS));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_REFUND_POINTS));
 	result << strUserID << nDonatedNP;
 	g_pMain->AddDatabaseRequest(result);
 }
@@ -313,8 +313,8 @@ void CKnights::Disband(CUser *pLeader /*= nullptr*/)
 	}
 	g_pMain->m_KnightsArray.DeleteData(m_sIndex);
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_DESTROY));
-	result << uint8(1);
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_DESTROY));
+	result << uint8_t(1);
 	pLeader->Send(&result);
 }
 
@@ -322,7 +322,7 @@ void CKnights::SendUpdate()
 {
 	CKnights *aKnights = g_pMain->GetClanPtr(GetID());
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8(KNIGHTS_UPDATE));
+	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_UPDATE));
 	result	<< GetID() << m_byFlag << GetCapeID(aKnights);
 	Send(&result);
 }

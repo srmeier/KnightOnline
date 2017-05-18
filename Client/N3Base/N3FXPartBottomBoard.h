@@ -23,7 +23,7 @@ public:
 	bool				m_bTexLoop;
 	int					m_iTexIdx;
 
-	DWORD				m_dwCurrColor;
+	uint32_t				m_dwCurrColor;
 
 	__VertexXyzColorT1*	m_pVB;
 

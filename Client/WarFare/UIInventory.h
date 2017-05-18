@@ -104,7 +104,7 @@ protected:
 public:
 
 	//this_ui_add_start
-	int					GetIndexItemCount(DWORD dwIndex);
+	int					GetIndexItemCount(uint32_t dwIndex);
 	void				SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false);
 	void				SetVisible(bool bVisible);
 	bool				OnKeyPress(int iKey);
@@ -122,8 +122,8 @@ public:
 	void				InitIconWnd(e_UIWND eWnd);	
 	void				InitIconUpdate();
 
-	DWORD				MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	bool				ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	uint32_t				MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	bool				ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	__IconItemSkill*	GetHighlightIconItem(CN3UIIcon* pUIIcon);
 
@@ -135,9 +135,9 @@ public:
 	void				CancelIconDrop(__IconItemSkill* spItem);
 	void				AcceptIconDrop(__IconItemSkill* spItem);
 
-	void				SendInvMsg(BYTE bDir, int iItemID, int SrcPos, int DestPos);
+	void				SendInvMsg(uint8_t bDir, int iItemID, int SrcPos, int DestPos);
 
-	void				ReceiveResultFromServer(BYTE bResult = 0x01);
+	void				ReceiveResultFromServer(uint8_t bResult = 0x01);
 	void				ReceiveResultItemRemoveFromServer(int iResult);
 
 	// Duration Change..

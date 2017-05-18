@@ -6,8 +6,8 @@
 #include "../shared/STLMap.h"
 
 typedef CSTLMap <_LOOT_BUNDLE>	ZoneItemArray;
-typedef std::set<uint16>    ZoneUserArray;
-typedef std::set<uint16>    ZoneNpcArray;
+typedef std::set<uint16_t>    ZoneUserArray;
+typedef std::set<uint16_t>    ZoneNpcArray;
 
 class CNpc;
 class CUser;

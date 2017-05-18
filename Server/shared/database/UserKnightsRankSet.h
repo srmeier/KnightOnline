@@ -14,13 +14,13 @@ public:
 		if (!strElmoUserID.empty())
 		{
 			m_pMap->insert(make_pair(strElmoUserID, pData));
-			g_pMain->m_playerRankings[ELMORAD_ARRAY].insert(std::make_pair((uint8)pData->nRank, pData));
+			g_pMain->m_playerRankings[ELMORAD_ARRAY].insert(std::make_pair((uint8_t)pData->nRank, pData));
 		}
 
 		if (!strKarusUserID.empty())
 		{
 			m_pMap->insert(make_pair(strKarusUserID, pData));
-			g_pMain->m_playerRankings[KARUS_ARRAY].insert(std::make_pair((uint8)pData->nRank, pData));
+			g_pMain->m_playerRankings[KARUS_ARRAY].insert(std::make_pair((uint8_t)pData->nRank, pData));
 		}
 	}
 };

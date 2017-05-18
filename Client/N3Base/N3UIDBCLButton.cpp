@@ -25,9 +25,9 @@ CN3UIDBCLButton::~CN3UIDBCLButton()
 {
 }
 
-DWORD CN3UIDBCLButton::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UIDBCLButton::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 
 	RECT rect = GetRegion();
 	if(!::PtInRect(&rect, ptCur))		// 영역 밖이면

@@ -14,7 +14,7 @@ HDC CDFont::s_hDC = NULL;
 int CDFont::s_iInstanceCount = 0;
 HFONT CDFont::s_hFontOld = NULL;
 
-CDFont::CDFont(const std::string& szFontName, DWORD dwHeight, DWORD dwFlags)
+CDFont::CDFont(const std::string& szFontName, uint32_t dwHeight, uint32_t dwFlags)
 {
 	if(0 == s_iInstanceCount)
 	{
@@ -66,7 +66,7 @@ CDFont::~CDFont()
 	}
 }
 
-HRESULT CDFont::SetFont(const std::string& szFontName, DWORD dwHeight, DWORD dwFlags)
+HRESULT CDFont::SetFont(const std::string& szFontName, uint32_t dwHeight, uint32_t dwFlags)
 {
 	__ASSERT(!szFontName.empty(), "");
 	if(NULL == s_hDC)
@@ -89,8 +89,8 @@ HRESULT CDFont::SetFont(const std::string& szFontName, DWORD dwHeight, DWORD dwF
     // Create a font.  By specifying ANTIALIASED_QUALITY, we might get an
     // antialiased font, but this is not guaranteed.
 	INT nHeight    = -MulDiv( m_dwFontHeight, (INT)(GetDeviceCaps(s_hDC, LOGPIXELSY) * m_fTextScale), 72 );
-	DWORD dwBold	= (m_dwFontFlags&D3DFONT_BOLD)   ? FW_BOLD : FW_NORMAL;
-	DWORD dwItalic	= (m_dwFontFlags&D3DFONT_ITALIC) ? TRUE    : FALSE;
+	uint32_t dwBold	= (m_dwFontFlags&D3DFONT_BOLD)   ? FW_BOLD : FW_NORMAL;
+	uint32_t dwItalic	= (m_dwFontFlags&D3DFONT_ITALIC) ? TRUE    : FALSE;
     m_hFont			= CreateFont( nHeight, 0, 0, 0, dwBold, dwItalic,
                           FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
                           CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY,
@@ -133,8 +133,8 @@ HRESULT CDFont::RestoreDeviceObjects()
     // antialiased font, but this is not guaranteed.
     INT nHeight    = -MulDiv( m_dwFontHeight, 
         (INT)(GetDeviceCaps(s_hDC, LOGPIXELSY) * m_fTextScale), 72 );
-	DWORD dwBold	= (m_dwFontFlags&D3DFONT_BOLD)   ? FW_BOLD : FW_NORMAL;
-	DWORD dwItalic	= (m_dwFontFlags&D3DFONT_ITALIC) ? TRUE    : FALSE;
+	uint32_t dwBold	= (m_dwFontFlags&D3DFONT_BOLD)   ? FW_BOLD : FW_NORMAL;
+	uint32_t dwItalic	= (m_dwFontFlags&D3DFONT_ITALIC) ? TRUE    : FALSE;
     m_hFont			= CreateFont( nHeight, 0, 0, 0, dwBold, dwItalic,
                           FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
                           CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY,
@@ -144,7 +144,7 @@ HRESULT CDFont::RestoreDeviceObjects()
     // Create vertex buffer for the letters
 	__ASSERT(m_pVB == NULL, "??");
 	int iVBSize = 0;
-	DWORD dwFVF = 0;
+	uint32_t dwFVF = 0;
 	if (m_Is2D)
 	{
 		iVBSize = MAX_NUM_VERTICES*sizeof(__VertexTransformed);
@@ -188,7 +188,7 @@ HRESULT CDFont::DeleteDeviceObjects()
 	return S_OK;
 }
 
-HRESULT CDFont::SetText(const std::string& szText, DWORD dwFlags)
+HRESULT CDFont::SetText(const std::string& szText, uint32_t dwFlags)
 {
 	if(NULL == s_hDC || NULL == m_hFont) return E_FAIL;
 
@@ -304,7 +304,7 @@ HRESULT CDFont::SetText(const std::string& szText, DWORD dwFlags)
 	}
 
     // Prepare to create a bitmap
-    DWORD*      pBitmapBits;
+    uint32_t*      pBitmapBits;
     BITMAPINFO bmi;
     ZeroMemory( &bmi.bmiHeader,  sizeof(BITMAPINFOHEADER) );
     bmi.bmiHeader.biSize        = sizeof(BITMAPINFOHEADER);
@@ -347,15 +347,15 @@ HRESULT CDFont::SetText(const std::string& szText, DWORD dwFlags)
     // Lock the surface and write the alpha values for the set pixels
     D3DLOCKED_RECT d3dlr;
     m_pTexture->LockRect( 0, &d3dlr, 0, 0 );
-    WORD* pDst16 = (WORD*)d3dlr.pBits;
-    BYTE bAlpha; // 4-bit measure of pixel intensity
+    uint16_t* pDst16 = (uint16_t*)d3dlr.pBits;
+    uint8_t bAlpha; // 4-bit measure of pixel intensity
 
-	DWORD x, y;
+	uint32_t x, y;
     for( y=0; y < m_dwTexHeight; y++ )
     {
         for( x=0; x < m_dwTexWidth; x++ )
         {
-            bAlpha = (BYTE)((pBitmapBits[m_dwTexWidth*y + x] & 0xff) >> 4);
+            bAlpha = (uint8_t)((pBitmapBits[m_dwTexWidth*y + x] & 0xff) >> 4);
             if (bAlpha > 0)
             {
                 *pDst16++ = (bAlpha << 12) | 0x0fff;
@@ -413,16 +413,16 @@ void CDFont::Make2DVertex(const int iFontHeight, const std::string& szText)
 
 	// lock vertex buffer
 	__VertexTransformed* pVertices = NULL;
-	DWORD         dwNumTriangles = 0;
+	uint32_t         dwNumTriangles = 0;
 	m_pVB->Lock( 0, 0, (void**)&pVertices, 0 );
 
-	DWORD sx = 0;    // start x y
-	DWORD x = 0;    DWORD y = 0;
+	uint32_t sx = 0;    // start x y
+	uint32_t x = 0;    uint32_t y = 0;
 	float vtx_sx = 0;    float vtx_sy = 0;		//	vertex start x y 
 	int iCount = 0; int iTempCount = 0;
 
 	char	szTempChar[3] = "";
-	DWORD dwColor = 0xffffffff;			// 폰트의 색
+	uint32_t dwColor = 0xffffffff;			// 폰트의 색
 	m_dwFontColor = 0xffffffff;
 	SIZE size;
 
@@ -562,7 +562,7 @@ void CDFont::Make2DVertex(const int iFontHeight, const std::string& szText)
 	m_Size.cx = (long)fMaxX;	m_Size.cy = (long)fMaxY;
 }
 
-void CDFont::Make3DVertex(const int iFontHeight, const std::string& szText, DWORD dwFlags)
+void CDFont::Make3DVertex(const int iFontHeight, const std::string& szText, uint32_t dwFlags)
 {
 	if(NULL == m_pVB || NULL == s_hDC || NULL == m_hFont) 
 	{
@@ -575,10 +575,10 @@ void CDFont::Make3DVertex(const int iFontHeight, const std::string& szText, DWOR
 	// 임시 vertex buffer에 넣기
 	__VertexXyzColorT1	TempVertices[MAX_NUM_VERTICES];
 	__VertexXyzColorT1* pVertices = TempVertices;
-	DWORD         dwNumTriangles = 0;
+	uint32_t         dwNumTriangles = 0;
 
-	DWORD sx = 0;    // start x y
-	DWORD x = 0;    DWORD y = 0;
+	uint32_t sx = 0;    // start x y
+	uint32_t x = 0;    uint32_t y = 0;
 	float vtx_sx = 0;    float vtx_sy = 0;		//	vertex start x y 
 	int iCount = 0; int iTempCount = 0;
 
@@ -771,7 +771,7 @@ void CDFont::Make3DVertex(const int iFontHeight, const std::string& szText, DWOR
 	m_Size.cy = (long)(fMaxY/((float)m_dwFontHeight));
 }
 
-HRESULT CDFont::DrawText( FLOAT sx, FLOAT sy, DWORD dwColor, DWORD dwFlags, FLOAT fZ )
+HRESULT CDFont::DrawText( FLOAT sx, FLOAT sy, uint32_t dwColor, uint32_t dwFlags, FLOAT fZ )
 {
 	if(NULL == m_pVB || NULL == s_hDC || NULL == m_hFont)
 	{
@@ -789,7 +789,7 @@ HRESULT CDFont::DrawText( FLOAT sx, FLOAT sy, DWORD dwColor, DWORD dwFlags, FLOA
 	{
 		// lock vertex buffer
 		__VertexTransformed* pVertices;
-//		m_pVB->Lock( 0, 0, (BYTE**)&pVertices, D3DLOCK_NOSYSLOCK );
+//		m_pVB->Lock( 0, 0, (uint8_t**)&pVertices, D3DLOCK_NOSYSLOCK );
 		m_pVB->Lock( 0, 0, (void**)&pVertices, 0);
 
 		int i, iVC = m_iPrimitiveCount*3;
@@ -914,7 +914,7 @@ HRESULT CDFont::DrawText( FLOAT sx, FLOAT sy, DWORD dwColor, DWORD dwFlags, FLOA
     return S_OK;
 }
 
-HRESULT CDFont::DrawText3D(DWORD dwColor, DWORD dwFlags )
+HRESULT CDFont::DrawText3D(uint32_t dwColor, uint32_t dwFlags )
 {
 	if(NULL == m_pVB || NULL == s_hDC || NULL == m_hFont)
 	{
@@ -931,7 +931,7 @@ HRESULT CDFont::DrawText3D(DWORD dwColor, DWORD dwFlags )
 	{
 		// lock vertex buffer
 		__VertexXyzColorT1* pVertices;
-//		m_pVB->Lock( 0, 0, (BYTE**)&pVertices, D3DLOCK_NOSYSLOCK );
+//		m_pVB->Lock( 0, 0, (uint8_t**)&pVertices, D3DLOCK_NOSYSLOCK );
 		m_pVB->Lock( 0, 0, (void**)&pVertices, 0 );
 
 		m_dwFontColor = dwColor;
@@ -1039,7 +1039,7 @@ BOOL CDFont::GetTextExtent(const std::string& szString, int iStrLen, SIZE* pSize
 	return ::GetTextExtentPoint32( s_hDC, szString.c_str(), iStrLen, pSize );
 }
 
-HRESULT	CDFont::SetFontColor(DWORD dwColor)
+HRESULT	CDFont::SetFontColor(uint32_t dwColor)
 {
 	if (m_iPrimitiveCount <= 0 || NULL == m_pVB) return E_FAIL;
 
@@ -1075,7 +1075,7 @@ HRESULT	CDFont::SetFontColor(DWORD dwColor)
 	return S_OK;
 }
 
-void CDFont::AddToAlphaManager(DWORD dwColor, float fDist, __Matrix44& mtxWorld, DWORD dwFlags)
+void CDFont::AddToAlphaManager(uint32_t dwColor, float fDist, __Matrix44& mtxWorld, uint32_t dwFlags)
 {
 	if (NULL == m_pVB || 0 >= m_iPrimitiveCount) return;
 	SetFontColor(dwColor);
@@ -1084,8 +1084,8 @@ void CDFont::AddToAlphaManager(DWORD dwColor, float fDist, __Matrix44& mtxWorld,
 	if(NULL == pAP) return;
 
 	
-	DWORD dwFVF = FVF_XYZCOLORT1;
-	DWORD dwFVFSize = sizeof(__VertexXyzColorT1);
+	uint32_t dwFVF = FVF_XYZCOLORT1;
+	uint32_t dwFVFSize = sizeof(__VertexXyzColorT1);
 	if(m_Is2D)
 	{
 		dwFVF = FVF_TRANSFORMED;
@@ -1097,7 +1097,7 @@ void CDFont::AddToAlphaManager(DWORD dwColor, float fDist, __Matrix44& mtxWorld,
 		{
 			// lock vertex buffer
 			__VertexTransformed* pVertices;
-	//		m_pVB->Lock( 0, 0, (BYTE**)&pVertices, D3DLOCK_NOSYSLOCK );
+	//		m_pVB->Lock( 0, 0, (uint8_t**)&pVertices, D3DLOCK_NOSYSLOCK );
 			m_pVB->Lock( 0, 0, (void**)&pVertices, 0);
 
 			int i, iVC = m_iPrimitiveCount*3;

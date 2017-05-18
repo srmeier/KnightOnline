@@ -11,22 +11,22 @@
 
 #include "My_3DStruct.h"
 
-//const DWORD RF_NOTHING = 0;
-//const DWORD RF_ALPHABLENDING = 1;
-//const DWORD RF_NOTUSEFOG = 2;
-//const DWORD RF_DOUBLESIDED = 4;
+//const uint32_t RF_NOTHING = 0;
+//const uint32_t RF_ALPHABLENDING = 1;
+//const uint32_t RF_NOTUSEFOG = 2;
+//const uint32_t RF_DOUBLESIDED = 4;
 
 struct __AlphaPrimitive
 {
 	float				fCameraDistance;	// 카메라와의 거리..
-	DWORD				dwBlendSrc;			
-	DWORD				dwBlendDest;
+	uint32_t				dwBlendSrc;			
+	uint32_t				dwBlendDest;
 	int 				nRenderFlags;		// 렌더링 플래그.. RF_... 참조..
 	LPDIRECT3DTEXTURE9	lpTex;				// Texture pointer
-	DWORD				dwFVF;				// flexible vertex format
+	uint32_t				dwFVF;				// flexible vertex format
 	D3DPRIMITIVETYPE	ePrimitiveType;	// Primitive Type 
 	int					nPrimitiveCount;	// PrimitiveCount
-	DWORD				dwPrimitiveSize;	// Primitive Size .. stream 0 stride
+	uint32_t				dwPrimitiveSize;	// Primitive Size .. stream 0 stride
 	BOOL				bUseVB;				// 버텍스 버퍼, 인덱스 버퍼를 사용할 것인가 아닌가
 	const void*			pwIndices;			// 만약 Index 기반이면... NULL 이 아닌것을 넣으면 된다.
 	int					nVertexCount;

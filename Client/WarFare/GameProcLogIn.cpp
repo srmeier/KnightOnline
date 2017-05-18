@@ -135,7 +135,7 @@ void CGameProcLogIn::Init()
 			
 			// 게임 서버 리스트 요청..
 			int iOffset = 0;
-			BYTE byBuffs[4];
+			uint8_t byBuffs[4];
 			CAPISocket::MP_AddByte(byBuffs, iOffset, N3_GAMESERVER_GROUP_LIST);					// 커멘드.
 			s_pSocket->Send(byBuffs, iOffset);											// 보낸다
 		}
@@ -292,18 +292,18 @@ bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 	m_pUILogIn->SetRequestedLogIn(true);
 	m_bLogIn = true; // 로그인 시도..
 
-	BYTE byBuff[256];										// 패킷 버퍼..
+	uint8_t byBuff[256];										// 패킷 버퍼..
 	int iOffset=0;										// 버퍼의 오프셋..
 
-	BYTE byCmd = N3_ACCOUNT_LOGIN;
+	uint8_t byCmd = N3_ACCOUNT_LOGIN;
 	if(LIC_KNIGHTONLINE == eLIC) byCmd = N3_ACCOUNT_LOGIN;
 	else if(LIC_MGAME == eLIC) byCmd = N3_ACCOUNT_LOGIN_MGAME;
 //	else if(LIC_DAUM == eLIC) byCmd = N3_ACCOUNT_LOGIN_DAUM;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, byCmd);				// 커멘드.
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szAccount.size());	// 아이디 길이..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szAccount.size());	// 아이디 길이..
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);		// 실제 아이디..
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_szPassWord.size());	// 패스워드 길이
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szPassWord.size());	// 패스워드 길이
 	CAPISocket::MP_AddString(byBuff, iOffset, s_szPassWord);		// 실제 패스워드
 		
 	s_pSocket->Send(byBuff, iOffset);								// 보낸다
@@ -383,7 +383,7 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 		{
 			std::string szIP;
 			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szIP, iLen);
-			DWORD dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			uint32_t dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
 			CAPISocket socketTmp;
 			s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
@@ -391,9 +391,9 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 			{
 				// 로그인 서버에서 받은 겜서버 주소로 접속해서 짤르라고 꼰지른다.
 				int iOffset2 = 0;
-				BYTE Buff[32];
+				uint8_t Buff[32];
 				CAPISocket::MP_AddByte(Buff, iOffset2, WIZ_KICKOUT); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
-				CAPISocket::MP_AddShort(Buff, iOffset2, (short)s_szAccount.size());
+				CAPISocket::MP_AddShort(Buff, iOffset2, (int16_t)s_szAccount.size());
 				CAPISocket::MP_AddString(Buff, iOffset2, s_szAccount); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
 				
 				socketTmp.Send(Buff, iOffset2);
@@ -544,13 +544,13 @@ void CGameProcLogIn::PacketSend_MGameLogin()
 	}
 
 	int send_index = 0;
-	BYTE send_buff[128];
+	uint8_t send_buff[128];
 	memset( send_buff, NULL, 128 );
 
 	CAPISocket::MP_AddByte( send_buff, send_index, N3_ACCOUNT_LOGIN_MGAME); // Send - s1(ID길이) str1(ID문자열:20바이트이하) s1(PW길이) str1(PW문자열:12바이트이하) | Recv - b1(0:실패 1:성공 2:ID없음 3:PW틀림 4:서버점검중)
-	CAPISocket::MP_AddShort( send_buff, send_index, (short)(m_szID.size()));
+	CAPISocket::MP_AddShort( send_buff, send_index, (int16_t)(m_szID.size()));
 	CAPISocket::MP_AddString( send_buff, send_index, m_szID);
-	CAPISocket::MP_AddShort( send_buff, send_index, (short)(m_szPW.size()));
+	CAPISocket::MP_AddShort( send_buff, send_index, (int16_t)(m_szPW.size()));
 	CAPISocket::MP_AddString( send_buff, send_index, m_szPW);
 
 	s_pSocket->Send( send_buff, send_index );

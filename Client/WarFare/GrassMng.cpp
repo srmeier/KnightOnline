@@ -76,7 +76,7 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 	CGrassBoard*   pGrass = NULL; 
 	__Vector3	  vPivot;		
 
-	unsigned char GrassIndex=0;
+	uint8_t GrassIndex=0;
 	int mRand,nRand;
 	float p,n;
 
@@ -128,7 +128,7 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 		}
 
 		// 지형정보(풀이 위치한 타일의 지형정보를 얻는다)
-		unsigned char cGroundInfo = s_pTerrain->GetGrassAttr(((WORD)m_pCount[i].x)/TILE_SIZE, ((WORD)m_pCount[i].z)/TILE_SIZE);	//	현재 타일의 정보
+		uint8_t cGroundInfo = s_pTerrain->GetGrassAttr(((uint16_t)m_pCount[i].x)/TILE_SIZE, ((uint16_t)m_pCount[i].z)/TILE_SIZE);	//	현재 타일의 정보
 		if(cGroundInfo==0)	//	풀을 뿌리는 셀(영역,지역) 아님
 		{
 			pGrass->m_bCamOut = TRUE;
@@ -166,7 +166,7 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 		if(pGrass->ThisTexIsHave(cGroundInfo) == false)
 		{
 			int nGrassNum;
-			unsigned char uCGrassMngIndex;
+			uint8_t uCGrassMngIndex;
 			FindGrassIndex(cGroundInfo,nGrassNum,uCGrassMngIndex);
 			pGrass->TexSelectNum(nGrassNum,uCGrassMngIndex);
 		}
@@ -182,11 +182,11 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 */
 }
 
-void CGrassMng::FindGrassIndex(unsigned char GrassIndex,int& nFineGrass,unsigned char& ucFineIndex)
+void CGrassMng::FindGrassIndex(uint8_t GrassIndex,int& nFineGrass,uint8_t& ucFineIndex)
 {
 	int GrassInputCount;
 	int InputGrass[8];
-	unsigned char InputGrassOrg[8];
+	uint8_t InputGrassOrg[8];
 	nFineGrass=0;
 
 	FindGrassIndex(GrassIndex,InputGrass,InputGrassOrg,GrassInputCount);
@@ -264,7 +264,7 @@ void CGrassMng::Release()
 
 }
 
-int CGrassMng::SetFile(int iTexIndex,unsigned char ucTexOrgIndex,__Vector3 CamPo)
+int CGrassMng::SetFile(int iTexIndex,uint8_t ucTexOrgIndex,__Vector3 CamPo)
 {
 /*	if(iTexIndex<0) return 2;
 
@@ -294,7 +294,7 @@ inline float CGrassMng::RandomGenf(float max, float min)
 	return (float)((float)(k*0.01f)+min);
 }
 
-void CGrassMng::FindGrassIndex(const unsigned char uCGrassMngOrder,int* pnInputGrass,unsigned char* GrassIndex,int& nGrassTotNum)
+void CGrassMng::FindGrassIndex(const uint8_t uCGrassMngOrder,int* pnInputGrass,uint8_t* GrassIndex,int& nGrassTotNum)
 {
 	nGrassTotNum=0;
 	if(uCGrassMngOrder & 0x01)  { pnInputGrass[nGrassTotNum] = 0 , GrassIndex[nGrassTotNum] = 0x01; nGrassTotNum++; }
@@ -313,7 +313,7 @@ void CGrassMng::ChkThisZoneUseGrass(int nGrassUseOrder)
 /*
 	int GrassInputCount;
 	int InputGrass[8];
-	unsigned char InputGrassOrg[8];
+	uint8_t InputGrassOrg[8];
 
 	FindGrassIndex(m_usDrawIndex,InputGrass,InputGrassOrg,GrassInputCount);
 
@@ -420,7 +420,7 @@ void CGrassMng::ChkTileRange(float fCamX,float fCamZ)
 
 
 	//	새로운 타일의 영역을 얻어온다
-	WORD FineTile[GRASS_TILENUM*2];
+	uint16_t FineTile[GRASS_TILENUM*2];
 	int iFineTile=0;
 	FineNewTile(FineTile,iFineTile,fCompRange,fLargeRange);	//	바꾸어야할 타일 찾음
 
@@ -428,7 +428,7 @@ void CGrassMng::ChkTileRange(float fCamX,float fCamZ)
 	int iTileCount=0;
 	__Vector3 vCenter;
 	CGrassBoard* pBoard;
-	unsigned short usGrassInfo;
+	uint16_t usGrassInfo;
 	for(int x=0; x<GRASS_TILENUM; ++x)
 	{
 		for(int z=0; z<GRASS_TILENUM; ++z)
@@ -459,7 +459,7 @@ void CGrassMng::ChkTileRange(float fCamX,float fCamZ)
 	memcpy(m_fChkRange,fCompRange,sizeof(float)*4);
 }
 
-void CGrassMng::FineNewTile(WORD* Tile,int& iCount,float* fCompRange,float* fLargeRange)
+void CGrassMng::FineNewTile(uint16_t* Tile,int& iCount,float* fCompRange,float* fLargeRange)
 {
 	float sx=-1,sy=-1;
 	if(fCompRange[GRASS_LEFT] != m_fChkRange[GRASS_LEFT])
@@ -471,7 +471,7 @@ void CGrassMng::FineNewTile(WORD* Tile,int& iCount,float* fCompRange,float* fLar
 
 		for(int i=0;i<GRASS_TILENUM;++i)
 		{
-			Tile[iCount] = (WORD)sx , Tile[iCount+1] = (WORD)(sy+=TILE_SIZE);	iCount+=2;
+			Tile[iCount] = (uint16_t)sx , Tile[iCount+1] = (uint16_t)(sy+=TILE_SIZE);	iCount+=2;
 		}
 	}
 
@@ -489,7 +489,7 @@ void CGrassMng::FineNewTile(WORD* Tile,int& iCount,float* fCompRange,float* fLar
 		
 		for(int i=si;i<ei;++i)
 		{
-			Tile[iCount] = (WORD)(sx+=TILE_SIZE) , Tile[iCount+1] = (WORD)sy;	iCount+=2;
+			Tile[iCount] = (uint16_t)(sx+=TILE_SIZE) , Tile[iCount+1] = (uint16_t)sy;	iCount+=2;
 		}
 	}
 }

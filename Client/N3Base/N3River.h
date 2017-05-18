@@ -47,7 +47,7 @@ public:
 		int iVC;
 		int iIC;
 		__VertexRiver		*pVertices;
-		WORD				*pwIndex;
+		uint16_t				*pwIndex;
 		_RIVER_DIFF			*pDiff;
 
 		BOOL				m_bTick2Rand;

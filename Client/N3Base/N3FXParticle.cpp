@@ -108,14 +108,14 @@ bool CN3FXParticle::Tick()
 	{
 		if(m_fCurrLife <= m_pRefParent->m_fFadeIn)
 		{
-			DWORD Alpha = (DWORD)(255.0f * m_fCurrLife / m_pRefParent->m_fFadeIn);
+			uint32_t Alpha = (uint32_t)(255.0f * m_fCurrLife / m_pRefParent->m_fFadeIn);
 			Alpha = (Alpha<<24);
 			m_dwColor = Alpha + 0x00ffffff;
 		}
 		else if(m_fCurrLife < (m_pRefParent->m_fFadeIn + m_fLife)) m_dwColor = 0xffffffff;
 		else if(m_fCurrLife < (m_pRefParent->m_fFadeIn + m_fLife + m_pRefParent->m_fFadeOut))
 		{
-			DWORD Alpha = (DWORD)(255.0f * ((m_pRefParent->m_fFadeIn + m_fLife + m_pRefParent->m_fFadeOut)-m_fCurrLife) / m_pRefParent->m_fFadeOut);
+			uint32_t Alpha = (uint32_t)(255.0f * ((m_pRefParent->m_fFadeIn + m_fLife + m_pRefParent->m_fFadeOut)-m_fCurrLife) / m_pRefParent->m_fFadeOut);
 			Alpha = (Alpha<<24);
 			m_dwColor = Alpha + 0x00ffffff;
 			//m_fSize = m_pRefParent->m_fParticleSize * AlphaRatio;		

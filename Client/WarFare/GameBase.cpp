@@ -45,7 +45,7 @@ CGameBase::~CGameBase()
 {
 }
 
-void _LoadStringFromResource(DWORD dwID, std::string& szText)
+void _LoadStringFromResource(uint32_t dwID, std::string& szText)
 {
 	if (CGameBase::s_pTbl_Texts == nullptr)
 		return;

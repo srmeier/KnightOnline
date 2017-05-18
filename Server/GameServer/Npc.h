@@ -6,63 +6,63 @@
 class CNpc : public Unit
 {
 public:
-	virtual uint16 GetID() { return m_sNid; }
+	virtual uint16_t GetID() { return m_sNid; }
 	virtual std::string & GetName() { return m_strName; }
 
-	uint16	m_sNid; // NPC ID
-	uint16	m_sSid; // prototype ID
+	uint16_t	m_sNid; // NPC ID
+	uint16_t	m_sSid; // prototype ID
 
-	short	m_sPid;				// MONSTER(NPC) Picture ID
-	short	m_sSize;			// MONSTER(NPC) Size
+	int16_t	m_sPid;				// MONSTER(NPC) Picture ID
+	int16_t	m_sSize;			// MONSTER(NPC) Size
 	int		m_iWeapon_1;
 	int		m_iWeapon_2;
 	std::string m_strName;		// MONSTER(NPC) Name
 	int		m_iMaxHP;			// �ִ� HP
 	int		m_iHP;				// ���� HP
-	uint8	m_byState;			// ������ (NPC) ����
-	uint8	m_tNpcType;			// NPC Type
+	uint8_t	m_byState;			// ������ (NPC) ����
+	uint8_t	m_tNpcType;			// NPC Type
 	// 0 : Normal Monster
 	// 1 : NPC
 	// 2 : �� �Ա�,�ⱸ NPC
 	// 3 : ������
 	int   m_iSellingGroup;		// ItemGroup
 
-	uint8	m_NpcState;			// NPC�� ���� - ���Ҵ�, �׾���, ���ִ� ����...
+	uint8_t	m_NpcState;			// NPC�� ���� - ���Ҵ�, �׾���, ���ִ� ����...
 	bool	m_byGateOpen;		// Gate status: true is open, false is closed.
 
-	uint8    m_byObjectType;     // ������ 0, objectŸ��(����, ����)�� 1
-	int16	m_byDirection;
+	uint8_t    m_byObjectType;     // ������ 0, objectŸ��(����, ����)�� 1
+	int16_t	m_byDirection;
 
-	uint8   m_byTrapNumber;
+	uint8_t   m_byTrapNumber;
 
 	bool	m_bMonster; // are we a monster or an NPC?
 
-	int16	m_oSocketID; // owner user
-	uint16	m_bEventRoom;
+	int16_t	m_oSocketID; // owner user
+	uint16_t	m_bEventRoom;
 
 public:
 	CNpc();
 
 	void Initialize();
-	void AddToRegion(int16 new_region_x, int16 new_region_z);
+	void AddToRegion(int16_t new_region_x, int16_t new_region_z);
 
 	void MoveResult(float xpos, float ypos, float zpos, float speed);
-	void GetInOut(Packet & result, uint8 bType);
-	void SendInOut(uint8 bType, float fx, float fz, float fy);
+	void GetInOut(Packet & result, uint8_t bType);
+	void SendInOut(uint8_t bType, float fx, float fz, float fy);
 	void GetNpcInfo(Packet & pkt);
 
-	void SendGateFlag(uint8 bFlag = -1, bool bSendAI = true);
+	void SendGateFlag(uint8_t bFlag = -1, bool bSendAI = true);
 
 	void HpChange(int amount, Unit *pAttacker = nullptr, bool bSendToAI = true); 
 	void HpChangeMagic(int amount, Unit *pAttacker = nullptr, AttributeType attributeType = AttributeNone);
-	void SendHpChangeToAI(uint16 sTargetID, int amount, AttributeType attributeType = AttributeNone);
+	void SendHpChangeToAI(uint16_t sTargetID, int amount, AttributeType attributeType = AttributeNone);
 	void MSpChange(int amount);
 
-	bool CastSkill(Unit * pTarget, uint32 nSkillID);
+	bool CastSkill(Unit * pTarget, uint32_t nSkillID);
 
 	void OnDeath(Unit *pKiller);
 	void OnDeathProcess(Unit *pKiller);
-	void ChaosStoneProcess(CUser *pUser, uint16 MonsterCount);
+	void ChaosStoneProcess(CUser *pUser, uint16_t MonsterCount);
 	void PVPMonumentProcess(CUser *pUser);
 	void BattleMonumentProcess(CUser *pUser);
 	void NationMonumentProcess(CUser *pUser);
@@ -75,23 +75,23 @@ public:
 	INLINE bool isGateOpen() { return m_byGateOpen; };
 	INLINE bool isGateClosed() { return !isGateOpen(); };
 
-	INLINE short GetProtoID() { return m_sSid; };
-	INLINE uint8 GetType() { return m_tNpcType; };
-	INLINE uint8 GetState() { return m_byState; };
+	INLINE int16_t GetProtoID() { return m_sSid; };
+	INLINE uint8_t GetType() { return m_tNpcType; };
+	INLINE uint8_t GetState() { return m_byState; };
 
-	virtual int32 GetHealth() { return m_iHP; }
-	virtual int32 GetMaxHealth() { return m_iMaxHP; }
-	virtual int32 GetMana() { return 0; }
-	virtual int32 GetMaxMana() { return 0; }
+	virtual int32_t GetHealth() { return m_iHP; }
+	virtual int32_t GetMaxHealth() { return m_iMaxHP; }
+	virtual int32_t GetMana() { return 0; }
+	virtual int32_t GetMaxMana() { return 0; }
 
 	bool isHostileTo(Unit * pTarget);
 
-	short GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
-	short GetDamage(CUser *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
-	short GetDamage(CNpc *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
+	int16_t GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
+	int16_t GetDamage(CUser *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
+	int16_t GetDamage(CNpc *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
 
-	float GetRewardModifier(uint8 byLevel);
-	float GetPartyRewardModifier(uint32 nPartyLevel, uint32 nPartyMembers);
+	float GetRewardModifier(uint8_t byLevel);
+	float GetPartyRewardModifier(uint32_t nPartyLevel, uint32_t nPartyMembers);
 
 	virtual ~CNpc();
 
@@ -110,7 +110,7 @@ public:
 	DECLARE_LUA_FUNCTION(CastSkill) {
 		LUA_RETURN(LUA_GET_INSTANCE()->CastSkill(
 			reinterpret_cast<Unit *>(LUA_ARG(CUser *, 2)),
-			LUA_ARG(uint32, 3)
+			LUA_ARG(uint32_t, 3)
 			));
 	}
 };

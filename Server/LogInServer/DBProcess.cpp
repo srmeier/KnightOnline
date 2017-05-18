@@ -61,13 +61,13 @@ bool CDBProcess::LoadUserCountList()
 	{
 		do
 		{
-			uint16 zone_1 = 0, zone_2 = 0, zone_3 = 0; uint8 serverID;
+			uint16_t zone_1 = 0, zone_2 = 0, zone_3 = 0; uint8_t serverID;
 			dbCommand->FetchByte(1, serverID);
 			dbCommand->FetchUInt16(2, zone_1);
 			dbCommand->FetchUInt16(3, zone_2);
 			dbCommand->FetchUInt16(4, zone_3);
 
-			if ((uint8)(serverID - 1) < g_pMain->m_ServerList.size())
+			if ((uint8_t)(serverID - 1) < g_pMain->m_ServerList.size())
 				g_pMain->m_ServerList[serverID - 1]->sUserCount = zone_1 + zone_2 + zone_3;
 		} while (dbCommand->MoveNext());
 	}
@@ -75,9 +75,9 @@ bool CDBProcess::LoadUserCountList()
 	return true;
 }
 
-uint16 CDBProcess::AccountLogin(string & strAccountID, string & strPasswd)
+uint16_t CDBProcess::AccountLogin(string & strAccountID, string & strPasswd)
 {
-	uint16 result = 2;
+	uint16_t result = 2;
 	unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return 6;
@@ -115,9 +115,9 @@ uint16 CDBProcess::AccountLogin(string & strAccountID, string & strPasswd)
 	return result;
 }
 
-int16 CDBProcess::AccountPremium(string & strAccountID)
+int16_t CDBProcess::AccountPremium(string & strAccountID)
 {
-	int16 sHours = -1;
+	int16_t sHours = -1;
 	return sHours;
 
 	// NOTE: not sure what this would correspond to on 1298 server

@@ -20,7 +20,7 @@ public:
 	void					Release();
 	void					FindMinMax();
 	bool					Load(HANDLE hFile);
-	void					SetColor(DWORD dwColor = 0xffffffff);
+	void					SetColor(uint32_t dwColor = 0xffffffff);
 	HRESULT					Create(int iNumVertices, int iNumIndices);
 	void					operator=(const CN3FXPMesh& fxPMesh);
 	__VertexXyzColorT1*		GetColorVertices() { return m_pColorVertices; }

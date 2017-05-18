@@ -36,7 +36,7 @@ public:
 	void SetTitle(const std::string& szTitle);
 	void SetText(const std::string& szMsg);
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	
 	CUIMessageBox();
 	virtual ~CUIMessageBox();

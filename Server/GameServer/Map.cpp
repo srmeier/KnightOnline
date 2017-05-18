@@ -57,7 +57,7 @@ bool C3DMap::Initialize(_ZONE_INFO *pZone)
 	return (m_smdFile != nullptr);
 }
 
-CRegion * C3DMap::GetRegion(uint16 regionX, uint16 regionZ)
+CRegion * C3DMap::GetRegion(uint16_t regionX, uint16_t regionZ)
 {
 	if (regionX > GetXRegionMax()
 		|| regionZ > GetZRegionMax())
@@ -67,7 +67,7 @@ CRegion * C3DMap::GetRegion(uint16 regionX, uint16 regionZ)
 	return &m_ppRegion[regionX][regionZ];
 }
 
-bool C3DMap::RegionItemAdd(uint16 rx, uint16 rz, _LOOT_BUNDLE * pBundle)
+bool C3DMap::RegionItemAdd(uint16_t rx, uint16_t rz, _LOOT_BUNDLE * pBundle)
 {
 	if (pBundle == nullptr)
 		return false;

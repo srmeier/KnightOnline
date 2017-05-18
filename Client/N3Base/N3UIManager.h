@@ -16,8 +16,8 @@ class CN3UIManager : public CN3UIBase
 protected:
 	struct __RenderStateForUI
 	{
-		DWORD dwZEnable, dwAlphaBlend, dwSrcBlend, dwDestBlend, dwFog;
-		DWORD dwMagFilter, dwMinFilter, dwMipFilter;
+		uint32_t dwZEnable, dwAlphaBlend, dwSrcBlend, dwDestBlend, dwFog;
+		uint32_t dwMagFilter, dwMinFilter, dwMipFilter;
 #ifdef _DEBUG
 		BOOL	bSet;	// 이미 값이 3D device의 값으로 세팅이 되었는지 판단.
 #endif
@@ -25,7 +25,7 @@ protected:
 	
 	static __RenderStateForUI s_sRSFU; // RenderStateForUI
 
-	DWORD	m_dwMouseFlagsCur;
+	uint32_t	m_dwMouseFlagsCur;
 public:
 	CN3UIManager();
 	virtual ~CN3UIManager();
@@ -37,8 +37,8 @@ public:
 
 	void	Release();
 	void	Tick();
-	DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	DWORD	GetCurMouseFlags() { return m_dwMouseFlagsCur; }
+	uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	uint32_t	GetCurMouseFlags() { return m_dwMouseFlagsCur; }
 	void	Render();
 	void	ReorderChildList();
 };

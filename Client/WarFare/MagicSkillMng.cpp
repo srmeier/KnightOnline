@@ -927,7 +927,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 
 		if(key==DDTYPE_TYPE3_DUR_OUR)
 		{
-			std::multimap<int, DWORD>::iterator it, itend;
+			std::multimap<int, uint32_t>::iterator it, itend;
 			itend = m_ListBuffTypeID.end();
 			it = m_ListBuffTypeID.find(key);
 			if(it!=itend) return false;
@@ -1160,20 +1160,20 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 	{
 	case SKILLMAGIC_TARGET_SELF:
 		{
-			StartSkillMagicAtTargetPacket(pSkill, (short)s_pPlayer->IDNumber());
+			StartSkillMagicAtTargetPacket(pSkill, (int16_t)s_pPlayer->IDNumber());
 			return true;
 		}
 	case SKILLMAGIC_TARGET_FRIEND_WITHME:
 		{
 			if(!pTarget)
 			{
-				StartSkillMagicAtTargetPacket(pSkill, (short)s_pPlayer->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)s_pPlayer->IDNumber());
 				return true;
 			}
 			else if(pTarget->m_InfoBase.eNation==pInfoBase->eNation)
 			{
 				if( !CheckValidDistance(pSkill, pTarget->Position(), fDist) ) return false;
-				StartSkillMagicAtTargetPacket(pSkill, (short)pTarget->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pTarget->IDNumber());
 				return true;
 			}
 			break;
@@ -1183,7 +1183,7 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 			if(pTarget && pTarget->m_InfoBase.eNation==pInfoBase->eNation)
 			{
 				if( !CheckValidDistance(pSkill, pTarget->Position(), fDist) ) return false;
-				StartSkillMagicAtTargetPacket(pSkill, (short)pTarget->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pTarget->IDNumber());
 				return true;
 			}
 			break;
@@ -1199,12 +1199,12 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 				pTarget->IDNumber() == s_pPlayer->IDNumber() ) )
 			{
 				if( !CheckValidDistance(pSkill, pTarget->Position(), fDist) ) return false;
-				StartSkillMagicAtTargetPacket(pSkill, (short)pTarget->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pTarget->IDNumber());
 				return true;
 			}
 			else if(pInfo)	//거리에 상관없이 파티원들에게 쓸때...
 			{
-				StartSkillMagicAtTargetPacket(pSkill, (short)pInfo->iID);
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pInfo->iID);
 				return true;
 			}
 			break;
@@ -1214,7 +1214,7 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 			if(pTarget && s_pOPMgr->NPCGetByID(pTarget->IDNumber(), true))
 			{
 				if( !CheckValidDistance(pSkill, pTarget->Position(), fDist) ) return false;
-				StartSkillMagicAtTargetPacket(pSkill, (short)pTarget->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pTarget->IDNumber());
 				return true;
 			}
 			break;
@@ -1229,7 +1229,7 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 			if(pTarget && pTarget->m_InfoBase.eNation!=pInfoBase->eNation)
 			{
 				if( !CheckValidDistance(pSkill, pTarget->Position(), fDist) ) return false;
-				StartSkillMagicAtTargetPacket(pSkill, (short)pTarget->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pTarget->IDNumber());
 				//CLogWriter::Write("send msg : %.4f", CN3Base::TimeGet());
 				//TRACE("send msg : %.4f\n", CN3Base::TimeGet());
 				return true;
@@ -1241,7 +1241,7 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 			if(pTarget)
 			{
 				if( !CheckValidDistance(pSkill, pTarget->Position(), fDist) ) return false;
-				StartSkillMagicAtTargetPacket(pSkill, (short)pTarget->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pTarget->IDNumber());
 				return true;
 			}
 			break;
@@ -1266,7 +1266,7 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 			if(pTarget && pTarget->m_InfoBase.eNation==pInfoBase->eNation && pTarget->IsDead())
 			{
 				if( !CheckValidDistance(pSkill, pTarget->Position(), fDist) ) return false;
-				StartSkillMagicAtTargetPacket(pSkill, (short)pTarget->IDNumber());
+				StartSkillMagicAtTargetPacket(pSkill, (int16_t)pTarget->IDNumber());
 				return true;
 			}
 			break;
@@ -1355,17 +1355,17 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
 
-		BYTE byBuff[32];
+		uint8_t byBuff[32];
 		int iOffset=0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)SourceID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)-1);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)-1);
 
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)vPos.x);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)vPos.y);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)vPos.z);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.x);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.y);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.z);
 		
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0); 
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1409,17 +1409,17 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 
 	////////////////////////////////////////////////////////////////////////////////////////
 
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset=0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_CASTING);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_CASTING);
 	CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)SourceID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)-1);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)-1);
 
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)vPos.x);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)vPos.y);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)vPos.z);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.x);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.y);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.z);
 	
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1431,7 +1431,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 	if(pSkill->iTarget == SKILLMAGIC_TARGET_ENEMY_ONLY) m_pGameProcMain->PlayBGM_Battle();
 }
 
-void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, short TargetID)
+void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, int16_t TargetID)
 {
 	if(!pSkill) return;
 	int SourceID = s_pPlayer->IDNumber();
@@ -1492,13 +1492,13 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, sh
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
 		
-		BYTE byBuff[32];
+		uint8_t byBuff[32];
 		int iOffset=0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)SourceID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)TargetID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)TargetID);
 
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
@@ -1520,13 +1520,13 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, sh
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
 
-		BYTE byBuff[32];
+		uint8_t byBuff[32];
 		int iOffset=0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)SourceID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)TargetID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)TargetID);
 
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1573,13 +1573,13 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, sh
 	s_pPlayer->m_fCastFreezeTime = 10.0f;
 	s_pPlayer->Action(PSA_SPELLMAGIC, false, pTargetPlayer);
 
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset=0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_CASTING);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_CASTING);
 	CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)SourceID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)TargetID);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)TargetID);
 
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1648,13 +1648,13 @@ void CMagicSkillMng::Tick()
 				return;
 			}
 
-			BYTE byBuff[32];
+			uint8_t byBuff[32];
 			int iOffset=0;
-			CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-			CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+			CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+			CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 			CAPISocket::MP_AddDword(byBuff, iOffset, (int)m_dwNonActionMagicID);
-			CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDNumber());
-			CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iNonActionMagicTarget);
+			CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
+			CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iNonActionMagicTarget);
 
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);	//targetpos...
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1688,16 +1688,16 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 	s_pPlayer->m_dwMagicID = 0xffffffff;
 	s_pPlayer->m_fCastingTime = 0.0f;
 
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset=0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
 
 	int idx = 0;
 	if(pSkill->iFlyingFX==0) 
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 	else
 	{
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FLYING);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_FLYING);
 		if(pSkill->dw1stTableType==2 || pSkill->dw2ndTableType==2)//화살쏘기..
 		{
 			int iNumArrow = 1;
@@ -1737,13 +1737,13 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 		sprintf(szBuff, buff.c_str(), pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
 		
-		BYTE byBuff[32];
+		uint8_t byBuff[32];
 		int iOffset=0;
-		//CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-		//CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+		//CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+		//CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDNumber());
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iTarget);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iTarget);
 
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
@@ -1767,14 +1767,14 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 		s_pPlayer->m_iSkillStep = 0;
 
 		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDNumber());
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iTarget);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iTarget);
 
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_vTargetPos.x);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_vTargetPos.y);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_vTargetPos.z);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.x);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.y);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.z);
 
-		CAPISocket::MP_AddShort(byBuff, iOffset, (short)idx);//flying이라면 idx...
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)idx);//flying이라면 idx...
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
@@ -1807,7 +1807,7 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 
 			if(pSkill->dw1stTableType==2 || pSkill->dw2ndTableType==2)//화살쏘기..
 			{
-				short Data[6] = { (short)m_vTargetPos.x, (short)m_vTargetPos.y, (short)m_vTargetPos.z, (short)idx, 0, 0 };
+				int16_t Data[6] = { (int16_t)m_vTargetPos.x, (int16_t)m_vTargetPos.y, (int16_t)m_vTargetPos.z, (int16_t)idx, 0, 0 };
 				FlyingType2(pSkill, SourceID, m_iTarget, Data);
 				return;
 			}
@@ -1851,19 +1851,19 @@ void CMagicSkillMng::FailCast(__TABLE_UPC_SKILL* pSkill)
 	s_pPlayer->m_fCastingTime = 0.0f;
 	s_pPlayer->m_iSkillStep = 0;
 
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset=0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FAIL);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_FAIL);
 	CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDNumber());
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDNumber());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
 
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)SKILLMAGIC_FAIL_CASTING);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SKILLMAGIC_FAIL_CASTING);
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
@@ -1926,16 +1926,16 @@ void CMagicSkillMng::MobCasting(__TABLE_UPC_SKILL* pSkill, int iSourceID)
 	if(!pSkill) return;
 
 	//캐스팅 성공적으로 완료...
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset=0;
-	CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
 
 	int idx = 0;
 	if(pSkill->iFlyingFX==0) 
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 	else
 	{
-		CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_FLYING);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_FLYING);
 		if(pSkill->dw1stTableType==2 || pSkill->dw2ndTableType==2)//화살쏘기..
 		{
 			int iNumArrow = 1;
@@ -1948,14 +1948,14 @@ void CMagicSkillMng::MobCasting(__TABLE_UPC_SKILL* pSkill, int iSourceID)
 	}
 
 	CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iSourceID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)s_pPlayer->IDNumber());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iSourceID);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
 
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_vTargetPos.x);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_vTargetPos.y);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_vTargetPos.z);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.x);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.y);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.z);
 
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)idx);//flying이라면 idx...
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)idx);//flying이라면 idx...
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
@@ -1967,11 +1967,11 @@ void CMagicSkillMng::MsgRecv_Casting(DataPack* pDataPack, int& iOffset)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//	
-	DWORD dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
-	short Data[6];
+	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
 		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -2051,11 +2051,11 @@ void CMagicSkillMng::MsgRecv_Flying(DataPack* pDataPack, int& iOffset)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//	
-	DWORD dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
-	short Data[6];
+	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
 		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -2124,11 +2124,11 @@ void CMagicSkillMng::MsgRecv_Effecting(DataPack* pDataPack, int& iOffset)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//
-	DWORD dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
-	short Data[6];
+	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
 		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -2184,11 +2184,11 @@ void CMagicSkillMng::MsgRecv_Fail(DataPack* pDataPack, int& iOffset)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//
-	DWORD dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
-	short Data[6];
+	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
 		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
@@ -2341,7 +2341,7 @@ void CMagicSkillMng::MsgRecv_BuffType(DataPack* pDataPack, int& iOffset)
 	__InfoPlayerBase* pInfoBase = &(s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf* pInfoExt = &(s_pPlayer->m_InfoExt);
 
-	std::multimap<int, DWORD>::iterator it = m_ListBuffTypeID.find(iBuffType);
+	std::multimap<int, uint32_t>::iterator it = m_ListBuffTypeID.find(iBuffType);
 	if(it!= m_ListBuffTypeID.end())
 	{
 		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(it->second);
@@ -2426,7 +2426,7 @@ void CMagicSkillMng::MsgRecv_BuffType(DataPack* pDataPack, int& iOffset)
 //
 //
 //
-void CMagicSkillMng::FlyingType2(__TABLE_UPC_SKILL* pSkill, int iSourceID, int iTargetID, short* pData)
+void CMagicSkillMng::FlyingType2(__TABLE_UPC_SKILL* pSkill, int iSourceID, int iTargetID, int16_t* pData)
 {
 	CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, true);
 	if(!pPlayer) return;
@@ -2544,7 +2544,7 @@ void CMagicSkillMng::FlyingType2(__TABLE_UPC_SKILL* pSkill, int iSourceID, int i
 //
 //
 
-bool CMagicSkillMng::EffectingType1(DWORD dwMagicID, int iSourceID, int iTargetID, short* pData)
+bool CMagicSkillMng::EffectingType1(uint32_t dwMagicID, int iSourceID, int iTargetID, int16_t* pData)
 {
 	CPlayerBase* pTarget = m_pGameProcMain->CharacterGetByID(iTargetID, false);
 	if(pTarget)
@@ -2578,7 +2578,7 @@ bool CMagicSkillMng::EffectingType1(DWORD dwMagicID, int iSourceID, int iTargetI
 	return true;
 }
 /*
-bool CMagicSkillMng::EffectingType1(DWORD dwMagicID, int iSourceID, int iTargetID, short* pData)
+bool CMagicSkillMng::EffectingType1(uint32_t dwMagicID, int iSourceID, int iTargetID, int16_t* pData)
 {
 	CPlayerBase* pTarget = m_pGameProcMain->CharacterGetByID(iTargetID, false);
 	if(pTarget)
@@ -2596,16 +2596,16 @@ bool CMagicSkillMng::EffectingType1(DWORD dwMagicID, int iSourceID, int iTargetI
 				{
 					if(pData[0]!=pType1->iNumCombo)	
 					{
-						BYTE byBuff[32];
+						uint8_t byBuff[32];
 						int iOffset=0;
-						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-						CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_EFFECTING);
+						CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+						CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
 						CAPISocket::MP_AddDword(byBuff, iOffset, (int)m_iComboSkillID);
-						CAPISocket::MP_AddShort(byBuff, iOffset, (short)iSourceID);
-						CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iTarget);
+						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iSourceID);
+						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iTarget);
 
-						CAPISocket::MP_AddShort(byBuff, iOffset, (short)pData[0]);
-						CAPISocket::MP_AddShort(byBuff, iOffset, (short)pData[1]);
+						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)pData[0]);
+						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)pData[1]);
 						CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 						
 						CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -2650,7 +2650,7 @@ bool CMagicSkillMng::EffectingType1(DWORD dwMagicID, int iSourceID, int iTargetI
 }
 */
 
-void CMagicSkillMng::EffectingType3(DWORD dwMagicID)
+void CMagicSkillMng::EffectingType3(uint32_t dwMagicID)
 {
 	__TABLE_UPC_SKILL_TYPE_3* pType3 = m_pTbl_Type_3->Find(dwMagicID);
 	__ASSERT(pType3, "NULL type3 Pointer!!");
@@ -2674,7 +2674,7 @@ void CMagicSkillMng::EffectingType3(DWORD dwMagicID)
 //
 //
 //
-void CMagicSkillMng::EffectingType4(DWORD dwMagicID)
+void CMagicSkillMng::EffectingType4(uint32_t dwMagicID)
 {
 	__TABLE_UPC_SKILL_TYPE_4* pType4 = m_pTbl_Type_4->Find(dwMagicID);
 	__ASSERT(pType4, "NULL type4 Pointer!!");
@@ -2683,7 +2683,7 @@ void CMagicSkillMng::EffectingType4(DWORD dwMagicID)
 	__InfoPlayerBase* pInfoBase = &(s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf* pInfoExt = &(s_pPlayer->m_InfoExt);
 
-	std::multimap<int, DWORD>::iterator it = m_ListBuffTypeID.find(pType4->iBuffType);
+	std::multimap<int, uint32_t>::iterator it = m_ListBuffTypeID.find(pType4->iBuffType);
 	if(it!= m_ListBuffTypeID.end())
 	{
 		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(it->second);
@@ -2796,10 +2796,10 @@ void CMagicSkillMng::EffectingType4(DWORD dwMagicID)
 //	내가 쓰는 스킬이나 마법은 내가 인덱스를 넣어서 관리한다..
 //	이건 인덱스 넣는 함수..
 //
-int CMagicSkillMng::AddIdx(DWORD MagicID, int iNum)
+int CMagicSkillMng::AddIdx(uint32_t MagicID, int iNum)
 {
 	int idx = 0;
-	std::map<int, DWORD>::iterator it;
+	std::map<int, uint32_t>::iterator it;
 	
 	//연결되는 index를 여러개 한꺼번에 만드는 경우..
 	if(iNum>1)
@@ -2868,7 +2868,7 @@ void CMagicSkillMng::InitType4()
 	m_iPoisonR = 0;
 
 
-	std::multimap<int, DWORD>::iterator its, ite;
+	std::multimap<int, uint32_t>::iterator its, ite;
 	its = m_ListBuffTypeID.begin();
 	ite = m_ListBuffTypeID.end();
 
@@ -2889,9 +2889,9 @@ void CMagicSkillMng::RemoveIdx(int idx)
 	m_MySelf.erase(idx);
 }
 
-DWORD CMagicSkillMng::GetMagicID(int idx)
+uint32_t CMagicSkillMng::GetMagicID(int idx)
 {
-	std::map<int, DWORD>::iterator it = m_MySelf.find(idx);
+	std::map<int, uint32_t>::iterator it = m_MySelf.find(idx);
 	return it->second;
 }
 
@@ -2917,7 +2917,7 @@ D3DCOLOR CMagicSkillMng::TraceColorGet(__TABLE_UPC_SKILL* pSkill) // 스킬의 종류
 	return crTrace;
 }
 
-bool CMagicSkillMng::IsPositiveMagic(DWORD dwMagicID)
+bool CMagicSkillMng::IsPositiveMagic(uint32_t dwMagicID)
 {
 	__TABLE_UPC_SKILL* pSkill = CGameBase::s_pTbl_Skill->Find(dwMagicID);
 	if(!pSkill) return true;

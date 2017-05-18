@@ -68,7 +68,7 @@ public:
 
 	void	UpdateHP(int iVal, int iValMax);
 	void	UpdateMSP(int iVal, int iValMax);
-	void	UpdateExp(uint64 iVal, uint64 iValMax);
+	void	UpdateExp(uint64_t iVal, uint64_t iValMax);
 	void	UpdateAttackPoint(int iVal, int iDelta);
 	void	UpdateGuardPoint(int iVal, int iDelta);
 	void	UpdateWeight(int iVal, int iValMax);
@@ -85,9 +85,9 @@ public:
 	void	UpdateRegistCurse(int iVal, int iDelta);
 	void	UpdateRegistPoison(int iVal, int iDelta);
 
-	void			MsgSendAblityPointChange(BYTE byType, short siValueDelta); // 능력치 변화 패킷으로 보내기..
+	void			MsgSendAblityPointChange(uint8_t byType, int16_t siValueDelta); // 능력치 변화 패킷으로 보내기..
 
-	virtual bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	virtual bool	Load(HANDLE hFile);
 
 	virtual void	Release();
@@ -153,7 +153,7 @@ public:
 	void	MsgSend_MemberInfoAll();
 
 	void	SetVisible(bool bVisible);		
-	virtual bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	virtual bool Load(HANDLE hFile);
 
 	void ClearLists();
@@ -235,7 +235,7 @@ public:
 	bool		MemberDelete(const std::string& szID);
 	bool		MemberAdd(const std::string& szID, int iID, bool bOnLine, bool bIsParty);
 
-	virtual bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	virtual bool Load(HANDLE hFile);
 	
 	CUIFriends();
@@ -289,7 +289,7 @@ public:
 	void		Close();
 	
 	virtual void	Tick();
-	virtual	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	virtual bool	Load(HANDLE hFile);
 
 	virtual void Release();

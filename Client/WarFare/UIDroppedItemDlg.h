@@ -36,13 +36,13 @@ public:
 	void		Release();
 
 	void		SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false);
-	virtual		DWORD MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual		bool  ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual		uint32_t MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual		bool  ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void		Init(CN3UIBase* pParent);
 	void		Render();
 	void		EnterDroppedState(int xpos, int ypos);
 	void		LeaveDroppedState();
-	void		GetItemByIDToInventory(BYTE bResult, int iItemId, int iGold, int iPos, int iItemCount, int iStrLen, std::string strString);
+	void		GetItemByIDToInventory(uint8_t bResult, int iItemId, int iGold, int iPos, int iItemCount, int iStrLen, std::string strString);
 	void		AddToItemTable(int iItemId, int iItemCount, int iOrder);
 	void		AddToItemTableToInventory(int iItemId, int iItemCount, int iOrder);
 

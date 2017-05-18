@@ -16,37 +16,37 @@ namespace Compression
 
 		struct UserContext
 		{
-			const uint8 * Input;
-			uint32 InputSize;
-			uint32 InputOffset;
+			const uint8_t * Input;
+			uint32_t InputSize;
+			uint32_t InputOffset;
 
-			uint8 * Output;
-			uint32 OutputSize;
-			uint32 OutputOffset;
+			uint8_t * Output;
+			uint32_t OutputSize;
+			uint32_t OutputOffset;
 
 			TCmpStruct State;
 
 			bool Compressing;		// true when compressing, false when decompressing
 			BufferError Error;
 
-			uint32 Checksum;	// crc32 checksum recalculated every block
+			uint32_t Checksum;	// crc32 checksum recalculated every block
 		};
 
-		static const uint32 DefaultCompressionType = CMP_BINARY;
-		static const uint32 DefaultDictionarySize = 4096;
+		static const uint32_t DefaultCompressionType = CMP_BINARY;
+		static const uint32_t DefaultDictionarySize = 4096;
 
-		uint32 ReadCallback(char * buffer, uint32 * bytesRemaining_, void * param)
+		uint32_t ReadCallback(char * buffer, uint32_t * bytesRemaining_, void * param)
 		{
 			UserContext * ctx = (UserContext *)param;
 			if (ctx == nullptr)
 				return 0;
 
-			uint32 bytesRemaining = *bytesRemaining_; // we don't want to touch the original
-			uint32 bytesRead = 0;
+			uint32_t bytesRemaining = *bytesRemaining_; // we don't want to touch the original
+			uint32_t bytesRead = 0;
 
 			if (ctx->InputOffset < ctx->InputSize)
 			{
-				uint32 bytesLeft = ctx->InputSize - ctx->InputOffset;
+				uint32_t bytesLeft = ctx->InputSize - ctx->InputOffset;
 				if (bytesLeft < bytesRemaining)
 					bytesRemaining = bytesLeft;
 
@@ -57,14 +57,14 @@ namespace Compression
 
 			if (ctx->Compressing)
 			{
-				uint32 old = ctx->Checksum;
-				ctx->Checksum = crc32((const uint8 *)buffer, bytesRead, ctx->Checksum);
+				uint32_t old = ctx->Checksum;
+				ctx->Checksum = crc32((const uint8_t *)buffer, bytesRead, ctx->Checksum);
 			}
 
 			return bytesRead;
 		}
 
-		void WriteCallback(char * buffer, uint32 * size, void * param)
+		void WriteCallback(char * buffer, uint32_t * size, void * param)
 		{
 			UserContext * ctx = (UserContext *)param;
 			if (ctx == nullptr)
@@ -86,19 +86,19 @@ namespace Compression
 			ctx->OutputOffset += *size;
 
 			if (!ctx->Compressing)
-				ctx->Checksum = crc32((const uint8 *)buffer, *size, ctx->Checksum);
+				ctx->Checksum = crc32((const uint8_t *)buffer, *size, ctx->Checksum);
 		}
 
-		uint8_t * CompressWithCRC32(const uint8 * in_data, uint32 in_len, uint32 * out_len, uint32 * checksum)
+		uint8_t * CompressWithCRC32(const uint8_t * in_data, uint32_t in_len, uint32_t * out_len, uint32_t * checksum)
 		{
 			if (in_len == 0)
 				return nullptr;
 
-			uint32 max_out_len = in_len;
+			uint32_t max_out_len = in_len;
 			if (max_out_len < 1024)
 				max_out_len *= 2;
 
-			uint8 * out_data = new uint8[max_out_len];
+			uint8_t * out_data = new uint8_t[max_out_len];
 			UserContext ctx = { 0 };
 
 			ctx.Input = in_data;
@@ -107,10 +107,10 @@ namespace Compression
 			ctx.OutputSize = max_out_len;
 
 			ctx.Compressing = true;
-			ctx.Checksum = ~((uint32)0);
+			ctx.Checksum = ~((uint32_t)0);
 
-			uint32 compressionType = DefaultCompressionType;
-			uint32 dictionarySize = DefaultDictionarySize;
+			uint32_t compressionType = DefaultCompressionType;
+			uint32_t dictionarySize = DefaultDictionarySize;
 
 			int r = implode(ReadCallback, WriteCallback, (char *)&ctx.State, &ctx, &compressionType, &dictionarySize);
 			if (r != 0
@@ -126,12 +126,12 @@ namespace Compression
 			return out_data;
 		}
 
-		uint8 * DecompressWithCRC32(const uint8 * in_data, uint32 in_len, uint32 original_len, uint32 checksum)
+		uint8_t * DecompressWithCRC32(const uint8_t * in_data, uint32_t in_len, uint32_t original_len, uint32_t checksum)
 		{
 			if (original_len == 0)
 				return nullptr;
 
-			uint8 * out_data = new uint8[original_len];
+			uint8_t * out_data = new uint8_t[original_len];
 			UserContext ctx = { 0 };
 
 			ctx.Input = in_data;
@@ -140,7 +140,7 @@ namespace Compression
 			ctx.OutputSize = original_len;
 
 			ctx.Compressing = false;
-			ctx.Checksum = ~((uint32)0);
+			ctx.Checksum = ~((uint32_t)0);
 
 			int r = explode(ReadCallback, WriteCallback, (char *)&ctx.State, &ctx);
 			if (r != 0

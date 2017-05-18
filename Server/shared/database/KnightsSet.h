@@ -54,7 +54,7 @@ public:
 		_dbCommand->FetchString(10, pData->m_strViceChief_3);
 		_dbCommand->FetchUInt64(11, pData->m_nMoney);
 		_dbCommand->FetchUInt16(12, pData->m_sDomination);
-		_dbCommand->FetchUInt32(13, (uint32 &) pData->m_nPoints);
+		_dbCommand->FetchUInt32(13, (uint32_t &) pData->m_nPoints);
 		_dbCommand->FetchBinary(14, pData->m_Image, sizeof(pData->m_Image));
 		_dbCommand->FetchUInt16(15, pData->m_sMarkVersion);
 		_dbCommand->FetchUInt16(16, pData->m_sMarkLen);
@@ -63,7 +63,7 @@ public:
 		//_dbCommand->FetchByte(19, pData->m_bCapeG);
 		//_dbCommand->FetchByte(20, pData->m_bCapeB);
 		_dbCommand->FetchUInt16(21, pData->m_sAlliance);
-		pData->m_nClanPointFund = 0; //_dbCommand->FetchUInt32(22, (uint32 &) pData->m_nClanPointFund);
+		pData->m_nClanPointFund = 0; //_dbCommand->FetchUInt32(22, (uint32_t &) pData->m_nClanPointFund);
 		//_dbCommand->FetchString(23, pData->m_strClanNotice);
 		_dbCommand->FetchByte(24, pData->bySiegeFlag);
 		_dbCommand->FetchUInt16(25, pData->nLose);

@@ -29,19 +29,19 @@ public:
 	float GetUnitDistance();
 	int GetXRegionMax();
 	int GetZRegionMax();
-	short * GetEventIDs();
+	int16_t * GetEventIDs();
 
 	CRegion**		m_ppRegion;				// 64미터의 타일정보..
 	int m_nZoneNumber;						// zone number
 	int	m_nServerNo;
 	float*		m_fHeight;
-	uint8		m_byRoomType;		// 방의 초기화관련( 0:자동으로 초기화, 1:전쟁이벤트 관련(특정조건이 완료시 초기화)
-	uint8		m_byRoomEvent;		// event room(0:empty, 1:use)
+	uint8_t		m_byRoomType;		// 방의 초기화관련( 0:자동으로 초기화, 1:전쟁이벤트 관련(특정조건이 완료시 초기화)
+	uint8_t		m_byRoomEvent;		// event room(0:empty, 1:use)
 	RoomStatus	m_byRoomStatus;		// room status(1:진행중, 2:방을 초기화중, 3:방초기화 완료)
-	uint8		m_byInitRoomCount;	// room 초기화 시간을 제어(몬스터와 동기화를 맞추기 위해)
+	uint8_t		m_byInitRoomCount;	// room 초기화 시간을 제어(몬스터와 동기화를 맞추기 위해)
 	RoomEventArray	 m_arRoomEventArray;
-	short	m_sKarusRoom;			// karus의 성갯수
-	short	m_sElmoradRoom;			// elmorad의 성갯수
+	int16_t	m_sKarusRoom;			// karus의 성갯수
+	int16_t	m_sElmoradRoom;			// elmorad의 성갯수
 
 	std::recursive_mutex m_lock;
 
@@ -59,7 +59,7 @@ public:
 	bool RegionUserRemove( int rx, int rz, int uid );
 	void RegionUserAdd( int rx, int rz, int uid );
 
-	CRegion * GetRegion(uint16 regionX, uint16 regionZ);
+	CRegion * GetRegion(uint16_t regionX, uint16_t regionZ);
 
 	int IsRoomCheck(float fx, float fz);	// 던젼에서 사용, 유저의 현재위치가 던젼의 어느 위치에 있는지를 판단
 	bool IsRoomStatusCheck();
@@ -82,17 +82,17 @@ public:
 	INLINE bool isNationPVPZone() { return canAttackOtherNation() && !canAttackSameNation(); }
 	INLINE bool areNPCsFriendly() { return (m_zoneFlags & ZF_FRIENDLY_NPCS) != 0; }
 
-	INLINE uint8 GetZoneType() { return m_zoneType; }
-	INLINE uint8 GetTariff() { return m_byTariff; }
+	INLINE uint8_t GetZoneType() { return m_zoneType; }
+	INLINE uint8_t GetTariff() { return m_byTariff; }
 
-	INLINE uint8 GetMinLevelReq() { return m_byMinLevel; }
-	INLINE uint8 GetMaxLevelReq() { return m_byMaxLevel; }
+	INLINE uint8_t GetMinLevelReq() { return m_byMinLevel; }
+	INLINE uint8_t GetMaxLevelReq() { return m_byMaxLevel; }
 
 protected:
 	void SetZoneAttributes(int zoneNumber);
 
 	ZoneAbilityType m_zoneType;
-	uint16 m_zoneFlags;
-	uint8 m_byTariff;
-	uint8 m_byMinLevel, m_byMaxLevel;
+	uint16_t m_zoneFlags;
+	uint8_t m_byTariff;
+	uint8_t m_byMinLevel, m_byMaxLevel;
 };

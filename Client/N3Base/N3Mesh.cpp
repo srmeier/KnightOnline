@@ -176,7 +176,7 @@ void CN3Mesh::Create(int nVC, int nIC)
 			CLogWriter::Write("CN3IMesh::Create - Too many indices. (more than 32768) (%s)", m_szFileName.c_str());
 #endif
 		if(m_psnIndices) this->ReleaseIndices();
-		m_psnIndices = new WORD[nIC]; memset(m_psnIndices, 0, nIC * 2); // Index Buffer 积己
+		m_psnIndices = new uint16_t[nIC]; memset(m_psnIndices, 0, nIC * 2); // Index Buffer 积己
 		m_nIC = nIC;
 	}
 }
@@ -311,9 +311,9 @@ bool CN3Mesh::Import(CN3PMesh* pPMesh)
 
 	// vertex index buffer 汗荤
 	__VertexT1* pVertices = PMeshInstance.GetVertices();
-	WORD* pIndices = PMeshInstance.GetIndices();
+	uint16_t* pIndices = PMeshInstance.GetIndices();
 	memcpy(m_pVertices, pVertices, sizeof(__VertexT1)*m_nVC);
-	memcpy(m_psnIndices, pIndices, sizeof(WORD)*m_nIC);
+	memcpy(m_psnIndices, pIndices, sizeof(uint16_t)*m_nIC);
 
 	m_szName = pPMesh->m_szName; // 捞抚..
 	return true;

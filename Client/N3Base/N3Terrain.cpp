@@ -487,11 +487,11 @@ bool CN3Terrain::Load(HANDLE hFile)
 		if(pUILoading) pUILoading->Render(szLoadingBuff, iLoading);
 	}
 
-//	m_ppGrassAttr = new unsigned char* [m_ti_MapSize];
+//	m_ppGrassAttr = new uint8_t* [m_ti_MapSize];
 //	for(x=0; x<m_ti_MapSize; x++)
 //	{
-//		m_ppGrassAttr[x] = new unsigned char[m_ti_MapSize];
-//		ReadFile(hFile, m_ppGrassAttr[x], sizeof(unsigned char)*m_ti_MapSize, &dwRWC, NULL);
+//		m_ppGrassAttr[x] = new uint8_t[m_ti_MapSize];
+//		ReadFile(hFile, m_ppGrassAttr[x], sizeof(uint8_t)*m_ti_MapSize, &dwRWC, NULL);
 //
 //		if(!(x%256))
 //		{
@@ -501,22 +501,22 @@ bool CN3Terrain::Load(HANDLE hFile)
 //
 //	}
 	
-	//m_pGrassAttr = (unsigned char*)malloc(sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
-	m_pGrassAttr = (unsigned char*)GlobalAlloc(GMEM_FIXED, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
+	//m_pGrassAttr = (uint8_t*)malloc(sizeof(uint8_t)*m_ti_MapSize*m_ti_MapSize);
+	m_pGrassAttr = (uint8_t*)GlobalAlloc(GMEM_FIXED, sizeof(uint8_t)*m_ti_MapSize*m_ti_MapSize);
 #ifdef _N3GAME
 	if(m_pGrassAttr==NULL) CLogWriter::Write("Terrain Error : GrassAttr Data Memory Allocation Failed..-.-");
 #endif
 	__ASSERT(m_pGrassAttr, "GrassAttr Data Memory Allocation Failed..-.-");
-	ReadFile(hFile, m_pGrassAttr, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize, &dwRWC, NULL);
+	ReadFile(hFile, m_pGrassAttr, sizeof(uint8_t)*m_ti_MapSize*m_ti_MapSize, &dwRWC, NULL);
 
 	//^^v풀갯수 정보 넣기...(조만간 넣어라..)
-	m_pGrassNum = (unsigned char*)GlobalAlloc(GMEM_FIXED, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
+	m_pGrassNum = (uint8_t*)GlobalAlloc(GMEM_FIXED, sizeof(uint8_t)*m_ti_MapSize*m_ti_MapSize);
 #ifdef _N3GAME
 	if(m_pGrassNum==NULL) CLogWriter::Write("Terrain Error : GrassNum Data Memory Allocation Failed..-.-");
 #endif
 	__ASSERT(m_pGrassNum, "GrassNum Data Memory Allocation Failed..-.-");
-	//ReadFile(hFile, m_pGrassNum, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize, &dwRWC, NULL);	
-	memset(m_pGrassNum, 5, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
+	//ReadFile(hFile, m_pGrassNum, sizeof(uint8_t)*m_ti_MapSize*m_ti_MapSize, &dwRWC, NULL);	
+	memset(m_pGrassNum, 5, sizeof(uint8_t)*m_ti_MapSize*m_ti_MapSize);
 	
 	//load colormap....
 	ReadFile(hFile, m_pGrassFileName, MAX_PATH, &dwRWC, NULL);
@@ -530,12 +530,12 @@ bool CN3Terrain::Load(HANDLE hFile)
 	int NumLightMap = 0;
 	ReadFile(hFile, &NumLightMap, sizeof(int), &dwRWC, NULL);
 	
-	short sx,sz;
+	int16_t sx,sz;
 	CN3Texture* pTmpTex = new CN3Texture;
 	for(int i=0;i<NumLightMap;i++)
 	{
-		ReadFile(hFile, &sx, sizeof(short), &dwRWC, NULL);
-		ReadFile(hFile, &sz, sizeof(short), &dwRWC, NULL);
+		ReadFile(hFile, &sx, sizeof(int16_t), &dwRWC, NULL);
+		ReadFile(hFile, &sz, sizeof(int16_t), &dwRWC, NULL);
 		pTmpTex->Load(hFile);
 
 		//loading bar...
@@ -604,13 +604,13 @@ void CN3Terrain::SetNormals()
 //
 //
 //
-unsigned short CN3Terrain::GetGrassAttr(int x, int z)
+uint16_t CN3Terrain::GetGrassAttr(int x, int z)
 {
-	unsigned short Attr;
+	uint16_t Attr;
 	if(x<0 || x>=m_ti_MapSize || z<0 || z>=m_ti_MapSize) return 0;
 	if(m_pGrassAttr && m_pGrassNum)
 	{
-		Attr = (((unsigned short)m_pGrassAttr[x*m_ti_MapSize + z])<<8) + m_pGrassNum[x*m_ti_MapSize + z];
+		Attr = (((uint16_t)m_pGrassAttr[x*m_ti_MapSize + z])<<8) + m_pGrassNum[x*m_ti_MapSize + z];
 		return Attr;
 	}
 	return 0;
@@ -644,7 +644,7 @@ void CN3Terrain::LoadGrassInfo()
 	m_iNumGrass = 0;
 	if(strcmp(m_pGrassFileName,"")==0)
 	{
-		ZeroMemory(m_pGrassAttr, sizeof(unsigned char)*m_ti_MapSize*m_ti_MapSize);
+		ZeroMemory(m_pGrassAttr, sizeof(uint8_t)*m_ti_MapSize*m_ti_MapSize);
 		return;
 	}
 
@@ -704,13 +704,13 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 	if(pUILoading) pUILoading->Render("Loading Terrain Tile Data...", 0);
 
 	DWORD dwRWC;
-	ReadFile(hFile, &m_NumTileTex, sizeof(uint32), &dwRWC, NULL);
+	ReadFile(hFile, &m_NumTileTex, sizeof(uint32_t), &dwRWC, NULL);
 	if(m_NumTileTex==0) return;
 
 	m_pTileTex = new CN3Texture [m_NumTileTex];
 
 	// NOTE: kinda a temp thing...
-	for(uint32 i=0; i<m_NumTileTex; ++i) {
+	for(uint32_t i=0; i<m_NumTileTex; ++i) {
 		m_pTileTex[i].m_iFileFormatVersion = m_iFileFormatVersion;
 	}
 
@@ -725,13 +725,13 @@ void CN3Terrain::LoadTileInfo(HANDLE hFile)
 		ReadFile(hFile, SrcName[i], MAX_PATH, &dwRWC, NULL);
 	}
 
-	short SrcIdx, TileIdx;
+	int16_t SrcIdx, TileIdx;
 	HANDLE hTTGFile;
 	char szLoadingBuff[128];
-	for(uint32 i=0;i<m_NumTileTex;i++)
+	for(uint32_t i=0;i<m_NumTileTex;i++)
 	{
-		ReadFile(hFile, &SrcIdx, sizeof(short), &dwRWC, NULL);
-		ReadFile(hFile, &TileIdx, sizeof(short), &dwRWC, NULL);
+		ReadFile(hFile, &SrcIdx, sizeof(int16_t), &dwRWC, NULL);
+		ReadFile(hFile, &TileIdx, sizeof(int16_t), &dwRWC, NULL);
 
 		hTTGFile = CreateFile(SrcName[SrcIdx], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
@@ -1185,7 +1185,7 @@ void CN3Terrain::SetLightMapPatch(int x, int z, HANDLE hFile, int* pAddr)
 
 	int jump = pAddr[px + (m_pat_MapSize*pz)];
 	if(jump<=0) return;
-	DWORD dwPtr = SetFilePointer (hFile, jump, NULL, FILE_BEGIN) ;	
+	uint32_t dwPtr = SetFilePointer (hFile, jump, NULL, FILE_BEGIN) ;	
 
 	int TexCount;
 	ReadFile(hFile, &TexCount, sizeof(int), &dwRWC, NULL);
@@ -1204,7 +1204,7 @@ void CN3Terrain::SetLightMapPatch(int x, int z, HANDLE hFile, int* pAddr)
 		rtx = px*PATCH_TILE_SIZE + tx;
 		rtz = pz*PATCH_TILE_SIZE + tz;
 
-		DWORD key = rtx*10000+rtz;
+		uint32_t key = rtx*10000+rtz;
 		m_LightMapPatch[x][z].insert(stlMap_N3TexValue(key,pTex));
 	}	
 }
@@ -1223,7 +1223,7 @@ CN3Texture* CN3Terrain::GetLightMap(int tx, int tz)
 	pz -= (m_pat_CenterPos.y-1);
 	if(px<0 || px>2 || pz<0 || pz>2) return NULL;
 
-	DWORD key = tx*10000 + tz;
+	uint32_t key = tx*10000 + tz;
 	stlMap_N3TexIt it = m_LightMapPatch[px][pz].find(key);
 	if(it!=m_LightMapPatch[px][pz].end())
 	{

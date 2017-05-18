@@ -166,7 +166,7 @@ public:
 	virtual CN3UIArea*			GetChildAreaByiOrder(eUI_AREA_TYPE eUAT, int iOrder);
 	virtual CN3UIString*		GetChildStringByiOrder(int iOrder);
 
-	virtual DWORD				MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t				MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual void				AllHighLightIconFree();
 
 	virtual __IconItemSkill*	GetHighlightIconItem(CN3UIIcon* pUIIcon) = 0;

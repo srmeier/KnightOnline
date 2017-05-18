@@ -4,10 +4,10 @@
 void CUser::SelNationToAgent(Packet & pkt)
 {
 	Packet result(WIZ_SEL_NATION);
-	uint8 nation = pkt.read<uint8>();
+	uint8_t nation = pkt.read<uint8_t>();
 	if (nation != KARUS && nation != ELMORAD)
 	{
-		result << uint8(0);
+		result << uint8_t(0);
 		Send(&result);
 		return;
 	}
@@ -25,8 +25,8 @@ void CUser::AllCharInfoToAgent()
 void CUser::ChangeHair(Packet & pkt)
 {
 	std::string strUserID;
-	uint8 nHair;
-	uint8 bOpcode, bFace;
+	uint8_t nHair;
+	uint8_t bOpcode, bFace;
 
 	// The opcode:
 	// 0 seems to be an in-game implementation for converting from old -> new hair data
@@ -46,9 +46,9 @@ void CUser::ChangeHair(Packet & pkt)
 void CUser::NewCharToAgent(Packet & pkt)
 {
 	Packet result(WIZ_NEW_CHAR);
-	uint8 nHair;
-	uint16 sClass;
-	uint8 bCharIndex, bRace, bFace, str, sta, dex, intel, cha, errorCode = 0;
+	uint8_t nHair;
+	uint16_t sClass;
+	uint8_t bCharIndex, bRace, bFace, str, sta, dex, intel, cha, errorCode = 0;
 	std::string strUserID;
 
 	pkt	>> bCharIndex >> strUserID >> bRace >> sClass >> bFace >> nHair
@@ -81,7 +81,7 @@ void CUser::DelCharToAgent(Packet & pkt)
 {
 	Packet result(WIZ_DEL_CHAR);
 	std::string strUserID, strSocNo;
-	uint8 bCharIndex;
+	uint8_t bCharIndex;
 	pkt >> bCharIndex >> strUserID >> strSocNo; 
 
 	if (bCharIndex > 2
@@ -89,7 +89,7 @@ void CUser::DelCharToAgent(Packet & pkt)
 		|| strSocNo.empty() || strSocNo.size() > 15
 		|| isClanLeader())
 	{
-		result << uint8(0) << uint8(-1);
+		result << uint8_t(0) << uint8_t(-1);
 		Send(&result);
 		return;
 	}
@@ -103,7 +103,7 @@ void CUser::SelCharToAgent(Packet & pkt)
 {
 	Packet result(WIZ_SEL_CHAR);
 	std::string strUserID, strAccountID;
-	uint8 bInit;
+	uint8_t bInit;
 
 	pkt >> strAccountID >> strUserID >> bInit;
 	if (strAccountID.empty() || strAccountID.size() > MAX_ID_SIZE
@@ -122,7 +122,7 @@ void CUser::SelCharToAgent(Packet & pkt)
 		pUser->Disconnect();
 
 		// And reject the login attempt (otherwise we'll probably desync char data)
-		result << uint8(0);
+		result << uint8_t(0);
 		Send(&result);
 		return;
 	}
@@ -134,7 +134,7 @@ void CUser::SelCharToAgent(Packet & pkt)
 void CUser::SelectCharacter(Packet & pkt)
 {
 	Packet result(WIZ_SEL_CHAR);
-	uint8 bResult, bInit;
+	uint8_t bResult, bInit;
 
 	if (isBanned())
 	{
@@ -213,7 +213,7 @@ void CUser::SelectCharacter(Packet & pkt)
 		&& GetZoneID() > 2)
 	{
 		result.Initialize(WIZ_KNIGHTS_PROCESS);
-		result << uint8(KNIGHTS_LIST_REQ) << GetClanID();
+		result << uint8_t(KNIGHTS_LIST_REQ) << GetClanID();
 		g_pMain->AddDatabaseRequest(result, this);
 	}
 	return;
@@ -222,15 +222,15 @@ fail_return:
 	Send(&result);
 }
 
-void CUser::SendServerChange(std::string & ip, uint8 bInit)
+void CUser::SendServerChange(std::string & ip, uint8_t bInit)
 {
 	Packet result(WIZ_SERVER_CHANGE);
-	result << ip << uint16(g_pMain->m_GameServerPort) << bInit << GetZoneID() << g_pMain->m_byOldVictory;
+	result << ip << uint16_t(g_pMain->m_GameServerPort) << bInit << GetZoneID() << g_pMain->m_byOldVictory;
 	Send(&result);
 }
 
 // happens on character selection
-void CUser::SetLogInInfoToDB(uint8 bInit)
+void CUser::SetLogInInfoToDB(uint8_t bInit)
 {
 	_ZONE_SERVERINFO *pInfo = g_pMain->m_ServerArray.GetData(g_pMain->m_nServerNo);
 	if (pInfo == nullptr) 
@@ -241,14 +241,14 @@ void CUser::SetLogInInfoToDB(uint8 bInit)
 
 	Packet result(WIZ_LOGIN_INFO);
 	result	<< GetName() 
-		<< pInfo->strServerIP << uint16(g_pMain->m_GameServerPort) << GetRemoteIP() 
+		<< pInfo->strServerIP << uint16_t(g_pMain->m_GameServerPort) << GetRemoteIP() 
 		<< bInit;
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
 void CUser::RecvLoginInfo(Packet & pkt)
 {
-	int8 bResult = pkt.read<uint8>();
+	int8_t bResult = pkt.read<uint8_t>();
 	if (bResult < 0)
 		Disconnect();
 }
@@ -259,7 +259,7 @@ void CUser::GameStart(Packet & pkt)
 	if (isInGame())
 		return;
 
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 
 	if (opcode == 1)
 	{
@@ -330,7 +330,7 @@ void CUser::GameStart(Packet & pkt)
 
 	if (GetZoneID() == ZONE_DELOS && pKnights != nullptr)
 	{
-		Packet result(WIZ_SIEGE, uint8(2));
+		Packet result(WIZ_SIEGE, uint8_t(2));
 		result << pKnights->GetID() << pKnights->m_sMarkVersion;
 		Send(&result);	
 	}

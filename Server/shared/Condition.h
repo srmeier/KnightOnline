@@ -10,8 +10,8 @@ public:
 	~Condition();
 	void BeginSynchronized();
 	void EndSynchronized();
-	uint32 Wait(time_t timeout);
-	uint32 Wait();
+	uint32_t Wait(time_t timeout);
+	uint32_t Wait();
 	void Signal();
 	void Broadcast();
 

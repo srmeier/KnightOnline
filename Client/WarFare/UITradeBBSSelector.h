@@ -29,7 +29,7 @@ public:
 	void MsgSend_OpenTradeBuyBBS();
 	void MsgSend_OpenTradeSellBBS();
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	CUITradeBBSSelector();
 	virtual ~CUITradeBBSSelector();

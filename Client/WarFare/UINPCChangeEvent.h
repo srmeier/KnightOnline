@@ -38,7 +38,7 @@ public:
 	virtual ~CUINPCChangeEvent();
 
 	bool	Load(HANDLE hFile);
-	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	void	Open();
 	void	Close();

@@ -50,7 +50,7 @@ bool CUIWarp::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUIWarp::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIWarp::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg & UIMSG_BUTTON_CLICK)
 	{

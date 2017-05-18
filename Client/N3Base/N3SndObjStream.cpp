@@ -44,8 +44,8 @@ bool CN3SndObjStream::Create(const std::string& szFN, e_SndType eType)
 
 	m_szFileName = szFN;
 
-	DWORD nBlockAlign = m_WaveFormat.nBlockAlign;
-	DWORD BlockPerSec = m_WaveFormat.nSamplesPerSec * nBlockAlign; 
+	uint32_t nBlockAlign = m_WaveFormat.nBlockAlign;
+	uint32_t BlockPerSec = m_WaveFormat.nSamplesPerSec * nBlockAlign; 
 
 	m_PlayTime = m_PastTime = m_WaveSize/BlockPerSec;
 	m_FinalByte = m_WaveSize%BlockPerSec;
@@ -152,7 +152,7 @@ BOOL CN3SndObjStream::WriteBuffer()
 	}
 	else 
 	{
-		FillMemory((LPSTR)pSoundBlock1, m_BlockSize, (BYTE)(m_WaveFormat.wBitsPerSample == 8 ? 128:0));
+		FillMemory((LPSTR)pSoundBlock1, m_BlockSize, (uint8_t)(m_WaveFormat.wBitsPerSample == 8 ? 128:0));
 		if(m_PastTime==1)
 		{
 			//mmioSeek(hMMIO, m_FinalByte, SEEK_END);

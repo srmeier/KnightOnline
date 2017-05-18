@@ -88,7 +88,7 @@ bool CUICmd::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUICmd::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUICmd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if ( CGameProcedure::s_pProcMain->m_pUITransactionDlg->IsVisible() )	
 			return true;

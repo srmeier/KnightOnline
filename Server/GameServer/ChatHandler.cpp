@@ -99,8 +99,8 @@ void CUser::CleanupChatCommands() { free_command_table(s_commandTable); }
 void CUser::Chat(Packet & pkt)
 {
 	Packet result;
-	uint16 sessID;
-	uint8 type = pkt.read<uint8>(), bOutType = type, seekingPartyOptions, bNation;
+	uint16_t sessID;
+	uint8_t type = pkt.read<uint8_t>(), bOutType = type, seekingPartyOptions, bNation;
 	string chatstr, finalstr, strSender, * strMessage, chattype;
 	CUser *pUser;
 	CKnights * pKnights;
@@ -119,7 +119,7 @@ void CUser::Chat(Packet & pkt)
 	if (isGM() && ProcessChatCommand(chatstr))
 	{
 		chattype = "GAME MASTER";
-		g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16(GetX()),uint16(GetZ())));
+		g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 		return;
 	}
 
@@ -279,17 +279,17 @@ void CUser::Chat(Packet & pkt)
 	if (!chattype.empty())
 	{
 		if (pUser && type == 2)
-			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),pUser->GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16(GetX()),uint16(GetZ())));
+			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),pUser->GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 		else if (pKnights && (type == 6 || type == 15))
-			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),pKnights->GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16(GetX()),uint16(GetZ())));
+			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),pKnights->GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 		else
-			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),chatstr.c_str(),GetZoneID(),uint16(GetX()),uint16(GetZ())));
+			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 	}
 }
 
 void CUser::ChatTargetSelect(Packet & pkt)
 {
-	uint8 type = pkt.read<uint8>();
+	uint8_t type = pkt.read<uint8_t>();
 
 	// TODO: Replace this with an enum
 	// Attempt to find target player in-game
@@ -303,21 +303,21 @@ void CUser::ChatTargetSelect(Packet & pkt)
 
 		CUser *pUser = g_pMain->GetUserPtr(strUserID, TYPE_CHARACTER);
 		if (pUser == nullptr || pUser == this)
-			result << int16(0); 
+			result << int16_t(0); 
 		else if (pUser->isBlockingPrivateChat())
-			result << int16(-1) << pUser->GetName();
+			result << int16_t(-1) << pUser->GetName();
 		else
 		{
 			m_sPrivateChatUser = pUser->GetSocketID();
-			result << int16(1) << pUser->GetName();
+			result << int16_t(1) << pUser->GetName();
 		}
 		Send(&result);
 	}
 	else if (type == 3)
 	{
 		//Questions
-		uint8 sSubType;
-		uint8 sMessageLen;
+		uint8_t sSubType;
+		uint8_t sMessageLen;
 		std::string sMessage;
 		pkt >> sSubType >> sMessageLen >> sMessage;
 	}
@@ -341,7 +341,7 @@ void CUser::SendDeathNotice(Unit * pKiller, DeathNoticeType noticeType)
 
 	string buffer;
 	if(noticeType == 0 || noticeType == 2)
-		g_pMain->GetServerResource(IDS_DEATH_ANNOUNCEMENT, &buffer, pKiller->GetName().c_str(), GetName().c_str(), uint16(GetX()), uint16(GetZ()));
+		g_pMain->GetServerResource(IDS_DEATH_ANNOUNCEMENT, &buffer, pKiller->GetName().c_str(), GetName().c_str(), uint16_t(GetX()), uint16_t(GetZ()));
 			else
 				g_pMain->GetServerResource(IDS_GUARD_TOWER_DEATH_ANNOUNCEMENT, &buffer, pKiller->GetName().c_str(), GetName().c_str());
 
@@ -351,16 +351,16 @@ void CUser::SendDeathNotice(Unit * pKiller, DeathNoticeType noticeType)
 	ChatPacket::Construct(&result, PUBLIC_CHAT, strMessage);
 	g_pMain->Send_Zone(&result, GetZoneID());
 
-	//Packet result(WIZ_CHAT, uint8(DEATH_NOTICE));
+	//Packet result(WIZ_CHAT, uint8_t(DEATH_NOTICE));
 
 	//result.SByte();
 	//result	<< GetNation()
-	//	<< uint8(noticeType)
+	//	<< uint8_t(noticeType)
 	//	<< pKiller->GetID() // session ID?
 	//	<< pKiller->GetName()
 	//	<< GetID() // session ID?
 	//	<< GetName()
-	//	<< uint16(GetX()) << uint16(GetZ());
+	//	<< uint16_t(GetX()) << uint16_t(GetZ());
 
 	//SendToZone(&result,this,pKiller->GetEventRoom(),(isInArena() ? RANGE_20M : 0.0f));
 }
@@ -378,7 +378,7 @@ bool CUser::ProcessChatCommand(std::string & message)
 
 	// Split up the command by spaces
 	CommandArgs vargs = StrSplit(message, " ");
-	std::string command = vargs.front(); // grab the first word (the command)
+	std::string command = vargs.front(); // grab the first uint16_t (the command)
 	vargs.pop_front(); // remove the command from the argument list
 
 	// Make the command lowercase, for 'case-insensitive' checking.
@@ -408,7 +408,7 @@ COMMAND_HANDLER(CUser::HandleTestCommand)
 	if (!isGM())
 		return false;
 
-	uint8 WizCode = 0;
+	uint8_t WizCode = 0;
 	 int Type = 1;
 
 	 if (vargs.size() < 1)
@@ -428,13 +428,13 @@ COMMAND_HANDLER(CUser::HandleTestCommand)
 	 }
 
 	 const char *filePath = "sendf.bin"; 
-	 BYTE *fileBuf;   
+	 uint8_t *fileBuf;   
 	 FILE *file = NULL;  
 
 	 if ((file = fopen(filePath, "rb")) == NULL)
 	  return true;
 	 long fileSize = getFileSize(file);
-	 fileBuf = new BYTE[fileSize];
+	 fileBuf = new uint8_t[fileSize];
 	 fread(fileBuf, fileSize, 1, file);
 
 	 Packet pckt(WizCode);
@@ -475,7 +475,7 @@ COMMAND_HANDLER(CUser::HandleGiveItemCommand)
 		return true;
 	}
 
-	uint32 nItemID = atoi(vargs.front().c_str());
+	uint32_t nItemID = atoi(vargs.front().c_str());
 	vargs.pop_front();
 	_ITEM_TABLE *pItem = g_pMain->GetItemPtr(nItemID);
 	if (pItem == nullptr)
@@ -485,14 +485,14 @@ COMMAND_HANDLER(CUser::HandleGiveItemCommand)
 		return true;
 	}
 
-	uint16 sCount = 1;
+	uint16_t sCount = 1;
 	if (!vargs.empty())
 	{
 		sCount = atoi(vargs.front().c_str());
 		vargs.pop_front();
 	}
 
-	uint32 Time = 0;
+	uint32_t Time = 0;
 	if (!vargs.empty())
 		Time = atoi(vargs.front().c_str());
 
@@ -596,7 +596,7 @@ bool CGameServerDlg::ProcessServerCommand(std::string & message)
 
 	// Split up the command by spaces
 	CommandArgs vargs = StrSplit(message, " ");
-	std::string command = vargs.front(); // grab the first word (the command)
+	std::string command = vargs.front(); // grab the first uint16_t (the command)
 	vargs.pop_front(); // remove the command from the argument list
 
 	// Make the command lowercase, for 'case-insensitive' checking.
@@ -731,7 +731,7 @@ COMMAND_HANDLER(CUser::HandleLoyaltyChangeCommand)
 		return true;
 	}
 
-	uint32 nLoyalty = atoi(vargs.front().c_str());
+	uint32_t nLoyalty = atoi(vargs.front().c_str());
 
 	if (nLoyalty != 0)
 		pUser->SendLoyaltyChange(nLoyalty, false);
@@ -762,7 +762,7 @@ COMMAND_HANDLER(CUser::HandleExpChangeCommand)
 		return true;
 	}
 
-	int64 nExp = atoi(vargs.front().c_str());
+	int64_t nExp = atoi(vargs.front().c_str());
 
 	if (nExp != 0)
 		pUser->ExpChange(nExp);
@@ -793,7 +793,7 @@ COMMAND_HANDLER(CUser::HandleGoldChangeCommand)
 		return true;
 	}
 
-	uint32 nGold = atoi(vargs.front().c_str());
+	uint32_t nGold = atoi(vargs.front().c_str());
 
 	if (nGold != 0)
 	{
@@ -819,7 +819,7 @@ COMMAND_HANDLER(CUser::HandleLoyaltyAddCommand)
 		return true;
 	}
 
-	g_pMain->m_byNPEventAmount = (uint8) atoi(vargs.front().c_str());
+	g_pMain->m_byNPEventAmount = (uint8_t) atoi(vargs.front().c_str());
 
 	// Don't send the announcement if we're turning the event off.
 	if (g_pMain->m_byNPEventAmount == 0)
@@ -843,7 +843,7 @@ COMMAND_HANDLER(CUser::HandleExpAddCommand)
 		return true;
 	}
 
-	g_pMain->m_byExpEventAmount = (uint8) atoi(vargs.front().c_str());
+	g_pMain->m_byExpEventAmount = (uint8_t) atoi(vargs.front().c_str());
 
 	// Don't send the announcement if we're turning the event off.
 	if (g_pMain->m_byExpEventAmount == 0)
@@ -867,7 +867,7 @@ COMMAND_HANDLER(CUser::HandleMoneyAddCommand)
 		return true;
 	}
 
-	g_pMain->m_byCoinEventAmount = (uint8) atoi(vargs.front().c_str());
+	g_pMain->m_byCoinEventAmount = (uint8_t) atoi(vargs.front().c_str());
 
 	// Don't send the announcement if we're turning the event off.
 	if (g_pMain->m_byCoinEventAmount == 0)
@@ -988,7 +988,7 @@ COMMAND_HANDLER(CUser::HandleResetPlayerRankingCommand)
 		return true;
 	}
 
-	uint8 nZoneID;
+	uint8_t nZoneID;
 	nZoneID = atoi(vargs.front().c_str());
 
 	if (nZoneID > 0)
@@ -1079,7 +1079,7 @@ COMMAND_HANDLER(CGameServerDlg::HandleWarResultCommand)
 		return true;
 	}
 
-	uint8 winner_nation;
+	uint8_t winner_nation;
 	winner_nation = atoi(vargs.front().c_str());
 
 	if (winner_nation > 0 && winner_nation < 3)
@@ -1093,8 +1093,8 @@ void CGameServerDlg::SendHelpDescription(CUser *pUser, std::string sHelpMessage)
 	if (pUser == nullptr || sHelpMessage == "")
 		return;
 
-	Packet result(WIZ_CHAT, (uint8)PUBLIC_CHAT);
-	result << pUser->GetNation() << pUser->GetSocketID() << (uint8)0 << sHelpMessage;
+	Packet result(WIZ_CHAT, (uint8_t)PUBLIC_CHAT);
+	result << pUser->GetNation() << pUser->GetSocketID() << (uint8_t)0 << sHelpMessage;
 	pUser->Send(&result);
 }
 
@@ -1222,7 +1222,7 @@ COMMAND_HANDLER(CGameServerDlg::HandleReloadRanksCommand)
 
 COMMAND_HANDLER(CGameServerDlg::HandleCountCommand)
 {
-	uint16 count = 0;
+	uint16_t count = 0;
 	SessionMap sessMap = g_pMain->m_socketMgr.GetActiveSessionMap();
 	foreach (itr, sessMap)
 	{
@@ -1234,7 +1234,7 @@ COMMAND_HANDLER(CGameServerDlg::HandleCountCommand)
 	return true;
 }
 
-void CGameServerDlg::SendFormattedResource(uint32 nResourceID, uint8 byNation, bool bIsNotice, ...)
+void CGameServerDlg::SendFormattedResource(uint32_t nResourceID, uint8_t byNation, bool bIsNotice, ...)
 {
 	_SERVER_RESOURCE *pResource = m_ServerResourceArray.GetData(nResourceID);
 	if (pResource == nullptr)

@@ -92,9 +92,9 @@ void CN3UITrackBar::SetRegion(const RECT& Rect)
 	UpdateThumbPos();	
 }
 
-DWORD CN3UITrackBar::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UITrackBar::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 	if (false == IsIn(ptCur.x, ptCur.y))	// 영역 밖이면
 	{

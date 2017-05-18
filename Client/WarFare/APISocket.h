@@ -30,7 +30,7 @@ public:
 	{
 		__ASSERT(size>0, "1");
 		m_iBufSize = size;
-		m_pBuffer = new BYTE[m_iBufSize];
+		m_pBuffer = new uint8_t[m_iBufSize];
 
 		m_iHeadPos = 0;
 		m_iTailPos = 0;
@@ -43,7 +43,7 @@ public:
 			delete[] m_pBuffer, m_pBuffer = NULL;
 	}
 
-	void	PutData(BYTE *pData, int len)
+	void	PutData(uint8_t *pData, int len)
 	{
 		if (len<=0)
 		{
@@ -72,7 +72,7 @@ public:
 			m_iTailPos += len;
 		}
 	}
-	void	GetData(BYTE *pData, int len)
+	void	GetData(uint8_t *pData, int len)
 	{
 		__ASSERT(len>0&&len<=GetValidCount(),"GetData error");
 		if (len < m_iBufSize-m_iHeadPos)
@@ -86,7 +86,7 @@ public:
 			if (sc) CopyMemory(pData+fc, m_pBuffer, sc);
 		}
 	}
-	int		GetOutData(BYTE *pData) //HeadPos, 변화
+	int		GetOutData(uint8_t *pData) //HeadPos, 변화
 	{
 		int len = GetValidCount();
 		int fc, sc;
@@ -107,14 +107,14 @@ public:
 		}
 		return len;
 	}
-	void	PutData(BYTE& data)
+	void	PutData(uint8_t& data)
 	{
 		int len = 1;
 		while (IsOverFlowCondition(len)) BufferResize();
 		m_pBuffer[m_iTailPos++] = data;
 		if (m_iTailPos==m_iBufSize) m_iTailPos = 0;
 	}
-	BYTE&	GetHeadData(){return m_pBuffer[m_iHeadPos];}
+	uint8_t&	GetHeadData(){return m_pBuffer[m_iHeadPos];}
 	//1 Byte Operation;
 	//false : 모든데이터 다빠짐, TRUE: 정상적으로 진행중
 	BOOL	HeadIncrease(int increasement=1)
@@ -143,7 +143,7 @@ protected:
 	{
 		int prevBufSize = m_iBufSize;
 		m_iBufSize <<= 1;
-		BYTE *pNewData = new BYTE[m_iBufSize];
+		uint8_t *pNewData = new uint8_t[m_iBufSize];
 		CopyMemory(pNewData, m_pBuffer, prevBufSize);
 		if (m_iTailPos<m_iHeadPos) 
 		{
@@ -155,7 +155,7 @@ protected:
 	}
 protected:
 	int		m_iBufSize;
-	BYTE	*m_pBuffer;
+	uint8_t	*m_pBuffer;
 
 	int		m_iHeadPos;
 	int		m_iTailPos;
@@ -165,7 +165,7 @@ class DataPack
 {
 public:
 	int		m_Size;
-	BYTE*	m_pData;
+	uint8_t*	m_pData;
 
 
 
@@ -175,8 +175,8 @@ protected:
 //	static _int64		s_PublicKey;
 //	static _int64		s_PrivateKey;				// = 0x1234567890123456;
 	static CJvCryption	s_JvCrypt;
-	static DWORD			s_wSendVal;//static WORD			s_wSendVal;
-	static DWORD			s_wRcvVal;//static WORD			s_wRcvVal;
+	static uint32_t			s_wSendVal;//static uint16_t			s_wSendVal;
+	static uint32_t			s_wRcvVal;//static uint16_t			s_wRcvVal;
 public:
 	static void			InitCrypt(_int64 PublicKey)
 	{
@@ -199,15 +199,15 @@ public:
 		m_Size = 0;
 		m_pData = NULL;
 	}
-	DataPack(int size, BYTE *pData)
+	DataPack(int size, uint8_t *pData)
 	{
 		__ASSERT(size, "size is 0");		
 		m_Size = size;
-		m_pData = new BYTE[size];
+		m_pData = new uint8_t[size];
 		CopyMemory(m_pData, pData, size);
 	}
 #ifdef _CRYPTION
-	DataPack(int size, BYTE *pData, BOOL bSend);
+	DataPack(int size, uint8_t *pData, BOOL bSend);
 #endif
 	virtual ~DataPack(){delete[] m_pData;}
 };
@@ -215,7 +215,7 @@ public:
 #ifdef _DEBUG
 struct __SocketStatisics
 {
-	DWORD dwTime;
+	uint32_t dwTime;
 	int iSize;
 };
 #include <vector>
@@ -229,9 +229,9 @@ protected:
 	
 	HWND		m_hWndTarget;
 	std::string m_szIP;
-	DWORD		m_dwPort;
+	uint32_t		m_dwPort;
 
-	BYTE	m_RecvBuf[RECEIVE_BUF_SIZE];
+	uint8_t	m_RecvBuf[RECEIVE_BUF_SIZE];
 	BOOL	m_bConnected;
 
 	BB_CircularBuffer	m_CB;
@@ -253,27 +253,27 @@ public:
 
 	BOOL	m_bEnableSend; // 보내기 가능..?
 public:
-	int		Connect(HWND hWnd, const char* pszIP, DWORD port);
+	int		Connect(HWND hWnd, const char* pszIP, uint32_t port);
 	void	Disconnect();
 	BOOL	IsConnected() { return m_bConnected; }
 	int		ReConnect();
 
 	std::string GetCurrentIP() { return m_szIP; }
-	DWORD		GetCurrentPort() { return m_dwPort; }
+	uint32_t		GetCurrentPort() { return m_dwPort; }
 
 	void	Release();	
 	void	Receive();
 	BOOL	ReceiveProcess();
-	void	Send(BYTE* pData, int nSize);
+	void	Send(uint8_t* pData, int nSize);
 
 
 	//패킷 만들기 함수
-	static	void	MP_AddByte(BYTE *dest, int& iOffset, BYTE byte) { CopyMemory(dest+iOffset, &byte, 1); iOffset ++; }
-	static	void	MP_AddShort(BYTE *dest, int& iOffset, short value) { CopyMemory(dest+iOffset, &value, 2); iOffset += 2; }
-	static	void	MP_AddWord(BYTE *dest, int& offset, WORD value) { CopyMemory(dest+offset, &value, 2); offset += 2; }
-	static	void	MP_AddDword(BYTE *dest, int &iOffset, DWORD dword) { CopyMemory(dest+iOffset, &dword, 4); iOffset += 4; }
-	static	void	MP_AddFloat(BYTE *dest, int &iOffset, float value) { CopyMemory(dest+iOffset, &value, 4);	iOffset += 4; }
-	static	void	MP_AddString(BYTE *dest, int &iOffset, const std::string& szString)
+	static	void	MP_AddByte(uint8_t *dest, int& iOffset, uint8_t byte) { CopyMemory(dest+iOffset, &byte, 1); iOffset ++; }
+	static	void	MP_AddShort(uint8_t *dest, int& iOffset, int16_t value) { CopyMemory(dest+iOffset, &value, 2); iOffset += 2; }
+	static	void	MP_AddWord(uint8_t *dest, int& offset, uint16_t value) { CopyMemory(dest+offset, &value, 2); offset += 2; }
+	static	void	MP_AddDword(uint8_t *dest, int &iOffset, uint32_t dword) { CopyMemory(dest+iOffset, &dword, 4); iOffset += 4; }
+	static	void	MP_AddFloat(uint8_t *dest, int &iOffset, float value) { CopyMemory(dest+iOffset, &value, 4);	iOffset += 4; }
+	static	void	MP_AddString(uint8_t *dest, int &iOffset, const std::string& szString)
 	{
 		if(!szString.empty())
 		{
@@ -284,14 +284,14 @@ public:
 	}
 
 	//패킷 Parsing 함수
-	static	bool		Parse_GetBool(const BYTE* buf, int &iOffset) { iOffset++; return *(BYTE*)(buf+iOffset-1) != 0; }
-	static	BYTE		Parse_GetByte(const BYTE* buf, int &iOffset) { iOffset ++; return *(BYTE*)(buf+iOffset-1); }
-	static	short		Parse_GetShort(const BYTE* buf, int& iOffset) { iOffset += 2; return *(short*)(buf+iOffset-2); }
-	static  WORD		Parse_GetWord(const BYTE* buf, int &iOffset) { iOffset += 2; return *(PWORD)(buf+iOffset-2); }
-	static	DWORD		Parse_GetDword(const BYTE* buf, int &iOffset) { iOffset += 4; return *(DWORD*)(buf+iOffset-4); }
-	static	float		Parse_GetFloat(const BYTE* buf, int& iOffset) { iOffset += 4; return *(float*)(buf+iOffset-4); }
-	static	void		Parse_GetString(const BYTE* buf, int &iOffset, std::string& szString, int len);
-	static	__int64		Parse_GetInt64(const BYTE* buf, int &iOffset) { iOffset += 8; return *(__int64*)(buf+iOffset-8); }
+	static	bool		Parse_GetBool(const uint8_t* buf, int &iOffset) { iOffset++; return *(uint8_t*)(buf+iOffset-1) != 0; }
+	static	uint8_t		Parse_GetByte(const uint8_t* buf, int &iOffset) { iOffset ++; return *(uint8_t*)(buf+iOffset-1); }
+	static	int16_t		Parse_GetShort(const uint8_t* buf, int& iOffset) { iOffset += 2; return *(int16_t*)(buf+iOffset-2); }
+	static  uint16_t		Parse_GetWord(const uint8_t* buf, int &iOffset) { iOffset += 2; return *(PWORD)(buf+iOffset-2); }
+	static	uint32_t		Parse_GetDword(const uint8_t* buf, int &iOffset) { iOffset += 4; return *(uint32_t*)(buf+iOffset-4); }
+	static	float		Parse_GetFloat(const uint8_t* buf, int& iOffset) { iOffset += 4; return *(float*)(buf+iOffset-4); }
+	static	void		Parse_GetString(const uint8_t* buf, int &iOffset, std::string& szString, int len);
+	static	__int64		Parse_GetInt64(const uint8_t* buf, int &iOffset) { iOffset += 8; return *(__int64*)(buf+iOffset-8); }
 
 	CAPISocket();
 	virtual ~CAPISocket();

@@ -40,7 +40,7 @@ void CPlayerOther::Tick()
 		CPlayerNPC::Tick();
 }
 
-bool CPlayerOther::Init(e_Race eRace, int iFace, int iHair, DWORD* pdwItemIDs, int* piItenDurabilities)
+bool CPlayerOther::Init(e_Race eRace, int iFace, int iHair, uint32_t* pdwItemIDs, int* piItenDurabilities)
 {
 	if(NULL == pdwItemIDs || NULL == piItenDurabilities) return false;
 
@@ -188,7 +188,7 @@ void CPlayerOther::KnightsInfoSet(int iID, const std::string& szName, int iGrade
 	}
 }
 
-void CPlayerOther::SetSoundAndInitFont(DWORD dwFontFlag)
+void CPlayerOther::SetSoundAndInitFont(uint32_t dwFontFlag)
 {
 	CPlayerBase::SetSoundAndInitFont();
 

@@ -15,6 +15,7 @@
 #define __WAVE_H_
 
 #include <Windows.h>
+#include "types.h"
 
 #include <mmsystem.h>
 #include <mmreg.h>
@@ -30,12 +31,12 @@ public:
     HMMIO         m_hmmio;       // MM I/O handle for the WAVE
     MMCKINFO      m_ck;          // Multimedia RIFF chunk
     MMCKINFO      m_ckRiff;      // Use in opening a WAVE file
-    DWORD         m_dwSize;      // The size of the wave file
+    uint32_t      m_dwSize;      // The size of the wave file
     MMIOINFO      m_mmioinfoOut;
-    DWORD         m_dwFlags;
+    uint32_t      m_dwFlags;
     BOOL          m_bIsReadingFromMemory;
-    BYTE*         m_pbData;
-    BYTE*         m_pbDataCur;
+    uint8_t*      m_pbData;
+    uint8_t*      m_pbDataCur;
     ULONG         m_ulDataSize;
 
 protected:
@@ -46,14 +47,14 @@ public:
     CWaveFile();
     ~CWaveFile();
 
-    HRESULT Open( LPCSTR strFileName, WAVEFORMATEX* pwfx, DWORD dwFlags );
-    HRESULT OpenFromMemory( BYTE* pbData, ULONG ulDataSize, WAVEFORMATEX* pwfx, DWORD dwFlags );
+    HRESULT Open( LPCSTR strFileName, WAVEFORMATEX* pwfx, uint32_t dwFlags );
+    HRESULT OpenFromMemory( uint8_t* pbData, ULONG ulDataSize, WAVEFORMATEX* pwfx, uint32_t dwFlags );
     HRESULT Close();
 
-    HRESULT Read( BYTE* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead );
-    HRESULT Write( UINT nSizeToWrite, BYTE* pbData, UINT* pnSizeWrote );
+    HRESULT Read( uint8_t* pBuffer, DWORD dwSizeToRead, DWORD* pdwSizeRead );
+    HRESULT Write( UINT nSizeToWrite, uint8_t* pbData, UINT* pnSizeWrote );
 
-    DWORD   GetSize();
+    uint32_t   GetSize();
     HRESULT ResetFile();
     WAVEFORMATEX* GetFormat() { return m_pwfx; };
 };

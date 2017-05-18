@@ -304,9 +304,9 @@ e_UIWND_DISTRICT CUIWareHouseDlg::GetWndDistrict(__IconItemSkill* spItem)
 	return UIWND_DISTRICT_UNKNOWN;
 }
 
-DWORD CUIWareHouseDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUIWareHouseDlg::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 
@@ -321,7 +321,7 @@ DWORD CUIWareHouseDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT&
 	return CN3UIWndBase::MouseProc(dwFlags, ptCur, ptOld);
 }
 
-bool CUIWareHouseDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIWareHouseDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 // Temp Define
 #define FAIL_CODE {		\
@@ -428,7 +428,7 @@ bool CUIWareHouseDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	e_UIWND_DISTRICT eUIWnd;
 	int iOrder;
 
-	DWORD dwBitMask = 0x000f0000;
+	uint32_t dwBitMask = 0x000f0000;
 
 	switch (dwMsg & dwBitMask)
 	{
@@ -1071,7 +1071,7 @@ void CUIWareHouseDlg::AcceptIconDrop(__IconItemSkill* spItem)
 
 void CUIWareHouseDlg::SendToServerToWareMsg(int iItemID, byte page, byte startpos, byte pos, int iCount)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_GET_IN);
@@ -1086,7 +1086,7 @@ void CUIWareHouseDlg::SendToServerToWareMsg(int iItemID, byte page, byte startpo
 
 void CUIWareHouseDlg::SendToServerFromWareMsg(int iItemID, byte page, byte startpos, byte pos, int iCount)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_GET_OUT);
@@ -1101,7 +1101,7 @@ void CUIWareHouseDlg::SendToServerFromWareMsg(int iItemID, byte page, byte start
 
 void CUIWareHouseDlg::SendToServerWareToWareMsg(int iItemID, byte page, byte startpos, byte destpos)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_WARE_MOVE);
@@ -1115,7 +1115,7 @@ void CUIWareHouseDlg::SendToServerWareToWareMsg(int iItemID, byte page, byte sta
 
 void CUIWareHouseDlg::SendToServerInvToInvMsg(int iItemID, byte page, byte startpos, byte destpos)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WAREHOUSE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_WARE_INV_MOVE);
@@ -1127,7 +1127,7 @@ void CUIWareHouseDlg::SendToServerInvToInvMsg(int iItemID, byte page, byte start
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
 
-void CUIWareHouseDlg::ReceiveResultToWareMsg(BYTE bResult)	// 넣는 경우..
+void CUIWareHouseDlg::ReceiveResultToWareMsg(uint8_t bResult)	// 넣는 경우..
 {
 	CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 	int iGold = CN3UIWndBase::m_pCountableItemEdit->GetQuantity();
@@ -1224,7 +1224,7 @@ void CUIWareHouseDlg::ReceiveResultToWareMsg(BYTE bResult)	// 넣는 경우..
 	}
 }
 
-void CUIWareHouseDlg::ReceiveResultFromWareMsg(BYTE bResult)	// 빼는 경우..
+void CUIWareHouseDlg::ReceiveResultFromWareMsg(uint8_t bResult)	// 빼는 경우..
 {
 	CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 	int iGold = CN3UIWndBase::m_pCountableItemEdit->GetQuantity();
@@ -1324,7 +1324,7 @@ void CUIWareHouseDlg::ReceiveResultFromWareMsg(BYTE bResult)	// 빼는 경우..
 	}
 }
 
-void CUIWareHouseDlg::ReceiveResultWareToWareMsg(BYTE bResult)
+void CUIWareHouseDlg::ReceiveResultWareToWareMsg(uint8_t bResult)
 {
 	CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 	CN3UIArea* pArea = NULL;
@@ -1370,7 +1370,7 @@ void CUIWareHouseDlg::ReceiveResultWareToWareMsg(BYTE bResult)
 	SetState(UI_STATE_COMMON_NONE);
 }
 
-void CUIWareHouseDlg::ReceiveResultInvToInvMsg(BYTE bResult)
+void CUIWareHouseDlg::ReceiveResultInvToInvMsg(uint8_t bResult)
 {
 	CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 	CN3UIArea* pArea = NULL;
@@ -1448,7 +1448,7 @@ void CUIWareHouseDlg::ItemCountOK()
 
 				case UIITEM_TYPE_COUNTABLE:
 					if ( iGold <= 0 ) return;
-					// short 범위이상은 살수 없다..
+					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
 						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
@@ -1479,7 +1479,7 @@ void CUIWareHouseDlg::ItemCountOK()
 
 				case UIITEM_TYPE_COUNTABLE_SMALL:
 					if ( iGold <= 0 ) return;
-					// short 범위이상은 살수 없다..
+					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
 						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
@@ -1574,7 +1574,7 @@ void CUIWareHouseDlg::ItemCountOK()
 			{
 				case UIITEM_TYPE_COUNTABLE:
 					if ( iGold <= 0 ) return;
-					// short 범위이상은 살수 없다..
+					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
 						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
@@ -1596,7 +1596,7 @@ void CUIWareHouseDlg::ItemCountOK()
 
 				case UIITEM_TYPE_COUNTABLE_SMALL:
 					if ( iGold <= 0 ) return;
-					// short 범위이상은 살수 없다..
+					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
 						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);

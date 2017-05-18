@@ -32,7 +32,7 @@ template <class T> void swap(T &a, T &b)
 }
 
 // swap whole triangles
-void CN3PMeshCreate::swap_triangle(WORD *t1, WORD *t2)
+void CN3PMeshCreate::swap_triangle(uint16_t *t1, uint16_t *t2)
 {
 	swap(t1[0], t2[0]);
 	swap(t1[1], t2[1]);
@@ -40,7 +40,7 @@ void CN3PMeshCreate::swap_triangle(WORD *t1, WORD *t2)
 }
 
 // 없어질 삼각형의 넓이 계산, 혹은 변의 길이의 합
-float CN3PMeshCreate::GetTriCollapsesLoss(WORD* pTriIndex, bool bArea)
+float CN3PMeshCreate::GetTriCollapsesLoss(uint16_t* pTriIndex, bool bArea)
 {
 	// These are the corners of the triangle.
 	D3DXVECTOR3 pts[3] = {
@@ -68,7 +68,7 @@ float CN3PMeshCreate::GetTriCollapsesLoss(WORD* pTriIndex, bool bArea)
 
 // add the cost of a triangle being modified (ie one of its vertices being changed) into the accumulator "sofar".
 // This is the meat of the edge evaluation function.
-void CN3PMeshCreate::combine_modified(float &sofar, WORD *tri, int which, int what_to, bool bSumOfLoss)
+void CN3PMeshCreate::combine_modified(float &sofar, uint16_t *tri, int which, int what_to, bool bSumOfLoss)
 {
 	// These are the corners of the triangle at the moment.
 	D3DXVECTOR3 pts[3] = {
@@ -165,7 +165,7 @@ void CN3PMeshCreate::Release()
 }
 
 // collapse pt_from onto pt_to, adding the collapse to the collapse list
-void CN3PMeshCreate::Collapse(WORD& pt_to, WORD& pt_from, float edge_val)
+void CN3PMeshCreate::Collapse(uint16_t& pt_to, uint16_t& pt_from, float edge_val)
 {
 	// Swap the collapsing vertex to the end of the vertex list.
 	SwapToEnd(pt_from, m_pCollapses, m_pCollapseUpTo, pt_to, pt_from);
@@ -334,8 +334,8 @@ done_triangle_list:
 void CN3PMeshCreate::TryEdge(
 					 int pt_a, int pt_b,
 					 float &be_val,
-					 WORD &be_to,
-					 WORD &be_from,
+					 uint16_t &be_to,
+					 uint16_t &be_from,
 					 bool &IsOver)
 {
 	// There's actually two edge modifications being considered here:
@@ -357,7 +357,7 @@ void CN3PMeshCreate::TryEdge(
 	}
 
 	// Look for all triangles affected by the collapse
-	for (WORD *tri = m_pIndices; tri < m_pIndices + m_iNumIndices; tri += 3)
+	for (uint16_t *tri = m_pIndices; tri < m_pIndices + m_iNumIndices; tri += 3)
 	{
 		if (tri[0] == pt_a)
 		{
@@ -515,14 +515,14 @@ void CN3PMeshCreate::TryEdge(
 bool CN3PMeshCreate::FindACollapse(float &val_so_far)
 {
 	// First find the best edge to collapse in any material.
-	WORD *tri;
+	uint16_t *tri;
 
 	float be_val = 10000000000000000000000000000000000.f; // start with a big number
 	bool IsOver = true;
 
 	// The two ends of the edge.
-	WORD be_index_a;
-	WORD be_index_b;
+	uint16_t be_index_a;
+	uint16_t be_index_b;
 
 	for (tri = m_pIndices; tri < m_pIndices + m_iNumIndices; tri += 3)
 	{
@@ -550,7 +550,7 @@ bool CN3PMeshCreate::FindACollapse(float &val_so_far)
 			m_pVertices[be_index_b].y == m_pVertices[i].y &&
 			m_pVertices[be_index_b].z == m_pVertices[i].z )
 		{
-			WORD index_from = i;
+			uint16_t index_from = i;
 			if (be_index_a < m_iNumVertices && index_from != be_index_a)
 				Collapse(be_index_a, index_from, val_so_far);
 		}
@@ -631,25 +631,25 @@ CN3PMesh *CN3PMeshCreate::CreateRendererMesh()
 	pPMesh->m_iMinNumVertices = m_iNumVertices;
 
 	pPMesh->Create(pPMesh->m_iMaxNumVertices, pPMesh->m_iMaxNumIndices);
-//	pPMesh->m_pIndices = new WORD[pPMesh->m_iMaxNumIndices];
+//	pPMesh->m_pIndices = new uint16_t[pPMesh->m_iMaxNumIndices];
 //	__ASSERT(pPMesh->m_pIndices);
 //	pPMesh->m_pVertices = new __VertexT1[pPMesh->m_iMaxNumVertices];
 //	__ASSERT(pPMesh->m_pVertices);
 
 #ifdef _USE_VERTEXBUFFER
 	HRESULT hr;
-	BYTE* pByte;
+	uint8_t* pByte;
 	hr = pPMesh->m_pVB->Lock(0, 0, &pByte, 0);
 	CopyMemory(pByte, m_pVertices, pPMesh->m_iMaxNumVertices*sizeof(__VertexT1));
 	pPMesh->m_pVB->Unlock();
 
 	hr = pPMesh->m_pIB->Lock(0, 0, &pByte, 0);
-	CopyMemory(pByte, m_pIndices, pPMesh->m_iMaxNumIndices*sizeof(WORD));
+	CopyMemory(pByte, m_pIndices, pPMesh->m_iMaxNumIndices*sizeof(uint16_t));
 	pPMesh->m_pIB->Unlock();
 
 #else
 	// The indices can be a straight copy.
-	memcpy(pPMesh->m_pIndices, m_pIndices, pPMesh->m_iMaxNumIndices * sizeof(WORD));
+	memcpy(pPMesh->m_pIndices, m_pIndices, pPMesh->m_iMaxNumIndices * sizeof(uint16_t));
 
 	// The vertices however must be copied by hand, just in case there's extra data in the
 	// PMCVertices (if you have a more complex edge choice function
@@ -717,18 +717,18 @@ int CN3PMeshCreate::ReGenerate(CN3PMesh *pPMesh)
 
 #ifdef _USE_VERTEXBUFFER
 	HRESULT hr;
-	BYTE* pByte;
+	uint8_t* pByte;
 	hr = pPMesh->m_pVB->Lock(0, 0, &pByte, 0);
 	CopyMemory(pByte, m_pVertices, pPMesh->m_iMaxNumVertices*sizeof(__VertexT1));
 	pPMesh->m_pVB->Unlock();
 
 	hr = pPMesh->m_pIB->Lock(0, 0, &pByte, 0);
-	CopyMemory(pByte, m_pIndices, pPMesh->m_iMaxNumIndices*sizeof(WORD));
+	CopyMemory(pByte, m_pIndices, pPMesh->m_iMaxNumIndices*sizeof(uint16_t));
 	pPMesh->m_pIB->Unlock();
 
 #else
 	// The indices can be a straight copy.
-	memcpy(pPMesh->m_pIndices, m_pIndices, pPMesh->m_iMaxNumIndices * sizeof(WORD));
+	memcpy(pPMesh->m_pIndices, m_pIndices, pPMesh->m_iMaxNumIndices * sizeof(uint16_t));
 
 	// The vertices however must be copied by hand, just in case there's extra data in the
 	// PMCVertices (if you have a more complex edge choice function
@@ -744,7 +744,7 @@ int CN3PMeshCreate::ReGenerate(CN3PMesh *pPMesh)
 // swapper번째 버텍스를 버텍스버퍼의 m_iNumVertices-1 번째로 보내고
 // ( m_iNumVertices는 collapse 리스트를 만들때마다 하나씩 감소) m_iNumVertices-1번째는 swapper번째로 옮긴다.
 // 인덱스 버퍼, collapse리스트 안의 참조 인덱스, pt_to, pt_end도 새로운 인덱스에 맞게 swap 하는 함수
-void CN3PMeshCreate::SwapToEnd(WORD swapper, __PMCEdgeCollapse *collapses, __PMCEdgeCollapse *collapses_end, WORD &pt_to, WORD &pt_from)
+void CN3PMeshCreate::SwapToEnd(uint16_t swapper, __PMCEdgeCollapse *collapses, __PMCEdgeCollapse *collapses_end, uint16_t &pt_to, uint16_t &pt_from)
 {
 	// NOTE: Here you may want to call back into your animation system (for example), so that it knows that
 	// the vertex list is being reordered.
@@ -833,8 +833,8 @@ bool CN3PMeshCreate::ConvertFromN3Mesh(CN3Mesh* pN3Mesh)	// N3Mesh -> CN3PMeshCr
 	// copy indices
 	if (pN3Mesh->Indices())
 	{
-		m_pIndices = new WORD[m_iNumIndices];
-		CopyMemory(m_pIndices, pN3Mesh->Indices(), sizeof(WORD)*m_iNumIndices);
+		m_pIndices = new uint16_t[m_iNumIndices];
+		CopyMemory(m_pIndices, pN3Mesh->Indices(), sizeof(uint16_t)*m_iNumIndices);
 	}
 	else return false;
 
@@ -865,7 +865,7 @@ bool CN3PMeshCreate::ConvertFromN3PMesh(CN3PMesh* pN3PMesh)
 	{
 		m_pVertices = new __VertexT1[m_iNumVertices];
 
-		BYTE* pByte;
+		uint8_t* pByte;
 		HRESULT hr = pVB->Lock(0, 0, &pByte, D3DLOCK_READONLY);
 		if (FAILED(hr)) return false;
 
@@ -876,13 +876,13 @@ bool CN3PMeshCreate::ConvertFromN3PMesh(CN3PMesh* pN3PMesh)
 	LPDIRECT3DINDEXBUFFER8 pIB = PMeshInst.GetIndexBuffer();
 	if (pIB)
 	{
-		m_pIndices = new WORD[m_iNumIndices];
+		m_pIndices = new uint16_t[m_iNumIndices];
 
-		BYTE* pByte;
+		uint8_t* pByte;
 		HRESULT hr = pIB->Lock(0, 0, &pByte, D3DLOCK_READONLY);
 		if (FAILED(hr)) return false;
 
-		CopyMemory(m_pIndices, pByte, m_iNumIndices*sizeof(WORD));
+		CopyMemory(m_pIndices, pByte, m_iNumIndices*sizeof(uint16_t));
 		pIB->Unlock();
 	}
 #else
@@ -897,8 +897,8 @@ bool CN3PMeshCreate::ConvertFromN3PMesh(CN3PMesh* pN3PMesh)
 	// copy indices
 	if (PMeshInst.GetIndices())
 	{
-		m_pIndices = new WORD[m_iNumIndices];
-		CopyMemory(m_pIndices, PMeshInst.GetIndices(), sizeof(WORD)*m_iNumIndices);
+		m_pIndices = new uint16_t[m_iNumIndices];
+		CopyMemory(m_pIndices, PMeshInst.GetIndices(), sizeof(uint16_t)*m_iNumIndices);
 	}
 	else return false;
 #endif
@@ -910,7 +910,7 @@ bool CN3PMeshCreate::ConvertFromN3PMesh(CN3PMesh* pN3PMesh)
 }
 
 #ifdef _SAME_VERTEXPOS
-float CN3PMeshCreate::GetLossOfSamePosVertex(WORD pt_to, WORD pt_from)
+float CN3PMeshCreate::GetLossOfSamePosVertex(uint16_t pt_to, uint16_t pt_from)
 {
 	__ASSERT(pt_to<m_iNumVertices && pt_from<m_iNumVertices && m_pVertices && m_pIndices, "Pointer is NULL");
 	float fLoss = 0.0f;
@@ -929,7 +929,7 @@ float CN3PMeshCreate::GetLossOfSamePosVertex(WORD pt_to, WORD pt_from)
 			m_pVertices[i].z == z )
 		{
 			// i는 같은 위치를 가진 버텍스의 인덱스
-			WORD* tri;
+			uint16_t* tri;
 			for (tri = m_pIndices; tri<m_pIndices+m_iNumIndices; tri += 3)
 			{
 				if (tri[0] == i)

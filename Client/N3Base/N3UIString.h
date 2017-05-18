@@ -43,7 +43,7 @@ public:
 	int					GetStartLine() const {return m_iStartLine;}
 	int					GetStringRealWidth(int iNum);
 
-	virtual	DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual	uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual void	Render();
 	virtual void	Release();	
 	virtual void	Init(CN3UIBase* pParent);
@@ -60,22 +60,22 @@ public:
 #endif
 	
 	virtual void	SetRegion(const RECT& Rect);
-	virtual void	SetStyle(DWORD dwStyle);
-	virtual void	SetStyle(DWORD dwType, DWORD dwStyleEx);
+	virtual void	SetStyle(uint32_t dwStyle);
+	virtual void	SetStyle(uint32_t dwType, uint32_t dwStyleEx);
 
 	virtual void	SetString(const std::string& szString);
 	virtual void	SetStringAsInt(int iVal);
 	void			SetString_NoWordWrap(const std::string& szString);	// 글자 정렬 하지 않는다.
-	virtual void	SetFont(const std::string& szFontName, DWORD dwHeight, BOOL bBold, BOOL bItalic); // dwHeight는 point size이다.
+	virtual void	SetFont(const std::string& szFontName, uint32_t dwHeight, BOOL bBold, BOOL bItalic); // dwHeight는 point size이다.
 	BOOL			GetTextExtent(const std::string& szString, int iStrLen, SIZE* pSize )
 	{
 		if (m_pDFont) return m_pDFont->GetTextExtent(szString, iStrLen, pSize);
 		return FALSE;
 	}
-	DWORD				GetFontColor() const {if (m_pDFont) return m_pDFont->GetFontColor(); return 0xffffffff;}
+	uint32_t				GetFontColor() const {if (m_pDFont) return m_pDFont->GetFontColor(); return 0xffffffff;}
 	const std::string&	GetFontName() const {if (m_pDFont) return m_pDFont->GetFontName(); return s_szStringTmp;} 
-	DWORD				GetFontHeight() const {if (m_pDFont) return m_pDFont->GetFontHeight(); return 0;} 
-	DWORD				GetFontFlags() const {if (m_pDFont) return m_pDFont->GetFontFlags(); return 0;}
+	uint32_t				GetFontHeight() const {if (m_pDFont) return m_pDFont->GetFontHeight(); return 0;} 
+	uint32_t				GetFontFlags() const {if (m_pDFont) return m_pDFont->GetFontFlags(); return 0;}
 protected:
 	void				WordWrap();		// wordwrap
 };

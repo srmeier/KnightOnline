@@ -21,8 +21,8 @@ private:
 	int					m_FinalByte;
 			
 	DSBUFFERDESC		m_dsbd;
-	DWORD				m_BufferSize;
-	DWORD				m_BlockSize;	//buffer를 초단위로 나눈 것.
+	uint32_t				m_BufferSize;
+	uint32_t				m_BlockSize;	//buffer를 초단위로 나눈 것.
 	
 	int					m_CurrState;	//현재 어느 블럭에 있는지..
 	int					m_PrevState;	//지금 바로 전에 어느 블럭에 있었는지..
@@ -31,7 +31,7 @@ private:
 
 	//related wave data
 	WAVEFORMATEX		m_WaveFormat;
-	DWORD				m_WaveSize;
+	uint32_t				m_WaveSize;
 	LPSTR				m_pWaveMem;
 	HGLOBAL				m_hWaveMem;
 	MMCKINFO			mmCkInfoRIFF;

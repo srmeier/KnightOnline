@@ -78,7 +78,7 @@ bool CNpc::RegisterRegion(float x, float z)
 void CNpc::SendInOut(InOutType type)
 {
 	Packet result(AG_NPC_INOUT);
-	result << uint8(type) << GetID() << GetX() << GetZ() << GetY();
+	result << uint8_t(type) << GetID() << GetX() << GetZ() << GetY();
 	g_pMain->Send(&result);
 }
 
@@ -242,7 +242,7 @@ void CNpc::InitPos()
 	m_fBattlePos_z = fz[m_byBattlePos][m_byPathCount - 1];
 }
 
-void CNpc::Load(uint16 sNpcID, CNpcTable * proto, bool bMonster, uint8 nation)
+void CNpc::Load(uint16_t sNpcID, CNpcTable * proto, bool bMonster, uint8_t nation)
 {
 	m_sNid = sNpcID + NPC_BAND;
 	m_proto = proto;
@@ -253,7 +253,7 @@ void CNpc::Load(uint16 sNpcID, CNpcTable * proto, bool bMonster, uint8 nation)
 	m_iWeapon_1			= proto->m_iWeapon_1;
 	m_iWeapon_2			= proto->m_iWeapon_2;
 	m_bNation			= nation == 0 ? proto->m_byGroup : nation;
-	m_bLevel			= (uint8) proto->m_sLevel; // max level used that I know about is 250, no need for 2 bytes
+	m_bLevel			= (uint8_t) proto->m_sLevel; // max level used that I know about is 250, no need for 2 bytes
 
 	// Monsters cannot, by design, be friendly to everybody.
 	if (isMonster() && GetNation() == Nation::ALL)
@@ -310,7 +310,7 @@ void CNpc::Load(uint16 sNpcID, CNpcTable * proto, bool bMonster, uint8 nation)
 
 void CNpc::SendMoveResult(float fX, float fY, float fZ, float fSpeed /*= 0.0f*/)
 {
-	Packet result(MOVE_RESULT, uint8(SUCCESS));
+	Packet result(MOVE_RESULT, uint8_t(SUCCESS));
 	result << GetID() << fX << fZ << fY << fSpeed;
 	g_pMain->Send(&result);
 	RegisterRegion(fX, fZ);
@@ -789,7 +789,7 @@ bool CNpc::SetLive()
 		if (g_pMain->m_CurrentNPC.increment() == g_pMain->m_TotalNPC
 			&& !m_bIsEventNpc)
 		{
-			printf("Monster All Init Success - %d\n", (uint16) g_pMain->m_TotalNPC);
+			printf("Monster All Init Success - %d\n", (uint16_t) g_pMain->m_TotalNPC);
 			g_pMain->GameServerAcceptThread();
 		}
 	}
@@ -803,7 +803,7 @@ bool CNpc::SetLive()
 		vDir = vE - vS;
 		vDir.Normalize();
 		Yaw2D(vDir.x, vDir.z, fDir);
-		m_byDirection = (uint8)fDir;
+		m_byDirection = (uint8_t)fDir;
 	}
 
 	RegisterRegion(GetX(), GetZ());
@@ -865,8 +865,8 @@ bool CNpc::RandomMove()
 			m_iPattenFrame--;
 			break;
 		case 0:
-			fDestX = (short)m_nInitX;
-			fDestZ = (short)m_nInitZ;
+			fDestX = (int16_t)m_nInitX;
+			fDestZ = (int16_t)m_nInitZ;
 			m_iPattenFrame = myrand(-1,1);
 			break;
 		case 1:
@@ -1049,7 +1049,7 @@ bool CNpc::RandomBackMove()
 	float fDis = 0.0f;
 	vStart.Set(GetX(), GetY(), GetZ());
 
-	uint16 nID = m_Target.id;					// Target 을 구한다.
+	uint16_t nID = m_Target.id;					// Target 을 구한다.
 	CUser* pUser = nullptr;
 
 	int iDir = 0;
@@ -1311,7 +1311,7 @@ void CNpc::Dead(Unit * pKiller /*= nullptr*/, bool bSendDeathPacket /*= false*/)
 
 bool CNpc::isShowBox()
 { 
-	uint8 bType = GetType();
+	uint8_t bType = GetType();
 
 	if (bType == NPC_CHAOS_STONE
 		|| bType == NPC_PVP_MONUMENT
@@ -1572,7 +1572,7 @@ float CNpc::FindEnemyExpand(int nRX, int nRZ, float fCompDis, UnitType unitType)
 	if(pMap == nullptr)	return fDis;
 	float fComp = fCompDis;
 	float fSearchRange = (float)m_bySearchRange;
-	uint16 target_uid;
+	uint16_t target_uid;
 	__Vector3 vUser, vNpc, vMon;
 	vNpc.Set(GetX(), GetY(), GetZ());
 
@@ -2186,7 +2186,7 @@ time_t CNpc::Attack()
 	}
 
 	int		nDamage		= 0;
-	uint16 nID = m_Target.id;					// Target 을 구한다.
+	uint16_t nID = m_Target.id;					// Target 을 구한다.
 
 	// Targeting player
 	if (nID < NPC_BAND)	
@@ -2214,7 +2214,7 @@ time_t CNpc::Attack()
 			nRandom = myrand(1, 10000);
 			if (nRandom < nPercent)	
 			{
-				CNpcMagicProcess::MagicPacket(MAGIC_EFFECTING, m_proto->m_iMagic1, GetID(), -1, int16(pUser->GetX()), int16(pUser->GetY()), int16(pUser->GetZ()));
+				CNpcMagicProcess::MagicPacket(MAGIC_EFFECTING, m_proto->m_iMagic1, GetID(), -1, int16_t(pUser->GetX()), int16_t(pUser->GetY()), int16_t(pUser->GetZ()));
 				printf("AreaMagicAttack --- sid=%d, magicid=%d, name=%s\n", GetID(), m_proto->m_iMagic1, m_proto->m_strName.c_str());
 				return m_sAttackDelay + 1000;
 			}
@@ -2257,7 +2257,7 @@ time_t CNpc::Attack()
 	return m_sAttackDelay;
 }
 
-void CNpc::SendAttackRequest(int16 tid)
+void CNpc::SendAttackRequest(int16_t tid)
 {
 	Packet result(AG_ATTACK_REQ);
 	result << GetID() << tid;
@@ -2292,7 +2292,7 @@ time_t CNpc::LongAndMagicAttack()
 	CNpc*	pNpc		= nullptr;	
 	CUser*	pUser		= nullptr;
 	int		nDamage		= 0;
-	uint16 nID = m_Target.id;
+	uint16_t nID = m_Target.id;
 
 	if (nID < NPC_BAND)	
 	{
@@ -2327,7 +2327,7 @@ time_t CNpc::LongAndMagicAttack()
 
 void CNpc::TracingAttack()
 {
-	uint16 nID = m_Target.id;
+	uint16_t nID = m_Target.id;
 	if (nID < NPC_BAND)	// Target is a player
 	{
 		CUser * pUser = g_pMain->GetUserPtr(nID);
@@ -2664,7 +2664,7 @@ void CNpc::ChangeNTarget(CNpc *pNpc)
 		FindFriend();
 }
 
-void CNpc::RecvAttackReq(int nDamage, uint16 sAttackerID, AttributeType attributeType /*= AttributeNone*/)
+void CNpc::RecvAttackReq(int nDamage, uint16_t sAttackerID, AttributeType attributeType /*= AttributeNone*/)
 {
 	if (isDead()
 		|| nDamage < 0)
@@ -2736,8 +2736,8 @@ void CNpc::RecvAttackReq(int nDamage, uint16 sAttackerID, AttributeType attribut
 
 void CNpc::HpChange(int amount, Unit *pAttacker /*= nullptr*/, bool bSendToGameServer /*= true*/)
 {
-	uint16 tid = (pAttacker != nullptr ? pAttacker->GetID() : -1);
-	int16 oldHP = m_iHP;
+	uint16_t tid = (pAttacker != nullptr ? pAttacker->GetID() : -1);
+	int16_t oldHP = m_iHP;
 
 	// Implement damage/HP cap.
 	if (amount < -MAX_DAMAGE)
@@ -2769,11 +2769,11 @@ void CNpc::SendExpToUserList()
 		return;
 
 	std::string strMaxDamageUser;
-	uint32 nMaxDamage = 0;
+	uint32_t nMaxDamage = 0;
 
 	Guard lock(m_damageListLock);
-	std::map<CUser *, uint32> filteredDamageList;
-	std::map<uint16, CUser *> partyIndex;
+	std::map<CUser *, uint32_t> filteredDamageList;
+	std::map<uint16_t, CUser *> partyIndex;
 
 	// Filter the damage list first, so we only send one packet per party.
 	// Rewards are shared based upon the total amount of damage dealt.
@@ -2840,16 +2840,16 @@ void CNpc::SendExpToUserList()
 		&& !strMaxDamageUser.empty()
 		&& m_bySpecialType >= NpcSpecialTypeKarusWarder1 && m_bySpecialType <= NpcSpecialTypeElmoradKeeper)
 	{
-		Packet result(AG_BATTLE_EVENT, uint8(BATTLE_EVENT_MAX_USER));
+		Packet result(AG_BATTLE_EVENT, uint8_t(BATTLE_EVENT_MAX_USER));
 
 		switch (m_bySpecialType)
 		{
-		case NpcSpecialTypeKarusWarder1:	result << uint8(3); g_pMain->m_sKillKarusNpc++; break;
-		case NpcSpecialTypeKarusWarder2:	result << uint8(4); g_pMain->m_sKillKarusNpc++; break;
-		case NpcSpecialTypeElmoradWarder1:	result << uint8(5);	g_pMain->m_sKillElmoNpc++; break;
-		case NpcSpecialTypeElmoradWarder2:	result << uint8(6); g_pMain->m_sKillElmoNpc++; break;
-		case NpcSpecialTypeKarusKeeper:		result << uint8(7); g_pMain->m_sKillKarusNpc++; break;
-		case NpcSpecialTypeElmoradKeeper:	result << uint8(8); g_pMain->m_sKillElmoNpc++; break;
+		case NpcSpecialTypeKarusWarder1:	result << uint8_t(3); g_pMain->m_sKillKarusNpc++; break;
+		case NpcSpecialTypeKarusWarder2:	result << uint8_t(4); g_pMain->m_sKillKarusNpc++; break;
+		case NpcSpecialTypeElmoradWarder1:	result << uint8_t(5);	g_pMain->m_sKillElmoNpc++; break;
+		case NpcSpecialTypeElmoradWarder2:	result << uint8_t(6); g_pMain->m_sKillElmoNpc++; break;
+		case NpcSpecialTypeKarusKeeper:		result << uint8_t(7); g_pMain->m_sKillKarusNpc++; break;
+		case NpcSpecialTypeElmoradKeeper:	result << uint8_t(8); g_pMain->m_sKillElmoNpc++; break;
 		}
 
 		result.SByte();
@@ -2862,8 +2862,8 @@ void CNpc::SendExpToUserList()
 		if (bKarusComplete || bElMoradComplete)
 		{
 			result.clear();
-			result	<< uint8(BATTLE_EVENT_RESULT) 
-				<< uint8(bKarusComplete ? KARUS : ELMORAD)
+			result	<< uint8_t(BATTLE_EVENT_RESULT) 
+				<< uint8_t(bKarusComplete ? KARUS : ELMORAD)
 				<< strMaxDamageUser;
 			g_pMain->Send(&result);
 		}
@@ -3016,7 +3016,7 @@ void CNpc::FindFriendRegion(int x, int z, MAP* pMap, _TargetHealer* pHealer, Mon
 	}
 }
 
-void CNpc::NpcStrategy(uint8 type)
+void CNpc::NpcStrategy(uint8_t type)
 {
 	switch(type)
 	{
@@ -3030,7 +3030,7 @@ void CNpc::NpcStrategy(uint8 type)
 
 void CNpc::FillNpcInfo(Packet & result)
 {
-	result	<< uint8(1) 
+	result	<< uint8_t(1) 
 		<< GetID() << GetProtoID() << m_proto->m_sPid
 		<< m_sSize << m_iWeapon_1 << m_iWeapon_2
 		<< GetZoneID() << GetName()
@@ -3415,7 +3415,7 @@ void CNpc::GiveNpcHaveItem()
 	result	<< m_sMaxDamageUserid << GetID()
 		<< GetZoneID() << GetRegionX() << GetRegionZ()
 		<< GetX() << GetZ() << GetY()
-		<< uint8(nCount);
+		<< uint8_t(nCount);
 
 	for (int i = 0; i < nCount; i++)
 		result << m_GiveItemList[i].sSid << m_GiveItemList[i].count;

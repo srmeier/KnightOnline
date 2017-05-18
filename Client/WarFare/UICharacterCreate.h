@@ -51,10 +51,10 @@ public:
 	void			UpdateRaceAndClassButtons(e_Race eRace);
 	void			UpdateClassButtons(e_Class eClass);
 
-	DWORD		MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	bool		Load(HANDLE hFile);
 	void		Release();
-	bool		ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	CUICharacterCreate();
 	virtual ~CUICharacterCreate();

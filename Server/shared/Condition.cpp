@@ -17,14 +17,14 @@ void Condition::EndSynchronized()
 	m_lock.unlock();
 }
 
-uint32 Condition::Wait(time_t timeout)
+uint32_t Condition::Wait(time_t timeout)
 {
 	std::unique_lock<std::mutex> lock(m_lock);
 	m_condition.wait_for(lock, std::chrono::milliseconds(timeout));
 	return 0;
 }
 
-uint32 Condition::Wait()
+uint32_t Condition::Wait()
 {
 	std::unique_lock<std::mutex> lock(m_lock);
 	m_condition.wait(lock);

@@ -41,7 +41,7 @@ public:
 	void SetVisible(bool bVisible);
 	bool OnKeyPress(int iKey);
 	void	MsgSend_SelectMenu(Uint8 index);
-	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void	InitBase();
 	bool	Load(HANDLE hFile);
 	void	Open(class DataPack* pDataPack, int& iOffset);

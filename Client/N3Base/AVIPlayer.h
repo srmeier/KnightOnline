@@ -19,7 +19,7 @@ public:
 
 public:	
 	bool PlayCutScene(LPTSTR pszMovie, HINSTANCE hInstance);
-	static LONG WINAPI WindowProc_Player( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
+	static int32_t WINAPI WindowProc_Player( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam );
 	static bool		m_bInterrupted;
 protected:
 	HWND			m_hWndMain;

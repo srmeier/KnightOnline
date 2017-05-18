@@ -5,7 +5,7 @@
 #include <map>
 #include "Socket.h"
 
-uint32 THREADCALL SocketCleanupThread(void * lpParam);
+uint32_t THREADCALL SocketCleanupThread(void * lpParam);
 
 class SocketMgr
 {
@@ -27,7 +27,7 @@ public:
 	static void SetupWinsock();
 	static void CleanupWinsock();
 	
-	static uint32 THREADCALL SocketWorkerThread(void * lpParam);
+	static uint32_t THREADCALL SocketWorkerThread(void * lpParam);
 
 	HANDLE m_completionPort;
 
@@ -54,17 +54,17 @@ protected:
 	INLINE void DecRef() { if (s_refCounter.decrement() == 0) CleanupSockets(); }
 
 	// reference counter (one app can hold multiple socket manager instances)
-	static Atomic<uint32> s_refCounter;
+	static Atomic<uint32_t> s_refCounter;
 
 public:
 	static bool s_bRunningCleanupThread;
 };
 
-typedef void(*OperationHandler)(Socket * s, uint32 len);
+typedef void(*OperationHandler)(Socket * s, uint32_t len);
 
-void HandleReadComplete(Socket * s, uint32 len);
-void HandleWriteComplete(Socket * s, uint32 len);
-void HandleShutdown(Socket * s, uint32 len);
+void HandleReadComplete(Socket * s, uint32_t len);
+void HandleWriteComplete(Socket * s, uint32_t len);
+void HandleShutdown(Socket * s, uint32_t len);
 
 static OperationHandler ophandlers[] =
 {

@@ -148,8 +148,8 @@ void CN3TerrainPatch::Init(CN3Terrain* pTerrain)
 
 	for(int i=0;i<2;i++) 
 	{
-		m_pTileTexIndx[i] = new uint32 [PATCH_TILE_SIZE*PATCH_TILE_SIZE];
-		memset(m_pTileTexIndx[i], 0xff, sizeof(uint32)*PATCH_TILE_SIZE*PATCH_TILE_SIZE);
+		m_pTileTexIndx[i] = new uint32_t [PATCH_TILE_SIZE*PATCH_TILE_SIZE];
+		memset(m_pTileTexIndx[i], 0xff, sizeof(uint32_t)*PATCH_TILE_SIZE*PATCH_TILE_SIZE);
 	}
 	m_pIsTileFull = new bool [PATCH_TILE_SIZE*PATCH_TILE_SIZE];
 

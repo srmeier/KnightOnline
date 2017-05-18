@@ -82,7 +82,7 @@ void CN3UIProgress::SetRegion(const RECT& Rect)
 	UpdateFrGndImage();
 }
 
-void CN3UIProgress::SetStyle(DWORD dwStyle)
+void CN3UIProgress::SetStyle(uint32_t dwStyle)
 {
 	CN3UIBase::SetStyle(dwStyle);
 	UpdateFrGndImage();

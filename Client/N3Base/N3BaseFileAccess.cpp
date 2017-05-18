@@ -109,7 +109,7 @@ bool CN3BaseFileAccess::LoadFromFile()
 	return bSuccess;
 }
 
-bool CN3BaseFileAccess::LoadFromFile(const std::string& szFileName, unsigned int iVer)
+bool CN3BaseFileAccess::LoadFromFile(const std::string& szFileName, uint32_t iVer)
 {
 	m_iFileFormatVersion = iVer;
 	this->FileNameSet(szFileName);

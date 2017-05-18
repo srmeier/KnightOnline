@@ -23,9 +23,9 @@ public:
 	void	InitFace();
 	void	InitHair();
 	void	KnightsInfoSet(int iID, const std::string& szName, int iGrade, int iRank);
-	void	SetSoundAndInitFont(DWORD dwFontFlag = 0UL);
+	void	SetSoundAndInitFont(uint32_t dwFontFlag = 0UL);
 
-	bool	Init(enum e_Race eRace, int iFace, int iHair, DWORD* pdwItemIDs, int* piItenDurabilities);
+	bool	Init(enum e_Race eRace, int iFace, int iHair, uint32_t* pdwItemIDs, int* piItenDurabilities);
 	void	Tick();
 
 	CPlayerOther();

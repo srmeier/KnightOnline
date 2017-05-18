@@ -26,7 +26,7 @@ public:
 	
 	// 변하는 정보들...
 	float				m_fLife;		//현재 나이..
-	DWORD				m_dwState;		//현재 번들의 상태
+	uint32_t				m_dwState;		//현재 번들의 상태
 
 	__Vector3			m_vPos;			//현재 번들의 위치.
 	__Vector3			m_vPrePos;		//로딩 또는 Duplicate 하기전에 임시로 위치 지정
@@ -61,7 +61,7 @@ public:
 	void	Stop(bool immediately=false);
 	
 	void	Render();
-	DWORD	GetState() { return m_dwState; }
+	uint32_t	GetState() { return m_dwState; }
 
 	virtual bool	Load(HANDLE hFile); // 핸들에서 읽어오기..
 	bool	Save(HANDLE hFile);	// 저장하기..

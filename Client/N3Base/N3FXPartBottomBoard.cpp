@@ -184,7 +184,7 @@ bool CN3FXPartBottomBoard::Load(HANDLE hFile)
 {
 	if(!CN3FXPartBase::Load(hFile)) return false;
 
-	DWORD			dwRWC = 0;
+	DWORD dwRWC = 0;
 
 	ReadFile(hFile, &m_fSizeX, sizeof(float), &dwRWC, NULL);
 	ReadFile(hFile, &m_fSizeZ, sizeof(float), &dwRWC, NULL);
@@ -213,7 +213,7 @@ bool CN3FXPartBottomBoard::Save(HANDLE hFile)
 {
 	if(!CN3FXPartBase::Save(hFile)) return false;
 
-	DWORD			dwRWC = 0;
+	DWORD dwRWC = 0;
 
 	WriteFile(hFile, &m_fSizeX, sizeof(float), &dwRWC, NULL);
 	WriteFile(hFile, &m_fSizeZ, sizeof(float), &dwRWC, NULL);
@@ -259,7 +259,7 @@ bool CN3FXPartBottomBoard::Tick()
 
 	if(m_fCurrLife<=m_fFadeIn)
 	{
-		DWORD Alpha = (DWORD)(255.0f * m_fCurrLife / m_fFadeIn);
+		uint32_t Alpha = (uint32_t)(255.0f * m_fCurrLife / m_fFadeIn);
 		m_dwCurrColor = (Alpha<<24) + 0x00ffffff;		
 	}
 	else m_dwCurrColor = 0xffffffff;
@@ -273,7 +273,7 @@ bool CN3FXPartBottomBoard::Tick()
 		}
 		else
 		{
-			DWORD Alpha = (DWORD)(255.0f * (TotalLife - m_fCurrLife) / m_fFadeOut);
+			uint32_t Alpha = (uint32_t)(255.0f * (TotalLife - m_fCurrLife) / m_fFadeOut);
 			m_dwCurrColor = (Alpha<<24) + 0x00ffffff;
 		}
 	}

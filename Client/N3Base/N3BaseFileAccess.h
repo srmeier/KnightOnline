@@ -32,7 +32,7 @@ protected:
 	std::string		m_szFileName; // Base Path 를 제외한 로컬 경로 + 파일 이름
 
 public:
-	unsigned int m_iFileFormatVersion;
+	uint32_t m_iFileFormatVersion;
 	int m_iLOD; // 로딩할때 쓸 LOD
 
 public:
@@ -40,7 +40,7 @@ public:
 	void FileNameSet(const std::string& szFileName);
 
 	bool LoadFromFile(); // 파일에서 읽어오기.
-	virtual bool LoadFromFile(const std::string& szFileName, unsigned int iVer = N3FORMAT_VER_DEFAULT); // 파일에서 읽어오기.
+	virtual bool LoadFromFile(const std::string& szFileName, uint32_t iVer = N3FORMAT_VER_DEFAULT); // 파일에서 읽어오기.
 	virtual bool Load(HANDLE hFile); // 핸들에서 읽어오기..
 
 	virtual bool SaveToFile(); // 현재 파일 이름대로 저장.

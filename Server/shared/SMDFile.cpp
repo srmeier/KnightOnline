@@ -159,8 +159,8 @@ void SMDFile::LoadObjectEvent(FILE *fp)
 
 void SMDFile::LoadMapTile(FILE *fp)
 {
-	m_ppnEvent = new short[m_nMapSize * m_nMapSize];
-	if (fread(m_ppnEvent, sizeof(short) * m_nMapSize * m_nMapSize, 1, fp) != 1)
+	m_ppnEvent = new int16_t[m_nMapSize * m_nMapSize];
+	if (fread(m_ppnEvent, sizeof(int16_t) * m_nMapSize * m_nMapSize, 1, fp) != 1)
 		return OnInvalidMap();
 }
 

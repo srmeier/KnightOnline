@@ -245,7 +245,7 @@ bool CN3FXPartParticles::ParseScript(char* szCommand, char* szBuff0, char* szBuf
 	if(lstrcmpi(szCommand, "<particle_color>")==0)
 	{
 		int seq = atoi(szBuff0);
-		DWORD color = atoi(szBuff1);
+		uint32_t color = atoi(szBuff1);
 		if(seq>=0 && seq<NUM_KEY_COLOR) m_dwChangeColor[seq] = color;
 		return true;
 	}
@@ -384,7 +384,7 @@ bool CN3FXPartParticles::Load(HANDLE hFile)
 	ReadFile(hFile, &m_fCreateDelay, sizeof(float), &dwRWC, NULL);
 	ReadFile(hFile, &m_iNumCreate, sizeof(int), &dwRWC, NULL);
 
-	ReadFile(hFile, &m_dwEmitType, sizeof(DWORD), &dwRWC, NULL);
+	ReadFile(hFile, &m_dwEmitType, sizeof(uint32_t), &dwRWC, NULL);
 
 	if(	m_dwEmitType == FX_PART_PARTICLE_EMIT_TYPE_SPREAD )
 	{
@@ -408,7 +408,7 @@ bool CN3FXPartParticles::Load(HANDLE hFile)
 	{
 		int iNumKeyColor = 0;
 		ReadFile(hFile, &iNumKeyColor, sizeof(int), &dwRWC, NULL);
-		ReadFile(hFile, &m_dwChangeColor, sizeof(DWORD)*iNumKeyColor, &dwRWC, NULL);
+		ReadFile(hFile, &m_dwChangeColor, sizeof(uint32_t)*iNumKeyColor, &dwRWC, NULL);
 	}
 
 	ReadFile(hFile, &m_bAnimKey, sizeof(bool), &dwRWC, NULL);
@@ -481,7 +481,7 @@ bool CN3FXPartParticles::Save(HANDLE hFile)
 	WriteFile(hFile, &m_fCreateDelay, sizeof(float), &dwRWC, NULL);
 	WriteFile(hFile, &m_iNumCreate, sizeof(int), &dwRWC, NULL);
 
-	WriteFile(hFile, &m_dwEmitType, sizeof(DWORD), &dwRWC, NULL);
+	WriteFile(hFile, &m_dwEmitType, sizeof(uint32_t), &dwRWC, NULL);
 
 	if(	m_dwEmitType == FX_PART_PARTICLE_EMIT_TYPE_SPREAD )
 	{
@@ -505,7 +505,7 @@ bool CN3FXPartParticles::Save(HANDLE hFile)
 	{
 		int iNumKeyColor = NUM_KEY_COLOR;
 		WriteFile(hFile, &iNumKeyColor, sizeof(int), &dwRWC, NULL);
-		WriteFile(hFile, &m_dwChangeColor, sizeof(DWORD)*NUM_KEY_COLOR, &dwRWC, NULL);
+		WriteFile(hFile, &m_dwChangeColor, sizeof(uint32_t)*NUM_KEY_COLOR, &dwRWC, NULL);
 	}
 
 	WriteFile(hFile, &m_bAnimKey, sizeof(bool), &dwRWC, NULL);
@@ -723,7 +723,7 @@ void CN3FXPartParticles::Render()
 	//s_lpD3DDev->SetRenderState( D3DRS_SRCBLEND, m_dwSrcBlend );
     //s_lpD3DDev->SetRenderState( D3DRS_DESTBLEND, m_dwDestBlend );
 
-	//DWORD dwTAddrU, dwTAddrV;
+	//uint32_t dwTAddrU, dwTAddrV;
 	//s_lpD3DDev->GetTextureStageState( 0, D3DTSS_ADDRESSU, &dwTAddrU );
 	//s_lpD3DDev->GetTextureStageState( 0, D3DTSS_ADDRESSV, &dwTAddrV );
 
@@ -808,7 +808,7 @@ void CN3FXPartParticles::Render()
 
 	CN3Base::s_lpD3DDev->SetFVF(FVF_XYZCOLORT1);
 
-	//DWORD dwZWriteEnable;
+	//uint32_t dwZWriteEnable;
 	//CN3Base::s_lpD3DDev->GetRenderState(D3DRS_ZWRITEENABLE, &dwZWriteEnable);
 	//s_lpD3DDev->SetRenderState( D3DRS_ZWRITEENABLE, FALSE);
 
@@ -816,7 +816,7 @@ void CN3FXPartParticles::Render()
 	s_lpD3DDev->SetRenderState( D3DRS_SRCBLEND, m_dwSrcBlend );
     s_lpD3DDev->SetRenderState( D3DRS_DESTBLEND, m_dwDestBlend );
 
-	DWORD dwTAddrU, dwTAddrV;
+	uint32_t dwTAddrU, dwTAddrV;
 	s_lpD3DDev->GetTextureStageState( 0, D3DTSS_ADDRESSU, &dwTAddrU );
 	s_lpD3DDev->GetTextureStageState( 0, D3DTSS_ADDRESSV, &dwTAddrV );
 
@@ -914,7 +914,7 @@ void CN3FXPartParticles::InitVB()
 	m_pVB = new __VertexXyzColorT1[m_iNumParticle*NUM_VERTEX_PARTICLE];
 
 	//if(m_pIB) delete[] m_pIB;
-	//m_pIB = new WORD[m_iNumParticle*6];
+	//m_pIB = new uint16_t[m_iNumParticle*6];
 }
 
 
@@ -1371,7 +1371,7 @@ void CN3FXPartParticles::Duplicate(CN3FXPartParticles* pSrc)
 	m_bChangeColor = pSrc->m_bChangeColor;
 	if(m_bChangeColor)
 	{
-		memcpy((char*)&(m_dwChangeColor[0]), (char*)pSrc->m_dwChangeColor, sizeof(DWORD)*NUM_KEY_COLOR);
+		memcpy((char*)&(m_dwChangeColor[0]), (char*)pSrc->m_dwChangeColor, sizeof(uint32_t)*NUM_KEY_COLOR);
 	}
 
 	m_bAnimKey = pSrc->m_bAnimKey;
@@ -1404,7 +1404,7 @@ void CN3FXPartParticles::Duplicate(CN3FXPartParticles* pSrc)
 //
 //
 //
-bool CN3FXPartParticles::GetColor(int key, DWORD& color)
+bool CN3FXPartParticles::GetColor(int key, uint32_t& color)
 {
 	if(key<0 || key>=NUM_KEY_COLOR) return false;
 	

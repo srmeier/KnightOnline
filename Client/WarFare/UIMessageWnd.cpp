@@ -123,7 +123,7 @@ bool CUIMessageWnd::Load(HANDLE hFile)
 //////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 
-bool CUIMessageWnd::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIMessageWnd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 
@@ -153,8 +153,8 @@ void CUIMessageWnd::CreateLines()
 	}
 	else return;
 	const std::string& szFontName = m_pChatOut->GetFontName();
-	DWORD dwFontHeight = m_pChatOut->GetFontHeight();
-	DWORD dwFontFlag = m_pChatOut->GetFontFlags();
+	uint32_t dwFontHeight = m_pChatOut->GetFontHeight();
+	uint32_t dwFontFlag = m_pChatOut->GetFontFlags();
 
 	if (m_iChatLineCount<=0 || szFontName.size() <= 0) return;
 

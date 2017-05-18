@@ -68,8 +68,8 @@ protected:
 	UIList		m_Children;		// children pointer list
 	eUI_TYPE	m_eType;		// UI Type - button, image .....
 	eUI_STATE	m_eState;		// UI state
-	DWORD		m_dwStyle;		// style
-	DWORD		m_dwReserved;	// 기타 임시로 넣고 싶은 정보를 넣으면 된다.
+	uint32_t		m_dwStyle;		// style
+	uint32_t		m_dwReserved;	// 기타 임시로 넣고 싶은 정보를 넣으면 된다.
 
 	RECT		m_rcRegion;		// UI - screen coordinates (screen : main window client area) 중의 : 부모에 대한 상대좌표가 아니다.
 	RECT		m_rcMovable;	// UI를 드래그 하여 움직이게 할 수 있는 영역 - (screen : main window client area)           ~~~~~~~
@@ -93,12 +93,12 @@ public:
 	RECT			GetRegion() const { return m_rcRegion; }
 	void			SetMoveRect(const RECT& Rect) { m_rcMovable = Rect; }
 	RECT			GetMoveRect() { return m_rcMovable; }
-	void			SetReserved(DWORD dwReserved) {m_dwReserved = dwReserved;}
-	DWORD			GetReserved() const {return m_dwReserved;}
+	void			SetReserved(uint32_t dwReserved) {m_dwReserved = dwReserved;}
+	uint32_t			GetReserved() const {return m_dwReserved;}
 	CN3UIBase*		GetParent() const {return m_pParent;}
 	static CN3UIEdit*	GetFocusedEdit() {return s_pFocusedEdit;}
 	static CN3UITooltip*	GetTooltipCtrl() {return s_pTooltipCtrl;}
-	DWORD			GetStyle()	{return m_dwStyle;}
+	uint32_t			GetStyle()	{return m_dwStyle;}
 
 	void			SetUIType(eUI_TYPE eUIType) { m_eType = eUIType; }	// by ecli666 툴에 기능 넣기 귀찮아서.. ^^
 // Operations
@@ -118,16 +118,16 @@ public:
 	virtual BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// offset만큼 이동해준다.(region, children, move rect 이동)
 	virtual void	SetSize(int iWidth, int iHeight);	// 크기 지정
 	virtual void	SetState(eUI_STATE eState) { m_eState = eState; }
-	virtual void	SetStyle(DWORD dwStyle) {m_dwStyle = dwStyle;}	// style지정
+	virtual void	SetStyle(uint32_t dwStyle) {m_dwStyle = dwStyle;}	// style지정
 	virtual void	SetVisible(bool bVisible);
 
 	virtual void	SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false);
 
-	virtual void	CallBackProc(int iID, DWORD dwFlag);
+	virtual void	CallBackProc(int iID, uint32_t dwFlag);
 	virtual void	ShowWindow(int iID = -1, CN3UIBase* pParent = NULL);
 	virtual bool	Load(HANDLE hFile);
-	virtual bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg); // 메시지를 받는다.. 보낸놈, msg
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // 메시지를 받는다.. 보낸놈, msg
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual void	Tick();
 	virtual void	Render();
 	virtual void	Release(); // 자식 포인터까지 delete 한다..

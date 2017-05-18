@@ -41,7 +41,7 @@ bool CUICreateClanName::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUICreateClanName::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUICreateClanName::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
@@ -79,11 +79,11 @@ void CUICreateClanName::MsgSend_MakeClan()
 {
 	int iLn = 20;
 	iLn = m_szClanName.size();
-	BYTE byBuff[40];									// 패킷 버퍼..
+	uint8_t byBuff[40];									// 패킷 버퍼..
 	int iOffset=0;										// 패킷 오프셋..
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_CREATE);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (BYTE)iLn);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (uint8_t)iLn);
 	CAPISocket::MP_AddString(byBuff, iOffset, m_szClanName);
 	
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);

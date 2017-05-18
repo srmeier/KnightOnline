@@ -139,7 +139,7 @@ void CGameProcCharacterCreate::Tick()
 
 	CGameProcedure::Tick();
 
-	DWORD dwMouseFlags = s_pLocalInput->MouseGetFlag();
+	uint32_t dwMouseFlags = s_pLocalInput->MouseGetFlag();
 	m_pUICharacterCreate->Tick();
 	m_pUICharacterCreate->MouseProc(dwMouseFlags, s_pLocalInput->MouseGetPos(), s_pLocalInput->MouseGetPosOld());
 
@@ -236,7 +236,7 @@ bool CGameProcCharacterCreate::MsgSendCharacterCreate()
 			__InfoPlayerBase*	pInfoBase = &(s_pPlayer->m_InfoBase);
 			__InfoPlayerMySelf*	pInfoExt = &(s_pPlayer->m_InfoExt);
 
-			BYTE byBuff[64];
+			uint8_t byBuff[64];
 			int iOffset = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset,  WIZ_NEW_CHAR);					// 커멘드.
 			CAPISocket::MP_AddByte(byBuff, iOffset, CGameProcedure::s_iChrSelectIndex);	// 캐릭터 인덱스 b
@@ -310,7 +310,7 @@ bool CGameProcCharacterCreate::ProcessPacket(DataPack* pDataPack, int& iOffset)
 	{
 		case WIZ_NEW_CHAR:				// 캐릭터 선택 메시지..
 		{
-			BYTE bySuccess = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
+			uint8_t bySuccess = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
 			if(0 == bySuccess) 
 			{
 				ProcActiveSet((CGameProcedure*)s_pProcCharacterSelect); // 캐릭터 선택창으로 가기..

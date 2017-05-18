@@ -183,7 +183,7 @@ void CN3CPart::Render(int nLOD)
 	CN3Base::s_RenderInfo.nChr_Polygon += m_pSkinsRef->m_Skins[nLOD].FaceCount();
 #endif
 
-	static DWORD dwAlpha, dwFog, dwCull;
+	DWORD dwAlpha, dwFog, dwCull;
 	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha »ç¿ë
 	{
 		s_lpD3DDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlpha);
@@ -727,7 +727,7 @@ void CN3CPlug::RenderFXLines(const __Matrix44& mtxParent, const __Matrix44& mtxJ
 	mtx *= mtxParent;
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx);
 
-	DWORD dwCull;
+	uint32_t dwCull;
 	s_lpD3DDev->GetRenderState(D3DRS_CULLMODE, &dwCull);
 	s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_PMeshInstFX.SetLOD((s_CameraData.vEye - mtx.Pos()).Magnitude() * s_CameraData.fFOV);

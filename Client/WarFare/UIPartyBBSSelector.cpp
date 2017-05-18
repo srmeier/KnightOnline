@@ -30,7 +30,7 @@ CUIPartyBBSSelector::~CUIPartyBBSSelector()
 
 }
 
-bool CUIPartyBBSSelector::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
+bool CUIPartyBBSSelector::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
@@ -73,9 +73,9 @@ bool CUIPartyBBSSelector::Load(HANDLE hFile)
 	return true;
 }
 
-void CUIPartyBBSSelector::MsgSend_PartyBBSKind(BYTE byKind)
+void CUIPartyBBSSelector::MsgSend_PartyBBSKind(uint8_t byKind)
 {
-	BYTE byBuff[4];											
+	uint8_t byBuff[4];											
 	int iOffset=0;											
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, 1);		// 패킷도 정해야 할듯

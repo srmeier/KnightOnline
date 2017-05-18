@@ -37,7 +37,7 @@ public:
 	virtual void	Release();
 	virtual void	Tick();
 	virtual void	Render();
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 protected:
 
 };

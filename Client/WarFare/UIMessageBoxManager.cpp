@@ -143,9 +143,9 @@ void CUIMessageBoxManager::MessageBoxCloseAll()
 	m_pMsgBoxLatestRef = NULL;
 }
 
-DWORD CUIMessageBoxManager::MouseProcAndTick(DWORD &dwFlags, const POINT &ptCur, const POINT &ptOld)
+uint32_t CUIMessageBoxManager::MouseProcAndTick(uint32_t &dwFlags, const POINT &ptCur, const POINT &ptOld)
 {
-	DWORD dwRet = 0;
+	uint32_t dwRet = 0;
 	CUIMessageBox *pMB;
 
 	if(m_pMsgBoxLatestRef && m_pMsgBoxLatestRef->IsVisible())

@@ -44,7 +44,7 @@ void CUITradeExplanation::SetExplanation(int iCurSel, std::string szExplanation)
 	}
 }
 
-bool CUITradeExplanation::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
+bool CUITradeExplanation::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 {
 	if( dwMsg == UIMSG_BUTTON_CLICK )
 	{

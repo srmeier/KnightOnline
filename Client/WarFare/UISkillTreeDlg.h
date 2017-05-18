@@ -66,8 +66,8 @@ public:
 	bool				OnKeyPress(int iKey);
 	virtual	void		Release();
 	virtual void		Tick();
-	virtual DWORD		MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void				Render();
 	void				Open();
 	void				Close();

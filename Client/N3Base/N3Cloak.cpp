@@ -326,8 +326,8 @@ void CN3Cloak::SetLOD(int nLevel)
 			int nIndexCount = m_pPMesh->GetMaxNumIndices();
 			m_pVertex = new __VertexT1[nVertexCount];
 			memcpy(m_pVertex, m_pPMesh->GetVertices(), sizeof(__VertexT1)*nVertexCount);
-			m_pIndex = new WORD[nIndexCount];
-			memcpy(m_pIndex, m_pPMesh->GetIndices(), sizeof(WORD)*nIndexCount);
+			m_pIndex = new uint16_t[nIndexCount];
+			memcpy(m_pIndex, m_pPMesh->GetIndices(), sizeof(uint16_t)*nIndexCount);
 			m_nVertexCount = nVertexCount;
 			m_nIndexCount = nIndexCount;
 			//
@@ -342,7 +342,7 @@ void CN3Cloak::SetLOD(int nLevel)
 			int nVertexCount = 25;
 			int nIndexCount = 96;
 			m_pVertex = new __VertexT1[nVertexCount];
-			m_pIndex = new WORD[nIndexCount];
+			m_pIndex = new uint16_t[nIndexCount];
 			__VertexT1 *pVtx0 = m_pPMesh->GetVertices();
 			memcpy(m_pVertex, pVtx0, sizeof(__VertexT1)*5);
 			memcpy(m_pVertex+5, pVtx0+6, sizeof(__VertexT1)*5);
@@ -350,7 +350,7 @@ void CN3Cloak::SetLOD(int nLevel)
 			memcpy(m_pVertex+15, pVtx0+18, sizeof(__VertexT1)*5);
 			memcpy(m_pVertex+20, pVtx0+24, sizeof(__VertexT1)*5);			
 
-			WORD *pIndex = m_pIndex;
+			uint16_t *pIndex = m_pIndex;
 			int x,y;
 			for (y=0;y<4;y++)
 			{

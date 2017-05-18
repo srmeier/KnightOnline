@@ -5,7 +5,7 @@ using std::string;
 
 void CUser::LetterSystem(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 
 	switch (opcode)
 	{
@@ -19,11 +19,11 @@ void CUser::LetterSystem(Packet & pkt)
 
 	case LETTER_DELETE:
 		{
-			uint8 bCount = pkt.read<uint8>();
+			uint8_t bCount = pkt.read<uint8_t>();
 			if (bCount > 5)
 			{
-				Packet result(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
-				result << uint8(LETTER_DELETE) << int8(-3);
+				Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+				result << uint8_t(LETTER_DELETE) << int8_t(-3);
 				Send(&result);
 				return;
 			}
@@ -39,7 +39,7 @@ void CUser::LetterSystem(Packet & pkt)
 
 void CUser::ReqLetterSystem(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
 		// Are there any letters to be read?
@@ -83,8 +83,8 @@ void CUser::ReqLetterSystem(Packet & pkt)
 void CUser::ReqLetterUnread()
 {
 	// TODO: Force this to use cached list data (or update if stale). Calling the DB for just this is pointless.
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
-	result	<< uint8(LETTER_UNREAD) 
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	result	<< uint8_t(LETTER_UNREAD) 
 		<< g_DBAgent.GetUnreadLetterCount(m_strUserID);
 	Send(&result);
 }
@@ -92,45 +92,45 @@ void CUser::ReqLetterUnread()
 void CUser::ReqLetterList(bool bNewLettersOnly /*= true*/)
 {
 
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
-	result	<< uint8(bNewLettersOnly ? LETTER_LIST : LETTER_HISTORY);
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	result	<< uint8_t(bNewLettersOnly ? LETTER_LIST : LETTER_HISTORY);
 
 	if (!g_DBAgent.GetLetterList(m_strUserID, result, bNewLettersOnly))
-		result << int8(-1);
+		result << int8_t(-1);
 
 	Send(&result);
 }
 
 void CUser::ReqLetterRead(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
-	uint32 nLetterID = pkt.read<uint32>();
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	uint32_t nLetterID = pkt.read<uint32_t>();
 	string strMessage;
 
-	result << uint8(LETTER_READ);
+	result << uint8_t(LETTER_READ);
 	if (!g_DBAgent.ReadLetter(m_strUserID, nLetterID, strMessage))
 	{
 		// TODO: research error codes
-		result << uint8(0);
+		result << uint8_t(0);
 	}
 	else
 	{
 		result.SByte();
-		result << uint8(1) << nLetterID << strMessage;
+		result << uint8_t(1) << nLetterID << strMessage;
 	}
 	Send(&result);
 }
 
 void CUser::ReqLetterSend(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
 	CUser * pUser;
 	string strRecipient, strSubject, strMessage;
 	_ITEM_DATA *pItem = nullptr;
-	uint32 nItemID = 0, nCoins = 0, nCoinRequirement = 1000;
-	uint8 bType, bSrcPos;
-	int8 bResult = 1;
-	int64 Serial = 0;
+	uint32_t nItemID = 0, nCoins = 0, nCoinRequirement = 1000;
+	uint8_t bType, bSrcPos;
+	int8_t bResult = 1;
+	int64_t Serial = 0;
 
 	if (isMerchanting() || isTrading())
 	{
@@ -226,23 +226,23 @@ void CUser::ReqLetterSend(Packet & pkt)
 	pUser = g_pMain->GetUserPtr(strRecipient, TYPE_CHARACTER);
 	if (pUser != nullptr)
 	{
-		Packet notification(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
-		notification << uint8(LETTER_UNREAD) << true;
+		Packet notification(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+		notification << uint8_t(LETTER_UNREAD) << true;
 		pUser->Send(&notification);
 	}
 
 send_packet:
-	result	<< uint8(LETTER_SEND) << uint8(bResult);
+	result	<< uint8_t(LETTER_SEND) << uint8_t(bResult);
 	Send(&result);
 }
 
 void CUser::ReqLetterGetItem(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
-	uint64 nSerialNum = 0;
-	uint32 nLetterID = pkt.read<uint32>(), nItemID = 0, nCoins = 0;
-	uint16 sCount = 0, sDurability = 0;
-	int8 bResult = g_DBAgent.GetItemFromLetter(m_strUserID, nLetterID, nItemID, sCount, sDurability, nCoins, nSerialNum);
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	uint64_t nSerialNum = 0;
+	uint32_t nLetterID = pkt.read<uint32_t>(), nItemID = 0, nCoins = 0;
+	uint16_t sCount = 0, sDurability = 0;
+	int8_t bResult = g_DBAgent.GetItemFromLetter(m_strUserID, nLetterID, nItemID, sCount, sDurability, nCoins, nSerialNum);
 	int pos = -1;
 	
 	if (isMerchanting() || isTrading())
@@ -284,19 +284,19 @@ void CUser::ReqLetterGetItem(Packet & pkt)
 			GoldGain(nCoins);
 	}
 
-	result << uint8(LETTER_GET_ITEM) << bResult;
+	result << uint8_t(LETTER_GET_ITEM) << bResult;
 	Send(&result);
 }
 
 void CUser::ReqLetterDelete(Packet & pkt)
 {
 
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_LETTER));
-	uint8 bCount = pkt.read<uint8>();
-	result << uint8(LETTER_DELETE) << bCount;
-	for (uint8 i = 0; i < bCount; i++)
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	uint8_t bCount = pkt.read<uint8_t>();
+	result << uint8_t(LETTER_DELETE) << bCount;
+	for (uint8_t i = 0; i < bCount; i++)
 	{
-		uint32 nLetterID = pkt.read<uint32>();
+		uint32_t nLetterID = pkt.read<uint32_t>();
 		g_DBAgent.DeleteLetter(m_strUserID, nLetterID);
 		result << nLetterID;
 	}

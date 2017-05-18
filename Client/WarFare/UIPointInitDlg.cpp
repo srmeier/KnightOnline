@@ -57,7 +57,7 @@ bool CUIPointInitDlg::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUIPointInitDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIPointInitDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
@@ -80,7 +80,7 @@ void CUIPointInitDlg::Close()
 
 void CUIPointInitDlg::PushOkButton()
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 
 	switch (m_bAllpoint)

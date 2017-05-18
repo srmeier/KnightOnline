@@ -199,7 +199,7 @@ CLuaScript * CLuaEngine::SelectAvailableScript()
 *
 * @return	true if it succeeds, false if it fails.
 */
-bool CLuaEngine::ExecuteScript(CUser * pUser, CNpc * pNpc, int32 nEventID, int8 bSelectedReward, const char * filename)
+bool CLuaEngine::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int8_t bSelectedReward, const char * filename)
 {
 	ScriptBytecodeMap::iterator itr;
 	bool result = false;
@@ -303,7 +303,7 @@ bool CLuaScript::CompileScript(const char * filename, BytecodeBuffer & buffer)
 *
 * @return	The bytecode chunk.
 */
-int CLuaScript::LoadBytecodeChunk(lua_State * L, uint8 * bytes, size_t len, BytecodeBuffer * buffer)
+int CLuaScript::LoadBytecodeChunk(lua_State * L, uint8_t * bytes, size_t len, BytecodeBuffer * buffer)
 {
 	for (size_t i = 0; i < len; i++)
 		buffer->push_back(bytes[i]);
@@ -323,7 +323,7 @@ int CLuaScript::LoadBytecodeChunk(lua_State * L, uint8 * bytes, size_t len, Byte
 *
 * @return	true if it succeeds, false if it fails.
 */
-bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32 nEventID, int8 bSelectedReward, const char * filename, BytecodeBuffer & bytecode)
+bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int8_t bSelectedReward, const char * filename, BytecodeBuffer & bytecode)
 {
 	// Ensure that we wait until the last user's done executing their script.
 	Guard lock(m_lock);

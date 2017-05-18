@@ -14,8 +14,8 @@ public:
 	CGameEvent();
 	void RunEvent(CUser* pUser = nullptr);
 
-	uint16	m_sIndex;
-	uint8	m_bType;
+	uint16_t	m_sIndex;
+	uint8_t	m_bType;
 
-	int32	m_iCond[5], m_iExec[5];
+	int32_t	m_iCond[5], m_iExec[5];
 };

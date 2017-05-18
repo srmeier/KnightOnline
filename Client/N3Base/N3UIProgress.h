@@ -50,7 +50,7 @@ public:
 	virtual void	Render();
 	virtual void	Release();
 	virtual void	SetRegion(const RECT& Rect);
-	virtual void	SetStyle(DWORD dwStyle);
+	virtual void	SetStyle(uint32_t dwStyle);
 	virtual bool	Load(HANDLE hFile);
 
 	void			SetCurValue(int iValue, float fTimeToDelay = 0, float fChangeSpeedPerSec = 0);

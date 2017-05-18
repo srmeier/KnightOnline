@@ -25,7 +25,7 @@ public:
 	void SetVisible(bool bVisible);
 	void ShowWindow(int iID = -1, CN3UIBase* pParent = NULL);
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	std::string GetTradeTitle();
 	std::string GetTradeExplanation();

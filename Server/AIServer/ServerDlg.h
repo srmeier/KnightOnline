@@ -15,7 +15,7 @@ class CNpcThread;
 class CNpcTable;
 class Unit;
 
-typedef std::map <uint8, CNpcThread*>		NpcThreadArray;
+typedef std::map <uint8_t, CNpcThread*>		NpcThreadArray;
 typedef CSTLMap <CNpcTable>					NpcTableArray;
 typedef CSTLMap <CNpc>						NpcArray;
 typedef CSTLMap <_MAGIC_TABLE>				MagictableArray;
@@ -34,7 +34,7 @@ typedef CSTLMap <_SERVER_RESOURCE>			ServerResourceArray;
 typedef CSTLMap <_NPC_LIVE_TIME>			NpcLiveTimeArray;
 typedef CSTLMap <_OBJECT_EVENT>				ObjectEventArray;
 
-typedef std::map<uint16, CUser *>			UserSessionMap;
+typedef std::map<uint16_t, CUser *>			UserSessionMap;
 
 class CServerDlg
 {
@@ -65,23 +65,23 @@ public:
 	void GameServerAcceptThread();
 	void GetServerResource(int nResourceID, std::string * result, ...);
 	bool AddObjectEventNpc(_OBJECT_EVENT* pEvent, MAP * pMap);
-	CNpc * SpawnEventNpc(uint16 sSid, bool bIsMonster, uint8 byZone, float fX, float fY, float fZ, uint16 sDuration = 0, uint8 nation = 0, int16 socketID = -1,uint16 nEventRoom = 0);
-	void NpcUpdate(uint16 sSid, bool bIsMonster, uint8 byGroup = 0, uint16 sPid = 0);
+	CNpc * SpawnEventNpc(uint16_t sSid, bool bIsMonster, uint8_t byZone, float fX, float fY, float fZ, uint16_t sDuration = 0, uint8_t nation = 0, int16_t socketID = -1,uint16_t nEventRoom = 0);
+	void NpcUpdate(uint16_t sSid, bool bIsMonster, uint8_t byGroup = 0, uint16_t sPid = 0);
 
 	void RemoveEventNPC(CNpc * pNpc);
 	void AllNpcInfo();
 
-	Unit * GetUnitPtr(uint16 id);
-	CNpc * GetNpcPtr(uint16 npcId);
+	Unit * GetUnitPtr(uint16_t id);
+	CNpc * GetNpcPtr(uint16_t npcId);
 
-	CUser* GetUserPtr(uint16 sessionId);
-	bool SetUserPtr(uint16 sessionId, CUser * pUser);
-	void DeleteUserPtr(uint16 sessionId);
+	CUser* GetUserPtr(uint16_t sessionId);
+	bool SetUserPtr(uint16_t sessionId, CUser * pUser);
+	void DeleteUserPtr(uint16_t sessionId);
 
 	MAP * GetZoneByID(int zonenumber);
 
-	static uint32 THREADCALL Timer_CheckAliveTest(void * lpParam);
-	static uint32 THREADCALL Timer_CheckLiveTimes(void * lpParam);
+	static uint32_t THREADCALL Timer_CheckAliveTest(void * lpParam);
+	static uint32_t THREADCALL Timer_CheckLiveTimes(void * lpParam);
 	
 	void CheckAliveTest();
 	void CheckLiveTimes();
@@ -120,21 +120,21 @@ public:
 	std::string m_strGameDSN, m_strGameUID, m_strGamePWD;
 	OdbcConnection m_GameDB;
 
-	uint32 m_AIServerPort;
+	uint32_t m_AIServerPort;
 
 	UserSessionMap m_pUser;
 
-	Atomic<uint16>	m_TotalNPC;			// DB에있는 총 수
-	Atomic<uint16>	m_CurrentNPC;
-	short			m_sTotalMap;		// Zone 수 
-	short			m_sMapEventNpc;		// Map에서 읽어들이는 event npc 수
+	Atomic<uint16_t>	m_TotalNPC;			// DB에있는 총 수
+	Atomic<uint16_t>	m_CurrentNPC;
+	int16_t			m_sTotalMap;		// Zone 수 
+	int16_t			m_sMapEventNpc;		// Map에서 읽어들이는 event npc 수
 
 	bool			m_bFirstServerFlag;		// 서버가 처음시작한 후 게임서버가 붙은 경우에는 1, 붙지 않은 경우 0
-	uint8  m_byBattleEvent;				   // 전쟁 이벤트 관련 플래그( 1:전쟁중이 아님, 0:전쟁중)
-	short m_sKillKarusNpc, m_sKillElmoNpc; // 전쟁동안에 죽은 npc숫자
+	uint8_t  m_byBattleEvent;				   // 전쟁 이벤트 관련 플래그( 1:전쟁중이 아님, 0:전쟁중)
+	int16_t m_sKillKarusNpc, m_sKillElmoNpc; // 전쟁동안에 죽은 npc숫자
 
-	uint16	m_iYear, m_iMonth, m_iDate, m_iHour, m_iMin, m_iAmount;
-	uint8 m_iWeather;
+	uint16_t	m_iYear, m_iMonth, m_iDate, m_iHour, m_iMin, m_iAmount;
+	uint8_t m_iWeather;
 	bool m_bIsNight;
 
 	std::recursive_mutex m_userLock, m_npcThreadLock, m_eventThreadLock;

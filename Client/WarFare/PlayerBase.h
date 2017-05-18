@@ -127,7 +127,7 @@ public:
 //	
 	CBitset				m_bitset[SHADOW_SIZE];			// Used in Quake3.. ^^
 	__VertexT1			m_pvVertex[4];
-	unsigned short		m_pIndex[6];
+	uint16_t		m_pIndex[6];
 	__VertexT1			m_vTVertex[4];
 	float				m_fShaScale;
 	CN3Texture			m_N3Tex; 
@@ -150,7 +150,7 @@ public:
 	e_PlayerType	PlayerType() { return m_ePlayerType; }
 	e_Race			Race() { return m_InfoBase.eRace; }
 	e_Nation		Nation() { return m_InfoBase.eNation; }
-	virtual void	SetSoundAndInitFont(DWORD dwFontFlag = 0UL);
+	virtual void	SetSoundAndInitFont(uint32_t dwFontFlag = 0UL);
 	void			SetSoundPlug(__TABLE_ITEM_BASIC* pItemBasic);
 	void			ReleaseSoundAndFont();
 	void			RegenerateCollisionMesh(); // 최대 최소값을 다시 찾고 충돌메시를 다시 만든다..

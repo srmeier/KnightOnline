@@ -27,7 +27,7 @@ protected:
 public:
 	bool OnKeyPress(int iKey);
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void SetExplanation(int iCurSel, std::string szExplanation);
 
 	CUITradeExplanation();

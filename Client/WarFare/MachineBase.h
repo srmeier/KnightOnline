@@ -11,13 +11,13 @@
 
 #include "N3Base.h"
 
-const DWORD MS_STOP		= 0x00000000;
-const DWORD MS_FORWARD	= 0x00000001;
-const DWORD MS_BACKWARD = 0x00000002;
-const DWORD MS_TURNRIGHT= 0x00000004;
-const DWORD MS_TURNLEFT = 0x00000008;
+const uint32_t MS_STOP		= 0x00000000;
+const uint32_t MS_FORWARD	= 0x00000001;
+const uint32_t MS_BACKWARD = 0x00000002;
+const uint32_t MS_TURNRIGHT= 0x00000004;
+const uint32_t MS_TURNLEFT = 0x00000008;
 
-const DWORD MACHINE_TYPE_CATAPULT = 0x21;
+const uint32_t MACHINE_TYPE_CATAPULT = 0x21;
 
 class CN3Texture;
 class CN3PMeshInstance;
@@ -55,7 +55,7 @@ protected:
 	float			m_fRotateSpeed;		// 초당 회전 각속도
 	//__Vector3		m_vDir;				// machine의 진행방향
 	float			m_fDirRadian;		// 진행방향 각도(z양의 방향이 0.0f);
-	DWORD			m_dwMachineState;
+	uint32_t			m_dwMachineState;
 	BOOL*			m_bSkipCalcPartMtx;		// 파트 메트릭스 계산 건너뛰기(part갯수만큼 할당됨)
 	__Vector3		m_vBalancePoint[4];		// 균형을 잡기위한 4점의 위치(전후좌우) 로컬좌표임.
 
@@ -68,7 +68,7 @@ public:
 	void			SetFireRadian(float fFireRadian) {m_fFireRadian = fFireRadian;}
 	void			SetFireSpeed(float fFireSpeed) {m_fFireSpeed = fFireSpeed;}
 	void			SetDirRadian(float fDirRadian) {m_fDirRadian = fDirRadian; ReCalcMatrix();}
-	DWORD			GetMachineState() const {return m_dwMachineState;}
+	uint32_t			GetMachineState() const {return m_dwMachineState;}
 
 // Operations
 public:

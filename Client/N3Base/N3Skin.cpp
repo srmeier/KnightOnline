@@ -126,7 +126,7 @@ void CN3Skin::RecalcWeight()
 
 bool CN3Skin::CheckCollisionPrecisely(const __Vector3 &vPos, const __Vector3 &vDir, __Vector3 *pvPick)
 {
-	WORD* pwIs;
+	uint16_t* pwIs;
 	__VertexXyzNormal* pVs;
 	int nFC, nCI0, nCI1, nCI2;
 

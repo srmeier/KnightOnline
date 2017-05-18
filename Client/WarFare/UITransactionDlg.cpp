@@ -662,35 +662,35 @@ void CUITransactionDlg::ItemCountCancel()
 
 void CUITransactionDlg::SendToServerSellMsg(int itemID, byte pos, int iCount)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_SELL);
 	CAPISocket::MP_AddDword(byBuff, iOffset, itemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, pos);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iCount);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iCount);
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
 
 void CUITransactionDlg::SendToServerBuyMsg(int itemID, byte pos, int iCount)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_BUY);
 	CAPISocket::MP_AddDword(byBuff, iOffset, m_iTradeID);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)m_iNpcID);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iNpcID);
 	CAPISocket::MP_AddDword(byBuff, iOffset, itemID);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, pos);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iCount);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iCount);
 
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
 
 void CUITransactionDlg::SendToServerMoveMsg(int itemID, byte startpos, byte destpos)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_ITEM_TRADE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TRADE_MOVE);
@@ -1301,9 +1301,9 @@ void CUITransactionDlg::IconRestore()
 	}
 }
 
-DWORD CUITransactionDlg::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUITransactionDlg::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 
@@ -1376,7 +1376,7 @@ e_UIWND_DISTRICT CUITransactionDlg::GetWndDistrict(__IconItemSkill* spItem)
 	return UIWND_DISTRICT_UNKNOWN;
 }
 
-bool CUITransactionDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUITransactionDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 // Temp Define
 #define FAIL_CODE {		\
@@ -1469,7 +1469,7 @@ bool CUITransactionDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 	e_UIWND_DISTRICT eUIWnd;
 	int iOrder;
 
-	DWORD dwBitMask = 0x000f0000;
+	uint32_t dwBitMask = 0x000f0000;
 
 	switch (dwMsg & dwBitMask)
 	{

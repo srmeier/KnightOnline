@@ -47,8 +47,8 @@ public:
 	static CN3UIEdit* GetEdit(HWND hWnd);
 	static HWND		s_hWndParent;
 
-	LRESULT APIENTRY EditWndProcFuncPointer(HWND hWnd, WORD Message, WPARAM wParam, LPARAM lParam);
-	static LRESULT	APIENTRY EditWndProc(HWND hWnd, WORD Message, WPARAM wParam, LPARAM lParam);
+	LRESULT APIENTRY EditWndProcFuncPointer(HWND hWnd, uint16_t Message, WPARAM wParam, LPARAM lParam);
+	static LRESULT	APIENTRY EditWndProc(HWND hWnd, uint16_t Message, WPARAM wParam, LPARAM lParam);
 	static			void SetParentWindowHwnd(HWND hWnd) { s_hWndParent = hWnd; }
 */
 	static HWND		s_hWndEdit, s_hWndParent;
@@ -57,7 +57,7 @@ public:
 
 	static void				SetImeStatus(POINT ptPos, bool bOpen);
 	static BOOL				CreateEditWindow(HWND hParent, RECT rect);
-	static LRESULT APIENTRY EditWndProc(HWND hWnd, WORD Message, WPARAM wParam, LPARAM lParam);
+	static LRESULT APIENTRY EditWndProc(HWND hWnd, uint16_t Message, WPARAM wParam, LPARAM lParam);
 	static void				UpdateTextFromEditCtrl();
 	static void				UpdateCaretPosFromEditCtrl();
 
@@ -78,7 +78,7 @@ public:
 	virtual void		Render();
 	virtual void		Release();
 	virtual void		SetVisible(bool bVisible);
-	virtual DWORD		MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual BOOL		MoveOffset(int iOffsetX, int iOffsetY);		// 위치 지정(chilren의 위치도 같이 바꾸어준다. caret위치도 같이 바꾸어줌.)
 	void				KillFocus();			// 포커스를 없앤다.
 	bool				SetFocus();				// 포커스를 준다.

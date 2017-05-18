@@ -12,7 +12,7 @@ public:
 	virtual bool Fetch()
 	{
 		CKingSystem * pData;
-		uint8 byNation, byType;
+		uint8_t byNation, byType;
 
 		// Pull the nation first so we can use it as an ID.
 		_dbCommand->FetchByte(1, byNation);

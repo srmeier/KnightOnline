@@ -15,7 +15,7 @@ public:
 	CN3FXShape*	m_pShape;
 	CN3FXShape*	m_pRefShape;
 
-	DWORD		m_dwCurrColor;	//
+	uint32_t		m_dwCurrColor;	//
 	
 	char		m_cTextureMoveDir;	//텍스쳐 이동 방향..1:up 2:down, 3:left, 4:right
 	float		m_fu;				//텍스쳐 이동 속도

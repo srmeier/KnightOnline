@@ -23,9 +23,9 @@ protected:
 	CN3UIButton*	m_pBtn_WantParty;
 
 public:
-	void MsgSend_PartyBBSKind(BYTE byKind);
+	void MsgSend_PartyBBSKind(uint8_t byKind);
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	CUIPartyBBSSelector();
 	virtual ~CUIPartyBBSSelector();

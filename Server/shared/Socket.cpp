@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SocketMgr.h"
 
-Socket::Socket(SOCKET fd, uint32 sendbuffersize, uint32 recvbuffersize) 
+Socket::Socket(SOCKET fd, uint32_t sendbuffersize, uint32_t recvbuffersize) 
 	: m_fd(fd), m_connected(false),	m_deleted(false), m_socketMgr(nullptr)
 {
 	// Allocate buffers
@@ -17,7 +17,7 @@ Socket::Socket(SOCKET fd, uint32 sendbuffersize, uint32 recvbuffersize)
 		m_fd = SocketOps::CreateTCPFileDescriptor();
 }
 
-bool Socket::Connect(const char * Address, uint32 Port)
+bool Socket::Connect(const char * Address, uint32_t Port)
 {
 	struct hostent * ci = gethostbyname(Address);
 	if (ci == 0)
@@ -66,7 +66,7 @@ void Socket::_OnConnect()
 	SetupReadEvent();
 }
 
-bool Socket::Send(const uint8 * Bytes, uint32 Size)
+bool Socket::Send(const uint8_t * Bytes, uint32_t Size)
 {
 	bool rv;
 
@@ -80,7 +80,7 @@ bool Socket::Send(const uint8 * Bytes, uint32 Size)
 	return rv;
 }
 
-bool Socket::BurstSend(const uint8 * Bytes, uint32 Size)
+bool Socket::BurstSend(const uint8_t * Bytes, uint32_t Size)
 {
 	return writeBuffer.Write(Bytes, Size);
 }

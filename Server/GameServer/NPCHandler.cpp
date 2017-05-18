@@ -11,11 +11,11 @@ void CUser::ItemRepair(Packet & pkt)
 		return;
 
 	Packet result(WIZ_ITEM_REPAIR);
-	uint32 money, itemid;
-	uint16 durability, quantity/*, sNpcID*/;
+	uint32_t money, itemid;
+	uint16_t durability, quantity/*, sNpcID*/;
 	_ITEM_TABLE* pTable = nullptr;
 	CNpc *pNpc = nullptr;
-	uint8 sPos, sSlot;
+	uint8_t sPos, sSlot;
 
 	pkt >> sPos >> sSlot >> /*sNpcID >>*/ itemid;
 	if (sPos == 1 ) {	// SLOT
@@ -45,7 +45,7 @@ void CUser::ItemRepair(Packet & pkt)
 		else if( sPos == 2 ) 
 			quantity = pTable->m_sDuration - m_sItemArray[SLOT_MAX+sSlot].sDuration;
 
-		money = (unsigned int)((((pTable->m_iBuyPrice-10) / 10000.0f) + pow((float)pTable->m_iBuyPrice, 0.75f)) * quantity / (double)durability);
+		money = (uint32_t)((((pTable->m_iBuyPrice-10) / 10000.0f) + pow((float)pTable->m_iBuyPrice, 0.75f)) * quantity / (double)durability);
 
 		if (GetPremiumProperty(PremiumRepairDiscountPercent) > 0)
 			money = money * GetPremiumProperty(PremiumRepairDiscountPercent) / 100;
@@ -58,25 +58,25 @@ void CUser::ItemRepair(Packet & pkt)
 		else if( sPos == 2 )
 			m_sItemArray[SLOT_MAX+sSlot].sDuration = durability;
 
-		result << uint8(1) << GetCoins();
+		result << uint8_t(1) << GetCoins();
 		Send(&result);
 		SendItemMove(1);
 		return;
 	//}
 
 fail_return:
-	result << uint8(0) << GetCoins();
+	result << uint8_t(0) << GetCoins();
 	Send(&result);
 }
 
-void CUser::ClientEvent(uint16 sNpcID)
+void CUser::ClientEvent(uint16_t sNpcID)
 {
 	// Ensure AI's loaded
 	if (!g_pMain->m_bPointCheckFlag
 		|| isDead())
 		return;
 
-	int32 iEventID = 0;
+	int32_t iEventID = 0;
 	CNpc *pNpc = g_pMain->GetNpcPtr(sNpcID);
 	if (pNpc == nullptr
 		|| !isInRange(pNpc, MAX_NPC_RANGE))
@@ -92,12 +92,12 @@ void CUser::ClientEvent(uint16 sNpcID)
 	}
 	else if (pNpc->GetProtoID() == CHAOS_CUBE_SSID && !pNpc->isDead())
 	{ 
-		uint8 nEventRoomUserCount = g_pMain->TempleEventGetRoomUsers(GetEventRoom());
-		uint8 nItemRewardRankFirst = nEventRoomUserCount / 3;
-		uint8 nItemRewardRankSecond = (nEventRoomUserCount  - 1) * 2;
+		uint8_t nEventRoomUserCount = g_pMain->TempleEventGetRoomUsers(GetEventRoom());
+		uint8_t nItemRewardRankFirst = nEventRoomUserCount / 3;
+		uint8_t nItemRewardRankSecond = (nEventRoomUserCount  - 1) * 2;
 
-		int32 nUserRank = GetPlayerRank(RANK_TYPE_CHAOS_DUNGEON);
-		uint32 nItemID = 0;
+		int32_t nUserRank = GetPlayerRank(RANK_TYPE_CHAOS_DUNGEON);
+		uint32_t nItemID = 0;
 
 		if (nUserRank == 0)
 			nItemID = ITEM_KILLING_BLADE;
@@ -148,7 +148,7 @@ void CUser::ClientEvent(uint16 sNpcID)
 void CUser::KissUser()
 {
 	Packet result(WIZ_KISS);
-	result << uint32(GetID()) << m_sEventNid;
+	result << uint32_t(GetID()) << m_sEventNid;
 	GiveItem(910014000); // aw, you got a 'Kiss'. How literal.
 	SendToRegion(&result);
 }
@@ -157,7 +157,7 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 {
 	Packet result(WIZ_CLASS_CHANGE);
 	bool bSuccess = false;
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	if (opcode == CLASS_CHANGE_REQ)	
 	{
 		ClassChangeReq();
@@ -175,13 +175,13 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 	}
 	else if (opcode == CHANGE_MONEY_REQ)	
 	{
-		uint8 sub_type = pkt.read<uint8>(); // type is irrelevant
-		uint32 money = (uint32)pow((GetLevel() * 2.0f), 3.4f);
+		uint8_t sub_type = pkt.read<uint8_t>(); // type is irrelevant
+		uint32_t money = (uint32_t)pow((GetLevel() * 2.0f), 3.4f);
 
 		if (GetLevel() < 30)	
-			money = (uint32)(money * 0.4f);
+			money = (uint32_t)(money * 0.4f);
 		else if (GetLevel() >= 60)
-			money = (uint32)(money * 1.5f);
+			money = (uint32_t)(money * 1.5f);
 
 		// If nation discounts are enabled (1), and this nation has won the last war, get it half price.
 		// If global discounts are enabled (2), everyone can get it for half price.
@@ -189,7 +189,7 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 			|| g_pMain->m_sDiscount == 2)
 			money /= 2;
 
-		result << uint8(CHANGE_MONEY_REQ) << money;
+		result << uint8_t(CHANGE_MONEY_REQ) << money;
 		Send(&result);
 		return;
 	}
@@ -197,7 +197,7 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 	else if (bFromClient)
 		return;
 
-	uint8 classcode = pkt.read<uint8>();
+	uint8_t classcode = pkt.read<uint8_t>();
 	switch (m_sClass)
 	{
 	case KARUWARRIOR:
@@ -269,7 +269,7 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 	// Not allowed this job change
 	if (!bSuccess)
 	{
-		result << uint8(CLASS_CHANGE_RESULT) << uint8(0);
+		result << uint8_t(CLASS_CHANGE_RESULT) << uint8_t(0);
 		Send(&result);
 		return;
 	}
@@ -279,16 +279,16 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 	{
 		// TODO: Move this somewhere better.
 		result.SetOpcode(WIZ_PARTY);
-		result << uint8(PARTY_CLASSCHANGE) << GetSocketID() << uint16(classcode);
+		result << uint8_t(PARTY_CLASSCHANGE) << GetSocketID() << uint16_t(classcode);
 		g_pMain->Send_PartyMember(GetPartyID(), &result);
 	}
 }
 
 void CUser::RecvSelectMsg(Packet & pkt)	// Receive menu reply from client.
 {
-	uint8 bMenuID = pkt.read<uint8>();
+	uint8_t bMenuID = pkt.read<uint8_t>();
 	//string szLuaFilename;
-	int8 bySelectedReward = -1;
+	int8_t bySelectedReward = -1;
 	//pkt.SByte();
 	//pkt >> szLuaFilename >> bySelectedReward;
 
@@ -296,7 +296,7 @@ void CUser::RecvSelectMsg(Packet & pkt)	// Receive menu reply from client.
 		memset(&m_iSelMsgEvent, -1, sizeof(m_iSelMsgEvent));
 }
 
-bool CUser::AttemptSelectMsg(uint8 bMenuID, int8 bySelectedReward)
+bool CUser::AttemptSelectMsg(uint8_t bMenuID, int8_t bySelectedReward)
 {
 	_QUEST_HELPER * pHelper = nullptr;
 	if (bMenuID >= MAX_MESSAGE_EVENT
@@ -305,7 +305,7 @@ bool CUser::AttemptSelectMsg(uint8 bMenuID, int8 bySelectedReward)
 		return false;
 
 	// Get the event number that needs to be processed next.
-	int32 selectedEvent = m_iSelMsgEvent[bMenuID];
+	int32_t selectedEvent = m_iSelMsgEvent[bMenuID];
 	if (selectedEvent < 0
 		|| (pHelper = g_pMain->m_QuestHelperArray.GetData(m_nQuestHelperID)) == nullptr
 		|| !QuestV2RunEvent(pHelper, selectedEvent, bySelectedReward))
@@ -314,19 +314,19 @@ bool CUser::AttemptSelectMsg(uint8 bMenuID, int8 bySelectedReward)
 	return true;
 }
 
-void CUser::SendSay(int32 nTextID[10])
+void CUser::SendSay(int32_t nTextID[10])
 {
 	Packet result(WIZ_NPC_SAY);
 
-	result << int32(-1) << int32(-1);
+	result << int32_t(-1) << int32_t(-1);
 	foreach_array_n(i, nTextID, 10)
 		result << nTextID[i];
 
 	Send(&result);
 }
 
-void CUser::SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText, 
-					  int32 menuButtonText[MAX_MESSAGE_EVENT], int32 menuButtonEvents[MAX_MESSAGE_EVENT])
+void CUser::SelectMsg(uint8_t bFlag, int32_t nQuestID, int32_t menuHeaderText, 
+					  int32_t menuButtonText[MAX_MESSAGE_EVENT], int32_t menuButtonEvents[MAX_MESSAGE_EVENT])
 {
 	_QUEST_HELPER * pHelper = g_pMain->m_QuestHelperArray.GetData(m_nQuestHelperID);
 	if (pHelper == nullptr)
@@ -346,7 +346,7 @@ void CUser::SelectMsg(uint8 bFlag, int32 nQuestID, int32 menuHeaderText,
 	Send(&result);
 
 	// and store the corresponding event IDs.
-	memcpy(&m_iSelMsgEvent, menuButtonEvents, sizeof(int32) * MAX_MESSAGE_EVENT);
+	memcpy(&m_iSelMsgEvent, menuButtonEvents, sizeof(int32_t) * MAX_MESSAGE_EVENT);
 }
 
 void CUser::NpcEvent(Packet & pkt)
@@ -357,9 +357,9 @@ void CUser::NpcEvent(Packet & pkt)
 		return;	
 
 	Packet result;
-	uint16 sNpcID = pkt.read<uint16>();
-	//uint8 bUnknown = pkt.read<uint8>();
-	//int32 nQuestID = pkt.read<int32>();
+	uint16_t sNpcID = pkt.read<uint16_t>();
+	//uint8_t bUnknown = pkt.read<uint8_t>();
+	//int32_t nQuestID = pkt.read<int32_t>();
 
 	CNpc *pNpc = g_pMain->GetNpcPtr(sNpcID);
 	if (pNpc == nullptr
@@ -377,21 +377,21 @@ void CUser::NpcEvent(Packet & pkt)
 
 		/*case NPC_MENU:
 		result.SetOpcode(WIZ_QUEST);
-		result	<< uint8(7) << uint16(SendNPCMenu(pNpc->m_sSid))
-		<< uint16(0) << uint16(pNpc->m_sSid);
+		result	<< uint8_t(7) << uint16_t(SendNPCMenu(pNpc->m_sSid))
+		<< uint16_t(0) << uint16_t(pNpc->m_sSid);
 		Send(&result);
 		break; */
 
 	case NPC_MARK:
 		result.SetOpcode(WIZ_KNIGHTS_PROCESS);
-		result << uint8(KNIGHTS_CAPE_NPC);
+		result << uint8_t(KNIGHTS_CAPE_NPC);
 		Send(&result);
 		break;
 
 	case NPC_RENTAL:
 		result.SetOpcode(WIZ_RENTAL);
-		result	<< uint8(RENTAL_NPC) 
-			<< uint16(1) // 1 = enabled, -1 = disabled 
+		result	<< uint8_t(RENTAL_NPC) 
+			<< uint16_t(1) // 1 = enabled, -1 = disabled 
 			<< pNpc->m_iSellingGroup;
 		Send(&result);
 		break;
@@ -406,15 +406,15 @@ void CUser::NpcEvent(Packet & pkt)
 				// Ensure this still works as per official without a row in the table.
 				string strKingName = (pKingSystem == nullptr ? "" : pKingSystem->m_strKingName);
 				result.SByte();
-				result	<< uint8(KING_NPC) << strKingName;
+				result	<< uint8_t(KING_NPC) << strKingName;
 			}
 			else
 			{
 				// Ensure this still works as per official without a row in the table.
-				uint32 nTribute = (pKingSystem == nullptr ? 0 : pKingSystem->m_nTribute + pKingSystem->m_nTerritoryTax);
-				uint32 nTreasury = (pKingSystem == nullptr ? 0 : pKingSystem->m_nNationalTreasury);
-				result	<< uint8(KING_TAX) << uint8(1) // success
-					<< uint16(isKing() ? 1 : 2) // 1 enables king-specific stuff (e.g. scepter), 2 is normal user stuff
+				uint32_t nTribute = (pKingSystem == nullptr ? 0 : pKingSystem->m_nTribute + pKingSystem->m_nTerritoryTax);
+				uint32_t nTreasury = (pKingSystem == nullptr ? 0 : pKingSystem->m_nNationalTreasury);
+				result	<< uint8_t(KING_TAX) << uint8_t(1) // success
+					<< uint16_t(isKing() ? 1 : 2) // 1 enables king-specific stuff (e.g. scepter), 2 is normal user stuff
 					<< nTribute << nTreasury;
 			}
 			Send(&result);
@@ -424,7 +424,7 @@ void CUser::NpcEvent(Packet & pkt)
 		{
 		_KNIGHTS_SIEGE_WARFARE *pKnightSiegeWarFare = g_pMain->GetSiegeMasterKnightsPtr(1);
 		result.SetOpcode(WIZ_SIEGE);
-		result << uint8(3) << uint8(7);
+		result << uint8_t(3) << uint8_t(7);
 		Send(&result);
 		}
 		break;
@@ -435,7 +435,7 @@ void CUser::NpcEvent(Packet & pkt)
 		if (pKnightSiegeWarFare->sMasterKnights == GetClanID())
 		{
 			result.SetOpcode(WIZ_SIEGE);
-			result << uint8(4) << uint8(1) 
+			result << uint8_t(4) << uint8_t(1) 
 			<< pKnightSiegeWarFare->nDungeonCharge 
 			<< pKnightSiegeWarFare->nMoradonTax 
 			<< pKnightSiegeWarFare->nDellosTax;
@@ -460,7 +460,7 @@ void CUser::NpcEvent(Packet & pkt)
 
 	case NPC_WAREHOUSE:
 		result.SetOpcode(WIZ_WAREHOUSE);
-		result << uint8(WAREHOUSE_REQ);
+		result << uint8_t(WAREHOUSE_REQ);
 		Send(&result);
 		break;
 
@@ -470,7 +470,7 @@ void CUser::NpcEvent(Packet & pkt)
 		break;
 
 	case NPC_CLAN: // this HAS to go.
-		result << uint16(0); // page 0
+		result << uint16_t(0); // page 0
 		CKnightsManager::AllKnightsList(this, result);
 
 	default:
@@ -482,13 +482,13 @@ void CUser::NpcEvent(Packet & pkt)
 void CUser::ItemTrade(Packet & pkt)
 {
 	Packet result(WIZ_ITEM_TRADE);
-	uint32 transactionPrice;
+	uint32_t transactionPrice;
 	int itemid = 0, money = 0, group = 0;
-	uint16 npcid;
-	uint16 count, real_count = 0;
+	uint16_t npcid;
+	uint16_t count, real_count = 0;
 	_ITEM_TABLE* pTable = nullptr;
 	CNpc* pNpc = nullptr;
-	uint8 type, pos, destpos, errorCode = 1;
+	uint8_t type, pos, destpos, errorCode = 1;
 	bool bSuccess = false;
 	_KNIGHTS_SIEGE_WARFARE *pSiegeWar = g_pMain->GetSiegeMasterKnightsPtr(1);
 	CKingSystem *pKingSystem = g_pMain->m_KingSystemArray.GetData(GetNation());
@@ -531,8 +531,8 @@ void CUser::ItemTrade(Packet & pkt)
 			goto fail_return;
 		}
 
-		short duration = m_sItemArray[SLOT_MAX+pos].sDuration;
-		short itemcount = m_sItemArray[SLOT_MAX+pos].sCount;
+		int16_t duration = m_sItemArray[SLOT_MAX+pos].sDuration;
+		int16_t itemcount = m_sItemArray[SLOT_MAX+pos].sCount;
 		m_sItemArray[SLOT_MAX+pos].nNum = m_sItemArray[SLOT_MAX+destpos].nNum;
 		m_sItemArray[SLOT_MAX+pos].sDuration = m_sItemArray[SLOT_MAX+destpos].sDuration;
 		m_sItemArray[SLOT_MAX+pos].sCount = m_sItemArray[SLOT_MAX+destpos].sCount;
@@ -540,7 +540,7 @@ void CUser::ItemTrade(Packet & pkt)
 		m_sItemArray[SLOT_MAX+destpos].sDuration = duration;
 		m_sItemArray[SLOT_MAX+destpos].sCount = itemcount;
 
-		result << uint8(3);
+		result << uint8_t(3);
 		Send(&result);
 		return;
 	}
@@ -586,8 +586,8 @@ void CUser::ItemTrade(Packet & pkt)
 
 		if ((pKingSystem->m_nTerritoryTariff > 0 || pSiegeWar->nDellosTax > 0 || pSiegeWar->nMoradonTax > 0) && pNpc->m_iSellingGroup == 253000)
 		{
-			int32 tariffTax = 0;
-			uint32 BuyPrice = pTable->m_iBuyPrice;
+			int32_t tariffTax = 0;
+			uint32_t BuyPrice = pTable->m_iBuyPrice;
 			switch (GetZoneID())
 			{
 
@@ -636,13 +636,13 @@ void CUser::ItemTrade(Packet & pkt)
 			default:
 				break;
 			}
-			transactionPrice = ((uint32)BuyPrice * count);
+			transactionPrice = ((uint32_t)BuyPrice * count);
 		}
 		else
-			transactionPrice = ((uint32)pTable->m_iBuyPrice * count);
+			transactionPrice = ((uint32_t)pTable->m_iBuyPrice * count);
 		
 		if (m_bPremiumType > 0)
-		transactionPrice -= (uint32)(pTable->m_iBuyPrice * count / 11.1115f);
+		transactionPrice -= (uint32_t)(pTable->m_iBuyPrice * count / 11.1115f);
 
 
 		if(pTable->m_bSellingGroup == 0)
@@ -702,7 +702,7 @@ void CUser::ItemTrade(Packet & pkt)
 			goto fail_return;
 		}
 
-		short oldDurability = pItem->sDuration;
+		int16_t oldDurability = pItem->sDuration;
 		if (pTable->m_iSellPrice != SellTypeFullPrice)
 			if (m_bPremiumType > 0)
 				transactionPrice = ((pTable->m_iBuyPrice / 4) * count); //4 for prem/discount
@@ -741,7 +741,7 @@ fail_return:
 */
 void CUser::HandleNameChange(Packet & pkt)
 {
-	uint8 opcode;
+	uint8_t opcode;
 	pkt >> opcode;
 
 	switch (opcode)
@@ -781,7 +781,7 @@ void CUser::HandlePlayerNameChange(Packet & pkt)
 	if (!CheckExistItem(ITEM_SCROLL_OF_IDENTITY))
 		return;
 
-	Packet result(WIZ_NAME_CHANGE, uint8(NameChangePlayerRequest));
+	Packet result(WIZ_NAME_CHANGE, uint8_t(NameChangePlayerRequest));
 	result << strUserID;
 	g_pMain->AddDatabaseRequest(result, this);
 }
@@ -798,7 +798,7 @@ void CUser::HandlePlayerNameChange(Packet & pkt)
 */
 void CUser::SendNameChange(NameChangeOpcode opcode /*= NameChangeShowDialog*/)
 {
-	Packet result(WIZ_NAME_CHANGE, uint8(opcode));
+	Packet result(WIZ_NAME_CHANGE, uint8_t(opcode));
 	Send(&result);
 }
 
@@ -807,9 +807,9 @@ void CUser::HandleCapeChange(Packet & pkt)
 	Packet result(WIZ_CAPE);
 	CKnights *pKnights = nullptr;
 	_KNIGHTS_CAPE *pCape = nullptr;
-	uint32 nReqClanPoints = 0, nReqCoins = 0;
-	int16 sErrorCode = 0, sCapeID;
-	//uint8 r, g, b;
+	uint32_t nReqClanPoints = 0, nReqCoins = 0;
+	int16_t sErrorCode = 0, sCapeID;
+	//uint8_t r, g, b;
 	//bool bApplyingPaint = false;
 
 	pkt >> sCapeID /*>> r >> g >> b*/;
@@ -916,7 +916,7 @@ void CUser::HandleCapeChange(Packet & pkt)
 	
 	CKnights *aKnights = g_pMain->GetClanPtr(pKnights->GetAllianceID());
 
-	result	<< uint16(1) // success
+	result	<< uint16_t(1) // success
 		<< pKnights->GetAllianceID()
 		<< pKnights->GetID()
 		<< pKnights->m_sCape;

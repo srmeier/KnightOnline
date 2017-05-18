@@ -201,13 +201,13 @@ void CN3UIBase::SetSize(int iWidth, int iHeight)
 	SetRegion(rc);
 }
 
-bool CN3UIBase::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg) // 메시지를 받는다.. 보낸놈, msg
+bool CN3UIBase::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg) // 메시지를 받는다.. 보낸놈, msg
 {
 	if(m_pParent && pSender) m_pParent->ReceiveMessage(pSender, dwMsg); // 부모가 있으면 그넘에게도 보낸다..
 	return true;
 }
 
-void CN3UIBase::CallBackProc(int iID, DWORD dwFlag)
+void CN3UIBase::CallBackProc(int iID, uint32_t dwFlag)
 {
 }
 
@@ -232,9 +232,9 @@ bool CN3UIBase::Load(HANDLE hFile)
 	if(m_iFileFormatVersion >= N3FORMAT_VER_1264) {
 		//char temp[0xFF];
 
-		short sCC, sIdk0;
-		ReadFile(hFile, &sCC, sizeof(short), &dwRWC, NULL); // children count
-		ReadFile(hFile, &sIdk0, sizeof(short), &dwRWC, NULL);
+		int16_t sCC, sIdk0;
+		ReadFile(hFile, &sCC, sizeof(int16_t), &dwRWC, NULL); // children count
+		ReadFile(hFile, &sIdk0, sizeof(int16_t), &dwRWC, NULL);
 		iCC = (int) sCC;
 
 		//sprintf(temp, "sIdk0 = %d\n", sIdk0);
@@ -353,9 +353,9 @@ void CN3UIBase::Render()
 	}
 }
 
-DWORD CN3UIBase::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld )
+uint32_t CN3UIBase::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld )
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 
 	// UI 움직이는 코드
@@ -397,7 +397,7 @@ DWORD CN3UIBase::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		DWORD dwChildRet = pChild->MouseProc(dwFlags, ptCur, ptOld);
+		uint32_t dwChildRet = pChild->MouseProc(dwFlags, ptCur, ptOld);
 		if (UI_MOUSEPROC_DONESOMETHING & dwChildRet)
 		{	// 이경우에는 먼가 포커스를 받은 경우이다.
 			// (아래 코드는 dialog를 관리하는 곳에서 해야 한다. 따라서 막아놓음)

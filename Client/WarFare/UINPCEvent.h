@@ -37,7 +37,7 @@ public:
 	virtual ~CUINPCEvent();
 
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	void Open(e_NpcEvent eNpcEvent, int iTradeId = -1, int iIDTarget = -1);
 	void Close();

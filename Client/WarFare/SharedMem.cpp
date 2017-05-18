@@ -62,7 +62,7 @@ void CSharedMemQueue::DestroySMQ()
 
 void CSharedMemQueue::SetReadData()
 {
-	WORD		size;
+	uint16_t		size;
 	char	*InData = Rxd->Data + Rxd->Tail;
 	if (*InData!=0x7f) {
 		(Rxd->Tail) ++;
@@ -89,7 +89,7 @@ BOOL CSharedMemQueue::IsPartner()
 	return Rxd->Connect;
 }
 
-BOOL CSharedMemQueue::PutData(char *pBuf, WORD size)
+BOOL CSharedMemQueue::PutData(char *pBuf, uint16_t size)
 {
 	if (!Rxd->Connect) return FALSE;
 	char	*OutData = Txd->Data + Txd->Head;
@@ -110,7 +110,7 @@ void CSharedMemQueue::SetHwnd(HWND hwnd)
 
 BOOL CSharedMemQueue::CreateSmq(BOOL Server)
 {
-	DWORD dwfullsize = SIZE_RECEIVER+SIZE_TRANSFER+sizeof(_SMQ_HEADER)+100;
+	uint32_t dwfullsize = SIZE_RECEIVER+SIZE_TRANSFER+sizeof(_SMQ_HEADER)+100;
 	if (Server) {
 		m_hrMMFile = CreateFileMapping((HANDLE)0xFFFFFFFF, NULL, PAGE_READWRITE, 0, dwfullsize, SMQ_KNIGHTRECV);
 		m_hsMMFile = CreateFileMapping((HANDLE)0xFFFFFFFF, NULL, PAGE_READWRITE, 0, dwfullsize, SMQ_KNIGHTSEND);

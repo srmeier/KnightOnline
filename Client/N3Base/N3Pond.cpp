@@ -122,12 +122,12 @@ bool CN3Pond::Load(HANDLE hFile)
 		int iIC;
 		ReadFile(hFile, &iIC, sizeof(iIC), &dwNum, NULL);				// IndexBuffer Count.
 		ptmpPondMesh->m_iIC = iIC;		///
-		ptmpPondMesh->m_wpIndex = new WORD [iVC*6];		///
+		ptmpPondMesh->m_wpIndex = new uint16_t [iVC*6];		///
 
 		int j,k;
 		int iWidth = iWidthVertex,iHeight = iVC/iWidthVertex;
 		int x=0,y=iWidth;
-		WORD* indexPtr = ptmpPondMesh->m_wpIndex;	//	삼각형을 부를 위치 설정
+		uint16_t* indexPtr = ptmpPondMesh->m_wpIndex;	//	삼각형을 부를 위치 설정
 		iWidth--;
 
 		__VertexPond* ptVtx = ptmpPondMesh->m_pVertices;

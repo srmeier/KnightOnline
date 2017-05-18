@@ -46,7 +46,7 @@ void CUIManager::Release()
 	CN3UIBase::Release();
 }
 
-DWORD CUIManager::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
 	m_dwMouseFlagsCur = UI_MOUSEPROC_NONE;
 	if (!m_bVisible || !m_bEnableOperation) return m_dwMouseFlagsCur;
@@ -96,7 +96,7 @@ DWORD CUIManager::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOl
 
 		if(pChild->m_pChildUI && pChild->m_pChildUI->IsVisible())
 		{
-			DWORD dwRet = pChild->m_pChildUI->MouseProc(dwFlags, ptCur, ptOld);
+			uint32_t dwRet = pChild->m_pChildUI->MouseProc(dwFlags, ptCur, ptOld);
 			if (UI_MOUSEPROC_DONESOMETHING & dwRet)
 			{	// 이경우에는 먼가 포커스를 받은 경우이다.
 				pChild->MouseProc(0, ptCur, ptOld);
@@ -117,7 +117,7 @@ DWORD CUIManager::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOl
 			}
 		}
 
-		DWORD dwChildRet = pChild->MouseProc(dwFlags, ptCur, ptOld);
+		uint32_t dwChildRet = pChild->MouseProc(dwFlags, ptCur, ptOld);
 		if (UI_MOUSEPROC_DONESOMETHING & dwChildRet)
 		{	// 이경우에는 먼가 포커스를 받은 경우이다.
 			m_dwMouseFlagsCur |= (UI_MOUSEPROC_DONESOMETHING|UI_MOUSEPROC_CHILDDONESOMETHING);
@@ -398,7 +398,7 @@ void CUIManager::SetVisibleFocusedUI(CN3UIBase *pUI)
 
 	UIListItor it = m_Children.begin(), itEnd = m_Children.end();
 
-	DWORD dwUIStyle, dwUIHideStyle;
+	uint32_t dwUIStyle, dwUIHideStyle;
 	CN3UIBase* pUIHide = NULL;
 
 	dwUIStyle = pUI->GetStyle();

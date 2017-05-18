@@ -66,9 +66,9 @@ enum e_FXPartParticleEmitType	// 이펙트 파트가 어떤 모양으로 전개되는지...
 /*
 typedef struct __TABLE_FX	// FX 리소스 레코드...
 {
-	DWORD		dwID;		// 고유 ID
+	uint32_t		dwID;		// 고유 ID
 	std::string	szFN;		// file name
-	DWORD		dwSoundID;	// 효과에 쓰는 사운드 아디.
+	uint32_t		dwSoundID;	// 효과에 쓰는 사운드 아디.
 } TABLE_FX;
 */
 

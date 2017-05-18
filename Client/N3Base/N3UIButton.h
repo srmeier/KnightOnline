@@ -37,7 +37,7 @@ public:
 	virtual void	SetRegion(const RECT& Rect);
 	virtual BOOL	MoveOffset(int iOffsetX, int iOffsetY);
 
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual void	Render();
 
 // 툴에서 사용하기 위한 함수

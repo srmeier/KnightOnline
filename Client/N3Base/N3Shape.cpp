@@ -208,8 +208,8 @@ void CN3SPart::Render()
 		return; // 렌더링 안하지롱.
 	}
 
-//	static DWORD dwAlpha, dwFog, dwCull;
-	static DWORD dwFog, dwCull;
+//	static uint32_t dwAlpha, dwFog, dwCull;
+	DWORD dwFog, dwCull;
 //	s_lpD3DDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlpha);
 //	if(TRUE != dwAlpha) s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 //	s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND,   m_Mtl.dwSrcBlend);
@@ -283,7 +283,7 @@ void CN3SPart::RenderSelected(bool bWireFrame)
 		__Vector3 vLines[4];
 		
 		int nFC = m_PMInst.GetNumIndices() / 3;
-		WORD* pwIndices = m_PMInst.GetIndices();
+		uint16_t* pwIndices = m_PMInst.GetIndices();
 		__VertexT1* pVs = m_PMInst.GetVertices();
 
 		for(int i = 0; i < nFC; i++)
@@ -459,7 +459,7 @@ void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 		return; // 렌더링 안하지롱.
 	}
 
-	static DWORD dwFog, dwCull;
+	static uint32_t dwFog, dwCull;
 
 #ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
@@ -499,7 +499,7 @@ void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 	if((m_Mtl.nRenderFlags & RF_DOUBLESIDED) && D3DCULL_NONE != dwCull) 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, dwCull);
 }
 #else
-void CN3SPart::PartialRender(int iCount, WORD* pIndices)
+void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 {
 	if(m_bOutOfCameraRange || m_PMInst.GetNumVertices() <= 0) return;
 
@@ -539,7 +539,7 @@ void CN3SPart::PartialRender(int iCount, WORD* pIndices)
 		return; // 렌더링 안하지롱.
 	}
 
-	static DWORD dwFog, dwCull;
+	DWORD dwFog, dwCull;
 
 #ifdef _DEBUG
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
@@ -893,7 +893,7 @@ int CN3Shape::CheckCollisionPrecisely(bool bIgnoreBoxCheck, const __Vector3& vPo
 		if(NULL == pPMI) continue;
 
 		__VertexT1* pVs = pPMI->GetVertices();
-		WORD* pwIs = pPMI->GetIndices();
+		uint16_t* pwIs = pPMI->GetIndices();
 		int nIndexCount = pPMI->GetNumIndices();
 
 		int nFC = nIndexCount / 3; // Face Count
@@ -956,7 +956,7 @@ bool CN3Shape::MakeCollisionMeshByParts()  // 충돌 메시를 박스로 만든다...
 	pVMesh->CreateIndex(iIC);
 
 	__Vector3* pVDest = pVMesh->Vertices();
-	WORD* pwIDest = pVMesh->Indices();
+	uint16_t* pwIDest = pVMesh->Indices();
 
 	__Matrix44 mtxI = m_Matrix;
 	D3DXMatrixInverse(&mtxI, NULL, &m_Matrix);
@@ -971,7 +971,7 @@ bool CN3Shape::MakeCollisionMeshByParts()  // 충돌 메시를 박스로 만든다...
 		VMTmp.CreateCube(pPMesh->Min(), pPMesh->Max());
 
 		__Vector3* pVSrc = VMTmp.Vertices();
-		WORD* pwISrc = VMTmp.Indices();
+		uint16_t* pwISrc = VMTmp.Indices();
 
 		m_Parts[i]->Tick(m_Matrix, m_qRot, 1.0f);
 		__Matrix44 mtxPart = m_Parts[i]->m_Matrix;
@@ -1028,10 +1028,10 @@ bool CN3Shape::MakeCollisionMeshByPartsDetail()  // 현재 모습 그대로... 충돌 메�
 	pVMesh->CreateIndex(iIC);
 
 	__Vector3* pVDest = pVMesh->Vertices();
-	WORD* pwIDest = pVMesh->Indices();
+	uint16_t* pwIDest = pVMesh->Indices();
 
 	__VertexT1* pVSrc = NULL;
-	WORD* pwISrc = NULL;
+	uint16_t* pwISrc = NULL;
 	
 	iVC = 0; iIC = 0;
 	__Matrix44 mtxI = m_Matrix;
@@ -1281,7 +1281,7 @@ void CN3Shape::PartialRender(size_t iPartIndex, int iCount, LPDIRECT3DINDEXBUFFE
 	m_Parts[iPartIndex]->PartialRender(iCount, pIB);
 }
 #else
-void CN3Shape::PartialRender(size_t iPartIndex, int iCount, WORD* pIndices)
+void CN3Shape::PartialRender(size_t iPartIndex, int iCount, uint16_t* pIndices)
 {
 	if (iPartIndex >= m_Parts.size())
 		return;

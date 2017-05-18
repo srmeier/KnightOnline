@@ -98,7 +98,7 @@ void CAISocket::OnDisconnect()
 
 void CAISocket::LoginProcess(Packet & pkt)
 {
-	uint8 bReconnect = pkt.read<uint8>();
+	uint8_t bReconnect = pkt.read<uint8_t>();
 
 	TRACE("Connected to the AI server\n");
 	if (bReconnect == 1)
@@ -111,8 +111,8 @@ void CAISocket::LoginProcess(Packet & pkt)
 void CAISocket::RecvServerInfo(Packet & pkt)
 {
 	int size = g_pMain->m_ZoneArray.GetSize();
-	uint16 sTotalMonster;
-	uint8 bZone;
+	uint16_t sTotalMonster;
+	uint8_t bZone;
 
 	pkt >> bZone >> sTotalMonster;
 
@@ -144,12 +144,12 @@ void CAISocket::RecvServerInfo(Packet & pkt)
 
 void CAISocket::RecvNpcInfoAll(Packet & pkt)
 {
-	uint8 bCount = pkt.read<uint8>(); // max of 20
+	uint8_t bCount = pkt.read<uint8_t>(); // max of 20
 
 	pkt.SByte();
 	for (int i = 0; i < bCount; i++)
 	{
-		uint8 bDirection;
+		uint8_t bDirection;
 		std::string strName;
 
 		CNpc* pNpc = new CNpc();
@@ -216,8 +216,8 @@ void CAISocket::RecvNpcInfoAll(Packet & pkt)
 
 void CAISocket::RecvNpcMoveResult(Packet & pkt)
 {
-	uint8 flag;			// 01(INFO_MODIFY), 02(INFO_DELETE)	
-	uint16 sNid;
+	uint8_t flag;			// 01(INFO_MODIFY), 02(INFO_DELETE)	
+	uint16_t sNid;
 	float fX, fY, fZ, fSecForMetor;
 	pkt >> flag >> sNid >> fX >> fZ >> fY >> fSecForMetor;
 
@@ -239,9 +239,9 @@ void CAISocket::RecvNpcAttack(Packet & pkt)
 {
 	CNpc * pAttacker;
 	Unit * pTarget;
-	uint16 sAttackerID, sTargetID;
-	int16 sDamage;
-	uint8 bResult = ATTACK_FAIL;
+	uint16_t sAttackerID, sTargetID;
+	int16_t sDamage;
+	uint8_t bResult = ATTACK_FAIL;
 
 	pkt >> sAttackerID >> sTargetID;
 
@@ -270,7 +270,7 @@ void CAISocket::RecvNpcAttack(Packet & pkt)
 			TO_USER(pTarget)->ItemWoreOut(DEFENCE, sDamage);
 	}
 
-	Packet result(WIZ_ATTACK, uint8(LONG_ATTACK));
+	Packet result(WIZ_ATTACK, uint8_t(LONG_ATTACK));
 	result << bResult << sAttackerID << sTargetID;
 	pAttacker->SendToRegion(&result);
 }
@@ -278,8 +278,8 @@ void CAISocket::RecvNpcAttack(Packet & pkt)
 void CAISocket::RecvNpcInfo(Packet & pkt)
 {
 	std::string strName;
-	uint8 Mode, byDirection;
-	uint16 sNid;
+	uint8_t Mode, byDirection;
+	uint16_t sNid;
 	bool bCreated = false;
 
 	pkt.SByte();
@@ -344,7 +344,7 @@ void CAISocket::RecvNpcInfo(Packet & pkt)
 
 void CAISocket::RecvNpcRegionUpdate(Packet & pkt)
 {
-	uint16 sNpcID;
+	uint16_t sNpcID;
 	float fX, fY, fZ;
 
 	pkt >> sNpcID >> fX >> fY >> fZ;
@@ -359,7 +359,7 @@ void CAISocket::RecvNpcRegionUpdate(Packet & pkt)
 
 void CAISocket::RecvUserExp(Packet & pkt)
 {
-	uint16 tid;
+	uint16_t tid;
 	pkt >> tid;
 
 	CUser* pUser = g_pMain->GetUserPtr(tid);
@@ -373,7 +373,7 @@ void CAISocket::RecvSystemMsg(Packet & pkt)
 {
 	Packet result;
 	std::string strSysMsg;
-	uint8 bType;
+	uint8_t bType;
 
 	pkt >> bType >> strSysMsg;
 
@@ -384,11 +384,11 @@ void CAISocket::RecvSystemMsg(Packet & pkt)
 void CAISocket::RecvNpcGiveItem(Packet & pkt)
 {
 	Packet result(WIZ_ITEM_DROP);
-	short sUid, sNid, regionx, regionz;
+	int16_t sUid, sNid, regionx, regionz;
 	float fX, fZ, fY;
-	uint8 byCount, bZone;
+	uint8_t byCount, bZone;
 	int nItemNumber[NPC_HAVE_ITEM_LIST];
-	short sCount[NPC_HAVE_ITEM_LIST];
+	int16_t sCount[NPC_HAVE_ITEM_LIST];
 	CUser* pUser = nullptr;
 	pkt >> sUid >> sNid >> bZone >> regionx >> regionz >> fX >> fZ >> fY >> byCount;
 
@@ -419,7 +419,7 @@ void CAISocket::RecvNpcGiveItem(Packet & pkt)
 				// Add on any additional coins earned because of a global coin event.
 				// NOTE: Officially it caps at SHRT_MAX, but that's really only for technical reasons.
 				// Using the unsigned range gives us a little bit of wiggle room.
-				uint32 coinAmount = sCount[i] * (100 + g_pMain->m_byCoinEventAmount) / 100;
+				uint32_t coinAmount = sCount[i] * (100 + g_pMain->m_byCoinEventAmount) / 100;
 				if (sCount[i] + coinAmount > USHRT_MAX)
 					coinAmount = USHRT_MAX;
 
@@ -480,7 +480,7 @@ void CAISocket::RecvCheckAlive(Packet & pkt)
 
 void CAISocket::RecvGateDestory(Packet & pkt)
 {
-	uint16 nid, sCurZone, rX, rZ;
+	uint16_t nid, sCurZone, rX, rZ;
 	bool bGateStatus;
 	pkt >> nid >> bGateStatus >> sCurZone >> rX >> rZ;
 
@@ -497,7 +497,7 @@ void CAISocket::RecvNpcDead(Packet & pkt)
 {
 	CNpc * pNpc;
 	Unit * pAttacker;
-	uint16 nid, attackerID;
+	uint16_t nid, attackerID;
 	pkt >> nid >> attackerID;
 
 	pNpc = g_pMain->GetNpcPtr(nid);
@@ -511,8 +511,8 @@ void CAISocket::RecvNpcDead(Packet & pkt)
 
 void CAISocket::RecvNpcInOut(Packet & pkt)
 {
-	uint8 bType;
-	uint16 sNid;
+	uint8_t bType;
+	uint16_t sNid;
 	float fX, fZ, fY;
 
 	pkt >> bType >> sNid >> fX >> fZ >> fY;
@@ -527,7 +527,7 @@ void CAISocket::RecvBattleEvent(Packet & pkt)
 	CUser* pUser = nullptr;
 	CKnights* pKnights = nullptr;
 
-	uint8 bType, bResult;
+	uint8_t bType, bResult;
 	pkt >> bType >> bResult;
 
 	if (bType == BATTLE_EVENT_OPEN)
@@ -651,8 +651,8 @@ void CAISocket::RecvBattleEvent(Packet & pkt)
 
 void CAISocket::RecvNpcEventItem(Packet & pkt)
 {
-	uint16 sUid, sNid;
-	uint32 nItemID, nCount;
+	uint16_t sUid, sNid;
+	uint32_t nItemID, nCount;
 
 	pkt >> sUid >> sNid >> nItemID >> nCount;
 
@@ -665,7 +665,7 @@ void CAISocket::RecvNpcEventItem(Packet & pkt)
 
 void CAISocket::RecvGateOpen(Packet & pkt)
 {
-	uint16 sNid, sEventID; 
+	uint16_t sNid, sEventID; 
 	bool bFlag;
 
 	pkt >> sNid >> sEventID >> bFlag;
@@ -692,12 +692,12 @@ void CAISocket::RecvGateOpen(Packet & pkt)
 
 void CAISocket::RecvCompressed(Packet & pkt)
 {
-	uint32 crc;
-	uint16 inputLength, originalLength;
+	uint32_t crc;
+	uint16_t inputLength, originalLength;
 	pkt >> inputLength >> originalLength >> crc;
 
-	const uint8 * inputBuffer = pkt.contents() + pkt.rpos();
-	uint8 * decompressedBuffer = Compression::DecompressWithCRC32(inputBuffer, inputLength, originalLength, crc);
+	const uint8_t * inputBuffer = pkt.contents() + pkt.rpos();
+	uint8_t * decompressedBuffer = Compression::DecompressWithCRC32(inputBuffer, inputLength, originalLength, crc);
 	if (decompressedBuffer == nullptr)
 		return;
 
@@ -712,8 +712,8 @@ void CAISocket::RecvCompressed(Packet & pkt)
 void CAISocket::RecvNpcHpChange(Packet & pkt)
 {
 	Unit * pAttacker = nullptr;
-	int16 nid, sAttackerID;
-	int32 nHP, nAmount;
+	int16_t nid, sAttackerID;
+	int32_t nHP, nAmount;
 
 	pkt >> nid >> sAttackerID >> nHP >> nAmount;
 

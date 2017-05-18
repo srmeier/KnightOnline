@@ -83,8 +83,8 @@ BOOL CN3Camera::MoveByWindowMessage(MSG* pMsg)
 //	static int iButtonDownCount = 0;
 	if (pMsg->message == WM_MOUSEWHEEL)
 	{
-		//short zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
-		short zDelta = (short)((pMsg->wParam>>16)&0x0000ffff);
+		//int16_t zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+		int16_t zDelta = (int16_t)((pMsg->wParam>>16)&0x0000ffff);
 		float fD = (m_vPos - m_vAt).Magnitude();
 		float fzD = fD * zDelta * 0.001f;
 		bool bSmall = false;
@@ -156,7 +156,7 @@ BOOL CN3Camera::MoveByWindowMessage(MSG* pMsg)
 	{
 		static POINT ptPrev;
 	
-		POINT point = { (short)LOWORD(pMsg->lParam), (short)HIWORD(pMsg->lParam) };
+		POINT point = { (int16_t)LOWORD(pMsg->lParam), (int16_t)HIWORD(pMsg->lParam) };
 		POINT ptDelta = { point.x - ptPrev.x, point.y - ptPrev.y };
 
 		switch(pMsg->message)
@@ -167,8 +167,8 @@ BOOL CN3Camera::MoveByWindowMessage(MSG* pMsg)
 			{
 //				iButtonDownCount++;
 //				::SetCapture(pMsg->hwnd);
-				ptPrev.x = short(LOWORD(pMsg->lParam));
-				ptPrev.y = short(HIWORD(pMsg->lParam));
+				ptPrev.x = int16_t(LOWORD(pMsg->lParam));
+				ptPrev.y = int16_t(HIWORD(pMsg->lParam));
 				return TRUE;
 			}
 			break;
@@ -184,7 +184,7 @@ BOOL CN3Camera::MoveByWindowMessage(MSG* pMsg)
 			break;
 		case WM_MOUSEMOVE:
 			{
-				DWORD nFlags = pMsg->wParam;
+				uint32_t nFlags = pMsg->wParam;
 				ptPrev = point;
 
 				if(	(nFlags & MK_LBUTTON) && (nFlags & MK_MBUTTON) ) // Alt + LB + MB
@@ -400,9 +400,9 @@ void CN3Camera::Apply()
 
 	// 위의 모든 fog의 차이를 보려면 큰판을 하나 그려서 fog를 넣어보면 쉽게 관찰할 수 있다.
 
-//	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *(DWORD*)&m_fFogStart);
-//	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *(DWORD*)&m_fFogEnd);
-//	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(DWORD*)&m_fFogDensity);
+//	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *(uint32_t*)&m_fFogStart);
+//	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *(uint32_t*)&m_fFogEnd);
+//	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(uint32_t*)&m_fFogDensity);
 
 
 
@@ -410,9 +410,9 @@ void CN3Camera::Apply()
 	float fFogStart = m_Data.fFP * 0.75f;
 	float fFogEnd = m_Data.fFP;
 
-	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *(DWORD*)&fFogStart);
-	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *(DWORD*)&fFogEnd);
-	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(DWORD*)&fFogDensity);
+	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *(uint32_t*)&fFogStart);
+	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *(uint32_t*)&fFogEnd);
+	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(uint32_t*)&fFogDensity);
 }
 
 void CN3Camera::Render(float fUnitSize)

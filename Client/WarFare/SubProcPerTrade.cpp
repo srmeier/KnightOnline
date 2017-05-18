@@ -412,7 +412,7 @@ void CSubProcPerTrade::PerTradeCompleteCancel()							// 개인 거래 취소..
 
 void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이템 거래가 취소되는 상태를 정의..
 {
-	BYTE byBuff[4];											// 패킷 버퍼..
+	uint8_t byBuff[4];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
 	char szBuf[256] = "";
@@ -463,7 +463,7 @@ void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이템 
 
 void CSubProcPerTrade::ProcessProceed(e_PerTradeProceedCode ePTPC)		// 아이템 거래가 계속되는 상태를 정의..
 {
-	BYTE byBuff[4];											// 패킷 버퍼..
+	uint8_t byBuff[4];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
 	switch ( ePTPC )
@@ -571,7 +571,7 @@ void CSubProcPerTrade::ItemCountEditOK()
 	pStrMy->SetString(szGold);
 
 	// 서버에게 전송한다..
-	BYTE byBuff[16];											// 패킷 버퍼..
+	uint8_t byBuff[16];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
@@ -615,7 +615,7 @@ void CSubProcPerTrade::PerTradeMyDecision()							// 내가 거래를 결정 했다..
 	pButton = (CN3UIButton* )m_pUIPerTradeDlg->GetChildButtonByName(szFN);
 
 	// 서버에게 전송한다..
-	BYTE byBuff[4];											// 패킷 버퍼..
+	uint8_t byBuff[4];											// 패킷 버퍼..
 	int iOffset=0;											// 패킷 오프셋..
 
 	// 서버에게 패킷 만들어서 날림..
@@ -656,7 +656,7 @@ void CSubProcPerTrade::ReceiveMsgPerTradeReq(int iOtherID)
 	EnterWaitMyDecisionToPerTrade(iOtherID);							// 내가 타인에게서 아이템 거래를 신청 받은 상태..
 }
 
-void CSubProcPerTrade::ReceiveMsgPerTradeAgree(BYTE bResult)
+void CSubProcPerTrade::ReceiveMsgPerTradeAgree(uint8_t bResult)
 {
 	switch ( bResult )
 	{
@@ -670,7 +670,7 @@ void CSubProcPerTrade::ReceiveMsgPerTradeAgree(BYTE bResult)
 	}
 }
 
-void CSubProcPerTrade::ReceiveMsgPerTradeAdd(BYTE bResult)
+void CSubProcPerTrade::ReceiveMsgPerTradeAdd(uint8_t bResult)
 {
 	// 상태를 변화시키고.. 창을 닫고..
 	CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer = false;
@@ -1015,7 +1015,7 @@ void CSubProcPerTrade::ReceiveMsgPerTradeDoneSuccessBegin(int iTotalGold)
 	s_pPlayer->m_InfoExt.iGold = iTotalGold;
 }
 
-void CSubProcPerTrade::ReceiveMsgPerTradeDoneItemMove(BYTE bItemPos, int iItemID, int iCount, int iDurability)
+void CSubProcPerTrade::ReceiveMsgPerTradeDoneItemMove(uint8_t bItemPos, int iItemID, int iCount, int iDurability)
 {
 	__IconItemSkill* spItem;
 

@@ -23,19 +23,19 @@ protected:
 	class CN3UIScrollBar*	m_pScrollBarRef;
 
 	std::string				m_szFontName;
-	DWORD					m_dwFontHeight;
+	uint32_t					m_dwFontHeight;
 	BOOL					m_bFontBold;
 	BOOL					m_bFontItalic;
 	D3DCOLOR				m_crFont;
 	
 public:
 	const std::string&	FontName() { return m_szFontName; }
-	DWORD				FontHeight() { return m_dwFontHeight; }
+	uint32_t				FontHeight() { return m_dwFontHeight; }
 	D3DCOLOR			FontColor() { return m_crFont; }
 	BOOL				FontIsBold() { return m_bFontBold; }
 	BOOL				FontIsItalic() { return m_bFontItalic; }
 
-	void	SetFont(const std::string& szFontName, DWORD dwHeight, BOOL bBold, BOOL bItalic);
+	void	SetFont(const std::string& szFontName, uint32_t dwHeight, BOOL bBold, BOOL bItalic);
 	void	SetFontColor(D3DCOLOR color);
 	void	SetFontColor(size_t iIndex, D3DCOLOR color);
 
@@ -55,9 +55,9 @@ public:
 	bool	SetScrollPos(int iScrollPos);
 	
 	virtual void	Render();
-	virtual bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	virtual bool	Load(HANDLE hFile);
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 
 #ifdef _N3TOOL
 	virtual bool	Save(HANDLE hFile);

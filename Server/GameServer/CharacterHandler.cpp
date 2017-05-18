@@ -3,12 +3,12 @@
 
 #pragma region Nation Transfer
 
-uint8 CUser::NationChange()
+uint8_t CUser::NationChange()
 {
 	if(!CheckExistItem(ITEM_NATION_TRANSFER))
 		return 1; // Item does exist.
 
-	uint8 nRet = g_DBAgent.NationTransfer(GetAccountName());
+	uint8_t nRet = g_DBAgent.NationTransfer(GetAccountName());
 
 	if (nRet > 0)
 		return nRet; // 2 = Character(s) in the clan / 3 = Database error.
@@ -46,9 +46,9 @@ uint8 CUser::NationChange()
 	return 0; // Successfull
 }
 
-uint8 CUser::GetNewRace()
+uint8_t CUser::GetNewRace()
 {
-	uint8 nNewRace = 0;
+	uint8_t nNewRace = 0;
 
 	if (GetNation() == KARUS)
 	{
@@ -98,7 +98,7 @@ uint8 CUser::GetNewRace()
 
 #pragma region Gender Change
 
-bool CUser::GenderChange(uint8 Race /*= 0*/)
+bool CUser::GenderChange(uint8_t Race /*= 0*/)
 {
 	if (Race == 0 || Race > 13)
 		return false; 
@@ -137,10 +137,10 @@ bool CUser::GenderChange(uint8 Race /*= 0*/)
 
 #pragma region Job Change
 
-uint8 CUser::JobChange(uint8 NewJob /*= 0*/)
+uint8_t CUser::JobChange(uint8_t NewJob /*= 0*/)
 {
-	uint8 bNewClass = 0, bNewRace = 0;
-	uint8 bResult = 0;
+	uint8_t bNewClass = 0, bNewRace = 0;
+	uint8_t bResult = 0;
 
 	if (NewJob < 1 || NewJob > 4)
 		return 5; // Unknown job is selected...
@@ -159,8 +159,8 @@ uint8 CUser::JobChange(uint8 NewJob /*= 0*/)
 
 	if (bResult == 7)
 	{
-		Packet result(WIZ_CLASS_CHANGE, uint8(ALL_POINT_CHANGE));
-		result << uint8(4) << int(0);
+		Packet result(WIZ_CLASS_CHANGE, uint8_t(ALL_POINT_CHANGE));
+		result << uint8_t(4) << int(0);
 		Send(&result);
 		return bResult; // While there are items equipped on you.
 	}

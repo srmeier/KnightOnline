@@ -25,7 +25,7 @@ public:
 
 protected:
 	__VertexXyzColorT1* m_pColorVertices;
-	WORD*				m_pIndices;
+	uint16_t*				m_pIndices;
 
 	// number of triangles/vertices to use at this moment.
 	int					m_iNumIndices;
@@ -38,7 +38,7 @@ protected:
 	CN3FXPMesh*	m_pFXPMesh;
 
 public:
-	void		SetColor(DWORD dwColor = 0xffffffff);
+	void		SetColor(uint32_t dwColor = 0xffffffff);
 	BOOL		IsLOD() { if(NULL == m_pCollapseUpTo) return FALSE; return TRUE; }
 	bool		Create(CN3FXPMesh* pN3FXPMesh);
 	bool		Create(const std::string& szFN);
@@ -59,7 +59,7 @@ public:
 	CN3FXPMesh*	GetMesh() {return m_pFXPMesh;};
 
 	__VertexXyzColorT1*	GetVertices() const;
-	WORD*				GetIndices() const { return m_pIndices;};
+	uint16_t*				GetIndices() const { return m_pIndices;};
 };
 
 #endif // !defined(AFX_N3FXPMESHINSTANCE_H__19060ED0_7DDA_4279_A558_B586319324F0__INCLUDED_)

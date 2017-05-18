@@ -30,7 +30,7 @@ public:
 //	virtual void	Render();
 	virtual bool	Load(HANDLE);
 	virtual void	SetRegion(const RECT& Rect);
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 protected:
 
 #ifdef _N3TOOL

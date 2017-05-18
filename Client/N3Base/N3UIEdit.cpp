@@ -100,7 +100,7 @@ BOOL CN3UIEdit::CreateEditWindow(HWND hParent, RECT rect)
 
 	s_hWndParent = hParent;
 	s_hWndEdit = CreateWindow("EDIT", "EditWindow", WS_CHILD|WS_TABSTOP|ES_LEFT|ES_WANTRETURN, rect.left, rect.top, rect.right-rect.left, rect.bottom-rect.top, hParent, NULL, NULL, NULL);
-	s_lpfnEditProc = (WNDPROC)SetWindowLong(s_hWndEdit, GWL_WNDPROC, (DWORD)(CN3UIEdit::EditWndProc));
+	s_lpfnEditProc = (WNDPROC)SetWindowLong(s_hWndEdit, GWL_WNDPROC, (uint32_t)(CN3UIEdit::EditWndProc));
 
 	// Set the edit control's text size to the maximum.
 	::SendMessage(s_hWndEdit, EM_LIMITTEXT, 0, 0);
@@ -119,7 +119,7 @@ BOOL CN3UIEdit::CreateEditWindow(HWND hParent, RECT rect)
 	return TRUE;
 }
 
-LRESULT APIENTRY CN3UIEdit::EditWndProc(HWND hWnd, WORD Message, WPARAM wParam, LPARAM lParam)
+LRESULT APIENTRY CN3UIEdit::EditWndProc(HWND hWnd, uint16_t Message, WPARAM wParam, LPARAM lParam)
 {
    //
    // When the focus is in an edit control inside a dialog box, the
@@ -208,7 +208,7 @@ LRESULT APIENTRY CN3UIEdit::EditWndProc(HWND hWnd, WORD Message, WPARAM wParam, 
 	case WM_IME_CONTROL:
 		{
 			int iiii = 0;
-			DWORD dwCmd = wParam;
+			uint32_t dwCmd = wParam;
 			switch(dwCmd)
 			{
 			case IMC_GETCANDIDATEPOS: 
@@ -526,9 +526,9 @@ bool CN3UIEdit::SetFocus()
 	return true;
 }
 
-DWORD CN3UIEdit::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UIEdit::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 	if(dwFlags & UI_MOUSE_LBCLICK &&IsIn(ptCur.x, ptCur.y))	// 영역 안에서 왼쪽 버튼이 눌렸으면
 	{
@@ -846,7 +846,7 @@ CN3UIEdit* CN3UIEdit::GetEdit(HWND hWnd)
 	return it->second;
 }
 
-LRESULT APIENTRY CN3UIEdit::EditWndProc(HWND hWnd, WORD Message, WPARAM wParam, LPARAM lParam)
+LRESULT APIENTRY CN3UIEdit::EditWndProc(HWND hWnd, uint16_t Message, WPARAM wParam, LPARAM lParam)
 {
    //
    // When the focus is in an edit control inside a dialog box, the
@@ -858,7 +858,7 @@ LRESULT APIENTRY CN3UIEdit::EditWndProc(HWND hWnd, WORD Message, WPARAM wParam, 
 	return 0;
 }
 
-LRESULT APIENTRY CN3UIEdit::EditWndProcFuncPointer(HWND hWnd, WORD Message, WPARAM wParam, LPARAM lParam)
+LRESULT APIENTRY CN3UIEdit::EditWndProcFuncPointer(HWND hWnd, uint16_t Message, WPARAM wParam, LPARAM lParam)
 {
    //
    // When the focus is in an edit control inside a dialog box, the

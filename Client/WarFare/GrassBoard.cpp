@@ -71,7 +71,7 @@ void CGrassBoard::Tick(CN3Terrain* pTerrain)
 	if(vBakCam == s_CameraData.vEye) return;	//	카메라 움직이지 않으면 계산 필요없음 
 	vBakCam = s_CameraData.vEye;
 
-	DWORD dwAlpha;
+	uint32_t dwAlpha;
 	__Vector3 vDir;
 	Grass_Info* pGrass;
 	for(int i=0;i<m_ucTexNum;++i)
@@ -99,7 +99,7 @@ void CGrassBoard::Render(CN3Texture** ppTex)
 {
 	if(m_bCamOut==TRUE) return;	//	카메라 범위 벋어나 찍지 않음
 
-	static DWORD dwColorop, dwColorA1, dwColorA2;
+	DWORD dwColorop, dwColorA1, dwColorA2;
 
 	s_lpD3DDev->GetTextureStageState(0, D3DTSS_COLOROP,   &dwColorop);
 	s_lpD3DDev->GetTextureStageState(0, D3DTSS_COLORARG1, &dwColorA1);
@@ -135,7 +135,7 @@ void CGrassBoard::Render(CN3Texture** ppTex)
 
 }
 
-void CGrassBoard::Init(__Vector3 vPos, DWORD dwBoardType)
+void CGrassBoard::Init(__Vector3 vPos, uint32_t dwBoardType)
 {
 	m_vPos = vPos;
 	m_dwBoardType = dwBoardType;
@@ -153,7 +153,7 @@ bool CGrassBoard::Save(HANDLE hFile)
 }
 #endif // end of #ifdef _N3TOOL
 
-void CGrassBoard::LoadFromFile(int iTexIndex,unsigned char ucTexOrgIndex,__Vector3 vPos)
+void CGrassBoard::LoadFromFile(int iTexIndex,uint8_t ucTexOrgIndex,__Vector3 vPos)
 {
 	Release();
 
@@ -164,7 +164,7 @@ void CGrassBoard::LoadFromFile(int iTexIndex,unsigned char ucTexOrgIndex,__Vecto
 //	Init(vPos, m_dwBoardType, 1.0f, 1.0f);
 }
 
-DWORD CGrassBoard::SetBrightLevel(float Level)
+uint32_t CGrassBoard::SetBrightLevel(float Level)
 {
 	static float fLevelbak;	//	카메라와의 거리를 백업하여 같을시 알파계산을 넘김-예전 데이타 간직
 	if(fLevelbak == Level) return 0x00000000;	//	카메라와의 거리가 같다면 계산할 필요가 없다
@@ -173,11 +173,11 @@ DWORD CGrassBoard::SetBrightLevel(float Level)
 	if(Level<0.0f) return 0x00ffffff;
 	if(Level>m_fBrightmin+m_fBrightmax)	return 0x00ffffff;	//	일정거리 이상은 보이지 않음		
 	
-	DWORD Color=0x00ffffff;
+	uint32_t Color=0x00ffffff;
 	if(Level>m_fBrightmin)	//	일정거리내만큼 보임
 	{
 		float brightper = (Level-m_fBrightmin)/m_fBrightmax;
-		DWORD alphaColor = (DWORD)(255 - 255*brightper);
+		uint32_t alphaColor = (uint32_t)(255 - 255*brightper);
 		Color = (alphaColor << 24) | 0x00ffffff;
 	}
 	else Color = 0xffffffff;	//	일정거리안은 완전히 보여줌
@@ -185,11 +185,11 @@ DWORD CGrassBoard::SetBrightLevel(float Level)
 	return Color;
 }
 
-void CGrassBoard::SetInfo(__Vector3 vBoardPosion,unsigned short usData)
+void CGrassBoard::SetInfo(__Vector3 vBoardPosion,uint16_t usData)
 {
 	m_vCenterPo.Set(vBoardPosion.x+2.0f , vBoardPosion.y , vBoardPosion.z+2.0f);	//	지도에서의 중간위치기억
-	m_ucTexIndex = (unsigned char)((usData & 0xff00)>>8);	//	풀의 인덱스
-	m_ucTexNum = (unsigned char)(usData&0x00ff);	//	풀의 갯수
+	m_ucTexIndex = (uint8_t)((usData & 0xff00)>>8);	//	풀의 인덱스
+	m_ucTexNum = (uint8_t)(usData&0x00ff);	//	풀의 갯수
 
 	if(m_ucTexNum>20) m_ucTexNum = 20;
 
@@ -215,7 +215,7 @@ void CGrassBoard::SetInfo(__Vector3 vBoardPosion,unsigned short usData)
 	}
 }
 
-void CGrassBoard::FindGrassIndex(const unsigned char uCGrassMngOrder,int* pnInputGrass,int& nGrassTotNum)
+void CGrassBoard::FindGrassIndex(const uint8_t uCGrassMngOrder,int* pnInputGrass,int& nGrassTotNum)
 {
 	nGrassTotNum=0;
 	if(uCGrassMngOrder & 0x01)  { pnInputGrass[nGrassTotNum] = 0 ; nGrassTotNum++; }

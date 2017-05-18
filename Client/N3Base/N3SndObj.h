@@ -75,7 +75,7 @@ public:
 	void	Tick();
 
 	void	SetConeOrientation(D3DVECTOR* pDir);
-	void	SetConeOutSizeVolume(LONG vol);
+	void	SetConeOutSizeVolume(int32_t vol);
 	void	SetMaxDistance(D3DVALUE max);
 	void	SetMinDistance(D3DVALUE min);	
 	void	SetPos(const D3DVECTOR* pvPos);

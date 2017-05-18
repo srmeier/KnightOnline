@@ -151,7 +151,7 @@ bool Unit::isInRangeSlow(float fStartX, float fStartZ, float fEndX, float fEndZ,
 }
 
 #ifdef GAMESERVER
-void Unit::SetRegion(uint16 x /*= -1*/, uint16 z /*= -1*/) 
+void Unit::SetRegion(uint16_t x /*= -1*/, uint16_t z /*= -1*/) 
 {
 	m_sRegionX = x; m_sRegionZ = z; 
 	m_pRegion = m_pMap->GetRegion(x, z); // TODO: Clean this up
@@ -159,7 +159,7 @@ void Unit::SetRegion(uint16 x /*= -1*/, uint16 z /*= -1*/)
 
 bool Unit::RegisterRegion()
 {
-	uint16 
+	uint16_t 
 		new_region_x = GetNewRegionX(), new_region_z = GetNewRegionZ(), 
 		old_region_x = GetRegionX(),	old_region_z = GetRegionZ();
 
@@ -174,7 +174,7 @@ bool Unit::RegisterRegion()
 	return true;
 }
 
-void Unit::RemoveRegion(int16 del_x, int16 del_z)
+void Unit::RemoveRegion(int16_t del_x, int16_t del_z)
 {
 	ASSERT(GetMap() != nullptr);
 
@@ -183,7 +183,7 @@ void Unit::RemoveRegion(int16 del_x, int16 del_z)
 	g_pMain->Send_OldRegions(&result, del_x, del_z, GetMap(), GetRegionX(), GetRegionZ());
 }
 
-void Unit::InsertRegion(int16 insert_x, int16 insert_z)
+void Unit::InsertRegion(int16_t insert_x, int16_t insert_z)
 {
 	ASSERT(GetMap() != nullptr);
 
@@ -205,7 +205,7 @@ void Unit::InsertRegion(int16 insert_x, int16 insert_z)
 *
 * @return	The damage.
 */
-short CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/)
+int16_t CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/)
 {
 	/*
 	This seems identical to users attacking NPCs/monsters.
@@ -213,10 +213,10 @@ short CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 	- GetACDamage() is not called
 	- the resulting damage is not divided by 3.
 	*/
-	int32 damage = 0;
+	int32_t damage = 0;
 	int random = 0;
-	int32 temp_hit = 0, temp_ac = 0, temp_ap = 0, temp_hit_B = 0;
-	uint8 result;
+	int32_t temp_hit = 0, temp_ac = 0, temp_ap = 0, temp_hit_B = 0;
+	uint8_t result;
 
 	if (pTarget == nullptr || pTarget->isDead())
 		return -1;
@@ -287,7 +287,7 @@ short CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 				result = GetHitRate((m_fTotalHitrate / pTarget->m_fTotalEvasionrate) * (pType1->sHitRate / 100.0f));			
 			}
 
-			temp_hit = (int32)(temp_hit_B * (pType1->sHit / 100.0f));
+			temp_hit = (int32_t)(temp_hit_B * (pType1->sHit / 100.0f));
 		}
 		// ARROW HIT! YEAH!
 		else if (pSkill->bType[0] == 2)
@@ -308,9 +308,9 @@ short CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 			}
 
 			if (pType2->bHitType == 1 /* || pType2->bHitType == 2 */) 
-				temp_hit = (int32)(m_sTotalHit * m_bAttackAmount * (pType2->sAddDamage / 100.0f) / 100);
+				temp_hit = (int32_t)(m_sTotalHit * m_bAttackAmount * (pType2->sAddDamage / 100.0f) / 100);
 			else
-				temp_hit = (int32)(temp_hit_B * (pType2->sAddDamage / 100.0f));
+				temp_hit = (int32_t)(temp_hit_B * (pType2->sAddDamage / 100.0f));
 		}
 	}
 	// Normal hit (R attack)     
@@ -330,9 +330,9 @@ short CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 			damage = temp_hit;
 			random = myrand(0, damage);
 			if (pSkill->bType[0] == 1)
-				damage = (short)((temp_hit + 0.3f * random) + 0.99f);
+				damage = (int16_t)((temp_hit + 0.3f * random) + 0.99f);
 			else
-				damage = (short)(((temp_hit * 0.6f) + 1.0f * random) + 0.99f);
+				damage = (int16_t)(((temp_hit * 0.6f) + 1.0f * random) + 0.99f);
 		}
 		else
 		{	// Normal Hit.
@@ -350,7 +350,7 @@ short CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 
 			damage = temp_hit_B;
 			random = myrand(0, damage);
-			damage = (short)((0.85f * temp_hit_B) + 0.3f * random);
+			damage = (int16_t)((0.85f * temp_hit_B) + 0.3f * random);
 		}		
 
 		break;
@@ -401,7 +401,7 @@ void CUser::OnAttack(Unit * pTarget, AttackType attackType)
 		return;
 
 	// Trigger weapon procs for the attacker on attack
-	static const uint8 itemSlots[] = { RIGHTHAND, LEFTHAND };
+	static const uint8_t itemSlots[] = { RIGHTHAND, LEFTHAND };
 	foreach_array (i, itemSlots)
 	{
 		// If we hit an applicable weapon, don't try proc'ing the other weapon. 
@@ -417,7 +417,7 @@ void CUser::OnDefend(Unit * pAttacker, AttackType attackType)
 		return;
 
 	// Trigger defensive procs for the defender when being attacked
-	static const uint8 itemSlots[] = { LEFTHAND };
+	static const uint8_t itemSlots[] = { LEFTHAND };
 	foreach_array (i, itemSlots)
 		TriggerProcItem(itemSlots[i], pAttacker, TriggerTypeDefend);
 }
@@ -431,7 +431,7 @@ void CUser::OnDefend(Unit * pAttacker, AttackType attackType)
 *
 * @return	true if there's an applicable item to proc, false if not.
 */
-bool CUser::TriggerProcItem(uint8 bSlot, Unit * pTarget, ItemTriggerType triggerType)
+bool CUser::TriggerProcItem(uint8_t bSlot, Unit * pTarget, ItemTriggerType triggerType)
 {
 	// Don't proc weapon skills if our weapon is disabled.
 	if (triggerType == TriggerTypeAttack && isWeaponsDisabled()) 
@@ -465,15 +465,15 @@ bool CUser::TriggerProcItem(uint8 bSlot, Unit * pTarget, ItemTriggerType trigger
 	instance.nSkillID = pData->nSkillID;
 
 	// For AOE skills such as "Splash", the AOE should be focus on the target.
-	instance.sData[0] = (uint16) pTarget->GetX();
-	instance.sData[2] = (uint16) pTarget->GetZ();
+	instance.sData[0] = (uint16_t) pTarget->GetX();
+	instance.sData[2] = (uint16_t) pTarget->GetZ();
 
 	instance.Run();
 	return true; // it is an applicable item, and it proc'd. No need to proc subsequent items.
 }
 #endif
 
-short CNpc::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/) 
+int16_t CNpc::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/) 
 {
 	if (pTarget->isPlayer())
 		return GetDamage(TO_USER(pTarget), pSkill);
@@ -490,13 +490,13 @@ short CNpc::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bP
 *
 * @return	The damage.
 */
-short CNpc::GetDamage(CUser *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/) 
+int16_t CNpc::GetDamage(CUser *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/) 
 {
 	if (pTarget == nullptr)
 		return 0;
 
-	int32 damage = 0, HitB;
-	int32 Ac = pTarget->m_sTotalAc;
+	int32_t damage = 0, HitB;
+	int32_t Ac = pTarget->m_sTotalAc;
 
 	// A unit's total AC shouldn't ever go below 0.
 	if ((pTarget->m_sACAmount) <= 0)
@@ -511,19 +511,19 @@ short CNpc::GetDamage(CUser *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 	if (HitB <= 0)
 		return 0;
 
-	uint8 result = GetHitRate(m_fTotalHitrate / pTarget->m_fTotalEvasionrate);	
+	uint8_t result = GetHitRate(m_fTotalHitrate / pTarget->m_fTotalEvasionrate);	
 	switch (result)
 	{
 	case GREAT_SUCCESS:
 		damage = (int)(0.3f * myrand(0, HitB));
-		damage += (short)(0.85f * (float)HitB);
+		damage += (int16_t)(0.85f * (float)HitB);
 		damage = (damage * 3) / 2;
 		break;
 
 	case SUCCESS:
 	case NORMAL:
 		damage = (int)(0.3f * myrand(0, HitB));
-		damage += (short)(0.85f * (float)HitB);
+		damage += (int16_t)(0.85f * (float)HitB);
 		break;
 	}
 
@@ -535,7 +535,7 @@ short CNpc::GetDamage(CUser *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 	if (damage > MAX_DAMAGE)
 		damage = MAX_DAMAGE;
 
-	return (short) damage;
+	return (int16_t) damage;
 }
 
 /**
@@ -547,38 +547,38 @@ short CNpc::GetDamage(CUser *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool b
 *
 * @return	The damage.
 */
-short CNpc::GetDamage(CNpc *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/) 
+int16_t CNpc::GetDamage(CNpc *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bPreviewOnly /*= false*/) 
 {
 	if (pTarget == nullptr)
 		return 0;
 
-	short damage = 0, Hit = m_sTotalHit, Ac = pTarget->m_sTotalAc;
-	uint8 result = GetHitRate(m_fTotalHitrate / pTarget->m_fTotalEvasionrate);
+	int16_t damage = 0, Hit = m_sTotalHit, Ac = pTarget->m_sTotalAc;
+	uint8_t result = GetHitRate(m_fTotalHitrate / pTarget->m_fTotalEvasionrate);
 	switch (result)
 	{
 	case GREAT_SUCCESS:
-		damage = (short)(0.6 * Hit);
+		damage = (int16_t)(0.6 * Hit);
 		if (damage <= 0)
 		{
 			damage = 0;
 			break;
 		}
 		damage = myrand(0, damage);
-		damage += (short)(0.7 * Hit);
+		damage += (int16_t)(0.7 * Hit);
 		break;
 
 	case SUCCESS:
 	case NORMAL:
 		if (Hit - Ac > 0)
 		{
-			damage = (short)(0.6 * (Hit - Ac));
+			damage = (int16_t)(0.6 * (Hit - Ac));
 			if (damage <= 0)
 			{
 				damage = 0;
 				break;
 			}
 			damage = myrand(0, damage);
-			damage += (short)(0.7 * (Hit - Ac));
+			damage += (int16_t)(0.7 * (Hit - Ac));
 		}
 		break;
 	}
@@ -590,13 +590,13 @@ short CNpc::GetDamage(CNpc *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool bP
 	return damage;	
 }
 
-short Unit::GetMagicDamage(int damage, Unit *pTarget, bool bPreviewOnly /*= false*/)
+int16_t Unit::GetMagicDamage(int damage, Unit *pTarget, bool bPreviewOnly /*= false*/)
 {
 	if (pTarget->isDead())
 		return 0;
 
 	Guard lock(m_equippedItemBonusLock);
-	int16 sReflectDamage = 0;
+	int16_t sReflectDamage = 0;
 	bool sKontrol = false;
 	// Check each item that has a bonus effect.
 	int aa = m_equippedItemBonuses.size();
@@ -609,9 +609,9 @@ short Unit::GetMagicDamage(int damage, Unit *pTarget, bool bPreviewOnly /*= fals
 
 		foreach (bonusItr, itr->second)
 		{
-			short total_r = 0, temp_damage = 0;
-			uint8 bType = bonusItr->first;
-			int16 sAmount = bonusItr->second;
+			int16_t total_r = 0, temp_damage = 0;
+			uint8_t bType = bonusItr->first;
+			int16_t sAmount = bonusItr->second;
 
 			bool bIsDrain = (bType >= ITEM_TYPE_HP_DRAIN && bType <= ITEM_TYPE_MP_DRAIN);
 			if (bIsDrain)
@@ -668,14 +668,14 @@ short Unit::GetMagicDamage(int damage, Unit *pTarget, bool bPreviewOnly /*= fals
 	// We do this here to ensure it's taking into account the total calculated damage.
 	if (sReflectDamage > 0 && !sKontrol)
 	{
-		short temp_damage = damage * sReflectDamage / 100;
+		int16_t temp_damage = damage * sReflectDamage / 100;
 		HpChange(-temp_damage);
 	}
 
 	return damage;
 }
 
-short Unit::GetACDamage(int damage, Unit *pTarget)
+int16_t Unit::GetACDamage(int damage, Unit *pTarget)
 {
 	// This isn't applicable to NPCs.
 	if (!isPlayer() || !pTarget->isPlayer())
@@ -689,7 +689,7 @@ short Unit::GetACDamage(int damage, Unit *pTarget)
 	if (pUser->isWeaponsDisabled())
 		return damage;
 
-	uint8 weaponSlots[] = { LEFTHAND, RIGHTHAND };
+	uint8_t weaponSlots[] = { LEFTHAND, RIGHTHAND };
 
 	int firstdamage = damage;
 
@@ -717,7 +717,7 @@ short Unit::GetACDamage(int damage, Unit *pTarget)
 	return damage;
 }
 
-uint8 Unit::GetHitRate(float rate)
+uint8_t Unit::GetHitRate(float rate)
 {
 	int random = myrand(1, 10000);
 	if (rate >= 5.0f)
@@ -826,7 +826,7 @@ void Unit::InitType3()
 	m_bType3Flag = false;
 }
 
-void Unit::InitType4(bool bRemoveSavedMagic /*= false*/, uint8 buffType /* = 0 */)
+void Unit::InitType4(bool bRemoveSavedMagic /*= false*/, uint8_t buffType /* = 0 */)
 {
 	// Remove all buffs that should not be recast.
 	Guard lock(m_buffLock);
@@ -925,7 +925,7 @@ bool Unit::isAttackable(Unit * pTarget)
 	return true;
 }
 
-bool Unit::CanCastRHit(uint16 m_socketID)
+bool Unit::CanCastRHit(uint16_t m_socketID)
 {
 #if defined(GAMESERVER)
 	CUser *pUser = g_pMain->GetUserPtr(m_socketID);
@@ -963,13 +963,13 @@ void Unit::SendDeathAnimation(Unit * pKiller /*= nullptr*/)
 	SendToRegion(&result);
 #else
 	Packet result(AG_DEAD);
-	int16 tid = (pKiller == nullptr ? -1 : pKiller->GetID());
+	int16_t tid = (pKiller == nullptr ? -1 : pKiller->GetID());
 	result << GetID() << tid;
 	g_pMain->Send(&result);
 #endif
 }
 
-void Unit::AddType4Buff(uint8 bBuffType, _BUFF_TYPE4_INFO & pBuffInfo)
+void Unit::AddType4Buff(uint8_t bBuffType, _BUFF_TYPE4_INFO & pBuffInfo)
 {
 	Guard lock(m_buffLock);
 	m_buffMap.insert(std::make_pair(bBuffType, pBuffInfo));

@@ -49,7 +49,7 @@ class CN3CPart : public CN3BaseFileAccess
 public:
 	__Material			m_Mtl;
 	__Material			m_MtlOrg;
-	DWORD				m_dwReserved;
+	uint32_t				m_dwReserved;
 
 
 	bool				m_bVisible;

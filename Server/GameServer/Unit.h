@@ -28,8 +28,8 @@ class CRegion;
 class KOMap;
 class Packet;
 
-typedef std::map<uint8, _BUFF_TYPE4_INFO> Type4BuffMap;
-typedef std::map<uint8, _BUFF_TYPE9_INFO> Type9BuffMap;
+typedef std::map<uint8_t, _BUFF_TYPE4_INFO> Type4BuffMap;
+typedef std::map<uint8_t, _BUFF_TYPE9_INFO> Type9BuffMap;
 
 enum AttackType { AttackTypeNone, AttackTypePhysical, AttackTypeMagic };
 enum UnitType { UnitPlayer, UnitNPC, UnitPet };
@@ -52,11 +52,11 @@ public:
 
 	INLINE KOMap * GetMap() { return m_pMap; }
 
-	virtual uint16 GetID() = 0;
-	INLINE uint8 GetZoneID() { return m_bZone; }
-	INLINE uint16 GetEventRoom() { return m_bEventRoom > (uint16)MAX_TEMPLE_EVENT_ROOM ? 0 : m_bEventRoom; }
+	virtual uint16_t GetID() = 0;
+	INLINE uint8_t GetZoneID() { return m_bZone; }
+	INLINE uint16_t GetEventRoom() { return m_bEventRoom > (uint16_t)MAX_TEMPLE_EVENT_ROOM ? 0 : m_bEventRoom; }
 
-	INLINE bool isInTempleEventZone(uint8 nZoneID = 0) 
+	INLINE bool isInTempleEventZone(uint8_t nZoneID = 0) 
 	{
 		if (nZoneID == 0)
 			nZoneID = GetZoneID();
@@ -75,28 +75,28 @@ public:
 		m_cury = fy;
 	}
 
-	INLINE uint16 GetSPosX() { return uint16(GetX() * 10); };
-	INLINE uint16 GetSPosY() { return uint16(GetY() * 10); };
-	INLINE uint16 GetSPosZ() { return uint16(GetZ() * 10); };
+	INLINE uint16_t GetSPosX() { return uint16_t(GetX() * 10); };
+	INLINE uint16_t GetSPosY() { return uint16_t(GetY() * 10); };
+	INLINE uint16_t GetSPosZ() { return uint16_t(GetZ() * 10); };
 
-	INLINE uint16 GetRegionX() { return m_sRegionX; }
-	INLINE uint16 GetRegionZ() { return m_sRegionZ; }
+	INLINE uint16_t GetRegionX() { return m_sRegionX; }
+	INLINE uint16_t GetRegionZ() { return m_sRegionZ; }
 
-	INLINE uint16 GetNewRegionX() { return (uint16)(GetX()) / VIEW_DISTANCE; }
-	INLINE uint16 GetNewRegionZ() { return (uint16)(GetZ()) / VIEW_DISTANCE; }
+	INLINE uint16_t GetNewRegionX() { return (uint16_t)(GetX()) / VIEW_DISTANCE; }
+	INLINE uint16_t GetNewRegionZ() { return (uint16_t)(GetZ()) / VIEW_DISTANCE; }
 
 	INLINE CRegion * GetRegion() { return m_pRegion; }
-	void SetRegion(uint16 x = -1, uint16 z = -1);
+	void SetRegion(uint16_t x = -1, uint16_t z = -1);
 
 	virtual std::string & GetName() = 0; // this is especially fun...
 
-	INLINE uint8 GetNation() { return m_bNation; }
-	INLINE uint8 GetLevel() { return m_bLevel; }
+	INLINE uint8_t GetNation() { return m_bNation; }
+	INLINE uint8_t GetLevel() { return m_bLevel; }
 
-	virtual int32 GetHealth() = 0;
-	virtual int32 GetMaxHealth() = 0;
-	virtual int32 GetMana() = 0;
-	virtual int32 GetMaxMana() = 0;
+	virtual int32_t GetHealth() = 0;
+	virtual int32_t GetMaxHealth() = 0;
+	virtual int32_t GetMana() = 0;
+	virtual int32_t GetMaxMana() = 0;
 
 	INLINE bool isIncapacitated() { return isDead() || isBlinded() || isBlinking() || isKaul(); }
 	INLINE bool isBlinded() { return m_bIsBlinded; }
@@ -126,10 +126,10 @@ public:
 
 		// As the 'buff' map contains both buffs and debuffs, if the number of buffs/debuffs in the map doesn't 
 		// match the number of buffs we have, we can conclude we have some debuffs in there.
-		return (uint8) m_buffMap.size() != m_buffCount; 
+		return (uint8_t) m_buffMap.size() != m_buffCount; 
 	}
 
-	INLINE bool hasBuff(uint8 buff, bool isOnlyBuff = false)
+	INLINE bool hasBuff(uint8_t buff, bool isOnlyBuff = false)
 	{
 		Guard lock(m_buffLock);
 		if (isOnlyBuff)
@@ -141,7 +141,7 @@ public:
 		return m_buffMap.find(buff) != m_buffMap.end();
 	}
 
-	INLINE bool hasDebuff(uint8 buff)
+	INLINE bool hasDebuff(uint8_t buff)
 	{
 		Guard lock(m_buffLock);
 		auto itr = m_buffMap.find(buff);
@@ -172,25 +172,25 @@ public:
 	static bool isInRange(float fStartX, float fStartZ, float fEndX, float fEndZ, float fSquaredRange);
 	static bool isInRangeSlow(float fStartX, float fStartZ, float fEndX, float fEndZ, float fNonSquaredRange);
 
-	virtual void GetInOut(Packet & result, uint8 bType) = 0;
+	virtual void GetInOut(Packet & result, uint8_t bType) = 0;
 
 	bool RegisterRegion();
-	virtual void AddToRegion(int16 new_region_x, int16 new_region_z) = 0;
-	void RemoveRegion(int16 del_x, int16 del_z);
-	void InsertRegion(int16 insert_x, int16 insert_z);
+	virtual void AddToRegion(int16_t new_region_x, int16_t new_region_z) = 0;
+	void RemoveRegion(int16_t del_x, int16_t del_z);
+	void InsertRegion(int16_t insert_x, int16_t insert_z);
 
 	bool isInAttackRange(Unit * pTarget, _MAGIC_TABLE * pSkill = nullptr);
-	virtual short GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false) = 0;
+	virtual int16_t GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false) = 0;
 	virtual void OnAttack(Unit * pTarget, AttackType attackType) {}
 	virtual void OnDefend(Unit * pAttacker, AttackType attackType) {}
 
-	short GetMagicDamage(int damage, Unit *pTarget, bool bPreviewOnly = false);
-	short GetACDamage(int damage, Unit *pTarget);
-	uint8 GetHitRate(float rate);
+	int16_t GetMagicDamage(int damage, Unit *pTarget, bool bPreviewOnly = false);
+	int16_t GetACDamage(int damage, Unit *pTarget);
+	uint8_t GetHitRate(float rate);
 
-	virtual void InsertSavedMagic(uint32 nSkillID, uint16 sDuration) {}
-	virtual bool HasSavedMagic(uint32 nSkillID) { return false; }
-	virtual int16 GetSavedMagicDuration(uint32 nSkillID) { return -1; }
+	virtual void InsertSavedMagic(uint32_t nSkillID, uint16_t sDuration) {}
+	virtual bool HasSavedMagic(uint32_t nSkillID) { return false; }
+	virtual int16_t GetSavedMagicDuration(uint32_t nSkillID) { return -1; }
 
 	virtual void HpChange(int amount, Unit *pAttacker = nullptr, bool bSendToAI = true) = 0;
 	virtual void HpChangeMagic(int amount, Unit *pAttacker = nullptr, AttributeType attributeType = AttributeNone) { HpChange(amount, pAttacker); }
@@ -200,14 +200,14 @@ public:
 	void Send_AIServer(Packet *result);
 
 	void InitType3();
-	void InitType4(bool bRemoveSavedMagic = false, uint8 buffType = 0);
-	void AddType4Buff(uint8 bBuffType, _BUFF_TYPE4_INFO & pBuffInfo);
+	void InitType4(bool bRemoveSavedMagic = false, uint8_t buffType = 0);
+	void AddType4Buff(uint8_t bBuffType, _BUFF_TYPE4_INFO & pBuffInfo);
 
-	virtual void StateChangeServerDirect(uint8 bType, uint32 nBuff) {}
+	virtual void StateChangeServerDirect(uint8_t bType, uint32_t nBuff) {}
 	virtual bool isHostileTo(Unit * pTarget) = 0;
 	virtual bool CanAttack(Unit * pTarget);
 	virtual bool isAttackable(Unit * pTarget = nullptr);
-	virtual bool CanCastRHit(uint16 m_SocketID);
+	virtual bool CanCastRHit(uint16_t m_SocketID);
 	virtual bool isSameEventRoom(Unit * pTarget);
 
 	void OnDeath(Unit *pKiller);
@@ -218,60 +218,60 @@ public:
 	KOMap  * m_pMap;
 	CRegion * m_pRegion;
 
-	uint8	m_bZone;
+	uint8_t	m_bZone;
 	float	m_curx, m_curz, m_cury;
 
-	uint16	m_sRegionX, m_sRegionZ; // this is probably redundant
+	uint16_t	m_sRegionX, m_sRegionZ; // this is probably redundant
 
 	UnitType m_unitType;
 
-	uint8	m_bLevel;
-	uint8	m_bNation;
+	uint8_t	m_bLevel;
+	uint8_t	m_bNation;
 
-	uint16	m_sTotalHit;
-	uint16	m_sTotalAc;
+	uint16_t	m_sTotalHit;
+	uint16_t	m_sTotalAc;
 	float	m_fTotalHitrate;
 	float	m_fTotalEvasionrate;
 
-	short   m_sACAmount;	// additional absolute AC
-	int16	m_sACPercent;	// percentage of total AC to modify by
-	uint8   m_bAttackAmount;
-	short	m_sMagicAttackAmount;
-	short	m_sMaxHPAmount, m_sMaxMPAmount;
-	uint8	m_bHitRateAmount;
-	short	m_sAvoidRateAmount;
+	int16_t   m_sACAmount;	// additional absolute AC
+	int16_t	m_sACPercent;	// percentage of total AC to modify by
+	uint8_t   m_bAttackAmount;
+	int16_t	m_sMagicAttackAmount;
+	int16_t	m_sMaxHPAmount, m_sMaxMPAmount;
+	uint8_t	m_bHitRateAmount;
+	int16_t	m_sAvoidRateAmount;
 
-	int16	m_sAttackSpeedAmount;
-	uint8   m_bSpeedAmount;
+	int16_t	m_sAttackSpeedAmount;
+	uint8_t   m_bSpeedAmount;
 
 	// Item calculated elemental resistances.
-	uint16	m_sFireR, m_sColdR, m_sLightningR, 
+	uint16_t	m_sFireR, m_sColdR, m_sLightningR, 
 		m_sMagicR, m_sDiseaseR, m_sPoisonR;
 
 	// Additional elemental resistance amounts from skills (note: NOT percentages)
-	uint8	m_bAddFireR, m_bAddColdR, m_bAddLightningR,
+	uint8_t	m_bAddFireR, m_bAddColdR, m_bAddLightningR,
 		m_bAddMagicR, m_bAddDiseaseR, m_bAddPoisonR;
 
 	// Elemental resistance percentages (adjusted by debuffs)
-	uint8	m_bPctFireR, m_bPctColdR, m_bPctLightningR,
+	uint8_t	m_bPctFireR, m_bPctColdR, m_bPctLightningR,
 		m_bPctMagicR, m_bPctDiseaseR, m_bPctPoisonR;
 
-	uint8	m_bMagicDamageReduction;
-	uint8	m_bManaAbsorb;
-	uint8	m_bRadiusAmount;
+	uint8_t	m_bMagicDamageReduction;
+	uint8_t	m_bManaAbsorb;
+	uint8_t	m_bRadiusAmount;
 
-	uint8	m_bResistanceBonus;
+	uint8_t	m_bResistanceBonus;
 
-	BYTE    m_bMagicTypeLeftHand;			// The type of magic item in user's left hand  
-	BYTE    m_bMagicTypeRightHand;			// The type of magic item in user's right hand
-	short   m_sMagicAmountLeftHand;         // The amount of magic item in user's left hand
-	short	m_sMagicAmountRightHand;        // The amount of magic item in user's left hand
+	uint8_t    m_bMagicTypeLeftHand;			// The type of magic item in user's left hand  
+	uint8_t    m_bMagicTypeRightHand;			// The type of magic item in user's right hand
+	int16_t   m_sMagicAmountLeftHand;         // The amount of magic item in user's left hand
+	int16_t	m_sMagicAmountRightHand;        // The amount of magic item in user's left hand
 
 	// bonus type -> amount
-	typedef std::map<uint8, int16> ItemBonusMap;
+	typedef std::map<uint8_t, int16_t> ItemBonusMap;
 
 	// slot id -> bonus map
-	typedef std::map<uint8, ItemBonusMap> EquippedItemBonuses;
+	typedef std::map<uint8_t, ItemBonusMap> EquippedItemBonuses;
 
 	// This map is for applying item bonuses from equipped skills, i.e. resistances, drains, damage reflection, etc.
 	// It is indexed by slot ID (this should really work with the item container), and contains a map of each bonus (indexed by type)
@@ -280,25 +280,25 @@ public:
 	std::recursive_mutex m_equippedItemBonusLock;
 
 	// Weapon resistances
-	int16 m_sDaggerR; 
-	uint8 m_byDaggerRAmount;
-	int16 m_sSwordR;
-	int16 m_sAxeR;
-	int16 m_sMaceR;
-	int16 m_sSpearR;
-	int16 m_sBowR; 
-	uint8 m_byBowRAmount;
+	int16_t m_sDaggerR; 
+	uint8_t m_byDaggerRAmount;
+	int16_t m_sSwordR;
+	int16_t m_sAxeR;
+	int16_t m_sMaceR;
+	int16_t m_sSpearR;
+	int16_t m_sBowR; 
+	uint8_t m_byBowRAmount;
 
 	struct MagicType3
 	{
 		bool	m_byUsed;		// indicates whether this element is used
 		time_t	m_tHPLastTime;	// time when the durational skill last affected the unit
-		int16	m_sHPAmount;	// HP amount to affet the unit by (negative for damage, positive for HP recovery)
-		uint8	m_bHPInterval;	// interval (in seconds) between each durational skill effect
-		uint8	m_bTickCount;	// 
-		uint8	m_bTickLimit;	// number of ticks required before the skill expires
-		uint16	m_sSourceID;	// ID of the unit that used this skill on the unit
-		uint8	m_byAttribute;	// skill attribute
+		int16_t	m_sHPAmount;	// HP amount to affet the unit by (negative for damage, positive for HP recovery)
+		uint8_t	m_bHPInterval;	// interval (in seconds) between each durational skill effect
+		uint8_t	m_bTickCount;	// 
+		uint8_t	m_bTickLimit;	// number of ticks required before the skill expires
+		uint16_t	m_sSourceID;	// ID of the unit that used this skill on the unit
+		uint8_t	m_byAttribute;	// skill attribute
 
 		MagicType3() { Reset(); }
 
@@ -321,7 +321,7 @@ public:
 	Type4BuffMap m_buffMap;
 	Type9BuffMap m_type9BuffMap;
 	std::recursive_mutex	m_buffLock;
-	uint8		m_buffCount; // counter for buffs (not debuffs). Used for identifying when the user is buffed.
+	uint8_t		m_buffCount; // counter for buffs (not debuffs). Used for identifying when the user is buffed.
 
 	bool	m_bIsBlinded;
 	bool	m_bCanUseSkills; // blinding prevents you from using skills or attacks, skills like "Full Skill Gear" prevent use of skills only.
@@ -331,13 +331,13 @@ public:
 	bool	m_bInstantCast;
 	bool    m_bBlockCurses, m_bReflectCurses;
 	bool	m_bMirrorDamage; 
-	uint8	m_byMirrorAmount;
-	uint8	m_bReflectArmorType;
+	uint8_t	m_byMirrorAmount;
+	uint8_t	m_bReflectArmorType;
 	bool	m_bIsUndead, m_bIsKaul;
 
 	bool m_bBlockPhysical;
 	bool m_bBlockMagic;
 
-	int16	m_oSocketID; // owner user
-	uint16	m_bEventRoom;
+	int16_t	m_oSocketID; // owner user
+	uint16_t	m_bEventRoom;
 };

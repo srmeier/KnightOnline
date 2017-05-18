@@ -165,12 +165,12 @@ public:
 
 //-----------------------------------------------------------------------------
 struct _N3Material {
-	unsigned char data[92];
+	uint8_t data[92];
 };
 
 //-----------------------------------------------------------------------------
 struct _N3Matrix44 {
-	unsigned char data[64];
+	uint8_t data[64];
 };
 
 //-----------------------------------------------------------------------------
@@ -284,43 +284,43 @@ struct _ITEM_TABLE {
 
 //-----------------------------------------------------------------------------
 typedef struct __TABLE_ITEM_BASIC {
-	DWORD dwID;
-	BYTE byExtIndex;
+	uint32_t dwID;
+	uint8_t byExtIndex;
 	std::string szName;
 	std::string szRemark;
-	DWORD dwIDK0;
-	BYTE byIDK1;
-	DWORD dwIDResrc;
-	DWORD dwIDIcon;
-	DWORD dwSoundID0;
-	DWORD dwSoundID1;
-	BYTE byClass;
-	BYTE byIsRobeType;
-	BYTE byAttachPoint;
-	BYTE byNeedRace;
-	BYTE byNeedClass;
-	short siDamage;
-	short siAttackInterval;
-	short siAttackRange;
-	short siWeight;
-	short siMaxDurability;
+	uint32_t dwIDK0;
+	uint8_t byIDK1;
+	uint32_t dwIDResrc;
+	uint32_t dwIDIcon;
+	uint32_t dwSoundID0;
+	uint32_t dwSoundID1;
+	uint8_t byClass;
+	uint8_t byIsRobeType;
+	uint8_t byAttachPoint;
+	uint8_t byNeedRace;
+	uint8_t byNeedClass;
+	int16_t siDamage;
+	int16_t siAttackInterval;
+	int16_t siAttackRange;
+	int16_t siWeight;
+	int16_t siMaxDurability;
 	int iPrice;
 	int iPriceSale;
-	short siDefense;
-	BYTE byContable;
-	DWORD dwEffectID1;
-	DWORD dwEffectID2;
+	int16_t siDefense;
+	uint8_t byContable;
+	uint32_t dwEffectID1;
+	uint32_t dwEffectID2;
 	char cNeedLevel;
 	char cIDK2;
-	BYTE byNeedRank;
-	BYTE byNeedTitle;
-	BYTE byNeedStrength;
-	BYTE byNeedStamina;
-	BYTE byNeedDexterity;
-	BYTE byNeedInteli;
-	BYTE byNeedMagicAttack;
-	BYTE bySellGroup;
-	BYTE byIDK3;
+	uint8_t byNeedRank;
+	uint8_t byNeedTitle;
+	uint8_t byNeedStrength;
+	uint8_t byNeedStamina;
+	uint8_t byNeedDexterity;
+	uint8_t byNeedInteli;
+	uint8_t byNeedMagicAttack;
+	uint8_t bySellGroup;
+	uint8_t byIDK3;
 } TABLE_ITEM_BASIC;
 
 #endif

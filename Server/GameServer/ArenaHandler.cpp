@@ -26,7 +26,7 @@ void CUser::HandleChallenge(Packet & pkt)
 	if (isDead())
 		return;
 
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
 	case CHALLENGE_PVP_REQUEST:
@@ -63,7 +63,7 @@ void CUser::HandleChallengeRequestPVP(Packet & pkt)
 	Packet result(WIZ_CHALLENGE);
 	CUser *pUser;
 	string strUserID;
-	uint8 bErrorCode = CHALLENGE_GENERIC_ERROR;
+	uint8_t bErrorCode = CHALLENGE_GENERIC_ERROR;
 
 	if (m_bRequestingChallenge 
 		|| m_bChallengeRequested
@@ -105,11 +105,11 @@ void CUser::HandleChallengeRequestPVP(Packet & pkt)
 	pUser->m_bChallengeRequested = CHALLENGE_PVP_REJECT;
 	pUser->m_sChallengeUser = GetID();
 
-	result << uint8(CHALLENGE_PVP_REQUEST) << GetName();
+	result << uint8_t(CHALLENGE_PVP_REQUEST) << GetName();
 	pUser->Send(&result);
 
 	result.clear();
-	result << uint8(CHALLENGE_PVP_REQ_SENT) << pUser->GetName();
+	result << uint8_t(CHALLENGE_PVP_REQ_SENT) << pUser->GetName();
 	Send(&result);
 	return;
 
@@ -124,7 +124,7 @@ void CUser::HandleChallengeRequestCVC(Packet & pkt)
 	Packet result(WIZ_CHALLENGE);
 	CUser *pUser;
 	string strUserID;
-	uint8 bErrorCode = CHALLENGE_GENERIC_ERROR;
+	uint8_t bErrorCode = CHALLENGE_GENERIC_ERROR;
 
 	if (m_bRequestingChallenge 
 		|| m_bChallengeRequested
@@ -180,11 +180,11 @@ void CUser::HandleChallengeRequestCVC(Packet & pkt)
 	pUser->m_bChallengeRequested = CHALLENGE_CVC_REJECT;
 	pUser->m_sChallengeUser = GetID();
 
-	result << uint8(CHALLENGE_CVC_REQUEST) << GetName();
+	result << uint8_t(CHALLENGE_CVC_REQUEST) << GetName();
 	pUser->Send(&result);
 
 	result.clear();
-	result << uint8(CHALLENGE_CVC_REQ_SENT) << pUser->GetName();
+	result << uint8_t(CHALLENGE_CVC_REQ_SENT) << pUser->GetName();
 	Send(&result);
 	return;
 
@@ -207,7 +207,7 @@ void CUser::HandleChallengeAcceptPVP(Packet & pkt)
 	if (pUser == nullptr)
 	{
 		Packet result(WIZ_CHALLENGE);
-		result << uint8(CHALLENGE_GENERIC_ERROR);
+		result << uint8_t(CHALLENGE_GENERIC_ERROR);
 		Send(&result);
 		return;
 	}
@@ -226,7 +226,7 @@ void CUser::HandleChallengeAcceptCVC(Packet & pkt)
 	if (!m_bChallengeRequested)
 		return;
 
-	Packet result(WIZ_CHALLENGE, uint8(CHALLENGE_GENERIC_ERROR));
+	Packet result(WIZ_CHALLENGE, uint8_t(CHALLENGE_GENERIC_ERROR));
 	CUser *pUser = g_pMain->GetUserPtr(m_sChallengeUser);
 
 	m_sChallengeUser = -1;
@@ -287,7 +287,7 @@ void CUser::HandleChallengeAcceptCVC(Packet & pkt)
 }
 
 // This is sent when the challenger cancels their request to the challengee.
-void CUser::HandleChallengeCancelled(uint8 opcode)
+void CUser::HandleChallengeCancelled(uint8_t opcode)
 {
 	if (!m_bRequestingChallenge)
 		return;
@@ -297,7 +297,7 @@ void CUser::HandleChallengeCancelled(uint8 opcode)
 	CUser *pUser = g_pMain->GetUserPtr(m_sChallengeUser);
 	if (pUser == nullptr || pUser->m_sChallengeUser != GetID())
 	{
-		result << uint8(CHALLENGE_GENERIC_ERROR);
+		result << uint8_t(CHALLENGE_GENERIC_ERROR);
 		Send(&result);
 	}
 	else
@@ -313,7 +313,7 @@ void CUser::HandleChallengeCancelled(uint8 opcode)
 }
 
 // This is sent when the challengee rejects the challenger's request.
-void CUser::HandleChallengeRejected(uint8 opcode)
+void CUser::HandleChallengeRejected(uint8_t opcode)
 {
 	if (!m_bChallengeRequested)
 		return;
@@ -323,7 +323,7 @@ void CUser::HandleChallengeRejected(uint8 opcode)
 	CUser *pUser = g_pMain->GetUserPtr(m_sChallengeUser);
 	if (pUser == nullptr || pUser->m_sChallengeUser != GetID())
 	{
-		result << uint8(CHALLENGE_GENERIC_ERROR);
+		result << uint8_t(CHALLENGE_GENERIC_ERROR);
 	}
 	else
 	{

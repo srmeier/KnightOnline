@@ -64,10 +64,10 @@ void CN3ColorChange::Tick()
 	int iNextR = (m_NextColor & 0x00ff0000)>>16;
 	int iNextG = (m_NextColor & 0x0000ff00)>>8;
 	int iNextB = (m_NextColor & 0x000000ff);
-	DWORD dwCurA = ((iPrevA + int((iNextA-iPrevA)*m_fPercentage))&0xff) << 24;
-	DWORD dwCurR = ((iPrevR + int((iNextR-iPrevR)*m_fPercentage))&0xff) << 16;
-	DWORD dwCurG = ((iPrevG + int((iNextG-iPrevG)*m_fPercentage))&0xff) << 8;
-	DWORD dwCurB = ((iPrevB + int((iNextB-iPrevB)*m_fPercentage))&0xff);
+	uint32_t dwCurA = ((iPrevA + int((iNextA-iPrevA)*m_fPercentage))&0xff) << 24;
+	uint32_t dwCurR = ((iPrevR + int((iNextR-iPrevR)*m_fPercentage))&0xff) << 16;
+	uint32_t dwCurG = ((iPrevG + int((iNextG-iPrevG)*m_fPercentage))&0xff) << 8;
+	uint32_t dwCurB = ((iPrevB + int((iNextB-iPrevB)*m_fPercentage))&0xff);
 
 	m_CurColor = dwCurA|dwCurR|dwCurG|dwCurB;
 }

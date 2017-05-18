@@ -80,7 +80,7 @@ void CN3UIImage::SetVB()
 			__VertexTransformed* pVertices;
 			m_pVB->Lock( 0, 0, (void**)&pVertices, 0 );
 
-			DWORD dwColor = 0xffffffff;
+			uint32_t dwColor = 0xffffffff;
 			float fRHW = 1.0f;
 			// -0.5f를 해주지 않으면 가끔 이미지가 한 돗트씩 밀리는 경우가 있다.(왜 그런지는 확실하게 모르겠음)
 			pVertices[0].Set((float)m_rcRegion.left-0.5f,	(float)m_rcRegion.top-0.5f,		UI_DEFAULT_Z, fRHW, m_Color, m_frcUVRect.left,		m_frcUVRect.top);
@@ -230,7 +230,7 @@ bool CN3UIImage::Load(HANDLE hFile)
 		for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 		{
 			if(UI_TYPE_IMAGE == (*itor)->UIType()) m_pAnimImagesRef[i] = (CN3UIImage*)(*itor);
-			__ASSERT(m_pAnimImagesRef[i]->GetReserved() == (DWORD)i, "animate Image load fail");	// 제대로 정렬이 되지 않았을경우 실패한다.
+			__ASSERT(m_pAnimImagesRef[i]->GetReserved() == (uint32_t)i, "animate Image load fail");	// 제대로 정렬이 되지 않았을경우 실패한다.
 			++i;
 		}
 	}
@@ -263,7 +263,7 @@ void CN3UIImage::operator = (const CN3UIImage& other)
 		{
 			__ASSERT(UI_TYPE_IMAGE == (*itor)->UIType(), "animate image child의 UI type이 image가 아니다.");
 			m_pAnimImagesRef[i] = (CN3UIImage*)(*itor);
-			__ASSERT(m_pAnimImagesRef[i]->GetReserved() == (DWORD)i, "animate Image load fail");	// 제대로 정렬이 되지 않았을경우 실패한다.
+			__ASSERT(m_pAnimImagesRef[i]->GetReserved() == (uint32_t)i, "animate Image load fail");	// 제대로 정렬이 되지 않았을경우 실패한다.
 			++i;
 		}
 	}

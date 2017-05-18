@@ -5,16 +5,16 @@ void CUser::VersionCheck(Packet & pkt)
 	Packet result(WIZ_VERSION_CHECK);
 	/*
 	string strAccountID;
-	int16 unk = pkt.read<int16>(); // -1
+	int16_t unk = pkt.read<int16_t>(); // -1
 	pkt >> strAccountID;
 	if (strAccountID.empty() || strAccountID.size() > MAX_ID_SIZE)
 	return;
 	*/
 
 #if __VERSION <= 1264
-	result << uint16(__VERSION);
+	result << uint16_t(__VERSION);
 #else
-	result << uint16(__VERSION) << m_crypto.GenerateKey(); // 0 = success, 1 = prem error
+	result << uint16_t(__VERSION) << m_crypto.GenerateKey(); // 0 = success, 1 = prem error
 #endif
 	Send(&result);
 
@@ -56,19 +56,19 @@ void CUser::LoginProcess(Packet & pkt)
 	return;
 
 fail_return:
-	result << uint8(-1);
+	result << uint8_t(-1);
 	Send(&result);
 }
 
-bool CUser::WordGuardSystem(std::string Word, uint8 WordStr)
+bool CUser::WordGuardSystem(std::string Word, uint8_t WordStr)
 {
 	char *pword = &Word[0];
 	bool bGuard[32] = {false};
 	std::string WordGuard = "qwertyuopasdfghjklizxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
 	char *pWordGuard = &WordGuard[0];
-		for(uint8 i=0; i < WordStr; i++)
+		for(uint8_t i=0; i < WordStr; i++)
 		{
-			for(uint8 j=0; j < strlen(pWordGuard); j++)
+			for(uint8_t j=0; j < strlen(pWordGuard); j++)
 				if (pword[i] == pWordGuard[j])
 					bGuard[i] = true;
 

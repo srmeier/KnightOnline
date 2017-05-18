@@ -42,7 +42,7 @@ enum e_PerTradeItemKindBackup	{
 									PER_TRADE_ITEM_OTHER,			// 전에 개인 거래창으로 ADD한 것이 아이템이다..
 								};
 
-const DWORD dwGold = 900000000;	// 음...
+const uint32_t dwGold = 900000000;	// 음...
 
 class CUIManager;
 class CUIPerTradeDlg;
@@ -98,12 +98,12 @@ public:
 	void	SecureJobStuffByMyDecision();
 
 	void	ReceiveMsgPerTradeReq(int iOtherID);
-	void	ReceiveMsgPerTradeAgree(BYTE bResult);
-	void	ReceiveMsgPerTradeAdd(BYTE bResult);
+	void	ReceiveMsgPerTradeAgree(uint8_t bResult);
+	void	ReceiveMsgPerTradeAdd(uint8_t bResult);
 	void	ReceiveMsgPerTradeOtherAdd(int iItemID, int iCount, int iDurability);
 	void	ReceiveMsgPerTradeOtherDecide();
 	void	ReceiveMsgPerTradeDoneSuccessBegin(int iTotalGold);
-	void	ReceiveMsgPerTradeDoneItemMove(BYTE bItemPos, int iItemID, int iCount, int iDurability);
+	void	ReceiveMsgPerTradeDoneItemMove(uint8_t bItemPos, int iItemID, int iCount, int iDurability);
 	void	ReceiveMsgPerTradeDoneSuccessEnd();
 	void	ReceiveMsgPerTradeDoneFail();
 	void	ReceiveMsgPerTradeCancel();

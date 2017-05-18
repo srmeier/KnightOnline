@@ -13,12 +13,12 @@
 
 struct __VertexRiver : public __VertexXyzT2
 {
-	WORD			index;			// 점의 Index
+	uint16_t			index;			// 점의 Index
 };
 
 struct __River		// 강의 점정보(정렬을 위한..)
 {
-	short			iRiverID;
+	int16_t			iRiverID;
 	int				iVertexCount;
 	__VertexRiver*	pVertices;
 
@@ -28,12 +28,12 @@ struct __River		// 강의 점정보(정렬을 위한..)
 
 struct __RiverEx	// 강의 점정보(vertex buffer를 위한..)
 {
-	short			iRiverID;
+	int16_t			iRiverID;
 	int				iVertexCount;
 	__VertexXyzT2*	pVertices;
 
 	int				iIndexCount;
-	WORD*			pIndices;
+	uint16_t*			pIndices;
 
 	__RiverEx() {pVertices = NULL; pIndices = NULL;}
 	~__RiverEx() { if (pVertices) {delete [] pVertices; pVertices = NULL;}

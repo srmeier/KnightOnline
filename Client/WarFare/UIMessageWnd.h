@@ -36,7 +36,7 @@ protected:
 public:
 	bool OnKeyPress(int iKey);
 	BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// offsetY만큼 이동해준다.(region, children, move rect 이동)
-	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void	Release();
 	bool	Load(HANDLE hFile);
 	void	SetRegion(const RECT& Rect);	// 영역 지정(사이즈가 변할때 호출된다. 단순 이동은 호출되지 않는다.(단순이동은 MoveOffset이 호출))

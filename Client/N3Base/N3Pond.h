@@ -47,7 +47,7 @@ public:
 		__VertexPond*	m_pVertices;	//	Vertices
 		float*			m_pfVelocityArray;	//	계산 저장
 		float			m_pfMaxHeight;	//	물결이 어느정도 이상 올라가지 못하게 함
-		WORD*			m_wpIndex;		//	그림을 그릴 순서
+		uint16_t*			m_wpIndex;		//	그림을 그릴 순서
 		int				m_iIC;			// Index Buffer Count.
 		int				m_iVC;			// Vertex Count.
 

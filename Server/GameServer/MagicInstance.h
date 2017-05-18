@@ -72,12 +72,12 @@ struct _MAGIC_TABLE;
 class MagicInstance
 {
 public:
-	uint8	bOpcode;
-	uint32	nSkillID;
+	uint8_t	bOpcode;
+	uint32_t	nSkillID;
 	_MAGIC_TABLE * pSkill;
-	int16	sCasterID, sTargetID; 
+	int16_t	sCasterID, sTargetID; 
 	Unit	*pSkillCaster, *pSkillTarget;
-	int16	sData[7];
+	int16_t	sData[7];
 	bool	bSendFail;	// When enabled (enabled by default), sends fail packets to the client.
 	// This is not preferable in cases like scripted casts, as the script should handle the failure.
 	bool	bIsRecastingSavedMagic;
@@ -86,7 +86,7 @@ public:
 
 	bool	bSkillSuccessful;
 
-	uint32	nConsumeItem;
+	uint32_t	nConsumeItem;
 
 	MagicInstance() : bOpcode(MAGIC_EFFECTING), nSkillID(0), pSkill(nullptr), 
 		sCasterID(-1), sTargetID(-1), pSkillCaster(nullptr), pSkillTarget(nullptr),
@@ -106,7 +106,7 @@ public:
 	bool CheckType4Prerequisites();
 	bool CheckType6Prerequisites();
 
-	bool ExecuteSkill(uint8 bType);
+	bool ExecuteSkill(uint8_t bType);
 	bool ExecuteType1();	
 	bool ExecuteType2();
 	bool ExecuteType3();
@@ -123,15 +123,15 @@ public:
 	void Type9Cancel(bool bRemoveFromMap = true);
 	void Type4Extend();
 
-	short GetMagicDamage(Unit *pTarget, int total_hit, int attribute);
-	int32 GetWeatherDamage(int32 damage, int attribute);
-	void ReflectDamage(int32 damage, Unit * pTarget);
+	int16_t GetMagicDamage(Unit *pTarget, int total_hit, int attribute);
+	int32_t GetWeatherDamage(int32_t damage, int attribute);
+	void ReflectDamage(int32_t damage, Unit * pTarget);
 	void ConsumeItem();
 
 	void SendSkillToAI();
-	void BuildSkillPacket(Packet & result, int16 sSkillCaster, int16 sSkillTarget, int8 opcode, uint32 nSkillID, int16 sData[7]);
-	void BuildAndSendSkillPacket(Unit * pUnit, bool bSendToRegion, int16 sSkillCaster, int16 sSkillTarget, int8 opcode, uint32 nSkillID, int16 sData[7]);
+	void BuildSkillPacket(Packet & result, int16_t sSkillCaster, int16_t sSkillTarget, int8_t opcode, uint32_t nSkillID, int16_t sData[7]);
+	void BuildAndSendSkillPacket(Unit * pUnit, bool bSendToRegion, int16_t sSkillCaster, int16_t sSkillTarget, int8_t opcode, uint32_t nSkillID, int16_t sData[7]);
 	void SendSkill(bool bSendToRegion = true, Unit * pUnit = nullptr);
-	void SendSkillFailed(int16 sTargetID = -1);
+	void SendSkillFailed(int16_t sTargetID = -1);
 	void SendTransformationList();
 };

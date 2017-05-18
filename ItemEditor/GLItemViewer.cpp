@@ -10,15 +10,15 @@ extern e_ItemType eType;
 
 extern int                m_nFC;
 extern __VertexXyzNormal* m_pVertices;
-extern WORD*              m_pwVtxIndices;
+extern uint16_t*              m_pwVtxIndices;
 extern float*             m_pfUVs;
-extern WORD*              m_pwUVsIndices;
+extern uint16_t*              m_pwUVsIndices;
 
 extern _N3TexHeader    HeaderOrg;
-extern unsigned char*  compTexData;
+extern uint8_t*  compTexData;
 extern int             compTexSize;
 extern int             iPixelSize;
-extern unsigned short* m_pIndices0;
+extern uint16_t* m_pIndices0;
 extern _N3VertexT1*    m_pVertices0;
 extern int             m_iMaxNumIndices0;
 extern int             m_iMaxNumVertices0;
@@ -268,9 +268,9 @@ void GLItemViewer::PushDataToGPU(void) {
 			texFormat = GL_RGBA;
 			texType = GL_UNSIGNED_SHORT_5_5_5_1;
 			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
-				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
-				unsigned short p = *pp;
-				unsigned short np = ((p&0x7C00)>>10)<<11|((p&0x3E0)>>5)<<6|(p&0x1F)<<1|((p&0x8000)>>15);
+				uint16_t* pp = (uint16_t*)(compTexData + iPixelSize*i);
+				uint16_t p = *pp;
+				uint16_t np = ((p&0x7C00)>>10)<<11|((p&0x3E0)>>5)<<6|(p&0x1F)<<1|((p&0x8000)>>15);
 				*pp = np;
 			}
 		} break;
@@ -278,9 +278,9 @@ void GLItemViewer::PushDataToGPU(void) {
 			texFormat = GL_RGBA;
 			texType = GL_UNSIGNED_SHORT_4_4_4_4;
 			for(int i=0; i<HeaderOrg.nWidth*HeaderOrg.nHeight; ++i) {
-				unsigned short* pp = (unsigned short*)(compTexData + iPixelSize*i);
-				unsigned short p = *pp;
-				unsigned short np = ((p&0xF00)>>8)<<12|((p&0xF0)>>4)<<8|(p&0xF)<<4|((p&0xF000)>>12);
+				uint16_t* pp = (uint16_t*)(compTexData + iPixelSize*i);
+				uint16_t p = *pp;
+				uint16_t np = ((p&0xF00)>>8)<<12|((p&0xF0)>>4)<<8|(p&0xF)<<4|((p&0xF000)>>12);
 				*pp = np;
 			}
 		} break;

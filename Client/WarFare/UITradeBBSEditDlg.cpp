@@ -77,7 +77,7 @@ bool CUITradeBBSEditDlg::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUITradeBBSEditDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUITradeBBSEditDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 

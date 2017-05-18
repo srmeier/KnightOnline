@@ -40,9 +40,9 @@ protected:
 		int CollapseTo;
 	};
 // Helper function
-	void swap_triangle(WORD *t1, WORD *t2);
-	float GetTriCollapsesLoss(WORD* pTriIndex, bool bArea);
-	void combine_modified(float &sofar, WORD *tri, int which, int what_to, bool bSumOfLoss);
+	void swap_triangle(uint16_t *t1, uint16_t *t2);
+	float GetTriCollapsesLoss(uint16_t* pTriIndex, bool bArea);
+	void combine_modified(float &sofar, uint16_t *tri, int which, int what_to, bool bSumOfLoss);
 
 public:
 	int ReGenerate(CN3PMesh* pPMesh); // 다시 생성한다..
@@ -73,10 +73,10 @@ protected:
 	bool FindACollapse(float &val_so_far);
 	void TryEdge(int pt_a, int pt_b,
 				 float &be_val,
-				 WORD &be_a,
-				 WORD &be_b,
+				 uint16_t &be_a,
+				 uint16_t &be_b,
 				 bool &IsOver);
-	void Collapse(WORD& pt_to, WORD& pt_from, float edge_val);
+	void Collapse(uint16_t& pt_to, uint16_t& pt_from, float edge_val);
 
 // mesh 정보
 protected:
@@ -84,7 +84,7 @@ protected:
 	// A material is an array of vertices and an array of triangles (which is an array of 3x as many indices)
 	// Fill these in with your raw mesh data.
 	__VertexT1* m_pVertices;
-	WORD* m_pIndices;
+	uint16_t* m_pIndices;
 	int m_iNumVertices, m_iNumIndices;
 
 
@@ -92,10 +92,10 @@ protected:
 	int m_iOriginalNumVertices, m_iOriginalNumIndices;
 
 	// Internal to collapse code.
-	void SwapToEnd(WORD swapper, __PMCEdgeCollapse *collapses, __PMCEdgeCollapse *collapses_end, WORD &pt_to, WORD &pt_from);
+	void SwapToEnd(uint16_t swapper, __PMCEdgeCollapse *collapses, __PMCEdgeCollapse *collapses_end, uint16_t &pt_to, uint16_t &pt_from);
 
 #ifdef _SAME_VERTEXPOS
-	float GetLossOfSamePosVertex(WORD pt_to, WORD pt_from);
+	float GetLossOfSamePosVertex(uint16_t pt_to, uint16_t pt_from);
 #endif // _SAME_VERTEXPOS
 
 };

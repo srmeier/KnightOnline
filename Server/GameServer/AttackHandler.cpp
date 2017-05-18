@@ -3,8 +3,8 @@
 
 void CUser::Attack(Packet & pkt)
 {
-	int16 sid = -1, tid = -1, damage, delaytime, distance;	
-	uint8 bType, bResult = 0;	
+	int16_t sid = -1, tid = -1, damage, delaytime, distance;	
+	uint8_t bType, bResult = 0;	
 	Unit * pTarget = nullptr;
 
 	pkt >> bType >> bResult >> tid >> delaytime >> distance;
@@ -93,7 +93,7 @@ void CUser::Attack(Packet & pkt)
 	SendToRegion(&result);
 }
 
-void CUser::Regene(uint8 regene_type, uint32 magicid /*= 0*/)
+void CUser::Regene(uint8_t regene_type, uint32_t magicid /*= 0*/)
 {
 	ASSERT(GetMap() != nullptr);
 
@@ -144,7 +144,7 @@ void CUser::Regene(uint8 regene_type, uint32 magicid /*= 0*/)
 		}
 		else
 		{
-			short sx, sz;
+			int16_t sx, sz;
 			// If we're in a war zone (aside from snow wars, which apparently use different coords), use BattleZone coordinates.
 			if (GetZoneID() == ZONE_MORADON && isInArena())
 			{

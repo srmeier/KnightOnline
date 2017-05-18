@@ -113,7 +113,7 @@ void CItemRepairMgr::Tick()
 		}
 	}
 
-	DWORD dwMouseFlags	= CGameProcedure::s_pLocalInput->MouseGetFlag();	// 마우스 버튼 플래그 - LocalInput.h 참조
+	uint32_t dwMouseFlags	= CGameProcedure::s_pLocalInput->MouseGetFlag();	// 마우스 버튼 플래그 - LocalInput.h 참조
 	if (dwMouseFlags & MOUSE_LBCLICK)		// 왼쪽 버튼을 누르면..
 	{
 		m_pspItemBack	= spItem;
@@ -136,7 +136,7 @@ void CItemRepairMgr::Tick()
 				}
 				else
 				{
-					BYTE byBuff[8];															// 패킷 버퍼..
+					uint8_t byBuff[8];															// 패킷 버퍼..
 					int iOffset=0;															// 패킷 오프셋..
 
 					CAPISocket::MP_AddByte(byBuff, iOffset,  WIZ_ITEM_REPAIR);			// 게임 스타트 패킷 커멘드..

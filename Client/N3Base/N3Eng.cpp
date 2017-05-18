@@ -261,7 +261,7 @@ void CN3Eng::SetProjection(float fNear, float fFar, float fLens, float fAspect)
 
 
 //-----------------------------------------------------------------------------
-bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, DWORD dwWidth, DWORD dwHeight, DWORD dwBPP, BOOL bUseHW)
+bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_t dwHeight, uint32_t dwBPP, BOOL bUseHW)
 {
 	/*
 	SDL_Renderer* s_pSDLRenderer;
@@ -547,7 +547,7 @@ void CN3Eng::Present(SDL_Window* pWindow, RECT* pRC)
 	// 프레임 율 측정...
 //	float fTime = CN3Base::TimerProcess(TIMER_GETABSOLUTETIME);
 //	static float fTimePrev = fTime - 0.03333f;
-//	static DWORD dwFrm = 0;
+//	static uint32_t dwFrm = 0;
 //	dwFrm++;
 //	if(fTime - fTimePrev > 1.0f) // 1 초 이상 지나야 프레임 측정한다.. 그렇지 않으면 들쭉 날쭉 한 수치가 나온다..
 //	{
@@ -646,7 +646,7 @@ void CN3Eng::ClearAuto(RECT* pRC)
 		if(bEnable)
 		{
 			s_lpD3DDev->GetLight(0, &Lgt);
-			dwFillColor = D3DCOLOR_ARGB((BYTE)(Lgt.Diffuse.a * 255.0f), (BYTE)(Lgt.Diffuse.r * 255.0f), (BYTE)(Lgt.Diffuse.g * 255.0f), (BYTE)(Lgt.Diffuse.b * 255.0f));
+			dwFillColor = D3DCOLOR_ARGB((uint8_t)(Lgt.Diffuse.a * 255.0f), (uint8_t)(Lgt.Diffuse.r * 255.0f), (uint8_t)(Lgt.Diffuse.g * 255.0f), (uint8_t)(Lgt.Diffuse.b * 255.0f));
 		}
 	}
 

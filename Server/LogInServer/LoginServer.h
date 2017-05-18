@@ -12,7 +12,7 @@ class LoginServer
 public:
 	LoginServer();
 
-	INLINE short GetVersion() { return m_sLastVersion; };
+	INLINE int16_t GetVersion() { return m_sLastVersion; };
 	INLINE std::string & GetFTPUrl() { return m_strFtpUrl; };
 	INLINE std::string & GetFTPPath() { return m_strFilePath; };
 
@@ -22,7 +22,7 @@ public:
 
 	bool Startup();
 
-	static uint32 THREADCALL Timer_UpdateUserCount(void * lpParam);
+	static uint32_t THREADCALL Timer_UpdateUserCount(void * lpParam);
 	void GetServerList(Packet & result);
 
 	~LoginServer();
@@ -37,9 +37,9 @@ private:
 
 	std::string m_strFtpUrl, m_strFilePath;
 	std::string m_ODBCName, m_ODBCLogin, m_ODBCPwd;
-	short	m_sLastVersion;
+	int16_t	m_sLastVersion;
 
-	uint32 m_LoginServerPort;
+	uint32_t m_LoginServerPort;
 
 	VersionInfoList		m_VersionList;
 	ServerInfoList		m_ServerList;

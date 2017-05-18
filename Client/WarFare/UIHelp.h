@@ -27,7 +27,7 @@ public:
 	bool	OnKeyPress(int iKey);
 	void	Release();
 	bool	Load(HANDLE hFile);
-	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 
 	CUIHelp();
 	virtual ~CUIHelp();

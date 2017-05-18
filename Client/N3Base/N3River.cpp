@@ -33,7 +33,7 @@ CN3River::~CN3River()
 bool CN3River::Load(HANDLE hFile)
 {
 	DWORD dwNum;
-	WORD wIndex[18] = {4,0,1,4,1,5,5,1,2,5,2,6,6,2,3,6,3,7};
+	uint16_t wIndex[18] = {4,0,1,4,1,5,5,1,2,5,2,6,6,2,3,6,3,7};
 
 	ReadFile(hFile, &m_iRiverCount, sizeof(m_iRiverCount), &dwNum, NULL);
 	if (m_iRiverCount == 0)	return true;
@@ -67,7 +67,7 @@ bool CN3River::Load(HANDLE hFile)
 		}		
 
 
-		pInfo->pwIndex = new WORD[pInfo->iIC];		
+		pInfo->pwIndex = new uint16_t[pInfo->iIC];		
 		for (int l=0;l<pInfo->iIC/18;l++)
 		{
 			for (int j=0;j<18;j++)

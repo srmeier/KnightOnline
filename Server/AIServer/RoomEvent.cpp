@@ -312,8 +312,8 @@ void CRoomEvent::EndEventSay( int option1, int option2 )
 
 	case 3:
 		{
-			Packet result(AG_BATTLE_EVENT, uint8(BATTLE_MAP_EVENT_RESULT));
-			result << uint8(option2);
+			Packet result(AG_BATTLE_EVENT, uint8_t(BATTLE_MAP_EVENT_RESULT));
+			result << uint8_t(option2);
 			g_pMain->Send(&result);
 		} break;
 	}

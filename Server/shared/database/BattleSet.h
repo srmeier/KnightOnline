@@ -3,7 +3,7 @@
 class CBattleSet : public OdbcRecordset
 {
 public:
-	CBattleSet(OdbcConnection * dbConnection, uint8 * byOldVictory) 
+	CBattleSet(OdbcConnection * dbConnection, uint8_t * byOldVictory) 
 		: OdbcRecordset(dbConnection), m_byOldVictory(byOldVictory) {}
 
 	virtual tstring GetTableName() { return _T("BATTLE"); }
@@ -15,5 +15,5 @@ public:
 		return true;
 	}
 
-	uint8 *m_byOldVictory;
+	uint8_t *m_byOldVictory;
 };

@@ -30,7 +30,7 @@ protected:
 
 public:
 	void				UpdateRenderInfo();
-	bool				LoadFromFile(const std::string& szFileName, unsigned int iVer = N3FORMAT_VER_DEFAULT);
+	bool				LoadFromFile(const std::string& szFileName, uint32_t iVer = N3FORMAT_VER_DEFAULT);
 	bool				Load(HANDLE hFile);
 	bool				SkipFileHandle(HANDLE hFile);
 
@@ -45,8 +45,8 @@ public:
 	bool				CreateFromSurface(LPDIRECT3DSURFACE9 lpSurf, D3DFORMAT Format, BOOL bGenerateMipMap);
 #endif // end of _N3TOOL
 
-	DWORD				Width() { return m_Header.nWidth; }
-	DWORD				Height() { return m_Header.nHeight; }
+	uint32_t				Width() { return m_Header.nWidth; }
+	uint32_t				Height() { return m_Header.nHeight; }
 	D3DFORMAT			PixelFormat() { return m_Header.Format; }
 	int					MipMapCount() { if(NULL == m_lpTexture) return 0; else return m_lpTexture->GetLevelCount(); }
 	

@@ -105,7 +105,7 @@ bool CUIPartyOrForce::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUIPartyOrForce::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIPartyOrForce::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if( dwMsg == UIMSG_BUTTON_CLICK )
 	{
@@ -409,7 +409,7 @@ void CUIPartyOrForce::Tick()
 	CN3UIBase::Tick();
 
 	bool bBlink = false;
-	DWORD dwTime = GetTickCount();
+	uint32_t dwTime = GetTickCount();
 
 	dwTime = dwTime/1000;
 	dwTime %= 2;

@@ -164,7 +164,7 @@ void CUIClassChange::Open(int iCode)
 	}
 }
 
-bool CUIClassChange::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIClassChange::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	__InfoPlayerBase*	pInfoBase = &(CGameBase::s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
@@ -214,11 +214,11 @@ bool CUIClassChange::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 
 			CGameProcedure::s_pProcMain->m_pUIVar->UpdateAllStates(pInfoBase, pInfoExt); // 상태창 수치를 모두 적용
 
-			BYTE byBuff[4];
+			uint8_t byBuff[4];
 			int iOffset = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 			CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_CHANGE_REQ);
-			CAPISocket::MP_AddShort(byBuff, iOffset, (short)pInfoBase->eClass);
+			CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)pInfoBase->eClass);
 			CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 
 			CGameProcedure::s_pProcMain->m_pUISkillTreeDlg->InitIconUpdate();

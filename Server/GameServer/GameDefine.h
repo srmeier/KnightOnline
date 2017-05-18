@@ -233,7 +233,7 @@ enum AbnormalType
 
 struct _CLASS_COEFFICIENT
 {
-	uint16	sClassNum;
+	uint16_t	sClassNum;
 	float	ShortSword;
 	float	Sword;
 	float	Axe;
@@ -254,10 +254,10 @@ struct _CLASS_COEFFICIENT
 #define LOOT_ITEMS	6
 struct _LOOT_ITEM
 {
-	uint32 nItemID;
-	uint16 sCount;
+	uint32_t nItemID;
+	uint16_t sCount;
 
-	_LOOT_ITEM(uint32 nItemID, uint32 sCount)
+	_LOOT_ITEM(uint32_t nItemID, uint32_t sCount)
 	{
 		this->nItemID = nItemID;
 		this->sCount = sCount;
@@ -266,7 +266,7 @@ struct _LOOT_ITEM
 
 struct _LOOT_BUNDLE
 {
-	uint32 nBundleID;
+	uint32_t nBundleID;
 	std::vector<_LOOT_ITEM> Items;
 	float x, z, y;
 	time_t tDropTime;
@@ -274,12 +274,12 @@ struct _LOOT_BUNDLE
 
 struct	_EXCHANGE_ITEM
 {
-	uint32	nItemID;
-	uint32	nCount;
-	uint16	sDurability;
-	uint8	bSrcPos;
-	uint8	bDstPos;
-	uint64	nSerialNum;
+	uint32_t	nItemID;
+	uint32_t	nCount;
+	uint16_t	sDurability;
+	uint8_t	bSrcPos;
+	uint8_t	bDstPos;
+	uint64_t	nSerialNum;
 };
 
 enum ItemRace
@@ -297,70 +297,70 @@ enum SellType
 
 struct _ITEM_TABLE
 {
-	uint32	m_iNum;
+	uint32_t	m_iNum;
 	std::string	m_sName;
-	uint8	m_bKind;
-	uint8	m_bSlot;
-	uint8	m_bRace;
-	uint8	m_bClass;
-	uint16	m_sDamage;
-	uint16	m_sDelay;
-	uint16	m_sRange;
-	uint16	m_sWeight;
-	uint16	m_sDuration;
-	uint32	m_iBuyPrice;
-	uint32	m_iSellPrice;
-	int16	m_sAc;
-	uint8	m_bCountable;
-	uint32	m_iEffect1;
-	uint32	m_iEffect2;
-	uint8	m_bReqLevel;
-	uint8	m_bReqLevelMax;
-	uint8	m_bReqRank;
-	uint8	m_bReqTitle;
-	uint8	m_bReqStr;
-	uint8	m_bReqSta;
-	uint8	m_bReqDex;
-	uint8	m_bReqIntel;
-	uint8	m_bReqCha;
-	uint8	m_bSellingGroup;
-	uint8	m_ItemType;
-	uint16	m_sHitrate;
-	uint16	m_sEvarate;
-	uint16	m_sDaggerAc;
-	uint16	m_sSwordAc;
-	uint16	m_sMaceAc;
-	uint16	m_sAxeAc;
-	uint16	m_sSpearAc;
-	uint16	m_sBowAc;
-	uint8	m_bFireDamage;
-	uint8	m_bIceDamage;
-	uint8	m_bLightningDamage;
-	uint8	m_bPoisonDamage;
-	uint8	m_bHPDrain;
-	uint8	m_bMPDamage;
-	uint8	m_bMPDrain;
-	uint8	m_bMirrorDamage;
-	int16	m_sStrB;
-	int16	m_sStaB;
-	int16	m_sDexB;
-	int16	m_sIntelB;
-	int16	m_sChaB;
-	int16	m_MaxHpB;
-	int16	m_MaxMpB;
-	int16	m_bFireR;
-	int16	m_bColdR;
-	int16	m_bLightningR;
-	int16	m_bMagicR;
-	int16	m_bPoisonR;
-	int16	m_bCurseR;
-	//int16	ItemClass;
-	//int16	ItemExt;
+	uint8_t	m_bKind;
+	uint8_t	m_bSlot;
+	uint8_t	m_bRace;
+	uint8_t	m_bClass;
+	uint16_t	m_sDamage;
+	uint16_t	m_sDelay;
+	uint16_t	m_sRange;
+	uint16_t	m_sWeight;
+	uint16_t	m_sDuration;
+	uint32_t	m_iBuyPrice;
+	uint32_t	m_iSellPrice;
+	int16_t	m_sAc;
+	uint8_t	m_bCountable;
+	uint32_t	m_iEffect1;
+	uint32_t	m_iEffect2;
+	uint8_t	m_bReqLevel;
+	uint8_t	m_bReqLevelMax;
+	uint8_t	m_bReqRank;
+	uint8_t	m_bReqTitle;
+	uint8_t	m_bReqStr;
+	uint8_t	m_bReqSta;
+	uint8_t	m_bReqDex;
+	uint8_t	m_bReqIntel;
+	uint8_t	m_bReqCha;
+	uint8_t	m_bSellingGroup;
+	uint8_t	m_ItemType;
+	uint16_t	m_sHitrate;
+	uint16_t	m_sEvarate;
+	uint16_t	m_sDaggerAc;
+	uint16_t	m_sSwordAc;
+	uint16_t	m_sMaceAc;
+	uint16_t	m_sAxeAc;
+	uint16_t	m_sSpearAc;
+	uint16_t	m_sBowAc;
+	uint8_t	m_bFireDamage;
+	uint8_t	m_bIceDamage;
+	uint8_t	m_bLightningDamage;
+	uint8_t	m_bPoisonDamage;
+	uint8_t	m_bHPDrain;
+	uint8_t	m_bMPDamage;
+	uint8_t	m_bMPDrain;
+	uint8_t	m_bMirrorDamage;
+	int16_t	m_sStrB;
+	int16_t	m_sStaB;
+	int16_t	m_sDexB;
+	int16_t	m_sIntelB;
+	int16_t	m_sChaB;
+	int16_t	m_MaxHpB;
+	int16_t	m_MaxMpB;
+	int16_t	m_bFireR;
+	int16_t	m_bColdR;
+	int16_t	m_bLightningR;
+	int16_t	m_bMagicR;
+	int16_t	m_bPoisonR;
+	int16_t	m_bCurseR;
+	//int16_t	ItemClass;
+	//int16_t	ItemExt;
 
 	INLINE bool isStackable() { return m_bCountable != 0; }
 
-	INLINE uint8 GetKind() { return m_bKind; }
-	INLINE uint8 GetItemGroup() { return uint8(m_bKind / 10); }
+	INLINE uint8_t GetKind() { return m_bKind; }
+	INLINE uint8_t GetItemGroup() { return uint8_t(m_bKind / 10); }
 
 	INLINE bool isDagger() { return GetItemGroup() == WEAPON_DAGGER; }
 	INLINE bool isSword() { return GetItemGroup() == WEAPON_SWORD; }
@@ -387,55 +387,55 @@ struct _ITEM_TABLE
 
 struct _ZONE_SERVERINFO
 {
-	short		sServerNo;
+	int16_t		sServerNo;
 	std::string	strServerIP;
 };
 
 struct _KNIGHTS_CAPE
 {
-	uint16	sCapeIndex;
-	uint32	nReqCoins;
-	uint32	nReqClanPoints;	// clan point requirement
-	uint8	byGrade;		// clan grade requirement
-	uint8	byRanking;		// clan rank requirement (e.g. royal, accredited, etc)
+	uint16_t	sCapeIndex;
+	uint32_t	nReqCoins;
+	uint32_t	nReqClanPoints;	// clan point requirement
+	uint8_t	byGrade;		// clan grade requirement
+	uint8_t	byRanking;		// clan rank requirement (e.g. royal, accredited, etc)
 };
 
 struct _KNIGHTS_ALLIANCE
 {
-	uint16	sMainAllianceKnights;
-	uint16	sSubAllianceKnights;
-	uint16	sMercenaryClan_1;
-	uint16	sMercenaryClan_2;
+	uint16_t	sMainAllianceKnights;
+	uint16_t	sSubAllianceKnights;
+	uint16_t	sMercenaryClan_1;
+	uint16_t	sMercenaryClan_2;
 };
 
 struct _START_POSITION
 {
-	uint16	ZoneID;
-	uint16	sKarusX;
-	uint16	sKarusZ;
-	uint16	sElmoradX;
-	uint16	sElmoradZ;
-	uint16	sKarusGateX;
-	uint16	sKarusGateZ;
-	uint16	sElmoradGateX;
-	uint16	sElmoradGateZ;
-	uint8	bRangeX;
-	uint8	bRangeZ;
+	uint16_t	ZoneID;
+	uint16_t	sKarusX;
+	uint16_t	sKarusZ;
+	uint16_t	sElmoradX;
+	uint16_t	sElmoradZ;
+	uint16_t	sKarusGateX;
+	uint16_t	sKarusGateZ;
+	uint16_t	sElmoradGateX;
+	uint16_t	sElmoradGateZ;
+	uint8_t	bRangeX;
+	uint8_t	bRangeZ;
 };
 
 struct _KNIGHTS_RATING
 {
-	uint32 nRank;
-	uint16 sClanID;
-	uint32 nPoints;
+	uint32_t nRank;
+	uint16_t sClanID;
+	uint32_t nPoints;
 };
 
 struct _USER_RANK
 {
-	uint16	nRank;  // shIndex for USER_KNIGHTS_RANK
+	uint16_t	nRank;  // shIndex for USER_KNIGHTS_RANK
 	std::string strUserID[2];
-	uint32	nSalary; // nMoney for USER_KNIGHTS_RANK
-	uint32	nLoyalty[2]; // nKarusLoyaltyMonthly/nElmoLoyaltyMonthly for USER_PERSONAL_RANK
+	uint32_t	nSalary; // nMoney for USER_KNIGHTS_RANK
+	uint32_t	nLoyalty[2]; // nKarusLoyaltyMonthly/nElmoLoyaltyMonthly for USER_PERSONAL_RANK
 };
 
 // TODO: Rewrite this system to be less script dependent for exchange logic.
@@ -445,29 +445,29 @@ struct _USER_RANK
 
 struct _ITEM_EXCHANGE
 {
-	uint32	nIndex;
-	uint16	sNpcNum;
-	uint8	bRandomFlag;
+	uint32_t	nIndex;
+	uint16_t	sNpcNum;
+	uint8_t	bRandomFlag;
 
-	uint32	nOriginItemNum[ITEMS_IN_ORIGIN_GROUP];
-	uint32	sOriginItemCount[ITEMS_IN_ORIGIN_GROUP];
+	uint32_t	nOriginItemNum[ITEMS_IN_ORIGIN_GROUP];
+	uint32_t	sOriginItemCount[ITEMS_IN_ORIGIN_GROUP];
 
-	uint32	nExchangeItemNum[ITEMS_IN_EXCHANGE_GROUP];
-	uint32	sExchangeItemCount[ITEMS_IN_EXCHANGE_GROUP];
+	uint32_t	nExchangeItemNum[ITEMS_IN_EXCHANGE_GROUP];
+	uint32_t	sExchangeItemCount[ITEMS_IN_EXCHANGE_GROUP];
 };
 
 #define MAX_ITEMS_REQ_FOR_UPGRADE 8
 struct _ITEM_UPGRADE
 {
-	uint32	nIndex;
-	uint16	sNpcNum;
-	int8	bOriginType;
-	uint16	sOriginItem;
-	uint32	nReqItem[MAX_ITEMS_REQ_FOR_UPGRADE];
-	uint32	nReqNoah;
-	uint8	bRateType;
-	uint16	sGenRate;
-	int32	nGiveItem;
+	uint32_t	nIndex;
+	uint16_t	sNpcNum;
+	int8_t	bOriginType;
+	uint16_t	sOriginItem;
+	uint32_t	nReqItem[MAX_ITEMS_REQ_FOR_UPGRADE];
+	uint32_t	nReqNoah;
+	uint8_t	bRateType;
+	uint16_t	sGenRate;
+	int32_t	nGiveItem;
 };
 
 enum ItemTriggerType
@@ -478,79 +478,79 @@ enum ItemTriggerType
 
 struct _ITEM_OP
 {
-	uint32	nItemID;
-	uint8	bTriggerType;
-	uint32	nSkillID;
-	uint8	bTriggerRate;
+	uint32_t	nItemID;
+	uint8_t	bTriggerType;
+	uint32_t	nSkillID;
+	uint8_t	bTriggerRate;
 };
 
 struct _SET_ITEM
 {
-	uint32 SetIndex;
+	uint32_t SetIndex;
 
-	uint16 HPBonus;
-	uint16 MPBonus;
-	uint16 StrengthBonus;
-	uint16 StaminaBonus;
-	uint16 DexterityBonus;
-	uint16 IntelBonus;
-	uint16 CharismaBonus;
-	uint16 FlameResistance;
-	uint16 GlacierResistance;
-	uint16 LightningResistance;
-	uint16 PoisonResistance;
-	uint16 MagicResistance;
-	uint16 CurseResistance;
+	uint16_t HPBonus;
+	uint16_t MPBonus;
+	uint16_t StrengthBonus;
+	uint16_t StaminaBonus;
+	uint16_t DexterityBonus;
+	uint16_t IntelBonus;
+	uint16_t CharismaBonus;
+	uint16_t FlameResistance;
+	uint16_t GlacierResistance;
+	uint16_t LightningResistance;
+	uint16_t PoisonResistance;
+	uint16_t MagicResistance;
+	uint16_t CurseResistance;
 
-	uint16 XPBonusPercent;
-	uint16 CoinBonusPercent;
+	uint16_t XPBonusPercent;
+	uint16_t CoinBonusPercent;
 
-	uint16 APBonusPercent;		// +AP% for all classes
-	uint16 APBonusClassType;	// defines a specific class for +APBonusClassPercent% to be used against
-	uint16 APBonusClassPercent;	// +AP% for APBonusClassType only
+	uint16_t APBonusPercent;		// +AP% for all classes
+	uint16_t APBonusClassType;	// defines a specific class for +APBonusClassPercent% to be used against
+	uint16_t APBonusClassPercent;	// +AP% for APBonusClassType only
 
-	uint16 ACBonus;				// +AC amount for all classes
-	uint16 ACBonusClassType;	// defines a specific class for +ACBonusClassPercent% to be used against
-	uint16 ACBonusClassPercent;	// +AC% for ACBonusClassType only
+	uint16_t ACBonus;				// +AC amount for all classes
+	uint16_t ACBonusClassType;	// defines a specific class for +ACBonusClassPercent% to be used against
+	uint16_t ACBonusClassPercent;	// +AC% for ACBonusClassType only
 
-	uint16 MaxWeightBonus;
-	uint8 NPBonus;
+	uint16_t MaxWeightBonus;
+	uint8_t NPBonus;
 };
 
 struct _QUEST_HELPER
 {
-	uint32	nIndex;
-	uint8	bMessageType;
-	uint8	bLevel;
-	uint32	nExp;
-	uint8	bClass;
-	uint8	bNation;
-	uint8	bQuestType;
-	uint8	bZone;
-	uint16	sNpcId;
-	uint16	sEventDataIndex;
-	int8	bEventStatus;
-	uint32	nEventTriggerIndex;
-	uint32	nEventCompleteIndex;
-	uint32	nExchangeIndex;
-	uint32	nEventTalkIndex;
+	uint32_t	nIndex;
+	uint8_t	bMessageType;
+	uint8_t	bLevel;
+	uint32_t	nExp;
+	uint8_t	bClass;
+	uint8_t	bNation;
+	uint8_t	bQuestType;
+	uint8_t	bZone;
+	uint16_t	sNpcId;
+	uint16_t	sEventDataIndex;
+	int8_t	bEventStatus;
+	uint32_t	nEventTriggerIndex;
+	uint32_t	nEventCompleteIndex;
+	uint32_t	nExchangeIndex;
+	uint32_t	nEventTalkIndex;
 	std::string strLuaFilename;
 };
 
 struct _USER_SEAL_ITEM
 {
-	uint64 nSerialNum;
-	uint32 nItemID;
-	uint8 bSealType;
+	uint64_t nSerialNum;
+	uint32_t nItemID;
+	uint8_t bSealType;
 };
 
 #define QUEST_MOB_GROUPS		4
 #define QUEST_MOBS_PER_GROUP	4
 struct _QUEST_MONSTER
 {
-	uint16	sQuestNum;
-	uint16	sNum[QUEST_MOB_GROUPS][QUEST_MOBS_PER_GROUP]; 
-	uint16	sCount[QUEST_MOB_GROUPS];
+	uint16_t	sQuestNum;
+	uint16_t	sNum[QUEST_MOB_GROUPS][QUEST_MOBS_PER_GROUP]; 
+	uint16_t	sCount[QUEST_MOB_GROUPS];
 
 	_QUEST_MONSTER()
 	{
@@ -569,177 +569,177 @@ enum SpecialQuestIDs
 
 struct _RENTAL_ITEM
 {
-	uint32	nRentalIndex;
-	uint32	nItemID;
-	uint16	sDurability;
-	uint64	nSerialNum;
-	uint8	byRegType;
-	uint8	byItemType;
-	uint8	byClass;
-	uint16	sRentalTime;
-	uint32	nRentalMoney;
+	uint32_t	nRentalIndex;
+	uint32_t	nItemID;
+	uint16_t	sDurability;
+	uint64_t	nSerialNum;
+	uint8_t	byRegType;
+	uint8_t	byItemType;
+	uint8_t	byClass;
+	uint16_t	sRentalTime;
+	uint32_t	nRentalMoney;
 	std::string strLenderCharID;
 	std::string strBorrowerCharID;
 };
 
 struct _PREMIUM_ITEM
 {
-	uint8	Type;
-	uint16	ExpRestorePercent;
-	uint16	NoahPercent;
-	uint16	DropPercent;
-	uint32	BonusLoyalty;
-	uint16	RepairDiscountPercent;
-	uint16	ItemSellPercent;
+	uint8_t	Type;
+	uint16_t	ExpRestorePercent;
+	uint16_t	NoahPercent;
+	uint16_t	DropPercent;
+	uint32_t	BonusLoyalty;
+	uint16_t	RepairDiscountPercent;
+	uint16_t	ItemSellPercent;
 };
 
 struct _PREMIUM_ITEM_EXP
 {
-	uint16	nIndex;
-	uint8	Type;
-	uint8	MinLevel;
-	uint8	MaxLevel;
-	uint16	sPercent;
+	uint16_t	nIndex;
+	uint8_t	Type;
+	uint8_t	MinLevel;
+	uint8_t	MaxLevel;
+	uint16_t	sPercent;
 };
 
 struct _USER_RANKING 
 {
-	uint16 m_socketID;
-	int16 m_bEventRoom;
-	uint16 m_bZone;
-	uint8 m_bNation;
-	uint32 m_iLoyaltyDaily;
-	uint16 m_iLoyaltyPremiumBonus;
-	uint16 m_KillCount; // Chaos Dungeon
-	uint16 m_DeathCount; // Chaos Dungeon
+	uint16_t m_socketID;
+	int16_t m_bEventRoom;
+	uint16_t m_bZone;
+	uint8_t m_bNation;
+	uint32_t m_iLoyaltyDaily;
+	uint16_t m_iLoyaltyPremiumBonus;
+	uint16_t m_KillCount; // Chaos Dungeon
+	uint16_t m_DeathCount; // Chaos Dungeon
 };
 
 struct _EVENT_STATUS
 {
-	int16 ActiveEvent;
-	int8 ZoneID;
-	uint8 LastEventRoom;
-	uint32 StartTime;
-	uint16 AllUserCount;
-	uint16 ElMoradUserCount;
-	uint16 KarusUserCount;
+	int16_t ActiveEvent;
+	int8_t ZoneID;
+	uint8_t LastEventRoom;
+	uint32_t StartTime;
+	uint16_t AllUserCount;
+	uint16_t ElMoradUserCount;
+	uint16_t KarusUserCount;
 	bool isAttackable;
 	bool isActive;
 };
 
 struct _TEMPLE_EVENT_USER
 {
-	uint16 m_socketID;
-	uint16 m_bEventRoom;
+	uint16_t m_socketID;
+	uint16_t m_bEventRoom;
 };
 
 struct _EVENT_TRIGGER
 {
-	uint32 nIndex;
-	uint16 bNpcType;
-	uint32 sNpcID;
-	uint32 nTriggerNum;
+	uint32_t nIndex;
+	uint16_t bNpcType;
+	uint32_t sNpcID;
+	uint32_t nTriggerNum;
 };
 
 struct _USER_DAILY_OP
 {
 	std::string strUserId;
-	int32 ChaosMapTime;
-	int32 UserRankRewardTime;
-	int32 PersonalRankRewardTime;
-	int32 KingWingTime;
-	int32 WarderKillerTime1;
-	int32 WarderKillerTime2;
-	int32 KeeperKillerTime;
-	int32 UserLoyaltyWingRewardTime;
+	int32_t ChaosMapTime;
+	int32_t UserRankRewardTime;
+	int32_t PersonalRankRewardTime;
+	int32_t KingWingTime;
+	int32_t WarderKillerTime1;
+	int32_t WarderKillerTime2;
+	int32_t KeeperKillerTime;
+	int32_t UserLoyaltyWingRewardTime;
 };
 
 struct _MONUMENT_INFORMATION
 {
-	uint16 sSid;
-	uint16 sNid;
-	int32 RepawnedTime;
+	uint16_t sSid;
+	uint16_t sNid;
+	int32_t RepawnedTime;
 };
 
 struct _MONSTER_CHALLENGE
 {
-	uint16 sIndex;
-	uint8 bStartTime1;
-	uint8 bStartTime2;
-	uint8 bStartTime3;
-	uint8 bLevelMin;
-	uint8 bLevelMax;
+	uint16_t sIndex;
+	uint8_t bStartTime1;
+	uint8_t bStartTime2;
+	uint8_t bStartTime3;
+	uint8_t bLevelMin;
+	uint8_t bLevelMax;
 };
 
 struct _MONSTER_CHALLENGE_SUMMON_LIST
 {
-	uint16 sIndex;
-	uint8 bLevel;
-	uint8 bStage;
-	uint8 bStageLevel;
-	uint16 sTime;
-	uint16 sSid;
-	uint16 sCount;
-	uint16 sPosX;
-	uint16 sPosZ;
-	uint8 bRange;
+	uint16_t sIndex;
+	uint8_t bLevel;
+	uint8_t bStage;
+	uint8_t bStageLevel;
+	uint16_t sTime;
+	uint16_t sSid;
+	uint16_t sCount;
+	uint16_t sPosX;
+	uint16_t sPosZ;
+	uint8_t bRange;
 };
 
 struct _START_POSITION_RANDOM
 {
-	uint16 sIndex;
-	uint8 ZoneID;
-	uint16 PosX;
-	uint16 PosZ;
-	uint8 Radius;
+	uint16_t sIndex;
+	uint8_t ZoneID;
+	uint16_t PosX;
+	uint16_t PosZ;
+	uint8_t Radius;
 };
 
 struct _USER_ITEM
 {
-	uint32 nItemID;
-	std::vector<uint64> nItemSerial;
+	uint32_t nItemID;
+	std::vector<uint64_t> nItemSerial;
 };
 
 struct _KNIGHTS_SIEGE_WARFARE
 {
-	uint16	sCastleIndex;
-	uint16	sMasterKnights;
-	uint8	bySiegeType;
-	uint8	byWarDay;
-	uint8	byWarTime;
-	uint8	byWarMinute;
-	uint16	sChallengeList_1;
-	uint16	sChallengeList_2;
-	uint16	sChallengeList_3;
-	uint16	sChallengeList_4;
-	uint16	sChallengeList_5;
-	uint16	sChallengeList_6;
-	uint16	sChallengeList_7;
-	uint16	sChallengeList_8;
-	uint16	sChallengeList_9;
-	uint16	sChallengeList_10;
-	uint8	byWarRequestDay;
-	uint8	byWarRequestTime;
-	uint8	byWarRequestMinute;
-	uint8	byGuerrillaWarDay;
-	uint8	byGuerrillaWarTime;
-	uint8	byGuerrillaWarMinute;
+	uint16_t	sCastleIndex;
+	uint16_t	sMasterKnights;
+	uint8_t	bySiegeType;
+	uint8_t	byWarDay;
+	uint8_t	byWarTime;
+	uint8_t	byWarMinute;
+	uint16_t	sChallengeList_1;
+	uint16_t	sChallengeList_2;
+	uint16_t	sChallengeList_3;
+	uint16_t	sChallengeList_4;
+	uint16_t	sChallengeList_5;
+	uint16_t	sChallengeList_6;
+	uint16_t	sChallengeList_7;
+	uint16_t	sChallengeList_8;
+	uint16_t	sChallengeList_9;
+	uint16_t	sChallengeList_10;
+	uint8_t	byWarRequestDay;
+	uint8_t	byWarRequestTime;
+	uint8_t	byWarRequestMinute;
+	uint8_t	byGuerrillaWarDay;
+	uint8_t	byGuerrillaWarTime;
+	uint8_t	byGuerrillaWarMinute;
 	std::string	strChallengeList;
-	uint16	sMoradonTariff;
-	uint16	sDellosTariff;
-	int32	nDungeonCharge;
-	int32	nMoradonTax;
-	int32	nDellosTax;
-	uint16	sRequestList_1;
-	uint16	sRequestList_2;
-	uint16	sRequestList_3;
-	uint16	sRequestList_4;
-	uint16	sRequestList_5;
-	uint16	sRequestList_6;
-	uint16	sRequestList_7;
-	uint16	sRequestList_8;
-	uint16	sRequestList_9;
-	uint16	sRequestList_10;
+	uint16_t	sMoradonTariff;
+	uint16_t	sDellosTariff;
+	int32_t	nDungeonCharge;
+	int32_t	nMoradonTax;
+	int32_t	nDellosTax;
+	uint16_t	sRequestList_1;
+	uint16_t	sRequestList_2;
+	uint16_t	sRequestList_3;
+	uint16_t	sRequestList_4;
+	uint16_t	sRequestList_5;
+	uint16_t	sRequestList_6;
+	uint16_t	sRequestList_7;
+	uint16_t	sRequestList_8;
+	uint16_t	sRequestList_9;
+	uint16_t	sRequestList_10;
 };
 
 enum BuffType

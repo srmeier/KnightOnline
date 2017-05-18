@@ -12,12 +12,12 @@ public:
 	virtual bool Fetch()
 	{
 		_QUEST_MONSTER *pData = new _QUEST_MONSTER();
-		uint32 col = 1;
+		uint32_t col = 1;
 
 		_dbCommand->FetchUInt16(col++, pData->sQuestNum);
-		for (uint32 group = 0; group < QUEST_MOB_GROUPS; group++)
+		for (uint32_t group = 0; group < QUEST_MOB_GROUPS; group++)
 		{
-			for (uint32 i = 0; i < QUEST_MOBS_PER_GROUP; i++)
+			for (uint32_t i = 0; i < QUEST_MOBS_PER_GROUP; i++)
 				_dbCommand->FetchUInt16(col++, pData->sNum[group][i]);
 			_dbCommand->FetchUInt16(col++, pData->sCount[group]);
 		}

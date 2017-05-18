@@ -14,11 +14,11 @@ void InitPacketHandlers(void)
 	PacketHandlers[LS_UNKF7]				= &LoginSession::HandleUnkF7;
 }
 
-LoginSession::LoginSession(uint16 socketID, SocketMgr *mgr) : KOSocket(socketID, mgr, -1, 2048, 64) {}
+LoginSession::LoginSession(uint16_t socketID, SocketMgr *mgr) : KOSocket(socketID, mgr, -1, 2048, 64) {}
 
 bool LoginSession::HandlePacket(Packet & pkt)
 {
-	uint8 opcode = pkt.GetOpcode();
+	uint8_t opcode = pkt.GetOpcode();
 
 	// Unknown packet
 	if (opcode >= NUM_LS_OPCODES
@@ -40,7 +40,7 @@ void LoginSession::HandlePatches(Packet & pkt)
 {
 	Packet result(pkt.GetOpcode());
 	std::set<std::string> downloadset;
-	uint16 version;
+	uint16_t version;
 	pkt >> version;
 
 	foreach (itr, (*g_pMain->GetPatchList())) 
@@ -51,7 +51,7 @@ void LoginSession::HandlePatches(Packet & pkt)
 	}
 
 	result << g_pMain->GetFTPUrl() << g_pMain->GetFTPPath();
-	result << uint16(downloadset.size());
+	result << uint16_t(downloadset.size());
 
 	foreach (itr, downloadset)
 		result << (*itr);
@@ -74,7 +74,7 @@ void LoginSession::HandleLogin(Packet & pkt)
 	};
 
 	Packet result(pkt.GetOpcode());
-	uint16 resultCode = 0;
+	uint16_t resultCode = 0;
 	string account, password;
 	DateTime time;
 
@@ -123,7 +123,7 @@ void LoginSession::HandleLogin(Packet & pkt)
 		time.GetHour(), time.GetMinute(), time.GetSecond(),
 		account.c_str(), sAuthMessage.c_str());
 
-	result << uint8(resultCode);
+	result << uint8_t(resultCode);
 	if (resultCode == AUTH_SUCCESS)
 	{
 		result << g_pMain->m_DBProcess.AccountPremium(account);
@@ -141,15 +141,15 @@ void LoginSession::HandleLogin(Packet & pkt)
 	Send(&result);	
 }
 
-bool LoginSession::WordGuardSystem(std::string Word, uint8 WordStr)
+bool LoginSession::WordGuardSystem(std::string Word, uint8_t WordStr)
 {
 	char *pword = &Word[0];
 	bool bGuard[32] = {false};
 	std::string WordGuard = "qwertyuopasdfghjklizxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
 	char *pWordGuard = &WordGuard[0];
-		for(uint8 i=0; i < WordStr; i++)
+		for(uint8_t i=0; i < WordStr; i++)
 		{
-			for(uint8 j=0; j < strlen(pWordGuard); j++)
+			for(uint8_t j=0; j < strlen(pWordGuard); j++)
 				if (pword[i] == pWordGuard[j])
 					bGuard[i] = true;
 
@@ -164,7 +164,7 @@ void LoginSession::HandleServerlist(Packet & pkt)
 	Packet result(pkt.GetOpcode());
 
 #if __VERSION >= 1500
-	uint16 echo;
+	uint16_t echo;
 	pkt >> echo;
 	result << echo;
 #endif
@@ -180,7 +180,7 @@ void LoginSession::HandleNews(Packet & pkt)
 
 	if (pNews->Size)
 	{
-		result << "Login Notice" << uint16(pNews->Size);
+		result << "Login Notice" << uint16_t(pNews->Size);
 		result.append(pNews->Content, pNews->Size);
 	}
 	else // dummy news, will skip past it
@@ -201,6 +201,6 @@ void LoginSession::HandleSetEncryptionPublicKey(Packet & pkt)
 void LoginSession::HandleUnkF7(Packet & pkt)
 {
 	Packet result(pkt.GetOpcode());
-	result << uint16(0);
+	result << uint16_t(0);
 	Send(&result);
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-typedef std::map<uint16, _ZONE_INFO *> ZoneInfoMap;
+typedef std::map<uint16_t, _ZONE_INFO *> ZoneInfoMap;
 
 class CZoneInfoSet : public OdbcRecordset
 {
@@ -28,7 +28,7 @@ public:
 #ifdef AI_SERVER
 		_dbCommand->FetchByte(i++, pData->m_byRoomEvent);
 #else
-		uint32 iX = 0, iY = 0, iZ = 0;
+		uint32_t iX = 0, iY = 0, iZ = 0;
 		_dbCommand->FetchUInt32(i++, iX);
 		_dbCommand->FetchUInt32(i++, iZ);
 		_dbCommand->FetchUInt32(i++, iY);

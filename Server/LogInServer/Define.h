@@ -9,11 +9,11 @@ struct _SERVER_INFO
 	std::string strServerIP;
 	std::string strLanIP;
 	std::string strServerName;
-	short sUserCount;
-	short sServerID;
-	short sGroupID;
-	short sPlayerCap;
-	short sFreePlayerCap;
+	int16_t sUserCount;
+	int16_t sServerID;
+	int16_t sGroupID;
+	int16_t sPlayerCap;
+	int16_t sFreePlayerCap;
 	std::string strKarusKingName;
 	std::string strKarusNotice;
 	std::string strElMoradKingName;
@@ -27,13 +27,13 @@ struct _SERVER_INFO
 
 struct News
 {
-	uint8 Content[4096];
+	uint8_t Content[4096];
 	size_t Size;
 };
 
 struct _VERSION_INFO
 {
-	uint16 sVersion;
-	uint16 sHistoryVersion;
+	uint16_t sVersion;
+	uint16_t sHistoryVersion;
 	std::string strFilename;
 };

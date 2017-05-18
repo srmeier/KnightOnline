@@ -3,14 +3,14 @@
 class LoginSession : public KOSocket
 {
 public:
-	LoginSession(uint16 socketID, SocketMgr *mgr); 
+	LoginSession(uint16_t socketID, SocketMgr *mgr); 
 
 	virtual bool HandlePacket(Packet & pkt);
 	void HandleVersion(Packet & pkt);
 	void HandlePatches(Packet & pkt);
 	void HandleLogin(Packet & pkt);
 	void HandleServerlist(Packet & pkt);
-	bool WordGuardSystem(std::string Word, uint8 WordStr);
+	bool WordGuardSystem(std::string Word, uint8_t WordStr);
 	void HandleNews(Packet & pkt);
 	void HandleSetEncryptionPublicKey(Packet & pkt);
 	void HandleUnkF7(Packet & pkt);

@@ -180,7 +180,7 @@ BOOL CN3TransformCollision::CheckClimb(__Vector3 &vPos, __Vector3 &vDir, __Vecto
 
 	if(nIC > 0)
 	{
-		WORD* pwIndices = m_pMeshClimb->Indices();
+		uint16_t* pwIndices = m_pMeshClimb->Indices();
 		__Vector3* pVSrc = m_pMeshClimb->Vertices();
 		for(int i = 0; i < nFC; i++)
 		{

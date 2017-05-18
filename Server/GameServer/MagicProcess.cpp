@@ -52,12 +52,12 @@ void CMagicProcess::MagicPacket(Packet & pkt, Unit * pCaster /*= nullptr*/)
 	instance.Run();
 }
 
-void CMagicProcess::UpdateAIServer(uint32 nSkillID, AISkillOpcode opcode, 
+void CMagicProcess::UpdateAIServer(uint32_t nSkillID, AISkillOpcode opcode, 
 								   Unit * pTarget, Unit * pCaster /*= nullptr*/, 
 								   bool bIsRecastingSavedMagic /*= false*/)
 {
-	Packet result(AG_MAGIC_ATTACK_REQ, uint8(opcode));
-	int16	sCasterID = (pCaster == nullptr ? -1 : pCaster->GetID()),
+	Packet result(AG_MAGIC_ATTACK_REQ, uint8_t(opcode));
+	int16_t	sCasterID = (pCaster == nullptr ? -1 : pCaster->GetID()),
 		sTargetID = (pTarget == nullptr ? -1 : pTarget->GetID());
 	result << nSkillID << sCasterID << sTargetID << bIsRecastingSavedMagic;
 	g_pMain->Send_AIServer(&result);
@@ -68,9 +68,9 @@ void CMagicProcess::MagicPacket(Packet & pkt, Unit * pCaster /*= nullptr*/)
 	_MAGIC_TABLE * pSkill;
 	_MAGIC_TYPE4 * pType4;
 	Unit * pSkillCaster, * pSkillTarget;
-	uint32 nSkillID;
-	uint16 sCasterID, sTargetID;
-	uint8 bOpcode;
+	uint32_t nSkillID;
+	uint16_t sCasterID, sTargetID;
+	uint8_t bOpcode;
 	bool bIsRecastingSavedMagic;
 
 	pkt >> bOpcode >> nSkillID >> sCasterID >> sTargetID >> bIsRecastingSavedMagic;
@@ -110,7 +110,7 @@ void CMagicProcess::MagicPacket(Packet & pkt, Unit * pCaster /*= nullptr*/)
 #endif
 
 // TODO: Clean this up (even using unit code...)
-bool CMagicProcess::UserRegionCheck(Unit * pSkillCaster, Unit * pSkillTarget, _MAGIC_TABLE * pSkill, int radius, short mousex /*= 0*/, short mousez /*= 0*/)
+bool CMagicProcess::UserRegionCheck(Unit * pSkillCaster, Unit * pSkillTarget, _MAGIC_TABLE * pSkill, int radius, int16_t mousex /*= 0*/, int16_t mousez /*= 0*/)
 {
 	if (pSkillCaster->isDead()
 		|| pSkillTarget == nullptr)
@@ -252,7 +252,7 @@ void CMagicProcess::RemoveStealth(Unit * pTarget, InvisibilityType bInvisibility
 	MagicInstance instance;
 
 	// Buff type is 1 for 'dispel on move' skills and 2 for 'dispel on attack' skills.
-	uint8 bType = (bInvisibilityType == INVIS_DISPEL_ON_MOVE ? 1 : 2);
+	uint8_t bType = (bInvisibilityType == INVIS_DISPEL_ON_MOVE ? 1 : 2);
 
 	// If there's no such skill active on the user, no reason to remove it.
 	auto itr = buffMap.find(bType);
@@ -299,7 +299,7 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 		{
 			// Unfortunately there's no way to differentiate which does what.
 			// Officially it also resorts to checking the skill ID.
-			uint8 bEffect = ABNORMAL_NORMAL;
+			uint8_t bEffect = ABNORMAL_NORMAL;
 			switch (pSkill->iNum)
 			{
 			case 490034: // Bezoar
@@ -365,12 +365,12 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 
 	case BUFF_TYPE_EXPERIENCE:
 		if (pTarget->isPlayer())
-			TO_USER(pTarget)->m_sExpGainAmount = (uint8) pType->sExpPct;
+			TO_USER(pTarget)->m_sExpGainAmount = (uint8_t) pType->sExpPct;
 		break;
 
 	case BUFF_TYPE_WEIGHT:
 		if (pTarget->isPlayer())
-			TO_USER(pTarget)->m_bMaxWeightAmount = (uint8) pType->sExpPct;
+			TO_USER(pTarget)->m_bMaxWeightAmount = (uint8_t) pType->sExpPct;
 		break;
 
 	case BUFF_TYPE_WEAPON_DAMAGE:
@@ -390,12 +390,12 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 
 	case BUFF_TYPE_LOYALTY:
 		if(pTarget->isPlayer())
-			TO_USER(pTarget)->m_bNPGainAmount = (uint8) pType->sExpPct;
+			TO_USER(pTarget)->m_bNPGainAmount = (uint8_t) pType->sExpPct;
 		break;
 
 	case BUFF_TYPE_NOAH_BONUS:
 		if(pTarget->isPlayer())
-			TO_USER(pTarget)->m_bNoahGainAmount = (uint8) pType->sExpPct;
+			TO_USER(pTarget)->m_bNoahGainAmount = (uint8_t) pType->sExpPct;
 		break;
 
 	case BUFF_TYPE_PREMIUM_MERCHANT:
@@ -453,7 +453,7 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 		break;
 
 	case BUFF_TYPE_RESIS_AND_MAGIC_DMG: // Elysian Web
-		pTarget->m_bMagicDamageReduction = (uint8) pType->sExpPct;
+		pTarget->m_bMagicDamageReduction = (uint8_t) pType->sExpPct;
 		break;
 
 	case BUFF_TYPE_TRIPLEAC_HALFSPEED:	// Wall of Iron
@@ -472,7 +472,7 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 		break;
 
 	case BUFF_TYPE_MANA_ABSORB:		// Outrage / Frenzy / Mana Shield
-		pTarget->m_bManaAbsorb = (uint8) pType->sExpPct;
+		pTarget->m_bManaAbsorb = (uint8_t) pType->sExpPct;
 		break;
 
 	case BUFF_TYPE_VARIOUS_EFFECTS: //... whatever the event item grants.
@@ -533,7 +533,7 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 	case BUFF_TYPE_MIRROR_DAMAGE_PARTY: // Minak's Thorn
 		/*
 		pTarget->m_bMirrorDamage = true;
-		pTarget->m_byMirrorAmount = (uint8) pType->sSpecialAmount;
+		pTarget->m_byMirrorAmount = (uint8_t) pType->sSpecialAmount;
 		*/
 		break;
 
@@ -543,7 +543,7 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 		// Also: the amount is 20 in the database. Could be that it's divided by 2 (i.e. splitting it between dagger/bow), the skill description's inaccurate
 		// or the description roughly reflects the final damage after player damage reduction. For now, we'll just assume it's the latter.
 		/*
-		pTarget->m_byDaggerRAmount = pTarget->m_byBowRAmount = 100 - (uint8) pType->sSpecialAmount;
+		pTarget->m_byDaggerRAmount = pTarget->m_byBowRAmount = 100 - (uint8_t) pType->sSpecialAmount;
 		*/
 		break;
 
@@ -635,7 +635,7 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 	return true;
 }
 
-bool CMagicProcess::RemoveType4Buff(uint8 byBuffType, Unit *pTarget, bool bRemoveSavedMagic /*= true*/, bool bRecastSavedMagic /*= false*/)
+bool CMagicProcess::RemoveType4Buff(uint8_t byBuffType, Unit *pTarget, bool bRemoveSavedMagic /*= true*/, bool bRecastSavedMagic /*= false*/)
 {
 	// Buff must be added at this point. If it doesn't exist, we can't remove it twice.
 	Guard lock(pTarget->m_buffLock);
@@ -992,7 +992,7 @@ bool CMagicProcess::RemoveType4Buff(uint8 byBuffType, Unit *pTarget, bool bRemov
 
 		if (bRemoveSavedMagic && pType->bBuffType != BUFF_TYPE_MAGE_ARMOR)
 		{
-			Packet result(WIZ_MAGIC_PROCESS, uint8(MAGIC_DURATION_EXPIRED));
+			Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_DURATION_EXPIRED));
 			result << byBuffType;
 			TO_USER(pTarget)->Send(&result);
 		}

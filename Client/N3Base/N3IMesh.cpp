@@ -76,12 +76,12 @@ bool CN3IMesh::Create(int nFC, int nVC, int nUVC)
 	m_nFC = nFC;
 	m_nVC = nVC;
 	m_pVertices = new __VertexXyzNormal[nVC]; memset(m_pVertices, 0, sizeof(__VertexXyzNormal) * nVC);
-	m_pwVtxIndices = new WORD[nFC*3]; memset(m_pwVtxIndices, 0, 2 * nFC * 3); // unsigned short
+	m_pwVtxIndices = new uint16_t[nFC*3]; memset(m_pwVtxIndices, 0, 2 * nFC * 3); // uint16_t
 	
 	if(nUVC > 0)
 	{
 		m_nUVC = nUVC; m_pfUVs = new float[nUVC*2]; memset(m_pfUVs, 0, 8 * nUVC); // 사이즈가 8 인 이유는 float 2개라 그렇다..
-		m_pwUVsIndices = new WORD[nFC*3]; memset(m_pwUVsIndices, 0, 2 * nFC * 3); // unsigned short
+		m_pwUVsIndices = new uint16_t[nFC*3]; memset(m_pwUVsIndices, 0, 2 * nFC * 3); // uint16_t
 	}
 
 //	s_lpD3DDev->CreateVertexBuffer(nFC * 3 * sizeof(__VertexT1), 0, FVF_VNT1, D3DPOOL_MANAGED, &m_lpVB);
@@ -210,7 +210,7 @@ __VertexT1* CN3IMesh::BuildVertexList()
 	if(m_nFC <= 0 || NULL == m_lpVB) return NULL;
 
 	__VertexT1* pVDests = NULL;
-	m_lpVB->Lock(0, 0, (BYTE**)(&pVDests), 0);
+	m_lpVB->Lock(0, 0, (uint8_t**)(&pVDests), 0);
 
 	int n = 0, nVI = 0, nUVI = 0;
 	if(m_nUVC > 0)
@@ -311,15 +311,15 @@ bool CN3IMesh::Load(HANDLE hFile)
 	
 	int nFC = 0, nVC = 0, nUVC = 0;
 
-	ReadFile(hFile, &nFC, 4, &dwRWC, NULL);
-	ReadFile(hFile, &nVC, 4, &dwRWC, NULL);
-	ReadFile(hFile, &nUVC, 4, &dwRWC, NULL);
+	ReadFile(hFile, &nFC, 4, (DWORD *)&dwRWC, NULL);
+	ReadFile(hFile, &nVC, 4, (DWORD *)&dwRWC, NULL);
+	ReadFile(hFile, &nUVC, 4, (DWORD *)&dwRWC, NULL);
 
 	if(nFC > 0 && nVC > 0)
 	{
 		this->Create(nFC, nVC, nUVC);
-		ReadFile(hFile, m_pVertices, sizeof(__VertexXyzNormal) * nVC, &dwRWC, NULL);
-		ReadFile(hFile, m_pwVtxIndices, 2 * nFC * 3, &dwRWC, NULL); // unsigned short
+		ReadFile(hFile, m_pVertices, sizeof(__VertexXyzNormal) * nVC, (DWORD *)&dwRWC, NULL);
+		ReadFile(hFile, m_pwVtxIndices, 2 * nFC * 3, (DWORD *)&dwRWC, NULL); // uint16_t
 	}
 	else
 	{
@@ -328,8 +328,8 @@ bool CN3IMesh::Load(HANDLE hFile)
 	
 	if(m_nUVC > 0)
 	{
-		ReadFile(hFile, m_pfUVs, 8 * nUVC, &dwRWC, NULL);
-		ReadFile(hFile, m_pwUVsIndices, 2 * nFC * 3, &dwRWC, NULL); // unsigned short
+		ReadFile(hFile, m_pfUVs, 8 * nUVC, (DWORD *)&dwRWC, NULL);
+		ReadFile(hFile, m_pwUVsIndices, 2 * nFC * 3, (DWORD *)&dwRWC, NULL); // uint16_t
 	}
 
 	this->FindMinMax(); // 최소 최대값을 찾는다..
@@ -344,20 +344,20 @@ bool CN3IMesh::Save(HANDLE hFile)
 
 	DWORD dwRWC = 0;
 
-	WriteFile(hFile, &m_nFC, 4, &dwRWC, NULL);
-	WriteFile(hFile, &m_nVC, 4, &dwRWC, NULL);
-	WriteFile(hFile, &m_nUVC, 4, &dwRWC, NULL);
+	WriteFile(hFile, &m_nFC, 4, (DWORD *)&dwRWC, NULL);
+	WriteFile(hFile, &m_nVC, 4, (DWORD *)&dwRWC, NULL);
+	WriteFile(hFile, &m_nUVC, 4, (DWORD *)&dwRWC, NULL);
 
 	if(m_nFC > 0 && m_nVC > 0)
 	{
-		WriteFile(hFile, m_pVertices, sizeof(__VertexXyzNormal) * m_nVC, &dwRWC, NULL);
-		WriteFile(hFile, m_pwVtxIndices, 2 * m_nFC * 3, &dwRWC, NULL); // unsigned short
+		WriteFile(hFile, m_pVertices, sizeof(__VertexXyzNormal) * m_nVC, (DWORD *)&dwRWC, NULL);
+		WriteFile(hFile, m_pwVtxIndices, 2 * m_nFC * 3, (DWORD *)&dwRWC, NULL); // uint16_t
 	}
 	
 	if(m_nUVC > 0)
 	{
-		WriteFile(hFile, m_pfUVs, 8 * m_nUVC, &dwRWC, NULL);
-		WriteFile(hFile, m_pwUVsIndices, 2 * m_nFC * 3, &dwRWC, NULL); // unsigned short
+		WriteFile(hFile, m_pfUVs, 8 * m_nUVC, (DWORD *)&dwRWC, NULL);
+		WriteFile(hFile, m_pwUVsIndices, 2 * m_nFC * 3, (DWORD *)&dwRWC, NULL); // uint16_t
 	}
 
 	return true;

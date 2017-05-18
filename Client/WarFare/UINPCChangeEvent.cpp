@@ -83,7 +83,7 @@ bool CUINPCChangeEvent::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUINPCChangeEvent::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUINPCChangeEvent::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
@@ -143,7 +143,7 @@ void CUINPCChangeEvent::Close()
 
 void CUINPCChangeEvent::ClassChange()
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_CHANGE_PURE);
@@ -152,7 +152,7 @@ void CUINPCChangeEvent::ClassChange()
 
 void CUINPCChangeEvent::PointChangePriceQuery(bool bAllPoint)
 {
-	BYTE byBuff[32];
+	uint8_t byBuff[32];
 	int iOffset = 0;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_CLASS_CHANGE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_CLASS_POINT_CHANGE_PRICE_QUERY);

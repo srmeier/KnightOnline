@@ -24,7 +24,7 @@ std::string string_format(const std::string fmt, ...)
 	return result;
 }
 
-template<int (&F)(int)> int safe_ctype(unsigned char c) { return F(c); } 
+template<int (&F)(int)> int safe_ctype(uint8_t c) { return F(c); } 
 static int safe_isspace(int c) { return safe_ctype<std::isspace>(c); }
 
 // trim from end

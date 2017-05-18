@@ -153,8 +153,8 @@ void CN3Cloud::Render()
 	__Matrix44 matWorld; matWorld.Identity();
 	s_lpD3DDev->SetTransform( D3DTS_WORLD, &matWorld );
 
-	static WORD CloudIndex[30] = {0,1,4,1,2,5,2,3,6,3,0,7,5,4,1,6,5,2,7,6,3,4,7,0,4,5,7,5,6,7};
-	//static WORD CloudIndex[54] = {0,1,4,1,2,5,2,3,6,3,0,7,5,4,1,6,5,2,7,6,3,4,7,0,
+	static uint16_t CloudIndex[30] = {0,1,4,1,2,5,2,3,6,3,0,7,5,4,1,6,5,2,7,6,3,4,7,0,4,5,7,5,6,7};
+	//static uint16_t CloudIndex[54] = {0,1,4,1,2,5,2,3,6,3,0,7,5,4,1,6,5,2,7,6,3,4,7,0,
 	///							4,5,8,5,6,9,6,7,10,7,4,11,9,8,5,10,9,6,11,10,7,8,11,4,
 	//							8,9,11,9,10,11};
 

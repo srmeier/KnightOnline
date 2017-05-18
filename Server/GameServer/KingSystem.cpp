@@ -33,7 +33,7 @@ CKingSystem::CKingSystem()
 void CKingSystem::CheckKingTimer()
 {
 	// Get the current time.
-	uint8	bCurMonth = g_localTime.tm_mon + 1,
+	uint8_t	bCurMonth = g_localTime.tm_mon + 1,
 		bCurDay = g_localTime.tm_mday,
 		bCurHour = g_localTime.tm_hour,
 		bCurMinute = g_localTime.tm_min;
@@ -229,10 +229,10 @@ void CKingSystem::CheckKingTimer()
 *
 * @param	byElectionStatus	The election status.
 */
-void CKingSystem::UpdateElectionStatus(uint8 byElectionStatus)
+void CKingSystem::UpdateElectionStatus(uint8_t byElectionStatus)
 {
-	Packet result(WIZ_KING, uint8(KING_ELECTION));
-	result	<< uint8(KING_ELECTION) << uint8(KING_ELECTION_UPDATE_STATUS)
+	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	result	<< uint8_t(KING_ELECTION) << uint8_t(KING_ELECTION_UPDATE_STATUS)
 		<< m_byNation << byElectionStatus;
 	m_byType = byElectionStatus;
 	g_pMain->AddDatabaseRequest(result);
@@ -251,15 +251,15 @@ void CKingSystem::UpdateElectionStatus(uint8 byElectionStatus)
 * @param	strUserID		  	Identifier for the user.
 * @param	pUser				The user making the request, if applicable.
 */
-void CKingSystem::UpdateElectionList(uint8 byElectionListType, bool bDeleteList, uint16 sClanID, std::string & strUserID, CUser * pUser /*= nullptr*/)
+void CKingSystem::UpdateElectionList(uint8_t byElectionListType, bool bDeleteList, uint16_t sClanID, std::string & strUserID, CUser * pUser /*= nullptr*/)
 {
 	Guard lock(m_lock);
 	// byElectionListType:
 	// 3 = senator
-	Packet result(WIZ_KING, uint8(KING_ELECTION));
+	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
 
-	result	<< uint8(KING_ELECTION) // special, looks redundant but implies these special opcodes
-		<< uint8(KING_ELECTION_UPDATE_LIST) << m_byNation 
+	result	<< uint8_t(KING_ELECTION) // special, looks redundant but implies these special opcodes
+		<< uint8_t(KING_ELECTION_UPDATE_LIST) << m_byNation 
 		<< byElectionListType << bDeleteList
 		<< sClanID << strUserID;
 
@@ -302,11 +302,11 @@ void CKingSystem::UpdateElectionList(uint8 byElectionListType, bool bDeleteList,
 void CKingSystem::CheckSpecialEvent()
 {
 	// Get the current time.
-	uint8	bCurDay = g_localTime.tm_mday,
+	uint8_t	bCurDay = g_localTime.tm_mday,
 		bCurHour = g_localTime.tm_hour,
 		bCurMinute = g_localTime.tm_min;
 
-	int16 sEventExpiry;
+	int16_t sEventExpiry;
 
 	// If there's an exp event ongoing...
 	if (m_byExpEvent)
@@ -419,7 +419,7 @@ void CKingSystem::LoadRecommendList()
 * @param	byNation   	The nation to send the notice/announcement to.
 * @param	chatType   	The chat type (notice/announcement).
 */
-void CKingSystem::KingNotifyMessage(uint32 nResourceID, int byNation, ChatType chatType)
+void CKingSystem::KingNotifyMessage(uint32_t nResourceID, int byNation, ChatType chatType)
 {
 	std::string result;
 	switch (nResourceID)
@@ -488,7 +488,7 @@ void CKingSystem::PacketProcess(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::KingPacketProcess(CUser * pUser, Packet & pkt)
 {
-	switch (pkt.read<uint8>())
+	switch (pkt.read<uint8_t>())
 	{
 	case KING_ELECTION:
 		ElectionSystem(pUser, pkt);
@@ -519,7 +519,7 @@ void CKingSystem::KingPacketProcess(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ElectionSystem(CUser * pUser, Packet & pkt)
 {
-	switch (pkt.read<uint8>())
+	switch (pkt.read<uint8_t>())
 	{
 	case KING_ELECTION_SCHEDULE:
 		ElectionScheduleConfirmation(pUser, pkt);
@@ -551,8 +551,8 @@ void CKingSystem::ElectionSystem(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8(KING_ELECTION));
-	result << uint8(KING_ELECTION_SCHEDULE);
+	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	result << uint8_t(KING_ELECTION_SCHEDULE);
 
 	switch (m_byImType)
 	{
@@ -560,7 +560,7 @@ void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 	case 0:
 		{
 			// Client expects month as 1,12 (tm_mon is 0,11)
-			uint8 byElectionMonth = g_localTime.tm_mon + 1;
+			uint8_t byElectionMonth = g_localTime.tm_mon + 1;
 
 			/* When's the next election? */
 			// If we've passed the election date, we need next month's election.
@@ -573,7 +573,7 @@ void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 					byElectionMonth -= 12;
 			}
 
-			result	<< uint8(1) // election type
+			result	<< uint8_t(1) // election type
 				<< byElectionMonth 
 				<< m_byDay << m_byHour << m_byMinute;
 		} break;
@@ -581,7 +581,7 @@ void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 		// Last scheduled impeachment?
 	case 1:
 		{
-			result	<< uint8(3)
+			result	<< uint8_t(3)
 				<< m_byImMonth 
 				<< m_byImDay << m_byImHour << m_byImMinute;
 		} break;
@@ -590,11 +590,11 @@ void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 	case 3:
 		{
 			// This should not be necessary, but will leave.
-			uint8 byImpeachmentMonth = m_byImMonth;
+			uint8_t byImpeachmentMonth = m_byImMonth;
 			while (byImpeachmentMonth > 12)
 				m_byImMonth -= 12;
 
-			result	<< uint8(2)
+			result	<< uint8_t(2)
 				<< byImpeachmentMonth
 				<< m_byImDay << m_byImHour << m_byImMinute;
 		} break;
@@ -612,19 +612,19 @@ void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::CandidacyRecommend(CUser * pUser, Packet & pkt) 
 {
-	Packet result(WIZ_KING, uint8(KING_ELECTION));
+	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
 	std::string strUserID;
 	pkt.SByte();
 	pkt >> strUserID;
 	if (strUserID.empty() || strUserID.length() > MAX_ID_SIZE)
 		return;
 
-	result << uint8(KING_ELECTION_NOMINATE);
+	result << uint8_t(KING_ELECTION_NOMINATE);
 
 	// Make sure it's nomination time.
 	if (m_byType != ELECTION_TYPE_NOMINATION)
 	{
-		result << int16(-2);
+		result << int16_t(-2);
 		pUser->Send(&result);
 		return;
 	}
@@ -639,7 +639,7 @@ void CKingSystem::CandidacyRecommend(CUser * pUser, Packet & pkt)
 			// ... and they haven't resigned their candidacy.
 			|| m_resignedCandidateList.find(pUser->m_strUserID) != m_resignedCandidateList.end())
 	{
-		result << int16(-3);
+		result << int16_t(-3);
 		pUser->Send(&result);
 		return;
 	}
@@ -687,11 +687,11 @@ void CKingSystem::InsertNominee(std::string & strNominee)
 */
 void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8(KING_ELECTION));
-	uint8 opcode = pkt.read<uint8>();
+	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	uint8_t opcode = pkt.read<uint8_t>();
 	bool bSuccess = false;
 
-	result << uint8(KING_ELECTION_NOTICE_BOARD) << opcode;
+	result << uint8_t(KING_ELECTION_NOTICE_BOARD) << opcode;
 
 	switch (opcode)
 	{
@@ -702,7 +702,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 				&& m_byType != ELECTION_TYPE_PRE_ELECTION
 				&& m_byType != ELECTION_TYPE_ELECTION)
 			{
-				result << int16(-1);
+				result << int16_t(-1);
 				pUser->Send(&result);
 				return;
 			}
@@ -715,7 +715,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 			// imposed purely for the sake of the shared memory queue?
 			if (strNotice.empty() || strNotice.length() > 480)
 			{
-				result << int16(-2);
+				result << int16_t(-2);
 				pUser->Send(&result);
 				return;
 			}
@@ -724,7 +724,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 			KingCandidacyNoticeBoardMap::iterator itr = m_noticeBoardMap.find(pUser->m_strUserID);
 			if (itr == m_noticeBoardMap.end())
 			{
-				result << int16(-3);
+				result << int16_t(-3);
 				pUser->Send(&result);
 				return;
 			}
@@ -737,7 +737,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 			size_t wpos = result.wpos();
 
 			// Update the user.
-			result << int16(1);
+			result << int16_t(1);
 			pUser->Send(&result);
 
 			// Now reuse the packet for the database request; 
@@ -756,7 +756,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 				&& m_byType != ELECTION_TYPE_PRE_ELECTION
 				&& m_byType != ELECTION_TYPE_ELECTION)
 			{
-				result << int16(-1);
+				result << int16_t(-1);
 				pUser->Send(&result);
 				return;
 			}
@@ -768,8 +768,8 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 			if (opcode == 1)
 			{
 				Guard lock(m_lock);
-				result	<< int16(1) // success
-					<< uint8(m_noticeBoardMap.size());
+				result	<< int16_t(1) // success
+					<< uint8_t(m_noticeBoardMap.size());
 
 				result.SByte();
 				foreach (itr, m_noticeBoardMap)
@@ -790,7 +790,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 					// and is the message actually set?
 						|| itr->second.empty())
 				{
-					result	<< int16(-2);
+					result	<< int16_t(-2);
 					/*
 					// Not implementing this oddity unless there's a really good 
 					// client reason to explain this.
@@ -802,7 +802,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 				else
 				{
 					result.DByte();
-					result	<< int16(1) // success
+					result	<< int16_t(1) // success
 						<< strCandidate << itr->second;
 				}
 			}
@@ -836,7 +836,7 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 		return;
 	}
 
-	result << int16(bSuccess ? 1 : -1);
+	result << int16_t(bSuccess ? 1 : -1);
 	if (opcode == 4)
 		result << bSuccess;
 
@@ -851,16 +851,16 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8(KING_ELECTION));
-	uint8 opcode = pkt.read<uint8>();
+	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	uint8_t opcode = pkt.read<uint8_t>();
 
-	result << uint8(KING_ELECTION_POLL) << opcode;
+	result << uint8_t(KING_ELECTION_POLL) << opcode;
 
 	// Make sure player's trying to vote during the
 	// election stage.
 	if (m_byType != ELECTION_TYPE_ELECTION)
 	{
-		result << int16(-1);
+		result << int16_t(-1);
 		pUser->Send(&result);
 		return;
 	}
@@ -871,8 +871,8 @@ void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 		// Show candidate list
 	case 1:
 		{
-			uint8 count = (uint8)m_candidateList.size();
-			result << uint16(1) << count;
+			uint8_t count = (uint8_t)m_candidateList.size();
+			result << uint16_t(1) << count;
 			result.SByte();
 			foreach (itr, m_candidateList)
 			{
@@ -881,7 +881,7 @@ void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 				if (pKnights != nullptr)
 					result << pKnights->m_strName; // clan name
 				else
-					result << uint8(0); // no clan name
+					result << uint8_t(0); // no clan name
 			}
 			pUser->Send(&result);
 		} break;
@@ -899,7 +899,7 @@ void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 			KingElectionList::iterator itr = m_candidateList.find(strCandidate);
 			if (itr == m_candidateList.end())
 			{
-				result << int16(-2);
+				result << int16_t(-2);
 				pUser->Send(&result);
 				return;
 			}
@@ -907,7 +907,7 @@ void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 			// User's level is too low to vote.
 			if (pUser->GetLevel() < 20)
 			{
-				result << int16(-4);
+				result << int16_t(-4);
 				pUser->Send(&result);
 				return;
 			}
@@ -931,13 +931,13 @@ void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::CandidacyResign(CUser * pUser, Packet & pkt) 
 {
-	Packet result(WIZ_KING, uint8(KING_ELECTION));
-	result << uint8(KING_ELECTION_RESIGN);
+	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	result << uint8_t(KING_ELECTION_RESIGN);
 
 	// We can only submit a resignation if we're in the nomination stage.
 	if (m_byType != ELECTION_TYPE_NOMINATION)
 	{
-		result << int16(-2);
+		result << int16_t(-2);
 		pUser->Send(&result);
 		return;
 	}
@@ -948,7 +948,7 @@ void CKingSystem::CandidacyResign(CUser * pUser, Packet & pkt)
 	// Do we even exist in the candidate list?
 	if (itr == m_candidateList.end())
 	{
-		result << int16(-3);
+		result << int16_t(-3);
 		pUser->Send(&result);
 		return;
 	}
@@ -974,7 +974,7 @@ void CKingSystem::CandidacyResign(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ImpeachmentSystem(CUser * pUser, Packet & pkt)
 {
-	switch (pkt.read<uint8>())
+	switch (pkt.read<uint8_t>())
 	{
 	case KING_IMPEACHMENT_REQUEST:
 		ImpeachmentRequest(pUser, pkt);
@@ -1015,18 +1015,18 @@ void CKingSystem::ImpeachmentElect(CUser * pUser, Packet & pkt) {}
 */
 void CKingSystem::ImpeachmentRequestUiOpen(CUser * pUser, Packet & pkt) 
 {
-	Packet result(WIZ_KING, uint8(KING_IMPEACHMENT));
-	result	<< uint8(KING_IMPEACHMENT_REQUEST_UI_OPEN);
+	Packet result(WIZ_KING, uint8_t(KING_IMPEACHMENT));
+	result	<< uint8_t(KING_IMPEACHMENT_REQUEST_UI_OPEN);
 
 	// Not able to make an impeachment request right now.
 	if (m_byImType != 1)
-		result << int16(-1);
+		result << int16_t(-1);
 	// If they're not an senator...
 	else if (pUser->m_bRank != 2)
-		result << int16(-2);
+		result << int16_t(-2);
 	// Able to make an impeachment request.
 	else
-		result << int16(1);
+		result << int16_t(1);
 
 	pUser->Send(&result);
 }
@@ -1039,12 +1039,12 @@ void CKingSystem::ImpeachmentRequestUiOpen(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ImpeachmentElectionUiOpen(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8(KING_IMPEACHMENT));
+	Packet result(WIZ_KING, uint8_t(KING_IMPEACHMENT));
 
 	// If it's not the impeachment's election stage, send -1 as the error code
 	// otherwise, send 1 for success.
-	result	<< uint8(KING_IMPEACHMENT_ELECTION_UI_OPEN)
-		<< int16(m_byImType != 3 ? -1 : 1);
+	result	<< uint8_t(KING_IMPEACHMENT_ELECTION_UI_OPEN)
+		<< int16_t(m_byImType != 3 ? -1 : 1);
 
 	pUser->Send(&result);
 }
@@ -1058,14 +1058,14 @@ void CKingSystem::ImpeachmentElectionUiOpen(CUser * pUser, Packet & pkt)
 void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 {
 	CKingSystem *pKingSystem = g_pMain->m_KingSystemArray.GetData(m_byNation);
-	Packet result(WIZ_KING, uint8(KING_TAX));
-	uint8 bOpcode = pkt.read<uint8>();
+	Packet result(WIZ_KING, uint8_t(KING_TAX));
+	uint8_t bOpcode = pkt.read<uint8_t>();
 	result << bOpcode;
 
 	// If you're not a King, you shouldn't have access to this command.
 	if (!pUser->isKing())
 	{
-		result << int16(-1);
+		result << int16_t(-1);
 		pUser->Send(&result);
 		return;
 	}
@@ -1087,7 +1087,7 @@ void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 			if (pMap == nullptr)
 				return;
 
-			result << int16(1) << pMap->GetTariff();
+			result << int16_t(1) << pMap->GetTariff();
 			pUser->Send(&result);
 		} break;
 
@@ -1095,13 +1095,13 @@ void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 	case 4:
 		{
 			C3DMap * pMap = g_pMain->GetZoneByID(m_byNation);
-			uint8 byTerritoryTariff = pkt.read<uint8>();
+			uint8_t byTerritoryTariff = pkt.read<uint8_t>();
 
 			// Map doesn't exist, or invalid tariff amount
 			if (pMap == nullptr
 				|| byTerritoryTariff > 10)
 			{
-				result << int16(-2);
+				result << int16_t(-2);
 				pUser->Send(&result);
 				return;
 			}
@@ -1110,7 +1110,7 @@ void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 			pMap->SetTariff(byTerritoryTariff);
 
 			// Let all users in your nation know.
-			result << int16(1) << byTerritoryTariff << m_byNation;
+			result << int16_t(1) << byTerritoryTariff << m_byNation;
 			g_pMain->Send_All(&result, nullptr, m_byNation);
 
 			pKingSystem->m_nTerritoryTariff = byTerritoryTariff;
@@ -1124,17 +1124,17 @@ void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 		{
 			if (pUser->CheckExistItem(KING_SCEPTER))
 			{
-				result << int16(-1);
+				result << int16_t(-1);
 			}
 			else if (pUser->FindSlotForItem(KING_SCEPTER) < 0)
 			{
-				result << int16(-2);
+				result << int16_t(-2);
 			}
 			else
 			{
 				pUser->GiveItem(KING_SCEPTER);
 				pUser->GiveItem(KING_SCEPTER);
-				result << int16(1);
+				result << int16_t(1);
 			}
 			pUser->Send(&result);
 		} break;
@@ -1149,13 +1149,13 @@ void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8(KING_EVENT));
-	uint8 opcode = pkt.read<uint8>();
+	Packet result(WIZ_KING, uint8_t(KING_EVENT));
+	uint8_t opcode = pkt.read<uint8_t>();
 	result << opcode;
 
 	if (!pUser->isKing())
 	{
-		result << int16(-1);
+		result << int16_t(-1);
 		pUser->Send(&result);
 		return;
 	}
@@ -1166,14 +1166,14 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 		{
 			Guard lock(m_lock);
 
-			uint8 bAmount = pkt.read<uint8>();
+			uint8_t bAmount = pkt.read<uint8_t>();
 			if (bAmount < 1 || bAmount > 3)
 				return;
 
-			uint32 nCost = 50000000 * bAmount;
+			uint32_t nCost = 50000000 * bAmount;
 			if (nCost > m_nNationalTreasury)
 			{
-				result << int16(-3);
+				result << int16_t(-3);
 				pUser->Send(&result);
 				return;
 			}
@@ -1203,14 +1203,14 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 		{
 			Guard lock(m_lock);
 
-			uint8 bAmount = pkt.read<uint8>();
+			uint8_t bAmount = pkt.read<uint8_t>();
 			if (bAmount != 10 && bAmount != 30 && bAmount != 50)
 				return;
 
-			uint32 nCost = 30000000 * bAmount;
+			uint32_t nCost = 30000000 * bAmount;
 			if (nCost > m_nNationalTreasury)
 			{
-				result << int16(-3);
+				result << int16_t(-3);
 				pUser->Send(&result);
 				return;
 			}
@@ -1240,7 +1240,7 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 		{
 			Guard lock(m_lock);
 
-			uint32 nCoins;
+			uint32_t nCoins;
 			std::string strUserID;
 			pkt.SByte();
 			pkt >> nCoins >> strUserID;
@@ -1256,14 +1256,14 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 					// note the 'try' (it doesn't work properly)...
 						|| strUserID.empty() || strUserID.length() > MAX_ID_SIZE)
 			{
-				result << int16(-2);
+				result << int16_t(-2);
 				pUser->Send(&result);
 				return;
 			}
 
 			if (nCoins > m_nNationalTreasury)
 			{
-				result << int16(-4);
+				result << int16_t(-4);
 				pUser->Send(&result);
 				return;
 			}
@@ -1290,7 +1290,7 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 		{
 			Guard lock(m_lock);
 
-			uint8 bType, bAmount;
+			uint8_t bType, bAmount;
 			pkt >> bType >> bAmount;
 			if (bAmount == 0 || bAmount > 100
 				|| bType == 0 || bType > WEATHER_SNOW)
@@ -1298,7 +1298,7 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 
 			if (m_nNationalTreasury < 100000)
 			{
-				result << int16(-3);
+				result << int16_t(-3);
 				pUser->Send(&result);
 				return;
 			}
@@ -1319,7 +1319,7 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 
 			// Get the resource ID, which differs per nation and weather type.
 			// This works because they're sequential.
-			uint32 nResourceID = 
+			uint32_t nResourceID = 
 				(m_byNation == KARUS 
 				? IDS_KING_KARUS_WEATHER_FINE_EVENT + (bType-1) 
 				: IDS_KING_ELMO_WEATHER_FINE_EVENT  + (bType-1));
@@ -1336,10 +1336,10 @@ void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 				return;
 
 			result.SByte();
-			result << int16(1) << strMessage;
+			result << int16_t(1) << strMessage;
 			g_pMain->Send_All(&result, nullptr, m_byNation);
 			DateTime time;
-			g_pMain->WriteChatLogFile(string_format("[ KING - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",time.GetHour(),time.GetMinute(),time.GetSecond(),pUser->GetName().c_str(),strMessage.c_str(),pUser->GetZoneID(),uint16(pUser->GetX()),uint16(pUser->GetZ())));
+			g_pMain->WriteChatLogFile(string_format("[ KING - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",time.GetHour(),time.GetMinute(),time.GetSecond(),pUser->GetName().c_str(),strMessage.c_str(),pUser->GetZoneID(),uint16_t(pUser->GetX()),uint16_t(pUser->GetZ())));
 		} break;
 	}
 }

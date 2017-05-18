@@ -197,7 +197,7 @@ bool CUIStateBar::LoadMap(const std::string& szMiniMapFN, float fMapSizeX, float
 }
 
 
-void CUIStateBar::UpdateExp(uint64 iExp, uint64 iExpNext, bool bUpdateImmediately)
+void CUIStateBar::UpdateExp(uint64_t iExp, uint64_t iExpNext, bool bUpdateImmediately)
 {
 	__ASSERT(iExpNext, "Next Exp is 0");
 	if(iExpNext <= 0) return;
@@ -207,8 +207,8 @@ void CUIStateBar::UpdateExp(uint64 iExp, uint64 iExpNext, bool bUpdateImmediatel
 
 	if(iExpNext > 10)
 	{
-		uint64 iExpNext2 = iExpNext/10;
-		uint64 iExp2 = iExp%iExpNext2;
+		uint64_t iExpNext2 = iExpNext/10;
+		uint64_t iExp2 = iExp%iExpNext2;
 		int iPercentage2 = (int)(100 * iExp2 / iExpNext2);
 
 		if(bUpdateImmediately) m_pProgress_ExpC->SetCurValue(iPercentage2);	 //SetCurValue --> set경우 
@@ -527,7 +527,7 @@ void CUIStateBar::TickMagicIcon()
 	if(pRemoveSkill) DelMagic(pRemoveSkill);
 }
 
-bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(dwMsg==UIMSG_ICON_DBLCLK)
 	{
@@ -539,7 +539,7 @@ bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 
 			if(pSender==pMagicImg->pIcon)
 			{
-				DWORD MagicID = pMagicImg->dwSkillID;
+				uint32_t MagicID = pMagicImg->dwSkillID;
 				__TABLE_UPC_SKILL* pSkill = CGameBase::s_pTbl_Skill->Find(MagicID);
 				if(!pSkill) return false;
 
@@ -548,13 +548,13 @@ bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 					if(pSkill->dw1stTableType==3 || pSkill->dw2ndTableType==3) pMagicImg->fDuration = 0.0f;
 
 					//없애라..
-					BYTE byBuff[32];
+					uint8_t byBuff[32];
 					int iOffset=0;
-					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)WIZ_MAGIC_PROCESS);
-					CAPISocket::MP_AddByte(byBuff, iOffset, (BYTE)N3_SP_MAGIC_CANCEL);
+					CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
+					CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_CANCEL);
 					CAPISocket::MP_AddDword(byBuff, iOffset, (int)MagicID);
-					CAPISocket::MP_AddShort(byBuff, iOffset, (short)CGameBase::s_pPlayer->IDNumber());
-					CAPISocket::MP_AddShort(byBuff, iOffset, (short)CGameBase::s_pPlayer->IDNumber());
+					CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)CGameBase::s_pPlayer->IDNumber());
+					CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)CGameBase::s_pPlayer->IDNumber());
 
 					CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 					CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -687,9 +687,9 @@ void CUIStateBar::ClearMagic()
 	m_pMagic.clear();
 }
 
-DWORD CUIStateBar::MouseProc(DWORD dwFlags, const POINT &ptCur, const POINT &ptOld)
+uint32_t CUIStateBar::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POINT &ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 
 	int cnt = m_pMagic.size();
 	it_MagicImg it = m_pMagic.begin();

@@ -18,7 +18,7 @@ class CUser;
 #include "../shared/ClientSocketMgr.h"
 
 typedef std::map<std::string, CUser *>	NameMap;
-typedef	std::map<uint16, uint16>					ForgettenTempleMonsterList;
+typedef	std::map<uint16_t, uint16_t>					ForgettenTempleMonsterList;
 
 class CGameServerDlg
 {
@@ -79,11 +79,11 @@ public:
 
 	void AIServerConnect();
 	
-	static uint32 THREADCALL Timer_CheckGameEvents(void * lpParam);
-	static uint32 THREADCALL Timer_BifrostTime(void * lpParam);
-	static uint32 THREADCALL Timer_UpdateGameTime(void * lpParam);
-	static uint32 THREADCALL Timer_UpdateSessions(void * lpParam);
-	static uint32 THREADCALL Timer_UpdateConcurrent(void * lpParam);
+	static uint32_t THREADCALL Timer_CheckGameEvents(void * lpParam);
+	static uint32_t THREADCALL Timer_BifrostTime(void * lpParam);
+	static uint32_t THREADCALL Timer_UpdateGameTime(void * lpParam);
+	static uint32_t THREADCALL Timer_UpdateSessions(void * lpParam);
+	static uint32_t THREADCALL Timer_UpdateConcurrent(void * lpParam);
 
 	void ReqUpdateConcurrent();
 
@@ -91,44 +91,44 @@ public:
 	void BattleZoneCurrentUsers();
 	void GetCaptainUserPtr();
 	void Send_CommandChat(Packet *pkt, int nation, CUser* pExceptUser = nullptr);
-	void KickOutZoneUsers(uint8 ZoneID, uint8 TargetZoneID = 0, uint8 bNation = 0);
-	void SendItemZoneUsers(uint8 ZoneID, uint32 nItemID, uint16 sCount = 1);
-	void SendItemEventRoom(uint16 nEventRoom,uint32 nItemID, uint16 sCount = 1);
-	uint64 GenerateItemSerial();
+	void KickOutZoneUsers(uint8_t ZoneID, uint8_t TargetZoneID = 0, uint8_t bNation = 0);
+	void SendItemZoneUsers(uint8_t ZoneID, uint32_t nItemID, uint16_t sCount = 1);
+	void SendItemEventRoom(uint16_t nEventRoom,uint32_t nItemID, uint16_t sCount = 1);
+	uint64_t GenerateItemSerial();
 	int KickOutAllUsers();
 	void CheckAliveUser();
-	int GetKnightsGrade(uint32 nPoints);
+	int GetKnightsGrade(uint32_t nPoints);
 	void WritePacketLog();
-	uint16 GetKnightsAllMembers(uint16 sClanID, Packet & result, uint16 & pktSize, bool bClanLeader);
+	uint16_t GetKnightsAllMembers(uint16_t sClanID, Packet & result, uint16_t & pktSize, bool bClanLeader);
 	void GetUserRank(CUser *pUser);
-	void Announcement(uint16 type, int nation=0, int chat_type=8, CUser* pExceptUser = nullptr, CNpc *pExpectNpc = nullptr);
+	void Announcement(uint16_t type, int nation=0, int chat_type=8, CUser* pExceptUser = nullptr, CNpc *pExpectNpc = nullptr);
 	void ResetBattleZone();
 	void BanishLosers();
 	void BattleZoneVictoryCheck();
 	void BattleZoneOpenTimer();
-	void BattleZoneOpen(int nType, uint8 bZone = 0);
-	void CastleSiegeWarZoneOpen(int nType, uint8 bZone = 0);
+	void BattleZoneOpen(int nType, uint8_t bZone = 0);
+	void CastleSiegeWarZoneOpen(int nType, uint8_t bZone = 0);
 	void BattleZoneClose();
-	void BattleZoneResult(uint8 nation, CUser* pUser = nullptr);
+	void BattleZoneResult(uint8_t nation, CUser* pUser = nullptr);
 	void BattleWinnerResult(BattleWinnerTypes winnertype);
 	void AliveUserCheck();
 	void Send_PartyMember(int party, Packet *result);
 	void Send_KnightsMember(int index, Packet *pkt);
-	void Send_KnightsAlliance(uint16 sAllianceID, Packet *pkt);
+	void Send_KnightsAlliance(uint16_t sAllianceID, Packet *pkt);
 	void SetGameTime();
-	void ResetPlayerRankings(uint8 ZoneID = 0);
+	void ResetPlayerRankings(uint8_t ZoneID = 0);
 	void UpdateWeather();
 	void UpdateGameTime();
 	void ResetLoyaltyMonthly();
 	void SendAllUserInfo();
 	void DeleteAllNpcList(int flag = 0);
-	CNpc*  FindNpcInZone(uint16 sPid, uint8 byZone);
+	CNpc*  FindNpcInZone(uint16_t sPid, uint8_t byZone);
 	void ForgettenTempleEventTimer();
-	uint8 GetMonsterChallengeTime();
+	uint8_t GetMonsterChallengeTime();
 	void TempleEventTimer();
 	void TempleEventStart();
 	void TempleEventTeleportUsers();
-	uint8 TempleEventGetRoomUsers(uint16 nEventRoom = 0);
+	uint8_t TempleEventGetRoomUsers(uint16_t nEventRoom = 0);
 	void TempleEventSummonChaosCubes();
 	void TempleEventFinish();
 	void TempleEventGetActiveEventTime(CUser *pUser);
@@ -137,20 +137,20 @@ public:
 	void TempleEventReset();
 	void AddEventUser(CUser * pUser);
 	void RemoveEventUser(CUser * pUser);
-	void UpdateEventUser(CUser * pUser, uint16 nEventRoom = 0);
+	void UpdateEventUser(CUser * pUser, uint16_t nEventRoom = 0);
 	void SetEventUser(CUser *pUser);
-	std::string GetBattleAndNationMonumentName(int16 TrapNumber = -1, uint8 ZoneID = 0);
+	std::string GetBattleAndNationMonumentName(int16_t TrapNumber = -1, uint8_t ZoneID = 0);
 	void CheckNationMonumentRewards();
 
 	void ReloadKnightAndUserRanks();
-	void SetPlayerRankingRewards(uint16 ZoneID);
+	void SetPlayerRankingRewards(uint16_t ZoneID);
 	
 	bool CastleSiegeWarAttack(CUser *pUser, CUser *pTargetUser);
-	void UpdateSiege(int16 m_sCastleIndex, int16 m_sMasterKnights, int16 m_bySiegeType, int16 m_byWarDay, int16 m_byWarTime, int16 m_byWarMinute);
-	void UpdateSiegeTax(uint8 Zone, int16 ZoneTarrif);
+	void UpdateSiege(int16_t m_sCastleIndex, int16_t m_sMasterKnights, int16_t m_bySiegeType, int16_t m_byWarDay, int16_t m_byWarTime, int16_t m_byWarMinute);
+	void UpdateSiegeTax(uint8_t Zone, int16_t ZoneTarrif);
 
-	bool IsDuplicateItem(uint32 nItemID, uint64 nItemSerial);
-	void AddUserItem(uint32 nItemID, uint64 nItemSerial);
+	bool IsDuplicateItem(uint32_t nItemID, uint64_t nItemSerial);
+	void AddUserItem(uint32_t nItemID, uint64_t nItemSerial);
 
 	void AddDatabaseRequest(Packet & pkt, CUser *pUser = nullptr);
 
@@ -158,25 +158,25 @@ public:
 	void NpcInOutForMe(CUser* pSendUser);
 
 	// Get info for NPCs in region
-	void GetRegionNpcIn(C3DMap* pMap, uint16 region_x, uint16 region_z, Packet & pkt, uint16 & t_count, uint16 nEventRoom, CUser* pSendUser);
+	void GetRegionNpcIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom, CUser* pSendUser);
 
 	// Get list of NPC IDs in region
-	void GetRegionNpcList(C3DMap* pMap, uint16 region_x, uint16 region_z, Packet & pkt, uint16 & t_count, uint16 nEventRoom = 0);
+	void GetRegionNpcList(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
 
 	// Get list of NPCs for regions around user (WIZ_NPC_REGION)
 	void RegionNpcInfoForMe(CUser* pSendUser);	
 
 	// Get raw list of all units in regions surrounding pOwner.
-	void GetUnitListFromSurroundingRegions(Unit * pOwner, std::vector<uint16> * pList);
+	void GetUnitListFromSurroundingRegions(Unit * pOwner, std::vector<uint16_t> * pList);
 
 	// Get info for users in regions around user (WIZ_REQ_USERIN)
 	void UserInOutForMe(CUser* pSendUser);
 
 	// Get info for users in region
-	void GetRegionUserIn(C3DMap* pMap, uint16 region_x, uint16 region_z, Packet & pkt, uint16 & t_count, uint16 nEventRoom = 0);
+	void GetRegionUserIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
 
 	// Get list of user IDs in region
-	void GetRegionUserList(C3DMap* pMap, uint16 region_x, uint16 region_z, Packet & pkt, uint16 & t_count, uint16 nEventRoom = 0);
+	void GetRegionUserList(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
 
 	// Get list of users for regions around user (WIZ_REGIONCHANGE)
 	void RegionUserInOutForMe(CUser* pSendUser);
@@ -188,7 +188,7 @@ public:
 	INLINE bool isWarOpen() { return m_byBattleOpen != NO_BATTLE;} 
 
 	// Get list of merchants in region
-	void GetRegionMerchantUserIn(C3DMap* pMap, uint16 region_x, uint16 region_z, Packet & pkt, uint16 & t_count, uint16 nEventRoom = 0);
+	void GetRegionMerchantUserIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
 
 	void SendHelpDescription(CUser *pUser, std::string sHelpMessage);
 
@@ -198,7 +198,7 @@ public:
 	void HandleConsoleCommand(const char * msg);
 
 	template <ChatType chatType>
-	INLINE void SendChat(const char * msg, uint8 byNation = Nation::ALL, bool bFormatNotice = false)
+	INLINE void SendChat(const char * msg, uint8_t byNation = Nation::ALL, bool bFormatNotice = false)
 	{
 		Packet result;
 		std::string buffer;
@@ -208,12 +208,12 @@ public:
 		else
 			buffer = msg;
 
-		ChatPacket::Construct(&result, (uint8) chatType, &buffer);
+		ChatPacket::Construct(&result, (uint8_t) chatType, &buffer);
 		Send_All(&result, nullptr, byNation);
 	}
 
 	template <ChatType chatType>
-	INLINE void SendChatToZone(const char * msg, uint8 ZoneID, uint8 byNation = Nation::ALL, bool bFormatNotice = false)
+	INLINE void SendChatToZone(const char * msg, uint8_t ZoneID, uint8_t byNation = Nation::ALL, bool bFormatNotice = false)
 	{
 		Packet result;
 		std::string buffer;
@@ -223,12 +223,12 @@ public:
 		else
 			buffer = msg;
 
-		ChatPacket::Construct(&result, (uint8) chatType, &buffer);
+		ChatPacket::Construct(&result, (uint8_t) chatType, &buffer);
 		Send_Zone(&result, ZoneID, nullptr, byNation);
 	}
 
 	template <ChatType chatType>
-	INLINE void SendFormattedChat(const char * msg, uint8 byNation = Nation::ALL, bool bFormatNotice = false, va_list args = nullptr)
+	INLINE void SendFormattedChat(const char * msg, uint8_t byNation = Nation::ALL, bool bFormatNotice = false, va_list args = nullptr)
 	{
 		char buffer[512];
 		vsnprintf(buffer, sizeof(buffer), msg, args);
@@ -237,7 +237,7 @@ public:
 	}
 
 	template <ChatType chatType>
-	void SendFormattedChat(const char * msg, uint8 byNation = Nation::ALL, bool bFormatNotice = false, ...)
+	void SendFormattedChat(const char * msg, uint8_t byNation = Nation::ALL, bool bFormatNotice = false, ...)
 	{
 		va_list ap;
 		va_start(ap, byNation);
@@ -247,18 +247,18 @@ public:
 
 	/* The following are simply wrappers for more readable SendChat() calls */
 
-	INLINE void SendNotice(const char *msg, uint8 byNation = Nation::ALL) 
+	INLINE void SendNotice(const char *msg, uint8_t byNation = Nation::ALL) 
 	{
 		SendChat<PUBLIC_CHAT>(msg, byNation, true);
 	}
 
 	template <ChatType chatType>
-	INLINE void SendNotice(const char *msg, uint8 ZoneID, uint8 byNation = Nation::ALL, bool bFormatNotice = false) 
+	INLINE void SendNotice(const char *msg, uint8_t ZoneID, uint8_t byNation = Nation::ALL, bool bFormatNotice = false) 
 	{
 		SendChatToZone<chatType>(msg, ZoneID, byNation, bFormatNotice);
 	}
 
-	void SendFormattedNotice(const char *msg, uint8 byNation = Nation::ALL, ...)
+	void SendFormattedNotice(const char *msg, uint8_t byNation = Nation::ALL, ...)
 	{
 		va_list ap;
 		va_start(ap, byNation);
@@ -266,12 +266,12 @@ public:
 		va_end(ap);
 	}
 
-	INLINE void SendAnnouncement(const char *msg, uint8 byNation = Nation::ALL)
+	INLINE void SendAnnouncement(const char *msg, uint8_t byNation = Nation::ALL)
 	{
 		SendChat<WAR_SYSTEM_CHAT>(msg, byNation, true);
 	}
 
-	void SendFormattedAnnouncement(const char *msg, uint8 byNation = Nation::ALL, ...)
+	void SendFormattedAnnouncement(const char *msg, uint8_t byNation = Nation::ALL, ...)
 	{
 		va_list ap;
 		va_start(ap, byNation);
@@ -279,42 +279,42 @@ public:
 		va_end(ap);
 	}
 
-	void SendFormattedResource(uint32 nResourceID, uint8 byNation = Nation::ALL, bool bIsNotice = true, ...);
+	void SendFormattedResource(uint32_t nResourceID, uint8_t byNation = Nation::ALL, bool bIsNotice = true, ...);
 
-	void Send_Region(Packet *pkt, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16 nEventRoom = 0);
-	void Send_UnitRegion(Packet *pkt, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16 nEventRoom = 0);
-	void Send_OldRegions(Packet *pkt, int old_x, int old_z, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16 nEventRoom = 0);
-	void Send_NewRegions(Packet *pkt, int new_x, int new_z, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16 nEventRoom = 0);
+	void Send_Region(Packet *pkt, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
+	void Send_UnitRegion(Packet *pkt, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
+	void Send_OldRegions(Packet *pkt, int old_x, int old_z, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
+	void Send_NewRegions(Packet *pkt, int new_x, int new_z, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
 
-	void Send_NearRegion(Packet *pkt, C3DMap *pMap, int region_x, int region_z, float curx, float curz, CUser* pExceptUser=nullptr, uint16 nEventRoom = 0);
-	void Send_FilterUnitRegion(Packet *pkt, C3DMap *pMap, int x, int z, float ref_x, float ref_z, CUser* pExceptUser=nullptr, uint16 nEventRoom = 0);
+	void Send_NearRegion(Packet *pkt, C3DMap *pMap, int region_x, int region_z, float curx, float curz, CUser* pExceptUser=nullptr, uint16_t nEventRoom = 0);
+	void Send_FilterUnitRegion(Packet *pkt, C3DMap *pMap, int x, int z, float ref_x, float ref_z, CUser* pExceptUser=nullptr, uint16_t nEventRoom = 0);
 
-	void Send_Zone_Matched_Class(Packet *pkt, uint8 bZoneID, CUser* pExceptUser, uint8 nation, uint8 seekingPartyOptions, uint16 nEventRoom = 0);
-	void Send_Zone(Packet *pkt, uint8 bZoneID, CUser* pExceptUser = nullptr, uint8 nation = 0, uint16 nEventRoom = 0, float fRange = 0.0f);
+	void Send_Zone_Matched_Class(Packet *pkt, uint8_t bZoneID, CUser* pExceptUser, uint8_t nation, uint8_t seekingPartyOptions, uint16_t nEventRoom = 0);
+	void Send_Zone(Packet *pkt, uint8_t bZoneID, CUser* pExceptUser = nullptr, uint8_t nation = 0, uint16_t nEventRoom = 0, float fRange = 0.0f);
 
-	void Send_All(Packet *pkt, CUser* pExceptUser = nullptr, uint8 nation = 0, uint8 ZoneID = 0, bool isSendEventUsers = false, uint16 nEventRoom = 0);
+	void Send_All(Packet *pkt, CUser* pExceptUser = nullptr, uint8_t nation = 0, uint8_t ZoneID = 0, bool isSendEventUsers = false, uint16_t nEventRoom = 0);
 	void Send_AIServer(Packet *pkt);
 
 	void GetServerResource(int nResourceID, std::string * result, ...);
 	_START_POSITION *GetStartPosition(int nZoneID);
 
-	int64 GetExpByLevel(int nLevel);
+	int64_t GetExpByLevel(int nLevel);
 	C3DMap * GetZoneByID(int zoneID);
 
 	CUser * GetUserPtr(std::string findName, NameType type);
-	CUser * GetUserPtr(uint16 sUserId);
-	CNpc  * GetNpcPtr(uint16 sNpcId);
+	CUser * GetUserPtr(uint16_t sUserId);
+	CNpc  * GetNpcPtr(uint16_t sNpcId);
 
-	Unit * GetUnitPtr(uint16 id);
+	Unit * GetUnitPtr(uint16_t id);
 
 	// Spawns an event NPC/monster
-	void SpawnEventNpc(uint16 sSid, bool bIsMonster, uint8 byZone, float fX, float fY, float fZ, uint16 sCount = 1, uint16 sRadius = 0, uint16 sDuration = 0, uint8 nation = 0, int16 socketID = -1, uint16 nEventRoom = 0);
+	void SpawnEventNpc(uint16_t sSid, bool bIsMonster, uint8_t byZone, float fX, float fY, float fZ, uint16_t sCount = 1, uint16_t sRadius = 0, uint16_t sDuration = 0, uint8_t nation = 0, int16_t socketID = -1, uint16_t nEventRoom = 0);
 
 	// Kill a Npc/Monster
-	void KillNpc(uint16 sNid);
+	void KillNpc(uint16_t sNid);
 
 	// Change NPC/Monster properties for Respawn
-	void NpcUpdate(uint16 sSid, bool bIsMonster, uint8 byGroup = 0, uint16 sPid = 0);	
+	void NpcUpdate(uint16_t sSid, bool bIsMonster, uint8_t byGroup = 0, uint16_t sPid = 0);	
 
 	// Adds the account name & session to a hashmap (on login)
 	void AddAccountName(CUser *pSession);
@@ -330,16 +330,16 @@ public:
 	void RemoveSessionNames(CUser *pSession);
 
 	// Send to Zone NPC Effect
-	void ShowNpcEffect(uint16 sNpcID, uint32 nEffectID, uint8 ZoneID);
+	void ShowNpcEffect(uint16_t sNpcID, uint32_t nEffectID, uint8_t ZoneID);
 
-	_PARTY_GROUP * GetPartyPtr(uint16 sPartyID);
-	CKnights * GetClanPtr(uint16 sClanID);
-	_KNIGHTS_ALLIANCE * GetAlliancePtr(uint16 sAllianceID);
-	_ITEM_TABLE * GetItemPtr(uint32 nItemID);
-	_KNIGHTS_SIEGE_WARFARE * GetSiegeMasterKnightsPtr(uint16 sMasterKnights);
+	_PARTY_GROUP * GetPartyPtr(uint16_t sPartyID);
+	CKnights * GetClanPtr(uint16_t sClanID);
+	_KNIGHTS_ALLIANCE * GetAlliancePtr(uint16_t sAllianceID);
+	_ITEM_TABLE * GetItemPtr(uint32_t nItemID);
+	_KNIGHTS_SIEGE_WARFARE * GetSiegeMasterKnightsPtr(uint16_t sMasterKnights);
 
 	_PARTY_GROUP * CreateParty(CUser *pLeader);
-	void DeleteParty(uint16 sIndex);
+	void DeleteParty(uint16_t sIndex);
 
 	_EVENT_STATUS pTempleEvent;
 
@@ -347,7 +347,7 @@ public:
 
 	char	m_ppNotice[20][128];
 	std::string	m_AIServerIP;
-	uint32		m_AIServerPort;
+	uint32_t		m_AIServerPort;
 
 	NpcArray							m_arNpcArray;
 	ZoneArray							m_ZoneArray;
@@ -403,63 +403,63 @@ public:
 	UserItemArray						m_UserItemArray;
 	ObjectEventArray					m_ObjectEventArray;
 
-	Atomic<uint16>				m_sPartyIndex;
-	short	m_sZoneCount;							// AI Server �����ӽ� ����
+	Atomic<uint16_t>				m_sPartyIndex;
+	int16_t	m_sZoneCount;							// AI Server �����ӽ� ����
 
 	bool	m_bFirstServerFlag;		// ������ ó�������� �� ���Ӽ����� ���� ���쿡�� 1, ���� ���� ���� 0
 	bool	m_bServerCheckFlag;
 	bool	m_bPointCheckFlag;		// AI������ �������� NPC������ �������� (true:������ ����, false:������ ���� ����)
-	short   m_sErrorSocketCount;  // �̻����� ���ÿ�
+	int16_t   m_sErrorSocketCount;  // �̻����� ���ÿ�
 
-	uint16 m_sYear, m_sMonth, m_sDate, m_sHour, m_sMin;
-	uint8 m_byWeather;
-	uint16 m_sWeatherAmount;
+	uint16_t m_sYear, m_sMonth, m_sDate, m_sHour, m_sMin;
+	uint8_t m_byWeather;
+	uint16_t m_sWeatherAmount;
 	int m_nCastleCapture;
-	uint8 m_ReloadKnightAndUserRanksMinute;
+	uint8_t m_ReloadKnightAndUserRanksMinute;
 
-	uint8   m_byBattleOpen, m_byOldBattleOpen;
-	uint8	m_byBattleZone, m_byBattleZoneType, m_bVictory, m_byOldVictory, m_bResultDelayVictory, m_bKarusFlag, m_bElmoradFlag, m_bMiddleStatueNation;
-	int32	m_byBattleOpenedTime;
-	int32	m_byBattleTime;
-	int32	m_byBattleRemainingTime;
-	int32	m_sBattleTimeDelay;
-	int32	m_sBattleResultDelay;
-	int32	m_byBattleSiegeWarStartTime;
-	uint8	m_SiegeWarNoticeTime;
+	uint8_t   m_byBattleOpen, m_byOldBattleOpen;
+	uint8_t	m_byBattleZone, m_byBattleZoneType, m_bVictory, m_byOldVictory, m_bResultDelayVictory, m_bKarusFlag, m_bElmoradFlag, m_bMiddleStatueNation;
+	int32_t	m_byBattleOpenedTime;
+	int32_t	m_byBattleTime;
+	int32_t	m_byBattleRemainingTime;
+	int32_t	m_sBattleTimeDelay;
+	int32_t	m_sBattleResultDelay;
+	int32_t	m_byBattleSiegeWarStartTime;
+	uint8_t	m_SiegeWarNoticeTime;
 	std::string	m_SiegeWarWinKnightsNotice;
 	bool	m_byBattleSiegeWarOpen;
 	bool	m_byBattleSiegeWarMomument;
 	bool	m_byBattleSiegeWarTeleport;
-	uint8	m_sKilledKarusNpc, m_sKilledElmoNpc;
-	uint8	m_sKarusMonuments, m_sElmoMonuments;
-	uint16	m_sKarusMonumentPoint, m_sElmoMonumentPoint;
+	uint8_t	m_sKilledKarusNpc, m_sKilledElmoNpc;
+	uint8_t	m_sKarusMonuments, m_sElmoMonuments;
+	uint16_t	m_sKarusMonumentPoint, m_sElmoMonumentPoint;
 	bool    m_byKarusOpenFlag, m_byElmoradOpenFlag, m_byBanishFlag, m_byBattleSave, m_bResultDelay;
-	short   m_sDiscount;
-	short	m_sKarusDead, m_sElmoradDead, m_sBanishDelay, m_sKarusCount, m_sElmoradCount;
+	int16_t   m_sDiscount;
+	int16_t	m_sKarusDead, m_sElmoradDead, m_sBanishDelay, m_sKarusCount, m_sElmoradCount;
 	std::string m_sBattleZoneOpenDays;
-	uint8	m_nBattleZoneOpenHourStart[WAR_TIME_COUNT], m_nBattlezoneOpenWarZone[WAR_ZONE_COUNT];
+	uint8_t	m_nBattleZoneOpenHourStart[WAR_TIME_COUNT], m_nBattlezoneOpenWarZone[WAR_ZONE_COUNT];
 
 	std::string m_strKarusCaptain, m_strElmoradCaptain;
 
-	uint8   m_nBorderDefenseWarTime[BORDER_DEFENSE_WAR_EVENT_COUNT], m_nChaosTime[CHAOS_EVENT_COUNT];
-	uint8	m_nPVPMonumentNation[MAX_ZONE_ID];
+	uint8_t   m_nBorderDefenseWarTime[BORDER_DEFENSE_WAR_EVENT_COUNT], m_nChaosTime[CHAOS_EVENT_COUNT];
+	uint8_t	m_nPVPMonumentNation[MAX_ZONE_ID];
 
-	uint32	m_GameServerPort;
-	int32	m_nGameMasterRHitDamage;
-	uint8	m_nPlayerRankingResetTime;
+	uint32_t	m_GameServerPort;
+	int32_t	m_nGameMasterRHitDamage;
+	uint8_t	m_nPlayerRankingResetTime;
 	std::string	m_sPlayerRankingsRewardZones;
-	uint32	m_nPlayerRankingKnightCashReward;
-	uint32  m_nPlayerRankingLoyaltyReward;
+	uint32_t	m_nPlayerRankingKnightCashReward;
+	uint32_t  m_nPlayerRankingLoyaltyReward;
 
-	uint16	m_nTempleEventRemainSeconds;
+	uint16_t	m_nTempleEventRemainSeconds;
 
-	uint8	m_bMaxRegenePoint;
+	uint8_t	m_bMaxRegenePoint;
 
 	bool	m_bPermanentChatMode;
 	std::string	m_strPermanentChat;
 
-	uint8	m_bSantaOrAngel;
-	uint8	m_sRankResetHour;
+	uint8_t	m_bSantaOrAngel;
+	uint8_t	m_sRankResetHour;
 
 	// National Points Settings
 	int m_Loyalty_Ardream_Source;
@@ -472,43 +472,43 @@ public:
 	int m_Loyalty_Other_Zone_Target;
 
 	// Bifrost
-	uint8   m_nBifrostTime[BIFROST_EVENT_COUNT];
+	uint8_t   m_nBifrostTime[BIFROST_EVENT_COUNT];
 
-	uint8 m_BifrostVictory;
-	uint16 m_sBifrostRemainingTime;
-	uint16 m_sBifrostTime;
+	uint8_t m_BifrostVictory;
+	uint16_t m_sBifrostRemainingTime;
+	uint16_t m_sBifrostTime;
 	bool m_sBifrostWarStart;
-	uint8 m_sBifrostVictoryAll;
-	uint8 m_sBifrostVictoryNoticeAll;
+	uint8_t m_sBifrostVictoryAll;
+	uint8_t m_sBifrostVictoryNoticeAll;
 
-	uint16 m_xBifrostRemainingTime;
-	uint16 m_xJoinOtherNationBifrostTime;
-	uint16 m_xBifrostTime;
-	uint16 m_xBifrostMonumentAttackTime;
+	uint16_t m_xBifrostRemainingTime;
+	uint16_t m_xJoinOtherNationBifrostTime;
+	uint16_t m_xBifrostTime;
+	uint16_t m_xBifrostMonumentAttackTime;
 	bool m_bAttackBifrostMonument;
 
-	void SendEventRemainingTime(bool bSendAll = false, CUser *pUser = nullptr, uint8 ZoneID = 0);
+	void SendEventRemainingTime(bool bSendAll = false, CUser *pUser = nullptr, uint8_t ZoneID = 0);
 
 	bool m_IsMagicTableInUpdateProcess;
 	bool m_IsPlayerRankingUpdateProcess;
 
-	std::vector<int64> m_HardwareIDArray;
+	std::vector<int64_t> m_HardwareIDArray;
 
 	// Forgetten Temple
-	std::vector<uint16>				m_nForgettenTempleUsers;
+	std::vector<uint16_t>				m_nForgettenTempleUsers;
 	bool							m_bForgettenTempleIsActive;
-	int8							m_nForgettenTempleStartHour;
-	int8							m_nForgettenTempleLevelMin;
-	int8							m_nForgettenTempleLevelMax;
-	int32							m_nForgettenTempleStartTime;
-	uint8							m_nForgettenTempleChallengeTime;
+	int8_t							m_nForgettenTempleStartHour;
+	int8_t							m_nForgettenTempleLevelMin;
+	int8_t							m_nForgettenTempleLevelMax;
+	int32_t							m_nForgettenTempleStartTime;
+	uint8_t							m_nForgettenTempleChallengeTime;
 	bool							m_bForgettenTempleSummonMonsters;
-	uint8							m_nForgettenTempleCurrentStage;
-	uint8							m_nForgettenTempleLastStage;
+	uint8_t							m_nForgettenTempleCurrentStage;
+	uint8_t							m_nForgettenTempleLastStage;
 	ForgettenTempleMonsterList		m_ForgettenTempleMonsterList;
-	uint32							m_nForgettenTempleLastSummonTime;
+	uint32_t							m_nForgettenTempleLastSummonTime;
 	bool							m_nForgettenTempleBanishFlag;
-	uint8							m_nForgettenTempleBanishTime;
+	uint8_t							m_nForgettenTempleBanishTime;
 
 	// zone server info
 	int					m_nServerNo, m_nServerGroupNo;
@@ -524,13 +524,13 @@ public:
 		m_questNpcLock;
 
 	// Controlled weather events set by Kings
-	uint8 m_byKingWeatherEvent;
-	uint8 m_byKingWeatherEvent_Day;
-	uint8 m_byKingWeatherEvent_Hour;
-	uint8 m_byKingWeatherEvent_Minute;
+	uint8_t m_byKingWeatherEvent;
+	uint8_t m_byKingWeatherEvent_Day;
+	uint8_t m_byKingWeatherEvent_Hour;
+	uint8_t m_byKingWeatherEvent_Minute;
 
 	// XP/coin/NP events
-	uint8 m_byNPEventAmount, m_byExpEventAmount, m_byCoinEventAmount;
+	uint8_t m_byNPEventAmount, m_byExpEventAmount, m_byCoinEventAmount;
 
 	INLINE CLuaEngine * GetLuaEngine() { return &m_luaEngine; }
 

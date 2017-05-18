@@ -27,8 +27,8 @@ struct _NpcPosition
 {
 	typedef struct { long x; long y; } Point;
 
-	uint8	byType;			// type
-	uint8	bySpeed;		// speed
+	uint8_t	byType;			// type
+	uint8_t	bySpeed;		// speed
 	Point	pPoint;			// position
 	float fXPos;
 	float fZPos;

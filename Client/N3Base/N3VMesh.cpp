@@ -133,7 +133,7 @@ void CN3VMesh::CreateIndex(int nIC)
 #endif
 
 	delete [] m_pwIndices;
-	m_pwIndices = new WORD[nIC];
+	m_pwIndices = new uint16_t[nIC];
 	memset(m_pwIndices, 0, nIC * 2); // Index Buffer »ý¼º
 	m_nIC = nIC;
 }

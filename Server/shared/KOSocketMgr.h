@@ -5,7 +5,7 @@
 #include "SocketMgr.h"
 #include "KOSocket.h"
 
-typedef std::map<uint16, KOSocket *> SessionMap;
+typedef std::map<uint16_t, KOSocket *> SessionMap;
 
 template <class T>
 class KOSocketMgr : public SocketMgr
@@ -13,9 +13,9 @@ class KOSocketMgr : public SocketMgr
 public:
 	KOSocketMgr<T>() : m_server(nullptr) {}
 
-	virtual void InitSessions(uint16 sTotalSessions);
-	virtual bool Listen(uint16 sPort, uint16 sTotalSessions);
-	virtual bool Listen(std::string sIPAddress, uint16 sPort, uint16 sTotalSessions);
+	virtual void InitSessions(uint16_t sTotalSessions);
+	virtual bool Listen(uint16_t sPort, uint16_t sTotalSessions);
+	virtual bool Listen(std::string sIPAddress, uint16_t sPort, uint16_t sTotalSessions);
 
 	virtual void OnConnect(Socket *pSock);
 	virtual Socket *AssignSocket(SOCKET socket);
@@ -49,7 +49,7 @@ public:
 	INLINE SessionMap & GetActiveSessionMap() { return m_activeSessions; }
 	INLINE std::recursive_mutex& GetLock() { return m_lock; }
 
-	T * operator[] (uint16 id)
+	T * operator[] (uint16_t id)
 	{
 		std::lock_guard<std::recursive_mutex> lock(m_lock);
 
@@ -72,21 +72,21 @@ private:
 };
 
 template <class T>
-void KOSocketMgr<T>::InitSessions(uint16 sTotalSessions)
+void KOSocketMgr<T>::InitSessions(uint16_t sTotalSessions)
 {
 	std::lock_guard<std::recursive_mutex> lock(m_lock);
-	for (uint16 i = 0; i < sTotalSessions; i++)
+	for (uint16_t i = 0; i < sTotalSessions; i++)
 		m_idleSessions.insert(std::make_pair(i, new T(i, this)));
 }
 
 template <class T>
-bool KOSocketMgr<T>::Listen(uint16 sPort, uint16 sTotalSessions)
+bool KOSocketMgr<T>::Listen(uint16_t sPort, uint16_t sTotalSessions)
 {
 	return Listen("0.0.0.0", sPort, sTotalSessions);
 }
 
 template <class T>
-bool KOSocketMgr<T>::Listen(std::string sIPAddress, uint16 sPort, uint16 sTotalSessions)
+bool KOSocketMgr<T>::Listen(std::string sIPAddress, uint16_t sPort, uint16_t sTotalSessions)
 {
 	if (m_server != nullptr)
 		return false;

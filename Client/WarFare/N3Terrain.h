@@ -64,7 +64,7 @@ public:
 	POINT				m_ti_PrevCenterPos;
 
 	//Texture...
-	uint32				m_NumTileTex;				// Tile Texture °¹¼ö
+	uint32_t				m_NumTileTex;				// Tile Texture °¹¼ö
 	CN3Texture*			m_pTileTex;
 
 	//ColorMap..
@@ -81,8 +81,8 @@ public:
 	//Grass Attr;
 	char				m_pGrassTextureName[MAX_GRASS][MAX_PATH];
 	char				m_pGrassFileName[MAX_PATH];
-	unsigned char*		m_pGrassAttr;
-	unsigned char*		m_pGrassNum;
+	uint8_t*		m_pGrassAttr;
+	uint8_t*		m_pGrassNum;
 	int					m_iNumGrass;
 
 	class CN3River*		m_pRiver;
@@ -134,7 +134,7 @@ public:	//additional........
 	bool			GetTileTexInfo(float x, float z, TERRAINTILETEXINFO& TexInfo1, TERRAINTILETEXINFO& TexInfo2);
 	CN3Texture*		GetTileTex(int x, int z);
 	MAPDATA			GetMapData(int x, int z);
-	unsigned short	GetGrassAttr(int x, int z);
+	uint16_t	GetGrassAttr(int x, int z);
 	bool			LoadColorMap(const std::string& szFN);
 	void			GetNormal(float x, float z, __Vector3& vNormal);
 	bool			IsInTerrain(float x, float z);

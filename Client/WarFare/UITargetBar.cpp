@@ -71,7 +71,7 @@ bool CUITargetBar::Load(HANDLE hFile)
 	{
 		std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 		
-		DWORD dwH = m_pStringID->GetFontHeight();
+		uint32_t dwH = m_pStringID->GetFontHeight();
 		m_pStringID->SetFont(szFontID, dwH, FALSE, FALSE);
 	}
 

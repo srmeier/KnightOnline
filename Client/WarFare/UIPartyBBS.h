@@ -45,7 +45,7 @@ public:
 	void SetVisible(bool bVisible);
 	void RequestParty();
 	void RequestWhisper();
-	void SetStringColor(int iIndex, DWORD dwColor);
+	void SetStringColor(int iIndex, uint32_t dwColor);
 	void RenderSelectContent();
 	void Render();
 	void SetContentString(int iIndex, std::string szID, int iLevel, std::string szClass);
@@ -56,10 +56,10 @@ public:
 
 	void MsgRecv_RefreshData(class DataPack* pDataPack, int& iOffset);
 
-	void PartyStringSet(BYTE byType);
+	void PartyStringSet(uint8_t byType);
 	void RefreshPage();
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(class CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(class CN3UIBase* pSender, uint32_t dwMsg);
 	bool SelectedString(CN3UIBase* pSender, int& iID);
 	
 	

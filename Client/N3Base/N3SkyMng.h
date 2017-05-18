@@ -41,9 +41,9 @@ struct		__SKY_DAYCHANGE
 {
 	std::string		szName;			// 이름 붙이기..
 	eSKY_DAYCHANGE	eSkyDayChange;	// 어떤 변화인가?
-	DWORD			dwWhen;			// 언제 변화시작인가?(0시부터 초단위로 나타낸 시간)
-	DWORD			dwParam1;		// parameter 1
-	DWORD			dwParam2;		// parameter 2
+	uint32_t			dwWhen;			// 언제 변화시작인가?(0시부터 초단위로 나타낸 시간)
+	uint32_t			dwParam1;		// parameter 1
+	uint32_t			dwParam2;		// parameter 2
 	float			fHowLong;		// 얼마나 걸릴것인가?(실시간 초)
 
 	void Init()
@@ -54,7 +54,7 @@ struct		__SKY_DAYCHANGE
 		fHowLong = 0;
 	}
 
-	void Init(const std::string& szName_Arg, eSKY_DAYCHANGE eSDC_Arg, DWORD dwWhen_Arg, DWORD dwParam1_Arg, DWORD dwParam2_Arg, float fHowLong_Arg)
+	void Init(const std::string& szName_Arg, eSKY_DAYCHANGE eSDC_Arg, uint32_t dwWhen_Arg, uint32_t dwParam1_Arg, uint32_t dwParam2_Arg, float fHowLong_Arg)
 	{
 		szName = szName_Arg;
 		eSkyDayChange = eSDC_Arg;
@@ -134,8 +134,8 @@ protected:
 	std::vector<__SKY_DAYCHANGE> m_WeatherChanges;		// 정보입력후에 qsort하자
 	size_t					m_iWeatherChangeCurPos;
 
-	DWORD		m_dwCheckTick;	// 서버에서 시간을 받을때의 윈도우TickCount(실시간) (게임시간으로 24시에 다시 설정하기도 한다.)
-	DWORD		m_dwCheckGameTime;	// 서버에서 내려받은 시간(게임 시간 초단위) 0 ~ (24*60*60)
+	uint32_t		m_dwCheckTick;	// 서버에서 시간을 받을때의 윈도우TickCount(실시간) (게임시간으로 24시에 다시 설정하기도 한다.)
+	uint32_t		m_dwCheckGameTime;	// 서버에서 내려받은 시간(게임 시간 초단위) 0 ~ (24*60*60)
 	eSKY_WEATHER	m_eWeather;
 
 	int			m_iYear;
@@ -227,10 +227,10 @@ public:
 //	~(By Ecli666 On 2002-04-04 오전 10:53:58 )
 	
 protected:
-	void		SetCheckGameTime(DWORD dwCheckGameTime);//	CheckGameTime을 정해주고 현재시간을 다시 세팅한다.(특정 시간으로 강제적으로 만들때 호출한다.)
+	void		SetCheckGameTime(uint32_t dwCheckGameTime);//	CheckGameTime을 정해주고 현재시간을 다시 세팅한다.(특정 시간으로 강제적으로 만들때 호출한다.)
 	int			GetLatestChange(eSKY_DAYCHANGE eSDC, int iPos);// m_pDayChangeQueues에서 지정된 위치(iPos) 이전의 가장 최근에 변화하는 위치 얻어오기
 	void		ChangeSky(__SKY_DAYCHANGE* pSDC, float fTakeTime);
-	int			GetDayChangePos_AfterNSec(DWORD dwCurGameTime, float fSec);		// 실시간 N초 후에 DayChangeQueue의 위치 구하기
+	int			GetDayChangePos_AfterNSec(uint32_t dwCurGameTime, float fSec);		// 실시간 N초 후에 DayChangeQueue의 위치 구하기
 	static int		CompareTime(const void* pArg1, const void* pArg2);
 
 };

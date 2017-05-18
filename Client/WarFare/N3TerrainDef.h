@@ -36,11 +36,11 @@ enum { DIR_LT = 0, DIR_CT = 1, DIR_RT = 2,
 typedef struct __MapData			// 맵데이터...
 {
 	float	fHeight;				//타일텍스쳐가 꽉차는지 아닌지..
-	DWORD	bIsTileFull	: 1;		//지형의 높이값..
-	DWORD	Tex1Dir		: 5;		//첫번째 타일 텍스쳐 찍는 방향.
-	DWORD	Tex2Dir		: 5;		//두번째 타일 텍스쳐 찍는 방향.
-	DWORD	Tex1Idx		: 10;		//첫번째 타일 텍스쳐의 인덱스.
-	DWORD	Tex2Idx		: 10;		//두번째 타일 텍스쳐의 인덱스.
+	uint32_t	bIsTileFull	: 1;		//지형의 높이값..
+	uint32_t	Tex1Dir		: 5;		//첫번째 타일 텍스쳐 찍는 방향.
+	uint32_t	Tex2Dir		: 5;		//두번째 타일 텍스쳐 찍는 방향.
+	uint32_t	Tex1Idx		: 10;		//첫번째 타일 텍스쳐의 인덱스.
+	uint32_t	Tex2Idx		: 10;		//두번째 타일 텍스쳐의 인덱스.
 	
 	__MapData()
 	{
@@ -97,7 +97,7 @@ typedef FanInfoList::iterator FIIt;
 //typedef CellInfoList::value_type DTValue;
 
 #include <map>
-typedef std::map<DWORD,class CN3Texture*> stlMap_N3Tex;
+typedef std::map<uint32_t,class CN3Texture*> stlMap_N3Tex;
 typedef stlMap_N3Tex::iterator stlMap_N3TexIt;
 typedef stlMap_N3Tex::value_type stlMap_N3TexValue;
 

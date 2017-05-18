@@ -381,7 +381,7 @@ bool CN3FXShape::Load(HANDLE hFile)
 		}
 	}
 
-	DWORD dwTmp;		
+	uint32_t dwTmp;		
 	ReadFile(hFile, &dwTmp, 4, &dwRWC, NULL); // 家加
 	ReadFile(hFile, &dwTmp, 4, &dwRWC, NULL); // 加己 0
 	ReadFile(hFile, &dwTmp, 4, &dwRWC, NULL); // 加己 1
@@ -546,7 +546,7 @@ float CN3FXShape::GetCurrFrm()
 	return m_fFrmCur;
 }
 
-void CN3FXShape::SetPartsMtl(BOOL bAlpha, DWORD dwSrcBlend, DWORD dwDestBlend, DWORD dwZEnable, DWORD dwZWrite, DWORD dwLight, DWORD dwDoubleSide)
+void CN3FXShape::SetPartsMtl(BOOL bAlpha, uint32_t dwSrcBlend, uint32_t dwDestBlend, uint32_t dwZEnable, uint32_t dwZWrite, uint32_t dwLight, uint32_t dwDoubleSide)
 {
 	m_dwSrcBlend = dwSrcBlend;
 	m_dwDestBlend = dwDestBlend;
@@ -557,7 +557,7 @@ void CN3FXShape::SetPartsMtl(BOOL bAlpha, DWORD dwSrcBlend, DWORD dwDestBlend, D
 	m_dwLight = dwLight;
 	m_dwDoubleSide = dwDoubleSide;
 
-	DWORD dwRenderFlag = RF_ALPHABLENDING | RF_NOTUSEFOG | RF_DIFFUSEALPHA | RF_NOTUSELIGHT | RF_DOUBLESIDED | RF_NOTZWRITE | RF_NOTZBUFFER; 
+	uint32_t dwRenderFlag = RF_ALPHABLENDING | RF_NOTUSEFOG | RF_DIFFUSEALPHA | RF_NOTUSELIGHT | RF_DOUBLESIDED | RF_NOTZWRITE | RF_NOTZBUFFER; 
 	if(m_dwZEnable == D3DZB_TRUE) dwRenderFlag ^= RF_NOTZBUFFER;
 	if(m_dwZWrite == TRUE) dwRenderFlag ^= RF_NOTZWRITE;
 	if(m_dwDoubleSide != D3DCULL_NONE) dwRenderFlag ^= RF_DOUBLESIDED;

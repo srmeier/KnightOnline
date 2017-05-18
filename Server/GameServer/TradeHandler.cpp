@@ -5,7 +5,7 @@ using namespace std;
 
 void CUser::ExchangeProcess(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
 	case EXCHANGE_REQ:
@@ -30,7 +30,7 @@ void CUser::ExchangeReq(Packet & pkt)
 {
 	Packet result(WIZ_EXCHANGE);
 	CUser * pUser;
-	uint16 destid;
+	uint16_t destid;
 
 	if (isDead() || isStoreOpen() || isMerchanting())
 		goto fail_return;
@@ -41,7 +41,7 @@ void CUser::ExchangeReq(Packet & pkt)
 		return;
 	}
 
-	destid = pkt.read<uint16>();
+	destid = pkt.read<uint16_t>();
 	pUser = g_pMain->GetUserPtr(destid);
 	if (pUser == nullptr
 		|| pUser->isTrading()
@@ -55,12 +55,12 @@ void CUser::ExchangeReq(Packet & pkt)
 	if (pUser->isDead() || pUser->isStoreOpen() || pUser->isMerchanting())
 		goto fail_return;
 
-	result << uint8(EXCHANGE_REQ) << GetSocketID();
+	result << uint8_t(EXCHANGE_REQ) << GetSocketID();
 	pUser->Send(&result);
 	return;
 
 fail_return:
-	result << uint8(EXCHANGE_CANCEL);
+	result << uint8_t(EXCHANGE_CANCEL);
 	Send(&result);
 }
 
@@ -70,7 +70,7 @@ void CUser::ExchangeAgree(Packet & pkt)
 		|| isDead())
 		return;
 
-	uint8 bResult = pkt.read<uint8>();
+	uint8_t bResult = pkt.read<uint8_t>();
 	CUser *pUser = g_pMain->GetUserPtr(m_sExchangeUser);
 	if (pUser == nullptr) 
 	{
@@ -91,8 +91,8 @@ void CUser::ExchangeAgree(Packet & pkt)
 		bResult = 0;
 	}
 
-	Packet result(WIZ_EXCHANGE, uint8(EXCHANGE_AGREE));
-	result << uint16(bResult);
+	Packet result(WIZ_EXCHANGE, uint8_t(EXCHANGE_AGREE));
+	result << uint16_t(bResult);
 	pUser->Send(&result);
 }
 
@@ -101,13 +101,13 @@ void CUser::ExchangeAdd(Packet & pkt)
 	if (!isTrading())
 		return;
 
-	Packet result(WIZ_EXCHANGE, uint8(EXCHANGE_ADD));
-	uint64 nSerialNum;
-	uint32 nItemID, count = 0;
-	uint16 duration = 0;
+	Packet result(WIZ_EXCHANGE, uint8_t(EXCHANGE_ADD));
+	uint64_t nSerialNum;
+	uint32_t nItemID, count = 0;
+	uint16_t duration = 0;
 	_ITEM_DATA * pSrcItem = nullptr;
 	list<_EXCHANGE_ITEM*>::iterator	Iter;
-	uint8 pos;
+	uint8_t pos;
 	bool bAdd = true, bGold = false;
 
 	CUser *pUser = g_pMain->GetUserPtr(m_sExchangeUser);
@@ -204,18 +204,18 @@ void CUser::ExchangeAdd(Packet & pkt)
 		m_ExchangeItemList.push_back(pItem);
 	}
 
-	result << uint8(1);
+	result << uint8_t(1);
 	Send(&result);
 
 	result.clear();
 
-	result << uint8(EXCHANGE_OTHERADD)
+	result << uint8_t(EXCHANGE_OTHERADD)
 		<< nItemID << count << duration;
 	pUser->Send(&result);
 	return;
 
 add_fail:
-	result << uint8(0);
+	result << uint8_t(0);
 	Send(&result);
 }
 
@@ -240,7 +240,7 @@ void CUser::ExchangeDecide()
 	if (!pUser->m_bExchangeOK)
 	{
 		m_bExchangeOK = 1;
-		result << uint8(EXCHANGE_OTHERDECIDE);
+		result << uint8_t(EXCHANGE_OTHERDECIDE);
 		pUser->Send(&result);
 		return;
 	}
@@ -250,7 +250,7 @@ void CUser::ExchangeDecide()
 	{
 		// At this stage, neither user has their items exchanged.
 		// However, their coins were removed -- these will be removed by ExchangeFinish().
-		result << uint8(EXCHANGE_DONE) << uint8(0);
+		result << uint8_t(EXCHANGE_DONE) << uint8_t(0);
 		Send(&result);
 		pUser->Send(&result);
 
@@ -263,29 +263,29 @@ void CUser::ExchangeDecide()
 		pUser->ExecuteExchange();
 
 		Packet result(WIZ_EXCHANGE);
-		result << uint8(EXCHANGE_DONE) << uint8(1)
+		result << uint8_t(EXCHANGE_DONE) << uint8_t(1)
 			<< GetCoins()
-			<< uint16(pUser->m_ExchangeItemList.size());
+			<< uint16_t(pUser->m_ExchangeItemList.size());
 
 		foreach (itr, pUser->m_ExchangeItemList)
 		{
 			result	<< (*itr)->bDstPos << (*itr)->nItemID
-				<< uint16((*itr)->nCount) << (*itr)->sDurability
-				<< uint32(0); //Unknown, , maybe serial?
+				<< uint16_t((*itr)->nCount) << (*itr)->sDurability
+				<< uint32_t(0); //Unknown, , maybe serial?
 		}
 		Send(&result);
 
 		result.clear();
 
-		result << uint8(EXCHANGE_DONE) << uint8(1)
+		result << uint8_t(EXCHANGE_DONE) << uint8_t(1)
 			<< pUser->GetCoins()
-			<< uint16(m_ExchangeItemList.size());
+			<< uint16_t(m_ExchangeItemList.size());
 
 		foreach (itr, m_ExchangeItemList)
 		{
 			result	<< (*itr)->bDstPos << (*itr)->nItemID
-				<< uint16((*itr)->nCount) << (*itr)->sDurability
-				<< uint32(0); //Unknown, , maybe serial?
+				<< uint16_t((*itr)->nCount) << (*itr)->sDurability
+				<< uint32_t(0); //Unknown, , maybe serial?
 		}
 		pUser->Send(&result);
 
@@ -331,7 +331,7 @@ void CUser::ExchangeCancel(bool bIsOnDeath)
 	{
 		pUser->ExchangeCancel();
 
-		Packet result(WIZ_EXCHANGE, uint8(EXCHANGE_CANCEL));
+		Packet result(WIZ_EXCHANGE, uint8_t(EXCHANGE_CANCEL));
 		pUser->Send(&result);
 	}
 }
@@ -351,8 +351,8 @@ void CUser::ExchangeFinish()
 */
 bool CUser::CheckExchange()
 {
-	uint32 money = 0;
-	uint16 weight = 0;
+	uint32_t money = 0;
+	uint16_t weight = 0;
 
 	CUser *pUser = g_pMain->GetUserPtr(m_sExchangeUser);
 	if (pUser == nullptr)
@@ -362,8 +362,8 @@ bool CUser::CheckExchange()
 		return false;
 
 	// Get the total number of free slots in the player's inventory
-	uint8 bFreeSlots = 0, bItemCount = 0;
-	for (uint8 i = SLOT_MAX; i < SLOT_MAX+HAVE_MAX; i++)
+	uint8_t bFreeSlots = 0, bItemCount = 0;
+	for (uint8_t i = SLOT_MAX; i < SLOT_MAX+HAVE_MAX; i++)
 	{
 		_ITEM_DATA * pItem = GetItem(i);
 		if (pItem->nNum == 0)
@@ -450,7 +450,7 @@ bool CUser::ExecuteExchange()
 
 		// Set destination position for use in packet to client
 		// to let them know where the item is.
-		(*Iter)->bDstPos = (uint8) (nSlot - SLOT_MAX);
+		(*Iter)->bDstPos = (uint8_t) (nSlot - SLOT_MAX);
 
 		// Remove the item from the other player.
 		if (pSrcItem->sCount == 0)

@@ -42,7 +42,7 @@ bool CUINationSelectDlg::Load(HANDLE hFile)
 	return bSuccess;
 }
 
-bool CUINationSelectDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUINationSelectDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 

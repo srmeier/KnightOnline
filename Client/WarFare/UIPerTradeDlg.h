@@ -52,8 +52,8 @@ public:
 	virtual ~CUIPerTradeDlg();
 	void				Release();
 
-	virtual DWORD		MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void				Render();
 	void				LeavePerTradeState();
 	void				EnterPerTradeState();

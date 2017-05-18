@@ -95,7 +95,7 @@ public:
 #ifdef _USE_VERTEXBUFFER
 	void			PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
 #else
-	void			PartialRender(int iCount, WORD* pIndices);
+	void			PartialRender(int iCount, uint16_t* pIndices);
 #endif
 };
 
@@ -157,7 +157,7 @@ public:
 #ifdef _USE_VERTEXBUFFER
 	void			PartialRender(size_t iPartIndex, int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
 #else
-	void			PartialRender(size_t iPartIndex, int iCount, WORD* pIndices);
+	void			PartialRender(size_t iPartIndex, int iCount, uint16_t* pIndices);
 #endif
 	int				GetIndexbufferCount(size_t iPartIndex);
 	int				GetIndexByiOrder(size_t iPartIndex, int iOrder);

@@ -68,7 +68,7 @@ void CUITradeEditDlg::SetQuantity(int iQuantity) // "edit_trade" Edit Control ¿¡
 	pEdit->SetString(szBuff);
 }
 
-bool CUITradeEditDlg::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUITradeEditDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 

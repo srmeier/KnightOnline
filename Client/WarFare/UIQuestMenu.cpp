@@ -102,7 +102,7 @@ bool CUIQuestMenu::Load(HANDLE hFile)
 }
 
 //-----------------------------------------------------------------------------
-bool CUIQuestMenu::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
+bool CUIQuestMenu::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 {
 	if( dwMsg == UIMSG_STRING_LCLICK )
 	{
@@ -130,7 +130,7 @@ bool CUIQuestMenu::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 void CUIQuestMenu::MsgSend_SelectMenu(Uint8 index)
 {
 	// TODO(srmeier): will have to look into whether bySelectedReward needs adding
-	BYTE byBuff[10];
+	uint8_t byBuff[10];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SELECT_MSG);

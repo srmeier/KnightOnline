@@ -19,7 +19,7 @@ protected:
 	__Vector3*	m_pVertices; // 점 버퍼
 	int			m_nVC; // 점 갯수
 
-	WORD*		m_pwIndices; // Index...
+	uint16_t*		m_pwIndices; // Index...
 	int			m_nIC; // Index Count
 
 	__Vector3	m_vMin;
@@ -42,7 +42,7 @@ public:
 	__Vector3*	Vertices() { return m_pVertices; }
 
 	int			IndexCount() { return m_nIC; }
-	WORD*		Indices() { return m_pwIndices; }
+	uint16_t*		Indices() { return m_pwIndices; }
 
 	bool		Load(HANDLE hFile);
 #ifdef _N3TOOL

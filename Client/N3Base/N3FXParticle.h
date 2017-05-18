@@ -32,7 +32,7 @@ public:
 	float		m_fRot;			//
 	__Vector3	m_vLcPos;		//로컬...
 	__Vector3	m_vWdPos;		//	
-	DWORD		m_dwColor;		//
+	uint32_t		m_dwColor;		//
 	float		m_fSize;		//원래크기
 	//float		m_fCurrSize;	//현재
 

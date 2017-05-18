@@ -92,7 +92,7 @@ int SDL_main(int argc, char** argv)
 	int iWindowCursor = GetPrivateProfileInt("Cursor", "WindowCursor", 1, szIniPath);
 	CN3Base::s_Options.bWindowCursor = (iWindowCursor) ? true : false; // cursor...
 
-	srand((unsigned int) time(NULL));
+	srand((uint32_t) time(NULL));
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		fprintf(stderr, "ER: %s\n", SDL_GetError());

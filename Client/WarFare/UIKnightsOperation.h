@@ -76,7 +76,7 @@ public:
 
 	void	EnableKnightsUIs(bool bEnable);
 	
-	virtual		bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual		bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	virtual		bool Load(HANDLE hFile);
 
 	virtual void Release();

@@ -578,14 +578,14 @@ enum {	RESRC_UI_LOGIN = 0, RESRC_UI_CHARACTERSELECT, RESRC_UI_CHARACTERCREATE, R
 
 typedef struct __TABLE_TEXTS
 {
-	uint32		dwID;
+	uint32_t		dwID;
 	std::string	szText;
 } TABLE_TEXTS;
 
 // NOTE: temp 1298 zone structure
 typedef struct __TABLE_ZONE
 {
-	DWORD       dwID;                 // zone ID
+	uint32_t       dwID;                 // zone ID
 	std::string	szTerrainFN;          // GTD
 
 	std::string szName;
@@ -607,10 +607,10 @@ typedef struct __TABLE_ZONE
 	std::string szENSFN;              // ENS
 	float       fIdk1;                // idk
 	std::string szFLAGFN;             // FLAG
-	DWORD       iIdk2;
-	DWORD       iIdk3;
-	DWORD       iIdk4;
-	DWORD       iIdk5;
+	uint32_t       iIdk2;
+	uint32_t       iIdk3;
+	uint32_t       iIdk4;
+	uint32_t       iIdk5;
 	std::string szOPDSUBFN;           // OPDSUB
 	int         iIdk6;
 	std::string szEVTSUB;             // EVTSUB
@@ -619,9 +619,9 @@ typedef struct __TABLE_ZONE
 /*
 typedef struct __TABLE_ZONE
 {
-	DWORD		dwID; // zone ID
+	uint32_t		dwID; // zone ID
 
-	//DWORD       dwVersion;
+	//uint32_t       dwVersion;
 
 	std::string	szTerrainFN; // Terrain FileName - Terrain, Tile Map, ColorMap....
 	std::string	szColorMapFN;
@@ -644,7 +644,7 @@ typedef struct __TABLE_ZONE
 
 typedef struct __TABLE_UI_RESRC
 {
-	DWORD dwID;							// 플레이어의 소속 국가에 따른 키로 쓴다..
+	uint32_t dwID;							// 플레이어의 소속 국가에 따른 키로 쓴다..
 
 	std::string szLogIn;				// 0
 	std::string szCmd;					// 1
@@ -725,53 +725,53 @@ typedef struct __TABLE_UI_RESRC
 
 typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...
 {
-	DWORD		dwID;				// 00 코드화된 아이템번호 d - // 00 - Item 종류, 00 - Item 장착 위치(장착위치로 Plug 인지 Part 인지 판단이 가능하다.) - 0000 - ItemIndex
-	BYTE 		byExtIndex;			// 01 확장 인덱스
+	uint32_t		dwID;				// 00 코드화된 아이템번호 d - // 00 - Item 종류, 00 - Item 장착 위치(장착위치로 Plug 인지 Part 인지 판단이 가능하다.) - 0000 - ItemIndex
+	uint8_t 		byExtIndex;			// 01 확장 인덱스
 	std::string	szName;				// 02 이름	
 	std::string	szRemark;			// 03 아이템 설명	
 
-	DWORD   dwIDK0;
-	BYTE    byIDK1;
+	uint32_t   dwIDK0;
+	uint8_t    byIDK1;
 
-	DWORD   dwIDResrc;			// 04 코드화된 아이템 리소스	d
-	DWORD   dwIDIcon;			// 05 코드화된 아이템 아이콘 리소스	d
-	DWORD   dwSoundID0;			// 06 Sound ID - 0 이면 사운드 없다~..
-	DWORD   dwSoundID1;			// 07 Sound ID - 0 이면 사운드 없다~..
+	uint32_t   dwIDResrc;			// 04 코드화된 아이템 리소스	d
+	uint32_t   dwIDIcon;			// 05 코드화된 아이템 아이콘 리소스	d
+	uint32_t   dwSoundID0;			// 06 Sound ID - 0 이면 사운드 없다~..
+	uint32_t   dwSoundID1;			// 07 Sound ID - 0 이면 사운드 없다~..
 
-	BYTE	byClass;			// 08 아이템 형태	b enum e_ItemClass 참조....
-	BYTE	byIsRobeType;		// 09 위아래가 통째로 된 로브타입의 아이템.....
-	BYTE	byAttachPoint;		// 10 장착 위치	b
-	BYTE	byNeedRace;			// 11 종족	b
-	BYTE	byNeedClass;		// 12 직업	b
+	uint8_t	byClass;			// 08 아이템 형태	b enum e_ItemClass 참조....
+	uint8_t	byIsRobeType;		// 09 위아래가 통째로 된 로브타입의 아이템.....
+	uint8_t	byAttachPoint;		// 10 장착 위치	b
+	uint8_t	byNeedRace;			// 11 종족	b
+	uint8_t	byNeedClass;		// 12 직업	b
 
-	short	siDamage;			// 13 무기타격	b
-	short	siAttackInterval;	// 14 공격 시간 100 은 1 초
-	short	siAttackRange;		// 15 유효 거리	.1 meter 단위
-	short	siWeight;			// 16 무게 .1 중량단위
-	short	siMaxDurability;	// 17 내구력
+	int16_t	siDamage;			// 13 무기타격	b
+	int16_t	siAttackInterval;	// 14 공격 시간 100 은 1 초
+	int16_t	siAttackRange;		// 15 유효 거리	.1 meter 단위
+	int16_t	siWeight;			// 16 무게 .1 중량단위
+	int16_t	siMaxDurability;	// 17 내구력
 	int		iPrice;				// 18 매수가
 	int		iPriceSale;			// 19 매도가
-	short	siDefense;			// 20 방어력
-	BYTE	byContable;			// 21 숫자가 있는 아이템인가??
+	int16_t	siDefense;			// 20 방어력
+	uint8_t	byContable;			// 21 숫자가 있는 아이템인가??
 
-	DWORD	dwEffectID1;		// 22 마법 효과 ID1
-	DWORD	dwEffectID2;		// 23 마법 효과 ID1
+	uint32_t	dwEffectID1;		// 22 마법 효과 ID1
+	uint32_t	dwEffectID2;		// 23 마법 효과 ID1
 
 	char	cNeedLevel;		// 24 요구 레벨		플레이어의 iLeve.. - 음수값이 있을수도 있다..
 
 	char    cIDK2;
 
-	BYTE	byNeedRank;			// 25 요구 작위		플레이어의 iRank..
-	BYTE	byNeedTitle;		// 26 요구 타이틀 	플레이어의 iTitle..
-	BYTE	byNeedStrength;		// 27 요구 힘 		플레이어의 iStrength..
-	BYTE	byNeedStamina;		// 28 요구 정력 	플레이어의 iStamina..
-	BYTE	byNeedDexterity;	// 29 요구 민첩		플레이어의 iDexterity..
-	BYTE	byNeedInteli;		// 30 요구 지능		플레이어의 iIntelligence..
-	BYTE	byNeedMagicAttack;	// 31 요구 마력		플레이어의 iMagicAttak..
+	uint8_t	byNeedRank;			// 25 요구 작위		플레이어의 iRank..
+	uint8_t	byNeedTitle;		// 26 요구 타이틀 	플레이어의 iTitle..
+	uint8_t	byNeedStrength;		// 27 요구 힘 		플레이어의 iStrength..
+	uint8_t	byNeedStamina;		// 28 요구 정력 	플레이어의 iStamina..
+	uint8_t	byNeedDexterity;	// 29 요구 민첩		플레이어의 iDexterity..
+	uint8_t	byNeedInteli;		// 30 요구 지능		플레이어의 iIntelligence..
+	uint8_t	byNeedMagicAttack;	// 31 요구 마력		플레이어의 iMagicAttak..
 
-	BYTE	bySellGroup;		// 32 상인이 파는데에 대한 그룹..
+	uint8_t	bySellGroup;		// 32 상인이 파는데에 대한 그룹..
 
-	BYTE    byIDK3;
+	uint8_t    byIDK3;
 } TABLE_ITEM_BASIC;
 
 const int MAX_ITEM_EXTENSION = 23; // 확장 아이템 테이블 갯수.
@@ -781,81 +781,81 @@ const int ITEM_LIMITED_EXHAUST = 17;
 
 typedef struct __TABLE_ITEM_EXT // 장착 아이템에 관한 리소스 레코드...
 {
-	DWORD		dwID;				// 00 코드화된 아이템번호 - // 00 - Item 종류, 00 - Item 장착 위치(장착위치로 Plug 인지 Part 인지 판단이 가능하다.) - 0000 - ItemIndex
+	uint32_t		dwID;				// 00 코드화된 아이템번호 - // 00 - Item 종류, 00 - Item 장착 위치(장착위치로 Plug 인지 Part 인지 판단이 가능하다.) - 0000 - ItemIndex
 	std::string	szHeader;			// 01 접두사
 
-	DWORD dwIDK1;
+	uint32_t dwIDK1;
 
 	std::string	szRemark;			// 02 아이템 설명	
 
-	DWORD dwIDK0; // TODO: will need to implement this one
-	DWORD dwIDK2;
-	DWORD dwIDK3;
+	uint32_t dwIDK0; // TODO: will need to implement this one
+	uint32_t dwIDK2;
+	uint32_t dwIDK3;
 
-	BYTE		byMagicOrRare;		// 03 매직 혹은 레어 아이템인지...
+	uint8_t		byMagicOrRare;		// 03 매직 혹은 레어 아이템인지...
 
-	short	siDamage;				// 04 무기타격
-	short	siAttackIntervalPercentage;		// 05 공격 시간 비율
-	short	siHitRate;				// 06 타격률	- 퍼센트
-	short	siEvationRate;			// 07 회피율	-   "
+	int16_t	siDamage;				// 04 무기타격
+	int16_t	siAttackIntervalPercentage;		// 05 공격 시간 비율
+	int16_t	siHitRate;				// 06 타격률	- 퍼센트
+	int16_t	siEvationRate;			// 07 회피율	-   "
 
-	short	siMaxDurability;		// 08 내구력
-	short	siPriceMultiply;		// 09 매수가 배율
-	short	siDefense;				// 10 방어력
+	int16_t	siMaxDurability;		// 08 내구력
+	int16_t	siPriceMultiply;		// 09 매수가 배율
+	int16_t	siDefense;				// 10 방어력
 	
-	short	siDefenseRateDagger;	// 11 단검방어	- 퍼센트
-	short	siDefenseRateSword;		// 12 검방어	- 퍼센트
-	short	siDefenseRateBlow;		// 13 타격방어	- 퍼센트
-	short	siDefenseRateAxe;		// 14 도끼방어	- 퍼센트
-	short	siDefenseRateSpear;		// 15 창방어	- 퍼센트
-	short	siDefenseRateArrow;		// 16 화살방어	- 퍼센트
+	int16_t	siDefenseRateDagger;	// 11 단검방어	- 퍼센트
+	int16_t	siDefenseRateSword;		// 12 검방어	- 퍼센트
+	int16_t	siDefenseRateBlow;		// 13 타격방어	- 퍼센트
+	int16_t	siDefenseRateAxe;		// 14 도끼방어	- 퍼센트
+	int16_t	siDefenseRateSpear;		// 15 창방어	- 퍼센트
+	int16_t	siDefenseRateArrow;		// 16 화살방어	- 퍼센트
 	
-	BYTE	byDamageFire;			// 17 추가데미지 - 불
-	BYTE	byDamageIce;			// 18 추가데미지 - 얼음
-	BYTE	byDamageThuner;			// 19 추가데미지 - 전격
-	BYTE	byDamagePoison;			// 20 추가데미지 - 독
+	uint8_t	byDamageFire;			// 17 추가데미지 - 불
+	uint8_t	byDamageIce;			// 18 추가데미지 - 얼음
+	uint8_t	byDamageThuner;			// 19 추가데미지 - 전격
+	uint8_t	byDamagePoison;			// 20 추가데미지 - 독
 
-	BYTE	byStillHP;				// 21 HP 흡수
-	BYTE	byDamageMP;				// 22 MP Damage
-	BYTE	byStillMP;				// 23 MP 흡수
-	BYTE	byReturnPhysicalDamage;	// 24 물리타격 반사
+	uint8_t	byStillHP;				// 21 HP 흡수
+	uint8_t	byDamageMP;				// 22 MP Damage
+	uint8_t	byStillMP;				// 23 MP 흡수
+	uint8_t	byReturnPhysicalDamage;	// 24 물리타격 반사
 
-	BYTE	bySoulBind;				// 25소울 바인드 - 일대일시 아이템을 떨구는 정도 - 퍼센트 - 현재는 안쓴다.
+	uint8_t	bySoulBind;				// 25소울 바인드 - 일대일시 아이템을 떨구는 정도 - 퍼센트 - 현재는 안쓴다.
 	
-	short	siBonusStr;				// 26 힘 보너스
-	short	siBonusSta;				// 27 체력 보너스
-	short	siBonusDex;				// 28 민첩성 보너스
-	short	siBonusInt;				// 29 지능 보너스
-	short	siBonusMagicAttak;		// 30 마력 보너스
-	short	siBonusHP;				// 31 HP 보너스
-	short	siBonusMSP;				// 32 MSP 보너스
+	int16_t	siBonusStr;				// 26 힘 보너스
+	int16_t	siBonusSta;				// 27 체력 보너스
+	int16_t	siBonusDex;				// 28 민첩성 보너스
+	int16_t	siBonusInt;				// 29 지능 보너스
+	int16_t	siBonusMagicAttak;		// 30 마력 보너스
+	int16_t	siBonusHP;				// 31 HP 보너스
+	int16_t	siBonusMSP;				// 32 MSP 보너스
 
-	short	siRegistFire;			// 33 불 저항
-	short	siRegistIce;			// 34 냉기 저항
-	short	siRegistElec;			// 35 전기 저항
-	short	siRegistMagic;			// 36 마법 저항
-	short	siRegistPoison;			// 37 독 저항
-	short	siRegistCurse;			// 38 저주 저항
+	int16_t	siRegistFire;			// 33 불 저항
+	int16_t	siRegistIce;			// 34 냉기 저항
+	int16_t	siRegistElec;			// 35 전기 저항
+	int16_t	siRegistMagic;			// 36 마법 저항
+	int16_t	siRegistPoison;			// 37 독 저항
+	int16_t	siRegistCurse;			// 38 저주 저항
 	
-	DWORD	dwEffectID1;		// 39 마법 효과 ID1
-	DWORD	dwEffectID2;		// 40 마법 효과 ID2
+	uint32_t	dwEffectID1;		// 39 마법 효과 ID1
+	uint32_t	dwEffectID2;		// 40 마법 효과 ID2
 
-	short	siNeedLevel;			// 41 요구 레벨		플레이어의 iLeve..
-	short	siNeedRank;				// 42 요구 작위		플레이어의 iRank..
-	short	siNeedTitle;			// 43 요구 타이틀 	플레이어의 iTitle..
-	short	siNeedStrength;			// 44 요구 힘 		플레이어의 iStrength..
-	short	siNeedStamina;			// 45 요구 정력 	플레이어의 iStamina..
-	short	siNeedDexterity;		// 46 요구 민첩		플레이어의 iDexterity..
-	short	siNeedInteli;			// 47 요구 지능		플레이어의 iIntelligence..
-	short	siNeedMagicAttack;		// 48 요구 마력		플레이어의 iMagicAttak..
+	int16_t	siNeedLevel;			// 41 요구 레벨		플레이어의 iLeve..
+	int16_t	siNeedRank;				// 42 요구 작위		플레이어의 iRank..
+	int16_t	siNeedTitle;			// 43 요구 타이틀 	플레이어의 iTitle..
+	int16_t	siNeedStrength;			// 44 요구 힘 		플레이어의 iStrength..
+	int16_t	siNeedStamina;			// 45 요구 정력 	플레이어의 iStamina..
+	int16_t	siNeedDexterity;		// 46 요구 민첩		플레이어의 iDexterity..
+	int16_t	siNeedInteli;			// 47 요구 지능		플레이어의 iIntelligence..
+	int16_t	siNeedMagicAttack;		// 48 요구 마력		플레이어의 iMagicAttak..
 } TABLE_ITEM_EXT;
 
 const int MAX_NPC_SHOP_ITEM = 30;
 typedef struct __TABLE_NPC_SHOP
 {
-	DWORD		dwNPCID;
+	uint32_t		dwNPCID;
 	std::string	szName;
-	DWORD		dwItems[MAX_NPC_SHOP_ITEM];
+	uint32_t		dwItems[MAX_NPC_SHOP_ITEM];
 } TABLE_NPC_SHOP;
 
 enum e_ItemType { ITEM_TYPE_PLUG = 1, ITEM_TYPE_PART, ITEM_TYPE_ICONONLY, ITEM_TYPE_GOLD = 9, ITEM_TYPE_SONGPYUN = 10, ITEM_TYPE_UNKNOWN = 0xffffffff };
@@ -876,7 +876,7 @@ enum e_ItemSlot {	ITEM_SLOT_EAR_RIGHT = 0,	ITEM_SLOT_HEAD	= 1,	ITEM_SLOT_EAR_LEF
 
 typedef struct __TABLE_PLAYER_LOOKS // NPC, Mob 모습 관한 리소스 레코드...
 {
-	DWORD		dwID; // NPC 고유 ID
+	uint32_t		dwID; // NPC 고유 ID
 	std::string	szName; // 캐릭터 이름
 	std::string	szJointFN; // 관절 파일 이름
 	std::string	szAniFN; // 에니메이션 파일 이름
@@ -904,27 +904,27 @@ typedef struct __TABLE_PLAYER_LOOKS // NPC, Mob 모습 관한 리소스 레코드...
 
 	int  iIdk2;
 	int  iIdk3;
-	BYTE bIdk4;
-	BYTE bIdk5;
-	BYTE bIdk6;
+	uint8_t bIdk4;
+	uint8_t bIdk5;
+	uint8_t bIdk6;
 } TABLE_PLAYER;
 
 typedef struct __TABLE_EXCHANGE_QUEST
 {
-	DWORD		dwID;					// 퀘스트 번호..	0
-	DWORD		dwNpcNum;				// npc 번호..	1
+	uint32_t		dwID;					// 퀘스트 번호..	0
+	uint32_t		dwNpcNum;				// npc 번호..	1
 	std::string szDesc;					// 설명..		2
 	int			iCondition0;			// 조건 1..		3
 	int			iCondition1;			// 조건 2..		4
 	int			iCondition2;			// 조건 3..		5
 	int			iCondition3;			// 조건 4..		6
 	int			iNeedGold;				// 요구 노아..	7	
-	BYTE		bNeedLevel;				// 요구 레벨	8
-	BYTE		bNeedClass;				// 요구 직업	9
-	BYTE		bNeedRank;				// 요구 작위	10	
-	BYTE		bNeedExtra1;			// 요구 여분1	11	
-	BYTE		bNeedExtra2;			// 요구 여분2	12
-	BYTE		bCreatePercentage;		// 생성 확률	13
+	uint8_t		bNeedLevel;				// 요구 레벨	8
+	uint8_t		bNeedClass;				// 요구 직업	9
+	uint8_t		bNeedRank;				// 요구 작위	10	
+	uint8_t		bNeedExtra1;			// 요구 여분1	11	
+	uint8_t		bNeedExtra2;			// 요구 여분2	12
+	uint8_t		bCreatePercentage;		// 생성 확률	13
 	int			iArkTuarek;				// 아크 투아렉..	14	
 	int			iTuarek;				// 투아렉..			15
 	int			iRinkleTuarek;			// 링클 투아렉..	16
@@ -938,7 +938,7 @@ typedef struct __TABLE_EXCHANGE_QUEST
 
 typedef struct __TABLE_UPC_SKILL
 {
-	DWORD		dwID;				// SKILL 고유 ID
+	uint32_t		dwID;				// SKILL 고유 ID
 	std::string	szEngName;			// 스킬 영어 이름
 	std::string	szName;				// 스킬 한글 이름
 	std::string	szDesc;				// 스킬 이름
@@ -960,8 +960,8 @@ typedef struct __TABLE_UPC_SKILL
 	int			iExhaustMSP;		// 소모 MSP
 
 	int			iExhaustHP;			// 소모 HP
-	DWORD		dwNeedItem;			// 요구 아이템 e_ItemClass 참조.. 10을 나눈값이다..
-	DWORD		dwExhaustItem;
+	uint32_t		dwNeedItem;			// 요구 아이템 e_ItemClass 참조.. 10을 나눈값이다..
+	uint32_t		dwExhaustItem;
 	int			iCastTime;			// 캐스팅 시간
 	int			iReCastTime;		// 다시 캐스팅할때까지 걸리는 시간.
 	
@@ -969,8 +969,8 @@ typedef struct __TABLE_UPC_SKILL
 	float fIDK1; // 1298
 
 	int			iPercentSuccess;	// 성공률
-	DWORD		dw1stTableType;		// 첫번째 타입.
-	DWORD		dw2ndTableType;		// 두번째 타입.
+	uint32_t		dw1stTableType;		// 첫번째 타입.
+	uint32_t		dw2ndTableType;		// 두번째 타입.
 	int			iValidDist;			// 유효거리
 
 	int	iIDK2; // 1298
@@ -979,7 +979,7 @@ typedef struct __TABLE_UPC_SKILL
 
 typedef struct __TABLE_UPC_SKILL_TYPE_1
 {
-	DWORD		dwID;			// SKILL 고유 ID
+	uint32_t		dwID;			// SKILL 고유 ID
 	int			iSuccessType;	// 성공타입.
 	int			iSuccessRatio;	// 성공률
 	int			iPower;			// 공격력
@@ -993,7 +993,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_1
 
 typedef struct __TABLE_UPC_SKILL_TYPE_2
 {
-	DWORD		dwID;			// SKILL 고유 ID
+	uint32_t		dwID;			// SKILL 고유 ID
 	int			iSuccessType;	// 성공타입.
 	int			iPower;			// 공격력
 	int iIdk1;
@@ -1003,7 +1003,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_2
 
 typedef struct __TABLE_UPC_SKILL_TYPE_3
 {
-	DWORD		dwID;			// SKILL 고유 ID
+	uint32_t		dwID;			// SKILL 고유 ID
 	int iIdk1;
 	int			iDDType;
 	int			iStartDamage;
@@ -1014,7 +1014,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_3
 
 typedef struct __TABLE_UPC_SKILL_TYPE_4
 {
-	DWORD		dwID;			// 일련번호
+	uint32_t		dwID;			// 일련번호
 
 	int iIDK0;
 	int iIDK1;
@@ -1047,88 +1047,88 @@ typedef struct __TABLE_UPC_SKILL_TYPE_4
 
 typedef struct __TABLE_UPC_SKILL_TYPE_5
 {
-	DWORD		dwID;			// 일련번호
-	DWORD		dwTarget;		// 타겟
+	uint32_t		dwID;			// 일련번호
+	uint32_t		dwTarget;		// 타겟
 	int			iSuccessRatio;	// 성공률
 	int			iValidDist;		// 유효거리
 	int			iRadius;		// 반경
 	float		fCastTime;		// 캐스팅타임
 	float		fRecastTime;	// 리캐스팅타임
 	int			iDurationTime;	// 지속시간
-	DWORD		dwExhaustItem;	// 소모아이템
-	DWORD		dwFX;			// 마법효과
+	uint32_t		dwExhaustItem;	// 소모아이템
+	uint32_t		dwFX;			// 마법효과
 } TABLE_UPC_SKILL_TYPE_5;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_6
 {
-	DWORD		dwID;			// 일련번호
-	DWORD		dwTarget;		// 타겟
+	uint32_t		dwID;			// 일련번호
+	uint32_t		dwTarget;		// 타겟
 	int			iSuccessRatio;	// 성공률
 	int			iValidDist;		// 유효거리
 	int			iRadius;		// 반경
 	float		fCastTime;		// 캐스팅타임
 	float		fRecastTime;	// 리캐스팅타임
 	int			iDurationTime;	// 지속시간
-	DWORD		dwExhaustItem;	// 소모아이템
-	DWORD		dwFX;			// 마법효과
-	DWORD		dwTranform;		// 변신
+	uint32_t		dwExhaustItem;	// 소모아이템
+	uint32_t		dwFX;			// 마법효과
+	uint32_t		dwTranform;		// 변신
 } TABLE_UPC_SKILL_TYPE_6;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_7
 {
-	DWORD		dwID;			// 일련번호
-	DWORD		dwTarget;		// 타겟
-	DWORD		dwValidGroup;	// 유효그룹
+	uint32_t		dwID;			// 일련번호
+	uint32_t		dwTarget;		// 타겟
+	uint32_t		dwValidGroup;	// 유효그룹
 	int			iSuccessRatio;	// 성공률
 	int			iValidDist;		// 유효거리
 	int			iRadius;		// 반경
 	float		fCastTime;		// 캐스팅타임
 	float		fRecastTime;	// 리캐스팅타임
 	int			iDurationTime;	// 지속시간
-	DWORD		dwExhaustItem;	// 소모아이템
-	DWORD		dwFX;			// 마법효과	
+	uint32_t		dwExhaustItem;	// 소모아이템
+	uint32_t		dwFX;			// 마법효과	
 } TABLE_UPC_SKILL_TYPE_7;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_8
 {
-	DWORD		dwID;			// 일련번호
-	DWORD		dwTarget;		// 타겟
+	uint32_t		dwID;			// 일련번호
+	uint32_t		dwTarget;		// 타겟
 	int			iRadius;		// 반경
-	DWORD		dwWarpType;		// 순간이동타임
+	uint32_t		dwWarpType;		// 순간이동타임
 	float		fRefillEXP;		// 경험치회복
-	DWORD		dwZone1;		// 존넘버1
-	DWORD		dwZone2;		// 존넘버2
-	DWORD		dwZone3;		// 존넘버3
-	DWORD		dwZone4;		// 존넘버4
-	DWORD		dwZone5;		// 존넘버5
+	uint32_t		dwZone1;		// 존넘버1
+	uint32_t		dwZone2;		// 존넘버2
+	uint32_t		dwZone3;		// 존넘버3
+	uint32_t		dwZone4;		// 존넘버4
+	uint32_t		dwZone5;		// 존넘버5
 } TABLE_UPC_SKILL_TYPE_8;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_9
 {
-	DWORD		dwID;			// 일련번호
-	DWORD		dwTarget;		// 타겟
+	uint32_t		dwID;			// 일련번호
+	uint32_t		dwTarget;		// 타겟
 	int			iSuccessRatio;	// 성공률
 	int			iValidDist;		// 유효거리
 	int			iRadius;		// 반경
 	float		fCastTime;		// 캐스팅타임
 	float		fRecastTime;	// 리캐스팅타임
 	int			iDurationTime;	// 지속시간
-	DWORD		dwExhaustItem;	// 소모아이템
-	DWORD		dwAttr;			// 속성
+	uint32_t		dwExhaustItem;	// 소모아이템
+	uint32_t		dwAttr;			// 속성
 	int			iDamage;		// 대미지	
 } TABLE_UPC_SKILL_TYPE_9;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_10
 {
-	DWORD		dwID;			// 일련번호
-	DWORD		dwTarget;		// 타겟
+	uint32_t		dwID;			// 일련번호
+	uint32_t		dwTarget;		// 타겟
 	int			iSuccessRatio;	// 성공률
 	int			iValidDist;		// 유효거리
 	int			iRadius;		// 반경
 	float		fCastTime;		// 캐스팅타임
 	float		fRecastTime;	// 리캐스팅타임
-	DWORD		dwExhaustItem;	// 소모아이템
-	DWORD		dwRemoveAttr;	// 제거속성	
+	uint32_t		dwExhaustItem;	// 소모아이템
+	uint32_t		dwRemoveAttr;	// 제거속성	
 } TABLE_UPC_SKILL_TYPE_10;
 
 //마법테이블...
@@ -1136,13 +1136,13 @@ typedef struct __TABLE_UPC_SKILL_TYPE_10
 
 typedef struct __TABLE_QUEST_MENU
 {
-	DWORD		dwID;		// 일련번호
+	uint32_t		dwID;		// 일련번호
 	std::string szMenu;		// 선택 메뉴
 } TABLE_QUEST_MENU;
 
 typedef struct __TABLE_QUEST_TALK
 {
-	DWORD		dwID;		// 일련번호
+	uint32_t		dwID;		// 일련번호
 	std::string szTalk;		// 퀘스트 지문
 } TABLE_QUEST_TALK;
 
@@ -1239,10 +1239,10 @@ enum e_SkillMagicTaget	{	SKILLMAGIC_TARGET_SELF = 1,				// 나 자신..
 //define fx...
 typedef struct __TABLE_FX	// FX 리소스 레코드...
 {
-	DWORD		dwID;		// 고유 ID
+	uint32_t		dwID;		// 고유 ID
 	std::string szName; // NOTE: adding the name of the FX
 	std::string	szFN;		// file name
-	DWORD		dwSoundID;	// 효과에 쓰는 사운드 아디.
+	uint32_t		dwSoundID;	// 효과에 쓰는 사운드 아디.
 } TABLE_FX;
 
 const int	MAX_COMBO = 3;
@@ -1307,7 +1307,7 @@ enum e_ObjectType	{	OBJECT_TYPE_BINDPOINT,
 //definitions related clan....
 const int	CLAN_LEVEL_LIMIT	= 20;
 const int	CLAN_COST			= 500000;
-const DWORD KNIGHTS_FONT_COLOR	= 0xffff0000; // 기사단(클랜)이름 폰트 컬러..
+const uint32_t KNIGHTS_FONT_COLOR	= 0xffff0000; // 기사단(클랜)이름 폰트 컬러..
 
 enum e_Cursor		{	CURSOR_ATTACK,
 						CURSOR_EL_NORMAL,

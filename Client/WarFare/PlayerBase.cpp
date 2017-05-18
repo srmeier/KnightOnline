@@ -126,7 +126,7 @@ CPlayerBase::CPlayerBase()
 	m_pvVertex[2].Set( SHADOW_PLANE_SIZE, 0.0f, -SHADOW_PLANE_SIZE, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f);
 	m_pvVertex[3].Set(-SHADOW_PLANE_SIZE, 0.0f, -SHADOW_PLANE_SIZE, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
 
-	unsigned short*		pIdx = m_pIndex;
+	uint16_t*		pIdx = m_pIndex;
 
 	// ¾Æ·§¸é.
 	*pIdx++ = 0;  *pIdx++ = 1;  *pIdx++ = 3;
@@ -232,7 +232,7 @@ void CPlayerBase::Release()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void CPlayerBase::SetSoundAndInitFont(DWORD dwFontFlag)
+void CPlayerBase::SetSoundAndInitFont(uint32_t dwFontFlag)
 {
 	if(!m_pLooksRef) return;
 	if(true == m_bSoundAllSet) return;
@@ -432,7 +432,7 @@ void CPlayerBase::RenderShadow()
 /*
 	// ±×¸²ÀÚ ·»´õ¸µ.
 	// backup
-	DWORD dwAlpha;
+	uint32_t dwAlpha;
 	s_lpD3DDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlpha);
 
 	// render state ¼¼ÆÃ
@@ -1025,8 +1025,8 @@ void CPlayerBase::Render(float fSunAngle)
 				crFont = m_pBalloonFont->GetFontColor();
 				if(m_fTimeBalloon < 2.0f) // ÃµÃµÈ÷ Èå¸´ÇÏ°Ô ¾ø¾Ø´Ù..
 				{
-					DWORD crFont = m_pBalloonFont->GetFontColor();
-					crFont = (crFont & 0x00ffffff) | ((DWORD)(255 * (m_fTimeBalloon/2.0f))<<24);
+					uint32_t crFont = m_pBalloonFont->GetFontColor();
+					crFont = (crFont & 0x00ffffff) | ((uint32_t)(255 * (m_fTimeBalloon/2.0f))<<24);
 					m_pBalloonFont->SetFontColor(crFont);
 				}
 
@@ -2300,7 +2300,7 @@ void CPlayerBase::RenderShadow(float fAngle)
 		return;
 
 	LPWORD pDst16 = (LPWORD)LR.pBits;
-	WORD dwColor = SHADOW_COLOR;
+	uint16_t dwColor = SHADOW_COLOR;
 	dwColor = dwColor << 12;
 	for( int i = 0; i < SHADOW_SIZE; i++ )
 	{
@@ -2315,7 +2315,7 @@ void CPlayerBase::RenderShadow(float fAngle)
 
 	m_N3Tex.Get()->UnlockRect(0);
  
-	static DWORD dwAlpha, dwFog, dwCull, dwColorVertex, dwMaterial, dwZWrite, 
+	DWORD dwAlpha, dwFog, dwCull, dwColorVertex, dwMaterial, dwZWrite,
 		dwColorOp0, dwColorArg01, dwColorArg02, dwColorOp1, dwColorArg11, dwColorArg12, 
 		dwAlphaOp0, dwAlphaArg01, dwAlphaArg02, dwAlphaOp1, dwAlphaArg11, dwAlphaArg12, dwSrcBlend, dwDestBlend, dwBlendOp,
 		dwMagFilter0, dwMinFilter0, dwMagFilter1, dwMinFilter1;
@@ -2502,7 +2502,7 @@ void CPlayerBase::CalcPlug(CN3CPlugBase* pPlug, const __Matrix44* pmtxJoint, __M
 	__VertexT1*	pVerT1 = NULL;
 	pBuf = pPlug->PMeshInst()->GetVertexBuffer();
 	if (pBuf)
-		pBuf->Lock(0, 0, (BYTE**)(&pVerT1), 0);
+		pBuf->Lock(0, 0, (uint8_t**)(&pVerT1), 0);
 #else 
 	__VertexT1*	pVerT1 = NULL;
 	pVerT1 = pPlug->PMeshInst()->GetVertices();

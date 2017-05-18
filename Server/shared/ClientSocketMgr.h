@@ -3,7 +3,7 @@
 #include <map>
 #include "KOSocketMgr.h"
 
-typedef std::map<uint16, KOSocket *> SessionMap;
+typedef std::map<uint16_t, KOSocket *> SessionMap;
 
 template <class T>
 class ClientSocketMgr : public KOSocketMgr<T>

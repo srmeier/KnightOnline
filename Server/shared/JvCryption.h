@@ -10,18 +10,18 @@ extern "C"
 class CJvCryption
 {
 private:
-	uint64 m_public_key, m_tkey;
+	uint64_t m_public_key, m_tkey;
 
 public:
 	CJvCryption() : m_public_key(0) {}
 
-	INLINE uint64 GetPublicKey() { return m_public_key; }
-	uint64 GenerateKey();
+	INLINE uint64_t GetPublicKey() { return m_public_key; }
+	uint64_t GenerateKey();
 
 	void Init();
 
-	void JvEncryptionFast(int len, uint8 *datain, uint8 *dataout);
-	INLINE void JvDecryptionFast(int len, uint8 *datain, uint8 *dataout) { JvEncryptionFast(len, datain, dataout); };
+	void JvEncryptionFast(int len, uint8_t *datain, uint8_t *dataout);
+	INLINE void JvDecryptionFast(int len, uint8_t *datain, uint8_t *dataout) { JvEncryptionFast(len, datain, dataout); };
 	
-	int JvDecryptionWithCRC32(int len, uint8 *datain, uint8 *dataout);
+	int JvDecryptionWithCRC32(int len, uint8_t *datain, uint8_t *dataout);
 };

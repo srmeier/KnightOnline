@@ -4,7 +4,7 @@ namespace Compression
 {
 	namespace PKWARE
 	{
-		uint8 * CompressWithCRC32(const uint8 * in_data, uint32 in_len, uint32 * out_len, uint32 * checksum);
-		uint8 * DecompressWithCRC32(const uint8 * in_data, uint32 in_len, uint32 original_len, uint32 checksum);
+		uint8_t * CompressWithCRC32(const uint8_t * in_data, uint32_t in_len, uint32_t * out_len, uint32_t * checksum);
+		uint8_t * DecompressWithCRC32(const uint8_t * in_data, uint32_t in_len, uint32_t original_len, uint32_t checksum);
 	}
 }

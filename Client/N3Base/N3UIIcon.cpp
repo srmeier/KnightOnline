@@ -31,9 +31,9 @@ CN3UIIcon::~CN3UIIcon()
 {
 }
 
-DWORD CN3UIIcon::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UIIcon::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 
 	if (!m_bVisible) return dwRet;
 	if ( (m_pParent->GetState() == UI_STATE_COMMON_NONE) || (m_pParent->GetState() == UI_STATE_ICON_MOVING) ) 

@@ -77,7 +77,7 @@ bool CUIDead::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
+bool CUIDead::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 {
 	if( dwMsg == UIMSG_STRING_LCLICK )
 	{
@@ -134,9 +134,9 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, DWORD dwMsg)
 	return true;
 }
 
-DWORD CUIDead::MouseProc(DWORD dwFlags, const POINT &ptCur, const POINT &ptOld)
+uint32_t CUIDead::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POINT &ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 
 	// UI 움직이는 코드
@@ -176,7 +176,7 @@ DWORD CUIDead::MouseProc(DWORD dwFlags, const POINT &ptCur, const POINT &ptOld)
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		DWORD dwChildRet = 0;
+		uint32_t dwChildRet = 0;
 
 		dwChildRet = pChild->MouseProc(dwFlags, ptCur, ptOld);
 		if( pChild->IsVisible() && UI_TYPE_STRING == pChild->UIType() )
@@ -215,7 +215,7 @@ DWORD CUIDead::MouseProc(DWORD dwFlags, const POINT &ptCur, const POINT &ptOld)
 	return dwRet;
 }
 
-void CUIDead::CallBackProc(int iID, DWORD dwFlag)
+void CUIDead::CallBackProc(int iID, uint32_t dwFlag)
 {
 	//TRACE("OnButton ID:%d Btn %d\n",iID, dwFlag);
 
@@ -234,13 +234,13 @@ void CUIDead::CallBackProc(int iID, DWORD dwFlag)
 	}
 }
 
-void CUIDead::MsgSend_Revival(BYTE byType)
+void CUIDead::MsgSend_Revival(uint8_t byType)
 {
 	if(m_bProcessing) return;
 
 	if(CGameProcedure::s_pPlayer->m_iSendRegeneration >= 2) return; // 한번 보내면 다시 죽을때까지 안보내는 플래그
 
-	BYTE byBuff[4];
+	uint8_t byBuff[4];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_REGENE);

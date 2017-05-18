@@ -190,44 +190,44 @@ enum ZoneFlags
 };
 
 // ITEM_SLOT DEFINE
-const uint8 RIGHTEAR			= 0;
-const uint8 HEAD				= 1;
-const uint8 LEFTEAR				= 2;
-const uint8 NECK				= 3;
-const uint8 BREAST				= 4;
-const uint8 SHOULDER			= 5;
-const uint8 RIGHTHAND			= 6;
-const uint8 WAIST				= 7;
-const uint8 LEFTHAND			= 8;
-const uint8 RIGHTRING			= 9;
-const uint8 LEG					= 10;
-const uint8 LEFTRING			= 11;
-const uint8 GLOVE				= 12;
-const uint8 FOOT				= 13;
-const uint8 RESERVED			= 14;
+const uint8_t RIGHTEAR			= 0;
+const uint8_t HEAD				= 1;
+const uint8_t LEFTEAR				= 2;
+const uint8_t NECK				= 3;
+const uint8_t BREAST				= 4;
+const uint8_t SHOULDER			= 5;
+const uint8_t RIGHTHAND			= 6;
+const uint8_t WAIST				= 7;
+const uint8_t LEFTHAND			= 8;
+const uint8_t RIGHTRING			= 9;
+const uint8_t LEG					= 10;
+const uint8_t LEFTRING			= 11;
+const uint8_t GLOVE				= 12;
+const uint8_t FOOT				= 13;
+const uint8_t RESERVED			= 14;
 
-const uint8 CWING				= 42;
-const uint8 CHELMET				= 43;
-const uint8 CLEFT				= 44;
-const uint8 CRIGHT				= 45;
-const uint8 CTOP				= 46;
-const uint8 BAG1				= 47;
-const uint8 BAG2				= 48;
+const uint8_t CWING				= 42;
+const uint8_t CHELMET				= 43;
+const uint8_t CLEFT				= 44;
+const uint8_t CRIGHT				= 45;
+const uint8_t CTOP				= 46;
+const uint8_t BAG1				= 47;
+const uint8_t BAG2				= 48;
 
-const uint8 COSP_WINGS			= 0;
-const uint8 COSP_HELMET			= 1;
-const uint8 COSP_GLOVE			= 2;
-const uint8 COSP_GLOVE2			= 3;
-const uint8 COSP_BREAST			= 4;
+const uint8_t COSP_WINGS			= 0;
+const uint8_t COSP_HELMET			= 1;
+const uint8_t COSP_GLOVE			= 2;
+const uint8_t COSP_GLOVE2			= 3;
+const uint8_t COSP_BREAST			= 4;
 
-const uint8 COSP_BAG1			= 5; // relative bag slot from cospre items
-const uint8 COSP_BAG2			= 6; // relative bag slot from cospre items
+const uint8_t COSP_BAG1			= 5; // relative bag slot from cospre items
+const uint8_t COSP_BAG2			= 6; // relative bag slot from cospre items
 
-const uint8 SLOT_MAX			= 14; // 14 equipped item slots
-const uint8 HAVE_MAX			= 28; // 28 inventory slots
-const uint8 COSP_MAX			= 5; // 5 cospre slots
-const uint8 MBAG_COUNT			= 2; // 2 magic bag slots
-const uint8 MBAG_MAX			= 12; // 12 slots per magic bag
+const uint8_t SLOT_MAX			= 14; // 14 equipped item slots
+const uint8_t HAVE_MAX			= 28; // 28 inventory slots
+const uint8_t COSP_MAX			= 5; // 5 cospre slots
+const uint8_t MBAG_COUNT			= 2; // 2 magic bag slots
+const uint8_t MBAG_MAX			= 12; // 12 slots per magic bag
 
 // Total number of magic bag slots
 #define MBAG_TOTAL			(MBAG_MAX * MBAG_COUNT)
@@ -250,8 +250,8 @@ const uint8 MBAG_MAX			= 12; // 12 slots per magic bag
 // Total slots in the general-purpose inventory storage
 #define INVENTORY_TOTAL		(INVENTORY_MBAG2+MBAG_MAX)
 
-const uint8 WAREHOUSE_MAX	= 192;
-const uint8 MAX_MERCH_ITEMS	= 12;
+const uint8_t WAREHOUSE_MAX	= 192;
+const uint8_t MAX_MERCH_ITEMS	= 12;
 
 #define MAX_MERCH_MESSAGE	40
 
@@ -260,18 +260,18 @@ const int ITEMCOUNT_MAX		= 9999;
 #define MAX_KNIGHTS_MARK	2400
 #define CLAN_SYMBOL_COST	5000000
 
-#define NEWCHAR_SUCCESS						uint8(0)
-#define NEWCHAR_NO_MORE						uint8(1)
-#define NEWCHAR_INVALID_DETAILS				uint8(2)
-#define NEWCHAR_EXISTS						uint8(3)
-#define NEWCHAR_DB_ERROR					uint8(4)
-#define NEWCHAR_INVALID_NAME				uint8(5)
-#define NEWCHAR_BAD_NAME					uint8(6)
-#define NEWCHAR_INVALID_RACE				uint8(7)
-#define NEWCHAR_NOT_SUPPORTED_RACE			uint8(8)
-#define NEWCHAR_INVALID_CLASS				uint8(9)
-#define NEWCHAR_POINTS_REMAINING			uint8(10)
-#define NEWCHAR_STAT_TOO_LOW				uint8(11)
+#define NEWCHAR_SUCCESS						uint8_t(0)
+#define NEWCHAR_NO_MORE						uint8_t(1)
+#define NEWCHAR_INVALID_DETAILS				uint8_t(2)
+#define NEWCHAR_EXISTS						uint8_t(3)
+#define NEWCHAR_DB_ERROR					uint8_t(4)
+#define NEWCHAR_INVALID_NAME				uint8_t(5)
+#define NEWCHAR_BAD_NAME					uint8_t(6)
+#define NEWCHAR_INVALID_RACE				uint8_t(7)
+#define NEWCHAR_NOT_SUPPORTED_RACE			uint8_t(8)
+#define NEWCHAR_INVALID_CLASS				uint8_t(9)
+#define NEWCHAR_POINTS_REMAINING			uint8_t(10)
+#define NEWCHAR_STAT_TOO_LOW				uint8_t(11)
 
 enum ItemFlag
 {
@@ -285,13 +285,13 @@ enum ItemFlag
 
 struct	_ITEM_DATA
 {
-	uint32		nNum;
-	int16		sDuration;
-	uint16		sCount;	
-	uint8		bFlag; // see ItemFlag
-	uint16		sRemainingRentalTime; // in minutes
-	uint32		nExpirationTime; // in unix time
-	uint64		nSerialNum;
+	uint32_t		nNum;
+	int16_t		sDuration;
+	uint16_t		sCount;	
+	uint8_t		bFlag; // see ItemFlag
+	uint16_t		sRemainingRentalTime; // in minutes
+	uint32_t		nExpirationTime; // in unix time
+	uint64_t		nSerialNum;
 	bool		IsSelling;
 
 	INLINE bool isSealed() { return bFlag == ITEM_FLAG_SEALED; }
@@ -310,13 +310,13 @@ enum HairData
 
 struct _MERCH_DATA
 {
-	uint32 nNum;
-	int16 sDuration;
-	uint16 sCount;
-	uint16 bCount;
-	uint64 nSerialNum;
-	uint32 nPrice;
-	uint8 bOriginalSlot;
+	uint32_t nNum;
+	int16_t sDuration;
+	uint16_t sCount;
+	uint16_t bCount;
+	uint64_t nSerialNum;
+	uint32_t nPrice;
+	uint8_t bOriginalSlot;
 	bool IsSoldOut;
 };
 
@@ -360,10 +360,10 @@ enum InvisibilityType
 	INVIS_DISPEL_ON_ATTACK	= 2
 };
 
-int32 myrand(int32 min, int32 max);
-uint64 RandUInt64();
+int32_t myrand(int32_t min, int32_t max);
+uint64_t RandUInt64();
 
-INLINE bool CheckPercent(short percent)
+INLINE bool CheckPercent(int16_t percent)
 {
 	if (percent < 0 || percent > 1000) 
 		return false;

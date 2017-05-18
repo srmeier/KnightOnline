@@ -15,7 +15,7 @@ public:
 	struct __CellSub
 	{
 		int 	nCCPolyCount; // Collision Check Polygon Count
-		uint32*	pdwCCVertIndices; // Collision Check Polygon Vertex Indices - wCCPolyCount * 3
+		uint32_t*	pdwCCVertIndices; // Collision Check Polygon Vertex Indices - wCCPolyCount * 3
 
 		void Load(FILE *fp)
 		{
@@ -30,7 +30,7 @@ public:
 				if (pdwCCVertIndices) 
 					delete [] pdwCCVertIndices;
 
-				pdwCCVertIndices = new uint32[nCCPolyCount * 3];
+				pdwCCVertIndices = new uint32_t[nCCPolyCount * 3];
 				if (fread(pdwCCVertIndices, nCCPolyCount * 3 * 4, 1, fp) != 1)
 				{
 					ASSERT(0);
@@ -46,7 +46,7 @@ public:
 	struct __CellMain
 	{
 		int		nShapeCount; // Shape Count;
-		WORD*	pwShapeIndices; // Shape Indices
+		uint16_t*	pwShapeIndices; // Shape Indices
 		__CellSub SubCells[CELL_MAIN_DEVIDE][CELL_MAIN_DEVIDE];
 
 		void Load(FILE *fp)
@@ -62,7 +62,7 @@ public:
 				if (pwShapeIndices) 
 					delete [] pwShapeIndices;
 
-				pwShapeIndices = new WORD[nShapeCount];
+				pwShapeIndices = new uint16_t[nShapeCount];
 				if (fread(pwShapeIndices, nShapeCount * 2, 1, fp) != 1)
 				{
 					ASSERT(0);

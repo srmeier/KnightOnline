@@ -38,7 +38,7 @@ public:
 	__Vector3		m_vCurrVelocity;
 	__Vector3		m_vCurrPos;
 
-	DWORD			m_dwState;			//	현재 파트의 상태..
+	uint32_t			m_dwState;			//	현재 파트의 상태..
 	__Vector3		m_vPos;				//	번들에서 파트의 위치.
 
 	bool			m_bOnGround;		//바닥에 붙어서 갈 것인가...
@@ -52,16 +52,16 @@ public:
 	float			m_fFadeOut;
 	float			m_fFadeIn;
 
-	DWORD			m_dwRenderFlag;
+	uint32_t			m_dwRenderFlag;
 
-	DWORD			m_dwSrcBlend;
-	DWORD			m_dwDestBlend;
+	uint32_t			m_dwSrcBlend;
+	uint32_t			m_dwDestBlend;
 	BOOL			m_bAlpha;
 
-	DWORD			m_dwZEnable;
-	DWORD			m_dwZWrite;
-	DWORD			m_dwLight;
-	DWORD			m_dwDoubleSide;
+	uint32_t			m_dwZEnable;
+	uint32_t			m_dwZWrite;
+	uint32_t			m_dwLight;
+	uint32_t			m_dwDoubleSide;
 		
 protected:
 	virtual bool	IsDead();

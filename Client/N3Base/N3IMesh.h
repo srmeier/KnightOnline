@@ -18,9 +18,9 @@ protected:
 	int					m_nFC; // »ï°¢Çü °¹¼ö
 
 	int					m_nVC; // Vertex Count
-	WORD*				m_pwVtxIndices; // Á¡ ÀÎµ¦½º ¸®½ºÆ®. 
+	uint16_t*				m_pwVtxIndices; // Á¡ ÀÎµ¦½º ¸®½ºÆ®. 
 	int					m_nUVC; // UV ÁÂÇ¥ Count
-	WORD*				m_pwUVsIndices; // ÅØ½ºÃ³ ÁÂÇ¥ ÀÎµ¦½º ¸®½ºÆ®.
+	uint16_t*				m_pwUVsIndices; // ÅØ½ºÃ³ ÁÂÇ¥ ÀÎµ¦½º ¸®½ºÆ®.
 
 	float*				m_pfUVs; // UV Data - m_nUVC * 2 ¸¸Å­ ÇÒ´çÇÑ´Ù.
 //	LPDIRECT3DVERTEXBUFFER8 m_lpVB;
@@ -46,7 +46,7 @@ public:
 	__VertexXyzNormal*	m_pVertices; // ÁÂÇ¥ Data
 
 	__VertexXyzNormal*	Vertices() { return m_pVertices; }
-	WORD*				VertexInices() { return m_pwVtxIndices; }
+	uint16_t*				VertexInices() { return m_pwVtxIndices; }
 	int					UVCount() { return m_nUVC; }
 #ifdef _N3TOOL
 	void				VertexIndexSet(int index, int nVI) { if(index >= 0 && index < m_nFC*3) m_pwVtxIndices[index] = nVI; }

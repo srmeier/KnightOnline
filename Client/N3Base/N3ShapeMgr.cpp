@@ -131,7 +131,7 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 	{
 		CN3Shape* pShape = NULL;
 		m_Shapes.reserve(iSC);
-		DWORD dwType = 0;
+		uint32_t dwType = 0;
 		for(int i = 0; i < iSC; i++)
 		{
 			ReadFile(hFile, &dwType, 4, &dwRWC, NULL); // Shape Type
@@ -211,7 +211,7 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 
 	if (m_iFileFormatVersion == N3FORMAT_VER_HERO) {
 		// NOTE(srmeier): for the "ah_hapbi_zone.opd" the jump seems to be specifically 0x338 bytes
-		BYTE* tmp = new BYTE[0x338];
+		uint8_t* tmp = new uint8_t[0x338];
 		ReadFile(hFile, tmp, 0x338, &dwRWC, NULL);
 		delete[] tmp;
 	}
@@ -249,7 +249,7 @@ bool CN3ShapeMgr::Save(HANDLE hFile)
 	int iSC = m_Shapes.size();
 	
 	WriteFile(hFile, &iSC, 4, &dwRWC, NULL); // Shape Count
-	DWORD dwType = 0;
+	uint32_t dwType = 0;
 	for(int i = 0; i < iSC; i++)
 	{
 		dwType = m_Shapes[i]->Type();
@@ -355,7 +355,7 @@ void CN3ShapeMgr::GenerateCollisionData()
 		int nIC = pVMesh->IndexCount();
 		if(nIC > 0)
 		{
-			WORD* pwIs = pVMesh->Indices();
+			uint16_t* pwIs = pVMesh->Indices();
 			for(int j = 0; j < nIC; j++)
 			{
 				m_pvCollisions[nCPC++] = pVSrc[pwIs[j]] * m_Shapes[i]->m_Matrix; // 월드 위치이다.
@@ -446,7 +446,7 @@ void CN3ShapeMgr::GenerateCollisionData()
 					float fXMax = (float)((x+1) * CELL_SUB_SIZE);
 
 					// Cohen thuderland algorythm
-					DWORD dwOC0 = 0, dwOC1 = 0; // OutCode 0, 1
+					uint32_t dwOC0 = 0, dwOC1 = 0; // OutCode 0, 1
 					if(vEdge[j][0].z > fZMax) dwOC0 |= 0xf000;
 					if(vEdge[j][0].z < fZMin) dwOC0 |= 0x0f00;
 					if(vEdge[j][0].x > fXMax) dwOC0 |= 0x00f0;
@@ -518,13 +518,13 @@ void CN3ShapeMgr::GenerateCollisionData()
 					// 중복된게 없으면..
 					if(0 == nCCPC) // 첨 생성 되었으면..
 					{
-						pSubCell->pdwCCVertIndices = new DWORD[768];
+						pSubCell->pdwCCVertIndices = new uint32_t[768];
 						memset(pSubCell->pdwCCVertIndices, 0, 768 * 4);
 					}
 //					else // 이미 있으면..
 //					{
-//						DWORD* pwBack = pSubCell->pdwCCVertIndices;
-//						pSubCell->pdwCCVertIndices = new DWORD[(nCCPC+1)*3];
+//						uint32_t* pwBack = pSubCell->pdwCCVertIndices;
+//						pSubCell->pdwCCVertIndices = new uint32_t[(nCCPC+1)*3];
 //						memcpy(pSubCell->pdwCCVertIndices, pwBack, nCCPC * 3 * 4); // 점세개가 하나의 폴리곤이고 워드 인덱스이므로..
 //						delete [] pwBack;
 //					}
@@ -575,12 +575,12 @@ int CN3ShapeMgr::Add(CN3Shape *pShape)
 	int iSC = m_pCells[nX][nZ]->nShapeCount;
 	if(0 == iSC) // 첨 생성 되었으면..
 	{
-		m_pCells[nX][nZ]->pwShapeIndices = new WORD[iSC+1];
+		m_pCells[nX][nZ]->pwShapeIndices = new uint16_t[iSC+1];
 	}
 	else // 이미 있으면..
 	{
-		WORD* pwBack = m_pCells[nX][nZ]->pwShapeIndices;
-		m_pCells[nX][nZ]->pwShapeIndices = new WORD[iSC+1];
+		uint16_t* pwBack = m_pCells[nX][nZ]->pwShapeIndices;
+		m_pCells[nX][nZ]->pwShapeIndices = new uint16_t[iSC+1];
 		memcpy(m_pCells[nX][nZ]->pwShapeIndices, pwBack, iSC * 2);
 		delete [] pwBack;
 	}
@@ -609,7 +609,7 @@ bool CN3ShapeMgr::AddCollisionTriangle(const __Vector3& v1, const __Vector3& v2,
 #endif // end of _N3TOOL
 
 #ifdef _N3TOOL
-void CN3ShapeMgr::MakeMoveTable(short** pMoveArray)
+void CN3ShapeMgr::MakeMoveTable(int16_t** pMoveArray)
 {
 	int ArraySize = (MAX_CELL_MAIN * CELL_MAIN_DEVIDE) + 1;
 
@@ -840,7 +840,7 @@ void CN3ShapeMgr::RenderCollision(__Vector3 &vPos)
 	DWORD dwLight;
 	s_lpD3DDev->GetRenderState(D3DRS_LIGHTING, &dwLight);
 	s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-//	DWORD dwZ;
+//	uint32_t dwZ;
 //	s_lpD3DDev->GetRenderState(D3DRS_ZENABLE, &dwZ);
 //	s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, FALSE);
 	s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
@@ -993,7 +993,7 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, i
 			fXMax = (float)((x+1) * CELL_SUB_SIZE);
 
 			// Cohen thuderland algorythm
-			DWORD dwOC0 = 0, dwOC1 = 0; // OutCode 0, 1
+			uint32_t dwOC0 = 0, dwOC1 = 0; // OutCode 0, 1
 			if(vFrom.z > fZMax) dwOC0 |= 0xf000;
 			if(vFrom.z < fZMin) dwOC0 |= 0x0f00;
 			if(vFrom.x > fXMax) dwOC0 |= 0x00f0;

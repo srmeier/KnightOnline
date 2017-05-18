@@ -23,8 +23,8 @@ struct __InfoTradeSellBBS // 파티 지원 게시판 구조체..
 	std::string szTitle;		// 제목
 	std::string szExplanation;	// 설명
 	int			iPrice;			// 가격
-	short		sIndex;			// 등록 인덱스
-	short		sID;			// 캐릭터 아이디
+	int16_t		sIndex;			// 등록 인덱스
+	int16_t		sID;			// 캐릭터 아이디
 
 	void Init()
 	{
@@ -75,7 +75,7 @@ protected:
 	int			m_iCurPage; // 현재 페이지..
 	int			m_iMaxPage;	// 총 페이지..
 	bool		m_bProcessing;
-	BYTE		m_byBBSKind;
+	uint8_t		m_byBBSKind;
 	int			m_iCurIndex;
 	float		m_fTime;
 
@@ -92,8 +92,8 @@ public:
 	void OnButtonWhisper();
 	void OnButtonRegisterCancel();
 	void OnButtonRegister();
-	void CallBackProc(int iID, DWORD dwFlag);
-	void MsgSend_RegisterCancel(short sIndex);
+	void CallBackProc(int iID, uint32_t dwFlag);
+	void MsgSend_RegisterCancel(int16_t sIndex);
 	void MsgSend_Register();
 	void MsgSend_RefreshData(int iCurPage);
 	void RefreshPage();
@@ -102,9 +102,9 @@ public:
 	void MsgRecv_TradeBBS(DataPack* pDataPack, int &iOffset);
 	void SetContentString(int iIndex, std::string szID, int iPrice, std::string szTitle);
 
-	void SetBBSKind(BYTE byKind){ m_byBBSKind = byKind; }
+	void SetBBSKind(uint8_t byKind){ m_byBBSKind = byKind; }
 	bool Load(HANDLE hFile);
-	bool ReceiveMessage(class CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(class CN3UIBase* pSender, uint32_t dwMsg);
 	void SetVisible(bool bVisible);
 
 	CUITradeSellBBS();

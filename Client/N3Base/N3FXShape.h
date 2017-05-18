@@ -53,7 +53,7 @@ public:
 
 	CN3FXPMesh*	Mesh() { return m_FXPMInst.GetMesh(); }
 	__VertexXyzColorT1* GetColorVertices() { return m_FXPMInst.GetVertices(); }
-	void	SetColor(DWORD dwColor = 0xffffffff) { m_FXPMInst.SetColor(dwColor); }
+	void	SetColor(uint32_t dwColor = 0xffffffff) { m_FXPMInst.SetColor(dwColor); }
 	bool	MeshSet(const std::string& szFN);
 	void	Tick(const __Matrix44& mtxParent);
 	void	Render();
@@ -76,17 +76,17 @@ public:
 	__Matrix44		m_mtxParent;
 	__Matrix44		m_mtxFinalTransform;
 
-	DWORD			m_dwSrcBlend;
-	DWORD			m_dwDestBlend;
+	uint32_t			m_dwSrcBlend;
+	uint32_t			m_dwDestBlend;
 	BOOL			m_bAlpha;
 
-	DWORD			m_dwZEnable;
-	DWORD			m_dwZWrite;
-	DWORD			m_dwLight;
-	DWORD			m_dwDoubleSide;
+	uint32_t			m_dwZEnable;
+	uint32_t			m_dwZWrite;
+	uint32_t			m_dwLight;
+	uint32_t			m_dwDoubleSide;
 	
 public:
-	void			SetPartsMtl(BOOL bAlpha, DWORD dwSrcBlend, DWORD dwDestBlend, DWORD dwZEnable, DWORD dwZWrite, DWORD dwLight, DWORD dwDoubleSide);
+	void			SetPartsMtl(BOOL bAlpha, uint32_t dwSrcBlend, uint32_t dwDestBlend, uint32_t dwZEnable, uint32_t dwZWrite, uint32_t dwLight, uint32_t dwDoubleSide);
 	__Vector3		CenterPos();
 
 	void			SetCurrFrm(float fFrm);

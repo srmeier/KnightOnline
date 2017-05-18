@@ -273,13 +273,13 @@ enum AttributeType
 };
 
 typedef union{
-	uint16		w;
-	uint8		b[2];
+	uint16_t		w;
+	uint8_t		b[2];
 } MYSHORT;
 
 typedef union{
-	uint64		i;
-	uint8		b[8];
+	uint64_t		i;
+	uint8_t		b[8];
 } MYINT64;
 
 #define TO_USER(v)	static_cast<CUser *>(v)

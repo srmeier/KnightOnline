@@ -42,7 +42,7 @@ public:
 //	void	SetVisibleActButtons(bool bVisible);
 
 	bool	Load(HANDLE hFile);
-	bool	ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void	UpdatePartyButtons(bool bIAmLeader, bool bIAmMemberOfParty, int iMemberIndex, const class CPlayerBase* pTarget);
 
 	CUICmd();

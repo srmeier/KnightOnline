@@ -4,7 +4,7 @@
 
 #define DELAY				250
 
-uint32 THREADCALL NpcThreadProc(void * pParam /* CNpcThread ptr */)
+uint32_t THREADCALL NpcThreadProc(void * pParam /* CNpcThread ptr */)
 {
 	try
 	{
@@ -72,7 +72,7 @@ ThreadReloadNPC:
 					if (10000 < dwTickTime)
 						pNpc->HpChange();
 
-					uint8 bState = pNpc->m_NpcState;
+					uint8_t bState = pNpc->m_NpcState;
 					time_t tDelay = -1;
 					switch (bState)
 					{
@@ -158,7 +158,7 @@ ThreadReloadNPC:
 	return 0;
 }
 
-uint32 THREADCALL ZoneEventThreadProc(void * lpParam /* = nullptr */)
+uint32_t THREADCALL ZoneEventThreadProc(void * lpParam /* = nullptr */)
 {
 	while (!g_bNpcExit)
 	{

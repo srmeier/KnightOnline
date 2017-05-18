@@ -33,7 +33,7 @@ void CEventCell::Load(HANDLE hFile)
 {
 	DWORD dwNum;
 	ReadFile(hFile, &m_Rect, sizeof(RECT), &dwNum, NULL);
-	ReadFile(hFile, &m_sEventType, sizeof(short), &dwNum, NULL);
+	ReadFile(hFile, &m_sEventType, sizeof(int16_t), &dwNum, NULL);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ void CEventManager::Release()
 	m_lstEvents.clear();
 }
 
-short CEventManager::SetPos(float fX, float fZ)
+int16_t CEventManager::SetPos(float fX, float fZ)
 {
 	int x = (int)fX;
 	int y = (int)fZ;
@@ -136,7 +136,7 @@ bool CEventManager::PtInRect(int x, int z, RECT rc)
 	return true;
 }
 
-void CEventManager::Behavior(short sEventType, short sPreEventType)
+void CEventManager::Behavior(int16_t sEventType, int16_t sPreEventType)
 {
 	switch(sPreEventType)
 	{

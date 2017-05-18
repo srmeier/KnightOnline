@@ -4,30 +4,30 @@ extern bool	g_bNpcExit;
 
 struct _MAKE_WEAPON
 {
-	uint8	byIndex;
-	uint16	sClass[MAX_UPGRADE_WEAPON];
+	uint8_t	byIndex;
+	uint16_t	sClass[MAX_UPGRADE_WEAPON];
 	_MAKE_WEAPON() { memset(&sClass, 0, sizeof(sClass)); }
 };
 
 struct _MAKE_ITEM_GRADE_CODE
 {
-	uint8	byItemIndex;		// item grade
-	uint16	sGrade[9];
+	uint8_t	byItemIndex;		// item grade
+	uint16_t	sGrade[9];
 };	
 
 struct _MAKE_ITEM_LARE_CODE
 {
-	uint8	byItemLevel;
-	uint16	sLareItem;
-	uint16	sMagicItem;
-	uint16	sGeneralItem;
+	uint8_t	byItemLevel;
+	uint16_t	sLareItem;
+	uint16_t	sMagicItem;
+	uint16_t	sGeneralItem;
 };
 
 struct _K_MONSTER_ITEM
 {
-	uint16 sIndex;
-	uint32 iItem[5];
-	uint16 sPercent[5];
+	uint16_t sIndex;
+	uint32_t iItem[5];
+	uint16_t sPercent[5];
 
 	_K_MONSTER_ITEM()
 	{
@@ -38,17 +38,17 @@ struct _K_MONSTER_ITEM
 
 struct _MAKE_ITEM_GROUP
 {
-	uint32	iItemGroupNum;
-	std::vector<uint32> iItems;
+	uint32_t	iItemGroupNum;
+	std::vector<uint32_t> iItems;
 };
 
 struct _NPC_LIVE_TIME
 {
-	uint16 nIndex;
-	int16 SocketID;
-	uint16 Nid;
-	uint16 Duration;
-	int32 SpawnedTime;
+	uint16_t nIndex;
+	int16_t SocketID;
+	uint16_t Nid;
+	uint16_t Duration;
+	int32_t SpawnedTime;
 
 };
 

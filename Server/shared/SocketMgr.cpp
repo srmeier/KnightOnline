@@ -6,9 +6,9 @@ std::recursive_mutex SocketMgr::s_disconnectionQueueLock;
 std::queue<Socket *> SocketMgr::s_disconnectionQueue;
 
 Thread SocketMgr::s_cleanupThread; 
-Atomic<uint32> SocketMgr::s_refCounter;
+Atomic<uint32_t> SocketMgr::s_refCounter;
 
-uint32 THREADCALL SocketCleanupThread(void * lpParam)
+uint32_t THREADCALL SocketCleanupThread(void * lpParam)
 {
 	while (SocketMgr::s_bRunningCleanupThread)
 	{
@@ -55,7 +55,7 @@ void SocketMgr::SpawnWorkerThreads()
 }
 
 
-uint32 THREADCALL SocketMgr::SocketWorkerThread(void * lpParam)
+uint32_t THREADCALL SocketMgr::SocketWorkerThread(void * lpParam)
 {
 	SocketMgr *socketMgr = (SocketMgr *)lpParam;
 	HANDLE cp = socketMgr->GetCompletionPort();
@@ -104,7 +104,7 @@ void SocketMgr::SetupWinsock()
 	WSAStartup(MAKEWORD(2,0), &wsaData);
 }
 
-void HandleReadComplete(Socket * s, uint32 len)
+void HandleReadComplete(Socket * s, uint32_t len)
 {
 	if (s->IsDeleted())
 		return;
@@ -123,7 +123,7 @@ void HandleReadComplete(Socket * s, uint32 len)
 	}
 }
 
-void HandleWriteComplete(Socket * s, uint32 len)
+void HandleWriteComplete(Socket * s, uint32_t len)
 {
 	if (s->IsDeleted())
 		return;
@@ -138,7 +138,7 @@ void HandleWriteComplete(Socket * s, uint32 len)
 	s->BurstEnd();					  // Unlock
 }
 
-void HandleShutdown(Socket * s, uint32 len) {}
+void HandleShutdown(Socket * s, uint32_t len) {}
 
 void SocketMgr::OnConnect(Socket *pSock) {}
 void SocketMgr::DisconnectCallback(Socket *pSock) {}

@@ -52,7 +52,7 @@ void CWarMessage::Release()
 	if(m_pMessageFont) delete m_pMessageFont; m_pMessageFont = NULL;
 }
 
-void CWarMessage::SetMessage(const std::string& szText, DWORD dwFlags, DWORD dwColor)
+void CWarMessage::SetMessage(const std::string& szText, uint32_t dwFlags, uint32_t dwColor)
 {
 	if(m_pMessageFont) 
 	{

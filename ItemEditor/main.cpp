@@ -98,16 +98,16 @@ void ItemTableView::event_callback(Fl_Widget* widget, void* data) {
 // TEMP
 extern int                m_nFC;
 extern __VertexXyzNormal* m_pVertices;
-extern WORD*              m_pwVtxIndices;
+extern uint16_t*              m_pwVtxIndices;
 extern float*             m_pfUVs;
-extern WORD*              m_pwUVsIndices;
+extern uint16_t*              m_pwUVsIndices;
 
 // TEMP
 extern _N3TexHeader    HeaderOrg;
-extern unsigned char*  compTexData;
+extern uint8_t*  compTexData;
 extern int             compTexSize;
 extern int             iPixelSize;
-extern unsigned short* m_pIndices0;
+extern uint16_t* m_pIndices0;
 extern _N3VertexT1*    m_pVertices0;
 extern int             m_iMaxNumIndices0;
 extern int             m_iMaxNumVertices0;

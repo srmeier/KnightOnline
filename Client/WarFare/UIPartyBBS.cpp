@@ -107,7 +107,7 @@ bool CUIPartyBBS::SelectedString(CN3UIBase* pSender, int& iID)
 	return false;
 }
 
-bool CUIPartyBBS::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUIPartyBBS::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	int iID = -1;
 	if( dwMsg == UIMSG_BUTTON_CLICK )
@@ -181,10 +181,10 @@ void CUIPartyBBS::MsgSend_RefreshData(int iCurPage)
 		return;
 	m_fTime = fTime;
 
-	BYTE byBuff[4];
+	uint8_t byBuff[4];
 	int iOffset=0;
 
-	short sPage = m_iCurPage;
+	int16_t sPage = m_iCurPage;
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY_BBS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_PARTY_BBS_DATA);
 	CAPISocket::MP_AddShort(byBuff, iOffset, sPage);
@@ -197,8 +197,8 @@ void CUIPartyBBS::MsgRecv_RefreshData(DataPack* pDataPack, int& iOffset)
 {
 	m_bProcessing = false;
 
-	BYTE byType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	BYTE byResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	uint8_t byType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	uint8_t byResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 	if(byResult != 0x01) return; //실패했다면
 
 	switch( byType )
@@ -236,8 +236,8 @@ void CUIPartyBBS::MsgRecv_RefreshData(DataPack* pDataPack, int& iOffset)
 			m_Datas.push_back(Info);
 	}
 
-	short sPage = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	short sTotal = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int16_t sPage = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int16_t sTotal = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
 	m_iCurPage = sPage;
 	m_iMaxPage = sTotal / PARTY_BBS_MAXLINE;
@@ -252,7 +252,7 @@ void CUIPartyBBS::MsgSend_Register()
 {
 	if(m_bProcessing) return; //전에 보낸 패킷 응답이 없으면
 
-	BYTE byBuff[4];
+	uint8_t byBuff[4];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY_BBS);	
@@ -266,7 +266,7 @@ void CUIPartyBBS::MsgSend_RegisterCancel()
 {
 	if(m_bProcessing) return; //전에 보낸 패킷 응답이 없으면
 
-	BYTE byBuff[4];
+	uint8_t byBuff[4];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_PARTY_BBS);	
@@ -297,7 +297,7 @@ void CUIPartyBBS::RefreshPage()
 	}
 }
 
-void CUIPartyBBS::PartyStringSet(BYTE byType)
+void CUIPartyBBS::PartyStringSet(uint8_t byType)
 {
 	switch(byType)
 	{
@@ -435,7 +435,7 @@ void CUIPartyBBS::RenderSelectContent()
 	CN3Base::s_lpD3DDev->SetFVF(dwVertexShader);
 }
 
-void CUIPartyBBS::SetStringColor(int iIndex, DWORD dwColor)
+void CUIPartyBBS::SetStringColor(int iIndex, uint32_t dwColor)
 {
 	if(m_pText[iIndex])
 		m_pText[iIndex]->SetColor(dwColor);

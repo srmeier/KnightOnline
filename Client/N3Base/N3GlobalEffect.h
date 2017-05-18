@@ -10,8 +10,8 @@
 #endif // _MSC_VER > 1000
 
 #include "N3Transform.h"
-const DWORD GETYPE_RAIN = 0x00000001;
-const DWORD GETYPE_SNOW = 0x00000002;
+const uint32_t GETYPE_RAIN = 0x00000001;
+const uint32_t GETYPE_SNOW = 0x00000002;
 
 class CN3GlobalEffect : public CN3Transform  
 {
@@ -27,7 +27,7 @@ protected:
 	int							m_iIC;
 	LPDIRECT3DVERTEXBUFFER9		m_pVB;
 	LPDIRECT3DINDEXBUFFER9		m_pIB;
-	DWORD						m_dwEffectType;
+	uint32_t						m_dwEffectType;
 	BOOL						m_bActive;
 	float						m_fFadeTime; // 이시간 동안 차차 목표한 양만큼 파티클의 수가 늘어난다..
 	float						m_fFadeTimeCur; // 지난시간..

@@ -99,7 +99,7 @@ typedef struct tagShapePart
 typedef struct tagCollisionIndex
 {
 	int m_iID;
-	std::vector<int> m_ivVector;
+	std::vector<uint32_t> m_ivVector;
 	tagCollisionIndex()
 	{
 		m_iID = -1;
@@ -155,7 +155,7 @@ class CPortalVolume	: public CN3Transform
 	//////////////////////////////////////////////////////////////////////////////////////
 
 	__Vector3					  m_pvVertex[8];
-	unsigned short			   m_pIndex[36];
+	uint16_t			   m_pIndex[36];
 
 	int									m_iPriority;							//.. 100 정도로 초기화..
 

@@ -40,7 +40,7 @@ bool CUINpcTalk::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUINpcTalk::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUINpcTalk::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{

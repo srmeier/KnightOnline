@@ -19,22 +19,22 @@ public:
 		_rpos = _wpos = 0;
 	}
 
-	template <typename T> void append(T value) { append((uint8 *)&value, sizeof(value)); }
-	template <typename T> void put(size_t pos,T value) { put(pos,(uint8 *)&value, sizeof(value)); }
+	template <typename T> void append(T value) { append((uint8_t *)&value, sizeof(value)); }
+	template <typename T> void put(size_t pos,T value) { put(pos,(uint8_t *)&value, sizeof(value)); }
 
 	// stream like operators for storing data
 	ByteBuffer &operator<<(bool value) { append<char>((char)value); return *this; }
 
 	// unsigned
-	ByteBuffer &operator<<(uint8 value)		{ append<uint8> (value); return *this; }
-	ByteBuffer &operator<<(uint16 value)	{ append<uint16>(value); return *this; }
-	ByteBuffer &operator<<(uint32 value)	{ append<uint32>(value); return *this; }
-	ByteBuffer &operator<<(uint64 value)	{ append<uint64>(value); return *this; }
+	ByteBuffer &operator<<(uint8_t value)		{ append<uint8_t> (value); return *this; }
+	ByteBuffer &operator<<(uint16_t value)	{ append<uint16_t>(value); return *this; }
+	ByteBuffer &operator<<(uint32_t value)	{ append<uint32_t>(value); return *this; }
+	ByteBuffer &operator<<(uint64_t value)	{ append<uint64_t>(value); return *this; }
 	// signed as in 2e complement
-	ByteBuffer &operator<<(int8 value)		{ append<int8> (value); return *this; }
-	ByteBuffer &operator<<(int16 value)		{ append<int16>(value); return *this; }
-	ByteBuffer &operator<<(int32 value)		{ append<int32>(value); return *this; }
-	ByteBuffer &operator<<(int64 value)		{ append<int64>(value); return *this; }
+	ByteBuffer &operator<<(int8_t value)		{ append<int8_t> (value); return *this; }
+	ByteBuffer &operator<<(int16_t value)		{ append<int16_t>(value); return *this; }
+	ByteBuffer &operator<<(int32_t value)		{ append<int32_t>(value); return *this; }
+	ByteBuffer &operator<<(int64_t value)		{ append<int64_t>(value); return *this; }
 	ByteBuffer &operator<<(float value)		{ append<float>(value); return *this; }
 
 	ByteBuffer &operator<<(ByteBuffer &value)
@@ -47,15 +47,15 @@ public:
 	// stream like operators for reading data
 	ByteBuffer &operator>>(bool &value)		{ value = read<char>() > 0 ? true : false; return *this; }
 	// unsigned
-	ByteBuffer &operator>>(uint8 &value)	{ value = read<uint8>(); return *this; }
-	ByteBuffer &operator>>(uint16 &value)	{ value = read<uint16>(); return *this; }
-	ByteBuffer &operator>>(uint32 &value)	{ value = read<uint32>(); return *this; }
-	ByteBuffer &operator>>(uint64 &value)	{ value = read<uint64>(); return *this; }
+	ByteBuffer &operator>>(uint8_t &value)	{ value = read<uint8_t>(); return *this; }
+	ByteBuffer &operator>>(uint16_t &value)	{ value = read<uint16_t>(); return *this; }
+	ByteBuffer &operator>>(uint32_t &value)	{ value = read<uint32_t>(); return *this; }
+	ByteBuffer &operator>>(uint64_t &value)	{ value = read<uint64_t>(); return *this; }
 	// signed as in 2e complement
-	ByteBuffer &operator>>(int8 &value)		{ value = read<int8>(); return *this; }
-	ByteBuffer &operator>>(int16 &value)	{ value = read<int16>(); return *this; }
-	ByteBuffer &operator>>(int32 &value)	{ value = read<int32>(); return *this; }
-	ByteBuffer &operator>>(int64 &value)	{ value = read<int64>(); return *this; }
+	ByteBuffer &operator>>(int8_t &value)		{ value = read<int8_t>(); return *this; }
+	ByteBuffer &operator>>(int16_t &value)	{ value = read<int16_t>(); return *this; }
+	ByteBuffer &operator>>(int32_t &value)	{ value = read<int32_t>(); return *this; }
+	ByteBuffer &operator>>(int64_t &value)	{ value = read<int64_t>(); return *this; }
 	ByteBuffer &operator>>(float &value)	{ value = read<float>(); return *this; }
 
 	// Hacky KO string flag - either it's a single byte length, or a double byte.
@@ -66,34 +66,34 @@ public:
 	ByteBuffer &operator<<(std::string &value) { *this << value.c_str(); return *this; }
 	ByteBuffer &operator<<(const char *str) 
 	{
-		uint16 len = (uint16)strlen(str);
+		uint16_t len = (uint16_t)strlen(str);
 		if (m_doubleByte)
-			append((uint8*)&len, 2);
+			append((uint8_t*)&len, 2);
 		else
-			append((uint8*)&len, 1);
-		append((uint8 *)str, len);
+			append((uint8_t*)&len, 1);
+		append((uint8_t *)str, len);
 		return *this;
 	}	
 	ByteBuffer &operator<<(char *str)  { *this << (const char*)str; return *this; }
 
 	ByteBuffer &operator>>(std::string& value) 
 	{
-		uint16 len;
+		uint16_t len;
 		value.clear();
 		if (m_doubleByte)
-			len = read<uint16>();
+			len = read<uint16_t>();
 		else
-			len = read<uint8>();
+			len = read<uint8_t>();
 
 		if (_rpos + len <= size())
 		{
-			for (uint16 i = 0; i < len; i++)
+			for (uint16_t i = 0; i < len; i++)
 				value.push_back(read<char>());
 		}
 		return *this;
 	}
 
-	uint8 operator[](size_t pos) { return read<uint8>(pos); }
+	uint8_t operator[](size_t pos) { return read<uint8_t>(pos); }
 
 	INLINE size_t rpos() { return _rpos; };
 	INLINE size_t rpos(size_t rpos) { return _rpos = rpos; };
@@ -124,7 +124,7 @@ public:
 		_rpos += len;
 	};
 
-	const uint8 *contents() const { return &_storage[0]; };
+	const uint8_t *contents() const { return &_storage[0]; };
 	INLINE size_t size() const { return _storage.size(); };
 
 	// one should never use resize
@@ -138,8 +138,8 @@ public:
 	void reserve(size_t ressize)  { if (ressize > size()) _storage.reserve(ressize); };
 
 	// append to the end of buffer
-	void append(const std::string& str) { append((uint8 *)str.c_str(),str.size() + 1); }
-	void append(const char *src, size_t cnt) { return append((const uint8 *)src, cnt); }
+	void append(const std::string& str) { append((uint8_t *)str.c_str(),str.size() + 1); }
+	void append(const char *src, size_t cnt) { return append((const uint8_t *)src, cnt); }
 	void append(const void *src, size_t cnt)
 	{
 		if (!cnt)
@@ -171,5 +171,5 @@ public:
 protected:
 	// read and write positions
 	size_t _rpos, _wpos;
-	std::vector<uint8> _storage;
+	std::vector<uint8_t> _storage;
 };

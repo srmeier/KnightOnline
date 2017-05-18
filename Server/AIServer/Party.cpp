@@ -17,7 +17,7 @@ void CParty::Initialize()
 
 void CParty::PartyProcess(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
 	case PARTY_CREATE:
@@ -37,9 +37,9 @@ void CParty::PartyProcess(Packet & pkt)
 
 void CParty::PartyCreate(Packet & pkt)
 {
-	uint16 sPartyIndex = pkt.read<uint16>(), sUid = pkt.read<uint16>();
-	short sHP = 0, sClass = 0;
-	uint8  byLevel= 0;
+	uint16_t sPartyIndex = pkt.read<uint16_t>(), sUid = pkt.read<uint16_t>();
+	int16_t sHP = 0, sClass = 0;
+	uint8_t  byLevel= 0;
 	_PARTY_GROUP* pParty = nullptr;
 	CUser* pUser = nullptr;
 
@@ -60,10 +60,10 @@ void CParty::PartyCreate(Packet & pkt)
 
 void CParty::PartyInsert(Packet & pkt)
 {
-	uint16 sPartyIndex = pkt.read<uint16>();
-	uint8 byIndex = pkt.read<uint8>();
-	uint16 sUid = pkt.read<uint16>(), sHP = 0, sClass = 0;
-	uint8  byLevel= 0;
+	uint16_t sPartyIndex = pkt.read<uint16_t>();
+	uint8_t byIndex = pkt.read<uint8_t>();
+	uint16_t sUid = pkt.read<uint16_t>(), sHP = 0, sClass = 0;
+	uint8_t  byLevel= 0;
 	_PARTY_GROUP* pParty = nullptr;
 	CUser* pUser = nullptr;
 
@@ -85,7 +85,7 @@ void CParty::PartyInsert(Packet & pkt)
 
 void CParty::PartyRemove(Packet & pkt)
 {
-	uint16 sPartyIndex = pkt.read<uint16>(), sUid = pkt.read<uint16>();
+	uint16_t sPartyIndex = pkt.read<uint16_t>(), sUid = pkt.read<uint16_t>();
 	_PARTY_GROUP* pParty = nullptr;
 	CUser* pUser = nullptr;
 
@@ -113,7 +113,7 @@ void CParty::PartyRemove(Packet & pkt)
 
 void CParty::PartyDelete(Packet & pkt)
 {
-	uint16 sPartyIndex = pkt.read<uint16>();
+	uint16_t sPartyIndex = pkt.read<uint16_t>();
 	_PARTY_GROUP *pParty = g_pMain->m_arParty.GetData(sPartyIndex);
 	if (pParty == nullptr)
 		return;

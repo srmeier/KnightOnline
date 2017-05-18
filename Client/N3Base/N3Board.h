@@ -13,10 +13,10 @@
 #include <vector>
 #include <string>
 
-const DWORD BOARD_X				= 0;
-const DWORD BOARD_Y				= 1;
-const DWORD BOARD_Z				= 2;
-const DWORD BOARD_XYZ			= 3;
+const uint32_t BOARD_X				= 0;
+const uint32_t BOARD_Y				= 1;
+const uint32_t BOARD_Z				= 2;
+const uint32_t BOARD_XYZ			= 3;
 
 class CN3Board : public CN3Transform
 {
@@ -26,7 +26,7 @@ protected:
 	std::vector<CN3Texture*> m_TexRefs; // 텍스처 포인터 리스트..
 
 public:
-	DWORD		m_dwBoardType; // Board Type
+	uint32_t		m_dwBoardType; // Board Type
 	float		m_fTexFPS; // Frame Per Second
 	__Material	m_Mtl; // 재질..
 
@@ -36,7 +36,7 @@ public:
 	int			TexCount() { m_TexRefs.size(); }
 	CN3Texture* Tex(int index) { if(m_TexRefs.empty() || index < 0 || index >= m_TexRefs.size()) return NULL; return m_TexRefs[index]; }
 
-	void		Init(__Vector3 vPos, DWORD dwBoardType, float fW, float fH);
+	void		Init(__Vector3 vPos, uint32_t dwBoardType, float fW, float fH);
 	void		Tick(float fFrm);
 	void		Render();
 

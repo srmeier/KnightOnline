@@ -3,7 +3,7 @@
 
 void CUser::ShoppingMall(Packet & pkt)
 {
-	uint8 opcode = pkt.read<uint8>();
+	uint8_t opcode = pkt.read<uint8_t>();
 
 	switch (opcode)
 	{
@@ -33,8 +33,8 @@ void CUser::ShoppingMall(Packet & pkt)
 // We're opening the PUS...
 void CUser::HandleStoreOpen(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_OPEN));
-	int16 sErrorCode = 1, sFreeSlot = -1;
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_OPEN));
+	int16_t sErrorCode = 1, sFreeSlot = -1;
 
 	if (isDead())
 		sErrorCode = -2;
@@ -77,14 +77,14 @@ fail_return:
 // We're closing the PUS so that we can call LOAD_WEB_ITEMMALL and load the extra items.
 void CUser::HandleStoreClose()
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_CLOSE));
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_CLOSE));
 	m_bStoreOpen = false;
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
 void CUser::ReqLoadWebItemMall()
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8(STORE_CLOSE));
+	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_CLOSE));
 	std::vector<_ITEM_DATA> itemList;
 
 	if (!g_DBAgent.LoadWebItemMall(itemList, this))

@@ -115,7 +115,7 @@ bool CUITradeSellBBS::Load(HANDLE hFile)
 	return true;
 }
 
-bool CUITradeSellBBS::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CUITradeSellBBS::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	int iID = -1;
 	if( dwMsg == UIMSG_BUTTON_CLICK )
@@ -192,13 +192,13 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(DataPack *pDataPack, int &iOffset)
 {
 	m_bProcessing	= false;
 
-	BYTE bySubType	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	BYTE byBBSKind	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	BYTE byResult	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	uint8_t bySubType	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	uint8_t byBBSKind	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	uint8_t byResult	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 
 	if(byResult != 0x01)
 	{
-		BYTE bySubResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		uint8_t bySubResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
 		if(bySubType == N3_SP_TYPE_BBS_OPEN)
 		{
 			char szBuf[256] = "";
@@ -315,8 +315,8 @@ void CUITradeSellBBS::MsgRecv_RefreshData(DataPack *pDataPack, int &iOffset)
 			m_Datas.push_back(Info);
 	}
 
-	short sPage = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	short sTotal = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int16_t sPage = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int16_t sTotal = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
 
 	//TRACE("TRADE_BBS_PAGE:%d\n",sPage);
 	m_iCurPage = sPage;
@@ -349,13 +349,13 @@ void CUITradeSellBBS::MsgSend_RefreshData(int iCurPage)
 {
 	if(m_bProcessing) return; //전에 보낸 패킷 응답이 없으면
 
-	BYTE byBuff[10];
+	uint8_t byBuff[10];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_BBS_DATA);
 	CAPISocket::MP_AddByte(byBuff, iOffset, m_byBBSKind);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)iCurPage);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iCurPage);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 
 	m_bProcessing = true;
@@ -366,7 +366,7 @@ void CUITradeSellBBS::MsgSend_Register()
 {
 	if(m_bProcessing) return; //전에 보낸 패킷 응답이 없으면
 	if(!CGameProcedure::s_pProcMain->m_pUITradeBBSEdit) return;
-	short sLen = 0;
+	int16_t sLen = 0;
 	std::string szTitle;
 	std::string szExplanation;
 	int	iPrice = 0;
@@ -376,18 +376,18 @@ void CUITradeSellBBS::MsgSend_Register()
 	iPrice			= CGameProcedure::s_pProcMain->m_pUITradeBBSEdit->GetPrice();
 
 	sLen = 15;
-	sLen += (short)szTitle.size();
-	sLen += (short)szExplanation.size();
+	sLen += (int16_t)szTitle.size();
+	sLen += (int16_t)szExplanation.size();
 
-	BYTE* byBuff = new BYTE[sLen];
+	uint8_t* byBuff = new uint8_t[sLen];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);	
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_REGISTER);
 	CAPISocket::MP_AddByte(byBuff, iOffset, m_byBBSKind);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szTitle.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)szTitle.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szTitle);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (short)szExplanation.size());
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)szExplanation.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szExplanation);
 	CAPISocket::MP_AddDword(byBuff, iOffset, iPrice);
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
@@ -396,11 +396,11 @@ void CUITradeSellBBS::MsgSend_Register()
 	delete [] byBuff;
 }
 
-void CUITradeSellBBS::MsgSend_RegisterCancel(short sIndex)
+void CUITradeSellBBS::MsgSend_RegisterCancel(int16_t sIndex)
 {
 	if(m_bProcessing) return; //전에 보낸 패킷 응답이 없으면
 
-	BYTE byBuff[10];
+	uint8_t byBuff[10];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);
@@ -412,7 +412,7 @@ void CUITradeSellBBS::MsgSend_RegisterCancel(short sIndex)
 	m_bProcessing = true;
 }
 
-void CUITradeSellBBS::CallBackProc(int iID, DWORD dwFlag)
+void CUITradeSellBBS::CallBackProc(int iID, uint32_t dwFlag)
 {
 	//TRACE("OnButton ID:%d Btn %d\n",iID, dwFlag);
 
@@ -636,7 +636,7 @@ void CUITradeSellBBS::MsgSend_PerTrade()
 	if(0 == lstrcmpi(m_ITSB.szID.c_str(), CGameProcedure::s_pPlayer->m_InfoBase.szID.c_str()))
 		return; //자기 자신에게는 거래를 하지 못하게
 
-	BYTE byBuff[10];
+	uint8_t byBuff[10];
 
 	int iOffset=0;
 

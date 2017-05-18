@@ -11,9 +11,9 @@ public:
 
 	virtual bool Fetch()
 	{
-		uint16 sIDNum;
+		uint16_t sIDNum;
 		std::string strUserID;
-		uint32 nDonatedNP;
+		uint32_t nDonatedNP;
 
 		_dbCommand->FetchUInt16(1, sIDNum);
 		_dbCommand->FetchString(2, strUserID);

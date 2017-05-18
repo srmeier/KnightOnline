@@ -115,9 +115,9 @@ bool CN3SndObj::StaticInit( HWND  hWnd, DWORD dwCoopLevel, DWORD dwPrimaryChanne
     WAVEFORMATEX wfx;
     ZeroMemory( &wfx, sizeof(WAVEFORMATEX) ); 
     wfx.wFormatTag      = WAVE_FORMAT_PCM; 
-    wfx.nChannels       = (WORD) dwPrimaryChannels; 
+    wfx.nChannels       = (uint16_t) dwPrimaryChannels; 
     wfx.nSamplesPerSec  = dwPrimaryFreq; 
-    wfx.wBitsPerSample  = (WORD) dwPrimaryBitRate; 
+    wfx.wBitsPerSample  = (uint16_t) dwPrimaryBitRate; 
     wfx.nBlockAlign     = wfx.wBitsPerSample / 8 * wfx.nChannels;
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
     if( FAILED( hr = lpDSBPrimary->SetFormat(&wfx) ) ) return false;
@@ -311,20 +311,20 @@ bool CN3SndObj::FillBufferWithSound(CWaveFile* pWaveFile)
 
 	pWaveFile->ResetFile();
 
-    if( FAILED( hr = pWaveFile->Read( (BYTE*) pDSLockedBuffer, dwDSLockedBufferSize, &dwWavDataRead ) ) )
+    if( FAILED( hr = pWaveFile->Read( (uint8_t*) pDSLockedBuffer, dwDSLockedBufferSize, &dwWavDataRead ) ) )
 		return false;
 
     if( dwWavDataRead == 0 )
     {
         // Wav is blank, so just fill with silence
-        FillMemory( (BYTE*) pDSLockedBuffer, dwDSLockedBufferSize, (BYTE)(pWaveFile->m_pwfx->wBitsPerSample == 8 ? 128 : 0 ) );
+        FillMemory( (uint8_t*) pDSLockedBuffer, dwDSLockedBufferSize, (uint8_t)(pWaveFile->m_pwfx->wBitsPerSample == 8 ? 128 : 0 ) );
     }
     else if( dwWavDataRead < dwDSLockedBufferSize )
     {
        // just fill in silence 
-        FillMemory( (BYTE*) pDSLockedBuffer + dwWavDataRead, 
+        FillMemory( (uint8_t*) pDSLockedBuffer + dwWavDataRead, 
                     dwDSLockedBufferSize - dwWavDataRead, 
-                    (BYTE)(pWaveFile->m_pwfx->wBitsPerSample == 8 ? 128 : 0 ) );
+                    (uint8_t)(pWaveFile->m_pwfx->wBitsPerSample == 8 ? 128 : 0 ) );
     }
 
     // Unlock the buffer, we don't need it anymore.
@@ -557,7 +557,7 @@ void CN3SndObj::SetMinDistance(D3DVALUE min)
 //
 //
 //
-void CN3SndObj::SetConeOutSizeVolume(LONG vol)
+void CN3SndObj::SetConeOutSizeVolume(int32_t vol)
 {
 	if( m_lpDS3DBuff )	m_lpDS3DBuff->SetConeOutsideVolume(vol, DS3D_IMMEDIATE);
 }

@@ -19,7 +19,7 @@ public:
 	CN3UIIcon();
 	virtual ~CN3UIIcon();
 
-	virtual DWORD	MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual void	Render();	
 };
 

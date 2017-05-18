@@ -67,8 +67,8 @@ public:
 	void				SetVisible(bool bVisible);
 	//this_ui_add_end
 
-	virtual DWORD		MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
+	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void				Render();
 	void				LeaveTransactionState();
 	void				EnterTransactionState();

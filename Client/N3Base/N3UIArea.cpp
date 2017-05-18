@@ -60,9 +60,9 @@ bool CN3UIArea::Load(HANDLE hFile)
 	return true;
 }
 
-DWORD CN3UIArea::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld)
+uint32_t CN3UIArea::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
 {
-	DWORD dwRet = UI_MOUSEPROC_NONE;
+	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 #ifndef _REPENT
 #ifdef _N3GAME
@@ -93,7 +93,7 @@ DWORD CN3UIArea::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld
 
 #ifndef _REPENT
 #ifdef _N3GAME
-bool CN3UIArea::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
+bool CN3UIArea::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if ( CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer ) return false;
 	// 부모가 아이콘 매니저이로 Inventory Wnd라면..	

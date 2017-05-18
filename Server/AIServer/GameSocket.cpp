@@ -102,7 +102,7 @@ bool CGameSocket::HandlePacket(Packet & pkt)
 
 void CGameSocket::RecvServerConnect(Packet & pkt)
 {
-	uint8 byReconnect = pkt.read<uint8>();
+	uint8_t byReconnect = pkt.read<uint8_t>();
 	printf("Game Server connected - %s\n", GetRemoteIP().c_str());
 
 	Packet result(AI_SERVER_CONNECT, byReconnect);
@@ -143,7 +143,7 @@ void CGameSocket::RecvUserInfo(Packet & pkt)
 
 void CGameSocket::ReadUserInfo(Packet & pkt, CUser * pUser)
 {
-	uint32 equippedItems = 0;
+	uint32_t equippedItems = 0;
 
 	pkt.SByte();
 	pkt >> pUser->m_strUserID >> pUser->m_bZone >> pUser->m_bNation 
@@ -162,15 +162,15 @@ void CGameSocket::ReadUserInfo(Packet & pkt, CUser * pUser)
 	Guard lock(pUser->m_equippedItemBonusLock);
 	pUser->m_equippedItemBonuses.clear();
 
-	for (uint32 i = 0; i < equippedItems; i++)
+	for (uint32_t i = 0; i < equippedItems; i++)
 	{
-		uint8 bSlot; uint32 bonusCount;
+		uint8_t bSlot; uint32_t bonusCount;
 		Unit::ItemBonusMap bonusMap;
 
 		pkt >> bSlot >> bonusCount;
-		for (uint32 x = 0; x < bonusCount; x++)
+		for (uint32_t x = 0; x < bonusCount; x++)
 		{
-			uint8 bType; int16 sAmount;
+			uint8_t bType; int16_t sAmount;
 			pkt >> bType >> sAmount;
 			bonusMap.insert(std::make_pair(bType, sAmount));
 		}
@@ -182,8 +182,8 @@ void CGameSocket::ReadUserInfo(Packet & pkt, CUser * pUser)
 void CGameSocket::RecvUserInOut(Packet & pkt)
 {
 	std::string strUserID;
-	uint8 bType;
-	uint16 uid;
+	uint8_t bType;
+	uint16_t uid;
 	float fX, fZ;
 	pkt.SByte();
 	pkt >> bType >> uid >> strUserID >> fX >> fZ;
@@ -244,7 +244,7 @@ void CGameSocket::RecvUserInOut(Packet & pkt)
 
 void CGameSocket::RecvUserMove(Packet & pkt)
 {
-	uint16 uid, speed;
+	uint16_t uid, speed;
 	float fX, fZ, fY;
 	pkt >> uid >> fX >> fZ >> fY >> speed;
 	SetUid(fX, fZ, uid, speed);
@@ -319,7 +319,7 @@ bool CGameSocket::SetUid(float x, float z, int id, int speed)
 
 void CGameSocket::RecvUserLogOut(Packet & pkt)
 {
-	uint16 sessionId;
+	uint16_t sessionId;
 	std::string strUserID;
 	pkt >> sessionId >> strUserID; // double byte string for once
 
@@ -329,7 +329,7 @@ void CGameSocket::RecvUserLogOut(Packet & pkt)
 
 void CGameSocket::RecvUserRegene(Packet & pkt)
 {
-	uint16 uid, sHP;
+	uint16_t uid, sHP;
 	pkt >> uid >> sHP;
 
 	CUser* pUser = g_pMain->GetUserPtr(uid);
@@ -344,7 +344,7 @@ void CGameSocket::RecvUserRegene(Packet & pkt)
 
 void CGameSocket::RecvUserSetHP(Packet & pkt)
 {
-	uint16 sid, sHP, tid;
+	uint16_t sid, sHP, tid;
 	pkt >> sid >> sHP >> tid;
 
 	CUser* pUser = g_pMain->GetUserPtr(sid);
@@ -361,9 +361,9 @@ void CGameSocket::RecvUserSetHP(Packet & pkt)
 
 void CGameSocket::RecvNpcHpChange(Packet & pkt)
 {
-	int16 nid, sAttackerID;
-	int32 nHP, nAmount;
-	uint8 attributeType = AttributeNone;
+	int16_t nid, sAttackerID;
+	int32_t nHP, nAmount;
+	uint8_t attributeType = AttributeNone;
 
 	pkt >> nid >> sAttackerID >> nHP >> nAmount >> attributeType;
 	CNpc * pNpc = g_pMain->GetNpcPtr(nid);
@@ -384,7 +384,7 @@ void CGameSocket::RecvNpcHpChange(Packet & pkt)
 
 void CGameSocket::RecvUserUpdate(Packet & pkt)
 {
-	CUser* pUser = g_pMain->GetUserPtr(pkt.read<uint16>());
+	CUser* pUser = g_pMain->GetUserPtr(pkt.read<uint16_t>());
 	if (pUser == nullptr)
 		return;
 
@@ -393,8 +393,8 @@ void CGameSocket::RecvUserUpdate(Packet & pkt)
 
 void CGameSocket::RecvZoneChange(Packet & pkt)
 {
-	uint16 uid = pkt.read<uint16>();
-	uint8 byZoneNumber = pkt.read<uint8>();
+	uint16_t uid = pkt.read<uint16_t>();
+	uint8_t byZoneNumber = pkt.read<uint8_t>();
 
 	CUser* pUser = g_pMain->GetUserPtr(uid);
 	if (pUser == nullptr)	
@@ -408,14 +408,14 @@ void CGameSocket::RecvZoneChange(Packet & pkt)
 
 void CGameSocket::RecvUserInfoAllData(Packet & pkt)
 {
-	uint8 byCount = pkt.read<uint8>();
+	uint8_t byCount = pkt.read<uint8_t>();
 	for (int i = 0; i < byCount; i++)
 		RecvUserInfo(pkt);
 }
 
 void CGameSocket::RecvGateOpen(Packet & pkt)
 {
-	uint16 nid;
+	uint16_t nid;
 	bool byGateOpen;
 
 	pkt >> nid >> byGateOpen;
@@ -441,8 +441,8 @@ void CGameSocket::RecvGateOpen(Packet & pkt)
 
 void CGameSocket::RecvUserVisibility(Packet & pkt)
 {
-	uint16 sid;
-	uint8 bIsInvisible;
+	uint16_t sid;
+	uint8_t bIsInvisible;
 	pkt >> sid >> bIsInvisible;
 
 	CUser *pUser = g_pMain->GetUserPtr(sid);
@@ -454,7 +454,7 @@ void CGameSocket::RecvUserVisibility(Packet & pkt)
 
 void CGameSocket::RecvPartyInfoAllData(Packet & pkt)
 {
-	uint16 sPartyIndex = pkt.read<uint16>();
+	uint16_t sPartyIndex = pkt.read<uint16_t>();
 	if (sPartyIndex >= SHRT_MAX)
 	{
 		TRACE("#### RecvPartyInfoAllData Index Fail -  index = %d ####\n", sPartyIndex);
@@ -465,7 +465,7 @@ void CGameSocket::RecvPartyInfoAllData(Packet & pkt)
 	pParty->wIndex = sPartyIndex;
 
 	for (int i = 0; i < MAX_PARTY_USERS; i++)
-		pParty->uid[i] = pkt.read<uint16>();
+		pParty->uid[i] = pkt.read<uint16_t>();
 
 	if (g_pMain->m_arParty.PutData(pParty->wIndex, pParty))
 		TRACE("****  RecvPartyInfoAllData()---> PartyIndex = %d  ******\n", sPartyIndex);
@@ -473,7 +473,7 @@ void CGameSocket::RecvPartyInfoAllData(Packet & pkt)
 
 void CGameSocket::RecvHealMagic(Packet & pkt)
 {
-	uint16 sid = pkt.read<uint16>();
+	uint16_t sid = pkt.read<uint16_t>();
 	CUser* pUser = g_pMain->GetUserPtr(sid);
 
 	if (pUser == nullptr
@@ -495,7 +495,7 @@ void CGameSocket::RecvTimeAndWeather(Packet & pkt)
 
 void CGameSocket::RecvBattleEvent(Packet & pkt)
 {
-	uint8 bType = pkt.read<uint8>(), bEvent = pkt.read<uint8>();
+	uint8_t bType = pkt.read<uint8_t>(), bEvent = pkt.read<uint8_t>();
 
 	if (bEvent == BATTLEZONE_OPEN || bEvent == BATTLEZONE_CLOSE)
 	{
@@ -522,11 +522,11 @@ void CGameSocket::RecvBattleEvent(Packet & pkt)
 
 void CGameSocket::RecvNpcSpawnRequest(Packet & pkt)
 {
-	uint16 sSid, sX, sY, sZ, sCount, sRadius, sDuration;
-	int16 socketID;
-	uint16 nEventRoom;
-	uint8 byZone;
-	uint8 nation;
+	uint16_t sSid, sX, sY, sZ, sCount, sRadius, sDuration;
+	int16_t socketID;
+	uint16_t nEventRoom;
+	uint8_t byZone;
+	uint8_t nation;
 	bool bIsMonster;
 	float fX, fY, fZ;
 
@@ -536,8 +536,8 @@ void CGameSocket::RecvNpcSpawnRequest(Packet & pkt)
 	fY = sY / 10.0f;
 	fZ = sZ / 10.0f;
 
-	int16 minRange = -(sRadius / 2);
-	for (uint16 i = 0; i < sCount; i++)
+	int16_t minRange = -(sRadius / 2);
+	for (uint16_t i = 0; i < sCount; i++)
 	{
 		g_pMain->SpawnEventNpc(sSid, bIsMonster, 
 			byZone, 
@@ -549,7 +549,7 @@ void CGameSocket::RecvNpcSpawnRequest(Packet & pkt)
 
 void CGameSocket::RecvNpcKillRequest(Packet & pkt)
 {
-	uint16 nid;
+	uint16_t nid;
 	pkt >> nid;
 
 	if (nid < NPC_BAND)	// is player
@@ -578,10 +578,10 @@ void CGameSocket::RecvNpcKillRequest(Packet & pkt)
 
 void CGameSocket::RecvNpcUpdate(Packet & pkt)
 {
-	uint16 sSid;
+	uint16_t sSid;
 	bool bIsMonster;
-	uint8 byGroup = 0;
-	uint16 sPid = 0;	
+	uint8_t byGroup = 0;
+	uint16_t sPid = 0;	
 
 	pkt >> sSid >> bIsMonster >> byGroup >> sPid;
 

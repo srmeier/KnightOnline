@@ -212,7 +212,7 @@ void CN3GERain::Create(float fDensity,
 	hr = m_pVB->Lock(0, iRainCount*2*sizeof(__VertexXyzColor), (void**)&pVertices, D3DLOCK_NOSYSLOCK);
 	if (FAILED(hr)) return;
 
-	const DWORD dwColorA = 0x00bfbfbf,	// 部府
+	const uint32_t dwColorA = 0x00bfbfbf,	// 部府
 				dwColorB = 0x80bfbfbf;	// 赣府
 	int i;
 	__Vector3 vN = vVelocity; vN.Normalize();

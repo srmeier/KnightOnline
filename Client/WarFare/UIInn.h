@@ -26,7 +26,7 @@ public:
 	CUIInn();
 	virtual ~CUIInn();
 
-	bool ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg);
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 };
 
 #endif //#if !defined(__UIINN_H__)

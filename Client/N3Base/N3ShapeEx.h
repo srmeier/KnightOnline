@@ -16,13 +16,13 @@
 #endif // _MSC_VER > 1000
 
 #include "N3Shape.h"
-const DWORD AF_POS = 0x00000001;		// Pos 변화가 있다.
-const DWORD AF_SCALE = 0x00000002;		// Scale 변화가 있다.
-const DWORD AF_ROTATION = 0x00000004;		// Rotation 변화가 있다.
+const uint32_t AF_POS = 0x00000001;		// Pos 변화가 있다.
+const uint32_t AF_SCALE = 0x00000002;		// Scale 변화가 있다.
+const uint32_t AF_ROTATION = 0x00000004;		// Rotation 변화가 있다.
 
 struct __ActionInfo
 {
-	DWORD				dwActionFlag;			// Pos, Scale, Rot 변화가 있는가?
+	uint32_t				dwActionFlag;			// Pos, Scale, Rot 변화가 있는가?
 	std::vector<__Vector3>		ActionStateInfos_Pos;		// 움직일 상태 정보들(이동 정보 있다면 m_iActionStateCount개)
 	std::vector<__Vector3>		ActionStateInfos_Scale;	// 확대축소
 	std::vector<__Quaternion>	ActionStateInfos_Rot;		// 회전
