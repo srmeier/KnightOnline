@@ -5,7 +5,7 @@
 //#include "StdAfx.h"
 #include "PlayerMySelf.h"
 
-//#include "Resource.h"
+#include "resource.h"
 #include "PacketDef.h"
 #include "PlayerOtherMgr.h"
 
@@ -1004,7 +1004,7 @@ void CPlayerMySelf::KnightsInfoSet(int iID, const std::string& szName, int iGrad
 	{
 		if(!m_pClanFont)
 		{
-			std::string szFontID = "Arial"; //::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 			m_pClanFont = new CDFont(szFontID, 12);
 			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
 			m_pClanFont->RestoreDeviceObjects();
@@ -1024,7 +1024,7 @@ void CPlayerMySelf::SetSoundAndInitFont(DWORD dwFontFlag)
 	{
 		if(!m_pClanFont)
 		{
-			std::string szFontID = "Arial";//; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 			m_pClanFont = new CDFont(szFontID, 12, D3DFONT_BOLD);
 			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
 			m_pClanFont->RestoreDeviceObjects();

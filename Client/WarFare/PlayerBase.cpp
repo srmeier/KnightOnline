@@ -6,7 +6,7 @@
 #include "PlayerBase.h"
 
 #include "N3WorldManager.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #include "N3ShapeExtra.h"
 #include "DFont.h"
@@ -254,7 +254,7 @@ void CPlayerBase::SetSoundAndInitFont(DWORD dwFontFlag)
 	// Font ÃÊ±âÈ­..
 	if(!m_pIDFont) 
 	{
-		std::string szFontID = "Arial"; //::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+		std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 		m_pIDFont = new CDFont(szFontID, 12, dwFontFlag);//D3DFONT_BOLD);
 		m_pIDFont->InitDeviceObjects( s_lpD3DDev );
 		m_pIDFont->RestoreDeviceObjects();
@@ -319,7 +319,7 @@ void CPlayerBase::InfoStringSet(const std::string& szInfo, D3DCOLOR crFont)
 		if(NULL == m_pInfoFont)
 		{
 
-			std::string szFontInfo = "Arial"; //::_LoadStringFromResource(IDS_FONT_INFO, szFontInfo);
+			std::string szFontInfo; ::_LoadStringFromResource(IDS_FONT_INFO, szFontInfo);
 			m_pInfoFont = new CDFont(szFontInfo, 12);
 			m_pInfoFont->InitDeviceObjects( s_lpD3DDev );
 			m_pInfoFont->RestoreDeviceObjects();
@@ -341,7 +341,7 @@ void CPlayerBase::BalloonStringSet(const std::string& szBalloon, D3DCOLOR crFont
 	{
 		if(NULL == m_pBalloonFont)
 		{
-			std::string szFontBalloon = "Arial"; //::_LoadStringFromResource(IDS_FONT_BALLOON, szFontBalloon);
+			std::string szFontBalloon; ::_LoadStringFromResource(IDS_FONT_BALLOON, szFontBalloon);
 			m_pBalloonFont = new CDFont(szFontBalloon, 12);
 			m_pBalloonFont->InitDeviceObjects( s_lpD3DDev );
 			m_pBalloonFont->RestoreDeviceObjects();

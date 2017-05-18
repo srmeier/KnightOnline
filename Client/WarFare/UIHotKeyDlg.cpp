@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UIHotKeyDlg.h"
 
 #include "LocalInput.h"

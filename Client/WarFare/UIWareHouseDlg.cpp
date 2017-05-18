@@ -28,7 +28,7 @@
 #include "N3UIString.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
-//#include "resource.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -781,7 +781,7 @@ bool CUIWareHouseDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 					__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 					if ( (pInfoExt->iWeight + CN3UIWndBase::m_sRecoveryJobInfo.pItemSource->pItemBasic->siWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 						CN3UIWndBase::m_sRecoveryJobInfo.pItemSource		= NULL;
@@ -1290,7 +1290,7 @@ void CUIWareHouseDlg::ReceiveResultFromWareMsg(BYTE bResult)	// 빼는 경우..
 			m_pMyWareInv[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder] = NULL;
 		}
 
-		std::string szMsg = "You cannot trade or pick up items because you have either exceeded the possible quantity or the weight."; //::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
@@ -1440,7 +1440,7 @@ void CUIWareHouseDlg::ItemCountOK()
 					// 무게 체크..
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -1451,7 +1451,7 @@ void CUIWareHouseDlg::ItemCountOK()
 					// short 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
-						std::string szMsg = "IDS_MANY_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1461,7 +1461,7 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWareInv[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_MANY)
 						{
-							std::string szMsg = "IDS_MANY_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}
@@ -1471,7 +1471,7 @@ void CUIWareHouseDlg::ItemCountOK()
 					iWeight = iGold * spItem->pItemBasic->siWeight;
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -1482,7 +1482,7 @@ void CUIWareHouseDlg::ItemCountOK()
 					// short 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
-						std::string szMsg = "IDS_SMALL_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1492,7 +1492,7 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWareInv[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_FEW)
 						{
-							std::string szMsg = "IDS_SMALL_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}
@@ -1502,7 +1502,7 @@ void CUIWareHouseDlg::ItemCountOK()
 					iWeight = iGold * spItem->pItemBasic->siWeight;
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg = "IDS_ITEM_WEIGHT_OVERFLOW"; //::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -1577,7 +1577,7 @@ void CUIWareHouseDlg::ItemCountOK()
 					// short 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
-						std::string szMsg = "IDS_MANY_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1587,7 +1587,7 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWare[CN3UIWndBase::m_sRecoveryJobInfo.m_iPage][CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_MANY)
 						{
-							std::string szMsg = "IDS_MANY_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}
@@ -1599,7 +1599,7 @@ void CUIWareHouseDlg::ItemCountOK()
 					// short 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
-						std::string szMsg = "IDS_SMALL_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1609,7 +1609,7 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWare[CN3UIWndBase::m_sRecoveryJobInfo.m_iPage][CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_FEW)
 						{
-							std::string szMsg = "IDS_SMALL_COUNTABLE_ITEM_GET_MANY"; //::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}

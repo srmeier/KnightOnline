@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UITradeSellBBS.h"
 #include "N3UIList.h"
 #include "N3UIButton.h"
@@ -204,7 +204,7 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(DataPack *pDataPack, int &iOffset)
 			char szBuf[256] = "";
 			std::string szMsg;
 
-			szMsg = "IDS_TRADE_BBS_FAIL6";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL6, szMsg);
+			::_LoadStringFromResource(IDS_TRADE_BBS_FAIL6, szMsg);
 
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff0000);
 		}
@@ -216,13 +216,13 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(DataPack *pDataPack, int &iOffset)
 			switch(bySubResult)
 			{
 			case 1://1: 일반적인 실패
-				szMsg = "IDS_TRADE_BBS_FAIL1";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL1, szMsg);
+				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL1, szMsg);
 				break;
 			case 2://2: 돈이 없어서 실패
-				szMsg = "IDS_TRADE_BBS_FAIL2";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
+				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
 				break;
 			case 3://3: 항목이 없어서 실패
-				szMsg = "IDS_TRADE_BBS_FAIL4";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
+				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
 				break;
 			}
 
@@ -233,7 +233,7 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(DataPack *pDataPack, int &iOffset)
 			char szBuf[256] = "";
 			std::string szMsg;
 
-			szMsg = "IDS_TRADE_BBS_FAIL3";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL3, szMsg);
+			::_LoadStringFromResource(IDS_TRADE_BBS_FAIL3, szMsg);
 
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff0000);
 		}
@@ -248,13 +248,13 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(DataPack *pDataPack, int &iOffset)
 			switch(bySubResult)
 			{
 			case 1://1: 일반적인 실패
-				szMsg = "IDS_TRADE_BBS_FAIL5";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL5, szMsg);
+				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL5, szMsg);
 				break;
 			case 2://2: 돈이 없어서 실패
-				szMsg = "IDS_TRADE_BBS_FAIL2";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
+				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
 				break;
 			case 3://3: 항목이 없어서 실패
-				szMsg = "IDS_TRADE_BBS_FAIL4";//::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
+				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
 				break;
 			}
 
@@ -463,7 +463,7 @@ void CUITradeSellBBS::OnButtonRegister()
 	{
 		char szBuf[256] = "";
 		std::string szMsg;
-		szMsg = "IDS_TRADE_BBS_BUY_REGISTER";//::_LoadStringFromResource(IDS_TRADE_BBS_BUY_REGISTER, szMsg);
+		::_LoadStringFromResource(IDS_TRADE_BBS_BUY_REGISTER, szMsg);
 		sprintf(szBuf, szMsg.c_str(), 500);
 
 		m_MsgBox.SetBoxStyle(MB_YESNO);
@@ -476,7 +476,7 @@ void CUITradeSellBBS::OnButtonRegister()
 	{
 		char szBuf[256] = "";
 		std::string szMsg;
-		szMsg = "IDS_TRADE_BBS_SELL_REGISTER";//::_LoadStringFromResource(IDS_TRADE_BBS_SELL_REGISTER, szMsg);
+		::_LoadStringFromResource(IDS_TRADE_BBS_SELL_REGISTER, szMsg);
 		sprintf(szBuf, szMsg.c_str(), 1000);
 
 		m_MsgBox.SetBoxStyle(MB_YESNO);
@@ -564,7 +564,7 @@ void CUITradeSellBBS::OnButtonTrade()
 			{
 				char szBuf[256] = "";
 				std::string szMsg;
-				szMsg = "IDS_TRADE_BBS_PER_TRADE";//::_LoadStringFromResource(IDS_TRADE_BBS_PER_TRADE, szMsg);
+				::_LoadStringFromResource(IDS_TRADE_BBS_PER_TRADE, szMsg);
 				sprintf(szBuf, szMsg.c_str(), 5000);
 
 				m_ITSB = ITSB;
@@ -771,7 +771,7 @@ void CUITradeSellBBS::ResetContent()
 void CUITradeSellBBS::SetContentString(int iIndex, std::string szID, int iPrice, std::string szTitle)
 {
 	std::string szGold;
-	szGold = "IDS_TOOLTIP_GOLD";//::_LoadStringFromResource(IDS_TOOLTIP_GOLD, szGold);
+	::_LoadStringFromResource(IDS_TOOLTIP_GOLD, szGold);
 
 	if(m_pText[iIndex])
 		m_pText[iIndex]->SetString(szID);

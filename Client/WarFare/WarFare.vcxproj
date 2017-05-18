@@ -305,6 +305,7 @@
     <ClInclude Include="PlayerOtherMgr.h" />
     <ClInclude Include="PortalVolume.h" />
     <ClInclude Include="PvsMgr.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ServerMesh.h" />
     <ClInclude Include="SharedMem.h" />
     <ClInclude Include="SubProcPerTrade.h" />

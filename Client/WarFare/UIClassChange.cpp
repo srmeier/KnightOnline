@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UIClassChange.h"
 
 #include "PacketDef.h"
@@ -81,10 +81,10 @@ void CUIClassChange::Open(int iCode)
 	__InfoPlayerBase*	pInfoBase = &(CGameBase::s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
-	std::string szSuccess = "You can now obtain a greater strength. From now, you shall be called..";	//1303::_LoadStringFromResource(IDS_CLASS_CHANGE_SUCCESS, szSuccess);
-	std::string szNotYet = "I think you need more training";	//::_LoadStringFromResource(IDS_CLASS_CHANGE_NOT_YET, szNotYet); 1302
-	std::string szAlready = "How are you? We need people like you to work hard for our victory!";	//::_LoadStringFromResource(IDS_CLASS_CHANGE_ALREADY, szAlready);
-	std::string	szItemInSlot = "You cannot change your stat while there are items equipped on you."; //6612::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szItemInSlot);
+	std::string szSuccess; ::_LoadStringFromResource(IDS_CLASS_CHANGE_SUCCESS, szSuccess);
+	std::string szNotYet; ::_LoadStringFromResource(IDS_CLASS_CHANGE_NOT_YET, szNotYet);
+	std::string szAlready; ::_LoadStringFromResource(IDS_CLASS_CHANGE_ALREADY, szAlready);
+	std::string	szItemInSlot; ::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szItemInSlot);
 
 	m_pBtn_Ok->SetVisible(false);
 	m_pBtn_Cancel->SetVisible(false);
@@ -157,7 +157,7 @@ void CUIClassChange::Open(int iCode)
 			m_pBtn_Ok->SetVisible(true);
 			break;
 
-		case /*IDS_MSG_HASITEMINSLOT*/6112:
+		case IDS_MSG_HASITEMINSLOT: // TODO: FIXME. This is not a valid subopcode!
 			m_pText_Message->SetString(szItemInSlot);
 			m_pBtn_Ok->SetVisible(true);
 			break;

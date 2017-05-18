@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "ItemRepairMgr.h"
 
 #include "PacketDef.h"
@@ -131,7 +131,7 @@ void CItemRepairMgr::Tick()
 				if (iRepairGold > s_pPlayer->m_InfoExt.iGold)
 				{
 					// 서버에게 보내지 않고 메시지 표시.. 
-					std::string szMsg = "IDS_REPAIR_LACK_GOLD"; //::_LoadStringFromResource(IDS_REPAIR_LACK_GOLD, szMsg);
+					std::string szMsg; ::_LoadStringFromResource(IDS_REPAIR_LACK_GOLD, szMsg);
 					CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff00ff);
 				}
 				else

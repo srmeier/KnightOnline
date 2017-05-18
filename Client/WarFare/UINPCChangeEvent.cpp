@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UINPCChangeEvent.h"
 
 #include "PacketDef.h"
@@ -114,7 +114,7 @@ bool CUINPCChangeEvent::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 				char szBuf[256] = "";
 				std::string szMsg; 
 
-				szMsg = "IDS_MSG_HASITEMINSLOT";//::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szMsg);
+				::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szMsg);
 				sprintf(szBuf, szMsg.c_str()); 
 				CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			}

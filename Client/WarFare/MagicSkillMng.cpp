@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #include "GameProcMain.h"
 #include "APISocket.h"
@@ -673,8 +673,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			__TABLE_UPC_SKILL_TYPE_2* pType2 = m_pTbl_Type_2->Find(pSkill->dwID);
 			if(NumItem < pType2->iNumArrow)
 			{
-				std::string szMsg = "IDS_SKILL_FAIL_LACK_ITEM";
-				//::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_ITEM, szMsg);
+				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_ITEM, szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -683,8 +682,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		{
 			if(NumItem < 1)
 			{
-				std::string szMsg = "IDS_SKILL_FAIL_LACK_ITEM";
-				//::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_ITEM, szMsg);
+				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_ITEM, szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -1039,8 +1037,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		{
 			if(bColShape)
 			{
-				std::string szMsg = "IDS_SKILL_FAIL_OBJECT_BLOCK";
-				//::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -1056,8 +1053,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			{
 				if(bColShape)
 				{
-					std::string szMsg = "IDS_SKILL_FAIL_OBJECT_BLOCK";
-					//::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+					std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
 					m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 					return false;
 				}
@@ -1068,8 +1064,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		{
 			if(bColShape)
 			{
-				std::string szMsg = "IDS_SKILL_FAIL_OBJECT_BLOCK";
-				//::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -1088,8 +1083,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			{
 				if(bColShape)
 				{
-					std::string szMsg = "IDS_SKILL_FAIL_OBJECT_BLOCK";
-					//::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+					std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
 					m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 					return false;
 				}

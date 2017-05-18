@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UIInn.h"
 #include "UICreateClanName.h"
 
@@ -89,7 +89,7 @@ bool CUIInn::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 void CUIInn::Message(int iMessageID)
 {
 	std::string szMsg;
-	szMsg = "CUIInn::Message(int iMessageID)";//::_LoadStringFromResource(iMessageID, szMsg);
+	::_LoadStringFromResource(iMessageID, szMsg);
 
 	if(iMessageID == /*IDS_CLAN_DENY_LOWGOLD*/6501)
 	{

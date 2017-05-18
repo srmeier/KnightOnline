@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #include "GameDef.h"
 #include "GameEng.h"
@@ -873,7 +873,7 @@ void CGameProcedure::ReportServerConnectionFailed(const std::string& szServerNam
 {
 	char szErr[256];
 	std::string szFmt;
-	szFmt = "%s: Connection Error (%d)";//::_LoadStringFromResource(IDS_FMT_CONNECT_ERROR, szFmt);
+	::_LoadStringFromResource(IDS_FMT_CONNECT_ERROR, szFmt);
 	sprintf(szErr, szFmt.c_str(), szServerName.c_str(), iErrCode);
 	
 	e_Behavior eBehavior = ((bNeedQuitGame) ? BEHAVIOR_EXIT : BEHAVIOR_NOTHING);
@@ -886,7 +886,7 @@ void CGameProcedure::ReportServerConnectionClosed(bool bNeedQuitGame)
 	if(!s_bNeedReportConnectionClosed) return;
 
 	std::string szMsg;
-	szMsg = "Disconnected from server";//::_LoadStringFromResource(IDS_CONNECTION_CLOSED, szMsg);
+	::_LoadStringFromResource(IDS_CONNECTION_CLOSED, szMsg);
 	e_Behavior eBehavior = ((bNeedQuitGame) ? BEHAVIOR_EXIT : BEHAVIOR_NOTHING);
 	CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, eBehavior);
 
@@ -1010,13 +1010,13 @@ int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // v
 		if(0x0404 == iLangID)// Taiwan Language
 		{
 			std::string szFmt;
-			szFmt = "Wrong Version";//::_LoadStringFromResource(IDS_VERSION_CONFIRM_TW, szFmt);
+			::_LoadStringFromResource(IDS_VERSION_CONFIRM_TW, szFmt);
 			CGameProcedure::MessageBoxPost(szFmt, "", MB_OK, BEHAVIOR_EXIT);
 		}
 		else
 		{
 			std::string szFmt;
-			szFmt = "Version Mismatch (%.3f - %.3f)";// ::_LoadStringFromResource(IDS_VERSION_CONFIRM, szFmt);
+			::_LoadStringFromResource(IDS_VERSION_CONFIRM, szFmt);
 			sprintf(szErr, szFmt.c_str(), CURRENT_VERSION / 1000.0f, iVersion / 1000.0f);
 			CGameProcedure::MessageBoxPost(szErr, "", MB_OK, BEHAVIOR_EXIT);
 		}

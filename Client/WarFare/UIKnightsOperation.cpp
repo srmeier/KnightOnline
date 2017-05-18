@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 #include "UIKnightsOperation.h"
 #include "GameProcMain.h"
 #include "PacketDef.h"
@@ -129,13 +129,13 @@ bool CUIKnightsOperation::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 		else if(pSender == m_pBtn_Destroy) // Å»Åð
 		{
 			std::string szMsg;
-			szMsg = "IDS_KNIGHTS_DESTROY_CONFIRM";//::_LoadStringFromResource(IDS_KNIGHTS_DESTROY_CONFIRM, szMsg);
+			::_LoadStringFromResource(IDS_KNIGHTS_DESTROY_CONFIRM, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_KNIGHTS_DESTROY); // ±â»ç´Ü ÇØÃ¼ ¹°¾îº¸±â..
 		}
 		else if(pSender == m_pBtn_Withdraw) // Å»Åð
 		{
 			std::string szMsg;
-			szMsg = "IDS_KNIGHTS_WITHDRAW_CONFIRM";//::_LoadStringFromResource(IDS_KNIGHTS_WITHDRAW_CONFIRM, szMsg);
+			::_LoadStringFromResource(IDS_KNIGHTS_WITHDRAW_CONFIRM, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_KNIGHTS_WITHDRAW); // ±â»ç´Ü Å»Åð ¹°¾îº¸±â..
 		}
 	}
@@ -276,7 +276,7 @@ void CUIKnightsOperation::MsgSend_KnightsCreate()
 	std::string szKnightsName = m_pEdit_KnightsName->GetString();
 	if(szKnightsName.empty()) // ÀÌ¸§ÀÌ ¾øÀ¸¸é ¿¡·¯..
 	{
-		std::string szMsg = "You need to have a name in order to create a Knights"; //::_LoadStringFromResource(IDS_ERR_KNIGHTS_CREATE_FAILED_NAME_EMPTY, szMsg);
+		std::string szMsg; ::_LoadStringFromResource(IDS_ERR_KNIGHTS_CREATE_FAILED_NAME_EMPTY, szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff00ff);
 		return;
 	}

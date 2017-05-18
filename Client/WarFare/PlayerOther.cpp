@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "StdAfx.h"
-//#include "Resource.h"
+#include "resource.h"
 #include "GameProcedure.h"
 #include "PlayerOther.h"
 #include "PlayerMySelf.h"
@@ -177,7 +177,7 @@ void CPlayerOther::KnightsInfoSet(int iID, const std::string& szName, int iGrade
 	{
 		if(!m_pClanFont)
 		{
-			std::string szFontID = "Arial"; //::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 			m_pClanFont = new CDFont(szFontID, 12);
 			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
 			m_pClanFont->RestoreDeviceObjects();
@@ -197,7 +197,7 @@ void CPlayerOther::SetSoundAndInitFont(DWORD dwFontFlag)
 	{
 		if(!m_pClanFont)
 		{
-			std::string szFontID = "Arial";//; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 			m_pClanFont = new CDFont(szFontID, 12, D3DFONT_BOLD); // 좀 작게 만든다..
 			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
 			m_pClanFont->RestoreDeviceObjects();

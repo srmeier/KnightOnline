@@ -5,7 +5,7 @@
 //#include "stdafx.h"
 #include "GameProcCharacterSelect.h"
 
-//#include "Resource.h"
+#include "resource.h"
 #include "PacketDef.h"
 #include "GameEng.h"
 #include "LocalInput.h"
@@ -1039,7 +1039,7 @@ void CGameProcCharacterSelect::CharacterSelect()
 void CGameProcCharacterSelect::CharacterSelectFailed()
 {
 	m_bReceivedCharacterSelect = false; // 캐릭터 고르기 실패..
-	std::string szErr = "IDS_ERR_CHARACTER_SELECT"; //::_LoadStringFromResource(IDS_ERR_CHARACTER_SELECT, szErr);
+	std::string szErr; ::_LoadStringFromResource(IDS_ERR_CHARACTER_SELECT, szErr);
 	CGameProcedure::MessageBoxPost(szErr, "", MB_OK, BEHAVIOR_EXIT);
 	s_pUIMgr->EnableOperationSet(true);
 }

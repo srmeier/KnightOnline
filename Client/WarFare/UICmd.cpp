@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "resource.h"
+#include "resource.h"
 #include "UICmd.h"
 #include "GameProcMain.h"
 #include "PlayerOtherMgr.h"
@@ -168,14 +168,14 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			{
 				if(iMemberIndex > 0)
 				{
-					szMsg = "IDS_PARTY_CONFIRM_DISCHARGE";//::_LoadStringFromResource(IDS_PARTY_CONFIRM_DISCHARGE, szMsg); // 파티에서 쫓아낼까여?
+					::_LoadStringFromResource(IDS_PARTY_CONFIRM_DISCHARGE, szMsg);
 					szMsg = pTarget->IDString() + szMsg;
 				}
-				else szMsg = "IDS_PARTY_CONFIRM_DESTROY";//::_LoadStringFromResource(IDS_PARTY_CONFIRM_DESTROY, szMsg); // 파티 뽀갤까여?
+				else ::_LoadStringFromResource(IDS_PARTY_CONFIRM_DESTROY, szMsg);
 			}
 			else if(bIAmMemberOfParty)
 			{
-				szMsg = "IDS_PARTY_CONFIRM_LEAVE";//::_LoadStringFromResource(IDS_PARTY_CONFIRM_LEAVE, szMsg); // 파티에서 나갈까여?
+				::_LoadStringFromResource(IDS_PARTY_CONFIRM_LEAVE, szMsg);
 			}
 
 			if(!szMsg.empty()) CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_PARTY_DISBAND); // 파티 해체,축출,탈퇴하기..확인

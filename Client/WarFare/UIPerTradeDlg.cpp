@@ -22,7 +22,7 @@
 #include "N3UIButton.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

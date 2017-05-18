@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 
 #include "GameProcCharacterSelect.h"
 #include "UICharacterSelect.h"
@@ -105,13 +105,13 @@ bool CUICharacterSelect::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 		if ( pSender->m_szID == "bt_exit" )	// Elmorad
 		{
 //			CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn); // 로그인으로 돌아간다..
-			std::string szMsg = "Are you sure you want to exit?"; //::_LoadStringFromResource(IDS_CONFIRM_EXIT_GAME, szMsg);
+			std::string szMsg; ::_LoadStringFromResource(IDS_CONFIRM_EXIT_GAME, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXIT);
 		}
 		else
 		if ( pSender->m_szID == "bt_delete" )	// Elmorad
 		{
-			std::string szMsg = "Character deletion has been disabled currently"; //::_LoadStringFromResource(IDS_CONFIRM_DELETE_CHR, szMsg);
+			std::string szMsg; ::_LoadStringFromResource(IDS_CONFIRM_DELETE_CHR, szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_DELETE_CHR);
 		}
 	}
@@ -133,12 +133,12 @@ void CUICharacterSelect::DisplayChrInfo(__CharacterSelectInfo* pCSInfo)
 		/*
 		Level: %d\nSpecialty: %s\nID: %s
 		*/
-		szFmt = "Level: %d\nSpecialty: %s\nID: %s";//::_LoadStringFromResource(IDS_CHR_SELECT_FMT_INFO, szFmt); 1201
+		::_LoadStringFromResource(IDS_CHR_SELECT_FMT_INFO, szFmt);
 		char szBuffer[256];
 		sprintf(szBuffer, szFmt.c_str(), pCSInfo->iLevel, szClass.c_str(), pCSInfo->szID.c_str());
 		szTotal = szBuffer;
 	}
-	else szTotal = "Left click and you can create a new character.";//::_LoadStringFromResource(IDS_CHR_SELECT_HINT, szTotal); 1202
+	else ::_LoadStringFromResource(IDS_CHR_SELECT_HINT, szTotal);
 
 	if ( m_pUserInfoStr )
 	{

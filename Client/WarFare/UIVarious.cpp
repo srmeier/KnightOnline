@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //#include "stdafx.h"
-//#include "Resource.h"
+#include "resource.h"
 #include "UIVarious.h"
 #include "GameProcMain.h"
 #include "PlayerMySelf.h"
@@ -285,7 +285,7 @@ void CUIState::UpdateWeight(int iVal, int iValMax)
 
 	char szBuf[64] = "";
 	std::string szMsg;
-	szMsg = "Weight : ";//::_LoadStringFromResource(IDS_INVEN_WEIGHT, szMsg);
+	::_LoadStringFromResource(IDS_INVEN_WEIGHT, szMsg);
 	std::string str = szMsg;	str += szVal;
 
 	CUIInventory* pInv = CGameProcedure::s_pProcMain->m_pUIInventory;
@@ -943,12 +943,12 @@ void CUIKnights::UpdateKnightsDuty(e_KnightsDuty eDuty)
 	std::string szDuty;
 	switch(eDuty)
 	{
-		case KNIGHTS_DUTY_CHIEF:		szDuty = "IDS_KNIGHTS_DUTY_CHIEF";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szDuty);*/ break;
-		case KNIGHTS_DUTY_VICECHIEF:	szDuty = "IDS_KNIGHTS_DUTY_VICECHIEF";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szDuty);*/ break;
-		//case KNIGHTS_DUTY_OFFICER:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szDuty); break;
-		case KNIGHTS_DUTY_KNIGHT:		szDuty = "IDS_KNIGHTS_DUTY_KNIGHT";/*::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szDuty);*/ break;
-		//case KNIGHTS_DUTY_TRAINEE:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szDuty); break;
-		//case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szDuty); break;
+	case KNIGHTS_DUTY_CHIEF:			::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szDuty); break;
+		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szDuty); break;
+		case KNIGHTS_DUTY_OFFICER:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szDuty); break;
+		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szDuty); break;
+		case KNIGHTS_DUTY_TRAINEE:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szDuty); break;
+		case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szDuty); break;
 		case KNIGHTS_DUTY_UNKNOWN:		szDuty.empty(); break;//::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szDuty); break;
 		default: __ASSERT(0, "Invalid Knights Duty"); break;
 	}	
@@ -1190,8 +1190,8 @@ bool CUIFriends::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 			if(it != m_MapFriends.end())
 			{
 				std::string szMsg;
-				if (pProcMain->MsgSend_PartyOrForceCreate(0, szID)) szMsg = "IDS_PARTY_INVITE";//::_LoadStringFromResource(IDS_PARTY_INVITE, szMsg); // 파티
-				else  szMsg = "IDS_PARTY_INVITE_FAILED";//::_LoadStringFromResource(IDS_PARTY_INVITE_FAILED, szMsg); // 파티 초대 실패
+				if (pProcMain->MsgSend_PartyOrForceCreate(0, szID)) ::_LoadStringFromResource(IDS_PARTY_INVITE, szMsg); // 파티
+				else  ::_LoadStringFromResource(IDS_PARTY_INVITE_FAILED, szMsg); // 파티 초대 실패
 				pProcMain->MsgOutput(it->second.szName + szMsg, 0xffffff00);
 			}
 		}
