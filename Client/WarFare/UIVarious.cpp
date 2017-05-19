@@ -911,7 +911,7 @@ bool CUIKnights::MsgRecv_MemberInfo(Packet& pkt)
 
 		__KnightsMemberInfo KMI;
 
-		CAPISocket::Parse_GetString(pkt, KMI.szName, iNameLength);
+		pkt.readString(KMI.szName, iNameLength);
 		// KMI.szName = szName;
 		KMI.eDuty = (e_KnightsDuty)pkt.read<uint8_t>();
 		KMI.iLevel = pkt.read<uint8_t>();
@@ -1326,7 +1326,7 @@ void CUIFriends::MsgRecv_MemberInfo(Packet& pkt)
 	for(int i = 0; i < iFC; i++)
 	{
 		iLen = pkt.read<int16_t>(); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
-		CAPISocket::Parse_GetString(pkt, szID, iLen);
+		pkt.readString(szID, iLen);
 		iID = pkt.read<int16_t>(); 
 		bStatus = pkt.read<uint8_t>();
 

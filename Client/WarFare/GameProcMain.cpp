@@ -753,7 +753,7 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 			int iLen = pkt.read<int16_t>();
 
 			std::string szDebugString;
-			CAPISocket::Parse_GetString(pkt, szDebugString, iLen);
+			pkt.readString(szDebugString, iLen);
 
 			MsgOutput("DEBUG: "+szDebugString, D3DCOLOR_ARGB(255, 255, 255, 0));
 
@@ -934,7 +934,7 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 
 				std::string szID, szMsg;
 				int iLen = pkt.read<int16_t>();		
-				CAPISocket::Parse_GetString(pkt, szID, iLen);	
+				pkt.readString(szID, iLen);	
 
 				e_ChatMode eCM = N3_CHAT_UNKNOWN;
 				if(szID.empty())
@@ -1707,7 +1707,7 @@ bool CGameProcMain::MsgRecv_MyInfo_All(Packet& pkt)
 	int iLen = pkt.read<uint8_t>();
 
 	std::string szID;
-	CAPISocket::Parse_GetString(pkt, szID, iLen);
+	pkt.readString(szID, iLen);
 	s_pPlayer->IDSet(iID, szID, D3DCOLOR_XRGB(100, 210, 255)); // 밝은 파란색과 하늘색 중간..
 
 	float fX = (pkt.read<uint16_t>())/10.0f;
@@ -1749,7 +1749,7 @@ bool CGameProcMain::MsgRecv_MyInfo_All(Packet& pkt)
 	uint8_t byFlag = pkt.read<uint8_t>();
 	
 	int iKnightNameLen = pkt.read<uint8_t>(); // 소속 기사단 이름 길이.
-	CAPISocket::Parse_GetString(pkt, szKnightsName, iKnightNameLen);
+	pkt.readString(szKnightsName, iKnightNameLen);
 	int iKnightsGrade = pkt.read<uint8_t>(); // 소속 기사단 등급
 	int	iKnightsRank = pkt.read<uint8_t>(); // 소속 기사단 순위
 	
@@ -2053,11 +2053,11 @@ bool CGameProcMain::MsgRecv_Chat(Packet& pkt)
 
 	std::string szName;
 	int iNameLen = pkt.read<uint8_t>();
-	CAPISocket::Parse_GetString(pkt, szName, iNameLen);
+	pkt.readString(szName, iNameLen);
 
 	std::string szMsg;
 	int iMsgLen = pkt.read<int16_t>();
-	CAPISocket::Parse_GetString(pkt, szMsg, iMsgLen);
+	pkt.readString(szMsg, iMsgLen);
 
 	szChat = szName + " : " + szMsg;
 	int iChatLen = szChat.size();
@@ -2367,7 +2367,7 @@ bool CGameProcMain::MsgRecv_UserIn(Packet& pkt, bool bWithFX)
 
 	std::string szName;
 	int iNameLen	= pkt.read<uint8_t>();
-	CAPISocket::Parse_GetString(pkt, szName, iNameLen );
+	pkt.readString(szName, iNameLen );
 
 	e_Nation eNation =				(e_Nation)pkt.read<uint8_t>(); // 소속 국가. 0 이면 없다. 1
 
@@ -2380,7 +2380,7 @@ bool CGameProcMain::MsgRecv_UserIn(Packet& pkt, bool bWithFX)
 
 	int iKnightNameLen = pkt.read<uint8_t>(); // 소속 기사단 이름 길이.
 	std::string szKnightsName;
-	CAPISocket::Parse_GetString(pkt, szKnightsName, iKnightNameLen);
+	pkt.readString(szKnightsName, iKnightNameLen);
 	int iKnightsGrade = pkt.read<uint8_t>();			// 등급
 	int iKnightsRank = pkt.read<uint8_t>();			// 순위
 
@@ -2696,7 +2696,7 @@ bool CGameProcMain::MsgRecv_NPCIn(Packet& pkt)
 	int		iItemID1	= pkt.read<uint32_t>(); // 리소스 ID
 	int 	iNameLen	= pkt.read<uint8_t>();
 	std::string szName;									// NPC 아이디..
-	if(iNameLen > 0) CAPISocket::Parse_GetString(pkt, szName, iNameLen );
+	if(iNameLen > 0) pkt.readString(szName, iNameLen );
 	else szName = "";
 
 #ifdef _DEBUG
@@ -4620,7 +4620,7 @@ bool CGameProcMain::MsgRecv_ItemDroppedGetResult(Packet& pkt)	// 땅에 떨어진 아�
 	{
 		iItemID = pkt.read<uint32_t>();
 		iStrLen = (int)pkt.read<int16_t>();
-		CAPISocket::Parse_GetString(pkt, szString, iStrLen);
+		pkt.readString(szString, iStrLen);
 	}
 
 	//TRACE("받음 - Item Get %d %d\n", bResult, iGoldID);
@@ -4778,7 +4778,7 @@ void CGameProcMain::MsgRecv_Notice(Packet& pkt)
 		if(iStrLen <= 0) continue;
 
 		std::string szNotice;
-		CAPISocket::Parse_GetString(pkt, szNotice, iStrLen);
+		pkt.readString(szNotice, iStrLen);
 		if(m_pUINotice) m_pUINotice->m_Texts.push_back(szNotice);
 	}
 
@@ -4807,7 +4807,7 @@ void CGameProcMain::MsgRecv_PartyOrForce(Packet& pkt)
 			int iID			= pkt.read<int16_t>();
 			int iStrLen		= pkt.read<int16_t>();
 			std::string szID;
-			CAPISocket::Parse_GetString(pkt, szID, iStrLen);
+			pkt.readString(szID, iStrLen);
 			
 			if(iID >= 0)
 			{
@@ -4825,7 +4825,7 @@ void CGameProcMain::MsgRecv_PartyOrForce(Packet& pkt)
 			if(iErrorCode >= 0)
 			{
 				int iIDLength	= pkt.read<int16_t>();
-				std::string szID; CAPISocket::Parse_GetString(pkt, szID, iIDLength);
+				std::string szID; pkt.readString(szID, iIDLength);
 				int iHPMax		= pkt.read<int16_t>();
 				int iHP			= pkt.read<int16_t>();
 				int iLevel		= pkt.read<uint8_t>();
@@ -6036,7 +6036,7 @@ void CGameProcMain::MsgRecv_KnightsListBasic(Packet& pkt) // 기사단 기본 정보 받
 				std::string szID;
 				int iID = pkt.read<int16_t>();		// 기사단 ID
 				int iLen = pkt.read<int16_t>();		// ID 문자열 길이..
-				CAPISocket::Parse_GetString(pkt, szID, iLen);	// ID 문자열..
+				pkt.readString(szID, iLen);	// ID 문자열..
 
 				m_pUIKnightsOp->KnightsInfoInsert(iID, szID); // 기사단 정보 모든 걸 받는다..
 			}
@@ -6047,7 +6047,7 @@ void CGameProcMain::MsgRecv_KnightsListBasic(Packet& pkt) // 기사단 기본 정보 받
 			std::string szID;
 			int iID = pkt.read<int16_t>();		// 기사단 ID
 			int iLen = pkt.read<int16_t>();		// ID 문자열 길이..
-			CAPISocket::Parse_GetString(pkt, szID, iLen);	// ID 문자열..
+			pkt.readString(szID, iLen);	// ID 문자열..
 
 			m_pUIKnightsOp->KnightsInfoInsert(iID, szID); // 기사단 정보 추가..
 		}
@@ -6373,9 +6373,9 @@ void CGameProcMain::MsgRecv_WarpList(Packet& pkt)		// 워프 리스트 - 존 체인지가 
 		
 		WI.iID = pkt.read<int16_t>(); // 워프 ID
 		iStrLen = pkt.read<int16_t>(); // 이름 길이
-		CAPISocket::Parse_GetString(pkt, WI.szName, iStrLen); // 이름
+		pkt.readString(WI.szName, iStrLen); // 이름
 		iStrLen = pkt.read<int16_t>(); // 동의문 길이
-		CAPISocket::Parse_GetString(pkt, WI.szAgreement, iStrLen); // 동의문
+		pkt.readString(WI.szAgreement, iStrLen); // 동의문
 		WI.iZone = pkt.read<int16_t>();				// 존번호
 		WI.iMaxUser = pkt.read<int16_t>();			// 최대 유저 카운트.
 		WI.iGold = pkt.read<uint32_t>();				// 돈
@@ -6395,7 +6395,7 @@ void CGameProcMain::MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt
 {
 	std::string szIP;
 	int iStrLen = pkt.read<int16_t>(); // IP..
-	CAPISocket::Parse_GetString(pkt, szIP, iStrLen);
+	pkt.readString(szIP, iStrLen);
 	uint32_t dwPort = pkt.read<int16_t>(); // Port
 
 	__WarpInfo WI;
@@ -6464,7 +6464,7 @@ void CGameProcMain::MsgRecv_Knights_Create(Packet& pkt)
 				std::string szID;
 				int iID = pkt.read<int16_t>();		// 기사단 ID
 				int iLen = pkt.read<int16_t>();		// ID 문자열 길이..
-				CAPISocket::Parse_GetString(pkt, szID, iLen);	// ID 문자열..
+				pkt.readString(szID, iLen);	// ID 문자열..
 				int iGrade = pkt.read<uint8_t>();	// 등급
 				int iRank = pkt.read<uint8_t>();		// 순위
 				uint32_t dwGold = pkt.read<uint32_t>();
@@ -6606,7 +6606,7 @@ void CGameProcMain::MsgRecv_Knights_Join(Packet& pkt)
 			e_KnightsDuty eDuty = (e_KnightsDuty)pkt.read<uint8_t>();
 			int iL = pkt.read<int16_t>(); // 소속 기사단 이름 길이.
 			std::string szKnightsName;
-			CAPISocket::Parse_GetString(pkt, szKnightsName, iL);
+			pkt.readString(szKnightsName, iL);
 			int iGrade = pkt.read<uint8_t>();	// 등급
 			int iRank = pkt.read<uint8_t>();		// 순위
 
@@ -6696,7 +6696,7 @@ void CGameProcMain::MsgRecv_Knights_Leave(Packet& pkt)
 			e_KnightsDuty eDuty = (e_KnightsDuty)pkt.read<uint8_t>();
 			int iL = pkt.read<int16_t>(); // 소속 기사단 이름 길이.
 			std::string szKnightsName;
-			CAPISocket::Parse_GetString(pkt, szKnightsName, iL);
+			pkt.readString(szKnightsName, iL);
 			int iGrade = pkt.read<uint8_t>();	// 등급
 			int iRank = pkt.read<uint8_t>();		// 순위
 
@@ -6938,7 +6938,7 @@ void CGameProcMain::MsgRecv_Knigts_Join_Req(Packet& pkt)
 
 			int iL = pkt.read<int16_t>(); // 소속 기사단 이름 길이.
 			std::string szKnightsName;
-			CAPISocket::Parse_GetString(pkt, szKnightsName, iL);
+			pkt.readString(szKnightsName, iL);
 
 //			std::string szName;
 //			__KnightsInfoBase* pKIB = m_pUIKnightsOp->KnightsInfoFind(m_iJoinReqClan);

@@ -278,8 +278,6 @@ public:
 
 	}
 
-	static	void		Parse_GetString(Packet& pkt, std::string& szString, int len);
-
 	CAPISocket();
 	virtual ~CAPISocket();
 };

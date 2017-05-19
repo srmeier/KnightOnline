@@ -304,11 +304,11 @@ void CUITradeSellBBS::MsgRecv_RefreshData(Packet& pkt)
 		__InfoTradeSellBBS Info;
 		Info.sID = pkt.read<int16_t>();
 		iLen = pkt.read<int16_t>();
-		if(iLen>0) CAPISocket::Parse_GetString(pkt, Info.szID, iLen);
+		if(iLen>0) pkt.readString(Info.szID, iLen);
 		iLen = pkt.read<int16_t>();
-		if(iLen>0) CAPISocket::Parse_GetString(pkt, Info.szTitle, iLen);
+		if(iLen>0) pkt.readString(Info.szTitle, iLen);
 		iLen = pkt.read<int16_t>();
-		if(iLen>0) CAPISocket::Parse_GetString(pkt, Info.szExplanation, iLen);
+		if(iLen>0) pkt.readString(Info.szExplanation, iLen);
 		Info.iPrice = pkt.read<uint32_t>();		//아이템에 제시한 가격
 		Info.sIndex = pkt.read<int16_t>();		//등록된 인덱스
 

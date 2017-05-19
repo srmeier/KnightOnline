@@ -229,7 +229,7 @@ void CUIPartyBBS::MsgRecv_RefreshData(Packet& pkt)
 	{
 		__InfoPartyBBS Info;
 		int iNameLen	= pkt.read<int16_t>();
-		CAPISocket::Parse_GetString(pkt, Info.szID, iNameLen);
+		pkt.readString(Info.szID, iNameLen);
 		Info.iLevel		= pkt.read<uint8_t>();
 		Info.eClass		= (e_Class)pkt.read<int16_t>();
 

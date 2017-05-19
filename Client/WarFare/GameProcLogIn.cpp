@@ -319,9 +319,9 @@ void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 		int iLen = 0;
 		__GameServerInfo GSI;
 		iLen = pkt.read<int16_t>();
-		CAPISocket::Parse_GetString(pkt, GSI.szIP, iLen);
+		pkt.readString(GSI.szIP, iLen);
 		iLen = pkt.read<int16_t>();
-		CAPISocket::Parse_GetString(pkt, GSI.szName, iLen);
+		pkt.readString(GSI.szName, iLen);
 		GSI.iConcurrentUserCount = pkt.read<int16_t>(); // 현재 동시 접속자수..
 		
 		m_pUILogIn->ServerInfoAdd(GSI); // ServerList
@@ -379,10 +379,10 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 	else if(5 == iResult) // 어떤 넘이 접속해 있다. 서버에게 끊어버리라고 하자..
 	{
 		int iLen = pkt.read<int16_t>();
-		if(pkt.rpos() < pkt.wpos())
+		if (iLen > 0)
 		{
 			std::string szIP;
-			CAPISocket::Parse_GetString(pkt, szIP, iLen);
+			pkt.readString(szIP, iLen);
 			uint32_t dwPort = pkt.read<int16_t>();
 
 			CAPISocket socketTmp;

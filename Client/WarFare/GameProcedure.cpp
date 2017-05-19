@@ -793,9 +793,9 @@ bool CGameProcedure::ProcessPacket(Packet& pkt)
 			int iLen = 0;
 			std::string szName, szIP;
 //			iLen = pkt.read<int16_t>(); // 서버 이름
-//			CAPISocket::Parse_GetString(pkt, szName, iLen);
+//			pkt.readString(szName, iLen);
 			iLen = pkt.read<int16_t>(); // 서버 IP
-			CAPISocket::Parse_GetString(pkt, szIP, iLen);
+			pkt.readString(szIP, iLen);
 			uint32_t dwPort = pkt.read<int16_t>();
 			s_pPlayer->m_InfoExt.iZoneInit = pkt.read<uint8_t>();
 			s_pPlayer->m_InfoExt.iZoneCur = pkt.read<uint8_t>();

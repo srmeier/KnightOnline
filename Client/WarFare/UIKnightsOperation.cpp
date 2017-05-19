@@ -255,10 +255,10 @@ bool CUIKnightsOperation::MsgRecv_KnightsList(Packet& pkt)
 	{
 		iID = pkt.read<int16_t>();
 		iNameLength = pkt.read<int16_t>();
-		CAPISocket::Parse_GetString(pkt, szName, iNameLength);
+		pkt.readString(szName, iNameLength);
 		iMemberCount = pkt.read<int16_t>();
 		iNameLength = pkt.read<int16_t>();
-		CAPISocket::Parse_GetString(pkt, szChiefName, iNameLength);
+		pkt.readString(szChiefName, iNameLength);
 		iPoint = pkt.read<uint32_t>();
 
 		this->KnightsListAdd(iID, szName, szChiefName, iMemberCount, iPoint); // UI ¿¡ Ãß°¡..

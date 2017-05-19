@@ -105,7 +105,7 @@ public:
 		T r = read<T>(_rpos);
 		_rpos += sizeof(T);
 		return r;
-	};
+	}
 
 	template <typename T> T read(size_t pos) const 
 	{
@@ -113,7 +113,7 @@ public:
 		if (pos + sizeof(T) > size())
 			return (T)0;
 		return *((T*)&_storage[pos]);
-	};
+	}
 
 	void read(void *dest, size_t len) 
 	{
@@ -122,7 +122,21 @@ public:
 		else // throw error();
 			memset(dest, 0, len);
 		_rpos += len;
-	};
+	}
+
+	void readString(std::string& dest)
+	{
+		readString(dest, m_doubleByte);
+	}
+
+	void readString(std::string& dest, size_t len)
+	{
+		dest.clear();
+		dest.assign(len, '\0');
+
+		if (_rpos + len <= size())
+			read(&dest[0], len);
+	}
 
 	const uint8_t *contents() const { return &_storage[0]; }
 	INLINE size_t size() const { return _storage.size(); }

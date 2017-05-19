@@ -412,21 +412,3 @@ void CAPISocket::Send(uint8_t* pData, int nSize)
 
 	m_iSendByteCount += nTotalSize;
 }
-
-void CAPISocket::Parse_GetString(Packet& pkt, std::string& szString, int len)
-{
-	if (len > 0)
-	{
-		szString.assign(len, ' ');
-		pkt.read(&szString[0], len);
-	}
-	else if (len == 0)
-	{
-		szString.clear();
-	}
-	else 
-	{
-		szString.clear();
-		CLogWriter::Write("CAPISocket::Parse_GetString -> Invalid string length");
-	}
-}

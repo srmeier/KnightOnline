@@ -1295,7 +1295,7 @@ void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(Packet& pkt)
 		{
 			int iIDLength = pkt.read<int16_t>(); // 캐릭터 아이디 길이 s,
 
-			CAPISocket::Parse_GetString(pkt, m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
+			pkt.readString(m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
 
 			m_InfoChrs[i].eRace			= (e_Race)(pkt.read<uint8_t>()); // 종족 b
 			m_InfoChrs[i].eClass		= (e_Class)(pkt.read<int16_t>()); // 직업 b
