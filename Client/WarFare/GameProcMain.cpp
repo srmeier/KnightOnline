@@ -2059,7 +2059,11 @@ bool CGameProcMain::MsgRecv_Chat(Packet& pkt)
 	int iMsgLen = pkt.read<int16_t>();
 	pkt.readString(szMsg, iMsgLen);
 
-	szChat = szName + " : " + szMsg;
+	if (szName.empty())
+		szChat = szMsg;
+	else
+		szChat = szName + " : " + szMsg;
+
 	int iChatLen = szChat.size();
 	
 	if(eCM == N3_CHAT_CONTINUE_DELETE)
