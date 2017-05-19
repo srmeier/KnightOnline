@@ -4600,12 +4600,12 @@ void CGameProcMain::MsgOutput(const std::string& szMsg, D3DCOLOR crMsg)
 bool CGameProcMain::MsgRecv_ItemDroppedGetResult(Packet& pkt)	// ¶¥¿¡ ¶³¾îÁø ¾ÆÀÌÅÛ ¸Ô±â °á°ú..
 {
 	uint8_t	bResult; 
-	uint8_t	bPos;
+	uint8_t	bPos = 0;
 	int		iItemID = 0;
 	int		iGoldID = 0;
 	int		iStrLen = 0;
 	int16_t	sItemCount = 0;
-	std::string szString = "";
+	std::string szString;
 
 	bResult = pkt.read<uint8_t>();
 	if ( (bResult == 0x01) || (bResult == 0x02) || (bResult == 0x05) )
