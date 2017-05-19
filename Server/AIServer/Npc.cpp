@@ -310,8 +310,8 @@ void CNpc::Load(uint16_t sNpcID, CNpcTable * proto, bool bMonster, uint8_t natio
 
 void CNpc::SendMoveResult(float fX, float fY, float fZ, float fSpeed /*= 0.0f*/)
 {
-	Packet result(MOVE_RESULT, uint8_t(SUCCESS));
-	result << GetID() << fX << fZ << fY << fSpeed;
+	Packet result(MOVE_RESULT);
+	result << uint8_t(SUCCESS) << GetID() << fX << fZ << fY << fSpeed;
 	g_pMain->Send(&result);
 	RegisterRegion(fX, fZ);
 }
@@ -2840,7 +2840,8 @@ void CNpc::SendExpToUserList()
 		&& !strMaxDamageUser.empty()
 		&& m_bySpecialType >= NpcSpecialTypeKarusWarder1 && m_bySpecialType <= NpcSpecialTypeElmoradKeeper)
 	{
-		Packet result(AG_BATTLE_EVENT, uint8_t(BATTLE_EVENT_MAX_USER));
+		Packet result(AG_BATTLE_EVENT);
+		result << uint8_t(BATTLE_EVENT_MAX_USER);
 
 		switch (m_bySpecialType)
 		{

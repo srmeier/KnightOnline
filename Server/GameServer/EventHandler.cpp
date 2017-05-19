@@ -6,7 +6,7 @@ using std::vector;
 
 void CGameServerDlg::SendEventRemainingTime(bool bSendAll, CUser *pUser, uint8_t ZoneID)
 {
-	Packet result(WIZ_BIFROST,uint8_t(BIFROST_EVENT));
+	Packet result(WIZ_BIFROST);
 	uint16_t nRemainingTime = 0;
 
 	if (ZoneID == ZONE_BATTLE4)
@@ -14,7 +14,7 @@ void CGameServerDlg::SendEventRemainingTime(bool bSendAll, CUser *pUser, uint8_t
 	else if (ZoneID == ZONE_BIFROST || ZoneID ==  ZONE_RONARK_LAND)
 		nRemainingTime = m_sBifrostRemainingTime;
 
-	result << nRemainingTime;
+	result << uint8_t(BIFROST_EVENT) << nRemainingTime;
 
 	if (pUser)
 		pUser->Send(&result);
@@ -78,9 +78,9 @@ void CUser::CastleSiegeWarProcess(CUser * pUser)
 	g_pMain->KickOutZoneUsers(ZONE_DELOS, ZONE_DELOS);
 	if (pKnightSiegeWar != nullptr)
 	{
-	Packet result(WIZ_SIEGE, uint8_t(2));
-	result << pKnights->GetID() << pKnights->m_sMarkVersion;
-	g_pMain->Send_Zone(&result,ZONE_DELOS);
+		Packet result(WIZ_SIEGE);
+		result << uint8_t(2) << pKnights->GetID() << pKnights->m_sMarkVersion;
+		g_pMain->Send_Zone(&result,ZONE_DELOS);
 	}
 }
 

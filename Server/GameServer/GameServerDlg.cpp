@@ -1217,12 +1217,12 @@ void CGameServerDlg::UpdateWeather()
 	}
 
 	// Real weather data for most users.
-	Packet realWeather(WIZ_WEATHER, m_byWeather);
-	realWeather << m_sWeatherAmount;
+	Packet realWeather(WIZ_WEATHER);
+	realWeather << m_byWeather << m_sWeatherAmount;
 
 	// Fake, clear weather for users in certain zones (e.g. Desp & Hell Abysses, Arena)
-	Packet fakeWeather(WIZ_WEATHER, uint8_t(WEATHER_FINE));
-	fakeWeather << m_sWeatherAmount;
+	Packet fakeWeather(WIZ_WEATHER);
+	fakeWeather << uint8_t(WEATHER_FINE) << m_sWeatherAmount;
 
 	SessionMap sessMap = g_pMain->m_socketMgr.GetActiveSessionMap();
 	foreach (itr, sessMap)
@@ -1400,11 +1400,14 @@ void CGameServerDlg::MerchantUserInOutForMe(CUser *pSendUser)
 	if (pSendUser == nullptr)
 		return;
 
-	Packet result(WIZ_MERCHANT_INOUT, uint8_t(1));
 	C3DMap* pMap = pSendUser->GetMap();
 	ASSERT(pMap != nullptr);
-	uint16_t user_count = 0;
+
+	Packet result(WIZ_MERCHANT_INOUT);
+	result << uint8_t(1);
+
 	size_t wpos = result.wpos();
+	uint16_t user_count = 0;
 	result << uint16_t(0); // placeholder for user count
 
 	int16_t rx = pSendUser->GetRegionX(), rz = pSendUser->GetRegionZ();
@@ -1951,8 +1954,8 @@ void CGameServerDlg::BattleZoneResult(uint8_t nation, CUser* pUser)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_BATTLE_EVENT, uint8_t(1));
-	result << g_pMain->m_byOldVictory << pUser->GetName() ;
+	Packet result(WIZ_BATTLE_EVENT);
+	result << uint8_t(1) << g_pMain->m_byOldVictory << pUser->GetName() ;
 	g_pMain->AddDatabaseRequest(result, pUser);
 
 	if (g_pMain->m_bResultDelayVictory == ELMORAD)
@@ -2073,8 +2076,8 @@ void CGameServerDlg::BattleZoneOpen(int nType, uint8_t bZone /*= 0*/)
 		return;
 
 	Announcement(nType);	// Send an announcement out that the battlezone is open/closed.
-	Packet result(AG_BATTLE_EVENT, uint8_t(BATTLE_EVENT_OPEN));
-	result << uint8_t(nType);
+	Packet result(AG_BATTLE_EVENT);
+	result << uint8_t(BATTLE_EVENT_OPEN) << uint8_t(nType);
 	Send_AIServer(&result);
 }
 
@@ -2100,8 +2103,8 @@ void CGameServerDlg::BattleZoneClose()
 	else
 	BattleZoneOpen(BATTLEZONE_CLOSE);
 
-	Packet result(AG_BATTLE_EVENT, uint8_t(BATTLE_EVENT_OPEN));
-	result << uint8_t(BATTLEZONE_CLOSE);
+	Packet result(AG_BATTLE_EVENT);
+	result << uint8_t(BATTLE_EVENT_OPEN) << uint8_t(BATTLEZONE_CLOSE);
 	Send_AIServer(&result);
 	ResetBattleZone();
 	m_byBanishFlag = true;
@@ -2486,12 +2489,12 @@ void CGameServerDlg::TempleEventTimer()
 
 void CGameServerDlg::TempleEventStart()
 {
-	Packet result(WIZ_EVENT, uint8_t(TEMPLE_EVENT));
+	Packet result(WIZ_EVENT);
 	pTempleEvent.StartTime = (uint32_t)UNIXTIME;
 	pTempleEvent.KarusUserCount = 0;
 	pTempleEvent.ElMoradUserCount = 0;
 	pTempleEvent.AllUserCount = 0;
-	result << (uint16_t)pTempleEvent.ActiveEvent << m_nTempleEventRemainSeconds;
+	result << uint8_t(TEMPLE_EVENT) << uint16_t(pTempleEvent.ActiveEvent) << m_nTempleEventRemainSeconds;
 	Send_All(&result);
 }
 
@@ -2626,8 +2629,8 @@ void CGameServerDlg::TempleEventGetActiveEventTime(CUser *pUser)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_EVENT, uint8_t(TEMPLE_EVENT));
-	result << (uint16_t)pTempleEvent.ActiveEvent << m_nTempleEventRemainSeconds;
+	Packet result(WIZ_EVENT);
+	result << uint8_t(TEMPLE_EVENT) << uint16_t(pTempleEvent.ActiveEvent) << m_nTempleEventRemainSeconds;
 	pUser->Send(&result);
 }
 
@@ -2642,8 +2645,8 @@ void CGameServerDlg::TempleEventSendActiveEventTime(CUser *pUser)
 		return;
 	}
 
-	Packet result(WIZ_EVENT, uint8_t(TEMPLE_EVENT_JOIN));
-	result << uint8_t(1) << uint16_t(pTempleEvent.ActiveEvent);
+	Packet result(WIZ_EVENT);
+	result << uint8_t(TEMPLE_EVENT_JOIN) << uint8_t(1) << uint16_t(pTempleEvent.ActiveEvent);
 	pUser->Send(&result);
 	pUser->TempleOperations(TEMPLE_EVENT_COUNTER);
 }
@@ -3103,7 +3106,8 @@ void CGameServerDlg::BattleZoneCurrentUsers()
 */
 void CGameServerDlg::SendFlyingSantaOrAngel()
 {
-	Packet result(WIZ_SANTA, uint8_t(m_bSantaOrAngel));
+	Packet result(WIZ_SANTA);
+	result << uint8_t(m_bSantaOrAngel);
 	Send_All(&result);
 }
 
@@ -3245,8 +3249,8 @@ void CGameServerDlg::CheckNationMonumentRewards()
 
 void CGameServerDlg::ShowNpcEffect(uint16_t sNpcID, uint32_t nEffectID, uint8_t ZoneID)
 {
-	Packet result(WIZ_OBJECT_EVENT, uint8_t(OBJECT_NPC));
-	result << uint8_t(3) << sNpcID << nEffectID;
+	Packet result(WIZ_OBJECT_EVENT);
+	result << uint8_t(OBJECT_NPC) << uint8_t(3) << sNpcID << nEffectID;
 	g_pMain->Send_Zone(&result, ZoneID);
 }
 
@@ -3367,7 +3371,8 @@ bool CGameServerDlg::CastleSiegeWarAttack(CUser *pUser, CUser *pTargetUser)
 	enum
 	{CHALLENGE_CLAN_ERROR = 13};
 
-	Packet result(WIZ_CHALLENGE, uint8_t(CHALLENGE_CLAN_ERROR));
+	Packet result(WIZ_CHALLENGE);
+	result << uint8_t(CHALLENGE_CLAN_ERROR);
 
 	pUser->m_sChallengeUser = -1;
 	pUser->m_bChallengeRequested = 0;

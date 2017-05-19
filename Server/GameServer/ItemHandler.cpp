@@ -1039,7 +1039,8 @@ bool CUser::RunExchange(int nExchangeID, uint32_t count)
 
 bool CUser::RunSelectExchange(int nExchangeID)
 {
-	Packet result(WIZ_EXCHANGE, uint8_t(EXCHANGE_REQ));
+	Packet result(WIZ_EXCHANGE);
+	result << uint8_t(EXCHANGE_REQ);
 	Send(&result);
 	return true;
 }

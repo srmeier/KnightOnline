@@ -88,8 +88,8 @@ void CUser::Attack(Packet & pkt)
 		}
 	}
 
-	Packet result(WIZ_ATTACK, bType);
-	result << bResult << GetSocketID() << tid;
+	Packet result(WIZ_ATTACK);
+	result << bType << bResult << GetSocketID() << tid;
 	SendToRegion(&result);
 }
 

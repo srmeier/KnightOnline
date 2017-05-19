@@ -32,8 +32,8 @@ void CUser::ItemSealProcess(Packet & pkt)
 	// Seal type
 	uint8_t opcode = pkt.read<uint8_t>();
 
-	Packet result(WIZ_ITEM_UPGRADE, uint8_t(ITEM_SEAL));
-	result << opcode;
+	Packet result(WIZ_ITEM_UPGRADE);
+	result << uint8_t(ITEM_SEAL) << opcode;
 
 	switch (opcode)
 	{

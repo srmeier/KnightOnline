@@ -23,12 +23,6 @@ public:
 	{
 	}
 
-	INLINE Packet(uint8_t opcode, uint8_t subOpcode)
-	{
-		append(&opcode, 1);
-		append(&subOpcode, 1);
-	}
-
 	INLINE uint8_t GetOpcode() const
 	{
 		return size() == 0 ? 0 : _storage[0];

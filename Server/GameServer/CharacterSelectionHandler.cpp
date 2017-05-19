@@ -327,8 +327,8 @@ void CUser::GameStart(Packet & pkt)
 
 	if (GetZoneID() == ZONE_DELOS && pKnights != nullptr)
 	{
-		Packet result(WIZ_SIEGE, uint8_t(2));
-		result << pKnights->GetID() << pKnights->m_sMarkVersion;
+		Packet result(WIZ_SIEGE);
+		result << uint8_t(2) << pKnights->GetID() << pKnights->m_sMarkVersion;
 		Send(&result);	
 	}
 

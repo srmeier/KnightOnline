@@ -845,8 +845,8 @@ void CServerDlg::GetServerInfoIni()
 
 void CServerDlg::SendSystemMsg(std::string & pMsg, int type)
 {
-	Packet result(AG_SYSTEM_MSG, uint8_t(type));
-	result << pMsg;
+	Packet result(AG_SYSTEM_MSG);
+	result << uint8_t(type) << pMsg;
 	Send(&result);
 }
 

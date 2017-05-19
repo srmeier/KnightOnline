@@ -56,10 +56,10 @@ void CMagicProcess::UpdateAIServer(uint32_t nSkillID, AISkillOpcode opcode,
 								   Unit * pTarget, Unit * pCaster /*= nullptr*/, 
 								   bool bIsRecastingSavedMagic /*= false*/)
 {
-	Packet result(AG_MAGIC_ATTACK_REQ, uint8_t(opcode));
+	Packet result(AG_MAGIC_ATTACK_REQ);
 	int16_t	sCasterID = (pCaster == nullptr ? -1 : pCaster->GetID()),
 		sTargetID = (pTarget == nullptr ? -1 : pTarget->GetID());
-	result << nSkillID << sCasterID << sTargetID << bIsRecastingSavedMagic;
+	result << uint8_t(opcode) << nSkillID << sCasterID << sTargetID << bIsRecastingSavedMagic;
 	g_pMain->Send_AIServer(&result);
 }
 #else
@@ -992,8 +992,8 @@ bool CMagicProcess::RemoveType4Buff(uint8_t byBuffType, Unit *pTarget, bool bRem
 
 		if (bRemoveSavedMagic && pType->bBuffType != BUFF_TYPE_MAGE_ARMOR)
 		{
-			Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_DURATION_EXPIRED));
-			result << byBuffType;
+			Packet result(WIZ_MAGIC_PROCESS);
+			result << uint8_t(MAGIC_DURATION_EXPIRED) << byBuffType;
 			TO_USER(pTarget)->Send(&result);
 		}
 	}

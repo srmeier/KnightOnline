@@ -33,8 +33,9 @@ void CUser::ShoppingMall(Packet & pkt)
 // We're opening the PUS...
 void CUser::HandleStoreOpen(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_OPEN));
+	Packet result(WIZ_SHOPPING_MALL);
 	int16_t sErrorCode = 1, sFreeSlot = -1;
+	result << uint8_t(STORE_OPEN);
 
 	if (isDead())
 		sErrorCode = -2;
@@ -77,14 +78,14 @@ fail_return:
 // We're closing the PUS so that we can call LOAD_WEB_ITEMMALL and load the extra items.
 void CUser::HandleStoreClose()
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_CLOSE));
+	Packet result(WIZ_SHOPPING_MALL);
+	result << uint8_t(STORE_CLOSE);
 	m_bStoreOpen = false;
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
 void CUser::ReqLoadWebItemMall()
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_CLOSE));
 	std::vector<_ITEM_DATA> itemList;
 
 	if (!g_DBAgent.LoadWebItemMall(itemList, this))
@@ -95,6 +96,8 @@ void CUser::ReqLoadWebItemMall()
 	foreach (itr, itemList)
 		GiveItem(itr->nNum, itr->sCount, false); 
 
+	Packet result(WIZ_SHOPPING_MALL);
+	result << uint8_t(STORE_CLOSE);
 	for (int i = SLOT_MAX; i < SLOT_MAX+HAVE_MAX; i++)
 	{
 		_ITEM_DATA * pItem = GetItem(i);

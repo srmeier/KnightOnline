@@ -781,8 +781,8 @@ void CUser::HandlePlayerNameChange(Packet & pkt)
 	if (!CheckExistItem(ITEM_SCROLL_OF_IDENTITY))
 		return;
 
-	Packet result(WIZ_NAME_CHANGE, uint8_t(NameChangePlayerRequest));
-	result << strUserID;
+	Packet result(WIZ_NAME_CHANGE);
+	result << uint8_t(NameChangePlayerRequest) << strUserID;
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
@@ -798,7 +798,8 @@ void CUser::HandlePlayerNameChange(Packet & pkt)
 */
 void CUser::SendNameChange(NameChangeOpcode opcode /*= NameChangeShowDialog*/)
 {
-	Packet result(WIZ_NAME_CHANGE, uint8_t(opcode));
+	Packet result(WIZ_NAME_CHANGE);
+	result << uint8_t(opcode);
 	Send(&result);
 }
 

@@ -226,8 +226,10 @@ void CUser::HandleChallengeAcceptCVC(Packet & pkt)
 	if (!m_bChallengeRequested)
 		return;
 
-	Packet result(WIZ_CHALLENGE, uint8_t(CHALLENGE_GENERIC_ERROR));
+	Packet result(WIZ_CHALLENGE);
 	CUser *pUser = g_pMain->GetUserPtr(m_sChallengeUser);
+
+	result << uint8_t(CHALLENGE_GENERIC_ERROR);
 
 	m_sChallengeUser = -1;
 	m_bChallengeRequested = 0;

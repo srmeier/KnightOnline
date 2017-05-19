@@ -273,8 +273,8 @@ void CAISocket::RecvNpcAttack(Packet & pkt)
 			TO_USER(pTarget)->ItemWoreOut(DEFENCE, sDamage);
 	}
 
-	Packet result(WIZ_ATTACK, uint8_t(LONG_ATTACK));
-	result << bResult << sAttackerID << sTargetID;
+	Packet result(WIZ_ATTACK);
+	result << uint8_t(LONG_ATTACK) << bResult << sAttackerID << sTargetID;
 	pAttacker->SendToRegion(&result);
 }
 
@@ -563,9 +563,9 @@ void CAISocket::RecvBattleEvent(Packet & pkt)
 		if (!strMaxUserName.empty()
 			&& !g_pMain->m_byBattleSave)
 		{
-			Packet result(WIZ_BATTLE_EVENT, bType);
+			Packet result(WIZ_BATTLE_EVENT);
 			result.SByte();
-			result << bResult << strMaxUserName;
+			result << bType << bResult << strMaxUserName;
 
 			g_pMain->AddDatabaseRequest(result);
 			g_pMain->m_byBattleSave = true;

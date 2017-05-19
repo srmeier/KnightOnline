@@ -178,14 +178,14 @@ void CNpc::SendGateFlag(uint8_t bFlag /*= -1*/, bool bSendAI /*= true*/)
 	if (pObjectEvent)
 		objectType = (uint8_t)pObjectEvent->sType;
 
-	Packet result(WIZ_OBJECT_EVENT, objectType);
+	Packet result(WIZ_OBJECT_EVENT);
 
 	// If there's a flag to set, set it now.
 	if (bFlag >= 0)
 		m_byGateOpen = (bFlag == 1);
 
 	// Tell everyone nearby our new status.
-	result << uint8_t(1) << GetID() << m_byGateOpen;
+	result << objectType << uint8_t(1) << GetID() << m_byGateOpen;
 	SendToRegion(&result);
 
 	// Tell the AI server our new status
@@ -554,8 +554,8 @@ void CNpc::PVPMonumentProcess(CUser *pUser)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_CHAT, uint8_t(MONUMENT_NOTICE));
-	result << uint8_t(FORCE_CHAT) << pUser->GetNation() << pUser->GetName().c_str();
+	Packet result(WIZ_CHAT);
+	result << uint8_t(MONUMENT_NOTICE) << uint8_t(FORCE_CHAT) << pUser->GetNation() << pUser->GetName().c_str();
 	g_pMain->Send_Zone(&result, GetZoneID(), nullptr, Nation::ALL);
 
 	g_pMain->m_nPVPMonumentNation[GetZoneID()] = pUser->GetNation();

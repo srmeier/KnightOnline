@@ -24,7 +24,8 @@ void CUser::FriendProcess(Packet & pkt)
 // Request friend list.
 void CUser::FriendRequest()
 {
-	Packet result(WIZ_FRIEND_PROCESS, uint8_t(FRIEND_REQUEST));
+	Packet result(WIZ_FRIEND_PROCESS);
+	result << uint8_t(FRIEND_REQUEST);
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
@@ -51,13 +52,13 @@ void CUser::FriendModify(Packet & pkt, uint8_t opcode)
 // Refresh the status of your friends.
 void CUser::FriendReport(Packet & pkt)
 {
-	Packet result(WIZ_FRIEND_PROCESS, uint8_t(FRIEND_REPORT));
 	uint16_t usercount = pkt.read<uint16_t>();
 
 	if (usercount > MAX_FRIEND_COUNT) 
 		return;
 
-	result << usercount;
+	Packet result(WIZ_FRIEND_PROCESS);
+	result << uint8_t(FRIEND_REPORT) << usercount;
 	for (int i = 0; i < usercount; i++) 
 	{
 		std::string strUserID;

@@ -295,12 +295,13 @@ void CUser::ChatTargetSelect(Packet & pkt)
 	// Attempt to find target player in-game
 	if (type == 1)
 	{
-		Packet result(WIZ_CHAT_TARGET, type);
 		std::string strUserID;
 		pkt >> strUserID;
 		if (strUserID.empty() || strUserID.size() > MAX_ID_SIZE)
 			return;
 
+		Packet result(WIZ_CHAT_TARGET);
+		result << type;
 		CUser *pUser = g_pMain->GetUserPtr(strUserID, TYPE_CHARACTER);
 		if (pUser == nullptr || pUser == this)
 			result << int16_t(0); 
@@ -351,7 +352,8 @@ void CUser::SendDeathNotice(Unit * pKiller, DeathNoticeType noticeType)
 	ChatPacket::Construct(&result, PUBLIC_CHAT, strMessage);
 	g_pMain->Send_Zone(&result, GetZoneID());
 
-	//Packet result(WIZ_CHAT, uint8_t(DEATH_NOTICE));
+	//Packet result(WIZ_CHAT);
+	// result << uint8_t(DEATH_NOTICE);
 
 	//result.SByte();
 	//result	<< GetNation()
@@ -1093,8 +1095,8 @@ void CGameServerDlg::SendHelpDescription(CUser *pUser, std::string sHelpMessage)
 	if (pUser == nullptr || sHelpMessage == "")
 		return;
 
-	Packet result(WIZ_CHAT, (uint8_t)PUBLIC_CHAT);
-	result << pUser->GetNation() << pUser->GetSocketID() << (uint8_t)0 << sHelpMessage;
+	Packet result(WIZ_CHAT);
+	result << uint8_t(PUBLIC_CHAT) << pUser->GetNation() << pUser->GetSocketID() << (uint8_t)0 << sHelpMessage;
 	pUser->Send(&result);
 }
 

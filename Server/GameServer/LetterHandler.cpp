@@ -22,8 +22,8 @@ void CUser::LetterSystem(Packet & pkt)
 			uint8_t bCount = pkt.read<uint8_t>();
 			if (bCount > 5)
 			{
-				Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
-				result << uint8_t(LETTER_DELETE) << int8_t(-3);
+				Packet result(WIZ_SHOPPING_MALL);
+				result << uint8_t(STORE_LETTER) << uint8_t(LETTER_DELETE) << int8_t(-3);
 				Send(&result);
 				return;
 			}
@@ -83,8 +83,9 @@ void CUser::ReqLetterSystem(Packet & pkt)
 void CUser::ReqLetterUnread()
 {
 	// TODO: Force this to use cached list data (or update if stale). Calling the DB for just this is pointless.
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
-	result	<< uint8_t(LETTER_UNREAD) 
+	Packet result(WIZ_SHOPPING_MALL);
+	result << uint8_t(STORE_LETTER)
+		<< uint8_t(LETTER_UNREAD)
 		<< g_DBAgent.GetUnreadLetterCount(m_strUserID);
 	Send(&result);
 }
@@ -92,8 +93,10 @@ void CUser::ReqLetterUnread()
 void CUser::ReqLetterList(bool bNewLettersOnly /*= true*/)
 {
 
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
-	result	<< uint8_t(bNewLettersOnly ? LETTER_LIST : LETTER_HISTORY);
+	Packet result(WIZ_SHOPPING_MALL);
+
+	result << uint8_t(STORE_LETTER);
+	result << uint8_t(bNewLettersOnly ? LETTER_LIST : LETTER_HISTORY);
 
 	if (!g_DBAgent.GetLetterList(m_strUserID, result, bNewLettersOnly))
 		result << int8_t(-1);
@@ -103,11 +106,11 @@ void CUser::ReqLetterList(bool bNewLettersOnly /*= true*/)
 
 void CUser::ReqLetterRead(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	Packet result(WIZ_SHOPPING_MALL);
 	uint32_t nLetterID = pkt.read<uint32_t>();
 	string strMessage;
 
-	result << uint8_t(LETTER_READ);
+	result << uint8_t(STORE_LETTER) << uint8_t(LETTER_READ);
 	if (!g_DBAgent.ReadLetter(m_strUserID, nLetterID, strMessage))
 	{
 		// TODO: research error codes
@@ -123,7 +126,7 @@ void CUser::ReqLetterRead(Packet & pkt)
 
 void CUser::ReqLetterSend(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	Packet result(WIZ_SHOPPING_MALL);
 	CUser * pUser;
 	string strRecipient, strSubject, strMessage;
 	_ITEM_DATA *pItem = nullptr;
@@ -211,8 +214,8 @@ void CUser::ReqLetterSend(Packet & pkt)
 
 	// Remove the player's coins
 	if (nCoins != 0)
-	GoldLose(nCoinRequirement+nCoins);
-		else
+		GoldLose(nCoinRequirement+nCoins);
+	else
 		GoldLose(nCoinRequirement);
 
 	// Remove the player's item
@@ -226,19 +229,19 @@ void CUser::ReqLetterSend(Packet & pkt)
 	pUser = g_pMain->GetUserPtr(strRecipient, TYPE_CHARACTER);
 	if (pUser != nullptr)
 	{
-		Packet notification(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
-		notification << uint8_t(LETTER_UNREAD) << true;
+		Packet notification(WIZ_SHOPPING_MALL);
+		notification << uint8_t(STORE_LETTER) << uint8_t(LETTER_UNREAD) << true;
 		pUser->Send(&notification);
 	}
 
 send_packet:
-	result	<< uint8_t(LETTER_SEND) << uint8_t(bResult);
+	result << uint8_t(STORE_LETTER)<< uint8_t(LETTER_SEND) << uint8_t(bResult);
 	Send(&result);
 }
 
 void CUser::ReqLetterGetItem(Packet & pkt)
 {
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	Packet result(WIZ_SHOPPING_MALL);
 	uint64_t nSerialNum = 0;
 	uint32_t nLetterID = pkt.read<uint32_t>(), nItemID = 0, nCoins = 0;
 	uint16_t sCount = 0, sDurability = 0;
@@ -246,7 +249,7 @@ void CUser::ReqLetterGetItem(Packet & pkt)
 	int pos = -1;
 	
 	if (isMerchanting() || isTrading())
-			bResult = -1;
+		bResult = -1;
 
 	// If the request was successful, check requirements...
 	if (bResult == 1)
@@ -284,16 +287,16 @@ void CUser::ReqLetterGetItem(Packet & pkt)
 			GoldGain(nCoins);
 	}
 
-	result << uint8_t(LETTER_GET_ITEM) << bResult;
+	result << uint8_t(STORE_LETTER) << uint8_t(LETTER_GET_ITEM) << bResult;
 	Send(&result);
 }
 
 void CUser::ReqLetterDelete(Packet & pkt)
 {
 
-	Packet result(WIZ_SHOPPING_MALL, uint8_t(STORE_LETTER));
+	Packet result(WIZ_SHOPPING_MALL);
 	uint8_t bCount = pkt.read<uint8_t>();
-	result << uint8_t(LETTER_DELETE) << bCount;
+	result << uint8_t(STORE_LETTER) << uint8_t(LETTER_DELETE) << bCount;
 	for (uint8_t i = 0; i < bCount; i++)
 	{
 		uint32_t nLetterID = pkt.read<uint32_t>();

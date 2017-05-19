@@ -78,7 +78,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8_t nUpgradeType)
 
 	enum UpgradeType { UpgradeTypeNormal = 1, UpgradeTypePreview = 2 };
 
-	Packet result(WIZ_ITEM_UPGRADE, nUpgradeType);
+	Packet result(WIZ_ITEM_UPGRADE);
 	_ITEM_DATA  * pOriginItem;
 	_ITEM_TABLE * proto;//The Upgrade item's itself in the ITEM table
 	int32_t nItemID[10];//nItemID[0]=Upgrade item , nItemID[1,2,..]=Scrolls, Trinas,...
@@ -86,6 +86,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8_t nUpgradeType)
 	uint16_t sNpcID;
 	int8_t bType = UpgradeTypeNormal, bResult = UpgradeNoMatch,ItemClass = 0;
 	bool trina=false,Accessories=false;
+	result << nUpgradeType;
 
 	if (isTrading() || isMerchanting() || isMining())
 	{

@@ -5,8 +5,8 @@ void CUser::QuestDataRequest()
 {
 	/*
 	// Sending this now is probably wrong, but it's cleaner than it was before.
-	Packet result(WIZ_QUEST, uint8_t(1));
-	result << uint16_t(m_questMap.size());
+	Packet result(WIZ_QUEST);
+	result << uint8_t(1) << uint16_t(m_questMap.size());
 	foreach (itr, m_questMap)
 		result	<< itr->first << itr->second;
 	Send(&result);
@@ -109,8 +109,8 @@ void CUser::SaveEvent(uint16_t sQuestID, uint8_t bQuestState)
 	if (sQuestID >= QUEST_KILL_GROUP1)
 		return;
 
-	Packet result(WIZ_QUEST, uint8_t(2));
-	result << sQuestID << bQuestState;
+	Packet result(WIZ_QUEST);
+	result << uint8_t(2) << sQuestID << bQuestState;
 	Send(&result);
 
 	if (m_sEventDataIndex == sQuestID 
@@ -182,11 +182,11 @@ void CUser::QuestV2MonsterCountAdd(uint16_t sNpcID)
 			m_bKillCounts[group]++;
 			SaveEvent(QUEST_KILL_GROUP1 + group, m_bKillCounts[group]);
 			//1453
-			Packet result(WIZ_QUEST, uint8_t(9));
-			result << uint8_t(2) << uint8_t(group + 1) << m_bKillCounts[group];
+			Packet result(WIZ_QUEST);
+			result << uint8_t(9) << uint8_t(2) << uint8_t(group + 1) << m_bKillCounts[group];
 			//18xx
-			//Packet result(WIZ_QUEST, uint8_t(9));
-			//result << uint8_t(2) << uint16_t(sQuestNum) << uint8_t(1) << uint16_t(m_bKillCounts[group]);
+			//Packet result(WIZ_QUEST);
+			//result << uint8_t(9) << uint8_t(2) << uint16_t(sQuestNum) << uint8_t(1) << uint16_t(m_bKillCounts[group]);
 			Send(&result);
 			return;
 		}
@@ -216,8 +216,6 @@ void CUser::QuestV2MonsterDataDeleteAll()
 
 void CUser::QuestV2MonsterDataRequest()
 {
-	Packet result(WIZ_QUEST, uint8_t(9));
-
 	// Still not sure, but it's generating an ID.
 	m_sEventDataIndex = 
 		10000	*	QuestV2CheckMonsterCount(32005) +
@@ -230,7 +228,9 @@ void CUser::QuestV2MonsterDataRequest()
 	m_bKillCounts[2] = QuestV2CheckMonsterCount(QUEST_KILL_GROUP3);
 	m_bKillCounts[3] = QuestV2CheckMonsterCount(QUEST_KILL_GROUP4);
 
-	result	<< uint8_t(1)
+	Packet result(WIZ_QUEST);
+	result << uint8_t(9)
+		<< uint8_t(1)
 		<< m_sEventDataIndex
 		<< m_bKillCounts[0] << m_bKillCounts[1]
 	<< m_bKillCounts[2] << m_bKillCounts[3];
@@ -305,8 +305,8 @@ void CUser::QuestV2SaveEvent(uint16_t sEventDataIndex, int8_t bEventStatus)//uin
 
 void CUser::QuestV2SendNpcMsg(uint32_t nQuestID, uint16_t sNpcID)
 {
-	Packet result(WIZ_QUEST, uint8_t(7));
-	result << nQuestID << sNpcID;
+	Packet result(WIZ_QUEST);
+	result << uint8_t(7) << nQuestID << sNpcID;
 	Send(&result);
 }
 
@@ -315,8 +315,9 @@ void CUser::QuestV2ShowGiveItem(uint32_t nUnk1, uint32_t sUnk1,
 								uint32_t nUnk3, uint32_t sUnk3,
 								uint32_t nUnk4, uint32_t sUnk4)
 {
-	Packet result(WIZ_QUEST, uint8_t(10));
-	result	<< nUnk1 << sUnk1
+	Packet result(WIZ_QUEST);
+	result << uint8_t(10)
+		<< nUnk1 << sUnk1
 		<< nUnk2 << sUnk2
 		<< nUnk3 << sUnk3
 		<< nUnk4 << sUnk4;
@@ -358,8 +359,8 @@ uint16_t CUser::QuestV2SearchEligibleQuest(uint16_t sEventDataIndex)//, uint16_t
 
 void CUser::QuestV2ShowMap(uint32_t nQuestHelperID)
 {
-	Packet result(WIZ_QUEST, uint8_t(11));
-	result << nQuestHelperID;
+	Packet result(WIZ_QUEST);
+	result << uint8_t(11) << nQuestHelperID;
 	Send(&result);
 }
 
@@ -384,11 +385,11 @@ bool CUser::PromoteUserNovice()
 	if (!isBeginner())
 		return false;
 
-	Packet result(WIZ_CLASS_CHANGE, uint8_t(6));
-
 	// Build the new class.
 	uint16_t sNewClass = (GetNation() * 100) + bNewClasses[bOldClass];
-	result << sNewClass << GetID();
+
+	Packet result(WIZ_CLASS_CHANGE);
+	result << uint8_t(6) << sNewClass << GetID();
 	SendToRegion(&result);
 
 	// Change the class & update party.
@@ -413,11 +414,11 @@ bool CUser::PromoteUser()
 	if (!isNovice()) 
 		return false;
 
-	Packet result(WIZ_CLASS_CHANGE, uint8_t(6));
-
 	// Build the new class.
 	uint16_t sNewClass = (GetNation() * 100) + bOldClass + 1;
-	result << sNewClass << GetID();
+
+	Packet result(WIZ_CLASS_CHANGE);
+	result << uint8_t(6) << sNewClass << GetID();
 	SendToRegion(&result);
 
 	// Change the class & update party.

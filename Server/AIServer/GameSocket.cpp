@@ -108,7 +108,8 @@ void CGameSocket::RecvServerConnect(Packet & pkt)
 	uint8_t byReconnect = pkt.read<uint8_t>();
 	printf("Game Server connected - %s\n", GetRemoteIP().c_str());
 
-	Packet result(AI_SERVER_CONNECT, byReconnect);
+	Packet result(AI_SERVER_CONNECT);
+	result << byReconnect;
 	Send(&result);
 
 	if (byReconnect == 1)

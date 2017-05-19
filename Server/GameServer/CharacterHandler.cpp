@@ -159,8 +159,8 @@ uint8_t CUser::JobChange(uint8_t NewJob /*= 0*/)
 
 	if (bResult == 7)
 	{
-		Packet result(WIZ_CLASS_CHANGE, uint8_t(ALL_POINT_CHANGE));
-		result << uint8_t(4) << int(0);
+		Packet result(WIZ_CLASS_CHANGE);
+		result << uint8_t(ALL_POINT_CHANGE) << uint8_t(4) << int(0);
 		Send(&result);
 		return bResult; // While there are items equipped on you.
 	}

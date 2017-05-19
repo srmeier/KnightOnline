@@ -77,8 +77,8 @@ void CUser::PartyCancel()
 	if (count == 1)
 		pUser->PartyDelete();
 
-	Packet result(WIZ_PARTY, uint8_t(PARTY_INSERT));
-	result << int16_t(-1);
+	Packet result(WIZ_PARTY);
+	result << uint8_t(PARTY_INSERT) << int16_t(-1);
 	pUser->Send(&result);
 }
 
@@ -312,8 +312,9 @@ void CUser::PartyPromote(uint16_t sMemberID)
 	pUser->StateChangeServerDirect(6, 1); // assign 'P' symbol to new party leader
 	pUser->StateChangeServerDirect(2, pUser->m_bNeedParty); // seeking a party
 
-	Packet result(WIZ_PARTY, uint8_t(PARTY_INSERT));
-	result << pUser->GetSocketID()
+	Packet result(WIZ_PARTY);
+	result << uint8_t(PARTY_INSERT)
+		<< pUser->GetSocketID()
 		<< uint8_t(100) // reset position to leader
 		<< pUser->GetName()
 		<< pUser->m_iMaxHp << pUser->m_sHp
@@ -390,8 +391,8 @@ void CUser::PartyRemove(int memberid)
 		return;
 	}
 
-	Packet result(WIZ_PARTY, uint8_t(PARTY_REMOVE));
-	result << uint16_t(memberid);
+	Packet result(WIZ_PARTY);
+	result << uint8_t(PARTY_REMOVE) << uint16_t(memberid);
 	g_pMain->Send_PartyMember(m_sPartyIndex, &result);
 
 	if (memberPos >= 0)
@@ -430,7 +431,8 @@ void CUser::PartyDelete()
 		}
 	}
 
-	Packet result(WIZ_PARTY, uint8_t(PARTY_DELETE));
+	Packet result(WIZ_PARTY);
+	result << uint8_t(PARTY_DELETE);
 	g_pMain->Send_PartyMember(pParty->wIndex, &result);
 	result.Initialize(AG_USER_PARTY);
 
@@ -473,8 +475,8 @@ void CUser::PartyBBSRegister(Packet & pkt)
 	if (isInParty() // You are already in a party!
 		|| m_bNeedParty == 2) // You are already on the BBS!
 	{
-		Packet result(WIZ_PARTY_BBS, uint8_t(PARTY_BBS_REGISTER));
-		result << uint8_t(0);
+		Packet result(WIZ_PARTY_BBS);
+		result << uint8_t(PARTY_BBS_REGISTER) << uint8_t(0);
 		Send(&result);
 		return;
 	}
@@ -506,8 +508,8 @@ void CUser::PartyBBSDelete(Packet & pkt)
 	// You don't need anymore 
 	if (m_bNeedParty == 1) 
 	{
-		Packet result(WIZ_PARTY_BBS, uint8_t(PARTY_BBS_DELETE));
-		result << uint8_t(0);
+		Packet result(WIZ_PARTY_BBS);
+		result << uint8_t(PARTY_BBS_DELETE) << uint8_t(0);
 		Send(&result);
 		return;
 	}

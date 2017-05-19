@@ -126,8 +126,8 @@ void CKnights::UpdateClanNotice(std::string & clanNotice)
 */
 void CKnights::UpdateClanFund()
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_UPDATE_FUND));
-	result << GetID() << uint32_t(m_nClanPointFund);
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_UPDATE_FUND) << GetID() << uint32_t(m_nClanPointFund);
 	g_pMain->AddDatabaseRequest(result);
 }
 
@@ -285,8 +285,8 @@ void CKnights::RefundDonatedNP(uint32_t nDonatedNP, CUser * pUser /*= nullptr*/,
 	}
 
 	// For logged out players, we must update the player's national points in the database.
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_REFUND_POINTS));
-	result << strUserID << nDonatedNP;
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_REFUND_POINTS) << strUserID << nDonatedNP;
 	g_pMain->AddDatabaseRequest(result);
 }
 
@@ -313,8 +313,8 @@ void CKnights::Disband(CUser *pLeader /*= nullptr*/)
 	}
 	g_pMain->m_KnightsArray.DeleteData(m_sIndex);
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_DESTROY));
-	result << uint8_t(1);
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_DESTROY) << uint8_t(1);
 	pLeader->Send(&result);
 }
 
@@ -322,8 +322,8 @@ void CKnights::SendUpdate()
 {
 	CKnights *aKnights = g_pMain->GetClanPtr(GetID());
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_UPDATE));
-	result	<< GetID() << m_byFlag << GetCapeID(aKnights);
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_UPDATE) << GetID() << m_byFlag << GetCapeID(aKnights);
 	Send(&result);
 }
 

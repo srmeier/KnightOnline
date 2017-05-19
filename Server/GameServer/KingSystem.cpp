@@ -231,8 +231,10 @@ void CKingSystem::CheckKingTimer()
 */
 void CKingSystem::UpdateElectionStatus(uint8_t byElectionStatus)
 {
-	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
-	result	<< uint8_t(KING_ELECTION) << uint8_t(KING_ELECTION_UPDATE_STATUS)
+	Packet result(WIZ_KING);
+	result << uint8_t(KING_ELECTION)
+		<< uint8_t(KING_ELECTION)
+		<< uint8_t(KING_ELECTION_UPDATE_STATUS)
 		<< m_byNation << byElectionStatus;
 	m_byType = byElectionStatus;
 	g_pMain->AddDatabaseRequest(result);
@@ -256,9 +258,10 @@ void CKingSystem::UpdateElectionList(uint8_t byElectionListType, bool bDeleteLis
 	Guard lock(m_lock);
 	// byElectionListType:
 	// 3 = senator
-	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	Packet result(WIZ_KING);
 
-	result	<< uint8_t(KING_ELECTION) // special, looks redundant but implies these special opcodes
+	result	<< uint8_t(KING_ELECTION)
+		<< uint8_t(KING_ELECTION) // special, looks redundant but implies these special opcodes
 		<< uint8_t(KING_ELECTION_UPDATE_LIST) << m_byNation 
 		<< byElectionListType << bDeleteList
 		<< sClanID << strUserID;
@@ -551,8 +554,8 @@ void CKingSystem::ElectionSystem(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
-	result << uint8_t(KING_ELECTION_SCHEDULE);
+	Packet result(WIZ_KING);
+	result << uint8_t(KING_ELECTION) << uint8_t(KING_ELECTION_SCHEDULE);
 
 	switch (m_byImType)
 	{
@@ -612,14 +615,14 @@ void CKingSystem::ElectionScheduleConfirmation(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::CandidacyRecommend(CUser * pUser, Packet & pkt) 
 {
-	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	Packet result(WIZ_KING);
 	std::string strUserID;
 	pkt.SByte();
 	pkt >> strUserID;
 	if (strUserID.empty() || strUserID.length() > MAX_ID_SIZE)
 		return;
 
-	result << uint8_t(KING_ELECTION_NOMINATE);
+	result << uint8_t(KING_ELECTION) << uint8_t(KING_ELECTION_NOMINATE);
 
 	// Make sure it's nomination time.
 	if (m_byType != ELECTION_TYPE_NOMINATION)
@@ -687,11 +690,11 @@ void CKingSystem::InsertNominee(std::string & strNominee)
 */
 void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	Packet result(WIZ_KING);
 	uint8_t opcode = pkt.read<uint8_t>();
 	bool bSuccess = false;
 
-	result << uint8_t(KING_ELECTION_NOTICE_BOARD) << opcode;
+	result << uint8_t(KING_ELECTION) << uint8_t(KING_ELECTION_NOTICE_BOARD) << opcode;
 
 	switch (opcode)
 	{
@@ -851,10 +854,10 @@ void CKingSystem::CandidacyNoticeBoard(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
+	Packet result(WIZ_KING);
 	uint8_t opcode = pkt.read<uint8_t>();
 
-	result << uint8_t(KING_ELECTION_POLL) << opcode;
+	result << uint8_t(KING_ELECTION) << uint8_t(KING_ELECTION_POLL) << opcode;
 
 	// Make sure player's trying to vote during the
 	// election stage.
@@ -931,8 +934,8 @@ void CKingSystem::ElectionPoll(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::CandidacyResign(CUser * pUser, Packet & pkt) 
 {
-	Packet result(WIZ_KING, uint8_t(KING_ELECTION));
-	result << uint8_t(KING_ELECTION_RESIGN);
+	Packet result(WIZ_KING);
+	result << uint8_t(KING_ELECTION) << uint8_t(KING_ELECTION_RESIGN);
 
 	// We can only submit a resignation if we're in the nomination stage.
 	if (m_byType != ELECTION_TYPE_NOMINATION)
@@ -1015,8 +1018,8 @@ void CKingSystem::ImpeachmentElect(CUser * pUser, Packet & pkt) {}
 */
 void CKingSystem::ImpeachmentRequestUiOpen(CUser * pUser, Packet & pkt) 
 {
-	Packet result(WIZ_KING, uint8_t(KING_IMPEACHMENT));
-	result	<< uint8_t(KING_IMPEACHMENT_REQUEST_UI_OPEN);
+	Packet result(WIZ_KING);
+	result << uint8_t(KING_IMPEACHMENT) << uint8_t(KING_IMPEACHMENT_REQUEST_UI_OPEN);
 
 	// Not able to make an impeachment request right now.
 	if (m_byImType != 1)
@@ -1039,11 +1042,12 @@ void CKingSystem::ImpeachmentRequestUiOpen(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::ImpeachmentElectionUiOpen(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8_t(KING_IMPEACHMENT));
+	Packet result(WIZ_KING);
 
 	// If it's not the impeachment's election stage, send -1 as the error code
 	// otherwise, send 1 for success.
-	result	<< uint8_t(KING_IMPEACHMENT_ELECTION_UI_OPEN)
+	result << uint8_t(KING_IMPEACHMENT) 
+		<< uint8_t(KING_IMPEACHMENT_ELECTION_UI_OPEN)
 		<< int16_t(m_byImType != 3 ? -1 : 1);
 
 	pUser->Send(&result);
@@ -1058,9 +1062,9 @@ void CKingSystem::ImpeachmentElectionUiOpen(CUser * pUser, Packet & pkt)
 void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 {
 	CKingSystem *pKingSystem = g_pMain->m_KingSystemArray.GetData(m_byNation);
-	Packet result(WIZ_KING, uint8_t(KING_TAX));
+	Packet result(WIZ_KING);
 	uint8_t bOpcode = pkt.read<uint8_t>();
-	result << bOpcode;
+	result << uint8_t(KING_TAX) << bOpcode;
 
 	// If you're not a King, you shouldn't have access to this command.
 	if (!pUser->isKing())
@@ -1149,9 +1153,9 @@ void CKingSystem::KingTaxSystem(CUser * pUser, Packet & pkt)
 */
 void CKingSystem::KingSpecialEvent(CUser * pUser, Packet & pkt)
 {
-	Packet result(WIZ_KING, uint8_t(KING_EVENT));
+	Packet result(WIZ_KING);
 	uint8_t opcode = pkt.read<uint8_t>();
-	result << opcode;
+	result << uint8_t(KING_EVENT) << opcode;
 
 	if (!pUser->isKing())
 	{

@@ -322,9 +322,9 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	WarpListResponse errorReason;
 	if (!CanChangeZone(pMap, errorReason))
 	{
-		Packet result(WIZ_WARP_LIST, uint8_t(2));
+		Packet result(WIZ_WARP_LIST);
 
-		result << uint8_t(errorReason);
+		result << uint8_t(2) << uint8_t(errorReason);
 
 		if (errorReason == WarpListMinLevel)
 			result << pMap->GetMinLevelReq();
@@ -471,8 +471,8 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 
 	SetRegion(GetNewRegionX(), GetNewRegionZ());
 
-	Packet result(WIZ_ZONE_CHANGE, uint8_t(ZoneChangeTeleport));
-	result << uint16_t(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
+	Packet result(WIZ_ZONE_CHANGE);
+	result << uint8_t(ZoneChangeTeleport) << uint16_t(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
 	Send(&result);
 
 	if (!m_bZoneChangeSameZone)
@@ -498,9 +498,9 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 
 	if (pKnightsMaster != nullptr && GetZoneID() == ZONE_DELOS)
 	{
-	Packet result(WIZ_SIEGE, uint8_t(2));
-	result << pKnightsMaster->GetID() << pKnightsMaster->m_sMarkVersion;
-	Send(&result);	
+		Packet result(WIZ_SIEGE);
+		result << uint8_t(2) << pKnightsMaster->GetID() << pKnightsMaster->m_sMarkVersion;
+		Send(&result);	
 	}
 }
 
@@ -571,10 +571,9 @@ void CUser::UpdatePlayerRank()
 
 void CUser::CheckWaiting(uint8_t sNewZone, uint16_t Time)
 {
-	Packet result(WIZ_BIFROST, uint8_t(MONSTER_SQUARD));
-	uint16_t nRemainingTime = Time;
-	result << nRemainingTime;
-		g_pMain->Send_All(&result, nullptr, 0, sNewZone);
+	Packet result(WIZ_BIFROST);
+	result << uint8_t(MONSTER_SQUARD) << Time;
+	g_pMain->Send_All(&result, nullptr, 0, sNewZone);
 }
 
 /**
@@ -683,7 +682,8 @@ void CUser::RecvZoneChange(Packet & pkt)
 		g_pMain->NpcInOutForMe(this);
 		g_pMain->MerchantUserInOutForMe(this);
 
-		Packet result(WIZ_ZONE_CHANGE, uint8_t(ZoneChangeLoaded)); // finalise the zone change
+		Packet result(WIZ_ZONE_CHANGE);
+		result << uint8_t(ZoneChangeLoaded); // finalise the zone change
 		Send(&result);
 	}
 	else if (opcode == ZoneChangeLoaded)

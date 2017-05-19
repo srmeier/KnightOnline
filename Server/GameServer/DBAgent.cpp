@@ -1802,8 +1802,8 @@ void CDBAgent::UpdateElectionList(uint8_t byDBType, uint8_t byType, uint8_t byNa
 	if (!dbCommand->Execute(string_format(_T("{? = CALL KING_ELECTION_PROC(?, ?, %d, ?, %d)}"), pUser->GetNation(), sRet)))
 		ReportSQLError(m_GameDB->GetError());
 
-	Packet result(WIZ_KING, uint8_t(1));
-	result << byType << uint8_t(2) << sRet;
+	Packet result(WIZ_KING);
+	result << uint8_t(1) << byType << uint8_t(2) << sRet;
 	pUser->Send(&result);
 }
 

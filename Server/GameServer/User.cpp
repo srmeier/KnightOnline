@@ -587,7 +587,8 @@ void CUser::RemoveRival()
 	m_sRivalID = -1;
 
 	// Send the packet to let the client know that our rivalry has ended
-	Packet result(WIZ_PVP, uint8_t(PVPRemoveRival));
+	Packet result(WIZ_PVP);
+	result << uint8_t(PVPRemoveRival);
 	Send(&result);
 }
 
@@ -601,7 +602,7 @@ void CUser::RemoveRival()
 */
 void CUser::SendLoyaltyChange(int32_t nChangeAmount /*= 0*/, bool bIsKillReward /* false */, bool bIsBonusReward /* false */, bool bIsAddLoyaltyMonthly /* true */)
 {
-	Packet result(WIZ_LOYALTY_CHANGE, uint8_t(LOYALTY_NATIONAL_POINTS));
+	Packet result(WIZ_LOYALTY_CHANGE);
 	uint32_t nClanLoyaltyAmount = 0;
 
 	int32_t nChangeAmountLoyaltyMonthly = nChangeAmount;
@@ -730,7 +731,8 @@ void CUser::SendLoyaltyChange(int32_t nChangeAmount /*= 0*/, bool bIsKillReward 
 		}
 	}
 
-	result << m_iLoyalty << m_iLoyaltyMonthly
+	result << uint8_t(LOYALTY_NATIONAL_POINTS)
+		<< m_iLoyalty << m_iLoyaltyMonthly
 		<< uint32_t(0) // Clan donations(? Donations made by this user? For the clan overall?)
 		<< nClanLoyaltyAmount; // Premium NP(? Additional NP gained?)
 
@@ -819,10 +821,10 @@ uint8_t CUser::GetRankReward(bool isMonthly)
 */
 void CUser::ChangeFame(uint8_t bFame)
 {
-	Packet result(WIZ_AUTHORITY_CHANGE, uint8_t(COMMAND_AUTHORITY));
+	Packet result(WIZ_AUTHORITY_CHANGE);
 
 	m_bFame = bFame;
-	result << GetSocketID() << GetFame();
+	result << uint8_t(COMMAND_AUTHORITY) << GetSocketID() << GetFame();
 	SendToRegion(&result);
 }
 
@@ -863,12 +865,12 @@ void CUser::SkillDataProcess(Packet & pkt)
 */
 void CUser::SkillDataSave(Packet & pkt)
 {
-	Packet result(WIZ_SKILLDATA, uint8_t(SKILL_DATA_SAVE));
 	uint16_t sCount = pkt.read<uint16_t>();
 	if (sCount == 0 || sCount > 64)
 		return;
 
-	result	<< sCount;
+	Packet result(WIZ_SKILLDATA);
+	result	<< uint8_t(SKILL_DATA_SAVE) << sCount;
 	for (int i = 0; i < sCount; i++)
 		result << pkt.read<uint32_t>();
 
@@ -880,7 +882,8 @@ void CUser::SkillDataSave(Packet & pkt)
 */
 void CUser::SkillDataLoad()
 {
-	Packet result(WIZ_SKILLDATA, uint8_t(SKILL_DATA_LOAD));
+	Packet result(WIZ_SKILLDATA);
+	result << uint8_t(SKILL_DATA_LOAD);
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
@@ -1221,17 +1224,20 @@ void CUser::SetZoneAbilityChange(uint16_t sNewZone)
 		}
 	}
 
-	Packet result(WIZ_ZONEABILITY, uint8_t(1));
+	{
+		Packet result(WIZ_ZONEABILITY);
 
-	result	<< pMap->canTradeWithOtherNation()
-	<< pMap->GetZoneType()
-	<< pMap->canTalkToOtherNation()
-	<< uint16_t(pMap->GetTariff());
+		result << uint8_t(1)
+			<< pMap->canTradeWithOtherNation()
+			<< pMap->GetZoneType()
+			<< pMap->canTalkToOtherNation()
+			<< uint16_t(pMap->GetTariff());
 
-	Send(&result);
+		Send(&result);
+	}
 
 	{
-		Packet result(WIZ_ZONEABILITY, uint8_t(3));
+		Packet result(WIZ_ZONEABILITY);
 
 		// NOTE(srmeier): temp custom zoneability packet for source client
 		uint16_t zoneFlags = pMap->GetZoneFlags();
@@ -1240,7 +1246,7 @@ void CUser::SetZoneAbilityChange(uint16_t sNewZone)
 		uint8_t minLevel = pMap->GetMinLevelReq();
 		uint8_t maxLevel = pMap->GetMaxLevelReq();
 
-		result << zoneFlags << zoneType << zoneTariff << minLevel << maxLevel;
+		result << uint8_t(3) << zoneFlags << zoneType << zoneTariff << minLevel << maxLevel;
 
 		Send(&result);
 	}
@@ -1264,8 +1270,8 @@ void CUser::SetZoneAbilityChange(uint16_t sNewZone)
 */
 void CUser::SendPremiumInfo()
 {
-	Packet result(WIZ_PREMIUM, m_bAccountStatus);
-	result << m_bPremiumType << uint32_t(m_sPremiumTime); 
+	Packet result(WIZ_PREMIUM);
+	result << m_bAccountStatus << m_bPremiumType << uint32_t(m_sPremiumTime);
 	Send(&result);
 }
 
@@ -1924,12 +1930,12 @@ void CUser::PointChange(Packet & pkt)
 		|| GetStat(statType) >= STAT_MAX) 
 		return;
 
-	Packet result(WIZ_POINT_CHANGE, type);
+	Packet result(WIZ_POINT_CHANGE);
 
 	m_sPoints--; // remove a free point
 	result << uint16_t(++m_bStats[statType]); // assign the free point to a stat
 	SetUserAbility();
-	result << m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight);
+	result << type << m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight);
 	Send(&result);
 	SendItemMove(1);
 }
@@ -2135,8 +2141,8 @@ void CUser::ShowEffect(uint32_t nSkillID)
 */
 void CUser::ShowNpcEffect(uint32_t nEffectID, bool bSendToRegion)
 {
-	Packet result(WIZ_OBJECT_EVENT, uint8_t(OBJECT_NPC));
-	result << uint8_t(3) << m_sEventNid << nEffectID;
+	Packet result(WIZ_OBJECT_EVENT);
+	result << uint8_t(OBJECT_NPC) << uint8_t(3) << m_sEventNid << nEffectID;
 	if (bSendToRegion)
 		SendToRegion(&result);
 	else
@@ -3032,7 +3038,8 @@ void CUser::AppendExtraNoticeData(Packet & pkt, uint8_t & elementCount)
 void CUser::SkillPointChange(Packet & pkt)
 {
 	uint8_t type = pkt.read<uint8_t>();
-	Packet result(WIZ_SKILLPT_CHANGE, type);
+	Packet result(WIZ_SKILLPT_CHANGE);
+	result << type;
 	// invalid type
 	if (type < SkillPointCat1 || type > SkillPointMaster 
 		// not enough free skill points to allocate
@@ -3351,14 +3358,16 @@ void CUser::ItemWoreOut(int type, int damage)
 
 void CUser::SendDurability(uint8_t slot, uint16_t durability)
 {
-	Packet result(WIZ_DURATION, slot);
-	result << durability;
+	Packet result(WIZ_DURATION);
+	result << slot << durability;
 	Send(&result);
 }
 
 void CUser::SendItemMove(uint8_t subcommand)
 {
-	Packet result(WIZ_ITEM_MOVE, subcommand);
+	Packet result(WIZ_ITEM_MOVE);
+
+	result << subcommand;
 
 	if (m_bAttackAmount == 0)
 		m_bAttackAmount = 100;
@@ -3466,8 +3475,8 @@ void CUser::HPTimeChangeType3()
 			// Has the skill expired yet?
 			if (++pEffect->m_bTickCount == pEffect->m_bTickLimit)
 			{
-				Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_DURATION_EXPIRED));
-
+				Packet result(WIZ_MAGIC_PROCESS);
+				result << uint8_t(MAGIC_DURATION_EXPIRED);
 				// Healing-over-time skills require the type 100
 				if (pEffect->m_sHPAmount > 0)
 					result << uint8_t(100);
@@ -3919,7 +3928,8 @@ CUser * CUser::GetItemRoutingUser(uint32_t nItemID, uint32_t sCount)
 
 void CUser::ClassChangeReq()
 {
-	Packet result(WIZ_CLASS_CHANGE, uint8_t(CLASS_CHANGE_RESULT));
+	Packet result(WIZ_CLASS_CHANGE);
+	result << uint8_t(CLASS_CHANGE_RESULT);
 	if (GetLevel() < 10) // if we haven't got our first job change
 		result << uint8_t(2);
 	else if ((m_sClass % 100) > 4) // if we've already got our job change
@@ -3932,15 +3942,18 @@ void CUser::ClassChangeReq()
 // Dialog
 void CUser::SendStatSkillDistribute()
 {
-	Packet result(WIZ_CLASS_CHANGE,uint8_t(CLASS_CHANGE_REQ));
+	Packet result(WIZ_CLASS_CHANGE);
+	result << uint8_t(CLASS_CHANGE_REQ);
 	Send(&result); 
 }
 
 void CUser::AllSkillPointChange(bool bIsFree)
 {
-	Packet result(WIZ_CLASS_CHANGE, uint8_t(ALL_SKILLPT_CHANGE));
+	Packet result(WIZ_CLASS_CHANGE);
 	int index = 0, skill_point = 0, money = 0, temp_value = 0, old_money = 0;
 	uint8_t type = 0;
+
+	result << uint8_t(ALL_SKILLPT_CHANGE);
 
 	temp_value = (int)pow((GetLevel() * 2.0f), 3.4f);
 	if (GetLevel() < 30)		
@@ -3990,12 +4003,14 @@ fail_return:
 
 void CUser::AllPointChange(bool bIsFree)
 {
-	Packet result(WIZ_CLASS_CHANGE, uint8_t(ALL_POINT_CHANGE));
+	Packet result(WIZ_CLASS_CHANGE);
 	int temp_money;
 	uint16_t statTotal;
 
 	uint16_t byStr, bySta, byDex, byInt, byCha;
 	uint8_t bResult = 0;
+
+	result << uint8_t(ALL_POINT_CHANGE);
 
 	if (GetLevel() > MAX_LEVEL)
 		goto fail_return;
@@ -4349,8 +4364,8 @@ void CUser::SelectWarpList(Packet & pkt)
 	{
 		m_bZoneChangeSameZone = true;
 
-		Packet result(WIZ_WARP_LIST, uint8_t(2));
-		result << uint8_t(1);
+		Packet result(WIZ_WARP_LIST);
+		result << uint8_t(2) << uint8_t(1);
 		Send(&result);
 	}
 
@@ -4385,7 +4400,6 @@ void CUser::ServerChangeOk(Packet & pkt)
 
 bool CUser::GetWarpList(int warp_group)
 {
-	Packet result(WIZ_WARP_LIST, uint8_t(1));
 	C3DMap* pMap = GetMap();
 	set<_WARP_INFO*> warpList;
 
@@ -4394,7 +4408,8 @@ bool CUser::GetWarpList(int warp_group)
 
 	pMap->GetWarpList(warp_group, warpList);
 
-	result << uint16_t(warpList.size());
+	Packet result(WIZ_WARP_LIST);
+	result << uint8_t(1) << uint16_t(warpList.size());
 	foreach (itr, warpList)
 	{
 		C3DMap *pDstMap = g_pMain->GetZoneByID((*itr)->sZone);
@@ -4428,11 +4443,10 @@ bool CUser::BindObjectEvent(_OBJECT_EVENT *pEvent)
 	if (pEvent->sBelong != 0 && pEvent->sBelong != GetNation())
 		return false;
 
-	Packet result(WIZ_OBJECT_EVENT, uint8_t(pEvent->sType));
-
 	m_sBind = pEvent->sIndex;
 
-	result << uint8_t(1);
+	Packet result(WIZ_OBJECT_EVENT);
+	result << uint8_t(pEvent->sType) << uint8_t(1);
 	Send(&result);
 	return true;
 }
@@ -4563,16 +4577,16 @@ void CUser::ObjectEvent(Packet & pkt)
 
 	if (!bSuccess)
 	{
-		Packet result(WIZ_OBJECT_EVENT, uint8_t(pEvent == nullptr ? 0 : pEvent->sType));
-		result << uint8_t(0);
+		Packet result(WIZ_OBJECT_EVENT);
+		result << uint8_t(pEvent == nullptr ? 0 : pEvent->sType) << uint8_t(0);
 		Send(&result);
 	}
 }
 
 void CUser::SendAnvilRequest(uint16_t sNpcID, uint8_t bType /*= ITEM_UPGRADE_REQ*/)
 {
-	Packet result(WIZ_ITEM_UPGRADE, uint8_t(bType));
-	result << sNpcID;
+	Packet result(WIZ_ITEM_UPGRADE);
+	result << uint8_t(bType) << sNpcID;
 	Send(&result);
 }
 
@@ -4662,8 +4676,8 @@ void CUser::GoldGain(uint32_t gold, bool bSendPacket /*= true*/, bool bApplyBonu
 
 	if (bSendPacket)
 	{
-		Packet result(WIZ_GOLD_CHANGE, uint8_t(CoinGain));
-		result << gold << GetCoins();
+		Packet result(WIZ_GOLD_CHANGE);
+		result << uint8_t(CoinGain) << gold << GetCoins();
 		Send(&result);	
 	}
 }
@@ -4677,8 +4691,8 @@ bool CUser::GoldLose(uint32_t gold, bool bSendPacket /*= true*/)
 
 	if (bSendPacket)
 	{
-		Packet result(WIZ_GOLD_CHANGE, uint8_t(CoinLoss));
-		result << gold << GetCoins();
+		Packet result(WIZ_GOLD_CHANGE);
+		result << uint8_t(CoinLoss) << gold << GetCoins();
 		Send(&result);	
 	}
 	return true;
@@ -5041,14 +5055,17 @@ void CUser::OnDeath(Unit *pKiller)
 */
 void CUser::UpdateAngerGauge(uint8_t byAngerGauge)
 {
-	Packet result(WIZ_PVP, uint8_t(byAngerGauge == 0 ? PVPResetHelmet : PVPUpdateHelmet));
+	Packet result(WIZ_PVP);
 
 	if (byAngerGauge > MAX_ANGER_GAUGE)
 		byAngerGauge = MAX_ANGER_GAUGE;
 
 	m_byAngerGauge = byAngerGauge;
+
 	if (byAngerGauge > 0)
-		result << byAngerGauge << hasFullAngerGauge();
+		result << uint8_t(PVPUpdateHelmet) << byAngerGauge << hasFullAngerGauge();
+	else
+		result << uint8_t(PVPResetHelmet);
 
 	Send(&result);
 }
@@ -5056,9 +5073,9 @@ void CUser::UpdateAngerGauge(uint8_t byAngerGauge)
 // We have no clan handler, we probably won't need to implement it (but we'll see).
 void CUser::SendClanUserStatusUpdate(bool bToRegion /*= true*/)
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MODIFY_FAME));
-	result	<< uint8_t(1) << GetSocketID() 
-		<< GetClanID() << GetFame();
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_MODIFY_FAME) << uint8_t(1)
+		<< GetSocketID() << GetClanID() << GetFame();
 
 	// TODO: Make this region code user-specific to perform faster.
 	if (bToRegion)
@@ -5072,8 +5089,8 @@ void CUser::SendPartyStatusUpdate(uint8_t bStatus, uint8_t bResult /*= 0*/)
 	if (!isInParty())
 		return;
 
-	Packet result(WIZ_PARTY, uint8_t(PARTY_STATUSCHANGE));
-	result << GetSocketID() << bStatus << bResult;
+	Packet result(WIZ_PARTY);
+	result << uint8_t(PARTY_STATUSCHANGE) << GetSocketID() << bStatus << bResult;
 	g_pMain->Send_PartyMember(GetPartyID(), &result);
 }
 
@@ -5197,8 +5214,8 @@ bool CUser::CanUseItem(uint32_t nItemID, uint32_t sCount /*= 1*/)
 
 void CUser::SendUserStatusUpdate(UserStatus type, UserStatusBehaviour status)
 {
-	Packet result(WIZ_ZONEABILITY, uint8_t(2));
-	result << uint8_t(type) << uint8_t(status);
+	Packet result(WIZ_ZONEABILITY);
+	result << uint8_t(2) << uint8_t(type) << uint8_t(status);
 	/*
 	1				, 0 = Cure damage over time
 	1				, 1 = Damage over time
@@ -5377,7 +5394,8 @@ void CUser::HandlePlayerRankings(Packet & pkt)
 	uint8_t nRankType = 0;
 	pkt >> nRankType;
 
-	Packet result(WIZ_RANK, nRankType);
+	Packet result(WIZ_RANK);
+	result << nRankType;
 
 	uint16_t nMyRank = 0;
 	uint16_t sCount = 0;
@@ -5610,7 +5628,7 @@ void CUser::HandleMiningSystem(Packet & pkt)
 */
 void CUser::HandleMiningStart(Packet & pkt)
 {
-	Packet result(WIZ_MINING, uint8_t(MiningStart));
+	Packet result(WIZ_MINING);
 	uint16_t resultCode = MiningResultSuccess;
 
 	// Are we mining already?
@@ -5625,7 +5643,7 @@ void CUser::HandleMiningStart(Packet & pkt)
 		|| !pTable->isPickaxe())
 		resultCode = MiningResultNotPickaxe;
 
-	result << resultCode;
+	result << uint8_t(MiningStart) << resultCode;
 
 	// If nothing went wrong, allow the user to start mining.
 	// Be sure to let everyone know we're mining.
@@ -5652,7 +5670,7 @@ void CUser::HandleMiningAttempt(Packet & pkt)
 	if (!isMining())
 		return;
 
-	Packet result(WIZ_MINING, uint8_t(MiningAttempt));
+	Packet result(WIZ_MINING);
 	uint16_t resultCode = MiningResultSuccess;
 
 	// Do we have a pickaxe? Is it worn?
@@ -5720,7 +5738,7 @@ void CUser::HandleMiningAttempt(Packet & pkt)
 		m_tLastMiningAttempt = UNIXTIME;
 	}
 
-	result << resultCode << GetID() << sEffect;
+	result << uint8_t(MiningAttempt) << resultCode << GetID() << sEffect;
 
 	ItemWoreOut(ATTACK,100); 
 
@@ -5751,8 +5769,8 @@ void CUser::HandleMiningStop(Packet & pkt)
 	if (!isMining())
 		return;
 
-	Packet result(WIZ_MINING, uint8_t(MiningStop));
-	result << uint16_t(1) << GetID();
+	Packet result(WIZ_MINING);
+	result << uint8_t(MiningStop) << uint16_t(1) << GetID();
 	m_bMining = false;
 	SendToRegion(&result);
 }
@@ -5814,8 +5832,8 @@ void CUser::SendMannerChange(int32_t iMannerPoints)
 	else
 		m_iMannerPoint += iMannerPoints;
 
-	Packet pkt(WIZ_LOYALTY_CHANGE, uint8_t(LOYALTY_MANNER_POINTS));
-	pkt << m_iMannerPoint;
+	Packet pkt(WIZ_LOYALTY_CHANGE);
+	pkt << uint8_t(LOYALTY_MANNER_POINTS) << m_iMannerPoint;
 	Send(&pkt);
 }
 

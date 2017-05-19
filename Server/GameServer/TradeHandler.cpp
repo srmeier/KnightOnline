@@ -91,8 +91,8 @@ void CUser::ExchangeAgree(Packet & pkt)
 		bResult = 0;
 	}
 
-	Packet result(WIZ_EXCHANGE, uint8_t(EXCHANGE_AGREE));
-	result << uint16_t(bResult);
+	Packet result(WIZ_EXCHANGE);
+	result << uint8_t(EXCHANGE_AGREE) << uint16_t(bResult);
 	pUser->Send(&result);
 }
 
@@ -101,7 +101,7 @@ void CUser::ExchangeAdd(Packet & pkt)
 	if (!isTrading())
 		return;
 
-	Packet result(WIZ_EXCHANGE, uint8_t(EXCHANGE_ADD));
+	Packet result(WIZ_EXCHANGE);
 	uint64_t nSerialNum;
 	uint32_t nItemID, count = 0;
 	uint16_t duration = 0;
@@ -109,6 +109,7 @@ void CUser::ExchangeAdd(Packet & pkt)
 	list<_EXCHANGE_ITEM*>::iterator	Iter;
 	uint8_t pos;
 	bool bAdd = true, bGold = false;
+	result << uint8_t(EXCHANGE_ADD);
 
 	CUser *pUser = g_pMain->GetUserPtr(m_sExchangeUser);
 	if (pUser == nullptr
@@ -329,7 +330,8 @@ void CUser::ExchangeCancel(bool bIsOnDeath)
 	{
 		pUser->ExchangeCancel();
 
-		Packet result(WIZ_EXCHANGE, uint8_t(EXCHANGE_CANCEL));
+		Packet result(WIZ_EXCHANGE);
+		result << uint8_t(EXCHANGE_CANCEL);
 		pUser->Send(&result);
 	}
 }

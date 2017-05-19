@@ -704,8 +704,8 @@ void MagicInstance::SendTransformationList()
 	if (!pSkillCaster->isPlayer())
 		return;
 
-	Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_TRANSFORM_LIST));
-	result << nSkillID;
+	Packet result(WIZ_MAGIC_PROCESS);
+	result << uint8_t(MAGIC_TRANSFORM_LIST) << nSkillID;
 	TO_USER(pSkillCaster)->Send(&result);
 }
 
@@ -2000,8 +2000,8 @@ bool MagicInstance::ExecuteType5()
 
 				pEffect->Reset();
 				// TODO: Wrap this up (ugh, I feel so dirty)
-				Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_DURATION_EXPIRED));
-				result << uint8_t(200); // removes DOT skill
+				Packet result(WIZ_MAGIC_PROCESS);
+				result << uint8_t(MAGIC_DURATION_EXPIRED) << uint8_t(200); // removes DOT skill
 				pTUser->Send(&result); 
 				bRemoveDOT = true;
 			}
@@ -2525,8 +2525,8 @@ bool MagicInstance::ExecuteType9()
 	}
 	else if (pType->bStateChange >= 3 && pType->bStateChange <= 4)
 	{
-		Packet result(WIZ_STEALTH, uint8_t(1));
-		result << pType->sRadius;
+		Packet result(WIZ_STEALTH);
+		result << uint8_t(1) << pType->sRadius;
 
 		// If the player's in a party, apply this skill to all members of the party.
 		if (pCaster->isInParty() && pType->bStateChange == 4)
@@ -2758,10 +2758,11 @@ void MagicInstance::Type6Cancel(bool bForceRemoval /*= false*/)
 			return;
 
 	CUser * pUser = TO_USER(pSkillCaster);
-	Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_CANCEL_TRANSFORMATION));
-
 	// TODO: Reset stat changes, recalculate stats.
 	pUser->m_transformationType = TransformationNone;
+
+	Packet result(WIZ_MAGIC_PROCESS);
+	result << uint8_t(MAGIC_CANCEL_TRANSFORMATION);
 	pUser->Send(&result);
 
 	pUser->RemoveSavedMagic(pUser->m_bAbnormalType);
@@ -2807,8 +2808,8 @@ void MagicInstance::Type9Cancel(bool bRemoveFromMap /*= true*/)
 	// Guardian pet related
 	else if (pType->bStateChange == 7)
 	{
-		Packet pet(WIZ_PET, uint8_t(1));
-		pet << uint16_t(1) << uint16_t(6);
+		Packet pet(WIZ_PET);
+		pet << uint8_t(1) << uint16_t(1) << uint16_t(6);
 		pCaster->Send(&pet);
 		bResponse = 93;
 	}
@@ -2817,8 +2818,8 @@ void MagicInstance::Type9Cancel(bool bRemoveFromMap /*= true*/)
 		g_pMain->KillNpc(pCaster->GetSocketID());
 	}
 
-	Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_DURATION_EXPIRED));
-	result << bResponse;
+	Packet result(WIZ_MAGIC_PROCESS);
+	result << uint8_t(MAGIC_DURATION_EXPIRED) << bResponse;
 	pCaster->Send(&result);
 }
 
@@ -2875,8 +2876,8 @@ void MagicInstance::Type3Cancel()
 
 	if (pSkillCaster->isPlayer())
 	{
-		Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_DURATION_EXPIRED));
-		result << uint8_t(100); // remove the healing-over-time skill.
+		Packet result(WIZ_MAGIC_PROCESS);
+		result << uint8_t(MAGIC_DURATION_EXPIRED) << uint8_t(100); // remove the healing-over-time skill.
 		TO_USER(pSkillCaster)->Send(&result); 
 	}
 
@@ -2953,8 +2954,8 @@ void MagicInstance::Type4Extend()
 	// Mark the buff as extended (we cannot extend it more than once).
 	itr->second.m_bDurationExtended = true;
 
-	Packet result(WIZ_MAGIC_PROCESS, uint8_t(MAGIC_TYPE4_EXTEND));
-	result << uint32_t(nSkillID);
+	Packet result(WIZ_MAGIC_PROCESS);
+	result << uint8_t(MAGIC_TYPE4_EXTEND) << uint32_t(nSkillID);
 	TO_USER(pSkillTarget)->Send(&result);
 }
 

@@ -9,8 +9,8 @@ time_t CNpcMagicProcess::MagicPacket(uint8_t opcode, uint32_t nSkillID, int16_t 
 	if (pSkill == nullptr)
 		return -1;
 
-	Packet result(AG_MAGIC_ATTACK_REQ, opcode);
-	result << nSkillID << sCasterID << sTargetID << sData1 << sData2 << sData3;
+	Packet result(AG_MAGIC_ATTACK_REQ);
+	result << opcode << nSkillID << sCasterID << sTargetID << sData1 << sData2 << sData3;
 	g_pMain->Send(&result);
 
 	// NOTE: Client controls skill hits.

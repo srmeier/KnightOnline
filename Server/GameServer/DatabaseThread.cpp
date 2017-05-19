@@ -291,9 +291,10 @@ void CUser::ReqSkillDataProcess(Packet & pkt)
 
 void CUser::ReqSkillDataLoad(Packet & pkt)
 {
-	Packet result(WIZ_SKILLDATA, uint8_t(SKILL_DATA_LOAD));
+	Packet result(WIZ_SKILLDATA);
+	result << uint8_t(SKILL_DATA_LOAD);
 	if (!g_DBAgent.LoadSkillShortcut(result, this))
-		//result << uint16_t(0);
+		result << uint16_t(0);
 
 	Send(&result);
 }
@@ -534,9 +535,10 @@ void CKnightsManager::ReqKnightsPacket(CUser* pUser, Packet & pkt)
 		break;
 	}
 }
+
 void CKnightsManager::ReqKnightsAllianceCreate(CUser *pUser, Packet & pkt)
 {
-		if (pUser == nullptr)
+	if (pUser == nullptr)
 		return;
 
 	uint16_t UserClanID = pUser->m_bKnights;
@@ -544,8 +546,6 @@ void CKnightsManager::ReqKnightsAllianceCreate(CUser *pUser, Packet & pkt)
 	CKnights *pMainClan = g_pMain->GetClanPtr(UserClanID);
 	uint8_t byType = 44, byEmptyIndex = 0, bySiegeFlag = pMainClan->bySiegeFlag;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_CREATE));
-	
 	g_DBAgent.CreateAlliance(byType, UserClanID, 0, 0, bySiegeFlag);
 
 	_KNIGHTS_ALLIANCE *pAlliance = new _KNIGHTS_ALLIANCE();
@@ -557,14 +557,14 @@ void CKnightsManager::ReqKnightsAllianceCreate(CUser *pUser, Packet & pkt)
 
 	g_pMain->m_KnightsAllianceArray.PutData(pAlliance->sMainAllianceKnights, pAlliance);
 
-
-	result << uint8_t(1) << UserClanID;
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_ALLY_CREATE) << uint8_t(1) << UserClanID;
 	pUser->SendToRegion(&result);
 }
 
 void CKnightsManager::ReqKnightsAllianceRequest(CUser *pUser, Packet & pkt)
 {
-		if (pUser == nullptr)
+	if (pUser == nullptr)
 		return;
 		
 	uint16_t MainClanID, TargetClanID, MainCapeID;
@@ -572,7 +572,6 @@ void CKnightsManager::ReqKnightsAllianceRequest(CUser *pUser, Packet & pkt)
 
 	pkt >> Type >> MainClanID >> TargetClanID >> MainCapeID;
 	
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_INSERT));
 	CKnights *pMainClan = g_pMain->GetClanPtr(MainClanID);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(MainClanID);;
 	uint8_t byType = 46, byEmptyIndex, bySiegeFlag = pMainClan->bySiegeFlag;
@@ -580,21 +579,21 @@ void CKnightsManager::ReqKnightsAllianceRequest(CUser *pUser, Packet & pkt)
 
 	if (pAlliance != nullptr)
 	{
-	if (pAlliance->sSubAllianceKnights == 0)
+		if (pAlliance->sSubAllianceKnights == 0)
 		{
-		pAlliance->sSubAllianceKnights = TargetClanID;
-		byEmptyIndex = 1;
+			pAlliance->sSubAllianceKnights = TargetClanID;
+			byEmptyIndex = 1;
 		}
-			else if (pAlliance->sMercenaryClan_1 == 0)
-			{
+		else if (pAlliance->sMercenaryClan_1 == 0)
+		{
 			pAlliance->sMercenaryClan_1 = TargetClanID;
 			byEmptyIndex = 2;
-			}
-				else if (pAlliance->sMercenaryClan_2 == 0)
-				{
-				pAlliance->sMercenaryClan_2 = TargetClanID;
-				byEmptyIndex = 3;
-				}
+		}
+		else if (pAlliance->sMercenaryClan_2 == 0)
+		{
+			pAlliance->sMercenaryClan_2 = TargetClanID;
+			byEmptyIndex = 3;
+		}
 	}
 	else
 	{
@@ -609,13 +608,14 @@ void CKnightsManager::ReqKnightsAllianceRequest(CUser *pUser, Packet & pkt)
 	pAlliance->sMainAllianceKnights = MainClanID;
 	g_pMain->m_KnightsAllianceArray.PutData(pAlliance->sMainAllianceKnights, pAlliance);	
 
-	result << Type << MainClanID << TargetClanID << MainCapeID;
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_ALLY_INSERT) << Type << MainClanID << TargetClanID << MainCapeID;
 	pUser->SendToRegion(&result);
 }
 
 void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 {
-		if (pUser == nullptr)
+	if (pUser == nullptr)
 		return;
 		
 	uint8_t Type;
@@ -623,7 +623,6 @@ void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 
 	pkt >> Type >> MainClanID >> TargetClanID >> MainCapeID;
 	
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_REMOVE));
 	CUser *pTargetUser = nullptr;
 	CKnights *pMainClan = g_pMain->GetClanPtr(MainClanID), * pTargetClan = g_pMain->GetClanPtr(TargetClanID);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(MainClanID);
@@ -642,8 +641,9 @@ void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 		
 	}
 
-	if (pAlliance != nullptr)
-	{
+	if (pAlliance == nullptr)
+		return;
+
 	if (pAlliance->sMainAllianceKnights == TargetClanID)
 	{
 		byType = 49; 
@@ -653,25 +653,24 @@ void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 	}
 	else 
 	{
-	MainCapeID = -1;
-	if (pAlliance->sSubAllianceKnights == TargetClanID)
+		MainCapeID = -1;
+		if (pAlliance->sSubAllianceKnights == TargetClanID)
 		{
-		pAlliance->sSubAllianceKnights = 0;
-		byEmptyIndex = 1;
+			pAlliance->sSubAllianceKnights = 0;
+			byEmptyIndex = 1;
 		}
-			else if (pAlliance->sMercenaryClan_1 == TargetClanID)
-			{
+		else if (pAlliance->sMercenaryClan_1 == TargetClanID)
+		{
 			pAlliance->sMercenaryClan_1 = 0;
 			byEmptyIndex = 2;
-			}
-				else if (pAlliance->sMercenaryClan_2 == TargetClanID)
-				{
-				pAlliance->sMercenaryClan_2 = 0;
-				byEmptyIndex = 3;
-				}
+		}
+		else if (pAlliance->sMercenaryClan_2 == TargetClanID)
+		{
+			pAlliance->sMercenaryClan_2 = 0;
+			byEmptyIndex = 3;
+		}
 	}
 
-	
 	g_DBAgent.RemoveAlliance(byType, MainClanID, TargetClanID, byEmptyIndex, bySiegeFlag);
 	
 	pTargetClan->m_sAlliance = 0;
@@ -679,14 +678,14 @@ void CKnightsManager::ReqKnightsAllianceRemove(CUser *pUser, Packet & pkt)
 	pAlliance->sMainAllianceKnights = MainClanID;
 	g_pMain->m_KnightsAllianceArray.PutData(pAlliance->sMainAllianceKnights, pAlliance);	
 	
-	result << uint8_t(1) << MainClanID << TargetClanID  << MainCapeID;
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_ALLY_REMOVE) << uint8_t(1) << MainClanID << TargetClanID  << MainCapeID;
 	pUser->SendToRegion(&result);
-	}
 }
 
 void CKnightsManager::ReqKnightsAlliancePunish(CUser *pUser, Packet & pkt)//banned
 {
-		if (pUser == nullptr)
+	if (pUser == nullptr)
 		return;
 
 	uint8_t Type;
@@ -694,7 +693,6 @@ void CKnightsManager::ReqKnightsAlliancePunish(CUser *pUser, Packet & pkt)//bann
 
 	pkt >> Type >> MainClanID >> TargetClanID >> MainCapeID;
 	
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_PUNISH));
 	CUser *pTargetUser = nullptr;
 	CKnights *pMainClan = g_pMain->GetClanPtr(MainClanID), * pTargetClan = g_pMain->GetClanPtr(TargetClanID);
 	_KNIGHTS_ALLIANCE * pAlliance = g_pMain->GetAlliancePtr(MainClanID);;
@@ -718,29 +716,28 @@ void CKnightsManager::ReqKnightsAlliancePunish(CUser *pUser, Packet & pkt)//bann
 	}
 	else 
 	{
-	MainCapeID = -1;
-	if (pAlliance->sSubAllianceKnights == TargetClanID)
+		MainCapeID = -1;
+		if (pAlliance->sSubAllianceKnights == TargetClanID)
 		{
-		pAlliance->sSubAllianceKnights = 0;
-		byEmptyIndex = 1;
+			pAlliance->sSubAllianceKnights = 0;
+			byEmptyIndex = 1;
 		}
-			else if (pAlliance->sMercenaryClan_1 == TargetClanID)
-			{
+		else if (pAlliance->sMercenaryClan_1 == TargetClanID)
+		{
 			pAlliance->sMercenaryClan_1 = 0;
 			byEmptyIndex = 2;
-			}
-				else if (pAlliance->sMercenaryClan_2 == TargetClanID)
-				{
-				pAlliance->sMercenaryClan_2 = 0;
-				byEmptyIndex = 3;
-				}
+		}
+		else if (pAlliance->sMercenaryClan_2 == TargetClanID)
+		{
+			pAlliance->sMercenaryClan_2 = 0;
+			byEmptyIndex = 3;
+		}
 	}
 
 	if (pTargetClan != nullptr
 		&& !pTargetClan->m_strChief.empty())
-		{
 		pTargetUser = g_pMain->GetUserPtr(pTargetClan->m_strChief, TYPE_CHARACTER);
-		}
+
 
 	g_DBAgent.DestoryAlliance(byType, MainClanID, TargetClanID, byEmptyIndex, bySiegeFlag);
 	
@@ -749,7 +746,8 @@ void CKnightsManager::ReqKnightsAlliancePunish(CUser *pUser, Packet & pkt)//bann
 	pAlliance->sMainAllianceKnights = MainClanID;
 	g_pMain->m_KnightsAllianceArray.PutData(pAlliance->sMainAllianceKnights, pAlliance);
 
-	result << uint8_t(1) << MainClanID << TargetClanID << MainCapeID;
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_ALLY_PUNISH) << uint8_t(1) << MainClanID << TargetClanID << MainCapeID;
 	pTargetUser->SendToRegion(&result);
 }
 
@@ -758,13 +756,14 @@ void CKnightsManager::ReqCreateKnights(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_CREATE));
+	Packet result(WIZ_KNIGHTS_PROCESS);
 	string strKnightsName, strChief;
 	uint16_t sClanID;
 	uint8_t bFlag, bNation;
 	int8_t bResult;
 
 	pkt >> bFlag >> sClanID >> bNation >> strKnightsName >> strChief;
+	result << uint8_t(KNIGHTS_CREATE);
 	bResult = g_DBAgent.CreateKnights(sClanID, bNation, strKnightsName, strChief, bFlag);
 
 	if (bResult > 0)
@@ -858,8 +857,7 @@ void CKnightsManager::ReqDestroyKnights(CUser *pUser, Packet & pkt)
 
 void CKnightsManager::ReqAllKnightsMember(CUser *pUser, Packet & pkt)
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MEMBER_REQ));
-	int nOffset;
+	size_t nOffset;
 	uint16_t sClanID, sCount;
 
 	pkt >> sClanID;
@@ -868,7 +866,8 @@ void CKnightsManager::ReqAllKnightsMember(CUser *pUser, Packet & pkt)
 	if (pKnights == nullptr)
 		return;
 
-	result << uint8_t(1);
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_MEMBER_REQ) << uint8_t(1);
 	nOffset = result.wpos(); // store offset
 	result	<< uint16_t(0) // placeholder for packet length 
 		<< uint16_t(0); // placeholder for user count
@@ -924,7 +923,6 @@ void CKnightsManager::ReqRegisterClanSymbol(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MARK_REGISTER));
 	char clanSymbol[MAX_KNIGHTS_MARK];
 	uint16_t sClanID, sSymbolSize, sErrorCode = 0, sNewVersion = 0;
 
@@ -962,7 +960,8 @@ void CKnightsManager::ReqRegisterClanSymbol(CUser *pUser, Packet & pkt)
 		sErrorCode = 1;
 	} while (0);
 
-	result << sErrorCode << sNewVersion;
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_MARK_REGISTER) << sErrorCode << sNewVersion;
 	pUser->Send(&result);
 }
 
@@ -1096,7 +1095,6 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 			if (pUser == nullptr)
 				return;
 
-			Packet result(WIZ_KING, uint8_t(KING_ELECTION));
 			std::string strNominee;
 			int16_t resultCode;
 			pkt >> strNominee;
@@ -1111,7 +1109,9 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 
 				pData->InsertNominee(strNominee);
 			}
-			result << opcode << resultCode;
+
+			Packet result(WIZ_KING);
+			result << uint8_t(KING_ELECTION) << opcode << resultCode;
 			pUser->Send(&result);
 		} break;
 
@@ -1200,8 +1200,8 @@ void CUser::ReqSealItem(Packet & pkt)
 	if (!bSealResult)
 		bSealResult = g_DBAgent.SealItem(strSealPasswd, nItemSerial, nItemID, bSealType, this);
 
-	Packet result(WIZ_ITEM_UPGRADE, uint8_t(ITEM_SEAL));
-	result << bSealType << bSealResult << nItemID << bSrcPos;
+	Packet result(WIZ_ITEM_UPGRADE);
+	result << uint8_t(ITEM_SEAL) << bSealType << bSealResult << nItemID << bSrcPos;
 	Send(&result);
 
 	if (bSealResult == 1)
