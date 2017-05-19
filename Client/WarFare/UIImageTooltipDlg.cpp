@@ -1052,7 +1052,7 @@ exceptions:;
 					m_pStr[iIndex]->SetColor(m_CWhite);
 				else
 					m_pStr[iIndex]->SetColor(m_CRed);
-				sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->iPrice*spItem->pItemExt->siPriceMultiply);	
+				sprintf(szBuff, szStr.c_str(), std::to_string(spItem->pItemBasic->iPrice*spItem->pItemExt->siPriceMultiply).c_str());
 				m_pstdstr[iIndex] = szBuff;
 			}
 			else
@@ -1063,7 +1063,7 @@ exceptions:;
 				int iSellPrice = (spItem->pItemBasic->iPrice*spItem->pItemExt->siPriceMultiply/6);
 				if (iSellPrice < 1)
 					iSellPrice = 1;
-				sprintf(szBuff, szStr.c_str(), iSellPrice);	
+				sprintf(szBuff, szStr.c_str(), std::to_string(iSellPrice));
 				m_pstdstr[iIndex] = szBuff;
 			}
 			iIndex++;			
