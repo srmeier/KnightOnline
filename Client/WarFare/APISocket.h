@@ -21,7 +21,7 @@
 
 #define _CRYPTION		// 암호화 사용
 #ifdef _CRYPTION
-#include "JvCryption.h"
+#include "shared/JvCryption.h"
 #endif
 
 class BB_CircularBuffer  

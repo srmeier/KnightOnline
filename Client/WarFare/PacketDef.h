@@ -4,8 +4,8 @@
 const int SOCKET_PORT_GAME = 15001;
 const int SOCKET_PORT_LOGIN = 15100;
 
-#include "../shared/types.h"
-#include "../shared/packets.h"
+#include "shared/types.h"
+#include "shared/packets.h"
 
 #define N3_ACCOUNT_LOGIN			0xf3
 #define N3_ACCOUNT_LOGIN_MGAME		0xf4	// !!! LOGIN_REQ !!! ¿Í µ¿ÀÏ

@@ -47,7 +47,7 @@
 #include "MagicSkillMng.h"
 #include "GameCursor.h"
 
-#include "Compression.h"
+#include "shared/Compression.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE

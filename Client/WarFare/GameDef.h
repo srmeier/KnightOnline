@@ -4,10 +4,10 @@
 #include <string>
 #include "DInput.h"
 
-#include "types.h"
-#include "SDL2\SDL.h"
+#include "shared/types.h"
+#include "shared/version.h"
 
-#include "version.h"
+#include "SDL2/SDL.h"
 
 // TODO: Shift this logic into a separate header and generally clean this shared logic up
 #ifndef ASSERT
@@ -18,7 +18,7 @@
 #define ASSERT
 #endif
 #endif
-#include "Packet.h"
+#include "shared/Packet.h"
 
 const int CURRENT_VERSION = 1298;//1068; // 현재 버전
 
