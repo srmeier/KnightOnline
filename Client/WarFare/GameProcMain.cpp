@@ -4455,30 +4455,32 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 		else m_pUICmd->m_pBtn_Act_Attack->SetState(UI_STATE_BUTTON_NORMAL);
 	}
 
-	std::string szMsg;
 	if(	bEnable ) // 자동 공격!
 	{
-		//::_LoadStringFromResource(IDS_MSG_ATTACK_START, szMsg);
-		szMsg = "Beginning attack on " + pTarget->IDString();
+		char szMsg[128] = { 0 };
+		std::string szFmt;
+		::_LoadStringFromResource(IDS_MSG_ATTACK_START, szFmt);
+		sprintf(szMsg, szFmt.c_str(), pTarget->IDString().c_str());
+
 		this->PlayBGM_Battle();
 		
 		if(s_pPlayer->IsAttackableTarget(pTarget))
 			s_pPlayer->Action(PSA_BASIC, true, pTarget);
+
+		this->MsgOutput(szMsg, 0xff00ffff);
 	}
 	else // 자동 공격 아님.
 	{
+		std::string szMsg;
 		::_LoadStringFromResource(IDS_MSG_ATTACK_STOP, szMsg);
 		s_pPlayer->Action(PSA_BASIC, true, pTarget);
+		this->MsgOutput(szMsg, 0xff00ffff);
 	}
-
-	this->MsgOutput(szMsg, 0xff00ffff);
-
 
 	if(	bEnable && false == s_pPlayer->IsAttackableTarget(pTarget)) // 국가, 거리 및 각도 체크해서 공격 불가능하면 돌아가기..
 	{
 		std::string szMsg; ::_LoadStringFromResource(IDS_MSG_ATTACK_DISABLE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
-		return;
 	}
 }
 
@@ -5086,9 +5088,9 @@ void CGameProcMain::MsgRecv_PerTrade(DataPack* pDataPack, int& iOffset)
 
 			if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
 			{
-				std::string stdMsg = "IDS_PER_TRADEING_OTHER";
-				//::_LoadStringFromResource(IDS_PER_TRADEING_OTHER, stdMsg);
-				CGameProcedure::s_pProcMain->MsgOutput(stdMsg, 0xff9b9bff);
+				std::string stdMsg;
+				::_LoadStringFromResource(IDS_PER_TRADEING_OTHER, stdMsg);
+				MsgOutput(stdMsg, 0xff9b9bff);
 				break;
 			}
 
@@ -6392,19 +6394,19 @@ void CGameProcMain::MsgRecv_NoahChange(DataPack* pDataPack, int& iOffset)		// 노
 	switch (bType)
 	{
 		case N3_SP_NOAH_GET:
-			szMsg = "Earned %d Coins.";//::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg)6088;
+			::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
 			break;
 
 		case N3_SP_NOAH_LOST:
-			szMsg = "Lost %d Coins.";//::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg) 6089;
+			::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case N3_SP_NOAH_SPEND:
-			szMsg = "Used %d Coins.";//::_LoadStringFromResource(IDS_NOAH_CHANGE_SPEND, szMsg) 6099;
+			::_LoadStringFromResource(IDS_NOAH_CHANGE_SPEND, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			break;

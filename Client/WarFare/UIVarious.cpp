@@ -942,13 +942,13 @@ void CUIKnights::UpdateKnightsDuty(e_KnightsDuty eDuty)
 	std::string szDuty;
 	switch(eDuty)
 	{
-	case KNIGHTS_DUTY_CHIEF:			::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szDuty); break;
+		case KNIGHTS_DUTY_CHIEF:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szDuty); break;
 		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szDuty); break;
 		case KNIGHTS_DUTY_OFFICER:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szDuty); break;
 		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szDuty); break;
 		case KNIGHTS_DUTY_TRAINEE:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szDuty); break;
 		case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szDuty); break;
-		case KNIGHTS_DUTY_UNKNOWN:		szDuty.empty(); break;//::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szDuty); break;
+		case KNIGHTS_DUTY_UNKNOWN:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szDuty); break;
 		default: __ASSERT(0, "Invalid Knights Duty"); break;
 	}	
 	m_pText_Duty->SetString(szDuty);	
