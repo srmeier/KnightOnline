@@ -669,8 +669,7 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 	result << (uint8_t)ITEM_BIFROST_EXCHANGE << (uint8_t)resultOpCode << nItemID << sItemSlot << nExchangeItemID << sExchangeItemSlot << (uint8_t)resultMessage;
 	Send(&result);
 
-	result.clear();
-	result.SetOpcode(WIZ_OBJECT_EVENT);
+	result.Initialize(WIZ_OBJECT_EVENT);
 	result << (uint8_t)OBJECT_ARTIFACT << (uint8_t)resultMessage << nObjectID;
 
 	if (resultOpCode != Failed)
