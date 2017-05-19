@@ -1271,13 +1271,13 @@ void CDBAgent::LoadKnightsAllList()
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
 	uint8_t bCount = 0;
-	int offset;
+	size_t offset = 0;
 
 	do
 	{
 		if (bCount == 0)
 		{
-			result.clear();
+			result.Initialize(WIZ_KNIGHTS_PROCESS);
 			offset = result.wpos();
 			result << uint8_t(0);
 		}
@@ -1622,7 +1622,7 @@ bool CDBAgent::GetLetterList(string & strCharID, Packet & result, bool bNewLette
 	}
 
 	result << uint8_t(1);
-	int offset = result.wpos();
+	size_t offset = result.wpos();
 	result << bCount; // placeholder for count
 
 	if (!dbCommand->hasData())

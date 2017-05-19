@@ -207,8 +207,7 @@ void CUser::ExchangeAdd(Packet & pkt)
 	result << uint8_t(1);
 	Send(&result);
 
-	result.clear();
-
+	result.Initialize(WIZ_EXCHANGE);
 	result << uint8_t(EXCHANGE_OTHERADD)
 		<< nItemID << count << duration;
 	pUser->Send(&result);
@@ -275,8 +274,7 @@ void CUser::ExchangeDecide()
 		}
 		Send(&result);
 
-		result.clear();
-
+		result.Initialize(WIZ_EXCHANGE);
 		result << uint8_t(EXCHANGE_DONE) << uint8_t(1)
 			<< pUser->GetCoins()
 			<< uint16_t(m_ExchangeItemList.size());

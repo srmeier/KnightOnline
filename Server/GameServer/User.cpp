@@ -1281,6 +1281,7 @@ void CUser::RequestUserIn(Packet & pkt)
 	if (user_count > 1000)
 		user_count = 1000;
 
+	size_t wpos = result.wpos();
 	result << uint16_t(0); // placeholder for user count
 
 	for (int i = 0; i < user_count; i++)
@@ -1295,7 +1296,7 @@ void CUser::RequestUserIn(Packet & pkt)
 		online_count++;
 	}
 
-	result.put(0, online_count); // substitute count in
+	result.put(wpos, online_count); // substitute count in
 	SendCompressed(&result);
 }
 
@@ -1314,6 +1315,7 @@ void CUser::RequestNpcIn(Packet & pkt)
 	if (npc_count > 1000)
 		npc_count = 1000;
 
+	size_t wpos = result.wpos();
 	result << uint16_t(0); // NPC count placeholder
 
 	CKnights *pKnights = g_pMain->GetClanPtr(m_bKnights);
@@ -1340,7 +1342,7 @@ void CUser::RequestNpcIn(Packet & pkt)
 		pNpc->GetNpcInfo(result);
 	}
 
-	result.put(0, npc_count);
+	result.put(wpos, npc_count);
 	SendCompressed(&result);
 }
 
@@ -2585,7 +2587,7 @@ void CUser::ItemGet(Packet & pkt)
 				(*itr)->GoldGain(pGold, false, true);
 
 				// Let each player know they received coins.
-				result.clear();
+				result.Initialize(WIZ_ITEM_GET);
 				result << uint8_t(LootSolo) /*<< nBundleID */<< int8_t(-1) << nItemID << pItem->sCount << (*itr)->GetCoins();
 				//result << uint8_t(LootPartyCoinDistribution) << nBundleID << uint8_t(-1) << nItemID << (*itr)->GetCoins(); old
 				(*itr)->Send(&result);
@@ -2669,7 +2671,7 @@ void CUser::ItemGet(Packet & pkt)
 		// Now notify the party that we've looted, if applicable.
 		if (isInParty())
 		{
-			result.clear();
+			result.Initialize(WIZ_ITEM_GET);
 			result << uint8_t(LootPartyNotification) << nBundleID << nItemID << pReceiver->GetName();
 			g_pMain->Send_PartyMember(GetPartyID(), &result);
 
@@ -2677,7 +2679,7 @@ void CUser::ItemGet(Packet & pkt)
 			// we should let us know that this was done (otherwise we'll be like, "GM!!? WHERE'S MY ITEM?!?")
 			if (pReceiver != this)
 			{
-				result.clear();
+				result.Initialize(WIZ_ITEM_GET);
 				result << uint8_t(LootPartyItemGivenAway);
 				Send(&result);
 			}
@@ -2980,6 +2982,8 @@ void CUser::SendNotice()
 	uint8_t count = 0;
 
 	result << uint8_t(2); // new-style notices (top-right of screen)
+
+	size_t wpos = result.wpos();
 	result << count; // placeholder the count
 
 	// Use first line for header, 2nd line for data, 3rd line for header... etc.
@@ -2988,7 +2992,7 @@ void CUser::SendNotice()
 		AppendNoticeEntry(result, count, g_pMain->m_ppNotice[i + 1], g_pMain->m_ppNotice[i]);
 
 	AppendExtraNoticeData(result, count);
-	result.put(1, count); // replace the placeholdered line count
+	result.put(wpos, count); // replace the placeholdered line count
 
 	Send(&result);
 }
@@ -3518,19 +3522,25 @@ void CUser::Type4Duration()
 
 void CUser::SendAllKnightsID()
 {
-	Packet result(WIZ_KNIGHTS_LIST, uint8_t(1));
+	Packet result(WIZ_KNIGHTS_LIST);
 	uint16_t count = 0;
+
+	result << uint8_t(1);
+
+	size_t wpos = result.wpos();
+	result << count;
 
 	foreach_stlmap (itr, g_pMain->m_KnightsArray)
 	{
 		CKnights *pKnights = itr->second;
 		if (pKnights == nullptr)
 			continue;
+
 		result << pKnights->m_sIndex << pKnights->m_strName;
 		count++;
 	}
 
-	result.put(0, count);
+	result.put(wpos, count);
 	SendCompressed(&result);
 }
 

@@ -229,7 +229,7 @@ void CUser::PartyInsert()
 		if (pUser == nullptr)
 			continue;
 
-		result.clear();
+		result.Initialize(WIZ_PARTY);
 		result	<< uint8_t(PARTY_INSERT) << pParty->uid[i]
 		<< uint8_t(1) // success
 			<< pUser->GetName()
@@ -250,7 +250,7 @@ void CUser::PartyInsert()
 	if (m_bNeedParty == 2 && isInParty()) 
 		StateChangeServerDirect(2, 1);
 
-	result.clear();
+	result.Initialize(WIZ_PARTY);
 	result	<< uint8_t(PARTY_INSERT) << GetSocketID()
 		<< uint8_t(1) // success
 		<< GetName()

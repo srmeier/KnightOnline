@@ -1301,6 +1301,7 @@ void CGameServerDlg::UserInOutForMe(CUser *pSendUser)
 	C3DMap* pMap = pSendUser->GetMap();
 	ASSERT(pMap != nullptr);
 	uint16_t user_count = 0;
+	size_t wpos = result.wpos();
 
 	result << uint16_t(0); // placeholder for the user count
 
@@ -1308,7 +1309,7 @@ void CGameServerDlg::UserInOutForMe(CUser *pSendUser)
 	foreach_region(x, z)
 		GetRegionUserIn(pMap, rx + x, rz + z, result, user_count, pSendUser->GetEventRoom());
 
-	result.put(0, uint16_t(user_count));
+	result.put(wpos, user_count);
 	pSendUser->SendCompressed(&result);
 }
 
@@ -1321,6 +1322,7 @@ void CGameServerDlg::RegionUserInOutForMe(CUser *pSendUser)
 	C3DMap* pMap = pSendUser->GetMap();
 	ASSERT(pMap != nullptr);
 	uint16_t user_count = 0;
+	size_t wpos = result.wpos();
 
 	result << uint16_t(0); // placeholder for the user count
 
@@ -1328,7 +1330,7 @@ void CGameServerDlg::RegionUserInOutForMe(CUser *pSendUser)
 	foreach_region(x, z)
 		GetRegionUserList(pMap, rx + x, rz + z, result, user_count, pSendUser->GetEventRoom());
 
-	result.put(0, user_count);
+	result.put(wpos, user_count);
 	pSendUser->SendCompressed(&result);
 }
 
@@ -1402,14 +1404,14 @@ void CGameServerDlg::MerchantUserInOutForMe(CUser *pSendUser)
 	C3DMap* pMap = pSendUser->GetMap();
 	ASSERT(pMap != nullptr);
 	uint16_t user_count = 0;
-
+	size_t wpos = result.wpos();
 	result << uint16_t(0); // placeholder for user count
 
 	int16_t rx = pSendUser->GetRegionX(), rz = pSendUser->GetRegionZ();
 	foreach_region(x, z)
 		GetRegionMerchantUserIn(pMap, rx + x, rz + z, result, user_count, pSendUser->GetEventRoom());
 
-	result.put(1, user_count);
+	result.put(wpos, user_count);
 	pSendUser->SendCompressed(&result);
 }
 
@@ -1459,13 +1461,14 @@ void CGameServerDlg::NpcInOutForMe(CUser* pSendUser)
 	C3DMap* pMap = pSendUser->GetMap();
 	ASSERT(pMap != nullptr);
 	uint16_t npc_count = 0;
+	size_t wpos = result.wpos();
 	result << uint16_t(0); // placeholder for NPC count
 
 	int16_t rx = pSendUser->GetRegionX(), rz = pSendUser->GetRegionZ();
 	foreach_region(x, z)
 		GetRegionNpcIn(pMap, rx + x, rz + z, result, npc_count, pSendUser->GetEventRoom(), pSendUser);
 
-	result.put(0, npc_count);
+	result.put(wpos, npc_count);
 	pSendUser->SendCompressed(&result);
 }
 
@@ -1521,13 +1524,14 @@ void CGameServerDlg::RegionNpcInfoForMe(CUser *pSendUser)
 	C3DMap* pMap = pSendUser->GetMap();
 	ASSERT(pMap != nullptr);
 	uint16_t npc_count = 0;
+	size_t wpos = result.wpos();
 	result << uint16_t(0); // placeholder for NPC count
 
 	int16_t rx = pSendUser->GetRegionX(), rz = pSendUser->GetRegionZ();
 	foreach_region(x, z)
 		GetRegionNpcList(pMap, rx + x, rz + z, result, npc_count, pSendUser->GetEventRoom());
 
-	result.put(0, npc_count);
+	result.put(wpos, npc_count);
 	pSendUser->SendCompressed(&result);
 }
 
@@ -1649,6 +1653,7 @@ void CGameServerDlg::SendAllUserInfo()
 {
 	Packet result(AG_USER_INFO_ALL);
 	uint8_t count = 0;
+	size_t wpos = result.wpos();
 	result << count; // placeholder for user count
 	const int tot = 20;
 
@@ -1656,20 +1661,21 @@ void CGameServerDlg::SendAllUserInfo()
 	foreach (itr, sessMap)
 	{
 		TO_USER(itr->second)->GetUserInfoForAI(result);
-		if (++count == tot)	{
-			result.put(0, count);
+		if (++count == tot)
+		{
+			result.put(wpos, count);
 			Send_AIServer(&result);
 			count = 0;
-			result.clear();
+			result.Initialize(AG_USER_INFO_ALL);
 		}
 	}
 
 	if (count != 0 && count < (tot - 1))
 	{
-		result.put(0, count);
+		result.put(wpos, count);
 		Send_AIServer(&result);
 		count = 0;
-		result.clear();
+		result.Initialize(AG_USER_INFO_ALL);
 	}
 
 	foreach_stlmap (itr, m_PartyArray)

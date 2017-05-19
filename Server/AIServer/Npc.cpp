@@ -2861,7 +2861,7 @@ void CNpc::SendExpToUserList()
 
 		if (bKarusComplete || bElMoradComplete)
 		{
-			result.clear();
+			result.Initialize(AG_BATTLE_EVENT);
 			result	<< uint8_t(BATTLE_EVENT_RESULT) 
 				<< uint8_t(bKarusComplete ? KARUS : ELMORAD)
 				<< strMaxDamageUser;

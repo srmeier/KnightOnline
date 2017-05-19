@@ -108,7 +108,7 @@ void CUser::HandleChallengeRequestPVP(Packet & pkt)
 	result << uint8_t(CHALLENGE_PVP_REQUEST) << GetName();
 	pUser->Send(&result);
 
-	result.clear();
+	result.Initialize(WIZ_CHALLENGE);
 	result << uint8_t(CHALLENGE_PVP_REQ_SENT) << pUser->GetName();
 	Send(&result);
 	return;
@@ -183,7 +183,7 @@ void CUser::HandleChallengeRequestCVC(Packet & pkt)
 	result << uint8_t(CHALLENGE_CVC_REQUEST) << GetName();
 	pUser->Send(&result);
 
-	result.clear();
+	result.Initialize(WIZ_CHALLENGE);
 	result << uint8_t(CHALLENGE_CVC_REQ_SENT) << pUser->GetName();
 	Send(&result);
 	return;

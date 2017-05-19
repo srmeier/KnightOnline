@@ -372,16 +372,16 @@ void CKnightsManager::ModifyKnightsLeader(CUser *pUser, Packet & pkt, uint8_t op
 			else if (pKnights->m_strViceChief_3 == strUserID) pKnights->m_strViceChief_3 = "";
 			else return;
 
-			g_DBAgent.UpdateKnights((uint8_t)KNIGHTS_HANDOVER, strUserID, pUser->GetClanID(), 0);
+			g_DBAgent.UpdateKnights(KNIGHTS_HANDOVER, strUserID, pUser->GetClanID(), 0);
 
-			result << (uint8_t)KNIGHTS_HANDOVER << pUser->GetName() << strUserID;
+			result << uint8_t(KNIGHTS_HANDOVER) << pUser->GetName() << strUserID;
 			pUser->Send(&result);
 			pUser->ChangeFame(TRAINEE);
 			pUser->UserDataSaveToAgent();
 			AllKnightsMember(pUser);
 
-			result.clear();
-			result << (uint8_t)KNIGHTS_HANDOVER << strUserID << pUser->GetName();
+			result.Initialize(WIZ_KNIGHTS_PROCESS);
+			result << uint8_t(KNIGHTS_HANDOVER) << strUserID << pUser->GetName();
 			pTUser->Send(&result);
 			pTUser->ChangeFame(CHIEF);
 			pTUser->UserDataSaveToAgent();
@@ -500,9 +500,12 @@ void CKnightsManager::AllKnightsList(CUser *pUser, Packet & pkt)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLLIST_REQ));
+	Packet result(WIZ_KNIGHTS_PROCESS);
 	uint16_t sPage = pkt.read<uint16_t>(), start = sPage * 10, count = 0;
-	result << uint8_t(1) << sPage << count;
+	result << uint8_t(KNIGHTS_ALLLIST_REQ) << uint8_t(1) << sPage;
+	
+	size_t wpos = result.wpos();
+	result << count;
 
 	foreach_stlmap (itr, g_pMain->m_KnightsArray)
 	{
@@ -521,7 +524,7 @@ void CKnightsManager::AllKnightsList(CUser *pUser, Packet & pkt)
 	}
 
 	count -= start;
-	result.put(4, count);
+	result.put(wpos, count);
 	pUser->Send(&result);
 }
 
@@ -530,7 +533,9 @@ void CKnightsManager::AllKnightsMember(CUser *pUser)
 	if (pUser == nullptr)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_MEMBER_REQ));
+	Packet result(WIZ_KNIGHTS_PROCESS);
+	result << uint8_t(KNIGHTS_MEMBER_REQ);
+
 	uint8_t bResult = 1;
 
 	if (!pUser->isInClan())
@@ -542,6 +547,7 @@ void CKnightsManager::AllKnightsMember(CUser *pUser)
 	if (bResult == 1)
 	{
 		uint16_t pktSize = 0, count = 0;
+		size_t wpos = result.wpos();
 		result << pktSize << count << count << count; // placeholders
 		pktSize = (uint16_t)result.size();
 		count = g_pMain->GetKnightsAllMembers(pUser->GetClanID(), result, pktSize, pUser->isClanLeader());
@@ -549,10 +555,10 @@ void CKnightsManager::AllKnightsMember(CUser *pUser)
 			return;
 
 		pktSize = ((uint16_t)result.size() - pktSize) + 6;
-		result.put(2, pktSize);
-		result.put(4, count);
-		result.put(6, count);
-		result.put(8, count);
+		result.put(wpos, pktSize);
+		result.put(wpos + 2, count);
+		result.put(wpos + 4, count);
+		result.put(wpos + 6, count);
 	}
 	pUser->Send(&result);
 }
@@ -817,8 +823,10 @@ void CKnightsManager::AddUserDonatedNP(int index, std::string & strUserID, uint3
 
 void CKnightsManager::RecvKnightsAllList(Packet & pkt)
 {
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLLIST_REQ));
+	Packet result(WIZ_KNIGHTS_PROCESS);
 	uint8_t count = pkt.read<uint8_t>(), send_count = 0;
+	result << uint8_t(KNIGHTS_ALLLIST_REQ);
+	size_t wpos = result.wpos();
 	result << send_count; // placeholder for count
 	for (int i = 0; i < count; i++)
 	{
@@ -841,7 +849,7 @@ void CKnightsManager::RecvKnightsAllList(Packet & pkt)
 		}
 	}
 
-	result.put(1, send_count);
+	result.put(wpos, send_count);
 	g_pMain->Send_All(&result);
 }
 
@@ -1258,9 +1266,11 @@ void CKnightsManager::KnightsAllianceList(CUser* pUser, Packet & pkt)
 		|| !pUser->isInClan())
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_ALLY_LIST));
+	Packet result(WIZ_KNIGHTS_PROCESS);
 	_KNIGHTS_ALLIANCE * pAlliance;
 	CKnights * pClan = g_pMain->GetClanPtr(pUser->GetClanID());
+
+	result << uint8_t(KNIGHTS_ALLY_LIST);
 
 	if (pClan == nullptr
 		|| !pClan->isInAlliance()
@@ -1408,8 +1418,9 @@ void CKnightsManager::DonationList(CUser *pUser, Packet & pkt)
 		|| pKnights->m_byFlag < ClanTypeAccredited5)
 		return;
 
-	Packet result(WIZ_KNIGHTS_PROCESS, uint8_t(KNIGHTS_DONATION_LIST));
+	Packet result(WIZ_KNIGHTS_PROCESS);
 	uint8_t count = 0;
+	result << uint8_t(KNIGHTS_DONATION_LIST);
 	size_t wpos = result.wpos();
 	result << count;
 

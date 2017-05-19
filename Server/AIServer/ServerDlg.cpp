@@ -482,14 +482,15 @@ void CServerDlg::GetServerResource(int nResourceID, string * result, ...)
 // game server에 모든 npc정보를 전송..
 void CServerDlg::AllNpcInfo()
 {
-	Packet result(NPC_INFO_ALL);
+	Packet result;
 	result.SByte();
 	foreach_stlmap (itr, g_arZone)
 	{
 		uint32_t nZone = itr->first;
 		uint8_t bCount = 0;
 
-		result.clear();
+		result.Initialize(NPC_INFO_ALL);
+		size_t wpos = result.wpos();
 		result << bCount;
 
 		foreach_stlmap (itr, m_arNpc)
@@ -502,24 +503,24 @@ void CServerDlg::AllNpcInfo()
 			pNpc->FillNpcInfo(result);
 			if (++bCount == NPC_NUM)
 			{
-				result.put(0, bCount);
+				result.put(wpos, bCount);
 				m_socketMgr.SendAllCompressed(&result);
 
 				// Reset packet buffer
 				bCount = 0;
-				result.clear();
+				result.Initialize(NPC_INFO_ALL);
 				result << bCount;
 			}
 		}	
 
 		if (bCount != 0 && bCount < NPC_NUM)
 		{
-			result.put(0, bCount);
+			result.put(wpos, bCount);
 			m_socketMgr.SendAllCompressed(&result);
 		}
 
-		Packet serverInfo(AG_SERVER_INFO, uint8_t(nZone));
-		serverInfo << uint16_t(m_TotalNPC);
+		Packet serverInfo(AG_SERVER_INFO);
+		serverInfo << uint8_t(nZone) << uint16_t(m_TotalNPC);
 		m_socketMgr.SendAll(&serverInfo);
 	}
 }

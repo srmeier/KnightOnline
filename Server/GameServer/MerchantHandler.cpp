@@ -324,8 +324,7 @@ void CUser::MerchantItemBuy(Packet & pkt)
 	result << itemid << GetName();
 	pMerchant->Send(&result);
 
-	result.clear();
-
+	result.Initialize(WIZ_MERCHANT);
 	result	<< uint8_t(MERCHANT_ITEM_BUY) << uint16_t(1)
 		<< itemid << leftover_count
 		<< item_slot << dest_slot;
@@ -609,11 +608,11 @@ void CUser::BuyingMerchantBuy(Packet & pkt)
 	result << bMerchantListSlot << uint16_t(0) << GetName();
 	pMerchant->Send(&result);
 
-	result.clear();
+	result.Initialize(WIZ_MERCHANT);
 	result << uint8_t(MERCHANT_BUY_SOLD) << uint8_t(1) << bMerchantListSlot << pWantedItem->sCount << bSellerSrcSlot << pSellerItem->sCount;
 	Send(&result);
 
-	result.clear();
+	result.Initialize(WIZ_MERCHANT);
 	result << uint8_t(MERCHANT_BUY_BUY) << uint8_t(1);
 	Send(&result);
 

@@ -392,7 +392,7 @@ bool CUser::PromoteUserNovice()
 	SendToRegion(&result);
 
 	// Change the class & update party.
-	result.clear();
+	result.Initialize(WIZ_CLASS_CHANGE);
 	result << uint8_t(2) << sNewClass;
 	ClassChange(result, false); // TODO: Clean this up. Shouldn't need to build a packet for this.
 
@@ -421,7 +421,7 @@ bool CUser::PromoteUser()
 	SendToRegion(&result);
 
 	// Change the class & update party.
-	result.clear();
+	result.Initialize(WIZ_CLASS_CHANGE);
 	result << uint8_t(2) << sNewClass;
 	ClassChange(result, false); // TODO: Clean this up. Shouldn't need to build a packet for this.
 
