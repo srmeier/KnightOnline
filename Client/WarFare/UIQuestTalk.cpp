@@ -49,7 +49,7 @@ void CUIQuestTalk::Open(Packet& pkt)
 		m_szTalk[i] = "";
 
 		index = pkt.read<uint32_t>();
-		__TABLE_QUEST_TALK* pTbl_Quest_Talk = CGameBase::s_pTbl_QuestTalk->Find(index);
+		__TABLE_QUEST_TALK* pTbl_Quest_Talk = CGameBase::s_pTbl_QuestTalk.Find(index);
 		if(pTbl_Quest_Talk)
 		{
 			m_szTalk[i] = pTbl_Quest_Talk->szTalk;

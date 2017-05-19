@@ -189,7 +189,7 @@ public:
 	//void	MsgSend_DutyAppoint(e_KnightsDuty eDuty);
 };
 
-struct __FriendsInfo : public binary_function<__FriendsInfo, __FriendsInfo, bool>// 기사 단원 정보..
+struct __FriendsInfo : public std::binary_function<__FriendsInfo, __FriendsInfo, bool>// 기사 단원 정보..
 {
 	std::string		szName;
 	int				iID; // ID
@@ -283,7 +283,7 @@ public:
 	void		SetVisible(bool bVisible);
 	bool		OnKeyPress(int iKey);
 	void		UpdatePageButtons(CN3UIButton* pButtonToActive);
-	void		UpdateAllStates(const __InfoPlayerBase* pInfoBase, const __InfoPlayerMySelf* pInfoExt);
+	void		UpdateAllStates(const struct __InfoPlayerBase* pInfoBase, const struct __InfoPlayerMySelf* pInfoExt);
 	void		UpdateKnightsInfo(); // 기사단 관련 정보 업데이트
 	void		Open();
 	void		Close();

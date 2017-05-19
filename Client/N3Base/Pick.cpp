@@ -1,7 +1,6 @@
 // Pick.cpp: implementation of the CPick class.
 //
 //////////////////////////////////////////////////////////////////////
-#include "StdAfxBase.h"
 #include "Pick.h"
 
 #ifdef _DEBUG

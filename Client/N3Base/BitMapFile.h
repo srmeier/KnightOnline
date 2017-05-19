@@ -9,6 +9,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include <Windows.h>
+#include <string>
+
 class CBitMapFile
 {
 protected:

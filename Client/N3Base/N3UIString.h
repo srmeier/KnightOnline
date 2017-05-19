@@ -10,6 +10,7 @@
 #endif // _MSC_VER > 1000
 
 #include <string>
+#include <vector>
 #include "N3UIBase.h"
 #include "DFont.h"
 

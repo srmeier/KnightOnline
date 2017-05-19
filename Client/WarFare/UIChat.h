@@ -23,7 +23,7 @@ struct __ChatInfo
 	__ChatInfo(const std::string& szChat_Arg, D3DCOLOR color_Arg) { szChat = szChat_Arg; color = color_Arg; }
 };
 
-typedef deque<__ChatInfo*>			ChatList;
+typedef std::deque<__ChatInfo*>		ChatList;
 typedef ChatList::iterator			ChatListItor;
 typedef ChatList::reverse_iterator	ChatListReverseItor;
 const int MAX_CHAT_LINES = 100;

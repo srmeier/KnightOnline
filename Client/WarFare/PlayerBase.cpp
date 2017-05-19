@@ -4,15 +4,14 @@
 
 //#include "stdafx.h"
 #include "PlayerBase.h"
+#include "DFont.h"
 
 #include "N3WorldManager.h"
-#include "resource.h"
-
+#include "N3FXMgr.h"
 #include "N3ShapeExtra.h"
-#include "DFont.h"
 #include "N3SndObj.h"
 
-#include "N3FXMgr.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -378,7 +377,7 @@ void CPlayerBase::KnightsInfoSet(int iID, const std::string& szName, int iGrade,
 	if(NULL == pPlug) return;
 
 	CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
-	__TABLE_FX* pFXClanRank = s_pTbl_FXSource->Find(FXID_CLAN_RANK_1);
+	__TABLE_FX* pFXClanRank = s_pTbl_FXSource.Find(FXID_CLAN_RANK_1);
 
 	std::string szFXClanRank = "";
 	std::string szEmpty = "";
@@ -1883,8 +1882,8 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamageFire > 0) || (pItemExt->byDamageFire >= LIMIT_FX_DAMAGE)) // 17 추가데미지 - 불
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
-			__TABLE_FX* pFXMain = s_pTbl_FXSource->Find(FXID_SWORD_FIRE_MAIN);
-			__TABLE_FX* pFXTail = s_pTbl_FXSource->Find(FXID_SWORD_FIRE_TAIL);
+			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_FIRE_MAIN);
+			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_FIRE_TAIL);
 			
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
@@ -1896,8 +1895,8 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		else if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamageIce > 0) || (pItemExt->byDamageIce >= LIMIT_FX_DAMAGE))// 18 추가데미지 - 얼음
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
-			__TABLE_FX* pFXMain = s_pTbl_FXSource->Find(FXID_SWORD_ICE_MAIN);
-			__TABLE_FX* pFXTail = s_pTbl_FXSource->Find(FXID_SWORD_ICE_TAIL);
+			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_ICE_MAIN);
+			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_ICE_TAIL);
 			
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
@@ -1910,8 +1909,8 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		else if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamageThuner > 0) || (pItemExt->byDamageThuner >= LIMIT_FX_DAMAGE))// 19 추가데미지 - 전격			
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
-			__TABLE_FX* pFXMain = s_pTbl_FXSource->Find(FXID_SWORD_LIGHTNING_MAIN);
-			__TABLE_FX* pFXTail = s_pTbl_FXSource->Find(FXID_SWORD_LIGHTNING_TAIL);
+			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_LIGHTNING_MAIN);
+			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_LIGHTNING_TAIL);
 			
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
@@ -1924,8 +1923,8 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		else if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamagePoison > 0) || (pItemExt->byDamagePoison >= LIMIT_FX_DAMAGE))// 20 추가데미지 - 독			
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
-			__TABLE_FX* pFXMain = s_pTbl_FXSource->Find(FXID_SWORD_POISON_MAIN);
-			__TABLE_FX* pFXTail = s_pTbl_FXSource->Find(FXID_SWORD_POISON_TAIL);
+			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_POISON_MAIN);
+			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_POISON_TAIL);
 
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
@@ -1974,7 +1973,7 @@ CN3CPart* CPlayerBase::PartSet(e_PartPosition ePos, const std::string& szFN, __T
 				}
 				else // 하체에 입고 있었던 아이템이 없다면..
 				{
-					__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
+					__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
 					this->PartSet(PART_POS_LOWER, pLooks->szPartFNs[PART_POS_LOWER], NULL, NULL); // 하체에 기본옷을 입힌다.
 				}
 			}
@@ -2008,7 +2007,7 @@ CN3CPart* CPlayerBase::PartSet(e_PartPosition ePos, const std::string& szFN, __T
 		}
 		else
 		{
-			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);	// Player Character Skin 구조체 포인터..
+			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// Player Character Skin 구조체 포인터..
 			if(pLooks)
 			{
 				pPart = m_Chr.PartSet(ePos, pLooks->szPartFNs[ePos]);

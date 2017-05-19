@@ -2,17 +2,20 @@
 */
 
 //#include "StdAfx.h"
+#include <winsock.h>
+
 #include "LocalInput.h"
 #include "mmsystem.h"
 #include "GameBase.h"
 
-#include "SDL2\SDL_syswm.h"
 #include "GameProcedure.h"
 #include "N3UIEdit.h"
 #include "UIChat.h"
 #include "GameProcMain.h"
 #include "APISocket.h"
 #include "GameEng.h"
+
+#include "SDL2\SDL_syswm.h"
 
 //-----------------------------------------------------------------------------
 CLocalInput::CLocalInput(void) {

@@ -2,9 +2,10 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "stdafxbase.h"
-#include "Jpeg.h"
+#include <Windows.h>
+#include "shared/types.h"
 
+#include "Jpeg.h"
 #include <math.h>
 
 //#ifdef _DEBUG

@@ -13,17 +13,16 @@
 
 #include "N3BaseFileAccess.h"
 #include "N3UIDef.h"
-#include <DInput.h>
 #include <list>
 #include <set>
 #include <string>
 
 class CN3UIBase;
-using namespace std;
-typedef list<CN3UIBase*>			UIList;
-typedef UIList::iterator			UIListItor;
-typedef UIList::const_iterator		UIListItorConst;
-typedef UIList::reverse_iterator	UIListReverseItor;
+
+typedef std::list<CN3UIBase*>			UIList;
+typedef UIList::iterator				UIListItor;
+typedef UIList::const_iterator			UIListItorConst;
+typedef UIList::reverse_iterator		UIListReverseItor;
 
 class CN3UIImage;
 class CN3UIString;

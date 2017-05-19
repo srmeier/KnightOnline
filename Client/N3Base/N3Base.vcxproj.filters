@@ -57,9 +57,6 @@
     <ClInclude Include="LogWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="My_Macro.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="N3AlphaPrimitiveManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>

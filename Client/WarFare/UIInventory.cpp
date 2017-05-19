@@ -30,6 +30,7 @@
 #include "N3UIString.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
+
 #include "resource.h"
 
 #ifdef _DEBUG
@@ -390,7 +391,7 @@ void CUIInventory::InitIconWnd(e_UIWND eWnd)
 	if(NULL == m_pArea_Destroy) return;
 
 	m_pText_Weight		= (CN3UIString*)GetChildByID("text_weight");	__ASSERT(m_pText_Weight	, "NULL UI Component!!");
-	__TABLE_UI_RESRC* pTblUI = CGameBase::s_pTbl_UI->Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
+	__TABLE_UI_RESRC* pTblUI = CGameBase::s_pTbl_UI.Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
 	__ASSERT(pTblUI, "NULL Pointer UI Table");
 
 	m_pUITooltipDlg = new CUIImageTooltipDlg();
@@ -2296,7 +2297,7 @@ void CUIInventory::ItemAdd(__TABLE_ITEM_BASIC* pItem, __TABLE_ITEM_EXT* pItemExt
 
 void CUIInventory::ItemDelete(__TABLE_ITEM_BASIC* pItem, __TABLE_ITEM_EXT* pItemExt, e_ItemSlot eSlot)
 {
-	__TABLE_PLAYER_LOOKS* pLooks = CGameBase::s_pTbl_UPC_Looks->Find(CGameBase::s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
+	__TABLE_PLAYER_LOOKS* pLooks = CGameBase::s_pTbl_UPC_Looks.Find(CGameBase::s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
 	__ASSERT(pLooks, "NULL Basic Looks!");
 	if(NULL == pLooks) return;
 
@@ -2406,9 +2407,9 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				__TABLE_ITEM_BASIC* pItem = NULL;								// 아이템 테이블 구조체 포인터..	
 				__TABLE_ITEM_EXT* pItemExt = NULL;								// 아이템 테이블 구조체 포인터..	
 
-				pItem = CGameProcedure::s_pTbl_Items_Basic->Find(iID/1000*1000);	// 열 데이터 얻기..
+				pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID/1000*1000);	// 열 데이터 얻기..
 				if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iID%1000);	// 열 데이터 얻기..
+					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iID%1000);	// 열 데이터 얻기..
 				if ( NULL == pItem || NULL == pItemExt )
 				{
 					__ASSERT(0, "NULL Item");
@@ -2461,9 +2462,9 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				__TABLE_ITEM_BASIC* pItem = NULL;								// 아이템 테이블 구조체 포인터..	
 				__TABLE_ITEM_EXT* pItemExt = NULL;								// 아이템 테이블 구조체 포인터..	
 
-				pItem = CGameProcedure::s_pTbl_Items_Basic->Find(iID/1000*1000);	// 열 데이터 얻기..
+				pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID/1000*1000);	// 열 데이터 얻기..
 				if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iID%1000);	// 열 데이터 얻기..
+					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iID%1000);	// 열 데이터 얻기..
 				if ( NULL == pItem || NULL == pItemExt )
 				{
 					__ASSERT(0, "NULL Item");
@@ -2512,9 +2513,9 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				__TABLE_ITEM_BASIC* pItem = NULL;								// 아이템 테이블 구조체 포인터..	
 				__TABLE_ITEM_EXT* pItemExt = NULL;								// 아이템 테이블 구조체 포인터..	
 
-				pItem = CGameProcedure::s_pTbl_Items_Basic->Find(iID/1000*1000);	// 열 데이터 얻기..
+				pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID/1000*1000);	// 열 데이터 얻기..
 				if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iID%1000);	// 열 데이터 얻기..
+					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iID%1000);	// 열 데이터 얻기..
 				if ( NULL == pItem || NULL == pItemExt )
 				{
 					__ASSERT(0, "NULL Item");
@@ -2567,9 +2568,9 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				__TABLE_ITEM_BASIC* pItem = NULL;								// 아이템 테이블 구조체 포인터..	
 				__TABLE_ITEM_EXT* pItemExt = NULL;								// 아이템 테이블 구조체 포인터..	
 
-				pItem = CGameProcedure::s_pTbl_Items_Basic->Find(iID/1000*1000);	// 열 데이터 얻기..
+				pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID/1000*1000);	// 열 데이터 얻기..
 				if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iID%1000);	// 열 데이터 얻기..
+					pItemExt = CGameProcedure::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iID%1000);	// 열 데이터 얻기..
 				if ( NULL == pItem || NULL == pItemExt )
 				{
 					__ASSERT(0, "NULL Item");

@@ -12,6 +12,8 @@
 #ifndef _JPEG_MODULE_BODY_
 #define _JPEG_MODULE_BODY_
 
+#include "shared/types.h"
+
 struct SET
 {
 	uint8_t C[3]; // Y, Cb, Cr ¼ººÐ

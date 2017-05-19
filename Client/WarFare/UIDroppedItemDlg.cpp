@@ -23,9 +23,9 @@
 #include "UIHotKeyDlg.h"
 #include "UISkillTreeDlg.h"
 
-#include "resource.h"
-
 #include "N3UIArea.h"
+
+#include "resource.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -134,7 +134,7 @@ void CUIDroppedItemDlg::Render()
 
 void CUIDroppedItemDlg::InitIconWnd(e_UIWND eWnd)
 {
-	__TABLE_UI_RESRC* pTblUI = CGameBase::s_pTbl_UI->Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
+	__TABLE_UI_RESRC* pTblUI = CGameBase::s_pTbl_UI.Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
 
 	m_pUITooltipDlg = new CUIImageTooltipDlg();
 	m_pUITooltipDlg->Init(this);
@@ -235,9 +235,9 @@ void CUIDroppedItemDlg::AddToItemTable(int iItemID, int iItemCount, int iOrder)
 	__TABLE_ITEM_EXT*	pItemExt = NULL;							// 아이템 테이블 구조체 포인터..
 	std::string szIconFN;
 
-	pItem = CGameBase::s_pTbl_Items_Basic->Find(iItemID/1000*1000);	// 열 데이터 얻기..
+	pItem = CGameBase::s_pTbl_Items_Basic.Find(iItemID/1000*1000);	// 열 데이터 얻기..
 	if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItemID%1000);
+		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItemID%1000);
 	if(NULL == pItem || NULL == pItemExt)
 	{
 		__ASSERT(0, "아이템 포인터 테이블에 없음!!");
@@ -270,9 +270,9 @@ void CUIDroppedItemDlg::AddToItemTableToInventory(int iItemID, int iItemCount, i
 	std::string szIconFN;
 	float fUVAspect = (float)45.0f/(float)64.0f;
 
-	pItem = CGameBase::s_pTbl_Items_Basic->Find(iItemID/1000*1000);	// 열 데이터 얻기..
+	pItem = CGameBase::s_pTbl_Items_Basic.Find(iItemID/1000*1000);	// 열 데이터 얻기..
 	if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItemID%1000);
+		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItemID%1000);
 	if(NULL == pItem || NULL == pItemExt)
 	{
 		__ASSERT(0, "아이템 포인터 테이블에 없음!!");
@@ -421,7 +421,7 @@ bool CUIDroppedItemDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			spItem = NULL;
 			spItem = GetHighlightIconItem((CN3UIIcon* )pSender);
 			if ( !spItem )	break;
-			pItem = CGameBase::s_pTbl_Items_Basic->Find(spItem->pItemBasic->dwID);	// 열 데이터 얻기..
+			pItem = CGameBase::s_pTbl_Items_Basic.Find(spItem->pItemBasic->dwID);	// 열 데이터 얻기..
 			if ( pItem == NULL )
 			{
 				__ASSERT(0, "NULL Item!!!");
@@ -563,9 +563,9 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 	{
 		pItem = NULL;
 		pItemExt = NULL;
-		pItem = CGameBase::s_pTbl_Items_Basic->Find(iItemID/1000*1000);	// 열 데이터 얻기..
+		pItem = CGameBase::s_pTbl_Items_Basic.Find(iItemID/1000*1000);	// 열 데이터 얻기..
 		if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-			pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItemID%1000);
+			pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItemID%1000);
 		if(NULL == pItem || NULL == pItemExt)
 		{
 			__ASSERT(0, "아이템 포인터 테이블에 없음!!");
@@ -690,7 +690,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 		}
 
 		pItem = NULL;
-		pItem = CGameBase::s_pTbl_Items_Basic->Find(iItemID/1000*1000);	// 열 데이터 얻기..
+		pItem = CGameBase::s_pTbl_Items_Basic.Find(iItemID/1000*1000);	// 열 데이터 얻기..
 		if(NULL == pItem)
 		{
 			__ASSERT(0, "아이템 포인터 테이블에 없음!!");

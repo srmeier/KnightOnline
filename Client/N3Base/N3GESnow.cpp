@@ -1,7 +1,6 @@
 // N3GESnow.cpp: implementation of the CN3GESnow class.
 //
 //////////////////////////////////////////////////////////////////////
-#include "StdAfxBase.h"
 #include "N3GESnow.h"
 #include "N3Texture.h"
 

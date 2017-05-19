@@ -68,7 +68,7 @@ void CGameProcCharacterCreate::Init()
 	s_pPlayer->m_ChrInv.PartAlloc(PART_POS_COUNT);
 	s_pPlayer->m_ChrInv.PlugAlloc(PLUG_POS_COUNT);
 
-	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI->Find(s_pPlayer->m_InfoBase.eNation);
+	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI.Find(s_pPlayer->m_InfoBase.eNation);
 	m_pUICharacterCreate = new CUICharacterCreate();
 	m_pUICharacterCreate->Init(s_pUIMgr);
 	if(pTblUI) m_pUICharacterCreate->LoadFromFile(pTblUI->szCharacterCreate);
@@ -107,7 +107,7 @@ void CGameProcCharacterCreate::SetChr()
 		m_pUICharacterCreate->m_iMaxBonusPoint =	pTbl->iBonus;
 	}
 
-	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..;
+	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..;
 	if(NULL == pLooks) return;
 
 	s_pPlayer->InitChr(pLooks);

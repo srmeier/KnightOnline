@@ -198,7 +198,7 @@ void CPlayerMySelf::Tick()
 				(m_pItemPlugBasics[PLUG_POS_LEFTHAND] && ITEM_CLASS_BOW_LONG == m_pItemPlugBasics[PLUG_POS_LEFTHAND]->byClass ) || 
 				(m_pItemPlugBasics[PLUG_POS_RIGHTHAND] && ITEM_CLASS_BOW_CROSS == m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->byClass) )
 			{
-				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(102003); // 스킬 테이블에서 기본 활 스킬을 찾고
+				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(102003); // 스킬 테이블에서 기본 활 스킬을 찾고
 				if(pSkill)
 				{
 					if(pTarget->IsAlive())//임시 유저가 살아 있는 상태에서만...
@@ -218,7 +218,7 @@ void CPlayerMySelf::Tick()
 			}
 			else if( m_pItemPlugBasics[PLUG_POS_RIGHTHAND] && ITEM_CLASS_LAUNCHER == m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->byClass ) // 투창용 아이템이면..
 			{
-				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(102009); // 스킬 테이블에서 기본 활 스킬을 찾고
+				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(102009); // 스킬 테이블에서 기본 활 스킬을 찾고
 				if(pSkill && fTime > m_fAttackTimeRecent + (pSkill->iCastTime / 10.f)) // 공격 간격이 넘으면.. 공격!
 				{
 					if(pTarget->IsAlive())//임시 유저가 살아 있는 상태에서만
@@ -650,7 +650,7 @@ CN3CPart* CPlayerMySelf::PartSet(e_PartPosition ePos, const std::string& szFN, _
 				}
 				else // 하체에 입고 있었던 아이템이 없다면..
 				{
-					__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
+					__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
 					m_ChrInv.PartSet(PART_POS_LOWER, pLooks->szPartFNs[PART_POS_LOWER]); // 하체에 기본옷을 입힌다.
 					m_Chr.PartSet(PART_POS_LOWER, pLooks->szPartFNs[PART_POS_LOWER]); // 하체에 기본옷을 입힌다.
 				}
@@ -685,7 +685,7 @@ CN3CPart* CPlayerMySelf::PartSet(e_PartPosition ePos, const std::string& szFN, _
 		}
 		else
 		{
-			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);	// Player Character Skin 구조체 포인터..
+			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// Player Character Skin 구조체 포인터..
 			if(pLooks)
 			{
 				m_ChrInv.PartSet(ePos, pLooks->szPartFNs[ePos]);
@@ -837,7 +837,7 @@ bool CPlayerMySelf::CheckCollision()
 	// 다른 플레이어와 체크..
 	//////////////////////////////////
 
-//	__TABLE_ZONE* pZoneInfo = s_pTbl_Zones->Find(m_InfoExt.iZoneCur);
+//	__TABLE_ZONE* pZoneInfo = s_pTbl_Zones.Find(m_InfoExt.iZoneCur);
 //	if(pZoneInfo && pZoneInfo->bNPCCollisionCheck) //this_zone
 
 	//적국 엔피씨는 충돌 체크를 한다.
@@ -963,7 +963,7 @@ bool CPlayerMySelf::CheckCollision()
 
 void CPlayerMySelf::InitFace()
 {
-	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);
+	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);
 	if(pLooks && !pLooks->szPartFNs[PART_POS_FACE].empty()) // 아이템이 있고 얼굴 이름이 있으면..
 	{
 		char szBuff[256] = "", szDir[128] = "", szFName[128] = "", szExt[16] = "";
@@ -975,7 +975,7 @@ void CPlayerMySelf::InitFace()
 
 void CPlayerMySelf::InitHair()
 {
-	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);
+	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);
 	if(pLooks && !pLooks->szPartFNs[PART_POS_HAIR_HELMET].empty()) // 아이템이 있고 얼굴 이름이 있으면..
 	{
 		char szBuff[256] = "", szDir[128] = "", szFName[128] = "", szExt[16] = "";

@@ -96,7 +96,7 @@ bool CUITradeSellBBS::Load(HANDLE hFile)
 	m_iCurPage = 0; // 현재 페이지..
 
 	__TABLE_UI_RESRC*	pTblUI	= NULL;
-	pTblUI = CGameBase::s_pTbl_UI->Find(NATION_ELMORAD);
+	pTblUI = CGameBase::s_pTbl_UI.Find(NATION_ELMORAD);
 
 	m_MsgBox.LoadFromFile(pTblUI->szMessageBox);
 

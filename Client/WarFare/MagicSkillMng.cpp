@@ -280,9 +280,9 @@ bool CMagicSkillMng::CheckValidSkillMagic(__TABLE_UPC_SKILL* pSkill)
 		__TABLE_ITEM_BASIC* pItem = NULL;														// 아이템 테이블 구조체 포인터..	
 		__TABLE_ITEM_EXT* pItemExt = NULL;														// 아이템 테이블 구조체 포인터..	
 
-		pItem = s_pTbl_Items_Basic->Find(pSkill->dwExhaustItem/1000*1000);	// 열 데이터 얻기..
+		pItem = s_pTbl_Items_Basic.Find(pSkill->dwExhaustItem/1000*1000);	// 열 데이터 얻기..
 		if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex]->Find(pSkill->dwExhaustItem%1000);	// 열 데이터 얻기..
+			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex].Find(pSkill->dwExhaustItem%1000);	// 열 데이터 얻기..
 		if ( NULL == pItem || NULL == pItemExt )
 		{
 			__ASSERT(0, "NULL Item");
@@ -691,9 +691,9 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		__TABLE_ITEM_BASIC* pItem = NULL;														// 아이템 테이블 구조체 포인터..	
 		__TABLE_ITEM_EXT* pItemExt = NULL;														// 아이템 테이블 구조체 포인터..	
 
-		pItem = s_pTbl_Items_Basic->Find(pSkill->dwExhaustItem/1000*1000);	// 열 데이터 얻기..
+		pItem = s_pTbl_Items_Basic.Find(pSkill->dwExhaustItem/1000*1000);	// 열 데이터 얻기..
 		if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex]->Find(pSkill->dwExhaustItem%1000);	// 열 데이터 얻기..
+			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex].Find(pSkill->dwExhaustItem%1000);	// 열 데이터 얻기..
 		if ( NULL == pItem || NULL == pItemExt )
 		{
 			__ASSERT(0, "NULL Item");
@@ -1638,7 +1638,7 @@ void CMagicSkillMng::Tick()
 		m_fCastTimeNonAction -= CN3Base::s_fSecPerFrm;
 		if(m_fCastTimeNonAction<0.0f)
 		{
-			__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(m_dwNonActionMagicID);
+			__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(m_dwNonActionMagicID);
 			if(!pSkill) 
 			{
 				m_dwCastingStateNonAction = 0;
@@ -1875,7 +1875,7 @@ void CMagicSkillMng::ProcessCasting()
 	//캐스팅 처리..
 	if(s_pPlayer->m_dwMagicID != 0xffffffff)
 	{
-		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(s_pPlayer->m_dwMagicID);
+		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(s_pPlayer->m_dwMagicID);
 
 		CPlayerBase* pTarget = m_pGameProcMain->CharacterGetByID(m_iTarget, true);
 		if(pTarget) s_pPlayer->RotateTo(pTarget); // 일단 타겟을 향해 방향을 돌린다..
@@ -1909,7 +1909,7 @@ void CMagicSkillMng::ProcessCombo()
 	{
 		if(m_iCurrStep==m_iNumStep)//콤보공격 끝났다..
 		{
-			__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(m_iComboSkillID);
+			__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(m_iComboSkillID);
 			if(pSkill) m_fRecastTime = (float)pSkill->iReCastTime / 10.0f;
 			m_iCurrStep = -1;
 			s_pPlayer->m_iSkillStep = -1;
@@ -1988,7 +1988,7 @@ void CMagicSkillMng::MsgRecv_Casting(Packet& pkt)
 	CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, true);
 	if(!pPlayer) return;
 
-	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 	if(!pSkill) return;
 
 	//내가 쓸때...
@@ -2067,7 +2067,7 @@ void CMagicSkillMng::MsgRecv_Flying(Packet& pkt)
 	CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, true);
 	if(!pPlayer) return;
 
-	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 	if(!pSkill) return;
 	//
 	////common.....//////////////////////////////////////////////////////////////
@@ -2137,7 +2137,7 @@ void CMagicSkillMng::MsgRecv_Effecting(Packet& pkt)
 	CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, false);
 	if(!pPlayer) return;
 
-	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 	if(!pSkill) return;
 	//
 	////common.....//////////////////////////////////////////////////////////////
@@ -2196,7 +2196,7 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 	CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, false);
 	if(!pPlayer) return;
 
-	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 	if(!pSkill) return;
 	//
 	////common.....//////////////////////////////////////////////////////////////
@@ -2345,7 +2345,7 @@ void CMagicSkillMng::MsgRecv_BuffType(Packet& pkt)
 	std::multimap<int, uint32_t>::iterator it = m_ListBuffTypeID.find(iBuffType);
 	if(it!= m_ListBuffTypeID.end())
 	{
-		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(it->second);
+		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(it->second);
 		m_pGameProcMain->m_pUIStateBarAndMiniMap->DelMagic(pSkill);
 		m_ListBuffTypeID.erase(it);
 	}
@@ -2560,7 +2560,7 @@ bool CMagicSkillMng::EffectingType1(uint32_t dwMagicID, int iSourceID, int iTarg
 				if(pPlayer)
 				{
 					// 검기 색을 바꾸어 준다..
-//					__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+//					__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 //					D3DCOLOR crTrace = TraceColorGet(pSkill); // 스킬의 종류에 따라 검기의 색을 정한다..
 //					pPlayer->PlugTraceColorRemake(crTrace); // 검기 색 적용..
 
@@ -2630,7 +2630,7 @@ bool CMagicSkillMng::EffectingType1(uint32_t dwMagicID, int iSourceID, int iTarg
 				if(pPlayer)
 				{
 					// 검기 색을 바꾸어 준다..
-//					__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+//					__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 //					D3DCOLOR crTrace = TraceColorGet(pSkill); // 스킬의 종류에 따라 검기의 색을 정한다..
 //					pPlayer->PlugTraceColorRemake(crTrace); // 검기 색 적용..
 
@@ -2667,7 +2667,7 @@ void CMagicSkillMng::EffectingType3(uint32_t dwMagicID)
 
 	if(pType3->iDurationTime==0) return;
 		
-	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 	m_pGameProcMain->m_pUIStateBarAndMiniMap->AddMagic(pSkill, (float)pType3->iDurationTime);
 	m_ListBuffTypeID.insert(stlmultimapVAL_INT_DWORD(key, dwMagicID));
 }
@@ -2687,12 +2687,12 @@ void CMagicSkillMng::EffectingType4(uint32_t dwMagicID)
 	std::multimap<int, uint32_t>::iterator it = m_ListBuffTypeID.find(pType4->iBuffType);
 	if(it!= m_ListBuffTypeID.end())
 	{
-		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(it->second);
+		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(it->second);
 		m_pGameProcMain->m_pUIStateBarAndMiniMap->DelMagic(pSkill);
 		m_ListBuffTypeID.erase(it);
 	}
 
-	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(dwMagicID);
+	__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
 	m_pGameProcMain->m_pUIStateBarAndMiniMap->AddMagic(pSkill, (float)pType4->iDuration);
 	m_ListBuffTypeID.insert(stlmultimapVAL_INT_DWORD(pType4->iBuffType,dwMagicID));
 
@@ -2875,7 +2875,7 @@ void CMagicSkillMng::InitType4()
 
 	for(;its != ite; its++)
 	{
-		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find((*its).second);
+		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find((*its).second);
 		m_pGameProcMain->m_pUIStateBarAndMiniMap->DelMagic(pSkill);		
 	}
 	m_ListBuffTypeID.clear();
@@ -2920,7 +2920,7 @@ D3DCOLOR CMagicSkillMng::TraceColorGet(__TABLE_UPC_SKILL* pSkill) // 스킬의 종류
 
 bool CMagicSkillMng::IsPositiveMagic(uint32_t dwMagicID)
 {
-	__TABLE_UPC_SKILL* pSkill = CGameBase::s_pTbl_Skill->Find(dwMagicID);
+	__TABLE_UPC_SKILL* pSkill = CGameBase::s_pTbl_Skill.Find(dwMagicID);
 	if(!pSkill) return true;
 
 	if(pSkill->dw1stTableType==3 || pSkill->dw2ndTableType==3)
@@ -3041,7 +3041,7 @@ void CMagicSkillMng::StopCastingByRatio()
 	m_pGameProcMain->CommandSitDown(false, false); // 일으켜 세운다.
 	if(IsCasting())
 	{
-		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(s_pPlayer->m_dwMagicID);
+		__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(s_pPlayer->m_dwMagicID);
 		if(pSkill)
 		{
 			int SuccessValue = rand()%100;

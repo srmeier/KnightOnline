@@ -22,6 +22,8 @@
 #include "N3UIButton.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
+
+
 #include "resource.h"
 
 #ifdef _DEBUG
@@ -205,7 +207,7 @@ void CUIPerTradeDlg::Render()
 
 void CUIPerTradeDlg::InitIconWnd(e_UIWND eWnd)
 {
-	__TABLE_UI_RESRC* pTblUI = CGameBase::s_pTbl_UI->Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
+	__TABLE_UI_RESRC* pTblUI = CGameBase::s_pTbl_UI.Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
 
 	m_pUITooltipDlg = new CUIImageTooltipDlg();
 	m_pUITooltipDlg->Init(this);

@@ -1,7 +1,6 @@
 // N3Skin.cpp: implementation of the CN3Skin class.
 //
 //////////////////////////////////////////////////////////////////////
-#include "StdAfxBase.h"
 #include "N3Skin.h"
 
 #ifdef _DEBUG

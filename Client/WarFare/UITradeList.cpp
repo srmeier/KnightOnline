@@ -90,15 +90,15 @@ void CUITradeList::Open(int iIDTarget)
 	size_t i, iIDFirst, iIDIndexFirst, iIDIndexLast, iDivide, iTotalCount;
 	iIDFirst = iIDTarget*1000+1;
 
-	if (!CGameBase::s_pTbl_Exchange_Quest->IDToIndex(iIDFirst, &iIDIndexFirst))
+	if (!CGameBase::s_pTbl_Exchange_Quest.IDToIndex(iIDFirst, &iIDIndexFirst))
 		return;		// 아무런 리스트도 가지고 있지 않다..
 
-	iTotalCount = CGameBase::s_pTbl_Exchange_Quest->GetSize();
+	iTotalCount = CGameBase::s_pTbl_Exchange_Quest.GetSize();
 	iIDIndexLast = 0;
 
 	for( i = iIDIndexFirst; i < iTotalCount; i++ )
 	{
-		pQuest = CGameBase::s_pTbl_Exchange_Quest->GetIndexedData(i);
+		pQuest = CGameBase::s_pTbl_Exchange_Quest.GetIndexedData(i);
 		if (!pQuest) 
 		{
 			iIDIndexLast = i;
@@ -119,20 +119,20 @@ void CUITradeList::Open(int iIDTarget)
 	char pszID[32];
 	for( i = iIDIndexFirst; i < iIDIndexFirst + 40; i++ )
 	{
-		pQuest						= CGameBase::s_pTbl_Exchange_Quest->GetIndexedData(i);
+		pQuest						= CGameBase::s_pTbl_Exchange_Quest.GetIndexedData(i);
 		if (pQuest)
 		{
 			iDivide						= pQuest->dwID / 1000;
-			pPlayer						= CGameBase::s_pTbl_NPC_Looks->Find(iDivide);
+			pPlayer						= CGameBase::s_pTbl_NPC_Looks.Find(iDivide);
 			m_sStr[i-iIDIndexFirst]		= pPlayer->szName;
 			m_sStr[i-iIDIndexFirst]		+= "에게 ";
 			
-			pItem						= CGameBase::s_pTbl_Items_Basic->Find(pQuest->iCondition0);
+			pItem						= CGameBase::s_pTbl_Items_Basic.Find(pQuest->iCondition0);
 			if(pItem) m_sStr[i-iIDIndexFirst] += pItem->szName;
 			else m_sStr[i-iIDIndexFirst] += "NULL Item";
 			m_sStr[i-iIDIndexFirst]		+= "과 ";	
 			
-			pItem						= CGameBase::s_pTbl_Items_Basic->Find(pQuest->iCondition1);
+			pItem						= CGameBase::s_pTbl_Items_Basic.Find(pQuest->iCondition1);
 			if(pItem) m_sStr[i-iIDIndexFirst] += pItem->szName;
 			else m_sStr[i-iIDIndexFirst] += "NULL Item";
 			m_sStr[i-iIDIndexFirst]		+= "를 ";	

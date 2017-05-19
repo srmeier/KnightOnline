@@ -2,7 +2,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "StdAfxBase.h"
 #include "N3AlphaPrimitiveManager.h"
 #include "N3Base.h"
 

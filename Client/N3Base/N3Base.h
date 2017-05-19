@@ -11,8 +11,6 @@
 
 #pragma warning(disable : 4786)
 
-#include "SDL2/SDL.h"
-
 #include "My_3DStruct.h"
 #include "N3Mng.h"
 #include "N3AlphaPrimitiveManager.h"
@@ -22,10 +20,7 @@
 
 #include <string>
 
-#if _N3GAME // 게임이 아닌 툴에서는 필요없다...
-#include "N3SndMgr.h"
-#endif
-#ifdef _N3TOOL	// ui 에디터일때는 필요하다.
+#if defined(_N3GAME) || defined(_N3TOOL)
 #include "N3SndMgr.h"
 #endif
 
@@ -169,7 +164,7 @@ public:
 	static D3DPRESENT_PARAMETERS	s_DevParam; // Device 생성 Present Parameter
 	static D3DCAPS9					s_DevCaps; // Device 호환성...
 	static uint32_t					s_dwTextureCaps; // Texture 지원.. DXT1 ~ DXT5, Square Only
-	static SDL_Window *				s_pWindow;
+	static struct SDL_Window *		s_pWindow;
 	static HWND						s_hWndBase; // Init 할때 쓴 Window Handle
 	static HWND						s_hWndPresent; // 최근에 Present 한 Window Handle
 

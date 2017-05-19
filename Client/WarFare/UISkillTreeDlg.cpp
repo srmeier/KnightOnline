@@ -1011,7 +1011,7 @@ void CUISkillTreeDlg::TooltipRenderEnable(__IconItemSkill* spSkill)
 	else
 	{
 		__TABLE_ITEM_BASIC*	pItem = NULL;
-		pItem = CGameBase::s_pTbl_Items_Basic->Find(spSkill->pSkill->dwExhaustItem);
+		pItem = CGameBase::s_pTbl_Items_Basic.Find(spSkill->pSkill->dwExhaustItem);
 		if(pItem)
 		{
 			::_LoadStringFromResource(IDS_SKILL_TOOLTIP_USE_ITEM_EXIST, szStr);
@@ -1077,9 +1077,9 @@ void CUISkillTreeDlg::InitIconUpdate()
 	// 아이디 = 직업 코드*1000 + 001부터.. (직업 코드+1)*100 + 001까지..
 	size_t iSkillIDFirst, iSkillIndexFirst, iSkillIndexLast, iModulo;
 	iSkillIDFirst = CGameBase::s_pPlayer->m_InfoBase.eClass*1000+1;
-	iSkillIndexLast = CGameBase::s_pTbl_Skill->GetSize();
+	iSkillIndexLast = CGameBase::s_pTbl_Skill.GetSize();
 
-	if (!CGameBase::s_pTbl_Skill->IDToIndex(iSkillIDFirst, &iSkillIndexFirst))
+	if (!CGameBase::s_pTbl_Skill.IDToIndex(iSkillIDFirst, &iSkillIndexFirst))
 	{
 		PageButtonInitialize();
 		return;		// 첫번째 스킬이 없으면.. 안된다..
@@ -1087,9 +1087,9 @@ void CUISkillTreeDlg::InitIconUpdate()
 
 	if ( CGameBase::s_pPlayer->m_InfoBase.eClass != CLASS_EL_DRUID )
 	{
-		for(size_t i = iSkillIndexFirst; i < CGameBase::s_pTbl_Skill->GetSize(); i++ )
+		for(size_t i = iSkillIndexFirst; i < CGameBase::s_pTbl_Skill.GetSize(); i++ )
 		{
-			pUSkill = CGameBase::s_pTbl_Skill->GetIndexedData(i);
+			pUSkill = CGameBase::s_pTbl_Skill.GetIndexedData(i);
 			iDivide = pUSkill->dwID / 1000;
 			if ( iDivide != (iSkillIDFirst / 1000) )
 			{
@@ -1101,7 +1101,7 @@ void CUISkillTreeDlg::InitIconUpdate()
 
 	for(size_t i = iSkillIndexFirst; i < iSkillIndexLast; i++ )
 	{
-		__TABLE_UPC_SKILL* pUSkill = CGameBase::s_pTbl_Skill->GetIndexedData(i);
+		__TABLE_UPC_SKILL* pUSkill = CGameBase::s_pTbl_Skill.GetIndexedData(i);
 		if ( pUSkill == NULL ) continue;
 		if ( pUSkill->dwID >= UIITEM_TYPE_SONGPYUN_ID_MIN) continue;
 

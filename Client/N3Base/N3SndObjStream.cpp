@@ -6,7 +6,6 @@
 //
 //	End Of Comment (By Lynus On 2001-04-12 ¿ÀÈÄ 8:42:02 )
 //////////////////////////////////////////////////
-#include "StdAfxBase.h"
 #include "N3SndObjStream.h"
 #include "N3SndMgr.h"
 #include "N3Base.h"

@@ -10,15 +10,17 @@
 #endif // _MSC_VER > 1000
 
 #include <string>
+#include <vector>
+
 #include "N3UIBase.h"
 
-struct __GameServerInfo : public binary_function<__GameServerInfo, __GameServerInfo, bool>
+struct __GameServerInfo : public std::binary_function<__GameServerInfo, __GameServerInfo, bool>
 {
 	std::string szName;
 	std::string szIP;
 	int	iConcurrentUserCount;
 
-	void Init() { szName = ""; szIP = ""; iConcurrentUserCount = 0; }
+	void Init() { szName.clear(); szIP.clear(); iConcurrentUserCount = 0; }
 	bool operator () (const __GameServerInfo& x, const __GameServerInfo& y) const 
 	{
 		return (x.iConcurrentUserCount >= y.iConcurrentUserCount);

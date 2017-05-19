@@ -10,7 +10,6 @@
 #endif // _MSC_VER > 1000
 
 #include "GameProcedure.h"
-#include "N3TableBase.h"
 
 enum e_ChrValue { CVAL_STR=0, CVAL_STA=1, CVAL_DEX=2, CVAL_INT=3, CVAL_CHA=4, CVAL_BONUS=5, CVAL_NUM=6 }; 
 enum e_ErrorCharacterCreate {	ERROR_CHARACTER_CREATE_SUCCESS = 0,

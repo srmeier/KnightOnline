@@ -27,8 +27,12 @@
 /* #define void char */
 /* #define const */
 #undef CHAR_IS_UNSIGNED
+#ifndef HAVE_STDDEF_H
 #define HAVE_STDDEF_H
+#endif
+#ifndef HAVE_STDLIB_H
 #define HAVE_STDLIB_H
+#endif
 #undef NEED_BSD_STRINGS
 #undef NEED_SYS_TYPES_H
 //#define NEED_FAR_POINTERS	/* for small or medium memory model */

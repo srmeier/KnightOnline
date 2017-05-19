@@ -159,7 +159,7 @@ void CUIQuestMenu::Open(Packet& pkt)
 	// NOTE: get the quest's main text
 	int index = pkt.read<uint32_t>();
 
-	__TABLE_QUEST_TALK* pTbl_Quest_Talk = CGameBase::s_pTbl_QuestTalk->Find(index);
+	__TABLE_QUEST_TALK* pTbl_Quest_Talk = CGameBase::s_pTbl_QuestTalk.Find(index);
 	if(pTbl_Quest_Talk == NULL) return;
 
 	szTitle = pTbl_Quest_Talk->szTalk;
@@ -172,7 +172,7 @@ void CUIQuestMenu::Open(Packet& pkt)
 		int iMenu = pkt.read<uint32_t>();
 		if( iMenu >= 0 )
 		{
-			__TABLE_QUEST_MENU* pTbl_Quest_Menu = CGameBase::s_pTbl_QuestMenu->Find(iMenu);
+			__TABLE_QUEST_MENU* pTbl_Quest_Menu = CGameBase::s_pTbl_QuestMenu.Find(iMenu);
 			if(pTbl_Quest_Menu)
 			{
 				szMenu[j] = pTbl_Quest_Menu->szMenu;

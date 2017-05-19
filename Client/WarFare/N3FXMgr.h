@@ -9,7 +9,6 @@
 
 #include "N3BaseFileAccess.h"
 #include "N3FXDef.h"
-#include "N3TableBase.h"
 
 #include <list>
 #include <map>

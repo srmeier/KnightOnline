@@ -49,7 +49,7 @@ bool CPlayerOther::Init(e_Race eRace, int iFace, int iHair, uint32_t* pdwItemIDs
 	m_InfoExt.iHair = iHair;
 
 	// 이제 패킷에 따라 캐릭터를 치장..(?) 시켜준다.. 아이템장착, 무기 장착등...
-	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(eRace);	// 테이블에서 기본 스킨 ..
+	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(eRace);	// 테이블에서 기본 스킨 ..
 	if(NULL == pLooks) 
 	{
 		CLogWriter::Write("CPlayerOther::Init() Basic Resource Pointer is NULL Race(%d)", eRace);
@@ -79,9 +79,9 @@ bool CPlayerOther::Init(e_Race eRace, int iFace, int iHair, uint32_t* pdwItemIDs
 		}
 		else
 		{
-			pItem = s_pTbl_Items_Basic->Find(pdwItemIDs[i]/1000*1000);	// 유저 플레이어 아이템 얻기..
+			pItem = s_pTbl_Items_Basic.Find(pdwItemIDs[i]/1000*1000);	// 유저 플레이어 아이템 얻기..
 			if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-				pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex]->Find(pdwItemIDs[i]%1000);
+				pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex].Find(pdwItemIDs[i]%1000);
 			if(NULL == pItem || NULL == pItemExt)
 			{
 				__ASSERT(0, "NULL Item!!!");
@@ -132,7 +132,7 @@ bool CPlayerOther::Init(e_Race eRace, int iFace, int iHair, uint32_t* pdwItemIDs
 
 void CPlayerOther::InitFace()
 {
-	__TABLE_PLAYER_LOOKS* pItem = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);
+	__TABLE_PLAYER_LOOKS* pItem = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);
 	if(pItem && !pItem->szPartFNs[PART_POS_FACE].empty()) // 아이템이 있고 얼굴 이름이 있으면..
 	{
 		char szBuff[256] = "", szDir[128] = "", szFName[128] = "", szExt[16] = "";
@@ -144,7 +144,7 @@ void CPlayerOther::InitFace()
 
 void CPlayerOther::InitHair()
 {
-	__TABLE_PLAYER_LOOKS* pItem = s_pTbl_UPC_Looks->Find(m_InfoBase.eRace);
+	__TABLE_PLAYER_LOOKS* pItem = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);
 	if(pItem && !pItem->szPartFNs[PART_POS_HAIR_HELMET].empty()) // 아이템이 있고 얼굴 이름이 있으면..
 	{
 		char szBuff[256] = "", szDir[128] = "", szFName[128] = "", szExt[16] = "";

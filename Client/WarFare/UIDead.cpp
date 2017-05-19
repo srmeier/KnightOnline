@@ -64,7 +64,7 @@ bool CUIDead::Load(HANDLE hFile)
 	if(m_pTextTown) m_pTextTown->SetString(szMsg);
 
 	__TABLE_UI_RESRC*	pTblUI	= NULL;
-	pTblUI = CGameBase::s_pTbl_UI->Find(NATION_ELMORAD);
+	pTblUI = CGameBase::s_pTbl_UI.Find(NATION_ELMORAD);
 
 	m_MsgBox.LoadFromFile(pTblUI->szMessageBox);
 

@@ -45,7 +45,7 @@ void CGameProcNationSelect::Init()
 	CGameProcedure::Init();
 
 	std::string szTemp = "UI\\Co_NationSelect.uif";
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(NATION_ELMORAD);
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.Find(NATION_ELMORAD);
 	if(pTbl)
 	{
 		szTemp = pTbl->szNationSelect;

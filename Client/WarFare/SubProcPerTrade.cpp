@@ -87,7 +87,7 @@ void CSubProcPerTrade::InitPerTradeDlg(CUIManager* pUIManager)
 	RECT rc;
 
 	e_Nation eNation = s_pPlayer->m_InfoBase.eNation;		// 국가....
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.Find(eNation);
 
 	// UIPerTradeDlg.. ^^
 	m_pUIPerTradeDlg = new CUIPerTradeDlg();
@@ -124,7 +124,7 @@ void CSubProcPerTrade::InitPerTradeDlg(CUIManager* pUIManager)
 	m_pUITradeEditDlg->m_pImageOfIcon->Init(m_pUITradeEditDlg);
 	// 돈 아이콘 문자열 찾기.. 아이디로 찾는 기능밖에 없다.. ㅠ.ㅠ
 	__TABLE_ITEM_BASIC*	pItem = NULL;										// 아이템 테이블 구조체 포인터..
-	pItem = s_pTbl_Items_Basic->Find(dwGold);	// 열 데이터 얻기..
+	pItem = s_pTbl_Items_Basic.Find(dwGold);	// 열 데이터 얻기..
 
 	std::string szIconFN;
 	e_PartPosition ePart;
@@ -865,9 +865,9 @@ void CSubProcPerTrade::ReceiveMsgPerTradeOtherAdd(int iItemID, int iCount, int i
 		// 아이템 만들어서 넣기..
 		__TABLE_ITEM_BASIC*	pItem = NULL;
 		__TABLE_ITEM_EXT*	pItemExt = NULL;
-		pItem = s_pTbl_Items_Basic->Find(iItemID/1000*1000);	// 열 데이터 얻기..
+		pItem = s_pTbl_Items_Basic.Find(iItemID/1000*1000);	// 열 데이터 얻기..
 		if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-			pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItemID%1000);
+			pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItemID%1000);
 		if(NULL == pItem || NULL == pItemExt)
 		{
 			__ASSERT(0, "아이템 포인터 테이블에 없음!!");
@@ -1067,9 +1067,9 @@ Make_Icon:
 	// 아이템 만들어서 넣기..
 	__TABLE_ITEM_BASIC*	pItem = NULL;
 	__TABLE_ITEM_EXT*	pItemExt = NULL;
-	pItem = s_pTbl_Items_Basic->Find(iItemID/1000*1000);	// 열 데이터 얻기..
+	pItem = s_pTbl_Items_Basic.Find(iItemID/1000*1000);	// 열 데이터 얻기..
 	if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItemID%1000);
+		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItemID%1000);
 	if(NULL == pItem || NULL == pItemExt)
 	{
 		__ASSERT(0, "아이템 포인터 테이블에 없음!!");

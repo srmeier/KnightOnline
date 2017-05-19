@@ -4,13 +4,14 @@
 
 //#include "stdafx.h"
 #include "APISocket.h"
+#include <winsock.h>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
 //
-WSAData		CAPISocket::s_WSData;
+static WSAData s_WSData;
 int			CAPISocket::s_nInstanceCount = 0;
 
 
@@ -30,16 +31,13 @@ const uint16_t PACKET_TAIL = 0X55AA;
 
 CAPISocket::CAPISocket()
 {
-	m_hSocket = INVALID_SOCKET;
+	m_hSocket = (void *)INVALID_SOCKET;
 	m_hWndTarget = NULL;
-	m_szIP = "";
+	m_szIP.clear();
 	m_dwPort = 0;
 
-	if (s_nInstanceCount == 0)
-	{
+	if (s_nInstanceCount++ == 0)
 		WSAStartup(0x0101, &s_WSData);
-	}
-	s_nInstanceCount++;
 
 	m_iSendByteCount = 0;
 	m_bConnected = FALSE;
@@ -129,12 +127,12 @@ void CAPISocket::Release()
 
 void CAPISocket::Disconnect()
 {
-	if (m_hSocket != INVALID_SOCKET)
-		closesocket(m_hSocket);
+	if ((SOCKET)m_hSocket != INVALID_SOCKET)
+		closesocket((SOCKET)m_hSocket);
 	
-	m_hSocket = NULL;
+	m_hSocket = (void *)INVALID_SOCKET;
 	m_hWndTarget = NULL;
-	m_szIP = "";
+	m_szIP.clear();
 	m_dwPort = 0;
 
 	m_bConnected = FALSE;
@@ -150,10 +148,8 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 	if (!pszIP || !dwPort) return -1;
 
 	//
-	if (m_hSocket != INVALID_SOCKET)
-	{	
+	if ((SOCKET)m_hSocket != INVALID_SOCKET)
 		this->Disconnect();
-	}
 
 	//
 	int i=0;
@@ -168,7 +164,7 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 	   server.sin_port        = htons((u_short)dwPort);
 	}
 	else
-	{ 
+	{
 		if ( (hp = (hostent far *)gethostbyname(pszIP)) == NULL)
 		{
 #ifdef _DEBUG
@@ -185,7 +181,8 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 	}// else 
 
 	// create socket 
-	if( (m_hSocket = socket(AF_INET, SOCK_STREAM, 0)) < 1) 
+	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (sock == INVALID_SOCKET) 
 	{
 		int iErrCode = ::WSAGetLastError();
 #ifdef _DEBUG
@@ -196,16 +193,18 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 		return iErrCode;
 	}
 
+	m_hSocket = (void *)sock;
+
 	// 소켓 옵션
 	int iRecvBufferLen = RECEIVE_BUF_SIZE;
-	int iErr = setsockopt(m_hSocket, SOL_SOCKET, SO_RCVBUF, (char*)&iRecvBufferLen, 4);
+	int iErr = setsockopt(sock, SOL_SOCKET, SO_RCVBUF, (char*)&iRecvBufferLen, 4);
   
-	if (connect(m_hSocket, (struct sockaddr far *)&server, sizeof(server)) != 0) 
+	if (connect(sock, (struct sockaddr far *)&server, sizeof(server)) != 0)
 	{
 		int iErrCode = ::WSAGetLastError();
 
-		closesocket(m_hSocket);
-		m_hSocket = INVALID_SOCKET;
+		closesocket(sock);
+		m_hSocket = (void *)INVALID_SOCKET;
 
 #ifdef _DEBUG
 //		char msg[256];
@@ -215,8 +214,7 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 		return iErrCode;
 	}
 
-//	WSAAsyncSelect(m_hSocket, hWnd, WM_SOCKETMSG, FD_CONNECT | FD_ACCEPT | FD_READ | FD_CLOSE);
-	WSAAsyncSelect(m_hSocket, hWnd, WM_SOCKETMSG, FD_CONNECT | FD_READ | FD_CLOSE);
+	WSAAsyncSelect(sock, hWnd, WM_SOCKETMSG, FD_CONNECT | FD_READ | FD_CLOSE);
 
 	m_hWndTarget = hWnd;
 	m_szIP = pszIP;
@@ -241,16 +239,17 @@ int	CAPISocket::ReConnect()
 
 void CAPISocket::Receive()
 {
-	if (INVALID_SOCKET == m_hSocket || FALSE == m_bConnected)	return;
+	if (INVALID_SOCKET == (SOCKET)m_hSocket || FALSE == m_bConnected)
+		return;
 
 	u_long	dwPktSize;
 	u_long	dwRead = 0;
 	int		count = 0;
 
-	ioctlsocket(m_hSocket, FIONREAD, &dwPktSize);
+	ioctlsocket((SOCKET)m_hSocket, FIONREAD, &dwPktSize);
 	while(dwRead < dwPktSize)
 	{
-		count = recv(m_hSocket, (char*)m_RecvBuf, RECEIVE_BUF_SIZE, 0);
+		count = recv((SOCKET)m_hSocket, (char*)m_RecvBuf, RECEIVE_BUF_SIZE, 0);
 		if (count == SOCKET_ERROR)
 		{
 			__ASSERT(0,"socket receive error!");
@@ -342,7 +341,8 @@ BOOL CAPISocket::ReceiveProcess()
 void CAPISocket::Send(uint8_t* pData, int nSize)
 {
 	if(!m_bEnableSend) return; // 보내기 가능..?
-	if (INVALID_SOCKET == m_hSocket || FALSE == m_bConnected)	return;
+	if (INVALID_SOCKET == (SOCKET)m_hSocket || FALSE == m_bConnected)
+		return;
 
 #ifdef _CRYPTION
 	DataPack DP;
@@ -380,7 +380,7 @@ void CAPISocket::Send(uint8_t* pData, int nSize)
 	int count = 0;
 	while(nSent < nTotalSize)
 	{
-		count = send(m_hSocket, (char*)m_RecvBuf, nTotalSize, 0);
+		count = send((SOCKET)m_hSocket, (char*)m_RecvBuf, nTotalSize, 0);
 		if (count == SOCKET_ERROR)
 		{
 			__ASSERT(0,"socket send error!");

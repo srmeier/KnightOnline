@@ -2,7 +2,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "StdAfxBase.h"
 #include "N3FXPlug.h"
 #include "N3FXBundle.h"
 #include "N3Chr.h"

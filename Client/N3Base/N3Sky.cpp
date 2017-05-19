@@ -2,7 +2,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "stdafxBase.h"
 #include "N3Sky.h"
 #include "N3PMesh.h"
 #include "N3PMeshInstance.h"

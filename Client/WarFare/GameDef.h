@@ -2,7 +2,6 @@
 #define __GAME_DEF_H_
 
 #include <string>
-#include "DInput.h"
 
 #include "shared/types.h"
 #include "shared/version.h"
@@ -350,37 +349,6 @@ struct __TABLE_ITEM_EXT;
 struct __TABLE_PLAYER;
 
 enum e_Authority { AUTHORITY_MANAGER = 0, AUTHORITY_USER, AUTHORITY_NOCHAT, AUTHORITY_NPC, AUTHORITY_BLOCK_USER = 0xff };
-
-struct __InfoPlayerBase
-{
-	int			iID;			// 고유 ID
-	std::string szID;			// 이름
-	D3DCOLOR	crID;			// 이름 색깔..
-	e_Race		eRace;			// 캐릭터 골격에 따른 종족
-	e_Nation	eNation;		// 소속 국가..
-	e_Class		eClass;			// 직업
-	int			iLevel;			// 레벨
-	int			iHPMax;	
-	int			iHP; 
-	int			iAuthority;		// 권한 - 0 관리자, 1 - 일반유저, 255 - 블럭당한 유저...
-
-	bool		bRenderID;		// 화면에 ID 를 찍는지..
-
-	void Init()
-	{
-		iID = 0;					// 고유 ID
-		szID = "";					// 이름
-		crID = 0;					// 이름 색깔..
-		eRace = RACE_UNKNOWN;		// 캐릭터 골격에 따른 종족
-		eNation = NATION_UNKNOWN;	// 소속 국가..
-		eClass = CLASS_UNKNOWN;		// 직업
-		iLevel = 0;					// 레벨
-		iHPMax = 0;	
-		iHP = 0; 
-		iAuthority = 1;				// 권한 - 0 관리자, 1 - 일반유저, 255 - 블럭당한 유저...
-		bRenderID = true;
-	}
-};
 
 struct __InfoPlayerOther
 {

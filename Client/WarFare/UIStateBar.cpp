@@ -19,7 +19,6 @@
 #include "UIManager.h"
 
 #include "N3Texture.h"
-
 #include "N3UIDBCLButton.h"
 
 #ifdef _DEBUG
@@ -500,7 +499,7 @@ void CUIStateBar::TickMagicIcon()
 		pMagicImg->fDuration -= CN3Base::s_fSecPerFrm;
 		if(pMagicImg->fDuration<=0.0f)
 		{
-			pRemoveSkill = CGameBase::s_pTbl_Skill->Find(pMagicImg->dwSkillID);
+			pRemoveSkill = CGameBase::s_pTbl_Skill.Find(pMagicImg->dwSkillID);
 			break;
 		}
 		
@@ -540,7 +539,7 @@ bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			if(pSender==pMagicImg->pIcon)
 			{
 				uint32_t MagicID = pMagicImg->dwSkillID;
-				__TABLE_UPC_SKILL* pSkill = CGameBase::s_pTbl_Skill->Find(MagicID);
+				__TABLE_UPC_SKILL* pSkill = CGameBase::s_pTbl_Skill.Find(MagicID);
 				if(!pSkill) return false;
 
 				if(CGameProcedure::s_pProcMain->m_pMagicSkillMng->IsPositiveMagic(MagicID))

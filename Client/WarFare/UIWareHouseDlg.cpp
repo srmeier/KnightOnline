@@ -28,6 +28,7 @@
 #include "N3UIString.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
+
 #include "resource.h"
 
 #ifdef _DEBUG
@@ -203,7 +204,7 @@ void CUIWareHouseDlg::Render()
 
 void CUIWareHouseDlg::InitIconWnd(e_UIWND eWnd)
 {
-	__TABLE_UI_RESRC* pTbl = CGameBase::s_pTbl_UI->Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
+	__TABLE_UI_RESRC* pTbl = CGameBase::s_pTbl_UI.Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
 
 	m_pUITooltipDlg = new CUIImageTooltipDlg();
 	m_pUITooltipDlg->Init(this);
@@ -1762,9 +1763,9 @@ void CUIWareHouseDlg::AddItemInWare(int iItem, int iDurability, int iCount, int 
 	__TABLE_ITEM_BASIC*	pItem = NULL;													// 아이템 테이블 구조체 포인터..
 	__TABLE_ITEM_EXT*	pItemExt = NULL;
 
-	pItem = CGameBase::s_pTbl_Items_Basic->Find(iItem/1000*1000);	// 열 데이터 얻기..
+	pItem = CGameBase::s_pTbl_Items_Basic.Find(iItem/1000*1000);	// 열 데이터 얻기..
 	if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItem%1000);	// 열 데이터 얻기..
+		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItem%1000);	// 열 데이터 얻기..
 	if ( NULL == pItem || NULL == pItemExt )
 	{
 		__ASSERT(0, "NULL Item!!!");

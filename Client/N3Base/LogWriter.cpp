@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include "N3Base.h"
-//#include "StdAfxBase.h"
 #include "LogWriter.h"
 
 #ifdef _DEBUG

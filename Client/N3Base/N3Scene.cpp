@@ -1,7 +1,6 @@
 // N3Scene.cpp: implementation of the CN3Scene class.
 //
 //////////////////////////////////////////////////////////////////////
-#include "StdAfxBase.h"
 #include "N3Scene.h"
 
 #ifdef _DEBUG

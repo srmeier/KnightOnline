@@ -121,7 +121,7 @@ void CGameProcCharacterSelect::Init()
 	CGameProcedure::s_iChrSelectIndex = 0;
 
 	e_Nation eNation = s_pPlayer->m_InfoBase.eNation;
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.Find(eNation);
 
 	m_pUICharacterSelect = new CUICharacterSelect();
 	m_pUICharacterSelect->Init(s_pUIMgr);
@@ -348,7 +348,7 @@ void CGameProcCharacterSelect::AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo
 	else
 		m_pChrs[iPosIndex]->Release();
 
-	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(pInfo->eRace);	// User Player Character Skin 구조체 포인터..
+	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(pInfo->eRace);	// User Player Character Skin 구조체 포인터..
 	__ASSERT(pLooks, "Table 에서 기본 리소스 찾기 실패.");
 
 	m_pChrs[iPosIndex]->PartAlloc(PART_POS_COUNT);
@@ -491,7 +491,7 @@ void CGameProcCharacterSelect::AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo
 	// 상체..
 	this->AddChrPart(iPosIndex, pLooks, PART_POS_UPPER, pInfo->dwItemUpper, pInfo->iItemUpperDurability);
 	// 하체
-	__TABLE_ITEM_BASIC* pItemUpper = this->s_pTbl_Items_Basic->Find(pInfo->dwItemUpper);
+	__TABLE_ITEM_BASIC* pItemUpper = this->s_pTbl_Items_Basic.Find(pInfo->dwItemUpper);
 	if(pItemUpper && pItemUpper->byIsRobeType) m_pChrs[iPosIndex]->PartSet(PART_POS_LOWER, ""); // 하체일 경우 상체에 로브를 입었으면 ..
 	else this->AddChrPart(iPosIndex, pLooks, PART_POS_LOWER, pInfo->dwItemLower, pInfo->iItemLowerDurability); //아님 입히고...
 	// 팔
@@ -512,7 +512,7 @@ void CGameProcCharacterSelect::AddChr(e_ChrPos eCP, __CharacterSelectInfo* pInfo
 	}
 
 	// 머리카락 혹은 헬멧 - 
-	__TABLE_ITEM_BASIC* pItemHelmet = this->s_pTbl_Items_Basic->Find(pInfo->dwItemHelmet);
+	__TABLE_ITEM_BASIC* pItemHelmet = this->s_pTbl_Items_Basic.Find(pInfo->dwItemHelmet);
 	if(pItemHelmet && pItemHelmet->dwIDResrc) // 헬멧아이템의 리소스(그림이 있는거면..)
 	{
 		this->AddChrPart(iPosIndex, pLooks, PART_POS_HAIR_HELMET, pInfo->dwItemHelmet, pInfo->iItemHelmetDurability);
@@ -603,7 +603,7 @@ void CGameProcCharacterSelect::AddChrPart(	int iPosIndex,
 		return;
 	}
 
-	__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic->Find(dwItemID/1000*1000);
+	__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic.Find(dwItemID/1000*1000);
 	if(dwItemID && NULL == pItem)
 	{
 		__ASSERT(0, "NULL Item!!!");

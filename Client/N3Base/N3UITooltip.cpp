@@ -2,7 +2,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "StdAfxBase.h"
 #include "N3UITooltip.h"
 #include "N3UIString.h"
 #include "N3UIStatic.h"

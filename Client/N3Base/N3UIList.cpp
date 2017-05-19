@@ -2,7 +2,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include "StdAfxBase.h"
 #include "N3UIList.h"
 #include "N3UIString.h"
 #include "N3UIScrollBar.h"

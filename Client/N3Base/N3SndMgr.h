@@ -12,9 +12,10 @@
 #pragma warning(disable : 4786)
 
 #include "N3SndDef.h"
+#include "N3TableBase.h"
+
 #include <list>
 #include <map>
-#include "N3TableBase.h"
 
 class CN3SndObj;
 class CN3SndObjStream;

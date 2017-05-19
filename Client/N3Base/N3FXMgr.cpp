@@ -3,8 +3,6 @@
 /////////////
 /////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
-//#include "../N3Base/StdAfxBase.h"
 #include "..\WarFare\N3FXMgr.h"
 #include "..\WarFare\GameBase.h"
 #include "..\WarFare\GameProcmain.h"
@@ -17,10 +15,8 @@
 #include "..\WarFare\MagicSkillMng.h"
 #include "..\WarFare\APISocket.h"
 #include "..\WarFare\PacketDef.h"
+
 #include "N3ShapeExtra.h"
-
-//#include "StdAfxBase.h"
-
 
 CN3FXMgr::CN3FXMgr()
 {
@@ -52,7 +48,7 @@ CN3FXMgr::~CN3FXMgr()
 //
 void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int TargetID, int Joint, int idx, int MoveType, uint32_t iVer)
 {
-	__TABLE_FX* pFX = s_pTbl_FXSource->Find(FXID);
+	__TABLE_FX* pFX = s_pTbl_FXSource.Find(FXID);
 	if(!pFX) return;
 
 	char buff[MAX_PATH];
@@ -111,7 +107,7 @@ void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, int Target
 //
 void CN3FXMgr::TriggerBundle(int SourceID, int SourceJoint, int FXID, __Vector3 TargetPos, int idx, int MoveType, uint32_t iVer)
 {
-	__TABLE_FX* pFX = s_pTbl_FXSource->Find(FXID);
+	__TABLE_FX* pFX = s_pTbl_FXSource.Find(FXID);
 	if(!pFX) return; 
 
 	char buff[MAX_PATH];

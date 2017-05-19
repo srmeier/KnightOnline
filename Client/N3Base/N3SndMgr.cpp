@@ -1,7 +1,6 @@
 // N3SndMgr.cpp: implementation of the CN3SndMgr class.
 //
 //////////////////////////////////////////////////////////////////////
-#include "StdAfxBase.h"
 #include "N3SndMgr.h"
 #include "N3SndObj.h"
 #include "N3SndObjStream.h"

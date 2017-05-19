@@ -980,7 +980,7 @@ void CN3Terrain::DispositionPatch()
 //
 void CN3Terrain::SetLightMap(int dir)
 {
-	__TABLE_ZONE* pZoneData = CGameBase::s_pTbl_Zones->Find(CGameBase::s_pPlayer->m_InfoExt.iZoneCur);
+	__TABLE_ZONE* pZoneData = CGameBase::s_pTbl_Zones.Find(CGameBase::s_pPlayer->m_InfoExt.iZoneCur);
 	if(!pZoneData) return;
 
 	HANDLE hFile = CreateFile(pZoneData->szLightMapFN.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);

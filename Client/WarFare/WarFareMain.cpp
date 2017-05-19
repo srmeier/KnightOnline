@@ -162,7 +162,7 @@ int SDL_main(int argc, char** argv)
 	CGameBase::s_pPlayer->IDSet(-1, "testing", 0xffffffff);
 	CGameBase::s_pPlayer->m_InfoBase.iAuthority == AUTHORITY_MANAGER;
 
-	__TABLE_PLAYER_LOOKS* pLooks = CGameBase::s_pTbl_UPC_Looks->Find(CGameBase::s_pPlayer->m_InfoBase.eRace);
+	__TABLE_PLAYER_LOOKS* pLooks = CGameBase::s_pTbl_UPC_Looks.Find(CGameBase::s_pPlayer->m_InfoBase.eRace);
 	CGameBase::s_pPlayer->InitChr(pLooks);
 
 	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcMain);

@@ -400,7 +400,7 @@ void CUIHotKeyDlg::InitIconUpdate()
 			if ( (HD.iID < UIITEM_TYPE_SONGPYUN_ID_MIN) &&  (!CGameProcedure::s_pProcMain->m_pUISkillTreeDlg->HasIDSkill(HD.iID)) )
 				continue;
 
-			pUSkill = CGameBase::s_pTbl_Skill->Find(HD.iID);
+			pUSkill = CGameBase::s_pTbl_Skill.Find(HD.iID);
 			if ( !pUSkill )
 				continue;
 
@@ -881,7 +881,7 @@ bool CUIHotKeyDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 
 		spItem = CN3UIWndBase::m_sSelectedIconInfo.pItemSelect;
 
-		__TABLE_UPC_SKILL* pUSkill = CGameBase::s_pTbl_Skill->Find(spItem->pItemBasic->dwEffectID1);
+		__TABLE_UPC_SKILL* pUSkill = CGameBase::s_pTbl_Skill.Find(spItem->pItemBasic->dwEffectID1);
 		if ( pUSkill == NULL ) return false;
 		if ( pUSkill->dwID < UIITEM_TYPE_SONGPYUN_ID_MIN) return false;
 

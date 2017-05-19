@@ -2,7 +2,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
 #include "..\WarFare\N3FXBundleGame.h"
 #include "..\WarFare\GameProcMain.h"
 #include "..\WarFare\PlayerBase.h"
@@ -15,7 +14,6 @@
 #include "..\WarFare\N3FXPartBottomBoardGame.h"
 #include "N3ShapeExtra.h"
 
-//#include "StdAfxBase.h"
 #include "..\WarFare\GameEng.h"
 #include "N3Camera.h"
 

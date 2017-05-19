@@ -18,6 +18,7 @@
 #include "UIInventory.h"
 #include "UIManager.h"
 
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -68,7 +69,7 @@ bool CUINPCChangeEvent::Load(HANDLE hFile)
 
 	// UIPointInitDlg.. ^^
 	e_Nation eNation = CGameProcedure::s_pPlayer->m_InfoBase.eNation; // ±¹°¡....
-	__TABLE_UI_RESRC* pTbl = CGameProcedure::s_pTbl_UI->Find(eNation);
+	__TABLE_UI_RESRC* pTbl = CGameProcedure::s_pTbl_UI.Find(eNation);
 
 	m_pDlg = new CUIPointInitDlg();
 	m_pDlg->LoadFromFile(pTbl->szChangeInitBill);

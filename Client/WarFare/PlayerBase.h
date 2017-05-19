@@ -14,6 +14,7 @@
 #include "Bitset.h"
 #include "N3Chr.h"
 #include <deque>
+#include <string>
 
 //	By : Ecli666 ( On 2002-07-22 오전 9:59:19 )
 //
@@ -27,6 +28,37 @@ const float TIME_CORPSE_REMOVE = 10.0f; // 투명해지면서 없앨시간..
 
 class CDFont;
 class CN3SndObj;
+
+struct __InfoPlayerBase
+{
+	int			iID;			// 고유 ID
+	std::string szID;			// 이름
+	D3DCOLOR	crID;			// 이름 색깔..
+	e_Race		eRace;			// 캐릭터 골격에 따른 종족
+	e_Nation	eNation;		// 소속 국가..
+	e_Class		eClass;			// 직업
+	int			iLevel;			// 레벨
+	int			iHPMax;
+	int			iHP;
+	int			iAuthority;		// 권한 - 0 관리자, 1 - 일반유저, 255 - 블럭당한 유저...
+
+	bool		bRenderID;		// 화면에 ID 를 찍는지..
+
+	void Init()
+	{
+		iID = 0;					// 고유 ID
+		szID.clear();				// 이름
+		crID = 0;					// 이름 색깔..
+		eRace = RACE_UNKNOWN;		// 캐릭터 골격에 따른 종족
+		eNation = NATION_UNKNOWN;	// 소속 국가..
+		eClass = CLASS_UNKNOWN;		// 직업
+		iLevel = 0;					// 레벨
+		iHPMax = 0;
+		iHP = 0;
+		iAuthority = 1;				// 권한 - 0 관리자, 1 - 일반유저, 255 - 블럭당한 유저...
+		bRenderID = true;
+	}
+};
 
 class CPlayerBase : public CGameBase
 {

@@ -37,7 +37,6 @@
 
 #include "N3UIEdit.h"
 #include "N3SndObjStream.h"
-#include "N3TableBase.h"
 #include "N3FXBundle.h"
 
 #include "BitmapFile.h"
@@ -233,7 +232,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 
 	s_pFX = new CN3FXMgr();
 
-	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI->Find(NATION_ELMORAD); // 기본은 엘모라드 UI 로 한다..
+	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI.Find(NATION_ELMORAD); // 기본은 엘모라드 UI 로 한다..
 	if(pTblUI == NULL) {
 		printf("ERROR: UI table is NULL.\n");
 		system("pause");
@@ -305,7 +304,7 @@ void CGameProcedure::StaticMemberRelease()
 	if(s_pPlayer)
 	{
 		e_Nation eNation = s_pPlayer->m_InfoBase.eNation;
-		__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
+		__TABLE_UI_RESRC* pTbl = s_pTbl_UI.Find(eNation);
 		if(pTbl)
 		{
 			CUIEndingDisplay Credit; // 엔딩 표시하기..
@@ -1106,7 +1105,7 @@ void CGameProcedure::LoadingUIChange(int iVictoryNation)
 	__ASSERT(s_pUILoading, "로딩화면 생성 실패");
 	if(s_pUILoading == NULL) return;
 
-	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI->Find(NATION_ELMORAD); // 기본은 엘모라드 UI 로 한다..
+	__TABLE_UI_RESRC* pTblUI = s_pTbl_UI.Find(NATION_ELMORAD); // 기본은 엘모라드 UI 로 한다..
 	__ASSERT(pTblUI, "기본 UI 가 없습니다.");
 	if(pTblUI == NULL) return;
 

@@ -47,7 +47,7 @@ std::string CUIMessageBoxManager::MessageBoxPost(const std::string& szMsg, const
 		if( pMB == NULL )
 			return szMsg;
 
-		pTblUI = CGameBase::s_pTbl_UI->Find(NATION_ELMORAD);
+		pTblUI = CGameBase::s_pTbl_UI.Find(NATION_ELMORAD);
 
 		pMB->LoadFromFile(pTblUI->szMessageBox );
 		pMB->SetVisible(false);

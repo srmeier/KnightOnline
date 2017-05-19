@@ -71,7 +71,6 @@
 #include "N3SndObj.h"
 #include "N3SndObjStream.h"
 #include "N3SndMgr.h"
-#include "N3TableBase.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -1720,7 +1719,7 @@ bool CGameProcMain::MsgRecv_MyInfo_All(Packet& pkt)
 	s_pPlayer->m_InfoExt.iFace = pkt.read<uint8_t>(); // 얼굴 모양..
 	s_pPlayer->m_InfoExt.iHair = pkt.read<uint8_t>(); // 머리카락
 
-	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
+	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
 	if(NULL == pLooks) CLogWriter::Write("CGameProcMain::MsgRecv_MyInfo_All : failed find character resource data (Race : %d)", s_pPlayer->m_InfoBase.eRace);
 	__ASSERT(pLooks, "failed find character resource data");
 	s_pPlayer->InitChr(pLooks); // 관절 세팅..
@@ -1877,9 +1876,9 @@ bool CGameProcMain::MsgRecv_MyInfo_All(Packet& pkt)
 	{
 		if(0 == iItemIDInSlots[i]) continue;
 
-		pItem = s_pTbl_Items_Basic->Find(iItemIDInSlots[i]/1000*1000);	// 열 데이터 얻기..
+		pItem = s_pTbl_Items_Basic.Find(iItemIDInSlots[i]/1000*1000);	// 열 데이터 얻기..
 		if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItemIDInSlots[i]%1000);	// 열 데이터 얻기..
+			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItemIDInSlots[i]%1000);	// 열 데이터 얻기..
 		else
 			pItemExt = NULL;
 
@@ -1962,10 +1961,10 @@ bool CGameProcMain::MsgRecv_MyInfo_All(Packet& pkt)
 	{
 		if(!iItemIDInInventorys[i]) continue;
 
-		pItem = s_pTbl_Items_Basic->Find(iItemIDInInventorys[i]/1000*1000);	// 열 데이터 얻기..
+		pItem = s_pTbl_Items_Basic.Find(iItemIDInInventorys[i]/1000*1000);	// 열 데이터 얻기..
 		pItemExt = NULL;
 		if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iItemIDInInventorys[i]%1000);	// 열 데이터 얻기..
+			pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex].Find(iItemIDInInventorys[i]%1000);	// 열 데이터 얻기..
 		if ( NULL == pItem || NULL == pItemExt )
 		{
 			__ASSERT(0, "NULL Item");
@@ -2756,10 +2755,10 @@ bool CGameProcMain::MsgRecv_NPCIn(Packet& pkt)
 	__TABLE_PLAYER_LOOKS* pLooks = NULL;
 	if(0 == dwType)
 	{
-		pLooks = s_pTbl_NPC_Looks->Find(iIDResrc);	// 기본 스킨..
+		pLooks = s_pTbl_NPC_Looks.Find(iIDResrc);	// 기본 스킨..
 		if(NULL == pLooks) // 캐릭터 기본 모습 테이블이 없으면... 
 		{
-			pLooks = s_pTbl_NPC_Looks->GetIndexedData(0);
+			pLooks = s_pTbl_NPC_Looks.GetIndexedData(0);
 			char szBuff[256];
 			sprintf(szBuff, "Normal NPC In : [Name(%s), ResourceID(%d)]", szName.c_str(), iIDResrc);
 			this->MsgOutput(szBuff, 0xffff00ff);
@@ -2775,7 +2774,7 @@ bool CGameProcMain::MsgRecv_NPCIn(Packet& pkt)
 			sprintf(szBuff, "Object NPC In : [Name(%s), ResourceID(%d)]", szName.c_str(), iIDResrc);
 			this->MsgOutput(szBuff, 0xffff00ff);
 			CLogWriter::Write(szBuff);
-			pLooks = s_pTbl_NPC_Looks->GetIndexedData(0);
+			pLooks = s_pTbl_NPC_Looks.GetIndexedData(0);
 		}
 	}
 		
@@ -2793,10 +2792,10 @@ bool CGameProcMain::MsgRecv_NPCIn(Packet& pkt)
 
 		if(iItemID0)
 		{
-			__TABLE_ITEM_BASIC* pItem0 = s_pTbl_Items_Basic->Find(iItemID0/1000*1000);
+			__TABLE_ITEM_BASIC* pItem0 = s_pTbl_Items_Basic.Find(iItemID0/1000*1000);
 			__TABLE_ITEM_EXT* pItemExt0 = NULL;
 			if(pItem0 && pItem0->byExtIndex >= 0 && pItem0->byExtIndex < MAX_ITEM_EXTENSION)
-				pItemExt0 = s_pTbl_Items_Exts[pItem0->byExtIndex]->Find(iItemID0%1000);	// 열 데이터 얻기..
+				pItemExt0 = s_pTbl_Items_Exts[pItem0->byExtIndex].Find(iItemID0%1000);	// 열 데이터 얻기..
 			if(pItem0 && pItemExt0)
 			{
 				e_PartPosition ePart;
@@ -2813,10 +2812,10 @@ bool CGameProcMain::MsgRecv_NPCIn(Packet& pkt)
 
 		if(iItemID1)
 		{
-			__TABLE_ITEM_BASIC* pItem1 = s_pTbl_Items_Basic->Find(iItemID1/1000*1000);
+			__TABLE_ITEM_BASIC* pItem1 = s_pTbl_Items_Basic.Find(iItemID1/1000*1000);
 			__TABLE_ITEM_EXT* pItemExt1 = NULL;
 			if(pItem1 && pItem1->byExtIndex >= 0 && pItem1->byExtIndex < MAX_ITEM_EXTENSION)
-				pItemExt1 = s_pTbl_Items_Exts[pItem1->byExtIndex]->Find(iItemID1%1000);	// 열 데이터 얻기..
+				pItemExt1 = s_pTbl_Items_Exts[pItem1->byExtIndex].Find(iItemID1%1000);	// 열 데이터 얻기..
 			if(pItem1 && pItemExt1)
 			{
 				e_PartPosition ePart;
@@ -3087,7 +3086,7 @@ bool CGameProcMain::MsgRecv_Attack(Packet& pkt)
 		this->CommandSitDown(false, false); // 일으켜 세운다.
 		if(m_pMagicSkillMng->IsCasting())
 		{
-			__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill->Find(s_pPlayer->m_dwMagicID);
+			__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(s_pPlayer->m_dwMagicID);
 			if(pSkill)
 			{
 				int SuccessValue = rand()%100;
@@ -3272,11 +3271,11 @@ bool CGameProcMain::MsgRecv_UserLookChange(Packet& pkt)
 	CPlayerOther* pUPC = s_pOPMgr->UPCGetByID(iID, false);
 	if(NULL == pUPC) return false;
 
-	__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic->Find(dwItemID/1000*1000);
+	__TABLE_ITEM_BASIC* pItem = s_pTbl_Items_Basic.Find(dwItemID/1000*1000);
 
 	__TABLE_ITEM_EXT* pItemExt = NULL;
 	if(pItem && pItem->byExtIndex >= 0 && pItem->byExtIndex < MAX_ITEM_EXTENSION)
-		pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex]->Find(dwItemID%1000);	// 열 데이터 얻기..
+		pItemExt = s_pTbl_Items_Exts[pItem->byExtIndex].Find(dwItemID%1000);	// 열 데이터 얻기..
 	if(dwItemID && (NULL == pItem || NULL == pItemExt))
 	{
 		__ASSERT(0, "NULL Item!!!");
@@ -3305,7 +3304,7 @@ bool CGameProcMain::MsgRecv_UserLookChange(Packet& pkt)
 		}
 		else
 		{
-			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks->Find(pUPC->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
+			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(pUPC->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..
 			if(NULL == pLooks)
 			{
 				CLogWriter::Write("CGameProcMain::MsgRecv_UserLookChange() - failed find table : Race (%d)", pUPC->m_InfoBase.eRace);
@@ -3686,7 +3685,7 @@ void CGameProcMain::InitUI()
 
 	e_Nation eNation = s_pPlayer->m_InfoBase.eNation; // 국가....
 
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI->Find(eNation);
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.Find(eNation);
 	if(NULL == pTbl) return;
 	
 	m_pUICmd->Init(s_pUIMgr);
@@ -4221,7 +4220,7 @@ void CGameProcMain::InitZone(int iZone, const __Vector3& vPosPlayer)
 		iZonePrev = iZone; // 최근에 읽은 존 번호를 기억해둔다.
 
 		CLogWriter::Write("%d->Find(s_pPlayer->m_InfoExt.iZoneCur)",s_pTbl_Zones); // TmpLog1122
-		__TABLE_ZONE* pZoneData = s_pTbl_Zones->Find(s_pPlayer->m_InfoExt.iZoneCur);
+		__TABLE_ZONE* pZoneData = s_pTbl_Zones.Find(s_pPlayer->m_InfoExt.iZoneCur);
 		if(NULL == pZoneData) {
 			CLogWriter::Write("can't find zone data. (zone : %d)", s_pPlayer->m_InfoExt.iZoneCur);
 			__ASSERT(0, "Zone Data Not Found!");
@@ -5732,7 +5731,7 @@ void CGameProcMain::UpdateUI_MiniMap()
 
 	it_UPC it2 = s_pOPMgr->m_UPCs.begin(), itEnd2 = s_pOPMgr->m_UPCs.end();
 	CPlayerOther* pUPC = NULL;
-	__TABLE_ZONE* pZoneInfo = s_pTbl_Zones->Find(s_pPlayer->m_InfoExt.iZoneCur);
+	__TABLE_ZONE* pZoneInfo = s_pTbl_Zones.Find(s_pPlayer->m_InfoExt.iZoneCur);
 	for(; it2 != itEnd2; it2++) // User
 	{
 		pUPC = it2->second;

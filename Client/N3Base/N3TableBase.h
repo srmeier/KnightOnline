@@ -12,11 +12,7 @@
 #include <vector>
 #include <map>
 
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_net.h"
-#include "SDL2/SDL_image.h"
-#include "SDL2/SDL_mixer.h"
+#include "My_3DStruct.h" // _ASSERT
 
 template <typename Type> class CN3TableBase
 {
@@ -27,11 +23,6 @@ public:
 // Attributes
 protected:
 	enum DATA_TYPE {DT_NONE, DT_CHAR, DT_BYTE, DT_SHORT, DT_WORD, DT_INT, DT_DWORD, DT_STRING, DT_FLOAT, DT_DOUBLE};
-	typedef typename std::vector<DATA_TYPE>::iterator it_DataType;
-	
-	typedef typename std::map<uint32_t, Type>::iterator		it_Table;
-	typedef typename std::map<uint32_t, Type>::value_type	val_Table;
-	typedef typename std::pair<typename std::map<uint32_t, Type>::iterator, bool> pair_Table;
 
 	typename std::vector<DATA_TYPE> m_DataTypes;	// 실제 사용되는 정보의 데이타 타입
 	typename std::map<uint32_t, Type> m_Datas; // 실제 사용되는 정보
@@ -41,7 +32,7 @@ public:
 	void	Release();
 	Type*	Find(uint32_t dwID) // ID로 data 찾기
 	{
-		it_Table it = m_Datas.find(dwID);
+		auto it = m_Datas.find(dwID);
 		if(it == m_Datas.end()) return NULL; // 찾기에 실패 했다!~!!
 		else return &(it->second);
 	}
@@ -440,7 +431,7 @@ BOOL CN3TableBase<Type>::Load(HANDLE hFile)
 		}
 
 		uint32_t dwKey = *((uint32_t*)(&Data));
-		pair_Table pt = m_Datas.insert(val_Table(dwKey, Data));
+		auto pt = m_Datas.insert(std::make_pair(dwKey, Data));
 
 		__ASSERT(pt.second, "CN3TableBase<Type> : Key 중복 경고.");
 	}

@@ -202,7 +202,7 @@ struct __SocketStatisics
 class CAPISocket  
 {
 protected:
-	SOCKET		m_hSocket;
+	void *	m_hSocket;
 	
 	HWND		m_hWndTarget;
 	std::string m_szIP;
@@ -223,7 +223,6 @@ protected:
 
 public:
 	static int			s_nInstanceCount;
-	static WSADATA		s_WSData;
 	
 	int					m_iSendByteCount;
 	std::queue<Packet *> m_qRecvPkt;

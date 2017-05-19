@@ -25,6 +25,8 @@
 #include "N3UIString.h"
 #include "N3UIEdit.h"
 #include "N3SndObj.h"
+
+
 #include "resource.h"
 
 #ifdef _DEBUG
@@ -169,7 +171,7 @@ void CUITransactionDlg::Render()
 
 void CUITransactionDlg::InitIconWnd(e_UIWND eWnd)
 {
-	__TABLE_UI_RESRC* pTbl = CGameBase::s_pTbl_UI->Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
+	__TABLE_UI_RESRC* pTbl = CGameBase::s_pTbl_UI.Find(CGameBase::s_pPlayer->m_InfoBase.eNation);
 
 	m_pUITooltipDlg = new CUIImageTooltipDlg();
 	m_pUITooltipDlg->Init(this);
@@ -275,7 +277,7 @@ void CUITransactionDlg::EnterTransactionState()
 
 	int iOrg = m_iTradeID/1000;
 	int iExt = m_iTradeID%1000;
-	int iSize = CGameBase::s_pTbl_Items_Basic->GetSize();
+	int iSize = CGameBase::s_pTbl_Items_Basic.GetSize();
 
 	j = 0;	int k = 0;
 	for ( i = 0; i < iSize; i++ )
@@ -288,7 +290,7 @@ void CUITransactionDlg::EnterTransactionState()
 		if (j >= MAX_ITEM_TRADE_PAGE)
 			break;
 
-		pItem = CGameBase::s_pTbl_Items_Basic->GetIndexedData(i);
+		pItem = CGameBase::s_pTbl_Items_Basic.GetIndexedData(i);
 		if(NULL == pItem) // 아이템이 없으면..
 		{
 			__ASSERT(0, "아이템 포인터 테이블에 없음!!");
@@ -302,7 +304,7 @@ void CUITransactionDlg::EnterTransactionState()
 		if (pItem->bySellGroup != iOrg)
 			continue;
 
-		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex]->Find(iExt);	
+		pItemExt = CGameBase::s_pTbl_Items_Exts[pItem->byExtIndex].Find(iExt);	
 		if(NULL == pItemExt) // 아이템이 없으면..
 		{
 			__ASSERT(0, "아이템 포인터 테이블에 없음!!");
