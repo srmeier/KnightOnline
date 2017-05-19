@@ -663,7 +663,7 @@ public:
 	void NewCharToAgent(Packet & pkt);
 	void DelCharToAgent(Packet & pkt);
 	void SelCharToAgent(Packet & pkt);
-	void SelectCharacter(Packet & pkt); // from the database
+	void SelectCharacter(uint8_t bResult, uint8_t bInit); // from the database
 	void SetLogInInfoToDB(uint8_t bInit);
 	void RecvLoginInfo(Packet & pkt); // from the database
 

@@ -5,6 +5,7 @@
 *.log
 *.pdb
 *.bsc
+*.ini
 *.lastbuildstate
 *.unsuccessfulbuild
 KnightOnline.VC.VC.opendb

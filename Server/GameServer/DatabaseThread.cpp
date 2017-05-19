@@ -259,14 +259,12 @@ void CUser::ReqSelectCharacter(Packet & pkt)
 		|| !g_DBAgent.LoadPremiumServiceUser(m_strAccountID, this)
 		|| !g_DBAgent.LoadSavedMagic(this))
 	{
-		result << uint8_t(0);
+		SelectCharacter(0, bInit);
 	}
 	else
 	{
-		result << uint8_t(1) << bInit;
+		SelectCharacter(1, bInit);
 	}
-
-	SelectCharacter(result); 
 }
 
 void CUser::ReqShoppingMall(Packet & pkt)

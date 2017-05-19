@@ -131,10 +131,9 @@ void CUser::SelCharToAgent(Packet & pkt)
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
-void CUser::SelectCharacter(Packet & pkt)
+void CUser::SelectCharacter(uint8_t bResult, uint8_t bInit)
 {
 	Packet result(WIZ_SEL_CHAR);
-	uint8_t bResult, bInit;
 
 	if (isBanned())
 	{
@@ -142,9 +141,7 @@ void CUser::SelectCharacter(Packet & pkt)
 		return;
 	}
 
-	pkt >> bResult >> bInit;
 	result << bResult;
-
 	if (bResult == 0 || !GetZoneID()) 
 		goto fail_return;
 
