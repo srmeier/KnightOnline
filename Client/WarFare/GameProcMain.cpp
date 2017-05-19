@@ -817,8 +817,16 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 				float fY = ACT_WORLD->GetHeightWithTerrain(fX, fZ, true);
 				float fYObject = ACT_WORLD->GetHeightWithShape(fX, fZ);
 				if(fYObject > fY) fY = fYObject;
-
 				this->InitPlayerPosition(__Vector3(fX, fY, fZ)); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
+				s_pFX->TriggerBundle(
+					s_pPlayer->IDNumber(),
+					-1,
+					s_pPlayer->m_InfoBase.eNation == NATION_KARUS
+						? FXID_WARP_KARUS
+						: FXID_WARP_ELMORAD,
+					s_pPlayer->IDNumber(),
+					-1,
+					0);
 			}
 			return true;
 		case WIZ_MOVE:

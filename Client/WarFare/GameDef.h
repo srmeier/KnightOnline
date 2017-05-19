@@ -1252,6 +1252,8 @@ const int	FXID_REGION_TARGET_KA_ROGUE		= 10038;
 const int	FXID_REGION_TARGET_KA_WIZARD	= 10039;
 const int	FXID_REGION_TARGET_KA_PRIEST	= 10040;
 const int	FXID_CLAN_RANK_1				= 10041;
+const int	FXID_WARP_KARUS					= 10046;
+const int	FXID_WARP_ELMORAD				= 10047;
 const int	FXID_REGION_POISON				= 10100;
 
 //define skillmagic_type4_bufftype
