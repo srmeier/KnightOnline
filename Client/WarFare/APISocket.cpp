@@ -290,7 +290,7 @@ BOOL CAPISocket::ReceiveProcess()
 				if ( PACKET_TAIL == ntohs(*((uint16_t*)(pData+iCount-2))) ) // 패킷 꼬리 부분 검사..
 				{
 					Packet * pkt = new Packet();
-					if (TRUE == s_bCryptionFlag)
+					if (s_bCryptionFlag)
 					{
 						static uint8_t pTBuf[RECEIVE_BUF_SIZE];
 						s_JvCrypt.JvDecryptionFast(siCore, pData + 4, pTBuf);

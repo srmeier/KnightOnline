@@ -78,9 +78,6 @@
     <ClCompile Include="ItemRepairMgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JvCryption.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LightMgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -342,9 +339,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ItemRepairMgr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JvCryption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LightMgr.h">
