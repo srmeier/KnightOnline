@@ -1426,13 +1426,13 @@ bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 			if(m_pItemPlugExts[PLUG_POS_RIGHTHAND])
 			{
 				int iFXID = -1;
-				if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageFire > 0)
+				if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageFire > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageFire >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_FIRE_TARGET;			// 불
-				else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageIce > 0)
+				else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageIce > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageIce >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_ICE_TARGET;			// 냉기
-				else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamagePoison > 0)
+				else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamagePoison > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamagePoison >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_POISON_TARGET;		// 독
-				else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageThuner > 0)
+				else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageThuner > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageThuner >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_LIGHTNING_TARGET;		// 전격
 
 				if(iFXID >= 0)
@@ -1444,13 +1444,13 @@ bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 			if(m_pItemPlugExts[PLUG_POS_LEFTHAND] && !bAffected)
 			{
 				int iFXID = -1;
-				if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageFire > 0)
+				if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageFire > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageFire >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_FIRE_TARGET;			// 불
-				else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageIce > 0)
+				else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageIce > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageIce >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_ICE_TARGET;			// 냉기
-				else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamagePoison > 0)
+				else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamagePoison > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamagePoison >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_POISON_TARGET;		// 독
-				else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageThuner > 0)
+				else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageThuner > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageThuner >= LIMIT_FX_DAMAGE)) iFXID = FXID_SWORD_LIGHTNING_TARGET;		// 전격
 
 				if(iFXID >= 0)
@@ -1477,25 +1477,25 @@ bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 				bool bAffected = false;
 				if(m_pItemPlugExts[PLUG_POS_RIGHTHAND])
 				{
-					if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageFire > 0)
+					if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageFire > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageFire >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
 						CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_SWORD_FIRE_TARGET, vCol);	//불무기...
 					}
-					else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageIce > 0)
+					else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageIce > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageIce >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
 						CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_SWORD_ICE_TARGET, vCol);	//냉기무기...
 					}
-					else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamagePoison > 0)
+					else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamagePoison > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamagePoison >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
 						CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_SWORD_POISON_TARGET, vCol);	//독무기...
 					}
-					else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageThuner > 0)
+					else if((m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageThuner > 0)
 					|| (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->byDamageThuner >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
@@ -1504,25 +1504,25 @@ bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 				}
 				if(m_pItemPlugExts[PLUG_POS_LEFTHAND] && !bAffected)
 				{
-					if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageFire > 0)
+					if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageFire > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageFire >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
 						CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_SWORD_FIRE_TARGET, vCol);	//불무기...
 					}
-					else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageIce > 0)
+					else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageIce > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageIce >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
 						CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_SWORD_ICE_TARGET, vCol);	//냉기무기...
 					}
-					else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamagePoison > 0)
+					else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamagePoison > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamagePoison >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
 						CGameProcedure::s_pFX->TriggerBundle(pTarget->IDNumber(), 0, FXID_SWORD_POISON_TARGET, vCol);	//독무기...
 					}
-					else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageThuner > 0)
+					else if((m_pItemPlugExts[PLUG_POS_LEFTHAND]->byMagicOrRare==ITEM_ATTRIB_UNIQUE && m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageThuner > 0)
 					|| (m_pItemPlugExts[PLUG_POS_LEFTHAND]->byDamageThuner >= LIMIT_FX_DAMAGE))
 					{
 						bAffected = true;
@@ -1879,7 +1879,7 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 	// plug 효과 붙여라..^^	
 	if(pItemExt)
 	{
-		if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamageFire > 0) || (pItemExt->byDamageFire >= LIMIT_FX_DAMAGE)) // 17 추가데미지 - 불
+		if((pItemExt->byMagicOrRare==ITEM_ATTRIB_UNIQUE && pItemExt->byDamageFire > 0) || (pItemExt->byDamageFire >= LIMIT_FX_DAMAGE)) // 17 추가데미지 - 불
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
 			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_FIRE_MAIN);
@@ -1892,7 +1892,7 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 			else szFXTail = "";
 			pCPlug->InitFX(szFXMain, szFXTail, 0xffffff00);
 		}
-		else if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamageIce > 0) || (pItemExt->byDamageIce >= LIMIT_FX_DAMAGE))// 18 추가데미지 - 얼음
+		else if((pItemExt->byMagicOrRare==ITEM_ATTRIB_UNIQUE && pItemExt->byDamageIce > 0) || (pItemExt->byDamageIce >= LIMIT_FX_DAMAGE))// 18 추가데미지 - 얼음
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
 			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_ICE_MAIN);
@@ -1906,7 +1906,7 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 
 			pCPlug->InitFX(szFXMain, szFXTail, 0xff0000ff);
 		}
-		else if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamageThuner > 0) || (pItemExt->byDamageThuner >= LIMIT_FX_DAMAGE))// 19 추가데미지 - 전격			
+		else if((pItemExt->byMagicOrRare==ITEM_ATTRIB_UNIQUE && pItemExt->byDamageThuner > 0) || (pItemExt->byDamageThuner >= LIMIT_FX_DAMAGE))// 19 추가데미지 - 전격			
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
 			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_LIGHTNING_MAIN);
@@ -1920,7 +1920,7 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 			
 			pCPlug->InitFX(szFXMain, szFXTail, 0xffffffff);
 		}
-		else if((pItemExt->byMagicOrRare==ITEM_UNIQUE && pItemExt->byDamagePoison > 0) || (pItemExt->byDamagePoison >= LIMIT_FX_DAMAGE))// 20 추가데미지 - 독			
+		else if((pItemExt->byMagicOrRare==ITEM_ATTRIB_UNIQUE && pItemExt->byDamagePoison > 0) || (pItemExt->byDamagePoison >= LIMIT_FX_DAMAGE))// 20 추가데미지 - 독			
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
 			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_POISON_MAIN);

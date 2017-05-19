@@ -299,7 +299,9 @@ enum e_ItemAttrib	{
 						ITEM_ATTRIB_LAIR	= 2,
 						ITEM_ATTRIB_CRAFT	= 3,
 						ITEM_ATTRIB_UNIQUE	= 4,
-						ITEM_ATTRIB_UPGRADE	= 5,		
+						ITEM_ATTRIB_UPGRADE	= 5,
+						ITEM_ATTRIB_UNIQUE_REVERSE = 11,
+						ITEM_ATTRIB_UPGRADE_REVERSE = 12,
 						ITEM_ATTRIB_UNKNOWN = 0xffffffff };	
 
 enum e_ItemClass	{	ITEM_CLASS_DAGGER = 11, // 단검(dagger)
@@ -755,7 +757,6 @@ typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...
 
 const int MAX_ITEM_EXTENSION = 23; // 확장 아이템 테이블 갯수.
 const int LIMIT_FX_DAMAGE = 64;
-const int ITEM_UNIQUE = 4;
 const int ITEM_LIMITED_EXHAUST = 17;
 
 typedef struct __TABLE_ITEM_EXT // 장착 아이템에 관한 리소스 레코드...
@@ -763,13 +764,13 @@ typedef struct __TABLE_ITEM_EXT // 장착 아이템에 관한 리소스 레코드...
 	uint32_t		dwID;				// 00 코드화된 아이템번호 - // 00 - Item 종류, 00 - Item 장착 위치(장착위치로 Plug 인지 Part 인지 판단이 가능하다.) - 0000 - ItemIndex
 	std::string	szHeader;			// 01 접두사
 
-	uint32_t dwIDK1;
+	uint32_t dwBaseID;
 
 	std::string	szRemark;			// 02 아이템 설명	
 
 	uint32_t dwIDK0; // TODO: will need to implement this one
-	uint32_t dwIDK2;
-	uint32_t dwIDK3;
+	uint32_t dwIDResrc;
+	uint32_t dwIDIcon;
 
 	uint8_t		byMagicOrRare;		// 03 매직 혹은 레어 아이템인지...
 
