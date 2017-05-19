@@ -15,131 +15,18 @@ int			CAPISocket::s_nInstanceCount = 0;
 
 
 #ifdef _CRYPTION
-BOOL		DataPack::s_bCryptionFlag = FALSE;			//0 : 비암호화 , 1 : 암호화
-//_int64		DataPack::s_PublicKey;
-//_int64		DataPack::s_PrivateKey = 0x1234567890123456;
-CJvCryption	DataPack::s_JvCrypt;
-uint32_t		DataPack::s_wSendVal = 0;
-uint32_t		DataPack::s_wRcvVal = 0;
+BOOL		CAPISocket::s_bCryptionFlag = FALSE;			//0 : 비암호화 , 1 : 암호화
+CJvCryption	CAPISocket::s_JvCrypt;
+uint32_t	CAPISocket::s_wSendVal = 0;
+uint32_t	CAPISocket::s_wRcvVal = 0;
 #endif
 
-
-
-
-//#define STX 1007
-//#define ETX 1005
 const uint16_t PACKET_HEADER = 0XAA55;
 const uint16_t PACKET_TAIL = 0X55AA;
 
 #ifdef _N3GAME
 #include "LogWriter.h"
 #endif
-
-#ifdef _DEBUG
-#include "PacketDef.h"
-#endif
-
-
-
-
-
-
-
-
-
-
-#ifdef _CRYPTION
-// bSend가 TRUE이면 Encrypt, FALSE이면 Decrypt해준다.
-DataPack::DataPack(int size, uint8_t *pData, BOOL bSend)
-{
-	static uint8_t pTIBuf[RECEIVE_BUF_SIZE];
-	static uint8_t pTBuf[RECEIVE_BUF_SIZE];
-	__ASSERT(size, "size is 0");
-	if (TRUE == s_bCryptionFlag)
-	{
-		if (bSend)
-		{	// 서버로 보낼것 (일반 -> 암호화된것)
-			// inmate - cryption
-			if(TRUE == s_bCryptionFlag)
-			{
-				/*
-				int clyp_size = size + (sizeof(uint16_t)+1+1);
-
-				++s_wSendVal;
-
-				pTIBuf[0] = 0xfc; // 암호가 정확한지
-				memcpy( pTIBuf+1, &s_wSendVal, sizeof(uint16_t) );
-				pTIBuf[3] = 0x00;
-				memcpy( pTIBuf+4, pData, size );
-				s_JvCrypt.JvEncryptionFast( clyp_size, pTIBuf, pTBuf );
-
-				uint8_t* pTmp = pTIBuf;
-				
-				m_Size = clyp_size;
-				m_pData = new uint8_t[m_Size+1];
-				CopyMemory(m_pData, pTBuf, m_Size);
-				*/
-
-				++s_wSendVal;
-
-				memcpy(pTBuf, &s_wSendVal, sizeof(uint32_t));
-				CopyMemory((pTBuf+4), pData, size);
-
-				*((Uint32*)(pTBuf + (size+4))) = crc32(pTBuf, (size+4), -1);
-
-				//s_JvCrypt.JvEncryptionFast(size, pTBuf, pTBuf);
-				s_JvCrypt.JvEncryptionFast((size+4+4), pTBuf, pTBuf);
-
-				//m_Size = size;
-				m_Size = m_Size = (size+4+4);
-				m_pData = new uint8_t[m_Size];
-				CopyMemory(m_pData, pTBuf, m_Size);
-			}
-			else
-			{
-				m_Size = size;
-				m_pData = new uint8_t[m_Size+1];
-				CopyMemory(m_pData, pData, m_Size);
-			}
-		}
-		else
-		{	// 서버로부터 받은 데이타(암호화된것 -> 일반)
-			s_JvCrypt.JvDecryptionFast( size, pData, pTBuf );
-
-			Uint16 sig = *(Uint16*)pTBuf;
-
-			if (sig != 0x1EFC) //if(pTBuf[0] != 0xfc) // 압축 푼 데이터 오류 일경우
-			{
-				m_Size = 0;
-				m_pData = NULL;
-				__ASSERT(0, "Crypt Error");
-			}
-			else
-			{
-				uint16_t sequence = *(uint16_t*)&pTBuf[2];
-				uint8_t  empty = pTBuf[4];
-				uint8_t* payload = &pTBuf[5];
-
-				m_Size = size - 5; //m_Size = size-4;
-				m_pData = new uint8_t[m_Size+1];
-				CopyMemory(m_pData, payload, m_Size);
-				m_pData[m_Size] = '\0';
-			}
-		}
-	}
-	else
-	{	// 암호화가 아니다.
-		m_Size = size;
-		m_pData = new uint8_t[size+1];
-		CopyMemory(m_pData, pData, size);
-	}
-}
-#endif
-
-
-
-
-
 
 CAPISocket::CAPISocket()
 {
@@ -255,7 +142,7 @@ void CAPISocket::Disconnect()
 	m_bEnableSend = TRUE; // 보내기 가능..?
 
 #ifdef _CRYPTION
-	DataPack::InitCrypt(0); // 암호화 해제..
+	InitCrypt(0); // 암호화 해제..
 #endif // #ifdef _CRYPTION
 }
 
@@ -350,8 +237,7 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 
 int	CAPISocket::ReConnect()
 {
-	std::string szIP = m_szIP;
-	return this->Connect(m_hWndTarget, szIP.c_str(), m_dwPort);
+	return this->Connect(m_hWndTarget, m_szIP.c_str(), m_dwPort);
 }
 
 void CAPISocket::Receive()
@@ -405,11 +291,35 @@ BOOL CAPISocket::ReceiveProcess()
 				if ( PACKET_TAIL == ntohs(*((uint16_t*)(pData+iCount-2))) ) // 패킷 꼬리 부분 검사..
 				{
 					
-#ifdef _CRYPTION
-					DataPack *pDP = new DataPack(siCore, pData+4, FALSE);
-#else
-					DataPack *pDP = new DataPack(siCore, pData+4);
-#endif
+					DataPack *pDP = new DataPack;
+					if (TRUE == s_bCryptionFlag)
+					{
+						static uint8_t pTBuf[RECEIVE_BUF_SIZE];
+						s_JvCrypt.JvDecryptionFast(siCore, pData + 4, pTBuf);
+
+						uint16_t sig = *(uint16_t*)pTBuf;
+
+						if (sig != 0x1EFC)
+						{
+							__ASSERT(0, "Crypt Error");
+						}
+						else
+						{
+							uint16_t sequence = *(uint16_t*)&pTBuf[2];
+							uint8_t  empty = pTBuf[4];
+							uint8_t* payload = &pTBuf[5];
+
+							pDP->m_Size = siCore - 5;
+							pDP->m_pData = new uint8_t[pDP->m_Size];
+							memcpy(pDP->m_pData, payload, pDP->m_Size);
+						}
+					}
+					else
+					{
+						pDP->m_Size = siCore;
+						pDP->m_pData = new uint8_t[siCore];
+						memcpy(pDP->m_pData, pData + 4, siCore);
+					}
 
 					m_qRecvPkt.push(pDP);
 					m_CB.HeadIncrease(siCore + 6); // 환형 버퍼 인덱스 증가 시키기..
@@ -440,17 +350,30 @@ void CAPISocket::Send(uint8_t* pData, int nSize)
 	if(!m_bEnableSend) return; // 보내기 가능..?
 	if (INVALID_SOCKET == m_hSocket || FALSE == m_bConnected)	return;
 
-
-	
 #ifdef _CRYPTION
-	DataPack DP(nSize, pData, TRUE);	// 암호화(s_bCryptionFlag가 FALSE일때는 암호화하지 않음)
-	nSize = DP.m_Size;
-	pData = DP.m_pData;
+	DataPack DP;
+
+	if (s_bCryptionFlag)
+	{
+		static uint8_t pTBuf[RECEIVE_BUF_SIZE];
+
+		++s_wSendVal;
+
+		memcpy(pTBuf, &s_wSendVal, sizeof(uint32_t));
+		memcpy((pTBuf + 4), pData, nSize);
+
+		*((Uint32*)(pTBuf + (nSize + 4))) = crc32(pTBuf, (nSize + 4), -1);
+
+		s_JvCrypt.JvEncryptionFast((nSize + 4 + 4), pTBuf, pTBuf);
+
+		DP.m_Size = (nSize + 4 + 4);
+		DP.m_pData = new uint8_t[DP.m_Size];
+		memcpy(DP.m_pData, pTBuf, DP.m_Size);
+
+		nSize = DP.m_Size;
+		pData = DP.m_pData;
+	}
 #endif
-	
-	
-	
-	
 	
 	int nTotalSize = nSize+6;
 	uint8_t *pSendData = m_RecvBuf;

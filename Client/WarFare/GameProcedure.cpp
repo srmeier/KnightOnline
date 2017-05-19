@@ -933,9 +933,9 @@ void CGameProcedure::MsgSend_CharacterSelect() // virtual
 
 void CGameProcedure::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 {
-	Uint16 compressedLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
-	Uint16 originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
-	Uint32 crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	uint16_t compressedLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
+	uint16_t originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
+	uint32_t crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
 
 	uint8_t * decompressedBuffer = Compression::DecompressWithCRC32(pDataPack->m_pData + iOffset, compressedLength, originalLength, crc);
 	if (decompressedBuffer == NULL)
@@ -955,8 +955,8 @@ int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // v
 {
 	int iVersion = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 버전
 #ifdef _CRYPTION
-	__int64 iPublicKey = CAPISocket::Parse_GetInt64(pDataPack->m_pData, iOffset); // 암호화 공개키
-	DataPack::InitCrypt(iPublicKey);
+	uint64_t iPublicKey = CAPISocket::Parse_GetUInt64(pDataPack->m_pData, iOffset); // 암호화 공개키
+	CAPISocket::InitCrypt(iPublicKey);
 	s_pSocket->m_bEnableSend = TRUE; // 보내기 가능..?
 #endif // #ifdef _CRYPTION
 

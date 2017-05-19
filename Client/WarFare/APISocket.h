@@ -23,6 +23,17 @@
 #include "JvCryption.h"
 #endif
 
+// TODO: Shift this logic into a separate header and generally clean this shared logic up
+#ifndef ASSERT
+	#if defined(_DEBUG)
+		#define ASSERT assert
+		#include <assert.h>
+	#else
+		#define ASSERT
+	#endif
+#endif
+#include "Packet.h"
+
 class BB_CircularBuffer  
 {
 public:
@@ -167,38 +178,13 @@ public:
 	int		m_Size;
 	uint8_t*	m_pData;
 
-
-
-#ifdef _CRYPTION
-protected:
-	static BOOL			s_bCryptionFlag;			//0 : 비암호화 , 1 : 암호화
-//	static _int64		s_PublicKey;
-//	static _int64		s_PrivateKey;				// = 0x1234567890123456;
-	static CJvCryption	s_JvCrypt;
-	static uint32_t			s_wSendVal;//static uint16_t			s_wSendVal;
-	static uint32_t			s_wRcvVal;//static uint16_t			s_wRcvVal;
-public:
-	static void			InitCrypt(_int64 PublicKey)
-	{
-		s_JvCrypt.SetPublicKey(PublicKey);
-		s_JvCrypt.Init();
-
-		//s_JvCrypt.SetPrivateKey(_int64(0x1234567890123456));
-		s_wSendVal = 0;
-		s_wRcvVal = 0;
-		if (0 != PublicKey) s_bCryptionFlag = TRUE;
-		else s_bCryptionFlag = FALSE;
-	}
-#endif
-
-
-
 public:
 	DataPack()
 	{
 		m_Size = 0;
 		m_pData = NULL;
 	}
+
 	DataPack(int size, uint8_t *pData)
 	{
 		__ASSERT(size, "size is 0");		
@@ -206,10 +192,11 @@ public:
 		m_pData = new uint8_t[size];
 		CopyMemory(m_pData, pData, size);
 	}
-#ifdef _CRYPTION
-	DataPack(int size, uint8_t *pData, BOOL bSend);
-#endif
-	virtual ~DataPack(){delete[] m_pData;}
+
+	virtual ~DataPack()
+	{
+		delete[] m_pData;
+	}
 };
 
 #ifdef _DEBUG
@@ -266,6 +253,24 @@ public:
 	BOOL	ReceiveProcess();
 	void	Send(uint8_t* pData, int nSize);
 
+#ifdef _CRYPTION
+protected:
+	static BOOL			s_bCryptionFlag;			//0 : 비암호화 , 1 : 암호화
+	static CJvCryption	s_JvCrypt;
+	static uint32_t		s_wSendVal;
+	static uint32_t		s_wRcvVal;
+public:
+	static void			InitCrypt(int64_t PublicKey)
+	{
+		s_JvCrypt.SetPublicKey(PublicKey);
+		s_JvCrypt.Init();
+
+		s_wSendVal = 0;
+		s_wRcvVal = 0;
+		if (0 != PublicKey) s_bCryptionFlag = TRUE;
+		else s_bCryptionFlag = FALSE;
+	}
+#endif
 
 	//패킷 만들기 함수
 	static	void	MP_AddByte(uint8_t *dest, int& iOffset, uint8_t byte) { CopyMemory(dest+iOffset, &byte, 1); iOffset ++; }
@@ -291,7 +296,8 @@ public:
 	static	uint32_t		Parse_GetDword(const uint8_t* buf, int &iOffset) { iOffset += 4; return *(uint32_t*)(buf+iOffset-4); }
 	static	float		Parse_GetFloat(const uint8_t* buf, int& iOffset) { iOffset += 4; return *(float*)(buf+iOffset-4); }
 	static	void		Parse_GetString(const uint8_t* buf, int &iOffset, std::string& szString, int len);
-	static	__int64		Parse_GetInt64(const uint8_t* buf, int &iOffset) { iOffset += 8; return *(__int64*)(buf+iOffset-8); }
+	static	int64_t		Parse_GetInt64(const uint8_t* buf, int &iOffset) { iOffset += 8; return *(int64_t*)(buf+iOffset-8); }
+	static	uint64_t	Parse_GetUInt64(const uint8_t* buf, int &iOffset) { iOffset += 8; return *(uint64_t*)(buf+iOffset-8); }
 
 	CAPISocket();
 	virtual ~CAPISocket();
