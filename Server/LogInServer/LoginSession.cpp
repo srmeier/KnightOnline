@@ -18,7 +18,8 @@ LoginSession::LoginSession(uint16_t socketID, SocketMgr *mgr) : KOSocket(socketI
 
 bool LoginSession::HandlePacket(Packet & pkt)
 {
-	uint8_t opcode = pkt.GetOpcode();
+	uint8_t opcode;
+	pkt >> opcode;
 
 	// Unknown packet
 	if (opcode >= NUM_LS_OPCODES

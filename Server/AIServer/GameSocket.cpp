@@ -28,7 +28,10 @@ void CGameSocket::OnDisconnect()
 
 bool CGameSocket::HandlePacket(Packet & pkt)
 {
-	switch (pkt.GetOpcode())
+	uint8_t opcode;
+	pkt >> opcode;
+
+	switch (opcode)
 	{
 	case AI_SERVER_CONNECT:
 		RecvServerConnect(pkt);

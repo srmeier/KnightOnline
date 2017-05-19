@@ -278,7 +278,7 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 	if (isInParty())
 	{
 		// TODO: Move this somewhere better.
-		result.SetOpcode(WIZ_PARTY);
+		result.Initialize(WIZ_PARTY);
 		result << uint8_t(PARTY_CLASSCHANGE) << GetSocketID() << uint16_t(classcode);
 		g_pMain->Send_PartyMember(GetPartyID(), &result);
 	}
@@ -370,7 +370,7 @@ void CUser::NpcEvent(Packet & pkt)
 	{
 	case NPC_MERCHANT:
 	case NPC_TINKER:
-		result.SetOpcode(pNpc->GetType() == NPC_MERCHANT ? WIZ_TRADE_NPC : WIZ_REPAIR_NPC);
+		result.Initialize(pNpc->GetType() == NPC_MERCHANT ? WIZ_TRADE_NPC : WIZ_REPAIR_NPC);
 		result << pNpc->m_iSellingGroup;
 		Send(&result);
 		break;
@@ -383,13 +383,13 @@ void CUser::NpcEvent(Packet & pkt)
 		break; */
 
 	case NPC_MARK:
-		result.SetOpcode(WIZ_KNIGHTS_PROCESS);
+		result.Initialize(WIZ_KNIGHTS_PROCESS);
 		result << uint8_t(KNIGHTS_CAPE_NPC);
 		Send(&result);
 		break;
 
 	case NPC_RENTAL:
-		result.SetOpcode(WIZ_RENTAL);
+		result.Initialize(WIZ_RENTAL);
 		result	<< uint8_t(RENTAL_NPC) 
 			<< uint16_t(1) // 1 = enabled, -1 = disabled 
 			<< pNpc->m_iSellingGroup;
@@ -400,7 +400,7 @@ void CUser::NpcEvent(Packet & pkt)
 	case NPC_TREASURY:
 		{
 			CKingSystem * pKingSystem = g_pMain->m_KingSystemArray.GetData(GetNation());
-			result.SetOpcode(WIZ_KING);
+			result.Initialize(WIZ_KING);
 			if (pNpc->GetType() == NPC_ELECTION)
 			{
 				// Ensure this still works as per official without a row in the table.
@@ -423,7 +423,7 @@ void CUser::NpcEvent(Packet & pkt)
 	case NPC_SIEGE:
 		{
 		_KNIGHTS_SIEGE_WARFARE *pKnightSiegeWarFare = g_pMain->GetSiegeMasterKnightsPtr(1);
-		result.SetOpcode(WIZ_SIEGE);
+		result.Initialize(WIZ_SIEGE);
 		result << uint8_t(3) << uint8_t(7);
 		Send(&result);
 		}
@@ -434,7 +434,7 @@ void CUser::NpcEvent(Packet & pkt)
 		_KNIGHTS_SIEGE_WARFARE *pKnightSiegeWarFare = g_pMain->GetSiegeMasterKnightsPtr(1);
 		if (pKnightSiegeWarFare->sMasterKnights == GetClanID())
 		{
-			result.SetOpcode(WIZ_SIEGE);
+			result.Initialize(WIZ_SIEGE);
 			result << uint8_t(4) << uint8_t(1) 
 			<< pKnightSiegeWarFare->nDungeonCharge 
 			<< pKnightSiegeWarFare->nMoradonTax 
@@ -459,7 +459,7 @@ void CUser::NpcEvent(Packet & pkt)
 		break;
 
 	case NPC_WAREHOUSE:
-		result.SetOpcode(WIZ_WAREHOUSE);
+		result.Initialize(WIZ_WAREHOUSE);
 		result << uint8_t(WAREHOUSE_REQ);
 		Send(&result);
 		break;

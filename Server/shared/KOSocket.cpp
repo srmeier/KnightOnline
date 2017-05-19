@@ -133,21 +133,24 @@ void KOSocket::OnRead()
 			if (header != 0x55aa)
 			{
 				TRACE("%s: Got packet without header 0x55AA, got 0x%X\n", GetRemoteIP().c_str(), header);
-				goto error_handler;
+				Disconnect();
+				return;
 			}
 
 			GetReadBuffer().Read(&m_remaining, 2);
 			if (m_remaining == 0)
 			{
 				TRACE("%s: Got packet without an opcode, this should never happen.\n", GetRemoteIP().c_str());
-				goto error_handler;
+				Disconnect();
+				return;
 			}
 		}
 
 		if (m_remaining > GetReadBuffer().GetAllocatedSize()) 
 		{
 			TRACE("%s: Packet received which was %u bytes in size, maximum of %u.\n", GetRemoteIP().c_str(), m_remaining, GetReadBuffer().GetAllocatedSize());
-			goto error_handler;
+			Disconnect();
+			return;
 		}
 
 		if (m_remaining > GetReadBuffer().GetSize()) 
@@ -155,7 +158,8 @@ void KOSocket::OnRead()
 			if (m_readTries > 4)
 			{
 				TRACE("%s: packet fragmentation count is over 4, disconnecting as they're probably up to something bad\n", GetRemoteIP().c_str());
-				goto error_handler;
+				Disconnect();
+				return;
 			}
 			m_readTries++;
 			return;
@@ -174,7 +178,8 @@ void KOSocket::OnRead()
 		{
 			TRACE("%s: Footer invalid (%X) or failed to decrypt.\n", GetRemoteIP().c_str(), footer);
 			delete [] in_stream;
-			goto error_handler;
+			Disconnect();
+			return;
 		}
 
 		delete [] in_stream;
@@ -182,21 +187,28 @@ void KOSocket::OnRead()
 		// Update the time of the last (valid) response from the client.
 		m_lastResponse = UNIXTIME;
 
+		const uint8_t * buffer = pkt.contents();
+
+		// Verify the packet was created successfully.
+		// This should never happened as it's guaranteed to contain an opcode as per the above checks.
+		if (pkt.size() == 0)
+		{
+			TRACE("%s: Packet has no opcode.\n", GetRemoteIP().c_str());
+			Disconnect();
+			return;
+		}
+
 		if (!HandlePacket(pkt))
 		{
-			TRACE("%s: Handler for packet %X returned false\n", GetRemoteIP().c_str(), pkt.GetOpcode());
+			TRACE("%s: Handler for packet %X returned false\n", GetRemoteIP().c_str(), buffer[0]);
 #ifndef _DEBUG
-			goto error_handler;
+			Disconnect();
+			return;
 #endif
 		}
 
 		m_remaining = 0;
 	}
-
-	return;
-
-error_handler:
-	Disconnect();
 }
 
 bool KOSocket::DecryptPacket(uint8_t *in_stream, Packet & pkt)
@@ -221,27 +233,22 @@ bool KOSocket::DecryptPacket(uint8_t *in_stream, Packet & pkt)
 		final_packet = in_stream; // for simplicity :P
 	}
 
-	m_remaining--;
 	pkt = Packet(final_packet[0], (size_t)m_remaining);
-	if (m_remaining > 0) 
-	{
-		pkt.resize(m_remaining);
-		memcpy((void*)pkt.contents(), &final_packet[1], m_remaining);
-	}
+	if (m_remaining > 1)
+		pkt.append(&final_packet[1], m_remaining - 1);
 
 	return true;
 }
 
 bool KOSocket::Send(Packet * pkt) 
 {
-	if (!IsConnected() || pkt->size() + 1 > GetWriteBuffer().GetAllocatedSize())
+	if (!IsConnected() || pkt->size() > GetWriteBuffer().GetAllocatedSize())
 		return false;
 
 	bool r;
 
-	uint8_t opcode = pkt->GetOpcode();
 	uint8_t * out_stream = nullptr;
-	uint16_t len = (uint16_t)(pkt->size() + 1); // +1 for opcode
+	uint16_t len = (uint16_t)pkt->size();
 
 	if (isCryptoEnabled())
 	{
@@ -252,19 +259,16 @@ bool KOSocket::Send(Packet * pkt)
 		*(uint16_t *)&out_stream[0] = 0x1efc;
 		*(uint16_t *)&out_stream[2] = (uint16_t)(m_sequence); // this isn't actually incremented here
 		out_stream[4] = 0;
-		out_stream[5] = pkt->GetOpcode();
-
 		if (pkt->size() > 0)
-			memcpy(&out_stream[6], pkt->contents(), pkt->size());
+			memcpy(&out_stream[5], pkt->contents(), pkt->size());
 
 		m_crypto.JvEncryptionFast(len, out_stream, out_stream);
 	}
 	else
 	{
 		out_stream = new uint8_t[len];
-		out_stream[0] = pkt->GetOpcode();
 		if (pkt->size() > 0)
-			memcpy(&out_stream[1], pkt->contents(), pkt->size());
+			memcpy(&out_stream[0], pkt->contents(), pkt->size());
 	}
 
 	BurstBegin();

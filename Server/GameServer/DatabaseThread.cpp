@@ -57,6 +57,9 @@ uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 		// References are fun =p
 		Packet & pkt = *p;
 
+		uint8_t opcode, subOpcode;
+		pkt >> opcode;
+
 		// First 2 bytes are always going to be the socket ID
 		// or -1 for no user.
 		int16_t uid = pkt.read<int16_t>();
@@ -72,8 +75,7 @@ uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 				continue;
 		}
 
-		uint8_t subOpcode;
-		switch (pkt.GetOpcode())
+		switch (opcode)
 		{
 		case WIZ_LOGIN:
 			if (pUser) pUser->ReqAccountLogIn(pkt);

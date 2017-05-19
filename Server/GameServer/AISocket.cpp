@@ -8,7 +8,10 @@ using std::string;
 
 bool CAISocket::HandlePacket(Packet & pkt)
 {
-	switch (pkt.GetOpcode())
+	uint8_t opcode;
+	pkt >> opcode;
+
+	switch (opcode)
 	{
 	case AG_CHECK_ALIVE_REQ:
 		RecvCheckAlive(pkt);
