@@ -403,29 +403,24 @@ void CGameProcedure::Tick()
 
 	//////////////////////////////////
 	// Network Msg 처리하기
-	DataPack* pDataPack = NULL;
-	while ( s_pSocket->m_qRecvPkt.size() > 0 )			// 패킷 리스트에 패킷이 있냐????
+	while (!s_pSocket->m_qRecvPkt.empty())
 	{
-		int iOffset = 0;
-		pDataPack = s_pSocket->m_qRecvPkt.front();				// 큐의 첫번째 것을 복사..
-		if (false == ProcessPacket(pDataPack, iOffset))
-		{
-			// 패킷을 처리할 상황이 아니다.
-			int iTempOffst = 0;
-			int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iTempOffst);
-			CLogWriter::Write("Invalid Packet... (%d)", iCmd);
-		}
-		delete pDataPack;
-		s_pSocket->m_qRecvPkt.pop();					// 패킷을 큐에서 꺼냄..
+		auto pkt = s_pSocket->m_qRecvPkt.front();
+		if (!ProcessPacket(*pkt))
+			CLogWriter::Write("Invalid Packet... (%d)", pkt->GetOpcode());
+
+		delete pkt;
+		s_pSocket->m_qRecvPkt.pop();
 	}
 
-	while ( s_pSocketSub->m_qRecvPkt.size() > 0 )		// 패킷 리스트에 패킷이 있냐????
+	while (!s_pSocketSub->m_qRecvPkt.empty())
 	{
-		int iOffset = 0;
-		pDataPack = s_pSocketSub->m_qRecvPkt.front();			// 큐의 첫번째 것을 복사..
-		if (false == ProcessPacket(pDataPack, iOffset)) break;	// 패킷을 처리할 상황이 아니다.
-		delete pDataPack;
-		s_pSocketSub->m_qRecvPkt.pop();					// 패킷을 큐에서 꺼냄..
+		auto pkt = s_pSocketSub->m_qRecvPkt.front();
+		if (!ProcessPacket(*pkt))
+			break;
+
+		delete pkt;
+		s_pSocketSub->m_qRecvPkt.pop();
 	}
 	// Network Msg 처리하기
 	//////////////////////////////////
@@ -775,21 +770,21 @@ std::string CGameProcedure::GetStrRegKeySetting()
 	return szBuff;
 }
 
-bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
+bool CGameProcedure::ProcessPacket(Packet& pkt)
 {
-	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
+	int iCmd = pkt.read<uint8_t>();	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
 		case WIZ_COMPRESS_PACKET:
-			this->MsgRecv_CompressedPacket(pDataPack, iOffset);
+			this->MsgRecv_CompressedPacket(pkt);
 			return true;
 
 		case WIZ_VERSION_CHECK: // 암호화도 같이 받는다..
-			this->MsgRecv_VersionCheck(pDataPack, iOffset); // virtual
+			this->MsgRecv_VersionCheck(pkt); // virtual
 			return true;
 
 		case WIZ_LOGIN:
-			this->MsgRecv_GameServerLogIn(pDataPack, iOffset);
+			this->MsgRecv_GameServerLogIn(pkt);
 			return true;
 
 		case WIZ_SERVER_CHANGE:				// 서버 바꾸기 메시지..
@@ -797,14 +792,14 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 			// 다른 존 서버로 다시 접속한다.
 			int iLen = 0;
 			std::string szName, szIP;
-//			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 이름
-//			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iLen);
-			iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 서버 IP
-			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szIP, iLen);
-			uint32_t dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-			s_pPlayer->m_InfoExt.iZoneInit = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-			s_pPlayer->m_InfoExt.iZoneCur = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-			int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+//			iLen = pkt.read<int16_t>(); // 서버 이름
+//			CAPISocket::Parse_GetString(pkt, szName, iLen);
+			iLen = pkt.read<int16_t>(); // 서버 IP
+			CAPISocket::Parse_GetString(pkt, szIP, iLen);
+			uint32_t dwPort = pkt.read<int16_t>();
+			s_pPlayer->m_InfoExt.iZoneInit = pkt.read<uint8_t>();
+			s_pPlayer->m_InfoExt.iZoneCur = pkt.read<uint8_t>();
+			int iVictoryNation = pkt.read<uint8_t>();
 			CGameProcedure::LoadingUIChange(iVictoryNation);
 
 			s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
@@ -825,7 +820,7 @@ bool CGameProcedure::ProcessPacket(DataPack* pDataPack, int& iOffset)
 
 		case WIZ_SEL_CHAR:
 		{
-			this->MsgRecv_CharacterSelect(pDataPack, iOffset); // virtual
+			this->MsgRecv_CharacterSelect(pkt); // virtual
 		}
 		return true;
 	}
@@ -931,31 +926,28 @@ void CGameProcedure::MsgSend_CharacterSelect() // virtual
 		s_pPlayer->IDString().c_str(), s_pPlayer->m_InfoExt.iZoneCur); // 디버깅 로그..
 }
 
-void CGameProcedure::MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
+void CGameProcedure::MsgRecv_CompressedPacket(Packet& pkt) // 압축된 데이터 이다... 한번 더 파싱해야 한다!!!
 {
-	uint16_t compressedLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
-	uint16_t originalLength = CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset);
-	uint32_t crc = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	uint16_t compressedLength = pkt.read<uint16_t>();
+	uint16_t originalLength = pkt.read<uint16_t>();
+	uint32_t crc = pkt.read<uint32_t>();
 
-	uint8_t * decompressedBuffer = Compression::DecompressWithCRC32(pDataPack->m_pData + iOffset, compressedLength, originalLength, crc);
+	uint8_t * decompressedBuffer = Compression::DecompressWithCRC32(pkt.contents() + pkt.rpos(), compressedLength, originalLength, crc);
 	if (decompressedBuffer == NULL)
 		return;
 
-	DataPack DataPackTemp;
-	DataPackTemp.m_Size = originalLength;
-	DataPackTemp.m_pData = decompressedBuffer;
-	int iOffset2 = 0;
-	this->ProcessPacket(&DataPackTemp, iOffset2);
+	Packet decompressedPkt;
+	decompressedPkt.append(decompressedBuffer, originalLength);
+	delete[] decompressedBuffer;
 
-	// NOTE: don't have to delete because DataPack does this for you
-	//delete[] decompressedBuffer;
+	ProcessPacket(decompressedPkt);
 }
 
-int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // virtual
+int CGameProcedure::MsgRecv_VersionCheck(Packet& pkt) // virtual
 {
-	int iVersion = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);	// 버전
+	int iVersion = pkt.read<int16_t>();	// 버전
 #ifdef _CRYPTION
-	uint64_t iPublicKey = CAPISocket::Parse_GetUInt64(pDataPack->m_pData, iOffset); // 암호화 공개키
+	uint64_t iPublicKey = pkt.read<uint64_t>(); // 암호화 공개키
 	CAPISocket::InitCrypt(iPublicKey);
 	s_pSocket->m_bEnableSend = TRUE; // 보내기 가능..?
 #endif // #ifdef _CRYPTION
@@ -984,23 +976,23 @@ int CGameProcedure::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // v
 	return iVersion;
 }
 
-int CGameProcedure::MsgRecv_GameServerLogIn(DataPack* pDataPack, int& iOffset) // virtual
+int CGameProcedure::MsgRecv_GameServerLogIn(Packet& pkt) // virtual
 {
-	int iNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 국가 - 0 없음 0xff - 실패..
+	int iNation = pkt.read<uint8_t>(); // 국가 - 0 없음 0xff - 실패..
 	return iNation;
 }
 
-bool CGameProcedure::MsgRecv_CharacterSelect(DataPack* pDataPack, int& iOffset) // virtual
+bool CGameProcedure::MsgRecv_CharacterSelect(Packet& pkt) // virtual
 {
-	int iResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 0x00 실패
+	int iResult = pkt.read<uint8_t>(); // 0x00 실패
 	if(1 == iResult) // 성공..
 	{
-		int iZoneCur = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-		float fX = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-		float fZ = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-		float fY = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
+		int iZoneCur = pkt.read<uint8_t>();
+		float fX = (pkt.read<uint16_t>())/10.0f;
+		float fZ = (pkt.read<uint16_t>())/10.0f;
+		float fY = (pkt.read<int16_t>())/10.0f;
 
-		int iVictoryNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		int iVictoryNation = pkt.read<uint8_t>();
 		CGameProcedure::LoadingUIChange(iVictoryNation);
 
 		int iZonePrev;

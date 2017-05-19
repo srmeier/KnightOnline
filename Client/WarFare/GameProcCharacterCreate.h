@@ -51,7 +51,7 @@ public:
 //	int						m_InitValue[TRIBE_NUM][CVAL_NUM];
 
 protected:
-	bool ProcessPacket(DataPack* pDataPack, int& iOffset);
+	virtual bool ProcessPacket(Packet& pkt);
 
 public:
 	void ReportErrorCharacterCreate(e_ErrorCharacterCreate eErr);

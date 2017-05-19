@@ -107,10 +107,10 @@ public:
 	void	MsgSend_DeleteChr(const std::string& szKey);
 	void	MsgSend_CharacterSelect(); // virtual
 
-	int		MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset); // virtual
-	bool	MsgRecv_CharacterSelect(DataPack* pDataPack, int& iOffset); // virtual
-	void	MsgRecv_AllCharacterInfo(class DataPack* pBuf, int& iOffset);
-	void	MsgRecv_DeleteChr(DataPack* pBuf, int& iOffset);
+	int		MsgRecv_VersionCheck(Packet& pkt); // virtual
+	bool	MsgRecv_CharacterSelect(Packet& pkt); // virtual
+	void	MsgRecv_AllCharacterInfo(Packet& pkt);
+	void	MsgRecv_DeleteChr(Packet& pkt);
 
 	void	Release();
 	void	Init();
@@ -145,7 +145,7 @@ public:
 	void	FadeOutProcess();
 	void	FadeOutRender();
 protected:
-	bool ProcessPacket(DataPack* pDataPack, int& iOffset);
+	virtual bool ProcessPacket(Packet& pkt);
 };
 
 #endif // !defined(AFX_GAMEPROCCHARACTERSELECT_H__FA8E7800_AE8D_4469_8D6A_7F409EED8C86__INCLUDED_)

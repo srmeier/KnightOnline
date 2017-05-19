@@ -254,14 +254,14 @@ void CUIDead::MsgSend_Revival(uint8_t byType)
 	m_bProcessing = true;
 }
 
-void CUIDead::MsgRecv_Revival(DataPack *pDataPack, int &iOffset)
+void CUIDead::MsgRecv_Revival(Packet& pkt)
 {
 	m_bProcessing = false;
 
 	__Vector3 vPosPlayer;
-	vPosPlayer.x = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-	vPosPlayer.z = (CAPISocket::Parse_GetWord(pDataPack->m_pData, iOffset))/10.0f;
-	vPosPlayer.y = (CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset))/10.0f;
+	vPosPlayer.x = (pkt.read<uint16_t>())/10.0f;
+	vPosPlayer.z = (pkt.read<uint16_t>())/10.0f;
+	vPosPlayer.y = (pkt.read<int16_t>())/10.0f;
 	
 	CGameProcedure::s_pProcMain->InitPlayerPosition(vPosPlayer); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
 	CGameProcedure::s_pPlayer->RegenerateCollisionMesh(); // 충돌 메시를 다시 만든다..

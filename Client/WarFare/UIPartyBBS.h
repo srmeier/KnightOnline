@@ -11,7 +11,6 @@
 
 #include "GameDef.h"
 #include "PacketDef.h"
-#include "APISocket.h"
 #include "N3UIBase.h"
 #include <list>
 
@@ -54,7 +53,7 @@ public:
 	void MsgSend_RegisterCancel();
 	void MsgSend_RefreshData(int iCurPage);
 
-	void MsgRecv_RefreshData(class DataPack* pDataPack, int& iOffset);
+	void MsgRecv_RefreshData(Packet& pkt);
 
 	void PartyStringSet(uint8_t byType);
 	void RefreshPage();

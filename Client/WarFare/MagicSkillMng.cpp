@@ -1963,18 +1963,18 @@ void CMagicSkillMng::MobCasting(__TABLE_UPC_SKILL* pSkill, int iSourceID)
 }
 
 
-void CMagicSkillMng::MsgRecv_Casting(DataPack* pDataPack, int& iOffset)
+void CMagicSkillMng::MsgRecv_Casting(Packet& pkt)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//	
-	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = pkt.read<uint32_t>();
+	int	iSourceID = pkt.read<int16_t>();
+	int	iTargetID = pkt.read<int16_t>();
 
 	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
-		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		Data[i] = pkt.read<int16_t>();
 	}
 
 	//if(iSourceID<0) return;
@@ -2047,18 +2047,18 @@ void CMagicSkillMng::MsgRecv_Casting(DataPack* pDataPack, int& iOffset)
 	if(pSkill->iTarget == SKILLMAGIC_TARGET_ENEMY_ONLY) m_pGameProcMain->PlayBGM_Battle();
 }
 
-void CMagicSkillMng::MsgRecv_Flying(DataPack* pDataPack, int& iOffset)
+void CMagicSkillMng::MsgRecv_Flying(Packet& pkt)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//	
-	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = pkt.read<uint32_t>();
+	int	iSourceID = pkt.read<int16_t>();
+	int	iTargetID = pkt.read<int16_t>();
 
 	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
-		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		Data[i] = pkt.read<int16_t>();
 	}
 
 	//if(iSourceID<0) return;
@@ -2120,18 +2120,18 @@ void CMagicSkillMng::MsgRecv_Flying(DataPack* pDataPack, int& iOffset)
 	}
 }
 
-void CMagicSkillMng::MsgRecv_Effecting(DataPack* pDataPack, int& iOffset)
+void CMagicSkillMng::MsgRecv_Effecting(Packet& pkt)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//
-	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = pkt.read<uint32_t>();
+	int	iSourceID = pkt.read<int16_t>();
+	int	iTargetID = pkt.read<int16_t>();
 
 	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
-		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		Data[i] = pkt.read<int16_t>();
 	}
 
 	CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, false);
@@ -2180,18 +2180,18 @@ void CMagicSkillMng::MsgRecv_Effecting(DataPack* pDataPack, int& iOffset)
 		CGameProcedure::s_pFX->TriggerBundle(iSourceID, 0, pSkill->iTargetFX, iTargetID, pSkill->iTargetPart);
 }
 
-void CMagicSkillMng::MsgRecv_Fail(DataPack* pDataPack, int& iOffset)
+void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 {
 	////common.....//////////////////////////////////////////////////////////////
 	//
-	uint32_t dwMagicID = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	int	iSourceID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int	iTargetID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	uint32_t dwMagicID = pkt.read<uint32_t>();
+	int	iSourceID = pkt.read<int16_t>();
+	int	iTargetID = pkt.read<int16_t>();
 
 	int16_t Data[6];
 	for(int i=0;i<6;i++)
 	{
-		Data[i] = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		Data[i] = pkt.read<int16_t>();
 	}
 	CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, false);
 	if(!pPlayer) return;
@@ -2336,9 +2336,9 @@ void CMagicSkillMng::MsgRecv_Fail(DataPack* pDataPack, int& iOffset)
 
 
 //type4 ÇØÁ¦..
-void CMagicSkillMng::MsgRecv_BuffType(DataPack* pDataPack, int& iOffset)
+void CMagicSkillMng::MsgRecv_BuffType(Packet& pkt)
 {
-	int iBuffType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	int iBuffType = pkt.read<uint8_t>();
 	__InfoPlayerBase* pInfoBase = &(s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf* pInfoExt = &(s_pPlayer->m_InfoExt);
 

@@ -10,6 +10,7 @@
 #include "GameProcedure.h"
 #include "PlayerMySelf.h"
 #include "UIManager.h"
+#include "APISocket.h"
 
 #include "N3UIList.h"
 #include "N3UIString.h"
@@ -193,12 +194,12 @@ void CUIPartyBBS::MsgSend_RefreshData(int iCurPage)
 	m_bProcessing = true;
 }
 
-void CUIPartyBBS::MsgRecv_RefreshData(DataPack* pDataPack, int& iOffset)
+void CUIPartyBBS::MsgRecv_RefreshData(Packet& pkt)
 {
 	m_bProcessing = false;
 
-	uint8_t byType = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	uint8_t byResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	uint8_t byType = pkt.read<uint8_t>();
+	uint8_t byResult = pkt.read<uint8_t>();
 	if(byResult != 0x01) return; //실패했다면
 
 	switch( byType )
@@ -227,17 +228,17 @@ void CUIPartyBBS::MsgRecv_RefreshData(DataPack* pDataPack, int& iOffset)
 	for( int i = 0 ; i < PARTY_BBS_MAXLINE ; i++ )
 	{
 		__InfoPartyBBS Info;
-		int iNameLen	= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, Info.szID, iNameLen);
-		Info.iLevel		= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-		Info.eClass		= (e_Class)CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		int iNameLen	= pkt.read<int16_t>();
+		CAPISocket::Parse_GetString(pkt, Info.szID, iNameLen);
+		Info.iLevel		= pkt.read<uint8_t>();
+		Info.eClass		= (e_Class)pkt.read<int16_t>();
 
 		if( iNameLen > 0 )
 			m_Datas.push_back(Info);
 	}
 
-	int16_t sPage = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int16_t sTotal = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int16_t sPage = pkt.read<int16_t>();
+	int16_t sTotal = pkt.read<int16_t>();
 
 	m_iCurPage = sPage;
 	m_iMaxPage = sTotal / PARTY_BBS_MAXLINE;

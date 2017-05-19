@@ -95,9 +95,9 @@ public:
 
 	uint8_t operator[](size_t pos) { return read<uint8_t>(pos); }
 
-	INLINE size_t rpos() { return _rpos; };
+	INLINE size_t rpos() const { return _rpos; };
 	INLINE size_t rpos(size_t rpos) { return _rpos = rpos; };
-	INLINE size_t wpos() { return _wpos; };
+	INLINE size_t wpos() const { return _wpos; };
 	INLINE size_t wpos(size_t wpos) { return _wpos = wpos; };
 
 	template <typename T> T read() 
@@ -124,8 +124,8 @@ public:
 		_rpos += len;
 	};
 
-	const uint8_t *contents() const { return &_storage[0]; };
-	INLINE size_t size() const { return _storage.size(); };
+	const uint8_t *contents() const { return &_storage[0]; }
+	INLINE size_t size() const { return _storage.size(); }
 
 	// one should never use resize
 	void resize(size_t newsize) 
@@ -133,7 +133,7 @@ public:
 		_storage.resize(newsize);
 		_rpos = 0;
 		_wpos = size();
-	};
+	}
 
 	void reserve(size_t ressize)  { if (ressize > size()) _storage.reserve(ressize); };
 
@@ -157,9 +157,16 @@ public:
 
 	void append(const ByteBuffer& buffer) { if (buffer.size() > 0) append(buffer.contents(), buffer.size()); }
 	void append(const ByteBuffer& buffer, size_t len)
-	{ 
-		ASSERT(buffer._rpos + len <= buffer.size());
-		append(buffer.contents() + buffer._rpos, len); 
+	{
+		ASSERT(buffer.rpos() + len <= buffer.size());
+		append(buffer.contents() + buffer.rpos(), len);
+	}
+
+	void readFrom(ByteBuffer& buffer, size_t len)
+	{
+		ASSERT(buffer.rpos() + len <= buffer.size());
+		append(buffer.contents() + buffer.rpos(), len);
+		buffer.rpos(buffer.rpos() + len);
 	}
 
 	void put(size_t pos, const void *src, size_t cnt) 

@@ -145,15 +145,14 @@ void CGameProcCharacterCreate::Tick()
 
 	s_pEng->s_SndMgr.Tick(); // Sound Engine...
 
-	// Network Msg 처리하기
-	DataPack* pDataPack = NULL;
-	while ( s_pSocket->m_qRecvPkt.size() > 0 )			// 패킷 리스트에 패킷이 있냐????
+	while (!s_pSocket->m_qRecvPkt.empty())
 	{
-		int iOffset = 0;
-		pDataPack = s_pSocket->m_qRecvPkt.front();			// 큐의 첫번째 것을 복사..
-		if (false == ProcessPacket(pDataPack, iOffset)) break;		// 패킷을 처리할 상황이 아니다.
-		delete pDataPack;
-		s_pSocket->m_qRecvPkt.pop();					// 패킷을 큐에서 꺼냄..
+		auto pkt = s_pSocket->m_qRecvPkt.front();
+		if (!ProcessPacket(*pkt))
+			break;
+
+		delete pkt;
+		s_pSocket->m_qRecvPkt.pop();
 	}
 
 	s_pPlayer->InventoryChrTick();
@@ -299,18 +298,20 @@ void CGameProcCharacterCreate::ReportErrorCharacterCreate(e_ErrorCharacterCreate
 	MessageBoxPost(szErr, szTitle, MB_OK);
 }
 
-bool CGameProcCharacterCreate::ProcessPacket(DataPack* pDataPack, int& iOffset)
+bool CGameProcCharacterCreate::ProcessPacket(Packet& pkt)
 {
-	int iOffsetPrev = iOffset;
-	if(false == CGameProcedure::ProcessPacket(pDataPack, iOffset)) iOffset = iOffsetPrev;
-	else return true;
+	size_t rpos = pkt.rpos();
+	if (CGameProcedure::ProcessPacket(pkt))
+		return true;
 
-	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
+	pkt.rpos(rpos);
+
+	int iCmd = pkt.read<uint8_t>();	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
 		case WIZ_NEW_CHAR:				// 캐릭터 선택 메시지..
 		{
-			uint8_t bySuccess = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
+			uint8_t bySuccess = pkt.read<uint8_t>();	// 커멘드 파싱..
 			if(0 == bySuccess) 
 			{
 				ProcActiveSet((CGameProcedure*)s_pProcCharacterSelect); // 캐릭터 선택창으로 가기..

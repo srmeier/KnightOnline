@@ -894,29 +894,29 @@ void CUIKnights::MsgSend_MemberInfoAll()
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
 
-bool CUIKnights::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
+bool CUIKnights::MsgRecv_MemberInfo(Packet& pkt)
 {
-	CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // @Demircivi: packet sizes, which are unused.
-	CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // @Demircivi: packet sizes, which are unused.
-	CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // @Demircivi: packet sizes, which are unused.
+	pkt.read<int16_t>(); // @Demircivi: packet sizes, which are unused.
+	pkt.read<int16_t>(); // @Demircivi: packet sizes, which are unused.
+	pkt.read<int16_t>(); // @Demircivi: packet sizes, which are unused.
 
-	int iMemberCount = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int iMemberCount = pkt.read<int16_t>();
 
 	UpdateMemberCount(iMemberCount);
 
 	for (int i = 0; i < iMemberCount; i++)
 	{
-		int iNameLength = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+		int iNameLength = pkt.read<int16_t>();
 		__ASSERT(iNameLength > 0, "iNameLength was below 0!");
 
 		__KnightsMemberInfo KMI;
 
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, KMI.szName, iNameLength);
+		CAPISocket::Parse_GetString(pkt, KMI.szName, iNameLength);
 		// KMI.szName = szName;
-		KMI.eDuty = (e_KnightsDuty)CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-		KMI.iLevel = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-		KMI.eClass = (e_Class)CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		KMI.iConnected = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		KMI.eDuty = (e_KnightsDuty)pkt.read<uint8_t>();
+		KMI.iLevel = pkt.read<uint8_t>();
+		KMI.eClass = (e_Class)pkt.read<int16_t>();
+		KMI.iConnected = pkt.read<uint8_t>();
 
 		m_MemberList.push_back(KMI);
 	}
@@ -1315,20 +1315,20 @@ void CUIFriends::MsgSend_MemberInfo(const std::string& szID)
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
 }
 
-void CUIFriends::MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset)
+void CUIFriends::MsgRecv_MemberInfo(Packet& pkt)
 {
 	std::string szID;
 	int iLen = 0;
 	int iID = 0;
 	uint8_t bStatus = 0;
 
-	int iFC = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
+	int iFC = pkt.read<int16_t>(); 
 	for(int i = 0; i < iFC; i++)
 	{
-		iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szID, iLen);
-		iID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); 
-		bStatus = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		iLen = pkt.read<int16_t>(); // 친구 정보.. Send s1(이름길이), str1(유저이름) | Receive s1(이름길이), str1(유저이름), s1(ID), b2(접속, 파티)
+		CAPISocket::Parse_GetString(pkt, szID, iLen);
+		iID = pkt.read<int16_t>(); 
+		bStatus = pkt.read<uint8_t>();
 
 		it_FI it = m_MapFriends.find(szID);
 		if(it == m_MapFriends.end()) continue;

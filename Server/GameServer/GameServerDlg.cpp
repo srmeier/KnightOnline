@@ -1285,10 +1285,10 @@ void CGameServerDlg::ResetPlayerRankings(uint8_t ZoneID)
 
 void CGameServerDlg::AddDatabaseRequest(Packet & pkt, CUser *pUser /*= nullptr*/)
 {
-	Packet *newPacket = new Packet(pkt.GetOpcode(), (pkt.size() - 1) + 2);
+	Packet *newPacket = new Packet(pkt.GetOpcode(), (pkt.wpos() - 1) + 2);
 	*newPacket << int16_t(pUser == nullptr ? -1 : pUser->GetSocketID());
-	if (pkt.size() > 1)
-		newPacket->append(pkt.contents() + 1, pkt.size() - 1);
+	if (pkt.wpos() > 1)
+		newPacket->append(pkt.contents() + 1, pkt.wpos() - 1);
 	DatabaseThread::AddRequest(newPacket);
 }
 

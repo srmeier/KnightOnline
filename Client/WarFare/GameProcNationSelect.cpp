@@ -93,18 +93,20 @@ void CGameProcNationSelect::MsgSendNationSelect(e_Nation eNation)
 	s_pUIMgr->EnableOperationSet(false); // 응답 패킷을 받기 전까지 아무짓 못하게 한다..
 }
 
-bool CGameProcNationSelect::ProcessPacket(DataPack* pDataPack, int& iOffset)
+bool CGameProcNationSelect::ProcessPacket(Packet& pkt)
 {
-	int iOffsetPrev = iOffset;
-	if(false == CGameProcedure::ProcessPacket(pDataPack, iOffset)) iOffset = iOffsetPrev;
-	else return true;
+	size_t rpos = pkt.rpos();
+	if (CGameProcedure::ProcessPacket(pkt))
+		return true;
 
-	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
+	pkt.rpos(rpos);
+
+	int iCmd = pkt.read<uint8_t>();	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
 		case WIZ_SEL_NATION:							// 캐릭터 선택 메시지..
 		{
-			int iNation = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 국가 - 0 실패.. 1 - 카루스 2 - 엘모라드..
+			int iNation = pkt.read<uint8_t>(); // 국가 - 0 실패.. 1 - 카루스 2 - 엘모라드..
 
 			if( 0 == iNation ) 	s_pPlayer->m_InfoBase.eNation = NATION_NOTSELECTED; // 아직 국가를 선택하지 않았다..
 			else if( 1 == iNation ) s_pPlayer->m_InfoBase.eNation = NATION_KARUS;

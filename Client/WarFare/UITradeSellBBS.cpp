@@ -15,6 +15,7 @@
 #include "PlayerMySelf.h"
 #include "UIManager.h"
 #include "LocalInput.h"
+#include "APISocket.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -188,17 +189,17 @@ bool CUITradeSellBBS::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	return true;
 }
 
-void CUITradeSellBBS::MsgRecv_TradeBBS(DataPack *pDataPack, int &iOffset)
+void CUITradeSellBBS::MsgRecv_TradeBBS(Packet& pkt)
 {
 	m_bProcessing	= false;
 
-	uint8_t bySubType	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	uint8_t byBBSKind	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	uint8_t byResult	= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	uint8_t bySubType	= pkt.read<uint8_t>();
+	uint8_t byBBSKind	= pkt.read<uint8_t>();
+	uint8_t byResult	= pkt.read<uint8_t>();
 
 	if(byResult != 0x01)
 	{
-		uint8_t bySubResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+		uint8_t bySubResult = pkt.read<uint8_t>();
 		if(bySubType == N3_SP_TYPE_BBS_OPEN)
 		{
 			char szBuf[256] = "";
@@ -290,10 +291,10 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(DataPack *pDataPack, int &iOffset)
 		SetVisible(false);
 		return;
 	}
-	MsgRecv_RefreshData(pDataPack, iOffset);
+	MsgRecv_RefreshData(pkt);
 }
 
-void CUITradeSellBBS::MsgRecv_RefreshData(DataPack *pDataPack, int &iOffset)
+void CUITradeSellBBS::MsgRecv_RefreshData(Packet& pkt)
 {
 	int iLen;
 	m_Datas.clear();
@@ -301,22 +302,22 @@ void CUITradeSellBBS::MsgRecv_RefreshData(DataPack *pDataPack, int &iOffset)
 	for( int i = 0 ; i < TRADE_BBS_MAX_LINE ; i++ )
 	{
 		__InfoTradeSellBBS Info;
-		Info.sID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		if(iLen>0) CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, Info.szID, iLen);
-		iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		if(iLen>0) CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, Info.szTitle, iLen);
-		iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		if(iLen>0) CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, Info.szExplanation, iLen);
-		Info.iPrice = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);		//아이템에 제시한 가격
-		Info.sIndex = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);		//등록된 인덱스
+		Info.sID = pkt.read<int16_t>();
+		iLen = pkt.read<int16_t>();
+		if(iLen>0) CAPISocket::Parse_GetString(pkt, Info.szID, iLen);
+		iLen = pkt.read<int16_t>();
+		if(iLen>0) CAPISocket::Parse_GetString(pkt, Info.szTitle, iLen);
+		iLen = pkt.read<int16_t>();
+		if(iLen>0) CAPISocket::Parse_GetString(pkt, Info.szExplanation, iLen);
+		Info.iPrice = pkt.read<uint32_t>();		//아이템에 제시한 가격
+		Info.sIndex = pkt.read<int16_t>();		//등록된 인덱스
 
 		if( Info.sID != -1 )
 			m_Datas.push_back(Info);
 	}
 
-	int16_t sPage = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int16_t sTotal = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int16_t sPage = pkt.read<int16_t>();
+	int16_t sTotal = pkt.read<int16_t>();
 
 	//TRACE("TRADE_BBS_PAGE:%d\n",sPage);
 	m_iCurPage = sPage;

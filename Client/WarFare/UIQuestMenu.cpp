@@ -11,8 +11,8 @@
 #include "GameProcedure.h"
 #include "UIQuestMenu.h"
 #include "UIManager.h"
-
 #include "PlayerOtherMgr.h"
+#include "APISocket.h"
 
 //-----------------------------------------------------------------------------
 CUIQuestMenu::CUIQuestMenu(void) {
@@ -139,7 +139,7 @@ void CUIQuestMenu::MsgSend_SelectMenu(Uint8 index)
 }
 
 //-----------------------------------------------------------------------------
-void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
+void CUIQuestMenu::Open(Packet& pkt)
 {
 	InitBase();
 
@@ -149,7 +149,7 @@ void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
 	std::string szMenu[MAX_STRING_MENU];
 
 	// NOTE: set the NPC name
-	int iNpcID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	int iNpcID = pkt.read<int16_t>();
 
 	CPlayerNPC* pNPC = CGameProcedure::s_pOPMgr->NPCGetByID(iNpcID, false);
 	if (pNPC == NULL) return;
@@ -157,7 +157,7 @@ void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
 	m_pStrNpcName->SetString(pNPC->IDString());
 
 	// NOTE: get the quest's main text
-	int index = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	int index = pkt.read<uint32_t>();
 
 	__TABLE_QUEST_TALK* pTbl_Quest_Talk = CGameBase::s_pTbl_QuestTalk->Find(index);
 	if(pTbl_Quest_Talk == NULL) return;
@@ -169,7 +169,7 @@ void CUIQuestMenu::Open(DataPack *pDataPack, int &iOffset)
 
 	for(int j=0;j<MAX_STRING_MENU;j++)
 	{
-		int iMenu = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		int iMenu = pkt.read<uint32_t>();
 		if( iMenu >= 0 )
 		{
 			__TABLE_QUEST_MENU* pTbl_Quest_Menu = CGameBase::s_pTbl_QuestMenu->Find(iMenu);

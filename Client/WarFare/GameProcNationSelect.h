@@ -17,7 +17,7 @@ public:
 	class CUINationSelectDlg* m_pUINationSelectDlg;	
 
 protected:
-	bool ProcessPacket(DataPack* pDataPack, int& iOffset);
+	virtual bool ProcessPacket(Packet& pkt);
 
 public:
 	void MsgSendNationSelect(e_Nation eNation);

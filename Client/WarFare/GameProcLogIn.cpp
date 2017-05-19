@@ -311,18 +311,18 @@ bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 	return true;
 }
 
-void CGameProcLogIn::MsgRecv_GameServerGroupList(DataPack* pDataPack, int& iOffset)
+void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 {
-	int iServerCount = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 서버 갯수
+	int iServerCount = pkt.read<uint8_t>();	// 서버 갯수
 	for(int i = 0; i < iServerCount; i++)
 	{
 		int iLen = 0;
 		__GameServerInfo GSI;
-		iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, GSI.szIP, iLen);
-		iLen = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, GSI.szName, iLen);
-		GSI.iConcurrentUserCount = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 현재 동시 접속자수..
+		iLen = pkt.read<int16_t>();
+		CAPISocket::Parse_GetString(pkt, GSI.szIP, iLen);
+		iLen = pkt.read<int16_t>();
+		CAPISocket::Parse_GetString(pkt, GSI.szName, iLen);
+		GSI.iConcurrentUserCount = pkt.read<int16_t>(); // 현재 동시 접속자수..
 		
 		m_pUILogIn->ServerInfoAdd(GSI); // ServerList
 	}
@@ -330,9 +330,9 @@ void CGameProcLogIn::MsgRecv_GameServerGroupList(DataPack* pDataPack, int& iOffs
 	m_pUILogIn->ServerInfoUpdate();
 }
 
-void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iOffset)
+void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 {
-	int iResult = CAPISocket::Parse_GetByte( pDataPack->m_pData, iOffset ); // Recv - b1(0:실패 1:성공 2:ID없음 3:PW틀림 4:서버점검중)
+	int iResult = pkt.read<uint8_t>(); // Recv - b1(0:실패 1:성공 2:ID없음 3:PW틀림 4:서버점검중)
 	if(1 == iResult) // 접속 성공..
 	{
 		// 모든 메시지 박스 닫기..
@@ -378,12 +378,12 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 	}
 	else if(5 == iResult) // 어떤 넘이 접속해 있다. 서버에게 끊어버리라고 하자..
 	{
-		int iLen = CAPISocket::Parse_GetShort( pDataPack->m_pData, iOffset );
-		if(iOffset > 0)
+		int iLen = pkt.read<int16_t>();
+		if(pkt.rpos() < pkt.wpos())
 		{
 			std::string szIP;
-			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szIP, iLen);
-			uint32_t dwPort = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			CAPISocket::Parse_GetString(pkt, szIP, iLen);
+			uint32_t dwPort = pkt.read<int16_t>();
 
 			CAPISocket socketTmp;
 			s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
@@ -425,9 +425,9 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, DataPack* pDataPack, int& iO
 	}
 }
 
-int CGameProcLogIn::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // virtual
+int CGameProcLogIn::MsgRecv_VersionCheck(Packet& pkt) // virtual
 {
-	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pDataPack, iOffset);
+	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pkt);
 	if(iVersion == CURRENT_VERSION)
 	{
 		CGameProcedure::MsgSend_GameServerLogIn(); // 게임 서버에 로그인..
@@ -437,9 +437,9 @@ int CGameProcLogIn::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // v
 	return iVersion;
 }
 
-int CGameProcLogIn::MsgRecv_GameServerLogIn(DataPack* pDataPack, int& iOffset) // virtual - 국가번호를 리턴한다.
+int CGameProcLogIn::MsgRecv_GameServerLogIn(Packet& pkt) // virtual - 국가번호를 리턴한다.
 {
-	int iNation = CGameProcedure::MsgRecv_GameServerLogIn(pDataPack, iOffset); // 국가 - 0 없음 0xff - 실패..
+	int iNation = CGameProcedure::MsgRecv_GameServerLogIn(pkt); // 국가 - 0 없음 0xff - 실패..
 
 	if( 0xff == iNation )
 	{
@@ -488,24 +488,26 @@ int CGameProcLogIn::MsgRecv_GameServerLogIn(DataPack* pDataPack, int& iOffset) /
 }
 
 
-bool CGameProcLogIn::ProcessPacket(DataPack* pDataPack, int& iOffset)
+bool CGameProcLogIn::ProcessPacket(Packet& pkt)
 {
-	int iOffsetPrev = iOffset;
-	if(false == CGameProcedure::ProcessPacket(pDataPack, iOffset)) iOffset = iOffsetPrev;
-	else return true;
+	size_t rpos = pkt.rpos();
+	if (CGameProcedure::ProcessPacket(pkt))
+		return true;
+
+	pkt.rpos(rpos);
 
 	s_pPlayer->m_InfoBase.eNation = NATION_UNKNOWN;
-	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
+	int iCmd = pkt.read<uint8_t>();	// 커멘드 파싱..
 	s_pPlayer->m_InfoBase.eNation = NATION_UNKNOWN;
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
 		case N3_GAMESERVER_GROUP_LIST: // 접속하면 바로 보내준다..
-			this->MsgRecv_GameServerGroupList(pDataPack, iOffset);
+			this->MsgRecv_GameServerGroupList(pkt);
 			return true;
 
 		case N3_ACCOUNT_LOGIN: // 계정 접속 성공..
 		case N3_ACCOUNT_LOGIN_MGAME: // MGame 계정 접속 성공..
-			this->MsgRecv_AccountLogIn(iCmd, pDataPack, iOffset);
+			this->MsgRecv_AccountLogIn(iCmd, pkt);
 			return true;
 	}
 

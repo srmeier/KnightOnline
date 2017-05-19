@@ -10,6 +10,7 @@
 #include "GameProcedure.h"
 #include "UIQuestTalk.h"
 #include "UIManager.h"
+#include "APISocket.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -34,20 +35,20 @@ CUIQuestTalk::~CUIQuestTalk()
 {
 }
 
-void CUIQuestTalk::Open(DataPack *pDataPack, int &iOffset)
+void CUIQuestTalk::Open(Packet& pkt)
 {
 	m_iNumTalk = 0;
 	m_iCurTalk = 0;
 
 	// NOTE(srmeier): two -1s before text ids
-	int index = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-	index = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+	int index = pkt.read<uint32_t>();
+	index = pkt.read<uint32_t>();
 
 	for(int i=0;i<MAX_STRING_TALK;i++)
 	{
 		m_szTalk[i] = "";
 
-		index = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		index = pkt.read<uint32_t>();
 		__TABLE_QUEST_TALK* pTbl_Quest_Talk = CGameBase::s_pTbl_QuestTalk->Find(index);
 		if(pTbl_Quest_Talk)
 		{

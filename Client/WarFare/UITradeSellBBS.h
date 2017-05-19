@@ -11,7 +11,6 @@
 
 #include "GameDef.h"
 #include "PacketDef.h"
-#include "APISocket.h"
 #include "N3UIBase.h"
 #include "UIMessageBox.h"
 #include "UITradeExplanation.h"
@@ -98,8 +97,8 @@ public:
 	void MsgSend_RefreshData(int iCurPage);
 	void RefreshPage();
 	bool SelectedString(CN3UIBase* pSender, int& iID);
-	void MsgRecv_RefreshData(DataPack* pDataPack, int &iOffset);
-	void MsgRecv_TradeBBS(DataPack* pDataPack, int &iOffset);
+	void MsgRecv_RefreshData(Packet& pkt);
+	void MsgRecv_TradeBBS(Packet& pkt);
 	void SetContentString(int iIndex, std::string szID, int iPrice, std::string szTitle);
 
 	void SetBBSKind(uint8_t byKind){ m_byBBSKind = byKind; }

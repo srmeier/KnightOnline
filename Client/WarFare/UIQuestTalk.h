@@ -11,7 +11,6 @@
 
 #include "N3UIBase.h"
 #include "PacketDef.h"
-#include "APISocket.h"
 
 #define MAX_STRING_TALK		10
 
@@ -30,7 +29,7 @@ public:
 	bool OnKeyPress(int iKey);
 	bool Load(HANDLE hFile);
 	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
-	void Open(class DataPack* pDataPack, int& iOffset);
+	void Open(Packet& pkt);
 	CUIQuestTalk();
 	virtual ~CUIQuestTalk();
 

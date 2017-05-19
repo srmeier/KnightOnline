@@ -191,7 +191,7 @@ void KOSocket::OnRead()
 
 		// Verify the packet was created successfully.
 		// This should never happened as it's guaranteed to contain an opcode as per the above checks.
-		if (pkt.size() == 0)
+		if (pkt.wpos() == 0)
 		{
 			TRACE("%s: Packet has no opcode.\n", GetRemoteIP().c_str());
 			Disconnect();

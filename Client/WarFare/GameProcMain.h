@@ -92,104 +92,104 @@ public:
 	int			KM_COUNT;
 
 protected:
-	bool	ProcessPacket(DataPack* pDataPack, int& iOffset);
+	virtual bool ProcessPacket(Packet& pkt);
 
-	bool	MsgRecv_CharacterSelect(DataPack* pDataPack, int& iOffset); // virtual
-	int		MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset); // virtual
+	bool	MsgRecv_CharacterSelect(Packet& pkt); // virtual
+	int		MsgRecv_VersionCheck(Packet& pkt); // virtual
 
-	bool	MsgRecv_MyInfo_All(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_MyInfo_HP(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_MyInfo_MSP(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_MyInfo_EXP(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_MyInfo_LevelChange(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_MyInfo_RealmPoint(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_MyInfo_PointChange(DataPack* pDataPack, int& iOffset);
+	bool	MsgRecv_MyInfo_All(Packet& pkt);
+	void	MsgRecv_MyInfo_HP(Packet& pkt);
+	void	MsgRecv_MyInfo_MSP(Packet& pkt);
+	void	MsgRecv_MyInfo_EXP(Packet& pkt);
+	bool	MsgRecv_MyInfo_LevelChange(Packet& pkt);
+	void	MsgRecv_MyInfo_RealmPoint(Packet& pkt);
+	void	MsgRecv_MyInfo_PointChange(Packet& pkt);
 
-	bool	MsgRecv_Chat(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_UserMove(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_Rotation(DataPack* pDataPack, int& iOffset);
-//	bool	MsgRecv_Dead(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_Regen(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Corpse(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_Time(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_Weather(DataPack* pDataPack, int& iOffset);
+	bool	MsgRecv_Chat(Packet& pkt);
+	bool	MsgRecv_UserMove(Packet& pkt);
+	bool	MsgRecv_Rotation(Packet& pkt);
+//	bool	MsgRecv_Dead(Packet& pkt);
+	bool	MsgRecv_Regen(Packet& pkt);
+	void	MsgRecv_Corpse(Packet& pkt);
+	bool	MsgRecv_Time(Packet& pkt);
+	bool	MsgRecv_Weather(Packet& pkt);
 	
-	bool	MsgRecv_UserInAndRequest(DataPack* pDataPack, int& iOffset);		// 주위 영역의 모든 User 아이디를 카운트만큼 받는다... 글구.. 업데이트가 필요한 것만 서버에게 요청..
-	bool	MsgRecv_UserInRequested(DataPack* pDataPack, int& iOffset);					// 서버에게 요청한 유저의 아이디들을 받아서 User 처리..
-	bool	MsgRecv_UserInOut(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_UserIn(DataPack* pDataPack, int& iOffset, bool bWithFX=false);
-	bool	MsgRecv_UserOut(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_UserState(DataPack* pDataPack, int& iOffset);
+	bool	MsgRecv_UserInAndRequest(Packet& pkt);		// 주위 영역의 모든 User 아이디를 카운트만큼 받는다... 글구.. 업데이트가 필요한 것만 서버에게 요청..
+	bool	MsgRecv_UserInRequested(Packet& pkt);					// 서버에게 요청한 유저의 아이디들을 받아서 User 처리..
+	bool	MsgRecv_UserInOut(Packet& pkt);
+	bool	MsgRecv_UserIn(Packet& pkt, bool bWithFX=false);
+	bool	MsgRecv_UserOut(Packet& pkt);
+	void	MsgRecv_UserState(Packet& pkt);
 
-	bool	MsgRecv_NPCInAndRequest(DataPack* pDataPack, int& iOffset);		// 주위 영역의 모든 NPC 아이디를 카운트만큼 받는다... 글구.. 업데이트가 필요한 것만 서버에게 요청..
-	bool	MsgRecv_NPCInRequested(DataPack* pDataPack, int& iOffset);				// 서버에게 요청한 NPC 아이디들을 받아서 User 처리..
-	bool	MsgRecv_NPCInOut(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_NPCIn(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_NPCOut(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_NPCMove(DataPack* pDataPack, int& iOffset);
+	bool	MsgRecv_NPCInAndRequest(Packet& pkt);		// 주위 영역의 모든 NPC 아이디를 카운트만큼 받는다... 글구.. 업데이트가 필요한 것만 서버에게 요청..
+	bool	MsgRecv_NPCInRequested(Packet& pkt);				// 서버에게 요청한 NPC 아이디들을 받아서 User 처리..
+	bool	MsgRecv_NPCInOut(Packet& pkt);
+	bool	MsgRecv_NPCIn(Packet& pkt);
+	bool	MsgRecv_NPCOut(Packet& pkt);
+	bool	MsgRecv_NPCMove(Packet& pkt);
 
-	bool	MsgRecv_Attack(DataPack* pDataPack, int& iOffset);
-	bool	MsgRecv_Dead(DataPack* pDataPack, int& iOffset);
+	bool	MsgRecv_Attack(Packet& pkt);
+	bool	MsgRecv_Dead(Packet& pkt);
 
-	bool	MsgRecv_ItemMove(DataPack* pDataPack, int& iOffset);					// Item Move에 대한 응답..
-	bool	MsgRecv_ItemBundleDrop(DataPack* pDataPack, int& iOffset);			// Item 이 필드에 나타나는데에 대한 응답
-	bool	MsgRecv_ItemBundleOpen(DataPack* pDataPack, int& iOffset);			// 아이템 상자를 열거나 시체를 뒤진다..
-	bool	MsgRecv_ItemTradeStart(DataPack* pDataPack, int& iOffset);			// 아이템 상거래..
-	bool	MsgRecv_ItemTradeResult(DataPack* pDataPack, int& iOffset);			// 아이템 상거래 결과..
-	bool	MsgRecv_ItemDroppedGetResult(DataPack* pDataPack, int& iOffset);	// 땅에 떨어진 아이템 먹기 결과..
-	bool	MsgRecv_ItemWeightChange(DataPack* pDataPack, int& iOffset);		// 아이템 무게 변화..
+	bool	MsgRecv_ItemMove(Packet& pkt);					// Item Move에 대한 응답..
+	bool	MsgRecv_ItemBundleDrop(Packet& pkt);			// Item 이 필드에 나타나는데에 대한 응답
+	bool	MsgRecv_ItemBundleOpen(Packet& pkt);			// 아이템 상자를 열거나 시체를 뒤진다..
+	bool	MsgRecv_ItemTradeStart(Packet& pkt);			// 아이템 상거래..
+	bool	MsgRecv_ItemTradeResult(Packet& pkt);			// 아이템 상거래 결과..
+	bool	MsgRecv_ItemDroppedGetResult(Packet& pkt);	// 땅에 떨어진 아이템 먹기 결과..
+	bool	MsgRecv_ItemWeightChange(Packet& pkt);		// 아이템 무게 변화..
 
-	bool	MsgRecv_UserLookChange(DataPack* pDataPack, int& iOffset);			// 겉모습이 바뀐다.. 아이템 착용등
+	bool	MsgRecv_UserLookChange(Packet& pkt);			// 겉모습이 바뀐다.. 아이템 착용등
 
-	void	MsgRecv_TargetHP(DataPack* pDataPack, int& iOffset);
+	void	MsgRecv_TargetHP(Packet& pkt);
 
-	void	MsgRecv_ZoneChange(DataPack* pDataPack, int& iOffset);			// 걍 단순한 존 체인지.
+	void	MsgRecv_ZoneChange(Packet& pkt);			// 걍 단순한 존 체인지.
 
-	void	MsgRecv_Notice(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_PartyOrForce(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_PerTrade(DataPack* pDataPack, int& iOffset);
+	void	MsgRecv_Notice(Packet& pkt);
+	void	MsgRecv_PartyOrForce(Packet& pkt);
+	void	MsgRecv_PerTrade(Packet& pkt);
 
-	void	MsgRecv_SkillChange(DataPack* pDataPack, int& iOffset);			// 스킬 변화..
-	void	MsgRecv_MagicProcess(DataPack* pDataPack, int& iOffset);			// 스킬 변화..
-	void	MsgRecv_ClassChange(DataPack* pDataPack, int& iOffset);			// 직업 변화..
-	void	MsgRecv_ObjectEvent(DataPack* pDataPack, int& iOffset);			// 오브젝트 이벤트 신청에 대한 응답
+	void	MsgRecv_SkillChange(Packet& pkt);			// 스킬 변화..
+	void	MsgRecv_MagicProcess(Packet& pkt);			// 스킬 변화..
+	void	MsgRecv_ClassChange(Packet& pkt);			// 직업 변화..
+	void	MsgRecv_ObjectEvent(Packet& pkt);			// 오브젝트 이벤트 신청에 대한 응답
 
-	void	MsgRecv_DurabilityChange(DataPack* pDataPack, int& iOffset);		// 내구력 변경..
-	void	MsgRecv_NpcEvent(DataPack* pDataPack, int& iOffset);				// Npc Event(Exchange, Repair both).. 
+	void	MsgRecv_DurabilityChange(Packet& pkt);		// 내구력 변경..
+	void	MsgRecv_NpcEvent(Packet& pkt);				// Npc Event(Exchange, Repair both).. 
 
-	void	MsgRecv_Knights(DataPack* pDataPack, int& iOffset);				// 기사단 조작 관련 패킷..
-	void	MsgRecv_KnightsListBasic(DataPack* pDataPack, int& iOffset);		// 기사단 기본 정보들..
+	void	MsgRecv_Knights(Packet& pkt);				// 기사단 조작 관련 패킷..
+	void	MsgRecv_KnightsListBasic(Packet& pkt);		// 기사단 기본 정보들..
 	
-	void	MsgRecv_CompressedPacket(DataPack* pDataPack, int& iOffset);		// 압축된 패킷이다... 압축 풀고 루프를 돌면서 한번더 파싱해야 한다!!!
-	void	MsgRecv_ContinousPacket(DataPack* pDataPack, int& iOffset);		// 붙어서 오는 패킷이다.. 루프를 돌면서 한번더 파싱해야 한다!!!
+	void	MsgRecv_CompressedPacket(Packet& pkt);		// 압축된 패킷이다... 압축 풀고 루프를 돌면서 한번더 파싱해야 한다!!!
+	void	MsgRecv_ContinousPacket(Packet& pkt);		// 붙어서 오는 패킷이다.. 루프를 돌면서 한번더 파싱해야 한다!!!
 
-	void	MsgRecv_ItemRepair(DataPack* pDataPack, int& iOffset);			// Item Repair Result.. 
-	void	MsgRecv_ItemCountChange(DataPack* pDataPack, int& iOffset);		// Item Count Change..
-	void	MsgRecv_ItemDestroy(DataPack* pDataPack, int& iOffset);			// Item Count Change..
+	void	MsgRecv_ItemRepair(Packet& pkt);			// Item Repair Result.. 
+	void	MsgRecv_ItemCountChange(Packet& pkt);		// Item Count Change..
+	void	MsgRecv_ItemDestroy(Packet& pkt);			// Item Count Change..
 
-	void	MsgRecv_WareHouse(DataPack* pDataPack, int& iOffset);			// 보관함 관련 패킷..
-	void	MsgRecv_WareHouseOpen(DataPack* pDataPack, int& iOffset);		// 보관함 오픈..
+	void	MsgRecv_WareHouse(Packet& pkt);			// 보관함 관련 패킷..
+	void	MsgRecv_WareHouseOpen(Packet& pkt);		// 보관함 오픈..
 
-	void	MsgRecv_NpcChangeOpen(DataPack* pDataPack, int& iOffset);		// Class Change와 초기화..
-	void	MsgRecv_AllPointInit(DataPack* pDataPack, int& iOffset);			// All Point 초기화..
-	void	MsgRecv_SkillPointInit(DataPack* pDataPack, int& iOffset);		// Skill Point 초기화..
-	void	MsgRecv_PointChangePriceQueryRequest(DataPack* pDataPack, int& iOffset);		// 가격에 대한 응답 패킷..
+	void	MsgRecv_NpcChangeOpen(Packet& pkt);		// Class Change와 초기화..
+	void	MsgRecv_AllPointInit(Packet& pkt);			// All Point 초기화..
+	void	MsgRecv_SkillPointInit(Packet& pkt);		// Skill Point 초기화..
+	void	MsgRecv_PointChangePriceQueryRequest(Packet& pkt);		// 가격에 대한 응답 패킷..
 
-	void	MsgRecv_NoahChange(DataPack* pDataPack, int& iOffset);			// 노아 변경..
-	void	MsgRecv_WarpList(DataPack* pDataPack, int& iOffset);				// 워프 리스트..
-//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(DataPack* pDataPack, int& iOffset);			// 서버 IP 와 포트를 받아 동접자를 체크해 본다..
-//	void	MsgRecv_ConcurrentUserCountAndSendServerCheck(DataPack* pDataPack, int& iOffset);
+	void	MsgRecv_NoahChange(Packet& pkt);			// 노아 변경..
+	void	MsgRecv_WarpList(Packet& pkt);				// 워프 리스트..
+//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt);			// 서버 IP 와 포트를 받아 동접자를 체크해 본다..
+//	void	MsgRecv_ConcurrentUserCountAndSendServerCheck(Packet& pkt);
 	
 	//knights...
-	void	MsgRecv_Knights_Create(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knights_Withdraw(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knights_Join(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knights_Leave(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knights_AppointViceChief(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knights_MemberInfoAll(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knights_GradeChangeAll(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knights_Duty_Change(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Knigts_Join_Req(DataPack* pDataPack, int& iOffset);
+	void	MsgRecv_Knights_Create(Packet& pkt);
+	void	MsgRecv_Knights_Withdraw(Packet& pkt);
+	void	MsgRecv_Knights_Join(Packet& pkt);
+	void	MsgRecv_Knights_Leave(Packet& pkt);
+	void	MsgRecv_Knights_AppointViceChief(Packet& pkt);
+	void	MsgRecv_Knights_MemberInfoAll(Packet& pkt);
+	void	MsgRecv_Knights_GradeChangeAll(Packet& pkt);
+	void	MsgRecv_Knights_Duty_Change(Packet& pkt);
+	void	MsgRecv_Knigts_Join_Req(Packet& pkt);
 
 public:
 	void	ProcessUIKeyInput(bool bEnable = true);

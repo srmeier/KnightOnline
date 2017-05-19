@@ -882,7 +882,7 @@ void CKnightsManager::RegisterClanSymbol(CUser* pUser, Packet & pkt)
 	// Invalid symbol size (or invalid packet)
 	else if (sSymbolSize == 0 
 		|| sSymbolSize > MAX_KNIGHTS_MARK
-		|| pkt.size() < sSymbolSize)
+		|| pkt.wpos() < sSymbolSize)
 		sFailCode = 13;
 	// User doesn't have enough coins
 	else if (pUser->m_iGold < CLAN_SYMBOL_COST)

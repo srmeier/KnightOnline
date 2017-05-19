@@ -180,7 +180,7 @@ public:
 	//void	VisibleAppointButtons(bool bVisible); // 기사단장 전용 임명 Interface
 	
 	//void	MsgSend_MemberInfoOnline(int iPage);
-	bool	MsgRecv_MemberInfo(class DataPack* pDataPack, int& iOffset);
+	bool	MsgRecv_MemberInfo(Packet& pkt);
 	
 	//void	MsgSend_MemberJoinAdmit();
 	//void	MsgSend_MemberJoinReject();
@@ -230,7 +230,7 @@ public:
 	void		SaveListToTextFile(const std::string& szID);  // 문자열이 있으면 추가하고.. 없으면 몽땅 저장..
 	void		MsgSend_MemberInfo(bool bDisableInterval); // 현재 페이지 정보 요청
 	void		MsgSend_MemberInfo(const std::string& szID); // 이넘만 요청..
-	void		MsgRecv_MemberInfo(DataPack* pDataPack, int& iOffset);
+	void		MsgRecv_MemberInfo(Packet& pkt);
 	void		UpdateList();
 	bool		MemberDelete(const std::string& szID);
 	bool		MemberAdd(const std::string& szID, int iID, bool bOnLine, bool bIsParty);

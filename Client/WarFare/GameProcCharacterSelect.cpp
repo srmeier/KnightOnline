@@ -627,11 +627,11 @@ void CGameProcCharacterSelect::AddChrPart(	int iPosIndex,
 	}
 }
 
-void CGameProcCharacterSelect::MsgRecv_DeleteChr(DataPack* pDataPack, int& iOffset)
+void CGameProcCharacterSelect::MsgRecv_DeleteChr(Packet& pkt)
 {
 	uint8_t byResult, byIndex; 
-	byResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
-	byIndex  = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);
+	byResult = pkt.read<uint8_t>();
+	byIndex  = pkt.read<uint8_t>();
 	
 	if ( byResult == 0x01 )
 	{
@@ -648,9 +648,9 @@ void CGameProcCharacterSelect::MsgRecv_DeleteChr(DataPack* pDataPack, int& iOffs
 	}
 }
 
-int	CGameProcCharacterSelect::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOffset) // virtual
+int	CGameProcCharacterSelect::MsgRecv_VersionCheck(Packet& pkt) // virtual
 {
-	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pDataPack, iOffset);
+	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pkt);
 	if(iVersion == CURRENT_VERSION)
 	{
 		this->MsgSend_CharacterSelect(); // 게임 서버에 로그인..
@@ -660,9 +660,9 @@ int	CGameProcCharacterSelect::MsgRecv_VersionCheck(DataPack* pDataPack, int& iOf
 }
 
 
-bool CGameProcCharacterSelect::MsgRecv_CharacterSelect(DataPack* pDataPack, int& iOffset) // virtual
+bool CGameProcCharacterSelect::MsgRecv_CharacterSelect(Packet& pkt) // virtual
 {
-	bool bSuccess = CGameProcedure::MsgRecv_CharacterSelect(pDataPack, iOffset);
+	bool bSuccess = CGameProcedure::MsgRecv_CharacterSelect(pkt);
 
 	if(bSuccess) this->CharacterSelect(); // 캐릭터를 일으킨다..
 	else this->CharacterSelectFailed();
@@ -1286,43 +1286,43 @@ void CGameProcCharacterSelect::DecreseLightFactor()
 	}
 }
 
-void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(DataPack* pDataPack, int& iOffset)
+void CGameProcCharacterSelect::MsgRecv_AllCharacterInfo(Packet& pkt)
 {
-	int iResult = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 결과..
+	int iResult = pkt.read<uint8_t>(); // 결과..
 	if(0x1 == iResult)
 	{
 		for(int i = 0; i < MAX_AVAILABLE_CHARACTER; i++)
 		{
-			int iIDLength = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 캐릭터 아이디 길이 s,
+			int iIDLength = pkt.read<int16_t>(); // 캐릭터 아이디 길이 s,
 
-			CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
+			CAPISocket::Parse_GetString(pkt, m_InfoChrs[i].szID, iIDLength);// 캐릭터 아이디 문자열 str
 
-			m_InfoChrs[i].eRace			= (e_Race)(CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset)); // 종족 b
-			m_InfoChrs[i].eClass		= (e_Class)(CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset)); // 직업 b
-			m_InfoChrs[i].iLevel		= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 레벨 b
-			m_InfoChrs[i].iFace			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 얼굴모양 b
-			m_InfoChrs[i].iHair			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // 머리모양 b
-			m_InfoChrs[i].iZone			= CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset); // zone number
+			m_InfoChrs[i].eRace			= (e_Race)(pkt.read<uint8_t>()); // 종족 b
+			m_InfoChrs[i].eClass		= (e_Class)(pkt.read<int16_t>()); // 직업 b
+			m_InfoChrs[i].iLevel		= pkt.read<uint8_t>(); // 레벨 b
+			m_InfoChrs[i].iFace			= pkt.read<uint8_t>(); // 얼굴모양 b
+			m_InfoChrs[i].iHair			= pkt.read<uint8_t>(); // 머리모양 b
+			m_InfoChrs[i].iZone			= pkt.read<uint8_t>(); // zone number
 
-			m_InfoChrs[i].dwItemHelmet				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 투구 dw
-			m_InfoChrs[i].iItemHelmetDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemUpper				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 상체 dw
-			m_InfoChrs[i].iItemUpperDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemCloak				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 어깨(망토) dw
-			m_InfoChrs[i].iItemCloakDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemHelmet				= pkt.read<uint32_t>(); // 투구 dw
+			m_InfoChrs[i].iItemHelmetDurability		= pkt.read<int16_t>(); // 내구성값
+			m_InfoChrs[i].dwItemUpper				= pkt.read<uint32_t>(); // 상체 dw
+			m_InfoChrs[i].iItemUpperDurability		= pkt.read<int16_t>(); // 내구성값
+			m_InfoChrs[i].dwItemCloak				= pkt.read<uint32_t>(); // 어깨(망토) dw
+			m_InfoChrs[i].iItemCloakDurability		= pkt.read<int16_t>(); // 내구성값
 
 			// NOTE(srmeier): this was added for 1298
-			uint32_t dwRightHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-			int iItemRightHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-			uint32_t dwLeftHand = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
-			int iItemLeftHandDurability = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+			uint32_t dwRightHand = pkt.read<uint32_t>();
+			int iItemRightHandDurability = pkt.read<int16_t>();
+			uint32_t dwLeftHand = pkt.read<uint32_t>();
+			int iItemLeftHandDurability = pkt.read<int16_t>();
 
-			m_InfoChrs[i].dwItemLower				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 하체 dw
-			m_InfoChrs[i].iItemLowerDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemGloves				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 장갑 dw
-			m_InfoChrs[i].iItemGlovesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
-			m_InfoChrs[i].dwItemShoes				= CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset); // 신발 dw
-			m_InfoChrs[i].iItemShoesDurability		= CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset); // 내구성값
+			m_InfoChrs[i].dwItemLower				= pkt.read<uint32_t>(); // 하체 dw
+			m_InfoChrs[i].iItemLowerDurability		= pkt.read<int16_t>(); // 내구성값
+			m_InfoChrs[i].dwItemGloves				= pkt.read<uint32_t>(); // 장갑 dw
+			m_InfoChrs[i].iItemGlovesDurability		= pkt.read<int16_t>(); // 내구성값
+			m_InfoChrs[i].dwItemShoes				= pkt.read<uint32_t>(); // 신발 dw
+			m_InfoChrs[i].iItemShoesDurability		= pkt.read<int16_t>(); // 내구성값
 		}
 
 		// 캐릭터 추가..
@@ -1351,21 +1351,23 @@ void CGameProcCharacterSelect::MsgSend_CharacterSelect() // virtual
 	s_pUIMgr->EnableOperationSet(false); // UI 를 조작 못하게 한다..
 }
 
-bool CGameProcCharacterSelect::ProcessPacket(DataPack* pDataPack, int& iOffset)
+bool CGameProcCharacterSelect::ProcessPacket(Packet& pkt)
 {
-	int iOffsetPrev = iOffset;
-	if(false == CGameProcedure::ProcessPacket(pDataPack, iOffset)) iOffset = iOffsetPrev;
-	else return true;
+	size_t rpos = pkt.rpos();
+	if (CGameProcedure::ProcessPacket(pkt))
+		return true;
 
-	int iCmd = CAPISocket::Parse_GetByte(pDataPack->m_pData, iOffset);	// 커멘드 파싱..
+	pkt.rpos(rpos);
+
+	int iCmd = pkt.read<uint8_t>();	// 커멘드 파싱..
 	switch ( iCmd )										// 커멘드에 다라서 분기..
 	{
 		case WIZ_ALLCHAR_INFO_REQ:				// 캐릭터 선택 메시지..
-			this->MsgRecv_AllCharacterInfo(pDataPack, iOffset);
+			this->MsgRecv_AllCharacterInfo(pkt);
 			s_pUIMgr->EnableOperationSet(true); // 캐릭터 정보가 다오면 UI 조작하게 한다..
 			return true;
 		case WIZ_DEL_CHAR:
-			this->MsgRecv_DeleteChr(pDataPack, iOffset);
+			this->MsgRecv_DeleteChr(pkt);
 			return true;
 	}
 	

@@ -11,6 +11,7 @@
 
 #include "My_3DStruct.h"
 #include "N3Base.h"
+#include "GameDef.h"
 
 #include <queue>
 #include <string>
@@ -22,17 +23,6 @@
 #ifdef _CRYPTION
 #include "JvCryption.h"
 #endif
-
-// TODO: Shift this logic into a separate header and generally clean this shared logic up
-#ifndef ASSERT
-	#if defined(_DEBUG)
-		#define ASSERT assert
-		#include <assert.h>
-	#else
-		#define ASSERT
-	#endif
-#endif
-#include "Packet.h"
 
 class BB_CircularBuffer  
 {
@@ -190,7 +180,7 @@ public:
 		__ASSERT(size, "size is 0");		
 		m_Size = size;
 		m_pData = new uint8_t[size];
-		CopyMemory(m_pData, pData, size);
+		memcpy(m_pData, pData, size);
 	}
 
 	virtual ~DataPack()
@@ -236,7 +226,7 @@ public:
 	static WSADATA		s_WSData;
 	
 	int					m_iSendByteCount;
-	std::queue< DataPack* >	m_qRecvPkt;
+	std::queue<Packet *> m_qRecvPkt;
 
 	BOOL	m_bEnableSend; // 보내기 가능..?
 public:
@@ -288,16 +278,7 @@ public:
 
 	}
 
-	//패킷 Parsing 함수
-	static	bool		Parse_GetBool(const uint8_t* buf, int &iOffset) { iOffset++; return *(uint8_t*)(buf+iOffset-1) != 0; }
-	static	uint8_t		Parse_GetByte(const uint8_t* buf, int &iOffset) { iOffset ++; return *(uint8_t*)(buf+iOffset-1); }
-	static	int16_t		Parse_GetShort(const uint8_t* buf, int& iOffset) { iOffset += 2; return *(int16_t*)(buf+iOffset-2); }
-	static  uint16_t		Parse_GetWord(const uint8_t* buf, int &iOffset) { iOffset += 2; return *(PWORD)(buf+iOffset-2); }
-	static	uint32_t		Parse_GetDword(const uint8_t* buf, int &iOffset) { iOffset += 4; return *(uint32_t*)(buf+iOffset-4); }
-	static	float		Parse_GetFloat(const uint8_t* buf, int& iOffset) { iOffset += 4; return *(float*)(buf+iOffset-4); }
-	static	void		Parse_GetString(const uint8_t* buf, int &iOffset, std::string& szString, int len);
-	static	int64_t		Parse_GetInt64(const uint8_t* buf, int &iOffset) { iOffset += 8; return *(int64_t*)(buf+iOffset-8); }
-	static	uint64_t	Parse_GetUInt64(const uint8_t* buf, int &iOffset) { iOffset += 8; return *(uint64_t*)(buf+iOffset-8); }
+	static	void		Parse_GetString(Packet& pkt, std::string& szString, int len);
 
 	CAPISocket();
 	virtual ~CAPISocket();

@@ -4,10 +4,10 @@
 
 //#include "stdafx.h"
 #include "resource.h"
-#include "UIKnightsOperation.h"
 #include "GameProcMain.h"
 #include "PacketDef.h"
 #include "APISocket.h"
+#include "UIKnightsOperation.h"
 
 #include "N3UIButton.h"
 #include "N3UIEdit.h"
@@ -245,21 +245,21 @@ void CUIKnightsOperation::Close()
 	if(m_pEdit_KnightsName) m_pEdit_KnightsName->KillFocus(); // 이래야 다른곳에 문제가 안생긴다..
 }
 
-bool CUIKnightsOperation::MsgRecv_KnightsList(DataPack* pDataPack, int& iOffset)
+bool CUIKnightsOperation::MsgRecv_KnightsList(Packet& pkt)
 {
-	m_iPageCur = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-	int iKC = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
+	m_iPageCur = pkt.read<int16_t>();
+	int iKC = pkt.read<int16_t>();
 	int iID, iNameLength, iMemberCount, iPoint;
 	std::string szName, szChiefName;
 	for(int i = 0; i < iKC; i++)
 	{
-		iID = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		iNameLength = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szName, iNameLength);
-		iMemberCount = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		iNameLength = CAPISocket::Parse_GetShort(pDataPack->m_pData, iOffset);
-		CAPISocket::Parse_GetString(pDataPack->m_pData, iOffset, szChiefName, iNameLength);
-		iPoint = CAPISocket::Parse_GetDword(pDataPack->m_pData, iOffset);
+		iID = pkt.read<int16_t>();
+		iNameLength = pkt.read<int16_t>();
+		CAPISocket::Parse_GetString(pkt, szName, iNameLength);
+		iMemberCount = pkt.read<int16_t>();
+		iNameLength = pkt.read<int16_t>();
+		CAPISocket::Parse_GetString(pkt, szChiefName, iNameLength);
+		iPoint = pkt.read<uint32_t>();
 
 		this->KnightsListAdd(iID, szName, szChiefName, iMemberCount, iPoint); // UI 에 추가..
 	}

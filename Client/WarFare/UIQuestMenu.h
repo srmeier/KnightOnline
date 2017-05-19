@@ -11,7 +11,6 @@
 
 #include "N3UIBase.h"
 #include "PacketDef.h"
-#include "APISocket.h"
 
 #define MAX_STRING_MENU	10//5
 
@@ -44,7 +43,7 @@ public:
 	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void	InitBase();
 	bool	Load(HANDLE hFile);
-	void	Open(class DataPack* pDataPack, int& iOffset);
+	void	Open(Packet& pkt);
 
 	CUIQuestMenu();
 	virtual ~CUIQuestMenu();

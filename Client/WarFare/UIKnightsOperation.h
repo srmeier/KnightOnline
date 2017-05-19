@@ -67,7 +67,7 @@ public:
 	void	KnightsListUpdate();
 	void	KnightsListClear();
 
-	bool	MsgRecv_KnightsList(class DataPack* pDataPack, int& iOffset);
+	bool	MsgRecv_KnightsList(Packet& pkt);
 	void	MsgSend_KnightsCreate();
 	void	MsgSend_KnightsDestroy();
 	void	MsgSend_KnightsJoin();

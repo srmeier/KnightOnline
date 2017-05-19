@@ -16,7 +16,8 @@
 #include "LocalInput.h"
 #include "UIMessageBoxManager.h"
 #include "SubProcPerTrade.h"
-#include "ShellApi.h"
+#include <shellapi.h>
+#include "APISocket.h"
 
 #include "N3UIButton.h"
 #include "N3UIString.h"

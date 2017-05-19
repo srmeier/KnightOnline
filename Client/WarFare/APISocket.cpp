@@ -61,11 +61,10 @@ void CAPISocket::Release()
 {
 	this->Disconnect();
 
-	DataPack* pBuf;
-	while ( m_qRecvPkt.size() > 0 )
+	while (!m_qRecvPkt.empty())
 	{
-		pBuf = m_qRecvPkt.front();
-		delete pBuf;
+		auto pkt = m_qRecvPkt.front();
+		delete pkt;
 		m_qRecvPkt.pop();
 	}
 
@@ -290,8 +289,7 @@ BOOL CAPISocket::ReceiveProcess()
 			{
 				if ( PACKET_TAIL == ntohs(*((uint16_t*)(pData+iCount-2))) ) // 패킷 꼬리 부분 검사..
 				{
-					
-					DataPack *pDP = new DataPack;
+					Packet * pkt = new Packet();
 					if (TRUE == s_bCryptionFlag)
 					{
 						static uint8_t pTBuf[RECEIVE_BUF_SIZE];
@@ -309,19 +307,15 @@ BOOL CAPISocket::ReceiveProcess()
 							uint8_t  empty = pTBuf[4];
 							uint8_t* payload = &pTBuf[5];
 
-							pDP->m_Size = siCore - 5;
-							pDP->m_pData = new uint8_t[pDP->m_Size];
-							memcpy(pDP->m_pData, payload, pDP->m_Size);
+							pkt->append(payload, siCore - 5);
 						}
 					}
 					else
 					{
-						pDP->m_Size = siCore;
-						pDP->m_pData = new uint8_t[siCore];
-						memcpy(pDP->m_pData, pData + 4, siCore);
+						pkt->append(pData + 4, siCore);
 					}
 
-					m_qRecvPkt.push(pDP);
+					m_qRecvPkt.push(pkt);
 					m_CB.HeadIncrease(siCore + 6); // 환형 버퍼 인덱스 증가 시키기..
 					bFoundTail = TRUE;
 #ifdef _DEBUG
@@ -419,18 +413,20 @@ void CAPISocket::Send(uint8_t* pData, int nSize)
 	m_iSendByteCount += nTotalSize;
 }
 
-void CAPISocket::Parse_GetString(const uint8_t* buf, int &iOffset, std::string& szString, int len)
+void CAPISocket::Parse_GetString(Packet& pkt, std::string& szString, int len)
 {
 	if (len > 0)
 	{
 		szString.assign(len, ' ');
-		memcpy(&(szString[0]), buf + iOffset, len);
-		iOffset += len;
+		pkt.read(&szString[0], len);
 	}
-	else if(len == 0) szString = "";
+	else if (len == 0)
+	{
+		szString.clear();
+	}
 	else 
 	{
-		szString = "";
+		szString.clear();
 		CLogWriter::Write("CAPISocket::Parse_GetString -> Invalid string length");
 	}
 }

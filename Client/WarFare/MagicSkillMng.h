@@ -129,11 +129,11 @@ public:
 	uint32_t	GetMagicID(int idx);
 		
 	bool	MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSkill);
-	void	MsgRecv_Casting(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Flying(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Effecting(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_Fail(DataPack* pDataPack, int& iOffset);
-	void	MsgRecv_BuffType(DataPack* pDataPack, int& iOffset);
+	void	MsgRecv_Casting(Packet& pkt);
+	void	MsgRecv_Flying(Packet& pkt);
+	void	MsgRecv_Effecting(Packet& pkt);
+	void	MsgRecv_Fail(Packet& pkt);
+	void	MsgRecv_BuffType(Packet& pkt);
 	
 	void	Init();
 	void	Tick();	
