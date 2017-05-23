@@ -1,0 +1,618 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script language="JavaScript" type="text/javascript">
+    function clickmenu(btn) {
+        var submenus = getElementsByClass("sub");
+        var thesub = getElementsByClass("sub", btn);
+        var display = false;
+        if (thesub.length)
+            if (thesub[0].style.display == "none")
+                display = true;
+
+        for (var i = 0; i < submenus.length; i++)//reset menus
+            submenus[i].style.display = "none"
+
+        if (display) {
+            thesub[0].style.display = "";
+            makemenu(btn);
+        }
+        else
+            makemenu(window);
+    }
+    addEvent(window, 'load', makemenu);
+
+    function makemenu(btn) {
+        var iBtns = getElementsByClass("menubutton").length;
+        var high = iBtns * 38; //34 button height + 4 spacer
+        var subhigh = 0;
+        if (btn.className)//small check to catch if its not a window load
+            subhigh = getElementsByClass("submenubutton", btn).length * 24; //24 pixels each
+
+        $("back").height = high + subhigh;
+        $("menumiddle").style.top = -(high + subhigh) + "px";
+        $("menu").style.height = high + subhigh + 124 - 30 + "px";
+    }
+</script>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            @Html.Partial("_Menu")
+            <td width="100%" valign="top" align="left">
+                <div style="margin-left: 50px;">
+
+                    <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="260" valign="top"><div align="right"><img src="~/Content/Website/images/crashkologo.png"></div></td>
+                                                <!--2nd Column, Divider-->
+                                                <td width="30"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                <!--3rd Column, Right Navigation-->
+                                                <td width="710" valign="top">
+                                                    <table width="620" border="0" cellspacing="0" cellpadding="0" class="maintext">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><img src="~/Content/Website/images/title_support_policies.gif" width="618" height="65"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="text">
+                                                                        <table width="556" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td colspan="3"><img src="~/Content/Website/images/tble_top.gif" width="556" height="49"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_left.gif">&nbsp;</td>
+                                                                                    <td width="530" align="left" valign="top">
+                                                                                        <table class="text" rules="all" bordercolor="#25120B" style="    font-size: 11px;" border="0" cellspacing="0" cellpadding="6" width="530">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="102" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Name</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="82" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Location</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="142" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Drop</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="36" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Level</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="52" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">HP</strong></div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Antares</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Breth, Piana</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Level 35 Magician Spell,    Scorpion Scythe</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">50</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">6,903</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Attila</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Breth, Piana</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Priest Pendant</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">85</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">26,895</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Bach</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Ring of Life</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">65</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">13,356</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Barkirra</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Sword of Beast, Fang of    Barkirra</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">60</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">864</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Barrkk</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Tooth, Barrk Tooth</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">55</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">792</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Bishop</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Ring of Magic</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">60</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">10,890</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Bone Collector</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Skull Hammer</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">60</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">10,890</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Deruvish Founder</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        Opal  ring, Agate Ring, Ruby Ring, Diamond Ring, Emerald Ring, Gold Ring, Silver  Ring, Elf Ring, Crystal Ring, Platinum Ring
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">90</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">26,092</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#e7dbc3">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Dragon Tooth Skeleton</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Breth, Piana,    Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Dragon Tooth Hammer</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">80</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">22,914</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Duke</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Ring of Courage</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">55</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">8,746</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Harpy Queen</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Feather of Harpy Queen,    Magician Earring, Warrior Earring, Priest Earring, Rogue Earring.</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">100</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">33,230</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Hyde</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Breth, Piana</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Sword of the Dead</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">45</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">5,337</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Javana</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Javana Axe, Two-handed    Javana Axe</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">65</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">13,356</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Kekurikekukaka</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Moradon</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Kekuri Belt Kekuri Ring</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">30</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">2,079</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Lesath</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone, Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Chitin Shield, Chitin Bow,    Tail of Lesath</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">75</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">19,345</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Lobo</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Lobo Hammer, Staff, Pendant</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">45</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">962</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Lupus</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Lupus Hammer, Staff,    Pendant</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">50</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">1,080</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Lycaon</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Lycaon Hammer, Staff,    Pendant</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">55</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">1,188</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Orc Bandit Leader</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Holy Water of Temple</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">&nbsp;</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">227,340</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Orc Bandit Officer(Archer)</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">High Class Items</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">100</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">27,692</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Orc Bandit Officer(Mage)</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">High Class Items</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">100</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">27,692</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Orc Bandit Officer(Warrior)</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">High Class Items</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">100</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">55,384</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Samma</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Colony Zone, Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Gigantic Axe, Two-handed    Gigantic Axe</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">90</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">31,311</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Shaula</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Colony Zone, Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Scorpion Shield, Scorpion,    Bow, Tail of Shaula</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">75</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">19,345</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Snake Queen</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Amulet of Curse, Amulet of Strength,    Amulet of Dexterity, Amulet of Intelligence, Amulet of Magic Power, Amulet of    Health, Elemental Necklace, Crystal Necklace, Iron Necklace, Amulet of    Goddess, Blue Dragon Necklace, Red Dragon Amulet, Black Dragon Necklace,    Green Dragon Amulet, White Dragon Amulet</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">100</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">150,000</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Talos</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">Belt of Life, Mana Belt,    Fire Belt, Ice Belt, Lightning Belt, Crystal Belt, Iron Belt, Bronze Belt,    Glass Belt, Belt of Strength, Belt of Dexterity, Belt of Intelligence, Elf    Belt, Belt of Curse, Skeleton Belt, Harpy Belt.</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">140</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#d4c6ab" class="text">
+                                                                                                        <font color="black">120,000</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr bgcolor="#FFFFFF">
+                                                                                                    <td width="102" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Troll King</font>
+                                                                                                    </td>
+                                                                                                    <td width="82" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Eslant</font>
+                                                                                                    </td>
+                                                                                                    <td width="142" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">Bronze Earring, Silver    Earring, Gold Earrin, Crystal Earring, Platinum Earring, Elf Earring, Secret    Silver Earring, White Silver Earring, Agate Earring, Opal Earring</font>
+                                                                                                    </td>
+                                                                                                    <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">110</font>
+                                                                                                    </td>
+                                                                                                    <td width="52" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                        <font color="black">179,250</font>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+
+                                                                                    </td>
+                                                                                    <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_right.gif">&nbsp;</td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td colspan="3"><img src="~/Content/Website/images/tble_btm.gif" width="556" height="49"></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="headertext">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="15"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <map name="MapMap">
+                                        <area shape="rect" coords="20,2,83,17" href="#">
+                                        <area shape="rect" coords="87,2,164,17" href="#">
+                                    </map>
+                                    <map name="Map2Map">
+                                        <area shape="rect" coords="1,6,46,49" href="#">
+                                    </map>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

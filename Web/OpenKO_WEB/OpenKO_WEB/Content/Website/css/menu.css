@@ -1,0 +1,84 @@
+
+
+
+
+
+/*
+     FILE ARCHIVED ON 0:38:33 Oca 2, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 7:10:53 Aðu 13, 2015.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+.menutop {
+	background: url("../images/menu-top.gif") no-repeat;
+	width: 202px;
+	height: 62px;
+}
+.menubottom {
+	background: url("../images/menu-bottom.gif") no-repeat;
+	width: 202px;
+	height: 62px;
+	position:relative;
+	top:-30px;
+	z-index:-1;
+}
+.menumiddle {
+	width:202px;
+	position:relative;
+	top:-13px;
+}
+.menubutton a {
+	display:block;
+	margin-left: 26px;
+	width:149px;
+	height:34px;
+	background: url("../images/menu-button.gif") 0 0 no-repeat;
+	color: #000000;
+	text-decoration: none;
+	text-align:center;
+	line-height:34px;/*aligns the text to the v-align= middle*/
+	cursor:pointer;
+	margin-top:4px;
+	z-index:1;
+}
+.menubutton a:hover {
+	background-position: -149px 0;
+}
+.menubutton a:active {
+	background-position: -298px 0;
+}
+.disable a, .disable a:hover, .disable a:active {
+	background-position: -447px 0;
+}
+.submenubutton {
+	width:149px;
+	height:24px;
+	background: url("../images/submenu-button2.gif") 0 0 no-repeat;
+	margin-left: 26px;
+}
+.submenubutton a, .submenubutton a:hover,.submenubutton a:active {
+	display:block;
+	width:149px;
+	height:24px;
+	color: #c8bb95;
+	text-decoration: none;
+	text-align:left;
+	line-height:24px;/*aligns the text to the v-align= middle*/
+	padding-left: 23px;
+	background: url("../images/bullet.gif") no-repeat;
+	background-position: 5px 4px;
+	position:relative;
+	margin-left:0px;
+	margin-top:0px;
+	font-size: 12px;
+}
+.submenubutton a img {
+	width:16px;
+	height:16px;
+	position:absolute;
+	left: 5px;
+	top:4px;
+	border: none;
+}

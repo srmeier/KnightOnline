@@ -1,0 +1,332 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script language="JavaScript" type="text/javascript">
+    function clickmenu(btn) {
+        var submenus = getElementsByClass("sub");
+        var thesub = getElementsByClass("sub", btn);
+        var display = false;
+        if (thesub.length)
+            if (thesub[0].style.display == "none")
+                display = true;
+
+        for (var i = 0; i < submenus.length; i++)//reset menus
+            submenus[i].style.display = "none"
+
+        if (display) {
+            thesub[0].style.display = "";
+            makemenu(btn);
+        }
+        else
+            makemenu(window);
+    }
+    addEvent(window, 'load', makemenu);
+
+    function makemenu(btn) {
+        var iBtns = getElementsByClass("menubutton").length;
+        var high = iBtns * 38; //34 button height + 4 spacer
+        var subhigh = 0;
+        if (btn.className)//small check to catch if its not a window load
+            subhigh = getElementsByClass("submenubutton", btn).length * 24; //24 pixels each
+
+        $("back").height = high + subhigh;
+        $("menumiddle").style.top = -(high + subhigh) + "px";
+        $("menu").style.height = high + subhigh + 124 - 30 + "px";
+    }
+</script>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            @Html.Partial("_Menu")
+            <td width="100%" valign="top" align="left">
+                <div style="margin-left: 50px;">
+
+                    <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="260" valign="top"><div align="right"><img src="~/Content/Website/images/crashkologo.png"></div></td>
+                                                <!--2nd Column, Divider-->
+                                                <td width="30"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                <!--3rd Column, Right Navigation-->
+                                                <td width="710" valign="top">
+                                                    <table width="620" border="0" cellspacing="0" cellpadding="0" class="maintext">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><img src="~/Content/Website/images/title_support_policies.gif" width="618" height="65"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <table width="556" border="0" cellspacing="0" cellpadding="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td colspan="3"><img src="~/Content/Website/images/tble_top.gif" width="556" height="49"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_left.gif">&nbsp;</td>
+                                                                                <td width="530" align="left" valign="top">
+                                                                                    <table width="530" rules="all" bordercolor="#25120B" border="0" cellspacing="0" cellpadding="4">
+                                                                                        <tbody>
+                                                                                            <tr height="16">
+                                                                                                <td class="text" colspan="2" bgcolor="#25120B" height="16">
+                                                                                                    <div align="center">
+                                                                                                        <span class="textwhite" style="position: relative;"><b style="color:#fff">Game Vocabulary</b></span>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>NPC</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Non Playing Character</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>STR</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Strength</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>INT</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Intelligence</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>DEX</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Dexterity</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>HP</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Health Points</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>MP</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Mana Points</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>CSW</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Castle Siege War</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>LW</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Lunar War</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>DLW</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Dark Lunar War </td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>GM</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Game master</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>PK</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">people kill</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>CZ</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Colony Zone</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>Rezzer</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Priest that can resurrect people</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>slm</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">"hi" in Turkish (short for Selam)</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>farm</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">to mass kill a certain monster for money or items</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>noob</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">A new player</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>chicken</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">New player who is currently on the beginners quest</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>Mule/Bank</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Character that is used to hold valuable items</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>Leech/Leecher</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">to gain experience from the party while doing nothing </td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>exp or xp</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">experience</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>tnl</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">to next level</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>++++</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">buff</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>&lt;&lt;&lt;&lt; or &gt;&gt;&gt;&gt;</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">swift</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td class="text" colspan="2" bgcolor="#25120B">
+                                                                                                    <div align="center">
+                                                                                                        <span class="textwhite"><b style="color:#fff">Chat Related Lingo</b></span>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>gn</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">good night</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>bb</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">bye bye</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>afk</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">away from keyboard</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>brb</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">be right back</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>lol</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">laughing out loud</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>rofl</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">rolling on the floor laughing</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>omg</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">oh my goodness</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>wb</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">welcome back</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td class="text" colspan="2" bgcolor="#25120B">
+                                                                                                    <div align="center">
+                                                                                                        <span class="textwhite"><b style="color:#fff">Monsters and Bosses</b></span>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>DT</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Dragon Tooth (Boss)</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>TK</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Troll King (Boss)</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>DF</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Deruvish Founder (Boss)</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>HQ</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Harpy Queen</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>BC</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Bone Collector</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>deru</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Deruvish</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>apos</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Apostle</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>DM</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Dark Mare</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>FA</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Fallen Angel</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>DTS</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Dragon Tooth Skeleton</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#e7dbc3" class="text"><strong>AK</strong></td>
+                                                                                                <td bgcolor="#e7dbc3" class="text">Ash Knight</td>
+                                                                                            </tr>
+                                                                                            <tr bgcolor="#FFFFFF">
+                                                                                                <td width="106" bgcolor="#d4c6ab" class="text"><strong>DK</strong></td>
+                                                                                                <td bgcolor="#d4c6ab" class="text">Death Knight</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_right.gif">&nbsp;</td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td colspan="3"><img src="~/Content/Website/images/tble_btm.gif" width="556" height="49"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="headertext">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="15"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <map name="MapMap">
+                                        <area shape="rect" coords="20,2,83,17" href="#">
+                                        <area shape="rect" coords="87,2,164,17" href="#">
+                                    </map>
+                                    <map name="Map2Map">
+                                        <area shape="rect" coords="1,6,46,49" href="#">
+                                    </map>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+        
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

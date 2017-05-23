@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+        
+            <td width="100%" valign="top" align="left">
+                <div style="margin-left: 50px;">
+
+
+                    <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="260" valign="top"><div align="right"><img src="~/Content/website/images/nav_left_downloads.gif" width="204" height="278" border="0" usemap="#Map3"></div></td>
+ <!--2nd Column, Divider-->
+                                                <td width="30"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                <!--3rd Column, Right Navigation-->
+                                                <td width="710" valign="top">
+                                                    <table width="620" border="0" cellspacing="0" cellpadding="0" class="maintext">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><img src="~/Content/Website/images/title_download_video.gif" width="618" height="65"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><img src="~/Content/Website/images/under_dev.gif" width="556" height="337"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <map name="MapMap">
+                                        <area shape="rect" coords="20,2,83,17" href="#">
+                                        <area shape="rect" coords="87,2,164,17" href="#">
+                                    </map>
+                                    <map name="Map2Map">
+                                        <area shape="rect" coords="1,6,46,49" href="#">
+                                    </map>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<map name="Map3">
+    <area shape="rect" coords="29,57,174,88" href="@Url.Action("GameClient")">
+    <area shape="rect" coords="29,93,174,123" href="@Url.Action("Wallpaper")">
+    <area shape="rect" coords="29,128,174,156" href="@Url.Action("Screenshots")">
+    <area shape="rect" coords="29,163,174,191" href="@Url.Action("ConceptArt")">
+    <area shape="rect" coords="29,198,174,226" href="@Url.Action("Video")">
+</map>

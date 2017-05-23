@@ -1,0 +1,140 @@
+﻿
+@{
+    Layout = null;
+}
+
+<table width="184" border="0" align="left" cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td width="50%" height="25" ><span class="style1">Server Status</span></td>
+            <td width="50%" align="left">
+                <div style="overflow: hidden; height: 10px; position: relative; margin: -5px 0 0 -85px;">
+                    <table width="80" height="8" border="0" cellspacing="1" cellpadding="0">
+                        <tbody>
+                            <tr height="8">
+                                <td bgcolor="green">&nbsp;</td>
+                                <td bgcolor="green">&nbsp;</td>
+                                <td bgcolor="green">&nbsp;</td>
+                                <td bgcolor="green">&nbsp;</td>
+                                <td bgcolor="yellow">&nbsp;</td>
+                                <td bgcolor="yellow">&nbsp;</td>
+                                <td bgcolor="yellow">&nbsp;</td>
+                                <td bgcolor="yellow">&nbsp;</td>
+                                <td bgcolor="red">&nbsp;</td>
+                                <td bgcolor="red">&nbsp;</td>
+                                <td bgcolor="red">&nbsp;</td>
+                                <td bgcolor="red">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="@Url.Action("GameClient","Home")"><img src="~/Content/Website/images/freetoplay_btn.gif" alt="Download Now!" height="97" width="196" border="0"></a></td>
+        </tr>
+       
+        @if (General.User == null)
+        {
+            <tr>
+                <td>
+                    <div style="margin-top: 20px;">
+                        <img src="~/Content/Website/images/home_login_top.gif" width="181" height="113">
+                    </div>
+                </td>
+            </tr>
+            @ViewBag.LoginError
+            <tr>
+                <td>
+                    <form action="@Url.Action("Login","Home")" method="post">
+                        <input type="hidden" name="redirect" value="">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td width="122" height="66" valign="top" background="~/Content/Website/images/home_login_mid1.gif">
+                                        <div style="margin: 0px 0px 0px 35px; display: block;">
+                                            <input type="text" name="UserName" maxlength="11" size="7" required="">
+                                        </div>
+                                        <div style="margin: 0px 0px 0px 35px; display: block;">
+                                            <input type="Password" name="Password" maxlength="11" size="7" required="">
+                                        </div>
+                                    </td>
+                                    <td width="47" valign="top">
+                                        <input id="loginbtn" type="image" value="Submit" src="~/Content/Website/images/home_login_mid2bt.gif" align="top" width="47" height="67" border="0">
+                                    </td>
+                                    <td valign="top"><div align="left"><img src="~/Content/Website/images/home_login_mid3.gif" width="12" height="67"></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+            
+            <tr>
+                <td><img src="~/Content/Website/images/home_login_bottom.gif" width="181" height="29" border="0" usemap="#MapMap"></td>
+            </tr>
+             <tr>
+            <td>
+                @if (TempData["Hata"] != null)
+                {
+                    <div style="color: #F00;">@TempData["Hata"]</div>
+                    TempData["Hata"] = null;
+                }
+                @if (TempData["Bilgi"] != null)
+                {
+                    <div style="color: #F00;">@TempData["Bilgi"]</div>
+                    TempData["Bilgi"] = null;
+                }
+            </td>
+        </tr>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    <div style="color: #000;">
+                        Welcome @General.User.strAccountID         
+                    </div>
+                    <div style="color: #000; background-image: url(/Content/Website/images/home_logged_top.gif); width:181px;height:113px; ">
+                        <br />
+                        <div style="line-height: 2; margin: 40px 0 0 10px; ">
+                            <a href="@Functions.ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/UserCP/Home/Index"), false)" style="color: #000;">MyKOL</a><br />
+                            <a href="@Functions.ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/Home/logout"), false)" style="color: #000;">Logout</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td height="25"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+            <td height="25"></td>
+        </tr>
+        <tr>
+            <td><a href="@Url.Action("GameClient","Home")"><img src="~/Content/Website/images/side_joinknights.gif" width="184" height="331" border="0"></a></td>
+        </tr>
+        <tr>
+            <td height="25"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+            <td height="10"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+            <td><a href="@Url.Action("NewPlayers", "Home")"><img src="~/Content/Website/images/side_playguide.gif" width="184" height="111" border="0"></a></td>
+        </tr>
+        <tr>
+            <td height="10"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+            <td><a href="@Url.Action("FAQ","Home")"><img src="~/Content/Website/images/side_faq.png" width="184" height="109" border="0"></a></td>
+        </tr>
+        <tr>
+            <td height="10"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+            <td><a href="#"><img src="~/Content/Website/images/side_powerupstore.gif" width="184" height="109" border="0"></a></td>
+        </tr>
+    </tbody>
+</table>

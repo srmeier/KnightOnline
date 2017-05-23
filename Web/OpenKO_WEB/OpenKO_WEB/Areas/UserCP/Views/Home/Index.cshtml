@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using OpenKO_WEB.Models;
+<map name="Map3">
+    <area shape="rect" coords="29,57,174,88" href="@Functions.ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/UserCP/Home/Index"), false)">
+    <area shape="rect" coords="29,93,174,123" href="@Functions.ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/UserCP/Home/ChangePassword"), false)">
+</map>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            <td width="100%" valign="top" align="left">
+                <div style="margin-left: 50px;">
+
+                    <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="260" valign="top"><div align="right"><img src="~/Content/website/images/nav_left_mykol.png" width="204" height="173" border="0" usemap="#Map3"></div></td>
+
+                                                <!--2nd Column, Dividok er-->
+                                                <td width="40"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                <!--3rd Column, Right Navigation-->
+                                                <td valign="top">
+                                                    <table width="710" border="0" cellspacing="0" cellpadding="0" class="maintext">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><img src="~/Content/Website/images/title_account_information.png"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td valign="top">
+                                                                    <table width="556" border="0" cellspacing="0" cellpadding="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td colspan="3"><img src="/Content/Website/images/tble_top.gif" width="556" height="49"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td width="13" valign="bottom" background="/Content/Website/images/news_slice_left.gif">&nbsp;</td>
+                                                                                <td width="530" align="left" valign="top">
+                                                                                    <table border="0" rules="all" bordercolor="#25120B" width="530" cellspacing="0" cellpadding="4" align="center">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#d4c6ab" width="87" valign="top">Account ID</td>
+                                                                                                <td class="text" bgcolor="#d4c6ab" width="184" valign="top">@General.User.strAccountID</td>
+                                                                                            </tr>
+
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#d4c6ab" width="87" valign="top">Country</td>
+                                                                                                <td class="text" bgcolor="#d4c6ab" width="184" valign="top">@Functions.GetCountry(General.User.CountryId)  </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#e7dbc3" width="87" valign="top">Email</td>
+                                                                                                <td class="text" bgcolor="#e7dbc3" width="184" valign="top">@General.User.strEmail</td>
+                                                                                            </tr>
+
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td width="13" valign="bottom" background="/Content/Website/images/news_slice_right.gif">&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="3"><img src="/Content/Website/images/tble_btm.gif" width="556" height="49"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="headertext">&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="15"><img src="/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

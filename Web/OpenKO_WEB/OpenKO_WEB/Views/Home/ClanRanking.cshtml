@@ -1,0 +1,189 @@
+﻿@model List<KNIGHTS>
+@using OpenKO_WEB.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script language="JavaScript" type="text/javascript">
+    function clickmenu(btn) {
+        var submenus = getElementsByClass("sub");
+        var thesub = getElementsByClass("sub", btn);
+        var display = false;
+        if (thesub.length)
+            if (thesub[0].style.display == "none")
+                display = true;
+
+        for (var i = 0; i < submenus.length; i++)//reset menus
+            submenus[i].style.display = "none"
+
+        if (display) {
+            thesub[0].style.display = "";
+            makemenu(btn);
+        }
+        else
+            makemenu(window);
+    }
+    addEvent(window, 'load', makemenu);
+
+    function makemenu(btn) {
+        var iBtns = getElementsByClass("menubutton").length;
+        var high = iBtns * 38; //34 button height + 4 spacer
+        var subhigh = 0;
+        if (btn.className)//small check to catch if its not a window load
+            subhigh = getElementsByClass("submenubutton", btn).length * 24; //24 pixels each
+
+        $("back").height = high + subhigh;
+        $("menumiddle").style.top = -(high + subhigh) + "px";
+        $("menu").style.height = high + subhigh + 124 - 30 + "px";
+    }
+</script>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            @Html.Partial("_Menu")
+            <td width="100%" valign="top" align="left">
+                <div style="margin-left: 50px;">
+
+                    <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="260" valign="top"><div align="right"><img src="~/Content/Website/images/crashkologo.png"></div></td>
+                                                <!--2nd Column, Divider-->
+                                                <td width="30"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                <!--3rd Column, Right Navigation-->
+                                                <td width="710" valign="top">
+                                                    <table width="620" border="0" cellspacing="0" cellpadding="0" class="maintext">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><img src="~/Content/Website/images/title_support_policies.gif" width="618" height="65"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="text">
+                                                                        <table width="556" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td colspan="3"><img src="~/Content/Website/images/tble_top.gif" width="556" height="49"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_left.gif">&nbsp;</td>
+                                                                                    <td width="530" align="left" valign="top">
+                                                                                        <table class="text" rules="all" bordercolor="#25120B" style="    font-size: 11px;" border="0" cellspacing="0" cellpadding="6" width="530">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                   
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="50" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Nation</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="82" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Clan</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="142" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Leader</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="36" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Members</strong></div>
+                                                                                                    </td>
+                                                                                                    <td class="textwhite" bgcolor="#25120B" width="52" nowrap="" valign="bottom">
+                                                                                                        <div align="center"><strong style="color:#fff;">Points</strong></div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                @foreach (var item in Model)
+                                                                                                {
+                                                                                                    <tr bgcolor="#FFFFFF">
+                                                                                                        <td width="50" valign="top" align="center" bgcolor="#e7dbc3" class="text">
+                                                                                                            @if (item.Nation == 1)
+                                                                                                            {
+                                                                                                                <img src="~/Content/Website/Images/1.gif" />
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                <img src="~/Content/Website/Images/2.gif" />
+                                                                                                            }
+                                                                                                        </td>
+                                                                                                        <td width="142" valign="top" align="center" bgcolor="#e7dbc3" class="text">
+                                                                                                            <font color="black">@item.IDName</font>
+                                                                                                        </td>
+                                                                                                        <td width="36" align="center" valign="top" bgcolor="#e7dbc3" class="text">
+                                                                                                            <font color="black">@item.Chief</font>
+                                                                                                        </td>
+                                                                                                        <td width="52" valign="top" align="center" bgcolor="#e7dbc3" class="text">
+                                                                                                            <font color="black">@item.Members</font>
+                                                                                                        </td>
+                                                                                                        <td width="52" valign="top" align="center" bgcolor="#e7dbc3" class="text">
+                                                                                                            <font color="black">@item.Points</font>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                }
+                                                                                            </tbody>
+                                                                                        </table>
+
+                                                                                    </td>
+                                                                                    <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_right.gif">&nbsp;</td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td colspan="3"><img src="~/Content/Website/images/tble_btm.gif" width="556" height="49"></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="headertext">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="15"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <map name="MapMap">
+                                        <area shape="rect" coords="20,2,83,17" href="#">
+                                        <area shape="rect" coords="87,2,164,17" href="#">
+                                    </map>
+                                    <map name="Map2Map">
+                                        <area shape="rect" coords="1,6,46,49" href="#">
+                                    </map>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+   
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

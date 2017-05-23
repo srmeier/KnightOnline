@@ -1,0 +1,847 @@
+﻿@model OpenKO_WEB.Models.TB_USER
+@using OpenKO_WEB.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+<head>
+    <title>Create Account for OpenKO</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="~/Content/build/css/intlTelInput.css">
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tbody>
+            <tr>
+                <td width="100%" valign="top" align="left">
+                    <form name="@Url.Action("Register","Home")" action="" method="post">
+                        <div style="margin-left: 50px;">
+                            <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="40" valign="top"><div align="right"></div></td>
+                                                        <!--2nd Column, Dividok er-->
+                                                        <td width="40"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                        <!--3rd Column, Right Navigation-->
+                                                        <td valign="top">
+                                                            <table width="840" border="0" cellspacing="0" cellpadding="0" class="maintext">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><img src="~/Content/Website/images/title_account_registration.gif" width="840" height="65"></td>
+                                                                    </tr>
+                                                         
+                                                                    <tr>
+                                                                        <td class="headertext">
+                                                                            <div>
+                                                                                @if (TempData["Error"] != null)
+                                                                                {
+                                                                                    <div style="color: #F00; margin-left: 300px;">@TempData["Error"]</div>
+                                                                                    TempData["Error"] = null;
+                                                                                }
+                                                                                @if (TempData["Information"] != null)
+                                                                                {
+                                                                                    <div style="color: #317102; margin-left: 300px;">@TempData["Information"]</div>
+                                                                                    TempData["Information"] = null;
+                                                                                }
+                                                                            </div>
+                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+
+                                                                                                <tbody>
+
+
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header"><strong>CREATE YOUR ACCOUNT</strong></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="maintext">
+                                                                                                            Knight Online
+                                                                                                            is free to play. Please enjoy exploring fantastic
+                                                                                                            world of Knight Online!
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header"><strong>Account Information</strong></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="maintext">
+                                                                                                            Please use combination
+                                                                                                            of letters and digits. Do not use symbols. Account
+                                                                                                            ID and passwords can be created upto 11 characters
+                                                                                                            maximum.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td width="137" class="maintext">Account ID:</td>
+                                                                                                        <td width="413" class="maintext">
+                                                                                                            <input type="text" name="strAccountID" maxlength="11" size="15" style="FONT-SIZE: 8pt" required="">
+                                                                                                            (Required)
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td width="137" class="maintext">Password:</td>
+                                                                                                        <td width="413" class="maintext">
+                                                                                                            <input type="password" name="strPasswd" maxlength="11" size="15" style="FONT-SIZE: 8pt" required="">
+                                                                                                            (Required)
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td width="137" class="maintext">Password confrim:</td>
+                                                                                                        <td width="413" class="maintext">
+                                                                                                            <input type="password" name="repassword" maxlength="11" size="15" style="FONT-SIZE: 8pt" required="">
+                                                                                                            (Required)
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header">
+                                                                                                            <strong>
+                                                                                                                <font size="2">
+                                                                                                                    Personal
+                                                                                                                    Information
+                                                                                                                </font>
+                                                                                                            </strong>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr class="maintext">
+                                                                                                        <td>First name:</td>
+                                                                                                        <td>
+                                                                                                            <input name="FirstName" type="text" id="firstname" size="30" maxlength="60" style="FONT-SIZE: 8pt" required="">
+                                                                                                            (Required)
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr class="maintext">
+                                                                                                        <td>Last name:</td>
+                                                                                                        <td>
+                                                                                                            <input name="LastName" type="text" id="lastname" size="30" maxlength="60" style="FONT-SIZE: 8pt" required="">
+                                                                                                            (Required)
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr class="maintext">
+                                                                                                        <td>Email address:</td>
+                                                                                                        <td>
+                                                                                                            <input name="strEmail" type="text" size="22" maxlength="30" style="FONT-SIZE: 8pt" required="">
+
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr class="maintext">
+                                                                                                        <td>Gender:</td>
+                                                                                                        <td>
+                                                                                                            <input name="Gender" type="radio" value="1" checked="">
+                                                                                                            Male
+                                                                                                            <input name="Gender" type="radio" value="0">
+                                                                                                            Female
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr class="maintext">
+                                                                                                        <td>Phone number:</td>
+                                                                                                        <td>
+                                                                                                              <br />
+                                                                                                            <input id="phone" name="phone" type="tel" maxlength="15" required="">
+                                                                                                            <input id="hidden" type="hidden" name="phone-full">
+
+                                                                                                          
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+
+                                                                                                    <tr class="maintext">
+                                                                                                        <td>Country</td>
+                                                                                                        <td>
+                                                                                                            @Html.DropDownListFor(d => d.CountryId, Functions.GetCountryList(), new { BorderStyle = "None" })
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header">
+                                                                                                            <strong>
+                                                                                                                Security
+                                                                                                                Information
+                                                                                                            </strong>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">
+                                                                                                            <span class="maintext">
+                                                                                                                Please enter
+                                                                                                                your birth date for future identification purposes
+                                                                                                                and verification. You are required to provide
+                                                                                                                this date in order to reset your password, or
+                                                                                                                access your account information. This information
+                                                                                                                will not be available for viewing after this registration
+                                                                                                                is complete. It is crucial to provide legit information.
+                                                                                                                OpenKO Gaming will not have any access to birthday
+                                                                                                                and security question. Please REMEMBER your correct
+                                                                                                                birthday and the answer to the security question.
+                                                                                                                As with password, OpenKO Gaming will never ask for
+                                                                                                                your birthday and your security answer(favorite
+                                                                                                                movie).<br>
+                                                                                                            </span><br> <span class="header">
+                                                                                                                <font size="2">
+                                                                                                                    <strong>
+                                                                                                                        Birth
+                                                                                                                        Date:
+                                                                                                                    </strong>
+                                                                                                                </font>
+                                                                                                            </span>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="maintext">
+                                                                                                            <select name="birthmonth" style="FONT-SIZE: 8pt">
+                                                                                                                <option selected="Selected" value="">
+                                                                                                                    Choose Month
+                                                                                                                </option>
+                                                                                                                <option value="1">
+                                                                                                                    January
+                                                                                                                </option>
+                                                                                                                <option value="2">
+                                                                                                                    February
+                                                                                                                </option>
+                                                                                                                <option value="3">
+                                                                                                                    March
+                                                                                                                </option>
+                                                                                                                <option value="4">
+                                                                                                                    April
+                                                                                                                </option>
+                                                                                                                <option value="5">
+                                                                                                                    May
+                                                                                                                </option>
+                                                                                                                <option value="6">
+                                                                                                                    June
+                                                                                                                </option>
+                                                                                                                <option value="7">
+                                                                                                                    July
+                                                                                                                </option>
+                                                                                                                <option value="8">
+                                                                                                                    August
+                                                                                                                </option>
+                                                                                                                <option value="9">
+                                                                                                                    September
+                                                                                                                </option>
+                                                                                                                <option value="10">
+                                                                                                                    October
+                                                                                                                </option>
+                                                                                                                <option value="11">
+                                                                                                                    November
+                                                                                                                </option>
+                                                                                                                <option value="12">December </option>
+                                                                                                            </select> <select name="birthday" style="FONT-SIZE: 8pt">
+                                                                                                                <option value="" selected="selected">
+                                                                                                                    Day
+
+                                                                                                                </option>
+                                                                                                                <option value="1">
+                                                                                                                    1
+                                                                                                                </option>
+                                                                                                                <option value="2">
+                                                                                                                    2
+                                                                                                                </option>
+                                                                                                                <option value="3">
+                                                                                                                    3
+                                                                                                                </option>
+                                                                                                                <option value="4">
+                                                                                                                    4
+                                                                                                                </option>
+                                                                                                                <option value="5">
+                                                                                                                    5
+                                                                                                                </option>
+                                                                                                                <option value="6">
+                                                                                                                    6
+                                                                                                                </option>
+                                                                                                                <option value="7">
+                                                                                                                    7
+                                                                                                                </option>
+                                                                                                                <option value="8">
+                                                                                                                    8
+                                                                                                                </option>
+                                                                                                                <option value="9">
+                                                                                                                    9
+                                                                                                                </option>
+                                                                                                                <option value="10">
+                                                                                                                    10
+                                                                                                                </option>
+                                                                                                                <option value="11">
+                                                                                                                    11
+                                                                                                                </option>
+                                                                                                                <option value="12">
+                                                                                                                    12
+                                                                                                                </option>
+                                                                                                                <option value="13">
+                                                                                                                    13
+                                                                                                                </option>
+                                                                                                                <option value="14">
+                                                                                                                    14
+                                                                                                                </option>
+                                                                                                                <option value="15">
+                                                                                                                    15
+                                                                                                                </option>
+                                                                                                                <option value="16">
+                                                                                                                    16
+                                                                                                                </option>
+                                                                                                                <option value="17">
+                                                                                                                    17
+                                                                                                                </option>
+                                                                                                                <option value="18">
+                                                                                                                    18
+                                                                                                                </option>
+                                                                                                                <option value="19">
+                                                                                                                    19
+                                                                                                                </option>
+                                                                                                                <option value="20">
+                                                                                                                    20
+                                                                                                                </option>
+                                                                                                                <option value="21">
+                                                                                                                    21
+                                                                                                                </option>
+                                                                                                                <option value="22">
+                                                                                                                    22
+                                                                                                                </option>
+                                                                                                                <option value="23">
+                                                                                                                    23
+                                                                                                                </option>
+                                                                                                                <option value="24">
+                                                                                                                    24
+                                                                                                                </option>
+                                                                                                                <option value="25">
+                                                                                                                    25
+                                                                                                                </option>
+                                                                                                                <option value="26">
+                                                                                                                    26
+                                                                                                                </option>
+                                                                                                                <option value="27">
+                                                                                                                    27
+                                                                                                                </option>
+                                                                                                                <option value="28">
+                                                                                                                    28
+                                                                                                                </option>
+                                                                                                                <option value="29">
+                                                                                                                    29
+                                                                                                                </option>
+                                                                                                                <option value="30">
+                                                                                                                    30
+                                                                                                                </option>
+                                                                                                                <option value="31">
+                                                                                                                    31
+                                                                                                                </option>
+                                                                                                            </select> <select name="birthyear" style="FONT-SIZE: 8pt">
+                                                                                                                <option value="">
+                                                                                                                    Year
+
+                                                                                                                </option>
+                                                                                                                <option value="1932">
+                                                                                                                    1932
+                                                                                                                </option>
+                                                                                                                <option value="1933">
+                                                                                                                    1933
+                                                                                                                </option>
+                                                                                                                <option value="1934">
+                                                                                                                    1934
+                                                                                                                </option>
+                                                                                                                <option value="1935">
+                                                                                                                    1935
+                                                                                                                </option>
+                                                                                                                <option value="1936">
+                                                                                                                    1936
+                                                                                                                </option>
+                                                                                                                <option value="1937">
+                                                                                                                    1937
+                                                                                                                </option>
+                                                                                                                <option value="1938">
+                                                                                                                    1938
+                                                                                                                </option>
+                                                                                                                <option value="1939">
+                                                                                                                    1939
+                                                                                                                </option>
+                                                                                                                <option value="1940">
+                                                                                                                    1940
+                                                                                                                </option>
+                                                                                                                <option value="1941">
+                                                                                                                    1941
+                                                                                                                </option>
+                                                                                                                <option value="1942">
+                                                                                                                    1942
+                                                                                                                </option>
+                                                                                                                <option value="1943">
+                                                                                                                    1943
+                                                                                                                </option>
+                                                                                                                <option value="1944">
+                                                                                                                    1944
+                                                                                                                </option>
+                                                                                                                <option value="1945">
+                                                                                                                    1945
+                                                                                                                </option>
+                                                                                                                <option value="1946">
+                                                                                                                    1946
+                                                                                                                </option>
+                                                                                                                <option value="1947">
+                                                                                                                    1947
+                                                                                                                </option>
+                                                                                                                <option value="1948">
+                                                                                                                    1948
+                                                                                                                </option>
+                                                                                                                <option value="1949">
+                                                                                                                    1949
+                                                                                                                </option>
+                                                                                                                <option value="1950">
+                                                                                                                    1950
+                                                                                                                </option>
+                                                                                                                <option value="1951">
+                                                                                                                    1951
+                                                                                                                </option>
+                                                                                                                <option value="1952">
+                                                                                                                    1952
+                                                                                                                </option>
+                                                                                                                <option value="1953">
+                                                                                                                    1953
+                                                                                                                </option>
+                                                                                                                <option value="1954">
+                                                                                                                    1954
+                                                                                                                </option>
+                                                                                                                <option value="1955">
+                                                                                                                    1955
+                                                                                                                </option>
+                                                                                                                <option value="1956">
+                                                                                                                    1956
+                                                                                                                </option>
+                                                                                                                <option value="1957">
+                                                                                                                    1957
+                                                                                                                </option>
+                                                                                                                <option value="1958">
+                                                                                                                    1958
+                                                                                                                </option>
+                                                                                                                <option value="1959">
+                                                                                                                    1959
+                                                                                                                </option>
+                                                                                                                <option value="1960">
+                                                                                                                    1960
+                                                                                                                </option>
+                                                                                                                <option value="1961">
+                                                                                                                    1961
+                                                                                                                </option>
+                                                                                                                <option value="1962">
+                                                                                                                    1962
+                                                                                                                </option>
+                                                                                                                <option value="1963">
+                                                                                                                    1963
+                                                                                                                </option>
+                                                                                                                <option value="1964">
+                                                                                                                    1964
+                                                                                                                </option>
+                                                                                                                <option value="1965">
+                                                                                                                    1965
+                                                                                                                </option>
+                                                                                                                <option value="1966">
+                                                                                                                    1966
+                                                                                                                </option>
+                                                                                                                <option value="1967">
+                                                                                                                    1967
+                                                                                                                </option>
+                                                                                                                <option value="1968">
+                                                                                                                    1968
+                                                                                                                </option>
+                                                                                                                <option value="1969">
+                                                                                                                    1969
+                                                                                                                </option>
+                                                                                                                <option value="1970">
+                                                                                                                    1970
+                                                                                                                </option>
+                                                                                                                <option value="1971">
+                                                                                                                    1971
+                                                                                                                </option>
+                                                                                                                <option value="1972">
+                                                                                                                    1972
+                                                                                                                </option>
+                                                                                                                <option value="1973">
+                                                                                                                    1973
+                                                                                                                </option>
+                                                                                                                <option value="1974">
+                                                                                                                    1974
+                                                                                                                </option>
+                                                                                                                <option value="1975">
+                                                                                                                    1975
+                                                                                                                </option>
+                                                                                                                <option value="1976">
+                                                                                                                    1976
+                                                                                                                </option>
+                                                                                                                <option value="1977">
+                                                                                                                    1977
+                                                                                                                </option>
+                                                                                                                <option value="1978">
+                                                                                                                    1978
+                                                                                                                </option>
+                                                                                                                <option value="1979">
+                                                                                                                    1979
+                                                                                                                </option>
+                                                                                                                <option value="1980">
+                                                                                                                    1980
+                                                                                                                </option>
+                                                                                                                <option value="1981">
+                                                                                                                    1981
+                                                                                                                </option>
+                                                                                                                <option value="1982">
+                                                                                                                    1982
+                                                                                                                </option>
+                                                                                                                <option value="1983">
+                                                                                                                    1983
+                                                                                                                </option>
+                                                                                                                <option value="1984">
+                                                                                                                    1984
+                                                                                                                </option>
+                                                                                                                <option value="1985">
+                                                                                                                    1985
+                                                                                                                </option>
+                                                                                                                <option value="1986">
+                                                                                                                    1986
+                                                                                                                </option>
+                                                                                                                <option value="1987">
+                                                                                                                    1987
+                                                                                                                </option>
+                                                                                                                <option value="1988">
+                                                                                                                    1988
+                                                                                                                </option>
+                                                                                                                <option value="1989">
+                                                                                                                    1989
+                                                                                                                </option>
+                                                                                                                <option value="1990">
+                                                                                                                    1990
+                                                                                                                </option>
+                                                                                                                <option value="1991">
+                                                                                                                    1991
+                                                                                                                </option>
+                                                                                                                <option value="1992">
+                                                                                                                    1992
+                                                                                                                </option>
+                                                                                                                <option value="1993">
+                                                                                                                    1993
+                                                                                                                </option>
+                                                                                                                <option value="1994">
+                                                                                                                    1994
+                                                                                                                </option>
+                                                                                                                <option value="1995">
+                                                                                                                    1995
+                                                                                                                </option>
+                                                                                                                <option value="1996">
+                                                                                                                    1996
+                                                                                                                </option>
+                                                                                                                <option value="1997">
+                                                                                                                    1997
+                                                                                                                </option>
+                                                                                                                <option value="1998">
+                                                                                                                    1998
+                                                                                                                </option>
+                                                                                                                <option value="1999">
+                                                                                                                    1999
+                                                                                                                </option>
+                                                                                                                <option value="2000">
+                                                                                                                    2000
+                                                                                                                </option>
+                                                                                                                <option value="2001">
+                                                                                                                    2001
+                                                                                                                </option>
+                                                                                                                <option value="2002">
+                                                                                                                    2002
+                                                                                                                </option>
+                                                                                                                <option value="2003">
+                                                                                                                    2003
+                                                                                                                </option>
+                                                                                                                <option value="2004">
+                                                                                                                    2004
+                                                                                                                </option>
+                                                                                                                <option value="2005">
+                                                                                                                    2005
+                                                                                                                </option>
+                                                                                                            </select>
+                                                                                                            (Required) <br>
+                                                                                                            [Note: It is important that you provide your real
+                                                                                                            birthdate because for certain customer support
+                                                                                                            issues, we ask that you re-provide this information
+                                                                                                            for verification. It is generally a good idea
+                                                                                                            to provide actual information so you do not forget
+                                                                                                            what you provided.]
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header"><font size="2"><strong>Secret Question</strong></font></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header">
+                                                                                                            @Html.DropDownListFor(d => d.sQuestionId, Functions.GetSecretQuestionList(), new { BorderStyle = "None" })
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header"><font size="2"><strong>Please enter a secret answer</strong></font></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="maintext">
+                                                                                                            <input name="sQuestionAnswer" type="text" id="secret" size="30" maxlength="60" style="FONT-SIZE: 8pt" required="">
+                                                                                                            (Required) <br>
+                                                                                                            For your protection, please enter a security hint and enter
+                                                                                                            the secret answer below.  You will be prompted for this
+                                                                                                            information during account administration.  Please do not
+                                                                                                            forget this secret answer as you will not be emailed the secret answer.
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="header">
+                                                                                                            <strong>
+                                                                                                                Terms of
+                                                                                                                Service
+                                                                                                            </strong>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">
+                                                                                                            <span style="font-size:8pt;">
+                                                                                                                <textarea name="terms" cols="75" rows="10" readonly="" wrap="physical" class="maintext" style="font-family:Verdana; font-size:8pt;">
+                                                                                                                    END USER AGREEMENT
+
+                                                                                                                    THIS END USER AGREEMENT ("AGREEMENT") DESCRIBES THE TERMS AND CONDITIONS ON WHICH OpenKO Gaming, INC. (THE "COMPANY") OFFERS YOU ACCESS AS AN END USER ON Knight Online (THE "GAME"). PLEASE READ THE FOLLOWING INFORMATION CAREFULLY. BY CLICKING ON " I HAVE READ AND AGREE TO ABOVE TERMS OF SERVICE " BUTTON, YOU ACCEPT AND ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND THE TERMS AND CONDITIONS OF THIS AGREEMENT, AND THAT YOU AGREE TO BE BOUND BY THEIR TERMS; IN WHICH EVENT, YOU WILL BE GRANTED ACCESS TO PLAY KNIGHT ONLINE. IF YOU DO NOT AGREE TO THE TERMS AND CONDITIONS OF THIS AGREEMENT, PLEASE EXIT THIS PAGE PROMPTLY.
+
+                                                                                                                    1. TERMS OF AGREEMENT
+                                                                                                                    (a) Terms of Agreement. OpenKO Gaming, Inc. (The "Company") offers to allow you to play its multi-player online computer game "Knight Online" ("Knight Online" or "Game") on a free-to-play basis conditioned upon your agreement to all of the terms and conditions contained in this Agreement and your compliance with the posted Rules of Conduct (See the game's Rules of Conduct for more details). The Game is free to play with no monthly subscription fees. The Company makes money by selling virtual items for you to use in game. Your use of Knight Online constitutes your agreement to all such terms and conditions and your compliance of the Member Conduct. To confirm your agreement, you should click on the "I have read and agree to above Terms of Service" button at the end of this Agreement. If you do not so agree, you just exit the page promptly now, in which case you reject the offered terms of use and will not be permitted to play Knight Online. If you have any questions regarding these terms and conditions or the Rules of Conduct, please contact our Company customer service by visiting the following link: http://www.OpenKO.net.
+                                                                                                                    (b) Amendments. The Company may amend, update, modify or correct this Agreement, or modify the Rules of Conduct at any time in its sole discretion without any obligation to inform the User of the amendment or changes by posting the amended Agreement or modified Rules of Conduct at http://www.OpenKO.net. Amendments or changes to the Agreement will be effective immediately after the amended Agreement is posted. Modifications to the Rules of Conduct will be effective immediately upon posting. Your use of Knight Online after the effective date of any amendments to this Agreement constitutes your agreement to the amendments. You agree to check this Agreement and the Rules of Conduct periodically so you will be familiar with their content as amended or modified from time to time.
+
+                                                                                                                    2. DESCRIPTION OF SERVICE
+                                                                                                                    The Company offers Knight Online as a free online fantasy role-playing game service (the "Service") accessible through the Internet at "http://www.OpenKO.net" (the "Web Site"). The Company reserves the right to change the URL address of the Web Site at any time and from time to time without prior notice. To use the Service, you will need to install software, which The Company makes available from the Web Site (the "Software"). Anyone desiring to use the Service is required to establish an account with The Company (the "Account"). The Company does not provide Internet access, and you are responsible for all fees and costs associated with your Internet connection. The Web Site located at http://www.OpenKO.net is an active part of the Service and any use of the Web Site is governed by the same Terms of Agreement and Rules of Conduct.
+
+                                                                                                                    3. LICENSE TO USE
+                                                                                                                    Subject to the terms of this Agreement, The Company grants to you a non-exclusive license to use the Service, and a non-exclusive license to use the Software in connection with the Service. You may not sublicense, rent, lease, loan or otherwise transfer the Software forĂprofit, modify, adapt, reverse engineer or recompile the Software, or create any derivative works in respect of the Software or the Service, or otherwise use the Software except as expressly provided in this Agreement.
+
+                                                                                                                    4. ACCOUNT
+
+                                                                                                                    (a) Eligibility. Accounts are available only to adult individuals eighteen (18) years of age or older. If you are less than 18 years of age and wish to use the Service, your parent(s) or guardian(s) must complete the registration process, open an Account in their name(s), and accept full responsibility for all obligations under this Agreement. Those who have completed these steps and who maintain their Account in good standing are sometimes referred to in this Agreement as "Member(s)", "User(s), or "Player(s)". By clicking the "I have read and agree to above Terms of Service" button you represent that you are an adult 18 years of age or older. Only one person may use an Account. The registered User of an Account may use the Account or may choose instead to permit a minor child of the registered User to use the Account. You are liable for all activities conducted through your Account, and parents or guardians are liable for all activities of their minor child conducted through the Account.
+
+                                                                                                                    (b) Account ID. At the time your Account is opened, you must choose a name to identify yourself to The Company staff (your "Account ID"). You may not select as your Account ID the name of another person, or a name which violates any third party's trademark right, copyright, or other proprietary right, or which may mislead other Members to believe you to be an employee of The Company, or which The Company deems in its discretion to be vulgar or otherwise offensive. The Company reserves the right to delete, or to change, any vulgar or otherwise offensive Account ID. You have sole liability for all activities conducted through your Account or under your Account ID.
+
+                                                                                                                    (c) Account. By agreeing to the User Agreement you agree that you do not own the Account you use to access the Service, the characters The Company stores on The Company servers, the game items and the in-game virtual money in the Account, or any other data which the servers and accounts are comprised of. The Account, characters, game items, in-game virtual money and any other data which the servers and accounts are comprised of, are properties of The Company.
+
+                                                                                                                    (d) Character Name. In order to use the Service, you must create a character and choose a name for your character to identify your character to other Members (your "Character Name"). You may not select as your Character Name the name of another person, or a name which violates any third party's trademark right, copyright, or other proprietary right, or which may mislead other Members to believe you to be an employee of The Company, or which The Company deems at its sole discretion to be vulgar or otherwise offensive. The Company reserves the right to delete, or alter any vulgar or otherwise offensive Character Name. Only ASCII characters are allowed for any character names in the Game. No Unicode is allowed.
+
+                                                                                                                    (e) Clan names, clan titles, clan symbol, character names, NPC Names. While accessing the Service, it is possible to name your clan, grant titles to individual members, grant a title to your own character. You may not give a name to a clan, another character, grant your own character a title, or name an NPC (non-player character) that is the name of another person, or a name which violates any third party's trademark right, copyright, or other proprietary right, or which may mislead other Members to believe you to be an employee of The Company, or which The Company deems at its sole discretion to be vulgar or otherwise offensive. The Company reserves the right to delete, change, or require you to change, any vulgar or otherwise offensive Name. Only ASCII characters are allowed for any names in the Game. No Unicode is allowed.
+
+                                                                                                                    (f) Passwords. At the time your Account is opened, you must select a password. You are responsible for maintaining the confidentiality of your password and yoĂ are responsible for any harm resulting from your disclosure or allowing the disclosure of your password or from use by any person of your password to gain access to your Account and Account ID. At no time should you respond to an online request for a password. The Company will never ask for your password offline or online, except that you will be required to enter your password as part of the log-on process, or when you are requesting the company to perform certain service that requires your password authentication, in which case you will only send your password to designated company email address or company website.
+
+                                                                                                                    (g) Registration Obligations. You agree to provide true, accurate, current and complete information about yourself as prompted by the Service's registration form ("Registration Data"), and maintain and promptly update the Registration Data to keep it true, accurate, current and complete. If you provide any information that is untrue, inaccurate, not current or incomplete, or The Company has reasonable grounds to suspect that such information is untrue, inaccurate, not current or incomplete, The Company has the right to suspend or terminate your Account and refuse any and all current or future use of the Service.
+
+                                                                                                                    (h) Former Members. Members whose Accounts have been terminated by The Company may not access the Service in any manner or for any reason, including through any other Account, without the express written permission of The Company.
+
+                                                                                                                    (i) Related Accounts. If The Company terminates an Account, The Company may terminate any other Accounts that share the same member name, phone number, email address, postal address, Internet Protocol address, or credit card number with the terminated Account.
+
+                                                                                                                    (j) Multiple Accounts. Currently, each Player, User, or Member is permitted to register more than one account. However, The Company reserves the right to limit the number of Accounts each Player may register.
+
+                                                                                                                    (k) Right To Monitor and Remove Unacceptable Contents. The Company has the right, but not the duty, to review and monitor all content submitted for or included on the Service, and in its sole discretion to remove any content that the Company finds objectionable for any reason, without any prior notice to the Member.
+
+                                                                                                                    5. SERVICE FEE
+                                                                                                                    The Game is free to play. You do not need to pay any service fee to play the Game. However, the Company is not responsible for any other fees or costs you paid or may have to pay in order to play the Game, including, but not limited to, fees to access the internet; fees charged by a location such as a cyber cafe, arcade, or other location; or costs of computer hardware or software.
+
+                                                                                                                    6. SALES OF GAME ITEMS AND IN-GAME VIRTUAL MONEY
+
+                                                                                                                    (a) Purchase of Game Items and In-game Virtual Money. The Company may offer to sell to you in the Game and on the Web Site, from time to time, virtual items that can be used in Knight Online (The "Game Item"). Also, The Company may offer to sell to you in the Game and on the Web Site, from time to time, in-game virtual money that can be used to purchase the Game Items in Knight Online (The 'Knight Cash'). If you select to purchase a Game Item or Knight Cash, you agree that you have understood how the Game Item and Knight Cash are used in the Game and are fully responsible for all the consequences related to the use or transfer of such Game Item and Knight Cash. You agree that any out-of-game transfer of Game Item and Knight Cash is not permitted. THE GAME ITEM AND THE KNIGHT CASH YOU HAVE PURCHASED IS NOT REFUNDABLE UNDER ANY CIRCUMSTANCES OR REASONS WHATSOEVER. You also agree that the Game Items and the Knight Cash you have purchased are properties of The Company, and what you obtained through the purchase is merely the right to use such Game Items and Knight Cash in the Game. The Company also reserves the right to not sell Game Items and Knight Cash to certain players.
+
+                                                                                                                    (b) Security and Anti-Fraud. For security and anti-fraud purpose, the Company may require the purchaser of the Game Items and Knight Cash to provide personal information such asĂname, address, phone number, social security number, and copy of picture ID. Purchasers may also be required to write and sign a statement certifying that their purchases are real and valid. Failure to do so may result in suspension of the purchaser's Account.
+
+                                                                                                                    7. TRADING AMONG PLAYERS
+                                                                                                                    Trading of Game Items between Players on the same server is permitted. All other trading or transfers, including without limitations, trading of Knight Cash, Account ID, Account Names, and all out-of-game transfers, are strictly prohibited.
+                                                                                                                    The Company is not responsible for any losses occurred related to any permitted or prohibited trading activities. ANY AND ALL PROHIBITED CONDUCTS MAY RESULT IN IMMEDIATE TERMINATION OF THE ACCOUNTS INVOLVED IN SUCH TRADING.
+
+                                                                                                                    8. CONTENT AND MEMBER CONDUCT
+
+                                                                                                                    (a) Content. You acknowledge that: (i) by using the Software and the Service you will have access to graphics, sound effects, music, animation-style video and text (collectively, "Content"), and (ii) Content may be provided under license by independent content providers, including text contributions from other Members (all such independent content providers shall hereinafter be referred to as "Content Providers"). The Company does not pre-screen Content as a matter of policy. The Company has the right, but not the obligation, to remove Content at any time which it deems to be harmful, offensive, or otherwise in violation of this Agreement.
+
+                                                                                                                    (b) Rights in Content. You acknowledge that The Company and Content Providers have rights in their respective Content under copyright and other applicable laws, and that you accept full responsibility and liability for your use of any Content in violation of any such rights. You agree that you will not use any Content other than in connection with playing Knight Online.
+
+                                                                                                                    (c) Member Content. Members can upload Content to our servers in various forms, such as in selections you make for Knight Online and in bulletin boards and similar user-to-user areas. Unless specified otherwise in your transmission, by submitting your Content to any area on the Service, you automatically grant (or you warrant that the owner of such Content has expressly granted) to The Company the royalty-free, perpetual, irrevocable, non-exclusive right and license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform and display such Content worldwide and/or to incorporate it in other works in any form, media, or technology now known or later developed.
+
+                                                                                                                    (d) Member Conduct. You agree not to use the Service to: (i) upload, post, e-mail or otherwise transmit Content that infringes any third party rights; (ii) impersonate any person or entity, including, but not limited to, The Company's employee, or falsely state or otherwise misrepresent your affiliation with a person or entity; (iii) upload, post, e-mail or otherwise transmit Content that violates any law or regulation; (iv) upload, post, e-mail or otherwise transmit Content as determined by The Company at its sole discretion that is harmful, threatening, abusive, harassing, tortuous, defamatory, vulgar, obscene, libelous, invasive of another's privacy, hateful, or racially, ethnically or otherwise objectionable; or contains any viruses, trojan horses, worms, time bombs, cancelbots or other computer programming routines that are intended to damage, detrimentally interfere with, surreptitiously intercept or expropriate any system, data or personal information; (v) upload, post, email or otherwise transmit any Content that you do not have a right to transmit under any law or under contractual or fiduciary relationships (such as inside information, proprietary and confidential information learned or disclosed as part of employment relationships or under nondisclosure agreements); (vi) upload, post, email or otherwise transmit any unsolicited or unauthorized advertising, promotional materials, "junk mail," "spam," "chain letters," "pyramid schemes," or any other form of solicitation; (vii) interfere with or disrupt the Service or servers or neĂworks connected to the Service, or disobey any requirements, procedures, policies or regulations of networks connected to the Service; or (viii) "stalk" or otherwise harass another member.
+
+                                                                                                                    (e) Cheating Programs. To ensure fair play, The Company does not allow the use of any cheating programs such as macros, bots, or mouse emulators etc., to play Knight Online. If you use these cheating programs, you may suffer severe consequences including, but not limited, to the followings: (i) The Company may suspend your Account for an indefinite period time; (ii) The Company may terminate your Account; and (iii) The Company reserves the right to seek further legal remedies against you.
+
+                                                                                                                    (f) Modification of The Client Program. All Members must use the client program provided by the Company. The Company periodically updates the client program as well, and all players are required to use the latest version of the Game. Modification of the client program of the Game is strictly prohibited. Any violations may result the termination of your Account.
+
+                                                                                                                    (g) Exploitation of Program Bug. Members are prohibited from exploiting any programming bugs in Game, on the Web Site, and/or within The Company's system. Any violations may result the termination of Account.
+
+                                                                                                                    9. OFFICIAL SERVICE
+                                                                                                                    The Company has designed Knight Online for play only as offered by The Company at the Web Site. You agree to play Knight Online only as offered by The Company at the Web Site and not through any other means. You further agree not to create or provide any other means through which Knight Online may be played by others, as through server emulators. You acknowledge that you do not have the right to create, publish, distribute, create derivative works from or use any software programs, utilities, applications, emulators or tools derived from or created for Knight Online, except that you may use the Software to the extent expressly permitted by this Agreement. You may not take any action which imposes an unreasonable or disproportionately large load on our infrastructure. You may not sell or auction any Knight Online accounts, characters, items, coin or copyrighted material.
+
+                                                                                                                    10. PRIVACY
+
+                                                                                                                    (a) The personal information you provide us during registration is used for our internal purposes only. The Company uses the information The Company collected to learn what you like in order to improve the Service. Except as otherwise expressly permitted by this Agreement or as otherwise authorized by you, The Company will not give any of your personal information to any third party without your approval. The Company does not guarantee the security of any of your private transmissions against unauthorized or unlawful interception or access by third parties. If you request any technical support, you consent to our remote accessing and review of the computer you load the Software onto for purposes of support and debugging. You agree that The Company may communicate with you via email and any similar technology for any purposes relating to the Service, the Software, and any services or software which may in the future be provided by us or on our behalf.
+
+                                                                                                                    (b) The Company can (and you authorize us to) disclose any information about you to private entities, law enforcement agencies, or government officials, as The Company, in our sole discretion, believe necessary or appropriate to investigate or resolve possible problems or inquiries, or as otherwise required by law.
+
+                                                                                                                    11. PARENTAL GUIDANCE
+                                                                                                                    While The Company may choose to monitor and take action upon inappropriate Game play, chat or links to the Service, it is possible that at any time there may be language or other material accessible on or through the Service that may be inappropriate for children or offensive to some users of any age. The Company cannot ensure that other players will not provide content or access to content that parents or guardians may find inappropriate or that any User may find objectionable. The Company does not as a matter of policy pre-screen the Content of the materials or communications transmitted by each pĂayer.
+
+                                                                                                                    12. INTERRUPTION OF SERVICE
+
+                                                                                                                    (a) The Company reserves the right to interrupt the Service from time to time on a regularly scheduled basis or otherwise with or without prior notice in order to perform maintenance.
+
+                                                                                                                    (b) You acknowledge that the Service may be interrupted for reasons beyond the control of The Company, and The Company cannot guarantee that you will be able to access the Service or your Account whenever you may wish to do so. The Company shall not be liable for any interruption of the Service, delay or failure to perform resulting from any causes beyond its reasonable control.
+
+                                                                                                                    (c) The Company shall not be obligated to refund any and all portion of any Game Item and Knight Cash Purchases or Account fees (if any) by reason of any interruption of the Service and by reason of any of the circumstances described in paragraph (a) or (b) of this provision.
+
+                                                                                                                    13. DISCLAIMER OF WARRANTIES
+                                                                                                                    THE COMPANY PROVIDES THE SERVICE, THE SOFTWARE, THE ACCOUNT, THE KNIGHT ONLINE GAME AND ALL OTHER SERVICES ON AN "AS IS" BASIS, AND HEREBY EXPRESSLY DISCLAIMS ALL WARRANTIES OR CONDITIONS OF ANY KIND, WRITTEN OR ORAL, EXPRESS, IMPLIED OR STATUTORY, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTY OF TITLE, NONINFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. WITHOUT LIMITING THE FOREGOING, THE COMPANY DOES NOT WARRANT THAT THE SERVICE, YOUR ACCOUNT, OR KNIGHT ONLINE WILL MEET YOUR REQUIREMENTS, OR THAT THE OPERATION OF THE SERVICE, YOUR ACCOUNT, OR KNIGHT ONLINE WILL BE UNINTERRUPTED, ERROR-FREE, CONTINUOUS, SECURE, VIRUS-FREE, OR THAT THE DEFECTS IN THE SERVICE, YOUR ACCOUNT, OR KNIGHT ONLINE WILL BE CORRECTED. THE COMPANY DOES NOT WARRANT OR MAKE ANY REPRESENTATION REGARDING THE USE OR THE RESULTS OF THE USE OF THE SERVICE OR RELATED DOCUMENTATION IN TERMS OF THEIR CORRECTNESS, ACCURACY, QUALITY, RELIABILITY, APPROPRIATENESS FOR A PARTICULARLY TASK OR APPLICATION, OR OTHERWISE. NO ORAL OR WRITTEN INFORMATION OR ADVICE GIVEN BY THE COMPANY OR ITS AUTHORIZED REPRESENTATIVES SHALL CREATE A WARRANTY OR IN ANY WAY INCREASE THE SCOPE OF THIS WARRANTY. YOU ARE ENTIRELY RESPONSIBLE FOR AND ASSUME ALL RISK FOR USE OF THE SERVICE, YOUR ACCOUNT, AND KNIGHT ONLINE. YOU SHOULD NOT USE THE SERVICE IN HIGH-RISK ACTIVITIES WHERE SUBSTANTIAL DAMAGE COULD RESULT IF AN ERROR OCCURRED. THE COMPANY DOES NOT WARRANT OR REPRESENT THAT ITS SECURITY PROCEDURES WILL PREVENT THE LOSS OR IMPROPER ACCESS TO YOUR DATA. THE COMPANY IS NOT RESPONSIBLE FOR TRANSMISSION ERRORS OR CORRUPTION OR SECURITY OF INFORMATION CARRIED OVER TELECOMMUNICATION LINES. Some states do not allow the disclaimer of implied warranties, so the foregoing disclaimer may not apply to you. This warranty gives you specific legal rights and you may also have other legal rights that vary from state to state.
+
+                                                                                                                    14. LIMITATION OF LIABILITY
+
+                                                                                                                    (a) THE MAXIMUM AMOUNT AND THE TOTAL LIABILITY OF THE COMPANY TO YOU FOR ALL DAMAGES, LOSSES, AND CAUSES OF ACTION (WHETHER IN CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE) SHALL NOT EXCEED THE TOTAL FEES PAID BY YOU TO THE COMPANY FOR THE TOTAL PURCHASE OF GAME ITEMS AND KNIGHT CASH IN AND WITHIN THE SAME MONTH OF THE EVENT CAUSING LIABILITY. IN NO EVENT SHALL THE COMPANY, OR ANY OF ITS SHAREHOLDERS, PARTNERS, AFFILIATES, DIRECTORS, OFFICERS, EMPLOYEES, AGENTS OR SUPPLIERS, BE LIABLE TO YOU OR TO ANY THIRD PARTY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES, INCLUDING WITHOUT LIMITATIONS, ANY DAMAGES FOR LOST PROFITS, ARISING (WHETHER OR IN CONTRACT, TORT, STRICT LIABILITY OR OTHERWISE) OUT OF OR IN CONNECTION WITH THE SERVICE, THE SOFTWARE, YOUR ACCOUNT OR THIS AGREEMENT, WHETHER OR NOT THE COMPANY MAY HAVE BEEN ADVISED THAT ANY SUCH DAMAGES MIGHT OR COULD OCCUR. Some states do not allow the foregoing limitations of liability, so they may not apply to you.
+
+                                                                                                                    (b) If you purchased a Game Item or Knight Cash, you agree to release any and all liabilities of The Company related to your purchase and use of the Game Item or Knight Cash, except that the Company is responsible for providing such Game IĂem and Knight Cash to your Account in Knight Online.
+
+                                                                                                                    (c) You agree to release any and all liabilities of the Company related to any computer virus infection to your computer, whether it is though The Company's server or third party activities.
+
+                                                                                                                    (d) You agree that The Company will not be held responsible or liable for anything that occurs or results from accessing or subscribing to the Knight Online service.
+
+                                                                                                                    15. UNCENSORED INFORMATION
+                                                                                                                    YOU UNDERSTAND THAT CONTENT AND MATERIALS ON THE INTERNET MAY BE CREATED AND MAINTAINED BY THIRD PARTIES (SUCH AS USER MESSAGE BOARD) AND THAT PORTIONS OF SUCH MATERIALS MAY BE SEXUALLY EXPLICIT, OBSCENE, OFFENSIVE, OR ILLEGAL. IN NO EVENT SHALL THE COMPANY BE LIABLE TO ANY PERSON OR ENTITY, EITHER DIRECTLY OR INDIRECTLY, WITH RESPECT TO ANY MATERIALS FROM THIRD PARTIES ACCESSED THOUGH THE SERVICE. YOU ASSUME TOTAL RESPONSIBILITY AND RISK FROM YOUR USE OF THE SERVICES AND INTERNET GENERALLY. THE COMPANY DISCLAIMS ANY AND ALL RESPONSIBILITY FOR CONTENT CONTAINED IN ANY THIRD PARTY MATERIALS PROVIDED THOUGH HYPERLINKS OR IN ANY OTHER FORMS.
+
+                                                                                                                    16. INDEMNIFICATION
+                                                                                                                    BY ACCEPTING THIS DOCUMENT, YOU AGREE TO DEFEND, INDEMNIFY AND HOLD HARMLESS THE COMPANY, ITS SHAREHOLDERS, PARTNERS, AFFILIATES, DIRECTORS, OFFICERS, EMPLOYEES, AGENTS OR SUPPLIERS, ITS LICENSEES, DISTRIBUTORS, CONTENT PROVIDERS, AND OTHER MEMBERS OF THE SERVICE, FROM ALL DAMAGES, LIABILITIES, LOSSES, DAMAGES, JUDGMENTS, CLAIMS, CAUSES OF ACTION, CLAIMS, AND EXPENSES, INCLUDING ATTORNEYS' FEES AND COSTS, WHICH THE COMPANY MAY HEREAFTER INCUR, SUFFER, OR BE REQUIRED TO PAY, DEFEND, SETTLE (SUBJECT TO ANY LIMITATIONS SET FORTH IN THIS AGREEMENT), OR SATISFY AS A RESULT OR ARISING OUT OF YOUR USE OF THE SERVICE OR ANY BREACH OF THIS AGREEMENT BY YOU.
+
+                                                                                                                    17. TERMINATION
+
+                                                                                                                    (a) The Company may terminate this Agreement (including your Software license and Account) immediately and without notice if you breached this Agreement or willfully infringe any third party intellectual property rights, or if The Company are unable to verify or authenticate any information you provide to us, or upon Game play, chat or any player activity whatsoever which is, in our sole discretion, inappropriate and/or in violation of the spirit of Knight Online as described in the Rules of Conduct. If The Company terminates this Agreement under any circumstances, you will lose access to your Account without refund of any fees paid for the purchases of any Game Items or Knight Cash.
+
+                                                                                                                    (b) You agree that if the Service or your Account is terminated or cancelled for any reasons or length of time, you are not entitled to any reimbursement or refund of any fees paid for the purchases of any Game Items or Knight Cash.
+
+                                                                                                                    18. CHOICE OF LAW AND VENUE.
+                                                                                                                    This Agreement is governed by and shall be construed and enforced under the laws of the State of California, without applying any conflicts of law principles that would require application of the law of any other jurisdiction. You agree that all actions or proceedings arising in connection with this Agreement shall be tried and litigated exclusively in the state or federal (if permitted by law and a party elects to file an action in federal court, Southern District - California) courts located in Los Angeles, State of California.
+
+                                                                                                                    19. GENERAL PROVISIONS
+                                                                                                                    Except as provided in this Agreement, any changes to this Agreement must be in writing and signed by The Company and you. If any provision of this Agreement is held to be invalid or unenforceable, such provision shall be struck and the remaining provisions shall remain in force. The UN Convention on Contracts for the International Sale of Goods is expressly disclaimed. Our failure to act with respect to a breach by you or others does not waive our right to act with respect to subsequent or similar breaches. You may not assign or transfer this Agreement or your rights hereunder, and any attempt to the contrary is void, without written permission of The Company. This Agreement sets forth the entire understanding and agreement between The Company and you with respect to the CompanĂ, the Service and Knight Online, and this Agreement supersedes all prior agreements (oral or written, if any) between the parties. Notwithstanding anything else in this Agreement, no default, delay or failure to perform on the part of The Company shall be considered a breach of this Agreement if such default, delay or failure to perform is shown to be due to causes beyond the reasonable control of The Company. All notice given by you or required under this Agreement shall be emailed to customersupport@OpenKO.net, Attention: Customer Support is effective on the date received.
+                                                                                                                    YOU ACKNOWLEDGE THAT YOU HAVE READ AND ACCEPT THESE TERMS AND CONDITIONS BY PRESSING THE "I HAVE READ AND AGREE TO ABOVE TERMS OF SERVICE" BUTTON BELOW AND AGREED TO BE BOUND BY ITS TERMS AND CONDITIONS. IF YOU DO NOT AGREE TO THESE TERMS AND CONDITIONS, YOU MAY CHOOSE NOT TO BECOME A USER OF THE SERVICE BY PROMPTLY EXITING FROM THIS PAGE AND YOU WILL NOT BE PERMITTED TO PLAY KNIGHT ONLINE.
+
+
+                                                                                                                </textarea>
+                                                                                                            </span>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2" class="maintext">
+                                                                                                            <input type="radio" name="agree" value="Y" checked>
+                                                                                                            I have read and agree to above Terms of Service
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">
+                                                                                                            <input name="button" type="button" onclick="history.back(-1);" value="< BACK">
+                                                                                                            <input type="submit" name="send" id="send" value="CONFIRM >">
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2">&nbsp;</td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </td>
+
+
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="~/Content/build/js/intlTelInput.js"></script>
+    <script>
+        $("#phone").intlTelInput({
+            allowExtensions: true,
+            autoFormat: false,
+            autoHideDialCode: false,
+            autoPlaceholder: false,
+            defaultCountry: "auto",
+            geoIpLookup: function (callback) {
+                $.get('http://ipinfo.io', function () { }, "jsonp").always(function (resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    callback(countryCode);
+                });
+            },
+            nationalMode: false,
+            numberType: "MOBILE",
+            //onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+            preferredCountries: ['cn', 'jp'],
+            utilsScript: "/Content/lib/libphonenumber/build/utils.js"
+
+        });
+    </script>
+    <div class="notij-que"></div>
+
+</body>
+</html>

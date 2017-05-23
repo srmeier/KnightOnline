@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{Html.RenderPartial("SwfHeader");}
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            <td width="100%" valign="top" align="left">
+                <div style="margin-left: 50px;">
+                    <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="700" valign="top">
+
+                                                    <div style="margin-left: 75px;">
+                                                        @{Html.RenderAction("_News", "Home", new { Type = 1, Count = 2 });}
+                                                        @{Html.RenderAction("_News", "Home", new { Type = 2, Count = 2 });}
+                                                        @{Html.RenderAction("_News", "Home", new { Type = 3, Count = 2 });}
+                                                    </div>
+                                                </td>
+                                                <!--2nd Column, Divider-->
+                                                <td width="30"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                <!--3rd Column, Right Navigation-->
+                                                <td width="270" valign="top">
+                                                    @{Html.RenderAction("Login", "Home");}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <map name="MapMap">
+                                        <area shape="rect" coords="20,2,83,17" href="@Url.Action("Register","Home")">
+                                        <area shape="rect" coords="87,2,164,17" href="#">
+                                    </map>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+               
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    function divFunctionLogin() {
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("Login")',
+            data: { Id: $('#loginbtn').val(), Mesaj: $('#Mesaj').val() },
+            success: function (AjaxCevap) {
+                location.reload();
+            }
+        });
+    };
+</script>

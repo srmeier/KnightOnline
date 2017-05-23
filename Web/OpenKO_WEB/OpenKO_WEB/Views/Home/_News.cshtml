@@ -1,0 +1,84 @@
+﻿@model List<OpenKO_WEB.Models.tblNews>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+        @if (ViewBag.Type == 1)
+        {
+            <tr>
+                <td><img usemap="#home_latestnewsbf7be048" border="0" src="~/Content/Website/images/home_latestnews.gif" width="621" height="44"><map name="home_latestnewsbf7be048"><area shape="rect" coords="576,16,620,36" href="#" alt=""></map></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+        }
+        else if (ViewBag.Type == 2)
+        {
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img usemap="#home_announcementsbf7be069" border="0" src="~/Content/Website/images/home_announcements.gif" width="621" height="44"><map name="home_announcementsbf7be069"><area shape="rect" coords="576,18,628,36" href="#" alt=""></map></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><img usemap="#home_updatesbf7be097" border="0" src="~/Content/Website/images/home_updates.gif" width="621" height="44"><map name="home_updatesbf7be097"><area shape="rect" coords="575,18,637,35" href="#" alt=""></map></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+        }
+
+     
+        <tr>
+            <td>
+                <table width="100%" height="135" border="0" cellpadding="2" cellspacing="2" class="news">
+                    <!-- News  start-->
+
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td valign="top">
+                                        <div align="left">
+                                            <font color="#000000">
+                                                <b>
+                                                    @item.Title -
+                                                </b>
+                                                @item.cDate
+                                            </font>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td valign="top">
+                                        <div align="left">
+                                            <font color="#000000">
+                                                @MvcHtmlString.Create(item.nContent)
+                                            </font>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <!-- News  end-->
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,224 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script language="JavaScript" type="text/javascript">
+    function clickmenu(btn) {
+        var submenus = getElementsByClass("sub");
+        var thesub = getElementsByClass("sub", btn);
+        var display = false;
+        if (thesub.length)
+            if (thesub[0].style.display == "none")
+                display = true;
+
+        for (var i = 0; i < submenus.length; i++)//reset menus
+            submenus[i].style.display = "none"
+
+        if (display) {
+            thesub[0].style.display = "";
+            makemenu(btn);
+        }
+        else
+            makemenu(window);
+    }
+    addEvent(window, 'load', makemenu);
+
+    function makemenu(btn) {
+        var iBtns = getElementsByClass("menubutton").length;
+        var high = iBtns * 38; //34 button height + 4 spacer
+        var subhigh = 0;
+        if (btn.className)//small check to catch if its not a window load
+            subhigh = getElementsByClass("submenubutton", btn).length * 24; //24 pixels each
+
+        $("back").height = high + subhigh;
+        $("menumiddle").style.top = -(high + subhigh) + "px";
+        $("menu").style.height = high + subhigh + 124 - 30 + "px";
+    }
+</script>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <tr>
+            @Html.Partial("_Menu")
+            <td width="100%" valign="top" align="left">
+                <div style="margin-left: 50px;">
+
+                    <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0" background="~/Content/Website/images/mainframe_bg_mid.gif">
+                        <tbody>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_top.gif" width="1000" height="87"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="260" valign="top"><div align="right"><img src="~/Content/Website/images/crashkologo.png"></div></td>
+                                                <!--2nd Column, Divider-->
+                                                <td width="30"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                <!--3rd Column, Right Navigation-->
+                                                <td width="710" valign="top">
+                                                    <table width="620" border="0" cellspacing="0" cellpadding="0" class="maintext">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><img src="~/Content/Website/images/title_support_policies.gif" width="618" height="65"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text" width="100%" valign="top">
+                                                                    <strong>Magic Anvil</strong><br><br>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text" width="100%" valign="top">
+                                                                    The Magic Anvil is where you can upgrade armor and weapons or compound accessories. You can purchase different types of upgrade and compound scrolls from the NPC Charon. For additional information on upgrading please speak with the Magic Anvil.<br><br>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text" width="100%" valign="top">
+                                                                    Click <a href="#" class="bodytext">here</a> to see all the different types of scrolls available.<br><br>
+                                                                    <table width="556" border="0" cellspacing="0" cellpadding="0">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td colspan="3"><img src="~/Content/Website/images/tble_top.gif" width="556" height="49"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_left.gif">&nbsp;</td>
+                                                                                <td width="530" align="left" valign="top">
+                                                                                    <table width="530" rules="all" bordercolor="#25120B" border="0" cellspacing="0" cellpadding="4">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#25120B" width="442" valign="top">
+                                                                                                    <p>
+                                                                                                        <span class="textwhite">
+                                                                                                            &nbsp;
+                                                                                                            <b style="color:#fff">Explanation of Upgrade Scrolls</b>
+                                                                                                        </span>
+                                                                                                    </p>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#e7dbc3" width="442" valign="top">
+                                                                                                    <p>
+                                                                                                        <strong>
+                                                                                                            Upgrade Scroll                        <img class="scroll_img" src="~/Content/Website/images/upgrade_scroll.jpg" alt="" height="49" width="48" border="0"><br>
+                                                                                                        </strong>
+                                                                                                        The item may be upgraded one grade at a time. There is a chance that the item may be destroyed                    .
+                                                                                                    </p>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#d4c6ab" width="442" valign="top">
+                                                                                                    <p>
+                                                                                                        <strong>
+                                                                                                            Trina's Piece
+                                                                                                        </strong><img class="scroll_img" src="~/Content/Website/images/trina_star.jpg" alt="" height="49" width="48" border="0"><br>
+                                                                                                        A Trina's piece is an item that increases your chances at upgrading significantly. Trina’s pieces are available through the power up store or given along with Gold Premium                    .
+                                                                                                    </p>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#e7dbc3" width="442" valign="top">
+                                                                                                    <p>
+                                                                                                        <strong>
+                                                                                                            Reduce Item Scroll
+                                                                                                        </strong><img class="scroll_img" src="~/Content/Website/images/reduce_scroll.jpg" alt="" height="51" width="51" border="0"><br>
+                                                                                                        This scroll allows the required stats to be reduced.&nbsp; You may reduce an item only one time. There is a chance that the item may be destroyed                    .
+                                                                                                    </p>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#d4c6ab" width="442" valign="top">
+                                                                                                    <p>
+                                                                                                        <strong>
+                                                                                                            Dispel Scroll
+                                                                                                        </strong><img class="scroll_img" src="~/Content/Website/images/dispel_scroll.jpg" alt="" height="53" width="53" border="0"><br>
+                                                                                                        This scroll will add an elemental property to a staff such as fire, glacier and lightning.  The success rate is 100%                    .
+                                                                                                    </p>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#e7dbc3" width="442" valign="top">
+                                                                                                    <p>
+                                                                                                        <strong>
+                                                                                                            Enchant Scroll
+                                                                                                        </strong><img class="scroll_img" src="~/Content/Website/images/enchant_scroll.jpg" alt="" height="50" width="49" border="0"><br>
+                                                                                                        This scroll adds stat properties to armor.&nbsp; There is a chance that the item may be destroyed                    .
+                                                                                                    </p>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="text" bgcolor="#d4c6ab" width="442" valign="top">
+                                                                                                    <p>
+                                                                                                        <strong>
+                                                                                                            Elemental Scroll
+                                                                                                        </strong><img class="scroll_img" src="~/Content/Website/images/elemental_scroll.jpg" alt="" height="51" width="51" border="0"><br>
+                                                                                                        This scroll will add damage to an item by adding elemental properties. There is a chance that the item may be destroyed.  This scroll also changes a unique item to be upgradeable!!!
+                                                                                                    </p>
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td width="13" valign="bottom" background="~/Content/Website/images/news_slice_right.gif">&nbsp;</td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td colspan="3"><img src="~/Content/Website/images/tble_btm.gif" width="556" height="49"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text" rowspan="23" width="448" valign="top">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="headertext">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="15"><img src="~/Content/Website/images/spacer.gif" width="1" height="1"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <map name="MapMap">
+                                        <area shape="rect" coords="20,2,83,17" href="#">
+                                        <area shape="rect" coords="87,2,164,17" href="#">
+                                    </map>
+                                    <map name="Map2Map">
+                                        <area shape="rect" coords="1,6,46,49" href="#">
+                                    </map>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><img src="~/Content/Website/images/bg_frame_bottom.gif" width="1000" height="88"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+         
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
