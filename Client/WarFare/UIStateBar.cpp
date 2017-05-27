@@ -225,8 +225,10 @@ void CUIStateBar::UpdateExp(uint64_t iExp, uint64_t iExpNext, bool bUpdateImmedi
 	__ASSERT(iExp >= 0 && iExpNext > 0, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	if (NULL == m_pText_Exp) return;
 
+	double iPercentage2 = 100.0 * ((double)iExp / (double)iExpNext);
+
 	char szVal[64] = "0 %%";
-	sprintf(szVal, "%d %%", iPercentage);
+	sprintf(szVal, "%.2f %%", iPercentage2);
 	m_pText_Exp->SetString(szVal);
 }
 
