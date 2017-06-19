@@ -10,9 +10,11 @@ static bool g_bRunningThread;
 
 void StartTimeThread()
 {
+
 	UNIXTIME = time(nullptr); // update it first, just to ensure it's set when we need to use it.
 	g_localTime = *localtime(&UNIXTIME);
 	s_timeThread.start(TimeThread);
+
 }
 
 void CleanupTimeThread()
@@ -25,7 +27,7 @@ void CleanupTimeThread()
 
 uint32_t THREADCALL TimeThread(void * lpParam)
 {
-
+	
 	g_bRunningThread = true;
 	while (g_bRunningThread)
 	{
@@ -35,10 +37,12 @@ uint32_t THREADCALL TimeThread(void * lpParam)
 			UNIXTIME = t;
 			g_localTime = *localtime(&t);
 		}
-
-		sleep(1000);	// might need to run it twice a second 
-		// to be sure it does in fact update somewhat accurately.. depends on the use cases.
+		#ifdef _WIN32
+		sleep(1000)// might need to run it twice a second 
+		#else	// to be sure it does in fact update somewhat accurately.. depends on the use cases.
+		sleep(1);	
+		#endif			
 	}
-
+	
 	return 0;
 }

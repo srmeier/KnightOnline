@@ -1,5 +1,7 @@
 #pragma once
 
+#define MAC __MACH__ || __APPLE__ || Macintosh
+
 #if _WIN32
 
 #include <Windows.h>
@@ -22,7 +24,7 @@
 #include <random>
 #include <thread>
 #include <chrono>
-#include <atomic>
+//#include <atomic>
 #include <mutex>
 #include <queue>
 
@@ -41,6 +43,9 @@ protected:
 
 #if _WIN32
 #define sleep(ms) Sleep(ms)
+#elif defined(__MACH__)
+#include <unistd.h>
+#define sleep(ms) sleep(ms)
 #else
 #define sleep(ms) usleep(ms)
 #endif
@@ -100,7 +105,8 @@ protected:
 
 #include "tstring.h"
 #include "globals.h"
-#include "Atomic.h"
 #include "Thread.h"
-#include "Network.h"
 #include "TimeThread.h"
+
+#include "Atomic.h"
+#include "Network.h"

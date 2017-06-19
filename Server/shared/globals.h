@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+#ifndef _WIN32 
+#include <sys/time.h>
+#endif
+
 #include "version.h"
 #include "packets.h"
 #include "Packet.h"
