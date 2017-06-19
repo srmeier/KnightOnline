@@ -1,7 +1,5 @@
 #pragma once
 
-#define MAC __MACH__ || __APPLE__ || Macintosh
-
 #if _WIN32
 
 #include <Windows.h>
@@ -24,7 +22,7 @@
 #include <random>
 #include <thread>
 #include <chrono>
-//#include <atomic>
+#include <atomic>
 #include <mutex>
 #include <queue>
 
