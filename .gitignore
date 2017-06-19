@@ -43,7 +43,6 @@ ItemEditor/UI/
 ItemEditor/Object/
 ItemEditor/Debug/ItemEditor.lib
 ItemEditor/Release/ItemEditor.lib
-Makefile
 *.o
 *.dSYM
 *.exp

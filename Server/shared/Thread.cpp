@@ -4,12 +4,12 @@ Thread::Thread()
 {
 }
 
-Thread::Thread(lpfnThreadFunc lpThreadFunc, void * lpParam /*= nullptr*/)
+Thread::Thread(lpfnThreadFunc lpThreadFunc, void * lpParam)
 {
 	start(lpThreadFunc, lpParam);
 }
 
-bool Thread::start(lpfnThreadFunc lpThreadFunc, void * lpParam /*= nullptr*/)
+bool Thread::start(lpfnThreadFunc lpThreadFunc, void * lpParam)
 {
 	try
 	{
