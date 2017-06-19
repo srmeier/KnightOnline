@@ -41,7 +41,7 @@ protected:
 
 #if _WIN32
 #define sleep(ms) Sleep(ms)
-#elif defined(__MACH__)
+#elif defined(__APPLE_CC__)
 #include <unistd.h>
 #define sleep(ms) sleep(ms)
 #else
