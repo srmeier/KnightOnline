@@ -38,7 +38,7 @@ uint32_t THREADCALL TimeThread(void * lpParam)
 			g_localTime = *localtime(&t);
 		}
 		#ifdef _WIN32
-		sleep(1000)// might need to run it twice a second 
+		sleep(1000); // might need to run it twice a second 
 		#else	// to be sure it does in fact update somewhat accurately.. depends on the use cases.
 		sleep(1);	
 		#endif			
