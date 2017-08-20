@@ -205,15 +205,15 @@ void CGameServerDlg::GetTimeFromIni()
 	char ipkey[20];
 
 	// This is so horrible.
-	ini.GetString("ODBC", "GAME_DSN", "KO_GAME", m_strGameDSN, false);
-	ini.GetString("ODBC", "GAME_UID", "username", m_strGameUID, false);
-	ini.GetString("ODBC", "GAME_PWD", "password", m_strGamePWD, false);
+	ini.GetString("ODBC", "GAME_DSN", "KN_online", m_strGameDSN, false);
+	ini.GetString("ODBC", "GAME_UID", "", m_strGameUID, false);
+	ini.GetString("ODBC", "GAME_PWD", "", m_strGamePWD, false);
 
 	m_bMarsEnabled = ini.GetBool("ODBC", "GAME_MARS", false);
 
-	ini.GetString("ODBC", "ACCOUNT_DSN", "KO_MAIN", m_strAccountDSN, false);
-	ini.GetString("ODBC", "ACCOUNT_UID", "username", m_strAccountUID, false);
-	ini.GetString("ODBC", "ACCOUNT_PWD", "password", m_strAccountPWD, false);
+	ini.GetString("ODBC", "ACCOUNT_DSN", "KN_online", m_strAccountDSN, false);
+	ini.GetString("ODBC", "ACCOUNT_UID", "", m_strAccountUID, false);
+	ini.GetString("ODBC", "ACCOUNT_PWD", "", m_strAccountPWD, false);
 
 	bool bMarsEnabled = ini.GetBool("ODBC", "ACCOUNT_MARS", false);
 

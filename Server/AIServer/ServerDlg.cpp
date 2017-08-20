@@ -836,9 +836,9 @@ MAP * CServerDlg::GetZoneByID(int zonenumber)
 void CServerDlg::GetServerInfoIni()
 {
 	CIni ini("./AIServer.ini");
-	ini.GetString("ODBC", "GAME_DSN", "KO_GAME", m_strGameDSN, false);
-	ini.GetString("ODBC", "GAME_UID", "username", m_strGameUID, false);
-	ini.GetString("ODBC", "GAME_PWD", "password", m_strGamePWD, false);
+	ini.GetString("ODBC", "GAME_DSN", "KN_online", m_strGameDSN, false);
+	ini.GetString("ODBC", "GAME_UID", "", m_strGameUID, false);
+	ini.GetString("ODBC", "GAME_PWD", "", m_strGamePWD, false);
 
 	m_AIServerPort = ini.GetInt("SETTINGS","PORT", 10020);
 }

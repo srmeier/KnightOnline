@@ -123,9 +123,9 @@ void LoginServer::GetInfoFromIni()
 	ini.GetString("DOWNLOAD", "URL", "ftp.yoursite.net", m_strFtpUrl, false);
 	ini.GetString("DOWNLOAD", "PATH", "/", m_strFilePath, false);
 
-	ini.GetString("ODBC", "DSN", "KO_MAIN", m_ODBCName, false);
-	ini.GetString("ODBC", "UID", "username", m_ODBCLogin, false);
-	ini.GetString("ODBC", "PWD", "password", m_ODBCPwd, false);
+	ini.GetString("ODBC", "DSN", "KN_online", m_ODBCName, false);
+	ini.GetString("ODBC", "UID", "", m_ODBCLogin, false);
+	ini.GetString("ODBC", "PWD", "", m_ODBCPwd, false);
 
 	m_LoginServerPort = ini.GetInt("SETTINGS","PORT", 15100);
 

@@ -147,7 +147,7 @@ struct __Options
 		iTexLOD_Terrain = 0;
 		iViewColorDepth = 16;
 		iViewWidth = 1024;
-		iViewHeight = 600;
+		iViewHeight = 768;
 		iViewDist = 512;
 		iEffectSndDist = 48;
 		bSndEnable = 0;

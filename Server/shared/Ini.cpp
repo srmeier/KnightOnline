@@ -82,6 +82,7 @@ bool CIni::Load(const char * lpFilename /*= nullptr*/)
 		bSkipNextSection = false;
 	}
 
+	delete fn;
 	file.close();
 	return true;
 }
