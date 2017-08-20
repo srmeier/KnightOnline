@@ -12,7 +12,8 @@ void StartTimeThread()
 {
 
 	UNIXTIME = time(nullptr); // update it first, just to ensure it's set when we need to use it.
-	g_localTime = *localtime(&UNIXTIME);
+	//g_localTime = *localtime(&UNIXTIME);
+	localtime_s(&g_localTime, &UNIXTIME);
 	s_timeThread.start(TimeThread);
 
 }
@@ -35,10 +36,11 @@ uint32_t THREADCALL TimeThread(void * lpParam)
 		if (UNIXTIME != t)
 		{
 			UNIXTIME = t;
-			g_localTime = *localtime(&t);
+			//g_localTime = *localtime(&t);
+			localtime_s(&g_localTime, &t);
 		}
 		#ifdef _WIN32
-		sleep(1000)// might need to run it twice a second 
+		sleep(1000); // might need to run it twice a second 
 		#else	// to be sure it does in fact update somewhat accurately.. depends on the use cases.
 		sleep(1);	
 		#endif			
