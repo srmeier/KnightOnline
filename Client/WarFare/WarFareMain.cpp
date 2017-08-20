@@ -59,16 +59,13 @@ int SDL_main(int argc, char** argv)
 	// NOTE: what is the screen resolution?
 	CN3Base::s_Options.iViewWidth = s_CIni->GetInt("ViewPort", "Width", 1024);
 	CN3Base::s_Options.iViewHeight = s_CIni->GetInt("ViewPort", "Height", 768);
-
-	/*
-	//Test
-	if(CN3Base::s_Options.iViewWidth == 1024) CN3Base::s_Options.iViewHeight = 600;
+	if(CN3Base::s_Options.iViewWidth == 1024) CN3Base::s_Options.iViewHeight = 768;
 	else if(1280 == CN3Base::s_Options.iViewWidth) CN3Base::s_Options.iViewHeight = 1024;
 	else if(1600 == CN3Base::s_Options.iViewWidth) CN3Base::s_Options.iViewHeight = 1200;
-	else {
+	/*else {
 		CN3Base::s_Options.iViewWidth = 1024;
 		CN3Base::s_Options.iViewHeight = 768;
-	}*/
+	*/
 
 	// NOTE: what is the viewport's color depth?
 	CN3Base::s_Options.iViewColorDepth = s_CIni->GetInt("ViewPort", "ColorDepth", 16);
