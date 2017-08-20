@@ -12,6 +12,7 @@
 #include "PlayerMySelf.h"
 #include "GameProcMain.h"
 #include "N3WorldManager.h"
+#include "../Server/shared/Ini.h"
 
 #include "time.h"
 #include "SDL2/SDL.h"
@@ -33,63 +34,66 @@ int SDL_main(int argc, char** argv)
 	// NOTE: we are anticipating an Options file to exist within this directory
 	char szIniPath[_MAX_PATH] = "";
 	lstrcpy(szIniPath, CN3Base::PathGet().c_str());
-	lstrcat(szIniPath, "Option.Ini");
+	lstrcat(szIniPath, "Option.ini");
+
+	CIni * s_CIni = new CIni(szIniPath); // Lets read Option.ini
 
 	// NOTE: what is the texture quality?
-	CN3Base::s_Options.iTexLOD_Chr = GetPrivateProfileInt("Texture", "LOD_Chr", 0, szIniPath);
+	CN3Base::s_Options.iTexLOD_Chr = s_CIni->GetInt("Texture", "LOD_Chr", 0);
 	if(CN3Base::s_Options.iTexLOD_Chr < 0) CN3Base::s_Options.iTexLOD_Chr = 0;
 	if(CN3Base::s_Options.iTexLOD_Chr >= 2) CN3Base::s_Options.iTexLOD_Chr = 1;
 	
 	// NOTE: what is the texture quality?
-	CN3Base::s_Options.iTexLOD_Shape = GetPrivateProfileInt("Texture", "LOD_Shape", 0, szIniPath);
+	CN3Base::s_Options.iTexLOD_Shape = s_CIni->GetInt("Texture", "LOD_Shape", 0);
 	if(CN3Base::s_Options.iTexLOD_Shape < 0) CN3Base::s_Options.iTexLOD_Shape = 0;
 	if(CN3Base::s_Options.iTexLOD_Shape >= 2) CN3Base::s_Options.iTexLOD_Shape = 1;
 
 	// NOTE: what is the texture quality?
-	CN3Base::s_Options.iTexLOD_Terrain = GetPrivateProfileInt("Texture", "LOD_Terrain", 0, szIniPath);
+	CN3Base::s_Options.iTexLOD_Terrain = s_CIni->GetInt("Texture", "LOD_Terrain", 0);
 	if(CN3Base::s_Options.iTexLOD_Terrain < 0) CN3Base::s_Options.iTexLOD_Terrain = 0;
 	if(CN3Base::s_Options.iTexLOD_Terrain >= 2) CN3Base::s_Options.iTexLOD_Terrain = 1;
 
 	// NOTE: should we use shadows?
-	CN3Base::s_Options.iUseShadow = GetPrivateProfileInt("Shadow", "Use", 1, szIniPath);
+	CN3Base::s_Options.iUseShadow = s_CIni->GetInt("Shadow", "Use", 1);
 
 	// NOTE: what is the screen resolution?
-	CN3Base::s_Options.iViewWidth = GetPrivateProfileInt("ViewPort", "Width", 1024, szIniPath);
-	CN3Base::s_Options.iViewHeight = GetPrivateProfileInt("ViewPort", "Height", 768, szIniPath);	
+	CN3Base::s_Options.iViewWidth = s_CIni->GetInt("ViewPort", "Width", 1024);
+	CN3Base::s_Options.iViewHeight = s_CIni->GetInt("ViewPort", "Height", 768);
+	
 	if(CN3Base::s_Options.iViewWidth == 1024) CN3Base::s_Options.iViewHeight = 768;
 	else if(1280 == CN3Base::s_Options.iViewWidth) CN3Base::s_Options.iViewHeight = 1024;
 	else if(1600 == CN3Base::s_Options.iViewWidth) CN3Base::s_Options.iViewHeight = 1200;
+	/*
 	else {
 		CN3Base::s_Options.iViewWidth = 1024;
 		CN3Base::s_Options.iViewHeight = 768;
-	}
+	*/
 
 	// NOTE: what is the viewport's color depth?
-	CN3Base::s_Options.iViewColorDepth = GetPrivateProfileInt("ViewPort", "ColorDepth", 16, szIniPath);
+	CN3Base::s_Options.iViewColorDepth = s_CIni->GetInt("ViewPort", "ColorDepth", 16);
 	if(CN3Base::s_Options.iViewColorDepth != 16 && CN3Base::s_Options.iViewColorDepth != 32)
 		CN3Base::s_Options.iViewColorDepth = 32;
 
 	// NOTE: what is the viewport's draw distance?
-	CN3Base::s_Options.iViewDist = GetPrivateProfileInt("ViewPort", "Distance", 512, szIniPath);
+	CN3Base::s_Options.iViewDist = s_CIni->GetInt("ViewPort", "Distance", 512);
 	if(CN3Base::s_Options.iViewDist < 256) CN3Base::s_Options.iViewDist = 256;
 	if(CN3Base::s_Options.iViewDist > 512) CN3Base::s_Options.iViewDist = 512;
 
 	// NOTE: what is the distance for sound events?
-	CN3Base::s_Options.iEffectSndDist = GetPrivateProfileInt("Sound", "Distance", 48, szIniPath);
+	CN3Base::s_Options.iEffectSndDist = s_CIni->GetInt("Sound", "Distance", 48);
 	if(CN3Base::s_Options.iEffectSndDist < 20) CN3Base::s_Options.iEffectSndDist = 20;
 	if(CN3Base::s_Options.iEffectSndDist > 48) CN3Base::s_Options.iEffectSndDist = 48;
 
 	// NOTE: is sound enabled?
-	int iSndEnable = GetPrivateProfileInt("Sound", "Enable", 1, szIniPath);
-	CN3Base::s_Options.bSndEnable = (iSndEnable) ? true : false; // 사운드...
+	CN3Base::s_Options.bSndEnable = s_CIni->GetBool("Sound", "Enable", true);
 
 	// NOTE: is sound duplicated?
-	int iSndDuplicate = GetPrivateProfileInt("Sound", "Duplicate", 0, szIniPath);
-	CN3Base::s_Options.bSndDuplicated = (iSndDuplicate) ? true : false; // 사운드...
+	CN3Base::s_Options.bSndDuplicated = s_CIni->GetBool("Sound", "Duplicate", false);
 
 	// NOTE: should we show the window cursor?
-	int iWindowCursor = GetPrivateProfileInt("Cursor", "WindowCursor", 1, szIniPath);
-	CN3Base::s_Options.bWindowCursor = (iWindowCursor) ? true : false; // cursor...
+	CN3Base::s_Options.bWindowCursor = s_CIni->GetBool("Cursor", "WindowCursor", true);
+
+	delete s_CIni;
 
 	srand((uint32_t) time(NULL));
 
@@ -135,8 +139,10 @@ int SDL_main(int argc, char** argv)
 		SDL_WINDOWPOS_CENTERED,
 		CN3Base::s_Options.iViewWidth,
 		CN3Base::s_Options.iViewHeight,
-		0
+		SWP_SHOWWINDOW | SDL_WINDOW_INPUT_FOCUS
 	);
+	
+	
 
 	if(s_pSDLWindow == NULL) {
 		fprintf(stderr, "ER: %s\n", SDL_GetError());

@@ -139,7 +139,7 @@ struct __Options
 	bool bSndDuplicated;	// 중복된 음원 사용
 	bool bWindowCursor;		// 0 - 게임에서 그려주는 커서 1 - 윈도우 커서 사용
 
-	void InitDefault()
+	void InitDefault()		// Default options for client window
 	{
 		iUseShadow = true;
 		iTexLOD_Chr = 0;
