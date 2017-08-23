@@ -2379,7 +2379,7 @@ int CUIInventory::GetCountInInvByID(int iID)
 	return 0;
 }
 
-void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iID)
+bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iID)
 {
 	__IconItemSkill* spItem;
 	switch (iDistrict)
@@ -2414,15 +2414,19 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				{
 					__ASSERT(0, "NULL Item");
 					CLogWriter::Write("MyInfo - Inv - Unknown Item %d, IDNumber", iID);
-					return;
+					return false;
 				}
 
 				e_PartPosition ePart;
 				e_PlugPosition ePlug;
 				std::string szIconFN;
 				e_ItemType eType = CGameProcedure::MakeResrcFileNameForUPC(pItem, NULL, &szIconFN, ePart, ePlug, CGameBase::s_pPlayer->m_InfoBase.eRace); // 아이템에 따른 파일 이름을 만들어서
-				if(ITEM_TYPE_UNKNOWN == eType) CLogWriter::Write("MyInfo - slot - Unknown Item");
+				if(ITEM_TYPE_UNKNOWN == eType) 
+				{ 
+					CLogWriter::Write("MyInfo - slot - Unknown Item");
 				__ASSERT(ITEM_TYPE_UNKNOWN != eType, "Unknown Item");
+				return false;
+				}
 				
 				spItem = new __IconItemSkill;
 				spItem->pItemBasic	= pItem;
@@ -2431,7 +2435,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->iCount	= iCount;
 				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
 				m_pMySlot[iIndex] = spItem;
-				return;
+				return true;
 			}
 			else if (m_pMySlot[iIndex])
 			{
@@ -2469,15 +2473,19 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				{
 					__ASSERT(0, "NULL Item");
 					CLogWriter::Write("MyInfo - Inv - Unknown Item %d, IDNumber", iID);
-					return;
+					return false;
 				}
 
 				e_PartPosition ePart;
 				e_PlugPosition ePlug;
 				std::string szIconFN;
 				e_ItemType eType = CGameProcedure::MakeResrcFileNameForUPC(pItem, NULL, &szIconFN, ePart, ePlug, CGameBase::s_pPlayer->m_InfoBase.eRace); // 아이템에 따른 파일 이름을 만들어서
-				if(ITEM_TYPE_UNKNOWN == eType) CLogWriter::Write("MyInfo - slot - Unknown Item");
-				__ASSERT(ITEM_TYPE_UNKNOWN != eType, "Unknown Item");
+				if(ITEM_TYPE_UNKNOWN == eType) 
+				{ 
+					CLogWriter::Write("MyInfo - slot - Unknown Item");
+					__ASSERT(ITEM_TYPE_UNKNOWN != eType, "Unknown Item");
+					return false;
+				}
 				
 				spItem = new __IconItemSkill;
 				spItem->pItemBasic	= pItem;
@@ -2486,7 +2494,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->iCount	= iCount;
 				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
 				m_pMySlot[iIndex] = spItem;
-				return;
+				return true;
 			}
 			break;
 
@@ -2520,7 +2528,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				{
 					__ASSERT(0, "NULL Item");
 					CLogWriter::Write("MyInfo - Inv - Unknown Item %d, IDNumber", iID);
-					return;
+					return false;
 				}
 
 				e_PartPosition ePart;
@@ -2537,7 +2545,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->iCount	= iCount;
 				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
 				m_pMyInvWnd[iIndex] = spItem;
-				return;
+				return true;
 			}
 			else if (m_pMyInvWnd[iIndex])
 			{
@@ -2561,6 +2569,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 					delete spItem;
 					spItem = NULL;
 				}
+				return true;
 			}
 			else	// 아이템이 없는 경우..
 			{
@@ -2575,16 +2584,20 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				{
 					__ASSERT(0, "NULL Item");
 					CLogWriter::Write("MyInfo - Inv - Unknown Item %d, IDNumber", iID);
-					return;
+					return false;
 				}
 
 				e_PartPosition ePart;
 				e_PlugPosition ePlug;
 				std::string szIconFN;
 				e_ItemType eType = CGameProcedure::MakeResrcFileNameForUPC(pItem, NULL, &szIconFN, ePart, ePlug, CGameBase::s_pPlayer->m_InfoBase.eRace); // 아이템에 따른 파일 이름을 만들어서
-				if(ITEM_TYPE_UNKNOWN == eType) CLogWriter::Write("MyInfo - slot - Unknown Item");
-				__ASSERT(ITEM_TYPE_UNKNOWN != eType, "Unknown Item");
-				
+				if (ITEM_TYPE_UNKNOWN == eType)
+				{
+					CLogWriter::Write("MyInfo - slot - Unknown Item");
+					__ASSERT(ITEM_TYPE_UNKNOWN != eType, "Unknown Item");
+					return false;
+				}
+
 				spItem = new __IconItemSkill;
 				spItem->pItemBasic	= pItem;
 				spItem->pItemExt	= pItemExt;
@@ -2607,10 +2620,11 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 					m_pMyInvWnd[iIndex]->pUIIcon->SetRegion(pArea->GetRegion());
 					m_pMyInvWnd[iIndex]->pUIIcon->SetMoveRect(pArea->GetRegion());
 				}
-				return;
+				return true;
 			}
 			break;
 	}
+	return false;
 }
 
 void CUIInventory::ItemDestroyOK()

@@ -149,7 +149,7 @@ public:
 	int					GetCountInInvByID(int iID);
 
 	// 소모성 아이템을 소비한 경우 or Not..
-	void				ItemCountChange(int iDistrict, int iIndex, int iCount, int iID);
+	bool				ItemCountChange(int iDistrict, int iIndex, int iCount, int iID);
 
 	// child dlg func..
 	void				ItemDestroyOK();
