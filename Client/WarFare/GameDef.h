@@ -689,6 +689,7 @@ typedef struct __TABLE_UI_RESRC
 	std::string szTradeMemolist;		// 47
 	std::string szQuestMenu;			// 48
 	std::string szQuestTalk;			// 49
+	std::string szQuestEdit;			// 49 + 1 D5DL2
 	std::string szDead;					// 50
 	std::string szElLoading;			// 51
 	std::string szKaLoading;			// 52
@@ -698,7 +699,7 @@ typedef struct __TABLE_UI_RESRC
 	std::string szIdk0;					// 54
 	std::string szIdk1;					// 55
 	std::string szIdk2;					// 56
-	std::string szIdkOthers[73]; // 1264
+	std::string szIdkOthers[72]; // 1264 // AHMET 73 
 	//std::string szIdk3;					// 57
 	//std::string szIdk4;					// 58
 	//std::string szIdk5;					// 59
@@ -991,15 +992,16 @@ typedef struct __TABLE_UPC_SKILL_TYPE_3
 	int			iDurationTime;	// 지속시간
 	int			iAttribute;
 } TABLE_UPC_SKILL_TYPE_3;
-
+// d5dl2
 typedef struct __TABLE_UPC_SKILL_TYPE_4
 {
 	uint32_t		dwID;			// 일련번호
-
-	int iIDK0;
-	int iIDK1;
-
+	
+	
 	int			iBuffType;		// 버프타입
+	//int iIDK0;
+	int iIDK1;
+	
 	int			iDuration;
 	int			iAttackSpeed;	// 공격속도
 	int			iMoveSpeed;		// 이동속도
@@ -1018,6 +1020,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_4
 	int			iDeseaseResist;	// 저주저항
 	int			iPoisonResist;	// 독저항
 
+	int iIdk0;
 	int	iIdk2;
 	int	iIdk3;
 	int	iIdk4;
