@@ -94,8 +94,13 @@ int SDL_main(int argc, char** argv)
 
 	// NOTE: should we show the window cursor?
 	CN3Base::s_Options.bWindowCursor = s_CIni->GetBool("Cursor", "WindowCursor", true);
+																	   
+	// NOTE: should we show window full screen?
+	CN3Base::s_Options.bWindowMode = s_CIni->GetInt("Screen", "WindowMode", 0);
+	CN3Base::s_Options.bWindowMode = (CN3Base::s_Options.bWindowMode) ? 0 : SDL_WindowFlags::SDL_WINDOW_FULLSCREEN; // allow full screen
 
-	delete s_CIni;
+
+
 
 	srand((uint32_t) time(NULL));
 
@@ -141,10 +146,8 @@ int SDL_main(int argc, char** argv)
 		SDL_WINDOWPOS_CENTERED,
 		CN3Base::s_Options.iViewWidth,
 		CN3Base::s_Options.iViewHeight,
-		SWP_SHOWWINDOW | SDL_WINDOW_INPUT_FOCUS
+		CN3Base::s_Options.bWindowMode
 	);
-	
-	
 
 	if(s_pSDLWindow == NULL) {
 		fprintf(stderr, "ER: %s\n", SDL_GetError());
