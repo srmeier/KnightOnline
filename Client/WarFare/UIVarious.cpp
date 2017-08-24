@@ -1650,7 +1650,7 @@ void CUIVarious::UpdateAllStates(const __InfoPlayerBase* pInfoBase, const __Info
 		case CLASS_KA_HUNTER:
 		case CLASS_EL_ROGUE:
 		case CLASS_EL_RANGER:
-			if (m_pPageState->m_pImg_Str) m_pPageState->m_pImg_Str->SetVisible(true);
+			if (m_pPageState->m_pImg_Sta) m_pPageState->m_pImg_Sta->SetVisible(true);
 			if (m_pPageState->m_pImg_Dex) m_pPageState->m_pImg_Dex->SetVisible(true);
 			break;
 

@@ -630,7 +630,7 @@ void CUICharacterCreate::UpdateClassButtons(e_Class eClass)
 	case CLASS_EL_ROGUE:
 	case CLASS_KA_ROGUE:
 		eUIStates[1] = UI_STATE_BUTTON_DOWN;
-		bVisibles[1] = true; // Èû changed main stats focus str to dex ([0] to [1] index)
+		bVisibles[1] = true; // Èû  changed main stats focus str to dex ([0] to [1] index)
 		bVisibles[2] = true; // ¹ÎÃ¸
 		break;
 	case CLASS_EL_WIZARD:
