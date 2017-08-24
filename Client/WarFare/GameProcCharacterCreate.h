@@ -36,6 +36,7 @@ typedef struct __TABLE_NEW_CHR
 	int			iInt;
 	int			iMAP; // 마법 공격력 Magic Attack Point
 	int			iBonus;
+	uint32_t	dwIDK[12]; // D5DL2
 } TABLE_NEW_CHR;
 
 const int TRIBE_NUM = 8;
