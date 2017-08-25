@@ -39,8 +39,10 @@ void CN3BaseFileAccess::FileNameSet(const std::string& szFileName)
 
 	if(!szTmpFN.empty()) CharLower(&(szTmpFN[0])); // 모두 소문자로 만든다..
  	int iPos = szTmpFN.find(s_szPath); // 문자열에 Base Path 와 일치하는 이름이 있는지 본다.
-	if(iPos >= 0) m_szFileName = szTmpFN.substr(s_szPath.size()); // 경로가 일치하면.. 긴경로는 짤라준다..
-	else m_szFileName = szTmpFN;
+	if(iPos >= 0)
+		m_szFileName = szTmpFN.substr(s_szPath.size()); // 경로가 일치하면.. 긴경로는 짤라준다..
+	else 
+		m_szFileName = szTmpFN;
 }
 
 bool CN3BaseFileAccess::Load(HANDLE hFile)

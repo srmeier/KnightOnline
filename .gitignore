@@ -25,6 +25,7 @@ Client/data/
 *.db
 *.sbr
 *.lib
+*.rej
 .vs/
 enc_temp_folder/
 Client/N3Base/Debug/N3Base.lib
