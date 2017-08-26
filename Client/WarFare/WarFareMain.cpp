@@ -140,7 +140,7 @@ int SDL_main(int argc, char** argv)
 		SDL_WINDOWPOS_CENTERED,
 		CN3Base::s_Options.iViewWidth,
 		CN3Base::s_Options.iViewHeight,
-		SWP_SHOWWINDOW | SDL_WINDOW_INPUT_FOCUS
+		SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_SHOWN
 	);
 	
 	
