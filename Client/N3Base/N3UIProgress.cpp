@@ -180,9 +180,8 @@ bool CN3UIProgress::Load(HANDLE hFile)
 		{
 			m_pFrGndImgRef = (CN3UIImage*)pChild;
 		}
-	}
-
-	SetFrGndUVFromFrGndImage();
+		SetFrGndUVFromFrGndImage();
+	}	
 	return true;
 }
 

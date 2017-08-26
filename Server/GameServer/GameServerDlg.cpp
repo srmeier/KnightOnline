@@ -314,7 +314,7 @@ void CGameServerDlg::GetTimeFromIni()
 
 	m_UserRankingArray[KARUS_ARRAY].DeleteAllData();
 	m_UserRankingArray[ELMORAD_ARRAY].DeleteAllData();
-
+	//TODO(onurcanbektas): read them from gameserver.ini
 	m_byBattleOpenedTime = 0;
 	m_byBattleTime = (2 * 60) * 60; // 2 Hours
 
