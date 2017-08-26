@@ -152,7 +152,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 
 
 	s_pEng = new CGameEng();
-	if(false == s_pEng->Init(s_bWindowed, pWindow, CN3Base::s_Options.iViewWidth, CN3Base::s_Options.iViewHeight, CN3Base::s_Options.iViewColorDepth | SWP_SHOWWINDOW | SDL_WINDOW_INPUT_FOCUS, TRUE)) exit(-1);
+	if(false == s_pEng->Init(s_bWindowed, pWindow, CN3Base::s_Options.iViewWidth, CN3Base::s_Options.iViewHeight, CN3Base::s_Options.iViewColorDepth, TRUE)) exit(-1);
 	// 게임 기본 3D 엔진 만들기..
 	
 	
