@@ -117,6 +117,7 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		} break;
 
 		case WM_KEYDOWN: {
+			/* Are we mocking with taiwanese ? What is this ? 
 			int iLangID = ::GetUserDefaultLangID();
 			if(iLangID == 0x0404) { // Taiwan Language
 				CUIChat* pUIChat = CGameProcedure::s_pProcMain->m_pUIChatDlg;
@@ -134,7 +135,7 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 						return 0;
 					}
 				}
-			}
+			}*/
 		} break;
 
 		case WM_SOCKETMSG: {
