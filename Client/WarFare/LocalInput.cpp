@@ -270,10 +270,10 @@ void CLocalInput::Tick(void) {
 
 			case SDL_SYSWMEVENT: {
 				// TEMP: until things become less window's dependent
-				WndProcMain(uSDLEvents.syswm.msg->msg.win.hwnd,
-					uSDLEvents.syswm.msg->msg.win.msg,
-					uSDLEvents.syswm.msg->msg.win.wParam,
-					uSDLEvents.syswm.msg->msg.win.lParam
+				WndProcMain(uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.hwnd,
+					uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.msg,
+					uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.wParam,
+					uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.lParam
 				);
 			} break;
 		}

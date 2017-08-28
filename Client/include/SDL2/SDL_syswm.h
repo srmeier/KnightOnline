@@ -133,6 +133,7 @@ struct SDL_SysWMmsg
     union
     {
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
+#define SDL_sysWMOSSpecInstance win
         struct {
             HWND hwnd;                  /**< The window for the message */
             UINT msg;                   /**< The type of message */
@@ -140,25 +141,31 @@ struct SDL_SysWMmsg
             LPARAM lParam;              /**< LONG message parameter */
         } win;
 #endif
-#if defined(SDL_VIDEO_DRIVER_X11)
-        struct {
-            XEvent event;
-        } x11;
-#endif
 #if defined(SDL_VIDEO_DRIVER_DIRECTFB)
         struct {
             DFBEvent event;
         } dfb;
 #endif
 #if defined(SDL_VIDEO_DRIVER_COCOA)
-        struct
-        {
-            /* Latest version of Xcode clang complains about empty structs in C v. C++:
-                 error: empty struct has size 0 in C, size 1 in C++
-             */
-            int dummy;
-            /* No Cocoa window events yet */
-        } cocoa;
+#define HWND NSWindow*
+#define SDL_sysWMOSSpecInstance cocoa
+		struct
+		{
+#if defined(__OBJC__) && defined(__has_feature) && __has_feature(objc_arc)
+			NSWindow __unsafe_unretained *window; /* The Cocoa window */
+#else
+			NSWindow *window;                     /* The Cocoa window */
+#endif
+		} cocoa;
+#endif
+#if defined(SDL_VIDEO_DRIVER_X11)
+#define HWND Window
+#define SDL_sysWMOSSpecInstance x11
+		struct
+		{
+			Display *display;           /**< The X11 display */
+			Window window;              /**< The X11 window */
+	} x11;
 #endif
 #if defined(SDL_VIDEO_DRIVER_UIKIT)
         struct
@@ -185,6 +192,7 @@ struct SDL_SysWMinfo
     union
     {
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
+#define SDL_sysWMOSSpecInstance win
         struct
         {
             HWND window;                /**< The window handle */
@@ -197,13 +205,6 @@ struct SDL_SysWMinfo
             IInspectable * window;      /**< The WinRT CoreWindow */
         } winrt;
 #endif
-#if defined(SDL_VIDEO_DRIVER_X11)
-        struct
-        {
-            Display *display;           /**< The X11 display */
-            Window window;              /**< The X11 window */
-        } x11;
-#endif
 #if defined(SDL_VIDEO_DRIVER_DIRECTFB)
         struct
         {
@@ -213,14 +214,25 @@ struct SDL_SysWMinfo
         } dfb;
 #endif
 #if defined(SDL_VIDEO_DRIVER_COCOA)
-        struct
-        {
+#define HWND NSWindow* // Edited specifically for the OpenKO project
+#define SDL_sysWMOSSpecInstance cocoa
+		struct
+		{
 #if defined(__OBJC__) && defined(__has_feature) && __has_feature(objc_arc)
-            NSWindow __unsafe_unretained *window; /* The Cocoa window */
+			NSWindow __unsafe_unretained *window; /* The Cocoa window */
 #else
-            NSWindow *window;                     /* The Cocoa window */
+			NSWindow *window;                     /* The Cocoa window */
 #endif
-        } cocoa;
+	} cocoa;
+#endif
+#if defined(SDL_VIDEO_DRIVER_X11) //In case x11 video driver is also defined on the machine, use x11 instead of cocoa.
+#define HWND Window // Edited specifically for the OpenKO project
+#define SDL_sysWMOSSpecInstance x11
+		struct
+		{
+			Display *display;           /**< The X11 display */
+			Window window;              /**< The X11 window */
+		} x11;
 #endif
 #if defined(SDL_VIDEO_DRIVER_UIKIT)
         struct

@@ -290,7 +290,7 @@ bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_
 	SDL_VERSION(&info.version);
 	SDL_GetWindowWMInfo(pWindow, &info);
 
-	s_hWndBase = info.info.win.window; // TODO: Remove this when we move away from DX
+	s_hWndBase = info.info.SDL_sysWMOSSpecInstance.window; // TODO: Remove this when we move away from DX
 	s_pWindow = pWindow;
 
 	// FIX (srmeier): I really have no idea what the second arguement here should be
