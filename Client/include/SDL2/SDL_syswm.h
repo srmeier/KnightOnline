@@ -150,22 +150,21 @@ struct SDL_SysWMmsg
 #define HWND NSWindow*
 #define SDL_sysWMOSSpecInstance cocoa
 		struct
-		{
-#if defined(__OBJC__) && defined(__has_feature) && __has_feature(objc_arc)
-			NSWindow __unsafe_unretained *window; /* The Cocoa window */
-#else
-			NSWindow *window;                     /* The Cocoa window */
-#endif
-		} cocoa;
+			 {
+			            /* Latest version of Xcode clang complains about empty structs in C v. C++:
+						                  error: empty struct has size 0 in C, size 1 in C++
+						              */
+				int dummy;
+			            /* No Cocoa window events yet */
+				} cocoa;
 #endif
 #if defined(SDL_VIDEO_DRIVER_X11)
 #define HWND Window
 #define SDL_sysWMOSSpecInstance x11
-		struct
-		{
-			Display *display;           /**< The X11 display */
-			Window window;              /**< The X11 window */
-	} x11;
+		struct {
+			XEvent event;
+			
+		} x11;
 #endif
 #if defined(SDL_VIDEO_DRIVER_UIKIT)
         struct
