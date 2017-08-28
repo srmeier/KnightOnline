@@ -52,7 +52,7 @@ void CUITargetBar::UpdateHP(int iHP, int iHPMax, bool bUpdateImmediately)
 	if(bUpdateImmediately) m_pProgressHP->SetCurValue(iPercentage);
 	else m_pProgressHP->SetCurValue(iPercentage, 0.5f, 50.0f);				// 1초뒤에 초당 50 의 속도로 변하게 한다.
 
-	UpdateHPStr(iHP, iHPMax);	
+	//UpdateHPStr(iHP, iHPMax);	// We don't want the hp string in the hp bar of mobs
 	return;
 }
 

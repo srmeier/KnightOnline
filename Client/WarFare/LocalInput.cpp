@@ -117,6 +117,7 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		} break;
 
 		case WM_KEYDOWN: {
+			/* Are we mocking with taiwanese ? What is this ? 
 			int iLangID = ::GetUserDefaultLangID();
 			if(iLangID == 0x0404) { // Taiwan Language
 				CUIChat* pUIChat = CGameProcedure::s_pProcMain->m_pUIChatDlg;
@@ -134,7 +135,7 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 						return 0;
 					}
 				}
-			}
+			}*/
 		} break;
 
 		case WM_SOCKETMSG: {
@@ -270,10 +271,10 @@ void CLocalInput::Tick(void) {
 
 			case SDL_SYSWMEVENT: {
 				// TEMP: until things become less window's dependent
-				WndProcMain(uSDLEvents.syswm.msg->msg.win.hwnd,
-					uSDLEvents.syswm.msg->msg.win.msg,
-					uSDLEvents.syswm.msg->msg.win.wParam,
-					uSDLEvents.syswm.msg->msg.win.lParam
+				WndProcMain(uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.hwnd,
+					uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.msg,
+					uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.wParam,
+					uSDLEvents.syswm.msg->msg.SDL_sysWMOSSpecInstance.lParam
 				);
 			} break;
 		}
