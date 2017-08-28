@@ -1117,13 +1117,14 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 	//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
 	//}
 
-	/*
+	// Moves camera when mouse is on the borders of the screen. For both X & Y
+	// SavvyNik - Why was this commented out?
 	if (!(dwMouseFlags & MOUSE_RBDOWN)) {
 		float fRotY = 0, fRotX = 0;
-		if (ptCur.x <= 0) fRotY = -2.0f;
-		else if (ptCur.x >= (CN3Base::s_CameraData.vp.Width - 1)) fRotY = 2.0f;
-		if (ptCur.y <= 0) fRotX = -1.0f;
-		else if (ptCur.y >= (CN3Base::s_CameraData.vp.Height - 1)) fRotX = 1.0f;
+		if (0 == ptCur.x) fRotY = -2.0f;
+		else if ((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
+		if (0 == ptCur.y) fRotX = -1.0f;
+		else if ((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
 		if (fRotY)
 		{
 			if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
@@ -1131,31 +1132,8 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		}
 		if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 	}
-	*/
 
-	// NOTE: move camera when cursor is on the border
-	/*
-	// 마우스에 따른 카메라 회전...
-	float fRotY = 0, fRotX = 0;
-	if(0 == ptCur.x) fRotY = -2.0f;
-	else if((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
-	if(0 == ptCur.y) fRotX = -1.0f;
-	else if((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
-	if(fRotY)
-	{
-		if(VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-		else s_pPlayer->RotAdd(fRotY);
-	}
-	if(fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
-	*/
 
-	//
-	// 마우스 처리.
-	//
-	//////////////////////////////////////////
-
-	//////////////////////////////////////////
-	// 핫키
 	int iHotKey = -1;
 	if( s_pLocalInput->IsKeyPress(KM_HOTKEY1) ) iHotKey = 0;
 	else if( s_pLocalInput->IsKeyPress(KM_HOTKEY2) ) iHotKey = 1;
