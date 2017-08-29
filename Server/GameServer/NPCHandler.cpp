@@ -599,7 +599,7 @@ void CUser::ItemTrade(Packet & pkt)
 					m_sItemArray[SLOT_MAX+pos].sDuration = pTable->m_sDuration;
 					m_sItemArray[SLOT_MAX+pos].sCount += count;
 
-					GoldLose(transactionPrice);
+					m_iGold -= transactionPrice;
 
 					if (!pTable->m_bCountable)
 						m_sItemArray[SLOT_MAX+pos].nSerialNum = g_pMain->GenerateItemSerial();
@@ -634,7 +634,7 @@ void CUser::ItemTrade(Packet & pkt)
 		else
 			transactionPrice = (pTable->m_iBuyPrice * count);
 
-		GoldGain(transactionPrice);
+		GoldGain(transactionPrice, false);
 
 		if (count >= pItem->sCount)
 			memset(pItem, 0, sizeof(_ITEM_DATA));
