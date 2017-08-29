@@ -96,11 +96,7 @@ int SDL_main(int argc, char** argv)
 	CN3Base::s_Options.bWindowCursor = s_CIni->GetBool("Cursor", "WindowCursor", true);
 																	   
 	// NOTE: should we show window full screen?
-	CN3Base::s_Options.bWindowMode = s_CIni->GetInt("Screen", "WindowMode", 0);
-	CN3Base::s_Options.bWindowMode = (CN3Base::s_Options.bWindowMode) ? 0 : SDL_WindowFlags::SDL_WINDOW_FULLSCREEN; // allow full screen
-
-
-
+	CN3Base::s_Options.bWindowMode = s_CIni->GetBool("Screen", "WindowMode", false);
 
 	srand((uint32_t) time(NULL));
 
@@ -140,16 +136,20 @@ int SDL_main(int argc, char** argv)
 		return false;
 	}
 
-	SDL_Window* s_pSDLWindow = SDL_CreateWindow(
+	Uint32 flags = SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_SHOWN;
+	if (!CN3Base::s_Options.bWindowMode)
+		flags |= SDL_WINDOW_FULLSCREEN;
+
+	SDL_Window* pWindow = SDL_CreateWindow(
 		"KnightOnline",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		CN3Base::s_Options.iViewWidth,
 		CN3Base::s_Options.iViewHeight,
-		CN3Base::s_Options.bWindowMode | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_SHOWN
+		flags
 	);
 
-	if(s_pSDLWindow == NULL) {
+	if(pWindow == NULL) {
 		fprintf(stderr, "ER: %s\n", SDL_GetError());
 		Sleep(1000 * 5);
 		return false;
@@ -158,7 +158,7 @@ int SDL_main(int argc, char** argv)
 	CGameProcedure::s_bWindowed = true;
 
 	// NOTE: allocate the static members
-	CGameProcedure::StaticMemberInit(s_pSDLWindow);
+	CGameProcedure::StaticMemberInit(pWindow);
 
 	// NOTE: set the games current procedure to s_pProcLogIn
 	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
@@ -182,7 +182,7 @@ int SDL_main(int argc, char** argv)
 	*/
 
 	BOOL bGotMsg = FALSE;
-	MSG msg; memset(&msg, 0, sizeof(MSG));
+	MSG msg = { 0 };
 
 	CGameBase::s_bRunning = true;
 
