@@ -3624,12 +3624,10 @@ void CGameProcMain::MsgRecv_MyInfo_RealmPoint(Packet& pkt)
 	}
 }
 
-// d5dl2
 void CGameProcMain::MsgRecv_MyInfo_PointChange(Packet& pkt)
 {
-	int iVal = pkt.read<int16_t>();	// 0x01 : true, 0x00 : false..
-	int iType = pkt.read<uint8_t>();	// 0x01 : true, 0x00 : false..
-	
+	int iType = pkt.read<uint8_t>();
+	int iVal = pkt.read<int16_t>();
 
 	s_pPlayer->m_InfoBase.iHPMax =		pkt.read<int16_t>();
 	s_pPlayer->m_InfoExt.iMSPMax =		pkt.read<int16_t>();

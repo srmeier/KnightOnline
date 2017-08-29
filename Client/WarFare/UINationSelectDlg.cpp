@@ -32,7 +32,7 @@ bool CUINationSelectDlg::Load(HANDLE hFile)
 {
 	bool bSuccess = CN3UIBase::Load(hFile);
 
-	m_pBtnKarus = this->GetChildByID("btn_karus_selection");	__ASSERT(m_pBtnKarus, "NULL UI Component!!"); // D5DL2
+	m_pBtnKarus = this->GetChildByID("btn_karus_selection");	__ASSERT(m_pBtnKarus, "NULL UI Component!!");
 	m_pBtnElmorad = this->GetChildByID("btn_elmo_selection");	__ASSERT(m_pBtnElmorad, "NULL UI Component!!"); // 
 	m_pBtnBack = this->GetChildByID("btn_back");	__ASSERT(m_pBtnElmorad, "NULL UI Component!!"); // 
 	RECT rc = this->GetRegion();

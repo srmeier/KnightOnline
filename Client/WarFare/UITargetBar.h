@@ -16,7 +16,7 @@ class CUITargetBar       : public CN3UIBase
 public:
 	class CN3UIProgress*	m_pProgressHP;
 	class CN3UIString *		m_pStringID;
-	class CN3UIString *     m_pAmountHP; // D5DL2 - string that shows targets current hp
+	class CN3UIString *     m_pAmountHP; // string that shows targets current hp
 	float m_fTimeSendPacketLast; // 이걸 기준으로 1초에 한번씩 타겟의 정보 요청..
 
 public:
