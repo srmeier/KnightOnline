@@ -103,9 +103,6 @@ bool CGameProcedure::s_bKeyPressed = false;	//키가 올라갔을때 ui에서 해당하는 조
 // NOTE: adding boolean to check if window has focus or not
 bool CGameProcedure::s_bIsWindowInFocus = true;
 
-// NOTE: added a bool for whether window has mouse focus or not
-bool CGameProcedure::s_bWindowHasMouseFocus = true;
-
 CGameProcedure::CGameProcedure()
 {
 	m_bCursorLocked = false;

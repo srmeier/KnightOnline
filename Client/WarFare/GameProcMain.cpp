@@ -1117,23 +1117,20 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 	//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
 	//}
 
-
 	// Moves camera when mouse is on the borders of the screen. For both X & Y
-	// Now checking to make sure game window has focus of mouse
+	// SavvyNik - Why was this commented out?
 	if (!(dwMouseFlags & MOUSE_RBDOWN)) {
-		if (CGameProcedure::s_bWindowHasMouseFocus) {
-			float fRotY = 0, fRotX = 0;
-			if (0 == ptCur.x) fRotY = -2.0f;
-			else if ((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
-			if (0 == ptCur.y) fRotX = -1.0f;
-			else if ((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
-			if (fRotY)
-			{
-				if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-				else s_pPlayer->RotAdd(fRotY);
-			}
-			if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
+		float fRotY = 0, fRotX = 0;
+		if (0 == ptCur.x) fRotY = -2.0f;
+		else if ((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
+		if (0 == ptCur.y) fRotX = -1.0f;
+		else if ((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
+		if (fRotY)
+		{
+			if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
+			else s_pPlayer->RotAdd(fRotY);
 		}
+		if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 	}
 
 
