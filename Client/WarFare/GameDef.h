@@ -992,7 +992,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_3
 	int			iDurationTime;	// 지속시간
 	int			iAttribute;
 } TABLE_UPC_SKILL_TYPE_3;
-// d5dl2
+
 typedef struct __TABLE_UPC_SKILL_TYPE_4
 {
 	uint32_t		dwID;			// 일련번호

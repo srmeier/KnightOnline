@@ -265,6 +265,12 @@ void CLocalInput::Tick(void) {
 					case SDL_WINDOWEVENT_FOCUS_LOST:
 						CGameProcedure::s_bIsWindowInFocus = false;
 						break;
+					case SDL_WINDOWEVENT_ENTER:
+						CGameProcedure::s_bWindowHasMouseFocus = true;
+						break;
+					case SDL_WINDOWEVENT_LEAVE:
+						CGameProcedure::s_bWindowHasMouseFocus = false;
+						break;
 				}
 			} break;
 

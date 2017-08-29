@@ -1933,9 +1933,9 @@ void CUser::PointChange(Packet & pkt)
 	Packet result(WIZ_POINT_CHANGE);
 
 	m_sPoints--; // remove a free point
-	result << uint16_t(++m_bStats[statType]); // assign the free point to a stat
+	result << type << uint16_t(++m_bStats[statType]); // assign the free point to a stat
 	SetUserAbility();
-	result << type << m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight);
+	result << m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight);
 	Send(&result);
 	SendItemMove(1);
 }

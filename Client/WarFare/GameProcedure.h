@@ -104,6 +104,7 @@ public:
 
 	// NOTE: adding boolean to check if window has focus or not
 	static bool		s_bIsWindowInFocus;
+	static bool		s_bWindowHasMouseFocus;
 
 public:
 	static std::string MessageBoxPost(const std::string& szMsg, const std::string& szTitle, int iStyle, e_Behavior eBehavior = BEHAVIOR_NOTHING);

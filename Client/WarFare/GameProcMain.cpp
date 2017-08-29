@@ -1051,111 +1051,91 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
 		return;
 
-	//////////////////////////////////////////
-	//
-	// 마우스 처리.
-	//
-	POINT ptPrev = s_pLocalInput->MouseGetPosOld();
-	POINT ptCur = s_pLocalInput->MouseGetPos();
+	if (!s_bIsWindowInFocus)
+		return;
 
-	OnMouseMove(ptCur, ptPrev);
-
-	//static POINT ptPrev_RB ={};
-
-	if( dwMouseFlags & MOUSE_RBCLICK )
+	if (s_bWindowHasMouseFocus)
 	{
-		// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
-		OnMouseRBtnPress(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_RBDOWN )
-	{
-		// NOTE: this is where the right click rotation and zoom out occur
-		//if(!SDL_GetRelativeMouseMode()) ptPrev_RB = ptCur;
-		//else {
+		POINT ptPrev = s_pLocalInput->MouseGetPosOld();
+		POINT ptCur = s_pLocalInput->MouseGetPos();
+
+		OnMouseMove(ptCur, ptPrev);
+
+		//static POINT ptPrev_RB ={};
+
+		if (dwMouseFlags & MOUSE_RBCLICK)
+		{
+			// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
+			OnMouseRBtnPress(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_RBDOWN)
+		{
+			// NOTE: this is where the right click rotation and zoom out occur
+			//if(!SDL_GetRelativeMouseMode()) ptPrev_RB = ptCur;
+			//else {
+			//	int x, y;
+			//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
+			//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
+			//}
+			OnMouseRbtnDown(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_RBCLICK)
+		{
+			OnMouseRBtnPressd(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_RBDBLCLK)
+		{
+			OnMouseRDBtnPress(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBCLICK)
+		{
+			// NOTE: move on click
+			OnMouseLBtnPress(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBDOWN)
+		{
+			// NOTE: move on held down click
+			OnMouseLbtnDown(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBCLICKED)
+		{
+			OnMouseLBtnPressd(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBDBLCLK)
+		{
+			OnMouseLDBtnPress(ptCur, ptPrev);
+		}
+
+		// reset mouse visibility
+		if (!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY) == SDL_DISABLE) {
+			SDL_ShowCursor(SDL_ENABLE);
+		}
+		//if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_GetRelativeMouseMode()) {
+		//	SDL_SetRelativeMouseMode(SDL_FALSE);
 		//	int x, y;
 		//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
 		//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
+		//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
 		//}
-		OnMouseRbtnDown(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_RBCLICK )
-	{
-		OnMouseRBtnPressd(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_RBDBLCLK )
-	{ 
-		OnMouseRDBtnPress(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBCLICK )
-	{
-		// NOTE: move on click
-		OnMouseLBtnPress(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBDOWN )
-	{
-		// NOTE: move on held down click
-		OnMouseLbtnDown(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBCLICKED )
-	{
-		OnMouseLBtnPressd(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBDBLCLK )
-	{
-		OnMouseLDBtnPress(ptCur, ptPrev);
-	}
 
-	// NOTE(srmeier): reset mouse visability
-	if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY)==SDL_DISABLE) {
-		SDL_ShowCursor(SDL_ENABLE);
-	}
-	//if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_GetRelativeMouseMode()) {
-	//	SDL_SetRelativeMouseMode(SDL_FALSE);
-	//	int x, y;
-	//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
-	//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
-	//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
-	//}
 
-	/*
-	if (!(dwMouseFlags & MOUSE_RBDOWN)) {
-		float fRotY = 0, fRotX = 0;
-		if (ptCur.x <= 0) fRotY = -2.0f;
-		else if (ptCur.x >= (CN3Base::s_CameraData.vp.Width - 1)) fRotY = 2.0f;
-		if (ptCur.y <= 0) fRotX = -1.0f;
-		else if (ptCur.y >= (CN3Base::s_CameraData.vp.Height - 1)) fRotX = 1.0f;
-		if (fRotY)
+		// Moves camera when mouse is on the borders of the screen. For both X & Y
+		if (!(dwMouseFlags & MOUSE_RBDOWN))
 		{
-			if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-			else s_pPlayer->RotAdd(fRotY);
+			float fRotY = 0, fRotX = 0;
+			if (0 == ptCur.x) fRotY = -2.0f;
+			else if ((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
+			if (0 == ptCur.y) fRotX = -1.0f;
+			else if ((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
+			if (fRotY)
+			{
+				if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
+				else s_pPlayer->RotAdd(fRotY);
+			}
+			if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 		}
-		if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 	}
-	*/
 
-	// NOTE: move camera when cursor is on the border
-	/*
-	// 마우스에 따른 카메라 회전...
-	float fRotY = 0, fRotX = 0;
-	if(0 == ptCur.x) fRotY = -2.0f;
-	else if((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
-	if(0 == ptCur.y) fRotX = -1.0f;
-	else if((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
-	if(fRotY)
-	{
-		if(VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-		else s_pPlayer->RotAdd(fRotY);
-	}
-	if(fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
-	*/
-
-	//
-	// 마우스 처리.
-	//
-	//////////////////////////////////////////
-
-	//////////////////////////////////////////
-	// 핫키
 	int iHotKey = -1;
 	if( s_pLocalInput->IsKeyPress(KM_HOTKEY1) ) iHotKey = 0;
 	else if( s_pLocalInput->IsKeyPress(KM_HOTKEY2) ) iHotKey = 1;
@@ -3643,12 +3623,10 @@ void CGameProcMain::MsgRecv_MyInfo_RealmPoint(Packet& pkt)
 	}
 }
 
-// d5dl2
 void CGameProcMain::MsgRecv_MyInfo_PointChange(Packet& pkt)
 {
-	int iVal = pkt.read<int16_t>();	// 0x01 : true, 0x00 : false..
-	int iType = pkt.read<uint8_t>();	// 0x01 : true, 0x00 : false..
-	
+	int iType = pkt.read<uint8_t>();
+	int iVal = pkt.read<int16_t>();
 
 	s_pPlayer->m_InfoBase.iHPMax =		pkt.read<int16_t>();
 	s_pPlayer->m_InfoExt.iMSPMax =		pkt.read<int16_t>();
