@@ -197,89 +197,12 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 	else if (bFromClient)
 		return;
 
-	uint8_t classcode = pkt.read<uint8_t>();
-	switch (m_sClass)
-	{
-	case KARUWARRIOR:
-		if( classcode == BERSERKER || classcode == GUARDIAN )
-			bSuccess = true;
-		break;
-	case KARUROGUE:
-		if( classcode == HUNTER || classcode == PENETRATOR )
-			bSuccess = true;
-		break;
-	case KARUWIZARD:
-		if( classcode == SORSERER || classcode == NECROMANCER )
-			bSuccess = true;
-		break;
-	case KARUPRIEST:
-		if( classcode == SHAMAN || classcode == DARKPRIEST )
-			bSuccess = true;
-		break;
-	case ELMORWARRRIOR:
-		if( classcode == BLADE || classcode == PROTECTOR )
-			bSuccess = true;
-		break;
-	case ELMOROGUE:
-		if( classcode == RANGER || classcode == ASSASSIN )
-			bSuccess = true;
-		break;
-	case ELMOWIZARD:
-		if( classcode == MAGE || classcode == ENCHANTER )
-			bSuccess = true;
-		break;
-	case ELMOPRIEST:
-		if( classcode == CLERIC || classcode == DRUID )
-			bSuccess = true;
-		break;
-	case BERSERKER:
-		if (classcode == GUARDIAN)
-			bSuccess = true;
-		break;
-	case HUNTER:
-		if (classcode == PENETRATOR)
-			bSuccess = true;
-		break;
-	case SORSERER:
-		if (classcode == NECROMANCER)
-			bSuccess = true;
-		break;
-	case SHAMAN:
-		if (classcode == DARKPRIEST)
-			bSuccess = true;
-		break;
-	case BLADE:
-		if (classcode == PROTECTOR)
-			bSuccess = true;
-		break;
-	case RANGER:
-		if (classcode == ASSASSIN)
-			bSuccess = true;
-		break;
-	case MAGE:
-		if (classcode == ENCHANTER)
-			bSuccess = true;
-		break;
-	case CLERIC:
-		if (classcode == DRUID)
-			bSuccess = true;
-		break;
-	}
-
-	// Not allowed this job change
-	if (!bSuccess)
-	{
-		result << uint8_t(CLASS_CHANGE_RESULT) << uint8_t(0);
-		Send(&result);
-		return;
-	}
-
-	m_sClass = classcode;
+	m_sClass = pkt.read<uint8_t>();
 	if (isInParty())
 	{
 		// TODO: Move this somewhere better.
 		result.Initialize(WIZ_PARTY);
-		result << uint8_t(PARTY_CLASSCHANGE) << GetSocketID() << uint16_t(classcode);
+		result << uint8_t(PARTY_CLASSCHANGE) << GetSocketID() << uint16_t(GetClass());
 		g_pMain->Send_PartyMember(GetPartyID(), &result);
 	}
 }
@@ -676,7 +599,7 @@ void CUser::ItemTrade(Packet & pkt)
 					m_sItemArray[SLOT_MAX+pos].sDuration = pTable->m_sDuration;
 					m_sItemArray[SLOT_MAX+pos].sCount += count;
 
-					GoldLose(transactionPrice);
+					m_iGold -= transactionPrice;
 
 					if (!pTable->m_bCountable)
 						m_sItemArray[SLOT_MAX+pos].nSerialNum = g_pMain->GenerateItemSerial();
@@ -711,7 +634,7 @@ void CUser::ItemTrade(Packet & pkt)
 		else
 			transactionPrice = (pTable->m_iBuyPrice * count);
 
-		GoldGain(transactionPrice);
+		GoldGain(transactionPrice, false);
 
 		if (count >= pItem->sCount)
 			memset(pItem, 0, sizeof(_ITEM_DATA));
