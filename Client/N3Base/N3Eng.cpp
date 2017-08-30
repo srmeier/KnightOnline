@@ -246,22 +246,6 @@ void CN3Eng::SetProjection(float fNear, float fFar, float fLens, float fAspect)
 }
 
 //-----------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//-----------------------------------------------------------------------------
 bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_t dwHeight, uint32_t dwBPP, BOOL bUseHW)
 {
 	/*
