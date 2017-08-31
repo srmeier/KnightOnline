@@ -445,6 +445,8 @@
 #define IDS_SETTING_KARUS_SCREEN        6124
 #define IDS_SETTING_ELMORAD_SCREEN      6125
 
+#define IDS_ITEM_RECIVED				7613
+
 #define IDS_CMD_WHISPER                 8000
 #define IDS_CMD_TOWN                    8001
 #define IDS_CMD_EXIT                    8002

@@ -2480,7 +2480,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				{ 
 					CLogWriter::Write("MyInfo - slot - Unknown Item");
 					__ASSERT(ITEM_TYPE_UNKNOWN != eType, "Unknown Item");
-					return false;
+					return;
 				}
 				if(ITEM_TYPE_UNKNOWN == eType) CLogWriter::Write("MyInfo - slot - Unknown Item");
 				__ASSERT(ITEM_TYPE_UNKNOWN != eType, "Unknown Item");
