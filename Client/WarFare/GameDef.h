@@ -563,7 +563,6 @@ typedef struct __TABLE_TEXTS
 	std::string	szText;
 } TABLE_TEXTS;
 
-// NOTE: temp 1298 zone structure
 typedef struct __TABLE_ZONE
 {
 	uint32_t       dwID;                 // zone ID
@@ -575,7 +574,9 @@ typedef struct __TABLE_ZONE
 	std::string	szLightMapFN;         // TLT
 	std::string	szObjectPostDataFN;   // OPD
 
-	//std::string szReserved; // temp remove for 1264
+#if __VERSION > 1264
+	std::string szReserved;
+#endif
 
 	std::string	szMiniMapFN;          // DXT
 	std::string szSkySetting;         // N3Sky
@@ -596,32 +597,6 @@ typedef struct __TABLE_ZONE
 	int         iIdk6;
 	std::string szEVTSUB;             // EVTSUB
 } TABLE_ZONE;
-
-/*
-typedef struct __TABLE_ZONE
-{
-	uint32_t		dwID; // zone ID
-
-	//uint32_t       dwVersion;
-
-	std::string	szTerrainFN; // Terrain FileName - Terrain, Tile Map, ColorMap....
-	std::string	szColorMapFN;
-	std::string	szLightMapFN;
-	std::string	szObjectPostDataFN; // Object 위치 정보 - 이안에 충돌 체크 데이터도 들어 있다.
-	std::string	szMiniMapFN;
-	std::string szSkySetting; // 하늘과 분위기 조정한 세팅 정보 파일..
-	BOOL		bIndicateEnemyPlayer;	// 적국 플레이어를 표시하나??
-	int			iFixedSundDirection;	// 해의 방향을 고정시키는지..
-	std::string szLightObjFN;		// 지형에 배치되어 있는 라이트정보파일..
-
-	// 1068
-	std::string szIdk0;
-	int         iIdk1;
-	std::string szIdk2;
-	float       fIdk3;
-	std::string szIdk4;
-} TABLE_ZONE;
-*/
 
 typedef struct __TABLE_UI_RESRC
 {
@@ -689,20 +664,21 @@ typedef struct __TABLE_UI_RESRC
 	std::string szTradeMemolist;		// 47
 	std::string szQuestMenu;			// 48
 	std::string szQuestTalk;			// 49
-	std::string szQuestEdit;			// 49 + 1 D5DL2
-	std::string szDead;					// 50
-	std::string szElLoading;			// 51
-	std::string szKaLoading;			// 52
-	std::string szNationSelect;			// 53
+	std::string szQuestEdit;			// 50
+	std::string szDead;					// 51
+	std::string szElLoading;			// 52
+	std::string szKaLoading;			// 53
+	std::string szNationSelect;			// 54
 
 	// 1068
-	std::string szIdk0;					// 54
-	std::string szIdk1;					// 55
-	std::string szIdk2;					// 56
-	std::string szIdkOthers[72]; // 1264 // AHMET 73 
-	//std::string szIdk3;					// 57
-	//std::string szIdk4;					// 58
-	//std::string szIdk5;					// 59
+	std::string szIdk0;					// 55
+	std::string szIdk1;					// 56
+	std::string szIdk2;					// 57
+#if __VERSION <= 1264
+	std::string szIdkOthers[72];
+#else
+	std::string szIdkOthers[86];
+#endif
 } TABLE_UI_RESRC;
 
 typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...
@@ -1226,6 +1202,10 @@ typedef struct __TABLE_FX	// FX 리소스 레코드...
 	std::string szName; // NOTE: adding the name of the FX
 	std::string	szFN;		// file name
 	uint32_t		dwSoundID;	// 효과에 쓰는 사운드 아디.
+
+#if __VERSION > 1264
+	uint8_t		byIdk0;
+#endif
 } TABLE_FX;
 
 const int	MAX_COMBO = 3;
