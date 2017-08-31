@@ -529,6 +529,7 @@ enum RankTypes
 #define ALL_POINT_CHANGE		0x03
 #define ALL_SKILLPT_CHANGE		0x04
 #define CHANGE_MONEY_REQ		0x05
+#define NOVICE_CLASS_CHANGE_REQ 0x06
 
 ////////////////////////////////////////////////////////////////
 // Friend subpacket define

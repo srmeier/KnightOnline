@@ -566,143 +566,182 @@ typedef struct __TABLE_TEXTS
 // NOTE: temp 1298 zone structure
 typedef struct __TABLE_ZONE
 {
-	uint32_t       dwID;                 // zone ID
-	std::string	szTerrainFN;          // GTD
+	//24 Fields in the 1298 Zone.TBL structure
+	uint32_t		dwID;                 // zone ID
+	std::string		szTerrainFN;          // GTD
+	std::string		szName;
+	std::string		szColorMapFN;         // TCT
+	std::string		szLightMapFN;         // TLT
+	std::string		szObjectPostDataFN;   // OPD
+	std::string		szReserved;			  // temp remove for 1264
+	std::string		szMiniMapFN;          // DXT
+	std::string		szSkySetting;         // N3Sky
+	int				bIndicateEnemyPlayer; // SByte (now Int32)
+	int				iFixedSundDirection;  // Int32
+	std::string		szLightObjFN;         // GLO
+	std::string		szGEVFN;              // GEV
+	int				iIdk0;                // idk
+	std::string		szENSFN;              // ENS
+	float			fIdk1;                // idk
+	std::string		szFLAGFN;             // FLAG
+	uint32_t		iIdk2;
+	uint32_t		iIdk3;
+	uint32_t		iIdk4;
+	uint32_t		iIdk5;
+	std::string		szOPDSUBFN;           // OPDSUB
+	int				iIdk6;
+	std::string		szEVTSUB;             // EVTSUB
 
-	std::string szName;
-
-	std::string	szColorMapFN;         // TCT
-	std::string	szLightMapFN;         // TLT
-	std::string	szObjectPostDataFN;   // OPD
-
-	//std::string szReserved; // temp remove for 1264
-
-	std::string	szMiniMapFN;          // DXT
-	std::string szSkySetting;         // N3Sky
-	int         bIndicateEnemyPlayer; // SByte (now Int32)
-	int         iFixedSundDirection;  // Int32
-	std::string szLightObjFN;         // GLO
-
-	std::string szGEVFN;              // GEV
-	int         iIdk0;                // idk
-	std::string szENSFN;              // ENS
-	float       fIdk1;                // idk
-	std::string szFLAGFN;             // FLAG
-	uint32_t       iIdk2;
-	uint32_t       iIdk3;
-	uint32_t       iIdk4;
-	uint32_t       iIdk5;
-	std::string szOPDSUBFN;           // OPDSUB
-	int         iIdk6;
-	std::string szEVTSUB;             // EVTSUB
 } TABLE_ZONE;
-
-/*
-typedef struct __TABLE_ZONE
-{
-	uint32_t		dwID; // zone ID
-
-	//uint32_t       dwVersion;
-
-	std::string	szTerrainFN; // Terrain FileName - Terrain, Tile Map, ColorMap....
-	std::string	szColorMapFN;
-	std::string	szLightMapFN;
-	std::string	szObjectPostDataFN; // Object 위치 정보 - 이안에 충돌 체크 데이터도 들어 있다.
-	std::string	szMiniMapFN;
-	std::string szSkySetting; // 하늘과 분위기 조정한 세팅 정보 파일..
-	BOOL		bIndicateEnemyPlayer;	// 적국 플레이어를 표시하나??
-	int			iFixedSundDirection;	// 해의 방향을 고정시키는지..
-	std::string szLightObjFN;		// 지형에 배치되어 있는 라이트정보파일..
-
-	// 1068
-	std::string szIdk0;
-	int         iIdk1;
-	std::string szIdk2;
-	float       fIdk3;
-	std::string szIdk4;
-} TABLE_ZONE;
-*/
 
 typedef struct __TABLE_UI_RESRC
 {
-	uint32_t dwID;							// 플레이어의 소속 국가에 따른 키로 쓴다..
+	uint32_t dwID;						// 0 (Karus/Human)
+	std::string szLogIn;				// 1
+	std::string szCmd;					// 2
+	std::string szChat;					// 3
+	std::string szMsgOutput;			// 4
+	std::string szStateBar;				// 5
+	std::string szVarious;				// 6 
+	std::string szState;				// 7 
+	std::string szKnights;				// 8 
+	std::string szQuest;				// 9 
+	std::string szFriends;				// 10 
+	std::string szInventory;			// 11
+	std::string szTransaction;			// 12
+	std::string szDroppedItem;			// 13
+	std::string szTargetBar;			// 14
+	std::string szTargetSymbolShape;	// 15
+	std::string szSkillTree;			// 16
+	std::string szHotKey;				// 17
+	std::string szMiniMap;				// 18
+	std::string szPartyOrForce;			// 19
+	std::string szPartyBBS;				// 20
+	std::string szHelp;					// 21
+	std::string szNotice;				// 22
+	std::string szCharacterCreate;		// 23
+	std::string szCharacterSelect;		// 24
+	std::string szToolTip;				// 25
+	std::string szMessageBox;			// 26
+	std::string szLoading;				// 27
+	std::string szItemInfo;				// 28
+	std::string szPersonalTrade;		// 29
+	std::string szPersonalTradeEdit;	// 30
+	std::string szNpcEvent;				// 31
+	std::string szZoneChangeOrWarp;		// 32
+	std::string szExchangeRepair;		// 33
+	std::string szRepairTooltip;		// 34
+	std::string szNpcTalk;				// 35
+	std::string szNpcExchangeList;		// 36
+	std::string szKnightsOperation;		// 37
+	std::string szClassChange;			// 38
+	std::string szEndingDisplay;		// 39
+	std::string szWareHouse;			// 40
+	std::string szChangeClassInit;		// 41
+	std::string szChangeInitBill;		// 42
+	std::string szInn;					// 43
+	std::string szInputClanName;		// 44
+	std::string szTradeBBS;				// 45
+	std::string szTradeBBSSelector;		// 46
+	std::string szTradeExplanation;		// 47
+	std::string szTradeMemolist;		// 48
+	std::string szQuestMenu;			// 49
+	std::string szQuestTalk;			// 50
+	std::string szQuestEdit;			// 51
+	std::string szDead;					// 52
+	std::string szElLoading;			// 53
+	std::string szKaLoading;			// 54
+	std::string szNationSelect;			// 55
+	std::string szChat2;				// 56
+	std::string szMsgOutput2;			// 57
+	std::string szItemUpgrade;			// 58
+	std::string szDuelCreate;			// 59
+	std::string szDuelList;				// 60
+	std::string szDuelMsg;				// 61
+	std::string szDuelMsgEdit;			// 62
+	std::string szDuelLobby;			// 63
+	std::string szQuestContent;			// 64
+	std::string szDuelItemCnt;			// 65
+	std::string szTradeInv;				// 66
+	std::string szTradeBuyInv;			// 67
+	std::string szTradeItemDisplay;		// 68
+	std::string szTradePrice;			// 69
+	std::string szTradeCnt;				// 70
+	std::string szTradeMsgBox;			// 71
+	std::string szClanPage;				// 72
+	std::string szAllyPage;				// 73
+	std::string szAlly2Page;			// 74
+	std::string szCmdList;				// 75
+	std::string szCmdEdit;				// 76
+	std::string szClanLogo;				// 77
+	std::string szShopMall;				// 78
+	std::string szLvlGuide;				// 79
+	std::string szCSWNpc;				// 80
+	std::string szKCSWPetition;			// 81
+	std::string szCSWAlly;				// 82
+	std::string szCSWSchedule;			// 83
+	std::string szExitMenu;				// 84
+	std::string szResurrect;			// 85
+	std::string szNameChange;			// 86
+	std::string szNameEditBox;			// 87
+	std::string szNameCheck;			// 88
+	std::string szCSWAdmin;				// 89
+	std::string szCSWTax;				// 90
+	std::string szCSWCapeList;			// 91
+	std::string szKnightCapeShop;		// 92
+	std::string szCSWTaxCollection;		// 93
+	std::string szCSWTaxRate;			// 94
+	std::string szCSWTaxRateMsg;		// 95
+	std::string szCatapult;				// 96
+	std::string szDisguiseRing;			// 97
+	std::string szMsgBoxOk;				// 98
+	std::string szMsgBoxOkCancel;		// 99
+	std::string szOpenChat;				// 100
+	std::string szCloseChat;			// 101
+	std::string szChrClanLogo;			// 102
+	std::string szWarning;				// 103
+	std::string szConvo;				// 104
+	std::string szBlog;					// 105
+	std::string szInnPass;				// 106
+	std::string szNoviceTips;			// 107
+	std::string szWebpage;				// 108
+	std::string szPartyMsgBox;			// 109
+	std::string szClanLogo2;			// 110
+	std::string szRentalNpc;			// 111
+	std::string szRentalTransaction;	// 112
+	std::string szRentalEntry;			// 113
+	std::string szRentalItem;			// 114
+	std::string szRentalMsg;			// 115
+	std::string szRentalCnt;			// 116
+	std::string szNetDIO;				// 117
+	std::string szLoginIntro;			// 118
+	std::string szSubLoginIntro;		// 119
+	std::string szCharSelect;			// 120
+	std::string szCharCreate;			// 121
+	std::string szOtherState;			// 122
+	std::string szPPCardBegin;			// 123
+	std::string szPPCardList;			// 124
+	std::string szPPCardReg;			// 125
+	std::string szPPCardMsg;			// 126
+	std::string szPPCardBuyList;		// 127
+	std::string szPPCardMyInfo;			// 128
+	std::string szNationSelect2;		// 129
+	std::string szUSALogo;				// 130
+	std::string szMonster;				// 131
+	std::string szNationTaxNPC;			// 132
+	std::string szNationTaxRate;		// 133
+	std::string szKingMsgBoxOk;			// 134
+	std::string szKingMsgBoxOkCancel;	// 135
+	std::string szKingElectionBoard;	// 136
+	std::string szKingElectionList;		// 137
+	std::string szKingElectionMain;		// 138
+	std::string szKingNominate;			// 139
+	std::string szKingRegister;			// 140
+	std::string szUpgradeRing;			// 141
+	std::string szUpgradeSelect;		// 142
+	std::string szTradeMsg;				// 143
+	std::string szShowIcon;				// 144
 
-	std::string szLogIn;				// 0
-	std::string szCmd;					// 1
-	std::string szChat;					// 2
-	std::string szMsgOutput;			// 3
-	std::string szStateBar;				// 4
-	std::string szVarious;				// 5 - 캐릭터 상태, 기사단 관리, 퀘스트, 친구.. 등등 네페이지가 한개에 들어있음.
-	std::string szState;				// 6 - 캐릭터 상태
-	std::string szKnights;				// 7 - 기사단 관리
-	std::string szQuest;				// 8 - 퀘스트
-	std::string szFriends;				// 9 - 친구 관리
-
-	std::string szInventory;			// 10
-	std::string szTransaction;			// 11
-	std::string szDroppedItem;			// 12
-
-	std::string szTargetBar;			// 13
-	std::string szTargetSymbolShape;	// 14
-	std::string szSkillTree;			// 15
-	std::string szHotKey;				// 16
-
-	std::string szMiniMap;				// 17
-	std::string szPartyOrForce;			// 18
-	std::string szPartyBBS;				// 19
-
-	std::string szHelp;					// 20
-	std::string szNotice;				// 21
-
-	std::string szCharacterCreate;		// 22
-	std::string szCharacterSelect;		// 23
-
-	std::string szToolTip;				// 24
-	std::string szMessageBox;			// 25
-	std::string szLoading;				// 26
-	std::string szItemInfo;				// 27
-	std::string szPersonalTrade;		// 28
-	std::string szPersonalTradeEdit;	// 29
-
-	std::string szNpcEvent;				// 30
-	std::string szZoneChangeOrWarp;		// 31
-	std::string szExchangeRepair;		// 32
-
-	std::string szRepairTooltip;		// 33
-	std::string szNpcTalk;				// 34
-	std::string szNpcExchangeList;		// 35
-
-	std::string szKnightsOperation;		// 36
-	std::string szClassChange;			// 37
-
-	std::string szEndingDisplay;		// 38
-	std::string szWareHouse;			// 39
-
-	std::string szChangeClassInit;		// 40
-	std::string szChangeInitBill;		// 41
-
-	std::string szInn;					// 42
-	std::string szInputClanName;		// 43
-	std::string szTradeBBS;				// 44
-	std::string szTradeBBSSelector;		// 45
-	std::string szTradeExplanation;		// 46
-	std::string szTradeMemolist;		// 47
-	std::string szQuestMenu;			// 48
-	std::string szQuestTalk;			// 49
-	std::string szQuestEdit;			// 49 + 1 D5DL2
-	std::string szDead;					// 50
-	std::string szElLoading;			// 51
-	std::string szKaLoading;			// 52
-	std::string szNationSelect;			// 53
-
-	// 1068
-	std::string szIdk0;					// 54
-	std::string szIdk1;					// 55
-	std::string szIdk2;					// 56
-	std::string szIdkOthers[72]; // 1264 // AHMET 73 
-	//std::string szIdk3;					// 57
-	//std::string szIdk4;					// 58
-	//std::string szIdk5;					// 59
 } TABLE_UI_RESRC;
 
 typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코드...
@@ -1220,12 +1259,14 @@ enum e_SkillMagicTaget	{	SKILLMAGIC_TARGET_SELF = 1,				// 나 자신..
 
 
 //define fx...
-typedef struct __TABLE_FX	// FX 리소스 레코드...
+typedef struct __TABLE_FX	// FX Table
 {
-	uint32_t		dwID;		// 고유 ID
-	std::string szName; // NOTE: adding the name of the FX
-	std::string	szFN;		// file name
-	uint32_t		dwSoundID;	// 효과에 쓰는 사운드 아디.
+	uint32_t		dwID;		// ID
+	std::string		szName;		// NOTE: adding the name of the FX
+	std::string		szFN;		// file name
+	uint32_t		dwSoundID;	// sound id
+	uint8_t			szAOE;		// AOE ??
+
 } TABLE_FX;
 
 const int	MAX_COMBO = 3;
