@@ -2382,7 +2382,6 @@ int CUIInventory::GetCountInInvByID(int iID)
 bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iID)
 {
 	__IconItemSkill* spItem;
-	bool IsItemRecieved = false;
 	switch (iDistrict)
 	{
 		case 0x00:
@@ -2433,16 +2432,13 @@ bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemBasic	= pItem;
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
-				if (spItem->iCount < iCount) { IsItemRecieved = true; }
 				spItem->iCount	= iCount;
 				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
 				m_pMySlot[iIndex] = spItem;
-				if (!IsItemRecieved) { return false; }
 				return true;
 			}
 			else if (m_pMySlot[iIndex])
 			{
-				if (m_pMySlot[iIndex]->iCount < iCount) { IsItemRecieved = true; }
 				m_pMySlot[iIndex]->iCount = iCount;
 				if (iCount == 0)
 				{
@@ -2462,10 +2458,7 @@ bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 					spItem->pUIIcon = NULL;
 					delete spItem;
 					spItem = NULL;
-					return false;
 				}
-				if (!IsItemRecieved) { return false; }
-				return true;
 			}
 			else	// 아이템이 없는 경우..
 			{
@@ -2498,11 +2491,9 @@ bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemBasic	= pItem;
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
-				if (spItem->iCount < iCount) { IsItemRecieved = true; }
 				spItem->iCount	= iCount;
 				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
 				m_pMySlot[iIndex] = spItem;
-				if (!IsItemRecieved) { return false; }
 				return true;
 			}
 			break;
@@ -2551,16 +2542,13 @@ bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemBasic	= pItem;
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
-				if (spItem->iCount < iCount) { IsItemRecieved = true; }
 				spItem->iCount	= iCount;
 				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
 				m_pMyInvWnd[iIndex] = spItem;
-				if (!IsItemRecieved) { return false; }
 				return true;
 			}
 			else if (m_pMyInvWnd[iIndex])
 			{
-				if (m_pMyInvWnd[iIndex]->iCount < iCount) { IsItemRecieved = true; }
 				m_pMyInvWnd[iIndex]->iCount = iCount;
 				if (iCount == 0)
 				{
@@ -2580,9 +2568,7 @@ bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 					spItem->pUIIcon = NULL;
 					delete spItem;
 					spItem = NULL;
-					return false;
 				}
-				if (!IsItemRecieved) { return false; }
 				return true;
 			}
 			else	// 아이템이 없는 경우..
@@ -2616,7 +2602,6 @@ bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemBasic	= pItem;
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
-				if (spItem->iCount < iCount) { IsItemRecieved = true; }
 				spItem->iCount	= iCount;
 				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
 				m_pMyInvWnd[iIndex] = spItem;
@@ -2635,7 +2620,6 @@ bool CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 					m_pMyInvWnd[iIndex]->pUIIcon->SetRegion(pArea->GetRegion());
 					m_pMyInvWnd[iIndex]->pUIIcon->SetMoveRect(pArea->GetRegion());
 				}
-				if (!IsItemRecieved) { return false; }
 				return true;
 			}
 			break;
