@@ -3396,21 +3396,24 @@ void CGameProcMain::MsgRecv_ItemCountChange(Packet& pkt)		// Item Count Change..
 {
 	int iTotalCount = pkt.read<int16_t>();		// Trade id
 
-	for( int i = 0; i < iTotalCount; i++ ) //Not sure why do need iTotalCount since
-	{									//we can only use the function one at a time
+	for( int i = 0; i < iTotalCount; i++ )
+	{
 		int iDistrict	= pkt.read<uint8_t>();		// Trade id
 		int iIndex		= pkt.read<uint8_t>();		// Trade id
-		int iID			= pkt.read<uint32_t>();		// Item id
-		int	iCount		= pkt.read<uint32_t>();		// Stact count
-		if (m_pUIInventory->ItemCountChange(iDistrict, iIndex, iCount, iID))
+		int iID			  = pkt.read<uint32_t>();		// Trade id
+		int	iCount		= pkt.read<uint32_t>();		// Trade id
+		int iNewItem	= pkt.read<uint8_t>();
+		m_pUIInventory->ItemCountChange(iDistrict, iIndex, iCount, iID);
+		if(iNewItem == 100)
 		{
 			char szBuf[256] = "";
 			__TABLE_ITEM_BASIC* pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID / 1000 * 1000);
+			if (pitem == nullptr) { return; }
 			std::string szFmt;  ::_LoadStringFromResource(IDS_ITEM_RECIVED, szFmt);
 			snprintf(szBuf, sizeof(szBuf), szFmt.c_str(), pItem->szName.c_str());
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
 		}
-	}
+	}	
 
 	if (m_pUISkillTreeDlg) m_pUISkillTreeDlg->UpdateDisableCheck();
 	if (m_pUIHotKeyDlg) m_pUIHotKeyDlg->UpdateDisableCheck();
