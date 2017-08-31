@@ -3408,6 +3408,7 @@ void CGameProcMain::MsgRecv_ItemCountChange(Packet& pkt)		// Item Count Change..
 		{
 			char szBuf[256] = "";
 			__TABLE_ITEM_BASIC* pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID / 1000 * 1000);
+			if (pitem == nullptr) { return; }
 			std::string szFmt;  ::_LoadStringFromResource(IDS_ITEM_RECIVED, szFmt);
 			snprintf(szBuf, sizeof(szBuf), szFmt.c_str(), pItem->szName.c_str());
 			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
