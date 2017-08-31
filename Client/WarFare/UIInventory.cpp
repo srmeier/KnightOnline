@@ -2379,7 +2379,7 @@ int CUIInventory::GetCountInInvByID(int iID)
 	return 0;
 }
 
-void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iID)
+void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iID, int iDurability)
 {
 	__IconItemSkill* spItem;
 	switch (iDistrict)
@@ -2429,7 +2429,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
 				spItem->iCount	= iCount;
-				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
+				spItem->iDurability = iDurability;
 				m_pMySlot[iIndex] = spItem;
 				return;
 			}
@@ -2490,7 +2490,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
 				spItem->iCount	= iCount;
-				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
+				spItem->iDurability = iDurability;
 				m_pMySlot[iIndex] = spItem;
 				return;
 			}
@@ -2541,7 +2541,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
 				spItem->iCount	= iCount;
-				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
+				spItem->iDurability = iDurability;
 				m_pMyInvWnd[iIndex] = spItem;
 				return;
 			}
@@ -2596,7 +2596,7 @@ void CUIInventory::ItemCountChange(int iDistrict, int iIndex, int iCount, int iI
 				spItem->pItemExt	= pItemExt;
 				spItem->szIconFN = szIconFN; // 아이콘 파일 이름 복사..
 				spItem->iCount	= iCount;
-				spItem->iDurability = pItem->siMaxDurability + pItemExt->siMaxDurability;
+				spItem->iDurability = iDurability;
 				m_pMyInvWnd[iIndex] = spItem;
 
 				m_pMyInvWnd[iIndex]->pUIIcon = new CN3UIIcon;

@@ -3398,20 +3398,23 @@ void CGameProcMain::MsgRecv_ItemCountChange(Packet& pkt)		// Item Count Change..
 
 	for( int i = 0; i < iTotalCount; i++ )
 	{
-		int iDistrict	= pkt.read<uint8_t>();		// Trade id
-		int iIndex		= pkt.read<uint8_t>();		// Trade id
-		int iID			  = pkt.read<uint32_t>();		// Trade id
-		int	iCount		= pkt.read<uint32_t>();		// Trade id
-		int iNewItem	= pkt.read<uint8_t>();
-		m_pUIInventory->ItemCountChange(iDistrict, iIndex, iCount, iID);
-		if(iNewItem == 100)
+		int iDistrict	= pkt.read<uint8_t>();
+		int iIndex		= pkt.read<uint8_t>();
+		int iID			  = pkt.read<uint32_t>();
+		int	iCount		= pkt.read<uint32_t>();
+		int iNewItem	= pkt.read<uint8_t>(); // 100 for new items, 0 otherwise
+		int iDurability = pkt.read<uint16_t>();
+		m_pUIInventory->ItemCountChange(iDistrict, iIndex, iCount, iID, iDurability);
+		if (iNewItem == 100)
 		{
-			char szBuf[256] = "";
+			char szBuf[256] = { 0 };
 			__TABLE_ITEM_BASIC* pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID / 1000 * 1000);
-			if (pitem == nullptr) { return; }
-			std::string szFmt;  ::_LoadStringFromResource(IDS_ITEM_RECIVED, szFmt);
-			snprintf(szBuf, sizeof(szBuf), szFmt.c_str(), pItem->szName.c_str());
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
+			if (pItem != nullptr)
+			{
+				std::string szFmt;  ::_LoadStringFromResource(IDS_ITEM_RECEIVED, szFmt);
+				snprintf(szBuf, sizeof(szBuf), szFmt.c_str(), pItem->szName.c_str());
+				MsgOutput(szBuf, 0xFFFFFF00);
+			}
 		}
 	}	
 
@@ -6232,7 +6235,7 @@ void CGameProcMain::MsgRecv_AllPointInit(Packet& pkt)			// All Point 초기화..
 		case 0x00:	// 돈이 부족..
 			::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGold);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case 0x01:	// 성공..
@@ -6282,7 +6285,7 @@ void CGameProcMain::MsgRecv_AllPointInit(Packet& pkt)			// All Point 초기화..
 		case 0x02:	// Already..
 			::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
 			sprintf(szBuf, szMsg.c_str());
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 	}
 }
@@ -6300,7 +6303,7 @@ void CGameProcMain::MsgRecv_SkillPointInit(Packet& pkt)		// Skill Point 초기화..
 		case 0x00:	// 돈이 부족..
 			::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGold);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case 0x01:	// 성공..
@@ -6325,7 +6328,7 @@ void CGameProcMain::MsgRecv_SkillPointInit(Packet& pkt)		// Skill Point 초기화..
 		case 0x02:	// Already..
 			::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
 			sprintf(szBuf, szMsg.c_str());
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 	}
 }
@@ -6350,22 +6353,21 @@ void CGameProcMain::MsgRecv_NoahChange(Packet& pkt)		// 노아 변경..
 		case N3_SP_NOAH_GET:
 			::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
+			MsgOutput(szBuf, 0xff6565ff);
 			break;
 
 		case N3_SP_NOAH_LOST:
 			::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case N3_SP_NOAH_SPEND:
 			::_LoadStringFromResource(IDS_NOAH_CHANGE_SPEND, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 	}
-
 	
 	s_pPlayer->m_InfoExt.iGold = dwGold;
 	if (m_pUIInventory->IsVisible())
