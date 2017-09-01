@@ -6219,6 +6219,14 @@ void CGameProcMain::MsgRecv_NpcChangeOpen(Packet& pkt)		// Class Change와 초기화
 		case N3_SP_CLASS_POINT_CHANGE_PRICE_QUERY:
 			this->MsgRecv_PointChangePriceQueryRequest(pkt);
 			break;
+
+		case N3_SP_NOVICE_CLASS_CHANGE_REQ:
+			// SavvyNik - need to create small function that will
+			// 1.  Show fx effect on the user
+			// 2.  Change and display class on user
+			// 3.  Reset and reload skills & skillbar via InitIconUpdate()
+
+			break;
 	}
 }
 
