@@ -19,9 +19,9 @@
 #endif
 #include "shared/Packet.h"
 
-const int CURRENT_VERSION = 1298;//1068; // ÇöÀç ¹öÀü
+const int CURRENT_VERSION = 1298;//1068; // í˜„ìž¬ ë²„ì „
 
-const float PACKET_INTERVAL_MOVE = 1.5f;				// Á¤±âÀûÀ¸·Î º¸³»´Â ÆÐÅ¶ ½Ã°£ °£°Ý..
+const float PACKET_INTERVAL_MOVE = 1.5f;				// ì •ê¸°ì ìœ¼ë¡œ ë³´ë‚´ëŠ” íŒ¨í‚· ì‹œê°„ ê°„ê²©..
 const float PACKET_INTERVAL_ROTATE = 4.0f;
 const float PACKET_INTERVAL_REQUEST_TARGET_HP = 2.0f;
 
@@ -55,7 +55,7 @@ enum ZoneAbilityType
 	ZoneAbilityPVPNeutralNPCs = 8 // Players can attack each other, but not NPCs. Cannot walk through players.
 };
 
-// ´ÜÃàÅ° ÁöÁ¤ÇØ ³õÀº ºÎºÐ..
+// ë‹¨ì¶•í‚¤ ì§€ì •í•´ ë†“ì€ ë¶€ë¶„..
 enum eKeyMap {	KM_HOTKEY1 = SDL_SCANCODE_1, 
 				KM_HOTKEY2 = SDL_SCANCODE_2, 
 				KM_HOTKEY3 = SDL_SCANCODE_3, 
@@ -104,11 +104,11 @@ enum e_Class {	CLASS_KINDOF_WARRIOR = 1, CLASS_KINDOF_ROGUE, CLASS_KINDOF_WIZARD
 				CLASS_KINDOF_ATTACK_WARRIOR, CLASS_KINDOF_DEFEND_WARRIOR, CLASS_KINDOF_ARCHER, CLASS_KINDOF_ASSASSIN, 
 				CLASS_KINDOF_ATTACK_WIZARD, CLASS_KINDOF_PET_WIZARD, CLASS_KINDOF_HEAL_PRIEST, CLASS_KINDOF_CURSE_PRIEST,
 
-				CLASS_KA_WARRIOR = 101, CLASS_KA_ROGUE, CLASS_KA_WIZARD, CLASS_KA_PRIEST, // ¿©±â±îÁö ±âº» Á÷¾÷
+				CLASS_KA_WARRIOR = 101, CLASS_KA_ROGUE, CLASS_KA_WIZARD, CLASS_KA_PRIEST, // ì—¬ê¸°ê¹Œì§€ ê¸°ë³¸ ì§ì—…
 				CLASS_KA_BERSERKER = 105, CLASS_KA_GUARDIAN, CLASS_KA_HUNTER = 107, CLASS_KA_PENETRATOR, 
 				CLASS_KA_SORCERER = 109, CLASS_KA_NECROMANCER, CLASS_KA_SHAMAN = 111, CLASS_KA_DARKPRIEST, 
 				
-				CLASS_EL_WARRIOR = 201, CLASS_EL_ROGUE, CLASS_EL_WIZARD, CLASS_EL_PRIEST, // ¿©±â±îÁö ±âº» Á÷¾÷ 
+				CLASS_EL_WARRIOR = 201, CLASS_EL_ROGUE, CLASS_EL_WIZARD, CLASS_EL_PRIEST, // ì—¬ê¸°ê¹Œì§€ ê¸°ë³¸ ì§ì—… 
 				CLASS_EL_BLADE = 205, CLASS_EL_PROTECTOR, CLASS_EL_RANGER = 207, CLASS_EL_ASSASIN, 
 				CLASS_EL_MAGE = 209, CLASS_EL_ENCHANTER, CLASS_EL_CLERIC = 211, CLASS_EL_DRUID,
 				
@@ -116,9 +116,9 @@ enum e_Class {	CLASS_KINDOF_WARRIOR = 1, CLASS_KINDOF_ROGUE, CLASS_KINDOF_WIZARD
 
 enum e_Class_Represent { CLASS_REPRESENT_WARRIOR = 0, CLASS_REPRESENT_ROGUE, CLASS_REPRESENT_WIZARD, CLASS_REPRESENT_PRIEST, CLASS_REPRESENT_UNKNOWN = 0xffffffff };
 
-const float WEAPON_WEIGHT_STAND_SWORD = 5.0f; // ¹«±âÀÇ ¹«°Ô ±âÁØ...Ä®
-const float WEAPON_WEIGHT_STAND_AXE = 5.0f; // ¹«±âÀÇ ¹«°Ô ±âÁØ...µµ³¢
-const float WEAPON_WEIGHT_STAND_BLUNT = 8.0f; // ¹«±âÀÇ ¹«°Ô ±âÁØ...¸ùµÕÀÌ Á¾·ù
+const float WEAPON_WEIGHT_STAND_SWORD = 5.0f; // ë¬´ê¸°ì˜ ë¬´ê²Œ ê¸°ì¤€...ì¹¼
+const float WEAPON_WEIGHT_STAND_AXE = 5.0f; // ë¬´ê¸°ì˜ ë¬´ê²Œ ê¸°ì¤€...ë„ë¼
+const float WEAPON_WEIGHT_STAND_BLUNT = 8.0f; // ë¬´ê¸°ì˜ ë¬´ê²Œ ê¸°ì¤€...ëª½ë‘¥ì´ ì¢…ë¥˜
 
 enum e_Ani {	ANI_BREATH = 0, ANI_WALK, ANI_RUN, ANI_WALK_BACKWARD, ANI_STRUCK0, ANI_STRUCK1, ANI_STRUCK2, ANI_GUARD,
 				ANI_DEAD_NEATLY = 8, ANI_DEAD_KNOCKDOWN, ANI_DEAD_ROLL, ANI_SITDOWN, ANI_SITDOWN_BREATH, ANI_STANDUP,
@@ -135,40 +135,40 @@ enum e_Ani {	ANI_BREATH = 0, ANI_WALK, ANI_RUN, ANI_WALK_BACKWARD, ANI_STRUCK0, 
 				ANI_SHOOT_JAVELIN_A = 30, ANI_SHOOT_JAVELIN_B, 
 				
 				ANI_SWORD_BREATH_A = 32,	ANI_SWORD_ATTACK_A0, ANI_SWORD_ATTACK_A1,
-				ANI_SWORD_BREATH_B,			ANI_SWORD_ATTACK_B0, ANI_SWORD_ATTACK_B1,		// ÇÑ¼Õ°Ë
+				ANI_SWORD_BREATH_B,			ANI_SWORD_ATTACK_B0, ANI_SWORD_ATTACK_B1,		// í•œì†ê²€
 				
 				ANI_DAGGER_BREATH_A = 38,	ANI_DAGGER_ATTACK_A0, ANI_DAGGER_ATTACK_A1,
-				ANI_DAGGER_BREATH_B,		ANI_DAGGER_ATTACK_B0, ANI_DAGGER_ATTACK_B1,		// ´Üµµ
+				ANI_DAGGER_BREATH_B,		ANI_DAGGER_ATTACK_B0, ANI_DAGGER_ATTACK_B1,		// ë‹¨ë„
 				
 				ANI_DUAL_BREATH_A = 44,		ANI_DUAL_ATTACK_A0, ANI_DUAL_ATTACK_A1, 
-				ANI_DUAL_BREATH_B,			ANI_DUAL_ATTACK_B0, ANI_DUAL_ATTACK_B1,			// ÀÌµµ·ù
+				ANI_DUAL_BREATH_B,			ANI_DUAL_ATTACK_B0, ANI_DUAL_ATTACK_B1,			// ì´ë„ë¥˜
 				
 				ANI_SWORD2H_BREATH_A = 50,	ANI_SWORD2H_ATTACK_A0, ANI_SWORD2H_ATTACK_A1, 
-				ANI_SWORD2H_BREATH_B,		ANI_SWORD2H_ATTACK_B0, ANI_SWORD2H_ATTACK_B1,	// ¾ç¼Õ°Ë
+				ANI_SWORD2H_BREATH_B,		ANI_SWORD2H_ATTACK_B0, ANI_SWORD2H_ATTACK_B1,	// ì–‘ì†ê²€
 				
 				ANI_BLUNT_BREATH_A = 56,	ANI_BLUNT_ATTACK_A0, ANI_BLUNT_ATTACK_A1, 
-				ANI_BLUNT_BREATH_B,			ANI_BLUNT_ATTACK_B0, ANI_BLUNT_ATTACK_B1,		// µÐ±â - ¸ùµÕÀÌ ?
+				ANI_BLUNT_BREATH_B,			ANI_BLUNT_ATTACK_B0, ANI_BLUNT_ATTACK_B1,		// ë‘”ê¸° - ëª½ë‘¥ì´ ?
 				
 				ANI_BLUNT2H_BREATH_A = 62,	ANI_BLUNT2H_ATTACK_A0, ANI_BLUNT2H_ATTACK_A1, 
-				ANI_BLUNT2H_BREATH_B,		ANI_BLUNT2H_ATTACK_B0, ANI_BLUNT2H_ATTACK_B1,	// ¾ç¼ÕÀ¸·Î Àâ´Â µÐ±â. - ¾ç¼Õ µµ³¢¿Í °°´Ù.
+				ANI_BLUNT2H_BREATH_B,		ANI_BLUNT2H_ATTACK_B0, ANI_BLUNT2H_ATTACK_B1,	// ì–‘ì†ìœ¼ë¡œ ìž¡ëŠ” ë‘”ê¸°. - ì–‘ì† ë„ë¼ì™€ ê°™ë‹¤.
 				
 				ANI_AXE_BREATH_A = 68,		ANI_AXE_ATTACK_A0, ANI_AXE_ATTACK_A1, 
-				ANI_AXE_BREATH_B,			ANI_AXE_ATTACK_B0, ANI_AXE_ATTACK_B1,			// ÇÑ¼Õ µµ³¢ 
+				ANI_AXE_BREATH_B,			ANI_AXE_ATTACK_B0, ANI_AXE_ATTACK_B1,			// í•œì† ë„ë¼ 
 				
 				ANI_SPEAR_BREATH_A = 74,	ANI_SPEAR_ATTACK_A0, ANI_SPEAR_ATTACK_A1, 
-				ANI_SPEAR_BREATH_B,			ANI_SPEAR_ATTACK_B0, ANI_SPEAR_ATTACK_B1,		// Ã¢ - º£´Â ³¯ÀÌ ¾ø´Â ±×³É Ã¢ÀÌ´Ù.
+				ANI_SPEAR_BREATH_B,			ANI_SPEAR_ATTACK_B0, ANI_SPEAR_ATTACK_B1,		// ì°½ - ë² ëŠ” ë‚ ì´ ì—†ëŠ” ê·¸ëƒ¥ ì°½ì´ë‹¤.
 				
 				ANI_POLEARM_BREATH_A = 80,	ANI_POLEARM_ATTACK_A0, ANI_POLEARM_ATTACK_A1, 
-				ANI_POLEARM_BREATH_B,		ANI_POLEARM_ATTACK_B0, ANI_POLEARM_ATTACK_B1,	// ¾ç¼ÕÀ¸·Î Àâ´Â ³¯ÀÖ´Â Ã¢ - Ã»·æµµ ??
+				ANI_POLEARM_BREATH_B,		ANI_POLEARM_ATTACK_B0, ANI_POLEARM_ATTACK_B1,	// ì–‘ì†ìœ¼ë¡œ ìž¡ëŠ” ë‚ ìžˆëŠ” ì°½ - ì²­ë£¡ë„ ??
 				
 				ANI_NAKED_BREATH_A = 86,	ANI_NAKED_ATTACK_A0, ANI_NAKED_ATTACK_A1, 
-				ANI_NAKED_BREATH_B,			ANI_NAKED_ATTACK_B0, ANI_NAKED_ATTACK_B1,		// ¸Ç¸öÀ¸·Î ??
+				ANI_NAKED_BREATH_B,			ANI_NAKED_ATTACK_B0, ANI_NAKED_ATTACK_B1,		// ë§¨ëª¸ìœ¼ë¡œ ??
 				
 				ANI_BOW_BREATH = 92,		ANI_CROSS_BOW_BREATH, ANI_LAUNCHER_BREATH, 
-				ANI_BOW_BREATH_B,			ANI_BOW_ATTACK_B0, ANI_BOW_ATTACK_B1,			// È° °ø°Ý
+				ANI_BOW_BREATH_B,			ANI_BOW_ATTACK_B0, ANI_BOW_ATTACK_B1,			// í™œ ê³µê²©
 				
 				ANI_SHIELD_BREATH_A = 98,	ANI_SHIELD_ATTACK_A0, ANI_SHIELD_ATTACK_A1, 
-				ANI_SHIELD_BREATH_B,		ANI_SHIELD_ATTACK_B0, ANI_SHIELD_ATTACK_B1,		// ¹æÆÐ °ø°Ý
+				ANI_SHIELD_BREATH_B,		ANI_SHIELD_ATTACK_B0, ANI_SHIELD_ATTACK_B1,		// ë°©íŒ¨ ê³µê²©
 
 				ANI_GREETING0 = 104, ANI_GREETING1, ANI_GREETING2, 
 				ANI_WAR_CRY0 = 107, ANI_WAR_CRY1, ANI_WAR_CRY2, ANI_WAR_CRY3, ANI_WAR_CRY4, 
@@ -183,7 +183,7 @@ enum e_Ani {	ANI_BREATH = 0, ANI_WALK, ANI_RUN, ANI_WALK_BACKWARD, ANI_STRUCK0, 
 				ANI_SKILL_AXE2H0 = 132, ANI_SKILL_AXE2H1,
 				ANI_SKILL_SWORD2H0 = 134, ANI_SKILL_SWORD2H1,
 
-				// ¿©±âºÎÅÍ´Â NPC Animation
+				// ì—¬ê¸°ë¶€í„°ëŠ” NPC Animation
 				ANI_NPC_BREATH = 0, ANI_NPC_WALK, ANI_NPC_RUN, ANI_NPC_WALK_BACKWARD,
 				ANI_NPC_ATTACK0 = 4, ANI_NPC_ATTACK1, ANI_NPC_STRUCK0, ANI_NPC_STRUCK1, ANI_NPC_STRUCK2, ANI_NPC_GUARD, 
 				ANI_NPC_DEAD0 = 10, ANI_NPC_DEAD1, ANI_NPC_TALK0, ANI_NPC_TALK1, ANI_NPC_TALK2, ANI_NPC_TALK3, 
@@ -192,39 +192,39 @@ enum e_Ani {	ANI_BREATH = 0, ANI_WALK, ANI_RUN, ANI_WALK_BACKWARD, ANI_STRUCK0, 
 				ANI_UNKNOWN = 0xffffffff };
 
 
-//MAX_INCLINE_CLIMB = sqrt( 1 - sin(90-ÃÖ´ë°æ»ç°¢)^2 )
-//const	float MAX_INCLINE_CLIMB = 0.5f;	   // ¿Ã¶ó°¥¼ö ÀÖ´Â ÃÖ´ë °æ»ç°ª = 30 µµ
-const	float MAX_INCLINE_CLIMB = 0.6430f; // ¿Ã¶ó°¥¼ö ÀÖ´Â ÃÖ´ë °æ»ç°ª = 40 µµ
-//const	float MAX_INCLINE_CLIMB = 0.7071f; // ¿Ã¶ó°¥¼ö ÀÖ´Â ÃÖ´ë °æ»ç°ª = 45 µµ
-//const	float MAX_INCLINE_CLIMB = 0.7660f; // ¿Ã¶ó°¥¼ö ÀÖ´Â ÃÖ´ë °æ»ç°ª = 50 µµ
-//const	float MAX_INCLINE_CLIMB = 0.8660f; // ¿Ã¶ó°¥¼ö ÀÖ´Â ÃÖ´ë °æ»ç°ª = 60 µµ
+//MAX_INCLINE_CLIMB = sqrt( 1 - sin(90-ìµœëŒ€ê²½ì‚¬ê°)^2 )
+//const	float MAX_INCLINE_CLIMB = 0.5f;	   // ì˜¬ë¼ê°ˆìˆ˜ ìžˆëŠ” ìµœëŒ€ ê²½ì‚¬ê°’ = 30 ë„
+const	float MAX_INCLINE_CLIMB = 0.6430f; // ì˜¬ë¼ê°ˆìˆ˜ ìžˆëŠ” ìµœëŒ€ ê²½ì‚¬ê°’ = 40 ë„
+//const	float MAX_INCLINE_CLIMB = 0.7071f; // ì˜¬ë¼ê°ˆìˆ˜ ìžˆëŠ” ìµœëŒ€ ê²½ì‚¬ê°’ = 45 ë„
+//const	float MAX_INCLINE_CLIMB = 0.7660f; // ì˜¬ë¼ê°ˆìˆ˜ ìžˆëŠ” ìµœëŒ€ ê²½ì‚¬ê°’ = 50 ë„
+//const	float MAX_INCLINE_CLIMB = 0.8660f; // ì˜¬ë¼ê°ˆìˆ˜ ìžˆëŠ” ìµœëŒ€ ê²½ì‚¬ê°’ = 60 ë„
 
 
 enum e_MoveDirection { MD_STOP, MD_FOWARD, MD_BACKWARD, MD_UNKNOWN = 0xffffffff };
 
-const float MOVE_DELTA_WHEN_RUNNING = 3.0f; // ¶Û¶§ °öÇØÁö´Â º¯¼ö..
-const float MOVE_SPEED_WHEN_WALK = 1.5f; // Player µéÀÌ °ÉÀ»¶§ Ç¥ÁØ¼Óµµ
+const float MOVE_DELTA_WHEN_RUNNING = 3.0f; // ë›¸ë•Œ ê³±í•´ì§€ëŠ” ë³€ìˆ˜..
+const float MOVE_SPEED_WHEN_WALK = 1.5f; // Player ë“¤ì´ ê±¸ì„ë•Œ í‘œì¤€ì†ë„
 
-// ÇöÀç »óÅÂ...
+// í˜„ìž¬ ìƒíƒœ...
 enum e_StateMove {	PSM_STOP = 0,
 					PSM_WALK,
 					PSM_RUN,
 					PSM_WALK_BACKWARD,
 					PSM_COUNT };
 
-enum e_StateAction {	PSA_BASIC = 0,		// ¾Æ¹«Áþµµ ¾ÈÇÏ°í ÀÖÀ½...
-						PSA_ATTACK,			// °ø°Ý »óÅÂ.. 
-						PSA_GUARD,			// ¹æ¾î¼º°ø - ¸·À½..
-						PSA_STRUCK,			// ¾ò¾îÅÍÁü.
-						PSA_DYING,			// Á×°í ÀÖ´ÂÁß(¾²·¯Áö´ÂÁß)
-						PSA_DEATH,			// Á×¾î¼­ »¸À½..
-						PSA_SPELLMAGIC,		// ¸¶¹ý ÁÖ¹® ¿Ü¿ì´Â Áß..
-						PSA_SITDOWN, 		// ¾É¾Æ ÀÖ´ÂÁß...
+enum e_StateAction {	PSA_BASIC = 0,		// ì•„ë¬´ì§“ë„ ì•ˆí•˜ê³  ìžˆìŒ...
+						PSA_ATTACK,			// ê³µê²© ìƒíƒœ.. 
+						PSA_GUARD,			// ë°©ì–´ì„±ê³µ - ë§‰ìŒ..
+						PSA_STRUCK,			// ì–»ì–´í„°ì§.
+						PSA_DYING,			// ì£½ê³  ìžˆëŠ”ì¤‘(ì“°ëŸ¬ì§€ëŠ”ì¤‘)
+						PSA_DEATH,			// ì£½ì–´ì„œ ë»—ìŒ..
+						PSA_SPELLMAGIC,		// ë§ˆë²• ì£¼ë¬¸ ì™¸ìš°ëŠ” ì¤‘..
+						PSA_SITDOWN, 		// ì•‰ì•„ ìžˆëŠ”ì¤‘...
 						PSA_COUNT }; 
 
-enum e_StateDying {		PSD_DISJOINT = 0,	// ºÐÇØµÇ¾î Á×´Â´Ù.. 
-						PSD_KNOCK_DOWN,		// ³¯¾Æ°¡°Å³ª µÚ·Î ¹Ð¸®¸é¼­ Á×´Â´Ù.
-						PSD_KEEP_POSITION,	// Á¦ ÀÚ¸®¿¡¼­ ÆûÀâ°í Á×´Â´Ù..
+enum e_StateDying {		PSD_DISJOINT = 0,	// ë¶„í•´ë˜ì–´ ì£½ëŠ”ë‹¤.. 
+						PSD_KNOCK_DOWN,		// ë‚ ì•„ê°€ê±°ë‚˜ ë’¤ë¡œ ë°€ë¦¬ë©´ì„œ ì£½ëŠ”ë‹¤.
+						PSD_KEEP_POSITION,	// ì œ ìžë¦¬ì—ì„œ í¼ìž¡ê³  ì£½ëŠ”ë‹¤..
 						PSD_COUNT,
 
 						PSD_UNKNOWN = 0xffffffff };
@@ -253,45 +253,45 @@ enum e_PlugPosition {	PLUG_POS_RIGHTHAND = 0,
 						PLUG_POS_UNKNOWN = 0xffffffff };
 
 /*
-enum e_ItemClass	{	ITEM_CLASS_DAGGER = 1, // ´Ü°Ë(dagger)
-						ITEM_CLASS_SWORD, // 2 : ÇÑ¼Õ°Ë(onehandsword)
-						ITEM_CLASS_SWORD_2H, // 3 : ¾ç¼Õ°Ë(twohandsword)
-						ITEM_CLASS_AXE, // 4 : ÇÑ¼Õµµ³¢(onehandaxe)
-						ITEM_CLASS_AXE_2H, // 5 : µÎ¼Õµµ³¢(twohandaxe)
-						ITEM_CLASS_MACE, // 6 : ÇÑ¼ÕÅ¸°Ý¹«±â(mace)
-						ITEM_CLASS_MACE_2H, // 7 : µÎ¼ÕÅ¸°Ý¹«±â(twohandmace)
-						ITEM_CLASS_SPEAR, // 8 : Ã¢(spear)
-						ITEM_CLASS_POLEARM, // 9 : Æú¾Ï(polearm)
+enum e_ItemClass	{	ITEM_CLASS_DAGGER = 1, // ë‹¨ê²€(dagger)
+						ITEM_CLASS_SWORD, // 2 : í•œì†ê²€(onehandsword)
+						ITEM_CLASS_SWORD_2H, // 3 : ì–‘ì†ê²€(twohandsword)
+						ITEM_CLASS_AXE, // 4 : í•œì†ë„ë¼(onehandaxe)
+						ITEM_CLASS_AXE_2H, // 5 : ë‘ì†ë„ë¼(twohandaxe)
+						ITEM_CLASS_MACE, // 6 : í•œì†íƒ€ê²©ë¬´ê¸°(mace)
+						ITEM_CLASS_MACE_2H, // 7 : ë‘ì†íƒ€ê²©ë¬´ê¸°(twohandmace)
+						ITEM_CLASS_SPEAR, // 8 : ì°½(spear)
+						ITEM_CLASS_POLEARM, // 9 : í´ì•”(polearm)
 						
-						ITEM_CLASS_SHIELD_SMALL = 11, // 11 : ½º¸ô½¯µå(smallshield)
-						ITEM_CLASS_SHIELD_LARGE, // 12 : ¶ó¾ÆÁö½¯µå(largeshield)
-						ITEM_CLASS_SHIELD_KITE, // 13 : Ä«ÀÌÆ®½¯µå(kiteshield)
-						ITEM_CLASS_SHIELD_LARGETKITE, // 14 : ¶ó¾ÆÁöÄ«ÀÌÆ®(largekite)
-						ITEM_CLASS_SHIELD_PLATE, // 15 : ÇÃ·¹ÀÌÆ®½¯µå(plateshield)
+						ITEM_CLASS_SHIELD_SMALL = 11, // 11 : ìŠ¤ëª°ì‰´ë“œ(smallshield)
+						ITEM_CLASS_SHIELD_LARGE, // 12 : ë¼ì•„ì§€ì‰´ë“œ(largeshield)
+						ITEM_CLASS_SHIELD_KITE, // 13 : ì¹´ì´íŠ¸ì‰´ë“œ(kiteshield)
+						ITEM_CLASS_SHIELD_LARGETKITE, // 14 : ë¼ì•„ì§€ì¹´ì´íŠ¸(largekite)
+						ITEM_CLASS_SHIELD_PLATE, // 15 : í”Œë ˆì´íŠ¸ì‰´ë“œ(plateshield)
 						
-						ITEM_CLASS_BOW_SHORT = 21, // 21 : ¼îÆ®º¸¿ì(Shortbow)
-						ITEM_CLASS_BOW_WRAPT, // 22 : ·¦Æ®º¸¿ì(wraptbow)
-						ITEM_CLASS_BOW_COMPOSITE, // 23 : ÄÞÆ÷ÁöÆ®º¸¿ì(compositebow)
-						ITEM_CLASS_BOW_IRON, // 24 : ¾ÆÀÌ¾ðº¸¿ì(ironbow)
-						ITEM_CLASS_BOW_LONG, // 25 : ·Õº¸¿ì(longbow)
-						ITEM_CLASS_BOW_CROSS, // 28 : Å©·Î½ºº¸¿ì(crossbow)
+						ITEM_CLASS_BOW_SHORT = 21, // 21 : ì‡¼íŠ¸ë³´ìš°(Shortbow)
+						ITEM_CLASS_BOW_WRAPT, // 22 : ëž©íŠ¸ë³´ìš°(wraptbow)
+						ITEM_CLASS_BOW_COMPOSITE, // 23 : ì½¤í¬ì§€íŠ¸ë³´ìš°(compositebow)
+						ITEM_CLASS_BOW_IRON, // 24 : ì•„ì´ì–¸ë³´ìš°(ironbow)
+						ITEM_CLASS_BOW_LONG, // 25 : ë¡±ë³´ìš°(longbow)
+						ITEM_CLASS_BOW_CROSS, // 28 : í¬ë¡œìŠ¤ë³´ìš°(crossbow)
 						
-						ITEM_CLASS_STAFF = 31, // 31 : ÁöÆÎÀÌ(staff)
-						ITEM_CLASS_ETC, // 32 : ±âÅ¸ ¸¶¹ý ¹°Ç°
+						ITEM_CLASS_STAFF = 31, // 31 : ì§€íŒ¡ì´(staff)
+						ITEM_CLASS_ETC, // 32 : ê¸°íƒ€ ë§ˆë²• ë¬¼í’ˆ
 						
-						ITEM_CLASS_ARMOR_COTTON = 41, // 41 : Ãµ¹æ¾î±¸(cotton)
-						ITEM_CLASS_ARMOR_FUR, // 42 : ÅÐ°¡Á×(Fur)
-						ITEM_CLASS_ARMOR_LEATHER, // 43 : °¡Á×¹æ¾î±¸(leather)
-						ITEM_CLASS_ARMOR_HADLEATHER, // 44 : ÇÏµå·¹´õ¹æ¾î±¸(hardleather)
-						ITEM_CLASS_ARMOR_RINGMAIL, // 45 : ¸µ¹æ¾î±¸(ringmail)
-						ITEM_CLASS_ARMOR_SCALEMAIL, // 46 : ºñ´Ã¹æ¾î±¸(scaledmail)
-						ITEM_CLASS_ARMOR_HALFPLATE, // 47 : ÇÏÇÁ ÇÃ·¹ÀÌÆ® ¹æ¾î±¸
-						ITEM_CLASS_ARMOR_FULLPLATE, // 48 : Ã¶ÆÇ¹æ¾î±¸(platemail)
-						ITEM_CLASS_ROBE, // 49 : ¸¶¹ý»ç·Îºê(robe)
+						ITEM_CLASS_ARMOR_COTTON = 41, // 41 : ì²œë°©ì–´êµ¬(cotton)
+						ITEM_CLASS_ARMOR_FUR, // 42 : í„¸ê°€ì£½(Fur)
+						ITEM_CLASS_ARMOR_LEATHER, // 43 : ê°€ì£½ë°©ì–´êµ¬(leather)
+						ITEM_CLASS_ARMOR_HADLEATHER, // 44 : í•˜ë“œë ˆë”ë°©ì–´êµ¬(hardleather)
+						ITEM_CLASS_ARMOR_RINGMAIL, // 45 : ë§ë°©ì–´êµ¬(ringmail)
+						ITEM_CLASS_ARMOR_SCALEMAIL, // 46 : ë¹„ëŠ˜ë°©ì–´êµ¬(scaledmail)
+						ITEM_CLASS_ARMOR_HALFPLATE, // 47 : í•˜í”„ í”Œë ˆì´íŠ¸ ë°©ì–´êµ¬
+						ITEM_CLASS_ARMOR_FULLPLATE, // 48 : ì² íŒë°©ì–´êµ¬(platemail)
+						ITEM_CLASS_ROBE, // 49 : ë§ˆë²•ì‚¬ë¡œë¸Œ(robe)
 						
 						ITEM_CLASS_ARROW = 101,
 						
-						ITEM_CLASS_UNKNOWN = 0xffffffff }; // 101: È­»ì(arrow) 
+						ITEM_CLASS_UNKNOWN = 0xffffffff }; // 101: í™”ì‚´(arrow) 
 */
 enum e_ItemAttrib	{
 						ITEM_ATTRIB_GENERAL = 0,
@@ -304,43 +304,43 @@ enum e_ItemAttrib	{
 						ITEM_ATTRIB_UPGRADE_REVERSE = 12,
 						ITEM_ATTRIB_UNKNOWN = 0xffffffff };	
 
-enum e_ItemClass	{	ITEM_CLASS_DAGGER = 11, // ´Ü°Ë(dagger)
-						ITEM_CLASS_SWORD = 21, // ÇÑ¼Õ°Ë(onehandsword)
-						ITEM_CLASS_SWORD_2H = 22, // 3 : ¾ç¼Õ°Ë(twohandsword)
-						ITEM_CLASS_AXE = 31, // ÇÑ¼Õµµ³¢(onehandaxe)
-						ITEM_CLASS_AXE_2H = 32, // µÎ¼Õµµ³¢(twohandaxe)
-						ITEM_CLASS_MACE = 41, // ÇÑ¼ÕÅ¸°Ý¹«±â(mace)
-						ITEM_CLASS_MACE_2H = 42, // µÎ¼ÕÅ¸°Ý¹«±â(twohandmace)
-						ITEM_CLASS_SPEAR = 51, // Ã¢(spear)
-						ITEM_CLASS_POLEARM = 52, // Æú¾Ï(polearm)
+enum e_ItemClass	{	ITEM_CLASS_DAGGER = 11, // ë‹¨ê²€(dagger)
+						ITEM_CLASS_SWORD = 21, // í•œì†ê²€(onehandsword)
+						ITEM_CLASS_SWORD_2H = 22, // 3 : ì–‘ì†ê²€(twohandsword)
+						ITEM_CLASS_AXE = 31, // í•œì†ë„ë¼(onehandaxe)
+						ITEM_CLASS_AXE_2H = 32, // ë‘ì†ë„ë¼(twohandaxe)
+						ITEM_CLASS_MACE = 41, // í•œì†íƒ€ê²©ë¬´ê¸°(mace)
+						ITEM_CLASS_MACE_2H = 42, // ë‘ì†íƒ€ê²©ë¬´ê¸°(twohandmace)
+						ITEM_CLASS_SPEAR = 51, // ì°½(spear)
+						ITEM_CLASS_POLEARM = 52, // í´ì•”(polearm)
 						
-						ITEM_CLASS_SHIELD = 60, // ½¯µå(shield)
+						ITEM_CLASS_SHIELD = 60, // ì‰´ë“œ(shield)
 
-						ITEM_CLASS_BOW = 70, //  ¼îÆ®º¸¿ì(Shortbow)
-						ITEM_CLASS_BOW_CROSS = 71, // Å©·Î½ºº¸¿ì(crossbow)
-						ITEM_CLASS_BOW_LONG = 80, // ·Õº¸¿ì(longbow)
+						ITEM_CLASS_BOW = 70, //  ì‡¼íŠ¸ë³´ìš°(Shortbow)
+						ITEM_CLASS_BOW_CROSS = 71, // í¬ë¡œìŠ¤ë³´ìš°(crossbow)
+						ITEM_CLASS_BOW_LONG = 80, // ë¡±ë³´ìš°(longbow)
 
-						ITEM_CLASS_EARRING = 91, // ±Í°ÉÀÌ
-						ITEM_CLASS_AMULET = 92, // ¸ñ°ÉÀÌ
-						ITEM_CLASS_RING = 93, // ¹ÝÁö
-						ITEM_CLASS_BELT = 94, // Çã¸®¶ì
-						ITEM_CLASS_CHARM = 95, //ÀÎº¥Åä¸®¿¡ Áö´Ï°í ÀÖ´Â ¾ÆÀÌÅÛ
-						ITEM_CLASS_JEWEL = 96, //º¸¼®Á¾·ù
-						ITEM_CLASS_POTION = 97, // ¹°¾à
-						ITEM_CLASS_SCROLL = 98, // ½ºÅ©·Ñ
+						ITEM_CLASS_EARRING = 91, // ê·€ê±¸ì´
+						ITEM_CLASS_AMULET = 92, // ëª©ê±¸ì´
+						ITEM_CLASS_RING = 93, // ë°˜ì§€
+						ITEM_CLASS_BELT = 94, // í—ˆë¦¬ë 
+						ITEM_CLASS_CHARM = 95, //ì¸ë²¤í† ë¦¬ì— ì§€ë‹ˆê³  ìžˆëŠ” ì•„ì´í…œ
+						ITEM_CLASS_JEWEL = 96, //ë³´ì„ì¢…ë¥˜
+						ITEM_CLASS_POTION = 97, // ë¬¼ì•½
+						ITEM_CLASS_SCROLL = 98, // ìŠ¤í¬ë¡¤
 
-						ITEM_CLASS_LAUNCHER = 100, // Ã¢´øÁú¶§ ¾²´Â ¾ÆÀÌÅÛ..
+						ITEM_CLASS_LAUNCHER = 100, // ì°½ë˜ì§ˆë•Œ ì“°ëŠ” ì•„ì´í…œ..
 						
-						ITEM_CLASS_STAFF = 110, // ÁöÆÎÀÌ(staff)
-						ITEM_CLASS_ARROW = 120, // È­»ì(Arrow)
-						ITEM_CLASS_JAVELIN = 130, // ÅõÃ¢
+						ITEM_CLASS_STAFF = 110, // ì§€íŒ¡ì´(staff)
+						ITEM_CLASS_ARROW = 120, // í™”ì‚´(Arrow)
+						ITEM_CLASS_JAVELIN = 130, // íˆ¬ì°½
 						
-						ITEM_CLASS_ARMOR_WARRIOR = 210, // Àü»ç ¹æ¾î±¸
-						ITEM_CLASS_ARMOR_ROGUE = 220, // ·Î±× ¹æ¾î±¸
-						ITEM_CLASS_ARMOR_MAGE = 230, // ¸¶¹ý»ç ¹æ¾î±¸
-						ITEM_CLASS_ARMOR_PRIEST = 240, // »çÁ¦ ¹æ¾î±¸
+						ITEM_CLASS_ARMOR_WARRIOR = 210, // ì „ì‚¬ ë°©ì–´êµ¬
+						ITEM_CLASS_ARMOR_ROGUE = 220, // ë¡œê·¸ ë°©ì–´êµ¬
+						ITEM_CLASS_ARMOR_MAGE = 230, // ë§ˆë²•ì‚¬ ë°©ì–´êµ¬
+						ITEM_CLASS_ARMOR_PRIEST = 240, // ì‚¬ì œ ë°©ì–´êµ¬
 
-						ITEM_CLASS_ETC = 251, // ±âÅ¸
+						ITEM_CLASS_ETC = 251, // ê¸°íƒ€
 
 						ITEM_CLASS_UNKNOWN = 0xffffffff }; // 
 
@@ -354,39 +354,39 @@ enum e_Authority { AUTHORITY_MANAGER = 0, AUTHORITY_USER, AUTHORITY_NOCHAT, AUTH
 
 struct __InfoPlayerOther
 {
-	int			iFace;			// ¾ó±¼ ¸ð¾ç..
-	int			iHair;			// ¸Ó¸®Ä«¶ô ¸ð¾ç..
+	int			iFace;			// ì–¼êµ´ ëª¨ì–‘..
+	int			iHair;			// ë¨¸ë¦¬ì¹´ë½ ëª¨ì–‘..
 
-	int			iCity;			// ¼Ò¼Óµµ½Ã
-	int			iKnightsID;		// ¼Ò¼Ó ±â»ç´Ü(±æµå) ID
-	std::string szKnights;		// ¼Ò¼Ó ±â»ç´Ü(±æµå) ÀÌ¸§
-	int			iKnightsGrade;	// ¼Ò¼Ó ±â»ç´Ü(±æµå) µî±Þ
-	int			iKnightsRank;	// ¼Ò¼Ó ±â»ç´Ü(±æµå) ¼øÀ§
+	int			iCity;			// ì†Œì†ë„ì‹œ
+	int			iKnightsID;		// ì†Œì† ê¸°ì‚¬ë‹¨(ê¸¸ë“œ) ID
+	std::string szKnights;		// ì†Œì† ê¸°ì‚¬ë‹¨(ê¸¸ë“œ) ì´ë¦„
+	int			iKnightsGrade;	// ì†Œì† ê¸°ì‚¬ë‹¨(ê¸¸ë“œ) ë“±ê¸‰
+	int			iKnightsRank;	// ì†Œì† ê¸°ì‚¬ë‹¨(ê¸¸ë“œ) ìˆœìœ„
 
-	int			iRank;			// ÀÛÀ§ - ¹éÀÛ, °øÀÛ - ±ÇÇÑ¿¡ µû¸¥ ºÐ·ù
-	int			iTitle;			// Á÷À§ - ¿µÁÖ, ¼ºÁÖ - ´Ü¼øÇÑ ½ÅºÐ -> ±æµåÀå...
+	int			iRank;			// ìž‘ìœ„ - ë°±ìž‘, ê³µìž‘ - ê¶Œí•œì— ë”°ë¥¸ ë¶„ë¥˜
+	int			iTitle;			// ì§ìœ„ - ì˜ì£¼, ì„±ì£¼ - ë‹¨ìˆœí•œ ì‹ ë¶„ -> ê¸¸ë“œìž¥...
 
 	void Init()
 	{
-		iFace = 0;			// ¾ó±¼ ¸ð¾ç..
-		iHair = 0;			// ¸Ó¸®Ä«¶ô ¸ð¾ç..
-		iCity;				// ¼Ò¼Óµµ½Ã
-		iKnightsID = 0;		// ¼Ò¼Ó ±â»ç´Ü(±æµå)
-		szKnights = "";		// ¼Ò¼Ó ±â»ç´Ü(±æµå)
-		iKnightsGrade = 0;		// ¼Ò¼Ó ±â»ç´Ü(±æµå) »ö±ò
-		iKnightsRank = 0;			// ÀÛÀ§ - ¹éÀÛ, °øÀÛ - ±ÇÇÑ¿¡ µû¸¥ ºÐ·ù
-		iTitle = 0;			// Á÷À§ - ¿µÁÖ, ¼ºÁÖ - ´Ü¼øÇÑ ½ÅºÐ -> ±æµåÀå...
+		iFace = 0;			// ì–¼êµ´ ëª¨ì–‘..
+		iHair = 0;			// ë¨¸ë¦¬ì¹´ë½ ëª¨ì–‘..
+		iCity;				// ì†Œì†ë„ì‹œ
+		iKnightsID = 0;		// ì†Œì† ê¸°ì‚¬ë‹¨(ê¸¸ë“œ)
+		szKnights = "";		// ì†Œì† ê¸°ì‚¬ë‹¨(ê¸¸ë“œ)
+		iKnightsGrade = 0;		// ì†Œì† ê¸°ì‚¬ë‹¨(ê¸¸ë“œ) ìƒ‰ê¹”
+		iKnightsRank = 0;			// ìž‘ìœ„ - ë°±ìž‘, ê³µìž‘ - ê¶Œí•œì— ë”°ë¥¸ ë¶„ë¥˜
+		iTitle = 0;			// ì§ìœ„ - ì˜ì£¼, ì„±ì£¼ - ë‹¨ìˆœí•œ ì‹ ë¶„ -> ê¸¸ë“œìž¥...
 	}
 };
 
-// ±â»ç´Ü Á÷À§..
-enum e_KnightsDuty {	KNIGHTS_DUTY_UNKNOWN = 0,		// ????? ÂÑ°Ü³²??
-						KNIGHTS_DUTY_CHIEF = 1,			// ´ÜÀå
-						KNIGHTS_DUTY_VICECHIEF = 2,		// ºÎ´ÜÀå 
-						KNIGHTS_DUTY_PUNISH = 3,		// Â¡°èÁß.
-						KNIGHTS_DUTY_TRAINEE = 4,		// °ß½À±â»ç
-						KNIGHTS_DUTY_KNIGHT = 5,		// ÀÏ¹Ý±â»ç
-						KNIGHTS_DUTY_OFFICER = 6		// Àå±³
+// ê¸°ì‚¬ë‹¨ ì§ìœ„..
+enum e_KnightsDuty {	KNIGHTS_DUTY_UNKNOWN = 0,		// ????? ì«“ê²¨ë‚¨??
+						KNIGHTS_DUTY_CHIEF = 1,			// ë‹¨ìž¥
+						KNIGHTS_DUTY_VICECHIEF = 2,		// ë¶€ë‹¨ìž¥ 
+						KNIGHTS_DUTY_PUNISH = 3,		// ì§•ê³„ì¤‘.
+						KNIGHTS_DUTY_TRAINEE = 4,		// ê²¬ìŠµê¸°ì‚¬
+						KNIGHTS_DUTY_KNIGHT = 5,		// ì¼ë°˜ê¸°ì‚¬
+						KNIGHTS_DUTY_OFFICER = 6		// ìž¥êµ
 					};
 
 #define VICTORY_ABSENCE		0
@@ -395,8 +395,8 @@ enum e_KnightsDuty {	KNIGHTS_DUTY_UNKNOWN = 0,		// ????? ÂÑ°Ü³²??
 
 struct __InfoPlayerMySelf : public __InfoPlayerOther
 {
-	int					iBonusPointRemain; // ³²´Â º¸³Ê½º Æ÷ÀÎÆ®...
-	int					iLevelPrev; // Á÷ÀüÀÇ ·¹º§...
+	int					iBonusPointRemain; // ë‚¨ëŠ” ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸...
+	int					iLevelPrev; // ì§ì „ì˜ ë ˆë²¨...
 
 	int					iMSPMax; 
 	int					iMSP; 
@@ -405,50 +405,50 @@ struct __InfoPlayerMySelf : public __InfoPlayerOther
 	int					iGold;
 	Uint64				iExpNext;
 	Uint64				iExp;
-	int					iRealmPoint;		// ±¹°¡ ±â¿©µµ
+	int					iRealmPoint;		// êµ­ê°€ ê¸°ì—¬ë„
 	int					iRealmPointMonthly;		// @Demircivi.
-	e_KnightsDuty		eKnightsDuty;		// ±â»ç´Ü ±ÇÇÑ
-	int					iWeightMax;			// ¾ÆÀÌÅÛÀÇ ÃÑ¹«°Ô
-	int					iWeight;			// µé¼ö ÀÖ´Â ¾ÆÀÌÅÛ ¹«°Ô..
-	int					iStrength;			// Èû
-	int					iStrength_Delta;		// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-	int					iStamina;			// ½ºÅ×¹Ì³Ê
-	int					iStamina_Delta;		// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-	int					iDexterity;			// ¹ÎÃ·¼º..
-	int					iDexterity_Delta;	// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-	int					iIntelligence;		// Áö´É
-	int					iIntelligence_Delta; // ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-	int 				iMagicAttak;		// ¸¶·Â
-	int 				iMagicAttak_Delta;	// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
+	e_KnightsDuty		eKnightsDuty;		// ê¸°ì‚¬ë‹¨ ê¶Œí•œ
+	int					iWeightMax;			// ì•„ì´í…œì˜ ì´ë¬´ê²Œ
+	int					iWeight;			// ë“¤ìˆ˜ ìžˆëŠ” ì•„ì´í…œ ë¬´ê²Œ..
+	int					iStrength;			// íž˜
+	int					iStrength_Delta;		// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+	int					iStamina;			// ìŠ¤í…Œë¯¸ë„ˆ
+	int					iStamina_Delta;		// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+	int					iDexterity;			// ë¯¼ì²¨ì„±..
+	int					iDexterity_Delta;	// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+	int					iIntelligence;		// ì§€ëŠ¥
+	int					iIntelligence_Delta; // ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+	int 				iMagicAttak;		// ë§ˆë ¥
+	int 				iMagicAttak_Delta;	// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
 	
-	int 				iAttack;		// °ø°Ý·Â
-	int 				iAttack_Delta;	// ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ °ª..
-	int 				iGuard;			// ¹æ¾î·Â
-	int 				iGuard_Delta;	// ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ °ª..
+	int 				iAttack;		// ê³µê²©ë ¥
+	int 				iAttack_Delta;	// ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœ ê°’..
+	int 				iGuard;			// ë°©ì–´ë ¥
+	int 				iGuard_Delta;	// ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœ ê°’..
 
-	int 				iRegistFire;			// ÀúÇ×·Â
-	int 				iRegistFire_Delta;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-	int 				iRegistCold;			// ÀúÇ×·Â
-	int 				iRegistCold_Delta;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-	int 				iRegistLight;			// ÀúÇ×·Â
-	int 				iRegistLight_Delta;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-	int 				iRegistMagic;			// ÀúÇ×·Â
-	int 				iRegistMagic_Delta;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-	int 				iRegistCurse;			// ÀúÇ×·Â
-	int 				iRegistCurse_Delta;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-	int 				iRegistPoison;			// ÀúÇ×·Â
-	int 				iRegistPoison_Delta;	// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
+	int 				iRegistFire;			// ì €í•­ë ¥
+	int 				iRegistFire_Delta;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+	int 				iRegistCold;			// ì €í•­ë ¥
+	int 				iRegistCold_Delta;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+	int 				iRegistLight;			// ì €í•­ë ¥
+	int 				iRegistLight_Delta;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+	int 				iRegistMagic;			// ì €í•­ë ¥
+	int 				iRegistMagic_Delta;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+	int 				iRegistCurse;			// ì €í•­ë ¥
+	int 				iRegistCurse_Delta;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+	int 				iRegistPoison;			// ì €í•­ë ¥
+	int 				iRegistPoison_Delta;	// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
 
-	int					iZoneInit;				// ¼­¹öÇÑÅ× Ã³À½¿¡ ¹ÞÀº Á¸¹øÈ£
-	int					iZoneCur;				// ÇöÀç Á¸..
-	int					iVictoryNation;			// 0: ¹«½ÂºÎ 1:¿¤¸ð¶óµå ½Â¸® 2:Ä«·ç½º ½Â¸®
+	int					iZoneInit;				// ì„œë²„í•œí…Œ ì²˜ìŒì— ë°›ì€ ì¡´ë²ˆí˜¸
+	int					iZoneCur;				// í˜„ìž¬ ì¡´..
+	int					iVictoryNation;			// 0: ë¬´ìŠ¹ë¶€ 1:ì—˜ëª¨ë¼ë“œ ìŠ¹ë¦¬ 2:ì¹´ë£¨ìŠ¤ ìŠ¹ë¦¬
 
 	void Init()
 	{
 		__InfoPlayerOther::Init();
 
-		iBonusPointRemain = 0; // ³²´Â º¸³Ê½º Æ÷ÀÎÆ®...
-		iLevelPrev = 0; // Á÷ÀüÀÇ ·¹º§...
+		iBonusPointRemain = 0; // ë‚¨ëŠ” ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸...
+		iLevelPrev = 0; // ì§ì „ì˜ ë ˆë²¨...
 
 		iMSPMax = 0; 
 		iMSP = 0; 
@@ -457,43 +457,43 @@ struct __InfoPlayerMySelf : public __InfoPlayerOther
 		iGold = 0;
 		iExpNext = 0;
 		iExp = 0; 
-		iRealmPoint = 0;		// ±¹°¡ ±â¿©µµ
+		iRealmPoint = 0;		// êµ­ê°€ ê¸°ì—¬ë„
 		iRealmPointMonthly = 0; // @Demircivi
-		eKnightsDuty = KNIGHTS_DUTY_UNKNOWN;		// ±â»ç´Ü ±ÇÇÑ
-		iWeightMax = 0;			// ¾ÆÀÌÅÛÀÇ ÃÑ¹«°Ô
-		iWeight = 0;			// µé¼ö ÀÖ´Â ¾ÆÀÌÅÛ ¹«°Ô..
-		iStrength = 0;			// Èû
-		iStrength_Delta = 0;	// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-		iStamina = 0;			// ½ºÅ×¹Ì³Ê
-		iStamina_Delta = 0;		// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-		iDexterity = 0;			// ¹ÎÃ·¼º..
-		iDexterity_Delta = 0;	// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-		iIntelligence = 0;		// Áö´É
-		iIntelligence_Delta = 0; // ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
-		iMagicAttak = 0;		// ¸¶·Â
-		iMagicAttak_Delta = 0;	// ¾ÆÀÌÅÛÀÌ³ª ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ°ª.
+		eKnightsDuty = KNIGHTS_DUTY_UNKNOWN;		// ê¸°ì‚¬ë‹¨ ê¶Œí•œ
+		iWeightMax = 0;			// ì•„ì´í…œì˜ ì´ë¬´ê²Œ
+		iWeight = 0;			// ë“¤ìˆ˜ ìžˆëŠ” ì•„ì´í…œ ë¬´ê²Œ..
+		iStrength = 0;			// íž˜
+		iStrength_Delta = 0;	// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+		iStamina = 0;			// ìŠ¤í…Œë¯¸ë„ˆ
+		iStamina_Delta = 0;		// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+		iDexterity = 0;			// ë¯¼ì²¨ì„±..
+		iDexterity_Delta = 0;	// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+		iIntelligence = 0;		// ì§€ëŠ¥
+		iIntelligence_Delta = 0; // ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
+		iMagicAttak = 0;		// ë§ˆë ¥
+		iMagicAttak_Delta = 0;	// ì•„ì´í…œì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœê°’.
 		
-		iAttack = 0;		// °ø°Ý·Â
-		iAttack_Delta = 0;	// ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ °ª..
-		iGuard = 0;			// ¹æ¾î·Â
-		iGuard_Delta = 0;	// ¸¶¹ý¿¡ ÀÇÇØ °¡°¨µÈ °ª..
+		iAttack = 0;		// ê³µê²©ë ¥
+		iAttack_Delta = 0;	// ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœ ê°’..
+		iGuard = 0;			// ë°©ì–´ë ¥
+		iGuard_Delta = 0;	// ë§ˆë²•ì— ì˜í•´ ê°€ê°ëœ ê°’..
 
-		iRegistFire = 0;			// ÀúÇ×·Â
-		iRegistFire_Delta = 0;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-		iRegistCold = 0;			// ÀúÇ×·Â
-		iRegistCold_Delta = 0;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-		iRegistLight = 0;			// ÀúÇ×·Â
-		iRegistLight_Delta = 0;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-		iRegistMagic = 0;			// ÀúÇ×·Â
-		iRegistMagic_Delta = 0;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-		iRegistCurse = 0;			// ÀúÇ×·Â
-		iRegistCurse_Delta = 0;		// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
-		iRegistPoison = 0;			// ÀúÇ×·Â
-		iRegistPoison_Delta = 0;	// ¸¶¹ý¿¡ ÀÇÇÑ ÀúÇ×·Â º¯È­°ª..
+		iRegistFire = 0;			// ì €í•­ë ¥
+		iRegistFire_Delta = 0;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+		iRegistCold = 0;			// ì €í•­ë ¥
+		iRegistCold_Delta = 0;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+		iRegistLight = 0;			// ì €í•­ë ¥
+		iRegistLight_Delta = 0;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+		iRegistMagic = 0;			// ì €í•­ë ¥
+		iRegistMagic_Delta = 0;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+		iRegistCurse = 0;			// ì €í•­ë ¥
+		iRegistCurse_Delta = 0;		// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
+		iRegistPoison = 0;			// ì €í•­ë ¥
+		iRegistPoison_Delta = 0;	// ë§ˆë²•ì— ì˜í•œ ì €í•­ë ¥ ë³€í™”ê°’..
 
-		iZoneInit = 0x01;			// ¼­¹öÇÑÅ× Ã³À½¿¡ ¹ÞÀº Á¸¹øÈ£
-		iZoneCur = 0;				// ÇöÀç Á¸..
-		iVictoryNation = -1;		// ÀüÀï¿¡¼­ ÀÌ±ä ±¹°¡
+		iZoneInit = 0x01;			// ì„œë²„í•œí…Œ ì²˜ìŒì— ë°›ì€ ì¡´ë²ˆí˜¸
+		iZoneCur = 0;				// í˜„ìž¬ ì¡´..
+		iVictoryNation = -1;		// ì „ìŸì—ì„œ ì´ê¸´ êµ­ê°€
 	}
 };
 
@@ -501,14 +501,14 @@ const int MAX_PARTY_OR_FORCE = 8;
 
 struct __InfoPartyOrForce
 {
-	int			iID;			// ÆÄÆ¼¿ø ID
+	int			iID;			// íŒŒí‹°ì› ID
 	int			iLevel;			// Level
-	e_Class		eClass;			// Á÷¾÷
+	e_Class		eClass;			// ì§ì—…
 	int			iHP;			// Hit Point
 	int			iHPMax;			// Hit Point Max
-	bool		bSufferDown_HP;			// Status - HP ¶³¾îÁü...
-	bool		bSufferDown_Etc;		// Status - ÀúÁÖ°è¿­ ¿µÇâÀ» ¹ÞÀ»¶§
-	std::string szID;		// ÆÄÆ¼ ÀÌ¸§ ¹®ÀÚ¿­
+	bool		bSufferDown_HP;			// Status - HP ë–¨ì–´ì§...
+	bool		bSufferDown_Etc;		// Status - ì €ì£¼ê³„ì—´ ì˜í–¥ì„ ë°›ì„ë•Œ
+	std::string szID;		// íŒŒí‹° ì´ë¦„ ë¬¸ìžì—´
 
 	void Init()
 	{
@@ -519,8 +519,8 @@ struct __InfoPartyOrForce
 		iHPMax = 0;
 		szID = "";
 
-		bSufferDown_HP = false;			// Status - HP ¶³¾îÁü...
-		bSufferDown_Etc = false;		// Status - ÀúÁÖ°è¿­ ¿µÇâÀ» ¹ÞÀ»¶§
+		bSufferDown_HP = false;			// Status - HP ë–¨ì–´ì§...
+		bSufferDown_Etc = false;		// Status - ì €ì£¼ê³„ì—´ ì˜í–¥ì„ ë°›ì„ë•Œ
 	};
 
 	__InfoPartyOrForce()
@@ -531,12 +531,12 @@ struct __InfoPartyOrForce
 
 enum e_PartyStatus { PARTY_STATUS_DOWN_HP = 1, PARTY_STATUS_DOWN_ETC = 2 };
 
-struct __InfoPartyBBS // ÆÄÆ¼ Áö¿ø °Ô½ÃÆÇ ±¸Á¶Ã¼..
+struct __InfoPartyBBS // íŒŒí‹° ì§€ì› ê²Œì‹œíŒ êµ¬ì¡°ì²´..
 {
-	std::string szID;			// ÆÄÆ¼ ÀÌ¸§ ¹®ÀÚ¿­
-	int			iID;			// ÆÄÆ¼¿ø ID
+	std::string szID;			// íŒŒí‹° ì´ë¦„ ë¬¸ìžì—´
+	int			iID;			// íŒŒí‹°ì› ID
 	int			iLevel;			// Level
-	e_Class		eClass;			// Á÷¾÷
+	e_Class		eClass;			// ì§ì—…
 	int			iMemberCount;
 
 	void Init()
@@ -563,35 +563,39 @@ typedef struct __TABLE_TEXTS
 	std::string	szText;
 } TABLE_TEXTS;
 
-// NOTE: temp 1298 zone structure
 typedef struct __TABLE_ZONE
 {
-	//24 Fields in the 1298 Zone.TBL structure
-	uint32_t		dwID;                 // zone ID
-	std::string		szTerrainFN;          // GTD
-	std::string		szName;
-	std::string		szColorMapFN;         // TCT
-	std::string		szLightMapFN;         // TLT
-	std::string		szObjectPostDataFN;   // OPD
-	std::string		szReserved;			  // temp remove for 1264
-	std::string		szMiniMapFN;          // DXT
-	std::string		szSkySetting;         // N3Sky
-	int				bIndicateEnemyPlayer; // SByte (now Int32)
-	int				iFixedSundDirection;  // Int32
-	std::string		szLightObjFN;         // GLO
-	std::string		szGEVFN;              // GEV
-	int				iIdk0;                // idk
-	std::string		szENSFN;              // ENS
-	float			fIdk1;                // idk
-	std::string		szFLAGFN;             // FLAG
-	uint32_t		iIdk2;
-	uint32_t		iIdk3;
-	uint32_t		iIdk4;
-	uint32_t		iIdk5;
-	std::string		szOPDSUBFN;           // OPDSUB
-	int				iIdk6;
-	std::string		szEVTSUB;             // EVTSUB
+	uint32_t       dwID;                 // zone ID
+	std::string	szTerrainFN;          // GTD
 
+	std::string szName;
+
+	std::string	szColorMapFN;         // TCT
+	std::string	szLightMapFN;         // TLT
+	std::string	szObjectPostDataFN;   // OPD
+
+#if __VERSION > 1264
+	std::string szReserved;
+#endif
+
+	std::string	szMiniMapFN;          // DXT
+	std::string szSkySetting;         // N3Sky
+	int         bIndicateEnemyPlayer; // SByte (now Int32)
+	int         iFixedSundDirection;  // Int32
+	std::string szLightObjFN;         // GLO
+
+	std::string szGEVFN;              // GEV
+	int         iIdk0;                // idk
+	std::string szENSFN;              // ENS
+	float       fIdk1;                // idk
+	std::string szFLAGFN;             // FLAG
+	uint32_t       iIdk2;
+	uint32_t       iIdk3;
+	uint32_t       iIdk4;
+	uint32_t       iIdk5;
+	std::string szOPDSUBFN;           // OPDSUB
+	int         iIdk6;
+	std::string szEVTSUB;             // EVTSUB
 } TABLE_ZONE;
 
 typedef struct __TABLE_UI_RESRC
@@ -727,6 +731,7 @@ typedef struct __TABLE_UI_RESRC
 	std::string szPPCardMyInfo;			// 128
 	std::string szNationSelect2;		// 129
 	std::string szUSALogo;				// 130
+#if __VERSION > 1264  
 	std::string szMonster;				// 131
 	std::string szNationTaxNPC;			// 132
 	std::string szNationTaxRate;		// 133
@@ -741,133 +746,133 @@ typedef struct __TABLE_UI_RESRC
 	std::string szUpgradeSelect;		// 142
 	std::string szTradeMsg;				// 143
 	std::string szShowIcon;				// 144
-
+#endif
 } TABLE_UI_RESRC;
 
-typedef struct __TABLE_ITEM_BASIC // ÀåÂø ¾ÆÀÌÅÛ¿¡ °üÇÑ ¸®¼Ò½º ·¹ÄÚµå...
+typedef struct __TABLE_ITEM_BASIC // ìž¥ì°© ì•„ì´í…œì— ê´€í•œ ë¦¬ì†ŒìŠ¤ ë ˆì½”ë“œ...
 {
-	uint32_t		dwID;				// 00 ÄÚµåÈ­µÈ ¾ÆÀÌÅÛ¹øÈ£ d - // 00 - Item Á¾·ù, 00 - Item ÀåÂø À§Ä¡(ÀåÂøÀ§Ä¡·Î Plug ÀÎÁö Part ÀÎÁö ÆÇ´ÜÀÌ °¡´ÉÇÏ´Ù.) - 0000 - ItemIndex
-	uint8_t 		byExtIndex;			// 01 È®Àå ÀÎµ¦½º
-	std::string	szName;				// 02 ÀÌ¸§	
-	std::string	szRemark;			// 03 ¾ÆÀÌÅÛ ¼³¸í	
+	uint32_t		dwID;				// 00 ì½”ë“œí™”ëœ ì•„ì´í…œë²ˆí˜¸ d - // 00 - Item ì¢…ë¥˜, 00 - Item ìž¥ì°© ìœ„ì¹˜(ìž¥ì°©ìœ„ì¹˜ë¡œ Plug ì¸ì§€ Part ì¸ì§€ íŒë‹¨ì´ ê°€ëŠ¥í•˜ë‹¤.) - 0000 - ItemIndex
+	uint8_t 		byExtIndex;			// 01 í™•ìž¥ ì¸ë±ìŠ¤
+	std::string	szName;				// 02 ì´ë¦„	
+	std::string	szRemark;			// 03 ì•„ì´í…œ ì„¤ëª…	
 
 	uint32_t   dwIDK0;
 	uint8_t    byIDK1;
 
-	uint32_t   dwIDResrc;			// 04 ÄÚµåÈ­µÈ ¾ÆÀÌÅÛ ¸®¼Ò½º	d
-	uint32_t   dwIDIcon;			// 05 ÄÚµåÈ­µÈ ¾ÆÀÌÅÛ ¾ÆÀÌÄÜ ¸®¼Ò½º	d
-	uint32_t   dwSoundID0;			// 06 Sound ID - 0 ÀÌ¸é »ç¿îµå ¾ø´Ù~..
-	uint32_t   dwSoundID1;			// 07 Sound ID - 0 ÀÌ¸é »ç¿îµå ¾ø´Ù~..
+	uint32_t   dwIDResrc;			// 04 ì½”ë“œí™”ëœ ì•„ì´í…œ ë¦¬ì†ŒìŠ¤	d
+	uint32_t   dwIDIcon;			// 05 ì½”ë“œí™”ëœ ì•„ì´í…œ ì•„ì´ì½˜ ë¦¬ì†ŒìŠ¤	d
+	uint32_t   dwSoundID0;			// 06 Sound ID - 0 ì´ë©´ ì‚¬ìš´ë“œ ì—†ë‹¤~..
+	uint32_t   dwSoundID1;			// 07 Sound ID - 0 ì´ë©´ ì‚¬ìš´ë“œ ì—†ë‹¤~..
 
-	uint8_t	byClass;			// 08 ¾ÆÀÌÅÛ ÇüÅÂ	b enum e_ItemClass ÂüÁ¶....
-	uint8_t	byIsRobeType;		// 09 À§¾Æ·¡°¡ ÅëÂ°·Î µÈ ·ÎºêÅ¸ÀÔÀÇ ¾ÆÀÌÅÛ.....
-	uint8_t	byAttachPoint;		// 10 ÀåÂø À§Ä¡	b
-	uint8_t	byNeedRace;			// 11 Á¾Á·	b
-	uint8_t	byNeedClass;		// 12 Á÷¾÷	b
+	uint8_t	byClass;			// 08 ì•„ì´í…œ í˜•íƒœ	b enum e_ItemClass ì°¸ì¡°....
+	uint8_t	byIsRobeType;		// 09 ìœ„ì•„ëž˜ê°€ í†µì§¸ë¡œ ëœ ë¡œë¸Œíƒ€ìž…ì˜ ì•„ì´í…œ.....
+	uint8_t	byAttachPoint;		// 10 ìž¥ì°© ìœ„ì¹˜	b
+	uint8_t	byNeedRace;			// 11 ì¢…ì¡±	b
+	uint8_t	byNeedClass;		// 12 ì§ì—…	b
 
-	int16_t	siDamage;			// 13 ¹«±âÅ¸°Ý	b
-	int16_t	siAttackInterval;	// 14 °ø°Ý ½Ã°£ 100 Àº 1 ÃÊ
-	int16_t	siAttackRange;		// 15 À¯È¿ °Å¸®	.1 meter ´ÜÀ§
-	int16_t	siWeight;			// 16 ¹«°Ô .1 Áß·®´ÜÀ§
-	int16_t	siMaxDurability;	// 17 ³»±¸·Â
-	int		iPrice;				// 18 ¸Å¼ö°¡
-	int		iPriceSale;			// 19 ¸Åµµ°¡
-	int16_t	siDefense;			// 20 ¹æ¾î·Â
-	uint8_t	byContable;			// 21 ¼ýÀÚ°¡ ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡??
+	int16_t	siDamage;			// 13 ë¬´ê¸°íƒ€ê²©	b
+	int16_t	siAttackInterval;	// 14 ê³µê²© ì‹œê°„ 100 ì€ 1 ì´ˆ
+	int16_t	siAttackRange;		// 15 ìœ íš¨ ê±°ë¦¬	.1 meter ë‹¨ìœ„
+	int16_t	siWeight;			// 16 ë¬´ê²Œ .1 ì¤‘ëŸ‰ë‹¨ìœ„
+	int16_t	siMaxDurability;	// 17 ë‚´êµ¬ë ¥
+	int		iPrice;				// 18 ë§¤ìˆ˜ê°€
+	int		iPriceSale;			// 19 ë§¤ë„ê°€
+	int16_t	siDefense;			// 20 ë°©ì–´ë ¥
+	uint8_t	byContable;			// 21 ìˆ«ìžê°€ ìžˆëŠ” ì•„ì´í…œì¸ê°€??
 
-	uint32_t	dwEffectID1;		// 22 ¸¶¹ý È¿°ú ID1
-	uint32_t	dwEffectID2;		// 23 ¸¶¹ý È¿°ú ID1
+	uint32_t	dwEffectID1;		// 22 ë§ˆë²• íš¨ê³¼ ID1
+	uint32_t	dwEffectID2;		// 23 ë§ˆë²• íš¨ê³¼ ID1
 
-	char	cNeedLevel;		// 24 ¿ä±¸ ·¹º§		ÇÃ·¹ÀÌ¾îÀÇ iLeve.. - À½¼ö°ªÀÌ ÀÖÀ»¼öµµ ÀÖ´Ù..
+	char	cNeedLevel;		// 24 ìš”êµ¬ ë ˆë²¨		í”Œë ˆì´ì–´ì˜ iLeve.. - ìŒìˆ˜ê°’ì´ ìžˆì„ìˆ˜ë„ ìžˆë‹¤..
 
 	char    cIDK2;
 
-	uint8_t	byNeedRank;			// 25 ¿ä±¸ ÀÛÀ§		ÇÃ·¹ÀÌ¾îÀÇ iRank..
-	uint8_t	byNeedTitle;		// 26 ¿ä±¸ Å¸ÀÌÆ² 	ÇÃ·¹ÀÌ¾îÀÇ iTitle..
-	uint8_t	byNeedStrength;		// 27 ¿ä±¸ Èû 		ÇÃ·¹ÀÌ¾îÀÇ iStrength..
-	uint8_t	byNeedStamina;		// 28 ¿ä±¸ Á¤·Â 	ÇÃ·¹ÀÌ¾îÀÇ iStamina..
-	uint8_t	byNeedDexterity;	// 29 ¿ä±¸ ¹ÎÃ¸		ÇÃ·¹ÀÌ¾îÀÇ iDexterity..
-	uint8_t	byNeedInteli;		// 30 ¿ä±¸ Áö´É		ÇÃ·¹ÀÌ¾îÀÇ iIntelligence..
-	uint8_t	byNeedMagicAttack;	// 31 ¿ä±¸ ¸¶·Â		ÇÃ·¹ÀÌ¾îÀÇ iMagicAttak..
+	uint8_t	byNeedRank;			// 25 ìš”êµ¬ ìž‘ìœ„		í”Œë ˆì´ì–´ì˜ iRank..
+	uint8_t	byNeedTitle;		// 26 ìš”êµ¬ íƒ€ì´í‹€ 	í”Œë ˆì´ì–´ì˜ iTitle..
+	uint8_t	byNeedStrength;		// 27 ìš”êµ¬ íž˜ 		í”Œë ˆì´ì–´ì˜ iStrength..
+	uint8_t	byNeedStamina;		// 28 ìš”êµ¬ ì •ë ¥ 	í”Œë ˆì´ì–´ì˜ iStamina..
+	uint8_t	byNeedDexterity;	// 29 ìš”êµ¬ ë¯¼ì²©		í”Œë ˆì´ì–´ì˜ iDexterity..
+	uint8_t	byNeedInteli;		// 30 ìš”êµ¬ ì§€ëŠ¥		í”Œë ˆì´ì–´ì˜ iIntelligence..
+	uint8_t	byNeedMagicAttack;	// 31 ìš”êµ¬ ë§ˆë ¥		í”Œë ˆì´ì–´ì˜ iMagicAttak..
 
-	uint8_t	bySellGroup;		// 32 »óÀÎÀÌ ÆÄ´Âµ¥¿¡ ´ëÇÑ ±×·ì..
+	uint8_t	bySellGroup;		// 32 ìƒì¸ì´ íŒŒëŠ”ë°ì— ëŒ€í•œ ê·¸ë£¹..
 
 	uint8_t    byIDK3;
 } TABLE_ITEM_BASIC;
 
-const int MAX_ITEM_EXTENSION = 23; // È®Àå ¾ÆÀÌÅÛ Å×ÀÌºí °¹¼ö.
+const int MAX_ITEM_EXTENSION = 23; // í™•ìž¥ ì•„ì´í…œ í…Œì´ë¸” ê°¯ìˆ˜.
 const int LIMIT_FX_DAMAGE = 64;
 const int ITEM_LIMITED_EXHAUST = 17;
 
-typedef struct __TABLE_ITEM_EXT // ÀåÂø ¾ÆÀÌÅÛ¿¡ °üÇÑ ¸®¼Ò½º ·¹ÄÚµå...
+typedef struct __TABLE_ITEM_EXT // ìž¥ì°© ì•„ì´í…œì— ê´€í•œ ë¦¬ì†ŒìŠ¤ ë ˆì½”ë“œ...
 {
-	uint32_t		dwID;				// 00 ÄÚµåÈ­µÈ ¾ÆÀÌÅÛ¹øÈ£ - // 00 - Item Á¾·ù, 00 - Item ÀåÂø À§Ä¡(ÀåÂøÀ§Ä¡·Î Plug ÀÎÁö Part ÀÎÁö ÆÇ´ÜÀÌ °¡´ÉÇÏ´Ù.) - 0000 - ItemIndex
-	std::string	szHeader;			// 01 Á¢µÎ»ç
+	uint32_t		dwID;				// 00 ì½”ë“œí™”ëœ ì•„ì´í…œë²ˆí˜¸ - // 00 - Item ì¢…ë¥˜, 00 - Item ìž¥ì°© ìœ„ì¹˜(ìž¥ì°©ìœ„ì¹˜ë¡œ Plug ì¸ì§€ Part ì¸ì§€ íŒë‹¨ì´ ê°€ëŠ¥í•˜ë‹¤.) - 0000 - ItemIndex
+	std::string	szHeader;			// 01 ì ‘ë‘ì‚¬
 
 	uint32_t dwBaseID;
 
-	std::string	szRemark;			// 02 ¾ÆÀÌÅÛ ¼³¸í	
+	std::string	szRemark;			// 02 ì•„ì´í…œ ì„¤ëª…	
 
 	uint32_t dwIDK0; // TODO: will need to implement this one
 	uint32_t dwIDResrc;
 	uint32_t dwIDIcon;
 
-	uint8_t		byMagicOrRare;		// 03 ¸ÅÁ÷ È¤Àº ·¹¾î ¾ÆÀÌÅÛÀÎÁö...
+	uint8_t		byMagicOrRare;		// 03 ë§¤ì§ í˜¹ì€ ë ˆì–´ ì•„ì´í…œì¸ì§€...
 
-	int16_t	siDamage;				// 04 ¹«±âÅ¸°Ý
-	int16_t	siAttackIntervalPercentage;		// 05 °ø°Ý ½Ã°£ ºñÀ²
-	int16_t	siHitRate;				// 06 Å¸°Ý·ü	- ÆÛ¼¾Æ®
-	int16_t	siEvationRate;			// 07 È¸ÇÇÀ²	-   "
+	int16_t	siDamage;				// 04 ë¬´ê¸°íƒ€ê²©
+	int16_t	siAttackIntervalPercentage;		// 05 ê³µê²© ì‹œê°„ ë¹„ìœ¨
+	int16_t	siHitRate;				// 06 íƒ€ê²©ë¥ 	- í¼ì„¼íŠ¸
+	int16_t	siEvationRate;			// 07 íšŒí”¼ìœ¨	-   "
 
-	int16_t	siMaxDurability;		// 08 ³»±¸·Â
-	int16_t	siPriceMultiply;		// 09 ¸Å¼ö°¡ ¹èÀ²
-	int16_t	siDefense;				// 10 ¹æ¾î·Â
+	int16_t	siMaxDurability;		// 08 ë‚´êµ¬ë ¥
+	int16_t	siPriceMultiply;		// 09 ë§¤ìˆ˜ê°€ ë°°ìœ¨
+	int16_t	siDefense;				// 10 ë°©ì–´ë ¥
 	
-	int16_t	siDefenseRateDagger;	// 11 ´Ü°Ë¹æ¾î	- ÆÛ¼¾Æ®
-	int16_t	siDefenseRateSword;		// 12 °Ë¹æ¾î	- ÆÛ¼¾Æ®
-	int16_t	siDefenseRateBlow;		// 13 Å¸°Ý¹æ¾î	- ÆÛ¼¾Æ®
-	int16_t	siDefenseRateAxe;		// 14 µµ³¢¹æ¾î	- ÆÛ¼¾Æ®
-	int16_t	siDefenseRateSpear;		// 15 Ã¢¹æ¾î	- ÆÛ¼¾Æ®
-	int16_t	siDefenseRateArrow;		// 16 È­»ì¹æ¾î	- ÆÛ¼¾Æ®
+	int16_t	siDefenseRateDagger;	// 11 ë‹¨ê²€ë°©ì–´	- í¼ì„¼íŠ¸
+	int16_t	siDefenseRateSword;		// 12 ê²€ë°©ì–´	- í¼ì„¼íŠ¸
+	int16_t	siDefenseRateBlow;		// 13 íƒ€ê²©ë°©ì–´	- í¼ì„¼íŠ¸
+	int16_t	siDefenseRateAxe;		// 14 ë„ë¼ë°©ì–´	- í¼ì„¼íŠ¸
+	int16_t	siDefenseRateSpear;		// 15 ì°½ë°©ì–´	- í¼ì„¼íŠ¸
+	int16_t	siDefenseRateArrow;		// 16 í™”ì‚´ë°©ì–´	- í¼ì„¼íŠ¸
 	
-	uint8_t	byDamageFire;			// 17 Ãß°¡µ¥¹ÌÁö - ºÒ
-	uint8_t	byDamageIce;			// 18 Ãß°¡µ¥¹ÌÁö - ¾óÀ½
-	uint8_t	byDamageThuner;			// 19 Ãß°¡µ¥¹ÌÁö - Àü°Ý
-	uint8_t	byDamagePoison;			// 20 Ãß°¡µ¥¹ÌÁö - µ¶
+	uint8_t	byDamageFire;			// 17 ì¶”ê°€ë°ë¯¸ì§€ - ë¶ˆ
+	uint8_t	byDamageIce;			// 18 ì¶”ê°€ë°ë¯¸ì§€ - ì–¼ìŒ
+	uint8_t	byDamageThuner;			// 19 ì¶”ê°€ë°ë¯¸ì§€ - ì „ê²©
+	uint8_t	byDamagePoison;			// 20 ì¶”ê°€ë°ë¯¸ì§€ - ë…
 
-	uint8_t	byStillHP;				// 21 HP Èí¼ö
+	uint8_t	byStillHP;				// 21 HP í¡ìˆ˜
 	uint8_t	byDamageMP;				// 22 MP Damage
-	uint8_t	byStillMP;				// 23 MP Èí¼ö
-	uint8_t	byReturnPhysicalDamage;	// 24 ¹°¸®Å¸°Ý ¹Ý»ç
+	uint8_t	byStillMP;				// 23 MP í¡ìˆ˜
+	uint8_t	byReturnPhysicalDamage;	// 24 ë¬¼ë¦¬íƒ€ê²© ë°˜ì‚¬
 
-	uint8_t	bySoulBind;				// 25¼Ò¿ï ¹ÙÀÎµå - ÀÏ´ëÀÏ½Ã ¾ÆÀÌÅÛÀ» ¶³±¸´Â Á¤µµ - ÆÛ¼¾Æ® - ÇöÀç´Â ¾È¾´´Ù.
+	uint8_t	bySoulBind;				// 25ì†Œìš¸ ë°”ì¸ë“œ - ì¼ëŒ€ì¼ì‹œ ì•„ì´í…œì„ ë–¨êµ¬ëŠ” ì •ë„ - í¼ì„¼íŠ¸ - í˜„ìž¬ëŠ” ì•ˆì“´ë‹¤.
 	
-	int16_t	siBonusStr;				// 26 Èû º¸³Ê½º
-	int16_t	siBonusSta;				// 27 Ã¼·Â º¸³Ê½º
-	int16_t	siBonusDex;				// 28 ¹ÎÃ¸¼º º¸³Ê½º
-	int16_t	siBonusInt;				// 29 Áö´É º¸³Ê½º
-	int16_t	siBonusMagicAttak;		// 30 ¸¶·Â º¸³Ê½º
-	int16_t	siBonusHP;				// 31 HP º¸³Ê½º
-	int16_t	siBonusMSP;				// 32 MSP º¸³Ê½º
+	int16_t	siBonusStr;				// 26 íž˜ ë³´ë„ˆìŠ¤
+	int16_t	siBonusSta;				// 27 ì²´ë ¥ ë³´ë„ˆìŠ¤
+	int16_t	siBonusDex;				// 28 ë¯¼ì²©ì„± ë³´ë„ˆìŠ¤
+	int16_t	siBonusInt;				// 29 ì§€ëŠ¥ ë³´ë„ˆìŠ¤
+	int16_t	siBonusMagicAttak;		// 30 ë§ˆë ¥ ë³´ë„ˆìŠ¤
+	int16_t	siBonusHP;				// 31 HP ë³´ë„ˆìŠ¤
+	int16_t	siBonusMSP;				// 32 MSP ë³´ë„ˆìŠ¤
 
-	int16_t	siRegistFire;			// 33 ºÒ ÀúÇ×
-	int16_t	siRegistIce;			// 34 ³Ã±â ÀúÇ×
-	int16_t	siRegistElec;			// 35 Àü±â ÀúÇ×
-	int16_t	siRegistMagic;			// 36 ¸¶¹ý ÀúÇ×
-	int16_t	siRegistPoison;			// 37 µ¶ ÀúÇ×
-	int16_t	siRegistCurse;			// 38 ÀúÁÖ ÀúÇ×
+	int16_t	siRegistFire;			// 33 ë¶ˆ ì €í•­
+	int16_t	siRegistIce;			// 34 ëƒ‰ê¸° ì €í•­
+	int16_t	siRegistElec;			// 35 ì „ê¸° ì €í•­
+	int16_t	siRegistMagic;			// 36 ë§ˆë²• ì €í•­
+	int16_t	siRegistPoison;			// 37 ë… ì €í•­
+	int16_t	siRegistCurse;			// 38 ì €ì£¼ ì €í•­
 	
-	uint32_t	dwEffectID1;		// 39 ¸¶¹ý È¿°ú ID1
-	uint32_t	dwEffectID2;		// 40 ¸¶¹ý È¿°ú ID2
+	uint32_t	dwEffectID1;		// 39 ë§ˆë²• íš¨ê³¼ ID1
+	uint32_t	dwEffectID2;		// 40 ë§ˆë²• íš¨ê³¼ ID2
 
-	int16_t	siNeedLevel;			// 41 ¿ä±¸ ·¹º§		ÇÃ·¹ÀÌ¾îÀÇ iLeve..
-	int16_t	siNeedRank;				// 42 ¿ä±¸ ÀÛÀ§		ÇÃ·¹ÀÌ¾îÀÇ iRank..
-	int16_t	siNeedTitle;			// 43 ¿ä±¸ Å¸ÀÌÆ² 	ÇÃ·¹ÀÌ¾îÀÇ iTitle..
-	int16_t	siNeedStrength;			// 44 ¿ä±¸ Èû 		ÇÃ·¹ÀÌ¾îÀÇ iStrength..
-	int16_t	siNeedStamina;			// 45 ¿ä±¸ Á¤·Â 	ÇÃ·¹ÀÌ¾îÀÇ iStamina..
-	int16_t	siNeedDexterity;		// 46 ¿ä±¸ ¹ÎÃ¸		ÇÃ·¹ÀÌ¾îÀÇ iDexterity..
-	int16_t	siNeedInteli;			// 47 ¿ä±¸ Áö´É		ÇÃ·¹ÀÌ¾îÀÇ iIntelligence..
-	int16_t	siNeedMagicAttack;		// 48 ¿ä±¸ ¸¶·Â		ÇÃ·¹ÀÌ¾îÀÇ iMagicAttak..
+	int16_t	siNeedLevel;			// 41 ìš”êµ¬ ë ˆë²¨		í”Œë ˆì´ì–´ì˜ iLeve..
+	int16_t	siNeedRank;				// 42 ìš”êµ¬ ìž‘ìœ„		í”Œë ˆì´ì–´ì˜ iRank..
+	int16_t	siNeedTitle;			// 43 ìš”êµ¬ íƒ€ì´í‹€ 	í”Œë ˆì´ì–´ì˜ iTitle..
+	int16_t	siNeedStrength;			// 44 ìš”êµ¬ íž˜ 		í”Œë ˆì´ì–´ì˜ iStrength..
+	int16_t	siNeedStamina;			// 45 ìš”êµ¬ ì •ë ¥ 	í”Œë ˆì´ì–´ì˜ iStamina..
+	int16_t	siNeedDexterity;		// 46 ìš”êµ¬ ë¯¼ì²©		í”Œë ˆì´ì–´ì˜ iDexterity..
+	int16_t	siNeedInteli;			// 47 ìš”êµ¬ ì§€ëŠ¥		í”Œë ˆì´ì–´ì˜ iIntelligence..
+	int16_t	siNeedMagicAttack;		// 48 ìš”êµ¬ ë§ˆë ¥		í”Œë ˆì´ì–´ì˜ iMagicAttak..
 } TABLE_ITEM_EXT;
 
 const int MAX_NPC_SHOP_ITEM = 30;
@@ -894,21 +899,21 @@ enum e_ItemSlot {	ITEM_SLOT_EAR_RIGHT = 0,	ITEM_SLOT_HEAD	= 1,	ITEM_SLOT_EAR_LEF
 					ITEM_SLOT_COUNT = 14, ITEM_SLOT_UNKNOWN = 0xffffffff };
 
 
-typedef struct __TABLE_PLAYER_LOOKS // NPC, Mob ¸ð½À °üÇÑ ¸®¼Ò½º ·¹ÄÚµå...
+typedef struct __TABLE_PLAYER_LOOKS // NPC, Mob ëª¨ìŠµ ê´€í•œ ë¦¬ì†ŒìŠ¤ ë ˆì½”ë“œ...
 {
-	uint32_t		dwID; // NPC °íÀ¯ ID
-	std::string	szName; // Ä³¸¯ÅÍ ÀÌ¸§
-	std::string	szJointFN; // °üÀý ÆÄÀÏ ÀÌ¸§
-	std::string	szAniFN; // ¿¡´Ï¸ÞÀÌ¼Ç ÆÄÀÏ ÀÌ¸§
-	//std::string	szPartFNs[7]; // °¢ Character Part - »óÃ¼, ÇÏÃ¼, ¸Ó¸®, ÆÈ, ´Ù¸®, ¸Ó¸®Ä«¶ô, ¸ÁÅä
+	uint32_t		dwID; // NPC ê³ ìœ  ID
+	std::string	szName; // ìºë¦­í„° ì´ë¦„
+	std::string	szJointFN; // ê´€ì ˆ íŒŒì¼ ì´ë¦„
+	std::string	szAniFN; // ì—ë‹ˆë©”ì´ì…˜ íŒŒì¼ ì´ë¦„
+	//std::string	szPartFNs[7]; // ê° Character Part - ìƒì²´, í•˜ì²´, ë¨¸ë¦¬, íŒ”, ë‹¤ë¦¬, ë¨¸ë¦¬ì¹´ë½, ë§í† 
 	std::string	szPartFNs[13]; // temp for 1264 TBLs
 
 	int  iIdk1;
 
-	int			iJointRH;			// ¿À¸¥¼Õ ³¡ °üÀý¹øÈ£
-	int			iJointLH;			// ¿Þ¼Õ ³¡ °üÀý¹øÈ£
-	int			iJointLH2;			// ¿Þ¼Õ ÆÈ¶Ò °üÀý¹øÈ£
-	int			iJointCloak;		// ¸ÁÅä ºÙÀ» °üÀý ¹øÈ£
+	int			iJointRH;			// ì˜¤ë¥¸ì† ë ê´€ì ˆë²ˆí˜¸
+	int			iJointLH;			// ì™¼ì† ë ê´€ì ˆë²ˆí˜¸
+	int			iJointLH2;			// ì™¼ì† íŒ”ëš ê´€ì ˆë²ˆí˜¸
+	int			iJointCloak;		// ë§í†  ë¶™ì„ ê´€ì ˆ ë²ˆí˜¸
 	
 	int			iSndID_Move;
 	int			iSndID_Attack0;
@@ -931,67 +936,67 @@ typedef struct __TABLE_PLAYER_LOOKS // NPC, Mob ¸ð½À °üÇÑ ¸®¼Ò½º ·¹ÄÚµå...
 
 typedef struct __TABLE_EXCHANGE_QUEST
 {
-	uint32_t		dwID;					// Äù½ºÆ® ¹øÈ£..	0
-	uint32_t		dwNpcNum;				// npc ¹øÈ£..	1
-	std::string szDesc;					// ¼³¸í..		2
-	int			iCondition0;			// Á¶°Ç 1..		3
-	int			iCondition1;			// Á¶°Ç 2..		4
-	int			iCondition2;			// Á¶°Ç 3..		5
-	int			iCondition3;			// Á¶°Ç 4..		6
-	int			iNeedGold;				// ¿ä±¸ ³ë¾Æ..	7	
-	uint8_t		bNeedLevel;				// ¿ä±¸ ·¹º§	8
-	uint8_t		bNeedClass;				// ¿ä±¸ Á÷¾÷	9
-	uint8_t		bNeedRank;				// ¿ä±¸ ÀÛÀ§	10	
-	uint8_t		bNeedExtra1;			// ¿ä±¸ ¿©ºÐ1	11	
-	uint8_t		bNeedExtra2;			// ¿ä±¸ ¿©ºÐ2	12
-	uint8_t		bCreatePercentage;		// »ý¼º È®·ü	13
-	int			iArkTuarek;				// ¾ÆÅ© Åõ¾Æ·º..	14	
-	int			iTuarek;				// Åõ¾Æ·º..			15
-	int			iRinkleTuarek;			// ¸µÅ¬ Åõ¾Æ·º..	16
-	int			iBabarian;				// ¹Ù¹Ù¸®¾È..		17
-	int			iMan;					// ³²ÀÚ..			18
-	int			iWoman;					// ¿©ÀÚ..			19
+	uint32_t		dwID;					// í€˜ìŠ¤íŠ¸ ë²ˆí˜¸..	0
+	uint32_t		dwNpcNum;				// npc ë²ˆí˜¸..	1
+	std::string szDesc;					// ì„¤ëª…..		2
+	int			iCondition0;			// ì¡°ê±´ 1..		3
+	int			iCondition1;			// ì¡°ê±´ 2..		4
+	int			iCondition2;			// ì¡°ê±´ 3..		5
+	int			iCondition3;			// ì¡°ê±´ 4..		6
+	int			iNeedGold;				// ìš”êµ¬ ë…¸ì•„..	7	
+	uint8_t		bNeedLevel;				// ìš”êµ¬ ë ˆë²¨	8
+	uint8_t		bNeedClass;				// ìš”êµ¬ ì§ì—…	9
+	uint8_t		bNeedRank;				// ìš”êµ¬ ìž‘ìœ„	10	
+	uint8_t		bNeedExtra1;			// ìš”êµ¬ ì—¬ë¶„1	11	
+	uint8_t		bNeedExtra2;			// ìš”êµ¬ ì—¬ë¶„2	12
+	uint8_t		bCreatePercentage;		// ìƒì„± í™•ë¥ 	13
+	int			iArkTuarek;				// ì•„í¬ íˆ¬ì•„ë ‰..	14	
+	int			iTuarek;				// íˆ¬ì•„ë ‰..			15
+	int			iRinkleTuarek;			// ë§í´ íˆ¬ì•„ë ‰..	16
+	int			iBabarian;				// ë°”ë°”ë¦¬ì•ˆ..		17
+	int			iMan;					// ë‚¨ìž..			18
+	int			iWoman;					// ì—¬ìž..			19
 } TABLE_EXCHANGE_QUEST;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-//¸¶¹ýÅ×ÀÌºí...
+//ë§ˆë²•í…Œì´ë¸”...
 
 typedef struct __TABLE_UPC_SKILL
 {
-	uint32_t		dwID;				// SKILL °íÀ¯ ID
-	std::string	szEngName;			// ½ºÅ³ ¿µ¾î ÀÌ¸§
-	std::string	szName;				// ½ºÅ³ ÇÑ±Û ÀÌ¸§
-	std::string	szDesc;				// ½ºÅ³ ÀÌ¸§
-	int			iSelfAnimID1;		// ½ÃÀüÀÚ µ¿ÀÛ½ÃÀÛ
-	int			iSelfAnimID2;		// ½ÃÀüÀÚ µ¿ÀÛ³¡
+	uint32_t		dwID;				// SKILL ê³ ìœ  ID
+	std::string	szEngName;			// ìŠ¤í‚¬ ì˜ì–´ ì´ë¦„
+	std::string	szName;				// ìŠ¤í‚¬ í•œê¸€ ì´ë¦„
+	std::string	szDesc;				// ìŠ¤í‚¬ ì´ë¦„
+	int			iSelfAnimID1;		// ì‹œì „ìž ë™ìž‘ì‹œìž‘
+	int			iSelfAnimID2;		// ì‹œì „ìž ë™ìž‘ë
 
-	int			idwTargetAnimID;	// Å¸°Ù µ¿ÀÛ
-	int			iSelfFX1;			// ½ÃÀüÀÚ È¿°ú 1
-	int			iSelfPart1;			// ½ÃÀüÀÚ È¿°ú ÀÏ¾î³ª´Â À§Ä¡ 1
-	int			iSelfFX2;			// ½ÃÀüÀÚ È¿°ú 2
-	int			iSelfPart2;			// ½ÃÀüÀÚ È¿°ú ÀÏ¾î³ª´Â À§Ä¡ 2	
-	int			iFlyingFX;			// ºñÇà È¿°ú
-	int			iTargetFX;			// Å¸°Ù È¿°ú
+	int			idwTargetAnimID;	// íƒ€ê²Ÿ ë™ìž‘
+	int			iSelfFX1;			// ì‹œì „ìž íš¨ê³¼ 1
+	int			iSelfPart1;			// ì‹œì „ìž íš¨ê³¼ ì¼ì–´ë‚˜ëŠ” ìœ„ì¹˜ 1
+	int			iSelfFX2;			// ì‹œì „ìž íš¨ê³¼ 2
+	int			iSelfPart2;			// ì‹œì „ìž íš¨ê³¼ ì¼ì–´ë‚˜ëŠ” ìœ„ì¹˜ 2	
+	int			iFlyingFX;			// ë¹„í–‰ íš¨ê³¼
+	int			iTargetFX;			// íƒ€ê²Ÿ íš¨ê³¼
 
-	int			iTargetPart;		// È¿°ú°¡ ÀÏ¾î³¯ À§Ä¡.
-	int			iTarget;			// Å¸°Ù	
-	int			iNeedLevel;			// ¿ä±¸ ·¹º§
-	int			iNeedSkill;			// ¿ä±¸ ½ºÅ³
-	int			iExhaustMSP;		// ¼Ò¸ð MSP
+	int			iTargetPart;		// íš¨ê³¼ê°€ ì¼ì–´ë‚  ìœ„ì¹˜.
+	int			iTarget;			// íƒ€ê²Ÿ	
+	int			iNeedLevel;			// ìš”êµ¬ ë ˆë²¨
+	int			iNeedSkill;			// ìš”êµ¬ ìŠ¤í‚¬
+	int			iExhaustMSP;		// ì†Œëª¨ MSP
 
-	int			iExhaustHP;			// ¼Ò¸ð HP
-	uint32_t		dwNeedItem;			// ¿ä±¸ ¾ÆÀÌÅÛ e_ItemClass ÂüÁ¶.. 10À» ³ª´«°ªÀÌ´Ù..
+	int			iExhaustHP;			// ì†Œëª¨ HP
+	uint32_t		dwNeedItem;			// ìš”êµ¬ ì•„ì´í…œ e_ItemClass ì°¸ì¡°.. 10ì„ ë‚˜ëˆˆê°’ì´ë‹¤..
 	uint32_t		dwExhaustItem;
-	int			iCastTime;			// Ä³½ºÆÃ ½Ã°£
-	int			iReCastTime;		// ´Ù½Ã Ä³½ºÆÃÇÒ¶§±îÁö °É¸®´Â ½Ã°£.
+	int			iCastTime;			// ìºìŠ¤íŒ… ì‹œê°„
+	int			iReCastTime;		// ë‹¤ì‹œ ìºìŠ¤íŒ…í• ë•Œê¹Œì§€ ê±¸ë¦¬ëŠ” ì‹œê°„.
 	
 	float fIDK0; // TODO: will need to implement this...?
 	float fIDK1; // 1298
 
-	int			iPercentSuccess;	// ¼º°ø·ü
-	uint32_t		dw1stTableType;		// Ã¹¹øÂ° Å¸ÀÔ.
-	uint32_t		dw2ndTableType;		// µÎ¹øÂ° Å¸ÀÔ.
-	int			iValidDist;			// À¯È¿°Å¸®
+	int			iPercentSuccess;	// ì„±ê³µë¥ 
+	uint32_t		dw1stTableType;		// ì²«ë²ˆì§¸ íƒ€ìž….
+	uint32_t		dw2ndTableType;		// ë‘ë²ˆì§¸ íƒ€ìž….
+	int			iValidDist;			// ìœ íš¨ê±°ë¦¬
 
 	int	iIDK2; // 1298
 	
@@ -999,65 +1004,65 @@ typedef struct __TABLE_UPC_SKILL
 
 typedef struct __TABLE_UPC_SKILL_TYPE_1
 {
-	uint32_t		dwID;			// SKILL °íÀ¯ ID
-	int			iSuccessType;	// ¼º°øÅ¸ÀÔ.
-	int			iSuccessRatio;	// ¼º°ø·ü
-	int			iPower;			// °ø°Ý·Â
-	int			iDelay;			// µô·¹ÀÌ
-	int			iComboType;		// ÄÞº¸Å¸ÀÔ
-	int			iNumCombo;		// ÄÞº¸È¸¼ö
-	int			iComboDamage;	// ÄÞº¸´ë¹ÌÁö			
-	int			iValidAngle;	// °ø°Ý¹Ý°æ
+	uint32_t		dwID;			// SKILL ê³ ìœ  ID
+	int			iSuccessType;	// ì„±ê³µíƒ€ìž….
+	int			iSuccessRatio;	// ì„±ê³µë¥ 
+	int			iPower;			// ê³µê²©ë ¥
+	int			iDelay;			// ë”œë ˆì´
+	int			iComboType;		// ì½¤ë³´íƒ€ìž…
+	int			iNumCombo;		// ì½¤ë³´íšŒìˆ˜
+	int			iComboDamage;	// ì½¤ë³´ëŒ€ë¯¸ì§€			
+	int			iValidAngle;	// ê³µê²©ë°˜ê²½
 	int			iAct[3];
 } TABLE_UPC_SKILL_TYPE_1;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_2
 {
-	uint32_t		dwID;			// SKILL °íÀ¯ ID
-	int			iSuccessType;	// ¼º°øÅ¸ÀÔ.
-	int			iPower;			// °ø°Ý·Â
+	uint32_t		dwID;			// SKILL ê³ ìœ  ID
+	int			iSuccessType;	// ì„±ê³µíƒ€ìž….
+	int			iPower;			// ê³µê²©ë ¥
 	int iIdk1;
-	int			iAddDist;		// °Å¸®Áõ°¡
-	int			iNumArrow;		// È­»ì¿ä±¸¼ö
+	int			iAddDist;		// ê±°ë¦¬ì¦ê°€
+	int			iNumArrow;		// í™”ì‚´ìš”êµ¬ìˆ˜
 } TABLE_UPC_SKILL_TYPE_2;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_3
 {
-	uint32_t		dwID;			// SKILL °íÀ¯ ID
+	uint32_t		dwID;			// SKILL ê³ ìœ  ID
 	int iIdk1;
 	int			iDDType;
 	int			iStartDamage;
 	int			iDuraDamage;
-	int			iDurationTime;	// Áö¼Ó½Ã°£
+	int			iDurationTime;	// ì§€ì†ì‹œê°„
 	int			iAttribute;
 } TABLE_UPC_SKILL_TYPE_3;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_4
 {
-	uint32_t		dwID;			// ÀÏ·Ã¹øÈ£
+	uint32_t		dwID;			// ì¼ë ¨ë²ˆí˜¸
 	
 	
-	int			iBuffType;		// ¹öÇÁÅ¸ÀÔ
+	int			iBuffType;		// ë²„í”„íƒ€ìž…
 	//int iIDK0;
 	int iIDK1;
 	
 	int			iDuration;
-	int			iAttackSpeed;	// °ø°Ý¼Óµµ
-	int			iMoveSpeed;		// ÀÌµ¿¼Óµµ
-	int			iAC;			// ¹æ¾î·Â
-	int			iAttack;		// °ø°Ý·Â
+	int			iAttackSpeed;	// ê³µê²©ì†ë„
+	int			iMoveSpeed;		// ì´ë™ì†ë„
+	int			iAC;			// ë°©ì–´ë ¥
+	int			iAttack;		// ê³µê²©ë ¥
 	int			iMaxHP;			// MAXHP
-	int			iStr;			// Èû
-	int			iSta;			// Ã¼·Â
-	int			iDex;			// ¹ÎÃ¸
-	int			iInt;			// Áö´É
-	int			iMAP;			// ¸¶·Â
-	int			iFireResist;	// ºÒÀúÇ×
-	int			iColdResist;	// ³Ã±âÀúÇ×
-	int			iLightningResist;// Àü±âÀúÇ×
-	int			iMagicResist;	// ¸¶¹ýÀúÇ×
-	int			iDeseaseResist;	// ÀúÁÖÀúÇ×
-	int			iPoisonResist;	// µ¶ÀúÇ×
+	int			iStr;			// íž˜
+	int			iSta;			// ì²´ë ¥
+	int			iDex;			// ë¯¼ì²©
+	int			iInt;			// ì§€ëŠ¥
+	int			iMAP;			// ë§ˆë ¥
+	int			iFireResist;	// ë¶ˆì €í•­
+	int			iColdResist;	// ëƒ‰ê¸°ì €í•­
+	int			iLightningResist;// ì „ê¸°ì €í•­
+	int			iMagicResist;	// ë§ˆë²•ì €í•­
+	int			iDeseaseResist;	// ì €ì£¼ì €í•­
+	int			iPoisonResist;	// ë…ì €í•­
 
 	int iIdk0;
 	int	iIdk2;
@@ -1069,127 +1074,127 @@ typedef struct __TABLE_UPC_SKILL_TYPE_4
 
 typedef struct __TABLE_UPC_SKILL_TYPE_5
 {
-	uint32_t		dwID;			// ÀÏ·Ã¹øÈ£
-	uint32_t		dwTarget;		// Å¸°Ù
-	int			iSuccessRatio;	// ¼º°ø·ü
-	int			iValidDist;		// À¯È¿°Å¸®
-	int			iRadius;		// ¹Ý°æ
-	float		fCastTime;		// Ä³½ºÆÃÅ¸ÀÓ
-	float		fRecastTime;	// ¸®Ä³½ºÆÃÅ¸ÀÓ
-	int			iDurationTime;	// Áö¼Ó½Ã°£
-	uint32_t		dwExhaustItem;	// ¼Ò¸ð¾ÆÀÌÅÛ
-	uint32_t		dwFX;			// ¸¶¹ýÈ¿°ú
+	uint32_t		dwID;			// ì¼ë ¨ë²ˆí˜¸
+	uint32_t		dwTarget;		// íƒ€ê²Ÿ
+	int			iSuccessRatio;	// ì„±ê³µë¥ 
+	int			iValidDist;		// ìœ íš¨ê±°ë¦¬
+	int			iRadius;		// ë°˜ê²½
+	float		fCastTime;		// ìºìŠ¤íŒ…íƒ€ìž„
+	float		fRecastTime;	// ë¦¬ìºìŠ¤íŒ…íƒ€ìž„
+	int			iDurationTime;	// ì§€ì†ì‹œê°„
+	uint32_t		dwExhaustItem;	// ì†Œëª¨ì•„ì´í…œ
+	uint32_t		dwFX;			// ë§ˆë²•íš¨ê³¼
 } TABLE_UPC_SKILL_TYPE_5;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_6
 {
-	uint32_t		dwID;			// ÀÏ·Ã¹øÈ£
-	uint32_t		dwTarget;		// Å¸°Ù
-	int			iSuccessRatio;	// ¼º°ø·ü
-	int			iValidDist;		// À¯È¿°Å¸®
-	int			iRadius;		// ¹Ý°æ
-	float		fCastTime;		// Ä³½ºÆÃÅ¸ÀÓ
-	float		fRecastTime;	// ¸®Ä³½ºÆÃÅ¸ÀÓ
-	int			iDurationTime;	// Áö¼Ó½Ã°£
-	uint32_t		dwExhaustItem;	// ¼Ò¸ð¾ÆÀÌÅÛ
-	uint32_t		dwFX;			// ¸¶¹ýÈ¿°ú
-	uint32_t		dwTranform;		// º¯½Å
+	uint32_t		dwID;			// ì¼ë ¨ë²ˆí˜¸
+	uint32_t		dwTarget;		// íƒ€ê²Ÿ
+	int			iSuccessRatio;	// ì„±ê³µë¥ 
+	int			iValidDist;		// ìœ íš¨ê±°ë¦¬
+	int			iRadius;		// ë°˜ê²½
+	float		fCastTime;		// ìºìŠ¤íŒ…íƒ€ìž„
+	float		fRecastTime;	// ë¦¬ìºìŠ¤íŒ…íƒ€ìž„
+	int			iDurationTime;	// ì§€ì†ì‹œê°„
+	uint32_t		dwExhaustItem;	// ì†Œëª¨ì•„ì´í…œ
+	uint32_t		dwFX;			// ë§ˆë²•íš¨ê³¼
+	uint32_t		dwTranform;		// ë³€ì‹ 
 } TABLE_UPC_SKILL_TYPE_6;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_7
 {
-	uint32_t		dwID;			// ÀÏ·Ã¹øÈ£
-	uint32_t		dwTarget;		// Å¸°Ù
-	uint32_t		dwValidGroup;	// À¯È¿±×·ì
-	int			iSuccessRatio;	// ¼º°ø·ü
-	int			iValidDist;		// À¯È¿°Å¸®
-	int			iRadius;		// ¹Ý°æ
-	float		fCastTime;		// Ä³½ºÆÃÅ¸ÀÓ
-	float		fRecastTime;	// ¸®Ä³½ºÆÃÅ¸ÀÓ
-	int			iDurationTime;	// Áö¼Ó½Ã°£
-	uint32_t		dwExhaustItem;	// ¼Ò¸ð¾ÆÀÌÅÛ
-	uint32_t		dwFX;			// ¸¶¹ýÈ¿°ú	
+	uint32_t		dwID;			// ì¼ë ¨ë²ˆí˜¸
+	uint32_t		dwTarget;		// íƒ€ê²Ÿ
+	uint32_t		dwValidGroup;	// ìœ íš¨ê·¸ë£¹
+	int			iSuccessRatio;	// ì„±ê³µë¥ 
+	int			iValidDist;		// ìœ íš¨ê±°ë¦¬
+	int			iRadius;		// ë°˜ê²½
+	float		fCastTime;		// ìºìŠ¤íŒ…íƒ€ìž„
+	float		fRecastTime;	// ë¦¬ìºìŠ¤íŒ…íƒ€ìž„
+	int			iDurationTime;	// ì§€ì†ì‹œê°„
+	uint32_t		dwExhaustItem;	// ì†Œëª¨ì•„ì´í…œ
+	uint32_t		dwFX;			// ë§ˆë²•íš¨ê³¼	
 } TABLE_UPC_SKILL_TYPE_7;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_8
 {
-	uint32_t		dwID;			// ÀÏ·Ã¹øÈ£
-	uint32_t		dwTarget;		// Å¸°Ù
-	int			iRadius;		// ¹Ý°æ
-	uint32_t		dwWarpType;		// ¼ø°£ÀÌµ¿Å¸ÀÓ
-	float		fRefillEXP;		// °æÇèÄ¡È¸º¹
-	uint32_t		dwZone1;		// Á¸³Ñ¹ö1
-	uint32_t		dwZone2;		// Á¸³Ñ¹ö2
-	uint32_t		dwZone3;		// Á¸³Ñ¹ö3
-	uint32_t		dwZone4;		// Á¸³Ñ¹ö4
-	uint32_t		dwZone5;		// Á¸³Ñ¹ö5
+	uint32_t		dwID;			// ì¼ë ¨ë²ˆí˜¸
+	uint32_t		dwTarget;		// íƒ€ê²Ÿ
+	int			iRadius;		// ë°˜ê²½
+	uint32_t		dwWarpType;		// ìˆœê°„ì´ë™íƒ€ìž„
+	float		fRefillEXP;		// ê²½í—˜ì¹˜íšŒë³µ
+	uint32_t		dwZone1;		// ì¡´ë„˜ë²„1
+	uint32_t		dwZone2;		// ì¡´ë„˜ë²„2
+	uint32_t		dwZone3;		// ì¡´ë„˜ë²„3
+	uint32_t		dwZone4;		// ì¡´ë„˜ë²„4
+	uint32_t		dwZone5;		// ì¡´ë„˜ë²„5
 } TABLE_UPC_SKILL_TYPE_8;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_9
 {
-	uint32_t		dwID;			// ÀÏ·Ã¹øÈ£
-	uint32_t		dwTarget;		// Å¸°Ù
-	int			iSuccessRatio;	// ¼º°ø·ü
-	int			iValidDist;		// À¯È¿°Å¸®
-	int			iRadius;		// ¹Ý°æ
-	float		fCastTime;		// Ä³½ºÆÃÅ¸ÀÓ
-	float		fRecastTime;	// ¸®Ä³½ºÆÃÅ¸ÀÓ
-	int			iDurationTime;	// Áö¼Ó½Ã°£
-	uint32_t		dwExhaustItem;	// ¼Ò¸ð¾ÆÀÌÅÛ
-	uint32_t		dwAttr;			// ¼Ó¼º
-	int			iDamage;		// ´ë¹ÌÁö	
+	uint32_t		dwID;			// ì¼ë ¨ë²ˆí˜¸
+	uint32_t		dwTarget;		// íƒ€ê²Ÿ
+	int			iSuccessRatio;	// ì„±ê³µë¥ 
+	int			iValidDist;		// ìœ íš¨ê±°ë¦¬
+	int			iRadius;		// ë°˜ê²½
+	float		fCastTime;		// ìºìŠ¤íŒ…íƒ€ìž„
+	float		fRecastTime;	// ë¦¬ìºìŠ¤íŒ…íƒ€ìž„
+	int			iDurationTime;	// ì§€ì†ì‹œê°„
+	uint32_t		dwExhaustItem;	// ì†Œëª¨ì•„ì´í…œ
+	uint32_t		dwAttr;			// ì†ì„±
+	int			iDamage;		// ëŒ€ë¯¸ì§€	
 } TABLE_UPC_SKILL_TYPE_9;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_10
 {
-	uint32_t		dwID;			// ÀÏ·Ã¹øÈ£
-	uint32_t		dwTarget;		// Å¸°Ù
-	int			iSuccessRatio;	// ¼º°ø·ü
-	int			iValidDist;		// À¯È¿°Å¸®
-	int			iRadius;		// ¹Ý°æ
-	float		fCastTime;		// Ä³½ºÆÃÅ¸ÀÓ
-	float		fRecastTime;	// ¸®Ä³½ºÆÃÅ¸ÀÓ
-	uint32_t		dwExhaustItem;	// ¼Ò¸ð¾ÆÀÌÅÛ
-	uint32_t		dwRemoveAttr;	// Á¦°Å¼Ó¼º	
+	uint32_t		dwID;			// ì¼ë ¨ë²ˆí˜¸
+	uint32_t		dwTarget;		// íƒ€ê²Ÿ
+	int			iSuccessRatio;	// ì„±ê³µë¥ 
+	int			iValidDist;		// ìœ íš¨ê±°ë¦¬
+	int			iRadius;		// ë°˜ê²½
+	float		fCastTime;		// ìºìŠ¤íŒ…íƒ€ìž„
+	float		fRecastTime;	// ë¦¬ìºìŠ¤íŒ…íƒ€ìž„
+	uint32_t		dwExhaustItem;	// ì†Œëª¨ì•„ì´í…œ
+	uint32_t		dwRemoveAttr;	// ì œê±°ì†ì„±	
 } TABLE_UPC_SKILL_TYPE_10;
 
-//¸¶¹ýÅ×ÀÌºí...
+//ë§ˆë²•í…Œì´ë¸”...
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 typedef struct __TABLE_QUEST_MENU
 {
-	uint32_t		dwID;		// ÀÏ·Ã¹øÈ£
-	std::string szMenu;		// ¼±ÅÃ ¸Þ´º
+	uint32_t		dwID;		// ì¼ë ¨ë²ˆí˜¸
+	std::string szMenu;		// ì„ íƒ ë©”ë‰´
 } TABLE_QUEST_MENU;
 
 typedef struct __TABLE_QUEST_TALK
 {
-	uint32_t		dwID;		// ÀÏ·Ã¹øÈ£
-	std::string szTalk;		// Äù½ºÆ® Áö¹®
+	uint32_t		dwID;		// ì¼ë ¨ë²ˆí˜¸
+	std::string szTalk;		// í€˜ìŠ¤íŠ¸ ì§€ë¬¸
 } TABLE_QUEST_TALK;
 
-const int MAX_ITEM_SLOT_OPC = 8; // Âø¿ë ¾ÆÀÌÅÛ - ´Ù¸¥ ÇÃ·¹ÀÌ¾î(NPC Æ÷ÇÔ) 0 ~ 4 »óÃ¼,ÇÏÃ¼,Çï¸ä,ÆÈ,¹ß 5 ¸ÁÅä 6 ¿À¸¥¼Õ 7 ¿Þ¼Õ
-const int MAX_ITEM_INVENTORY = 28;		// ¼ÒÀ¯ ¾ÆÅÛ MAX (ÀÎº¥Åä¸®Ã¢)
-const int MAX_ITEM_TRADE = 24;	// »óÀÎ°ú °Å·¡..
+const int MAX_ITEM_SLOT_OPC = 8; // ì°©ìš© ì•„ì´í…œ - ë‹¤ë¥¸ í”Œë ˆì´ì–´(NPC í¬í•¨) 0 ~ 4 ìƒì²´,í•˜ì²´,í—¬ë©§,íŒ”,ë°œ 5 ë§í†  6 ì˜¤ë¥¸ì† 7 ì™¼ì†
+const int MAX_ITEM_INVENTORY = 28;		// ì†Œìœ  ì•„í…œ MAX (ì¸ë²¤í† ë¦¬ì°½)
+const int MAX_ITEM_TRADE = 24;	// ìƒì¸ê³¼ ê±°ëž˜..
 const int MAX_ITEM_TRADE_PAGE = 12;
 const int MAX_ITEM_WARE_PAGE = 8;
-const int MAX_ITEM_PER_TRADE = 12;	// °³ÀÎ°ú °Å·¡..	
+const int MAX_ITEM_PER_TRADE = 12;	// ê°œì¸ê³¼ ê±°ëž˜..	
 const int MAX_ITEM_BUNDLE_DROP_PIECE = 6;
-const int MAX_ITEM_EX_RE_NPC = 4; // ±³È¯, ¼ö¸®Ã¢ NPC ¿µ¿ª..
+const int MAX_ITEM_EX_RE_NPC = 4; // êµí™˜, ìˆ˜ë¦¬ì°½ NPC ì˜ì—­..
 
-const int MAX_SKILL_FROM_SERVER = 9;		// ¼­¹ö¿¡°Ô¼­ ¹Þ´Â Á¤º¸ ½½·Ô °¹¼ö..			
+const int MAX_SKILL_FROM_SERVER = 9;		// ì„œë²„ì—ê²Œì„œ ë°›ëŠ” ì •ë³´ ìŠ¬ë¡¯ ê°¯ìˆ˜..			
 
-const int MAX_SKILL_KIND_OF = 5;			// Base Skill 1°³, Àü¹® ½ºÅ³ 4°³..			
-const int MAX_SKILL_IN_PAGE = 6;//8;			// ÇÑ ÆäÀÌÁö ³»ÀÇ ¾ÆÀÌÄÜ °¹¼ö..				
-const int MAX_SKILL_PAGE_NUM = 3;			// ½ºÅ³ ÇÑ°³°¡ °¡Áö´Â ÃÖ´ë ÆäÀÌÁö¼ö..		
+const int MAX_SKILL_KIND_OF = 5;			// Base Skill 1ê°œ, ì „ë¬¸ ìŠ¤í‚¬ 4ê°œ..			
+const int MAX_SKILL_IN_PAGE = 6;//8;			// í•œ íŽ˜ì´ì§€ ë‚´ì˜ ì•„ì´ì½˜ ê°¯ìˆ˜..				
+const int MAX_SKILL_PAGE_NUM = 3;			// ìŠ¤í‚¬ í•œê°œê°€ ê°€ì§€ëŠ” ìµœëŒ€ íŽ˜ì´ì§€ìˆ˜..		
 
 
-const int MAX_SKILL_HOTKEY_PAGE = 8;		// Hot KeyÀÇ ÃÑ ÆäÀÌÁö ¼ö.. 				
-const int MAX_SKILL_IN_HOTKEY = 8;			// Hot KeyÀÇ Çö ÆäÀÌÁö³»ÀÇ °¹¼ö..			
+const int MAX_SKILL_HOTKEY_PAGE = 8;		// Hot Keyì˜ ì´ íŽ˜ì´ì§€ ìˆ˜.. 				
+const int MAX_SKILL_IN_HOTKEY = 8;			// Hot Keyì˜ í˜„ íŽ˜ì´ì§€ë‚´ì˜ ê°¯ìˆ˜..			
 		
-const int MAX_AVAILABLE_CHARACTER = 3;		// ÇÑ ¼­¹ö´ç ¼±ÅÃÇÒ¼ö ÀÖ´Â ÃÖ´ë Ä³¸¯ÅÍ ¼ö..	
+const int MAX_AVAILABLE_CHARACTER = 3;		// í•œ ì„œë²„ë‹¹ ì„ íƒí• ìˆ˜ ìžˆëŠ” ìµœëŒ€ ìºë¦­í„° ìˆ˜..	
 
-// ½Î¿îµµ.... By ecli666
+// ì‹¸ìš´ë„.... By ecli666
 const int ID_SOUND_ITEM_ETC_IN_INVENTORY	= 2000;
 const int ID_SOUND_ITEM_IN_REPAIR			= 2001;
 const int ID_SOUND_ITEM_WEAPON_IN_INVENTORY = 2002;
@@ -1207,52 +1212,52 @@ const float SOUND_RANGE_TO_RELEASE = 20.0f;
 const float STUN_TIME = 3.0f;
 
 enum e_Behavior {	BEHAVIOR_NOTHING = 0,
-					BEHAVIOR_EXIT,			// ÇÁ·Î±×·¥ ³¡³»±â..
-					BEHAVIOR_RESTART_GAME,	// °ÔÀÓ ´Ù½Ã ½ÃÀÛÇÏ±â(Ä³¸¯ÅÍ ¼±ÅÃ)
-					BEHAVIOR_REGENERATION,	// ºÎÈ°
-					BEHAVIOR_CANCEL,		// Ãë¼Ò.. ÇöÀç´Â ¾ÆÀÌÅÛ °Å·¡ ½ÅÃ»½Ã À¯Àú°¡ Ãë¼Ò¸¦ ´­·¶À»¶§..
+					BEHAVIOR_EXIT,			// í”„ë¡œê·¸ëž¨ ëë‚´ê¸°..
+					BEHAVIOR_RESTART_GAME,	// ê²Œìž„ ë‹¤ì‹œ ì‹œìž‘í•˜ê¸°(ìºë¦­í„° ì„ íƒ)
+					BEHAVIOR_REGENERATION,	// ë¶€í™œ
+					BEHAVIOR_CANCEL,		// ì·¨ì†Œ.. í˜„ìž¬ëŠ” ì•„ì´í…œ ê±°ëž˜ ì‹ ì²­ì‹œ ìœ ì €ê°€ ì·¨ì†Œë¥¼ ëˆŒë €ì„ë•Œ..
 
-					BEHAVIOR_PARTY_PERMIT,	// »ó´ë¹æÀÌ ÆÄÆ¼°¡ÀÔ ¿äÃ»½Ã µé¾î°¡´Â°ÍÀ» Çã¶ô.
-					BEHAVIOR_PARTY_DISBAND, // ÆÄÆ¼ Å»Åð..
-					BEHAVIOR_FORCE_PERMIT,	// »ó´ë¹æÀÌ ºÎ´ë°¡ÀÔ ¿äÃ»½Ã µé¾î°¡´Â°ÍÀ» Çã¶ô.
-					BEHAVIOR_FORCE_DISBAND, // ºÎ´ë Å»Åð..
+					BEHAVIOR_PARTY_PERMIT,	// ìƒëŒ€ë°©ì´ íŒŒí‹°ê°€ìž… ìš”ì²­ì‹œ ë“¤ì–´ê°€ëŠ”ê²ƒì„ í—ˆë½.
+					BEHAVIOR_PARTY_DISBAND, // íŒŒí‹° íƒˆí‡´..
+					BEHAVIOR_FORCE_PERMIT,	// ìƒëŒ€ë°©ì´ ë¶€ëŒ€ê°€ìž… ìš”ì²­ì‹œ ë“¤ì–´ê°€ëŠ”ê²ƒì„ í—ˆë½.
+					BEHAVIOR_FORCE_DISBAND, // ë¶€ëŒ€ íƒˆí‡´..
 
-					BEHAVIOR_REQUEST_BINDPOINT, // ¹ÙÀÎµù Æ÷ÀÎÆ®·Î ... 
+					BEHAVIOR_REQUEST_BINDPOINT, // ë°”ì¸ë”© í¬ì¸íŠ¸ë¡œ ... 
 
 					BEHAVIOR_DELETE_CHR,
 
 					BEHAVIOR_KNIGHTS_CREATE,
-					BEHAVIOR_KNIGHTS_DESTROY, // ±â»ç´Ü ÇØÃ¼..
-					BEHAVIOR_KNIGHTS_WITHDRAW, // ±â»ç´Ü ÇØÃ¼..
+					BEHAVIOR_KNIGHTS_DESTROY, // ê¸°ì‚¬ë‹¨ í•´ì²´..
+					BEHAVIOR_KNIGHTS_WITHDRAW, // ê¸°ì‚¬ë‹¨ í•´ì²´..
 
-					BEHAVIOR_PERSONAL_TRADE_FMT_WAIT,	// °³ÀÎ°Å·¡.. ³»°¡ ½ÅÃ»ÇÑ °æ¿ì..
-					BEHAVIOR_PERSONAL_TRADE_PERMIT,		// °³ÀÎ°Å·¡.. ³»°¡ ½ÅÃ»¹ÞÀº °æ¿ì..
+					BEHAVIOR_PERSONAL_TRADE_FMT_WAIT,	// ê°œì¸ê±°ëž˜.. ë‚´ê°€ ì‹ ì²­í•œ ê²½ìš°..
+					BEHAVIOR_PERSONAL_TRADE_PERMIT,		// ê°œì¸ê±°ëž˜.. ë‚´ê°€ ì‹ ì²­ë°›ì€ ê²½ìš°..
 
 					BEHAVIOR_MGAME_LOGIN,
 					
 					BEHAVIOR_CLAN_JOIN,
-					BEHAVIOR_PARTY_BBS_REGISTER,		// ÆÄÆ¼ °Ô½ÃÆÇ¿¡ µî·Ï 
-					BEHAVIOR_PARTY_BBS_REGISTER_CANCEL, // ÆÄÆ¼ °Ô½ÃÆÇ¿¡ µî·Ï ÇØÁ¦
+					BEHAVIOR_PARTY_BBS_REGISTER,		// íŒŒí‹° ê²Œì‹œíŒì— ë“±ë¡ 
+					BEHAVIOR_PARTY_BBS_REGISTER_CANCEL, // íŒŒí‹° ê²Œì‹œíŒì— ë“±ë¡ í•´ì œ
 
-					BEHAVIOR_EXECUTE_OPTION,			// °ÔÀÓ Á¾·áÇÏ°í ¿É¼Ç ½ÇÇà..
+					BEHAVIOR_EXECUTE_OPTION,			// ê²Œìž„ ì¢…ë£Œí•˜ê³  ì˜µì…˜ ì‹¤í–‰..
 				
 					BEHAVIOR_UNKNOWN = 0xffffffff
 				};
 
-enum e_SkillMagicTaget	{	SKILLMAGIC_TARGET_SELF = 1,				// ³ª ÀÚ½Å..
-							SKILLMAGIC_TARGET_FRIEND_WITHME = 2,	// ³ª¸¦ Æ÷ÇÔÇÑ ¿ì¸®Æí(±¹°¡) Áß ÇÏ³ª ..
-							SKILLMAGIC_TARGET_FRIEND_ONLY = 3,		// ³ª¸¦ »« ¿ì¸®Æí Áß ÇÏ³ª 
-							SKILLMAGIC_TARGET_PARTY = 4,			// ³ª¸¦ Æ÷ÇÔÇÑ ¿ì¸®ÆÄÆ¼ Áß ÇÏ³ª..
-							SKILLMAGIC_TARGET_NPC_ONLY = 5,			// NPCÁß ÇÏ³ª.
-							SKILLMAGIC_TARGET_PARTY_ALL = 6,		// ³ª¸¦ È£ÇÔÇÑ ¿ì¸®ÆÄÆ¼ ¸ðµÎ..
-							SKILLMAGIC_TARGET_ENEMY_ONLY = 7,		// ¿ïÆíÀ» Á¦¿ÜÇÑ ¸ðµç ÀûÁß ÇÏ³ª(NPCÆ÷ÇÔ)
-							SKILLMAGIC_TARGET_ALL = 8,				// °×»ó¿¡ Á¸ÀçÇÏ´Â ¸ðµç °ÍÁß ÇÏ³ª.
+enum e_SkillMagicTaget	{	SKILLMAGIC_TARGET_SELF = 1,				// ë‚˜ ìžì‹ ..
+							SKILLMAGIC_TARGET_FRIEND_WITHME = 2,	// ë‚˜ë¥¼ í¬í•¨í•œ ìš°ë¦¬íŽ¸(êµ­ê°€) ì¤‘ í•˜ë‚˜ ..
+							SKILLMAGIC_TARGET_FRIEND_ONLY = 3,		// ë‚˜ë¥¼ ëº€ ìš°ë¦¬íŽ¸ ì¤‘ í•˜ë‚˜ 
+							SKILLMAGIC_TARGET_PARTY = 4,			// ë‚˜ë¥¼ í¬í•¨í•œ ìš°ë¦¬íŒŒí‹° ì¤‘ í•˜ë‚˜..
+							SKILLMAGIC_TARGET_NPC_ONLY = 5,			// NPCì¤‘ í•˜ë‚˜.
+							SKILLMAGIC_TARGET_PARTY_ALL = 6,		// ë‚˜ë¥¼ í˜¸í•¨í•œ ìš°ë¦¬íŒŒí‹° ëª¨ë‘..
+							SKILLMAGIC_TARGET_ENEMY_ONLY = 7,		// ìš¸íŽ¸ì„ ì œì™¸í•œ ëª¨ë“  ì ì¤‘ í•˜ë‚˜(NPCí¬í•¨)
+							SKILLMAGIC_TARGET_ALL = 8,				// ê²œìƒì— ì¡´ìž¬í•˜ëŠ” ëª¨ë“  ê²ƒì¤‘ í•˜ë‚˜.
 							
-							SKILLMAGIC_TARGET_AREA_ENEMY = 10,		// ±× Áö¿ª¿¡ ÀÖ´Â Àûµé...
-							SKILLMAGIC_TARGET_AREA_FRIEND = 11,		// ±× Áö¿ª¿¡ ÀÖ´Â ¿ïÆí.
-							SKILLMAGIC_TARGET_AREA_ALL = 12,		// ±× Áö¿ª¿¡ ÀÖ´Â ¸ðµÎµé.
-							SKILLMAGIC_TARGET_AREA = 13,			// ³ª¸¦ Áß½ÉÀ¸·Î ÇÑ Áö¿ª
-							SKILLMAGIC_TARGET_DEAD_FRIEND_ONLY = 25,	//Á×Àº »ç¶÷Áß ³ª¸¦ »« ¿ì¸®Æí Áß ÇÏ³ª.
+							SKILLMAGIC_TARGET_AREA_ENEMY = 10,		// ê·¸ ì§€ì—­ì— ìžˆëŠ” ì ë“¤...
+							SKILLMAGIC_TARGET_AREA_FRIEND = 11,		// ê·¸ ì§€ì—­ì— ìžˆëŠ” ìš¸íŽ¸.
+							SKILLMAGIC_TARGET_AREA_ALL = 12,		// ê·¸ ì§€ì—­ì— ìžˆëŠ” ëª¨ë‘ë“¤.
+							SKILLMAGIC_TARGET_AREA = 13,			// ë‚˜ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í•œ ì§€ì—­
+							SKILLMAGIC_TARGET_DEAD_FRIEND_ONLY = 25,	//ì£½ì€ ì‚¬ëžŒì¤‘ ë‚˜ë¥¼ ëº€ ìš°ë¦¬íŽ¸ ì¤‘ í•˜ë‚˜.
 							
 							SKILLMAGIC_TARGET_UNKNOWN = 0xffffffff
 						};
@@ -1265,8 +1270,9 @@ typedef struct __TABLE_FX	// FX Table
 	std::string		szName;		// NOTE: adding the name of the FX
 	std::string		szFN;		// file name
 	uint32_t		dwSoundID;	// sound id
-	uint8_t			szAOE;		// AOE ??
-
+#if __VERSION > 1264
+	uint8_t			byAOE;		// AOE ??
+#endif
 } TABLE_FX;
 
 const int	MAX_COMBO = 3;
@@ -1301,18 +1307,18 @@ const int	FXID_WARP_ELMORAD				= 10047;
 const int	FXID_REGION_POISON				= 10100;
 
 //define skillmagic_type4_bufftype
-enum e_SkillMagicType4	{	BUFFTYPE_MAXHP = 1,				//MaxHPº¯È­..
-							BUFFTYPE_AC = 2,				//ACº¯È­..
-							BUFFTYPE_RESIZE = 3,			//Ä³¸¯ÅÍ Å©±â Á¶Á¤..
-							BUFFTYPE_ATTACK = 4,			//°ø°Ý·Â..
-							BUFFTYPE_ATTACKSPEED = 5,		//°ø°Ý½ºÇÇµå..
-							BUFFTYPE_SPEED = 6,				//ÀÌµ¿¼Óµµ..
-							BUFFTYPE_ABILITY = 7,			//´Ù¼¸°¡Áö ´É·Â(str, sta, cha, dex int)
-							BUFFTYPE_RESIST = 8,			//´Ù¼¸°¡Áö ÀúÇ×·Â..
+enum e_SkillMagicType4	{	BUFFTYPE_MAXHP = 1,				//MaxHPë³€í™”..
+							BUFFTYPE_AC = 2,				//ACë³€í™”..
+							BUFFTYPE_RESIZE = 3,			//ìºë¦­í„° í¬ê¸° ì¡°ì •..
+							BUFFTYPE_ATTACK = 4,			//ê³µê²©ë ¥..
+							BUFFTYPE_ATTACKSPEED = 5,		//ê³µê²©ìŠ¤í”¼ë“œ..
+							BUFFTYPE_SPEED = 6,				//ì´ë™ì†ë„..
+							BUFFTYPE_ABILITY = 7,			//ë‹¤ì„¯ê°€ì§€ ëŠ¥ë ¥(str, sta, cha, dex int)
+							BUFFTYPE_RESIST = 8,			//ë‹¤ì„¯ê°€ì§€ ì €í•­ë ¥..
 							BUFFTYPE_HITRATE_AVOIDRATE = 9,	//hitrate n avoidrate
-							BUFFTYPE_TRANS = 10,			//º¯½Å, Åõ¸í..
-							BUFFTYPE_SLEEP = 11,			//ÀáÀç¿ì±â..
-							BUFFTYPE_EYE = 12				//½Ã·Â°ü·Ã...							
+							BUFFTYPE_TRANS = 10,			//ë³€ì‹ , íˆ¬ëª…..
+							BUFFTYPE_SLEEP = 11,			//ìž ìž¬ìš°ê¸°..
+							BUFFTYPE_EYE = 12				//ì‹œë ¥ê´€ë ¨...							
 };
 
 enum e_SkillMagicType3	{	DDTYPE_TYPE3_DUR_OUR = 100,
@@ -1333,7 +1339,7 @@ enum e_ObjectType	{	OBJECT_TYPE_BINDPOINT,
 //definitions related clan....
 const int	CLAN_LEVEL_LIMIT	= 20;
 const int	CLAN_COST			= 500000;
-const uint32_t KNIGHTS_FONT_COLOR	= 0xffff0000; // ±â»ç´Ü(Å¬·£)ÀÌ¸§ ÆùÆ® ÄÃ·¯..
+const uint32_t KNIGHTS_FONT_COLOR	= 0xffff0000; // ê¸°ì‚¬ë‹¨(í´ëžœ)ì´ë¦„ í°íŠ¸ ì»¬ëŸ¬..
 
 enum e_Cursor		{	CURSOR_ATTACK,
 						CURSOR_EL_NORMAL,
