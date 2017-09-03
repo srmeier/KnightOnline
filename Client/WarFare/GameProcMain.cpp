@@ -6205,23 +6205,23 @@ void CGameProcMain::MsgRecv_NpcChangeOpen(Packet& pkt)		// Class Change와 초기화
 			break;
 
 		case N3_SP_CLASS_CHANGE_REQ:
-			this->MsgRecv_ClassChange(pkt);
+			MsgRecv_ClassChange(pkt);
 			break;
 
 		case N3_SP_CLASS_ALL_POINT:
-			this->MsgRecv_AllPointInit(pkt);
+			MsgRecv_AllPointInit(pkt);
 			break;
 
 		case N3_SP_CLASS_SKILL_POINT:
-			this->MsgRecv_SkillPointInit(pkt);
+			MsgRecv_SkillPointInit(pkt);
 			break;
 
 		case N3_SP_CLASS_POINT_CHANGE_PRICE_QUERY:
-			this->MsgRecv_PointChangePriceQueryRequest(pkt);
+			MsgRecv_PointChangePriceQueryRequest(pkt);
 			break;
 
-		case N3_SP_CLASS_CHANGE:
-			this->ClassChange(pkt);
+		case N3_SP_CLASS_PROMOTION:
+			MsgRecv_ClassPromotion(pkt);
 			break;
 	}
 }
@@ -7549,25 +7549,26 @@ void CGameProcMain::MsgSend_SpeedCheck(bool bInit)
 	s_pSocket->Send(byBuff, iOffset);							// 보냄..
 }
 
-void CGameProcMain::ClassChange(Packet& pkt) {
+void CGameProcMain::MsgRecv_ClassPromotion(Packet& pkt)
+{
+	uint16_t sClass, socketID;
+	pkt >> sClass >> socketID;
 
-	__InfoPlayerBase*	pInfoBase = &(s_pPlayer->m_InfoBase);
-	__InfoPlayerMySelf*	pInfoExt = &(s_pPlayer->m_InfoExt);
-	
-	int iPrevClass = pInfoBase->eClass;
-	int iNewClass = pkt.read<int16_t>();
-	int iID = pkt.read<int16_t>();
-
-	if ( iID == s_pPlayer->IDNumber() ) {
-
-		pInfoBase->eClass = (e_Class)iNewClass;
-		m_pUIVar->UpdateAllStates(pInfoBase, pInfoExt);
+	// TODO: Clean this up when CPlayerMySelf is derived properly so we can share this logic in a much nicer fashion.
+	if (socketID == s_pPlayer->IDNumber())
+	{
+		s_pPlayer->m_InfoBase.eClass = (e_Class)sClass;
+		m_pUIVar->UpdateAllStates(&s_pPlayer->m_InfoBase, &s_pPlayer->m_InfoExt);
 		m_pUIHotKeyDlg->ClassChangeHotkeyFlush();
 		m_pUISkillTreeDlg->SetPageInCharRegion();
 		m_pUISkillTreeDlg->InitIconUpdate();
-
-		CGameProcedure::s_pFX->TriggerBundle(iID, -1, FXID_CLASS_CHANGE, iID, -1);
-
+	}
+	else
+	{
+		auto pUPC = s_pOPMgr->UPCGetByID(socketID, false);
+		if (pUPC != nullptr)
+			pUPC->m_InfoBase.eClass = (e_Class)sClass;
 	}
 
+	s_pFX->TriggerBundle(socketID, -1, FXID_CLASS_CHANGE, socketID, -1);
 }

@@ -72,7 +72,7 @@ const int SOCKET_PORT_LOGIN = 15100;
 		N3_SP_CLASS_ALL_POINT   = 0x03,		// Class Change All Point..
 		N3_SP_CLASS_SKILL_POINT = 0x04,
 		N3_SP_CLASS_POINT_CHANGE_PRICE_QUERY = 0x05,
-		N3_SP_CLASS_CHANGE = 0x06	};
+		N3_SP_CLASS_PROMOTION = 0x06	};
 
 	enum e_SubPacket_ClassChange {	N3_SP_CLASS_CHANGE_SUCCESS	= 0x01,		// Success..
 									N3_SP_CLASS_CHANGE_NOT_YET	= 0x02,		// Not yet..

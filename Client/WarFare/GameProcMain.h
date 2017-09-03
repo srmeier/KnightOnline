@@ -152,6 +152,8 @@ protected:
 	void	MsgRecv_SkillChange(Packet& pkt);			// 스킬 변화..
 	void	MsgRecv_MagicProcess(Packet& pkt);			// 스킬 변화..
 	void	MsgRecv_ClassChange(Packet& pkt);			// 직업 변화..
+	void	MsgRecv_ClassPromotion(Packet& pkt);
+
 	void	MsgRecv_ObjectEvent(Packet& pkt);			// 오브젝트 이벤트 신청에 대한 응답
 
 	void	MsgRecv_DurabilityChange(Packet& pkt);		// 내구력 변경..
@@ -292,8 +294,6 @@ public:
 	
 	void	Tick();								// 잡다한 계산..
 	void	Render();							// 렌더링..
-
-	void ClassChange(Packet& pkt);
 
 	CGameProcMain();									// 생성자.
 	virtual ~CGameProcMain();							// 소멸자.
