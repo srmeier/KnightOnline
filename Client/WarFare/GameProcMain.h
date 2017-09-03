@@ -293,6 +293,8 @@ public:
 	void	Tick();								// 잡다한 계산..
 	void	Render();							// 렌더링..
 
+	void ClassChange(Packet& pkt);
+
 	CGameProcMain();									// 생성자.
 	virtual ~CGameProcMain();							// 소멸자.
 };

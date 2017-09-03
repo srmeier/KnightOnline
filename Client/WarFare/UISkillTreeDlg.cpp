@@ -1163,7 +1163,7 @@ void CUISkillTreeDlg::PageButtonInitialize()
 	if(pStrName) pStrName->SetStringAsInt(m_iSkillInfo[7]);
 //	pStrName = (CN3UIString* )GetChildByID("string_7"); __ASSERT(pStrName, "NULL UI Component!!");
 //	if(pStrName) pStrName->SetStringAsInt(m_iSkillInfo[8]);
-
+    
 	ButtonVisibleStateSet();
 }
 
@@ -1551,15 +1551,22 @@ void CUISkillTreeDlg::AllClearImageByName(const std::string& szFN, bool bTrueOrN
 
 void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 페이지 설정..
 {
+	
 	AllClearImageByName("public", false);
 
 	switch ( CGameBase::s_pPlayer->m_InfoBase.eNation )
 	{
+		
 		case NATION_KARUS:			// 카루스..
-			AllClearImageByName("hunter", false);
+			AllClearImageByName("hunter", false);  
 			AllClearImageByName("berserker", false);
 			AllClearImageByName("sorcerer", false);
 			AllClearImageByName("shaman", false);
+			AllClearImageByName("Shadow Knight",false);
+			AllClearImageByName("Berserker Hero", false);
+			AllClearImageByName("Elemental Lord", false);
+			AllClearImageByName("Shadow Bane", false);
+			
 
 			// 직업.. 
 			switch ( CGameBase::s_pPlayer->m_InfoBase.eClass )
@@ -1586,6 +1593,22 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 페이지 설
 				case CLASS_KA_SHAMAN:
 					AllClearImageByName("shaman", true);
 					break;
+
+				case CLASS_KA_GUARDIAN:
+					AllClearImageByName("Berserker Hero", true);
+					break;
+
+				case CLASS_KA_PENETRATOR:
+					AllClearImageByName("Shadow Bane", true);
+					break;
+
+				case CLASS_KA_NECROMANCER:
+					AllClearImageByName("Elemental Lord", true);
+					break;
+
+				case CLASS_KA_DARKPRIEST:
+					AllClearImageByName("Shadow Knight", true);
+					break;
 			}
 			break;
 
@@ -1594,6 +1617,10 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 페이지 설
 			AllClearImageByName("blade", false);
 			AllClearImageByName("mage", false);
 			AllClearImageByName("cleric", false);
+			AllClearImageByName("Blade Master", false);
+			AllClearImageByName("Kasar Hood", false);
+			AllClearImageByName("Arc Mage", false);
+			AllClearImageByName("Paladin", false);
 
 			// 직업.. 
 			switch ( CGameBase::s_pPlayer->m_InfoBase.eClass )
@@ -1620,9 +1647,27 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 페이지 설
 				case CLASS_EL_CLERIC:
 					AllClearImageByName("cleric", true);
 					break;
+
+				case CLASS_EL_PROTECTOR:
+					AllClearImageByName("Blade Master", true);
+					break;
+
+				case CLASS_EL_ASSASIN:
+					AllClearImageByName("Kasar Hood", true);
+					break;
+					
+				case CLASS_EL_ENCHANTER:
+					AllClearImageByName("Arc Mage", true);
+					break;
+
+				case CLASS_EL_DRUID:
+					AllClearImageByName("Paladin", true);
+					break;
+
 			}
 			break;
 	}
+	
 }
 
 CN3UIImage*	CUISkillTreeDlg::GetChildImageByName(const std::string& szFN)

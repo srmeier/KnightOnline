@@ -6220,12 +6220,8 @@ void CGameProcMain::MsgRecv_NpcChangeOpen(Packet& pkt)		// Class Change와 초기화
 			this->MsgRecv_PointChangePriceQueryRequest(pkt);
 			break;
 
-		case N3_SP_NOVICE_CLASS_CHANGE_REQ:
-			// SavvyNik - need to create small function that will
-			// 1.  Show fx effect on the user
-			// 2.  Change and display class on user
-			// 3.  Reset and reload skills & skillbar via InitIconUpdate()
-
+		case N3_SP_CLASS_CHANGE:
+			this->ClassChange(pkt);
 			break;
 	}
 }
@@ -7551,4 +7547,27 @@ void CGameProcMain::MsgSend_SpeedCheck(bool bInit)
 	s_pSocket->MP_AddByte(byBuff, iOffset, bInit);				// 서버가 기준 시간으로 쓸 타입 true 이면 기준시간 false면 체크타입
 	s_pSocket->MP_AddFloat(byBuff, iOffset, fTime);				// 클라이언트 시간
 	s_pSocket->Send(byBuff, iOffset);							// 보냄..
+}
+
+void CGameProcMain::ClassChange(Packet& pkt) {
+
+	__InfoPlayerBase*	pInfoBase = &(s_pPlayer->m_InfoBase);
+	__InfoPlayerMySelf*	pInfoExt = &(s_pPlayer->m_InfoExt);
+	
+	int iPrevClass = pInfoBase->eClass;
+	int iNewClass = pkt.read<int16_t>();
+	int iID = pkt.read<int16_t>();
+
+	if ( iID == s_pPlayer->IDNumber() ) {
+
+		pInfoBase->eClass = (e_Class)iNewClass;
+		m_pUIVar->UpdateAllStates(pInfoBase, pInfoExt);
+		m_pUIHotKeyDlg->ClassChangeHotkeyFlush();
+		m_pUISkillTreeDlg->SetPageInCharRegion();
+		m_pUISkillTreeDlg->InitIconUpdate();
+
+		CGameProcedure::s_pFX->TriggerBundle(iID, -1, FXID_CLASS_CHANGE, iID, -1);
+
+	}
+
 }
