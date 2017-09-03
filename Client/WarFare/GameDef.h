@@ -1277,7 +1277,7 @@ typedef struct __TABLE_FX	// FX Table
 
 const int	MAX_COMBO = 3;
 
-const int   FXID_CLASS_CHANGE			= 602;
+const int   FXID_CLASS_CHANGE			= 603;
 const int	FXID_BLOOD					= 10002;
 const int	FXID_LEVELUP_KARUS			= 10012;
 const int	FXID_LEVELUP_ELMORAD		= 10018;

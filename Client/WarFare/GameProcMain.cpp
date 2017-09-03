@@ -7560,41 +7560,13 @@ void CGameProcMain::ClassChange(Packet& pkt) {
 
 	if ( iID == s_pPlayer->IDNumber() ) {
 
-		switch (iPrevClass)
-		{
-		case CLASS_KA_WARRIOR:
-			pInfoBase->eClass = CLASS_KA_BERSERKER;
-			break;
-		case CLASS_KA_ROGUE:
-			pInfoBase->eClass = CLASS_KA_HUNTER;
-			break;
-		case CLASS_KA_WIZARD:
-			pInfoBase->eClass = CLASS_KA_SORCERER;
-			break;
-		case CLASS_KA_PRIEST:
-			pInfoBase->eClass = CLASS_KA_SHAMAN;
-			break;
-		case CLASS_EL_WARRIOR:
-			pInfoBase->eClass = CLASS_EL_BLADE;
-			break;
-		case CLASS_EL_ROGUE:
-			pInfoBase->eClass = CLASS_EL_RANGER;
-			break;
-		case CLASS_EL_WIZARD:
-			pInfoBase->eClass = CLASS_EL_MAGE;
-			break;
-		case CLASS_EL_PRIEST:
-			pInfoBase->eClass = CLASS_EL_CLERIC;
-			break;
-		}
-
+		pInfoBase->eClass = (e_Class)iNewClass;
 		m_pUIVar->UpdateAllStates(pInfoBase, pInfoExt);
 		m_pUIHotKeyDlg->ClassChangeHotkeyFlush();
+		m_pUISkillTreeDlg->SetPageInCharRegion();
 		m_pUISkillTreeDlg->InitIconUpdate();
 
-
-		if (pInfoBase->eNation == NATION_KARUS) CGameProcedure::s_pFX->TriggerBundle(iID, -1, FXID_CLASS_CHANGE, iID, -1);
-		else if (pInfoBase->eNation == NATION_ELMORAD) CGameProcedure::s_pFX->TriggerBundle(iID, -1, FXID_CLASS_CHANGE, iID, -1);
+		CGameProcedure::s_pFX->TriggerBundle(iID, -1, FXID_CLASS_CHANGE, iID, -1);
 
 	}
 
