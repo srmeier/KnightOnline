@@ -111,9 +111,53 @@ void CUICurtail::Render()
 
 void CUICurtail::Tick()
 {
-	
-}
+	if (m_bOpenningNow) // 오른쪽에서 왼쪽으로 스르륵...열려야 한다면..
+	{
+		POINT ptCur = this->GetPos();
+		RECT rc = this->GetRegion();
+		float fWidth = (float)(rc.right - rc.left);
 
+		float fDelta = 5000.0f * CN3Base::s_fSecPerFrm;
+		fDelta *= (fWidth - m_fMoveDelta) / fWidth;
+		if (fDelta < 2.0f) fDelta = 2.0f;
+		m_fMoveDelta += fDelta;
+
+		int iXLimit = CN3Base::s_CameraData.vp.Width - (int)fWidth;
+		ptCur.x = CN3Base::s_CameraData.vp.Width - (int)m_fMoveDelta;
+		if (ptCur.x <= iXLimit) // 다열렸다!!
+		{
+			ptCur.x = iXLimit;
+			m_bOpenningNow = false;
+		}
+
+		this->SetPos(ptCur.x, ptCur.y);
+	}
+	else if (m_bClosingNow) // 오른쪽에서 왼쪽으로 스르륵...열려야 한다면..
+	{
+		POINT ptCur = this->GetPos();
+		RECT rc = this->GetRegion();
+		float fWidth = (float)(rc.right - rc.left);
+
+		float fDelta = 5000.0f * CN3Base::s_fSecPerFrm;
+		fDelta *= (fWidth - m_fMoveDelta) / fWidth;
+		if (fDelta < 2.0f) fDelta = 2.0f;
+		m_fMoveDelta += fDelta;
+
+		int iXLimit = CN3Base::s_CameraData.vp.Width;
+		ptCur.x = CN3Base::s_CameraData.vp.Width - (int)(fWidth - m_fMoveDelta);
+		if (ptCur.x >= iXLimit) // 다 닫혔다..!!
+		{
+			ptCur.x = iXLimit;
+			m_bClosingNow = false;
+
+			this->SetVisibleWithNoSound(false, false, true); // 다 닫혔으니 눈에서 안보이게 한다.
+		}
+
+		this->SetPos(ptCur.x, ptCur.y);
+	}
+
+	CN3UIBase::Tick();
+}
 
 bool CUICurtail::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
