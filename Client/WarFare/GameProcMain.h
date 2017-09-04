@@ -33,6 +33,7 @@ public:
 	class CUIStateBar*			m_pUIStateBarAndMiniMap;	// mp,hp,exp, minimap....
 	class CUICmd*				m_pUICmd;				// 왼쪽 하단의 명령버튼 창..
 	class CUITargetBar*			m_pUITargetBar;			// 타겟 상태창..
+	class CUICurtail*			m_pUICurtailDlg;	    //SavvyNik curtail insansiation*/
 	class CUITransactionDlg*	m_pUITransactionDlg;
 	class CUIDroppedItemDlg*	m_pUIDroppedItemDlg;
 	class CSubProcPerTrade*		m_pSubProcPerTrade;
@@ -221,6 +222,7 @@ public:
 	bool	CommandToggleWalkRun();
 	bool	CommandToggleUISkillTree();
 	bool	CommandToggleUIMiniMap();
+	bool	CommandToggleCurtail();
 
 	void	CommandMove(e_MoveDirection eMD, bool bStartOrEnd); // 움직이는 방향(전후진, 멈춤), 움직이기 시작하는가?
 	void	CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTarget);

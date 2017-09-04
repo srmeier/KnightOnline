@@ -273,6 +273,9 @@
     <ClCompile Include="WarMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UICurtail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameProcedure.h">
@@ -582,6 +585,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UICurtail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

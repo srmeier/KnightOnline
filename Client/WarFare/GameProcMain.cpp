@@ -34,6 +34,7 @@
 #include "UIPerTradeDlg.h"
 #include "UIPartyOrForce.h"
 #include "UISkillTreeDlg.h"
+#include "UICurtail.h"
 #include "UIHotKeyDlg.h"
 #include "UIClassChange.h"
 #include "UINpcEvent.h"
@@ -139,6 +140,7 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_pUIInventory = new CUIInventory();
 	m_pUIPartyOrForce = new CUIPartyOrForce();
 	m_pUISkillTreeDlg = new CUISkillTreeDlg();
+	m_pUICurtailDlg = new CUICurtail();
 	m_pUIHotKeyDlg = new CUIHotKeyDlg();
 	m_pUINpcTalk = new CUINpcTalk();
 	m_pUIKnightsOp = new CUIKnightsOperation();			// 기사단 리스트 보기, 가입, 등...
@@ -185,6 +187,7 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIInventory;
 	delete m_pUIPartyOrForce;
 	delete m_pUISkillTreeDlg;
+	delete m_pUICurtailDlg;
 	delete m_pUIHotKeyDlg;
 	delete m_pUINpcTalk;
 	delete m_pUIKnightsOp;
@@ -239,6 +242,7 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIRepairTooltip->Release();
 	m_pUIPartyOrForce->Release();
 	m_pUISkillTreeDlg->Release();
+	m_pUICurtailDlg->Release();
 	m_pUIHotKeyDlg->Release();
 	m_pUINpcTalk->Release();
 //	m_pUITradeList->Release();
@@ -1246,6 +1250,7 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_INVENTORY)) this->CommandToggleUIInventory();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_STATE)) this->CommandToggleUIState();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SKILL)) this->CommandToggleUISkillTree();
+		if (s_pLocalInput->IsKeyPress(KM_TOGGLE_CMDLIST)) this->CommandToggleCurtail(); //SavvyNik hotkey 'H' for control of window
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SITDOWN)) this->CommandSitDown(true, !s_pPlayer->m_bSitDown);
 
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_HELP)) 
@@ -3901,6 +3906,15 @@ void CGameProcMain::InitUI()
 	m_pUISkillTreeDlg->SetState(UI_STATE_COMMON_NONE);
 	m_pUISkillTreeDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
 
+
+	m_pUICurtailDlg->Init(s_pUIMgr);
+	m_pUICurtailDlg->LoadFromFile(pTbl->szCmdList);
+	m_pUICurtailDlg->SetVisibleWithNoSound(false);
+	rc = m_pUICurtailDlg->GetRegion();
+	m_pUICurtailDlg->SetPos(iW - (rc.right - rc.left), 10);
+	m_pUICurtailDlg->SetUIType(UI_TYPE_BASE);
+	m_pUICurtailDlg->SetState(UI_STATE_COMMON_NONE);
+	m_pUICurtailDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
 	
 	// default ui pos ..	해상도가 변경되면.. 상대 위치를 구해야 한다.. by ecli666
 	rc = m_pUIStateBarAndMiniMap->GetRegion();
@@ -4587,6 +4601,36 @@ bool CGameProcMain::CommandToggleUISkillTree()
 bool CGameProcMain::CommandToggleUIMiniMap()
 {
 	return m_pUIStateBarAndMiniMap->ToggleMiniMap();
+}
+
+bool CGameProcMain::CommandToggleCurtail()
+{
+	
+	bool bNeedOpen = !(m_pUICurtailDlg->IsVisible()); //SavvyNik - need to change method to control the curtail
+
+	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
+		return bNeedOpen;
+
+	if (bNeedOpen)
+	{
+		if (m_pUIInventory->IsVisible())
+			m_pUIInventory->Close();
+		if (m_pUITransactionDlg->IsVisible())
+			m_pUITransactionDlg->LeaveTransactionState();
+		if (m_pUIWareHouseDlg->IsVisible())
+			m_pUIWareHouseDlg->LeaveWareHouseState();
+
+		s_pUIMgr->SetFocusedUI(m_pUICurtailDlg);
+		m_pUICurtailDlg->Open();
+		//m_pUICurtailDlg->SetVisible(bNeedOpen);
+	}
+	else
+	{
+		m_pUICurtailDlg->Close();
+		//m_pUICurtailDlg->SetVisible(bNeedOpen);
+	}
+
+	return bNeedOpen;
 }
 
 void CGameProcMain::CommandCameraChange() // 카메라 시점 바꾸기..
