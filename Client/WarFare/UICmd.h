@@ -29,7 +29,7 @@ public:
 	CN3UIBase*	m_pBtn_Inventory;		//아이템 창 
 	CN3UIBase*	m_pBtn_Party_Invite;	//파티 초대
 	CN3UIBase*	m_pBtn_Party_Disband;	//파티 탈퇴
-	CN3UIBase*  m_pBtn_Option;			//옵션
+	CN3UIBase*  m_pBtn_CmdList;			//옵션
 	CN3UIBase*	m_pBtn_Quest;			//퀘스트
 	CN3UIBase*	m_pBtn_Character;		//자기 정보창   
 	CN3UIBase*	m_pBtn_Skill;			//스킬트리 또는 마법창 

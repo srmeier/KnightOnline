@@ -40,7 +40,7 @@ CUICmd::CUICmd()
 	m_pBtn_Inventory = NULL;		//아이템 창 
 	m_pBtn_Party_Invite = NULL;	//파티 초대
 	m_pBtn_Party_Disband = NULL;	//파티 탈퇴
-	m_pBtn_Option = NULL;			//옵션
+	m_pBtn_CmdList = NULL;			//옵션
 	m_pBtn_Quest = NULL;			//퀘스트
 	m_pBtn_Character = NULL;		//자기 정보창   
 	m_pBtn_Skill = NULL;			//스킬트리 또는 마법창 
@@ -70,7 +70,7 @@ bool CUICmd::Load(HANDLE hFile)
 	m_pBtn_Character =		GetChildByID("btn_character");	//__ASSERT(m_pBtn_Character, "NULL UI Component!!");
 	m_pBtn_Inventory =		GetChildByID("btn_inventory");	//__ASSERT(m_pBtn_Inventory, "NULL UI Component!!");
 
-	m_pBtn_Option =			GetChildByID("btn_option");		//__ASSERT(m_pBtn_Option, "NULL UI Component!!");
+	m_pBtn_CmdList =			GetChildByID("btn_option");		//__ASSERT(m_pBtn_Option, "NULL UI Component!!");
 	m_pBtn_Camera =			GetChildByID("btn_camera");		//__ASSERT(m_pBtn_Camera, "NULL UI Component!!");
 	m_pBtn_Party_Invite =	GetChildByID("btn_invite");		//__ASSERT(m_pBtn_Party_Invite, "NULL UI Component!!");
 	m_pBtn_Party_Disband =	GetChildByID("btn_disband");	//__ASSERT(m_pBtn_Party_Disband, "NULL UI Component!!");
@@ -95,11 +95,10 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 	if (dwMsg == UIMSG_BUTTON_CLICK)					
 	{
-//		if(pSender == m_pBtn_Option)
-//		{
-//			this->SetVisibleActButtons(false);
-//			this->SetVisibleOptButtons(true);
-//		}
+		if(pSender == m_pBtn_CmdList)
+		{
+			CGameProcedure::s_pProcMain->CommandToggleCmdList();
+		}
 
 		if(pSender == m_pBtn_Act)
 		{

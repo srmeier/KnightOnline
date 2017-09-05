@@ -273,7 +273,7 @@
     <ClCompile Include="WarMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UICurtail.cpp">
+    <ClCompile Include="UICmdList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -587,7 +587,7 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UICurtail.h">
+    <ClInclude Include="UICmdList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

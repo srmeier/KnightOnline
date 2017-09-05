@@ -203,7 +203,7 @@
     <ClCompile Include="UIClassChange.cpp" />
     <ClCompile Include="UICmd.cpp" />
     <ClCompile Include="UICreateClanName.cpp" />
-    <ClCompile Include="UICurtail.cpp" />
+    <ClCompile Include="UICmdList.cpp" />
     <ClCompile Include="UIDead.cpp" />
     <ClCompile Include="UIDroppedItemDlg.cpp" />
     <ClCompile Include="UIEndingDisplay.cpp" />
@@ -272,7 +272,7 @@
     <ClInclude Include="GameProcOption.h" />
     <ClInclude Include="GrassBoard.h" />
     <ClInclude Include="GrassMng.h" />
-    <ClInclude Include="UICurtail.h" />
+    <ClInclude Include="UICmdList.h" />
     <ClInclude Include="ItemRepairMgr.h" />
     <ClInclude Include="LightMgr.h" />
     <ClInclude Include="LocalInput.h" />

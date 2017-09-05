@@ -33,7 +33,7 @@ public:
 	class CUIStateBar*			m_pUIStateBarAndMiniMap;	// mp,hp,exp, minimap....
 	class CUICmd*				m_pUICmd;				// 왼쪽 하단의 명령버튼 창..
 	class CUITargetBar*			m_pUITargetBar;			// 타겟 상태창..
-	class CUICurtail*			m_pUICurtailDlg;	    //SavvyNik curtail insansiation*/
+	class CUICmdList*			m_pUICmdListDlg;	    //SavvyNik CmdList insansiation*/
 	class CUITransactionDlg*	m_pUITransactionDlg;
 	class CUIDroppedItemDlg*	m_pUIDroppedItemDlg;
 	class CSubProcPerTrade*		m_pSubProcPerTrade;
@@ -222,7 +222,7 @@ public:
 	bool	CommandToggleWalkRun();
 	bool	CommandToggleUISkillTree();
 	bool	CommandToggleUIMiniMap();
-	bool	CommandToggleCurtail();
+	bool	CommandToggleCmdList();
 
 	void	CommandMove(e_MoveDirection eMD, bool bStartOrEnd); // 움직이는 방향(전후진, 멈춤), 움직이기 시작하는가?
 	void	CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTarget);
@@ -233,6 +233,8 @@ public:
 	void	CommandTargetSelect_NearstOurForce(); // 가장 가까운 파티 타겟잡기..
 
 	void	CloseUIs(); // 각종 상거래, 워프등등... UI 닫기..
+
+	void	NoahTrade(uint8_t bType, uint32_t dwGoldOffset, uint32_t dwGold);
 
 	void	MsgOutput(const std::string& szMsg, D3DCOLOR crMsg);
 

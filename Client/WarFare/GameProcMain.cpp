@@ -34,7 +34,7 @@
 #include "UIPerTradeDlg.h"
 #include "UIPartyOrForce.h"
 #include "UISkillTreeDlg.h"
-#include "UICurtail.h"
+#include "UICmdList.h"
 #include "UIHotKeyDlg.h"
 #include "UIClassChange.h"
 #include "UINpcEvent.h"
@@ -140,7 +140,7 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_pUIInventory = new CUIInventory();
 	m_pUIPartyOrForce = new CUIPartyOrForce();
 	m_pUISkillTreeDlg = new CUISkillTreeDlg();
-	m_pUICurtailDlg = new CUICurtail();
+	m_pUICmdListDlg = new CUICmdList();
 	m_pUIHotKeyDlg = new CUIHotKeyDlg();
 	m_pUINpcTalk = new CUINpcTalk();
 	m_pUIKnightsOp = new CUIKnightsOperation();			// 기사단 리스트 보기, 가입, 등...
@@ -187,7 +187,7 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIInventory;
 	delete m_pUIPartyOrForce;
 	delete m_pUISkillTreeDlg;
-	delete m_pUICurtailDlg;
+	delete m_pUICmdListDlg;
 	delete m_pUIHotKeyDlg;
 	delete m_pUINpcTalk;
 	delete m_pUIKnightsOp;
@@ -242,7 +242,7 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIRepairTooltip->Release();
 	m_pUIPartyOrForce->Release();
 	m_pUISkillTreeDlg->Release();
-	m_pUICurtailDlg->Release();
+	m_pUICmdListDlg->Release();
 	m_pUIHotKeyDlg->Release();
 	m_pUINpcTalk->Release();
 //	m_pUITradeList->Release();
@@ -1250,7 +1250,7 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_INVENTORY)) this->CommandToggleUIInventory();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_STATE)) this->CommandToggleUIState();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SKILL)) this->CommandToggleUISkillTree();
-		if (s_pLocalInput->IsKeyPress(KM_TOGGLE_CMDLIST)) this->CommandToggleCurtail(); //SavvyNik hotkey 'H' for control of window
+		if (s_pLocalInput->IsKeyPress(KM_TOGGLE_CMDLIST)) this->CommandToggleCmdList(); //SavvyNik hotkey 'H' for control of window
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SITDOWN)) this->CommandSitDown(true, !s_pPlayer->m_bSitDown);
 
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_HELP)) 
@@ -3907,14 +3907,14 @@ void CGameProcMain::InitUI()
 	m_pUISkillTreeDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
 
 
-	m_pUICurtailDlg->Init(s_pUIMgr);
-	m_pUICurtailDlg->LoadFromFile(pTbl->szCmdList);
-	m_pUICurtailDlg->SetVisibleWithNoSound(false);
-	rc = m_pUICurtailDlg->GetRegion();
-	m_pUICurtailDlg->SetPos(iW - (rc.right - rc.left), 10);
-	m_pUICurtailDlg->SetUIType(UI_TYPE_BASE);
-	m_pUICurtailDlg->SetState(UI_STATE_COMMON_NONE);
-	m_pUICurtailDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
+	m_pUICmdListDlg->Init(s_pUIMgr);
+	m_pUICmdListDlg->LoadFromFile(pTbl->szCmdList);
+	m_pUICmdListDlg->SetVisibleWithNoSound(false);
+	rc = m_pUICmdListDlg->GetRegion();
+	m_pUICmdListDlg->SetPos(iW - (rc.right - rc.left), 10);
+	m_pUICmdListDlg->SetUIType(UI_TYPE_BASE);
+	m_pUICmdListDlg->SetState(UI_STATE_COMMON_NONE);
+	m_pUICmdListDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
 	
 	// default ui pos ..	해상도가 변경되면.. 상대 위치를 구해야 한다.. by ecli666
 	rc = m_pUIStateBarAndMiniMap->GetRegion();
@@ -4603,10 +4603,10 @@ bool CGameProcMain::CommandToggleUIMiniMap()
 	return m_pUIStateBarAndMiniMap->ToggleMiniMap();
 }
 
-bool CGameProcMain::CommandToggleCurtail()
+bool CGameProcMain::CommandToggleCmdList()
 {
 	
-	bool bNeedOpen = !(m_pUICurtailDlg->IsVisible()); //SavvyNik - need to change method to control the curtail
+	bool bNeedOpen = !(m_pUICmdListDlg->IsVisible());
 
 	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
 		return bNeedOpen;
@@ -4620,14 +4620,12 @@ bool CGameProcMain::CommandToggleCurtail()
 		if (m_pUIWareHouseDlg->IsVisible())
 			m_pUIWareHouseDlg->LeaveWareHouseState();
 
-		s_pUIMgr->SetFocusedUI(m_pUICurtailDlg);
-		m_pUICurtailDlg->Open();
-		//m_pUICurtailDlg->SetVisible(bNeedOpen);
+		s_pUIMgr->SetFocusedUI(m_pUICmdListDlg);
+		m_pUICmdListDlg->Open();
 	}
 	else
 	{
-		m_pUICurtailDlg->Close();
-		//m_pUICurtailDlg->SetVisible(bNeedOpen);
+		m_pUICmdListDlg->Close();
 	}
 
 	return bNeedOpen;
@@ -7615,4 +7613,34 @@ void CGameProcMain::MsgRecv_ClassPromotion(Packet& pkt)
 	}
 
 	s_pFX->TriggerBundle(socketID, -1, FXID_CLASS_CHANGE, socketID, -1);
+}
+
+
+void CGameProcMain::NoahTrade(uint8_t bType, uint32_t dwGoldOffset, uint32_t dwGold)
+{
+	char szBuf[256] = "";
+	std::string szMsg;
+
+	switch (bType)
+	{
+	case N3_SP_NOAH_GET:
+		::_LoadStringFromResource(IDS_TRADE_COIN_RECV, szMsg);
+		sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
+		MsgOutput(szBuf, 0xff6565ff);
+		break;
+
+	case N3_SP_NOAH_LOST:
+		::_LoadStringFromResource(IDS_TRADE_COIN_PAID, szMsg);
+		sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
+		MsgOutput(szBuf, 0xffff3b3b);
+		break;
+	}
+
+	//s_pPlayer->m_InfoExt.iGold = dwGold;
+	if (m_pUIInventory->IsVisible())
+		m_pUIInventory->GoldUpdate();
+	if (m_pUITransactionDlg->IsVisible())
+		m_pUITransactionDlg->GoldUpdate();
+	if (m_pSubProcPerTrade && m_pSubProcPerTrade->m_pUIPerTradeDlg->IsVisible())
+		m_pSubProcPerTrade->m_pUIPerTradeDlg->GoldUpdate();
 }
