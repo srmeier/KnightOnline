@@ -29,15 +29,18 @@ protected:
 
 	enum iCmd
 	{
-		PRIVATE_CMD_LIST,
-		TRADE_CMD_LIST,
-		PARTY_CMD_LIST,
-		CLAN_CMD_LIST,
-		KNIGHTS_CMD_LIST,
-		GUARDIAN_CMD_LIST,
-		KING_CMD_LIST,
-		GM_CMD_LIST
+		PRIVATE_CMD_LIST	= 0x00,
+		TRADE_CMD_LIST		= 0x02,
+		PARTY_CMD_LIST		= 0x04,
+		CLAN_CMD_LIST		= 0x06,
+		KNIGHTS_CMD_LIST	= 0x08,
+		GM_CMD_LIST		    = 0x0C,
+		GUARDIAN_CMD_LIST	= 0x0E,
+		KING_CMD_LIST		= 0x0A
+		
 	};
+
+	std::map<uint16_t, std::string> m_mapCmds;
 	// Attributes
 public:
 	bool OnKeyPress(int iKey);

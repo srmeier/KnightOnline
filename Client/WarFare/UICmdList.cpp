@@ -43,10 +43,6 @@ CUICmdList::CUICmdList()
 
 CUICmdList::~CUICmdList()
 {
-		delete m_pBtn_cancel;
-		delete m_pList_CmdCat;
-		delete m_pList_Cmds;
-		//SavvyNik - need to make sure to delete any pointers
 }
 
 bool CUICmdList::Load(HANDLE hFile)
@@ -244,94 +240,60 @@ void CUICmdList::SetVisible(bool bVisible)
 
 bool CUICmdList::CreateCategoryList() {
 
-	if (m_pList_CmdCat == NULL) return false;
+	if (m_pList_CmdCat == NULL || m_pList_Cmds == NULL) return false;
 
 	std::string szCategory;
-	::_LoadStringFromResource(IDS_PRIVATE_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
-	::_LoadStringFromResource(IDS_TRADE_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
-	::_LoadStringFromResource(IDS_PARTY_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
-	::_LoadStringFromResource(IDS_CLAN_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
-	::_LoadStringFromResource(IDS_KNIGHTS_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
-	::_LoadStringFromResource(IDS_GUARDIAN_MON_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
-	::_LoadStringFromResource(IDS_KING_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
-	::_LoadStringFromResource(IDS_GM_CMD_CAT, szCategory);
-	m_pList_CmdCat->AddString(szCategory);
+	int idStart = IDS_PRIVATE_CMD_CAT;
+
+	for(int i = 0; i < 8; i++) {
+		::_LoadStringFromResource(i + 7800, szCategory); //load command categories
+		m_pList_CmdCat->AddString(szCategory);
+		idStart ++;
+	} 
 
 	m_pList_CmdCat->SetFontColor(0xffffff00); //green
 
-	UpdateCommandList(PRIVATE_CMD_LIST); //Initialize a cmd list for viewing 
+	std::string szCommand;
+	int idCur = 8000;   //Command list strings start at this index
+	int idEnd = 9600;   //Command list strings end at this index
+
+	//create map of commands
+	for (int i = 100; idCur < idEnd; idCur++, i++) {
+		if (idCur == 9000) i += 400; // offset and put gm cmds at end of map
+		else if(idCur == 9200) i -= 600;
+		szCommand = "";
+		::_LoadStringFromResource(idCur, szCommand);
+		if (szCommand != "") m_mapCmds[i] = szCommand;
+	}
+
+	UpdateCommandList(PRIVATE_CMD_LIST); //initialize a cmd list for viewing when opening cmd window
+
 	return true;
 }
 
 bool CUICmdList::UpdateCommandList(uint8_t cmdCat ) {
 
 	if (m_pList_Cmds == NULL) return false;
-
-	std::string szCommand;
-
-	switch ( cmdCat ) {
 	
-	case PRIVATE_CMD_LIST:
-		::_LoadStringFromResource(IDS_PRIVATE_PM_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_TWN_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_EXIT_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_GREET_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_GREET2_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_GREET3_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_PROVOKE_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_PROVOKE2_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_PROVOKE3_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_SAVE_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		::_LoadStringFromResource(IDS_PRIVATE_BATTLE_CMD, szCommand);
-		m_pList_Cmds->AddString(szCommand);
-		break;
+	m_pList_Cmds->ResetContent();
+	
+	int indexStart = cmdCat * 200 + 100;  //start index for correct loc in map
+	int indexEnd = indexStart + 200;	  //where to stop iterating
 
-	case TRADE_CMD_LIST:
-		break;
-
-	case PARTY_CMD_LIST:
-		break;
-
-	case CLAN_CMD_LIST:
-		break;
-
-	case KNIGHTS_CMD_LIST:
-		break;
-
-	case GUARDIAN_CMD_LIST:
-		break;
-
-	case KING_CMD_LIST:
-		break;
-
-	case GM_CMD_LIST:
-		break;
-
-	default:
-		m_pList_Cmds = NULL;
-		break;
+	for (std::map<uint16_t, std::string>::iterator it = m_mapCmds.begin(); it != m_mapCmds.end(); ++it) {
+		if (it->first >= indexStart && it->first < indexEnd) {
+			if ((it->first / 100) % 2 != 0) { //if index odd then cmd
+				 m_pList_Cmds->AddString(it->second);
+			}
+			else { //if index even then tooltip
+				 m_pList_Cmds->SetTooltipText(it->second.c_str());
+			}
+		}
 	}
 
 	return true;
 }
 
 bool CUICmdList::ExecuteCommand(uint8_t cmdSel) {
-
+	return true;
 }
