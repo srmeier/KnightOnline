@@ -29,15 +29,14 @@ protected:
 
 	enum iCmd
 	{
-		PRIVATE_CMD_LIST	= 0x00,
-		TRADE_CMD_LIST		= 0x02,
-		PARTY_CMD_LIST		= 0x04,
-		CLAN_CMD_LIST		= 0x06,
-		KNIGHTS_CMD_LIST	= 0x08,
-		GM_CMD_LIST		    = 0x0C,
-		GUARDIAN_CMD_LIST	= 0x0E,
-		KING_CMD_LIST		= 0x0A
-		
+		CMD_LIST_PRIVATE,	
+		CMD_LIST_TRADE,	
+		CMD_LIST_PARTY,
+		CMD_LIST_CLAN,
+		CMD_LIST_KNIGHTS,
+		CMD_LIST_GUARDIAN,
+		CMD_LIST_KING,
+		CMD_LIST_GM
 	};
 
 	std::map<uint16_t, std::string> m_mapCmds;

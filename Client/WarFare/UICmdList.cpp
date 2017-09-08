@@ -253,20 +253,24 @@ bool CUICmdList::CreateCategoryList() {
 
 	m_pList_CmdCat->SetFontColor(0xffffff00); //green
 
-	std::string szCommand;
 	int idCur = 8000;   //Command list strings start at this index
 	int idEnd = 9600;   //Command list strings end at this index
 
+	std::string szCommand;
 	//create map of commands
-	for (int i = 100; idCur < idEnd; idCur++, i++) {
-		if (idCur == 9000) i += 400; // offset and put gm cmds at end of map
-		else if(idCur == 9200) i -= 600;
-		szCommand = "";
+	for (int i = idCur; idCur < idEnd; idCur++, i++) {
+		if (idCur == 9000) 
+			i += 400; // offset and put gm cmds at end of map
+		else if (idCur == 9100) {
+			i -= 500;
+			idCur = 9200;
+		}
+		szCommand.clear();
 		::_LoadStringFromResource(idCur, szCommand);
-		if (szCommand != "") m_mapCmds[i] = szCommand;
+		if (!szCommand.empty() && (i/100) % 2 == 0 ) m_mapCmds[i] = szCommand;
 	}
 
-	UpdateCommandList(PRIVATE_CMD_LIST); //initialize a cmd list for viewing when opening cmd window
+	UpdateCommandList(CMD_LIST_PRIVATE); //initialize a cmd list for viewing when opening cmd window
 
 	return true;
 }
@@ -277,17 +281,18 @@ bool CUICmdList::UpdateCommandList(uint8_t cmdCat ) {
 	
 	m_pList_Cmds->ResetContent();
 	
-	int indexStart = cmdCat * 200 + 100;  //start index for correct loc in map
-	int indexEnd = indexStart + 200;	  //where to stop iterating
+	int indexStart = cmdCat * 200 + 8000;  //start index for correct loc in map
+	int indexEnd = indexStart + 100;	  //where to stop iterating
+	int i = 0;
 
-	for (std::map<uint16_t, std::string>::iterator it = m_mapCmds.begin(); it != m_mapCmds.end(); ++it) {
-		if (it->first >= indexStart && it->first < indexEnd) {
-			if ((it->first / 100) % 2 != 0) { //if index odd then cmd
-				 m_pList_Cmds->AddString(it->second);
-			}
-			else { //if index even then tooltip
-				 m_pList_Cmds->SetTooltipText(it->second.c_str());
-			}
+	for (auto itr = m_mapCmds.begin(); itr != m_mapCmds.end(); ++itr) {
+		if (itr->first >= indexStart && itr->first < indexEnd) {
+				 m_pList_Cmds->AddString(itr->second);
+				 
+				 std::string cmdTip;
+				 ::_LoadStringFromResource(itr->first + 100, cmdTip);
+				 CN3UIString* pChild = (CN3UIString*)m_pList_Cmds->GetChildByIndex(0);
+				 pChild->SetTooltipText(cmdTip.c_str());
 		}
 	}
 
