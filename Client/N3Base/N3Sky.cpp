@@ -85,7 +85,7 @@ void CN3Sky::Init()
 	
 	// 노을 진 경우를 예로 든다....
 	const float fWidth		= 3.5f; // 전면 판의 폭
-	const float fTopY		= 3.5f;//0.5f; // 전면 판의 높이..  노을져서 붉으스름하게 된 부분의 위 높이 - 이 위부터는 하늘이다..
+	const float fTopY		= 0.5f; // 전면 판의 높이..  노을져서 붉으스름하게 된 부분의 위 높이 - 이 위부터는 하늘이다..
 	const float fBottomY	= 0.1f; // 전면 판의 바닥 높이..  노을져서 붉으스름하게 된 부분의 아래 - 이 아래는 순수한 안개색이다..
 	const float fDistance	= 1.5f; // 전면 판의 바닥 길이..
 	const D3DCOLOR color = m_FogColor.GetCurColor();
