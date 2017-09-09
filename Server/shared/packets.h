@@ -146,6 +146,7 @@
 #define WIZ_PACKET17			0x8F
 #define WIZ_DEATH_LIST			0x90
 #define WIZ_CLANPOINTS_BATTLE	0x91 // not sure
+#define WIZ_FOG_DENSITY			0x92 // Controls the Fog density(Sorry for the random place. At some point i believe we'll need to re-organize the packets).
 
 // NOTE(srmeier): testing this debug string functionality
 #define WIZ_DEBUG_STRING_PACKET 0xFE

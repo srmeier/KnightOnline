@@ -381,6 +381,9 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_OBJECT_EVENT:
 		ObjectEvent(pkt);
 		break;
+	case WIZ_FOG_DENSITY:
+		UpdateFogDensity(pkt);
+		break;
 	case WIZ_TIME:
 		SendTime(pkt);
 		break;
@@ -1166,6 +1169,26 @@ void CUser::SetMaxMp()
 		m_sMp = m_iMaxMp;
 		MSpChange( m_sMp );
 	}
+}
+
+/**
+* @brief	Controls the fog density value.
+*/
+void CUser::UpdateFogDensity(Packet & pkt)
+{
+	if (!this->isGM()) return;
+
+	int16_t iValue = pkt.read<int16_t>();
+
+	if (iValue == NULL || iValue < 1 || iValue > 1000)
+	{
+		g_pMain->SendHelpDescription(this, "Using Sample: /fog 37 (Acceptable value from 1 to 1000)");
+		return;
+	}
+
+	Packet result(WIZ_FOG_DENSITY);
+	result << uint16_t(iValue);
+	Send(&result);
 }
 
 /**

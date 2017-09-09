@@ -94,8 +94,8 @@ enum e_ChatCmd
 
 	CMD_VISIBLE, CMD_INVISIBLE, CMD_CLEAN, CMD_RAINING, CMD_SNOWING, CMD_TIME, CMD_CU_COUNT,
 	CMD_NOTICE, CMD_ARREST, CMD_FORBIDCONNECT, CMD_FORBIDCHAT, CMD_PERMITCHAT, CMD_NOTICEALL,
-	CMD_CUTOFF, CMD_VIEW, CMD_UNVIEW, CMD_FORBIDUSER, CMD_SUMMONUSER,
-	CMD_ATTACKDISABLE, CMD_ATTACKENABLE, CMD_PLC,
+	CMD_CUTOFF, CMD_VIEW, CMD_UNVIEW, CMD_FORBIDUSER, CMD_SUMMONUSER, 
+	CMD_ATTACKDISABLE, CMD_ATTACKENABLE, CMD_PLC, CMD_FOG_DENSITY,
 
 	CMD_COUNT,
 	CMD_UNKNOWN = 0xffffffff
@@ -275,7 +275,12 @@ void CGameProcMain::Init()
 	for (uint32_t resource = IDS_CMD_CONFEDERACY; resource <= IDS_CMD_DECLARATION; resource++)
 		::_LoadStringFromResource(resource, s_szCmdMsg[i++]);
 
-	for (uint32_t resource = IDS_CMD_VISIBLE; resource <= IDS_CMD_PLC; resource++)
+	// NOTE(Gilad): If you want to use it, set it to true and add to Texts_us.tbl in Client\Data\Data folder this:
+	// 9021		FOG
+	// Adding flag just because we don't have repo for the tbl's. 
+	bool bLoadFogDensityCmd = false; // Set to true if you want to use the fog command.
+	int iIDS_CMD = bLoadFogDensityCmd ? IDS_CMD_FOG_DENSITY : IDS_CMD_PLC;
+	for (uint32_t resource = IDS_CMD_VISIBLE; resource <= iIDS_CMD; resource++)
 		::_LoadStringFromResource(resource, s_szCmdMsg[i++]);
 
 	s_SndMgr.ReleaseStreamObj(&(CGameProcedure::s_pSnd_BGM));
@@ -846,6 +851,9 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 			return true;
 		case WIZ_DEAD:
 			this->MsgRecv_Dead(pkt);
+			return true;
+		case WIZ_FOG_DENSITY:
+			this->MsgRecv_FogDensity(pkt);
 			return true;
 		case WIZ_TIME:
 			this->MsgRecv_Time(pkt);
@@ -1599,6 +1607,17 @@ void CGameProcMain::MsgSend_Weather(int iWeather, int iPercent)
 	s_pSocket->Send(byBuff, iOffset);
 }
 
+void CGameProcMain::MsgSend_FogDensity(int iValue)
+{
+	uint8_t byBuff[4];
+	int iOffset = 0;
+
+	CAPISocket::MP_AddByte( byBuff, iOffset, WIZ_FOG_DENSITY);
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iValue));
+
+	s_pSocket->Send(byBuff, iOffset);
+}
+
 void CGameProcMain::MsgSend_Time(int iYear, int iMonth, int iDay, int iHour, int iMin)
 {
 	uint8_t byBuff[12];
@@ -2267,6 +2286,13 @@ bool CGameProcMain::MsgRecv_Regen(Packet& pkt)
 	else if(s_pPlayer->Nation()==NATION_ELMORAD) CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_ELMORAD, s_pPlayer->IDNumber(), -1);
 
 	return true;
+}
+
+void CGameProcMain::MsgRecv_FogDensity(Packet& pkt)
+{
+	int16_t iValue = pkt.read<int16_t>();
+
+	s_pEng->CameraGetActive()->m_fFogDensity = iValue * 0.01f;
 }
 
 bool CGameProcMain::MsgRecv_Time(Packet& pkt)
@@ -4272,7 +4298,7 @@ void CGameProcMain::InitZone(int iZone, const __Vector3& vPosPlayer)
 
 		m_bLoadComplete = true; // 로딩 끝남..
 	}
-		
+	
 	// 카메라 세팅..
 	CN3Camera* pCamera		= s_pEng->CameraGetActive();		// 활성화된 카메라 얻기..
 	if(pCamera)
@@ -5612,6 +5638,17 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		{
 			int iPercent = atoi(szCmds[1]);
 			this->MsgSend_Weather(3, iPercent);
+		}
+		break;
+
+		case CMD_FOG_DENSITY:
+		{
+			std::string sValue = szCmds[1];
+			int iValue = 0;
+
+			if (!sValue.empty()) iValue = stoi(sValue);
+			
+			this->MsgSend_FogDensity(iValue);
 		}
 		break;
 

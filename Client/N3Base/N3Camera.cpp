@@ -16,17 +16,17 @@ CN3Camera::CN3Camera()
 	m_dwType |= OBJ_CAMERA;
 
 	m_Data.Release();
-	m_Data.vEye = m_vPos = __Vector3(15,5,-15);
-	m_Data.vAt = m_vAt = __Vector3(0,0,0);
-	m_Data.vUp = m_vScale = __Vector3(0,1,0);
+	m_Data.vEye  = m_vPos = __Vector3(15,5,-15);
+	m_Data.vAt   = m_vAt = __Vector3(0,0,0);
+	m_Data.vUp   = m_vScale = __Vector3(0,1,0);
 
-	m_Data.fFOV = D3DXToRadian(55.0f); // 기본값 55 도
-	m_Data.fNP = 0.7f;
-	m_Data.fFP = 512.0f;
+	m_Data.fFOV  = D3DXToRadian(55.0f); // 기본값 55 도
+	m_Data.fNP   = 0.7f;
+	m_Data.fFP   = 512.0f;
 
-	m_bFogUse = TRUE;
-	m_FogColor = D3DCOLOR_ARGB(255,255,255,255);
-//	m_fFogDensity = 1.0 / m_Data.fFP;
+	m_bFogUse    = TRUE;
+	m_FogColor   = D3DCOLOR_ARGB(255, 255, 255, 255);
+	m_fFogDensity = 0.37f;
 //	m_fFogStart = m_Data.fFP * 0.75f;
 //	m_fFogEnd = m_Data.fFP;
 
@@ -51,7 +51,7 @@ void CN3Camera::Release()
 
 	m_bFogUse = FALSE;
 	m_FogColor = D3DCOLOR_ARGB(255,255,255,255);
-//	m_fFogDensity = 1.0f / m_Data.fFP;
+	m_fFogDensity = 0.37f;
 //	m_fFogStart = m_Data.fFP * 0.75f;
 //	m_fFogEnd = m_Data.fFP;
 
@@ -60,6 +60,7 @@ void CN3Camera::Release()
 	CN3Transform::Release();
 }
 
+// NOTE(Gilad): I don't think we use camera files, do we? as the load function never gets executed.
 bool CN3Camera::Load(HANDLE hFile)
 {
 	CN3Transform::Load(hFile);
@@ -405,13 +406,13 @@ void CN3Camera::Apply()
 
 
 
-	float fFogDensity = 1.0f / (0.37f*m_Data.fFP);//0.33f/23.0f;
+	float fFogDensity = 1.0f / (m_fFogDensity * m_Data.fFP);
 	float fFogStart = m_Data.fFP * 0.75f;
 	float fFogEnd = m_Data.fFP;
 
-	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *(uint32_t*)&fFogStart);
-	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *(uint32_t*)&fFogEnd);
-	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *(uint32_t*)&fFogDensity);
+	s_lpD3DDev->SetRenderState( D3DRS_FOGSTART,   *reinterpret_cast<uint32_t*>(&fFogStart));
+	s_lpD3DDev->SetRenderState( D3DRS_FOGEND,     *reinterpret_cast<uint32_t*>(&fFogEnd));
+	s_lpD3DDev->SetRenderState( D3DRS_FOGDENSITY, *reinterpret_cast<uint32_t*>(&fFogDensity));
 }
 
 void CN3Camera::Render(float fUnitSize)

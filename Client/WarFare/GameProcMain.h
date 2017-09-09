@@ -111,6 +111,7 @@ protected:
 //	bool	MsgRecv_Dead(Packet& pkt);
 	bool	MsgRecv_Regen(Packet& pkt);
 	void	MsgRecv_Corpse(Packet& pkt);
+	void	MsgRecv_FogDensity(Packet& pkt);
 	bool	MsgRecv_Time(Packet& pkt);
 	bool	MsgRecv_Weather(Packet& pkt);
 	
@@ -262,6 +263,7 @@ public:
 
 	void	MsgSend_ObjectEvent(int iEventID, int iNPCID);		// 오브젝트에 설정되어 있는 이벤트 요청..
 	void	MsgSend_Weather(int iWeather, int iPercent);
+	void	MsgSend_FogDensity(int iPercent);
 	void	MsgSend_Time(int iYear, int iMonth, int iDay, int iHour, int iMin);
 	void	MsgSend_Administrator(enum e_SubPacket_Administrator eSP, const std::string& szID);
 	
