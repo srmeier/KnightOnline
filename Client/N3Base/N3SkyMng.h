@@ -182,7 +182,7 @@ public:
 	const char*			CloudTextureFileName(int iIndex);
 #endif
 
-	bool Load(HANDLE hFile);
+	bool Load(HANDLE hFile) override;
 
 #ifdef _N3GAME // 게임이 아닌 툴에서는 필요없다...
 	void ReleaseSound();
@@ -209,7 +209,7 @@ public:
 	D3DCOLOR	GetLightDiffuseColor(int iIndex);
 	D3DCOLOR	GetLightAmbientColor(int iIndex);
 
-	void	Release();
+	void	Release() override;
 	void	Render(); // 하늘만 렌더링..
 	void	RenderWeather(); // 비나 눈등의 날씨 렌더링..
 	void	Tick();

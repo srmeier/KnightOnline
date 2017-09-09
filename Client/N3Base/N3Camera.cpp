@@ -405,7 +405,7 @@ void CN3Camera::Apply()
 
 
 
-	float fFogDensity = 1.0f / (0.25f*m_Data.fFP);//0.33f/23.0f;
+	float fFogDensity = 1.0f / (0.37f*m_Data.fFP);//0.33f/23.0f;
 	float fFogStart = m_Data.fFP * 0.75f;
 	float fFogEnd = m_Data.fFP;
 
