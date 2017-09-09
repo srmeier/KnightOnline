@@ -382,7 +382,7 @@ bool CUser::HandlePacket(Packet & pkt)
 		ObjectEvent(pkt);
 		break;
 	case WIZ_TIME:
-		SendTime();
+		SendTime(pkt);
 		break;
 	case WIZ_WEATHER:
 		UpdateGameWeather(pkt);
@@ -1176,6 +1176,37 @@ void CUser::SendTime()
 	Packet result(WIZ_TIME);
 	result	<< uint16_t(g_pMain->m_sYear) << uint16_t(g_pMain->m_sMonth) << uint16_t(g_pMain->m_sDate)
 		<< uint16_t(g_pMain->m_sHour) << uint16_t(g_pMain->m_sMin);
+	Send(&result);
+}
+
+/**
+* @brief Overloads CUser::SendTime() to change the server time by GM command.
+*/
+void CUser::SendTime(Packet & pkt)
+{
+	if (!this->isGM()) return;
+
+	int16_t year  = pkt.read<int16_t>();
+	int16_t month = pkt.read<int16_t>();
+	int16_t day   = pkt.read<int16_t>();
+	int16_t hour  = pkt.read<int16_t>();
+	int16_t min   = pkt.read<int16_t>();
+
+	if (year  != NULL) g_pMain->m_sYear  = year;
+	if (month != NULL) g_pMain->m_sMonth = month;
+	if (day   != NULL) g_pMain->m_sDate  = day;
+	if (hour  != NULL) g_pMain->m_sHour  = hour;
+	if (min   != NULL) g_pMain->m_sMin   = min;
+
+	if (year == NULL && month == NULL && day == NULL && hour == NULL && min == NULL)
+	{
+		g_pMain->SendHelpDescription(this, "Using Sample: /time 18:00 2002.7.1 (Using the second parameter is not must(date format: Year.Month.Day).");
+		return;
+	}
+
+	Packet result(WIZ_TIME);
+	result << uint16_t(g_pMain->m_sYear) << uint16_t(g_pMain->m_sMonth) << uint16_t(g_pMain->m_sDate)
+		   << uint16_t(g_pMain->m_sHour) << uint16_t(g_pMain->m_sMin);
 	Send(&result);
 }
 

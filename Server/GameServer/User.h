@@ -934,6 +934,7 @@ public:
 	void SetSlotItemValue();
 	void ApplySetItemBonuses(_SET_ITEM * pItem);
 	void SendTime();
+	void SendTime(Packet& pkt);
 	void SendWeather();
 	void SendPremiumInfo();
 	void SetZoneAbilityChange(uint16_t sNewZone);

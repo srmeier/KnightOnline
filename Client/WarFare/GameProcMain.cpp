@@ -1599,17 +1599,17 @@ void CGameProcMain::MsgSend_Weather(int iWeather, int iPercent)
 	s_pSocket->Send(byBuff, iOffset);
 }
 
-void CGameProcMain::MsgSend_Time(int iHour, int iMin)
+void CGameProcMain::MsgSend_Time(int iYear, int iMonth, int iDay, int iHour, int iMin)
 {
 	uint8_t byBuff[12];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_TIME); 
-	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// year
-	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// month
-	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// day
-	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iHour);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iMin);
+	CAPISocket::MP_AddByte( byBuff, iOffset, WIZ_TIME); 
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iYear)  );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iMonth) );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iDay)   );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iHour)  );
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iMin)   );
 
 	s_pSocket->Send(byBuff, iOffset);
 }
@@ -2271,11 +2271,11 @@ bool CGameProcMain::MsgRecv_Regen(Packet& pkt)
 
 bool CGameProcMain::MsgRecv_Time(Packet& pkt)
 {
-	int16_t year	= pkt.read<int16_t>();
+	int16_t year  = pkt.read<int16_t>();
 	int16_t month = pkt.read<int16_t>();
-	int16_t day	= pkt.read<int16_t>();
-	int16_t hour	= pkt.read<int16_t>();
-	int16_t min	= pkt.read<int16_t>();
+	int16_t day	  = pkt.read<int16_t>();
+	int16_t hour  = pkt.read<int16_t>();
+	int16_t min	  = pkt.read<int16_t>();
 
 	ACT_WORLD->SetGameTimeWithSky(year, month, day, hour, min);
 
@@ -5615,11 +5615,41 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		}
 		break;
 
-		case CMD_TIME:
+		// NOTE(Gilad): Can be better of course and using date time libraries, but I'm happy with this. feel free to change.
+		case CMD_TIME: 
 		{
-			int iHour = atoi(szCmds[1]);
-			int iMin = atoi(szCmds[2]);
-			this->MsgSend_Time(iHour, iMin);
+			std::string sTime = szCmds[1];
+			std::string sDate = szCmds[2];
+			int iYear  = 0;
+			int iMonth = 0;
+			int iDay   = 0;
+			int iHour  = 0;
+			int iMin   = 0;
+
+			if (!sTime.empty())
+			{
+				size_t pos = sTime.find(":");
+				iHour = stoi(sTime.substr(0, pos));
+				sTime.erase(0, pos + 1);
+				iMin  = stoi(sTime);
+				if (iMin < 0 || iMin > 60) iMin = 0;
+			}
+
+			if (!sDate.empty())
+			{
+				size_t pos = sDate.find(".");
+				iYear = stoi(sDate.substr(0, pos));
+				sDate.erase(0, pos + 1);
+				pos   = sDate.find(".");
+				iMonth= stoi(sDate.substr(0, pos));
+				sDate.erase(0, pos + 1);
+				iDay  = stoi(sDate);
+
+				if (iMonth < 0 || iMonth > 12) iMonth = 1;
+				if (iDay   < 0 || iDay   > 31) iDay   = 1; // TODO(Gilad): Was too lazy to implement the day for each month logic..please forgive me.
+			}
+
+			this->MsgSend_Time(iYear, iMonth, iDay, iHour, iMin);
 		}
 		break;
 
