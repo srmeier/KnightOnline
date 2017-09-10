@@ -44,13 +44,18 @@ CUIStateBar::CUIStateBar()
 	m_pGroup_MiniMap = NULL;
 	m_pImage_Map = NULL;
 	m_pBtn_ZoomIn = NULL;
-	m_pBtn_ZoomOut = NULL; 
+	m_pBtn_ZoomOut = NULL;
+	m_pBtn_Quest = NULL;
+	m_pBtn_Power = NULL;
+
 	memset(m_vArrows, 0, sizeof(m_vArrows));
+
 	m_fZoom = 6.0f;
 	m_fMapSizeX = 0.0f;
 	m_fMapSizeZ = 0.0f;
 	m_fYawPlayer = 0;
 	m_vPosPlayer.Zero();
+	m_vViewPos.Zero();
 
 	m_pMagic.clear();
 }
@@ -101,13 +106,17 @@ void CUIStateBar::Release()
 	m_pImage_Map = NULL;
 	m_pBtn_ZoomIn = NULL;
 	m_pBtn_ZoomOut = NULL; 
+	m_pBtn_Power = NULL;
+	m_pBtn_Quest = NULL;
+
 	memset(m_vArrows, 0, sizeof(m_vArrows));
+
 	m_fZoom = 6.0f;
 	m_fMapSizeX = 0.0f;
 	m_fMapSizeZ = 0.0f;
 	m_fYawPlayer = 0;
 	m_vPosPlayer.Zero();
-
+	m_vViewPos.Zero();
 }
 
 bool CUIStateBar::Load(HANDLE hFile)
@@ -179,8 +188,11 @@ bool CUIStateBar::Load(HANDLE hFile)
 
 		m_pImage_Map =		(CN3UIImage*)(m_pGroup_MiniMap->GetChildByID("Img_MiniMap"));	__ASSERT(m_pImage_Map, "NULL UI Component!!");
 		m_pBtn_ZoomIn =		(CN3UIButton*)(m_pGroup_MiniMap->GetChildByID("Btn_ZoomIn"));	__ASSERT(m_pBtn_ZoomIn, "NULL UI Component!!");
-		m_pBtn_ZoomOut =	(CN3UIButton*)(m_pGroup_MiniMap->GetChildByID("Btn_ZoomIn"));	__ASSERT(m_pBtn_ZoomOut, "NULL UI Component!!");
+		m_pBtn_ZoomOut =	(CN3UIButton*)(m_pGroup_MiniMap->GetChildByID("Btn_ZoomOut"));	__ASSERT(m_pBtn_ZoomOut, "NULL UI Component!!");
 	}
+
+	m_pBtn_Quest = (CN3UIButton*)(GetChildByID("btn_quest"));
+	m_pBtn_Power = (CN3UIButton*)(GetChildByID("btn_power"));
 
 	return true;
 }
@@ -343,11 +355,14 @@ void CUIStateBar::Render()
 	{
 		info = *it;
 		
-		vPos = m_vPosPlayer - info.vPos;
-//		vPos.x = (float)((int)(fCenterX - m_fZoom * fWidth * (vPos.x / m_fMapSizeX)));
-//		vPos.z = (float)((int)(fCenterY + m_fZoom * fHeight * (vPos.z / m_fMapSizeZ)));
-		vPos.x = fCenterX - m_fZoom * fWidth * (vPos.x / m_fMapSizeX);
-		vPos.y = fCenterY + m_fZoom * fHeight * (vPos.z / m_fMapSizeZ);
+		vPos = m_vViewPos - info.vPos;
+		vPos.x = (float)(int)(fCenterX - m_fZoom * fWidth * (vPos.x / m_fMapSizeX));
+		vPos.y = (float)(int)(fCenterY + m_fZoom * fHeight * (vPos.z / m_fMapSizeZ));
+
+		if (vPos.x < rc.left || vPos.x > rc.right || vPos.y < rc.top || vPos.y > rc.bottom)
+		{
+			continue;
+		}
 
 		vPositions[0].color = info.crType;
 		vPositions[1].color = info.crType;
@@ -383,11 +398,14 @@ void CUIStateBar::Render()
 	{
 		info = *it;
 		
-		vPos = m_vPosPlayer - info.vPos;
-//		vPos.x = (float)((int)(fCenterX - m_fZoom * fWidth * (vPos.x / m_fMapSizeX)));
-//		vPos.z = (float)((int)(fCenterY + m_fZoom * fHeight * (vPos.z / m_fMapSizeZ)));
-		vPos.x = fCenterX - m_fZoom * fWidth * (vPos.x / m_fMapSizeX);
-		vPos.y = fCenterY + m_fZoom * fHeight * (vPos.z / m_fMapSizeZ);
+		vPos = m_vViewPos - info.vPos;
+		vPos.x = (float)(int)(fCenterX - m_fZoom * fWidth * (vPos.x / m_fMapSizeX));
+		vPos.y = (float)(int)(fCenterY + m_fZoom * fHeight * (vPos.z / m_fMapSizeZ));
+
+		if (vPos.x < rc.left || vPos.x > rc.right || vPos.y < rc.top || vPos.y > rc.bottom)
+		{
+			continue;
+		}
 
 		vPositions[0].color = info.crType;
 		vPositions[1].color = info.crType;
@@ -461,32 +479,70 @@ void CUIStateBar::Tick()
 
 void CUIStateBar::TickMiniMap()
 {
-	if(NULL == m_pImage_Map) return;
-	if(m_fMapSizeX <= 0 || m_fMapSizeZ <= 0) return;
-	if(m_vPosPlayer.x < 0 || m_vPosPlayer.x > m_fMapSizeX || m_vPosPlayer.z < 0 || m_vPosPlayer.z > m_fMapSizeZ) return;
+	if (NULL == m_pImage_Map) return;
+	if (m_fMapSizeX <= 0 || m_fMapSizeZ <= 0) return;
 
-	float fOffset = (0.5f/m_fZoom);
-	float fX = (m_vPosPlayer.x / m_fMapSizeX); // 1/16 축적..
-	float fY = (m_vPosPlayer.z / m_fMapSizeZ);
-//	m_pImage_Map->SetUVRect(fX - fOffset, fY - fOffset, fX + fOffset, fY + fOffset);
-	m_pImage_Map->SetUVRect((fX - fOffset), 1.0f - (fY + fOffset), (fX + fOffset), 1.0f - (fY - fOffset));
+	m_vViewPos = m_vPosPlayer;
 
 	RECT rc = m_pImage_Map->GetRegion();
-	float fH = (rc.bottom - rc.top)/30.0f;
+
+	int minimapWidth = rc.right - rc.left;
+	int minimapWidth2 = minimapWidth / 2;
+	int minimapHeight = rc.bottom - rc.top;
+	int minimapHeight2 = minimapHeight / 2;
+
+	float factorX = m_fZoom * minimapWidth / m_fMapSizeX;
+	float factorY = m_fZoom * minimapHeight / m_fMapSizeZ;
+
+	// limit map from scrolling out of bounds
+
+	if (minimapWidth2 > factorX * m_vViewPos.x)
+	{
+		m_vViewPos.x = minimapWidth2 / factorX;
+	}
+
+	if (m_fZoom * minimapWidth - minimapWidth2 < factorX * m_vViewPos.x)
+	{
+		m_vViewPos.x = (m_fZoom * minimapWidth - minimapWidth2) / factorX;
+	}
+
+	if (minimapHeight2 > factorY * m_vViewPos.z)
+	{
+		m_vViewPos.z = minimapHeight2 / factorY;
+	}
+
+	if (m_fZoom * minimapHeight - minimapHeight2 < factorY * m_vViewPos.z)
+	{
+		m_vViewPos.z = (m_fZoom * minimapHeight - minimapHeight2) / factorY;
+	}
+
+	float fOffset = (0.5f / m_fZoom);
+	float fX = (m_vViewPos.x / m_fMapSizeX);
+	float fY = (m_vViewPos.z / m_fMapSizeZ);
+
+	float x1, y1, x2, y2 = 0;
+	x1 = fX - fOffset;
+	y1 = fY + fOffset;
+	x2 = fX + fOffset;
+	y2 = fY - fOffset;
+
+	m_pImage_Map->SetUVRect(x1, 1.0f - y1, x2, 1.0f - y2);
+
+	float fH = (rc.bottom - rc.top) / 30.0f;
 
 	__Matrix44 mtxRot; mtxRot.RotationZ(m_fYawPlayer);
-	mtxRot.PosSet(rc.left + (rc.right - rc.left)/2.0f, rc.top + (rc.bottom - rc.top)/2.0f, 0);
+	mtxRot.PosSet(rc.left + minimapWidth2 + factorX * (m_vPosPlayer.x - m_vViewPos.x), rc.top + minimapHeight2 - factorY * (m_vPosPlayer.z - m_vViewPos.z), 0);
 
 	// 화살표 세팅...
 	m_vArrows[0].Set(0, -fH, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
-	m_vArrows[1].Set(0, fH/2.0f, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
+	m_vArrows[1].Set(0, fH / 2.0f, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
 	m_vArrows[2].Set(-fH, fH, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
 
 	m_vArrows[3] = m_vArrows[0];
 	m_vArrows[4] = m_vArrows[2]; m_vArrows[4].x = -m_vArrows[4].x;
 	m_vArrows[5] = m_vArrows[1];
 
-	for(int i = 0; i < 6; i++) m_vArrows[i] *= mtxRot; // 위치 및 회전 변환..
+	for (int i = 0; i < 6; i++) m_vArrows[i] *= mtxRot; // 위치 및 회전 변환..
 }
 
 void CUIStateBar::TickMagicIcon()
@@ -494,43 +550,54 @@ void CUIStateBar::TickMagicIcon()
 	int cnt = m_pMagic.size();
 	it_MagicImg it = m_pMagic.begin();
 	__TABLE_UPC_SKILL* pRemoveSkill = NULL;
-	for(int i=0;i<cnt;i++,it++)
+
+	for (int i = 0; i < cnt; i++, it++)
 	{
 		__DurationMagicImg* pMagicImg = (*it);
 
 		pMagicImg->fDuration -= CN3Base::s_fSecPerFrm;
-		if(pMagicImg->fDuration<=0.0f)
+
+		if (pMagicImg->fDuration <= 0.0f)
 		{
+			pMagicImg->pIcon->SetVisible(false);
 			pRemoveSkill = CGameBase::s_pTbl_Skill.Find(pMagicImg->dwSkillID);
 			break;
 		}
-		
-		if(pMagicImg->fDuration<0.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<1.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<1.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<2.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<2.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<3.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<3.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<4.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<4.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<5.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<5.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<6.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<6.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<7.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<7.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<8.0f) pMagicImg->pIcon->SetVisible(false);
-		else if(pMagicImg->fDuration<8.5f) pMagicImg->pIcon->SetVisible(true);
-		else if(pMagicImg->fDuration<9.0f) pMagicImg->pIcon->SetVisible(false);		
+		else if (pMagicImg->fDuration <= 10.0f)
+		{
+			pMagicImg->pIcon->SetVisible(pMagicImg->fDuration - (int)pMagicImg->fDuration<0.5f);
+		}
 	}
 
-	if(pRemoveSkill) DelMagic(pRemoveSkill);
+	if (pRemoveSkill) DelMagic(pRemoveSkill);
 }
 
 bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
-	if(dwMsg==UIMSG_ICON_DBLCLK)
+	if (dwMsg == UIMSG_BUTTON_CLICK)
+	{
+		if (pSender == (CN3UIBase*)m_pBtn_ZoomIn)
+		{
+			ZoomSet(m_fZoom*1.1f);
+			return true;
+		}
+		else if (pSender == (CN3UIBase*)m_pBtn_ZoomOut)
+		{
+			ZoomSet(m_fZoom*0.9f);
+			return true;
+		}
+		else if (pSender == (CN3UIBase*)m_pBtn_Quest)
+		{
+			//TODO: Show Leveling Guide UI (Quest Helper)
+			return false;
+		}
+		else if (pSender == (CN3UIBase*)m_pBtn_Power)
+		{
+			//TODO: Launch msgbox with warning message, on confirm -> open store (Web_Browser UI or maybe external?)
+			return false;
+		}
+	}
+	else if(dwMsg==UIMSG_ICON_DBLCLK)
 	{
 		it_MagicImg it, ite;
 		ite = m_pMagic.end();	
@@ -566,6 +633,7 @@ bool CUIStateBar::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 					CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
 					CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..					
+					return true;
 				}
 			}
 		}	
@@ -593,7 +661,18 @@ void CUIStateBar::PositionInfoClear()
 
 void CUIStateBar::ZoomSet(float fZoom)
 {
-	m_fZoom = fZoom;
+	if (fZoom < 1.0f)
+	{
+		m_fZoom = 1.0f;
+	}
+	else if (fZoom > 6.0f)
+	{
+		m_fZoom = 6.0f;
+	}
+	else
+	{
+		m_fZoom = fZoom;
+	}
 }
 
 bool CUIStateBar::ToggleMiniMap()
