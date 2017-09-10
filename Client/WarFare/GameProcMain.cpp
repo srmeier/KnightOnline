@@ -122,8 +122,10 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_iJoinReqClanRequierID = 0;
 
 	//UI
-	m_pUIMsgDlg = new CUIMessageWnd;
+	m_pUIMsgDlg = new CUIMessageWnd();
+	m_pUIMsgDlg2 = new CUIMessageWnd2();
 	m_pUIChatDlg = new CUIChat();
+	m_pUIChatDlg2 = new CUIChat2();
 	m_pUIStateBarAndMiniMap = new CUIStateBar();
 	m_pUIVar = new CUIVarious();
 	m_pUICmd = new CUICmd();
@@ -169,7 +171,9 @@ CGameProcMain::~CGameProcMain()
 
 	//UI
 	delete m_pUIMsgDlg;
+	delete m_pUIMsgDlg2;
 	delete m_pUIChatDlg;
+	delete m_pUIChatDlg2;
 	delete m_pUIStateBarAndMiniMap;
 	delete m_pUIVar;
 	delete m_pUICmd;
@@ -226,7 +230,9 @@ void CGameProcMain::Release()
 void CGameProcMain::ReleaseUIs()
 {
 	m_pUIChatDlg->Release();
+	m_pUIChatDlg2->Release();
 	m_pUIMsgDlg->Release();
+	m_pUIMsgDlg2->Release();
 	m_pUICmd->Release();
 	m_pUIVar->Release();
 	m_pUIStateBarAndMiniMap->Release();
@@ -3714,12 +3720,25 @@ void CGameProcMain::InitUI()
 	m_pUIChatDlg->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
 	m_pUIChatDlg->SetVisibleWithNoSound(true);
 
+	m_pUIChatDlg2->Init(s_pUIMgr);
+	m_pUIChatDlg2->LoadFromFile(pTbl->szChat2);
+	m_pUIChatDlg2->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIChatDlg2->SetVisibleWithNoSound(false);
+
 	m_pUIMsgDlg->Init(s_pUIMgr);
 	m_pUIMsgDlg->LoadFromFile(pTbl->szMsgOutput);
+	CGameProcedure::UIPostData_Read(UI_POST_WND_INFO, m_pUIMsgDlg, rc.right, rc.top);
 	m_pUIMsgDlg->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIMsgDlg->SetVisibleWithNoSound(true);
+
+	m_pUIMsgDlg2->Init(s_pUIMgr);
+	m_pUIMsgDlg2->LoadFromFile(pTbl->szMsgOutput2);
+	m_pUIMsgDlg2->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIMsgDlg2->SetVisibleWithNoSound(false);
 
 	// 채팅창과 메시지 창 위치 맞추기..
 	m_pUIChatDlg->MoveOffset(0, -1);
+	m_pUIMsgDlg->MoveOffset(0, -1);
 
 	m_pUIStateBarAndMiniMap->Init(s_pUIMgr);
 	m_pUIStateBarAndMiniMap->LoadFromFile(pTbl->szStateBar);
@@ -4489,6 +4508,22 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 		std::string szMsg; ::_LoadStringFromResource(IDS_MSG_ATTACK_DISABLE, szMsg);
 		this->MsgOutput(szMsg, 0xffffff00);
 	}
+}
+
+void CGameProcMain::CommandToggleUIChat()
+{
+	bool visible = m_pUIChatDlg->IsVisible();
+
+	m_pUIChatDlg->SetVisibleWithNoSound(!visible);
+	m_pUIChatDlg2->SetVisibleWithNoSound(visible);
+}
+
+void CGameProcMain::CommandToggleUIMsgWnd()
+{
+	bool visible = m_pUIMsgDlg->IsVisible();
+
+	m_pUIMsgDlg->SetVisibleWithNoSound(!visible);
+	m_pUIMsgDlg2->SetVisibleWithNoSound(visible);
 }
 
 bool CGameProcMain::CommandToggleUIState()

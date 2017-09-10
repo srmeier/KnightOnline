@@ -23,6 +23,7 @@ CUIMessageWnd::CUIMessageWnd()
 {
 	m_pChatOut = NULL;
 	m_pScrollbar = NULL;
+	m_pBtn_Fold = NULL;
 	m_iChatLineCount = 0;
 	m_ppUILines = NULL;
 	ZeroMemory(&m_rcChatOutRegion, sizeof(m_rcChatOutRegion));
@@ -54,6 +55,7 @@ void CUIMessageWnd::Release()
 
 	m_pChatOut = NULL;
 	m_pScrollbar = NULL;
+	m_pBtn_Fold = NULL;
 	m_iChatLineCount = 0;
 	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]의 포인터는 메모리 할당되어 있어도 부모가 해제될때 자동으로 해제하므로 안지워야 한다.
 	ZeroMemory(&m_rcChatOutRegion, sizeof(m_rcChatOutRegion));
@@ -95,14 +97,21 @@ BOOL CUIMessageWnd::MoveOffset(int iOffsetX, int iOffsetY)
 	}
 
 	//여기에 채팅창 옮기는 것도 넣어라...
-	RECT rt = CGameProcedure::s_pProcMain->m_pUIChatDlg->GetRegion();
+	/*RECT rt = CGameProcedure::s_pProcMain->m_pUIChatDlg->GetRegion();
 	POINT pt = this->GetPos();
 	if( (pt.x != rt.right) || ( pt.y != rt.top) )
 	{
-		CGameProcedure::s_pProcMain->m_pUIChatDlg->SetPos(pt.x - (rt.right-rt.left), pt.y);
-	}
+	CGameProcedure::s_pProcMain->m_pUIChatDlg->SetPos(pt.x - (rt.right-rt.left), pt.y);
+
+	}*/
+
+	//NOTE: (madpew) Don't stick them together, so chat and info can move freely, but sync with the folded version instead
+	POINT pt = this->GetPos();
+	RECT rc = this->GetRegion();
+	RECT rc2 = CGameProcedure::s_pProcMain->m_pUIMsgDlg2->GetRegion();
+	CGameProcedure::s_pProcMain->m_pUIMsgDlg2->SetPos(pt.x, rc.bottom + (rc2.top - rc2.bottom));
 	
-	return TRUE;
+	return true;
 }
 
 bool CUIMessageWnd::Load(HANDLE hFile)
@@ -110,6 +119,7 @@ bool CUIMessageWnd::Load(HANDLE hFile)
 	if (false == CN3UIBase::Load(hFile)) return false;
 	m_pChatOut = (CN3UIString*)GetChildByID("text_message");	__ASSERT(m_pChatOut, "NULL UI Component!!");
 	m_pScrollbar = (CN3UIScrollBar*)GetChildByID("scroll");		__ASSERT(m_pScrollbar, "NULL UI Component!!");
+	m_pBtn_Fold = (CN3UIBase*)GetChildByID("btn_off");	__ASSERT(m_pBtn_Fold, "NULL UI Component!!");
 
 	m_rcChatOutRegion = m_pChatOut->GetRegion();
 	CreateLines();
@@ -132,8 +142,18 @@ bool CUIMessageWnd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		// 스크롤바에 맞는 채팅 Line 설정
 		int iCurLinePos = m_pScrollbar->GetCurrentPos();
 		SetTopLine(iCurLinePos);
+		return true;
 	}
-	return true;
+	else if (dwMsg == UIMSG_BUTTON_CLICK)
+	{
+		if (pSender == m_pBtn_Fold)
+		{
+			CGameProcedure::s_pProcMain->CommandToggleUIMsgWnd();
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void CUIMessageWnd::CreateLines()
@@ -412,4 +432,40 @@ bool CUIMessageWnd::OnKeyPress(int iKey)
 	}
 
 	return CN3UIBase::OnKeyPress(iKey);
+}
+
+// UI MESSAGE WND 2 (FOLDED)
+
+CUIMessageWnd2::CUIMessageWnd2()
+{
+	m_pBtn_Fold = NULL;
+}
+
+bool CUIMessageWnd2::Load(HANDLE hFile)
+{
+	if (false == CN3UIBase::Load(hFile)) return false;
+	m_pBtn_Fold = GetChildByID("btn_on");			__ASSERT(m_pBtn_Fold, "NULL UI Component!!");
+	return true;
+}
+
+bool CUIMessageWnd2::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
+{
+	if (NULL == pSender) return false;
+
+	if (dwMsg == UIMSG_BUTTON_CLICK)
+	{
+		if (pSender == m_pBtn_Fold)
+		{
+			CGameProcedure::s_pProcMain->CommandToggleUIMsgWnd();
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void CUIMessageWnd2::Release()
+{
+	CN3UIBase::Release();
+	m_pBtn_Fold = NULL;
 }

@@ -54,6 +54,7 @@ protected:
 	CN3UIBase*		m_pBtn_KnightsOrGuild;
 	CN3UIBase*		m_pBtn_Shout;
 	CN3UIBase*		m_pBtn_Check;
+	CN3UIBase*		m_pBtn_Fold;
 
 	enum e_ChatMode	m_eChatMode;
 
@@ -111,6 +112,21 @@ public:
 
 	CUIChat();
 	virtual ~CUIChat();
+};
+
+
+class CUIChat2 : public CN3UIBase
+{
+protected:
+	CN3UIBase*		m_pBtn_Fold;
+
+protected:
+public:
+	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
+	virtual void	Release();
+	virtual bool	Load(HANDLE hFile);
+
+	CUIChat2();
 };
 
 #endif // !defined(AFX_UICHAT_H__2CFECA0D_EA38_4900_86BB_BAFD4D5EE6F7__INCLUDED_)

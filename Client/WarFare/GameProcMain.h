@@ -30,6 +30,11 @@ public:
 	class CUIVarious*			m_pUIVar;				// 캐릭터 상태창, 기사단 관리 등이 페이지로 들어간 다용도 UI
 	class CUIChat*				m_pUIChatDlg;			// 채팅 입출력 대화상자..
 	class CUIMessageWnd*		m_pUIMsgDlg;			// 게임 메시지 출력 상자.
+	
+	// Folded UI
+	class CUIChat2*			m_pUIChatDlg2;
+	class CUIMessageWnd2*	m_pUIMsgDlg2;
+
 	class CUIStateBar*			m_pUIStateBarAndMiniMap;	// mp,hp,exp, minimap....
 	class CUICmd*				m_pUICmd;				// 왼쪽 하단의 명령버튼 창..
 	class CUITargetBar*			m_pUITargetBar;			// 타겟 상태창..
@@ -213,6 +218,9 @@ public:
 	const __InfoPartyOrForce*	PartyOrForceConditionGet(bool& bIAmLeader, bool& bIAmMember, int& iMemberIndex, class CPlayerBase*& pTarget);
 	void						TargetSelect(int iID, bool bMustAlive);
 	void						TargetSelect(class CPlayerNPC* pTarget);
+
+	void	CommandToggleUIChat();
+	void	CommandToggleUIMsgWnd();
 
 	bool	CommandToggleUIInventory();
 	bool	CommandToggleUIState();

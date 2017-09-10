@@ -327,7 +327,8 @@ void CGameProcedure::StaticMemberRelease()
 		UIPostData_Write(UI_POST_WND_CHAT, s_pProcMain->m_pUIChatDlg);
 		UIPostData_Write(UI_POST_WND_HOTKEY, s_pProcMain->m_pUIHotKeyDlg);
 		UIPostData_Write(UI_POST_WND_HELP, s_pProcMain->m_pUIHelp);
-//		UIPostData_Write(UI_POST_WND_PARTY, s_pProcMain->m_pUIPartyOrForce);
+		UIPostData_Write(UI_POST_WND_PARTY, s_pProcMain->m_pUIPartyOrForce);
+		UIPostData_Write(UI_POST_WND_INFO, s_pProcMain->m_pUIMsgDlg);
 	}
 
 	// 각 프로시저들
