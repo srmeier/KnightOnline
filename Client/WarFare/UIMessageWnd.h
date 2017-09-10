@@ -18,6 +18,7 @@ class CUIMessageWnd : public CN3UIBase
 protected:
 	CN3UIString*	m_pChatOut;		// 채팅이 출력되는 UIString 참조포인터(실제 m_Child로 관리), 글씨체와 초기 영역만 참조한다.
 	CN3UIScrollBar* m_pScrollbar;	// scrollbar 참조포인터(실제 m_Child로 관리)
+	CN3UIBase*		m_pBtn_Fold;
 
 	ChatList		m_ChatBuffer;		// 채팅 packet기준으로 된 buffer
 	ChatList		m_LineBuffer;		// Line 기준으로 된 buffer
@@ -47,4 +48,15 @@ public:
 	virtual ~CUIMessageWnd();
 };
 
+class CUIMessageWnd2 : public CN3UIBase
+{
+protected:
+	CN3UIBase* m_pBtn_Fold;
+public:
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
+	void	Release();
+	bool	Load(HANDLE hFile);
+
+	CUIMessageWnd2();
+};
 #endif // !defined(AFX_UIMESSAGEWND_H__F825624B_A51E_4889_9ADC_BEBF022D010B__INCLUDED_)
