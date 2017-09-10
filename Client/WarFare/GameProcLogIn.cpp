@@ -110,6 +110,13 @@ void CGameProcLogIn::Init()
 	char szIniPath[_MAX_PATH] = "";
 	lstrcpy(szIniPath, CN3Base::PathGet().c_str());
 	lstrcat(szIniPath, "Server.Ini");
+
+	char szRegistrationSite[_MAX_PATH];
+	memset(szRegistrationSite, 0, sizeof(szRegistrationSite));
+
+	GetPrivateProfileString("Join", "Registration site", "", szRegistrationSite, _MAX_PATH, szIniPath);
+	m_szRegistrationSite = std::string(szRegistrationSite);
+
 	int iServerCount = GetPrivateProfileInt("Server", "Count", 0, szIniPath);
 
 	char szIPs[256][32]; memset(szIPs, 0, sizeof(szIPs));
