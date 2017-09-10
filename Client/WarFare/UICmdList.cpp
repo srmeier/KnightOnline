@@ -289,10 +289,10 @@ bool CUICmdList::UpdateCommandList(uint8_t cmdCat ) {
 		if (itr->first >= indexStart && itr->first < indexEnd) {
 				 m_pList_Cmds->AddString(itr->second);
 				 
+				 CN3UIString* pChild = m_pList_Cmds->GetChildStrFromList(itr->second);
 				 std::string cmdTip;
 				 ::_LoadStringFromResource(itr->first + 100, cmdTip);
-				 CN3UIString* pChild = (CN3UIString*)m_pList_Cmds->GetChildByIndex(0);
-				 pChild->SetTooltipText(cmdTip.c_str());
+				 if(pChild != NULL) pChild->SetTooltipText(cmdTip.c_str());
 		}
 	}
 

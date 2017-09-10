@@ -33,7 +33,7 @@ public:
 	class CUIStateBar*			m_pUIStateBarAndMiniMap;	// mp,hp,exp, minimap....
 	class CUICmd*				m_pUICmd;				// 왼쪽 하단의 명령버튼 창..
 	class CUITargetBar*			m_pUITargetBar;			// 타겟 상태창..
-	class CUICmdList*			m_pUICmdListDlg;	    //SavvyNik CmdList insansiation*/
+	class CUICmdList*			m_pUICmdListDlg;	    
 	class CUITransactionDlg*	m_pUITransactionDlg;
 	class CUIDroppedItemDlg*	m_pUIDroppedItemDlg;
 	class CSubProcPerTrade*		m_pSubProcPerTrade;
