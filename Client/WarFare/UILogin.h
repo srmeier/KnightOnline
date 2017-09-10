@@ -45,6 +45,7 @@ protected:
 	CN3UIButton* m_pBtn_Connect;
 	CN3UIButton* m_pBtn_Cancel;
 	CN3UIButton* m_pBtn_Option;
+	CN3UIButton* m_pBtn_Join;
 
 	CN3UIBase*	m_pGroup_ServerList;
 	CN3UIBase*	m_pGroup_LogIn;
@@ -61,8 +62,6 @@ protected:
 	bool	m_bOpenningNow; // 위에서 아래로 스르륵...열려야 한다면..
 	float 	m_fMoveDelta;
 	bool	m_bLogIn; // 로그인 중복 방지..
-
-
 
 public:
 	void SetRequestedLogIn(bool bLogIn) { m_bLogIn = bLogIn; }
