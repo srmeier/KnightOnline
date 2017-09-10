@@ -21,7 +21,8 @@ public:
 	class CN3Camera*	m_pCamera;
 	class CN3Light*		m_pLights[3];
 
-	bool m_bLogIn; // 로그인 중복 방지..
+	bool			m_bLogIn; // 로그인 중복 방지..
+	std::string		m_szRegistrationSite;
 
 public:
 	void	MsgRecv_GameServerGroupList(Packet& pkt);
