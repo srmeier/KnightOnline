@@ -26,7 +26,7 @@ enum e_LogInClassification { LIC_KNIGHTONLINE = 0, LIC_MGAME = 1, LIC_DAUM = 2 }
 #define		UI_POST_WND_HOTKEY		"Wnd_Hotkey"
 #define		UI_POST_WND_PARTY		"Wnd_Party"
 #define		UI_POST_WND_HELP		"Wnd_Help"
-#define		UI_POST_WND_INFO		"Wnd_Info"
+#define		UI_POST_WND_INFO		"Wnd_Msg"
 
 const int MAX_MSG_BOX = 4;
 
