@@ -35,6 +35,7 @@
 #include "UIPartyOrForce.h"
 #include "UISkillTreeDlg.h"
 #include "UICmdList.h"
+#include "UICmdEdit.h"
 #include "UIHotKeyDlg.h"
 #include "UIClassChange.h"
 #include "UINpcEvent.h"
@@ -141,6 +142,7 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_pUIPartyOrForce = new CUIPartyOrForce();
 	m_pUISkillTreeDlg = new CUISkillTreeDlg();
 	m_pUICmdListDlg = new CUICmdList();
+	m_pUICmdEditDlg = new CUICmdEdit();
 	m_pUIHotKeyDlg = new CUIHotKeyDlg();
 	m_pUINpcTalk = new CUINpcTalk();
 	m_pUIKnightsOp = new CUIKnightsOperation();			// 기사단 리스트 보기, 가입, 등...
@@ -188,6 +190,7 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIPartyOrForce;
 	delete m_pUISkillTreeDlg;
 	delete m_pUICmdListDlg;
+	delete m_pUICmdEditDlg;
 	delete m_pUIHotKeyDlg;
 	delete m_pUINpcTalk;
 	delete m_pUIKnightsOp;
@@ -243,6 +246,7 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIPartyOrForce->Release();
 	m_pUISkillTreeDlg->Release();
 	m_pUICmdListDlg->Release();
+	m_pUICmdEditDlg->Release();
 	m_pUIHotKeyDlg->Release();
 	m_pUINpcTalk->Release();
 //	m_pUITradeList->Release();
@@ -3915,6 +3919,15 @@ void CGameProcMain::InitUI()
 	m_pUICmdListDlg->SetUIType(UI_TYPE_BASE);
 	m_pUICmdListDlg->SetState(UI_STATE_COMMON_NONE);
 	m_pUICmdListDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
+
+	m_pUICmdEditDlg->Init(s_pUIMgr);
+	m_pUICmdEditDlg->LoadFromFile(pTbl->szCmdEdit);
+	m_pUICmdEditDlg->SetVisibleWithNoSound(false);
+	rc = m_pUICmdEditDlg->GetRegion();
+	iX = (iW - (rc.right - rc.left)) / 2;
+	iY = (iH - (rc.bottom - rc.top)) / 2;
+	m_pUICmdEditDlg->SetPos(iX, iY);
+	m_pUICmdEditDlg->SetStyle(UISTYLE_USER_MOVE_HIDE);
 	
 	// default ui pos ..	해상도가 변경되면.. 상대 위치를 구해야 한다.. by ecli666
 	rc = m_pUIStateBarAndMiniMap->GetRegion();
@@ -4626,6 +4639,20 @@ bool CGameProcMain::CommandToggleCmdList()
 	else
 	{
 		m_pUICmdListDlg->Close();
+	}
+
+	return bNeedOpen;
+}
+
+bool CGameProcMain::OpenCmdEdit(std::string msg)
+{
+
+	bool bNeedOpen = !(m_pUICmdEditDlg->IsVisible());
+
+	if (bNeedOpen)
+	{
+		s_pUIMgr->SetFocusedUI(m_pUICmdEditDlg);
+		m_pUICmdEditDlg->Open(msg);
 	}
 
 	return bNeedOpen;

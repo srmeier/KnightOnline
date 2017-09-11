@@ -12,10 +12,13 @@
 #include "N3UIBase.h"
 #include "N3UIButton.h"
 #include "N3UIList.h"
+#include "N3UIEdit.h"
 
 class CUICmdList : public CN3UIBase
 {
 protected:
+
+	class CUICmdEdit*	m_pUICmdEdit;
 
 	CN3UIButton*	m_pBtn_cancel;
 	CN3UIList*		m_pList_CmdCat;
@@ -44,6 +47,7 @@ protected:
 public:
 	bool OnKeyPress(int iKey);
 	void Open();
+	void OpenEdit();
 	void Close();
 	void SetVisible(bool bVisible);
 	bool CreateCategoryList();

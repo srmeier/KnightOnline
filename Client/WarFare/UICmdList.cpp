@@ -39,6 +39,7 @@ CUICmdList::CUICmdList()
 	m_pBtn_cancel = NULL;
 	m_pList_CmdCat = NULL;
 	m_pList_Cmds = NULL;
+	m_pUICmdEdit = NULL;
 }
 
 CUICmdList::~CUICmdList()
@@ -172,17 +173,26 @@ bool CUICmdList::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 	if (dwMsg == UIMSG_BUTTON_CLICK)
 	{
-		if (pSender->m_szID == "btn_cancel")
+		if (pSender == m_pBtn_cancel) {
 			SetVisible(false);
+			return true;
+		}
 	}
-	else if (pSender == m_pList_CmdCat) {
-		uint8_t iSel = m_pList_CmdCat->GetCurSel();
-		UpdateCommandList(iSel);
+	else if (dwMsg == UIMSG_LIST_SELCHANGE) {
+		if (pSender == m_pList_CmdCat) {
+			uint8_t iSel = m_pList_CmdCat->GetCurSel();
+			UpdateCommandList(iSel);
+			return true;
+		}
 	}
-	else if (pSender == m_pList_Cmds) {
-		uint8_t iSel = m_pList_Cmds->GetCurSel();
-		ExecuteCommand(iSel);
+	else if (dwMsg == UIMSG_LIST_DBLCLK) {
+		if (pSender == m_pList_Cmds) {
+			uint8_t iSel = m_pList_Cmds->GetCurSel();
+			ExecuteCommand(iSel);
+			return true;
+		}
 	}
+	
 	
 	return false;
 }
@@ -293,6 +303,9 @@ bool CUICmdList::UpdateCommandList(uint8_t cmdCat ) {
 				 std::string cmdTip;
 				 ::_LoadStringFromResource(itr->first + 100, cmdTip);
 				 if(pChild != NULL) pChild->SetTooltipText(cmdTip.c_str());
+				 //SavvyNik tooltip is being loaded in but the rectangle 
+				 //that it shows on is too small. Need to figure out where
+				 //this is being set.
 		}
 	}
 
@@ -300,5 +313,17 @@ bool CUICmdList::UpdateCommandList(uint8_t cmdCat ) {
 }
 
 bool CUICmdList::ExecuteCommand(uint8_t cmdSel) {
+
+	std::string command;
+	m_pList_Cmds->GetString(cmdSel, command);
+
+	if (command == "PM") {
+		CGameProcedure::s_pProcMain->OpenCmdEdit(command);
+	}
+
+	command = '/' + command;
+	CGameProcedure::s_pProcMain->ParseChattingCommand(command);
+
 	return true;
+
 }
