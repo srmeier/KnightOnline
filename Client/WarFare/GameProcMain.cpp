@@ -34,6 +34,8 @@
 #include "UIPerTradeDlg.h"
 #include "UIPartyOrForce.h"
 #include "UISkillTreeDlg.h"
+#include "UICmdList.h"
+#include "UICmdEdit.h"
 #include "UIHotKeyDlg.h"
 #include "UIClassChange.h"
 #include "UINpcEvent.h"
@@ -122,8 +124,10 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_iJoinReqClanRequierID = 0;
 
 	//UI
-	m_pUIMsgDlg = new CUIMessageWnd;
+	m_pUIMsgDlg = new CUIMessageWnd();
+	m_pUIMsgDlg2 = new CUIMessageWnd2();
 	m_pUIChatDlg = new CUIChat();
+	m_pUIChatDlg2 = new CUIChat2();
 	m_pUIStateBarAndMiniMap = new CUIStateBar();
 	m_pUIVar = new CUIVarious();
 	m_pUICmd = new CUICmd();
@@ -139,6 +143,8 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_pUIInventory = new CUIInventory();
 	m_pUIPartyOrForce = new CUIPartyOrForce();
 	m_pUISkillTreeDlg = new CUISkillTreeDlg();
+	m_pUICmdListDlg = new CUICmdList();
+	m_pUICmdEditDlg = new CUICmdEdit();
 	m_pUIHotKeyDlg = new CUIHotKeyDlg();
 	m_pUINpcTalk = new CUINpcTalk();
 	m_pUIKnightsOp = new CUIKnightsOperation();			// 기사단 리스트 보기, 가입, 등...
@@ -169,7 +175,9 @@ CGameProcMain::~CGameProcMain()
 
 	//UI
 	delete m_pUIMsgDlg;
+	delete m_pUIMsgDlg2;
 	delete m_pUIChatDlg;
+	delete m_pUIChatDlg2;
 	delete m_pUIStateBarAndMiniMap;
 	delete m_pUIVar;
 	delete m_pUICmd;
@@ -185,6 +193,8 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIInventory;
 	delete m_pUIPartyOrForce;
 	delete m_pUISkillTreeDlg;
+	delete m_pUICmdListDlg;
+	delete m_pUICmdEditDlg;
 	delete m_pUIHotKeyDlg;
 	delete m_pUINpcTalk;
 	delete m_pUIKnightsOp;
@@ -226,7 +236,9 @@ void CGameProcMain::Release()
 void CGameProcMain::ReleaseUIs()
 {
 	m_pUIChatDlg->Release();
+	m_pUIChatDlg2->Release();
 	m_pUIMsgDlg->Release();
+	m_pUIMsgDlg2->Release();
 	m_pUICmd->Release();
 	m_pUIVar->Release();
 	m_pUIStateBarAndMiniMap->Release();
@@ -239,6 +251,8 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIRepairTooltip->Release();
 	m_pUIPartyOrForce->Release();
 	m_pUISkillTreeDlg->Release();
+	m_pUICmdListDlg->Release();
+	m_pUICmdEditDlg->Release();
 	m_pUIHotKeyDlg->Release();
 	m_pUINpcTalk->Release();
 //	m_pUITradeList->Release();
@@ -1254,6 +1268,7 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_INVENTORY)) this->CommandToggleUIInventory();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_STATE)) this->CommandToggleUIState();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SKILL)) this->CommandToggleUISkillTree();
+		if (s_pLocalInput->IsKeyPress(KM_TOGGLE_CMDLIST)) this->CommandToggleCmdList();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SITDOWN)) this->CommandSitDown(true, !s_pPlayer->m_bSitDown);
 
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_HELP)) 
@@ -3740,12 +3755,25 @@ void CGameProcMain::InitUI()
 	m_pUIChatDlg->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
 	m_pUIChatDlg->SetVisibleWithNoSound(true);
 
+	m_pUIChatDlg2->Init(s_pUIMgr);
+	m_pUIChatDlg2->LoadFromFile(pTbl->szChat2);
+	m_pUIChatDlg2->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIChatDlg2->SetVisibleWithNoSound(false);
+
 	m_pUIMsgDlg->Init(s_pUIMgr);
 	m_pUIMsgDlg->LoadFromFile(pTbl->szMsgOutput);
+	CGameProcedure::UIPostData_Read(UI_POST_WND_INFO, m_pUIMsgDlg, rc.right, rc.top);
 	m_pUIMsgDlg->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIMsgDlg->SetVisibleWithNoSound(true);
+
+	m_pUIMsgDlg2->Init(s_pUIMgr);
+	m_pUIMsgDlg2->LoadFromFile(pTbl->szMsgOutput2);
+	m_pUIMsgDlg2->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIMsgDlg2->SetVisibleWithNoSound(false);
 
 	// 채팅창과 메시지 창 위치 맞추기..
 	m_pUIChatDlg->MoveOffset(0, -1);
+	m_pUIMsgDlg->MoveOffset(0, -1);
 
 	m_pUIStateBarAndMiniMap->Init(s_pUIMgr);
 	m_pUIStateBarAndMiniMap->LoadFromFile(pTbl->szStateBar);
@@ -3927,6 +3955,24 @@ void CGameProcMain::InitUI()
 	m_pUISkillTreeDlg->SetState(UI_STATE_COMMON_NONE);
 	m_pUISkillTreeDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
 
+
+	m_pUICmdListDlg->Init(s_pUIMgr);
+	m_pUICmdListDlg->LoadFromFile(pTbl->szCmdList);
+	m_pUICmdListDlg->SetVisibleWithNoSound(false);
+	rc = m_pUICmdListDlg->GetRegion();
+	m_pUICmdListDlg->SetPos(iW - (rc.right - rc.left), 10);
+	m_pUICmdListDlg->SetUIType(UI_TYPE_BASE);
+	m_pUICmdListDlg->SetState(UI_STATE_COMMON_NONE);
+	m_pUICmdListDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
+
+	m_pUICmdEditDlg->Init(s_pUIMgr);
+	m_pUICmdEditDlg->LoadFromFile(pTbl->szCmdEdit);
+	m_pUICmdEditDlg->SetVisibleWithNoSound(false);
+	rc = m_pUICmdEditDlg->GetRegion();
+	iX = (iW - (rc.right - rc.left)) / 2;
+	iY = (iH - (rc.bottom - rc.top)) / 2;
+	m_pUICmdEditDlg->SetPos(iX, iY);
+	m_pUICmdEditDlg->SetStyle(UISTYLE_USER_MOVE_HIDE);
 	
 	// default ui pos ..	해상도가 변경되면.. 상대 위치를 구해야 한다.. by ecli666
 	rc = m_pUIStateBarAndMiniMap->GetRegion();
@@ -4517,6 +4563,22 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 	}
 }
 
+void CGameProcMain::CommandToggleUIChat()
+{
+	bool visible = m_pUIChatDlg->IsVisible();
+
+	m_pUIChatDlg->SetVisibleWithNoSound(!visible);
+	m_pUIChatDlg2->SetVisibleWithNoSound(visible);
+}
+
+void CGameProcMain::CommandToggleUIMsgWnd()
+{
+	bool visible = m_pUIMsgDlg->IsVisible();
+
+	m_pUIMsgDlg->SetVisibleWithNoSound(!visible);
+	m_pUIMsgDlg2->SetVisibleWithNoSound(visible);
+}
+
 bool CGameProcMain::CommandToggleUIState()
 {
 	bool bNeedOpen = !(m_pUIVar->IsVisible());
@@ -4613,6 +4675,48 @@ bool CGameProcMain::CommandToggleUISkillTree()
 bool CGameProcMain::CommandToggleUIMiniMap()
 {
 	return m_pUIStateBarAndMiniMap->ToggleMiniMap();
+}
+
+bool CGameProcMain::CommandToggleCmdList()
+{
+	
+	bool bNeedOpen = !(m_pUICmdListDlg->IsVisible());
+
+	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
+		return bNeedOpen;
+
+	if (bNeedOpen)
+	{
+		if (m_pUIInventory->IsVisible())
+			m_pUIInventory->Close();
+		if (m_pUITransactionDlg->IsVisible())
+			m_pUITransactionDlg->LeaveTransactionState();
+		if (m_pUIWareHouseDlg->IsVisible())
+			m_pUIWareHouseDlg->LeaveWareHouseState();
+
+		s_pUIMgr->SetFocusedUI(m_pUICmdListDlg);
+		m_pUICmdListDlg->Open();
+	}
+	else
+	{
+		m_pUICmdListDlg->Close();
+	}
+
+	return bNeedOpen;
+}
+
+bool CGameProcMain::OpenCmdEdit(std::string msg)
+{
+
+	bool bNeedOpen = !(m_pUICmdEditDlg->IsVisible());
+
+	if (bNeedOpen)
+	{
+		s_pUIMgr->SetFocusedUI(m_pUICmdEditDlg);
+		m_pUICmdEditDlg->Open(msg);
+	}
+
+	return bNeedOpen;
 }
 
 void CGameProcMain::CommandCameraChange() // 카메라 시점 바꾸기..
@@ -7638,4 +7742,34 @@ void CGameProcMain::MsgRecv_ClassPromotion(Packet& pkt)
 	}
 
 	s_pFX->TriggerBundle(socketID, -1, FXID_CLASS_CHANGE, socketID, -1);
+}
+
+
+void CGameProcMain::NoahTrade(uint8_t bType, uint32_t dwGoldOffset, uint32_t dwGold)
+{
+	char szBuf[256] = "";
+	std::string szMsg;
+
+	switch (bType)
+	{
+	case N3_SP_NOAH_GET:
+		::_LoadStringFromResource(IDS_TRADE_COIN_RECV, szMsg);
+		sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
+		MsgOutput(szBuf, 0xff6565ff);
+		break;
+
+	case N3_SP_NOAH_LOST:
+		::_LoadStringFromResource(IDS_TRADE_COIN_PAID, szMsg);
+		sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
+		MsgOutput(szBuf, 0xffff3b3b);
+		break;
+	}
+
+	//s_pPlayer->m_InfoExt.iGold = dwGold;
+	if (m_pUIInventory->IsVisible())
+		m_pUIInventory->GoldUpdate();
+	if (m_pUITransactionDlg->IsVisible())
+		m_pUITransactionDlg->GoldUpdate();
+	if (m_pSubProcPerTrade && m_pSubProcPerTrade->m_pUIPerTradeDlg->IsVisible())
+		m_pSubProcPerTrade->m_pUIPerTradeDlg->GoldUpdate();
 }

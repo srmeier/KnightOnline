@@ -49,6 +49,7 @@ public:
 	bool	SetString(size_t iIndex, const std::string& szString);
 	size_t	GetCurSel() { return m_iCurSel; }
 	bool	SetCurSel(size_t iIndex) { if (iIndex >= m_ListString.size()) m_iCurSel = ~((size_t)0); else m_iCurSel = iIndex; return true; }
+	CN3UIString*	GetChildStrFromList(std::string str);
 	int		GetCount() { return m_ListString.size(); }
 
 	int		GetScrollPos();

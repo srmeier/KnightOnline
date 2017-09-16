@@ -40,7 +40,7 @@ CUIChat::CUIChat()													//생성자 와 파괴자에서 Release안 불러 주나??
 	m_pBtn_KnightsOrGuild = NULL;
 	m_pBtn_Shout = NULL;
 	m_pNoticeTitle = NULL;
-
+	m_pBtn_Fold = NULL;
 	m_pEdit = NULL;													//son, chat_in
 
 	m_bChatNormal	= true;
@@ -123,6 +123,7 @@ void CUIChat::Release()
 	m_pBtn_PartyOrForce = NULL;
 	m_pBtn_KnightsOrGuild = NULL;
 	m_pBtn_Shout = NULL;
+	m_pBtn_Fold = NULL;
 }
 
 bool CUIChat::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
@@ -138,21 +139,23 @@ bool CUIChat::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		else if(pSender == m_pBtn_PartyOrForce) eCM = N3_CHAT_PARTY;
 		else if(pSender == m_pBtn_KnightsOrGuild) eCM = N3_CHAT_CLAN;
 		else if(pSender == m_pBtn_Shout) eCM = N3_CHAT_SHOUT;
-
-		if(pSender == m_pBtn_Check)
-			ChatListenEnable();
+		else if(pSender == m_pBtn_Check) ChatListenEnable();
+		else if (pSender == m_pBtn_Fold)
+		{
+			CGameProcedure::s_pProcMain->CommandToggleUIChat();
+			return true;
+		}
 
 		if(N3_CHAT_UNKNOWN != eCM)
 			this->ChangeChattingMode(eCM); // 채팅 모드가 바뀌면..
 	}
-
 	else if (dwMsg == UIMSG_SCROLLBAR_POS)
 	{
 		// 스크롤바에 맞는 채팅 Line 설정
 		int iCurLinePos = m_pScrollbar->GetCurrentPos();
 		SetTopLine(iCurLinePos);
+		return true;
 	}
-	
 	//son, chat_in
 	else if (dwMsg == UIMSG_EDIT_RETURN)
 	{													
@@ -209,6 +212,7 @@ bool CUIChat::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 //		::SetWindowText(s_hWndEdit, "");
 
 		SetEnableKillFocus(true);
+		return true;
 	}
 	//son, chat_in
 
@@ -274,7 +278,8 @@ bool CUIChat::Load(HANDLE hFile)
 	//m_pBtn_KnightsOrGuild = GetChildByID("btn_knights_guild");	__ASSERT(m_pBtn_KnightsOrGuild, "NULL UI Component!!");
 	m_pBtn_KnightsOrGuild	= GetChildByID("btn_clan");				__ASSERT(m_pBtn_KnightsOrGuild, "NULL UI Component!!");
 	m_pBtn_Shout			= GetChildByID("btn_shout");			__ASSERT(m_pBtn_Shout, "NULL UI Component!!");
-	m_pBtn_Check			= GetChildByID("btn_check_normal");			__ASSERT(m_pBtn_Check, "NULL UI Component!!");
+	m_pBtn_Check			= GetChildByID("btn_check_normal");		__ASSERT(m_pBtn_Check, "NULL UI Component!!");
+	m_pBtn_Fold				= GetChildByID("btn_off");				__ASSERT(m_pBtn_Fold, "NULL UI Component!!");
 
 	this->ChangeChattingMode(N3_CHAT_NORMAL); // 보통 채팅 모드이다..
 
@@ -638,17 +643,23 @@ BOOL CUIChat::MoveOffset(int iOffsetX, int iOffsetY)
 		pCUI->MoveOffset(iOffsetX, iOffsetY);
 	}
 
-	if(CGameProcedure::s_pProcMain->m_pUIMsgDlg)
+	/*if(CGameProcedure::s_pProcMain->m_pUIMsgDlg)
 	{
-		POINT pt = CGameProcedure::s_pProcMain->m_pUIMsgDlg->GetPos();
-		RECT rt = this->GetRegion();
-		if( (rt.right != pt.x) || (rt.top != pt.y) )
-		{
-			CGameProcedure::s_pProcMain->m_pUIMsgDlg->SetPos(rt.right, rt.top);
-		}
+	POINT pt = CGameProcedure::s_pProcMain->m_pUIMsgDlg->GetPos();
+	RECT rt = this->GetRegion();
+	if( (rt.right != pt.x) || (rt.top != pt.y) )
+	{
+	CGameProcedure::s_pProcMain->m_pUIMsgDlg->SetPos(rt.right, rt.top);
 	}
+	}*/
 
-	return TRUE;
+	//NOTE: (madpew) Don't stick them together, so chat and info can move freely, but sync with the folded version instead
+	POINT pt = this->GetPos();
+	RECT rc = this->GetRegion();
+	RECT rc2 = CGameProcedure::s_pProcMain->m_pUIChatDlg2->GetRegion();
+	CGameProcedure::s_pProcMain->m_pUIChatDlg2->SetPos(pt.x, rc.bottom + (rc2.top - rc2.bottom));
+
+	return true;
 }
 
 void CUIChat::SetRegion(const RECT& Rect)
@@ -802,4 +813,41 @@ void CUIChat::SetNoticeTitle(const std::string& szString, D3DCOLOR color)
 		m_pNoticeTitle->SetString(szString);
 		m_pNoticeTitle->SetColor(color);
 	}
+}
+
+
+// CHAT 2 (FOLDED)
+
+CUIChat2::CUIChat2()
+{
+	m_pBtn_Fold = NULL;
+}
+
+bool CUIChat2::Load(HANDLE hFile)
+{
+	if (false == CN3UIBase::Load(hFile)) return false;
+	m_pBtn_Fold = GetChildByID("btn_on");			__ASSERT(m_pBtn_Fold, "NULL UI Component!!");
+	return true;
+}
+
+bool CUIChat2::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
+{
+	if (NULL == pSender) return false;
+
+	if (dwMsg == UIMSG_BUTTON_CLICK)
+	{
+		if (pSender == m_pBtn_Fold)
+		{
+			CGameProcedure::s_pProcMain->CommandToggleUIChat();
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void CUIChat2::Release()
+{
+	CN3UIBase::Release();
+	m_pBtn_Fold = NULL;
 }
