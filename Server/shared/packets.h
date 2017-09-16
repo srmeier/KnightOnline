@@ -147,10 +147,16 @@
 #define WIZ_DEATH_LIST			0x90
 #define WIZ_CLANPOINTS_BATTLE	0x91 // not sure
 
-// NOTE(srmeier): testing this debug string functionality
-#define WIZ_DEBUG_STRING_PACKET 0xFE
 
-#define WIZ_TEST_PACKET			0xFF	// Test packet
+
+////////////////////////////////////////////////////////////////
+// Custom Packets 0xCA to 0xFD
+////////////////////////////////////////////////////////////////
+#define WIZ_FOG_DENSITY			0xCA // Controls the Fog density.
+#define WIZ_DEBUG_STRING_PACKET 0xDA // NOTE(srmeier): testing this debug string functionality
+#define WIZ_TEST_PACKET			0xFF // Test packet
+
+
 
 enum CoinChangeOpcodes
 {

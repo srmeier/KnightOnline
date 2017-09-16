@@ -777,23 +777,30 @@ bool CPlayerMySelf::IsAttackableTarget(CPlayerBase* pTarget, bool bMesureAngle)
 	return true;
 }
 
+// TODO(Gilad): It'd probably be better to refactor this one as it modifies the m_fYNext variable which is part of the PlayerBase
+// class and when the packet is sent to the game server, it reads the next Y coordinates to climb the terrain height.
+// Why? Because we just checking if collision detected and it should just check if collision detected and not modify any global members
+// or pointers. It would be more partical to check the whole thing if authority = GM when more code is implemented here in the future.
+// Another option would be to send a packet to the server validate the collision through the game server and let the game server check 
+// against wall hacking.
 bool CPlayerMySelf::CheckCollision()
 {
-	float fSpeed = m_fMoveSpeedPerSec * CN3Base::s_fSecPerFrm; // 현재 움직이는 속도..프레임에 따라 계산되어 나오는 속도이다. 
-	if(0 == fSpeed) return false; // 움직이지 않으면 충돌체크 하지 않는다.
+	float fSpeed = m_fMoveSpeedPerSec * CN3Base::s_fSecPerFrm; // The speed at which the current moving speed is calculated.
+	if(0 == fSpeed) return false; // If it does not move, do not check collision.
 
 	__Vector3 vPos = this->Position();
 
-	__Vector3 vDir(0,0,1); // 회전값을 구하고..
+	__Vector3 vDir(0,0,1); // Find the rotation value ...
 	__Matrix44 mtxRot = this->Rotation(); 
-	vDir *= mtxRot; // 회전에 따른 방향을 구하고.
+	vDir *= mtxRot; // Find the direction of rotation.
 	if(fSpeed < 0)
 	{
 		fSpeed *= -1.0f;
 		vDir *= -1.0f;
 	}
 	__Vector3 vPosNext = vPos + (vDir * fSpeed); // 다음 위치 계산..
-	if ( false == ACT_WORLD->IsInTerrainWithTerrain(vPosNext.x, vPosNext.z, vPos) )
+	if (m_InfoBase.iAuthority != AUTHORITY_MANAGER && 
+		false == ACT_WORLD->IsInTerrainWithTerrain(vPosNext.x, vPosNext.z, vPos) )
 		return true; // 경계 안에 있지 않으면..
 
 
@@ -829,7 +836,7 @@ bool CPlayerMySelf::CheckCollision()
 			if(fMag < fHeightSum) // 거리가 키의 합보다 작으면..
 			{
 				float fMag2 = (pUPC->Position() - vPosNext).Magnitude(); // 다음위치가 더 가까우면.
-				if(fMag2 < fMag)
+				if(m_InfoBase.iAuthority != AUTHORITY_MANAGER && fMag2 < fMag)
 					return true;
 			}
 		}
@@ -874,7 +881,7 @@ bool CPlayerMySelf::CheckCollision()
 			if(fMag < fHeightSum) // 거리가 키의 합보다 작으면..
 			{
 				float fMag2 = (pNPC->Position() - vPosNext).Magnitude(); // 다음위치가 더 가까우면.
-				if(fMag2 < fMag)
+				if(m_InfoBase.iAuthority != AUTHORITY_MANAGER && fMag2 < fMag)
 					return true;
 			}
 		}
@@ -888,7 +895,7 @@ bool CPlayerMySelf::CheckCollision()
 	else
 		vPos2.y += 0.6f; // 캐릭터 발높이에서 0.6 미터 높이 위에서 충돌체크한다.	이 함수 내에서 쓰는 0.6은 PvsMgr의 m_fVolumeOffs.. ^^
 	bool bColShape = ACT_WORLD->CheckCollisionWithShape(vPos2, vDir, fSpeed, &vCol, &vNormal);
-	if( bColShape) return true; // 오브젝트와 충돌값이 있으면 
+	if(m_InfoBase.iAuthority != AUTHORITY_MANAGER && bColShape) return true; // 오브젝트와 충돌값이 있으면 
 
 	////////////////////////////////////////////////////////////////////////////////
 	// 지면과 오브젝트의 높이값 구하기..
@@ -900,7 +907,8 @@ bool CPlayerMySelf::CheckCollision()
 	{
 		if(fYClimb > fYTerrain && fYClimb < vPosNext.y + ((30.0f/CN3Base::s_fFrmPerSec) * 0.5f)) // 충돌 체크 오브젝트 높이값이 있고 지형보다 높을 경우만 높이값 적용
 		{
-			if(vNormal.Magnitude() > MAX_INCLINE_CLIMB && vNormal.Dot(vDir) <= 0.0f) // 경사 체크..
+			if(m_InfoBase.iAuthority != AUTHORITY_MANAGER && 
+				vNormal.Magnitude() > MAX_INCLINE_CLIMB && vNormal.Dot(vDir) <= 0.0f) // 경사 체크..
 			{
 				return true;
 			}
@@ -909,7 +917,8 @@ bool CPlayerMySelf::CheckCollision()
 		else
 		{
 			// 지형의 경사가 45 도 이하인지 체크
-			if(true == ACT_WORLD->CheckInclineWithTerrain(vPosNext, vDir, MAX_INCLINE_CLIMB))
+			if(m_InfoBase.iAuthority != AUTHORITY_MANAGER && 
+				true == ACT_WORLD->CheckInclineWithTerrain(vPosNext, vDir, MAX_INCLINE_CLIMB))
 			{
 				return true;
 			}
@@ -926,7 +935,7 @@ bool CPlayerMySelf::CheckCollision()
 		if ((m_fYNext > vPos.y + 0.6f) || (m_fYNext < vPos.y - 0.6f*2.0f))
 		{
 			m_fYNext = vPos.y;
-			return true;
+			if (m_InfoBase.iAuthority != AUTHORITY_MANAGER) return true;
 		}
 	}
 
@@ -1052,7 +1061,7 @@ float CPlayerMySelf::MoveSpeedCalculationAndCheckCollision() // 속도를 구하고 그
 	{
 		if(CGameProcedure::s_pProcMain)
 			CGameProcedure::s_pProcMain->CommandMove(MD_STOP, true);
-//		m_fMoveSpeedPerSec = 0;
+		m_fMoveSpeedPerSec = 0;
 	}
 
 	// 방향을 구해서.. 기울기에 따라 다른 속도를 적용

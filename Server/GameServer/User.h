@@ -933,7 +933,9 @@ public:
 	void LevelChange(uint8_t level, bool bLevelUp = true);
 	void SetSlotItemValue();
 	void ApplySetItemBonuses(_SET_ITEM * pItem);
+	void UpdateFogDensity(Packet& pkt);
 	void SendTime();
+	void SendTime(Packet& pkt);
 	void SendWeather();
 	void SendPremiumInfo();
 	void SetZoneAbilityChange(uint16_t sNewZone);

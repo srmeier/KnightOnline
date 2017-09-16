@@ -2,6 +2,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include <io.h>
+#include <iomanip>
+#include <sstream>
 
 //#include "stdafx.h"
 #include "resource.h"
@@ -96,8 +98,8 @@ enum e_ChatCmd
 
 	CMD_VISIBLE, CMD_INVISIBLE, CMD_CLEAN, CMD_RAINING, CMD_SNOWING, CMD_TIME, CMD_CU_COUNT,
 	CMD_NOTICE, CMD_ARREST, CMD_FORBIDCONNECT, CMD_FORBIDCHAT, CMD_PERMITCHAT, CMD_NOTICEALL,
-	CMD_CUTOFF, CMD_VIEW, CMD_UNVIEW, CMD_FORBIDUSER, CMD_SUMMONUSER,
-	CMD_ATTACKDISABLE, CMD_ATTACKENABLE, CMD_PLC,
+	CMD_CUTOFF, CMD_VIEW, CMD_UNVIEW, CMD_FORBIDUSER, CMD_SUMMONUSER, 
+	CMD_ATTACKDISABLE, CMD_ATTACKENABLE, CMD_PLC, CMD_FOG_DENSITY,
 
 	CMD_COUNT,
 	CMD_UNKNOWN = 0xffffffff
@@ -289,7 +291,12 @@ void CGameProcMain::Init()
 	for (uint32_t resource = IDS_CMD_CONFEDERACY; resource <= IDS_CMD_DECLARATION; resource++)
 		::_LoadStringFromResource(resource, s_szCmdMsg[i++]);
 
-	for (uint32_t resource = IDS_CMD_VISIBLE; resource <= IDS_CMD_PLC; resource++)
+	// NOTE(Gilad): If you want to use it, set it to true and add to Texts_us.tbl in Client\Data\Data folder this:
+	// 9021		FOG
+	// Adding flag just because we don't have repo for the tbl's. 
+	bool bLoadFogDensityCmd = false; // Set to true if you want to use the fog command.
+	int iIDS_CMD = bLoadFogDensityCmd ? IDS_CMD_FOG_DENSITY : IDS_CMD_PLC;
+	for (uint32_t resource = IDS_CMD_VISIBLE; resource <= iIDS_CMD; resource++)
 		::_LoadStringFromResource(resource, s_szCmdMsg[i++]);
 
 	s_SndMgr.ReleaseStreamObj(&(CGameProcedure::s_pSnd_BGM));
@@ -860,6 +867,9 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 			return true;
 		case WIZ_DEAD:
 			this->MsgRecv_Dead(pkt);
+			return true;
+		case WIZ_FOG_DENSITY:
+			this->MsgRecv_FogDensity(pkt);
 			return true;
 		case WIZ_TIME:
 			this->MsgRecv_Time(pkt);
@@ -1614,17 +1624,28 @@ void CGameProcMain::MsgSend_Weather(int iWeather, int iPercent)
 	s_pSocket->Send(byBuff, iOffset);
 }
 
-void CGameProcMain::MsgSend_Time(int iHour, int iMin)
+void CGameProcMain::MsgSend_FogDensity(int iValue)
+{
+	uint8_t byBuff[4];
+	int iOffset = 0;
+
+	CAPISocket::MP_AddByte( byBuff, iOffset, WIZ_FOG_DENSITY);
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iValue));
+
+	s_pSocket->Send(byBuff, iOffset);
+}
+
+void CGameProcMain::MsgSend_Time(int iYear, int iMonth, int iDay, int iHour, int iMin)
 {
 	uint8_t byBuff[12];
 	int iOffset=0;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_TIME); 
-	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// year
-	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// month
-	CAPISocket::MP_AddShort(byBuff, iOffset, 0);		// day
-	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iHour);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iMin);
+	CAPISocket::MP_AddByte( byBuff, iOffset, WIZ_TIME); 
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iYear)  );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iMonth) );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iDay)   );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iHour)  );
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iMin)   );
 
 	s_pSocket->Send(byBuff, iOffset);
 }
@@ -2284,15 +2305,22 @@ bool CGameProcMain::MsgRecv_Regen(Packet& pkt)
 	return true;
 }
 
+void CGameProcMain::MsgRecv_FogDensity(Packet& pkt)
+{
+	int16_t iValue = pkt.read<int16_t>();
+
+	s_pEng->CameraGetActive()->SetFogDensity(iValue * 0.01f);
+}
+
 bool CGameProcMain::MsgRecv_Time(Packet& pkt)
 {
-	int16_t year	= pkt.read<int16_t>();
-	int16_t month = pkt.read<int16_t>();
-	int16_t day	= pkt.read<int16_t>();
-	int16_t hour	= pkt.read<int16_t>();
-	int16_t min	= pkt.read<int16_t>();
+	uint16_t iYear  = pkt.read<uint16_t>();
+	uint16_t iMonth = pkt.read<uint16_t>();
+	uint16_t iDay   = pkt.read<uint16_t>();
+	uint16_t iHour  = pkt.read<uint16_t>();
+	uint16_t iMin   = pkt.read<uint16_t>();
 
-	ACT_WORLD->SetGameTimeWithSky(year, month, day, hour, min);
+	ACT_WORLD->SetGameTimeWithSky(iYear, iMonth, iDay, iHour, iMin);
 
 	return true;
 }
@@ -4318,7 +4346,7 @@ void CGameProcMain::InitZone(int iZone, const __Vector3& vPosPlayer)
 
 		m_bLoadComplete = true; // 로딩 끝남..
 	}
-		
+	
 	// 카메라 세팅..
 	CN3Camera* pCamera		= s_pEng->CameraGetActive();		// 활성화된 카메라 얻기..
 	if(pCamera)
@@ -5503,13 +5531,13 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 
 	if(0 == lstrcmp(szCmds[0], "goto"))
 	{
-		float fX = (float)atof(szCmds[1]);
-		float fZ = (float)atof(szCmds[2]);
+		float fX = static_cast<float>(atof(szCmds[1]));
+		float fZ = static_cast<float>(atof(szCmds[2]));
 		
 		int iOffset = 0;
 		CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WARP);
-		CAPISocket::MP_AddWord(byBuff, iOffset, (uint16_t)(fX * 10));
-		CAPISocket::MP_AddWord(byBuff, iOffset, (uint16_t)(fZ * 10));
+		CAPISocket::MP_AddWord(byBuff, iOffset, static_cast<uint16_t>(fX * 10));
+		CAPISocket::MP_AddWord(byBuff, iOffset, static_cast<uint16_t>(fZ * 10));
 
 		s_pSocket->Send(byBuff, iOffset);
 	}
@@ -5519,7 +5547,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 	{
 		if(0 == lstrcmpi(szCmds[0], s_szCmdMsg[i].c_str()))
 		{
-			eCmd = (e_ChatCmd)i;
+			eCmd = static_cast<e_ChatCmd>(i);
 			break;
 		}
 	}
@@ -5719,11 +5747,71 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		}
 		break;
 
+		case CMD_FOG_DENSITY:
+		{
+			std::string sValue = szCmds[1];
+			int iValue = 0;
+
+			if (!sValue.empty()) iValue = stoi(sValue);
+			
+			this->MsgSend_FogDensity(iValue);
+		}
+		break;
+
 		case CMD_TIME:
 		{
-			int iHour = atoi(szCmds[1]);
-			int iMin = atoi(szCmds[2]);
-			this->MsgSend_Time(iHour, iMin);
+			std::string sTime = szCmds[1];
+
+			// Commenting this out as we don't need to update date when using the /time command.
+			// But leaving the code below to support date too in case someone will need to use it in the future for whatever reason.
+			std::string sDate /*= szCmds[2]*/; 
+
+			int iYear = 0, iMonth = 0, iDay = 0, iHour = 0, iMin = 0;
+
+			tm tm = {};
+			std::istringstream i_sStream;
+
+			if (!sTime.empty())
+			{
+				std::string sDateTime = sTime;
+				const char * c_pFormat = sTime.length() <= 2 ? "%H" : "%H:%M";
+
+				if (!sDate.empty() && !sTime.empty())
+				{
+					sDateTime = sDate + " " + sTime;
+					c_pFormat = "%Y-%m-%d %H:%M";
+				}
+
+				i_sStream.str(sDateTime);
+				i_sStream >> std::get_time(&tm, c_pFormat);
+
+				if (!i_sStream.fail()) 
+				{
+					iHour = tm.tm_hour;
+					iMin  = tm.tm_min;
+					if (!sDate.empty())
+					{
+						iYear  = tm.tm_year + 1900;
+						iMonth = tm.tm_mon + 1;
+						iDay   = tm.tm_mday;
+
+						// Logic for max days in a month.
+						int iDOM; // Days Of the Month.
+						if (iMonth == 4 || iMonth == 6 || iMonth == 9 || iMonth == 11)  iDOM = 30;
+						else if (iMonth == 2)
+						{
+							if (iYear % 4 == 0 && iYear % 100 != 0 || iYear % 400 == 0) iDOM = 29;
+							else iDOM = 28;
+						}
+						else iDOM = 31;
+
+						if (iDay < 1 || iDay > iDOM)
+							iYear = 0, iMonth = 0, iDay = 0; // Set to 0 so the server won't modify the date.
+					}
+				}
+			}
+
+			this->MsgSend_Time(iYear, iMonth, iDay, iHour, iMin);
 		}
 		break;
 
@@ -5797,6 +5885,9 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		default:
 			break;
 	} // end of switch(eCmd)
+
+	 // Clears out the strings from the szCmds so we won't re-send same values on the next command execution.
+	memset(szCmds, 0, sizeof(szCmds)); 
 }
 
 void CGameProcMain::UpdateUI_PartyOrForceButtons()

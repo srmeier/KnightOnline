@@ -31,7 +31,7 @@ CGameServerDlg::CGameServerDlg()
 
 	m_sYear = now.GetYear();
 	m_sMonth = now.GetMonth();
-	m_sDate = now.GetDay();
+	m_sDay = now.GetDay();
 	m_sHour = now.GetHour();
 	m_sMin = now.GetMinute();
 
@@ -1140,7 +1140,7 @@ void CGameServerDlg::UpdateGameTime()
 	}
 
 	// Every day
-	if (m_sDate != now.GetDay())
+	if (m_sDay != now.GetDay())
 	{
 
 	}
@@ -1155,12 +1155,12 @@ void CGameServerDlg::UpdateGameTime()
 	// Update the server time
 	m_sYear = now.GetYear();
 	m_sMonth = now.GetMonth();
-	m_sDate = now.GetDay();
+	m_sDay = now.GetDay();
 	m_sHour = now.GetHour();
-	m_sMin = now.GetMinute();
+	m_sMin = now.GetMinute(); 
 
 	Packet result(AG_TIME_WEATHER);
-	result << m_sYear << m_sMonth << m_sDate << m_sHour << m_sMin << m_byWeather << m_sWeatherAmount;
+	result << m_sYear << m_sMonth << m_sDay << m_sHour << m_sMin << m_byWeather << m_sWeatherAmount;
 	Send_AIServer(&result);
 }
 
