@@ -5885,6 +5885,9 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		default:
 			break;
 	} // end of switch(eCmd)
+
+	 // Clears out the strings from the szCmds so we won't re-send same values on the next command execution.
+	memset(szCmds, 0, sizeof(szCmds)); 
 }
 
 void CGameProcMain::UpdateUI_PartyOrForceButtons()
