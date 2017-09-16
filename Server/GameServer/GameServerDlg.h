@@ -411,7 +411,7 @@ public:
 	bool	m_bPointCheckFlag;		// AI������ �������� NPC������ �������� (true:������ ����, false:������ ���� ����)
 	int16_t   m_sErrorSocketCount;  // �̻����� ���ÿ�
 
-	uint16_t m_sYear, m_sMonth, m_sDate, m_sHour, m_sMin;
+	uint16_t m_sYear, m_sMonth, m_sDay, m_sHour, m_sMin;
 	uint8_t m_byWeather;
 	uint16_t m_sWeatherAmount;
 	int m_nCastleCapture;

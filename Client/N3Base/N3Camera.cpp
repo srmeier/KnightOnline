@@ -60,7 +60,7 @@ void CN3Camera::Release()
 	CN3Transform::Release();
 }
 
-// NOTE(Gilad): I don't think we use camera files, do we? as the load function never gets executed.
+// TODO: Currently not supported, but on versions 12xx clients it's used as .n3camera files.
 bool CN3Camera::Load(HANDLE hFile)
 {
 	CN3Transform::Load(hFile);

@@ -2,6 +2,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include <io.h>
+#include <iomanip>
+#include <sstream>
 
 //#include "stdafx.h"
 #include "resource.h"
@@ -1639,11 +1641,11 @@ void CGameProcMain::MsgSend_Time(int iYear, int iMonth, int iDay, int iHour, int
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte( byBuff, iOffset, WIZ_TIME); 
-	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iYear)  );	
-	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iMonth) );	
-	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iDay)   );	
-	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iHour)  );
-	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<int16_t>(iMin)   );
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iYear)  );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iMonth) );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iDay)   );	
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iHour)  );
+	CAPISocket::MP_AddShort(byBuff, iOffset, static_cast<uint16_t>(iMin)   );
 
 	s_pSocket->Send(byBuff, iOffset);
 }
@@ -2307,18 +2309,18 @@ void CGameProcMain::MsgRecv_FogDensity(Packet& pkt)
 {
 	int16_t iValue = pkt.read<int16_t>();
 
-	s_pEng->CameraGetActive()->m_fFogDensity = iValue * 0.01f;
+	s_pEng->CameraGetActive()->SetFogDensity(iValue * 0.01f);
 }
 
 bool CGameProcMain::MsgRecv_Time(Packet& pkt)
 {
-	int16_t year  = pkt.read<int16_t>();
-	int16_t month = pkt.read<int16_t>();
-	int16_t day	  = pkt.read<int16_t>();
-	int16_t hour  = pkt.read<int16_t>();
-	int16_t min	  = pkt.read<int16_t>();
+	uint16_t iYear  = pkt.read<uint16_t>();
+	uint16_t iMonth = pkt.read<uint16_t>();
+	uint16_t iDay   = pkt.read<uint16_t>();
+	uint16_t iHour  = pkt.read<uint16_t>();
+	uint16_t iMin   = pkt.read<uint16_t>();
 
-	ACT_WORLD->SetGameTimeWithSky(year, month, day, hour, min);
+	ACT_WORLD->SetGameTimeWithSky(iYear, iMonth, iDay, iHour, iMin);
 
 	return true;
 }
@@ -5529,13 +5531,13 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 
 	if(0 == lstrcmp(szCmds[0], "goto"))
 	{
-		float fX = (float)atof(szCmds[1]);
-		float fZ = (float)atof(szCmds[2]);
+		float fX = static_cast<float>(atof(szCmds[1]));
+		float fZ = static_cast<float>(atof(szCmds[2]));
 		
 		int iOffset = 0;
 		CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WARP);
-		CAPISocket::MP_AddWord(byBuff, iOffset, (uint16_t)(fX * 10));
-		CAPISocket::MP_AddWord(byBuff, iOffset, (uint16_t)(fZ * 10));
+		CAPISocket::MP_AddWord(byBuff, iOffset, static_cast<uint16_t>(fX * 10));
+		CAPISocket::MP_AddWord(byBuff, iOffset, static_cast<uint16_t>(fZ * 10));
 
 		s_pSocket->Send(byBuff, iOffset);
 	}
@@ -5545,7 +5547,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 	{
 		if(0 == lstrcmpi(szCmds[0], s_szCmdMsg[i].c_str()))
 		{
-			eCmd = (e_ChatCmd)i;
+			eCmd = static_cast<e_ChatCmd>(i);
 			break;
 		}
 	}
@@ -5756,38 +5758,57 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		}
 		break;
 
-		// NOTE(Gilad): Can be better of course and using date time libraries, but I'm happy with this. feel free to change.
-		case CMD_TIME: 
+		case CMD_TIME:
 		{
 			std::string sTime = szCmds[1];
-			std::string sDate = szCmds[2];
-			int iYear  = 0;
-			int iMonth = 0;
-			int iDay   = 0;
-			int iHour  = 0;
-			int iMin   = 0;
+
+			// Commenting this out as we don't need to update date when using the /time command.
+			// But leaving the code below to support date too in case someone will need to use it in the future for whatever reason.
+			std::string sDate /*= szCmds[2]*/; 
+
+			int iYear = 0, iMonth = 0, iDay = 0, iHour = 0, iMin = 0;
+
+			tm tm = {};
+			std::istringstream i_sStream;
 
 			if (!sTime.empty())
 			{
-				size_t pos = sTime.find(":");
-				iHour = stoi(sTime.substr(0, pos));
-				sTime.erase(0, pos + 1);
-				iMin  = stoi(sTime);
-				if (iMin < 0 || iMin > 60) iMin = 0;
-			}
+				std::string sDateTime = sTime;
+				const char * c_pFormat = sTime.length() <= 2 ? "%H" : "%H:%M";
 
-			if (!sDate.empty())
-			{
-				size_t pos = sDate.find(".");
-				iYear = stoi(sDate.substr(0, pos));
-				sDate.erase(0, pos + 1);
-				pos   = sDate.find(".");
-				iMonth= stoi(sDate.substr(0, pos));
-				sDate.erase(0, pos + 1);
-				iDay  = stoi(sDate);
+				if (!sDate.empty() && !sTime.empty())
+				{
+					sDateTime = sDate + " " + sTime;
+					c_pFormat = "%Y-%m-%d %H:%M";
+				}
 
-				if (iMonth < 0 || iMonth > 12) iMonth = 1;
-				if (iDay   < 0 || iDay   > 31) iDay   = 1; // TODO(Gilad): Was too lazy to implement the day for each month logic..please forgive me.
+				i_sStream.str(sDateTime);
+				i_sStream >> std::get_time(&tm, c_pFormat);
+
+				if (!i_sStream.fail()) 
+				{
+					iHour = tm.tm_hour;
+					iMin  = tm.tm_min;
+					if (!sDate.empty())
+					{
+						iYear  = tm.tm_year + 1900;
+						iMonth = tm.tm_mon + 1;
+						iDay   = tm.tm_mday;
+
+						// Logic for max days in a month.
+						int iDOM; // Days Of the Month.
+						if (iMonth == 4 || iMonth == 6 || iMonth == 9 || iMonth == 11)  iDOM = 30;
+						else if (iMonth == 2)
+						{
+							if (iYear % 4 == 0 && iYear % 100 != 0 || iYear % 400 == 0) iDOM = 29;
+							else iDOM = 28;
+						}
+						else iDOM = 31;
+
+						if (iDay < 1 || iDay > iDOM)
+							iYear = 0, iMonth = 0, iDay = 0; // Set to 0 so the server won't modify the date.
+					}
+				}
 			}
 
 			this->MsgSend_Time(iYear, iMonth, iDay, iHour, iMin);

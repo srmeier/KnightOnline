@@ -1173,6 +1173,8 @@ void CUser::SetMaxMp()
 
 /**
 * @brief	Controls the fog density value.
+* 
+* @param	pkt	The packet.
 */
 void CUser::UpdateFogDensity(Packet & pkt)
 {
@@ -1180,7 +1182,7 @@ void CUser::UpdateFogDensity(Packet & pkt)
 
 	int16_t iValue = pkt.read<int16_t>();
 
-	if (iValue == NULL || iValue < 1 || iValue > 1000)
+	if (iValue < 1 || iValue > 1000)
 	{
 		g_pMain->SendHelpDescription(this, "Using Sample: /fog 37 (Acceptable value from 1 to 1000)");
 		return;
@@ -1197,40 +1199,64 @@ void CUser::UpdateFogDensity(Packet & pkt)
 void CUser::SendTime()
 {
 	Packet result(WIZ_TIME);
-	result	<< uint16_t(g_pMain->m_sYear) << uint16_t(g_pMain->m_sMonth) << uint16_t(g_pMain->m_sDate)
-		<< uint16_t(g_pMain->m_sHour) << uint16_t(g_pMain->m_sMin);
+	result	<< uint16_t(g_pMain->m_sYear) << uint16_t(g_pMain->m_sMonth) << uint16_t(g_pMain->m_sDay)
+		    << uint16_t(g_pMain->m_sHour) << uint16_t(g_pMain->m_sMin);
 	Send(&result);
 }
 
 /**
-* @brief Overloads CUser::SendTime() to change the server time by GM command.
+* @brief	Overloads CUser::SendTime() to change the server time by GM command.
+*			NOTE: The client can support date, but currenty commented out in CGameProcMain::ParseChattingCommand->CMD_TIME.
+*			So if you need it to support for whatever reason, just remove the comment from:
+*			std::string sDate = szCmds[2];
+* 
+* @param	pkt	The packet.
 */
 void CUser::SendTime(Packet & pkt)
 {
 	if (!this->isGM()) return;
+ 
+	uint16_t iYear  = pkt.read<uint16_t>();
+	uint16_t iMonth = pkt.read<uint16_t>();
+	uint16_t iDay   = pkt.read<uint16_t>();
+	uint16_t iHour  = pkt.read<uint16_t>();
+	uint16_t iMin   = pkt.read<uint16_t>();
 
-	int16_t year  = pkt.read<int16_t>();
-	int16_t month = pkt.read<int16_t>();
-	int16_t day   = pkt.read<int16_t>();
-	int16_t hour  = pkt.read<int16_t>();
-	int16_t min   = pkt.read<int16_t>();
-
-	if (year  != NULL) g_pMain->m_sYear  = year;
-	if (month != NULL) g_pMain->m_sMonth = month;
-	if (day   != NULL) g_pMain->m_sDate  = day;
-	if (hour  != NULL) g_pMain->m_sHour  = hour;
-	if (min   != NULL) g_pMain->m_sMin   = min;
-
-	if (year == NULL && month == NULL && day == NULL && hour == NULL && min == NULL)
+	if (iHour == 0)
 	{
-		g_pMain->SendHelpDescription(this, "Using Sample: /time 18:00 2002.7.1 (Using the second parameter is not must(date format: Year.Month.Day).");
+		//g_pMain->SendHelpDescription(this, "Using Sample: /time 18:23 2002-7-15 (Using the second parameter is not must(date format: Y.M.D).");
+		g_pMain->SendHelpDescription(this, "Using Sample: /time 18:23");
 		return;
 	}
 
+	g_pMain->m_sHour = iHour;
+	g_pMain->m_sMin  = iMin;
+
+	// Let the user know that we modified it.
+	auto delmiter = iMin >= 0 && iMin < 10 ? ":0" : ":";
+	g_pMain->SendHelpDescription(this, "Current Modified Time: " + to_string(g_pMain->m_sHour) + delmiter +
+																   to_string(g_pMain->m_sMin) );
+	
+
+	if (iYear != 0 && iMonth != 0 && iDay != 0)
+	{
+		g_pMain->m_sYear  = iYear;
+		g_pMain->m_sMonth = iMonth;
+		g_pMain->m_sDay   = iDay;
+
+		g_pMain->SendHelpDescription(this, "Current Modified Date(Y-M-D): " + to_string(g_pMain->m_sYear)  + "-" +
+																			  to_string(g_pMain->m_sMonth) + "-" +
+																			  to_string(g_pMain->m_sDay));
+	}
+
+
 	Packet result(WIZ_TIME);
-	result << uint16_t(g_pMain->m_sYear) << uint16_t(g_pMain->m_sMonth) << uint16_t(g_pMain->m_sDate)
+	result << uint16_t(g_pMain->m_sYear) << uint16_t(g_pMain->m_sMonth) << uint16_t(g_pMain->m_sDay)
 		   << uint16_t(g_pMain->m_sHour) << uint16_t(g_pMain->m_sMin);
-	Send(&result);
+
+	// Sending the time packet for all users that are online in game. Note that it doesn't affect the server time since the CGameServerDlg::Timer_UpdateGameTime 
+	// runs on a background thread that gets the local time of the server machine every 6 seconds from DateTime wrapper class.
+	g_pMain->Send_All(&result); 
 }
 
 /**
@@ -3126,15 +3152,8 @@ void CUser::UpdateGameWeather(Packet & pkt)
 	if (!isGM())	// is this user a GM?
 		return;
 
-	if (pkt.GetOpcode() == WIZ_WEATHER)
-	{
-		pkt >> g_pMain->m_byWeather >> g_pMain->m_sWeatherAmount;
-	}
-	else
-	{
-		uint16_t y, m, d;
-		pkt >> y >> m >> d >> g_pMain->m_sHour >> g_pMain->m_sMin;
-	}
+	Packet result(WIZ_WEATHER);
+	result << g_pMain->m_byWeather << g_pMain->m_sWeatherAmount;
 	Send(&pkt); // pass the packet straight on
 }
 
