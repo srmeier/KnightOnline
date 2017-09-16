@@ -563,6 +563,6 @@ uint32_t CN3UIString::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POIN
 //		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 	}
 
-//	dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
+	dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
 	return dwRet;
 }
