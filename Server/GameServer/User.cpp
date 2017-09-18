@@ -382,8 +382,6 @@ bool CUser::HandlePacket(Packet & pkt)
 		ObjectEvent(pkt);
 		break;
 	case WIZ_TIME:
-		SendTime();
-		break;
 	case WIZ_WEATHER:
 		UpdateGameWeather(pkt);
 		break;
@@ -3081,7 +3079,7 @@ void CUser::UpdateGameWeather(Packet & pkt)
 		uint16_t y, m, d;
 		pkt >> y >> m >> d >> g_pMain->m_sHour >> g_pMain->m_sMin;
 	}
-	Send(&pkt); // pass the packet straight on
+	g_pMain->Send_All(&pkt); // pass the packet straight on
 }
 
 void CUser::GetUserInfoForAI(Packet & result)
