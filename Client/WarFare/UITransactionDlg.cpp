@@ -1174,8 +1174,8 @@ void CUITransactionDlg::ReceiveResultTradeFromServer(byte bResult, byte bType, i
 			}
 			else
 			{
-				pInfoExt->iGold = iMoney;
-				pStatic = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); 
+				pInfoExt->iGold = iMoney; 
+				CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 				__ASSERT(pStatic, "NULL UI Component!!");
 				if(pStatic)	pStatic->SetStringAsInt(pInfoExt->iGold);
 				if(m_pStrMyGold)	m_pStrMyGold->SetStringAsInt(pInfoExt->iGold); // 상거래창..
@@ -1243,7 +1243,7 @@ void CUITransactionDlg::ReceiveResultTradeFromServer(byte bResult, byte bType, i
 
 				// 성공이면.. 돈 업데이트..
 				pInfoExt->iGold = iMoney;
-				pStatic = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); 
+				CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 				__ASSERT(pStatic, "NULL UI Component!!");
 				if(pStatic)	pStatic->SetStringAsInt(pInfoExt->iGold);
 				if(m_pStrMyGold) m_pStrMyGold->SetStringAsInt(pInfoExt->iGold); // 상거래창..

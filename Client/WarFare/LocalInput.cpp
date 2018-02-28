@@ -17,6 +17,8 @@
 
 #include "SDL2\SDL_syswm.h"
 
+#include "UIManager.h"
+#include "IMouseWheelInputDlg.h"
 //-----------------------------------------------------------------------------
 CLocalInput::CLocalInput(void) {
 	m_bNoKeyDown = FALSE;
@@ -199,7 +201,19 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		case WM_MOUSEWHEEL: {
 			if(CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain) {
 				float fDelta = ((int16_t)HIWORD(wParam)) * 0.05f;
-				CGameProcedure::s_pEng->CameraZoom(fDelta);
+
+				CN3UIBase* focused = CGameProcedure::s_pUIMgr->GetFocusedUI();
+				
+				if (focused)
+				{
+					int key = fDelta > 0 ? SDL_SCANCODE_PAGEUP : SDL_SCANCODE_PAGEDOWN;
+					if (IMouseWheelInputDlg* t = dynamic_cast<IMouseWheelInputDlg*>(focused))
+						t->OnKeyPress(key);
+					else
+						CGameProcedure::s_pEng->CameraZoom(fDelta);
+				}
+				else
+					CGameProcedure::s_pEng->CameraZoom(fDelta);
 			}
 		} break;
 	}
