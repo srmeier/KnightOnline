@@ -73,7 +73,6 @@ void CUICharacterCreate::Release()
 	m_iBonusPoint = m_iMaxBonusPoint = 0;
 }
 
-// D5DL2 CHANGED WHOLE FUNCTION - I CANT UNDERSTAND WHY THAT LINES DISABLED
 bool CUICharacterCreate::Load(HANDLE hFile)
 {
 	CN3UIBase::Load(hFile);
@@ -111,7 +110,7 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 	std::string szTexts[MAX_STATS] = { "text_str", "text_sta", "text_dex", "text_int", "text_map" };
 	std::string szAreas[MAX_STATS] = { "area_str", "area_sta", "area_dex", "area_int", "area_map" };
 	std::string szImgs[MAX_STATS] = { "img_str", "img_sta", "img_dex", "img_int", "img_map" };
-	uint32_t dwResrcIDs[MAX_STATS] = { IDS_NEWCHR_POW /*3219*/, IDS_NEWCHR_STA /*3220*/, IDS_NEWCHR_DEX /*3202*/, IDS_NEWCHR_INT /*3210*/, IDS_NEWCHR_MAP /*3201*/ };
+	uint32_t dwResrcIDs[MAX_STATS] = { IDS_NEWCHR_POW, IDS_NEWCHR_STA, IDS_NEWCHR_DEX, IDS_NEWCHR_INT, IDS_NEWCHR_MAP };
 	for(int i = 0; i < MAX_STATS; i++)
 	{
 		m_pStr_Stats[i] = (CN3UIString*)(this->GetChildByID(szTexts[i])); __ASSERT(m_pStr_Stats[i], "NULL UI Component!!");
@@ -119,12 +118,6 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		m_pImg_Stats[i] = (CN3UIImage*)(this->GetChildByID(szImgs[i]));	__ASSERT(m_pImg_Stats[i], "NULL UI Component!!");
 		if(m_pArea_Stats[i]) ::_LoadStringFromResource(dwResrcIDs[i], m_pArea_Stats[i]->m_szToolTip);
 	}
-
-	/*m_pArea_Stats[0]->m_szToolTip = "IDS_NEWCHR_POW"; D5DL2 USING SOURCE
-	m_pArea_Stats[1]->m_szToolTip = "IDS_NEWCHR_STA";
-	m_pArea_Stats[2]->m_szToolTip = "IDS_NEWCHR_DEX";
-	m_pArea_Stats[3]->m_szToolTip = "IDS_NEWCHR_INT";
-	m_pArea_Stats[4]->m_szToolTip = "IDS_NEWCHR_MAP";*/
 
 	m_pStr_Bonus = (CN3UIString*)(this->GetChildByID("text_bonus")); __ASSERT(m_pStr_Bonus, "NULL UI Component!!");
 	
@@ -154,9 +147,9 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		szBtnIDs[1] = "btn_race_el_rm";
 		szBtnIDs[2] = "btn_race_el_rf";
 		szBtnIDs[3] = "";
-		dwResrcID_Races[0] = IDS_NEWCHR_EL_BABA; // 3203
-		dwResrcID_Races[1] = IDS_NEWCHR_EL_MALE; // 3206 
-		dwResrcID_Races[2] = IDS_NEWCHR_EL_FEMALE; // 3204
+		dwResrcID_Races[0] = IDS_NEWCHR_EL_BABA;
+		dwResrcID_Races[1] = IDS_NEWCHR_EL_MALE;
+		dwResrcID_Races[2] = IDS_NEWCHR_EL_FEMALE;
 		dwResrcID_Races[3] = -1;
 	}
 
@@ -167,35 +160,22 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		if(m_pBtn_Races[i]) ::_LoadStringFromResource(dwResrcID_Races[i], m_pBtn_Races[i]->m_szToolTip);
 	}
 
-	/*if (eNation == NATION_KARUS) {
-		if (m_pBtn_Races[0]) m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_KA_ARKTUAREK";
-		if (m_pBtn_Races[1]) m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_KA_TUAREK";
-		if (m_pBtn_Races[2]) m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_KA_WRINKLETUAREK";
-		if (m_pBtn_Races[3]) m_pBtn_Races[3]->m_szToolTip = "IDS_NEWCHR_KA_PURITUAREK";
-	}
-	else if (eNation == NATION_ELMORAD) {
-		if (m_pBtn_Races[0]) m_pBtn_Races[0]->m_szToolTip = "IDS_NEWCHR_EL_BABA";
-		if (m_pBtn_Races[1]) m_pBtn_Races[1]->m_szToolTip = "IDS_NEWCHR_EL_MALE";
-		if (m_pBtn_Races[2]) m_pBtn_Races[2]->m_szToolTip = "IDS_NEWCHR_EL_FEMALE";
-		if (m_pBtn_Races[3]) m_pBtn_Races[3]->m_szToolTip = "dwResrcID_Races[3] = -1;";
-	}*/
-
 	std::string szBtns[MAX_CLASS_SELECT] = { "btn_class_warrior", "btn_class_rogue", "btn_class_mage", "btn_class_priest" };
 	std::string szImgs2[MAX_CLASS_SELECT] = { "img_warrior", "img_rogue", "img_mage", "img_priest" };
 	uint32_t dwResrcID_Classes[MAX_CLASS_SELECT];
 	if(eNation==NATION_ELMORAD)
 	{
-		dwResrcID_Classes[0] = IDS_NEWCHR_EL_WARRIOR; // 3209;
-		dwResrcID_Classes[1] = IDS_NEWCHR_EL_ROGUE; // 3208;
-		dwResrcID_Classes[2] = IDS_NEWCHR_EL_MAGE; // 3205;
-		dwResrcID_Classes[3] = IDS_NEWCHR_EL_PRIEST; // 3207;
+		dwResrcID_Classes[0] = IDS_NEWCHR_EL_WARRIOR;
+		dwResrcID_Classes[1] = IDS_NEWCHR_EL_ROGUE;
+		dwResrcID_Classes[2] = IDS_NEWCHR_EL_MAGE;
+		dwResrcID_Classes[3] = IDS_NEWCHR_EL_PRIEST;
 	}
 	else if(eNation==NATION_KARUS)
 	{
-		dwResrcID_Classes[0] = IDS_NEWCHR_KA_WARRIOR; // */ 3217;
-		dwResrcID_Classes[1] = IDS_NEWCHR_KA_ROGUE; // */ 3215;
-		dwResrcID_Classes[2] = IDS_NEWCHR_KA_MAGE; // */ 3212;
-		dwResrcID_Classes[3] = IDS_NEWCHR_KA_PRIEST; // */ 3213;
+		dwResrcID_Classes[0] = IDS_NEWCHR_KA_WARRIOR;
+		dwResrcID_Classes[1] = IDS_NEWCHR_KA_ROGUE;
+		dwResrcID_Classes[2] = IDS_NEWCHR_KA_MAGE;
+		dwResrcID_Classes[3] = IDS_NEWCHR_KA_PRIEST;
 	}
 
 	for(int i = 0; i < MAX_CLASS_SELECT; i++)
@@ -204,21 +184,6 @@ bool CUICharacterCreate::Load(HANDLE hFile)
 		m_pImg_Disable_Classes[i] = (CN3UIImage*)(this->GetChildByID(szImgs2[i]));	__ASSERT(m_pImg_Disable_Classes[i], "NULL UI Component!!");
 		::_LoadStringFromResource(dwResrcID_Classes[i], m_pBtn_Classes[i]->m_szToolTip);
 	}
-
-	/*if (eNation == NATION_ELMORAD)
-	{
-		m_pBtn_Classes[0]->m_szToolTip = "IDS_NEWCHR_EL_WARRIOR";
-		m_pBtn_Classes[1]->m_szToolTip = "IDS_NEWCHR_EL_ROGUE";
-		m_pBtn_Classes[2]->m_szToolTip = "IDS_NEWCHR_EL_MAGE";
-		m_pBtn_Classes[3]->m_szToolTip = "IDS_NEWCHR_EL_PRIEST";
-	}
-	else if (eNation == NATION_KARUS)
-	{
-		m_pBtn_Classes[0]->m_szToolTip = "IDS_NEWCHR_KA_WARRIOR";
-		m_pBtn_Classes[1]->m_szToolTip = "IDS_NEWCHR_KA_ROGUE";
-		m_pBtn_Classes[2]->m_szToolTip = "IDS_NEWCHR_KA_MAGE";
-		m_pBtn_Classes[3]->m_szToolTip = "IDS_NEWCHR_KA_PRIEST";
-	}*/
 
 	RECT rc = this->GetRegion();
 	int iX = ((int)s_CameraData.vp.Width - (rc.right - rc.left))/2;

@@ -382,8 +382,6 @@ bool CUser::HandlePacket(Packet & pkt)
 		ObjectEvent(pkt);
 		break;
 	case WIZ_TIME:
-		SendTime();
-		break;
 	case WIZ_WEATHER:
 		UpdateGameWeather(pkt);
 		break;
@@ -1933,9 +1931,9 @@ void CUser::PointChange(Packet & pkt)
 	Packet result(WIZ_POINT_CHANGE);
 
 	m_sPoints--; // remove a free point
-	result << uint16_t(++m_bStats[statType]); // assign the free point to a stat
+	result << type << uint16_t(++m_bStats[statType]); // assign the free point to a stat
 	SetUserAbility();
-	result << type << m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight);
+	result << m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight);
 	Send(&result);
 	SendItemMove(1);
 }
@@ -3081,7 +3079,7 @@ void CUser::UpdateGameWeather(Packet & pkt)
 		uint16_t y, m, d;
 		pkt >> y >> m >> d >> g_pMain->m_sHour >> g_pMain->m_sMin;
 	}
-	Send(&pkt); // pass the packet straight on
+	g_pMain->Send_All(&pkt); // pass the packet straight on
 }
 
 void CUser::GetUserInfoForAI(Packet & result)

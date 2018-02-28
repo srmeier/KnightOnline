@@ -195,6 +195,19 @@ bool CN3UIList::SetString(size_t iIndex, const std::string& szString)
 	return false;
 }
 
+CN3UIString* CN3UIList::GetChildStrFromList(std::string str)
+{
+	for (std::list<CN3UIString*>::iterator it = m_ListString.begin(); it != m_ListString.end(); ++it) {
+		CN3UIString* pUIString = (*it);
+		if (pUIString->GetString() == str) {
+			return pUIString;
+		}
+	}
+
+	return NULL;
+
+}
+
 void CN3UIList::UpdateChildRegions()
 {
 	RECT rc = this->GetRegion();

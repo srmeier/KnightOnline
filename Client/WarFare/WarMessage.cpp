@@ -15,8 +15,8 @@
 
 CWarMessage::CWarMessage()
 {
-	m_pMessageFont	= NULL;
-	m_fTime			= 0.0f;
+	m_pMessageFont = NULL;
+	m_fTime = 0.0f;
 }
 
 CWarMessage::~CWarMessage()
@@ -32,29 +32,29 @@ void CWarMessage::InitFont()
 	m_pMessageFont = new CDFont(szFont, MESSAGE_FONT_SIZE);
 	__ASSERT(m_pMessageFont, "Font Create Fail!!");
 
-	if(m_pMessageFont)
+	if (m_pMessageFont)
 	{
 		m_pMessageFont->InitDeviceObjects(CN3Base::s_lpD3DDev);
 		m_pMessageFont->RestoreDeviceObjects();
-		const int iW	= CN3Base::s_CameraData.vp.Width;
+
 #ifdef _DEBUG
-		m_ptMessage.y	= 80;
+		m_ptMessage.y = 80;
 #else
-		m_ptMessage.y	= 20;
+		m_ptMessage.y = 20;
 #endif
-		m_ptMessage.x	= iW;
+		m_ptMessage.x = CN3Base::s_CameraData.vp.Width;
 
 	}
 }
 
 void CWarMessage::Release()
 {
-	if(m_pMessageFont) delete m_pMessageFont; m_pMessageFont = NULL;
+	if (m_pMessageFont) delete m_pMessageFont; m_pMessageFont = NULL;
 }
 
 void CWarMessage::SetMessage(const std::string& szText, uint32_t dwFlags, uint32_t dwColor)
 {
-	if(m_pMessageFont) 
+	if (m_pMessageFont)
 	{
 		m_pMessageFont->SetText(szText, dwFlags); // 폰트에 텍스트 지정.
 		m_pMessageFont->SetFontColor(dwColor);
@@ -64,33 +64,29 @@ void CWarMessage::SetMessage(const std::string& szText, uint32_t dwFlags, uint32
 
 void CWarMessage::RenderMessage()
 {
-	if(m_fTime < 0.0f) return;
-	m_fTime -= CN3Base::s_fSecPerFrm;
+	if (m_fTime <= 0) return;
 
-	if(m_pMessageFont) 
+	if (m_pMessageFont)
 	{
-		POINT pt = m_ptMessage;
 		D3DCOLOR crFont = m_pMessageFont->GetFontColor();
 
-		m_pMessageFont->DrawText(pt.x - 1.0f, pt.y - 1.0f, 0xff000000, 0);
-		m_pMessageFont->DrawText(pt.x + 1.0f, pt.y + 1.0f, 0xff000000, 0);
-		m_pMessageFont->DrawText(pt.x + 0.0f, pt.y + 0.0f, crFont, 0);
+		m_pMessageFont->DrawText(m_ptMessage.x - 1.0f, m_ptMessage.y, 0xff000000, 0);
+		m_pMessageFont->DrawText(m_ptMessage.x + 1.0f, m_ptMessage.y, 0xff000000, 0);
+		m_pMessageFont->DrawText(m_ptMessage.x, m_ptMessage.y + 1.0f, 0xff000000, 0);
+		m_pMessageFont->DrawText(m_ptMessage.x, m_ptMessage.y - 1.0f, 0xff000000, 0);
+
+		m_pMessageFont->DrawText(m_ptMessage.x, m_ptMessage.y, crFont, 0);
 	}
 }
 
 void CWarMessage::Tick()
 {
-	int iW = CN3Base::s_CameraData.vp.Width;
-	if(m_fTime < 0.0f)
+	if (m_fTime > 0)
 	{
-		m_ptMessage.x = iW;
-		return;
-	}
+		m_fTime -= CN3Base::s_fSecPerFrm;
 
-	m_ptMessage.x -= (int)(CN3Base::s_fSecPerFrm * 100);
-	SIZE size = m_pMessageFont->GetSize();
-	if(m_ptMessage.x < (-size.cx))
-	{
-		m_ptMessage.x = iW;
+		const int iScreenWidth = CN3Base::s_CameraData.vp.Width;
+
+		m_ptMessage.x = iScreenWidth - ((int)(100 * (WAR_MESSAGE_SHOW_TIME - m_fTime)) % (iScreenWidth + m_pMessageFont->GetSize().cx));
 	}
 }

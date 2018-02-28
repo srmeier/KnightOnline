@@ -492,9 +492,18 @@ int CN3UIString::GetStringRealWidth(int iNum)
 	SIZE size;
 	BOOL bFlag = m_pDFont->GetTextExtent("°¡", lstrlen("°¡"), &size);
 	__ASSERT(bFlag, "cannot get size of dfont");
-	int iLength = iNum/2;
-	if (iLength == 0) return 0;
-	return (size.cx*iLength); 
+	//int iLength = iNum/2;
+	//if (iLength == 0) return 0;
+	//return (size.cx*iLength); 
+	return (size.cx*iNum) / 2;
+}
+
+int CN3UIString::GetStringRealWidth(std::string& szText)
+{
+	SIZE size;
+	BOOL bFlag = m_pDFont->GetTextExtent(szText, szText.length(), &size);
+	__ASSERT(bFlag, "cannot get size of dfont");
+	return size.cx;
 }
 
 void CN3UIString::SetStyle(uint32_t dwType, uint32_t dwStyleEx)
@@ -554,6 +563,6 @@ uint32_t CN3UIString::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POIN
 //		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 	}
 
-//	dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
+	dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
 	return dwRet;
 }

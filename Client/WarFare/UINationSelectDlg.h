@@ -16,7 +16,7 @@ class CUINationSelectDlg : public CN3UIBase
 public:
 	CN3UIBase* m_pBtnKarus;
 	CN3UIBase* m_pBtnElmorad;
-	CN3UIBase* m_pBtnBack; // D5DL2
+	CN3UIBase* m_pBtnBack;
 	class CGameProcNationSelect* m_pProcNationSelectRef;
 
 public:

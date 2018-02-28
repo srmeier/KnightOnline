@@ -34,6 +34,8 @@
 #include "UIPerTradeDlg.h"
 #include "UIPartyOrForce.h"
 #include "UISkillTreeDlg.h"
+#include "UICmdList.h"
+#include "UICmdEdit.h"
 #include "UIHotKeyDlg.h"
 #include "UIClassChange.h"
 #include "UINpcEvent.h"
@@ -122,8 +124,10 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_iJoinReqClanRequierID = 0;
 
 	//UI
-	m_pUIMsgDlg = new CUIMessageWnd;
+	m_pUIMsgDlg = new CUIMessageWnd();
+	m_pUIMsgDlg2 = new CUIMessageWnd2();
 	m_pUIChatDlg = new CUIChat();
+	m_pUIChatDlg2 = new CUIChat2();
 	m_pUIStateBarAndMiniMap = new CUIStateBar();
 	m_pUIVar = new CUIVarious();
 	m_pUICmd = new CUICmd();
@@ -139,6 +143,8 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 	m_pUIInventory = new CUIInventory();
 	m_pUIPartyOrForce = new CUIPartyOrForce();
 	m_pUISkillTreeDlg = new CUISkillTreeDlg();
+	m_pUICmdListDlg = new CUICmdList();
+	m_pUICmdEditDlg = new CUICmdEdit();
 	m_pUIHotKeyDlg = new CUIHotKeyDlg();
 	m_pUINpcTalk = new CUINpcTalk();
 	m_pUIKnightsOp = new CUIKnightsOperation();			// 기사단 리스트 보기, 가입, 등...
@@ -169,7 +175,9 @@ CGameProcMain::~CGameProcMain()
 
 	//UI
 	delete m_pUIMsgDlg;
+	delete m_pUIMsgDlg2;
 	delete m_pUIChatDlg;
+	delete m_pUIChatDlg2;
 	delete m_pUIStateBarAndMiniMap;
 	delete m_pUIVar;
 	delete m_pUICmd;
@@ -185,6 +193,8 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIInventory;
 	delete m_pUIPartyOrForce;
 	delete m_pUISkillTreeDlg;
+	delete m_pUICmdListDlg;
+	delete m_pUICmdEditDlg;
 	delete m_pUIHotKeyDlg;
 	delete m_pUINpcTalk;
 	delete m_pUIKnightsOp;
@@ -226,7 +236,9 @@ void CGameProcMain::Release()
 void CGameProcMain::ReleaseUIs()
 {
 	m_pUIChatDlg->Release();
+	m_pUIChatDlg2->Release();
 	m_pUIMsgDlg->Release();
+	m_pUIMsgDlg2->Release();
 	m_pUICmd->Release();
 	m_pUIVar->Release();
 	m_pUIStateBarAndMiniMap->Release();
@@ -239,6 +251,8 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIRepairTooltip->Release();
 	m_pUIPartyOrForce->Release();
 	m_pUISkillTreeDlg->Release();
+	m_pUICmdListDlg->Release();
+	m_pUICmdEditDlg->Release();
 	m_pUIHotKeyDlg->Release();
 	m_pUINpcTalk->Release();
 //	m_pUITradeList->Release();
@@ -1051,111 +1065,91 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
 		return;
 
-	//////////////////////////////////////////
-	//
-	// 마우스 처리.
-	//
-	POINT ptPrev = s_pLocalInput->MouseGetPosOld();
-	POINT ptCur = s_pLocalInput->MouseGetPos();
+	if (!s_bIsWindowInFocus)
+		return;
 
-	OnMouseMove(ptCur, ptPrev);
-
-	//static POINT ptPrev_RB ={};
-
-	if( dwMouseFlags & MOUSE_RBCLICK )
+	if (s_bWindowHasMouseFocus)
 	{
-		// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
-		OnMouseRBtnPress(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_RBDOWN )
-	{
-		// NOTE: this is where the right click rotation and zoom out occur
-		//if(!SDL_GetRelativeMouseMode()) ptPrev_RB = ptCur;
-		//else {
+		POINT ptPrev = s_pLocalInput->MouseGetPosOld();
+		POINT ptCur = s_pLocalInput->MouseGetPos();
+
+		OnMouseMove(ptCur, ptPrev);
+
+		//static POINT ptPrev_RB ={};
+
+		if (dwMouseFlags & MOUSE_RBCLICK)
+		{
+			// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
+			OnMouseRBtnPress(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_RBDOWN)
+		{
+			// NOTE: this is where the right click rotation and zoom out occur
+			//if(!SDL_GetRelativeMouseMode()) ptPrev_RB = ptCur;
+			//else {
+			//	int x, y;
+			//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
+			//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
+			//}
+			OnMouseRbtnDown(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_RBCLICK)
+		{
+			OnMouseRBtnPressd(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_RBDBLCLK)
+		{
+			OnMouseRDBtnPress(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBCLICK)
+		{
+			// NOTE: move on click
+			OnMouseLBtnPress(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBDOWN)
+		{
+			// NOTE: move on held down click
+			OnMouseLbtnDown(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBCLICKED)
+		{
+			OnMouseLBtnPressd(ptCur, ptPrev);
+		}
+		if (dwMouseFlags & MOUSE_LBDBLCLK)
+		{
+			OnMouseLDBtnPress(ptCur, ptPrev);
+		}
+
+		// reset mouse visibility
+		if (!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY) == SDL_DISABLE) {
+			SDL_ShowCursor(SDL_ENABLE);
+		}
+		//if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_GetRelativeMouseMode()) {
+		//	SDL_SetRelativeMouseMode(SDL_FALSE);
 		//	int x, y;
 		//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
 		//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
+		//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
 		//}
-		OnMouseRbtnDown(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_RBCLICK )
-	{
-		OnMouseRBtnPressd(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_RBDBLCLK )
-	{ 
-		OnMouseRDBtnPress(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBCLICK )
-	{
-		// NOTE: move on click
-		OnMouseLBtnPress(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBDOWN )
-	{
-		// NOTE: move on held down click
-		OnMouseLbtnDown(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBCLICKED )
-	{
-		OnMouseLBtnPressd(ptCur, ptPrev);
-	}
-	if( dwMouseFlags & MOUSE_LBDBLCLK )
-	{
-		OnMouseLDBtnPress(ptCur, ptPrev);
-	}
 
-	// NOTE(srmeier): reset mouse visability
-	if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY)==SDL_DISABLE) {
-		SDL_ShowCursor(SDL_ENABLE);
-	}
-	//if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_GetRelativeMouseMode()) {
-	//	SDL_SetRelativeMouseMode(SDL_FALSE);
-	//	int x, y;
-	//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
-	//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
-	//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
-	//}
 
-	/*
-	if (!(dwMouseFlags & MOUSE_RBDOWN)) {
-		float fRotY = 0, fRotX = 0;
-		if (ptCur.x <= 0) fRotY = -2.0f;
-		else if (ptCur.x >= (CN3Base::s_CameraData.vp.Width - 1)) fRotY = 2.0f;
-		if (ptCur.y <= 0) fRotX = -1.0f;
-		else if (ptCur.y >= (CN3Base::s_CameraData.vp.Height - 1)) fRotX = 1.0f;
-		if (fRotY)
+		// Moves camera when mouse is on the borders of the screen. For both X & Y
+		if (!(dwMouseFlags & MOUSE_RBDOWN))
 		{
-			if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-			else s_pPlayer->RotAdd(fRotY);
+			float fRotY = 0, fRotX = 0;
+			if (0 == ptCur.x) fRotY = -2.0f;
+			else if ((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
+			if (0 == ptCur.y) fRotX = -1.0f;
+			else if ((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
+			if (fRotY)
+			{
+				if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
+				else s_pPlayer->RotAdd(fRotY);
+			}
+			if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 		}
-		if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 	}
-	*/
 
-	// NOTE: move camera when cursor is on the border
-	/*
-	// 마우스에 따른 카메라 회전...
-	float fRotY = 0, fRotX = 0;
-	if(0 == ptCur.x) fRotY = -2.0f;
-	else if((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
-	if(0 == ptCur.y) fRotX = -1.0f;
-	else if((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
-	if(fRotY)
-	{
-		if(VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-		else s_pPlayer->RotAdd(fRotY);
-	}
-	if(fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
-	*/
-
-	//
-	// 마우스 처리.
-	//
-	//////////////////////////////////////////
-
-	//////////////////////////////////////////
-	// 핫키
 	int iHotKey = -1;
 	if( s_pLocalInput->IsKeyPress(KM_HOTKEY1) ) iHotKey = 0;
 	else if( s_pLocalInput->IsKeyPress(KM_HOTKEY2) ) iHotKey = 1;
@@ -1266,6 +1260,7 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_INVENTORY)) this->CommandToggleUIInventory();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_STATE)) this->CommandToggleUIState();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SKILL)) this->CommandToggleUISkillTree();
+		if (s_pLocalInput->IsKeyPress(KM_TOGGLE_CMDLIST)) this->CommandToggleCmdList();
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_SITDOWN)) this->CommandSitDown(true, !s_pPlayer->m_bSitDown);
 
 		if(s_pLocalInput->IsKeyPress(KM_TOGGLE_HELP)) 
@@ -3416,21 +3411,27 @@ void CGameProcMain::MsgRecv_ItemCountChange(Packet& pkt)		// Item Count Change..
 {
 	int iTotalCount = pkt.read<int16_t>();		// Trade id
 
-	for( int i = 0; i < iTotalCount; i++ ) //Not sure why do need iTotalCount since
-	{									//we can only use the function one at a time
-		int iDistrict	= pkt.read<uint8_t>();		// Trade id
-		int iIndex		= pkt.read<uint8_t>();		// Trade id
-		int iID			= pkt.read<uint32_t>();		// Item id
-		int	iCount		= pkt.read<uint32_t>();		// Stact count
-		if (m_pUIInventory->ItemCountChange(iDistrict, iIndex, iCount, iID))
+	for( int i = 0; i < iTotalCount; i++ )
+	{
+		int iDistrict	= pkt.read<uint8_t>();
+		int iIndex		= pkt.read<uint8_t>();
+		int iID			  = pkt.read<uint32_t>();
+		int	iCount		= pkt.read<uint32_t>();
+		int iNewItem	= pkt.read<uint8_t>(); // 100 for new items, 0 otherwise
+		int iDurability = pkt.read<uint16_t>();
+		m_pUIInventory->ItemCountChange(iDistrict, iIndex, iCount, iID, iDurability);
+		if (iNewItem == 100)
 		{
-			char szBuf[256] = "";
+			char szBuf[256] = { 0 };
 			__TABLE_ITEM_BASIC* pItem = CGameProcedure::s_pTbl_Items_Basic.Find(iID / 1000 * 1000);
-			std::string szFmt;  ::_LoadStringFromResource(IDS_ITEM_RECIVED, szFmt);
-			snprintf(szBuf, sizeof(szBuf), szFmt.c_str(), pItem->szName.c_str());
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
+			if (pItem != nullptr)
+			{
+				std::string szFmt;  ::_LoadStringFromResource(IDS_ITEM_RECEIVED, szFmt);
+				snprintf(szBuf, sizeof(szBuf), szFmt.c_str(), pItem->szName.c_str());
+				MsgOutput(szBuf, 0xFFFFFF00);
+			}
 		}
-	}
+	}	
 
 	if (m_pUISkillTreeDlg) m_pUISkillTreeDlg->UpdateDisableCheck();
 	if (m_pUIHotKeyDlg) m_pUIHotKeyDlg->UpdateDisableCheck();
@@ -3643,12 +3644,10 @@ void CGameProcMain::MsgRecv_MyInfo_RealmPoint(Packet& pkt)
 	}
 }
 
-// d5dl2
 void CGameProcMain::MsgRecv_MyInfo_PointChange(Packet& pkt)
 {
-	int iVal = pkt.read<int16_t>();	// 0x01 : true, 0x00 : false..
-	int iType = pkt.read<uint8_t>();	// 0x01 : true, 0x00 : false..
-	
+	int iType = pkt.read<uint8_t>();
+	int iVal = pkt.read<int16_t>();
 
 	s_pPlayer->m_InfoBase.iHPMax =		pkt.read<int16_t>();
 	s_pPlayer->m_InfoExt.iMSPMax =		pkt.read<int16_t>();
@@ -3730,12 +3729,25 @@ void CGameProcMain::InitUI()
 	m_pUIChatDlg->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
 	m_pUIChatDlg->SetVisibleWithNoSound(true);
 
+	m_pUIChatDlg2->Init(s_pUIMgr);
+	m_pUIChatDlg2->LoadFromFile(pTbl->szChat2);
+	m_pUIChatDlg2->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIChatDlg2->SetVisibleWithNoSound(false);
+
 	m_pUIMsgDlg->Init(s_pUIMgr);
 	m_pUIMsgDlg->LoadFromFile(pTbl->szMsgOutput);
+	CGameProcedure::UIPostData_Read(UI_POST_WND_INFO, m_pUIMsgDlg, rc.right, rc.top);
 	m_pUIMsgDlg->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIMsgDlg->SetVisibleWithNoSound(true);
+
+	m_pUIMsgDlg2->Init(s_pUIMgr);
+	m_pUIMsgDlg2->LoadFromFile(pTbl->szMsgOutput2);
+	m_pUIMsgDlg2->SetStyle(UISTYLE_FOCUS_UNABLE | UISTYLE_HIDE_UNABLE);
+	m_pUIMsgDlg2->SetVisibleWithNoSound(false);
 
 	// 채팅창과 메시지 창 위치 맞추기..
 	m_pUIChatDlg->MoveOffset(0, -1);
+	m_pUIMsgDlg->MoveOffset(0, -1);
 
 	m_pUIStateBarAndMiniMap->Init(s_pUIMgr);
 	m_pUIStateBarAndMiniMap->LoadFromFile(pTbl->szStateBar);
@@ -3917,6 +3929,24 @@ void CGameProcMain::InitUI()
 	m_pUISkillTreeDlg->SetState(UI_STATE_COMMON_NONE);
 	m_pUISkillTreeDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
 
+
+	m_pUICmdListDlg->Init(s_pUIMgr);
+	m_pUICmdListDlg->LoadFromFile(pTbl->szCmdList);
+	m_pUICmdListDlg->SetVisibleWithNoSound(false);
+	rc = m_pUICmdListDlg->GetRegion();
+	m_pUICmdListDlg->SetPos(iW - (rc.right - rc.left), 10);
+	m_pUICmdListDlg->SetUIType(UI_TYPE_BASE);
+	m_pUICmdListDlg->SetState(UI_STATE_COMMON_NONE);
+	m_pUICmdListDlg->SetStyle(m_pUISkillTreeDlg->GetStyle() | UISTYLE_POS_RIGHT);
+
+	m_pUICmdEditDlg->Init(s_pUIMgr);
+	m_pUICmdEditDlg->LoadFromFile(pTbl->szCmdEdit);
+	m_pUICmdEditDlg->SetVisibleWithNoSound(false);
+	rc = m_pUICmdEditDlg->GetRegion();
+	iX = (iW - (rc.right - rc.left)) / 2;
+	iY = (iH - (rc.bottom - rc.top)) / 2;
+	m_pUICmdEditDlg->SetPos(iX, iY);
+	m_pUICmdEditDlg->SetStyle(UISTYLE_USER_MOVE_HIDE);
 	
 	// default ui pos ..	해상도가 변경되면.. 상대 위치를 구해야 한다.. by ecli666
 	rc = m_pUIStateBarAndMiniMap->GetRegion();
@@ -4507,6 +4537,22 @@ void CGameProcMain::CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTar
 	}
 }
 
+void CGameProcMain::CommandToggleUIChat()
+{
+	bool visible = m_pUIChatDlg->IsVisible();
+
+	m_pUIChatDlg->SetVisibleWithNoSound(!visible);
+	m_pUIChatDlg2->SetVisibleWithNoSound(visible);
+}
+
+void CGameProcMain::CommandToggleUIMsgWnd()
+{
+	bool visible = m_pUIMsgDlg->IsVisible();
+
+	m_pUIMsgDlg->SetVisibleWithNoSound(!visible);
+	m_pUIMsgDlg2->SetVisibleWithNoSound(visible);
+}
+
 bool CGameProcMain::CommandToggleUIState()
 {
 	bool bNeedOpen = !(m_pUIVar->IsVisible());
@@ -4603,6 +4649,48 @@ bool CGameProcMain::CommandToggleUISkillTree()
 bool CGameProcMain::CommandToggleUIMiniMap()
 {
 	return m_pUIStateBarAndMiniMap->ToggleMiniMap();
+}
+
+bool CGameProcMain::CommandToggleCmdList()
+{
+	
+	bool bNeedOpen = !(m_pUICmdListDlg->IsVisible());
+
+	if (m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE)
+		return bNeedOpen;
+
+	if (bNeedOpen)
+	{
+		if (m_pUIInventory->IsVisible())
+			m_pUIInventory->Close();
+		if (m_pUITransactionDlg->IsVisible())
+			m_pUITransactionDlg->LeaveTransactionState();
+		if (m_pUIWareHouseDlg->IsVisible())
+			m_pUIWareHouseDlg->LeaveWareHouseState();
+
+		s_pUIMgr->SetFocusedUI(m_pUICmdListDlg);
+		m_pUICmdListDlg->Open();
+	}
+	else
+	{
+		m_pUICmdListDlg->Close();
+	}
+
+	return bNeedOpen;
+}
+
+bool CGameProcMain::OpenCmdEdit(std::string msg)
+{
+
+	bool bNeedOpen = !(m_pUICmdEditDlg->IsVisible());
+
+	if (bNeedOpen)
+	{
+		s_pUIMgr->SetFocusedUI(m_pUICmdEditDlg);
+		m_pUICmdEditDlg->Open(msg);
+	}
+
+	return bNeedOpen;
 }
 
 void CGameProcMain::CommandCameraChange() // 카메라 시점 바꾸기..
@@ -5707,8 +5795,11 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 		break;
 
 		default:
-			break;
+		break;
 	} // end of switch(eCmd)
+
+	// Clears out the strings from the szCmds so we won't re-send same values on the next command execution.
+	memset(szCmds, 0, sizeof(szCmds));
 }
 
 void CGameProcMain::UpdateUI_PartyOrForceButtons()
@@ -6221,19 +6312,23 @@ void CGameProcMain::MsgRecv_NpcChangeOpen(Packet& pkt)		// Class Change와 초기화
 			break;
 
 		case N3_SP_CLASS_CHANGE_REQ:
-			this->MsgRecv_ClassChange(pkt);
+			MsgRecv_ClassChange(pkt);
 			break;
 
 		case N3_SP_CLASS_ALL_POINT:
-			this->MsgRecv_AllPointInit(pkt);
+			MsgRecv_AllPointInit(pkt);
 			break;
 
 		case N3_SP_CLASS_SKILL_POINT:
-			this->MsgRecv_SkillPointInit(pkt);
+			MsgRecv_SkillPointInit(pkt);
 			break;
 
 		case N3_SP_CLASS_POINT_CHANGE_PRICE_QUERY:
-			this->MsgRecv_PointChangePriceQueryRequest(pkt);
+			MsgRecv_PointChangePriceQueryRequest(pkt);
+			break;
+
+		case N3_SP_CLASS_PROMOTION:
+			MsgRecv_ClassPromotion(pkt);
 			break;
 	}
 }
@@ -6251,7 +6346,7 @@ void CGameProcMain::MsgRecv_AllPointInit(Packet& pkt)			// All Point 초기화..
 		case 0x00:	// 돈이 부족..
 			::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGold);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case 0x01:	// 성공..
@@ -6301,7 +6396,7 @@ void CGameProcMain::MsgRecv_AllPointInit(Packet& pkt)			// All Point 초기화..
 		case 0x02:	// Already..
 			::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
 			sprintf(szBuf, szMsg.c_str());
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 	}
 }
@@ -6319,7 +6414,7 @@ void CGameProcMain::MsgRecv_SkillPointInit(Packet& pkt)		// Skill Point 초기화..
 		case 0x00:	// 돈이 부족..
 			::_LoadStringFromResource(IDS_POINTINIT_NOT_ENOUGH_NOAH, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGold);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case 0x01:	// 성공..
@@ -6344,7 +6439,7 @@ void CGameProcMain::MsgRecv_SkillPointInit(Packet& pkt)		// Skill Point 초기화..
 		case 0x02:	// Already..
 			::_LoadStringFromResource(IDS_POINTINIT_ALREADY, szMsg);
 			sprintf(szBuf, szMsg.c_str());
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 	}
 }
@@ -6369,22 +6464,21 @@ void CGameProcMain::MsgRecv_NoahChange(Packet& pkt)		// 노아 변경..
 		case N3_SP_NOAH_GET:
 			::_LoadStringFromResource(IDS_NOAH_CHANGE_GET, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xff6565ff);
+			MsgOutput(szBuf, 0xff6565ff);
 			break;
 
 		case N3_SP_NOAH_LOST:
 			::_LoadStringFromResource(IDS_NOAH_CHANGE_LOST, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 
 		case N3_SP_NOAH_SPEND:
 			::_LoadStringFromResource(IDS_NOAH_CHANGE_SPEND, szMsg);
 			sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
-			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+			MsgOutput(szBuf, 0xffff3b3b);
 			break;
 	}
-
 	
 	s_pPlayer->m_InfoExt.iGold = dwGold;
 	if (m_pUIInventory->IsVisible())
@@ -7560,4 +7654,58 @@ void CGameProcMain::MsgSend_SpeedCheck(bool bInit)
 	s_pSocket->MP_AddByte(byBuff, iOffset, bInit);				// 서버가 기준 시간으로 쓸 타입 true 이면 기준시간 false면 체크타입
 	s_pSocket->MP_AddFloat(byBuff, iOffset, fTime);				// 클라이언트 시간
 	s_pSocket->Send(byBuff, iOffset);							// 보냄..
+}
+
+void CGameProcMain::MsgRecv_ClassPromotion(Packet& pkt)
+{
+	uint16_t sClass, socketID;
+	pkt >> sClass >> socketID;
+
+	// TODO: Clean this up when CPlayerMySelf is derived properly so we can share this logic in a much nicer fashion.
+	if (socketID == s_pPlayer->IDNumber())
+	{
+		s_pPlayer->m_InfoBase.eClass = (e_Class)sClass;
+		m_pUIVar->UpdateAllStates(&s_pPlayer->m_InfoBase, &s_pPlayer->m_InfoExt);
+		m_pUIHotKeyDlg->ClassChangeHotkeyFlush();
+		m_pUISkillTreeDlg->SetPageInCharRegion();
+		m_pUISkillTreeDlg->InitIconUpdate();
+	}
+	else
+	{
+		auto pUPC = s_pOPMgr->UPCGetByID(socketID, false);
+		if (pUPC != nullptr)
+			pUPC->m_InfoBase.eClass = (e_Class)sClass;
+	}
+
+	s_pFX->TriggerBundle(socketID, -1, FXID_CLASS_CHANGE, socketID, -1);
+}
+
+
+void CGameProcMain::NoahTrade(uint8_t bType, uint32_t dwGoldOffset, uint32_t dwGold)
+{
+	char szBuf[256] = "";
+	std::string szMsg;
+
+	switch (bType)
+	{
+	case N3_SP_NOAH_GET:
+		::_LoadStringFromResource(IDS_TRADE_COIN_RECV, szMsg);
+		sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
+		MsgOutput(szBuf, 0xff6565ff);
+		break;
+
+	case N3_SP_NOAH_LOST:
+		::_LoadStringFromResource(IDS_TRADE_COIN_PAID, szMsg);
+		sprintf(szBuf, szMsg.c_str(), dwGoldOffset);
+		MsgOutput(szBuf, 0xffff3b3b);
+		break;
+	}
+
+	//s_pPlayer->m_InfoExt.iGold = dwGold;
+	if (m_pUIInventory->IsVisible())
+		m_pUIInventory->GoldUpdate();
+	if (m_pUITransactionDlg->IsVisible())
+		m_pUITransactionDlg->GoldUpdate();
+	if (m_pSubProcPerTrade && m_pSubProcPerTrade->m_pUIPerTradeDlg->IsVisible())
+		m_pSubProcPerTrade->m_pUIPerTradeDlg->GoldUpdate();
 }

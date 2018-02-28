@@ -395,6 +395,7 @@ bool CUser::PromoteUserNovice()
 	// Change the class & update party.
 	result.Initialize(WIZ_CLASS_CHANGE);
 	result << uint8_t(2) << sNewClass;
+	result.rpos(1);
 	ClassChange(result, false); // TODO: Clean this up. Shouldn't need to build a packet for this.
 
 	// Update the clan.
@@ -424,6 +425,7 @@ bool CUser::PromoteUser()
 	// Change the class & update party.
 	result.Initialize(WIZ_CLASS_CHANGE);
 	result << uint8_t(2) << sNewClass;
+	result.rpos(1);
 	ClassChange(result, false); // TODO: Clean this up. Shouldn't need to build a packet for this.
 
 	// use integer division to get from 5/7/9/11 (novice classes) to 1/2/3/4 (base classes)

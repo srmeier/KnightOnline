@@ -28,13 +28,12 @@ protected:
 
 	__VertexXyzColor	m_vFronts[4];
 	__VertexXyzColor	m_Bottom[4];
-//	CN3Texture*			m_pTex;
 
 // Operations
 public:
 	void				Init();
 	void				Render();
-	virtual				void Release();
+	void				Release() override;
 	virtual				void Tick();
 protected:
 };

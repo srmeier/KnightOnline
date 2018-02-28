@@ -47,6 +47,8 @@ protected:
 	CN3UIImage*		m_pImage_Map; // 이 이미지에 미니맵 텍스처를 적용시킨다..
 	CN3UIButton*	m_pBtn_ZoomIn;
 	CN3UIButton*	m_pBtn_ZoomOut;
+	CN3UIButton*	m_pBtn_Quest;
+	CN3UIButton*	m_pBtn_Power;
 
 	// NOTE(srmeier): new components
 	CN3UIString*	m_pText_FPS;
@@ -56,6 +58,7 @@ protected:
 	float			m_fMapSizeZ;
 	float			m_fYawPlayer;
 	__Vector3		m_vPosPlayer;
+	__Vector3		m_vViewPos;
 
 	__VertexTransformedColor	m_vArrows[6]; // 플레이어 위치 화살표..
 	std::list<__PositionInfo>	m_Positions;
