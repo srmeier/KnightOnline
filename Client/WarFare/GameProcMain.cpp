@@ -6498,6 +6498,11 @@ void CGameProcMain::MsgRecv_WarpList(Packet& pkt)		// 워프 리스트 - 존 체인지가 
 	int iStrLen = 0;
 
 	int iListCount = pkt.read<int16_t>();
+
+	// if there are no warp info (if m_bZoneChangeSameZone is true) - No need to show empty list. 
+	if (iListCount == 0)
+		return;
+
 	for(int i = 0; i < iListCount; i++)
 	{
 		__WarpInfo WI;
