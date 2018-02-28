@@ -18,8 +18,8 @@
 
 #include "GameDef.h"
 #include "N3UIWndBase.h"
-
-class CUIWareHouseDlg : public CN3UIWndBase  
+#include "IMouseWheelInputDlg.h"
+class CUIWareHouseDlg : public CN3UIWndBase, public IMouseWheelInputDlg 
 {
 	friend class CUIInventory;
 
