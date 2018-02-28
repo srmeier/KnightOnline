@@ -276,6 +276,9 @@
     <ClCompile Include="UICmdList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UICmdEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameProcedure.h">
@@ -589,6 +592,12 @@
     </ClInclude>
     <ClInclude Include="UICmdList.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UICmdEdit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IMouseWheelInputDlg.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
