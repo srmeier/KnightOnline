@@ -522,8 +522,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 
 		pInfoExt->iGold = iGold;
 		//TRACE("絲 機等檜お %d \n", iGold);
-		pStatic = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pStatic, "NULL UI Component!!");
-		if(pStatic) pStatic->SetStringAsInt(iGold);
+		CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 
 		if (!IsVisible()) 
 			return;
@@ -793,8 +792,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 
 			pInfoExt->iGold = iGold;
 			//TRACE("絲 機等檜お %d \n", iGold);
-			pStatic = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pStatic, "NULL UI Component!!");
-			if(pStatic) pStatic->SetStringAsInt(iGold);
+			CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 
 			spItem = CN3UIWndBase::m_sRecoveryJobInfo.pItemSource;
 			if ( NULL == spItem ) return;
