@@ -560,9 +560,7 @@ void CSubProcPerTrade::ItemCountEditOK()
 
 	// 돈 표시.. 인벤토리..
 	sprintf(szGold, "%d", iMyMoney);
-	CN3UIString* pString = NULL;
-	pString = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pString, "NULL UI Component!!");
-	if(pString)	pString->SetString(szGold);	
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 	if(m_pUIPerTradeDlg->m_pStrMyGold) m_pUIPerTradeDlg->m_pStrMyGold->SetString(szGold);
 
 	// 돈 표시.. 개인 거래 창..
@@ -704,9 +702,7 @@ void CSubProcPerTrade::ReceiveMsgPerTradeAdd(uint8_t bResult)
 
 						// 돈 표시.. 인벤토리..
 						sprintf(szGold, "%d", iMyMoney);
-						CN3UIString* pString = NULL;
-						pString = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pString, "NULL UI Component!!");
-						if(pString)	pString->SetString(szGold);	
+						CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 						if(m_pUIPerTradeDlg->m_pStrMyGold) m_pUIPerTradeDlg->m_pStrMyGold->SetString(szGold);
 
 						// 돈 표시.. 개인 거래 창..
@@ -1007,12 +1003,10 @@ void CSubProcPerTrade::ReceiveMsgPerTradeDoneSuccessBegin(int iTotalGold)
 {
 	char szGold[32];
 	sprintf(szGold, "%d", iTotalGold);
-
-	CN3UIString* pString = NULL;
-	pString = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pString, "NULL UI Component!!");
-	pString->SetString(szGold);	
-
+	
 	s_pPlayer->m_InfoExt.iGold = iTotalGold;
+
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 }
 
 void CSubProcPerTrade::ReceiveMsgPerTradeDoneItemMove(uint8_t bItemPos, int iItemID, int iCount, int iDurability)

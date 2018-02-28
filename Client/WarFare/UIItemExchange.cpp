@@ -296,16 +296,11 @@ void CUIItemExchange::UpdateGoldValue()
 void CUIItemExchange::UpdateUserTotalGold(int iGold)
 {
 	char szGold[32];
-	CN3UIString* pStatic = NULL;
 
 	// µ· ¾÷µ¥ÀÌÆ®..
 	CGameBase::s_pPlayer->m_InfoExt.iGold = iGold;
 	sprintf(szGold, "%d", iGold);
-	pStatic = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pStatic, "NULL UI Component!!");
-	if(pStatic)
-	{
-		pStatic->SetString(szGold);
-	}
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 }
 
 int	 CUIItemExchange::CalcRepairGold(__IconItemSkill* spItem)

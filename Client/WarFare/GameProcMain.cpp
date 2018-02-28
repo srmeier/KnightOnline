@@ -1119,6 +1119,10 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		{
 			OnMouseLDBtnPress(ptCur, ptPrev);
 		}
+		if (dwMouseFlags & MOUSE_MBCLICK)
+		{
+			OnMouseMBtnPress(ptCur, ptPrev);
+		}
 
 		// reset mouse visibility
 		if (!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY) == SDL_DISABLE) {
@@ -6498,6 +6502,11 @@ void CGameProcMain::MsgRecv_WarpList(Packet& pkt)		// 워프 리스트 - 존 체인지가 
 	int iStrLen = 0;
 
 	int iListCount = pkt.read<int16_t>();
+
+	// if there are no warp info (if m_bZoneChangeSameZone is true) - No need to show empty list. 
+	if (iListCount == 0)
+		return;
+
 	for(int i = 0; i < iListCount; i++)
 	{
 		__WarpInfo WI;
@@ -7619,6 +7628,17 @@ bool CGameProcMain::OnMouseRDBtnPress(POINT ptCur, POINT ptPrev)
 
 	//스킬 매직이 사용되었다면....
 	m_pUIHotKeyDlg->EffectTriggerByMouse();
+
+	return true;
+}
+
+// When Mouse Middle Button Pressed - This will need to be change to 180* Camera Turn
+bool CGameProcMain::OnMouseMBtnPress(POINT ptCur, POINT ptPrev)
+{
+	if (s_pPlayer->IsAlive())
+	{
+		if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(100);
+	}
 
 	return true;
 }
