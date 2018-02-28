@@ -179,11 +179,7 @@ void CUIInventory::Open(e_InvenState eIS)
 		CGameProcedure::SetGameCursor(CGameProcedure::s_hCursorPreRepair, true);
 	}
 
-	CN3UIString* pStatic = (CN3UIString* )GetChildByID("text_gold"); __ASSERT(pStatic, "NULL UI Component!!");
-	if(pStatic)
-	{
-		pStatic->SetStringAsInt(CGameBase::s_pPlayer->m_InfoExt.iGold);
-	}
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 	
 	// 스르륵 열린다!!
 	SetVisible(true);
@@ -200,7 +196,24 @@ void CUIInventory::GoldUpdate()
 	CN3UIString* pStatic = (CN3UIString* )GetChildByID("text_gold"); __ASSERT(pStatic, "NULL UI Component!!");
 	if(pStatic)
 	{
-		pStatic->SetStringAsInt(CGameBase::s_pPlayer->m_InfoExt.iGold);
+		char szBuff[32] = "";
+		sprintf(szBuff, "%d", CGameBase::s_pPlayer->m_InfoExt.iGold);
+		int buffLength = strlen(szBuff);
+		int goldLength = buffLength + (buffLength / 3) - (buffLength % 3 == 0 ? 1 : 0);
+
+		char szGold[42] = "";
+		szGold[goldLength] = '\0';
+
+		for (int i = buffLength - 1, k = goldLength - 1; i >= 0; i--, k--)
+		{
+			if ((buffLength - 1 - i) % 3 == 0 && (buffLength - 1 != i))
+				szGold[k--] = ',';
+
+			szGold[k] = szBuff[i];
+		}
+
+
+		pStatic->SetString(szGold);
 	}
 }
 
