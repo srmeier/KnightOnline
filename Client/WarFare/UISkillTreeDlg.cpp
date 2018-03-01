@@ -319,31 +319,33 @@ bool CUISkillTreeDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 					{
 						// Get Item..
 						spSkill = GetHighlightIconItem((CN3UIIcon* )pSender);
+						if (CheckSkillCanBeUse(spSkill->pSkill))
+						{
+							spSkillCopy = new __IconItemSkill();
+							spSkillCopy->pSkill = spSkill->pSkill;
+							spSkillCopy->szIconFN = spSkill->szIconFN;
 
-						spSkillCopy = new __IconItemSkill();
-						spSkillCopy->pSkill = spSkill->pSkill;
-						spSkillCopy->szIconFN = spSkill->szIconFN;
+							// 아이콘 로드하기.. ^^
+							spSkillCopy->pUIIcon = new CN3UIIcon;
+							spSkillCopy->pUIIcon->Init(this);
+							spSkillCopy->pUIIcon->SetTex(spSkill->szIconFN);
+							spSkillCopy->pUIIcon->SetUVRect(0, 0, 1, 1);
+							spSkillCopy->pUIIcon->SetUIType(UI_TYPE_ICON);
 
-						// 아이콘 로드하기.. ^^
-						spSkillCopy->pUIIcon = new CN3UIIcon;
-						spSkillCopy->pUIIcon->Init(this);
-						spSkillCopy->pUIIcon->SetTex(spSkill->szIconFN);
-						spSkillCopy->pUIIcon->SetUVRect(0,0,1,1);
-						spSkillCopy->pUIIcon->SetUIType(UI_TYPE_ICON);
+							bitMask = UISTYLE_ICON_SKILL;
+							if (!CGameProcedure::s_pProcMain->m_pMagicSkillMng->CheckValidSkillMagic(spSkillCopy->pSkill))
+								bitMask |= UISTYLE_DISABLE_SKILL;
+							spSkillCopy->pUIIcon->SetStyle(bitMask);
 
-						bitMask = UISTYLE_ICON_SKILL;
-						if (!CGameProcedure::s_pProcMain->m_pMagicSkillMng->CheckValidSkillMagic(spSkillCopy->pSkill))
-							bitMask |= UISTYLE_DISABLE_SKILL;
-						spSkillCopy->pUIIcon->SetStyle(bitMask);
+							// Save Select Info..
+							CN3UIWndBase::m_sSkillSelectInfo.UIWnd = UIWND_SKILL_TREE;
+							CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo = spSkillCopy;
 
-						// Save Select Info..
-						CN3UIWndBase::m_sSkillSelectInfo.UIWnd = UIWND_SKILL_TREE;
-						CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo = spSkillCopy;
+							pDlg->SetReceiveSelectedSkill(iIndex);
 
-						pDlg->SetReceiveSelectedSkill(iIndex);
-
-						CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo = NULL;
-						pDlg->CloseIconRegistry();
+							CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo = NULL;
+							pDlg->CloseIconRegistry();
+						}
 					}
 				}
 			}
@@ -1109,29 +1111,39 @@ void CUISkillTreeDlg::InitIconUpdate()
 		iModulo = pUSkill->iNeedSkill % 10;
 		switch ( iModulo )
 		{
-			case 0:																				// Base Skill.. 레벨 점보만으로 판단한다..
-				if ( pUSkill->iNeedLevel <= CGameBase::s_pPlayer->m_InfoBase.iLevel )		// 내 레벨보다 같거나 작으면..
+			case 0:																				// Basic Skills..
+				if (pUSkill->iNeedLevel <= CGameBase::s_pPlayer->m_InfoBase.iLevel)		// 내 레벨보다 같거나 작으면..
 					AddSkillToPage(pUSkill);
+				else
+					AddSkillToPage(pUSkill, 0, false);
 				break;
 
-			case 5:																				// 전문 Skill.. 직업마다 다르다..
+			case 5:																				// First Skill Tab..
 				if ( pUSkill->iNeedLevel <= m_iSkillInfo[5] )
 					AddSkillToPage(pUSkill, 1);
+				else
+					AddSkillToPage(pUSkill, 1, false);
 				break;
 
-			case 6:																				// 전문 Skill.. 직업마다 다르다..
+			case 6:																				// Second Skill Tab..
 				if ( pUSkill->iNeedLevel <= m_iSkillInfo[6] )
 					AddSkillToPage(pUSkill, 2);
+				else
+					AddSkillToPage(pUSkill, 2, false);
 				break;
 
-			case 7:																				// 전문 Skill.. 직업마다 다르다..
+			case 7:																				// Third Skill Tab..
 				if ( pUSkill->iNeedLevel <= m_iSkillInfo[7] )
 					AddSkillToPage(pUSkill, 3);
+				else
+					AddSkillToPage(pUSkill, 3, false);
 				break;
 
-			case 8:																				// 전문 Skill.. 직업마다 다르다..
+			case 8:																				// Master Skill Tab..
 				if ( pUSkill->iNeedLevel <= m_iSkillInfo[8] )
 					AddSkillToPage(pUSkill, 4);
+				else
+					AddSkillToPage(pUSkill, 4, false);
 				break;
 		}		
 	}
@@ -1303,7 +1315,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 	}
 }
 
-void CUISkillTreeDlg::AddSkillToPage(__TABLE_UPC_SKILL* pUSkill, int iOffset)
+void CUISkillTreeDlg::AddSkillToPage(__TABLE_UPC_SKILL* pUSkill, int iOffset, bool bHasLevelToUse)
 {
 	int i, j;
 	bool bFound = false;
@@ -1338,16 +1350,20 @@ stop:
 
 	// 아이콘 이름 만들기.. ^^
 	std::vector<char> buffer(256, NULL);
-	sprintf(&buffer[0],	"UI\\skillicon_%.2d_%d.dxt", pUSkill->dwID%100, pUSkill->dwID/100);
-	spSkill->szIconFN = &buffer[0];
+	if(bHasLevelToUse)
+		sprintf(&buffer[0], "UI\\skillicon_%.2d_%d.dxt", pUSkill->dwID % 100, pUSkill->dwID / 100);
+	else
+		sprintf(&buffer[0], "UI\\skillicon_enigma.dxt");
 
+	spSkill->szIconFN = &buffer[0];
+	
 	// 아이콘 로드하기.. ^^
 	spSkill->pUIIcon = new CN3UIIcon;
 	spSkill->pUIIcon->Init(this);
 	spSkill->pUIIcon->SetTex(spSkill->szIconFN);
 	spSkill->pUIIcon->SetUVRect(0,0,1,1);
 	spSkill->pUIIcon->SetUIType(UI_TYPE_ICON);
-	spSkill->pUIIcon->SetStyle(UISTYLE_ICON_SKILL);
+	spSkill->pUIIcon->SetStyle(UISTYLE_DISABLE_SKILL);
 
 	CN3UIArea* pArea = NULL;
 	pArea = CN3UIWndBase::GetChildAreaByiOrder(UI_AREA_TYPE_SKILL_TREE, j);
@@ -1359,6 +1375,30 @@ stop:
 
 	// 아이콘 정보 저장..
 	m_pMySkillTree[iOffset][i][j] = spSkill;
+}
+
+bool CUISkillTreeDlg::CheckSkillCanBeUse(__TABLE_UPC_SKILL* pUSkill)
+{
+	size_t iModulo = pUSkill->iNeedSkill % 10;
+	switch (iModulo)
+	{
+		case 0:																				// Basic Skills..
+			return pUSkill->iNeedLevel <= CGameBase::s_pPlayer->m_InfoBase.iLevel;				
+			break;
+		case 5:																				// First Skill Tab..
+			return pUSkill->iNeedLevel <= m_iSkillInfo[5];
+			break;
+		case 6:																				// Second Skill Tab..
+			return pUSkill->iNeedLevel <= m_iSkillInfo[6];
+			break;
+		case 7:																				// Third Skill Tab..
+			return pUSkill->iNeedLevel <= m_iSkillInfo[7];
+			break;
+		case 8:																				// Master Skill Tab..
+			return pUSkill->iNeedLevel <= m_iSkillInfo[8];
+			break;
+	}
+	return false;
 }
 
 void CUISkillTreeDlg::Open()
