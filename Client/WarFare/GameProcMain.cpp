@@ -1041,6 +1041,19 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 //		case N3_CLAN:
 //			this->MsgRecv_Clan(pkt);
 //			return true;
+		case WIZ_QUEST:
+			uint8_t start = pkt.read<uint8_t>();
+			uint16_t questId = pkt.read<uint16_t>();
+			uint8_t state = pkt.read<uint8_t>();
+			if (state == 1)
+			{				
+				char buff[100];
+				sprintf(buff, "You have started quest:%d", questId);
+				//::_LoadStringFromResource(IDS_SKILL_FAIL_CASTING, buff);
+				this->MsgOutput(buff, D3DCOLOR_ARGB(255, 255, 255, 255));
+				return true;
+			}
+			break;
 	}
 
 #ifdef _DEBUG
