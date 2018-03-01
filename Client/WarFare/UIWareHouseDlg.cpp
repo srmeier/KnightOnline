@@ -1828,8 +1828,7 @@ void CUIWareHouseDlg::GoldCountToWareOK()	//µ·À» ³Ö´Â °æ¿ì..
 	// µ· Ç¥½Ã.. ÀÎº¥Åä¸®..
 	sprintf(szGold, "%d", iMyMoney);	pStr = NULL;
 	str = szGold;
-	pStr = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pStr, "NULL UI Component!!");
-	if(pStr)	pStr->SetString(str);	pStr = NULL;	
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 	// µ· Ç¥½Ã.. Inv..
 	pStr = (CN3UIString* )GetChildByID("string_item_name"); __ASSERT(pStr, "NULL UI Component!!");
 	if(pStr) pStr->SetStringAsInt(iMyMoney);
@@ -1882,8 +1881,7 @@ void CUIWareHouseDlg::GoldCountFromWareOK()		// µ·À» »©´Â °æ¿ì..
 	// µ· Ç¥½Ã.. ÀÎº¥Åä¸®..
 	sprintf(szGold, "%d", iMyMoney);	pStr = NULL;
 	str = szGold;
-	pStr = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pStr, "NULL UI Component!!");
-	if(pStr)	pStr->SetString(str);	pStr = NULL;	
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 	// µ· Ç¥½Ã.. Inv..
 	pStr = (CN3UIString* )GetChildByID("string_item_name"); __ASSERT(pStr, "NULL UI Component!!");
 	if(pStr) pStr->SetStringAsInt(iMyMoney);
@@ -1961,8 +1959,7 @@ void CUIWareHouseDlg::ReceiveResultGoldToWareFail()
 	// µ· Ç¥½Ã.. ÀÎº¥Åä¸®..
 	sprintf(szGold, "%d", iMyMoney);	pStr = NULL;
 	str = szGold;
-	pStr = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pStr, "NULL UI Component!!");
-	if(pStr)	pStr->SetString(str);	pStr = NULL;	
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 	// µ· Ç¥½Ã.. Inv..
 	pStr = (CN3UIString* )GetChildByID("string_item_name"); __ASSERT(pStr, "NULL UI Component!!");
 	if(pStr) pStr->SetStringAsInt(iMyMoney);
@@ -2003,8 +2000,7 @@ void CUIWareHouseDlg::ReceiveResultGoldFromWareFail()
 	// µ· Ç¥½Ã.. ÀÎº¥Åä¸®..
 	sprintf(szGold, "%d", iMyMoney);	pStr = NULL;
 	str = szGold;
-	pStr = (CN3UIString* )CGameProcedure::s_pProcMain->m_pUIInventory->GetChildByID("text_gold"); __ASSERT(pStr, "NULL UI Component!!");
-	if(pStr)	pStr->SetString(str);	pStr = NULL;	
+	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();
 	// µ· Ç¥½Ã.. Inv..
 	pStr = (CN3UIString* )GetChildByID("string_item_name"); __ASSERT(pStr, "NULL UI Component!!");
 	if(pStr) pStr->SetStringAsInt(iMyMoney);
