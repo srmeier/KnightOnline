@@ -17,6 +17,7 @@
 
 #include "SDL2\SDL_syswm.h"
 
+#include "UIManager.h"
 #include "IMouseWheelInputDlg.h"
 //-----------------------------------------------------------------------------
 CLocalInput::CLocalInput(void) {
