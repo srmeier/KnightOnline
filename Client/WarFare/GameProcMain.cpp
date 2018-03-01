@@ -482,7 +482,7 @@ void CGameProcMain::Tick()
 	if(!s_pSocket->IsConnected()) return;
 
 #ifdef _DEBUG
-	if(s_pLocalInput->IsKeyPressed(SDL_SCANCODE_F8))
+	if(s_pLocalInput->IsKeyPressed(SDL_SCANCODE_F11))
 	{
 		uint8_t byBuff[32];
 		int iOffset = 0;
@@ -1279,6 +1279,23 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		
 		if (s_pLocalInput->IsKeyPress(SDL_SCANCODE_PAGEDOWN))
 			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->PageDown();
+
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_1))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(0);
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_2))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(1);
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_3))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(2);
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_4))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(3);
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_5))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(4);
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_6))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(5);
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_7))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(6);
+		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_8))
+			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->SetHotKeyPage(7);
 
 	} // end of if ( !m_UIChatDlg.IsChatMode() )
 
