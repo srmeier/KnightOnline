@@ -273,6 +273,7 @@
     <ClInclude Include="GameProcOption.h" />
     <ClInclude Include="GrassBoard.h" />
     <ClInclude Include="GrassMng.h" />
+    <ClInclude Include="IMouseWheelInputDlg.h" />
     <ClInclude Include="UICmdEdit.h" />
     <ClInclude Include="UICmdList.h" />
     <ClInclude Include="ItemRepairMgr.h" />
