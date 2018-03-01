@@ -70,6 +70,11 @@ bool CUIWarp::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			this->UpdateAgreement(); // 동의문 업데이트..
 		}
 	}
+	else if (dwMsg & UIMSG_LIST_DBLCLK)
+	{
+		CGameProcedure::s_pProcMain->MsgSend_Warp();
+		this->SetVisible(false);
+	}
 
 	return true;
 }
