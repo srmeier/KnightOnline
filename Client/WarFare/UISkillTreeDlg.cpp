@@ -1363,7 +1363,7 @@ stop:
 	spSkill->pUIIcon->SetTex(spSkill->szIconFN);
 	spSkill->pUIIcon->SetUVRect(0,0,1,1);
 	spSkill->pUIIcon->SetUIType(UI_TYPE_ICON);
-	spSkill->pUIIcon->SetStyle(UISTYLE_DISABLE_SKILL);
+	spSkill->pUIIcon->SetStyle(UISTYLE_ICON_SKILL);
 
 	CN3UIArea* pArea = NULL;
 	pArea = CN3UIWndBase::GetChildAreaByiOrder(UI_AREA_TYPE_SKILL_TREE, j);
