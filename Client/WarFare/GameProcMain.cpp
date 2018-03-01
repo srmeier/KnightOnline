@@ -1132,6 +1132,10 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 		{
 			OnMouseLDBtnPress(ptCur, ptPrev);
 		}
+		if (dwMouseFlags & MOUSE_MBCLICK)
+		{
+			OnMouseMBtnPress(ptCur, ptPrev);
+		}
 
 		// reset mouse visibility
 		if (!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY) == SDL_DISABLE) {
@@ -7632,6 +7636,17 @@ bool CGameProcMain::OnMouseRDBtnPress(POINT ptCur, POINT ptPrev)
 
 	//스킬 매직이 사용되었다면....
 	m_pUIHotKeyDlg->EffectTriggerByMouse();
+
+	return true;
+}
+
+// When Mouse Middle Button Pressed - This will need to be change to 180* Camera Turn
+bool CGameProcMain::OnMouseMBtnPress(POINT ptCur, POINT ptPrev)
+{
+	if (s_pPlayer->IsAlive())
+	{
+		if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(100);
+	}
 
 	return true;
 }
