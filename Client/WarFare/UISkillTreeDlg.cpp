@@ -575,7 +575,8 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 				break;
 		}
 	}
-
+	// WHY ROGUES CANT POINT TO ASSASIN - WHY WARRIORS CANT POINT TO PASSION ?
+	/*
 	if (iValue == 7)
 	{
 		switch ( CGameBase::s_pPlayer->m_InfoBase.eNation )
@@ -643,6 +644,7 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 				break;
 		}
 	}
+	*/
 
 	switch(iValue)	
 	{
