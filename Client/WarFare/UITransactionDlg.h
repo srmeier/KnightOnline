@@ -18,12 +18,12 @@
 
 #include "GameDef.h"
 #include "N3UIWndBase.h"
-
+#include "IMouseWheelInputDlg.h"
 enum e_NpcTrade {	UI_BLACKSMITH = 1, UI_STORE, UI_INN	};
 
 //////////////////////////////////////////////////////////////////////
 
-class CUITransactionDlg   : public CN3UIWndBase  
+class CUITransactionDlg   : public CN3UIWndBase, public IMouseWheelInputDlg
 {
 	friend class CUIInventory;
 

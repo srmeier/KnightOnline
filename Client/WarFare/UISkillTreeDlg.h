@@ -15,6 +15,7 @@
 #include "N3UIButton.h"
 #include "N3UIImage.h"
 #include "N3UIString.h"
+#include "IMouseWheelInputDlg.h"
 
 const int SKILL_DEF_BASIC = 0;
 const int SKILL_DEF_SPECIAL0 = 1;
@@ -30,7 +31,7 @@ const int SKILL_DEF_SPECIAL3 = 4;
 
 //////////////////////////////////////////////////////////////////////
 
-class CUISkillTreeDlg    : public CN3UIWndBase  
+class CUISkillTreeDlg    : public CN3UIWndBase, public IMouseWheelInputDlg
 {
 protected:
 	bool		m_bOpenningNow; // 열리고 있다..
