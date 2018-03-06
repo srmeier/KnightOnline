@@ -24,7 +24,7 @@ Client/data/
 *.iobj
 *.db
 *.sbr
-*.lib
+
 *.rej
 .vs/
 enc_temp_folder/
