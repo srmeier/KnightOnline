@@ -21,6 +21,7 @@
 #define EXEC_RUN_EXCHANGE        0x0E
 #define EXEC_ROLL_DICE           0x0F
 #define EXEC_STATE_CHANGE        0x10
+#define EXEC_ZONE_CHANGE         0x11
 
 //-----------------------------------------------------------------------------
 class EXEC {

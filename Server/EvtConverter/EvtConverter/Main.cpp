@@ -242,6 +242,18 @@ void FillEventID(EVENT_DATA* pEvent) {
 				num_logic_to_close++;
 			} break;
 
+			case LOGIC_CHECK_EXITS_EVENT:
+				{
+				fprintf(outputFile, "\tif pUser:CheckExistEvent(%d,%d) then", pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
+				num_logic_to_close++;
+			} break;
+
+			case LOGIC_CHECK_NOEXITS_EVENT:
+			{
+				fprintf(outputFile, "\tif not pUser:CheckExistEvent(%d,%d) then", pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
+				num_logic_to_close++;
+			} break;
+
 			default: {
 				printf("Missing LOGIC code for command %d.\n", pLogicElse->m_LogicElse);
 				//system("pause");

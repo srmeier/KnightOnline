@@ -105,6 +105,16 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		// NOTE: number of empty slots to check for
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
+	} else if (!strcmp(temp, "CHECK_EXIST_EVENT")){
+		m_LogicElse = LOGIC_CHECK_EXITS_EVENT;
+
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //event id
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //state
+	} else if (!strcmp(temp, "CHECK_NOEXIST_EVENT")){
+		m_LogicElse = LOGIC_CHECK_NOEXITS_EVENT;
+
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //event id
+		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //state
 	} else {
 		m_LogicElse = LOGIC_UNKNOWN;
 		printf("Unknown logic command: %s\n", temp);

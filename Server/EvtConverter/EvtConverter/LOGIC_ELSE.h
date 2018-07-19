@@ -23,6 +23,8 @@
 #define LOGIC_CHECK_DICE               0x10
 #define LOGIC_CHECK_EMPTY_SLOT         0x11
 #define LOGIC_CHECK_NOCLASS            0x12
+#define LOGIC_CHECK_EXITS_EVENT        0x13
+#define LOGIC_CHECK_NOEXITS_EVENT      0x14
 
 //-----------------------------------------------------------------------------
 class LOGIC_ELSE {
