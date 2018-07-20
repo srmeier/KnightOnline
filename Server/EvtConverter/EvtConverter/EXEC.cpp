@@ -126,7 +126,14 @@ void EXEC::Parse(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // state flag
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // state value
 
-	} else {
+	} else if(!strcmp(temp, "ZONE_CHANGE")){
+		m_Exec = EXEC_ZONE_CHANGE;
+
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // zone id
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // loc x
+		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp); // loc y
+	}
+	else {
 		m_Exec = EXEC_UNKNOWN;
 		printf("Unknown execute command: %s\n", temp);
 		//system("pause");

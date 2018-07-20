@@ -2553,12 +2553,11 @@ elseif nEventID == 21126 then
 	pUser:SelectMsg(21128, 21130, 21130, 21135, 21135, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21129 then
 	pUser:NpcSay(21125, 21126, -1, -1, -1, -1, -1, -1);
-elseif nEventID == 21130 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_NOEXIST_EVENT'.");
-	if false then -- unknown logic command (CHECK_NOEXIST_EVENT)
+elseif nEventID == 21130 then	
+	if not pUser:CheckExistEvent(11,2) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 10 and lvl <= 99 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	 pUser:ZoneChange(51, 150, 150);
 	do return; end
 	end
 	end

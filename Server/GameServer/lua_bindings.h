@@ -54,6 +54,7 @@ LUA_FUNCTION(hasManner);
 LUA_FUNCTION(GiveItem);
 LUA_FUNCTION(RobItem);
 LUA_FUNCTION(CheckExistItem);
+LUA_FUNCTION(CheckExistEvent);
 LUA_FUNCTION(GoldGain);
 LUA_FUNCTION(GoldLose);
 LUA_FUNCTION(ExpChange);

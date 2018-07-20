@@ -989,7 +989,7 @@ public:
 
 	void SaveEvent(uint16_t sQuestID, uint8_t bQuestState);
 	void DeleteEvent(uint16_t sQuestID);
-	bool CheckExistEvent(uint16_t sQuestID, uint8_t bQuestState);
+	bool CheckExistEvent(uint16_t sQuestID, uint8_t bQuestState);	
 
 	void QuestV2MonsterCountAdd(uint16_t sNpcID);
 	uint8_t QuestV2CheckMonsterCount(uint16_t sQuestID);
@@ -1214,6 +1214,12 @@ public:
 		LUA_RETURN(LUA_GET_INSTANCE()->CheckExistItem(
 			LUA_ARG(uint32_t, 2), 
 			LUA_ARG_OPTIONAL(uint16_t, 1, 3)));
+	}
+
+	DECLARE_LUA_FUNCTION(CheckExistEvent) {
+		LUA_RETURN(LUA_GET_INSTANCE()->CheckExistEvent(
+			LUA_ARG(uint16_t, 2),
+			LUA_ARG(uint8_t, 3)));
 	}
 
 	DECLARE_LUA_FUNCTION(GoldGain) {
