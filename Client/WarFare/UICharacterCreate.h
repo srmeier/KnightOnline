@@ -48,6 +48,7 @@ public:
 
 public:
 	void			Reset();
+	void			UpdateStats();
 	void			UpdateRaceAndClassButtons(e_Race eRace);
 	void			UpdateClassButtons(e_Class eClass);
 

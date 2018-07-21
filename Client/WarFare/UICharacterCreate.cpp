@@ -456,14 +456,21 @@ void CUICharacterCreate::Reset()
 		if(m_pBtn_Classes[i]) m_pBtn_Classes[i]->SetVisible(false);
 	}
 
+	this->UpdateStats();
+}
+
+void CUICharacterCreate::UpdateStats()
+{
+	__InfoPlayerMySelf* pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 	int iStats[MAX_STATS] = { pInfoExt->iStrength, pInfoExt->iStamina, pInfoExt->iDexterity, pInfoExt->iIntelligence, pInfoExt->iMagicAttak };
-	for(int i = 0; i < MAX_STATS; i++)
+
+	for (int i = 0; i < MAX_STATS; i++)
 	{
-		if(m_pImg_Stats[i]) m_pImg_Stats[i]->SetVisible(false);
-		if(m_pStr_Stats[i]) m_pStr_Stats[i]->SetStringAsInt(iStats[i]);
+		if (m_pImg_Stats[i]) m_pImg_Stats[i]->SetVisible(false);
+		if (m_pStr_Stats[i]) m_pStr_Stats[i]->SetStringAsInt(iStats[i]);
 	}
 
-	if(m_pStr_Bonus) m_pStr_Bonus->SetStringAsInt(m_iBonusPoint);
+	if (m_pStr_Bonus) m_pStr_Bonus->SetStringAsInt(m_iBonusPoint);
 }
 
 uint32_t CUICharacterCreate::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld)
@@ -583,6 +590,8 @@ void CUICharacterCreate::UpdateClassButtons(e_Class eClass)
 								UI_STATE_BUTTON_NORMAL  };
 
 	bool bVisibles[MAX_STATS] = { false, false, false, false, false };
+
+	CGameProcedure::s_pProcCharacterCreate->SetStats();
 
 	switch(eClass)
 	{

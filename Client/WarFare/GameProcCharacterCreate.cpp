@@ -93,19 +93,6 @@ void CGameProcCharacterCreate::Render()
 void CGameProcCharacterCreate::SetChr()
 {
 	__InfoPlayerBase*	pInfoBase = &(s_pPlayer->m_InfoBase);
-	__InfoPlayerMySelf*	pInfoExt = &(s_pPlayer->m_InfoExt);
-	__TABLE_NEW_CHR* pTbl = m_Tbl_InitValue.Find(pInfoBase->eRace);
-
-	if(pTbl)
-	{
-		pInfoExt->iStrength =		pTbl->iStr;
-		pInfoExt->iStamina =		pTbl->iSta;
-		pInfoExt->iDexterity =		pTbl->iDex;
-		pInfoExt->iIntelligence =	pTbl->iInt;
-		pInfoExt->iMagicAttak =		pTbl->iMAP;
-		m_pUICharacterCreate->m_iBonusPoint	=		pTbl->iBonus;
-		m_pUICharacterCreate->m_iMaxBonusPoint =	pTbl->iBonus;
-	}
 
 	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(s_pPlayer->m_InfoBase.eRace);	// User Player Character Skin 구조체 포인터..;
 	if(NULL == pLooks) return;
@@ -129,6 +116,29 @@ void CGameProcCharacterCreate::SetChr()
 
 	s_pPlayer->InventoryChrAnimationInitialize();
 	s_pPlayer->Action(PSA_BASIC, true, NULL, true);
+}
+
+void CGameProcCharacterCreate::SetStats()
+{
+	__InfoPlayerBase*	pInfoBase = &(s_pPlayer->m_InfoBase);
+	__InfoPlayerMySelf*	pInfoExt = &(s_pPlayer->m_InfoExt);
+	__TABLE_NEW_CHR* pTbl = NULL;
+	// dwID of InitValue is a concatenation of the race and the class
+	uint32_t dwID = pInfoBase->eRace * 10000 + pInfoBase->eClass;
+	
+	pTbl = m_Tbl_InitValue.Find(dwID);
+	if (pTbl)
+	{
+		pInfoExt->iStrength = pTbl->iStr;
+		pInfoExt->iStamina = pTbl->iSta;
+		pInfoExt->iDexterity = pTbl->iDex;
+		pInfoExt->iIntelligence = pTbl->iInt;
+		pInfoExt->iMagicAttak = pTbl->iMAP;
+		m_pUICharacterCreate->m_iBonusPoint = pTbl->iBonus;
+		m_pUICharacterCreate->m_iMaxBonusPoint = pTbl->iBonus;
+	}
+
+	m_pUICharacterCreate->UpdateStats();
 }
 
 void CGameProcCharacterCreate::Tick()

@@ -58,6 +58,7 @@ public:
 	bool MsgSendCharacterCreate();
 	void RenderChr();
 	void SetChr();
+	void SetStats();
 	
 	void Release();
 	void Init();
