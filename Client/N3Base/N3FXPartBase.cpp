@@ -433,6 +433,9 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 	ReadFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 	m_iVersion = (int)cTmp;
 
+	// if there is nothing to read, return
+	if (m_iVersion == 0) {  return false; }
+
 	ReadFile(hFile, &cTmp, sizeof(uint8_t), &dwRWC, NULL);
 	m_iBaseVersion = (int)cTmp;
 
