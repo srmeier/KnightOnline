@@ -3250,18 +3250,18 @@ bool CGameProcMain::MsgRecv_ItemMove(Packet& pkt)
 		pInfoExt->iMSPMax = pkt.read<int16_t>();
 		
 		// 아이템에 의해 가감된값이다..
-		pInfoExt->iStrength_Delta =		pkt.read<uint8_t>();
-		pInfoExt->iStamina_Delta	=	pkt.read<uint8_t>();
-		pInfoExt->iDexterity_Delta =	pkt.read<uint8_t>();
-		pInfoExt->iIntelligence_Delta =	pkt.read<uint8_t>();
-		pInfoExt->iMagicAttak_Delta =	pkt.read<uint8_t>();
+		pInfoExt->iStrength_Delta =		pkt.read<uint16_t>();
+		pInfoExt->iStamina_Delta	=	pkt.read<uint16_t>();
+		pInfoExt->iDexterity_Delta =	pkt.read<uint16_t>();
+		pInfoExt->iIntelligence_Delta =	pkt.read<uint16_t>();
+		pInfoExt->iMagicAttak_Delta =	pkt.read<uint16_t>();
 
-		pInfoExt->iRegistFire =		pkt.read<uint8_t>();
-		pInfoExt->iRegistCold =		pkt.read<uint8_t>();
-		pInfoExt->iRegistLight =	pkt.read<uint8_t>();
-		pInfoExt->iRegistMagic =	pkt.read<uint8_t>();
-		pInfoExt->iRegistCurse =	pkt.read<uint8_t>();
-		pInfoExt->iRegistPoison	=	pkt.read<uint8_t>();
+		pInfoExt->iRegistFire =		pkt.read<uint16_t>();
+		pInfoExt->iRegistCold =		pkt.read<uint16_t>();
+		pInfoExt->iRegistLight =	pkt.read<uint16_t>();
+		pInfoExt->iRegistMagic =	pkt.read<uint16_t>();
+		pInfoExt->iRegistCurse =	pkt.read<uint16_t>();
+		pInfoExt->iRegistPoison	=	pkt.read<uint16_t>();
 
 		if(pInfoBase->iHP > pInfoBase->iHPMax) pInfoBase->iHP = pInfoBase->iHPMax; // 범위검사..
 		if(pInfoExt->iMSP > pInfoExt->iMSPMax) pInfoExt->iMSP = pInfoExt->iMSPMax; // 범위검사..
