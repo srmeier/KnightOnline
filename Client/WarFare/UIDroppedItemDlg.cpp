@@ -723,6 +723,13 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 	{
 		if (iItemID != dwGold)
 		{
+			pItem = CGameBase::s_pTbl_Items_Basic.Find(iItemID / 1000 * 1000);
+			if (NULL == pItem)
+			{ 
+				__ASSERT(0, "Invalidate Item ID From Server.. ");
+				CLogWriter::Write("CUIDroppedItemDlg::GetItemByIDToInventory - Invalidate Item ID : %d", iItemID);
+				return;
+			}
 			if ( (iPos < 0) || (iPos > (MAX_ITEM_INVENTORY-1)) )
 			{
 				__ASSERT(0, "Invalidate Item Pos From Server.. ");
@@ -755,6 +762,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 				else
 				{
 					// 갯수 셋팅..
+					// Picking up countable item which the user already have
 					CGameProcedure::s_pProcMain->m_pUIInventory->m_pMyInvWnd[iPos]->iCount = iItemCount;
 					PlayItemSound(CGameProcedure::s_pProcMain->m_pUIInventory->m_pMyInvWnd[iPos]->pItemBasic);
 				}
@@ -762,8 +770,14 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 			else
 			{
 				// 아이템이 없는 경우 .. 새로 만든다.. 갯수 셋팅..
+				// Picking up countable item for the first time or just a regular non-countable item
 				AddToItemTableToInventory(iItemID, iItemCount, iPos);
 			}
+
+			char szBuff[128] = "";
+			std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_GET_BY_RULE, szMsg);
+			sprintf(szBuff, szMsg.c_str(), pItem->szName.c_str());
+			CGameProcedure::s_pProcMain->MsgOutput(szBuff, 0xff9b9bff);
 
 			spItem = m_pMyDroppedItem[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceStart.iOrder];
 			if (spItem)
