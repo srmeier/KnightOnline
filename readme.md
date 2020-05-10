@@ -26,5 +26,5 @@ This code is for academic purposes only! If you have questions, or would like he
 <br>
 
 <p align="center">
-	<img src="http://stephenmeier.net/files/openko_ex_00.png" />
+	<img src="https://stephenmeiernet.files.wordpress.com/2020/05/openko_ex_00.png" />
 </p>
