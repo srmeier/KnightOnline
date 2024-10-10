@@ -264,7 +264,7 @@ bool CGameSocket::SetUid(float x, float z, int id, int speed)
 	CUser* pUser = g_pMain->GetUserPtr(id);
 	if(pUser == nullptr) 
 	{
-		TRACE("#### Userµî·Ï ½ÇÆÐ sid = %d ####\n", id);
+		TRACE("#### User등록 실패 sid = %d ####\n", id);
 		return false;
 	}
 

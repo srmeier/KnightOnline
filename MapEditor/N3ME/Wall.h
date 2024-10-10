@@ -1,4 +1,4 @@
-// Wall.h: interface for the CWall class.
+Ôªø// Wall.h: interface for the CWall class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,8 +22,8 @@ public:
 	void	Load(HANDLE hFile);
 	void	Save(HANDLE hFile);
 	int		GetSize() { return m_Wall.size(); }
-	bool	GetVertex(int idx, __Vector3* pPos);	// idx¬∞ ¡° ∞°¡Æø¿±‚..
-	void	AddVertex(__Vector3 Vertex);	//path¥ı«œ±‚.
+	bool	GetVertex(int idx, __Vector3* pPos);	// idxÏß∏ Ï†ê Í∞ÄÏ†∏Ïò§Í∏∞..
+	void	AddVertex(__Vector3 Vertex);	//pathÎçîÌïòÍ∏∞.
 	void	DelPrevVertex();
 
 	CWall();

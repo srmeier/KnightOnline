@@ -1,4 +1,4 @@
-// EventMgr.h: interface for the CEventMgr class.
+ï»¿// EventMgr.h: interface for the CEventMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ public:
 	int						m_MapSize;
 	short**					m_ppEvent;
 	CMapMng*				m_pRefMapMng;
-	bool					m_bActive;					// ÀÌ±â´ÉÀÌ È°¼ºÈ­ µÇ¾î ÀÖ´ÂÁö...1:È°¼ºÈ­, 0:ºñÈ°¼ºÈ­..
+	bool					m_bActive;					// ì´ê¸°ëŠ¥ì´ í™œì„±í™” ë˜ì–´ ìˆëŠ”ì§€...1:í™œì„±í™”, 0:ë¹„í™œì„±í™”..
 	CDlgEditEvent*			m_pDlgEventList;
 
 public:

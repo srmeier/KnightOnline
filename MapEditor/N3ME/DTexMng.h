@@ -1,4 +1,4 @@
-// DTexMng.h: interface for the CDTexMng class.
+ï»¿// DTexMng.h: interface for the CDTexMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,7 +25,7 @@ protected:
 public:
 	std::list<CDTex*>	m_pDTex;
 	CMainFrame*			m_pMainFrm;	
-	//int					m_NumDTex;	//dtex¸¦ ´ã°í ÀÖ´Â ¸¶Áö¸· ¹è¿­ + 1...^^
+	//int					m_NumDTex;	//dtexë¥¼ ë‹´ê³  ìžˆëŠ” ë§ˆì§€ë§‰ ë°°ì—´ + 1...^^
 	//CDTex*			m_pDTex[MAX_TILETEXTURE];
 				
 public:

@@ -1,4 +1,4 @@
-// N3Cloud.h: interface for the CN3Cloud class.
+ï»¿// N3Cloud.h: interface for the CN3Cloud class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -31,20 +31,20 @@ public:
 	virtual ~CN3Cloud();
 
 protected:
-	__VertexXyzColorT2	m_pVertices[NUM_CLOUD_VERTEX]; // ±¸¸§ÃşÀÇ ¹öÅØ½º
-	CN3Texture*		m_pTextures[NUM_CLOUD];				// ÅØ½ºÃÄµé..
-	std::string		m_szTextures[NUM_CLOUD];			// ÅØ½ºÃ³ ÆÄÀÏ ÀÌ¸§µé...
+	__VertexXyzColorT2	m_pVertices[NUM_CLOUD_VERTEX]; // êµ¬ë¦„ì¸µì˜ ë²„í…ìŠ¤
+	CN3Texture*		m_pTextures[NUM_CLOUD];				// í…ìŠ¤ì³ë“¤..
+	std::string		m_szTextures[NUM_CLOUD];			// í…ìŠ¤ì²˜ íŒŒì¼ ì´ë¦„ë“¤...
 
-	CN3ColorChange	m_Color1;							// ±¸¸§ »ö1
-	CN3ColorChange	m_Color2;							// ±¸¸§ »ö2
-	CN3ColorChange	m_Alpha;							// ±¸¸§ ¹Ù²ğ¶§ alpha°ª
-	e_CLOUDTEX		m_eCloud1;							// ±¸¸§ ÅØ½ºÃÄ1
-	e_CLOUDTEX		m_eCloud2;							// ±¸¸§ ÅØ½ºÃÄ2
-	e_CLOUDTEX		m_eCloud3;							// ±¸¸§ ÅØ½ºÃÄ3
+	CN3ColorChange	m_Color1;							// êµ¬ë¦„ ìƒ‰1
+	CN3ColorChange	m_Color2;							// êµ¬ë¦„ ìƒ‰2
+	CN3ColorChange	m_Alpha;							// êµ¬ë¦„ ë°”ë€”ë•Œ alphaê°’
+	e_CLOUDTEX		m_eCloud1;							// êµ¬ë¦„ í…ìŠ¤ì³1
+	e_CLOUDTEX		m_eCloud2;							// êµ¬ë¦„ í…ìŠ¤ì³2
+	e_CLOUDTEX		m_eCloud3;							// êµ¬ë¦„ í…ìŠ¤ì³3
 
-	float			m_fCloudTexTime;					// ±¸¸§ º¯°æ ³²Àº ½Ã°£
-	e_CLOUDTEX		m_eBackupCloud;						// 2¹øÂ° ±¸¸§ º¯°æÇØ¾ß ÇÒ textureÁ¾·ù ÀúÀå
-	float			m_fBackupTime;						// 2¹øÂ° ±¸¸§ º¯°æÇØ¾ß ÇÒ ½Ã°£ ÀúÀå
+	float			m_fCloudTexTime;					// êµ¬ë¦„ ë³€ê²½ ë‚¨ì€ ì‹œê°„
+	e_CLOUDTEX		m_eBackupCloud;						// 2ë²ˆì§¸ êµ¬ë¦„ ë³€ê²½í•´ì•¼ í•  textureì¢…ë¥˜ ì €ì¥
+	float			m_fBackupTime;						// 2ë²ˆì§¸ êµ¬ë¦„ ë³€ê²½í•´ì•¼ í•  ì‹œê°„ ì €ì¥
 
 // Operations
 public:

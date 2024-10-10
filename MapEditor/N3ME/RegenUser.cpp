@@ -1,4 +1,4 @@
-// RegenUser.cpp: implementation of the CRegenUser class.
+ï»¿// RegenUser.cpp: implementation of the CRegenUser class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ static char THIS_FILE[]=__FILE__;
 
 CRegenUser::CRegenUser()
 {
-	m_pRefMapMng = NULL;				// ÁöÇü ÂüÁ¶ Æ÷ÀÎÅÍ..
+	m_pRefMapMng = NULL;				// ì§€í˜• ì°¸ì¡° í¬ì¸í„°..
 	m_bActive = false;
 
 	m_vrListRegion.clear();
@@ -59,7 +59,7 @@ void CRegenUser::Render()
 
 	D3DXMATRIX mtx;
 	D3DXMatrixIdentity(&mtx);
-	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ¿ùµå Çà·Ä Àû¿ë..
+	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ì›”ë“œ í–‰ë ¬ ì ìš©..
 	
 	// set texture
 	hr = s_lpD3DDev->SetTexture(0, NULL);
@@ -79,7 +79,7 @@ void CRegenUser::Render()
 
 	__VertexXyzColor v[4];
 
-	//ÀÌ¹Ì ¸¸µé¾îÁø ¿µ¿ª..
+	//ì´ë¯¸ ë§Œë“¤ì–´ì§„ ì˜ì—­..
 	std::list<VERTEXRECT*>::iterator it, ite;
 	ite = m_vrListRegion.end();
 	for(it=m_vrListRegion.begin(); it!=ite; it++)
@@ -97,7 +97,7 @@ void CRegenUser::Render()
 		hr = s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, v, sizeof(__VertexXyzColor));
 	}
 
-	//Áö±İ ¸¸µé°í ÀÖ´Â ¿µ¿ª..
+	//ì§€ê¸ˆ ë§Œë“¤ê³  ìˆëŠ” ì˜ì—­..
 	v[0] = m_vrCurrRegion.m_vLB;
 	v[0].color = 0xffff0000;
 	v[1] = m_vrCurrRegion.m_vLT;

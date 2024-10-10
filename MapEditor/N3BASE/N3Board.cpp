@@ -1,4 +1,4 @@
-// N3Board.cpp: implementation of the CN3Board class.
+ï»¿// N3Board.cpp: implementation of the CN3Board class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -57,7 +57,7 @@ void CN3Board::Release()
 
 void CN3Board::Tick(float fFrm)
 {
-	// È¸Àü ½ÃÅ²´Ù..
+	// íšŒì „ ì‹œí‚¨ë‹¤..
 	if(m_dwBoardType == BOARD_Y)
 	{
 		__Vector3 vDir = s_CameraData.vEye - m_vPos;
@@ -76,7 +76,7 @@ void CN3Board::Tick(float fFrm)
 	if(iTC > 1)
 	{
 		m_fTexIndex += CN3Base::s_fSecPerFrm * m_fTexFPS;
-		if(m_fTexIndex >= iTC) m_fTexIndex -= (iTC * m_fTexIndex) / iTC; // Á¤¼ö·Î ³ª´©¸é ¼Ò¼ýÁ¡¸¸ ³²±â°Ô µÈ´Ù??(ÇÏ¿©Æ° ºñ½ÁÇØ~)
+		if(m_fTexIndex >= iTC) m_fTexIndex -= (iTC * m_fTexIndex) / iTC; // ì •ìˆ˜ë¡œ ë‚˜ëˆ„ë©´ ì†Œìˆ«ì ë§Œ ë‚¨ê¸°ê²Œ ëœë‹¤??(í•˜ì—¬íŠ¼ ë¹„ìŠ·í•´~)
 	}
 }
 
@@ -89,14 +89,14 @@ void CN3Board::Render()
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 	static DWORD dwAlpha, dwFog, dwCull;
-	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha »ç¿ë
+	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha ì‚¬ìš©
 	{
 		s_lpD3DDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlpha);
 		if(TRUE != dwAlpha) s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 		s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND,   m_Mtl.dwSrcBlend);
 		s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND,  m_Mtl.dwDestBlend);
 	}
-	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ¹«½Ã..
+	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ë¬´ì‹œ..
 	{
 		s_lpD3DDev->GetRenderState(D3DRS_FOGENABLE, &dwFog);
 		if(TRUE == dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
@@ -117,7 +117,7 @@ void CN3Board::Render()
 	s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, m_vRects, sizeof(__VertexT1));
 
 	if((m_Mtl.nRenderFlags & RF_ALPHABLENDING) && FALSE == dwAlpha)	s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ¾È°³ »ç¿ëÇÏÁö ¾Ê´Â´Ù..
+	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ì•ˆê°œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤..
 	if((m_Mtl.nRenderFlags & RF_DOUBLESIDED) && D3DCULL_NONE != dwCull) 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, dwCull);
 }
 
@@ -172,21 +172,21 @@ void CN3Board::LoadFromText(const std::string& szFName)
 	Release();
 
 	FILE* stream = fopen(szFName.c_str(), "r");
-	__ASSERT(stream, "ÁöÁ¤ÇÑ ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+	__ASSERT(stream, "ì§€ì •í•œ íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 	
 	int result, i, iCount;
 	char szBoardType[64]="";	__Vector3 vPos;	float fWidth, fHeight;
-	result = fscanf(stream, "Position = %f %f %f\n", &(vPos.x), &(vPos.y), &(vPos.z));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Size = %f %f\n", &fWidth, &fHeight);	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Rotation Axis = %s\n", szBoardType);		__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Frame per Sec = %f\n", &m_fTexFPS);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+	result = fscanf(stream, "Position = %f %f %f\n", &(vPos.x), &(vPos.y), &(vPos.z));	__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Size = %f %f\n", &fWidth, &fHeight);	__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Rotation Axis = %s\n", szBoardType);		__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Frame per Sec = %f\n", &m_fTexFPS);			__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 
-	result = fscanf(stream, "Render Flag = %d\n", &m_Mtl.nRenderFlags);		__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Source Blend = %d\n", &m_Mtl.dwSrcBlend);		__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Dest Blend = %d\n", &m_Mtl.dwDestBlend);		__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	// ¾È°³, culling ¿É¼ÇÀº ¿ì¼± Á¤ÇÏÁö ¸»ÀÚ.
+	result = fscanf(stream, "Render Flag = %d\n", &m_Mtl.nRenderFlags);		__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Source Blend = %d\n", &m_Mtl.dwSrcBlend);		__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Dest Blend = %d\n", &m_Mtl.dwDestBlend);		__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	// ì•ˆê°œ, culling ì˜µì…˜ì€ ìš°ì„  ì •í•˜ì§€ ë§ìž.
 
-	result = fscanf(stream, "Texture Count = %d\n", &iCount);		__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+	result = fscanf(stream, "Texture Count = %d\n", &iCount);		__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 
 	if (iCount>0)
 	{
@@ -194,7 +194,7 @@ void CN3Board::LoadFromText(const std::string& szFName)
 		TexAlloc(iCount);
 		for (i=0; i<iCount; ++i)
 		{
-			result = fscanf(stream, "Texture Name = %s\n", &szTexFName);		__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+			result = fscanf(stream, "Texture Name = %s\n", &szTexFName);		__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 			TexSet(i, szTexFName);
 		}
 	}

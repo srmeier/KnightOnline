@@ -1,4 +1,4 @@
-// N3FXPMeshInstance.cpp: implementation of the CN3FXPMeshInstance class.
+ï»¿// N3FXPMeshInstance.cpp: implementation of the CN3FXPMeshInstance class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -54,7 +54,7 @@ CN3FXPMeshInstance::~CN3FXPMeshInstance()
 	if (m_pColorVertices)	{ delete[] m_pColorVertices;m_pColorVertices = NULL;}
 	if (m_pIndices)			{ delete[] m_pIndices;m_pIndices = NULL;}
 
-	s_MngFXPMesh.Delete(&m_pFXPMesh);				//·¹ÆÛ·±½º Ä«¿îÆ®¸¦ ÁÙÀÌ±â À§ÇØ
+	s_MngFXPMesh.Delete(&m_pFXPMesh);				//ë ˆí¼ëŸ°ìŠ¤ ì¹´ìš´íŠ¸ë¥¼ ì¤„ì´ê¸° ìœ„í•´
 }
 
 void CN3FXPMeshInstance::Release()
@@ -62,7 +62,7 @@ void CN3FXPMeshInstance::Release()
 	if (m_pColorVertices)	{ delete[] m_pColorVertices;m_pColorVertices = NULL;}
 	if (m_pIndices)			{ delete[] m_pIndices;m_pIndices = NULL;}
 
-	s_MngFXPMesh.Delete(&m_pFXPMesh);				//·¹ÆÛ·±½º Ä«¿îÆ®¸¦ ÁÙÀÌ±â À§ÇØ
+	s_MngFXPMesh.Delete(&m_pFXPMesh);				//ë ˆí¼ëŸ°ìŠ¤ ì¹´ìš´íŠ¸ë¥¼ ì¤„ì´ê¸° ìœ„í•´
 
 	m_pCollapseUpTo = NULL;
 	m_iNumVertices = 0;
@@ -118,7 +118,7 @@ bool CN3FXPMeshInstance::Create(CN3FXPMesh* pN3FXPMesh)
 
 bool CN3FXPMeshInstance::Create(const std::string& szFN)
 {
-	if (m_pFXPMesh && m_pFXPMesh->FileName() == szFN) return true;	// ÆÄÀÏ ÀÌ¸§ÀÌ °°À¸¸é »õ·Î ¸¸µéÁö ¾Ê°í ¸®ÅÏÇÏÀÚ
+	if (m_pFXPMesh && m_pFXPMesh->FileName() == szFN) return true;	// íŒŒì¼ ì´ë¦„ì´ ê°™ìœ¼ë©´ ìƒˆë¡œ ë§Œë“¤ì§€ ì•Šê³  ë¦¬í„´í•˜ì
 	this->Release();
 
 	CN3FXPMesh* pN3FXPMesh = s_MngFXPMesh.Get(szFN);
@@ -139,7 +139,7 @@ void CN3FXPMeshInstance::SetLODByNumVertices(int iNumVertices)
 	{
 		while(iNumVertices > m_iNumVertices)
 		{
-			if (m_pCollapseUpTo->NumVerticesToLose + m_iNumVertices > iNumVertices) break;		// ±ô¹ÚÀÓ ¹æÁö ÄÚµå..
+			if (m_pCollapseUpTo->NumVerticesToLose + m_iNumVertices > iNumVertices) break;		// ê¹œë°•ì„ ë°©ì§€ ì½”ë“œ..
 			if (SplitOne() == false) break;
 		}
 	}
@@ -162,11 +162,11 @@ void CN3FXPMeshInstance::SetLOD(float value)
 {
 #define _USE_LODCONTROL_VALUE
 #ifdef _USE_LODCONTROL_VALUE
-	// value´Â distance * FOVÀÌ´Ù.
+	// valueëŠ” distance * FOVì´ë‹¤.
 	if (m_pFXPMesh == NULL ) return;
 
 	if (m_pFXPMesh->m_iLODCtrlValueCount == 0)
-	{	// LODCtrlValue°¡ ¾øÀ¸¸é ¸ğµÎ ±×¸°´Ù.
+	{	// LODCtrlValueê°€ ì—†ìœ¼ë©´ ëª¨ë‘ ê·¸ë¦°ë‹¤.
 		SetLODByNumVertices(0x7fffffff);
 		return;
 	}
@@ -176,15 +176,15 @@ void CN3FXPMeshInstance::SetLOD(float value)
 	CN3PMesh::__LODCtrlValue* pTmpLODCV = m_pFXPMesh->m_pLODCtrlValues + m_pFXPMesh->m_iLODCtrlValueCount-1;
 
 	if (value < m_pFXPMesh->m_pLODCtrlValues[0].fDist)
-	{		// ÃÖ¼Ò ±âÁØÄ¡º¸´Ù °¡±î¿ì¹Ç·Î °¡Àå ¸¹Àº ¸éÀ¸·Î ±×¸°´Ù.
+	{		// ìµœì†Œ ê¸°ì¤€ì¹˜ë³´ë‹¤ ê°€ê¹Œìš°ë¯€ë¡œ ê°€ì¥ ë§ì€ ë©´ìœ¼ë¡œ ê·¸ë¦°ë‹¤.
 		SetLODByNumVertices(m_pFXPMesh->m_pLODCtrlValues[0].iNumVertices);
 	}
 	else if ( pTmpLODCV->fDist < value)
-	{		// ÃÖ´ë ±âÁØÄ¡º¸´Ù ¸Ö¸® ÀÖÀ¸¹Ç·Î °¡Àå ÀûÀº ¸éÀ¸·Î ±×¸°´Ù.
+	{		// ìµœëŒ€ ê¸°ì¤€ì¹˜ë³´ë‹¤ ë©€ë¦¬ ìˆìœ¼ë¯€ë¡œ ê°€ì¥ ì ì€ ë©´ìœ¼ë¡œ ê·¸ë¦°ë‹¤.
 		SetLODByNumVertices(pTmpLODCV->iNumVertices);
 	}
 	else
-	{		// Áß°£ °ª¿¡ ¸Â°Ô Á¶Á¤µÈ ¸é ¼ö·Î ±×¸°´Ù.
+	{		// ì¤‘ê°„ ê°’ì— ë§ê²Œ ì¡°ì •ëœ ë©´ ìˆ˜ë¡œ ê·¸ë¦°ë‹¤.
 		for (int i=1; i< m_pFXPMesh->m_iLODCtrlValueCount; ++i)
 		{
 			if (value < m_pFXPMesh->m_pLODCtrlValues[i].fDist)
@@ -199,7 +199,7 @@ void CN3FXPMeshInstance::SetLOD(float value)
 		}
 	}
 #else
-	// value´Â distance * FOVÀÌ´Ù.
+	// valueëŠ” distance * FOVì´ë‹¤.
 	if (m_pCollapseUpTo == NULL || m_pFXPMesh == NULL) return;
 
 	const int iLODCtrlValueCount = 5;
@@ -243,10 +243,10 @@ bool CN3FXPMeshInstance::CollapseOne()
 
 bool CN3FXPMeshInstance::SplitOne()
 {
-	if (m_pCollapseUpTo >= m_pFXPMesh->m_pCollapses + m_pFXPMesh->m_iNumCollapses) return false; // ÀÌ·¸°Ô ÇÏ¸é Æ÷ÀÎÅÍ ÇÏ³ª°¡ »ßÁ® ³ª¿À°Ô µÈ´Ù..
-	// ÇÏÁö¸¸ ÀÌ·¸°Ô ´Ù½Ã ÇÏ´Â ÀÌÀ¯´Â ¾Æ·¡ ÄÚµå·Î ÇÏ¸é ¸¶Áö¸· Æú¸®°ïÀÌ Àı´ë ±×·ÁÁöÁö ¾Ê´Â´Ù.
-	// ÀÌ·¸°Ô ÇØµµ ±¦ÂúÀ» ¼ö ÀÖµµ·Ï ¹æ¾îÄÚµå¸¦ ³Ö¾ú´Ù. m_pFXPMesh->m_pCollapses ¸¦ ÇÒ´çÇÒ¶§ 1°³ ´õ ÇÒ´çÇÏ°í ¸¶Áö¸· µ¥ÀÌÅÍ¸¦ ÃÊ±â°ªÀ¸·Î ³Ö¾ú´Ù.
-//	if (m_pCollapseUpTo >= m_pFXPMesh->m_pCollapses + m_pFXPMesh->m_iNumCollapses - 1) return false; // ÀÌ°Ô Á¤»óÀÌ´Ù..
+	if (m_pCollapseUpTo >= m_pFXPMesh->m_pCollapses + m_pFXPMesh->m_iNumCollapses) return false; // ì´ë ‡ê²Œ í•˜ë©´ í¬ì¸í„° í•˜ë‚˜ê°€ ì‚ì ¸ ë‚˜ì˜¤ê²Œ ëœë‹¤..
+	// í•˜ì§€ë§Œ ì´ë ‡ê²Œ ë‹¤ì‹œ í•˜ëŠ” ì´ìœ ëŠ” ì•„ë˜ ì½”ë“œë¡œ í•˜ë©´ ë§ˆì§€ë§‰ í´ë¦¬ê³¤ì´ ì ˆëŒ€ ê·¸ë ¤ì§€ì§€ ì•ŠëŠ”ë‹¤.
+	// ì´ë ‡ê²Œ í•´ë„ ê´œì°®ì„ ìˆ˜ ìˆë„ë¡ ë°©ì–´ì½”ë“œë¥¼ ë„£ì—ˆë‹¤. m_pFXPMesh->m_pCollapses ë¥¼ í• ë‹¹í• ë•Œ 1ê°œ ë” í• ë‹¹í•˜ê³  ë§ˆì§€ë§‰ ë°ì´í„°ë¥¼ ì´ˆê¸°ê°’ìœ¼ë¡œ ë„£ì—ˆë‹¤.
+//	if (m_pCollapseUpTo >= m_pFXPMesh->m_pCollapses + m_pFXPMesh->m_iNumCollapses - 1) return false; // ì´ê²Œ ì •ìƒì´ë‹¤..
 
 	m_iNumIndices  += m_pCollapseUpTo->NumIndicesToLose;
 	m_iNumVertices += m_pCollapseUpTo->NumVerticesToLose;
@@ -292,7 +292,7 @@ void CN3FXPMeshInstance::RenderTwoUV()
 	if(NULL == m_pFXPMesh) return;
 	if(NULL == m_pFXPMesh->GetVertices2())
 	{
-		m_pFXPMesh->GenerateSecondUV(); // µÎ¹øÂ° UV °¡ ¾øÀ½ »õ·Î ¸¸µç´Ù..
+		m_pFXPMesh->GenerateSecondUV(); // ë‘ë²ˆì§¸ UV ê°€ ì—†ìŒ ìƒˆë¡œ ë§Œë“ ë‹¤..
 	}
 	if(NULL == m_pFXPMesh->GetVertices2()) return;
 	

@@ -1,9 +1,9 @@
-// stdafx.h : include file for standard system include files,
+ï»¿// stdafx.h : include file for standard system include files,
 //  or project specific include files that are used frequently, but
 //      are changed infrequently
 //
 
-// stl ¾µ·Á°í...
+// stl Â¾ÂµÂ·ÃÂ°Ã­...
 #pragma warning(disable : 4786)
 
 #if !defined(AFX_STDAFX_H__EE019C99_44DD_4876_A2B1_5B1199EB5052__INCLUDED_)

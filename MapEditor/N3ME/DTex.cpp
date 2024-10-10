@@ -1,4 +1,4 @@
-// DTex.cpp: implementation of the CDTex class.
+ï»¿// DTex.cpp: implementation of the CDTex class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -71,7 +71,7 @@ void CDTex::Init()
 
 //
 //	SetAttr...
-//	Å¸ÀÏÇÏ³ª¿¡ ¼Ó¼º Áı¾î ³Ö±â..
+//	íƒ€ì¼í•˜ë‚˜ì— ì†ì„± ì§‘ì–´ ë„£ê¸°..
 //
 void CDTex::SetAttr(int x, int y, DTEXATTR attr)
 {

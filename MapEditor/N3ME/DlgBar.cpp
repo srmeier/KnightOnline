@@ -1,4 +1,4 @@
-// DlgBar.cpp : implementation file
+ï»¿// DlgBar.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -66,7 +66,7 @@ END_MESSAGE_MAP()
 void CDlgBar::OnBSetResourcePath() 
 {
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
-	pFrm->OnResourcePathSet(); // Project ¼¼ÆÃ..
+	pFrm->OnResourcePathSet(); // Project Â¼Â¼Ã†Ãƒ..
 }
 
 void CDlgBar::OnChangeETransformX() 

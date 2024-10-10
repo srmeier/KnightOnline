@@ -1,4 +1,4 @@
-// N3UIArea.cpp: implementation of the CN3UIArea class.
+ï»¿// N3UIArea.cpp: implementation of the CN3UIArea class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -52,10 +52,10 @@ bool CN3UIArea::Load(HANDLE hFile)
 	if (false == CN3UIBase::Load(hFile)) return false;
 
 #ifndef _REPENT
-	// Ãß°¡»çÇ×ÀÌ ÀÖÀ¸¸é ÀÌ°÷¿¡ Ãß°¡ÇÏ±â
+	// ì¶”ê°€ì‚¬í•­ì´ ìˆìœ¼ë©´ ì´ê³³ì— ì¶”ê°€í•˜ê¸°
 	DWORD dwNum;
 	int iAreaType;
-	ReadFile(hFile, &iAreaType, sizeof(int), &dwNum, NULL);	// click ¿µ¿ª
+	ReadFile(hFile, &iAreaType, sizeof(int), &dwNum, NULL);	// click ì˜ì—­
 	m_eAreaType = (eUI_AREA_TYPE)iAreaType;
 #endif
 	return true;
@@ -68,23 +68,23 @@ DWORD CN3UIArea::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld
 #ifndef _REPENT
 #ifdef _N3GAME
 	if ( CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer ) return dwRet;
-	// ºÎ¸ğ°¡ ¾ÆÀÌÄÜ ¸Å´ÏÀúÀÌ·Î Inventory Wnd¶ó¸é..	
+	// ë¶€ëª¨ê°€ ì•„ì´ì½˜ ë§¤ë‹ˆì €ì´ë¡œ Inventory Wndë¼ë©´..	
 	if ( (m_pParent->UIType() == UI_TYPE_ICON_MANAGER) && (((CN3UIWndBase* )m_pParent)->GetUIWnd() == UIWND_INVENTORY) )
 	{
-		// Æ¯Á¤ ÀÌº¥Æ®¿¡ ´ëÇØ ¸Ş½ÃÁö Àü¼Û..
+		// íŠ¹ì • ì´ë²¤íŠ¸ì— ëŒ€í•´ ë©”ì‹œì§€ ì „ì†¡..
 		if(IsIn(ptCur.x, ptCur.y) && (dwFlags & UI_MOUSE_LBCLICK) )	
 		{
-			m_pParent->ReceiveMessage(this, UIMSG_AREA_DOWN_FIRST); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+			m_pParent->ReceiveMessage(this, UIMSG_AREA_DOWN_FIRST); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 			dwRet |= UI_MOUSEPROC_DONESOMETHING;
 			return dwRet;
 		}
 	}
 #endif
 #endif
-	// Æ¯Á¤ ÀÌº¥Æ®¿¡ ´ëÇØ ¸Ş½ÃÁö Àü¼Û..
+	// íŠ¹ì • ì´ë²¤íŠ¸ì— ëŒ€í•´ ë©”ì‹œì§€ ì „ì†¡..
 	if(IsIn(ptCur.x, ptCur.y) && (dwFlags & UI_MOUSE_LBCLICK) )	
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 	}
 
@@ -97,20 +97,20 @@ DWORD CN3UIArea::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& ptOld
 bool CN3UIArea::ReceiveMessage(CN3UIBase* pSender, DWORD dwMsg)
 {
 	if ( CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer ) return false;
-	// ºÎ¸ğ°¡ ¾ÆÀÌÄÜ ¸Å´ÏÀúÀÌ·Î Inventory Wnd¶ó¸é..	
+	// ë¶€ëª¨ê°€ ì•„ì´ì½˜ ë§¤ë‹ˆì €ì´ë¡œ Inventory Wndë¼ë©´..	
 	if ( (m_pParent->UIType() == UI_TYPE_ICON_MANAGER) && (((CN3UIWndBase* )m_pParent)->GetUIWnd() == UIWND_INVENTORY) )
 	{
 		if (dwMsg == UIMSG_BUTTON_CLICK)					
 		{
 			if(pSender->m_szID == "btn_Destroy_ok")
 			{
-				// ÀÎº¥Åä¸®¸¸ ¶° ÀÖÀ»¶§..
+				// ì¸ë²¤í† ë¦¬ë§Œ ë–  ìˆì„ë•Œ..
 				((CUIInventory* )m_pParent)->ItemDestroyOK();
 			}
 
 			if(pSender->m_szID == "btn_Destroy_cancel")
 			{
-				// ÀÎº¥Åä¸®¸¸ ¶° ÀÖÀ»¶§..
+				// ì¸ë²¤í† ë¦¬ë§Œ ë–  ìˆì„ë•Œ..
 				((CUIInventory* )m_pParent)->ItemDestroyCancel();
 			}
 		}
@@ -129,7 +129,7 @@ bool CN3UIArea::Save(HANDLE hFile)
 #ifndef _REPENT
 	DWORD dwNum;
 	int iAreaType = (int)m_eAreaType;
-	WriteFile(hFile, &iAreaType, sizeof(int), &dwNum, NULL);	// click ¿µ¿ª
+	WriteFile(hFile, &iAreaType, sizeof(int), &dwNum, NULL);	// click ì˜ì—­
 #endif
 	return true;
 }

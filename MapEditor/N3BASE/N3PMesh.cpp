@@ -1,4 +1,4 @@
-// N3PMesh.cpp: implementation of the CN3PMesh class.
+ï»¿// N3PMesh.cpp: implementation of the CN3PMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -138,9 +138,9 @@ bool CN3PMesh::Load(HANDLE hFile)
 
 	if (m_iNumCollapses>0)
 	{
-		m_pCollapses = new __EdgeCollapse[m_iNumCollapses+1];	// +1À» ÇÑ ÀÌÀ¯ : PMeshInstance::SplitOne() ÇÔ¼ö¿¡¼­ ºÎµæÀÌÇÏ°Ô Æ÷ÀÎÅÍ°¡ °æ°è¼±À» °¡¸£Å°°Ô ÇØ¾ß ÇÏ´Â °æ¿ì°¡ ÀÖ¾î¼­.
+		m_pCollapses = new __EdgeCollapse[m_iNumCollapses+1];	// +1ì„ í•œ ì´ìœ  : PMeshInstance::SplitOne() í•¨ìˆ˜ì—ì„œ ë¶€ë“ì´í•˜ê²Œ í¬ì¸í„°ê°€ ê²½ê³„ì„ ì„ ê°€ë¥´í‚¤ê²Œ í•´ì•¼ í•˜ëŠ” ê²½ìš°ê°€ ìˆì–´ì„œ.
 		ReadFile(hFile, m_pCollapses, m_iNumCollapses*sizeof(__EdgeCollapse), &dwNum, NULL);
-		ZeroMemory(m_pCollapses + m_iNumCollapses, sizeof(__EdgeCollapse));	// À§ÀÇ +1À» ÇÑÀÌÀ¯¿Í °°À½. ¸¸¾àÀ» ´ëºñÇØ ¸¶Áö¸· µ¥ÀÌÅ¸¸¦ ÃÊ±âÈ­ ÇØµÒ
+		ZeroMemory(m_pCollapses + m_iNumCollapses, sizeof(__EdgeCollapse));	// ìœ„ì˜ +1ì„ í•œì´ìœ ì™€ ê°™ìŒ. ë§Œì•½ì„ ëŒ€ë¹„í•´ ë§ˆì§€ë§‰ ë°ì´íƒ€ë¥¼ ì´ˆê¸°í™” í•´ë‘ 
 
 		bool bFixed = false;
 		for(int i = 0; i < m_iNumCollapses; i++)
@@ -153,7 +153,7 @@ bool CN3PMesh::Load(HANDLE hFile)
 		}
 #ifdef _DEBUG
 		if(bFixed)
-			::MessageBox(s_hWndBase, "Àß¸øµÈ Progressive Mesh ¼öÁ¤", m_szName.c_str(), MB_OK);
+			::MessageBox(s_hWndBase, "ì˜ëª»ëœ Progressive Mesh ìˆ˜ì •", m_szName.c_str(), MB_OK);
 #endif
 	}
 	if (m_iTotalIndexChanges>0)
@@ -216,7 +216,7 @@ bool CN3PMesh::Save(HANDLE hFile)
 	if (m_iNumCollapses>0)
 	{
 		for(int i = 0; i < m_iNumCollapses; i++)
-			if(m_pCollapses[i].iIndexChanges < 0) m_pCollapses[i].iIndexChanges = 0; // ÀúÀå..
+			if(m_pCollapses[i].iIndexChanges < 0) m_pCollapses[i].iIndexChanges = 0; // ì €ì¥..
 		WriteFile(hFile, m_pCollapses, m_iNumCollapses*sizeof(__EdgeCollapse), &dwNum, NULL);
 	}
 	if (m_iTotalIndexChanges>0) WriteFile(hFile, m_pAllIndexChanges, m_iTotalIndexChanges*sizeof(m_pAllIndexChanges[0]), &dwNum, NULL);
@@ -238,7 +238,7 @@ void CN3PMesh::FindMinMax()
 		return;
 	}
 
-	// ÃÖ¼Ò, ÃÖ´ë Á¡À» Ã£´Â´Ù.
+	// ìµœì†Œ, ìµœëŒ€ ì ì„ ì°¾ëŠ”ë‹¤.
 	m_vMin.Set(FLT_MAX, FLT_MAX, FLT_MAX);
 	m_vMax.Set(-FLT_MAX, -FLT_MAX, -FLT_MAX);
 
@@ -271,7 +271,7 @@ void CN3PMesh::FindMinMax()
 	}
 #endif
 
-	// ÃÖ´ë ÃÖ¼Ò°ªÀ» °®°í ¹İÁö¸§ °è»êÇÑ´Ù..
+	// ìµœëŒ€ ìµœì†Œê°’ì„ ê°–ê³  ë°˜ì§€ë¦„ ê³„ì‚°í•œë‹¤..
 	m_fRadius  = (m_vMax - m_vMin).Magnitude() * 0.5f;
 }
 
@@ -304,9 +304,9 @@ void CN3PMesh::CopyMesh(CN3PMesh* pSrcPMesh)
 
 	if (m_iNumCollapses>0)
 	{
-		m_pCollapses = new __EdgeCollapse[m_iNumCollapses+1];	// +1À» ÇÑ ÀÌÀ¯ : PMeshInstance::SplitOne() ÇÔ¼ö¿¡¼­ ºÎµæÀÌÇÏ°Ô Æ÷ÀÎÅÍ°¡ °æ°è¼±À» °¡¸£Å°°Ô ÇØ¾ß ÇÏ´Â °æ¿ì°¡ ÀÖ¾î¼­.
+		m_pCollapses = new __EdgeCollapse[m_iNumCollapses+1];	// +1ì„ í•œ ì´ìœ  : PMeshInstance::SplitOne() í•¨ìˆ˜ì—ì„œ ë¶€ë“ì´í•˜ê²Œ í¬ì¸í„°ê°€ ê²½ê³„ì„ ì„ ê°€ë¥´í‚¤ê²Œ í•´ì•¼ í•˜ëŠ” ê²½ìš°ê°€ ìˆì–´ì„œ.
 		CopyMemory(m_pCollapses, pSrcPMesh->m_pCollapses, sizeof(__EdgeCollapse)*m_iNumCollapses);
-		ZeroMemory(m_pCollapses + m_iNumCollapses, sizeof(__EdgeCollapse));	// À§ÀÇ +1À» ÇÑÀÌÀ¯¿Í °°À½. ¸¸¾àÀ» ´ëºñÇØ ¸¶Áö¸· µ¥ÀÌÅ¸¸¦ ÃÊ±âÈ­ ÇØµÒ
+		ZeroMemory(m_pCollapses + m_iNumCollapses, sizeof(__EdgeCollapse));	// ìœ„ì˜ +1ì„ í•œì´ìœ ì™€ ê°™ìŒ. ë§Œì•½ì„ ëŒ€ë¹„í•´ ë§ˆì§€ë§‰ ë°ì´íƒ€ë¥¼ ì´ˆê¸°í™” í•´ë‘ 
 	}
 
 	hr = Create(m_iMaxNumVertices, m_iMaxNumIndices);
@@ -453,7 +453,7 @@ void CN3PMesh::LODCtrlSet(__LODCtrlValue *pLODCtrls, int nCount)
 		m_pLODCtrlValues = new __LODCtrlValue[nCount];
 		memcpy(m_pLODCtrlValues, pLODCtrls, sizeof(__LODCtrlValue) * nCount);
 
-		// °Å¸®¿¡ µû¶ó Á¤·Ä
+		// ê±°ë¦¬ì— ë”°ë¼ ì •ë ¬
 		qsort(m_pLODCtrlValues, m_iLODCtrlValueCount, sizeof(__LODCtrlValue), SortByDistance);
 	}
 }
@@ -477,7 +477,7 @@ void CN3PMesh::ReGenerateSmoothNormal()
 	if(m_iMaxNumVertices <= 0) return;
 
 	CN3PMeshInstance PMI(this);
-	PMI.SetLODByNumVertices(m_iMaxNumVertices); // ÃÖ´ë Á¡À¸·Î ¼¼ÆÃÇÏ°í..
+	PMI.SetLODByNumVertices(m_iMaxNumVertices); // ìµœëŒ€ ì ìœ¼ë¡œ ì„¸íŒ…í•˜ê³ ..
 	int nIC = PMI.GetNumIndices(); // Index Count...
 	WORD* pwIndices = PMI.GetIndices(); // Index ...
 
@@ -501,7 +501,7 @@ void CN3PMesh::ReGenerateSmoothNormal()
 				m_pVertices[i] == v1 ||
 				m_pVertices[i] == v2 )
 			{
-				vN.Cross(v1 - v0, v2 - v1); // Normal °ªÀ» °è»êÇÏ°í...
+				vN.Cross(v1 - v0, v2 - v1); // Normal ê°’ì„ ê³„ì‚°í•˜ê³ ...
 				vN.Normalize();
 
 				pnNs[i]++;
@@ -523,7 +523,7 @@ void CN3PMesh::ReGenerateSharpNormal()
 	if(m_iMaxNumVertices <= 0) return;
 
 	CN3PMeshInstance PMI(this);
-	PMI.SetLODByNumVertices(m_iMaxNumVertices); // ÃÖ´ë Á¡À¸·Î ¼¼ÆÃÇÏ°í..
+	PMI.SetLODByNumVertices(m_iMaxNumVertices); // ìµœëŒ€ ì ìœ¼ë¡œ ì„¸íŒ…í•˜ê³ ..
 	int nIC = PMI.GetNumIndices(); // Index Count...
 	WORD* pwIndices = PMI.GetIndices(); // Index ...
 
@@ -535,7 +535,7 @@ void CN3PMesh::ReGenerateSharpNormal()
 		v1 = m_pVertices[pwIndices[j*3+1]];
 		v2 = m_pVertices[pwIndices[j*3+2]];
 
-		vN.Cross(v1 - v0, v2 - v1); // Normal °ªÀ» °è»êÇÏ°í...
+		vN.Cross(v1 - v0, v2 - v1); // Normal ê°’ì„ ê³„ì‚°í•˜ê³ ...
 		vN.Normalize();
 
 		m_pVertices[pwIndices[j*3+0]].n = vN;

@@ -1,4 +1,4 @@
-// LightObjMgr.cpp: implementation of the CLightObjMgr class.
+ï»¿// LightObjMgr.cpp: implementation of the CLightObjMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ static char THIS_FILE[]=__FILE__;
 
 CLightObjMgr::CLightObjMgr()
 {
-	m_pRefMapMng = NULL;				// ÁöÇü ÂüÁ¶ Æ÷ÀÎÅÍ..
+	m_pRefMapMng = NULL;				// ì§€í˜• ì°¸ì¡° í¬ì¸í„°..
 	m_bActive = false;
 
 	m_iVersion = 1;
@@ -36,14 +36,14 @@ CLightObjMgr::CLightObjMgr()
 
 	m_ListObj.clear();
 
-	m_BaseCube[0].Set(0, 1, 0);	// ¾ÕÂÊ LT
-	m_BaseCube[1].Set(1, 1, 0);	// ¾ÕÂÊ RT
-	m_BaseCube[2].Set(0, 0, 0); // ¾ÕÂÊ LB
-	m_BaseCube[3].Set(1, 0, 0); // ¾ÕÂÊ RB
-	m_BaseCube[4].Set(0, 1, 1); // µÚÂÊ LT
-	m_BaseCube[5].Set(1, 1, 1); // µÚÂÊ RT
-	m_BaseCube[6].Set(0, 0, 1); // µÚÂÊ LB
-	m_BaseCube[7].Set(1, 0, 1);	// µÚÂÊ RB
+	m_BaseCube[0].Set(0, 1, 0);	// ì•žìª½ LT
+	m_BaseCube[1].Set(1, 1, 0);	// ì•žìª½ RT
+	m_BaseCube[2].Set(0, 0, 0); // ì•žìª½ LB
+	m_BaseCube[3].Set(1, 0, 0); // ì•žìª½ RB
+	m_BaseCube[4].Set(0, 1, 1); // ë’¤ìª½ LT
+	m_BaseCube[5].Set(1, 1, 1); // ë’¤ìª½ RT
+	m_BaseCube[6].Set(0, 0, 1); // ë’¤ìª½ LB
+	m_BaseCube[7].Set(1, 0, 1);	// ë’¤ìª½ RB
 
 	m_pCurrLO = NULL;
 	m_VtxPosDummy.Release();
@@ -232,7 +232,7 @@ void CLightObjMgr::Render()
 	D3DXMATRIX mtx;
 	D3DXMatrixIdentity(&mtx);
 		
-	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ¿ùµå Çà·Ä Àû¿ë..
+	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ì›”ë“œ í–‰ë ¬ ì ìš©..
 	
 	// set texture
 	hr = s_lpD3DDev->SetTexture(0, NULL);
@@ -253,7 +253,7 @@ void CLightObjMgr::Render()
 
 	hr = s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
 
-	//ÀÌ¹Ì ¸¸µé¾îÁø ¶óÀÌÆ®¿ÀºêÁ§Æ® ±×¸®±â...
+	//ì´ë¯¸ ë§Œë“¤ì–´ì§„ ë¼ì´íŠ¸ì˜¤ë¸Œì íŠ¸ ê·¸ë¦¬ê¸°...
 	std::list<LIGHTOBJ*>::iterator it;
 	LIGHTOBJ* pLO;	
 	for(it = m_ListObj.begin(); it != m_ListObj.end(); it++)
@@ -265,14 +265,14 @@ void CLightObjMgr::Render()
 		hr = s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 12, &(m_CubeVB[0]), sizeof(__VertexXyzColor));
 	}
 
-	//ÇöÀç ¸¸µé°í ÀÖ´Â ¶óÀÌÆ®¿ÀºêÁ§Æ® ±×¸®±â.
+	//í˜„ìž¬ ë§Œë“¤ê³  ìžˆëŠ” ë¼ì´íŠ¸ì˜¤ë¸Œì íŠ¸ ê·¸ë¦¬ê¸°.
 	if(m_pCurrLO && m_pCurrLO->pRefLight)
 	{
 		MakeCube(m_pCurrLO->pRefLight->Pos(), 0xffff0000);
 		hr = s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 12, &(m_CubeVB[0]), sizeof(__VertexXyzColor));		
 	}
 		
-	//´ÙÀÌ¾ó·Î±× Ã¢¿¡¼­ ¼±ÅÃµÈ ±æ ±×¸®±â..
+	//ë‹¤ì´ì–¼ë¡œê·¸ ì°½ì—ì„œ ì„ íƒëœ ê¸¸ ê·¸ë¦¬ê¸°..
 	pLO = m_pDlg->m_pSelLO;
 	if(pLO)
 	{

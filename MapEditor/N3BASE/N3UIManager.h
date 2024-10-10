@@ -1,4 +1,4 @@
-// N3UIManager.h: interface for the CN3UIManager class.
+ï»¿// N3UIManager.h: interface for the CN3UIManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@ protected:
 		DWORD dwZEnable, dwAlphaBlend, dwSrcBlend, dwDestBlend, dwFog;
 		DWORD dwMagFilter, dwMinFilter, dwMipFilter;
 #ifdef _DEBUG
-		BOOL	bSet;	// ÀÌ¹Ì °ªÀÌ 3D deviceÀÇ °ªÀ¸·Î ¼¼ÆÃÀÌ µÇ¾ú´ÂÁö ÆÇ´Ü.
+		BOOL	bSet;	// ì´ë¯¸ ê°’ì´ 3D deviceì˜ ê°’ìœ¼ë¡œ ì„¸íŒ…ì´ ë˜ì—ˆëŠ”ì§€ íŒë‹¨.
 #endif
 	};
 	

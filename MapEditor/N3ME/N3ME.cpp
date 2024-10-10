@@ -1,4 +1,4 @@
-// N3ME.cpp : Defines the class behaviors for the application.
+﻿// N3ME.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"

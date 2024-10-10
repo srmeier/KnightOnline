@@ -1,4 +1,4 @@
-// DTex.h: interface for the CDTexAttr class.
+﻿// DTex.h: interface for the CDTexAttr class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// DlgSaveEvt.cpp : implementation file
+﻿// DlgSaveEvt.cpp : implementation file
 //
 
 #include "stdafx.h"

@@ -1,4 +1,4 @@
-// DlgShapeList.cpp : implementation file
+﻿// DlgShapeList.cpp : implementation file
 //
 
 #include "stdafx.h"

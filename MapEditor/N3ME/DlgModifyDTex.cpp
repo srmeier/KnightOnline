@@ -1,4 +1,4 @@
-// DlgModifyDTex.cpp : implementation file
+﻿// DlgModifyDTex.cpp : implementation file
 //
 
 #include "stdafx.h"

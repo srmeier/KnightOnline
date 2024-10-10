@@ -1,4 +1,4 @@
-// N3TableBase.h: interface for the CN3TableBase class.
+ï»¿// N3TableBase.h: interface for the CN3TableBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,20 +27,20 @@ protected:
 	typedef typename std::map<unsigned int, Type>::value_type	val_Table;
 	typedef std::pair<it_Table, bool> pair_Table;
 
-	std::vector<DATA_TYPE> m_DataTypes;	// ½ÇÁ¦ »ç¿ëµÇ´Â Á¤º¸ÀÇ µ¥ÀÌÅ¸ Å¸ÀÔ
-	std::map<unsigned int, Type> m_Datas; // ½ÇÁ¦ »ç¿ëµÇ´Â Á¤º¸
+	std::vector<DATA_TYPE> m_DataTypes;	// ì‹¤ì œ ì‚¬ìš©ë˜ëŠ” ì •ë³´ì˜ ë°ì´íƒ€ íƒ€ì…
+	std::map<unsigned int, Type> m_Datas; // ì‹¤ì œ ì‚¬ìš©ë˜ëŠ” ì •ë³´
 
 // Operations
 public:
 	void	Release();
-	Type*	Find(unsigned int dwID) // ID·Î data Ã£±â
+	Type*	Find(unsigned int dwID) // IDë¡œ data ì°¾ê¸°
 	{
 		it_Table it = m_Datas.find(dwID);
-		if(it == m_Datas.end()) return NULL; // Ã£±â¿¡ ½ÇÆĞ Çß´Ù!~!!
+		if(it == m_Datas.end()) return NULL; // ì°¾ê¸°ì— ì‹¤íŒ¨ í–ˆë‹¤!~!!
 		else return &(it->second);
 	}
 	int		GetSize() { return m_Datas.size(); }
-	Type*	GetIndexedData(int index)	//index·Î Ã£±â..
+	Type*	GetIndexedData(int index)	//indexë¡œ ì°¾ê¸°..
 	{
 		if(index < 0 || m_Datas.empty()) return NULL;
 		if(index >= m_Datas.size()) return NULL;
@@ -49,10 +49,10 @@ public:
 		for(int i = 0; i < index; i++, it++);
 		return &(it->second);
 	}
-	int		IDToIndex(unsigned int dwID) // ÇØ´ç IDÀÇ Index ¸®ÅÏ..	Skill¿¡¼­ ¾´´Ù..
+	int		IDToIndex(unsigned int dwID) // í•´ë‹¹ IDì˜ Index ë¦¬í„´..	Skillì—ì„œ ì“´ë‹¤..
 	{
 		it_Table it = m_Datas.find(dwID);
-		if(it == m_Datas.end()) return -1; // Ã£±â¿¡ ½ÇÆĞ Çß´Ù!~!!
+		if(it == m_Datas.end()) return -1; // ì°¾ê¸°ì— ì‹¤íŒ¨ í–ˆë‹¤!~!!
 
 		it_Table itSkill = m_Datas.begin();
 		int iSize = m_Datas.size();
@@ -73,7 +73,7 @@ protected:
 
 
 
-// cppÆÄÀÏ¿¡ ÀÖÀ¸´Ï±î link¿¡·¯°¡ ³­´Ù. ¿Ö ±×·²±î?
+// cppíŒŒì¼ì— ìˆìœ¼ë‹ˆê¹Œ linkì—ëŸ¬ê°€ ë‚œë‹¤. ì™œ ê·¸ëŸ´ê¹Œ?
 
 template <class Type>
 CN3TableBase<Type>::CN3TableBase()
@@ -89,11 +89,11 @@ CN3TableBase<Type>::~CN3TableBase()
 template <class Type>
 void CN3TableBase<Type>::Release()
 {
-	m_DataTypes.clear(); // data type ÀúÀåÇÑ°Í Áö¿ì±â
-	m_Datas.clear(); // row µ¥ÀÌÅ¸ Áö¿ì±â
+	m_DataTypes.clear(); // data type ì €ì¥í•œê²ƒ ì§€ìš°ê¸°
+	m_Datas.clear(); // row ë°ì´íƒ€ ì§€ìš°ê¸°
 }
 
-// ÆÄÀÏ¿¡ µ¥ÀÌÅ¸ Å¸ÀÔº°·Î ¾²±â..
+// íŒŒì¼ì— ë°ì´íƒ€ íƒ€ì…ë³„ë¡œ ì“°ê¸°..
 template <class Type>
 BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char* lpszData)
 {
@@ -106,10 +106,10 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 			if (isdigit(lpszData[0]))
 			{
 				int iTemp = atoi(lpszData);
-				if (iTemp < -127 || iTemp > 128) return FALSE; // ¹üÀ§°¡ ¹ş¾î³µ¾î~
+				if (iTemp < -127 || iTemp > 128) return FALSE; // ë²”ìœ„ê°€ ë²—ì–´ë‚¬ì–´~
 				cWrite = (char)iTemp;
 			}
-			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
+			else return FALSE;		// ë¬¸ìëŠ” ì•ˆë˜~!
 
 			WriteFile(hFile, &cWrite, sizeof(cWrite), &dwNum, NULL);
 		}
@@ -120,10 +120,10 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 			if (isdigit(lpszData[0]))
 			{
 				int iTemp = atoi(lpszData);
-				if (iTemp < 0 || iTemp > 255) return FALSE; // ¹üÀ§°¡ ¹ş¾î³µ¾î~
+				if (iTemp < 0 || iTemp > 255) return FALSE; // ë²”ìœ„ê°€ ë²—ì–´ë‚¬ì–´~
 				byteWrite = (BYTE)iTemp;
 			}
-			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
+			else return FALSE;		// ë¬¸ìëŠ” ì•ˆë˜~!
 
 			WriteFile(hFile, &byteWrite, sizeof(byteWrite), &dwNum, NULL);
 		}
@@ -134,10 +134,10 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 			if (isdigit(lpszData[0]) || '-' == lpszData[0] )
 			{
 				int iTemp = atoi(lpszData);
-				if (iTemp < -32767 || iTemp > 32768) return FALSE; // ¹üÀ§°¡ ¹ş¾î³µ¾î~
+				if (iTemp < -32767 || iTemp > 32768) return FALSE; // ë²”ìœ„ê°€ ë²—ì–´ë‚¬ì–´~
 				iWrite = (short)iTemp;
 			}
-			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
+			else return FALSE;		// ë¬¸ìëŠ” ì•ˆë˜~!
 
 			WriteFile(hFile, &iWrite, sizeof(iWrite), &dwNum, NULL);
 		}
@@ -148,10 +148,10 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 			if (isdigit(lpszData[0]) )
 			{
 				int iTemp = atoi(lpszData);
-				if (iTemp < 0 || iTemp > 65535) return FALSE; // ¹üÀ§°¡ ¹ş¾î³µ¾î~
+				if (iTemp < 0 || iTemp > 65535) return FALSE; // ë²”ìœ„ê°€ ë²—ì–´ë‚¬ì–´~
 				iWrite = (short)iTemp;
 			}
-			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
+			else return FALSE;		// ë¬¸ìëŠ” ì•ˆë˜~!
 
 			WriteFile(hFile, &iWrite, sizeof(iWrite), &dwNum, NULL);
 		}
@@ -160,7 +160,7 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 		{
 			int iWrite;
 			if (isdigit(lpszData[0]) || '-' == lpszData[0] )	iWrite = atoi(lpszData);
-			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
+			else return FALSE;		// ë¬¸ìëŠ” ì•ˆë˜~!
 
 			WriteFile(hFile, &iWrite, sizeof(iWrite), &dwNum, NULL);
 		}
@@ -169,7 +169,7 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 		{
 			DWORD iWrite;
 			if (isdigit(lpszData[0]) )	iWrite = strtoul(lpszData, NULL, 10);
-			else return FALSE;		// ¹®ÀÚ´Â ¾ÈµÇ~!
+			else return FALSE;		// ë¬¸ìëŠ” ì•ˆë˜~!
 
 			WriteFile(hFile, &iWrite, sizeof(iWrite), &dwNum, NULL);
 		}
@@ -187,7 +187,7 @@ BOOL CN3TableBase<Type>::WriteData(HANDLE hFile, DATA_TYPE DataType, const char*
 			float fWrite;
 			if (isdigit(lpszData[0]) || '-' == lpszData[0] ||
 				'.' == lpszData[0] )	fWrite = (float)atof(lpszData);
-			else return FALSE;	// ¹®ÀÚ´Â ¾ÈµÇ~!
+			else return FALSE;	// ë¬¸ìëŠ” ì•ˆë˜~!
 			WriteFile(hFile, &fWrite, sizeof(fWrite), &dwNum, NULL);
 		}
 		break;
@@ -301,24 +301,24 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 	
 	
 	
-	// ÆÄÀÏ ¾ÏÈ£È­ Ç®±â.. .. ÀÓ½Ã ÆÄÀÏ¿¡´Ù ¾´´ÙÀ½ ..
+	// íŒŒì¼ ì•”í˜¸í™” í’€ê¸°.. .. ì„ì‹œ íŒŒì¼ì—ë‹¤ ì“´ë‹¤ìŒ ..
 	std::string szFNTmp = szFN + ".tmp";
 	DWORD dwSizeHigh = 0;
 	DWORD dwSizeLow = ::GetFileSize(hFile, &dwSizeHigh);
 	if(dwSizeLow <= 0)
 	{
 		CloseHandle(hFile);
-		::remove(szFNTmp.c_str()); // ÀÓ½Ã ÆÄÀÏ Áö¿ì±â..
+		::remove(szFNTmp.c_str()); // ì„ì‹œ íŒŒì¼ ì§€ìš°ê¸°..
 		return FALSE;
 	}
 
-	// ¿ø·¡ ÆÄÀÏÀ» ÀĞ°í..
+	// ì›ë˜ íŒŒì¼ì„ ì½ê³ ..
 	BYTE* pDatas = new BYTE[dwSizeLow];
 	DWORD dwRWC = 0;
-	::ReadFile(hFile, pDatas, dwSizeLow, &dwRWC, NULL); // ¾ÏÈ£È­µÈ µ¥ÀÌÅÍ ÀĞ°í..
-	CloseHandle(hFile); // ¿ø·¡ ÆÄÀÏ ´İ°í
+	::ReadFile(hFile, pDatas, dwSizeLow, &dwRWC, NULL); // ì•”í˜¸í™”ëœ ë°ì´í„° ì½ê³ ..
+	CloseHandle(hFile); // ì›ë˜ íŒŒì¼ ë‹«ê³ 
 
-// Å×ÀÌºí ¸¸µå´Â Åø¿¡¼­ ¾²´Â Å°¿Í °°Àº Å°..
+// í…Œì´ë¸” ë§Œë“œëŠ” íˆ´ì—ì„œ ì“°ëŠ” í‚¤ì™€ ê°™ì€ í‚¤..
 	WORD key_r = 0x0816;
 	WORD key_c1 = 0x6081;
 	WORD key_c2 = 0x1608;
@@ -339,7 +339,7 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 //	return plain;
 //}
 
-	// ¾ÏÈ£È­ Ç®°í..
+	// ì•”í˜¸í™” í’€ê³ ..
 	for(int i = 0; i < dwSizeLow; i++)
 	{
 		BYTE byData = (pDatas[i] ^ (key_r>>8));
@@ -347,13 +347,13 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 		pDatas[i] = byData;
 	}
 
-	// ÀÓ½Ã ÆÄÀÏ¿¡ ¾´´ÙÀ½.. ´Ù½Ã ¿¬´Ù..
+	// ì„ì‹œ íŒŒì¼ì— ì“´ë‹¤ìŒ.. ë‹¤ì‹œ ì—°ë‹¤..
 	hFile = ::CreateFile(szFNTmp.c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	::WriteFile(hFile, pDatas, dwSizeLow, &dwRWC, NULL); // ÀÓ½ÃÆÄÀÏ¿¡ ¾ÏÈ£È­ Ç®¸° µ¥ÀÌÅÍ ¾²±â
-	CloseHandle(hFile); // ÀÓ½Ã ÆÄÀÏ ´İ±â
+	::WriteFile(hFile, pDatas, dwSizeLow, &dwRWC, NULL); // ì„ì‹œíŒŒì¼ì— ì•”í˜¸í™” í’€ë¦° ë°ì´í„° ì“°ê¸°
+	CloseHandle(hFile); // ì„ì‹œ íŒŒì¼ ë‹«ê¸°
 	delete [] pDatas; pDatas = NULL;
 
-	hFile = ::CreateFile(szFNTmp.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL); // ÀÓ½Ã ÆÄÀÏ ÀĞ±â ¸ğµå·Î ¿­±â.
+	hFile = ::CreateFile(szFNTmp.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL); // ì„ì‹œ íŒŒì¼ ì½ê¸° ëª¨ë“œë¡œ ì—´ê¸°.
 
 	
 
@@ -376,7 +376,7 @@ BOOL CN3TableBase<Type>::LoadFromFile(const std::string& szFN)
 	}
 
 
-	// ÀÓ½Ã ÆÄÀÏ Áö¿ì±â..
+	// ì„ì‹œ íŒŒì¼ ì§€ìš°ê¸°..
 	::remove(szFNTmp.c_str());
 
 	return bResult;
@@ -387,27 +387,27 @@ BOOL CN3TableBase<Type>::Load(HANDLE hFile)
 {
 	Release();
 
-	// data(column) ÀÇ ±¸Á¶°¡ ¾î¶»°Ô µÇ¾î ÀÖ´ÂÁö ÀĞ±â
+	// data(column) ì˜ êµ¬ì¡°ê°€ ì–´ë–»ê²Œ ë˜ì–´ ìˆëŠ”ì§€ ì½ê¸°
 	DWORD dwNum;
 	int i, j, iDataTypeCount = 0;
-	ReadFile(hFile, &iDataTypeCount, 4, &dwNum, NULL);			// (¿¢¼¿¿¡¼­ column ¼ö)
+	ReadFile(hFile, &iDataTypeCount, 4, &dwNum, NULL);			// (ì—‘ì…€ì—ì„œ column ìˆ˜)
 
 	std::vector<int> offsets;
-	__ASSERT(iDataTypeCount>0, "Data Type ÀÌ 0 ÀÌÇÏÀÔ´Ï´Ù.");
+	__ASSERT(iDataTypeCount>0, "Data Type ì´ 0 ì´í•˜ì…ë‹ˆë‹¤.");
 	if (iDataTypeCount>0)
 	{
 		m_DataTypes.insert(m_DataTypes.begin(), iDataTypeCount, DT_NONE);
-		ReadFile(hFile, &(m_DataTypes[0]), sizeof(DATA_TYPE)*iDataTypeCount, &dwNum, NULL);	// °¢°¢ÀÇ column¿¡ ÇØ´çÇÏ´Â data type
+		ReadFile(hFile, &(m_DataTypes[0]), sizeof(DATA_TYPE)*iDataTypeCount, &dwNum, NULL);	// ê°ê°ì˜ columnì— í•´ë‹¹í•˜ëŠ” data type
 
 		if(FALSE == MakeOffsetTable(offsets))
 		{
 			__ASSERT(0, "can't make offset table");
-			return FALSE;	// structureº¯¼ö¿¡ ´ëÇÑ offset table ¸¸µé¾îÁÖ±â
+			return FALSE;	// structureë³€ìˆ˜ì— ëŒ€í•œ offset table ë§Œë“¤ì–´ì£¼ê¸°
 		}
 
-		int iSize = offsets[iDataTypeCount];	// MakeOffstTable ÇÔ¼ö¿¡¼­ ¸®ÅÏµÇ´Â °ªÁß m_iDataTypeCount¹øÂ°¿¡ ÀÌ ÇÔ¼öÀÇ ½ÇÁ¦ »çÀÌÁî°¡ µé¾îÀÖ´Ù.
-		if (sizeof(Type) != iSize ||		// ÀüÃ¼ typeÀÇ Å©±â¿Í ½ÇÁ¦ ±¸Á¶Ã¼ÀÇ Å©±â¿Í ´Ù¸£°Å³ª 
-			DT_DWORD != m_DataTypes[0] )	// ¸Ç Ã³À½ÀÇ µ¥ÀÌÅ¸°¡ DT_DWORDÇüÀÌ ¾Æ´Ò¶§(¸ÇÃ³À½Àº °íÀ¯ÇÑ IDÀÌ¹Ç·Î)
+		int iSize = offsets[iDataTypeCount];	// MakeOffstTable í•¨ìˆ˜ì—ì„œ ë¦¬í„´ë˜ëŠ” ê°’ì¤‘ m_iDataTypeCountë²ˆì§¸ì— ì´ í•¨ìˆ˜ì˜ ì‹¤ì œ ì‚¬ì´ì¦ˆê°€ ë“¤ì–´ìˆë‹¤.
+		if (sizeof(Type) != iSize ||		// ì „ì²´ typeì˜ í¬ê¸°ì™€ ì‹¤ì œ êµ¬ì¡°ì²´ì˜ í¬ê¸°ì™€ ë‹¤ë¥´ê±°ë‚˜ 
+			DT_DWORD != m_DataTypes[0] )	// ë§¨ ì²˜ìŒì˜ ë°ì´íƒ€ê°€ DT_DWORDí˜•ì´ ì•„ë‹ë•Œ(ë§¨ì²˜ìŒì€ ê³ ìœ í•œ IDì´ë¯€ë¡œ)
 		{
 			m_DataTypes.clear();
 			__ASSERT(0, "DataType is mismatch or DataSize is incorrect!!");
@@ -415,7 +415,7 @@ BOOL CN3TableBase<Type>::Load(HANDLE hFile)
 		}
 	}
 
-	// row °¡ ¸îÁÙÀÎÁö ÀĞ±â
+	// row ê°€ ëª‡ì¤„ì¸ì§€ ì½ê¸°
 	int iRC;
 	ReadFile(hFile, &iRC, sizeof(iRC), &dwNum, NULL);
 	Type Data;
@@ -429,7 +429,7 @@ BOOL CN3TableBase<Type>::Load(HANDLE hFile)
 		unsigned int dwKey = *((unsigned int*)(&Data));
 		pair_Table pt = m_Datas.insert(val_Table(dwKey, Data));
 
-		__ASSERT(pt.second, "CN3TableBase<Type> : Key Áßº¹ °æ°í.");
+		__ASSERT(pt.second, "CN3TableBase<Type> : Key ì¤‘ë³µ ê²½ê³ .");
 	}
 	return TRUE;
 }
@@ -462,8 +462,8 @@ int CN3TableBase<Type>::SizeOf(DATA_TYPE DataType) const
 	return 0;
 }
 
-// structure´Â 4¹ÙÀÌÆ® Á¤·ÄÇÏ¿©¼­ ¸Ş¸ğ¸®¸¦ Àâ´Â´Ù. µû¶ó¼­ ¾Æ·¡ ÇÔ¼ö°¡ ÇÊ¿äÇÏ´Ù.
-// ¾Æ·¡ ÇÔ¼ö·Î OffsetTableÀ» ¸¸µé¾î ¾´ ÈÄ¿¡´Â ¸¸µå½Ã ¸®ÅÏ°ªÀ» delete [] ¸¦ ÇØÁÖ¾î¾ß ÇÑ´Ù.
+// structureëŠ” 4ë°”ì´íŠ¸ ì •ë ¬í•˜ì—¬ì„œ ë©”ëª¨ë¦¬ë¥¼ ì¡ëŠ”ë‹¤. ë”°ë¼ì„œ ì•„ë˜ í•¨ìˆ˜ê°€ í•„ìš”í•˜ë‹¤.
+// ì•„ë˜ í•¨ìˆ˜ë¡œ OffsetTableì„ ë§Œë“¤ì–´ ì“´ í›„ì—ëŠ” ë§Œë“œì‹œ ë¦¬í„´ê°’ì„ delete [] ë¥¼ í•´ì£¼ì–´ì•¼ í•œë‹¤.
 template <class Type>
 BOOL CN3TableBase<Type>::MakeOffsetTable(std::vector<int>& offsets)
 {	
@@ -471,36 +471,36 @@ BOOL CN3TableBase<Type>::MakeOffsetTable(std::vector<int>& offsets)
 
 	int i, iDataTypeCount = m_DataTypes.size();
 	offsets.clear();
-	offsets.reserve(iDataTypeCount+1);	// +1À» ÇÑ ÀÌÀ¯´Â ¸Ç ¸¶Áö¸· °ª¿¡ TypeÀÇ ½ÇÁ¦ »çÀÌÁî¸¦ ³Ö±â À§ÇØ¼­
+	offsets.reserve(iDataTypeCount+1);	// +1ì„ í•œ ì´ìœ ëŠ” ë§¨ ë§ˆì§€ë§‰ ê°’ì— Typeì˜ ì‹¤ì œ ì‚¬ì´ì¦ˆë¥¼ ë„£ê¸° ìœ„í•´ì„œ
 	offsets[0] = 0;
 	int iPrevDataSize = SizeOf(m_DataTypes[0]);
 	for (i=1; i<iDataTypeCount; ++i)
 	{
 		int iCurDataSize = SizeOf(m_DataTypes[i]);
-		if (1 == iCurDataSize%4)	// ÇöÀç µ¥ÀÌÅÍ°¡ 1¹ÙÀÌÆ®¸é ±×³É ÀÌÀü µ¥ÀÌÅÍ°¡ ¸î¹ÙÀÌÆ®µç »ó°ü ¾ø´Ù.
+		if (1 == iCurDataSize%4)	// í˜„ì¬ ë°ì´í„°ê°€ 1ë°”ì´íŠ¸ë©´ ê·¸ëƒ¥ ì´ì „ ë°ì´í„°ê°€ ëª‡ë°”ì´íŠ¸ë“  ìƒê´€ ì—†ë‹¤.
 		{
 			offsets[i] = offsets[i-1] + iPrevDataSize;
 		}
-		else if (2 == iCurDataSize%4) // ÇöÀç µ¥ÀÌÅÍ°¡ 2¹ÙÀÌÆ®¸é Â¦¼ö¹øÁö¿¡ À§Ä¡ÇØ¾ß ÇÑ´Ù.
+		else if (2 == iCurDataSize%4) // í˜„ì¬ ë°ì´í„°ê°€ 2ë°”ì´íŠ¸ë©´ ì§ìˆ˜ë²ˆì§€ì— ìœ„ì¹˜í•´ì•¼ í•œë‹¤.
 		{
 			if (0 == ((offsets[i-1]+iPrevDataSize) % 2))
 				offsets[i] = offsets[i-1] + iPrevDataSize;
 			else
 				offsets[i] = offsets[i-1] + iPrevDataSize+1;
 		}
-		else if (0 == iCurDataSize%4) // ÇöÀç µ¥ÀÌÅÍ°¡ 4¹ÙÀÌÆ®¸é 4ÀÇ ¹è¼ö¹øÁö¿¡ À§Ä¡ÇØ¾ß ÇÑ´Ù.
+		else if (0 == iCurDataSize%4) // í˜„ì¬ ë°ì´í„°ê°€ 4ë°”ì´íŠ¸ë©´ 4ì˜ ë°°ìˆ˜ë²ˆì§€ì— ìœ„ì¹˜í•´ì•¼ í•œë‹¤.
 		{
 			if (0 == ((offsets[i-1]+iPrevDataSize) % 4))
 				offsets[i] = offsets[i-1] + iPrevDataSize;
 			else
-				offsets[i] = ((int)(offsets[i-1] + iPrevDataSize + 3)/4)*4;	// 4ÀÇ ¹è¼ö·Î ¸¸µé±â
+				offsets[i] = ((int)(offsets[i-1] + iPrevDataSize + 3)/4)*4;	// 4ì˜ ë°°ìˆ˜ë¡œ ë§Œë“¤ê¸°
 		}
 		else __ASSERT(0,"");
 		iPrevDataSize = iCurDataSize;
 	}
 
-	// ¸Ç ¸¶Áö¸· °ª¿¡ TypeÀÇ ½ÇÁ¦ »çÀÌÁî¸¦ ³ÖÀÚ.
-	offsets[iDataTypeCount] = ((int)(offsets[iDataTypeCount-1] + iPrevDataSize + 3)/4)*4;	// 4ÀÇ ¹è¼ö·Î ¸¸µé±â
+	// ë§¨ ë§ˆì§€ë§‰ ê°’ì— Typeì˜ ì‹¤ì œ ì‚¬ì´ì¦ˆë¥¼ ë„£ì.
+	offsets[iDataTypeCount] = ((int)(offsets[iDataTypeCount-1] + iPrevDataSize + 3)/4)*4;	// 4ì˜ ë°°ìˆ˜ë¡œ ë§Œë“¤ê¸°
 
 	return true;
 }

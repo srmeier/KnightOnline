@@ -1,7 +1,7 @@
-// PondMesh.h: interface for the CPondMesh class.
+ï»¿// PondMesh.h: interface for the CPondMesh class.
 //
-// ´ÜÁö °¡ÀåÅ« »ç°¢ÇüÀÇ ¿µ¿ª°ú ¶¥ÀÇ ÁöÇüÀÌµÉ ¿µ¿ª¸¸ ÀÖÀ½ (4m ¾¿ÀÇ Á¡°£ÀÇ °Å¸®)
-// client¿¡¼­ ±¸Çö
+// ë‹¨ì§€ ê°€ì¥í° ì‚¬ê°í˜•ì˜ ì˜ì—­ê³¼ ë•…ì˜ ì§€í˜•ì´ë  ì˜ì—­ë§Œ ìˆìŒ (4m ì”©ì˜ ì ê°„ì˜ ê±°ë¦¬)
+// clientì—ì„œ êµ¬í˜„
 //////////////////////////////////////////////////////////////////////
 
 #if !defined(AFX_PONDMESH_H__314B2191_7B76_461C_AFD2_FDBC105914FC__INCLUDED_)
@@ -24,7 +24,7 @@ class CLyTerrain;
 class CPondMesh : public CN3BaseFileAccess
 {
 public:
-	//	±âÁ¸ÇÔ¼ö
+	//	ê¸°ì¡´í•¨ìˆ˜
 	CN3Texture*		TexGet() const {return m_pTexture;}
 	int				VertexCount() const {return m_iVC;}
 	int				RectVCount() const {return m_iRectVC;}
@@ -34,47 +34,47 @@ public:
 	void			Rotation(__Matrix44 mRot,__Vector3 vCenter);
 
 protected:
-	//	¼±ÅÃµÈ Á¡Á¦¾î
+	//	ì„ íƒëœ ì ì œì–´
 	typedef struct __SELECT_PO
 	{
-		int		ix;	//	m_iWaterScaleWidth »óÀÇ ¼ıÀÚ
-		int		iz;	//	m_iWaterScaleHeight »óÀÇ ¼ıÀÚ
+		int		ix;	//	m_iWaterScaleWidth ìƒì˜ ìˆ«ì
+		int		iz;	//	m_iWaterScaleHeight ìƒì˜ ìˆ«ì
 	};
 
 	typedef std::list<__SELECT_PO*>::iterator it_SelVtx;
-	std::list<__SELECT_PO*>			m_vSelect;	//	¼±ÅÃµÈ Á¡µéÀÇ °ü¸®
+	std::list<__SELECT_PO*>			m_vSelect;	//	ì„ íƒëœ ì ë“¤ì˜ ê´€ë¦¬
 
-	//	±âº» µ¥ÀÌÅ¸
+	//	ê¸°ë³¸ ë°ì´íƒ€
 	int				m_iPondID;
-	float			m_fWaterHeight;	//	¹°³ôÀÌ
-	int				m_iWaterScaleWidth;	//	°¡·Î¹æÇâÀÇ Á¡ÀÇ °¹¼ö
-	int				m_iWaterScaleHeight;//	¼¼·Î¹æÇâÀÇ Á¡ÀÇ °¹¼ö
-	DWORD			m_dwPondAlpha;		//	¹°ÀÇ ¾ËÆÄ
+	float			m_fWaterHeight;	//	ë¬¼ë†’ì´
+	int				m_iWaterScaleWidth;	//	ê°€ë¡œë°©í–¥ì˜ ì ì˜ ê°¯ìˆ˜
+	int				m_iWaterScaleHeight;//	ì„¸ë¡œë°©í–¥ì˜ ì ì˜ ê°¯ìˆ˜
+	DWORD			m_dwPondAlpha;		//	ë¬¼ì˜ ì•ŒíŒŒ
 	float			m_fTU;
 	float			m_fTV;
-	float			m_fWaterScaleX,m_fWaterScaleZ;	//	Á¤·ÄÇßÀ»½Ã Á¡°£ÀÇ °Å¸®
+	float			m_fWaterScaleX,m_fWaterScaleZ;	//	ì •ë ¬í–ˆì„ì‹œ ì ê°„ì˜ ê±°ë¦¬
 
 	int				m_iBackUpWidht;
 	int				m_iBackUpHeight;
 
-	__Vector3		m_pVertices[MAX_PONDMESH_VERTEX];	//	ÀúÀå,¹é¾÷¿ëÀ¸·Î ¾²ÀÌ´Â °ª
-	__VertexXyzT2	m_pViewVts[MAX_PONDMESH_VERTEX];	//	È­¸é¿¡ »Ñ·ÁÁö´Â °ª
+	__Vector3		m_pVertices[MAX_PONDMESH_VERTEX];	//	ì €ì¥,ë°±ì—…ìš©ìœ¼ë¡œ ì“°ì´ëŠ” ê°’
+	__VertexXyzT2	m_pViewVts[MAX_PONDMESH_VERTEX];	//	í™”ë©´ì— ë¿Œë ¤ì§€ëŠ” ê°’
 	WORD*			m_pdwIndex;//[MAX_PONDMESH_LINE*MAX_PONDMESH_LINE*6];
 	int				m_iIC;					// Index Buffer Count.
 	int				m_iVC;					// Vertex Count.
 	CN3Texture*		m_pTexture;
 
-	BOOL			m_bUVState;			//	TRUE Á¡¿¡ °ü¿©ÇÏ¿©, FALSE ÆòÆíÇÏ°Ô (uvÀâÀ½)
+	BOOL			m_bUVState;			//	TRUE ì ì— ê´€ì—¬í•˜ì—¬, FALSE í‰í¸í•˜ê²Œ (uvì¡ìŒ)
 	
-	//	¿¬¸ø¿µ¿ª¿¡ °üÇÑ µ¥ÀÌÅ¸
-	__Vector3		m_vDrawBox[4];		//	È­¸é»ó¿¡ ³ª¿Ã ¿µ¿ª(¿ŞÂÊÀ§ºÎÅÍ ½Ã°è¹æÇâÀ¸·Î)
-	__VertexXyzColor m_ViewRect[5];		//	È­¸é¿¡ ±×¸±¼±
+	//	ì—°ëª»ì˜ì—­ì— ê´€í•œ ë°ì´íƒ€
+	__Vector3		m_vDrawBox[4];		//	í™”ë©´ìƒì— ë‚˜ì˜¬ ì˜ì—­(ì™¼ìª½ìœ„ë¶€í„° ì‹œê³„ë°©í–¥ìœ¼ë¡œ)
+	__VertexXyzColor m_ViewRect[5];		//	í™”ë©´ì— ê·¸ë¦´ì„ 
 	int				m_iRectVC;
-	__VertexXyzT2	m_pRectVts[100];	//	¿µ¿ªÁÙ¿¡ ±×·ÁÁú Á¡µé
+	__VertexXyzT2	m_pRectVts[100];	//	ì˜ì—­ì¤„ì— ê·¸ë ¤ì§ˆ ì ë“¤
 
-	__Vector3		m_vSelectBox[2];	//	Á¡µéÀ» ¼±ÅÃÇßÀ»½Ã Á¡µéÀÇ ¿µ¿ª(Á¡µéÀÌ È­¸é¿µ¿ªÀ» ¹ù¾î³µÀ»½Ã)
+	__Vector3		m_vSelectBox[2];	//	ì ë“¤ì„ ì„ íƒí–ˆì„ì‹œ ì ë“¤ì˜ ì˜ì—­(ì ë“¤ì´ í™”ë©´ì˜ì—­ì„ ë²‹ì–´ë‚¬ì„ì‹œ)
 
-	//	ÁöÇüÁ¤º¸ Âü°í
+	//	ì§€í˜•ì •ë³´ ì°¸ê³ 
 	CLyTerrain*		m_pTerrain;
 
 public:
@@ -87,7 +87,7 @@ public:
 	virtual bool	Load1001(HANDLE hFile);
 	virtual bool	Save(HANDLE hFile);
 	void			Render();
-	void			RenderVertexPoint();	// Àßº¸ÀÌ°Ô Á¡¸¸ ´Ù½Ã ±×¸®±â
+	void			RenderVertexPoint();	// ì˜ë³´ì´ê²Œ ì ë§Œ ë‹¤ì‹œ ê·¸ë¦¬ê¸°
 
 	__Vector3		GetCenter();
 	float			SettingDrawPos(__Vector3 vPos1,__Vector3 vPos2,__Vector3 vPos3,__Vector3 vPos4,int iLinePosNum);
@@ -97,33 +97,33 @@ public:
 	BOOL			SetTextureName(LPCTSTR pszFName);
 
 public:
-	//	»õ·Î Ãß°¡ÇÑ°Å³ª °íÄ£°Å
+	//	ìƒˆë¡œ ì¶”ê°€í•œê±°ë‚˜ ê³ ì¹œê±°
 	void			SetTerrain(CLyTerrain* pCTerrain) {m_pTerrain = pCTerrain;}
 
-	void			MakeDrawRect(__Vector3* pvPos);	//	È­¸é¿¡ º¸ÀÏ ¿¬¸øÀÇ ¿µ¿ªÅ×µÎ¸® ¸¸µç´Ù
-	void			UpdateDrawPos();		//	¿µ¿ªÁÙ¿¡ ±×·ÁÁú Á¡µé 
+	void			MakeDrawRect(__Vector3* pvPos);	//	í™”ë©´ì— ë³´ì¼ ì—°ëª»ì˜ ì˜ì—­í…Œë‘ë¦¬ ë§Œë“ ë‹¤
+	void			UpdateDrawPos();		//	ì˜ì—­ì¤„ì— ê·¸ë ¤ì§ˆ ì ë“¤ 
 
-	void			UpdateWaterHeight();	//	ÇöÀçÀÇ ¹°ÀÇ ³ôÀÌ·Î ¼¼ÆÃ
-	void			UpdateMovePos(__Vector3 vMovingPos);	//	ÀÌµ¿
+	void			UpdateWaterHeight();	//	í˜„ì¬ì˜ ë¬¼ì˜ ë†’ì´ë¡œ ì„¸íŒ…
+	void			UpdateMovePos(__Vector3 vMovingPos);	//	ì´ë™
 
-	void			MakePondPos();	//	ÇöÀç ¹Ú½º¿¡¼­ ¿¬¸øÀ» ¸¸µç´Ù
+	void			MakePondPos();	//	í˜„ì¬ ë°•ìŠ¤ì—ì„œ ì—°ëª»ì„ ë§Œë“ ë‹¤
 	void			MakeIndex();
-	void			ReCalcUV();		//	Á¡¿¡ »ó°ü¾øÀÌ ÆòÆíÇÏ°Ô »Ñ¸°´Ù
-	void			ReCalcVexUV();	//	Á¡¿¡ °ü¿©ÇÏ¿© »Ñ¸°´Ù
+	void			ReCalcUV();		//	ì ì— ìƒê´€ì—†ì´ í‰í¸í•˜ê²Œ ë¿Œë¦°ë‹¤
+	void			ReCalcVexUV();	//	ì ì— ê´€ì—¬í•˜ì—¬ ë¿Œë¦°ë‹¤
 
-	void			EstimatePos();	//	ÁÙÀÇ Å©±â¿¡ µû¶ó Á¡µéÀÇ °¹¼ö¸¦ ÀÓÀÇ·Î ÁöÁ¤////
+	void			EstimatePos();	//	ì¤„ì˜ í¬ê¸°ì— ë”°ë¼ ì ë“¤ì˜ ê°¯ìˆ˜ë¥¼ ì„ì˜ë¡œ ì§€ì •////
 
-	void			ClearSelectPos();	//	¼±ÅÃÁ¡¿¡ °üÇÑ µ¥ÀÌÅÍ ÃÊ±âÈ­
-	void			InputSelectPos(float fX,float fY,float fZ,int iVC=-1);	//	¼±ÅÃÇÑ Á¡µé¿¡ ´ëÇÑ ÀÚ·áÀÔ·Â
-	BOOL			InputDummyMovingPos(__Vector3 vDummyMovingPos,BOOL bMovePond);	//	´õ¹Ì°¡ ¿òÁ÷¿´À»½Ã ³ª¸ÓÁöÁ¡À» Ã³¸®ÇÏ±â À§ÇØ
+	void			ClearSelectPos();	//	ì„ íƒì ì— ê´€í•œ ë°ì´í„° ì´ˆê¸°í™”
+	void			InputSelectPos(float fX,float fY,float fZ,int iVC=-1);	//	ì„ íƒí•œ ì ë“¤ì— ëŒ€í•œ ìë£Œì…ë ¥
+	BOOL			InputDummyMovingPos(__Vector3 vDummyMovingPos,BOOL bMovePond);	//	ë”ë¯¸ê°€ ì›€ì§ì˜€ì„ì‹œ ë‚˜ë¨¸ì§€ì ì„ ì²˜ë¦¬í•˜ê¸° ìœ„í•´
 
 protected:
 	void			MovingPos();
-	void			CalcuWidth(int iSx,int iSy,int iEx=-1,int iEy=-1);	//	Ã³À½ ÁÂ¿ì·ÎÀÇ °è»êÀ» ÇÑ´Ù
-	void			SetAllPos(int iSx,int iSy,int iEx=-1,int iEy=-1);	//	Ã³À½ °è»êÇÑÁ¡µé¿Ü¿¡ Á¡µé ÁÂÇ¥ °è»ê
-	void			ReInputBackPos();	//	»õ·Î ¿Å±äÁÂÇ¥¸¦ ¹é¾÷¿¡ ³Ö¾îÁÜ 
+	void			CalcuWidth(int iSx,int iSy,int iEx=-1,int iEy=-1);	//	ì²˜ìŒ ì¢Œìš°ë¡œì˜ ê³„ì‚°ì„ í•œë‹¤
+	void			SetAllPos(int iSx,int iSy,int iEx=-1,int iEy=-1);	//	ì²˜ìŒ ê³„ì‚°í•œì ë“¤ì™¸ì— ì ë“¤ ì¢Œí‘œ ê³„ì‚°
+	void			ReInputBackPos();	//	ìƒˆë¡œ ì˜®ê¸´ì¢Œí‘œë¥¼ ë°±ì—…ì— ë„£ì–´ì¤Œ 
 
-public:	//	´ÙÀÌ¾ó·Î±× »óÀÚ¿¡¼­ ¾²ÀÌ´Â ÇÔ¼ö
+public:	//	ë‹¤ì´ì–¼ë¡œê·¸ ìƒìì—ì„œ ì“°ì´ëŠ” í•¨ìˆ˜
 	void			SetPondID(int iPondID)				{m_iPondID = iPondID;}
 	void			SetWaterHeight(float fHeight);		
 	void			SetWaterScaleWidht(int iWidhtNum)	{m_iWaterScaleWidth = iWidhtNum;	UpdateDrawPos();MakePondPos();}

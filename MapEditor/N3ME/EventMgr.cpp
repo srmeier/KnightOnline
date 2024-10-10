@@ -1,4 +1,4 @@
-// EventMgr.cpp: implementation of the CEventMgr class.
+ï»¿// EventMgr.cpp: implementation of the CEventMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -140,7 +140,7 @@ void CEventMgr::Render()
 	D3DXMATRIX mtx;
 	D3DXMatrixIdentity(&mtx);
 		
-	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ¿ùµå Çà·Ä Àû¿ë..
+	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ì›”ë“œ í–‰ë ¬ ì ìš©..
 	
 	// set texture
 	hr = s_lpD3DDev->SetTexture(0, NULL);
@@ -161,7 +161,7 @@ void CEventMgr::Render()
 
 	hr = s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
 
-	//ÀÌ¹Ì ¸¸µé¾îÁø ±æ ±×¸®±â...
+	//ì´ë¯¸ ë§Œë“¤ì–´ì§„ ê¸¸ ê·¸ë¦¬ê¸°...
 	std::list<CEventCell*>::iterator itEvent;
 
 	CEventCell* pEvent;
@@ -173,10 +173,10 @@ void CEventMgr::Render()
 		pEvent->Render(0xff0000ff);
 	}
 
-	//´ëÈ­»óÀÚ¿¡¼­ ¼±ÅÃµÈ ±æ ±×¸®±â.
+	//ëŒ€í™”ìƒìì—ì„œ ì„ íƒëœ ê¸¸ ê·¸ë¦¬ê¸°.
 	if(m_pDlgEventList->m_pSelEvent) m_pDlgEventList->m_pSelEvent->Render(0xff00ff00);
 
-	//¸¸µé°í ÀÖ´Â ±æ & ¿µ¿ª ±×¸®±â..
+	//ë§Œë“¤ê³  ìˆëŠ” ê¸¸ & ì˜ì—­ ê·¸ë¦¬ê¸°..
 	m_pCurrEvent->Render(0xffff0000);
 
 	// restore
@@ -303,7 +303,7 @@ void CEventMgr::SaveToFile(const char* RealFileName)
 	GetCurrentDirectory(_MAX_PATH, szOldPath);	
 	SetCurrentDirectory(s_szPath.c_str());
 
-	CreateDirectory("event", NULL); // °æ·Î ¸¸µé°í..
+	CreateDirectory("event", NULL); // ê²½ë¡œ ë§Œë“¤ê³ ..
 	char szNPCPathFileName[_MAX_PATH];
 	wsprintf(szNPCPathFileName, "%sevent\\%s.evt", s_szPath.c_str(), (LPCTSTR)RealFileName);
 
@@ -390,7 +390,7 @@ void CEventMgr::MakeEventArray()
 
 void CEventMgr::SaveInfoTextFile(char* szEvent)
 {
-	// text ÆÄÀÏ ¹öÀü...
+	// text íŒŒì¼ ë²„ì „...
 	FILE* stream = fopen(szEvent, "r");
 	//if(!stream)	return;
 
@@ -477,7 +477,7 @@ void CEventMgr::SaveInfoTextFile(char* szEvent)
 /*
 void CEventMgr::SaveInfoTextFile(char* szEvent)
 {
-	// text ÆÄÀÏ ¹öÀü...
+	// text íŒŒì¼ ë²„ì „...
 	FILE* stream = fopen(szEvent, "w");
 	if(!stream)	return;
 

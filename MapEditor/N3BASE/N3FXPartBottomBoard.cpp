@@ -1,4 +1,4 @@
-// N3FXPartBottomBoard.cpp: implementation of the CN3FXPartBillBoard class.
+ï»¿// N3FXPartBottomBoard.cpp: implementation of the CN3FXPartBillBoard class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -67,7 +67,7 @@ bool CN3FXPartBottomBoard::ParseScript(char* szCommand, char* szBuff0, char* szB
 {
 	if(CN3FXPartBase::ParseScript(szCommand, szBuff0, szBuff1, szBuff2, szBuff3)) return true;
 
-	//	º¸µå Å©±â.
+	//	ë³´ë“œ í¬ê¸°.
 	if(lstrcmpi(szCommand, "<ground_size>")==0)
 	{
 		m_fCurrSizeX = m_fSizeX = atof(szBuff0);
@@ -279,16 +279,16 @@ bool CN3FXPartBottomBoard::Tick()
 		}
 	}
 
-	//À§Ä¡ÀÌµ¿..
+	//ìœ„ì¹˜ì´ë™..
 	m_vCurrVelocity += m_vAcceleration*CN3Base::s_fSecPerFrm;
 	m_vCurrPos += m_vCurrVelocity*CN3Base::s_fSecPerFrm;
 
-	//È¸Àü...
+	//íšŒì „...
 	__Matrix44 mtxRot;
 	mtxRot.Identity();
 	mtxRot.RotationY(m_fCurrLife*m_vRotVelocity.y);
 
-	//½ºÄÉÀÏº¯È¯..
+	//ìŠ¤ì¼€ì¼ë³€í™˜..
 	m_fCurrScaleVelX += m_fScaleAccelX*CN3Base::s_fSecPerFrm;
 	m_fCurrScaleVelZ += m_fScaleAccelZ*CN3Base::s_fSecPerFrm;
 	m_fCurrSizeX += m_fCurrScaleVelX*CN3Base::s_fSecPerFrm;
@@ -349,14 +349,14 @@ bool CN3FXPartBottomBoard::IsDead()
 
 //
 //	render...
-//	ÀÏ´ÜÀº ÆÄÆ¼Å¬ ÇÏ³ª¾¿ ±×¸®°í....
-//	³ªÁß¿¡´Â °°Àº ÅØ½ºÃÄ ¾²´Â °Íµé³¢¸® ¹­¾î¼­ ±×¸®ÀÚ...
+//	ì¼ë‹¨ì€ íŒŒí‹°í´ í•˜ë‚˜ì”© ê·¸ë¦¬ê³ ....
+//	ë‚˜ì¤‘ì—ëŠ” ê°™ì€ í…ìŠ¤ì³ ì“°ëŠ” ê²ƒë“¤ë¼ë¦¬ ë¬¶ì–´ì„œ ê·¸ë¦¬ì...
 //
 void CN3FXPartBottomBoard::Render()
 {
 	if(m_iTexIdx >= m_iNumTex) return;
 
-	if(m_bAlpha) // Alpha »ç¿ë
+	if(m_bAlpha) // Alpha ì‚¬ìš©
 	{
 		__AlphaPrimitive* pAP = s_AlphaMgr.Add();
 		if(pAP)
@@ -382,7 +382,7 @@ void CN3FXPartBottomBoard::Render()
 			pAP->pwIndices			= NULL;
 		}
 
-		return; // ·»´õ¸µ ¾ÈÇÏÁö·Õ.
+		return; // ë Œë”ë§ ì•ˆí•˜ì§€ë¡±.
 	}
 	else 
 	{

@@ -1,4 +1,4 @@
-// DlgSetSound.cpp : implementation file
+﻿// DlgSetSound.cpp : implementation file
 //
 
 #include "stdafx.h"

@@ -1,4 +1,4 @@
-// DTexGroupMng.cpp: implementation of the CDTexGroupMng class.
+ï»¿// DTexGroupMng.cpp: implementation of the CDTexGroupMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -96,7 +96,7 @@ int CDTexGroupMng::GetBrushSize()
 void CDTexGroupMng::SetGroup(const char* pName)
 {
 	//^^
-	//¼ÂÆÃÇÏ·Á´Â ±×·ìÀÌ ÀÖÀ¸¸é °Á ¸®ÅÏÇØ¹ö·Á..
+	//ì…‹íŒ…í•˜ë ¤ëŠ” ê·¸ë£¹ì´ ìˆìœ¼ë©´ ê± ë¦¬í„´í•´ë²„ë ¤..
 	it_DTexGroup it = m_Groups.begin();
 	int iSize = m_Groups.size();
 	for(int i = 0; i < iSize; i++, it++)
@@ -112,7 +112,7 @@ void CDTexGroupMng::SetGroup(const char* pName)
 
 	wsprintf(pGroup->m_Name, pName);
 
-	//»õ·Î¿î idx¸¦ ÁöÁ¤ÇÏ±â À§ÇØ¼­ ÀÏ´Ü Á¤·ÄÀ» ÇÏÀÚ..
+	//ìƒˆë¡œìš´ idxë¥¼ ì§€ì •í•˜ê¸° ìœ„í•´ì„œ ì¼ë‹¨ ì •ë ¬ì„ í•˜ì..
 	it = m_Groups.begin();
 	iSize = m_Groups.size();
 	int* ArrayIdx = new int[iSize];
@@ -141,7 +141,7 @@ void CDTexGroupMng::SetGroup(const char* pName)
 
 //
 //	SetGroupID..
-//	ID·Î ±×·ì ³Ö±â..
+//	IDë¡œ ê·¸ë£¹ ë„£ê¸°..
 //
 void CDTexGroupMng::SetGroupID(const char* pName, int id)
 {
@@ -158,7 +158,7 @@ void CDTexGroupMng::SetGroupID(const char* pName, int id)
 
 
 //
-//	qsort¸¦ À§ÇØ Á¤·ÄÇÏ´Â ÇÔ¼ö...
+//	qsortë¥¼ ìœ„í•´ ì •ë ¬í•˜ëŠ” í•¨ìˆ˜...
 //
 int CDTexGroupMng::CompareIdx( const void *arg1, const void *arg2 )
 {
@@ -173,7 +173,7 @@ int CDTexGroupMng::CompareIdx( const void *arg1, const void *arg2 )
 
 
 //
-//	±×·ì Áö¿ì±â..
+//	ê·¸ë£¹ ì§€ìš°ê¸°..
 //
 void CDTexGroupMng::DelGroup(int ID)
 {
@@ -198,7 +198,7 @@ void CDTexGroupMng::DelGroup(int ID)
 
 
 //
-//	±×·ì¾È¿¡ Å¸ÀÏ ³Ö±â..
+//	ê·¸ë£¹ì•ˆì— íƒ€ì¼ ë„£ê¸°..
 //
 void CDTexGroupMng::SetTile(int ID, int attr, __DTexTileAttr tile)
 {

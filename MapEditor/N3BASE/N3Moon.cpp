@@ -1,4 +1,4 @@
-// N3Moon.cpp: implementation of the CN3Moon class.
+ï»¿// N3Moon.cpp: implementation of the CN3Moon class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -57,7 +57,7 @@ void CN3Moon::Init(const std::string& szTexFN)
 
 void CN3Moon::Render(__Matrix44& matView, __Matrix44& matProj)
 {
-	// ´ŞÀÌ ±×·ÁÁö´Â È­¸é ÁÂÇ¥ °è»êÇÏ±â (2D·Î ±×¸®´Â ÀÌÀ¯´Â ´ŞÀÌ ¿Ö°îµÇ¾î¼­ º¸ÀÌ´Â°ÍÀ» ¸·±â À§ÇØ)
+	// ë‹¬ì´ ê·¸ë ¤ì§€ëŠ” í™”ë©´ ì¢Œí‘œ ê³„ì‚°í•˜ê¸° (2Dë¡œ ê·¸ë¦¬ëŠ” ì´ìœ ëŠ” ë‹¬ì´ ì™œê³¡ë˜ì–´ì„œ ë³´ì´ëŠ”ê²ƒì„ ë§‰ê¸° ìœ„í•´)
 	__Matrix44 matWorld;
 	matWorld.RotationZ(m_fCurRadian);
 	__Matrix44 matFinal;
@@ -74,7 +74,7 @@ void CN3Moon::Render(__Matrix44& matView, __Matrix44& matProj)
 	int Y = s_CameraData.vp.Y;
 	float fRHW = 1.0f/vOut.w;
 	vMoon.z = vOut.z*fRHW;
-	if (vMoon.z < 0.0f || vMoon.z > 1.0f) return;		// È­¸é µÚ¿¡ ±×·ÁÁø´Ù.
+	if (vMoon.z < 0.0f || vMoon.z > 1.0f) return;		// í™”ë©´ ë’¤ì— ê·¸ë ¤ì§„ë‹¤.
 	// Mapping Screen Coordinate.
 	vMoon.x = X + int((vOut.x*fRHW + 1.0f)*Width*0.5f);
 	vMoon.y = Y + int((-vOut.y*fRHW + 1.0f)*Height*0.5f);
@@ -83,9 +83,9 @@ void CN3Moon::Render(__Matrix44& matView, __Matrix44& matProj)
 	int iMoonSize = (Width * m_fMoonRatio) / 2;
 	SetRect(&rcMoon, vMoon.x-iMoonSize, vMoon.y-iMoonSize, vMoon.x+iMoonSize, vMoon.y+iMoonSize);
 	// clipping with screen.
-	if ( rcMoon.right < X|| rcMoon.bottom < Y || rcMoon.left > X+Width || rcMoon.top > Y+Height) return;	// È­¸é ¹Û¿¡ ±×·ÁÁø´Ù.
+	if ( rcMoon.right < X|| rcMoon.bottom < Y || rcMoon.left > X+Width || rcMoon.top > Y+Height) return;	// í™”ë©´ ë°–ì— ê·¸ë ¤ì§„ë‹¤.
 
-	// 2D·Î ±×¸®±â
+	// 2Dë¡œ ê·¸ë¦¬ê¸°
 	m_pVertices[0].x = rcMoon.left;		m_pVertices[0].y = rcMoon.top;
 	m_pVertices[1].x = rcMoon.right;	m_pVertices[1].y = rcMoon.top;
 	m_pVertices[2].x = rcMoon.right;	m_pVertices[2].y = rcMoon.bottom;

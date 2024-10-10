@@ -1,4 +1,4 @@
-// N3Skin.cpp: implementation of the CN3Skin class.
+ï»¿// N3Skin.cpp: implementation of the CN3Skin class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -137,7 +137,7 @@ bool CN3Skin::CheckCollisionPrecisely(const __Vector3 &vPos, const __Vector3 &vD
 	if(pVs == NULL || pwIs == NULL) return false;
 
 	nFC = FaceCount();
-	for(int j = 0; j < nFC; j++) // °¢°¢ÀÇ Face ¸¶´Ù Ãæµ¹Ã¼Å©..
+	for(int j = 0; j < nFC; j++) // ê°ê°ì˜ Face ë§ˆë‹¤ ì¶©ëŒì²´í¬..
 	{
 		nCI0 = pwIs[j*3+0];
 		nCI1 = pwIs[j*3+1];

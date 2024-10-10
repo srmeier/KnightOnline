@@ -1,4 +1,4 @@
-// ScaleDummy.h: interface for the CScaleDummy class.
+﻿// ScaleDummy.h: interface for the CScaleDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 

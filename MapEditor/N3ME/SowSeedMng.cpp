@@ -1,4 +1,4 @@
-// SowSeedMng.cpp: implementation of the CSowSeedMng class.
+ï»¿// SowSeedMng.cpp: implementation of the CSowSeedMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -81,7 +81,7 @@ BOOL CSowSeedMng::MouseMessage(LPMSG pMsg)
 
 	static int	iPrevScreenY = 0;
 	const float fDelta = 0.10f;
-	static int	iSumOfEditedHeight=0;	// ÀÌ¹ø µå·¡±×·Î º¯È­µÈ ÁöÇü³ôÀÌÀÇ ÇÕ
+	static int	iSumOfEditedHeight=0;	// ì´ë²ˆ ë“œë˜ê·¸ë¡œ ë³€í™”ëœ ì§€í˜•ë†’ì´ì˜ í•©
 	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
 
 	switch(pMsg->message)
@@ -93,7 +93,7 @@ BOOL CSowSeedMng::MouseMessage(LPMSG pMsg)
 
 			if( pFrame->m_pDlgSowSeed->Sow_Select_Flage == CS_SOW)
 			{
-				// ºê·¯½Ã ¾÷µ¥ÀÌÆ® 
+				// ë¸ŒëŸ¬ì‹œ ì—…ë°ì´íŠ¸ 
 				if(pFrame->GetMapMng()->GetTerrain()->Pick(point.x, point.y, NULL, &ptSelHeightMapPos))
 					pFrame->GetMapMng()->GetTerrain()->UpdateBrushArea(ptSelHeightMapPos);
 			}
@@ -226,7 +226,7 @@ void CSowSeedMng::Render(LPDIRECT3DDEVICE8 lpD3DDevice)
 
 	if( pFrame->m_pDlgSowSeed->Sow_Select_Flage == CS_SOW)
 	{
-		// ºê·¯½Ã¿¡ ¼±ÅÃµÈ Ç® 
+		// ë¸ŒëŸ¬ì‹œì— ì„ íƒëœ í’€ 
 		if( Render_Grass == TRUE)
 		{
 			pFrame->GetMapMng()->GetTerrain()->RenderBrushArea();
@@ -290,7 +290,7 @@ void CSowSeedMng::Render(LPDIRECT3DDEVICE8 lpD3DDevice)
 		}
 	}
 
-	// ¸Ê¿¡ ÂïÈù Ç® ±×¸®±â 
+	// ë§µì— ì°íŒ í’€ ê·¸ë¦¬ê¸° 
 	if( Render_Grass == TRUE)
 	{
 		it_Grass_Group it = Grass_Group.begin();
@@ -318,7 +318,7 @@ void CSowSeedMng::Render(LPDIRECT3DDEVICE8 lpD3DDevice)
 				}
 			}
 			else
-			if( Select_Group_Id == i )  // ¼±ÅÃµÈ ±×·ì 
+			if( Select_Group_Id == i )  // ì„ íƒëœ ê·¸ë£¹ 
 			{
 				Render_Box(lpD3DDevice,group->Pos);
 				for( j = 0 ; j < group->grass.size(); j++, it_grass++)
@@ -500,7 +500,7 @@ void CSowSeedMng::Add_Grass(void)
 		pFrame->GetMapMng()->m_pDlgSourceList->m_ListShape.GetText(temp->Obj_ID,Name);
 
 		char text[256];
-		sprintf(text,"Ç® ID: %d , ÆÄÀÏ¸í:%s", Grass_ID,Name);
+		sprintf(text,"í’€ ID: %d , íŒŒì¼ëª…:%s", Grass_ID,Name);
 		int CurPos = pFrame->m_pDlgSowSeed->m_CB_TileGroup.GetCount();
 
 		pFrame->m_pDlgSowSeed->m_CB_TileGroup.AddString(text);
@@ -626,7 +626,7 @@ void CSowSeedMng::SaveData(void)
 
 
 
-	// Seed List ÀĞ¾î ¿À±â..
+	// Seed List ì½ì–´ ì˜¤ê¸°..
 	DWORD dwFlags = OFN_EXPLORER | OFN_CREATEPROMPT | OFN_LONGNAMES | OFN_OVERWRITEPROMPT;
 	CFileDialog dlg(FALSE, "tgi", NULL, dwFlags, "Grass Info File(*.tgi)|*.tgi||", NULL);
 
@@ -636,25 +636,25 @@ void CSowSeedMng::SaveData(void)
 	if( size > 0)
 	{
 		FILE* fp = fopen((LPCTSTR)dlg.GetPathName(), "w");
-	// ±×·ìÀÇ ÃÑ°Ù¼ö 
+	// ê·¸ë£¹ì˜ ì´ê²Ÿìˆ˜ 
 		fwrite(&size,sizeof(int),1,fp);
 		it_Grass_Group it = Grass_Group.begin();
 		for( int i = 0 ; i < size ; i++,it++)
 		{
 			LPGRASS_GROUP group = *it;
-			// ºê·¯½Ã Å©±â 
+			// ë¸ŒëŸ¬ì‹œ í¬ê¸° 
 			fwrite(&group->b_size,sizeof( group->b_size),1,fp);
-			// ±×·ì ¾ÆÀÌµğ
+			// ê·¸ë£¹ ì•„ì´ë””
 			fwrite(&group->Group_id,sizeof(group->Group_id),1,fp);
-			// ¿ÀºêÁ§Æ® ¾ÆÀÌµğ
+			// ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””
 			fwrite(&group->Obj_ID,sizeof(group->Obj_ID),1,fp);
-			// ±×·ì À§Ä¡ 
+			// ê·¸ë£¹ ìœ„ì¹˜ 
 			fwrite(group->Pos,sizeof(group->Pos),1,fp);
-			// ¼­ºê ±×·ì Å©±â 
+			// ì„œë¸Œ ê·¸ë£¹ í¬ê¸° 
 			int grass_size = group->grass.size();
 			fwrite(&grass_size,sizeof(grass_size),1,fp);
 
-			// ÆÄÀÏ¸í ¾²±â 
+			// íŒŒì¼ëª… ì“°ê¸° 
 			int len = strlen(group->FileName);
 			fwrite(&len,sizeof(int),1,fp);
 			fwrite(group->FileName,len,1,fp);
@@ -664,9 +664,9 @@ void CSowSeedMng::SaveData(void)
 			for( int j = 0 ; j < grass_size ; j++, it_grass++)
 			{
 				LPGRASS grass = *it_grass;
-				// Ç®ÀÇ À§Ä¡ 
+				// í’€ì˜ ìœ„ì¹˜ 
 				fwrite(grass->Pos,sizeof(grass->Pos),1,fp);
-				// Ç®ÀÇ Å¸ÀÏ ¹øÈ£ 
+				// í’€ì˜ íƒ€ì¼ ë²ˆí˜¸ 
 				fwrite(&grass->Tile_x,sizeof(grass->Tile_x),1,fp);
 				fwrite(&grass->Tile_z,sizeof(grass->Tile_z),1,fp);
 			}
@@ -683,13 +683,13 @@ void CSowSeedMng::LoadData(void)
 	char szOldPath[_MAX_PATH];
 	GetCurrentDirectory(_MAX_PATH, szOldPath);
 
-	// Seed List ÀĞ¾î ¿À±â..
+	// Seed List ì½ì–´ ì˜¤ê¸°..
 	DWORD dwFlags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_LONGNAMES | OFN_HIDEREADONLY;
 	CFileDialog dlg(TRUE, "tgi", NULL, dwFlags, "Grass Info File(*.tgi)|*.tgi||", NULL);
 
 	if(dlg.DoModal() == IDCANCEL) return;
 
-	// ¸®½ºÆ® ÃÊ±âÈ­ 
+	// ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™” 
 	if( Grass_Group.size() > 0)
 	{
 		Render_Grass = FALSE;
@@ -710,7 +710,7 @@ void CSowSeedMng::LoadData(void)
 		}
 		Grass_Group.clear();
 	}
-// ·Îµù ½ÃÀÛ 
+// ë¡œë”© ì‹œì‘ 
 	FILE* fp = fopen((LPCTSTR)dlg.GetPathName(),"r");
 
 	int size = 0;
@@ -727,7 +727,7 @@ void CSowSeedMng::LoadData(void)
 		int grass_sub_size = 0;
 		fread(&grass_sub_size ,sizeof(grass_sub_size),1,fp);
 
-		// ÆÄÀÏ¸í ÀĞ±â 
+		// íŒŒì¼ëª… ì½ê¸° 
 		int len =0;
 		fread(&len,sizeof(int),1,fp);
 		fread(group->FileName,len,1,fp);
@@ -736,9 +736,9 @@ void CSowSeedMng::LoadData(void)
 		{
 
 			LPGRASS grass = new GRASS;
-			// Ç®ÀÇ À§Ä¡ 
+			// í’€ì˜ ìœ„ì¹˜ 
 			fread(grass->Pos,sizeof(grass->Pos),1,fp);
-			// Ç®ÀÇ Å¸ÀÏ ¹øÈ£ 
+			// í’€ì˜ íƒ€ì¼ ë²ˆí˜¸ 
 			fread(&grass->Tile_x,sizeof(grass->Tile_x),1,fp);
 			fread(&grass->Tile_z,sizeof(grass->Tile_z),1,fp);
 			group->grass.push_back(grass);
@@ -764,7 +764,7 @@ void CSowSeedMng::SaveDataGame(void)
 
 	if(m_pRefFrm->m_SeedFileName[0] == NULL) 
 	{
-		::MessageBox(NULL,"¸Ê ÆÄÀÏ ºÎÅÍ °ÔÀÓ¿ëÀ¸·Î ÀúÀåÇÏ¼¼¿ä","È®ÀÎ",MB_OK);
+		::MessageBox(NULL,"ë§µ íŒŒì¼ ë¶€í„° ê²Œì„ìš©ìœ¼ë¡œ ì €ì¥í•˜ì„¸ìš”","í™•ì¸",MB_OK);
 		return;
 	}
 
@@ -798,7 +798,7 @@ void CSowSeedMng::SaveDataGame(void)
 	sprintf(Buff,"GrassInfoFile");
 	WriteFile(hFile, Buff, 80, &dwRWC, NULL);
 
-	// ±×·ì Å©±â 
+	// ê·¸ë£¹ í¬ê¸° 
 	Obj_Name.clear();
 	it_Grass_Group it = Grass_Group.begin();
 	for( int i = 0 ,Object_ID = 0; i < Grass_Group.size(); i++,it++)
@@ -855,7 +855,7 @@ void CSowSeedMng::Test_GameDataSave(void)
 
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	int Map_Size = pFrm->GetMapMng()->GetTerrain()->m_iHeightMapSize;
-	//Å¸ÀÏ¿¡ Ç® ¼Ó¼º ÀúÀå..
+	//íƒ€ì¼ì— í’€ ì†ì„± ì €ì¥..
 	LPSEEDGROUP SeedAttr = new SEEDGROUP[Map_Size*Map_Size];
 	ZeroMemory(SeedAttr, sizeof(unsigned char)*Map_Size*Map_Size);
 
@@ -937,7 +937,7 @@ void CSowSeedMng::Test_GameDataLoad(void)
 
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	int Map_Size = pFrm->GetMapMng()->GetTerrain()->m_iHeightMapSize;
-	//Å¸ÀÏ¿¡ Ç® ¼Ó¼º ÀúÀå..
+	//íƒ€ì¼ì— í’€ ì†ì„± ì €ì¥..
 	LPSEEDGROUP SeedAttr = new SEEDGROUP[Map_Size*Map_Size];
 	ZeroMemory(SeedAttr, sizeof(unsigned char)*Map_Size*Map_Size);
 
@@ -962,7 +962,7 @@ void CSowSeedMng::Test_GameDataLoad(void)
 		}
 	}
 
-	// ÅØ½ºÆ®ÆÄÀÏ·Î ÇÔ »Ì¾Æº¸ÀÚ..
+	// í…ìŠ¤íŠ¸íŒŒì¼ë¡œ í•¨ ë½‘ì•„ë³´ì..
 	FILE* stream = fopen("c:\\grass.txt", "w");
 	for(int z=0; z<Map_Size;z++)
 	{
@@ -972,7 +972,7 @@ void CSowSeedMng::Test_GameDataLoad(void)
 			fprintf(stream, "%d,%d\t",v.Obj_Id,v.Seed_Count );
 
 			if( v.SeedGroup_Sub !=NULL)
-				fprintf(stream, "¼­ºê %d,%d\t",v.SeedGroup_Sub->Obj_Id,v.SeedGroup_Sub->Seed_Count );
+				fprintf(stream, "ì„œë¸Œ %d,%d\t",v.SeedGroup_Sub->Obj_Id,v.SeedGroup_Sub->Seed_Count );
 
 
 			fprintf(stream, "\n");

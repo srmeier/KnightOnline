@@ -1,4 +1,4 @@
-// N3UITrackBar.h: interface for the CN3UITrackBar class.
+ï»¿// N3UITrackBar.h: interface for the CN3UITrackBar class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,13 +21,13 @@ public:
 public:
 	enum eIMAGE_TYPE{IMAGETYPE_BKGND=0, IMAGETYPE_THUMB, NUM_IMAGETYPE};
 protected:
-	CN3UIImage*		m_pBkGndImageRef;		// ¹è°æ ÀÌ¹ÌÁö referance (¸Ş¸ğ¸® ÇÒ´çÀº children list·Î °ü¸®)
-	CN3UIImage*		m_pThumbImageRef;		// °¡¿îµ¥ µå·¹±× ÇÏ¿© ¿Å±æ ¼ö ÀÖ´Â ÀÌ¹ÌÁö referance
+	CN3UIImage*		m_pBkGndImageRef;		// ë°°ê²½ ì´ë¯¸ì§€ referance (ë©”ëª¨ë¦¬ í• ë‹¹ì€ children listë¡œ ê´€ë¦¬)
+	CN3UIImage*		m_pThumbImageRef;		// ê°€ìš´ë° ë“œë ˆê·¸ í•˜ì—¬ ì˜®ê¸¸ ìˆ˜ ìˆëŠ” ì´ë¯¸ì§€ referance
 
-	int				m_iMaxPos;									// ÃÖ´ë
-	int				m_iMinPos;									// ÃÖ¼Ò
-	int				m_iCurPos;									// ÇöÀç °ª
-	int				m_iPageSize;								// page´ÜÀ§ ÀÌµ¿ÇÒ¶§ ÀÌµ¿°ª
+	int				m_iMaxPos;									// ìµœëŒ€
+	int				m_iMinPos;									// ìµœì†Œ
+	int				m_iCurPos;									// í˜„ì¬ ê°’
+	int				m_iPageSize;								// pageë‹¨ìœ„ ì´ë™í• ë•Œ ì´ë™ê°’
 // Operations
 public:
 	virtual void	Release();
@@ -46,15 +46,15 @@ public:
 	int				GetMaxPos() const {return m_iMaxPos;}
 	int				GetMinPos() const {return m_iMinPos;}
 protected:
-	void			UpdateThumbPos();							// m_iCurPos¸¦ °è»êÇÏ¿© ThumbÀ§Ä¡ ´Ù½Ã °è»êÇÏ¿© ¹Ù²Ù±â
-	void			UpDownThumbPos(int iDiff);					// ThumbÀ§Ä¡¸¦ ¾Æ·¡ À§·Î iDiff pixel¸¸Å­ ¿òÁ÷ÀÎ ÈÄ m_iCurPos °»½ÅÇÏ±â
+	void			UpdateThumbPos();							// m_iCurPosë¥¼ ê³„ì‚°í•˜ì—¬ Thumbìœ„ì¹˜ ë‹¤ì‹œ ê³„ì‚°í•˜ì—¬ ë°”ê¾¸ê¸°
+	void			UpDownThumbPos(int iDiff);					// Thumbìœ„ì¹˜ë¥¼ ì•„ë˜ ìœ„ë¡œ iDiff pixelë§Œí¼ ì›€ì§ì¸ í›„ m_iCurPos ê°±ì‹ í•˜ê¸°
 
 #ifdef _N3TOOL
-// tool¿¡¼­ ¾²ÀÌ´Â ÇÔ¼ö
+// toolì—ì„œ ì“°ì´ëŠ” í•¨ìˆ˜
 public:
 	virtual void	operator = (const CN3UITrackBar& other);
-	void			CreateImages();			// ÀÌ¹ÌÁö »ı¼º
-	void			DeleteBkImage();		// ¹è°æÀÌ¹ÌÁö »èÁ¦
+	void			CreateImages();			// ì´ë¯¸ì§€ ìƒì„±
+	void			DeleteBkImage();		// ë°°ê²½ì´ë¯¸ì§€ ì‚­ì œ
 	CN3UIImage*		GetBkGndImgRef() const {return m_pBkGndImageRef;}
 	CN3UIImage*		GetThumbImgRef() const {return m_pThumbImageRef;}
 #endif

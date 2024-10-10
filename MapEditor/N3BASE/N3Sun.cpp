@@ -1,4 +1,4 @@
-// N3Sun.cpp: implementation of the CN3Sun class.
+ï»¿// N3Sun.cpp: implementation of the CN3Sun class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -54,7 +54,7 @@ void CN3Sun::Release()
 
 void CN3Sun::Render(__Matrix44& matView, __Matrix44& matProj)
 {
-	// ÇØ°¡ ±×·ÁÁö´Â È­¸é ÁÂÇ¥ °è»êÇÏ±â (2D·Î ±×¸®´Â ÀÌÀ¯´Â ¿Ö°îµÇ¾î¼­ º¸ÀÌ´Â°ÍÀ» ¸·±â À§ÇØ)
+	// í•´ê°€ ê·¸ë ¤ì§€ëŠ” í™”ë©´ ì¢Œí‘œ ê³„ì‚°í•˜ê¸° (2Dë¡œ ê·¸ë¦¬ëŠ” ì´ìœ ëŠ” ì™œê³¡ë˜ì–´ì„œ ë³´ì´ëŠ”ê²ƒì„ ë§‰ê¸° ìœ„í•´)
 	__Matrix44 matWorld;
 	matWorld.RotationZ(m_fCurRadian);
 	__Matrix44 matFinal;
@@ -102,9 +102,9 @@ void CN3Sun::Render(__Matrix44& matView, __Matrix44& matProj)
 		if ( rcSun[i].right < rcScreen.left ||
 			rcSun[i].bottom < rcScreen.top ||
 			rcSun[i].left > rcScreen.right ||
-			rcSun[i].top > rcScreen.bottom) continue;	// È­¸é ¹Û¿¡ ±×·ÁÁø´Ù.
+			rcSun[i].top > rcScreen.bottom) continue;	// í™”ë©´ ë°–ì— ê·¸ë ¤ì§„ë‹¤.
 
-		// 2D·Î ±×¸®±â
+		// 2Dë¡œ ê·¸ë¦¬ê¸°
 		pSP->pVertices[0].x = rcSun[i].left;		pSP->pVertices[0].y = rcSun[i].top;
 		pSP->pVertices[1].x = rcSun[i].right;		pSP->pVertices[1].y = rcSun[i].top;
 		pSP->pVertices[2].x = rcSun[i].right;		pSP->pVertices[2].y = rcSun[i].bottom;
@@ -122,7 +122,7 @@ void CN3Sun::Render(__Matrix44& matView, __Matrix44& matProj)
 
 void CN3Sun::Tick()
 {
-	// ÇØÀÇ »ö, Å©±â º¯È­ °è»ê
+	// í•´ì˜ ìƒ‰, í¬ê¸° ë³€í™” ê³„ì‚°
 	int i;
 	for(i=0; i<NUM_SUNPART; ++i)
 	{
@@ -150,7 +150,7 @@ void CN3Sun::Init(const std::string* pszFNs)
 		m_Parts[i].pVertices[3].Set( 0, 0, fZ, rhw, color, 0.0f, 1.0f);
 	}
 
-	m_Parts[SUNPART_SUN].Delta.ChangeDelta(0.1f); // ViewPort ¿¡¼­ »ó´ëÀûÀÎ Å©±â
+	m_Parts[SUNPART_SUN].Delta.ChangeDelta(0.1f); // ViewPort ì—ì„œ ìƒëŒ€ì ì¸ í¬ê¸°
 	m_Parts[SUNPART_GLOW].Delta.ChangeDelta(0.25f);
 	m_Parts[SUNPART_FLARE].Delta.ChangeDelta(0.13f);
 }

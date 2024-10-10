@@ -1,4 +1,4 @@
-// RiverMng2.h: interface for the CRiverMng2 class.
+﻿// RiverMng2.h: interface for the CRiverMng2 class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// N3SndEng.h: interface for the CN3SndEng class.
+﻿// N3SndEng.h: interface for the CN3SndEng class.
 //
 //////////////////////////////////////////////////////////////////////
 

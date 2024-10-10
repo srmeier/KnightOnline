@@ -1,4 +1,4 @@
-// N3FXGroup.h: interface for the CN3FXGroup class.
+ï»¿// N3FXGroup.h: interface for the CN3FXGroup class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -20,13 +20,13 @@ public:
 	int	GetCount() { return FXBList.size(); }
 	__FXBInfo* GetFXBInfo(int idx);
 
-	virtual bool	Load(HANDLE hFile); // ÇÚµé¿¡¼­ ÀĞ¾î¿À±â..
-	bool	Save(HANDLE hFile);	// ÀúÀåÇÏ±â..
+	virtual bool	Load(HANDLE hFile); // í•¸ë“¤ì—ì„œ ì½ì–´ì˜¤ê¸°..
+	bool	Save(HANDLE hFile);	// ì €ì¥í•˜ê¸°..
 	
 	CN3FXGroup();	
 	virtual ~CN3FXGroup();
 
-#ifdef _N3TOOL	//Åø¿¡¼­¸¸ ¾²´Â ÇÔ¼öµé...
+#ifdef _N3TOOL	//íˆ´ì—ì„œë§Œ ì“°ëŠ” í•¨ìˆ˜ë“¤...
 public:
 	bool	DecodeScriptFile(const char* lpPathName);
 #endif // end of _N3TOOL

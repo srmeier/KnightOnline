@@ -1,4 +1,4 @@
-// N3Base.h: interface for the CN3Base class.
+ï»¿// N3Base.h: interface for the CN3Base class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,10 +23,10 @@
 
 #include <string>
 
-#if _N3GAME // °ÔÀÓÀÌ ¾Æ´Ñ Åø¿¡¼­´Â ÇÊ¿ä¾ø´Ù...
+#if _N3GAME // ê²Œì„ì´ ì•„ë‹Œ íˆ´ì—ì„œëŠ” í•„ìš”ì—†ë‹¤...
 #include "N3SndMgr.h"
 #endif
-#ifdef _N3UIE	// ui ¿¡µğÅÍÀÏ¶§´Â ÇÊ¿äÇÏ´Ù.
+#ifdef _N3UIE	// ui ì—ë””í„°ì¼ë•ŒëŠ” í•„ìš”í•˜ë‹¤.
 #include "N3SndMgr.h"
 #endif
 
@@ -40,7 +40,7 @@ const DWORD TEX_CAPS_MIPMAP =		0x00000040;
 const DWORD TEX_CAPS_POW2 =			0x00000080;
 
 const float CAMERA_RADIUS_UNIT = 2.0f;
-const int MAX_CAMERA_RADIUS = 512; // 2¹ÌÅÍ ´ÜÀ§·Î 128 °³ÀÇ µµÆ® ÇÁ·Î´öÆ® ¹Ì¸® °è»êÇØ ³õ´Â´Ù..
+const int MAX_CAMERA_RADIUS = 512; // 2ë¯¸í„° ë‹¨ìœ„ë¡œ 128 ê°œì˜ ë„íŠ¸ í”„ë¡œë•íŠ¸ ë¯¸ë¦¬ ê³„ì‚°í•´ ë†“ëŠ”ë‹¤..
 
 enum TIMER_COMMAND { TIMER_RESET, TIMER_START, TIMER_STOP, TIMER_ADVANCE,
                      TIMER_GETABSOLUTETIME, TIMER_GETAPPTIME, TIMER_GETELAPSEDTIME };
@@ -62,9 +62,9 @@ struct __CameraData
 	__Vector3		vAt; // Camera At Vector
 	__Vector3		vUp; // Camera Up Vector
 
-	float			fFOV; // Ä«¸Ş¶ó ·»Áî °¢ : Field Of View
+	float			fFOV; // ì¹´ë©”ë¼ ë Œì¦ˆ ê° : Field Of View
 //	float			fInverse_SineHalfOfFOV;
-	float			fAspect; // Á¾È¾ºñ
+	float			fAspect; // ì¢…íš¡ë¹„
 	float			fNP; // NearPlane
 	float			fFP; // FarPlane
 	D3DVIEWPORT8	vp; // ViewPort;
@@ -74,12 +74,12 @@ struct __CameraData
 
 	float			fFrustum [6][4];
 
-	// fRadius - ¹°Ã¼ÀÇ ¹İÁö¸§º¸´Ù ¾à°£ ´õ ¿©À¯ ÀÖ°Ô Àâ°í ³ÖÀ¸¸é ±×¸¸Å­ Å¬¸®ÇÎÀ» ¿©À¯ÀÖ°Ô ÇÑ´Ù..
+	// fRadius - ë¬¼ì²´ì˜ ë°˜ì§€ë¦„ë³´ë‹¤ ì•½ê°„ ë” ì—¬ìœ  ìˆê²Œ ì¡ê³  ë„£ìœ¼ë©´ ê·¸ë§Œí¼ í´ë¦¬í•‘ì„ ì—¬ìœ ìˆê²Œ í•œë‹¤..
 	BOOL IsOutOfFrustum(const __Vector3& vPosition, float fRadius) 
-		// ¹Ì¸® °è»êµÈ Ä«¸Ş¶ó Æò¸éÀÇ µµÆ® ÇÁ·Î´öÆ® °ªÀ» ±âÁØÀ¸·Î Ä«¸Ş¶ó »ç¸éÃ¼ ¹Û¿¡ ÀÖÀ¸¸é  ÂüÀ» µ¹·ÁÁØ´Ù.
+		// ë¯¸ë¦¬ ê³„ì‚°ëœ ì¹´ë©”ë¼ í‰ë©´ì˜ ë„íŠ¸ í”„ë¡œë•íŠ¸ ê°’ì„ ê¸°ì¤€ìœ¼ë¡œ ì¹´ë©”ë¼ ì‚¬ë©´ì²´ ë°–ì— ìˆìœ¼ë©´  ì°¸ì„ ëŒë ¤ì¤€ë‹¤.
 	{
 		if((vEye - vPosition).Magnitude() > fFP + fRadius) 
-			return TRUE; // Far Plane °Å¸®Ã¼Å©
+			return TRUE; // Far Plane ê±°ë¦¬ì²´í¬
 
 		int p;
 		for( p = 0; p < 6; p++ )
@@ -96,16 +96,16 @@ struct __RenderInfo
 {
 	int nShape;
 	int nShape_Part;
-	int nShape_Polygon; // ´Ü¼ø Æú¸®°ï
+	int nShape_Polygon; // ë‹¨ìˆœ í´ë¦¬ê³¤
 	
 	int nChr;
 	int nChr_Part;
-	int nChr_Polygon; // Ä³¸¯ÅÍ Æú¸®°ï
-	int nChr_Plug; // Ä³¸¯ÅÍ¿¡ ºÙÀº ¹«±âµî..
-	int	nChr_Plug_Polygon; // Ä³¸¯ÅÍ¿¡ ºÙÀº ¹«±âµîÀÇ Æú¸®°ï..
+	int nChr_Polygon; // ìºë¦­í„° í´ë¦¬ê³¤
+	int nChr_Plug; // ìºë¦­í„°ì— ë¶™ì€ ë¬´ê¸°ë“±..
+	int	nChr_Plug_Polygon; // ìºë¦­í„°ì— ë¶™ì€ ë¬´ê¸°ë“±ì˜ í´ë¦¬ê³¤..
 
-	int nTerrain_Polygon; // Å¸ÀÏ Àû¿ëµÈ ÁöÇü Æú¸®°ï..
-	int nTerrain_Tile_Polygon; // Å¸ÀÏ Àû¿ëµÈ ÁöÇü Æú¸®°ï..
+	int nTerrain_Polygon; // íƒ€ì¼ ì ìš©ëœ ì§€í˜• í´ë¦¬ê³¤..
+	int nTerrain_Tile_Polygon; // íƒ€ì¼ ì ìš©ëœ ì§€í˜• í´ë¦¬ê³¤..
 
 	int nAlpha_Polygon;
 	
@@ -114,7 +114,7 @@ struct __RenderInfo
 	int nTexture_128X128; // 128 X 128 Texture
 	int nTexture_256X256; // 256 X 256 Texture
 	int nTexture_512X512; // 512 X 512 Texture
-	int nTexture_Huge; // 512 X 512 ÀÌ»ó size
+	int nTexture_Huge; // 512 X 512 ì´ìƒ size
 	int nTexture_OtherSize; // Other size
 };
 
@@ -125,25 +125,25 @@ struct __ResrcInfo
 	int nTexture_Loaded_128X128; // 128 X 128 Texture
 	int nTexture_Loaded_256X256; // 256 X 256 Texture
 	int nTexture_Loaded_512X512; // 512 X 512 Texture
-	int nTexture_Loaded_Huge; // 512 X 512 ÀÌ»ó size
+	int nTexture_Loaded_Huge; // 512 X 512 ì´ìƒ size
 	int nTexture_Loaded_OtherSize; // Other size
 };
 
 struct __Options
 {
 	int iUseShadow;
-	int iTexLOD_Chr;			// 0 - ¿ø·¡ Å©±â.. 1 - ÇÑ´Ü°è ÀÛ°Ô. 2 - µÎ´Ü°è ÀÛ°Ô..
-	int iTexLOD_Shape;			// 0 - ¿ø·¡ Å©±â.. 1 - ÇÑ´Ü°è ÀÛ°Ô. 2 - µÎ´Ü°è ÀÛ°Ô..
-	int iTexLOD_Terrain;		// 0 - ¿ø·¡ Å©±â.. 1 - ÇÑ´Ü°è ÀÛ°Ô. 2 - µÎ´Ü°è ÀÛ°Ô..
+	int iTexLOD_Chr;			// 0 - ì›ë˜ í¬ê¸°.. 1 - í•œë‹¨ê³„ ì‘ê²Œ. 2 - ë‘ë‹¨ê³„ ì‘ê²Œ..
+	int iTexLOD_Shape;			// 0 - ì›ë˜ í¬ê¸°.. 1 - í•œë‹¨ê³„ ì‘ê²Œ. 2 - ë‘ë‹¨ê³„ ì‘ê²Œ..
+	int iTexLOD_Terrain;		// 0 - ì›ë˜ í¬ê¸°.. 1 - í•œë‹¨ê³„ ì‘ê²Œ. 2 - ë‘ë‹¨ê³„ ì‘ê²Œ..
 	int iViewWidth;
 	int iViewHeight;
 	int iViewColorDepth;
 	int iViewDist;
-	int iEffectSndDist;			// ÀÌÆåÆ® »ç¿îµå °Å¸®
+	int iEffectSndDist;			// ì´í™íŠ¸ ì‚¬ìš´ë“œ ê±°ë¦¬
 
 	bool bSndEnable;		// 0 - High, 1 - Low
-	bool bSndDuplicated;	// Áßº¹µÈ À½¿ø »ç¿ë
-	bool bWindowCursor;		// 0 - °ÔÀÓ¿¡¼­ ±×·ÁÁÖ´Â Ä¿¼­ 1 - À©µµ¿ì Ä¿¼­ »ç¿ë
+	bool bSndDuplicated;	// ì¤‘ë³µëœ ìŒì› ì‚¬ìš©
+	bool bWindowCursor;		// 0 - ê²Œì„ì—ì„œ ê·¸ë ¤ì£¼ëŠ” ì»¤ì„œ 1 - ìœˆë„ìš° ì»¤ì„œ ì‚¬ìš©
 
 	void InitDefault()
 	{
@@ -166,47 +166,47 @@ struct __Options
 class CN3Base
 {
 public:
-	static LPDIRECT3DDEVICE8		s_lpD3DDev; // Device ÂüÁ¶ Æ÷ÀÎÅÍ.. ¸Ú´ë·Î ÇØÁ¦ÇÏ¸é ¾ÈµÈ´Ù..
-	static D3DPRESENT_PARAMETERS	s_DevParam; // Device »ı¼º Present Parameter
-	static D3DCAPS8					s_DevCaps; // Device È£È¯¼º...
-	static DWORD					s_dwTextureCaps; // Texture Áö¿ø.. DXT1 ~ DXT5, Square Only
-	static HWND						s_hWndBase; // Init ÇÒ¶§ ¾´ Window Handle
-	static HWND						s_hWndPresent; // ÃÖ±Ù¿¡ Present ÇÑ Window Handle
+	static LPDIRECT3DDEVICE8		s_lpD3DDev; // Device ì°¸ì¡° í¬ì¸í„°.. ë©‹ëŒ€ë¡œ í•´ì œí•˜ë©´ ì•ˆëœë‹¤..
+	static D3DPRESENT_PARAMETERS	s_DevParam; // Device ìƒì„± Present Parameter
+	static D3DCAPS8					s_DevCaps; // Device í˜¸í™˜ì„±...
+	static DWORD					s_dwTextureCaps; // Texture ì§€ì›.. DXT1 ~ DXT5, Square Only
+	static HWND						s_hWndBase; // Init í• ë•Œ ì“´ Window Handle
+	static HWND						s_hWndPresent; // ìµœê·¼ì— Present í•œ Window Handle
 
-	static __CameraData				s_CameraData; // Ä«¸Ş¶ó µ¥ÀÌÅÍ Á¤Àû º¯¼ö..
+	static __CameraData				s_CameraData; // ì¹´ë©”ë¼ ë°ì´í„° ì •ì  ë³€ìˆ˜..
 	static __ResrcInfo				s_ResrcInfo; // Rendering Information..
-	static __Options				s_Options;	// °¢Á¾ ¿É¼Çµî...
+	static __Options				s_Options;	// ê°ì¢… ì˜µì…˜ë“±...
 #ifdef _DEBUG
 	static __RenderInfo				s_RenderInfo; // Rendering Information..
 #endif
 	static float					s_fFrmPerSec; // Frame Per Second
-	static float					s_fSecPerFrm; // Second Per Frame = 1.0f/s_fFrmPerSec (Dino°¡ Ãß°¡)
+	static float					s_fSecPerFrm; // Second Per Frame = 1.0f/s_fFrmPerSec (Dinoê°€ ì¶”ê°€)
 	
-#ifdef _N3GAME // °ÔÀÓÀÌ ¾Æ´Ñ Åø¿¡¼­´Â ÇÊ¿ä¾ø´Ù...
+#ifdef _N3GAME // ê²Œì„ì´ ì•„ë‹Œ íˆ´ì—ì„œëŠ” í•„ìš”ì—†ë‹¤...
 	static CN3SndMgr				s_SndMgr;
 #endif
-#ifdef _N3UIE	// ui ¿¡µğÅÍÀÏ¶§´Â ÇÊ¿äÇÏ´Ù.
+#ifdef _N3UIE	// ui ì—ë””í„°ì¼ë•ŒëŠ” í•„ìš”í•˜ë‹¤.
 	static CN3SndMgr				s_SndMgr;
 #endif
 
-	static CN3AlphaPrimitiveManager	s_AlphaMgr; // Alpha blend ÇÒ Æú¸®°ïµéÀ» °ü¸®.. Ãß°¡Çß´Ù°¡.. Ä«¸Ş¶ó °Å¸®¿¡ ¬Ãß¾î Á¤·ÄÇÏ°í ÇÑ²¨¹ø¿¡ ±×¸°´Ù..
+	static CN3AlphaPrimitiveManager	s_AlphaMgr; // Alpha blend í•  í´ë¦¬ê³¤ë“¤ì„ ê´€ë¦¬.. ì¶”ê°€í–ˆë‹¤ê°€.. ì¹´ë©”ë¼ ê±°ë¦¬ì— Â?ä¸Š?ì •ë ¬í•˜ê³  í•œêº¼ë²ˆì— ê·¸ë¦°ë‹¤..
 
 	static CN3Mng<class CN3Texture>		s_MngTex; // Texture Manager
 	static CN3Mng<class CN3Mesh>		s_MngMesh; // Normal Mesh Manager
-	static CN3Mng<class CN3VMesh>		s_MngVMesh; // ´Ü¼øÈ÷ Æú¸®°ï¸¸ °®°í ÀÖ´Â ¸Ş½Ã - ÁÖ·Î Ãæµ¹ Ã¼Å©¿¡ ¾´´Ù..
+	static CN3Mng<class CN3VMesh>		s_MngVMesh; // ë‹¨ìˆœíˆ í´ë¦¬ê³¤ë§Œ ê°–ê³  ìˆëŠ” ë©”ì‹œ - ì£¼ë¡œ ì¶©ëŒ ì²´í¬ì— ì“´ë‹¤..
 	static CN3Mng<class CN3PMesh>		s_MngPMesh; // Progressive Mesh Manager
 	static CN3Mng<class CN3Joint>		s_MngJoint; // Joint Manager
 	static CN3Mng<class CN3CPartSkins>	s_MngSkins; // Character Part Skin Manager
 	static CN3Mng<class CN3AnimControl>	s_MngAniCtrl; // Animation Manager
-	static CN3Mng<class CN3FXPMesh>		s_MngFXPMesh; // FX¿¡¼­ ¾²´Â PMesh - ÆÄÀÏÀº ÀÏ¹İ PMesh¸¦ ¾²Áö¸¸ ¼ÓÀº ´Ù¸£´Ù.
-	static CN3Mng<class CN3FXShape>		s_MngFXShape; // FX¿¡¼­ ¾²´Â Shape - ÆÄÀÏÀº ÀÏ¹İ shape¸¦ ¾²Áö¸¸ ¼ÓÀº ´Ù¸£´Ù.
+	static CN3Mng<class CN3FXPMesh>		s_MngFXPMesh; // FXì—ì„œ ì“°ëŠ” PMesh - íŒŒì¼ì€ ì¼ë°˜ PMeshë¥¼ ì“°ì§€ë§Œ ì†ì€ ë‹¤ë¥´ë‹¤.
+	static CN3Mng<class CN3FXShape>		s_MngFXShape; // FXì—ì„œ ì“°ëŠ” Shape - íŒŒì¼ì€ ì¼ë°˜ shapeë¥¼ ì“°ì§€ë§Œ ì†ì€ ë‹¤ë¥´ë‹¤.
 	
 
 protected:
-	static std::string 				s_szPath; // ÇÁ·Î±×·¥ÀÌ ½ÇÇàµÈ °æ·Î.. 
+	static std::string 				s_szPath; // í”„ë¡œê·¸ë¨ì´ ì‹¤í–‰ëœ ê²½ë¡œ.. 
 
 protected:
-	DWORD							m_dwType; // "MESH", "CAMERA", "SCENE", "???" .... µîµîµî...
+	DWORD							m_dwType; // "MESH", "CAMERA", "SCENE", "???" .... ë“±ë“±ë“±...
 
 public:
 	std::string 					m_szName;
@@ -221,7 +221,7 @@ public:
 	
 	static float		TimerProcess( TIMER_COMMAND command );
 
-	DWORD				Type() { return m_dwType; } // °´Ã¼ Á¾·ù..
+	DWORD				Type() { return m_dwType; } // ê°ì²´ ì¢…ë¥˜..
 
 	void				ReleaseResrc();
 //#ifdef _N3TOOL

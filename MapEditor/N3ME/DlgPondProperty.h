@@ -1,4 +1,4 @@
-// DlgPondProperty.h: interface for the CDlgPondProperty class.
+﻿// DlgPondProperty.h: interface for the CDlgPondProperty class.
 //
 //////////////////////////////////////////////////////////////////////
 

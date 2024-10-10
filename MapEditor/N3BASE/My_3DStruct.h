@@ -1,4 +1,4 @@
-#ifndef __MY_3DSTRUCT_H_
+ï»¿#ifndef __MY_3DSTRUCT_H_
 #define __MY_3DSTRUCT_H_
 
 #include "D3DX8.h"
@@ -515,10 +515,10 @@ inline __Matrix44 __Matrix44::operator * (const D3DXMATRIX& mtx)
 	mtxTmp._43 = _41 * mtx._13 + _42 * mtx._23 + _43 * mtx._33 + _44 * mtx._43;
 	mtxTmp._44 = _41 * mtx._14 + _42 * mtx._24 + _43 * mtx._34 + _44 * mtx._44;
 
-	// ÃÖÀûÈ­ µÈ ÄÚµå..	
-	// dino ¸·À½.. ¾Æ·¡ ÄÚµå´Â 4¹øÂ° ÇàµéÀÇ °è»êÀ» »ı·«ÇÏ¿©¼­ ºÎÁ¤È®ÇÑ °è»êÀ» ÇÑ´Ù.
-	// º¸Åë 4¹øÂ° ÇàÀÌ (0, 0, 0, 1)ÀÎ matrix¸¦ ¾²Áö¸¸ projection matrixÀÇ °æ¿ì
-	// (0, 0, 1, 0)ÀÎ matrix¸¦ ¾²¹Ç·Î ÀÌ»óÇÑ °á°ú¸¦ ÃÊ·¡ÇÑ´Ù.
+	// ìµœì í™” ëœ ì½”ë“œ..	
+	// dino ë§‰ìŒ.. ì•„ë˜ ì½”ë“œëŠ” 4ë²ˆì§¸ í–‰ë“¤ì˜ ê³„ì‚°ì„ ìƒëµí•˜ì—¬ì„œ ë¶€ì •í™•í•œ ê³„ì‚°ì„ í•œë‹¤.
+	// ë³´í†µ 4ë²ˆì§¸ í–‰ì´ (0, 0, 0, 1)ì¸ matrixë¥¼ ì“°ì§€ë§Œ projection matrixì˜ ê²½ìš°
+	// (0, 0, 1, 0)ì¸ matrixë¥¼ ì“°ë¯€ë¡œ ì´ìƒí•œ ê²°ê³¼ë¥¼ ì´ˆë˜í•œë‹¤.
 //	mtxTmp._11 = _11 * mtx._11 + _12 * mtx._21 + _13 * mtx._31;
 //	mtxTmp._12 = _11 * mtx._12 + _12 * mtx._22 + _13 * mtx._32;
 //	mtxTmp._13 = _11 * mtx._13 + _12 * mtx._23 + _13 * mtx._33;
@@ -568,9 +568,9 @@ inline void __Matrix44::operator *= (const D3DXMATRIX& mtx)
 	_43 = mtxTmp._41 * mtx._13 + mtxTmp._42 * mtx._23 + mtxTmp._43 * mtx._33 + mtxTmp._44 * mtx._43;
 	_44 = mtxTmp._41 * mtx._14 + mtxTmp._42 * mtx._24 + mtxTmp._43 * mtx._34 + mtxTmp._44 * mtx._44;
 
-	// dino ¸·À½.. ¾Æ·¡ ÄÚµå´Â 4¹øÂ° ÇàµéÀÇ °è»êÀ» »ı·«ÇÏ¿©¼­ ºÎÁ¤È®ÇÑ °è»êÀ» ÇÑ´Ù.
-	// º¸Åë 4¹øÂ° ÇàÀÌ (0, 0, 0, 1)ÀÎ matrix¸¦ ¾²Áö¸¸ projection matrixÀÇ °æ¿ì
-	// (0, 0, 1, 0)ÀÎ matrix¸¦ ¾²¹Ç·Î ÀÌ»óÇÑ °á°ú¸¦ ÃÊ·¡ÇÑ´Ù.
+	// dino ë§‰ìŒ.. ì•„ë˜ ì½”ë“œëŠ” 4ë²ˆì§¸ í–‰ë“¤ì˜ ê³„ì‚°ì„ ìƒëµí•˜ì—¬ì„œ ë¶€ì •í™•í•œ ê³„ì‚°ì„ í•œë‹¤.
+	// ë³´í†µ 4ë²ˆì§¸ í–‰ì´ (0, 0, 0, 1)ì¸ matrixë¥¼ ì“°ì§€ë§Œ projection matrixì˜ ê²½ìš°
+	// (0, 0, 1, 0)ì¸ matrixë¥¼ ì“°ë¯€ë¡œ ì´ìƒí•œ ê²°ê³¼ë¥¼ ì´ˆë˜í•œë‹¤.
 //	_11 = mtxTmp._11 * mtx._11 + mtxTmp._12 * mtx._21 + mtxTmp._13 * mtx._31;
 //	_12 = mtxTmp._11 * mtx._12 + mtxTmp._12 * mtx._22 + mtxTmp._13 * mtx._32;
 //	_13 = mtxTmp._11 * mtx._13 + mtxTmp._12 * mtx._23 + mtxTmp._13 * mtx._33;
@@ -739,24 +739,24 @@ const DWORD FVF_XYZNORMALCOLORT1	= D3DFVF_XYZ | D3DFVF_NORMAL  | D3DFVF_DIFFUSE 
 
 const DWORD RF_NOTHING			= 0x0;
 const DWORD RF_ALPHABLENDING	= 0x1;		// Alpha blending
-const DWORD RF_NOTUSEFOG		= 0x2;		// ¾È°³ ¹«½Ã
-const DWORD RF_DOUBLESIDED		= 0x4;		// ¾ç¸é - D3DCULL_NONE
-const DWORD RF_BOARD_Y			= 0x8;		// Y ÃàÀ¸·Î ÇØ¼­.. Ä«¸Ş¶ó¸¦ º»´Ù.
-const DWORD RF_POINTSAMPLING	= 0x10;		// MipMap ¿¡¼­.. PointSampling À¸·Î ÇÑ´Ù..
-const DWORD RF_WINDY			= 0x20;		// ¹Ù¶÷¿¡ ³¯¸°´Ù.. ¹Ù¶÷ÀÇ °ªÀº CN3Base::s_vWindFactor ¸¦ ÂüÁ¶ ÇÑ´Ù..
+const DWORD RF_NOTUSEFOG		= 0x2;		// ì•ˆê°œ ë¬´ì‹œ
+const DWORD RF_DOUBLESIDED		= 0x4;		// ì–‘ë©´ - D3DCULL_NONE
+const DWORD RF_BOARD_Y			= 0x8;		// Y ì¶•ìœ¼ë¡œ í•´ì„œ.. ì¹´ë©”ë¼ë¥¼ ë³¸ë‹¤.
+const DWORD RF_POINTSAMPLING	= 0x10;		// MipMap ì—ì„œ.. PointSampling ìœ¼ë¡œ í•œë‹¤..
+const DWORD RF_WINDY			= 0x20;		// ë°”ëŒì— ë‚ ë¦°ë‹¤.. ë°”ëŒì˜ ê°’ì€ CN3Base::s_vWindFactor ë¥¼ ì°¸ì¡° í•œë‹¤..
 const DWORD RF_NOTUSELIGHT		= 0x40;		// Light Off
-const DWORD RF_DIFFUSEALPHA		= 0x80;		// Diffuse °ªÀ» °®°í Åõ¸íÇÏ°Ô Alpha blending
-const DWORD RF_NOTZWRITE		= 0x100;	// ZBuffer ¿¡ ¾È¾´´Ù.
-const DWORD RF_UV_CLAMP			= 0x200;	// texture UVÀû¿ëÀ» Clamp·Î ÇÑ´Ù..default´Â wrapÀÌ´Ù..
-const DWORD RF_NOTZBUFFER		= 0x400;	// ZBuffer ¹«½Ã.
+const DWORD RF_DIFFUSEALPHA		= 0x80;		// Diffuse ê°’ì„ ê°–ê³  íˆ¬ëª…í•˜ê²Œ Alpha blending
+const DWORD RF_NOTZWRITE		= 0x100;	// ZBuffer ì— ì•ˆì“´ë‹¤.
+const DWORD RF_UV_CLAMP			= 0x200;	// texture UVì ìš©ì„ Clampë¡œ í•œë‹¤..defaultëŠ” wrapì´ë‹¤..
+const DWORD RF_NOTZBUFFER		= 0x400;	// ZBuffer ë¬´ì‹œ.
 
 struct __Material : public _D3DMATERIAL8
 {
 public:
 	DWORD	dwColorOp, dwColorArg1, dwColorArg2;
-	BOOL	nRenderFlags; // 1-AlphaBlending | 2-¾È°³¶û °ü°è¾øÀ½ | 4-Double Side | 8- ??
-	DWORD	dwSrcBlend; // ¼Ò½º ºí·»µù ¹æ¹ı
-	DWORD	dwDestBlend; // µ¥½ºÆ® ºí·»µù ¹æ¹ı
+	BOOL	nRenderFlags; // 1-AlphaBlending | 2-ì•ˆê°œë‘ ê´€ê³„ì—†ìŒ | 4-Double Side | 8- ??
+	DWORD	dwSrcBlend; // ì†ŒìŠ¤ ë¸”ë Œë”© ë°©ë²•
+	DWORD	dwDestBlend; // ë°ìŠ¤íŠ¸ ë¸”ë Œë”© ë°©ë²•
 
 public:
 	void Init(const _D3DCOLORVALUE& diffuseColor)
@@ -777,7 +777,7 @@ public:
 		dwDestBlend = D3DBLEND_INVSRCALPHA;
 	}
 
-	void Init() // ±âº» Èò»öÀ¸·Î ¸¸µç´Ù..
+	void Init() // ê¸°ë³¸ í°ìƒ‰ìœ¼ë¡œ ë§Œë“ ë‹¤..
 	{
 		D3DCOLORVALUE crDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
 		this->Init(crDiffuse);
@@ -889,7 +889,7 @@ struct __VertexTransformed : public __Vector3
 {
 public:
 	float rhw;
-	D3DCOLOR color; // ÇÊ¿ä ¾ø´Ù..
+	D3DCOLOR color; // í•„ìš” ì—†ë‹¤..
 	float tu, tv;
 
 public:
@@ -1058,7 +1058,7 @@ public:
 
 
 
-const int MAX_MIPMAP_COUNT = 10; // 1024 * 1024 ´Ü°è±îÁö »ı¼º
+const int MAX_MIPMAP_COUNT = 10; // 1024 * 1024 ë‹¨ê³„ê¹Œì§€ ìƒì„±
 
 const DWORD OBJ_UNKNOWN					= 0;
 const DWORD OBJ_BASE					= 0x1;
@@ -1195,37 +1195,37 @@ inline bool _CheckCollisionByBox(const __Vector3& vOrig, const __Vector3& vDir, 
 	static __Vector3 Vertices[36];
 	int nFace = 0;
 
-	// z Ãà À½ÀÇ ¸é
+	// z ì¶• ìŒì˜ ë©´
 	nFace = 0;
 	Vertices[nFace+0].Set(vMin.x, vMax.y, vMin.z); Vertices[nFace+1].Set(vMax.x, vMax.y, vMin.z); Vertices[nFace+2].Set(vMax.x, vMin.y, vMin.z);
 	Vertices[nFace+3] = Vertices[nFace+0]; Vertices[nFace+4] = Vertices[nFace+2]; Vertices[nFace+5].Set(vMin.x, vMin.y, vMin.z);
 
-	// x Ãà ¾çÀÇ ¸é
+	// x ì¶• ì–‘ì˜ ë©´
 	nFace = 6;
 	Vertices[nFace+0].Set(vMax.x, vMax.y, vMin.z); Vertices[nFace+1].Set(vMax.x, vMax.y, vMax.z); Vertices[nFace+2].Set(vMax.x, vMin.y, vMax.z);
 	Vertices[nFace+3] = Vertices[nFace+0]; Vertices[nFace+4] = Vertices[nFace+2]; Vertices[nFace+5].Set(vMax.x, vMin.y, vMin.z);
 
-	// z Ãà ¾çÀÇ ¸é
+	// z ì¶• ì–‘ì˜ ë©´
 	nFace = 12;
 	Vertices[nFace+0].Set(vMax.x, vMax.y, vMax.z); Vertices[nFace+1].Set(vMin.x, vMax.y, vMax.z); Vertices[nFace+2].Set(vMin.x, vMin.y, vMax.z);
 	Vertices[nFace+3] = Vertices[nFace+0]; Vertices[nFace+4] = Vertices[nFace+2]; Vertices[nFace+5].Set(vMax.x, vMin.y, vMax.z);
 
-	// x Ãà À½ÀÇ ¸é
+	// x ì¶• ìŒì˜ ë©´
 	nFace = 18;
 	Vertices[nFace+0].Set(vMin.x, vMax.y, vMax.z); Vertices[nFace+1].Set(vMin.x, vMax.y, vMin.z); Vertices[nFace+2].Set(vMin.x, vMin.y, vMin.z);
 	Vertices[nFace+3] = Vertices[nFace+0]; Vertices[nFace+4] = Vertices[nFace+2]; Vertices[nFace+5].Set(vMin.x, vMin.y, vMax.z);
 
-	// y Ãà ¾çÀÇ ¸é
+	// y ì¶• ì–‘ì˜ ë©´
 	nFace = 24;
 	Vertices[nFace+0].Set(vMin.x, vMax.y, vMax.z); Vertices[nFace+1].Set(vMax.x, vMax.y, vMax.z); Vertices[nFace+2].Set(vMax.x, vMax.y, vMin.z);
 	Vertices[nFace+3] = Vertices[nFace+0]; Vertices[nFace+4] = Vertices[nFace+2]; Vertices[nFace+5].Set(vMin.x, vMax.y, vMin.z);
 
-	// y Ãà À½ÀÇ ¸é
+	// y ì¶• ìŒì˜ ë©´
 	nFace = 30;
 	Vertices[nFace+0].Set(vMin.x, vMin.y, vMin.z); Vertices[nFace+1].Set(vMax.x, vMin.y, vMin.z); Vertices[nFace+2].Set(vMax.x, vMin.y, vMax.z);
 	Vertices[nFace+3] = Vertices[nFace+0]; Vertices[nFace+4] = Vertices[nFace+2]; Vertices[nFace+5].Set(vMin.x, vMin.y, vMax.z);
 
-	// °¢ ¸é¿¡ ´ëÇØ¼­ Ãæµ¹ °Ë»ç..
+	// ê° ë©´ì— ëŒ€í•´ì„œ ì¶©ëŒ ê²€ì‚¬..
 	for(int i = 0; i < 12; i++)
 	{
 		if(true == ::_IntersectTriangle(vOrig, vDir, Vertices[i*3+0], Vertices[i*3+1], Vertices[i*3+2]))
@@ -1248,20 +1248,20 @@ inline bool _IntersectTriangle(const __Vector3& vOrig, const __Vector3& vDir,
     // Begin calculating determinant - also used to calculate U parameter
     __Vector3 pVec;	float fDet;
 	
-//	By : Ecli666 ( On 2001-09-12 ¿ÀÀü 10:39:01 )
+//	By : Ecli666 ( On 2001-09-12 ì˜¤ì „ 10:39:01 )
 
 	pVec.Cross(vEdge1, vEdge2);
 	fDet = pVec.Dot(vDir);
 	if ( fDet > -0.0001f )
 		return FALSE;
 
-//	~(By Ecli666 On 2001-09-12 ¿ÀÀü 10:39:01 )
+//	~(By Ecli666 On 2001-09-12 ì˜¤ì „ 10:39:01 )
 
     pVec.Cross(vDir, vEdge2);
 
     // If determinant is near zero, ray lies in plane of triangle
     fDet = vEdge1.Dot(pVec);
-    if( fDet < 0.0001f )		// °ÅÀÇ 0¿¡ °¡±î¿ì¸é »ï°¢Çü Æò¸é°ú Áö³ª°¡´Â ¼±ÀÌ ÆòÇàÇÏ´Ù.
+    if( fDet < 0.0001f )		// ê±°ì˜ 0ì— ê°€ê¹Œìš°ë©´ ì‚¼ê°í˜• í‰ë©´ê³¼ ì§€ë‚˜ê°€ëŠ” ì„ ì´ í‰í–‰í•˜ë‹¤.
         return FALSE;
 
     // Calculate distance from vert0 to ray origin
@@ -1288,15 +1288,15 @@ inline bool _IntersectTriangle(const __Vector3& vOrig, const __Vector3& vDir,
     fU *= fInvDet;
     fV *= fInvDet;
 
-	// t°¡ Å¬¼ö·Ï ¸Ö¸® Á÷¼±°ú Æò¸é°ú ¸¸³ª´Â Á¡ÀÌ ¸Ö´Ù.
-	// t*dir + orig ¸¦ ±¸ÇÏ¸é ¸¸³ª´Â Á¡À» ±¸ÇÒ ¼ö ÀÖ´Ù.
-	// u¿Í vÀÇ ÀÇ¹Ì´Â ¹«¾ùÀÏ±î?
-	// ÃßÃø : v0 (0,0), v1(1,0), v2(0,1) <°ıÈ£¾ÈÀº (U, V)ÁÂÇ¥> ÀÌ·±½ÄÀ¸·Î ¾î´À Á¡¿¡ °¡±õ³ª ³ªÅ¸³½ °Í °°À½
+	// tê°€ í´ìˆ˜ë¡ ë©€ë¦¬ ì§ì„ ê³¼ í‰ë©´ê³¼ ë§Œë‚˜ëŠ” ì ì´ ë©€ë‹¤.
+	// t*dir + orig ë¥¼ êµ¬í•˜ë©´ ë§Œë‚˜ëŠ” ì ì„ êµ¬í•  ìˆ˜ ìˆë‹¤.
+	// uì™€ vì˜ ì˜ë¯¸ëŠ” ë¬´ì—‡ì¼ê¹Œ?
+	// ì¶”ì¸¡ : v0 (0,0), v1(1,0), v2(0,1) <ê´„í˜¸ì•ˆì€ (U, V)ì¢Œí‘œ> ì´ëŸ°ì‹ìœ¼ë¡œ ì–´ëŠ ì ì— ê°€ê¹ë‚˜ ë‚˜íƒ€ë‚¸ ê²ƒ ê°™ìŒ
 	//
 
-	if(pVCol) (*pVCol) = vOrig + (vDir * fT);	// Á¢Á¡À» °è»ê..
+	if(pVCol) (*pVCol) = vOrig + (vDir * fT);	// ì ‘ì ì„ ê³„ì‚°..
 
-	// *t < 0 ÀÌ¸é µÚÂÊ...
+	// *t < 0 ì´ë©´ ë’¤ìª½...
 	if ( fT < 0.0f )
 		return FALSE;
 
@@ -1314,20 +1314,20 @@ inline bool _IntersectTriangle(const __Vector3& vOrig, const __Vector3& vDir, co
     vEdge2 = v2 - v0;
 
 	
-//	By : Ecli666 ( On 2001-09-12 ¿ÀÀü 10:39:01 )
+//	By : Ecli666 ( On 2001-09-12 ì˜¤ì „ 10:39:01 )
 
 	pVec.Cross(vEdge1, vEdge2);
 	fDet = pVec.Dot(vDir);
 	if ( fDet > -0.0001f )
 		return FALSE;
 
-//	~(By Ecli666 On 2001-09-12 ¿ÀÀü 10:39:01 )
+//	~(By Ecli666 On 2001-09-12 ì˜¤ì „ 10:39:01 )
 
     pVec.Cross(vDir, vEdge2);
 
     // If determinant is near zero, ray lies in plane of triangle
     fDet = vEdge1.Dot(pVec);
-    if( fDet < 0.0001f )		// °ÅÀÇ 0¿¡ °¡±î¿ì¸é »ï°¢Çü Æò¸é°ú Áö³ª°¡´Â ¼±ÀÌ ÆòÇàÇÏ´Ù.
+    if( fDet < 0.0001f )		// ê±°ì˜ 0ì— ê°€ê¹Œìš°ë©´ ì‚¼ê°í˜• í‰ë©´ê³¼ ì§€ë‚˜ê°€ëŠ” ì„ ì´ í‰í–‰í•˜ë‹¤.
         return FALSE;
 
     // Calculate distance from vert0 to ray origin
@@ -1349,7 +1349,7 @@ inline bool _IntersectTriangle(const __Vector3& vOrig, const __Vector3& vDir, co
     // Calculate t, scale parameters, ray intersects triangle
     fT = D3DXVec3Dot( &vEdge2, &qVec ) / fDet;
 
-	// *t < 0 ÀÌ¸é µÚÂÊ...
+	// *t < 0 ì´ë©´ ë’¤ìª½...
 	if ( fT < 0.0f )
 		return FALSE;
 
@@ -1401,7 +1401,7 @@ inline void _Convert2D_To_3DCoordinate(	int ixScreen, int iyScreen,
 inline float _Yaw2D(float fDirX, float fDirZ)
 {
 	////////////////////////////////
-	// ¹æÇâÀ» ±¸ÇÏ°í.. -> È¸ÀüÇÒ °ªÀ» ±¸ÇÏ´Â ·çÆ¾ÀÌ´Ù..
+	// ë°©í–¥ì„ êµ¬í•˜ê³ .. -> íšŒì „í•  ê°’ì„ êµ¬í•˜ëŠ” ë£¨í‹´ì´ë‹¤..
 	if ( fDirX >= 0.0f )						// ^^
 	{
 		if ( fDirZ >= 0.0f ) return (float)(asin(fDirX));
@@ -1412,7 +1412,7 @@ inline float _Yaw2D(float fDirX, float fDirZ)
 		if ( fDirZ >= 0.0f ) return (D3DXToRadian(270.0f) + (float)(acos(-fDirX)));
 		else return(D3DXToRadian(180.0f) + (float)(asin(-fDirX)));
 	}
-	// ¹æÇâÀ» ±¸ÇÏ°í..
+	// ë°©í–¥ì„ êµ¬í•˜ê³ ..
 	////////////////////////////////
 }
 
@@ -1429,7 +1429,7 @@ inline short int _IsKeyDown(int iVirtualKey) { return (GetAsyncKeyState(iVirtual
 inline short int _IsKeyDowned(int iVirtualKey) { return (GetAsyncKeyState(iVirtualKey) & 0x00ff); }
 
 
-//macro.. -> Template ·Î ¹Ù²å´Ù..
+//macro.. -> Template ë¡œ ë°”ê¿¨ë‹¤..
 template <class T> const T T_Max(const T a, const T b) { return ((a > b) ? b : a); }
 template <class T> const T T_Min(const T a, const T b) { return ((a > b) ? a : b); }
 template <class T> const T T_Abs(const T a) { return ((a > 0) ? a : -a); }

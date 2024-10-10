@@ -1,4 +1,4 @@
-// VtxPosDummy.h: interface for the CVtxPosDummy class.
+ï»¿// VtxPosDummy.h: interface for the CVtxPosDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "TransDummy.h"
 
-// Á¡À» ÀÌµ¿½ÃÅ°´Â ±â´ÉÀ» °¡Á³´Ù.
+// ì ì„ ì´ë™ì‹œí‚¤ëŠ” ê¸°ëŠ¥ì„ ê°€ì¡Œë‹¤.
 class CVtxPosDummy : public CTransDummy
 {
 public:
@@ -21,24 +21,24 @@ public:
 // Attributes
 public:
 protected:
-	CTypedPtrArray<CPtrArray, __VertexXyzT1*> m_SelVtxArray;	// ¼±ÅÃµÈ Á¡µé
+	CTypedPtrArray<CPtrArray, __VertexXyzT1*> m_SelVtxArray;	// ì„ íƒëœ ì ë“¤
 
 // Operations
 public:
 	virtual void Tick();
 	virtual void Render();
 	virtual void Release();
-	virtual void SetSelObj(CN3Transform* pObj);		// ¼±ÅÃµÈ °´Ã¼ ¹Ù²Ù±â
-	virtual void AddSelObj(CN3Transform* pObj);	// ¼±ÅÃµÈ °´Ã¼ Ãß°¡
-	virtual BOOL MouseMsgFilter(LPMSG pMsg);			// ¸¶¿ì½º ¸Ş¼¼Áö Ã³¸®
+	virtual void SetSelObj(CN3Transform* pObj);		// ì„ íƒëœ ê°ì²´ ë°”ê¾¸ê¸°
+	virtual void AddSelObj(CN3Transform* pObj);	// ì„ íƒëœ ê°ì²´ ì¶”ê°€
+	virtual BOOL MouseMsgFilter(LPMSG pMsg);			// ë§ˆìš°ìŠ¤ ë©”ì„¸ì§€ ì²˜ë¦¬
 
-	void SetSelVtx(__VertexXyzT1* pVtx);		// ¼±ÅÃµÈ Á¡ ¹Ù²Ù±â
-	void AddSelVtx(__VertexXyzT1* pVtx);				// ¼±ÅÃµÈ Á¡ Ãß°¡
+	void SetSelVtx(__VertexXyzT1* pVtx);		// ì„ íƒëœ ì  ë°”ê¾¸ê¸°
+	void AddSelVtx(__VertexXyzT1* pVtx);				// ì„ íƒëœ ì  ì¶”ê°€
 
 	void AddPos(__Vector3 vAddPos) {m_vPos+=vAddPos;}
 	void PosRotate(__Matrix44 vRotate,__Vector3 vCenterPos);
 protected:
-	virtual void TransDiff(__Vector3* pvDiffPos, __Quaternion* pqDiffRot, __Vector3* pvDiffScale);		// Â÷ÀÌ¸¸Å­ ¼±ÅÃµÈ ¿À¹ÇÁ§Æ®µéÀ» º¯Çü½ÃÅ²´Ù.
+	virtual void TransDiff(__Vector3* pvDiffPos, __Quaternion* pqDiffRot, __Vector3* pvDiffScale);		// ì°¨ì´ë§Œí¼ ì„ íƒëœ ì˜¤ë¯€ì íŠ¸ë“¤ì„ ë³€í˜•ì‹œí‚¨ë‹¤.
 };
 
 #endif // !defined(AFX_VTXPOSDUMMY_H__FA661289_2E6D_4F3A_B490_3B50794389FC__INCLUDED_)

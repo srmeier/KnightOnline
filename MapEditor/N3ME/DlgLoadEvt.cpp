@@ -1,4 +1,4 @@
-// DlgLoadEvt.cpp : implementation file
+﻿// DlgLoadEvt.cpp : implementation file
 //
 
 #include "stdafx.h"

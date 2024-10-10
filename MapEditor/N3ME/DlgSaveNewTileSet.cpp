@@ -1,4 +1,4 @@
-// DlgSaveNewTileSet.cpp : implementation file
+﻿// DlgSaveNewTileSet.cpp : implementation file
 //
 
 #include "stdafx.h"

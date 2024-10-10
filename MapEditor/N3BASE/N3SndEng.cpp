@@ -1,4 +1,4 @@
-// N3SndEng.cpp: implementation of the CN3SndEng class.
+Ôªø// N3SndEng.cpp: implementation of the CN3SndEng class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -35,7 +35,7 @@ CN3SndEng::~CN3SndEng()
 
 //
 //	Init
-//	ø£¡¯ √ ±‚»≠...
+//	ÏóîÏßÑ Ï¥àÍ∏∞Ìôî...
 //
 bool CN3SndEng::Init( HWND  hWnd, DWORD dwCoopLevel, DWORD dwPrimaryChannels, DWORD dwPrimaryFreq, DWORD dwPrimaryBitRate )
 {
@@ -159,7 +159,7 @@ bool CN3SndEng::LoadSource(LPSOUNDSOURCE pSrc)
 	dsbd.lpwfxFormat     = WaveFile.m_pwfx;
 	dsbd.dwFlags		 = DSBCAPS_CTRLVOLUME | DSBCAPS_STATIC;
 
-	if(pSrc->Type==SNDTYPE_3D)	//3D ¿Ωø¯..
+	if(pSrc->Type==SNDTYPE_3D)	//3D ÏùåÏõê..
 	{
 		dsbd.dwFlags         = DSBCAPS_CTRL3D | DSBCAPS_MUTE3DATMAXDISTANCE | DSBCAPS_STATIC;
 		dsbd.guid3DAlgorithm = DS3DALG_HRTF_FULL;

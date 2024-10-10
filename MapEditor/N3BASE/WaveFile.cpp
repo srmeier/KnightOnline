@@ -1,15 +1,15 @@
-//////////////////////////////////////////////////
+ï»¿//////////////////////////////////////////////////
 //	Commented By : Lynus
-//	Commented On 2001-04-12 ¿ÀÈÄ 1:52:29
+//	Commented On 2001-04-12 ì˜¤í›„ 1:52:29
 //
 //	CWave class(wave.cpp)
 //
-//	End Of Comment (By Lynus On 2001-04-12 ¿ÀÈÄ 1:52:29 )
+//	End Of Comment (By Lynus On 2001-04-12 ì˜¤í›„ 1:52:29 )
 //////////////////////////////////////////////////
 
 //////////////////////////////////////////////////
 //	Coded By : Lynus
-//	Coded On 2001-04-12 ¿ÀÈÄ 1:52:49
+//	Coded On 2001-04-12 ì˜¤í›„ 1:52:49
 //
 
 #include "WaveFile.h"
@@ -550,5 +550,5 @@ HRESULT CWaveFile::Write( UINT nSizeToWrite, BYTE* pbSrcData, UINT* pnSizeWrote 
     return S_OK;
 }
 
-//	End Of Code (By Lynus On 2001-04-12 ¿ÀÈÄ 1:52:49 )
+//	End Of Code (By Lynus On 2001-04-12 ì˜¤í›„ 1:52:49 )
 //////////////////////////////////////////////////

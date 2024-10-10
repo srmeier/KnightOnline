@@ -1,4 +1,4 @@
-// DlgSaveDivision.cpp : implementation file
+﻿// DlgSaveDivision.cpp : implementation file
 //
 
 #include "stdafx.h"

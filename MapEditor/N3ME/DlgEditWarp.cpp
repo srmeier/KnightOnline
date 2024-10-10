@@ -1,4 +1,4 @@
-// DlgEditWarp.cpp : implementation file
+Ôªø// DlgEditWarp.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -179,7 +179,7 @@ void CDlgEditWarp::OnOK()
 
 void CDlgEditWarp::OnBtnExport() 
 {
-	CFileDialog dlg(FALSE, "wap", "Noname", OFN_EXPLORER | OFN_LONGNAMES | OFN_OVERWRITEPROMPT, "Warp Info∆ƒ¿œ(*.wap)|*.wap||");
+	CFileDialog dlg(FALSE, "wap", "Noname", OFN_EXPLORER | OFN_LONGNAMES | OFN_OVERWRITEPROMPT, "Warp Info√Ü√Ñ√Ä√è(*.wap)|*.wap||");
 
 	if(dlg.DoModal()==IDOK)
 	{
@@ -191,7 +191,7 @@ void CDlgEditWarp::OnBtnExport()
 void CDlgEditWarp::OnBtnImport() 
 {
 	DWORD dwFlags = OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_LONGNAMES | OFN_HIDEREADONLY;
-	CFileDialog dlg(TRUE, "wap", NULL, dwFlags, "Warp Info∆ƒ¿œ(*.wap)|*.wap||", NULL);
+	CFileDialog dlg(TRUE, "wap", NULL, dwFlags, "Warp Info√Ü√Ñ√Ä√è(*.wap)|*.wap||", NULL);
 
 	if(dlg.DoModal() == IDCANCEL) return;
 

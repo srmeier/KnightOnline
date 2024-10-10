@@ -1,4 +1,4 @@
-// RotDummy.h: interface for the CRotDummy class.
+﻿// RotDummy.h: interface for the CRotDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 

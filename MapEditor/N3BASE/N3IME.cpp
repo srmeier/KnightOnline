@@ -1,4 +1,4 @@
-// N3IME.cpp: implementation of the CN3IME class.
+ï»¿// N3IME.cpp: implementation of the CN3IME class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -50,21 +50,21 @@ LRESULT	CN3IME::IMEMessageProc(UINT nMsg, WPARAM wParam, LPARAM lParam)
 	if(!m_hWnd)
 		return 0L;
 	switch (nMsg) { 
-		case WM_IME_STARTCOMPOSITION:     // ±ÛÀÚ Á¶ÇÕÀÇ ½ÃÀÛ. WM_IME_COMPOSITION ¸Þ½ÃÁö¸¦           // ¹ÞÀ» ÁØºñ¸¦ ÇÑ´Ù. 
+		case WM_IME_STARTCOMPOSITION:     // ê¸€ìž ì¡°í•©ì˜ ì‹œìž‘. WM_IME_COMPOSITION ë©”ì‹œì§€ë¥¼           // ë°›ì„ ì¤€ë¹„ë¥¼ í•œë‹¤. 
 			OnIMEStartComposition(wParam,lParam);
 			return TRUE;
-		case WM_IME_ENDCOMPOSITION:          // ±ÛÀÚ Á¶ÇÕÀÇ ³¡. Á¶ÇÕµÈ ¹®ÀÚ¿­ Ã³¸®¸¦ ³¡³½´Ù          break; 
+		case WM_IME_ENDCOMPOSITION:          // ê¸€ìž ì¡°í•©ì˜ ë. ì¡°í•©ëœ ë¬¸ìžì—´ ì²˜ë¦¬ë¥¼ ëë‚¸ë‹¤          break; 
 			OnIMEEndComposition(wParam,lParam);
 			return TRUE;
-		case WM_IME_COMPOSITION:          // ÇöÀç Á¶ÇÕÁßÀÎ ¹®ÀÚ¿­ÀÌ³ª ¿Ï¼ºµÈ ¹®ÀÚ¿­À» ¾ò¾î¼­ È­¸é Ãâ·Â 
+		case WM_IME_COMPOSITION:          // í˜„ìž¬ ì¡°í•©ì¤‘ì¸ ë¬¸ìžì—´ì´ë‚˜ ì™„ì„±ëœ ë¬¸ìžì—´ì„ ì–»ì–´ì„œ í™”ë©´ ì¶œë ¥ 
 			return OnIMEComposition(wParam,lParam);
-		case WM_IME_SETCONTEXT:    // ±ÛÀÚ Á¶ÇÕ À©µµ¿ì¿Í ÇÑÀÚ º¯È¯ À©µµ¿ì¸¦ Ç¥½ÃÇÏÁö ¾Ê°Ô ¹Ù²Þ 
+		case WM_IME_SETCONTEXT:    // ê¸€ìž ì¡°í•© ìœˆë„ìš°ì™€ í•œìž ë³€í™˜ ìœˆë„ìš°ë¥¼ í‘œì‹œí•˜ì§€ ì•Šê²Œ ë°”ê¿ˆ 
 			OnIMESetContext(wParam,lParam);
 			return TRUE;
 		case WM_IME_NOTIFY:        
 			OnIMENotify(wParam,lParam);
 			return TRUE;
-		case WM_INPUTLANGCHANGE:       // Å°º¸µå ·¹ÀÌ¾Æ¿ôÀÌ ¹Ù²î´Â °æ¿ì IME¸¦ ÃÊ±âÈ­      
+		case WM_INPUTLANGCHANGE:       // í‚¤ë³´ë“œ ë ˆì´ì•„ì›ƒì´ ë°”ë€ŒëŠ” ê²½ìš° IMEë¥¼ ì´ˆê¸°í™”      
 			OnInputLangChange(wParam,lParam);
 			return TRUE;
 		case WM_IME_CONTROL:
@@ -227,7 +227,7 @@ BOOL CN3IME::GetResultString()
 			str = new char[len + 1];
 			ImmGetCompositionString(m_hIMC, GCS_RESULTSTR, str, len);
 			str[len] = 0;
-			// ¿Ï¼ºµÈ ±ÛÀÚ Ã³¸®ÇÏ±â
+			// ì™„ì„±ëœ ê¸€ìž ì²˜ë¦¬í•˜ê¸°
 			CN3UIEdit* pFocusedEdit = CN3UIBase::GetFocusedEdit();
 			if (pFocusedEdit) pFocusedEdit->OnIMEResultString(str);
 
@@ -260,7 +260,7 @@ BOOL CN3IME::GetCompString(LONG flag)
 			}
 		} 
 
-		// Á¶ÇÕÁßÀÎ ±ÛÀÚ Ã³¸®ÇÏ±â
+		// ì¡°í•©ì¤‘ì¸ ê¸€ìž ì²˜ë¦¬í•˜ê¸°
 		CN3UIEdit* pFocusedEdit = CN3UIBase::GetFocusedEdit();
 		if (pFocusedEdit) pFocusedEdit->OnIMECompString(str);
 
@@ -271,9 +271,9 @@ BOOL CN3IME::GetCompString(LONG flag)
 	}
 	else if (0 == len)
 	{
-        // ÇÑ±ÛÀÔ·ÂÀÌ µé¾î¿À´Ù°¡ Áö¿öÁø °æ¿ìÀÌ´Ù.
-        // (Back Space°¡ µé¾î ¿À´Â °æ¿ì)
-        // (ÀÌ·± °æ¿ì¿¡´Â ±æÀÌ°¡ 0ÀÌ´Ù.)
+        // í•œê¸€ìž…ë ¥ì´ ë“¤ì–´ì˜¤ë‹¤ê°€ ì§€ì›Œì§„ ê²½ìš°ì´ë‹¤.
+        // (Back Spaceê°€ ë“¤ì–´ ì˜¤ëŠ” ê²½ìš°)
+        // (ì´ëŸ° ê²½ìš°ì—ëŠ” ê¸¸ì´ê°€ 0ì´ë‹¤.)
 		CN3UIEdit* pFocusedEdit = CN3UIBase::s_pFocusedEdit;
 		if (pFocusedEdit) pFocusedEdit->OnIMECompString("");
 	}

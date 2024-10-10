@@ -1,4 +1,4 @@
-// Dlg_River.cpp : implementation file
+﻿// Dlg_River.cpp : implementation file
 //
 
 #include "stdafx.h"

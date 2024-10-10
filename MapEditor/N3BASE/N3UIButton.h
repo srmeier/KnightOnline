@@ -1,4 +1,4 @@
-// N3UIButton.h: interface for the CN3UIButton class.
+ï»¿// N3UIButton.h: interface for the CN3UIButton class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,11 +24,11 @@ public:
 	void			SetClickRect(const RECT& Rect) {m_rcClick = Rect;}
 	RECT			GetClickRect() const {return m_rcClick;}
 protected:
-	CN3UIImage*		m_ImageRef[NUM_BTN_STATE];	// ¹öÆ°ÀÇ °¢ »óÅÂº° imageÀÇ ÂüÁ¶ Æ÷ÀÎÅÍ(ÂüÁ¶ÀÎ ÀÌÀ¯´Â  children list·Î °ü¸®ÇÏ¹Ç·Î ÂüÁ¶¸¸ ÇÑ´Ù.)
-	RECT			m_rcClick;					// clickµÇ´Â ¿µ¿ª
+	CN3UIImage*		m_ImageRef[NUM_BTN_STATE];	// ë²„íŠ¼ì˜ ê° ìƒíƒœë³„ imageì˜ ì°¸ì¡° í¬ì¸í„°(ì°¸ì¡°ì¸ ì´ìœ ëŠ”  children listë¡œ ê´€ë¦¬í•˜ë¯€ë¡œ ì°¸ì¡°ë§Œ í•œë‹¤.)
+	RECT			m_rcClick;					// clickë˜ëŠ” ì˜ì—­
 
-	CN3SndObj*		m_pSnd_On;		// ¹öÆ° À§¿¡ ¸¶¿ì½º°¡ ¿Ã¶ó°¡´Â ¼ø°£ ³»´Â ¼Ò¸®
-	CN3SndObj*		m_pSnd_Click;	// ¹öÆ°ÀÌ ´­¸®´Â ¼ø°£ ³»´Â ¼Ò¸®
+	CN3SndObj*		m_pSnd_On;		// ë²„íŠ¼ ìœ„ì— ë§ˆìš°ìŠ¤ê°€ ì˜¬ë¼ê°€ëŠ” ìˆœê°„ ë‚´ëŠ” ì†Œë¦¬
+	CN3SndObj*		m_pSnd_Click;	// ë²„íŠ¼ì´ ëˆŒë¦¬ëŠ” ìˆœê°„ ë‚´ëŠ” ì†Œë¦¬
 
 // Operations
 public:
@@ -41,7 +41,7 @@ public:
 	virtual void	Render();
 
 #ifdef _N3TOOL
-// Åø¿¡¼­ »ç¿ëÇÏ±â À§ÇÑ ÇÔ¼ö
+// íˆ´ì—ì„œ ì‚¬ìš©í•˜ê¸° ìœ„í•œ í•¨ìˆ˜
 public:
 	virtual void	operator = (const CN3UIButton& other);
 	virtual bool	Save(HANDLE hFile);

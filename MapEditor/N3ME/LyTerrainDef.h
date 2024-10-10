@@ -1,8 +1,8 @@
-////////////////////////////////////////////////////////////////////////////////////////
+ï»¿////////////////////////////////////////////////////////////////////////////////////////
 //
 //	LyTerrainDef.h
-//	- ÀÌ°ÍÀú°Í Terrain¿¡ °ü·ÃµÈ ÀÚ·áÇüÁ¤ÀÇ, »ó¼öÁ¤ÀÇ...
-//	- ÄõµåÆ®¸® ÀÌ¿ëÇÑ ÁöÇü...^^
+//	- ì´ê²ƒì €ê²ƒ Terrainì— ê´€ë ¨ëœ ìžë£Œí˜•ì •ì˜, ìƒìˆ˜ì •ì˜...
+//	- ì¿¼ë“œíŠ¸ë¦¬ ì´ìš©í•œ ì§€í˜•...^^
 //
 //	By Donghoon..
 //
@@ -19,34 +19,34 @@
 // Constant Definitions..
 const int N3ME_DATA_VERSION = 3;
 //version info...
-//ÀÌÀü µ¥ÀÌÅÍµéÀº ¹öÀü Á¤º¸¸¦ °®°í ÀÖÁö ¾Ê´Ù.
-//1 : ÃÊ±â µ¥ÀÌÅÍ¿¡ lightmapÁ¤º¸¸¦ ´õÇÑ °Í..
-//2 : version 1¿¡ Ç® Á¤º¸(Ç®°ú DTexÀÇ ±×·ì°úÀÇ °ü°è¿¡ °üÇÑ Á¤º¸)¸¦ ´õÇÑ °Í.
-//3 : °³¼±µÈ lightmap..^^
+//ì´ì „ ë°ì´í„°ë“¤ì€ ë²„ì „ ì •ë³´ë¥¼ ê°–ê³  ìžˆì§€ ì•Šë‹¤.
+//1 : ì´ˆê¸° ë°ì´í„°ì— lightmapì •ë³´ë¥¼ ë”í•œ ê²ƒ..
+//2 : version 1ì— í’€ ì •ë³´(í’€ê³¼ DTexì˜ ê·¸ë£¹ê³¼ì˜ ê´€ê³„ì— ê´€í•œ ì •ë³´)ë¥¼ ë”í•œ ê²ƒ.
+//3 : ê°œì„ ëœ lightmap..^^
 
 const int N3ME_DTEX_DATA_VERSION = 2;
 //
-//1 : dTex¸¦ ÀÐÀ»¶§ °¢ ÅØ½ºÃÄÀÇ ±×·ì Á¤º¸¸¦ °¢ÅØ½ºÃÄÀÌ¸§.difÆÄÀÏ·Î ºÎÅÍ ÀÐ´Â´Ù..
-//2 : °¢ÅØ½ºÃÄÀÇ ±×·ìÁ¤º¸¸¦ dtexinfo.dtxÆÄÀÏ·ÎºÎÅÍ ÀÐ´Â´Ù.. 
+//1 : dTexë¥¼ ì½ì„ë•Œ ê° í…ìŠ¤ì³ì˜ ê·¸ë£¹ ì •ë³´ë¥¼ ê°í…ìŠ¤ì³ì´ë¦„.difíŒŒì¼ë¡œ ë¶€í„° ì½ëŠ”ë‹¤..
+//2 : ê°í…ìŠ¤ì³ì˜ ê·¸ë£¹ì •ë³´ë¥¼ dtexinfo.dtxíŒŒì¼ë¡œë¶€í„° ì½ëŠ”ë‹¤.. 
 
 const int TERRAIN_CELL_SIZE = 4;
-//const int MAX_COLORMAPTEXTURE = 32;		//	ÃÖ´ë #colormaptexture at one side = 4096/128..
-//ÇöÀç m_iNumColorMapÀ¸·Î ´ëÃ¼ÇØ¼­ ¾²°í ÀÖ´ç...
-const int PATCH_TILE_SIZE = 8;		//	ÆÐÄ¡ ÇÏ³ª¿¡ Å¸ÀÏÀÌ 8x8°³ µé¾î°£´Ù.
+//const int MAX_COLORMAPTEXTURE = 32;		//	ìµœëŒ€ #colormaptexture at one side = 4096/128..
+//í˜„ìž¬ m_iNumColorMapìœ¼ë¡œ ëŒ€ì²´í•´ì„œ ì“°ê³  ìžˆë‹¹...
+const int PATCH_TILE_SIZE = 8;		//	íŒ¨ì¹˜ í•˜ë‚˜ì— íƒ€ì¼ì´ 8x8ê°œ ë“¤ì–´ê°„ë‹¤.
 
-const int MAX_COLORMAPVB_SIZE = 1026;	//ÄÃ·¯¸ÊÀ¸·Î Âï´Â VBÀÇ ÃÖ´ë »çÀÌÁî.
-const int MAX_TILEVB_SIZE = 16;	//Å¸ÀÏÂï´Â VBÀÇ ÃÖ´ë »çÀÌÁî.
-const int MAX_LIGHTMAPVB_SIZE = 16;		//¶óÀÌÆ®¸Ê ¾²´Â VBÀÇ ÃÖ´ë »çÀÌÁî.
+const int MAX_COLORMAPVB_SIZE = 1026;	//ì»¬ëŸ¬ë§µìœ¼ë¡œ ì°ëŠ” VBì˜ ìµœëŒ€ ì‚¬ì´ì¦ˆ.
+const int MAX_TILEVB_SIZE = 16;	//íƒ€ì¼ì°ëŠ” VBì˜ ìµœëŒ€ ì‚¬ì´ì¦ˆ.
+const int MAX_LIGHTMAPVB_SIZE = 16;		//ë¼ì´íŠ¸ë§µ ì“°ëŠ” VBì˜ ìµœëŒ€ ì‚¬ì´ì¦ˆ.
 
 const int DTEX_SIZE = 1024; // Detail Texture Size
-const int NUM_DTEXTILE = 8; // Detail Texture ºÐÇÒ ¼ö..
+const int NUM_DTEXTILE = 8; // Detail Texture ë¶„í•  ìˆ˜..
 
 const int LIGHTMAP_TEX_SIZE = 8;//32;
 
 const int DISTANCE_TABLE_SIZE = 64;
 
-const int NOTMOVE_HEIGHT = 10;	// ³ôÀÌÂ÷°¡ Ä¿¼­ °¥ ¼ö ¾ø´Â Å¸ÀÏÀÇ ÃÖ¼Ò°ª..
-								// 10ÀÌÇÏ¸é ¿òÁ÷ÀÏ ¼ö ÀÖ°í, ÀÌ»óÀÌ¸é °¥ ¼ö ¾ø´Ù.
+const int NOTMOVE_HEIGHT = 10;	// ë†’ì´ì°¨ê°€ ì»¤ì„œ ê°ˆ ìˆ˜ ì—†ëŠ” íƒ€ì¼ì˜ ìµœì†Œê°’..
+								// 10ì´í•˜ë©´ ì›€ì§ì¼ ìˆ˜ ìžˆê³ , ì´ìƒì´ë©´ ê°ˆ ìˆ˜ ì—†ë‹¤.
  
 
 const int MAX_BRUSH_SIZE	= 21;
@@ -64,7 +64,7 @@ enum {DTEX_FULL=0, DTEX_1PER2, DTEX_1PER4, DTEX_3PER4, DTEX_1PER8, DTEX_7PER8, D
 
 // Structure Definitions..
 
-//¸Ê¿¡µðÅÍ..
+//ë§µì—ë””í„°..
 typedef struct __DTexAttr
 {
 	int Group;
@@ -105,7 +105,7 @@ typedef struct __DTexInfo
 
 typedef struct __MapData
 {
-	float	fHeight;	//ÁöÇüÀÇ ³ôÀÌ°ª..
+	float	fHeight;	//ì§€í˜•ì˜ ë†’ì´ê°’..
 	//float	u1,v1;
 	//__Vector3 Normal;
 	DTEXINFO DTexInfo1;
@@ -119,11 +119,11 @@ typedef struct __MapData
 
 typedef struct __GameMapData
 {
-	float	fHeight;		//ÁöÇüÀÇ ³ôÀÌ°ª..
-	DWORD	bIsTileFull		:1;	//Å¸ÀÏÀÌ Full ÀÌ¸é true ¾Æ´Ï¸é false..
-	DWORD	Tex1Dir			:5;		//Åø¿¡¼­ »ç¿ëÇÏ´Â ÀÎµ¦½º°¡ ¾Æ´Ô..
+	float	fHeight;		//ì§€í˜•ì˜ ë†’ì´ê°’..
+	DWORD	bIsTileFull		:1;	//íƒ€ì¼ì´ Full ì´ë©´ true ì•„ë‹ˆë©´ false..
+	DWORD	Tex1Dir			:5;		//íˆ´ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì¸ë±ìŠ¤ê°€ ì•„ë‹˜..
 	DWORD	Tex2Dir			:5;	
-	DWORD	Tex1Idx			:10;		//Åø¿¡¼­ »ç¿ëÇÏ´Â ÀÎµ¦½º°¡ ¾Æ´Ô..
+	DWORD	Tex1Idx			:10;		//íˆ´ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì¸ë±ìŠ¤ê°€ ì•„ë‹˜..
 	DWORD	Tex2Idx			:10;
 	
 	__GameMapData()

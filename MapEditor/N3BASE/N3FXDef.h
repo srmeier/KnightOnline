@@ -1,7 +1,7 @@
-//////////////////////////////////////////////////////////////////////////////////////
+ï»¿//////////////////////////////////////////////////////////////////////////////////////
 //
 //	N3FXDef.h
-//	Effect¿¡¼­ ¾²ÀÌ´Â »ó¼öµéÀÌ³ª ÀÚ·áÇüµé Á¤ÀÇ...
+//	Effectì—ì„œ ì“°ì´ëŠ” ìƒìˆ˜ë“¤ì´ë‚˜ ìë£Œí˜•ë“¤ ì •ì˜...
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -11,12 +11,12 @@
 #include "N3Base.h"
 #include "My_3DStruct.h"
 
-const int MAX_FX_PART = 16;			//ÇÑ ÀÎ½ºÅÏ½º°¡ µ¿½Ã¿¡ Ç¥ÇöÇÒ¼ö ÀÖ´Â °¹¼ö..
-const int NUM_VERTEX_PARTICLE = 4;	//ÆÄÆ¼Å¬ ÇÏ³ª¿¡ µé¾î°¡´Â Á¡¼ö..
+const int MAX_FX_PART = 16;			//í•œ ì¸ìŠ¤í„´ìŠ¤ê°€ ë™ì‹œì— í‘œí˜„í• ìˆ˜ ìˆëŠ” ê°¯ìˆ˜..
+const int NUM_VERTEX_PARTICLE = 4;	//íŒŒí‹°í´ í•˜ë‚˜ì— ë“¤ì–´ê°€ëŠ” ì ìˆ˜..
 const int NUM_VERTEX_BOTTOM = 10;	//
 const int NUM_KEY_COLOR = 100;
 
-enum e_FXPartType	//ÀÌÆåÆ® ½ºÅ¸ÀÏ...¸Å½¬¸¦ ÀÌ¿ëÇÑ °ÇÁö, ÆÄÆ¼Å¬À» ÀÌ¿ëÇÑ °ÇÁö..µîµî..
+enum e_FXPartType	//ì´í™íŠ¸ ìŠ¤íƒ€ì¼...ë§¤ì‰¬ë¥¼ ì´ìš©í•œ ê±´ì§€, íŒŒí‹°í´ì„ ì´ìš©í•œ ê±´ì§€..ë“±ë“±..
 {
 	FX_PART_TYPE_NONE = 0,
 	FX_PART_TYPE_PARTICLE = 1,		//'particle'
@@ -25,7 +25,7 @@ enum e_FXPartType	//ÀÌÆåÆ® ½ºÅ¸ÀÏ...¸Å½¬¸¦ ÀÌ¿ëÇÑ °ÇÁö, ÆÄÆ¼Å¬À» ÀÌ¿ëÇÑ °ÇÁö..µî
 	FX_PART_TYPE_BOTTOMBOARD = 4	//'bottomboard'
 };
 
-enum e_FXPartState	//ÆÄÆ®ÀÇ »óÅÂ..
+enum e_FXPartState	//íŒŒíŠ¸ì˜ ìƒíƒœ..
 {
 	FX_PART_STATE_DEAD = 0,
 	FX_PART_STATE_DYING = 1,
@@ -33,14 +33,14 @@ enum e_FXPartState	//ÆÄÆ®ÀÇ »óÅÂ..
 	FX_PART_STATE_READY = 3
 };
 
-enum e_FXBundleState	//¹øµéÀÇ »óÅÂ..
+enum e_FXBundleState	//ë²ˆë“¤ì˜ ìƒíƒœ..
 {
 	FX_BUNDLE_STATE_DEAD = 0,
 	FX_BUNDLE_STATE_DYING = 1,
 	FX_BUNDLE_STATE_LIVE = 2	
 };
 
-enum e_FXBundleAct	//¹øµéÀÌ ¾îÄÉ µ¿ÀÛÇÏ´ÂÁö..
+enum e_FXBundleAct	//ë²ˆë“¤ì´ ì–´ì¼€ ë™ì‘í•˜ëŠ”ì§€..
 {
 	FX_BUNDLE_MOVE_DIR_FIXEDTARGET = 0,
 	FX_BUNDLE_MOVE_DIR_FLEXABLETARGET = 1,
@@ -52,7 +52,7 @@ enum e_FXBundleAct	//¹øµéÀÌ ¾îÄÉ µ¿ÀÛÇÏ´ÂÁö..
 };
 
 //
-enum e_FXPartParticleEmitType	// ÀÌÆåÆ® ÆÄÆ®°¡ ¾î¶² ¸ğ¾çÀ¸·Î Àü°³µÇ´ÂÁö...
+enum e_FXPartParticleEmitType	// ì´í™íŠ¸ íŒŒíŠ¸ê°€ ì–´ë–¤ ëª¨ì–‘ìœ¼ë¡œ ì „ê°œë˜ëŠ”ì§€...
 {
 	FX_PART_PARTICLE_EMIT_TYPE_NORMAL = 0,	//'normal'
 	FX_PART_PARTICLE_EMIT_TYPE_SPREAD = 1,	//'spread'
@@ -64,11 +64,11 @@ enum e_FXPartParticleEmitType	// ÀÌÆåÆ® ÆÄÆ®°¡ ¾î¶² ¸ğ¾çÀ¸·Î Àü°³µÇ´ÂÁö...
 //structures.....
 
 /*
-typedef struct __TABLE_FX	// FX ¸®¼Ò½º ·¹ÄÚµå...
+typedef struct __TABLE_FX	// FX ë¦¬ì†ŒìŠ¤ ë ˆì½”ë“œ...
 {
-	DWORD		dwID;		// °íÀ¯ ID
+	DWORD		dwID;		// ê³ ìœ  ID
 	std::string	szFN;		// file name
-	DWORD		dwSoundID;	// È¿°ú¿¡ ¾²´Â »ç¿îµå ¾Æµğ.
+	DWORD		dwSoundID;	// íš¨ê³¼ì— ì“°ëŠ” ì‚¬ìš´ë“œ ì•„ë””.
 } TABLE_FX;
 */
 
@@ -79,13 +79,13 @@ typedef struct Point3D
 	float z;
 } POINT3D;
 
-typedef union __ParticleEmitCondition	//ÆÄÆ¼Å¬ ºĞ»ç½Ã ÇÊ¿äÁ¤º¸..
+typedef union __ParticleEmitCondition	//íŒŒí‹°í´ ë¶„ì‚¬ì‹œ í•„ìš”ì •ë³´..
 {
-	POINT3D	vGatherPoint;	//EmitTypeÀÌ gatherÀÏ¶§ ¸ğ¾ÆÁö´Â Á¡..
-	float	fEmitAngle;		//EmitTypeÀÌ spreadÀÏ¶§ »Ñ·ÁÁö´Â °¢..
+	POINT3D	vGatherPoint;	//EmitTypeì´ gatherì¼ë•Œ ëª¨ì•„ì§€ëŠ” ì ..
+	float	fEmitAngle;		//EmitTypeì´ spreadì¼ë•Œ ë¿Œë ¤ì§€ëŠ” ê°..
 } PARTICLEEMITCONDITION;
 
-typedef struct __FXPartWithStartTime	// ¹øµé¿¡¼­ ÆÄÆ®µé °ü¸®ÇÒ¶§..
+typedef struct __FXPartWithStartTime	// ë²ˆë“¤ì—ì„œ íŒŒíŠ¸ë“¤ ê´€ë¦¬í• ë•Œ..
 {
 	class CN3FXPartBase*	pPart;
 	float					fStartTime;

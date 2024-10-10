@@ -1,4 +1,4 @@
-// N3GESnow.cpp: implementation of the CN3GESnow class.
+ï»¿// N3GESnow.cpp: implementation of the CN3GESnow class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -43,9 +43,9 @@ void CN3GESnow::Tick()
 
 	int iCount = m_iVC/3;
 	int iActiveCount = iCount;
-	if(m_iFadeMode > 0) // Â÷Â÷ ¸¹¾ÆÁö°Ô ÇÑ´Ù..
+	if(m_iFadeMode > 0) // ì°¨ì°¨ ë§ì•„ì§€ê²Œ í•œë‹¤..
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = iCount * m_fFadeTimeCur / m_fFadeTime;
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -54,7 +54,7 @@ void CN3GESnow::Tick()
 	}
 	else if(m_iFadeMode < 0)
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime);
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -79,7 +79,7 @@ void CN3GESnow::Tick()
 
 	for (i=0; i<iActiveCount; ++i)
 	{
-		// À§Ä¡ °áÁ¤ÇÏ±â
+		// ìœ„ì¹˜ ê²°ì •í•˜ê¸°
 		__VertexXyzT1* pV1 = pVertices+i*3+0;
 		__VertexXyzT1* pV2 = pVertices+i*3+1;
 		__VertexXyzT1* pV3 = pVertices+i*3+2;
@@ -91,7 +91,7 @@ void CN3GESnow::Tick()
 //		pV1->x += vAdd.x;	pV1->y += vAdd.y;	pV1->z += vAdd.z;
 
 		float fDiff = pParticle->vPos.y - (fCurY-fHalfHeight);
-		if (fDiff < 0)	// ³ôÀÌ ¹üÀ§¸¦ ¹ş¾î³µÀ» °æ¿ì
+		if (fDiff < 0)	// ë†’ì´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
 		{
 			pParticle->vPos.y -= (((int)(fDiff/m_fHeight)-1)*m_fHeight);
 			pParticle->vPos.x = m_fWidth*(rand()%10000-5000)/10000.f;
@@ -108,25 +108,25 @@ void CN3GESnow::Tick()
 		else
 		{
 			fDiff = pParticle->vPos.y - (fCurY+fHalfHeight);
-			if (fDiff > 0)	// ³ôÀÌ ¹üÀ§¸¦ ¹İ´ë·Î ¹ş¾î³µÀ»°æ¿ì
+			if (fDiff > 0)	// ë†’ì´ ë²”ìœ„ë¥¼ ë°˜ëŒ€ë¡œ ë²—ì–´ë‚¬ì„ê²½ìš°
 				pParticle->vPos.y -= ((int)(fDiff/m_fHeight)+1)*m_fHeight;
-			// x ³Êºñ ¹üÀ§¸¦ ¹ş¾î³µÀ» °æ¿ì
+			// x ë„ˆë¹„ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
 			fDiff = pParticle->vPos.x - fHalfWidth;
 			if (fDiff > 0) pParticle->vPos.x -= ((int)(fDiff/m_fWidth)+1)*m_fWidth;
 			fDiff = pParticle->vPos.x + fHalfWidth;
 			if (fDiff < 0) pParticle->vPos.x -= ((int)(fDiff/m_fWidth)-1)*m_fWidth;
-			// z ³Êºñ ¹üÀ§¸¦ ¹ş¾î³µÀ» °æ¿ì
+			// z ë„ˆë¹„ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
 			fDiff = pParticle->vPos.z - fHalfWidth;
 			if (fDiff >  0) pParticle->vPos.z -= ((int)(fDiff/m_fWidth)+1)*m_fWidth;
 			fDiff = pParticle->vPos.z + fHalfWidth;
 			if (fDiff < 0) pParticle->vPos.z -= ((int)(fDiff/m_fWidth)-1)*m_fWidth;
 		}
-		// Áß½ÉÃàÀ» ÁÖÀ§·Î È¸ÀüÇÑ À§Ä¡ °è»ê
+		// ì¤‘ì‹¬ì¶•ì„ ì£¼ìœ„ë¡œ íšŒì „í•œ ìœ„ì¹˜ ê³„ì‚°
 		pParticle->fRadian += fAddRadian;
 		__Vector3 vPos;	vPos.Set(cosf(pParticle->fRadian), 0, sinf(pParticle->fRadian));
 		vPos += pParticle->vPos;
 		
-		// ¹öÅØ½º ¹öÆÛÀÇ Á¡ ´Ù½Ã ¼¼ÆÃÇÏ±â
+		// ë²„í…ìŠ¤ ë²„í¼ì˜ ì  ë‹¤ì‹œ ì„¸íŒ…í•˜ê¸°
 		pV1->x = vPos.x + pParticle->vOffset1.x;	pV1->y = vPos.y + pParticle->vOffset1.y;	pV1->z = vPos.z + pParticle->vOffset1.z;
 		pV2->x = vPos.x + pParticle->vOffset2.x;	pV2->y = vPos.y + pParticle->vOffset2.y;	pV2->z = vPos.z + pParticle->vOffset2.z;
 		pV3->x = vPos.x + pParticle->vOffset3.x;	pV3->y = vPos.y + pParticle->vOffset3.y;	pV3->z = vPos.z + pParticle->vOffset3.z;
@@ -142,9 +142,9 @@ void CN3GESnow::Render(__Vector3& vPos)
 
 	int iCount = m_iVC / 3;
 	int iActiveCount = iCount;
-	if(m_iFadeMode > 0) // Â÷Â÷ ¸¹¾ÆÁö°Ô ÇÑ´Ù..
+	if(m_iFadeMode > 0) // ì°¨ì°¨ ë§ì•„ì§€ê²Œ í•œë‹¤..
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = iCount * m_fFadeTimeCur / m_fFadeTime;
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -153,7 +153,7 @@ void CN3GESnow::Render(__Vector3& vPos)
 	}
 	else if(m_iFadeMode < 0)
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime);
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -162,7 +162,7 @@ void CN3GESnow::Render(__Vector3& vPos)
 	}
 	if(iActiveCount <= 0) return;
 
-	// ÀÌÀü render state ÀúÀå
+	// ì´ì „ render state ì €ì¥
 	DWORD dwAlphaBlend, dwSrcAlpha, dwDestAlpha, dwCullMode, dwLight;
 	s_lpD3DDev->GetRenderState( D3DRS_ALPHABLENDENABLE, &dwAlphaBlend );
 	s_lpD3DDev->GetRenderState( D3DRS_SRCBLEND, &dwSrcAlpha );
@@ -193,7 +193,7 @@ void CN3GESnow::Render(__Vector3& vPos)
 
 	// render
 	s_lpD3DDev->SetVertexShader(FVF_XYZT1);
-	s_lpD3DDev->SetStreamSource(0, m_pVB, sizeof(__VertexXyzT1)); // ¹öÅØ½º ¹öÆÛ ÁöÁ¤
+	s_lpD3DDev->SetStreamSource(0, m_pVB, sizeof(__VertexXyzT1)); // ë²„í…ìŠ¤ ë²„í¼ ì§€ì •
 	s_lpD3DDev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, iActiveCount);
 
 	// restore
@@ -220,7 +220,7 @@ void CN3GESnow::Create(float fDensity, float fWidth, float fHeight, float fSnowS
 	__ASSERT(fVolume>0, "Snow volume is less than 0");
 	int iSnowCount = (int)(fVolume*fDensity);
 
-	// m_pVB, m_pIB ¸¸µé±â
+	// m_pVB, m_pIB ë§Œë“¤ê¸°
 	__ASSERT(s_lpD3DDev, "D3D Device pointer is NULL!");
 	m_iVC = iSnowCount*3;
 	HRESULT hr = s_lpD3DDev->CreateVertexBuffer(m_iVC*sizeof(__VertexXyzT1), D3DUSAGE_DYNAMIC, FVF_XYZT1, D3DPOOL_DEFAULT, &m_pVB);
@@ -229,7 +229,7 @@ void CN3GESnow::Create(float fDensity, float fWidth, float fHeight, float fSnowS
 	hr = m_pVB->Lock(0, iSnowCount*3*sizeof(__VertexXyzT1), (BYTE**)&pVertices, D3DLOCK_NOSYSLOCK);
 	if (FAILED(hr)) return;
 
-	// __SnowParticle Á¤º¸ Ã¤¿ö ³Ö±â
+	// __SnowParticle ì •ë³´ ì±„ì›Œ ë„£ê¸°
 	m_pSnowParticle = new __SnowParticle[iSnowCount];
 
 	const float sqrt3 = sqrtf(3.0f);
@@ -243,29 +243,29 @@ void CN3GESnow::Create(float fDensity, float fWidth, float fHeight, float fSnowS
 		m_pSnowParticle[i].fRadian = 2*D3DX_PI*((rand()%10000)/10000.f);
 
 		float		fRadian = D3DX_PI*((rand()%10000)/10000.f);
-//		Á¤»ï°¢Çü(ÇÑº¯ÀÇ ±æÀÌ°¡ fSnowSize)
+//		ì •ì‚¼ê°í˜•(í•œë³€ì˜ ê¸¸ì´ê°€ fSnowSize)
 //		m_pSnowParticle[i].vOffset1.Set(0, sqrt3*fSnowSize/3.f, 0);
 //		m_pSnowParticle[i].vOffset2.Set(cosf(fRadian)*fSnowSize/2, -sqrt3*fSnowSize/6.f, sinf(fRadian)*fSnowSize/2);
 //		m_pSnowParticle[i].vOffset3.Set(-cosf(fRadian)*fSnowSize/2, -sqrt3*fSnowSize/6.f, -sinf(fRadian)*fSnowSize/2);
 
-//		ÀÌµîº¯ »ï°¢Çü(¹Øº¯ÀÇ ±æÀÌ fSnowSize, ³ôÀÌ fSnowSize)
+//		ì´ë“±ë³€ ì‚¼ê°í˜•(ë°‘ë³€ì˜ ê¸¸ì´ fSnowSize, ë†’ì´ fSnowSize)
 		m_pSnowParticle[i].vOffset1.Set(0, fSnowSize/2.f, 0);
 		m_pSnowParticle[i].vOffset2.Set(cosf(fRadian)*fSnowSize/2.f, -fSnowSize/2.f, sinf(fRadian)*fSnowSize/2.f);
 		m_pSnowParticle[i].vOffset3.Set(-cosf(fRadian)*fSnowSize/2.f, -fSnowSize/2.f, -sinf(fRadian)*fSnowSize/2.f);
 
-		// uvÁÂÇ¥ ³Ö±â
+		// uvì¢Œí‘œ ë„£ê¸°
 		__VertexXyzT1* pV1 = pVertices + i*3,	*pV2 = pVertices + i*3+1,	*pV3 = pVertices + i*3+2;
-// Á¤»ï°¢Çü¿¡ ´« µ¿±×¶ó¹Ì°¡ »ï°¢Çü¿¡ ²Ë Â÷°Ô UVÁÂÇ¥ ¹èÄ¡ (geforce2Ä«µå¿¡¼­ border color°¡ Á¦´ë·Î µÇÁö ¾Ê¾Æ¼­..)
+// ì •ì‚¼ê°í˜•ì— ëˆˆ ë™ê·¸ë¼ë¯¸ê°€ ì‚¼ê°í˜•ì— ê½‰ ì°¨ê²Œ UVì¢Œí‘œ ë°°ì¹˜ (geforce2ì¹´ë“œì—ì„œ border colorê°€ ì œëŒ€ë¡œ ë˜ì§€ ì•Šì•„ì„œ..)
 //		pV1->tu = 0.5f;	pV1->tv = 0.5f - sqrt3/2.f;
 //		pV2->tu = 0.5f + sqrt3/2.f;	pV2->tv = 1.0f;
 //		pV3->tu = 0.5f - sqrt3/2.f;	pV3->tv = 1.0f;
 
-		// ÀÌµîº¯ »ï°¢Çü¿¡ UVÁÂÇ¥ ³Ö±â
+		// ì´ë“±ë³€ ì‚¼ê°í˜•ì— UVì¢Œí‘œ ë„£ê¸°
 		pV1->tu = 0.5f;	pV1->tv = 0.0f;
 		pV2->tu = 1.0f;	pV2->tv = 1.0f;
 		pV3->tu = 0.0f;	pV3->tv = 1.0f;
 
-		// ÀÌ ¹æ½ÄÀº ´«ÅØ½ºÃÄ »ç°¢Çü¿¡ »ï°¢ÇüÀ» ³Ö´Â ¹æ½Ä(µû¶ó¼­ ´« ÅØ½ºÃÄ¸¦ »ï°¢Çü¿¡ ¸Â°Ô ±×·ÁÁÖÀÚ)
+		// ì´ ë°©ì‹ì€ ëˆˆí…ìŠ¤ì³ ì‚¬ê°í˜•ì— ì‚¼ê°í˜•ì„ ë„£ëŠ” ë°©ì‹(ë”°ë¼ì„œ ëˆˆ í…ìŠ¤ì³ë¥¼ ì‚¼ê°í˜•ì— ë§ê²Œ ê·¸ë ¤ì£¼ì)
 
 	}
 

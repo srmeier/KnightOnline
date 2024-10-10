@@ -1,4 +1,4 @@
-// N3Sun.h: interface for the CN3Sun class.
+ï»¿// N3Sun.h: interface for the CN3Sun class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,20 +27,20 @@ protected:
 		CN3Texture*				pTex;			// texture
 		__VertexTransformed		pVertices[4];	// vertex
 
-		CN3ColorChange			Color;			// »öÀ» ´ã´çÇÏ´Â Å¬·¡½º
+		CN3ColorChange			Color;			// ìƒ‰ì„ ë‹´ë‹¹í•˜ëŠ” í´ë˜ìŠ¤
 		CN3DeltaChange			Delta;
 	};
 
 	__SunPart					m_Parts[NUM_SUNPART];
-	float						m_fCurRadian;		// ÇöÀç ÇØÀÇ È¸ÀüÀ§Ä¡
+	float						m_fCurRadian;		// í˜„ì¬ í•´ì˜ íšŒì „ìœ„ì¹˜
 // Operations
 public:
-	void	SetCurAngle(float fAngle)	{m_fCurRadian = D3DXToRadian(fAngle);}	// ÇöÀç °¢µµ¼³Á¤
+	void	SetCurAngle(float fAngle)	{m_fCurRadian = D3DXToRadian(fAngle);}	// í˜„ì¬ ê°ë„ì„¤ì •
 	void	Init(const std::string* pszFNs);
-//	By : Ecli666 ( On 2002-04-04 ¿ÀÀü 10:55:52 )
+//	By : Ecli666 ( On 2002-04-04 ì˜¤ì „ 10:55:52 )
 //
 	float	GetCurAngle()	{	return D3DXToDegree(m_fCurRadian);	}
-//	~(By Ecli666 On 2002-04-04 ¿ÀÀü 10:55:52 )
+//	~(By Ecli666 On 2002-04-04 ì˜¤ì „ 10:55:52 )
 
 	void Release();
 	void Render(__Matrix44& matView, __Matrix44& matProj);

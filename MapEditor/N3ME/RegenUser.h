@@ -1,4 +1,4 @@
-// RegenUser.h: interface for the CRegenUser class.
+ï»¿// RegenUser.h: interface for the CRegenUser class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@ class CRegenUser : public CN3Base
 public:
 	CDlgRegenUser*			m_pDlg;
 
-	CMapMng*				m_pRefMapMng;				// ÁöÇü ÂüÁ¶ Æ÷ÀÎÅÍ..
+	CMapMng*				m_pRefMapMng;				// ì§€í˜• ì°¸ì¡° í¬ì¸í„°..
 	bool					m_bActive;
 
 	std::list<VERTEXRECT*>	m_vrListRegion;

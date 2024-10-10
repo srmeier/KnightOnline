@@ -1,4 +1,4 @@
-// RiverMng.cpp: implementation of the CRiverMng class.
+ï»¿// RiverMng.cpp: implementation of the CRiverMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -102,7 +102,7 @@ void CRiverMng::Render()
 	hr = s_lpD3DDev->GetRenderState(D3DRS_ZENABLE, &dwZEnable);
 	hr = s_lpD3DDev->GetRenderState(D3DRS_LIGHTING, &dwLighting);
 
-	// ±âÁ¸¿¡ ÀÖ´ø °­ ±×¸®±â
+	// ê¸°ì¡´ì— ìˆë˜ ê°• ê·¸ë¦¬ê¸°
 	it_RiverMesh it = m_RiverMeshes.begin();
 	int iSize = m_RiverMeshes.size();
 	for(int i = 0; i < iSize; i++, it++)
@@ -114,7 +114,7 @@ void CRiverMng::Render()
 	if (m_bEditMode)
 	{
 
-		// °­ »õ·Î ¸¸µå´Â ÁßÀÌ¸é µå·¡±× ¼± ±×¸®±â
+		// ê°• ìƒˆë¡œ ë§Œë“œëŠ” ì¤‘ì´ë©´ ë“œë˜ê·¸ ì„  ê·¸ë¦¬ê¸°
 		if (m_RCursorMode == RCM_CREATE)
 		{
 			// set state
@@ -134,18 +134,18 @@ void CRiverMng::Render()
 			s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 1, m_CreateLine, sizeof(__VertexXyzColor));
 		}
 
-		// dummy »óÀÚ ±×¸®±â
+		// dummy ìƒì ê·¸ë¦¬ê¸°
 		m_VtxPosDummy.Render();
 
 		if (m_pSelRiver)
 		{
-			// ¼±ÅÃµÈ °­ÀÇ Á¡±×¸®±â (»¡°­)
+			// ì„ íƒëœ ê°•ì˜ ì ê·¸ë¦¬ê¸° (ë¹¨ê°•)
 			m_pSelRiver->RenderVertexPoint();
 			
 			int iVC = m_pSelRiver->VertexCount();
 			if (iVC>4)
 			{
-				// ¼±ÅÃµÈ °­ÀÇ ExtrudeµÉ º¯ Ç¥½ÃÇÏ±â
+				// ì„ íƒëœ ê°•ì˜ Extrudeë  ë³€ í‘œì‹œí•˜ê¸°
 				// backup state
 				__Material BackupMtrl;
 				s_lpD3DDev->GetMaterial(&BackupMtrl);
@@ -178,7 +178,7 @@ void CRiverMng::Render()
 			}
 		}
 
-		// ¼±ÅÃµÈ Á¡ ±×¸®±â (ÃÊ·Ï)
+		// ì„ íƒëœ ì  ê·¸ë¦¬ê¸° (ì´ˆë¡)
 		int iSize = m_SelVtxArray.GetSize();
 		if (iSize>0)
 		{
@@ -208,7 +208,7 @@ void CRiverMng::Render()
 				if (iScreenX >= (int)vp.X && iScreenX <= (int)vp.Width &&
 					iScreenY >= (int)vp.Y && iScreenY <= (int)vp.Height)
 				{
-					// set X (Á¡À» ÂïÀ¸¸é 1ÇÈ¼¿¹Û¿¡ ¾ÈÂïÀ¸¹Ç·Î XÇ¥½Ã¸¦ ±×¸°´Ù.
+					// set X (ì ì„ ì°ìœ¼ë©´ 1í”½ì…€ë°–ì— ì•ˆì°ìœ¼ë¯€ë¡œ Xí‘œì‹œë¥¼ ê·¸ë¦°ë‹¤.
 					Vertices[0].Set(float(iScreenX-2), float(iScreenY-2), 0.5f, 0.5f, clr);
 					Vertices[1].Set(float(iScreenX+2), float(iScreenY+2), 0.5f, 0.5f, clr);
 					Vertices[2].Set(float(iScreenX+2), float(iScreenY-2), 0.5f, 0.5f, clr);
@@ -219,7 +219,7 @@ void CRiverMng::Render()
 			}
 		}
 
-		// µå·¡±× ¿µ¿ª ±×¸®±â
+		// ë“œë˜ê·¸ ì˜ì—­ ê·¸ë¦¬ê¸°
 		if (RCM_SELECT == m_RCursorMode) m_pMainFrm->GetMapMng()->RenderDragRect(&m_rcSelDrag);
 	}
 
@@ -284,13 +284,13 @@ BOOL CRiverMng::MouseMsgFilter(LPMSG pMsg)
 			DWORD nFlags = pMsg->wParam;
 			POINT point = {short(LOWORD(pMsg->lParam)), short(HIWORD(pMsg->lParam))};
 			if (RCM_CREATE == m_RCursorMode)
-			{	// »õ·Î¿î °­ Ãß°¡ÇÒ¶§ µå·¡±× ÇÏ´Â ¼± ¼³Á¤
-				__Vector3 vRayDir, vRayOrig;	// È­¸é Áß¾Ó(½ÃÁ¡)°ú ¸¶¿ì½º Æ÷ÀÎÅÍ¸¦ ÀÌÀº Á÷¼±ÀÇ ¹æÇâ°ú ¿øÁ¡
-				__Vector3 vPN, vPV;	// Æò¸éÀÇ ¹ı¼±°ú Æ÷ÇÔµÈ Á¡
-				__Vector3 vPos;	// À§ÀÇ Æò¸é°ú Á÷¼±ÀÇ ¸¸³ª´Â Á¡(±¸ÇÒ Á¡)
+			{	// ìƒˆë¡œìš´ ê°• ì¶”ê°€í• ë•Œ ë“œë˜ê·¸ í•˜ëŠ” ì„  ì„¤ì •
+				__Vector3 vRayDir, vRayOrig;	// í™”ë©´ ì¤‘ì•™(ì‹œì )ê³¼ ë§ˆìš°ìŠ¤ í¬ì¸í„°ë¥¼ ì´ì€ ì§ì„ ì˜ ë°©í–¥ê³¼ ì›ì 
+				__Vector3 vPN, vPV;	// í‰ë©´ì˜ ë²•ì„ ê³¼ í¬í•¨ëœ ì 
+				__Vector3 vPos;	// ìœ„ì˜ í‰ë©´ê³¼ ì§ì„ ì˜ ë§Œë‚˜ëŠ” ì (êµ¬í•  ì )
 
 				vPN.Set(0,1,0); vPV = m_CreateLine[0];
-				m_VtxPosDummy.GetPickRay(point, vRayDir, vRayOrig);	// ÀÌÇÔ¼ö Àá½Ã ºô·Á¾¸.
+				m_VtxPosDummy.GetPickRay(point, vRayDir, vRayOrig);	// ì´í•¨ìˆ˜ ì ì‹œ ë¹Œë ¤ì”€.
 
 				float fT = D3DXVec3Dot(&vPN,&(vPV-vRayOrig)) / D3DXVec3Dot(&vPN, &vRayDir);
 				vPos = vRayOrig + vRayDir*fT;
@@ -308,7 +308,7 @@ BOOL CRiverMng::MouseMsgFilter(LPMSG pMsg)
 		{
 			POINT point = {short(LOWORD(pMsg->lParam)), short(HIWORD(pMsg->lParam))};
 			if (RCM_CREATE == m_RCursorMode)
-			{	// »õ·Î¿î °­ Ãß°¡ Ãë¼Ò
+			{	// ìƒˆë¡œìš´ ê°• ì¶”ê°€ ì·¨ì†Œ
 				m_RCursorMode = RCM_NONE;
 				ReleaseCapture();
 				return TRUE;
@@ -338,7 +338,7 @@ BOOL CRiverMng::MouseMsgFilter(LPMSG pMsg)
 				{	m_rcSelDrag.bottom = m_rcSelDrag.top; m_rcSelDrag.top = point.y; }
 				else m_rcSelDrag.bottom = point.y;
 
-				// µå·¹±×°¡ ¾Æ´Ï°í ±×³É Å¬¸¯ÀÏ°æ¿ì µå·¡±× ¿µ¿ªÀ» 3x3Á¤µµ·Î Àâ¾ÆÁØ´Ù.
+				// ë“œë ˆê·¸ê°€ ì•„ë‹ˆê³  ê·¸ëƒ¥ í´ë¦­ì¼ê²½ìš° ë“œë˜ê·¸ ì˜ì—­ì„ 3x3ì •ë„ë¡œ ì¡ì•„ì¤€ë‹¤.
 				if (m_rcSelDrag.right-m_rcSelDrag.left < 3 && m_rcSelDrag.bottom-m_rcSelDrag.top < 3)
 				{
 					m_rcSelDrag.left = point.x-1;	m_rcSelDrag.right = point.x+1;
@@ -354,13 +354,13 @@ BOOL CRiverMng::MouseMsgFilter(LPMSG pMsg)
 		{
 			POINT point = {short(LOWORD(pMsg->lParam)), short(HIWORD(pMsg->lParam))};
 			if (RCM_SELECT == m_RCursorMode)
-			{	// Select Ãë¼Ò
+			{	// Select ì·¨ì†Œ
 				m_RCursorMode = RCM_NONE;
 				ReleaseCapture();
 				return TRUE;
 			}
 			else if (RCM_NONE == m_RCursorMode)
-			{	// »õ·Î¿î °­ Ãß°¡
+			{	// ìƒˆë¡œìš´ ê°• ì¶”ê°€
 				CLyTerrain* pTerrain = m_pMainFrm->GetMapMng()->GetTerrain();
 
 				__Vector3 vPos;
@@ -382,16 +382,16 @@ BOOL CRiverMng::MouseMsgFilter(LPMSG pMsg)
 		{
 			POINT point = {short(LOWORD(pMsg->lParam)), short(HIWORD(pMsg->lParam))};
 			if (RCM_CREATE == m_RCursorMode)
-			{	// »õ·Î¿î °­ Ãß°¡
+			{	// ìƒˆë¡œìš´ ê°• ì¶”ê°€
 				m_RCursorMode = RCM_NONE;
 				ReleaseCapture();
 
-				__Vector3 vRayDir, vRayOrig;	// È­¸é Áß¾Ó(½ÃÁ¡)°ú ¸¶¿ì½º Æ÷ÀÎÅÍ¸¦ ÀÌÀº Á÷¼±ÀÇ ¹æÇâ°ú ¿øÁ¡
-				__Vector3 vPN, vPV;	// Æò¸éÀÇ ¹ı¼±°ú Æ÷ÇÔµÈ Á¡
-				__Vector3 vPos;	// À§ÀÇ Æò¸é°ú Á÷¼±ÀÇ ¸¸³ª´Â Á¡(±¸ÇÒ Á¡)
+				__Vector3 vRayDir, vRayOrig;	// í™”ë©´ ì¤‘ì•™(ì‹œì )ê³¼ ë§ˆìš°ìŠ¤ í¬ì¸í„°ë¥¼ ì´ì€ ì§ì„ ì˜ ë°©í–¥ê³¼ ì›ì 
+				__Vector3 vPN, vPV;	// í‰ë©´ì˜ ë²•ì„ ê³¼ í¬í•¨ëœ ì 
+				__Vector3 vPos;	// ìœ„ì˜ í‰ë©´ê³¼ ì§ì„ ì˜ ë§Œë‚˜ëŠ” ì (êµ¬í•  ì )
 
 				vPN.Set(0,1,0); vPV = m_CreateLine[0];
-				m_VtxPosDummy.GetPickRay(point, vRayDir, vRayOrig);	// ÀÌÇÔ¼ö Àá½Ã ºô·Á¾¸.
+				m_VtxPosDummy.GetPickRay(point, vRayDir, vRayOrig);	// ì´í•¨ìˆ˜ ì ì‹œ ë¹Œë ¤ì”€.
 
 				float fT = D3DXVec3Dot(&vPN,&(vPV-vRayOrig)) / D3DXVec3Dot(&vPN, &vRayDir);
 				vPos = vRayOrig + vRayDir*fT;
@@ -465,7 +465,7 @@ void CRiverMng::SelectVtxByDragRect(RECT* pRect, BOOL bAdd)
 	if (bAdd == FALSE)
 	{
 		m_SelVtxArray.RemoveAll();
-		SetSelRiver(NULL);	// ¼±ÅÃÇÑ°­ ÇØÁ¦..
+		SetSelRiver(NULL);	// ì„ íƒí•œê°• í•´ì œ..
 	}
 
 	CN3EngTool* pEng = m_pMainFrm->m_pEng;
@@ -479,12 +479,12 @@ void CRiverMng::SelectVtxByDragRect(RECT* pRect, BOOL bAdd)
 	D3DVIEWPORT8 vp = pEng->s_CameraData.vp;
 
 	int i;
-	if (m_pSelRiver)	// ÀÌ¹Ì ¼±ÅÃµÈ °­ÀÌ ÀÖ´Ù¸é..
+	if (m_pSelRiver)	// ì´ë¯¸ ì„ íƒëœ ê°•ì´ ìˆë‹¤ë©´..
 	{
-		int iVC = m_pSelRiver->VertexCount();	// ±×°­ÀÇ Á¡ ¼ıÀÚ¸¦ ±¸ÇÏ±â
+		int iVC = m_pSelRiver->VertexCount();	// ê·¸ê°•ì˜ ì  ìˆ«ìë¥¼ êµ¬í•˜ê¸°
 		for (i=0; i<iVC;++i)
 		{
-			__VertexXyzT2* pVtx = m_pSelRiver->GetVertex(i);	// Á¡ ÇÏ³ª ±¸ÇÏ±â
+			__VertexXyzT2* pVtx = m_pSelRiver->GetVertex(i);	// ì  í•˜ë‚˜ êµ¬í•˜ê¸°
 			if (pVtx == NULL) continue;
 
 			D3DXVECTOR4 v;
@@ -500,16 +500,16 @@ void CRiverMng::SelectVtxByDragRect(RECT* pRect, BOOL bAdd)
 				BOOL bAleadySelected = FALSE;
 				int j, iSize = m_SelVtxArray.GetSize();
 				for (j=0; j<iSize;++j) if (m_SelVtxArray.GetAt(j) == pVtx) {bAleadySelected=TRUE;break;}
-				if (bAleadySelected) m_SelVtxArray.RemoveAt(j);	// ÀÌ¹Ì ÀÖÀ¸¹Ç·Î ¼±ÅÃ¸ñ·Ï¿¡¼­ Á¦°Å
-				else m_SelVtxArray.InsertAt(0, pVtx);			// Ãß°¡
+				if (bAleadySelected) m_SelVtxArray.RemoveAt(j);	// ì´ë¯¸ ìˆìœ¼ë¯€ë¡œ ì„ íƒëª©ë¡ì—ì„œ ì œê±°
+				else m_SelVtxArray.InsertAt(0, pVtx);			// ì¶”ê°€
 			}
 		}
 	}
-	else	// ¼±ÅÃµÈ °­ÀÌ ¾Æ¹«°Íµµ ¾ø´Ù¸é (¸ğµç°­ °Ë»öÇØ¼­ ¸ÇÃ³À½ °ñ¶óÁö´Â °­ ¼±ÅÃÈÄ ±× °­ Á¡µé¸¸ ¼±ÅÃ..)
+	else	// ì„ íƒëœ ê°•ì´ ì•„ë¬´ê²ƒë„ ì—†ë‹¤ë©´ (ëª¨ë“ ê°• ê²€ìƒ‰í•´ì„œ ë§¨ì²˜ìŒ ê³¨ë¼ì§€ëŠ” ê°• ì„ íƒí›„ ê·¸ ê°• ì ë“¤ë§Œ ì„ íƒ..)
 	{
 		ASSERT(m_SelVtxArray.GetSize() == 0);
 
-		CRiverMesh* pSelRiver = NULL;	// ¼±ÅÃµÈ °­
+		CRiverMesh* pSelRiver = NULL;	// ì„ íƒëœ ê°•
 		it_RiverMesh it = m_RiverMeshes.begin();
 		int iSize = m_RiverMeshes.size();
 		for(int i = 0; i < iSize; i++, it++)
@@ -517,10 +517,10 @@ void CRiverMng::SelectVtxByDragRect(RECT* pRect, BOOL bAdd)
 			CRiverMesh* pRM = *it;
 			if (pRM == NULL) continue;
 
-			int j, iVC = pRM->VertexCount();				// ÀÌ°­ÀÇ Á¡ °¹¼ö
+			int j, iVC = pRM->VertexCount();				// ì´ê°•ì˜ ì  ê°¯ìˆ˜
 			for (j=0; j<iVC; ++j)
 			{
-				__VertexXyzT2* pVtx = pRM->GetVertex(j);	// Á¡ ÇÏ³ª ±¸ÇÏ±â
+				__VertexXyzT2* pVtx = pRM->GetVertex(j);	// ì  í•˜ë‚˜ êµ¬í•˜ê¸°
 				if (pVtx == NULL) continue;
 
 				D3DXVECTOR4 v;
@@ -533,7 +533,7 @@ void CRiverMng::SelectVtxByDragRect(RECT* pRect, BOOL bAdd)
 				if (fScreenX >= pRect->left && fScreenX <= pRect->right &&
 					fScreenY >= pRect->top && fScreenY <= pRect->bottom)
 				{
-					m_SelVtxArray.Add(pVtx);			// Ãß°¡
+					m_SelVtxArray.Add(pVtx);			// ì¶”ê°€
 					pSelRiver = pRM;
 					SetSelRiver(pSelRiver);
 				}
@@ -563,7 +563,7 @@ void CRiverMng::ExtrudeRiverEdge()
 	if (m_pSelRiver == NULL) return;
 	int iVC = m_pSelRiver->AddVertex();
 
-	m_SelVtxArray.RemoveAll();	// ±âÁ¸¿¡ ¼±ÅÃÇÑ Á¡ ÇØÁ¦
+	m_SelVtxArray.RemoveAll();	// ê¸°ì¡´ì— ì„ íƒí•œ ì  í•´ì œ
 
 	if (iVC>=4)
 	{
@@ -583,7 +583,7 @@ void CRiverMng::ExtrudeRiverEdge()
 	m_pMainFrm->Invalidate(FALSE);
 }
 
-void CRiverMng::DeleteSelectedVertex()									// ¼±ÅÃµÈ Á¡µé Áö¿ì±â
+void CRiverMng::DeleteSelectedVertex()									// ì„ íƒëœ ì ë“¤ ì§€ìš°ê¸°
 {
 	if (m_pSelRiver == NULL) return;
 
@@ -604,7 +604,7 @@ void CRiverMng::DeleteSelectedVertex()									// ¼±ÅÃµÈ Á¡µé Áö¿ì±â
 		iVC = m_pSelRiver->DeleteVertex(iIndex);
 	}
 
-	m_SelVtxArray.RemoveAll();	// ±âÁ¸¿¡ ¼±ÅÃÇÑ Á¡ ÇØÁ¦
+	m_SelVtxArray.RemoveAll();	// ê¸°ì¡´ì— ì„ íƒí•œ ì  í•´ì œ
 	m_VtxPosDummy.SetSelVtx(NULL);
 	m_pMainFrm->Invalidate(FALSE);
 }
@@ -631,7 +631,7 @@ void CRiverMng::MakeGameFiles(HANDLE hFile, float fSize)
 		int iVC = pRM->VertexCount();
 		__VertexXyzT2* pVtx0 = pRM->GetVertex(0), *pSrcVtx=NULL;
 		ASSERT(pVtx0);
-		WriteFile(hFile, &iVC, sizeof(iVC), &dwNum, NULL);				// Á¡ °¹¼ö
+		WriteFile(hFile, &iVC, sizeof(iVC), &dwNum, NULL);				// ì  ê°¯ìˆ˜
 
 		// XyxT2 -> XyzColorT2 Converting.
 		__VertexRiver	*pTemp = new __VertexRiver[iVC];
@@ -681,7 +681,7 @@ void CRiverMng::MakeGameFiles(HANDLE hFile, float fSize)
 	}	
 
 /*
-	// ¸ğµç °­ Á¤º¸ ÀúÀå (*.grm) game river main
+	// ëª¨ë“  ê°• ì •ë³´ ì €ì¥ (*.grm) game river main
 	int i, j, k, iRiverCount = m_RiverMeshes.size();
 
 	CLyTerrain* pTerrain = m_pMainFrm->GetMapMng()->GetTerrain();
@@ -718,9 +718,9 @@ void CRiverMng::MakeGameFiles(HANDLE hFile, float fSize)
 
 	if (iRiverCount <=0) return;
 
-	// °¢°¢ÀÇ ÆĞÄ¡ Á¤º¸ ÀúÀå (*.grp) game river patch
+	// ê°ê°ì˜ íŒ¨ì¹˜ ì •ë³´ ì €ì¥ (*.grp) game river patch
 	int iPatchCount = size.cx * size.cy;
-	// °¢ ÆĞÄ¡º°·Î Á¤º¸ ºĞ·ùÇÏ±â
+	// ê° íŒ¨ì¹˜ë³„ë¡œ ì •ë³´ ë¶„ë¥˜í•˜ê¸°
 	__TempPatch* TempPatches = new __TempPatch[iPatchCount];
 
 	it = m_RiverMeshes.begin();
@@ -746,7 +746,7 @@ void CRiverMng::MakeGameFiles(HANDLE hFile, float fSize)
 		}
 	}
 
-	// CN3RiverPatch±¸Á¶¿¡ ¾Ë¸Â°Ô ³Ö±â.
+	// CN3RiverPatchêµ¬ì¡°ì— ì•Œë§ê²Œ ë„£ê¸°.
 	CN3RiverPatch* RiverPatches = new CN3RiverPatch[iPatchCount];
 	for (i=0; i<iPatchCount; ++i)
 	{
@@ -772,10 +772,10 @@ void CRiverMng::MakeGameFiles(HANDLE hFile, float fSize)
 		}
 	}
 
-	// ¸Ş¸ğ¸® ÇÒ´çÇÑ°Å Áö¿ì±â
+	// ë©”ëª¨ë¦¬ í• ë‹¹í•œê±° ì§€ìš°ê¸°
 	delete [] TempPatches;
 
-	// RiverPatches ÀúÀåÇÏ±â
+	// RiverPatches ì €ì¥í•˜ê¸°
 	for (i=0; i<size.cx; ++i)
 	{
 		for (j=0; j<size.cy; ++j)
@@ -789,7 +789,7 @@ void CRiverMng::MakeGameFiles(HANDLE hFile, float fSize)
 /*
 void CRiverMng::MakeGameFiles(LPCTSTR lpszFName, float fSize)
 {
-	// ¸ğµç °­ Á¤º¸ ÀúÀå (*.grm) game river main
+	// ëª¨ë“  ê°• ì •ë³´ ì €ì¥ (*.grm) game river main
 	int i, j, k, iRiverCount = m_RiverMeshes.size();
 
 	CLyTerrain* pTerrain = m_pMainFrm->GetMapMng()->GetTerrain();
@@ -826,9 +826,9 @@ void CRiverMng::MakeGameFiles(LPCTSTR lpszFName, float fSize)
 
 	if (iRiverCount <=0) return;
 
-	// °¢°¢ÀÇ ÆĞÄ¡ Á¤º¸ ÀúÀå (*.grp) game river patch
+	// ê°ê°ì˜ íŒ¨ì¹˜ ì •ë³´ ì €ì¥ (*.grp) game river patch
 	int iPatchCount = size.cx * size.cy;
-	// °¢ ÆĞÄ¡º°·Î Á¤º¸ ºĞ·ùÇÏ±â
+	// ê° íŒ¨ì¹˜ë³„ë¡œ ì •ë³´ ë¶„ë¥˜í•˜ê¸°
 	__TempPatch* TempPatches = new __TempPatch[iPatchCount];
 
 	for (i=0; i<iRiverCount; ++i)
@@ -853,7 +853,7 @@ void CRiverMng::MakeGameFiles(LPCTSTR lpszFName, float fSize)
 		}
 	}
 
-	// CN3RiverPatch±¸Á¶¿¡ ¾Ë¸Â°Ô ³Ö±â.
+	// CN3RiverPatchêµ¬ì¡°ì— ì•Œë§ê²Œ ë„£ê¸°.
 	CN3RiverPatch* RiverPatches = new CN3RiverPatch[iPatchCount];
 	for (i=0; i<iPatchCount; ++i)
 	{
@@ -879,10 +879,10 @@ void CRiverMng::MakeGameFiles(LPCTSTR lpszFName, float fSize)
 		}
 	}
 
-	// ¸Ş¸ğ¸® ÇÒ´çÇÑ°Å Áö¿ì±â
+	// ë©”ëª¨ë¦¬ í• ë‹¹í•œê±° ì§€ìš°ê¸°
 	delete [] TempPatches;
 
-	// RiverPatches ÀúÀåÇÏ±â
+	// RiverPatches ì €ì¥í•˜ê¸°
 	for (i=0; i<size.cx; ++i)
 	{
 		for (j=0; j<size.cy; ++j)

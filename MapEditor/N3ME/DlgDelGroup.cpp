@@ -1,4 +1,4 @@
-// DlgDelGroup.cpp : implementation file
+﻿// DlgDelGroup.cpp : implementation file
 //
 
 #include "stdafx.h"

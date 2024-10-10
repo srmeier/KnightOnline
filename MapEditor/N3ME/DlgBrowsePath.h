@@ -1,4 +1,4 @@
-// CDlgBrowsePath.h : header file
+﻿// CDlgBrowsePath.h : header file
 //
 
 #if !defined(AFX_CDlgBrowsePath_H__F0B620A7_9D4F_11D1_B10E_B8F603C10000__INCLUDED_)

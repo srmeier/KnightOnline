@@ -1,4 +1,4 @@
-// Pick.h: interface for the CPick class.
+ï»¿// Pick.h: interface for the CPick class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,20 +22,20 @@ public:
 	CN3Mesh m_MeshBox; // Picking Box
 
 protected:
-    __Vector3		m_vPickRayDir;			// Ãæµ¹ Ã¼Å©ÇÒ Á÷¼±ÀÇ ¹æÇâ
-    __Vector3		m_vPickRayOrig;			// Ãæµ¹ Ã¼Å©ÇÒ Á÷¼±ÀÇ ½ÃÀÛÁ¡
+    __Vector3		m_vPickRayDir;			// ì¶©ëŒ ì²´í¬í•  ì§ì„ ì˜ ë°©í–¥
+    __Vector3		m_vPickRayOrig;			// ì¶©ëŒ ì²´í¬í•  ì§ì„ ì˜ ì‹œì‘ì 
 
 // Operations
 public:
 	BOOL PickByBox(__Vector3 &vMin, __Vector3 &vMax, __Vector3& vIntersect);
-	void			SetPickXY(long x, long y); // Å¬¶óÀÌ¾ğÆ® ÁÂÇ¥¸¦ ³Ö¾îÁØ´Ù..
+	void			SetPickXY(long x, long y); // í´ë¼ì´ì–¸íŠ¸ ì¢Œí‘œë¥¼ ë„£ì–´ì¤€ë‹¤..
 
-	// [in] v0, v1, v2 ¼¼Á¡ÀÇ ÁÂÇ¥
-	// [out] t°¡ Å¬¼ö·Ï Á÷¼±°ú Æò¸é°ú ¸¸³ª´Â Á¡ÀÌ ¸Ö´Ù.	t*dir + orig ¸¦ ±¸ÇÏ¸é ¸¸³ª´Â Á¡À» ±¸ÇÒ ¼ö ÀÖ´Ù.
-	// [out] uv ÁÂÇ¥  v0 (0,0), v1(1,0), v2(0,1) <°ıÈ£¾ÈÀº (U, V)ÁÂÇ¥> ÀÌ·±½ÄÀ¸·Î ¾î´À Á¡¿¡ °¡±õ³ª ³ªÅ¸³½ °Í
-	// v0 + (v1-v0)*u + (v2-v0)*v ¸¦ ±¸ÇÏ¸é ¸¸³ª´Â Á¡À» ±¸ÇÒ ¼ö ÀÖ´Ù.
-	// [out] vPos ¸¶¿ì½º·Î ÂïÀº °÷ÀÇ 3D ÁÂÇ¥
-	// ¸®ÅÏ °ªÀÌ FALSEÀÌ¸é ¼¼Á¡ÀÌ ÀÌ·ç´Â »ï°¢Çü ¾È¿¡¼­ ¸¸³ªÁö ¾Ê´Â´Ù´Â ¶æ, t u v vPos ¸ğµÎ ¹«È¿ÇÑ °ªÀÌ¹Ç·Î ¾²¸é ¾ÈµÈ´Ù.
+	// [in] v0, v1, v2 ì„¸ì ì˜ ì¢Œí‘œ
+	// [out] tê°€ í´ìˆ˜ë¡ ì§ì„ ê³¼ í‰ë©´ê³¼ ë§Œë‚˜ëŠ” ì ì´ ë©€ë‹¤.	t*dir + orig ë¥¼ êµ¬í•˜ë©´ ë§Œë‚˜ëŠ” ì ì„ êµ¬í•  ìˆ˜ ìˆë‹¤.
+	// [out] uv ì¢Œí‘œ  v0 (0,0), v1(1,0), v2(0,1) <ê´„í˜¸ì•ˆì€ (U, V)ì¢Œí‘œ> ì´ëŸ°ì‹ìœ¼ë¡œ ì–´ëŠ ì ì— ê°€ê¹ë‚˜ ë‚˜íƒ€ë‚¸ ê²ƒ
+	// v0 + (v1-v0)*u + (v2-v0)*v ë¥¼ êµ¬í•˜ë©´ ë§Œë‚˜ëŠ” ì ì„ êµ¬í•  ìˆ˜ ìˆë‹¤.
+	// [out] vPos ë§ˆìš°ìŠ¤ë¡œ ì°ì€ ê³³ì˜ 3D ì¢Œí‘œ
+	// ë¦¬í„´ ê°’ì´ FALSEì´ë©´ ì„¸ì ì´ ì´ë£¨ëŠ” ì‚¼ê°í˜• ì•ˆì—ì„œ ë§Œë‚˜ì§€ ì•ŠëŠ”ë‹¤ëŠ” ëœ», t u v vPos ëª¨ë‘ ë¬´íš¨í•œ ê°’ì´ë¯€ë¡œ ì“°ë©´ ì•ˆëœë‹¤.
 	bool IntersectTriangle(__Vector3& v0, __Vector3& v1, __Vector3& v2, float& t, float& u, float& v, __Vector3* pVPos)
 	{
 		return ::_IntersectTriangle( m_vPickRayOrig, m_vPickRayDir, v0, v1, v2, t, u, v, pVPos );

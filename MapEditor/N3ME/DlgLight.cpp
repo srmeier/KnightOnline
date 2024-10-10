@@ -1,4 +1,4 @@
-// DlgLight.cpp : implementation file
+ï»¿// DlgLight.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -127,7 +127,7 @@ void CDlgLight::OnBtnUpload()
 
 	if(m_strLightObjName.IsEmpty())
 	{
-		MessageBox("Light Object°´Ã¼ÀÇ ÀÌ¸§ÀÌ ÁöÁ¤µÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù.","-.-;");
+		MessageBox("Light Objectê°ì²´ì˜ ì´ë¦„ì´ ì§€ì •ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.","-.-;");
 		return;
 	}
 

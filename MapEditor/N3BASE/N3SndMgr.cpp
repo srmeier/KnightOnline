@@ -1,4 +1,4 @@
-// N3SndMgr.cpp: implementation of the CN3SndMgr class.
+ï»¿// N3SndMgr.cpp: implementation of the CN3SndMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -29,7 +29,7 @@ CN3SndMgr::~CN3SndMgr()
 }
 
 //
-//	¿£Áø ÃÊ±âÈ­..
+//	ì—”ì§„ ì´ˆê¸°í™”..
 //
 void CN3SndMgr::Init(HWND hWnd)
 {
@@ -52,15 +52,15 @@ CN3SndObj* CN3SndMgr::CreateObj(const std::string& szFN, e_SndType eType)
 
 	CN3SndObj* pObjSrc = NULL;
 	itm_Snd it = m_SndObjSrcs.find(szFN);
-	if(it == m_SndObjSrcs.end()) // ¸ø Ã£¾Ò´Ù... »õ·Î ¸¸µéÀÚ..
+	if(it == m_SndObjSrcs.end()) // ëª» ì°¾ì•˜ë‹¤... ìƒˆë¡œ ë§Œë“¤ìž..
 	{
 		pObjSrc = new CN3SndObj();
-		if(false == pObjSrc->Create(szFN, eType)) // »õ·Î ·Îµù..
+		if(false == pObjSrc->Create(szFN, eType)) // ìƒˆë¡œ ë¡œë”©..
 		{
 			delete pObjSrc; pObjSrc = NULL;
 			return NULL;
 		}
-		m_SndObjSrcs.insert(val_Snd(szFN, pObjSrc)); // ¸Ê¿¡ Ãß°¡ÇÑ´Ù..
+		m_SndObjSrcs.insert(val_Snd(szFN, pObjSrc)); // ë§µì— ì¶”ê°€í•œë‹¤..
 	}
 	else pObjSrc = it->second;
 
@@ -69,13 +69,13 @@ CN3SndObj* CN3SndMgr::CreateObj(const std::string& szFN, e_SndType eType)
 	if(NULL == pObjSrc) return NULL;
 
 	CN3SndObj* pObjNew = new CN3SndObj();
-	if(false == pObjNew->Duplicate(pObjSrc, eType)) // Duplicate Ã³¸®..
+	if(false == pObjNew->Duplicate(pObjSrc, eType)) // Duplicate ì²˜ë¦¬..
 	{
 		delete pObjNew; pObjNew = NULL;
 		return NULL;
 	}
 	
-	if(pObjNew) m_SndObjs_Duplicated.push_back(pObjNew); // ¸®½ºÆ®¿¡ ³Ö´Â´Ù...
+	if(pObjNew) m_SndObjs_Duplicated.push_back(pObjNew); // ë¦¬ìŠ¤íŠ¸ì— ë„£ëŠ”ë‹¤...
 	return pObjNew;
 }
 
@@ -88,7 +88,7 @@ CN3SndObjStream* CN3SndMgr::CreateStreamObj(const std::string& szFN)
 		return NULL;
 	}
 
-	m_SndObjStreams.push_back(pObj); // ¸®½ºÆ®¿¡ ³Ö±â..
+	m_SndObjStreams.push_back(pObj); // ë¦¬ìŠ¤íŠ¸ì— ë„£ê¸°..
 
 	return pObj;
 }
@@ -200,11 +200,11 @@ void CN3SndMgr::Tick()
 
 
 //
-//	ObjÇÏ³ª ¹«È¿È­..
+//	Objí•˜ë‚˜ ë¬´íš¨í™”..
 void CN3SndMgr::ReleaseObj(CN3SndObj** ppObj)
 {
 	if(NULL == ppObj || NULL == *ppObj) return;
-	std::string szFN = (*ppObj)->m_szFileName; // ÆÄÀÏ ÀÌ¸§À» ±â¾ïÇÏ°í..
+	std::string szFN = (*ppObj)->m_szFileName; // íŒŒì¼ ì´ë¦„ì„ ê¸°ì–µí•˜ê³ ..
 
 	itl_Snd it = m_SndObjs_Duplicated.begin(), itEnd = m_SndObjs_Duplicated.end();
 	for(; it != itEnd; it++)
@@ -212,7 +212,7 @@ void CN3SndMgr::ReleaseObj(CN3SndObj** ppObj)
 		if(*ppObj == *it)
 		{
 			m_SndObjs_Duplicated.erase(it);
-			delete *ppObj; *ppObj = NULL; // °´Ã¼ Áö¿ì±â..
+			delete *ppObj; *ppObj = NULL; // ê°ì²´ ì§€ìš°ê¸°..
 			return;
 		}
 	}
@@ -224,15 +224,15 @@ void CN3SndMgr::ReleaseObj(CN3SndObj** ppObj)
 		if(*ppObj == *it)
 		{
 			m_SndObjs_PlayOnceAndRelease.erase(it);
-			delete *ppObj; *ppObj = NULL; // °´Ã¼ Áö¿ì±â..
+			delete *ppObj; *ppObj = NULL; // ê°ì²´ ì§€ìš°ê¸°..
 			return;
 		}
 	}
 
-	*ppObj = NULL; // Æ÷ÀÎÅÍ¸¸ ³Î·Î ¸¸µé¾î ÁØ´Ù..
+	*ppObj = NULL; // í¬ì¸í„°ë§Œ ë„ë¡œ ë§Œë“¤ì–´ ì¤€ë‹¤..
 
 /*	itm_Snd it = m_SndObjSrcs.find(szFN);
-	if(it != m_SndObjSrcs.end()) // Ã£¾Ò´Ù..
+	if(it != m_SndObjSrcs.end()) // ì°¾ì•˜ë‹¤..
 	{
 		CN3SndObj* pObj = it->second;
 		delete pObj;
@@ -302,8 +302,8 @@ void CN3SndMgr::Release()
 }
 
 
-// ÀÌ ÇÔ¼ö´Â ÇÑ¹ø ÇÃ·¹ÀÌ ÇÏ°í ±× Æ÷ÀÎÅÍ¸¦ ´Ù½Ã ¾µ¼öÀÖ°Ô ReleaseObj¸¦ È£ÃâÇÑ´Ù.
-// ´ë½Å À§Ä¡´Â Ã³À½ ÇÑ¹ø¹Û¿¡ ÁöÁ¤ÇÒ ¼ö ¾ø´Ù.
+// ì´ í•¨ìˆ˜ëŠ” í•œë²ˆ í”Œë ˆì´ í•˜ê³  ê·¸ í¬ì¸í„°ë¥¼ ë‹¤ì‹œ ì“¸ìˆ˜ìžˆê²Œ ReleaseObjë¥¼ í˜¸ì¶œí•œë‹¤.
+// ëŒ€ì‹  ìœ„ì¹˜ëŠ” ì²˜ìŒ í•œë²ˆë°–ì— ì§€ì •í•  ìˆ˜ ì—†ë‹¤.
 bool CN3SndMgr::PlayOnceAndRelease(int iSndID, const _D3DVECTOR* pPos)
 {
 	if(!m_bSndEnable) return false;
@@ -313,15 +313,15 @@ bool CN3SndMgr::PlayOnceAndRelease(int iSndID, const _D3DVECTOR* pPos)
 	
 	CN3SndObj* pObjSrc = NULL;
 	itm_Snd it = m_SndObjSrcs.find(pTbl->szFN);
-	if(it == m_SndObjSrcs.end()) // ¸ø Ã£¾Ò´Ù... »õ·Î ¸¸µéÀÚ..
+	if(it == m_SndObjSrcs.end()) // ëª» ì°¾ì•˜ë‹¤... ìƒˆë¡œ ë§Œë“¤ìž..
 	{
 		pObjSrc = new CN3SndObj();
-		if(false == pObjSrc->Create(pTbl->szFN, (e_SndType)pTbl->iType)) // »õ·Î ·Îµù..
+		if(false == pObjSrc->Create(pTbl->szFN, (e_SndType)pTbl->iType)) // ìƒˆë¡œ ë¡œë”©..
 		{
 			delete pObjSrc; pObjSrc = NULL;
 			return NULL;
 		}
-		m_SndObjSrcs.insert(val_Snd(pTbl->szFN, pObjSrc)); // ¸Ê¿¡ Ãß°¡ÇÑ´Ù..
+		m_SndObjSrcs.insert(val_Snd(pTbl->szFN, pObjSrc)); // ë§µì— ì¶”ê°€í•œë‹¤..
 		if(!m_bSndDuplicated) pObjSrc->Play(pPos);//this_Snd
 	}
 	else pObjSrc = it->second;
@@ -335,13 +335,13 @@ bool CN3SndMgr::PlayOnceAndRelease(int iSndID, const _D3DVECTOR* pPos)
 	}
 
 	CN3SndObj* pObj = new CN3SndObj();
-	if(false == pObj->Duplicate(pObjSrc, (e_SndType)pTbl->iType)) // Duplicate Ã³¸®..
+	if(false == pObj->Duplicate(pObjSrc, (e_SndType)pTbl->iType)) // Duplicate ì²˜ë¦¬..
 	{
 		delete pObj; pObj = NULL;
 		return NULL;
 	}
 	
-	if(pObj) // ¸®½ºÆ®¿¡ ³Ö´Â´Ù...noah
+	if(pObj) // ë¦¬ìŠ¤íŠ¸ì— ë„£ëŠ”ë‹¤...noah
 	{
 		m_SndObjs_PlayOnceAndRelease.push_back(pObj);
 		pObj->Play(pPos);

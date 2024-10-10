@@ -1,4 +1,4 @@
-#if !defined(AFX_DLGDTEXGROUPVIEW_H__F3662140_F843_4AEF_9FA4_9812A085ED8B__INCLUDED_)
+ï»¿#if !defined(AFX_DLGDTEXGROUPVIEW_H__F3662140_F843_4AEF_9FA4_9812A085ED8B__INCLUDED_)
 #define AFX_DLGDTEXGROUPVIEW_H__F3662140_F843_4AEF_9FA4_9812A085ED8B__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -20,7 +20,7 @@ public:
 	CN3Texture*				m_pPrevTex;
 	RECT					m_PrevTexRect;
 
-	int						m_iRadioState; //	0 ÀÚµ¿Âï±â 2 °­Á¦Âï±â 3 °­Á¦Ç®Å¸ÀÏ Âï±â
+	int						m_iRadioState; //	0 ìë™ì°ê¸° 2 ê°•ì œì°ê¸° 3 ê°•ì œí’€íƒ€ì¼ ì°ê¸°
 
 public:
 	CDTexGroupMng* m_pDTexGroupMng;

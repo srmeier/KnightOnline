@@ -1,4 +1,4 @@
-// WallMgr.h: interface for the CWallMgr class.
+ï»¿// WallMgr.h: interface for the CWallMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -26,11 +26,11 @@ protected:
 	__VertexXyzColor	m_BoardVB[4];
 
 public:
-	CMapMng*				m_pRefMapMng;				// ÁöÇü ÂüÁ¶ Æ÷ÀÎÅÍ..
-	std::list<CWall*>		m_pWalls;					// º®µé...
+	CMapMng*				m_pRefMapMng;				// ì§€í˜• ì°¸ì¡° í¬ì¸í„°..
+	std::list<CWall*>		m_pWalls;					// ë²½ë“¤...
 	CDlgMakeWall*			m_pDlg;						// path make dialog..
-	bool					m_bActive;					// ÀÌ±â´ÉÀÌ È°¼ºÈ­ µÇ¾î ÀÖ´ÂÁö...1:È°¼ºÈ­, 0:ºñÈ°¼ºÈ­..
-	CWall*					m_pCurrWall;				// ÇöÀç ¸¸µé°í ÀÖ´Â º®..or ¸¸µé·Á°í ÁØºñÇÑ ¹öÆÛ..
+	bool					m_bActive;					// ì´ê¸°ëŠ¥ì´ í™œì„±í™” ë˜ì–´ ìˆëŠ”ì§€...1:í™œì„±í™”, 0:ë¹„í™œì„±í™”..
+	CWall*					m_pCurrWall;				// í˜„ì¬ ë§Œë“¤ê³  ìˆëŠ” ë²½..or ë§Œë“¤ë ¤ê³  ì¤€ë¹„í•œ ë²„í¼..
 
 protected:
 	void MakeLine(__Vector3 sv, __Vector3 ev, D3DCOLOR color);

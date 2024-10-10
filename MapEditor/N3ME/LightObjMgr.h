@@ -1,4 +1,4 @@
-// LightObjMgr.h: interface for the CLightObjMgr class.
+ï»¿// LightObjMgr.h: interface for the CLightObjMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -39,7 +39,7 @@ public:
 	__VertexXyzColor		m_CubeVB[36];
 	CDlgLight*				m_pDlg;
 
-	CMapMng*				m_pRefMapMng;		// ÁöÇü ÂüÁ¶ Æ÷ÀÎÅÍ..
+	CMapMng*				m_pRefMapMng;		// ì§€í˜• ì°¸ì¡° í¬ì¸í„°..
 	bool					m_bActive;
 
 	std::list<LIGHTOBJ*>	m_ListObj;

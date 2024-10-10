@@ -1,4 +1,4 @@
-// N3Joint.cpp: implementation of the CN3Joint class.
+ï»¿// N3Joint.cpp: implementation of the CN3Joint class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -35,7 +35,7 @@ CN3Joint::~CN3Joint()
 void CN3Joint::Release()
 {
 	m_qOrient.Identity();		// Joint Orient Quaternion
-	m_KeyOrient.Release();		// Joint Orient Å°°ª... NULL ÀÌ¸é ¾ø´Â°Å´Ù..
+	m_KeyOrient.Release();		// Joint Orient í‚¤ê°’... NULL ì´ë©´ ì—†ëŠ”ê±°ë‹¤..
 	
 	for(it_Joint it = m_Children.begin(), itEnd = m_Children.end(); it != itEnd; it++)
 	{
@@ -124,7 +124,7 @@ void CN3Joint::Render(const __Matrix44* pMtxParent, float fUnitSize)
 	s_lpD3DDev->SetMaterial(&smtl);
 	s_lpD3DDev->SetTexture(0, NULL);
 
-	if(m_pParent) // ºÎ¸ð °üÀý°ú ÀÌ¾îÁÖ´Â ¼±..
+	if(m_pParent) // ë¶€ëª¨ ê´€ì ˆê³¼ ì´ì–´ì£¼ëŠ” ì„ ..
 	{
 		static __Vector3 v[2];
 		static __VertexColor vBone[2];
@@ -141,10 +141,10 @@ void CN3Joint::Render(const __Matrix44* pMtxParent, float fUnitSize)
 		vBone[0].Set(v[0], 0xff00ff00);
 		vBone[1].Set(v[1], 0xff0000ff);
 		s_lpD3DDev->SetVertexShader(FVF_CV);
-		s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 1, vBone, sizeof(__VertexColor)); // ¼±±×¸®±â..
+		s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 1, vBone, sizeof(__VertexColor)); // ì„ ê·¸ë¦¬ê¸°..
 	}
 
-	// ¹Ú½º ±×¸®±â..
+	// ë°•ìŠ¤ ê·¸ë¦¬ê¸°..
 	static __VertexColor vBoxes[36];
 	static __VertexColor vAxis[6];
 	static bool bBoxCreated = false;
@@ -179,9 +179,9 @@ void CN3Joint::Render(const __Matrix44* pMtxParent, float fUnitSize)
 
 	s_lpD3DDev->SetVertexShader(FVF_CV);
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtxBox);
-	s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 12, vBoxes, sizeof(__VertexColor)); // ¹Ú½º ±×¸®±â..
+	s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 12, vBoxes, sizeof(__VertexColor)); // ë°•ìŠ¤ ê·¸ë¦¬ê¸°..
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtxAxis);
-	s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 3, vAxis, sizeof(__VertexColor)); // Ãà ±×¸®±â..
+	s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 3, vAxis, sizeof(__VertexColor)); // ì¶• ê·¸ë¦¬ê¸°..
 
 	if(dwZ) s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, dwZ);
 	if(dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, dwFog);
@@ -263,7 +263,7 @@ void CN3Joint::NodeCount(int &nCount)
 }
 
 #ifdef _N3TOOL
-BOOL CN3Joint::FindPointerByName(const std::string& szName, CN3Joint *&pJoint) // ÀÌ¸§À» ³ÖÀ¸¸é ÇØ´ç ³ëµåÀÇ Æ÷ÀÎÅÍ¸¦ µ¹·ÁÁØ´Ù..
+BOOL CN3Joint::FindPointerByName(const std::string& szName, CN3Joint *&pJoint) // ì´ë¦„ì„ ë„£ìœ¼ë©´ í•´ë‹¹ ë…¸ë“œì˜ í¬ì¸í„°ë¥¼ ëŒë ¤ì¤€ë‹¤..
 {
 	if(szName.empty())
 	{
@@ -372,43 +372,43 @@ void CN3Joint::ReCalcMatrix()
 {
 	static __Matrix44 mtx;
 	static __Quaternion qt;
-//	¿ø·¡ Çà·Ä °è»ê ÄÚµå...
+//	ì›ëž˜ í–‰ë ¬ ê³„ì‚° ì½”ë“œ...
 //	m_Matrix.Identity();
-//	mtx.Rotation(m_vRot.x, m_vRot.y, m_vRot.z); m_Matrix *= mtx; // ºÎ¸ð Ãà ¸¸Å­ È¸Àü.
-//	mtx.Scale(m_vScale); m_Matrix *= mtx; // ºÎ¸ð Ãà ¸¸Å­ È¸Àü.
-//	mtx.Rotation(m_vOrigin.x, m_vOrigin.y, m_vOrigin.z); m_Matrix *= mtx; // ºÎ¸ð ·ÎÄÃ Ãà ¸¸Å­ È¸Àü.
-//	mtx.Identity(); mtx.PosSet(m_vPos); m_Matrix *= mtx; // ÀÌµ¿
+//	mtx.Rotation(m_vRot.x, m_vRot.y, m_vRot.z); m_Matrix *= mtx; // ë¶€ëª¨ ì¶• ë§Œí¼ íšŒì „.
+//	mtx.Scale(m_vScale); m_Matrix *= mtx; // ë¶€ëª¨ ì¶• ë§Œí¼ íšŒì „.
+//	mtx.Rotation(m_vOrigin.x, m_vOrigin.y, m_vOrigin.z); m_Matrix *= mtx; // ë¶€ëª¨ ë¡œì»¬ ì¶• ë§Œí¼ íšŒì „.
+//	mtx.Identity(); mtx.PosSet(m_vPos); m_Matrix *= mtx; // ì´ë™
 
 //	if(m_RotSeq == ROT_SEQ_XYZ)
 //	{
-//		m_Matrix.Rotation(m_vRot.x, m_vRot.y, m_vRot.z); // ºÎ¸ð Ãà ¸¸Å­ È¸Àü. // XYZ È¸ÀüÀÏ¶§..
+//		m_Matrix.Rotation(m_vRot.x, m_vRot.y, m_vRot.z); // ë¶€ëª¨ ì¶• ë§Œí¼ íšŒì „. // XYZ íšŒì „ì¼ë•Œ..
 //	}
 //	else if(ROT_SEQ_YXZ)
 //	{
 //		m_Matrix.Identity();
-//		mtx.RotationY(m_vRot.y); m_Matrix *= mtx; // YXZ È¸ÀüÀÏ¶§
+//		mtx.RotationY(m_vRot.y); m_Matrix *= mtx; // YXZ íšŒì „ì¼ë•Œ
 //		mtx.RotationX(m_vRot.x); m_Matrix *= mtx;
 //		mtx.RotationZ(m_vRot.z); m_Matrix *= mtx;
 //	}
 
-	if(m_KeyOrient.Count() > 0) // Orient Å°°ªÀÌ ÀÖÀ¸¸é..
+	if(m_KeyOrient.Count() > 0) // Orient í‚¤ê°’ì´ ìžˆìœ¼ë©´..
 	{
 		qt = m_qRot * m_qOrient;
-		::D3DXMatrixRotationQuaternion(&m_Matrix, &qt); // È¸Àü.. ÄõÅÍ´Ï¾ð °è»ê..
+		::D3DXMatrixRotationQuaternion(&m_Matrix, &qt); // íšŒì „.. ì¿¼í„°ë‹ˆì–¸ ê³„ì‚°..
 	}
 	else
 	{
-		::D3DXMatrixRotationQuaternion(&m_Matrix, &m_qRot); // È¸Àü.. ÄõÅÍ´Ï¾ð °è»ê..
+		::D3DXMatrixRotationQuaternion(&m_Matrix, &m_qRot); // íšŒì „.. ì¿¼í„°ë‹ˆì–¸ ê³„ì‚°..
 	}
 
-	if(1.0f != m_vScale.x || 1.0f != m_vScale.y || 1.0f != m_vScale.z) // ½ºÄÉÀÏ °ªÀÌ ÀÖÀ¸¸é..
+	if(1.0f != m_vScale.x || 1.0f != m_vScale.y || 1.0f != m_vScale.z) // ìŠ¤ì¼€ì¼ ê°’ì´ ìžˆìœ¼ë©´..
 	{
-		mtx.Scale(m_vScale); // ½ºÄÉÀÏ
+		mtx.Scale(m_vScale); // ìŠ¤ì¼€ì¼
 		m_Matrix *= mtx;
 	}
 	m_Matrix.PosSet(m_vPos);
 
-	if(m_pParent) m_Matrix *= m_pParent->m_Matrix; // ºÎ¸ð Çà·Ä
+	if(m_pParent) m_Matrix *= m_pParent->m_Matrix; // ë¶€ëª¨ í–‰ë ¬
 }
 
 void CN3Joint::MatricesGet(__Matrix44 *pMtxs, int &nJointIndex)
@@ -455,7 +455,7 @@ void CN3Joint::ReCalcMatrixBlended(float fFrm0, float fFrm1, float fWeight0)
 	if(bHaveKey1 && bHaveKey2) 
 		m_qOrient.Slerp(qt1, qt2, fWeight1);
 
-	this->ReCalcMatrix(); // Matrix °è»ê...
+	this->ReCalcMatrix(); // Matrix ê³„ì‚°...
 }
 
 #ifdef _N3TOOL
@@ -506,12 +506,12 @@ void CN3Joint::KeyDelete(CN3Joint *pJoint, int nKS, int nKE)
 		}
 	}
 
-	// Child ¸¦ ´Ù½Ã ¸¸µé¾î ÁØ´Ù.
+	// Child ë¥¼ ë‹¤ì‹œ ë§Œë“¤ì–´ ì¤€ë‹¤.
 	int nCC = pJoint->ChildCount();
 	for(int i = 0; i < nCC; i++)
 	{
 		CN3Joint* pChild = pJoint->Child(i);
-		pChild->KeyDelete(pChild, nKS, nKE); // ÇÏÀ§ Á¶ÀÎÆ®¸¦ º¹»ç..
+		pChild->KeyDelete(pChild, nKS, nKE); // í•˜ìœ„ ì¡°ì¸íŠ¸ë¥¼ ë³µì‚¬..
 	}
 }
 #endif // end of _N3TOOL
@@ -533,12 +533,12 @@ void CN3Joint::AddKey(CN3Joint *pJSrc, int nIndexS, int nIndexE)
 		CN3Joint* pChildSrc = *it;
 		CN3Joint* pChildDest = *it2;
 
-		pChildDest->AddKey(pChildSrc, nIndexS, nIndexE); // Àç±ÍÈ£Ãâ
+		pChildDest->AddKey(pChildSrc, nIndexS, nIndexE); // ìž¬ê·€í˜¸ì¶œ
 	}
 }
 #endif // end of _N3TOOL
 
-// È¸Àü°ªµîÀ»
+// íšŒì „ê°’ë“±ì„
 #ifdef _N3TOOL
 void CN3Joint::CopyExceptAnimationKey(CN3Joint *pJSrc)
 {
@@ -574,10 +574,10 @@ void CN3Joint::CopyExceptAnimationKey(CN3Joint *pJSrc)
 	for(; it != itEnd; it++)
 	{
 		CN3Joint* pChildDest = new CN3Joint();
-		this->ChildAdd(pChildDest); // ÀÚ½Ä Ãß°¡..
+		this->ChildAdd(pChildDest); // ìžì‹ ì¶”ê°€..
 
 		CN3Joint* pChildSrc = *it;
-		pChildDest->CopyExceptAnimationKey(pChildSrc); // Àç±ÍÈ£Ãâ
+		pChildDest->CopyExceptAnimationKey(pChildSrc); // ìž¬ê·€í˜¸ì¶œ
 	}
 }
 #endif // end of _N3TOOL

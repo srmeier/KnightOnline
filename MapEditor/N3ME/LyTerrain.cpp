@@ -1,5 +1,5 @@
-// LyTerrain.cpp: implementation of the CLyTerrain class.
-//	- 2001. 9.24.~ Map Editor¿ëÀ¸·Î º¯È¯...
+ï»¿// LyTerrain.cpp: implementation of the CLyTerrain class.
+//	- 2001. 9.24.~ Map Editorìš©ìœ¼ë¡œ ë³€í™˜...
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -59,18 +59,18 @@ CLyTerrain::CLyTerrain()
 
 	m_EyePos.x = m_EyePos.y = 0;
 
-	m_ColorMapVB = NULL;	//	ÄÃ·¯¸Ê¾µ¶§..
-	m_TileVB = NULL;		//	Å¸ÀÏ
-	m_LightMapVB = NULL;	//	ÇÏ³ªÀÇ ¶óÀÌÆ®¸Ê
+	m_ColorMapVB = NULL;	//	ì»¬ëŸ¬ë§µì“¸ë•Œ..
+	m_TileVB = NULL;		//	íƒ€ì¼
+	m_LightMapVB = NULL;	//	í•˜ë‚˜ì˜ ë¼ì´íŠ¸ë§µ
 	
-	m_iHeightLimit = 600;	// ÀÛÀ» ¼ö·Ï ´õ Á¤¹Ğµµ°¡ ³ô¾ÆÁø´Ù..
-	m_iDistLimit = 30;		// Å¬¼ö·Ï Á¤¹Ğµµ°¡ ³ô¾ÆÁø´Ù..
+	m_iHeightLimit = 600;	// ì‘ì„ ìˆ˜ë¡ ë” ì •ë°€ë„ê°€ ë†’ì•„ì§„ë‹¤..
+	m_iDistLimit = 30;		// í´ìˆ˜ë¡ ì •ë°€ë„ê°€ ë†’ì•„ì§„ë‹¤..
 
 	m_iHeightMapSize = 1025;		
 	m_iMaxLevel = 9;				//(log2(m_iHeightMapSize-1)) - 1
 	
-	m_iColorMapTexSize = 128;	//ÄÃ·¯¸Ê ÅØ½ºÃÄÀÇ Å©±â..
-	m_iColorMapPixelPerUnitDistance = 4;		//UnitDistance´ç µé¾î°¡´Â ÄÃ·¯¸ÊÀÇ ÇÈ¼¿ ¼ö..
+	m_iColorMapTexSize = 128;	//ì»¬ëŸ¬ë§µ í…ìŠ¤ì³ì˜ í¬ê¸°..
+	m_iColorMapPixelPerUnitDistance = 4;		//UnitDistanceë‹¹ ë“¤ì–´ê°€ëŠ” ì»¬ëŸ¬ë§µì˜ í”½ì…€ ìˆ˜..
 	m_iNumColorMap = 32;
 
 	m_iNumTileMap = 0;
@@ -264,7 +264,7 @@ void CLyTerrain::Release()
 		{
 			if(m_pColorTexture[x])
 			{
-//				for(z=0;z<m_iNumColorMap;z++) // ±»ÀÌ ÀÌ·¸°Ô ¾ÈÇØµµ ´Ù Áö¿öÁø´Ù...
+//				for(z=0;z<m_iNumColorMap;z++) // êµ³ì´ ì´ë ‡ê²Œ ì•ˆí•´ë„ ë‹¤ ì§€ì›Œì§„ë‹¤...
 //				{
 //					m_pColorTexture[x][z].Release();
 //				}
@@ -395,13 +395,13 @@ void CLyTerrain::Init(int HeightMapSize)
 	m_iNumTileMap = 0;
 	m_iNumLightMap = 0;
 
-	m_iColorMapTexSize = 128;	//ÄÃ·¯¸Ê ÅØ½ºÃÄÀÇ Å©±â..
-	m_iColorMapPixelPerUnitDistance = 4;		//UnitDistance´ç µé¾î°¡´Â ÄÃ·¯¸ÊÀÇ ÇÈ¼¿ ¼ö..
+	m_iColorMapTexSize = 128;	//ì»¬ëŸ¬ë§µ í…ìŠ¤ì³ì˜ í¬ê¸°..
+	m_iColorMapPixelPerUnitDistance = 4;		//UnitDistanceë‹¹ ë“¤ì–´ê°€ëŠ” ì»¬ëŸ¬ë§µì˜ í”½ì…€ ìˆ˜..
 
 	m_pColorMapTmpVertices = NULL;
 	s_lpD3DDev->CreateVertexBuffer( 8*sizeof(__VertexTransformedT2), 0, FVF_TRANSFORMEDT2, D3DPOOL_MANAGED, &m_pColorMapTmpVB );
 	
-	//ÄÃ·¯¸Ê ÅØ½ºÃÄ ¸¸µé±â..
+	//ì»¬ëŸ¬ë§µ í…ìŠ¤ì³ ë§Œë“¤ê¸°..
 	m_iNumColorMap =  (((m_iHeightMapSize-1) * m_iColorMapPixelPerUnitDistance) / m_iColorMapTexSize) + 1;
 	if( ((m_iHeightMapSize-1) * m_iColorMapPixelPerUnitDistance) % m_iColorMapTexSize == 0 ) m_iNumColorMap--;
 	
@@ -537,11 +537,11 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 
 	WriteFile(hFile, &(HeightMapSize), sizeof(int), &dwRWC, NULL);
 		
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 
 	if(HeightMapSize > 0)
 	{
-		//  ±×³É ÇÏ³ª¾¿ ÀúÀåÇØµµ Â÷ÀÌ ¾øÁö¸¸ ³×Æ®¿öÅ©·Î ÀúÀåÇÒ¶§´Â ÆÄÀÏ ¿¢¼¼½º ¼ıÀÚ¸¦ ÁÙÀÌ°í ÇÑ²¨¹ø¿¡ ÀúÀåÇØ¾ß  ºü¸£´Ù.. ...
+		//  ê·¸ëƒ¥ í•˜ë‚˜ì”© ì €ì¥í•´ë„ ì°¨ì´ ì—†ì§€ë§Œ ë„¤íŠ¸ì›Œí¬ë¡œ ì €ì¥í• ë•ŒëŠ” íŒŒì¼ ì—‘ì„¸ìŠ¤ ìˆ«ìë¥¼ ì¤„ì´ê³  í•œêº¼ë²ˆì— ì €ì¥í•´ì•¼  ë¹ ë¥´ë‹¤.. ...
 		DWORD dwAlloc = HeightMapSize * HeightMapSize * sizeof(float);
 		HGLOBAL hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 		__ASSERT(hAlloc, "Global allocation failed.");
@@ -557,12 +557,12 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 				pfHeights[idx] = m_ppMapData[x][z].fHeight;				
 			}
 		}
-		WriteFile(hFile, pfHeights, dwAlloc, &dwRWC, NULL); // ÆÄÀÏ¿¡ ¾´´Ù..
+		WriteFile(hFile, pfHeights, dwAlloc, &dwRWC, NULL); // íŒŒì¼ì— ì“´ë‹¤..
 		pfHeights = NULL;
 		::GlobalUnlock(hAlloc);
 		::GlobalFree(hAlloc);
 		
-		// Detail Texture ÀúÀå..
+		// Detail Texture ì €ì¥..
 		dwAlloc = HeightMapSize * HeightMapSize * sizeof(DTEXINFO)*2;
 		hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 		__ASSERT(hAlloc, "Global allocation failed.");
@@ -575,7 +575,7 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 			for(x=sx;x<ex;x++)
 			{
 				////////////////////////////////////////////////////////////////////
-				// ¾²·¹±â Á¤º¸ Â÷´Ü...
+				// ì“°ë ˆê¸° ì •ë³´ ì°¨ë‹¨...
 				if(m_ppMapData[x][z].DTexInfo1.TexIdx.TileX<0 
 					|| m_ppMapData[x][z].DTexInfo1.TexIdx.TileX>=NUM_DTEXTILE)
 				{
@@ -596,7 +596,7 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 				{
 					m_ppMapData[x][z].DTexInfo2.TexIdx.TileY = 0;
 				}
-				// ¾²·¹±â Á¤º¸ Â÷´Ü...
+				// ì“°ë ˆê¸° ì •ë³´ ì°¨ë‹¨...
 				////////////////////////////////////////////////////////////////////
 				
 				int idx = (z-sz)*HeightMapSize + (x-sx);
@@ -604,16 +604,16 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 				pDTexInfos[idx*2+1] = m_ppMapData[x][z].DTexInfo2;
 			}
 		}
-		WriteFile(hFile, pDTexInfos, dwAlloc, &dwRWC, NULL); // ÆÄÀÏ¿¡ ¾´´Ù..
+		WriteFile(hFile, pDTexInfos, dwAlloc, &dwRWC, NULL); // íŒŒì¼ì— ì“´ë‹¤..
 		pDTexInfos = NULL;
 		::GlobalUnlock(hAlloc);
 		::GlobalFree(hAlloc);
 	}
 
-	//¶óÀÌÆ®¸Ê Á¤º¸ ±â·Ï...
-	//N3ME_DATA_VERSION 1ÀÌ»óºÎÅÍ..
+	//ë¼ì´íŠ¸ë§µ ì •ë³´ ê¸°ë¡...
+	//N3ME_DATA_VERSION 1ì´ìƒë¶€í„°..
 	int NumLightMap = DetectRealLightMap(sx, sz, HeightMapSize);
-	WriteFile(hFile, &(NumLightMap), sizeof(int), &dwRWC, NULL); // LightMapÀÇ °¹¼ö ±â·Ï..
+	WriteFile(hFile, &(NumLightMap), sizeof(int), &dwRWC, NULL); // LightMapì˜ ê°¯ìˆ˜ ê¸°ë¡..
 
 	if(NumLightMap>0)
 	{
@@ -641,7 +641,7 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 		}
 	}
 
-	//Ç® °ü·Ã Á¤º¸ ÀúÀå..
+	//í’€ ê´€ë ¨ ì •ë³´ ì €ì¥..
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	
 	int NumSeedInfo = pFrm->m_SeedGroupList.size();
@@ -662,11 +662,11 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 	CloseHandle(hFile);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ÄÃ·¯¸Ê ¾²±â.
+	// ì»¬ëŸ¬ë§µ ì“°ê¸°.
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR], szFName[_MAX_FNAME], szExt[_MAX_EXT];
 	_splitpath(lpszPath, szDrive, szDir, szFName, szExt);
 	char szNewFName[_MAX_PATH] = "";
-	_makepath(szNewFName, szDrive, szDir, szFName, "tcm"); // ÆÄÀÏ ÀÌ¸§°ú µ¿ÀÏÇÑ ÀÌ¸§À¸·Î ÄÃ·¯¸Ê ÀúÀå..
+	_makepath(szNewFName, szDrive, szDir, szFName, "tcm"); // íŒŒì¼ ì´ë¦„ê³¼ ë™ì¼í•œ ì´ë¦„ìœ¼ë¡œ ì»¬ëŸ¬ë§µ ì €ì¥..
 
 	HANDLE hCMFile = CreateFile(szNewFName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
@@ -674,7 +674,7 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 	if( ((HeightMapSize-1) * m_iColorMapPixelPerUnitDistance) % m_iColorMapTexSize == 0 ) NumColorMap--;
 
 	//////////////////////////////////////////////////////////
-	//ÀÏ´Ü ±¹ÁöÀûÀÎ ÄÃ·¯¸ÊÀ» »ı¼ºÇÑ ´ÙÀ½¿¡....±×°É ½á¾ßÇØ...
+	//ì¼ë‹¨ êµ­ì§€ì ì¸ ì»¬ëŸ¬ë§µì„ ìƒì„±í•œ ë‹¤ìŒì—....ê·¸ê±¸ ì¨ì•¼í•´...
 	//
 	ProgressBar.Create("Create ColorMap", 50, NumColorMap*NumColorMap + NumColorMap);
 
@@ -688,10 +688,10 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 	
 	//
 	// fill color map..
-	// bmpÄÃ·¯¸Ê ¸¸µé°í...
-	// ´Ù½Ã ÀĞ¾î¿Â ´ÙÀ½¿¡...
-	// ´Ù½Ã Àß¶ó¼­ ÀúÀåÇÑ ´ÙÀ½¿¡...
-	// Àß¶ó ÀúÀåÇÑ bmp¸¦ ImportÇÏ´Â °ÍÃ³·³ ÀĞ¾î¼­ ¼ÂÆÃ..
+	// bmpì»¬ëŸ¬ë§µ ë§Œë“¤ê³ ...
+	// ë‹¤ì‹œ ì½ì–´ì˜¨ ë‹¤ìŒì—...
+	// ë‹¤ì‹œ ì˜ë¼ì„œ ì €ì¥í•œ ë‹¤ìŒì—...
+	// ì˜ë¼ ì €ì¥í•œ bmpë¥¼ Importí•˜ëŠ” ê²ƒì²˜ëŸ¼ ì½ì–´ì„œ ì…‹íŒ…..
 	CString strTmpColorMap("c:\\MiniMap.bmp");
 	ColorMapExport((LPCTSTR)strTmpColorMap);
 
@@ -747,7 +747,7 @@ bool CLyTerrain::SaveToFilePartition(const char* lpszPath, float psx, float psz,
 
 //
 //	Save()
-//	¸Ê¿¡µğÅÍ¿¡¼­ ¾²´Â ÆÄÀÏ Å¸ÀÔÀ¸·Î ÀúÀåÇÏ±â..
+//	ë§µì—ë””í„°ì—ì„œ ì“°ëŠ” íŒŒì¼ íƒ€ì…ìœ¼ë¡œ ì €ì¥í•˜ê¸°..
 //
 bool CLyTerrain::SaveToFile(const char* lpszPath)
 {
@@ -765,11 +765,11 @@ bool CLyTerrain::SaveToFile(const char* lpszPath)
 
 	WriteFile(hFile, &(m_iHeightMapSize), sizeof(int), &dwRWC, NULL);
 		
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 
 	if(m_iHeightMapSize > 0)
 	{
-		//  ±×³É ÇÏ³ª¾¿ ÀúÀåÇØµµ Â÷ÀÌ ¾øÁö¸¸ ³×Æ®¿öÅ©·Î ÀúÀåÇÒ¶§´Â ÆÄÀÏ ¿¢¼¼½º ¼ıÀÚ¸¦ ÁÙÀÌ°í ÇÑ²¨¹ø¿¡ ÀúÀåÇØ¾ß  ºü¸£´Ù.. ...
+		//  ê·¸ëƒ¥ í•˜ë‚˜ì”© ì €ì¥í•´ë„ ì°¨ì´ ì—†ì§€ë§Œ ë„¤íŠ¸ì›Œí¬ë¡œ ì €ì¥í• ë•ŒëŠ” íŒŒì¼ ì—‘ì„¸ìŠ¤ ìˆ«ìë¥¼ ì¤„ì´ê³  í•œêº¼ë²ˆì— ì €ì¥í•´ì•¼  ë¹ ë¥´ë‹¤.. ...
 		DWORD dwAlloc = m_iHeightMapSize * m_iHeightMapSize * sizeof(float);
 		HGLOBAL hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 		__ASSERT(hAlloc, "Global allocation failed.");
@@ -784,12 +784,12 @@ bool CLyTerrain::SaveToFile(const char* lpszPath)
 				pfHeights[z*m_iHeightMapSize+x] = m_ppMapData[x][z].fHeight;				
 			}
 		}
-		WriteFile(hFile, pfHeights, dwAlloc, &dwRWC, NULL); // ÆÄÀÏ¿¡ ¾´´Ù..
+		WriteFile(hFile, pfHeights, dwAlloc, &dwRWC, NULL); // íŒŒì¼ì— ì“´ë‹¤..
 		pfHeights = NULL;
 		::GlobalUnlock(hAlloc);
 		::GlobalFree(hAlloc);
 		
-		// Detail Texture ÀúÀå..
+		// Detail Texture ì €ì¥..
 		dwAlloc = m_iHeightMapSize * m_iHeightMapSize * sizeof(DTEXINFO)*2;
 		hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 		__ASSERT(hAlloc, "Global allocation failed.");
@@ -802,7 +802,7 @@ bool CLyTerrain::SaveToFile(const char* lpszPath)
 			for(x=0;x<m_iHeightMapSize;x++)
 			{
 				////////////////////////////////////////////////////////////////////
-				// ¾²·¹±â Á¤º¸ Â÷´Ü...
+				// ì“°ë ˆê¸° ì •ë³´ ì°¨ë‹¨...
 				if(m_ppMapData[x][z].DTexInfo1.TexIdx.TileX<0 
 					|| m_ppMapData[x][z].DTexInfo1.TexIdx.TileX>=NUM_DTEXTILE)
 				{
@@ -823,23 +823,23 @@ bool CLyTerrain::SaveToFile(const char* lpszPath)
 				{
 					m_ppMapData[x][z].DTexInfo2.TexIdx.TileY = 0;
 				}
-				// ¾²·¹±â Á¤º¸ Â÷´Ü...
+				// ì“°ë ˆê¸° ì •ë³´ ì°¨ë‹¨...
 				////////////////////////////////////////////////////////////////////
 				
 				pDTexInfos[(z*m_iHeightMapSize+x)*2] = m_ppMapData[x][z].DTexInfo1;
 				pDTexInfos[(z*m_iHeightMapSize+x)*2+1] = m_ppMapData[x][z].DTexInfo2;
 			}
 		}
-		WriteFile(hFile, pDTexInfos, dwAlloc, &dwRWC, NULL); // ÆÄÀÏ¿¡ ¾´´Ù..
+		WriteFile(hFile, pDTexInfos, dwAlloc, &dwRWC, NULL); // íŒŒì¼ì— ì“´ë‹¤..
 		pDTexInfos = NULL;
 		::GlobalUnlock(hAlloc);
 		::GlobalFree(hAlloc);
 	}
 
-	//¶óÀÌÆ®¸Ê Á¤º¸ ±â·Ï...
-	//N3ME_DATA_VERSION 1ÀÌ»óºÎÅÍ..
+	//ë¼ì´íŠ¸ë§µ ì •ë³´ ê¸°ë¡...
+	//N3ME_DATA_VERSION 1ì´ìƒë¶€í„°..
 	DetectRealLightMap(0, 0, m_iHeightMapSize);
-	WriteFile(hFile, &(m_iNumLightMap), sizeof(int), &dwRWC, NULL); // LightMapÀÇ °¹¼ö ±â·Ï..
+	WriteFile(hFile, &(m_iNumLightMap), sizeof(int), &dwRWC, NULL); // LightMapì˜ ê°¯ìˆ˜ ê¸°ë¡..
 
 	int CountLightMap = m_iNumLightMap;
 	if(CountLightMap>0)
@@ -868,7 +868,7 @@ bool CLyTerrain::SaveToFile(const char* lpszPath)
 		}
 	}
 
-	//Ç® °ü·Ã Á¤º¸ ÀúÀå..
+	//í’€ ê´€ë ¨ ì •ë³´ ì €ì¥..
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	
 	int NumSeedInfo = pFrm->m_SeedGroupList.size();
@@ -889,11 +889,11 @@ bool CLyTerrain::SaveToFile(const char* lpszPath)
 	CloseHandle(hFile);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ÄÃ·¯¸Ê ¾²±â.
+	// ì»¬ëŸ¬ë§µ ì“°ê¸°.
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR], szFName[_MAX_FNAME], szExt[_MAX_EXT];
 	_splitpath(lpszPath, szDrive, szDir, szFName, szExt);
 	char szNewFName[_MAX_PATH] = "";
-	_makepath(szNewFName, szDrive, szDir, szFName, "tcm"); // ÆÄÀÏ ÀÌ¸§°ú µ¿ÀÏÇÑ ÀÌ¸§À¸·Î ÄÃ·¯¸Ê ÀúÀå..
+	_makepath(szNewFName, szDrive, szDir, szFName, "tcm"); // íŒŒì¼ ì´ë¦„ê³¼ ë™ì¼í•œ ì´ë¦„ìœ¼ë¡œ ì»¬ëŸ¬ë§µ ì €ì¥..
 
 	HANDLE hCMFile = CreateFile(szNewFName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
@@ -920,14 +920,14 @@ bool CLyTerrain::SaveToFile(const char* lpszPath)
 		{
 			ProgressBar.StepIt();
 
-			_makepath(szNewFName, szDrive, szDir, szFName, NULL); // ÆÄÀÏ ÀÌ¸§°ú µ¿ÀÏÇÑ ÀÌ¸§À¸·Î ÄÃ·¯¸Ê ÀúÀå..
-			wsprintf(szAdd, "_%02d%02d.DXT", x, z);  // Tool °æ·Î¸¦ ºÙÀÌ°í ¹øÈ£¿Í È®ÀåÀÚ¸¦ ºÙ¿©¼­ ÀúÀå..
+			_makepath(szNewFName, szDrive, szDir, szFName, NULL); // íŒŒì¼ ì´ë¦„ê³¼ ë™ì¼í•œ ì´ë¦„ìœ¼ë¡œ ì»¬ëŸ¬ë§µ ì €ì¥..
+			wsprintf(szAdd, "_%02d%02d.DXT", x, z);  // Tool ê²½ë¡œë¥¼ ë¶™ì´ê³  ë²ˆí˜¸ì™€ í™•ì¥ìë¥¼ ë¶™ì—¬ì„œ ì €ì¥..
 			lstrcat(szNewFName, szAdd);
 			m_pColorTexture[x][z].SaveToFile(szNewFName);
 		}
 	}
 	*/
-	// ÄÃ·¯¸Ê ¾²±â.
+	// ì»¬ëŸ¬ë§µ ì“°ê¸°.
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	return true;
@@ -946,19 +946,19 @@ bool CLyTerrain::LoadFromFile(const char* lpszPath)
 	int HeightMapSize;
 	int version = 0;
 	ReadFile(hFile, &(version), sizeof(int), &dwRWC, NULL);
-	if(version<0)	//¹öÀüÀÌ ±â·ÏµÈ µ¥ÀÌÅÍµé....
+	if(version<0)	//ë²„ì „ì´ ê¸°ë¡ëœ ë°ì´í„°ë“¤....
 	{
 		ReadFile(hFile, &(HeightMapSize), sizeof(int), &dwRWC, NULL);
 	}
-	else HeightMapSize = version;	//¹öÀüÀÌ ±â·ÏµÇ¾î ÀÖÁö ¾ÊÀº ÀÌÀü µ¥ÀÌÅÍµé..
+	else HeightMapSize = version;	//ë²„ì „ì´ ê¸°ë¡ë˜ì–´ ìˆì§€ ì•Šì€ ì´ì „ ë°ì´í„°ë“¤..
 	
 	Init(HeightMapSize);
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 
 	if(m_iHeightMapSize > 0)
 	{
-		//  ±×³É ÇÏ³ª¾¿ ÀúÀåÇØµµ Â÷ÀÌ ¾øÁö¸¸ ³×Æ®¿öÅ©·Î ÀúÀåÇÒ¶§´Â ÆÄÀÏ ¿¢¼¼½º ¼ıÀÚ¸¦ ÁÙÀÌ°í ÇÑ²¨¹ø¿¡ ÀúÀåÇØ¾ß  ºü¸£´Ù.. ...
+		//  ê·¸ëƒ¥ í•˜ë‚˜ì”© ì €ì¥í•´ë„ ì°¨ì´ ì—†ì§€ë§Œ ë„¤íŠ¸ì›Œí¬ë¡œ ì €ì¥í• ë•ŒëŠ” íŒŒì¼ ì—‘ì„¸ìŠ¤ ìˆ«ìë¥¼ ì¤„ì´ê³  í•œêº¼ë²ˆì— ì €ì¥í•´ì•¼  ë¹ ë¥´ë‹¤.. ...
 		DWORD dwAlloc = m_iHeightMapSize * m_iHeightMapSize * sizeof(float);
 		HGLOBAL hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 		__ASSERT(hAlloc, "Global allocation failed.");
@@ -978,7 +978,7 @@ bool CLyTerrain::LoadFromFile(const char* lpszPath)
 		GlobalFree(hAlloc); hAlloc = NULL;
 		fHeights = NULL;
 
-		//  ±×³É ÇÏ³ª¾¿ ÀúÀåÇØµµ Â÷ÀÌ ¾øÁö¸¸ ³×Æ®¿öÅ©·Î ÀúÀåÇÒ¶§´Â ÆÄÀÏ ¿¢¼¼½º ¼ıÀÚ¸¦ ÁÙÀÌ°í ÇÑ²¨¹ø¿¡ ÀúÀåÇØ¾ß  ºü¸£´Ù.. ...
+		//  ê·¸ëƒ¥ í•˜ë‚˜ì”© ì €ì¥í•´ë„ ì°¨ì´ ì—†ì§€ë§Œ ë„¤íŠ¸ì›Œí¬ë¡œ ì €ì¥í• ë•ŒëŠ” íŒŒì¼ ì—‘ì„¸ìŠ¤ ìˆ«ìë¥¼ ì¤„ì´ê³  í•œêº¼ë²ˆì— ì €ì¥í•´ì•¼  ë¹ ë¥´ë‹¤.. ...
 		dwAlloc = m_iHeightMapSize * m_iHeightMapSize * sizeof(DTEXINFO) * 2;
 		hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 		__ASSERT(hAlloc, "Global allocation failed.");
@@ -1002,10 +1002,10 @@ bool CLyTerrain::LoadFromFile(const char* lpszPath)
 		pDTIs = NULL;
 	}
 
-	if(version <= -1)	//¹öÀü 1ºÎÅÍ....^^
+	if(version <= -1)	//ë²„ì „ 1ë¶€í„°....^^
 	{
-		//¶óÀÌÆ®¸Ê Á¤º¸ ÀĞ±â..
-		ReadFile(hFile, &(m_iNumLightMap), sizeof(int), &dwRWC, NULL); // LightMapÀÇ °¹¼ö ±â·Ï..
+		//ë¼ì´íŠ¸ë§µ ì •ë³´ ì½ê¸°..
+		ReadFile(hFile, &(m_iNumLightMap), sizeof(int), &dwRWC, NULL); // LightMapì˜ ê°¯ìˆ˜ ê¸°ë¡..
 		ProgressBar.Create("Load Light Map Data", 50, m_iNumLightMap);
 		
 		if(version>-3)
@@ -1042,9 +1042,9 @@ bool CLyTerrain::LoadFromFile(const char* lpszPath)
 			}
 		}
 	}
-	if(version <= -2)	//¹öÀü 2ºÎÅÍ....^^
+	if(version <= -2)	//ë²„ì „ 2ë¶€í„°....^^
 	{
-		// Ç®¾¾¿¡ °üÇÑ Á¤º¸ ÀĞ±â..
+		// í’€ì”¨ì— ê´€í•œ ì •ë³´ ì½ê¸°..
 		int NumSeedInfo;
 		ReadFile(hFile, &(NumSeedInfo), sizeof(int), &dwRWC, NULL);
 
@@ -1066,14 +1066,14 @@ bool CLyTerrain::LoadFromFile(const char* lpszPath)
 	CloseHandle(hFile);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ÄÃ·¯¸Ê ÀĞ±â.
+	// ì»¬ëŸ¬ë§µ ì½ê¸°.
 	ProgressBar.Create("Load color map..", 50, m_iNumColorMap * m_iNumColorMap);
 
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR], szFName[_MAX_FNAME], szExt[_MAX_EXT];
 	_splitpath(lpszPath, szDrive, szDir, szFName, szExt);
 	char szNewFName[_MAX_PATH] = "", szAdd[_MAX_PATH] = "";
 
-	_makepath(szNewFName, szDrive, szDir, szFName, "tcm"); // ÆÄÀÏ ÀÌ¸§°ú µ¿ÀÏÇÑ ÀÌ¸§À¸·Î ÄÃ·¯¸Ê ÀúÀåµÇ¾î ÀÖ´Ù.
+	_makepath(szNewFName, szDrive, szDir, szFName, "tcm"); // íŒŒì¼ ì´ë¦„ê³¼ ë™ì¼í•œ ì´ë¦„ìœ¼ë¡œ ì»¬ëŸ¬ë§µ ì €ì¥ë˜ì–´ ìˆë‹¤.
 	HANDLE hCMFile = CreateFile(szNewFName, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if(INVALID_HANDLE_VALUE == hCMFile)
 	{
@@ -1083,13 +1083,13 @@ bool CLyTerrain::LoadFromFile(const char* lpszPath)
 			{
 				ProgressBar.StepIt();
 
-				_makepath(szNewFName, szDrive, szDir, szFName, NULL); // ÆÄÀÏ ÀÌ¸§°ú µ¿ÀÏÇÑ ÀÌ¸§À¸·Î ÄÃ·¯¸Ê ÀúÀåµÇ¾î ÀÖ´Ù.
-				wsprintf(szAdd, "_%02d%02d.DXT", x, z);  // Tool °æ·Î¸¦ ºÙÀÌ°í ¹øÈ£¿Í È®ÀåÀÚ¸¦ ºÙ¿©¼­ ÀúÀåµÇ¾î ÀÖ´Ù.
+				_makepath(szNewFName, szDrive, szDir, szFName, NULL); // íŒŒì¼ ì´ë¦„ê³¼ ë™ì¼í•œ ì´ë¦„ìœ¼ë¡œ ì»¬ëŸ¬ë§µ ì €ì¥ë˜ì–´ ìˆë‹¤.
+				wsprintf(szAdd, "_%02d%02d.DXT", x, z);  // Tool ê²½ë¡œë¥¼ ë¶™ì´ê³  ë²ˆí˜¸ì™€ í™•ì¥ìë¥¼ ë¶™ì—¬ì„œ ì €ì¥ë˜ì–´ ìˆë‹¤.
 				lstrcat(szNewFName, szAdd);
 
 				if(m_pColorTexture[x][z].LoadFromFile(szNewFName)==false)
 				{
-					MessageBox(::GetActiveWindow(), "ÄÃ·¯¸ÊÀº 32bit dxtÆÄÀÏ¸¸ »ç¿ëÇÒ ¼ö ÀÖ¾î¿ä..", "¤Ğ.¤Ğ", MB_OK);
+					MessageBox(::GetActiveWindow(), "ì»¬ëŸ¬ë§µì€ 32bit dxtíŒŒì¼ë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆì–´ìš”..", "ã… .ã… ", MB_OK);
 				}
 			}
 		}
@@ -1108,10 +1108,10 @@ bool CLyTerrain::LoadFromFile(const char* lpszPath)
 		CloseHandle(hCMFile);
 	}
 	
-	// ÄÃ·¯¸Ê ÀĞ±â.
+	// ì»¬ëŸ¬ë§µ ì½ê¸°.
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	//¶óÀÌÆ®¸ÊÅØ½ºÃÄ ¼öµµ ÀÖ°í, ÅØ½ºÃÄµµ ¼¼ÆÃ..
+	//ë¼ì´íŠ¸ë§µí…ìŠ¤ì³ ìˆ˜ë„ ìˆê³ , í…ìŠ¤ì³ë„ ì„¸íŒ…..
 	m_pRoot->SetWholeClipped();
 	m_pRoot->ClearMinMaxY();
 	m_pRoot->SetMinMaxY();
@@ -1168,7 +1168,7 @@ void CLyTerrain::ConvertLightMapToolDataV2toV3()
 				}
 			}
 			
-			//dc¸¸µé¾î¼­ ºñÆ®¸ÊÃà¼Ò..
+			//dcë§Œë“¤ì–´ì„œ ë¹„íŠ¸ë§µì¶•ì†Œ..
 			pBMP->SaveToFile("c:\\templightmap.bmp");
 
 			int SmallSize = LIGHTMAP_TEX_SIZE - 2;
@@ -1214,11 +1214,11 @@ void CLyTerrain::ConvertLightMapToolDataV2toV3()
 			SelectObject( hBMDC, hOldBM );
 			SelectObject( hSmallDC, hOldBM2 );
 
-			DeleteFile("c:\\templightmap.bmp"); // ÀÓ½Ã ÆÄÀÏÀ» Áö¿öÁØ´Ù..	
+			DeleteFile("c:\\templightmap.bmp"); // ì„ì‹œ íŒŒì¼ì„ ì§€ì›Œì¤€ë‹¤..	
 		}
 	}
 
-	//Å×µÎ¸® ¸¸µé±â..
+	//í…Œë‘ë¦¬ ë§Œë“¤ê¸°..
 	D3DLOCKED_RECT d3dlrDest;
 	DWORD* pDestBits;
 	int srcX, srcZ;
@@ -1361,7 +1361,7 @@ void CLyTerrain::ConvertLightMapToolDataV2toV3()
 
 //
 //	SaveGameData
-//	°ÔÀÓ¿¡ ¾µ µ¥ÀÌÅ¸¸¦ ÀúÀå..
+//	ê²Œì„ì— ì“¸ ë°ì´íƒ€ë¥¼ ì €ì¥..
 //
 void CLyTerrain::SaveGameData(HANDLE hFile)
 {
@@ -1370,7 +1370,7 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 
 	//
 	///////////////////////
-	// µ¥ÀÌÅ¸ Àç±¸¼º...
+	// ë°ì´íƒ€ ì¬êµ¬ì„±...
 	//
 	int x,z;
 	short tmpTexIdx;
@@ -1438,13 +1438,13 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 	}
 
 	//
-	// ±â·Ï ½ÃÀÛ...^^...
+	// ê¸°ë¡ ì‹œì‘...^^...
 	//
 	DWORD dwRWC;
 	WriteFile(hFile, &m_iHeightMapSize, sizeof(int), &dwRWC, NULL);
 	
-	//	°¢ ²ÀÁöÁ¡ Á¤º¸ ÀúÀå...
-	//  ±×³É ÇÏ³ª¾¿ ÀúÀåÇØµµ Â÷ÀÌ ¾øÁö¸¸ ³×Æ®¿öÅ©·Î ÀúÀåÇÒ¶§´Â ÆÄÀÏ ¿¢¼¼½º ¼ıÀÚ¸¦ ÁÙÀÌ°í ÇÑ²¨¹ø¿¡ ÀúÀåÇØ¾ß  ºü¸£´Ù.. ...
+	//	ê° ê¼­ì§€ì  ì •ë³´ ì €ì¥...
+	//  ê·¸ëƒ¥ í•˜ë‚˜ì”© ì €ì¥í•´ë„ ì°¨ì´ ì—†ì§€ë§Œ ë„¤íŠ¸ì›Œí¬ë¡œ ì €ì¥í• ë•ŒëŠ” íŒŒì¼ ì—‘ì„¸ìŠ¤ ìˆ«ìë¥¼ ì¤„ì´ê³  í•œêº¼ë²ˆì— ì €ì¥í•´ì•¼  ë¹ ë¥´ë‹¤.. ...
 	DWORD dwAlloc = sizeof(GAMEMAPDATA) * m_iHeightMapSize * m_iHeightMapSize;
 	HGLOBAL hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 	__ASSERT(hAlloc, "Global allocation failed.");
@@ -1486,14 +1486,14 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 		}
 	}
 	
-	WriteFile(hFile, pGMDs, dwAlloc, &dwRWC, NULL); // Á»´õ »¡¸® ÀúÀåÇÏ·Á°í ¸ô¾Æ¼­ ÀúÀå....
+	WriteFile(hFile, pGMDs, dwAlloc, &dwRWC, NULL); // ì¢€ë” ë¹¨ë¦¬ ì €ì¥í•˜ë ¤ê³  ëª°ì•„ì„œ ì €ì¥....
 	GlobalUnlock(hAlloc);
 	GlobalFree(hAlloc); hAlloc = NULL;
 	pGMDs = NULL;
 
-	// °¢ ÆĞÄ¡ÀÇ °¡¿îµ¥ y°ª°ú ¹İÁö¸§ ÀúÀå..
+	// ê° íŒ¨ì¹˜ì˜ ê°€ìš´ë° yê°’ê³¼ ë°˜ì§€ë¦„ ì €ì¥..
 	int ti_PatchSize = 8;	// 32m = 8tiles..
-	float re_HalfDist = (float)((ti_PatchSize>>1)<<2);	//ÆĞÄ¡±æÀÌÀÇ Àı¹İ..(m´ÜÀ§)
+	float re_HalfDist = (float)((ti_PatchSize>>1)<<2);	//íŒ¨ì¹˜ê¸¸ì´ì˜ ì ˆë°˜..(më‹¨ìœ„)
 	float MinY, MaxY;
 	
 	int pat_HeightMapSize = (m_iHeightMapSize-1) / ti_PatchSize;
@@ -1525,7 +1525,7 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 		}
 	}
 
-	//Å¸ÀÏ¿¡ Ç® ¼Ó¼º ÀúÀå..
+	//íƒ€ì¼ì— í’€ ì†ì„± ì €ì¥..
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	pFrm->GetMapMng()->m_SowSeedMng.SaveDataGame();
 	LPSEEDGROUP SeedAttr = new SEEDGROUP[m_iHeightMapSize*m_iHeightMapSize];
@@ -1603,7 +1603,7 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 
 
 
-/*   ¿ø·¡ÀÇ Ç® ÀúÀå 
+/*   ì›ë˜ì˜ í’€ ì €ì¥ 
 	int NumSeedInfo = pFrm->m_SeedGroupList.size();
 	for(x=0; x<m_iHeightMapSize-1;x++)
 	{
@@ -1633,7 +1633,7 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR], szFName[_MAX_FNAME], szExt[_MAX_EXT];
 	_splitpath(m_szFileName.c_str(), szDrive, szDir, szFName, szExt);
 
-	// ÅØ½ºÆ®ÆÄÀÏ·Î ÇÔ »Ì¾Æº¸ÀÚ..
+	// í…ìŠ¤íŠ¸íŒŒì¼ë¡œ í•¨ ë½‘ì•„ë³´ì..
 	FILE* stream = fopen("c:\\grass.txt", "w");
 	for(z=0; z<m_iHeightMapSize;z++)
 	{
@@ -1643,7 +1643,7 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 			fprintf(stream, "%d,%d\t",v.Obj_Id,v.Seed_Count );
 
 			if( v.SeedGroup_Sub !=NULL)
-				fprintf(stream, "¼­ºê %d,%d\t",v.SeedGroup_Sub->Obj_Id,v.SeedGroup_Sub->Seed_Count );
+				fprintf(stream, "ì„œë¸Œ %d,%d\t",v.SeedGroup_Sub->Obj_Id,v.SeedGroup_Sub->Seed_Count );
 
 
 			fprintf(stream, "\n");
@@ -1651,11 +1651,11 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 	}
 	fclose(stream);
 	
-	//WriteFile(hFile, szFName, _MAX_PATH, &dwRWC, NULL); // ÄÃ·¯¸Ê ÀÌ¸§ ÀúÀå.
-	//ÄÃ·¯¸ÊÀº MapMng¿¡¼­ µû·Î ÀúÀåÇÑ´Ù..
+	//WriteFile(hFile, szFName, _MAX_PATH, &dwRWC, NULL); // ì»¬ëŸ¬ë§µ ì´ë¦„ ì €ì¥.
+	//ì»¬ëŸ¬ë§µì€ MapMngì—ì„œ ë”°ë¡œ ì €ì¥í•œë‹¤..
 		
 	//
-	//	Å¸ÀÏÅØ½ºÃÄÁ¤º¸ ÀúÀå...
+	//	íƒ€ì¼í…ìŠ¤ì³ì •ë³´ ì €ì¥...
 	//
 	WriteFile(hFile, &NumTile, sizeof(int), &dwRWC, NULL);
 	if(NumTile!=0)
@@ -1673,7 +1673,7 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 			pTexture = GetTileTex(TexIdx);
 			if(pTexture)
 			{
-				// °æ·Î¸¦ »©°í ÆÄÀÏÀÌ¸§°ú È®ÀåÀÚ¸¸ ÀúÀåÇØÁØ´Ù.
+				// ê²½ë¡œë¥¼ ë¹¼ê³  íŒŒì¼ì´ë¦„ê³¼ í™•ì¥ìë§Œ ì €ì¥í•´ì¤€ë‹¤.
 				char szTileFN[MAX_PATH];
 				_splitpath(pTexture->FileName().c_str(), NULL, NULL, szFName, NULL);
 				wsprintf(szTileFN, "dtex\\%s_%d.gtt", szFName, YIdx);
@@ -1701,15 +1701,15 @@ void CLyTerrain::SaveGameData(HANDLE hFile)
 		}
 	}
 
-	//¶óÀÌÆ®¸Ê Á¤º¸ ±â·Ï...
+	//ë¼ì´íŠ¸ë§µ ì •ë³´ ê¸°ë¡...
 	DetectRealLightMap(0, 0, m_iHeightMapSize);
 	int CountLightMap;
 
 	CountLightMap = 0;	
-	//¶óÀÌÆ®¸ÊÀº µû·Î ÆÄÀÏ·Î ÀúÀåÇØ¼­ ¾²±â¶§¹®¿¡ °Á 0À¸·Î ÇØ¼­ ÀúÀå...
+	//ë¼ì´íŠ¸ë§µì€ ë”°ë¡œ íŒŒì¼ë¡œ ì €ì¥í•´ì„œ ì“°ê¸°ë•Œë¬¸ì— ê± 0ìœ¼ë¡œ í•´ì„œ ì €ì¥...
 	//CountLightMap = m_iNumLightMap;	
 
-	WriteFile(hFile, &(CountLightMap), sizeof(int), &dwRWC, NULL); // LightMapÀÇ °¹¼ö ±â·Ï..
+	WriteFile(hFile, &(CountLightMap), sizeof(int), &dwRWC, NULL); // LightMapì˜ ê°¯ìˆ˜ ê¸°ë¡..
 
 	if(CountLightMap>0)
 	{
@@ -1754,7 +1754,7 @@ void CLyTerrain::MakeGameLightMap(char* szFullPathName)
 	int* PatchInfo = new int [PatchCount*PatchCount];
 	ZeroMemory(PatchInfo, sizeof(int)*PatchCount*PatchCount);
 
-	//°¢°¢ÀÇ ÆÄÀÏÀ» ¸¸µé¾î º¸°í Å©±âµµ ¾Ë¾Æ³»ÀÚ..
+	//ê°ê°ì˜ íŒŒì¼ì„ ë§Œë“¤ì–´ ë³´ê³  í¬ê¸°ë„ ì•Œì•„ë‚´ì..
 	int Size = sizeof(int)*PatchCount*PatchCount + sizeof(int);
 	int px, pz;
 	int tx, tz;
@@ -1782,13 +1782,13 @@ void CLyTerrain::MakeGameLightMap(char* szFullPathName)
 
 			if(TexCount<=0) continue;
 
-			//ÀÓ½ÃÆÄÀÏ ¸¸µé°í ÀúÀåÇÔ ÇØº¸°í, ¿ë·® ¾Ë¾Æ³½´ÙÀ½....ÀúÀåÇÒ±î?
+			//ì„ì‹œíŒŒì¼ ë§Œë“¤ê³  ì €ì¥í•¨ í•´ë³´ê³ , ìš©ëŸ‰ ì•Œì•„ë‚¸ë‹¤ìŒ....ì €ì¥í• ê¹Œ?
 
 			char szTmpName[_MAX_PATH];
 			sprintf(szTmpName, "c:\\temp_lightmap.binn");
 			HANDLE hFile = CreateFile(szTmpName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 						
-			WriteFile(hFile, &(TexCount), sizeof(int), &dwRWC, NULL); // LightMapÀÇ °¹¼ö ±â·Ï..
+			WriteFile(hFile, &(TexCount), sizeof(int), &dwRWC, NULL); // LightMapì˜ ê°¯ìˆ˜ ê¸°ë¡..
 
 			for(tx=0; tx<PATCH_TILE_SIZE;tx++)
 			{
@@ -1796,8 +1796,8 @@ void CLyTerrain::MakeGameLightMap(char* szFullPathName)
 				{
 					if(m_ppIsLightMap[tpx + tx][tpz + tz]==true && m_ppLightMapTexture[tpx + tx][tpz + tz])
 					{
-						WriteFile(hFile, &(tx), sizeof(int), &dwRWC, NULL); // ÆĞÄ¡¾È¿¡¼­ÀÇ ÁÂÇ¥
-						WriteFile(hFile, &(tz), sizeof(int), &dwRWC, NULL); // LightMapÀÇ °¹¼ö ±â·Ï..
+						WriteFile(hFile, &(tx), sizeof(int), &dwRWC, NULL); // íŒ¨ì¹˜ì•ˆì—ì„œì˜ ì¢Œí‘œ
+						WriteFile(hFile, &(tz), sizeof(int), &dwRWC, NULL); // LightMapì˜ ê°¯ìˆ˜ ê¸°ë¡..
 
 						m_ppLightMapTexture[tpx + tx][tpz + tz]->Convert(D3DFMT_A4R4G4B4, LIGHTMAP_TEX_SIZE, LIGHTMAP_TEX_SIZE);
 						m_ppLightMapTexture[tpx + tx][tpz + tz]->Save(hFile);
@@ -1843,14 +1843,14 @@ void CLyTerrain::MakeGameLightMap(char* szFullPathName)
 
 			if(TexCount<=0) continue;
 
-			WriteFile(hFile, &(TexCount), sizeof(int), &dwRWC, NULL); // LightMapÀÇ °¹¼ö ±â·Ï..
+			WriteFile(hFile, &(TexCount), sizeof(int), &dwRWC, NULL); // LightMapì˜ ê°¯ìˆ˜ ê¸°ë¡..
 			for(tx=0; tx<PATCH_TILE_SIZE;tx++)
 			{
 				for(tz=0; tz<PATCH_TILE_SIZE;tz++)
 				{
 					if(m_ppIsLightMap[tpx + tx][tpz + tz]==true && m_ppLightMapTexture[tpx + tx][tpz + tz])
 					{
-						WriteFile(hFile, &(tx), sizeof(int), &dwRWC, NULL); // ÆĞÄ¡¾È¿¡¼­ÀÇ ÁÂÇ¥
+						WriteFile(hFile, &(tx), sizeof(int), &dwRWC, NULL); // íŒ¨ì¹˜ì•ˆì—ì„œì˜ ì¢Œí‘œ
 						WriteFile(hFile, &(tz), sizeof(int), &dwRWC, NULL); // 
 
 						CN3Texture* pNewTex = new CN3Texture;
@@ -1874,12 +1874,12 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 {
 	HANDLE hCMFile = CreateFile(szFullPathName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Save game color map..", 50, m_iNumColorMap * m_iNumColorMap);
 	ProgressBar.SetStep(1);
 	
 	///////////////////////////////////////////////////////////////
-	//¿øº»...(Ãà¼Ò½ÃÅ°Áö ¾Ê´Â¹æ¹ı..)
+	//ì›ë³¸...(ì¶•ì†Œì‹œí‚¤ì§€ ì•ŠëŠ”ë°©ë²•..)
 	//*
 	CN3Texture TexTmp;
 	TexTmp.Create(m_iColorMapTexSize, m_iColorMapTexSize, D3DFMT_A1R5G5B5, TRUE);
@@ -1909,7 +1909,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 
 	///////////////////////////////////////////////////////////////
 	//
-	//	New...(Ãà¼Ò½ÃÅ°´Â¹æ¹ı..)
+	//	New...(ì¶•ì†Œì‹œí‚¤ëŠ”ë°©ë²•..)
 	/*
 	int x,z;
 	CBitMapFile BMP[3][3];
@@ -1940,7 +1940,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 				}	//for(int az=0;az<3;az++)
 			}	//for(int ax=0;ax<3;ax++)
 
-			//ÇÈ¼¿ Àç¹è¿­...
+			//í”½ì…€ ì¬ë°°ì—´...
 			int SmallSize = m_iColorMapTexSize - 2;
 			TexTmp.Convert(D3DFMT_X8R8G8B8, m_iColorMapTexSize, m_iColorMapTexSize);
 			TexTmp.Get()->LockRect(0, &d3dlrTex, 0, 0);
@@ -2011,7 +2011,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 					SelectObject( hSmallDC, hOldBM2 );
 					
 
-					DeleteFile(buff); // ÀÓ½Ã ÆÄÀÏÀ» Áö¿öÁØ´Ù..	
+					DeleteFile(buff); // ì„ì‹œ íŒŒì¼ì„ ì§€ì›Œì¤€ë‹¤..	
 				}
 			}
 			TexTmp.Get()->UnlockRect(0);
@@ -2030,17 +2030,17 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 	CloseHandle(hCMFile);
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ÇÈ¼¿À» ÇÏ³ª¾¿ ¹Ğ¾î¼­ ¼±À» ¾ø¾Ö´Â ÅØ½ºÃÄ ÀúÀå..
-// ±×·±µ¥ texturestagestate¿¡¼­ mirror¾²¸é Á» ¾î»öÇÏ±ä ÇØµµ ¾î´ÀÁ¤µµ´Â µÇ´õ¶ó...-.-
+// í”½ì…€ì„ í•˜ë‚˜ì”© ë°€ì–´ì„œ ì„ ì„ ì—†ì• ëŠ” í…ìŠ¤ì³ ì €ì¥..
+// ê·¸ëŸ°ë° texturestagestateì—ì„œ mirrorì“°ë©´ ì¢€ ì–´ìƒ‰í•˜ê¸´ í•´ë„ ì–´ëŠì •ë„ëŠ” ë˜ë”ë¼...-.-
 //
 /*
 	HANDLE hCMFile = CreateFile(szFullPathName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Save game color map..", 50, m_iNumColorMap * m_iNumColorMap);
 	ProgressBar.SetStep(1);
 
-	//bitmap°¡°ø...
+	//bitmapê°€ê³µ...
 	ColorMapExport("c:\\TempColormap.bmp");
 
 	int OrgWidth, OrgHeight;
@@ -2079,7 +2079,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 				hBMDC, 0,0, OrgWidth, OrgHeight, SRCCOPY);
 
 
-	// n3texture °¡°ø..
+	// n3texture ê°€ê³µ..
 	CN3Texture TexTmp;
 	LPDWORD pImgTarget;
 	D3DLOCKED_RECT d3dlrTarget;
@@ -2128,7 +2128,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 				memcpy(&(pImgTarget[i*TexSize]), &(pBitmapBits[sx + (sz+i)*SmallWidth]), DestWidth*sizeof(DWORD));
 
 			TexTmp.Get()->UnlockRect(0);
-			TexTmp.Convert(D3DFMT_DXT1); // DXT1 Çü½ÄÀ¸·Î Convert
+			TexTmp.Convert(D3DFMT_DXT1); // DXT1 í˜•ì‹ìœ¼ë¡œ Convert
 			TexTmp.Save(hCMFile);			
 		}
 	}
@@ -2138,7 +2138,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 	SelectObject( hBMDC, hOldBM );
 	SelectObject( hSmallDC, hOldBM2 );
 
-	DeleteFile("c:\\TempColormap.bmp"); // ÀÓ½Ã ÆÄÀÏÀ» Áö¿öÁØ´Ù..
+	DeleteFile("c:\\TempColormap.bmp"); // ì„ì‹œ íŒŒì¼ì„ ì§€ì›Œì¤€ë‹¤..
 */
 //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2147,18 +2147,18 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////
-	// ÄÃ·¯¸ÊÀ» ÀúÀåÇØÁØ´Ù.(old version..)
-	// ÄÃ·¯ ¸Ê ÀÌ¸§.. ÆÄÀÏÀÌ¸§¸¸(È®ÀåÀÚ´Â ¾ø´Ù.) ÀúÀåÇØÁØ´Ù.
-	// ÄÃ·¯¸ÊÀ» ÆĞÄ¡º°·Î  µû·Î ÀúÀå...
+	// ì»¬ëŸ¬ë§µì„ ì €ì¥í•´ì¤€ë‹¤.(old version..)
+	// ì»¬ëŸ¬ ë§µ ì´ë¦„.. íŒŒì¼ì´ë¦„ë§Œ(í™•ì¥ìëŠ” ì—†ë‹¤.) ì €ì¥í•´ì¤€ë‹¤.
+	// ì»¬ëŸ¬ë§µì„ íŒ¨ì¹˜ë³„ë¡œ  ë”°ë¡œ ì €ì¥...
 	/*
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR], szFName[_MAX_FNAME], szExt[_MAX_EXT];
 	_splitpath(m_szFileName, szDrive, szDir, szFName, szExt);
 	
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Save game color map..", m_iNumColorMap * m_iNumColorMap, 50);
 	ProgressBar.SetStep(1);
 
-	WriteFile(hFile, szFName, _MAX_PATH, &dwRWC, NULL); // ÄÃ·¯¸Ê ÀÌ¸§ ÀúÀå.
+	WriteFile(hFile, szFName, _MAX_PATH, &dwRWC, NULL); // ì»¬ëŸ¬ë§µ ì´ë¦„ ì €ì¥.
 
 	CN3Texture TexTmp;
 	char szNewFName[_MAX_PATH] = "", szAdd[_MAX_PATH] = "";
@@ -2168,9 +2168,9 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 		{
 			ProgressBar.StepIt();
 
-			m_pColorTexture[x][z].SaveToFile("c:\\TempConversion.DXT"); // ÀÓ½Ã·Î ÀúÀå.
-			TexTmp.LoadFromFile("c:\\TempConversion.DXT"); // ÀĞ´Â´Ù. 
-			TexTmp.Convert(D3DFMT_DXT1); // DXT1 Çü½ÄÀ¸·Î Convert
+			m_pColorTexture[x][z].SaveToFile("c:\\TempConversion.DXT"); // ì„ì‹œë¡œ ì €ì¥.
+			TexTmp.LoadFromFile("c:\\TempConversion.DXT"); // ì½ëŠ”ë‹¤. 
+			TexTmp.Convert(D3DFMT_DXT1); // DXT1 í˜•ì‹ìœ¼ë¡œ Convert
 
 			_makepath(szNewFName, szDrive, szDir, szFName, NULL);
 			wsprintf(szAdd, "_%02d%02d.dxt", x, z);
@@ -2178,7 +2178,7 @@ void CLyTerrain::MakeGameColorMap(char* szFullPathName)
 			TexTmp.SaveToFile(szNewFName);
 		}
 	}
-	DeleteFile("c:\\TempConversion.DXT"); // ÀÓ½Ã ÆÄÀÏÀ» Áö¿öÁØ´Ù..
+	DeleteFile("c:\\TempConversion.DXT"); // ì„ì‹œ íŒŒì¼ì„ ì§€ì›Œì¤€ë‹¤..
 	*/
 	//
 	///////////////////////////////////////////////////////////////////////////////////////////
@@ -2203,7 +2203,7 @@ void CLyTerrain::Tick()
 
 
 //
-//	°¡½Ã°Å¸® ¹üÀ§ Á¤ÇÏ±â...(Å¸ÀÏ´ÜÀ§)
+//	ê°€ì‹œê±°ë¦¬ ë²”ìœ„ ì •í•˜ê¸°...(íƒ€ì¼ë‹¨ìœ„)
 //
 void CLyTerrain::SetVisibleRect()
 {
@@ -2225,12 +2225,12 @@ void CLyTerrain::SetVisibleRect()
 	int i;
 
 
-	// »ç¸éÃ¼ÀÇ ¹ı¼± º¤ÅÍ¿Í Far ³× ±ÍÅüÀÌ À§Ä¡ °è»ê..
+	// ì‚¬ë©´ì²´ì˜ ë²•ì„  ë²¡í„°ì™€ Far ë„¤ ê·€í‰ì´ ìœ„ì¹˜ ê³„ì‚°..
 	float fS = sinf(CN3Base::s_CameraData.fFOV / 2.0f);
 	float fPL = CN3Base::s_CameraData.fFP;
-	float fAspect = CN3Base::s_CameraData.fAspect; // Á¾È¾ºñ
+	float fAspect = CN3Base::s_CameraData.fAspect; // ì¢…íš¡ë¹„
 	
-	// Far Plane ÀÇ ³× ±ÍÅüÀÌ À§Ä¡ °è»ê
+	// Far Plane ì˜ ë„¤ ê·€í‰ì´ ìœ„ì¹˜ ê³„ì‚°
 	__Vector3 vFPs[4] = {	__Vector3(fPL * -fS * fAspect, fPL * fS, fPL),	// LeftTop
 							__Vector3(fPL * fS * fAspect, fPL * fS, fPL),		// rightTop
 							__Vector3(fPL * fS * fAspect, fPL * -fS, fPL),	// RightBottom
@@ -2238,10 +2238,10 @@ void CLyTerrain::SetVisibleRect()
 
 	for(i=0;i<4;i++)
 	{
-		// ±ÍÅüÀÌ À§Ä¡¿¡ È¸Àü Çà·ÄÀ» Àû¿ëÇÑ´Ù..
+		// ê·€í‰ì´ ìœ„ì¹˜ì— íšŒì „ í–‰ë ¬ì„ ì ìš©í•œë‹¤..
 		vFPs[i] = vFPs[i] * CN3Base::s_CameraData.mtxViewInverse;
 
-		int tx, tz;// Å¸ÀÏÁÂÇ¥°è...
+		int tx, tz;// íƒ€ì¼ì¢Œí‘œê³„...
 		tx = (int)(vFPs[i].x / TERRAIN_CELL_SIZE);
 		tz = (int)(vFPs[i].z / TERRAIN_CELL_SIZE);
 
@@ -2288,7 +2288,7 @@ void CLyTerrain::Render()
 	hr = s_lpD3DDev->GetTextureStageState( 1, D3DTSS_ADDRESSU, &AddressU2 );
 	hr = s_lpD3DDev->GetTextureStageState( 1, D3DTSS_ADDRESSV, &AddressV2 );
 
-	// °¢°¢ÀÇ ÅØ½ºÃÄµéÀ» ¿¬°áÇßÀ»¶§ °æ°è¼±À» ¾ø¾Ù ¼ö ÀÖ´Ù..^^
+	// ê°ê°ì˜ í…ìŠ¤ì³ë“¤ì„ ì—°ê²°í–ˆì„ë•Œ ê²½ê³„ì„ ì„ ì—†ì•¨ ìˆ˜ ìˆë‹¤..^^
 	hr = s_lpD3DDev->SetTextureStageState( 0, D3DTSS_ADDRESSU,  D3DTADDRESS_MIRROR );
 	hr = s_lpD3DDev->SetTextureStageState( 0, D3DTSS_ADDRESSV,  D3DTADDRESS_MIRROR );
 	hr = s_lpD3DDev->SetTextureStageState( 1, D3DTSS_ADDRESSU,  D3DTADDRESS_MIRROR );
@@ -2314,7 +2314,7 @@ void CLyTerrain::Render()
 	RenderBrushArea();
 
 
-	//¶óÀÌÆ®¸Ê ¶óÀÎ..
+	//ë¼ì´íŠ¸ë§µ ë¼ì¸..
 	//if(m_bDrawLineLightMap)
 	if(m_vLineLightMap[0]!=m_vLineLightMap[1])
 	{
@@ -2351,7 +2351,7 @@ void CLyTerrain::Render()
 
 
 //
-//	°¢Á¡¿¡ ´ëÇØ ±×¸±Áö¾Æ´ÒÁö¸¦ ÃÊ±âÈ­..('¾Æ´Ï´Ù'·Î ÃÊ±âÈ­)
+//	ê°ì ì— ëŒ€í•´ ê·¸ë¦´ì§€ì•„ë‹ì§€ë¥¼ ì´ˆê¸°í™”..('ì•„ë‹ˆë‹¤'ë¡œ ì´ˆê¸°í™”)
 //
 inline	void CLyTerrain::ClearRenderInfo()
 {
@@ -2362,7 +2362,7 @@ inline	void CLyTerrain::ClearRenderInfo()
 
 //
 //	Log2(x) = l..
-//	2ÀÇ ½Â¼ö¿¡ ´ëÇØ¼­¸¸ Á¦´ë·Î ÀÛµ¿...(x>0)
+//	2ì˜ ìŠ¹ìˆ˜ì— ëŒ€í•´ì„œë§Œ ì œëŒ€ë¡œ ì‘ë™...(x>0)
 //
 inline int CLyTerrain::Log2(int x)
 {
@@ -2377,7 +2377,7 @@ inline int CLyTerrain::Log2(int x)
 
 
 //
-//	³ôÀÌ°ª ¾ò´Â ÇÔ¼ö...
+//	ë†’ì´ê°’ ì–»ëŠ” í•¨ìˆ˜...
 //
 float CLyTerrain::GetHeight(float x, float z)
 {
@@ -2395,39 +2395,39 @@ float CLyTerrain::GetHeight(float x, float z)
 	float y;
 	float h1, h2, h3, h12, h13;
 
-	if((ix+iz)%2==0)	//»ç°¢ÇüÀÌ / ¸ğ¾ç.. 
+	if((ix+iz)%2==0)	//ì‚¬ê°í˜•ì´ / ëª¨ì–‘.. 
 	{
 		h1 = m_ppMapData[ix][iz].fHeight;
 		h3 = m_ppMapData[ix+1][iz+1].fHeight;
-		if (dZ > dX)	//À­ÂÊ »ï°¢Çü..
+		if (dZ > dX)	//ìœ—ìª½ ì‚¼ê°í˜•..
 		{
 			h2 = m_ppMapData[ix][iz+1].fHeight;
 						
-			h12 = h1 + (h2-h1) * dZ;	// h1°ú h2»çÀÌÀÇ ³ôÀÌ°ª
-			h13 = h1 + (h3-h1) * dZ;	// h1°ú h3»çÀÌÀÇ ³ôÀÌ°ª
+			h12 = h1 + (h2-h1) * dZ;	// h1ê³¼ h2ì‚¬ì´ì˜ ë†’ì´ê°’
+			h13 = h1 + (h3-h1) * dZ;	// h1ê³¼ h3ì‚¬ì´ì˜ ë†’ì´ê°’
 
-			y = h12 + ((h13-h12) * (dX/dZ));	// Ã£°íÀÚ ÇÏ´Â ³ôÀÌ°ª
+			y = h12 + ((h13-h12) * (dX/dZ));	// ì°¾ê³ ì í•˜ëŠ” ë†’ì´ê°’
 			return y;
 		}
-		else	//¾Æ·¡ÂÊ »ï°¢Çü..
+		else	//ì•„ë˜ìª½ ì‚¼ê°í˜•..
 		{
 			if(dX==0.0f) return h1;
 
 			h2 = m_ppMapData[ix+1][iz].fHeight;
 			
-			h12 = h1 + (h2-h1) * dX;	// h1°ú h2»çÀÌÀÇ ³ôÀÌ°ª
-			h13 = h1 + (h3-h1) * dX;	// h1°ú h3»çÀÌÀÇ ³ôÀÌ°ª
+			h12 = h1 + (h2-h1) * dX;	// h1ê³¼ h2ì‚¬ì´ì˜ ë†’ì´ê°’
+			h13 = h1 + (h3-h1) * dX;	// h1ê³¼ h3ì‚¬ì´ì˜ ë†’ì´ê°’
 			
-			y = h12 + ((h13-h12) * (dZ/dX));	// Ã£°íÀÚ ÇÏ´Â ³ôÀÌ°ª
+			y = h12 + ((h13-h12) * (dZ/dX));	// ì°¾ê³ ì í•˜ëŠ” ë†’ì´ê°’
 			return y;
 		}
 	}
-	else if ((ix+iz)%2==1)	//»ç°¢ÇüÀÌ ¿ª½½·¹½¬ ¸ğ¾ç..
+	else if ((ix+iz)%2==1)	//ì‚¬ê°í˜•ì´ ì—­ìŠ¬ë ˆì‰¬ ëª¨ì–‘..
 	{
 		h1 = m_ppMapData[ix+1][iz].fHeight;
 		h3 = m_ppMapData[ix][iz+1].fHeight;
 
-		if ((dX+dZ) > 1.0f)	//À­ÂÊ »ï°¢Çü..
+		if ((dX+dZ) > 1.0f)	//ìœ—ìª½ ì‚¼ê°í˜•..
 		{
 			if(dZ==0.0f) return h1;
 			h2 = m_ppMapData[ix+1][iz+1].fHeight;
@@ -2438,13 +2438,13 @@ float CLyTerrain::GetHeight(float x, float z)
 			y = h12 + ((h13-h12) * ((1.0f-dX)/dZ));
 			return y;
 		}
-		else	//¾Æ·¡ÂÊ »ï°¢Çü..
+		else	//ì•„ë˜ìª½ ì‚¼ê°í˜•..
 		{
 			if(dX==1.0f) return h1;
 			h2 = m_ppMapData[ix][iz].fHeight;
 
-			h12 = h2+(h1-h2)*dX;	// h1°ú h2»çÀÌÀÇ ³ôÀÌ°ª
-			h13 = h3+(h1-h3)*dX;	// h1°ú h3»çÀÌÀÇ ³ôÀÌ°ª
+			h12 = h2+(h1-h2)*dX;	// h1ê³¼ h2ì‚¬ì´ì˜ ë†’ì´ê°’
+			h13 = h3+(h1-h3)*dX;	// h1ê³¼ h3ì‚¬ì´ì˜ ë†’ì´ê°’
 			
 			y = h12 + ((h13-h12) * (dZ/(1.0f-dX)));
 			return y;
@@ -2456,7 +2456,7 @@ float CLyTerrain::GetHeight(float x, float z)
 
 //
 //	GetPatchNum(float fSize)
-//	fSizeÅ©±âÀÇ ÆĞÄ¡°¡ ÀüÃ¼ ¸Ê¿¡¼­ °¡·Î¼¼·Î·Î ¸î°³¾¿ ³ª¿À´ÂÁö....
+//	fSizeí¬ê¸°ì˜ íŒ¨ì¹˜ê°€ ì „ì²´ ë§µì—ì„œ ê°€ë¡œì„¸ë¡œë¡œ ëª‡ê°œì”© ë‚˜ì˜¤ëŠ”ì§€....
 //
 SIZE CLyTerrain::GetPatchNum(float fSize)
 {
@@ -2475,7 +2475,7 @@ SIZE CLyTerrain::GetPatchNum(float fSize)
 
 //
 //	MouseMsgFilter(LPMSG pMsg)
-//	¸¶¿ì½º Ã³¸®..
+//	ë§ˆìš°ìŠ¤ ì²˜ë¦¬..
 //
 BOOL CLyTerrain::MouseMsgFilter(LPMSG pMsg)
 {
@@ -2485,7 +2485,7 @@ BOOL CLyTerrain::MouseMsgFilter(LPMSG pMsg)
 	static POINT ptSelHeightMapPos;
 	static int	iPrevScreenY = 0;
 	const float fDelta = 0.10f;
-	static int	iSumOfEditedHeight=0;	// ÀÌ¹ø µå·¡±×·Î º¯È­µÈ ÁöÇü³ôÀÌÀÇ ÇÕ
+	static int	iSumOfEditedHeight=0;	// ì´ë²ˆ ë“œë˜ê·¸ë¡œ ë³€í™”ëœ ì§€í˜•ë†’ì´ì˜ í•©
 
 	switch(pMsg->message)
 	{
@@ -2505,7 +2505,7 @@ BOOL CLyTerrain::MouseMsgFilter(LPMSG pMsg)
 				}
 			}
 
-			if(nFlags & MK_LBUTTON && m_iEditMode == TEM_LIGHTMAP)	//¶óÀÌÆ®¸ÊÄ¥ÇÏ±â..
+			if(nFlags & MK_LBUTTON && m_iEditMode == TEM_LIGHTMAP)	//ë¼ì´íŠ¸ë§µì¹ í•˜ê¸°..
 			{
 				__Vector3 vPos;
 				if (Pick(point.x, point.y, &vPos, &ptSelHeightMapPos))
@@ -2522,7 +2522,7 @@ BOOL CLyTerrain::MouseMsgFilter(LPMSG pMsg)
 				}
 			}
 
-			if(nFlags & MK_RBUTTON && m_iEditMode == TEM_LIGHTMAP)	//¶óÀÌÆ®¸ÊÄ¥ÇÏ±â..
+			if(nFlags & MK_RBUTTON && m_iEditMode == TEM_LIGHTMAP)	//ë¼ì´íŠ¸ë§µì¹ í•˜ê¸°..
 			{
 				__Vector3 vPos;
 				if (Pick(point.x, point.y, &vPos, &ptSelHeightMapPos))
@@ -2564,7 +2564,7 @@ BOOL CLyTerrain::MouseMsgFilter(LPMSG pMsg)
 					iz = (int)vPos.z/TERRAIN_CELL_SIZE;
 					SetDTex(ix, iz);
 				}
-				if(m_iEditMode == TEM_LIGHTMAP)	//¶óÀÌÆ®¸ÊÄ¥ÇÏ±â..
+				if(m_iEditMode == TEM_LIGHTMAP)	//ë¼ì´íŠ¸ë§µì¹ í•˜ê¸°..
 				{
 					int ix, iz;
 					ix = (int)vPos.x/TERRAIN_CELL_SIZE;
@@ -2792,8 +2792,8 @@ BOOL CLyTerrain::MouseMsgFilter(LPMSG pMsg)
 
 //
 // Terrain Picking
-// vec : ÁöÇü¿¡¼­ ÇÇÅ·µÈ°÷ÀÇ ½ÇÁÂÇ¥
-// pHeightMapPos : ÇÇÅ·µÈ °÷¿¡¼­ °¡Àå °¡±î¿î ³ôÀÌ¸ÊÀÇ ÁÂÇ¥
+// vec : ì§€í˜•ì—ì„œ í”¼í‚¹ëœê³³ì˜ ì‹¤ì¢Œí‘œ
+// pHeightMapPos : í”¼í‚¹ëœ ê³³ì—ì„œ ê°€ì¥ ê°€ê¹Œìš´ ë†’ì´ë§µì˜ ì¢Œí‘œ
 bool CLyTerrain::Pick(int x, int y, __Vector3* vec, POINT* pHeightMapPos)
 {
 	__Vector3 vec2, vec3;		// vec1 & vec2 is 2D..  vec3 & vec4 is 3D..
@@ -2815,7 +2815,7 @@ bool CLyTerrain::Pick(int x, int y, __Vector3* vec, POINT* pHeightMapPos)
 	BOOL boo = FALSE;
     // Get the inverse view matrix
     D3DXMATRIX matView, m; D3DXVECTOR3 vOrig, vDir;
-	CN3Base::s_lpD3DDev->GetTransform( D3DTS_VIEW, &matView );		// ³» ¸¾´ë·Î µÇ¶ó..!! ¾å..~~
+	CN3Base::s_lpD3DDev->GetTransform( D3DTS_VIEW, &matView );		// ë‚´ ë§˜ëŒ€ë¡œ ë˜ë¼..!! ì–..~~
     D3DXMatrixInverse( &m, NULL, &matView );
 
     // Transform the screen space pick ray into 3D space
@@ -2884,7 +2884,7 @@ bool CLyTerrain::Pick(int x, int y, __Vector3* vec, POINT* pHeightMapPos)
 			if(iz>=m_iHeightMapSize-1) continue;
 
 
-			if((ix+iz)%2==1)				// ´ç±Ù.. ¿Ş¼Õ ¹ÙÀÎµù...
+			if((ix+iz)%2==1)				// ë‹¹ê·¼.. ì™¼ì† ë°”ì¸ë”©...
 			{
 				A.Set((float)ix*TERRAIN_CELL_SIZE, m_ppMapData[ix][iz].fHeight, (float)iz*TERRAIN_CELL_SIZE);
 				C.Set((float)(ix+1)*TERRAIN_CELL_SIZE, m_ppMapData[ix+1][iz].fHeight, (float)iz*TERRAIN_CELL_SIZE);
@@ -2987,7 +2987,7 @@ int CLyTerrain::DetectRealLightMap(int sx, int sz, int range)
 
 			bIsEmpty = true;
 
-			//¿Ü°¢Å×µÎ¸® ÀÖ´Â°Å..
+			//ì™¸ê°í…Œë‘ë¦¬ ìˆëŠ”ê±°..
 			for(int bx=0; bx<LIGHTMAP_TEX_SIZE; bx++)
 			{
 				for(int bz=0; bz<LIGHTMAP_TEX_SIZE; bz++)
@@ -3003,7 +3003,7 @@ int CLyTerrain::DetectRealLightMap(int sx, int sz, int range)
 					}
 				}
 			}
-/*	¿Ü°¢Å×µÎ¸® ¾ø´Â°Å..
+/*	ì™¸ê°í…Œë‘ë¦¬ ì—†ëŠ”ê±°..
 			for(i=0; i<LIGHTMAP_TEX_SIZE*LIGHTMAP_TEX_SIZE; i++)
 			{
 				if(pImg[i]!=0xffffffff)
@@ -3016,7 +3016,7 @@ int CLyTerrain::DetectRealLightMap(int sx, int sz, int range)
 */
 			m_ppLightMapTexture[x][z]->Get()->UnlockRect(0);
 
-			if(bIsEmpty)	//ÅÖºó ¶óÀÌÆ®¸ÊÀÌ¾ú´ç...-.-++
+			if(bIsEmpty)	//í……ë¹ˆ ë¼ì´íŠ¸ë§µì´ì—ˆë‹¹...-.-++
 			{
 				m_iNumLightMap--;
 				m_ppIsLightMap[x][z] = false;
@@ -3048,10 +3048,10 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 		memset(d3dlrt.pBits, 0x00, sizeof(DWORD)*LIGHTMAP_TEX_SIZE*LIGHTMAP_TEX_SIZE);
 		
 		///////////////////////////////////////
-		//¿Ü°¢ ¶óÀÎ ±×¸®±â...
+		//ì™¸ê° ë¼ì¸ ê·¸ë¦¬ê¸°...
 		///////////////////////////////////////
 
-		//¿ŞÂÊ(LT) Ä¥ÇÏ±â..
+		//ì™¼ìª½(LT) ì¹ í•˜ê¸°..
 		if((x-1)>=0 && (z+1)<m_iHeightMapSize && m_ppLightMapTexture[x-1][z+1])
 		{
 			D3DLOCKED_RECT d3dlrtSource;
@@ -3062,7 +3062,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 			pDest[0] = pSource[((LIGHTMAP_TEX_SIZE-2)*LIGHTMAP_TEX_SIZE) + (LIGHTMAP_TEX_SIZE-2)];
 			m_ppLightMapTexture[x-1][z+1]->Get()->UnlockRect(0);			
 		}		
-		//¿ŞÂÊ(LM) Ä¥ÇÏ±â..
+		//ì™¼ìª½(LM) ì¹ í•˜ê¸°..
 		if((x-1)>=0 && m_ppLightMapTexture[x-1][z])
 		{
 			D3DLOCKED_RECT d3dlrtSource;
@@ -3076,7 +3076,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 			}
 			m_ppLightMapTexture[x-1][z]->Get()->UnlockRect(0);			
 		}
-		//¿ŞÂÊ(LB) Ä¥ÇÏ±â..
+		//ì™¼ìª½(LB) ì¹ í•˜ê¸°..
 		if((x-1)>=0 && (z-1)>=0 && m_ppLightMapTexture[x-1][z-1])
 		{
 			D3DLOCKED_RECT d3dlrtSource;
@@ -3087,7 +3087,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 			pDest[(LIGHTMAP_TEX_SIZE-1)*LIGHTMAP_TEX_SIZE] = pSource[LIGHTMAP_TEX_SIZE + (LIGHTMAP_TEX_SIZE-2)];
 			m_ppLightMapTexture[x-1][z-1]->Get()->UnlockRect(0);			
 		}
-		//¾Æ·¡ÂÊ(CB) Ä¥ÇÏ±â..
+		//ì•„ë˜ìª½(CB) ì¹ í•˜ê¸°..
 		if((z-1)>=0 && m_ppLightMapTexture[x][z-1])
 		{
 			
@@ -3100,7 +3100,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 			memcpy(&(pDest[LIGHTMAP_TEX_SIZE*(LIGHTMAP_TEX_SIZE-1)+1] ), &(pSource[LIGHTMAP_TEX_SIZE+1]), sizeof(DWORD)*(LIGHTMAP_TEX_SIZE-2));
 			m_ppLightMapTexture[x][z-1]->Get()->UnlockRect(0);
 		}
-		//¿À¸¥ÂÊ(RT) Ä¥ÇÏ±â..
+		//ì˜¤ë¥¸ìª½(RT) ì¹ í•˜ê¸°..
 		if((x+1)<m_iHeightMapSize && (z+1)<m_iHeightMapSize && m_ppLightMapTexture[x+1][z+1])
 		{
 			D3DLOCKED_RECT d3dlrtSource;
@@ -3111,7 +3111,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 			pDest[LIGHTMAP_TEX_SIZE-1] = pSource[1 + ((LIGHTMAP_TEX_SIZE-2)*LIGHTMAP_TEX_SIZE)];
 			m_ppLightMapTexture[x+1][z+1]->Get()->UnlockRect(0);			
 		}		
-		//¿À¸¥ÂÊ(RM) Ä¥ÇÏ±â..
+		//ì˜¤ë¥¸ìª½(RM) ì¹ í•˜ê¸°..
 		if((x+1)<m_iHeightMapSize && m_ppLightMapTexture[x+1][z])
 		{
 			D3DLOCKED_RECT d3dlrtSource;
@@ -3125,7 +3125,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 			}
 			m_ppLightMapTexture[x+1][z]->Get()->UnlockRect(0);
 		}
-		//¿À¸¥ÂÊ(RB) Ä¥ÇÏ±â..
+		//ì˜¤ë¥¸ìª½(RB) ì¹ í•˜ê¸°..
 		if((x+1)<m_iHeightMapSize && (z-1)>=0 && m_ppLightMapTexture[x+1][z-1])
 		{
 			D3DLOCKED_RECT d3dlrtSource;
@@ -3136,7 +3136,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 			pDest[(LIGHTMAP_TEX_SIZE-1)+((LIGHTMAP_TEX_SIZE-1)*LIGHTMAP_TEX_SIZE)] = pSource[1 + LIGHTMAP_TEX_SIZE];
 			m_ppLightMapTexture[x+1][z-1]->Get()->UnlockRect(0);			
 		}
-		//À§ÂÊ(CT) Ä¥ÇÏ±â..
+		//ìœ„ìª½(CT) ì¹ í•˜ê¸°..
 		if((z+1)<m_iHeightMapSize && m_ppLightMapTexture[x][z+1])
 		{
 			D3DLOCKED_RECT d3dlrtSource;
@@ -3158,7 +3158,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 		m_iNumLightMap++;
 	}
 
-	//º»°İÄ¥ÇÏ±â...
+	//ë³¸ê²©ì¹ í•˜ê¸°...
 	m_ppLightMapTexture[x][z]->Get()->LockRect( 0, &d3dlrt, 0, 0 );
 	LPDWORD pDest = (LPDWORD)d3dlrt.pBits;
 
@@ -3167,7 +3167,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 	DWORD OrgColor = pDest[PixelPos];
 	DWORD NewColor = 0x00000000;
 
-	if(m_pDlgSetLightMap->MoreLight())	//¿¶°Ô ±×¸®±â(Áö¿ì±â)
+	if(m_pDlgSetLightMap->MoreLight())	//ì˜…ê²Œ ê·¸ë¦¬ê¸°(ì§€ìš°ê¸°)
 	{
 		//if(OrgColor < Color) pDest[lcx + (LIGHTMAP_TEX_SIZE-lcz-1)*LIGHTMAP_TEX_SIZE] = 0xffffffff;
 		NewColor = 0x00000000;
@@ -3368,7 +3368,7 @@ void CLyTerrain::FillLightMap(int x, int z, int lcx, int lcz, DWORD Color, float
 
 
 //
-//	lcx, lcz´Â ¶óÀÌÆ®¸ÊÅ¸ÀÏ³»¿¡¼­ÀÇ ÁÂÇ¥..
+//	lcx, lczëŠ” ë¼ì´íŠ¸ë§µíƒ€ì¼ë‚´ì—ì„œì˜ ì¢Œí‘œ..
 //
 void CLyTerrain::SetLightMap(int x, int z, int lcx, int lcz)
 {
@@ -3376,12 +3376,12 @@ void CLyTerrain::SetLightMap(int x, int z, int lcx, int lcz)
 	int PenSize, Hardness;
 	PenSize = m_pDlgSetLightMap->GetPenSize();		//1~(LIGHTMAP_TEX_SIZE-2)
 	Hardness = m_pDlgSetLightMap->GetHardness();	//1~100
-	SrcColor = m_pDlgSetLightMap->GetColor();		//ÀüÃ¼ÀûÀÎ ÄÃ·¯.
+	SrcColor = m_pDlgSetLightMap->GetColor();		//ì „ì²´ì ì¸ ì»¬ëŸ¬.
 
 	int ix, iz;
 	int dist;
 	int nx, nz, nlx, nlz;
-	int LimitFullColor = ( ((float)Hardness/100.0f) * (float)PenSize );	//Áß½É¿¡¼­ Ç®ÄÃ·¯·Î Ã¤¿öÁö´Â °Å¸®..
+	int LimitFullColor = ( ((float)Hardness/100.0f) * (float)PenSize );	//ì¤‘ì‹¬ì—ì„œ í’€ì»¬ëŸ¬ë¡œ ì±„ì›Œì§€ëŠ” ê±°ë¦¬..
 	for(ix=lcx-PenSize+1; ix<lcx+PenSize; ix++)
 	{
 		for(iz=lcz-PenSize+1; iz<lcz+PenSize; iz++)
@@ -3430,8 +3430,8 @@ void CLyTerrain::SetLightMap(int x, int z, int lcx, int lcz)
 //
 //
 //	MakeDistanceTable
-//	°Å¸®¸¦ °è»êÇÏÁö ¸»°í Å×ÀÌºí¿¡¼­ °¡Á®¿Ã ¼ö ÀÖ°Ô ¹Ì¸® Å×ÀÌºí »ı¼º..
-//	Á¤¼ö ´ÜÀ§ °Å¸®..
+//	ê±°ë¦¬ë¥¼ ê³„ì‚°í•˜ì§€ ë§ê³  í…Œì´ë¸”ì—ì„œ ê°€ì ¸ì˜¬ ìˆ˜ ìˆê²Œ ë¯¸ë¦¬ í…Œì´ë¸” ìƒì„±..
+//	ì •ìˆ˜ ë‹¨ìœ„ ê±°ë¦¬..
 //
 void CLyTerrain::MakeDistanceTable()
 {
@@ -3449,8 +3449,8 @@ void CLyTerrain::MakeDistanceTable()
 
 
 //
-//	ÁöÇü¿¡¼­ °¥¼ö ÀÖ´Â Å¸ÀÏ°ú °¥ ¼ö ¾ø´Â Å¸ÀÏ ±¸ºĞÇØ¼­ Å×ÀÌºí ¸¸µå´Â ÇÔ¼ö.
-//	charÇüÀ¸·Î 1ÀÌ¸é °¥ ¼ö ÀÖ°í, 0ÀÌ¸é °¥ ¼ö ¾ø´Ù.
+//	ì§€í˜•ì—ì„œ ê°ˆìˆ˜ ìˆëŠ” íƒ€ì¼ê³¼ ê°ˆ ìˆ˜ ì—†ëŠ” íƒ€ì¼ êµ¬ë¶„í•´ì„œ í…Œì´ë¸” ë§Œë“œëŠ” í•¨ìˆ˜.
+//	charí˜•ìœ¼ë¡œ 1ì´ë©´ ê°ˆ ìˆ˜ ìˆê³ , 0ì´ë©´ ê°ˆ ìˆ˜ ì—†ë‹¤.
 //
 void CLyTerrain::MakeMoveTable(short** ppEvent)
 {
@@ -3497,7 +3497,7 @@ void CLyTerrain::SaveServerData(HANDLE hFile)
 
 	int x, z;
 
-	//  ±×³É ÇÏ³ª¾¿ ÀúÀåÇØµµ Â÷ÀÌ ¾øÁö¸¸ ³×Æ®¿öÅ©·Î ÀúÀåÇÒ¶§´Â ÆÄÀÏ ¿¢¼¼½º ¼ıÀÚ¸¦ ÁÙÀÌ°í ÇÑ²¨¹ø¿¡ ÀúÀåÇØ¾ß  ºü¸£´Ù.. ...
+	//  ê·¸ëƒ¥ í•˜ë‚˜ì”© ì €ì¥í•´ë„ ì°¨ì´ ì—†ì§€ë§Œ ë„¤íŠ¸ì›Œí¬ë¡œ ì €ì¥í• ë•ŒëŠ” íŒŒì¼ ì—‘ì„¸ìŠ¤ ìˆ«ìë¥¼ ì¤„ì´ê³  í•œêº¼ë²ˆì— ì €ì¥í•´ì•¼  ë¹ ë¥´ë‹¤.. ...
 	DWORD dwAlloc = m_iHeightMapSize * m_iHeightMapSize * sizeof(float);
 	HGLOBAL hAlloc = ::GlobalAlloc(GMEM_FIXED, dwAlloc);
 	__ASSERT(hAlloc, "Global allocation failed.");
@@ -3513,7 +3513,7 @@ void CLyTerrain::SaveServerData(HANDLE hFile)
 			pfHeights[x*m_iHeightMapSize+z] = m_ppMapData[x][z].fHeight;
 		}
 	}
-	WriteFile(hFile, pfHeights, dwAlloc, &dwRWC, NULL); // ÆÄÀÏ¿¡ ¾´´Ù..
+	WriteFile(hFile, pfHeights, dwAlloc, &dwRWC, NULL); // íŒŒì¼ì— ì“´ë‹¤..
 	pfHeights = NULL;
 	::GlobalUnlock(hAlloc);
 	::GlobalFree(hAlloc);
@@ -3545,7 +3545,7 @@ void CLyTerrain::VerifyTexInfo(LPDTEXINFO pDTex)
 
 //
 //	SetDTex..
-//	ÀÚµ¿¿Ï¼º ±â´ÉÀÌ ÀÖ´Â °Í...
+//	ìë™ì™„ì„± ê¸°ëŠ¥ì´ ìˆëŠ” ê²ƒ...
 //
 void CLyTerrain::SetDTex(int x, int y)
 {
@@ -3698,7 +3698,7 @@ void CLyTerrain::SetDTex(int x, int y)
 
 //
 //	SetDTexManual..
-//	ÀÚµ¿¿Ï¼º ±â´ÉÀÌ ¾øÀÌ ±×³É ÇÏ³ª¸¸ Âï´Â °Í.....
+//	ìë™ì™„ì„± ê¸°ëŠ¥ì´ ì—†ì´ ê·¸ëƒ¥ í•˜ë‚˜ë§Œ ì°ëŠ” ê²ƒ.....
 //
 void CLyTerrain::SetDTexManual(int x, int y)
 {
@@ -3777,7 +3777,7 @@ void CLyTerrain::SetDTexManual(int x, int y)
 	}
 
 	if(pDTexGroupMng->m_pGroupView->m_iRadioState==3)
-		Dest2DTex.TexIdx.TexID = -1;	//	°­Á¦Âï±âÀÇ Ç®·ÎÂï±â
+		Dest2DTex.TexIdx.TexID = -1;	//	ê°•ì œì°ê¸°ì˜ í’€ë¡œì°ê¸°
 	
 	m_ppMapData[x][y].DTexInfo1 = Dest1DTex;
 	m_ppMapData[x][y].DTexInfo2 = Dest2DTex;
@@ -3884,8 +3884,8 @@ void CLyTerrain::TilingAll()
 
 
 //
-//	ÄÃ·¯¸Ê ¸¸µé Å¸ÀÏ ³Ö±â...
-//	¾ÆÁ÷ ¾È¸¸µé¾îÁø...±×·± Å¸ÀÏµé ´ë±â¿­¿¡ ³Ö´Â°Í..
+//	ì»¬ëŸ¬ë§µ ë§Œë“¤ íƒ€ì¼ ë„£ê¸°...
+//	ì•„ì§ ì•ˆë§Œë“¤ì–´ì§„...ê·¸ëŸ° íƒ€ì¼ë“¤ ëŒ€ê¸°ì—´ì— ë„£ëŠ”ê²ƒ..
 //
 void CLyTerrain::PutColorMapTile(int x, int z)
 {
@@ -3902,7 +3902,7 @@ void CLyTerrain::PutColorMapTile(int x, int z)
 
 
 //
-//	ÄÃ·¯¸Ê ¸¸µéÁö ¾ÊÀº Å¸ÀÏµé ÄÃ·¯¸Ê ¸¸µé±â..
+//	ì»¬ëŸ¬ë§µ ë§Œë“¤ì§€ ì•Šì€ íƒ€ì¼ë“¤ ì»¬ëŸ¬ë§µ ë§Œë“¤ê¸°..
 //
 void CLyTerrain::GeneraterColorMap(bool bIsAll)
 {
@@ -3939,10 +3939,10 @@ void CLyTerrain::GeneraterColorMap(bool bIsAll)
 }
 
 //
-//	ÄÃ·¯¸ÊÅØ½ºÃÄ ¼ÂÆÃÇÏ±â..
+//	ì»¬ëŸ¬ë§µí…ìŠ¤ì³ ì…‹íŒ…í•˜ê¸°..
 //
 //
-//	Å¸ÀÏ¸ÊÀ» ±×´ë·Î Ãà¼Ò½ÃÄÑ¼­ ÄÃ·¯¸ÊÀ» ¸¸µå´Â ¹æ¹ı..
+//	íƒ€ì¼ë§µì„ ê·¸ëŒ€ë¡œ ì¶•ì†Œì‹œì¼œì„œ ì»¬ëŸ¬ë§µì„ ë§Œë“œëŠ” ë°©ë²•..
 //
 /*
 void CLyTerrain::SetColorMap(int x, int y)
@@ -4076,7 +4076,7 @@ void CLyTerrain::SetColorMap(int x, int y)
 
 	s_lpD3DDev->EndScene();
 
-	//ÄÃ·¯¸Ê ÅØ½ºÃÄ¿¡ ¾²±â...
+	//ì»¬ëŸ¬ë§µ í…ìŠ¤ì³ì— ì“°ê¸°...
 	LPDIRECT3DSURFACE8 pBackBuff;
 	hr = s_lpD3DDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pBackBuff);
 
@@ -4084,7 +4084,7 @@ void CLyTerrain::SetColorMap(int x, int y)
 	hr = pBackBuff->GetDesc(&desc);
 	if(desc.Format!=D3DFMT_X8R8G8B8)
 	{
-		MessageBox(::GetActiveWindow(),"È­¸é»ö»ó¸ğµå¸¦ 32bit¸ğµå·Î ¹Ù²Ù¼¼¿ä.\n±×·¸Áö ¾ÊÀ¸¸é ÄÃ·¯¸ÊÀ» ¸¸µé ¼ö ¾ø¾î¿ä..¤Ğ.¤Ğ","°æ°í!!",MB_OK);
+		MessageBox(::GetActiveWindow(),"í™”ë©´ìƒ‰ìƒëª¨ë“œë¥¼ 32bitëª¨ë“œë¡œ ë°”ê¾¸ì„¸ìš”.\nê·¸ë ‡ì§€ ì•Šìœ¼ë©´ ì»¬ëŸ¬ë§µì„ ë§Œë“¤ ìˆ˜ ì—†ì–´ìš”..ã… .ã… ","ê²½ê³ !!",MB_OK);
 		return;
 	}
 
@@ -4135,12 +4135,12 @@ void CLyTerrain::SetColorMap(int x, int y)
 	hr = s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, dwZ);
 	hr = s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, dwLgt);
 
-	m_pColorTexture[idxX][idxZ].GenerateMipMap(); // Mip Map À» ¸¸µç´Ù..
+	m_pColorTexture[idxX][idxZ].GenerateMipMap(); // Mip Map ì„ ë§Œë“ ë‹¤..
 }
 /*/
 
 //
-//	Å¸ÀÏ¸Ê¿¡¼­ ÇÈ¼¿À» »ùÇÃ¸µÇØ¼­ °É·¯¸ÊÀ» ¸¸µå´Â ¹æ¹ı...
+//	íƒ€ì¼ë§µì—ì„œ í”½ì…€ì„ ìƒ˜í”Œë§í•´ì„œ ê±¸ëŸ¬ë§µì„ ë§Œë“œëŠ” ë°©ë²•...
 //
 //*
 void CLyTerrain::SetColorMap(int x, int y)
@@ -4270,7 +4270,7 @@ void CLyTerrain::SetColorMap(int x, int y)
 	
 	hr = s_lpD3DDev->DrawPrimitive( D3DPT_TRIANGLEFAN, 0, 2);
 
-	//light map Âï±â...
+	//light map ì°ê¸°...
 	//
 	//if(m_ppIsLightMap[x][y])
 	//{
@@ -4310,7 +4310,7 @@ void CLyTerrain::SetColorMap(int x, int y)
 	//CRect rcD(0,0,128,128), rcS(0,0,2,2);
 	//s_lpD3DDev->Present(&rcD, &rcD, hWnd, NULL);
 
-	//ÄÃ·¯¸Ê ÅØ½ºÃÄ¿¡ ¾²±â...
+	//ì»¬ëŸ¬ë§µ í…ìŠ¤ì³ì— ì“°ê¸°...
 	LPDIRECT3DSURFACE8 pBackBuff;
 	hr = s_lpD3DDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pBackBuff);
 
@@ -4320,7 +4320,7 @@ void CLyTerrain::SetColorMap(int x, int y)
 	hr = pBackBuff->GetDesc(&desc);
 	if(desc.Format!=D3DFMT_X8R8G8B8)
 	{
-		MessageBox(::GetActiveWindow(),"È­¸é»ö»ó¸ğµå¸¦ 32bit¸ğµå·Î ¹Ù²Ù¼¼¿ä.\n±×·¸Áö ¾ÊÀ¸¸é ÄÃ·¯¸ÊÀ» ¸¸µé ¼ö ¾ø¾î¿ä..¤Ğ.¤Ğ","°æ°í!!",MB_OK);
+		MessageBox(::GetActiveWindow(),"í™”ë©´ìƒ‰ìƒëª¨ë“œë¥¼ 32bitëª¨ë“œë¡œ ë°”ê¾¸ì„¸ìš”.\nê·¸ë ‡ì§€ ì•Šìœ¼ë©´ ì»¬ëŸ¬ë§µì„ ë§Œë“¤ ìˆ˜ ì—†ì–´ìš”..ã… .ã… ","ê²½ê³ !!",MB_OK);
 		return;
 	}
 
@@ -4381,7 +4381,7 @@ void CLyTerrain::SetColorMap(int x, int y)
 	hr = s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, dwLgt);
 	hr = s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, dwFog);
 
-	m_pColorTexture[idxX][idxZ].GenerateMipMap(); // Mip Map À» ¸¸µç´Ù..
+	m_pColorTexture[idxX][idxZ].GenerateMipMap(); // Mip Map ì„ ë§Œë“ ë‹¤..
 }
 //*/
 
@@ -4389,11 +4389,11 @@ void CLyTerrain::SetColorMap(int x, int y)
 //
 //	IntersectTriangle..
 //
-//	orig	: ½ÃÀÛÁ¡...
-//	dir		: ÇÇÅ· ¹æÇâ..
-//	v0, v1, v2 : »ï°¢ÇüÀÇ ¼¼Á¡..
-//	t		: origºÎÅÍ ÇÇÅ·µÈÁ¡±îÁö °Å¸®..
-//	u, v	: v0(0,0) v1(1,0) v2(0,1)·Î ºÃÀ»¶§ ÇÇÅ·µÈ Á¡ÀÇ uvÁÂÇ¥..
+//	orig	: ì‹œì‘ì ...
+//	dir		: í”¼í‚¹ ë°©í–¥..
+//	v0, v1, v2 : ì‚¼ê°í˜•ì˜ ì„¸ì ..
+//	t		: origë¶€í„° í”¼í‚¹ëœì ê¹Œì§€ ê±°ë¦¬..
+//	u, v	: v0(0,0) v1(1,0) v2(0,1)ë¡œ ë´¤ì„ë•Œ í”¼í‚¹ëœ ì ì˜ uvì¢Œí‘œ..
 //
 BOOL CLyTerrain::IntersectTriangle( const D3DXVECTOR3 orig, const D3DXVECTOR3 dir, D3DXVECTOR3& v0, D3DXVECTOR3& v1, 
 								  D3DXVECTOR3& v2, float* t, float* u, float* v)
@@ -4408,7 +4408,7 @@ BOOL CLyTerrain::IntersectTriangle( const D3DXVECTOR3 orig, const D3DXVECTOR3 di
 
     // If determinant is near zero, ray lies in plane of triangle
     FLOAT det = D3DXVec3Dot( &edge1, &pvec );
-    if( det < 0.0001f )		// °ÅÀÇ 0¿¡ °¡±î¿ì¸é »ï°¢Çü Æò¸é°ú Áö³ª°¡´Â ¼±ÀÌ ÆòÇàÇÏ´Ù.
+    if( det < 0.0001f )		// ê±°ì˜ 0ì— ê°€ê¹Œìš°ë©´ ì‚¼ê°í˜• í‰ë©´ê³¼ ì§€ë‚˜ê°€ëŠ” ì„ ì´ í‰í–‰í•˜ë‹¤.
         return FALSE;
 
     // Calculate distance from vert0 to ray origin
@@ -4435,10 +4435,10 @@ BOOL CLyTerrain::IntersectTriangle( const D3DXVECTOR3 orig, const D3DXVECTOR3 di
     *u *= fInvDet;
     *v *= fInvDet;
 
-	// t°¡ Å¬¼ö·Ï ¸Ö¸® Á÷¼±°ú Æò¸é°ú ¸¸³ª´Â Á¡ÀÌ ¸Ö´Ù.
-	// t*dir + orig ¸¦ ±¸ÇÏ¸é ¸¸³ª´Â Á¡À» ±¸ÇÒ ¼ö ÀÖ´Ù.
-	// u¿Í vÀÇ ÀÇ¹Ì´Â ¹«¾ùÀÏ±î?
-	// ÃßÃø : v0 (0,0), v1(1,0), v2(0,1) <°ıÈ£¾ÈÀº (U, V)ÁÂÇ¥> ÀÌ·±½ÄÀ¸·Î ¾î´À Á¡¿¡ °¡±õ³ª ³ªÅ¸³½ °Í °°À½
+	// tê°€ í´ìˆ˜ë¡ ë©€ë¦¬ ì§ì„ ê³¼ í‰ë©´ê³¼ ë§Œë‚˜ëŠ” ì ì´ ë©€ë‹¤.
+	// t*dir + orig ë¥¼ êµ¬í•˜ë©´ ë§Œë‚˜ëŠ” ì ì„ êµ¬í•  ìˆ˜ ìˆë‹¤.
+	// uì™€ vì˜ ì˜ë¯¸ëŠ” ë¬´ì—‡ì¼ê¹Œ?
+	// ì¶”ì¸¡ : v0 (0,0), v1(1,0), v2(0,1) <ê´„í˜¸ì•ˆì€ (U, V)ì¢Œí‘œ> ì´ëŸ°ì‹ìœ¼ë¡œ ì–´ëŠ ì ì— ê°€ê¹ë‚˜ ë‚˜íƒ€ë‚¸ ê²ƒ ê°™ìŒ
 	//
 
     return TRUE;
@@ -4448,12 +4448,12 @@ BOOL CLyTerrain::IntersectTriangle( const D3DXVECTOR3 orig, const D3DXVECTOR3 di
 
 //////////////////////////////////////////////////
 //	Coded By : Dino
-//	Coded On 2001-06-21 ¿ÀÈÄ 12:18:31
-//	¾Æ·¡·Î ÁöÇü Edit°ü·Ã ÇÔ¼öµé
+//	Coded On 2001-06-21 ì˜¤í›„ 12:18:31
+//	ì•„ë˜ë¡œ ì§€í˜• Editê´€ë ¨ í•¨ìˆ˜ë“¤
 
 
 //
-//	¿¡µğÆ® ¸ğµå·Î ÀüÈ¯...
+//	ì—ë””íŠ¸ ëª¨ë“œë¡œ ì „í™˜...
 //
 void CLyTerrain::SetEditMode(int iEditMode)
 {
@@ -4503,7 +4503,7 @@ void CLyTerrain::SetApexHeight(int x, int z, float fHeight)
 
 //
 //	GetApexHeight..
-//	°¢Å¸ÀÏÀÇ ²ÀÁöÁ¡ÀÇ ³ôÀÌ¸¦ ±¸ÇÏ´Â ÇÔ¼ö...
+//	ê°íƒ€ì¼ì˜ ê¼­ì§€ì ì˜ ë†’ì´ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜...
 //
 float CLyTerrain::GetApexHeight(int x, int z) const
 {
@@ -4516,7 +4516,7 @@ float CLyTerrain::GetApexHeight(int x, int z) const
 
 
 //
-// ºê·¯½¬ÀÇ ¸ğ¾ç°ú »çÀÌÁî¿¡ µû¶ó¼­ IntensityMapÀ» ´Ù½Ã ±¸¼ºÇÑ´Ù.
+// ë¸ŒëŸ¬ì‰¬ì˜ ëª¨ì–‘ê³¼ ì‚¬ì´ì¦ˆì— ë”°ë¼ì„œ IntensityMapì„ ë‹¤ì‹œ êµ¬ì„±í•œë‹¤.
 //
 void CLyTerrain::UpdateBrushIntensityMap(int iShape, int iSize, float fFallOff)
 {
@@ -4529,7 +4529,7 @@ void CLyTerrain::UpdateBrushIntensityMap(int iShape, int iSize, float fFallOff)
 
 	if (iShape == BRUSHSHAPE_CIRCLE)
 	{
-		if (iSize%2)		// Brush »çÀÌÁî°¡ È¦¼öÀÏ¶§
+		if (iSize%2)		// Brush ì‚¬ì´ì¦ˆê°€ í™€ìˆ˜ì¼ë•Œ
 		{
 			for(i=iStart; i<iEnd; ++i)
 				for(j=iStart; j<iEnd; ++j)
@@ -4543,7 +4543,7 @@ void CLyTerrain::UpdateBrushIntensityMap(int iShape, int iSize, float fFallOff)
 					}
 				}
 		}
-		else				// Brush »çÀÌÁî°¡ Â¦¼öÀÏ¶§
+		else				// Brush ì‚¬ì´ì¦ˆê°€ ì§ìˆ˜ì¼ë•Œ
 		{
 			float fTmp = (iHalfRadius-0.5f);
 			for(i=iStart; i<iEnd; ++i)
@@ -4562,7 +4562,7 @@ void CLyTerrain::UpdateBrushIntensityMap(int iShape, int iSize, float fFallOff)
 		float fIntensity[MAX_BRUSH_SIZE];
 		ZeroMemory(fIntensity, sizeof(fIntensity));
 
-		if (iSize%2)		// Brush »çÀÌÁî°¡ È¦¼öÀÏ¶§
+		if (iSize%2)		// Brush ì‚¬ì´ì¦ˆê°€ í™€ìˆ˜ì¼ë•Œ
 		{
 			for (i=0; i <= iSize/2; ++i) fIntensity[i] = GetFallOffValue(fFallOff, float(i)/iHalfRadius);
 
@@ -4577,7 +4577,7 @@ void CLyTerrain::UpdateBrushIntensityMap(int iShape, int iSize, float fFallOff)
 					}
 				}
 		}
-		else				// Brush »çÀÌÁî°¡ Â¦¼öÀÏ¶§
+		else				// Brush ì‚¬ì´ì¦ˆê°€ ì§ìˆ˜ì¼ë•Œ
 		{
 			for (i=0; i <= iSize/2; ++i) fIntensity[i] = GetFallOffValue(fFallOff, float(i+0.5f)/(iHalfRadius));
 
@@ -4631,7 +4631,7 @@ float CLyTerrain::GetFallOffValue(float fFallOff, float x)
 
 
 //
-//	ÁöÇü ³ôÀÌ Á¶ÀıÇÔ¼ö....
+//	ì§€í˜• ë†’ì´ ì¡°ì ˆí•¨ìˆ˜....
 //
 void CLyTerrain::Heighten(POINT ptCenter, float fHeight)
 {
@@ -4683,7 +4683,7 @@ void CLyTerrain::Heighten(POINT ptCenter, float fHeight)
 void CLyTerrain::Flaten(POINT ptCenter)
 {	
 	int i, j;
-	// »õ·Î¿î °ª°ú ±âÁ¸ ³ôÀÌ°ªÀ» Â÷ÀÌ¸¦ °è»êÇØ¼­ ¹öÆÛ¿¡ ÀúÀå.
+	// ìƒˆë¡œìš´ ê°’ê³¼ ê¸°ì¡´ ë†’ì´ê°’ì„ ì°¨ì´ë¥¼ ê³„ì‚°í•´ì„œ ë²„í¼ì— ì €ì¥.
 	for (i=0; i<MAX_BRUSH_SIZE; ++i)
 	{
 		for (j=0; j<MAX_BRUSH_SIZE; ++j)
@@ -4703,13 +4703,13 @@ void CLyTerrain::Flaten(POINT ptCenter)
 
 
 //
-//	ÁöÇü ¿Ï¸¸ÇÏ°Ô ¸¸µå´Â ÇÔ¼ö..
+//	ì§€í˜• ì™„ë§Œí•˜ê²Œ ë§Œë“œëŠ” í•¨ìˆ˜..
 //
 void CLyTerrain::Smooth(POINT ptCenter)
 {
 	float fMapHeightDiff[MAX_BRUSH_SIZE][MAX_BRUSH_SIZE];
 	ZeroMemory(fMapHeightDiff, sizeof(fMapHeightDiff));
-	const int iWSize = 5;		// È¦¼ö¿©¾ß ÇÑ´Ù.
+	const int iWSize = 5;		// í™€ìˆ˜ì—¬ì•¼ í•œë‹¤.
 	const int iHalfWSize = iWSize/2;
 	float fWeight[iWSize][iWSize] =	{	{1,2,3,2,1},
 										{2,3,4,3,2},
@@ -4718,7 +4718,7 @@ void CLyTerrain::Smooth(POINT ptCenter)
 										{1,2,3,2,1}};
 
 	int i, j, k, l;
-	// »õ·Î¿î °ª°ú ±âÁ¸ ³ôÀÌ°ªÀ» Â÷ÀÌ¸¦ °è»êÇØ¼­ ¹öÆÛ¿¡ ÀúÀå.
+	// ìƒˆë¡œìš´ ê°’ê³¼ ê¸°ì¡´ ë†’ì´ê°’ì„ ì°¨ì´ë¥¼ ê³„ì‚°í•´ì„œ ë²„í¼ì— ì €ì¥.
 	for (i=0; i<MAX_BRUSH_SIZE; ++i)
 	{
 		for (j=0; j<MAX_BRUSH_SIZE; ++j)
@@ -4747,7 +4747,7 @@ void CLyTerrain::Smooth(POINT ptCenter)
 		}
 	}
 
-	// ¹öÆÛ¿¡ ÀÖ´Â °ªÀ» m_fBrushIntensityMap Àû¿ëÇÏ¿© ³ôÀÌ°ª ¼öÁ¤
+	// ë²„í¼ì— ìˆëŠ” ê°’ì„ m_fBrushIntensityMap ì ìš©í•˜ì—¬ ë†’ì´ê°’ ìˆ˜ì •
 	for (i=0; i<MAX_BRUSH_SIZE; ++i)
 	{
 		for (j=0; j<MAX_BRUSH_SIZE; ++j)
@@ -4853,7 +4853,7 @@ void CLyTerrain::RenderBrushArea()
 
 //
 //	Import...
-//	¸¶¾ß¿¡¼­ »Ì¾Æ³½ N3SceneÆÄÀÏ·Î ºÎÅÍ ÁöÇü ÀĞ±â..
+//	ë§ˆì•¼ì—ì„œ ë½‘ì•„ë‚¸ N3SceneíŒŒì¼ë¡œ ë¶€í„° ì§€í˜• ì½ê¸°..
 //
 void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 {
@@ -4870,7 +4870,7 @@ void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 	Init(HeightMapSize);
 
 	CN3VMesh* pVMesh = new CN3VMesh;
-	__ASSERT(pVMesh, "VMesh°¡ ¾ÈÀĞÇã¿©..¤Ì.¤Ì");
+	__ASSERT(pVMesh, "VMeshê°€ ì•ˆì½í—ˆì—¬..ã…œ.ã…œ");
 
 	pVMesh->LoadFromFile(pFileName);
 
@@ -4956,7 +4956,7 @@ void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 		{
 			for(iz=sz; iz<=ez; iz++)
 			{
-				// »ï°¢Çü Á¡ Æ÷ÇÔ Å×½ºÆ®...
+				// ì‚¼ê°í˜• ì  í¬í•¨ í…ŒìŠ¤íŠ¸...
 				float a, b, c;
 				float x,z;
 				x = (float)ix * TERRAIN_CELL_SIZE;
@@ -4989,7 +4989,7 @@ void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /*
-//±¸¹öÀü...
+//êµ¬ë²„ì „...
 	CProgressBar ProgressBar;
 	ProgressBar.Create("Import terrain VMesh..", 50, 1000);
 	ProgressBar.SetPos(1);
@@ -4999,7 +4999,7 @@ void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 	{
 		for(int iz=0;iz<m_iHeightMapSize;iz++)
 		{
-			//ÀÏ´Ü ³ôÀÌ°ª ÃÊ±âÈ­..
+			//ì¼ë‹¨ ë†’ì´ê°’ ì´ˆê¸°í™”..
 			m_ppMapData[ix][iz].fHeight = -FLT_MAX;
 
 			DTEXINFO TexInfo;
@@ -5021,7 +5021,7 @@ void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 				vB.Set((pVertices[index+1].x - vMin.x)*ScaleX,	(pVertices[index+1].y)*ScaleX,	(pVertices[index+1].z - vMin.z)*ScaleZ);
 				vC.Set((pVertices[index+2].x - vMin.x)*ScaleX,	(pVertices[index+2].y)*ScaleX,	(pVertices[index+2].z - vMin.z)*ScaleZ);
 
-				// »ï°¢Çü Á¡ Æ÷ÇÔ Å×½ºÆ®...
+				// ì‚¼ê°í˜• ì  í¬í•¨ í…ŒìŠ¤íŠ¸...
 				float a, b, c;
 				float x,z;
 				x = (float)ix * TERRAIN_CELL_SIZE;
@@ -5057,7 +5057,7 @@ void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 */
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-	//¶óÀÌÆ®¸ÊÅØ½ºÃÄ ¼öµµ ÀÖ°í, ÅØ½ºÃÄµµ ¼¼ÆÃ..
+	//ë¼ì´íŠ¸ë§µí…ìŠ¤ì³ ìˆ˜ë„ ìˆê³ , í…ìŠ¤ì³ë„ ì„¸íŒ…..
 	m_pRoot->SetWholeClipped();
 	m_pRoot->ClearMinMaxY();
 	m_pRoot->SetMinMaxY();
@@ -5072,7 +5072,7 @@ void CLyTerrain::Import(LPCTSTR pFileName, float fSize)
 void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 {
 	CN3VMesh* pVMesh = new CN3VMesh;
-	__ASSERT(pVMesh, "VMesh°¡ ¾ÈÀĞÇô¿©..¤Ì.¤Ì");
+	__ASSERT(pVMesh, "VMeshê°€ ì•ˆì½í˜€ì—¬..ã…œ.ã…œ");
 
 	pVMesh->LoadFromFile(pFileName);
 
@@ -5147,7 +5147,7 @@ void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 		{
 			for(iz=sz; iz<=ez; iz++)
 			{
-				// »ï°¢Çü Á¡ Æ÷ÇÔ Å×½ºÆ®...
+				// ì‚¼ê°í˜• ì  í¬í•¨ í…ŒìŠ¤íŠ¸...
 				float a, b, c;
 				float x,z;
 				x = (float)ix * TERRAIN_CELL_SIZE;
@@ -5178,7 +5178,7 @@ void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 		ProgressBar.SetPos(iPosProgress);
 	}
 
-	//¶óÀÌÆ®¸ÊÅØ½ºÃÄ ¼öµµ ÀÖ°í, ÅØ½ºÃÄµµ ¼¼ÆÃ..
+	//ë¼ì´íŠ¸ë§µí…ìŠ¤ì³ ìˆ˜ë„ ìˆê³ , í…ìŠ¤ì³ë„ ì„¸íŒ…..
 	m_pRoot->SetWholeClipped();
 	m_pRoot->ClearMinMaxY();
 	m_pRoot->SetMinMaxY();
@@ -5189,7 +5189,7 @@ void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 {
 	CN3VMesh* pVMesh = new CN3VMesh;
-	__ASSERT(pVMesh, "VMesh°¡ ¾ÈÀĞÇã¿©..¤Ì.¤Ì");
+	__ASSERT(pVMesh, "VMeshê°€ ì•ˆì½í—ˆì—¬..ã…œ.ã…œ");
 
 	pVMesh->LoadFromFile(pFileName);
 
@@ -5222,7 +5222,7 @@ void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 	{
 		for(int iz=0;iz<m_iHeightMapSize;iz++)
 		{
-			//ÀÏ´Ü ³ôÀÌ°ª ÃÊ±âÈ­..
+			//ì¼ë‹¨ ë†’ì´ê°’ ì´ˆê¸°í™”..
 			m_ppMapData[ix][iz].fHeight = -FLT_MAX;
 
 			for(int i=0;i<NumFace;i++)
@@ -5232,7 +5232,7 @@ void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 				vB.Set((pVertices[index+1].x - vMin.x)*ScaleX,	(pVertices[index+1].y)*ScaleX,	(pVertices[index+1].z - vMin.z)*ScaleZ);
 				vC.Set((pVertices[index+2].x - vMin.x)*ScaleX,	(pVertices[index+2].y)*ScaleX,	(pVertices[index+2].z - vMin.z)*ScaleZ);
 
-				// »ï°¢Çü Á¡ Æ÷ÇÔ Å×½ºÆ®...
+				// ì‚¼ê°í˜• ì  í¬í•¨ í…ŒìŠ¤íŠ¸...
 				float a, b, c;
 				float x,z;
 				x = (float)ix * TERRAIN_CELL_SIZE;
@@ -5266,7 +5266,7 @@ void CLyTerrain::ImportHeight(LPCTSTR pFileName)
 		}
 	}
 
-	//¶óÀÌÆ®¸ÊÅØ½ºÃÄ ¼öµµ ÀÖ°í, ÅØ½ºÃÄµµ ¼¼ÆÃ..
+	//ë¼ì´íŠ¸ë§µí…ìŠ¤ì³ ìˆ˜ë„ ìˆê³ , í…ìŠ¤ì³ë„ ì„¸íŒ…..
 	m_pRoot->SetWholeClipped();
 	m_pRoot->ClearMinMaxY();
 	m_pRoot->SetMinMaxY();
@@ -5284,7 +5284,7 @@ void CLyTerrain::ColorMapImport(LPCTSTR lpszPathName)
 	CBitMapFile BMF;
 	if(false == BMF.LoadFromFile(lpszPathName)) return;
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Import color map..", 50, m_iNumColorMap * m_iNumColorMap);
 	ProgressBar.SetStep(1);
 
@@ -5315,7 +5315,7 @@ void CLyTerrain::ColorMapExport(LPCTSTR lpszPathName)
 	CBitMapFile BMF;
 	if(false == BMF.Create(m_iNumColorMap * m_iColorMapTexSize, m_iNumColorMap * m_iColorMapTexSize)) return;
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Export color map..", 50, m_iNumColorMap * m_iNumColorMap);
 	ProgressBar.SetStep(1);
 
@@ -5359,7 +5359,7 @@ void CLyTerrain::ColorMapExport(LPCTSTR lpszPathName)
 		}
 	}
 
-	BMF.SaveToFile(lpszPathName); // ºñÆ®¸ÊÀ¸·Î ÀúÀå..
+	BMF.SaveToFile(lpszPathName); // ë¹„íŠ¸ë§µìœ¼ë¡œ ì €ì¥..
 }
 
 void CLyTerrain::GenerateMiniMap(LPCTSTR lpszPathName, int size)
@@ -5370,7 +5370,7 @@ void CLyTerrain::GenerateMiniMap(LPCTSTR lpszPathName, int size)
 	CBitMapFile BMF;
 	if(false == BMF.Create(size, size)) return;
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Generate MiniMap..", 50, m_iNumColorMap * m_iNumColorMap);
 	ProgressBar.SetStep(1);
 
@@ -5415,7 +5415,7 @@ void CLyTerrain::GenerateMiniMap(LPCTSTR lpszPathName, int size)
 			TmpTex.Get()->UnlockRect(0);			
 		}
 	}
-	BMF.SaveToFile(lpszPathName); // ºñÆ®¸ÊÀ¸·Î ÀúÀå..
+	BMF.SaveToFile(lpszPathName); // ë¹„íŠ¸ë§µìœ¼ë¡œ ì €ì¥..
 }
 
 void  CLyTerrain::ExportHeightBMP(const char* szPathName)
@@ -5425,7 +5425,7 @@ void  CLyTerrain::ExportHeightBMP(const char* szPathName)
 	CBitMapFile BMF;
 	if(false == BMF.Create(m_iHeightMapSize, m_iHeightMapSize)) return;
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Export HeightBMP..", 50, m_iHeightMapSize * m_iHeightMapSize);
 	ProgressBar.SetStep(1);
 
@@ -5477,7 +5477,7 @@ void  CLyTerrain::ExportHeightBMP(const char* szPathName)
 			pPixelDest[2] = gray;
 		}
 	}
-	BMF.SaveToFile(szPathName); // ºñÆ®¸ÊÀ¸·Î ÀúÀå..
+	BMF.SaveToFile(szPathName); // ë¹„íŠ¸ë§µìœ¼ë¡œ ì €ì¥..
 
 	char msg[256];
 	sprintf(msg, "Max : %.2f Min : %.2f", Max, Min);
@@ -5490,7 +5490,7 @@ void  CLyTerrain::ImportHeightBMP(const char* szPathName)
 	CBitMapFile BMF;
 	BMF.LoadFromFile(szPathName);
 
-	CProgressBar ProgressBar; // ÁøÇà »óÈ²..
+	CProgressBar ProgressBar; // ì§„í–‰ ìƒí™©..
 	ProgressBar.Create("Import HeightBMP..", 50, m_iHeightMapSize * m_iHeightMapSize);
 	ProgressBar.SetStep(1);
 
@@ -5506,7 +5506,7 @@ void  CLyTerrain::ImportHeightBMP(const char* szPathName)
 		}
 	}
 
-	//¶óÀÌÆ®¸ÊÅØ½ºÃÄ ¼öµµ ÀÖ°í, ÅØ½ºÃÄµµ ¼¼ÆÃ..
+	//ë¼ì´íŠ¸ë§µí…ìŠ¤ì³ ìˆ˜ë„ ìˆê³ , í…ìŠ¤ì³ë„ ì„¸íŒ…..
 	m_pRoot->SetWholeClipped();
 	m_pRoot->ClearMinMaxY();
 	m_pRoot->SetMinMaxY();

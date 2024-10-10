@@ -1,4 +1,4 @@
-// N3SndMgr.h: interface for the CN3SndMgr class.
+ï»¿// N3SndMgr.h: interface for the CN3SndMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,14 +27,14 @@ typedef std::map<std::string, CN3SndObj*>::value_type val_Snd;
 class CN3SndMgr
 {
 protected:
-	CN3TableBase<__TABLE_SOUND>			m_Tbl_Source; // »ç¿îµå ¼Ò½º Á¤º¸ Å×ÀÌºí..
+	CN3TableBase<__TABLE_SOUND>			m_Tbl_Source; // ì‚¬ìš´ë“œ ì†ŒìŠ¤ ì •ë³´ í…Œì´ë¸”..
 
 	bool								m_bSndEnable;
 	bool								m_bSndDuplicated;
 	std::map<std::string, CN3SndObj*>	m_SndObjSrcs;
-	std::list<CN3SndObjStream*>			m_SndObjStreams;	// ½ºÆ®¸®¹Ö »ç¿îµå..
+	std::list<CN3SndObjStream*>			m_SndObjStreams;	// ìŠ¤íŠ¸ë¦¬ë° ì‚¬ìš´ë“œ..
 	std::list<CN3SndObj*>				m_SndObjs_Duplicated;
-	std::list<CN3SndObj*>				m_SndObjs_PlayOnceAndRelease;	// ÇÑ¹ø¸¸ ÇÃ·¹ÀÌ ÇÏ°í ¸±¸®Áî ÇØ¾ß ÇÏ´Â »ç¿îµåµé
+	std::list<CN3SndObj*>				m_SndObjs_PlayOnceAndRelease;	// í•œë²ˆë§Œ í”Œë ˆì´ í•˜ê³  ë¦´ë¦¬ì¦ˆ í•´ì•¼ í•˜ëŠ” ì‚¬ìš´ë“œë“¤
 	
 public:
 	void		ReleaseObj(CN3SndObj** ppObj);

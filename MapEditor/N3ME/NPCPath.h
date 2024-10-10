@@ -1,4 +1,4 @@
-// NPCPath.h: interface for the CNPCPath class.
+ï»¿// NPCPath.h: interface for the CNPCPath class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,27 +17,27 @@ class CLyTerrain;
 class CNPCPath : public CN3Base  
 {
 public:
-	char	m_strPathName[256];	// ±æÀÌ¸§..
-	char	m_strNPCName[80];	// NPC ÀÌ¸§.
-	int		m_iNPCID;			// NPC Á¾·ù..
-	int		m_iNumNPC;			// ¸î¸¶¸®?..
+	char	m_strPathName[256];	// ê¸¸ì´ë¦„..
+	char	m_strNPCName[80];	// NPC ì´ë¦„.
+	int		m_iNPCID;			// NPC ì¢…ë¥˜..
+	int		m_iNumNPC;			// ëª‡ë§ˆë¦¬?..
 		
-	__Vector3	m_LTStartVertex;	// ½ÃÀÛ¿µ¿ªÀÇ ¸ğ¼­¸® µÎÁ¡..
+	__Vector3	m_LTStartVertex;	// ì‹œì‘ì˜ì—­ì˜ ëª¨ì„œë¦¬ ë‘ì ..
 	__Vector3	m_RBStartVertex;
 
-	//CRect	m_rcStartRect;		// NPC»ı±â´Â ¿µ¿ª.
-	int		m_iRegenTime;		// NPC°¡ Á×¾ú´Ù°¡ ´Ù½Ã »ì¾Æ³ª´Âµ¥ °É¸®´Â ½Ã°£.
+	//CRect	m_rcStartRect;		// NPCìƒê¸°ëŠ” ì˜ì—­.
+	int		m_iRegenTime;		// NPCê°€ ì£½ì—ˆë‹¤ê°€ ë‹¤ì‹œ ì‚´ì•„ë‚˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„.
 	int		m_iActType;
 	int		m_iZoneID;
 
-	std::list<__Vector3> m_Path;	//pathÁöÁ¤ÇÏ´Â Á¡µé....½ÃÀÛÁ¡~³¡Á¡..
+	std::list<__Vector3> m_Path;	//pathì§€ì •í•˜ëŠ” ì ë“¤....ì‹œì‘ì ~ëì ..
 
 	CLyTerrain*		m_pRefTerrain;
 
 	DWORD	m_dwColor;
 	int		m_iVersion;
 
-	__Vector3	m_LTActVertex;	// ½ÃÀÛ¿µ¿ªÀÇ ¸ğ¼­¸® µÎÁ¡..
+	__Vector3	m_LTActVertex;	// ì‹œì‘ì˜ì—­ì˜ ëª¨ì„œë¦¬ ë‘ì ..
 	__Vector3	m_RBActVertex;
 
 	unsigned char	m_cAttr_Create;
@@ -51,8 +51,8 @@ public:
 	void	Load(HANDLE hFile);
 	void	Save(HANDLE hFile);
 	int		GetSize() { return m_Path.size(); }
-	bool	GetPath(int idx, __Vector3* pPos);	// idxÂ° Á¡ °¡Á®¿À±â..
-	void	AddPos(__Vector3 Path);	//path´õÇÏ±â.
+	bool	GetPath(int idx, __Vector3* pPos);	// idxì§¸ ì  ê°€ì ¸ì˜¤ê¸°..
+	void	AddPos(__Vector3 Path);	//pathë”í•˜ê¸°.
 	void	DelPrevPos();
 	CNPCPath();
 	virtual ~CNPCPath();

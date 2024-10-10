@@ -1,4 +1,4 @@
-// DTexGroupMng.h: interface for the CDTexGroupMng class.
+ï»¿// DTexGroupMng.h: interface for the CDTexGroupMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,11 +22,11 @@ typedef std::list<CDTexGroup*>::iterator it_DTexGroup;
 class CDTexGroupMng : public CN3Base
 {
 public:
-	std::list<CDTexGroup*>	m_Groups;	//±×·ì Å×ÀÌÅÍµéÀ» °¡Áö°í ÀÖ´Â ¸®½ºÆ®.
-	CDlgDTexGroupView*		m_pGroupView;	//½ÇÁ¦ ÀÛ¾÷ÇÒ¶§ ±×·ìµéÀ» º¸¿©ÁÖ´Â Ã¢.
+	std::list<CDTexGroup*>	m_Groups;	//ê·¸ë£¹ í…Œì´í„°ë“¤ì„ ê°€ì§€ê³  ìˆëŠ” ë¦¬ìŠ¤íŠ¸.
+	CDlgDTexGroupView*		m_pGroupView;	//ì‹¤ì œ ì‘ì—…í• ë•Œ ê·¸ë£¹ë“¤ì„ ë³´ì—¬ì£¼ëŠ” ì°½.
 
-	DTEXATTR				m_SelectedDTex;	//ÀÛ¾÷½Ã ±×·ìÃ¢¿¡¼­ ¼±ÅÃÇÑ ±×·ì°ú ¼Ó¼º.
-	DTEXTILEATTR			m_SelectedDTexTile;	//ÀÛ¾÷½Ã ¼±ÅÃÇÑ ½ÇÁ¦ ÅØ½ºÃÄ Å¸ÀÏ.
+	DTEXATTR				m_SelectedDTex;	//ì‘ì—…ì‹œ ê·¸ë£¹ì°½ì—ì„œ ì„ íƒí•œ ê·¸ë£¹ê³¼ ì†ì„±.
+	DTEXTILEATTR			m_SelectedDTexTile;	//ì‘ì—…ì‹œ ì„ íƒí•œ ì‹¤ì œ í…ìŠ¤ì³ íƒ€ì¼.
 
 	CMainFrame*				m_pMainFrm;
 

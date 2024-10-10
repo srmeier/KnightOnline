@@ -1,4 +1,4 @@
-// N3Moon.h: interface for the CN3Moon class.
+ï»¿// N3Moon.h: interface for the CN3Moon class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,15 +28,15 @@ public:
 protected:	
 	__VertexTransformed		m_pVertices[4];
 	CN3Texture				*m_pTexture;
-	float					m_fCurRadian;		// ÇöÀç ´ŞÀÇ È¸ÀüÀ§Ä¡
-	float					m_fMoonRatio;		// ´ŞÀÇ pixel½ÎÀÌÁî
-	int						m_iMoonPhaseIndex;	// ´ŞÀÇ ¸ğ¾ç ÀÎµ¦½º 0~23;
+	float					m_fCurRadian;		// í˜„ì¬ ë‹¬ì˜ íšŒì „ìœ„ì¹˜
+	float					m_fMoonRatio;		// ë‹¬ì˜ pixelì‹¸ì´ì¦ˆ
+	int						m_iMoonPhaseIndex;	// ë‹¬ì˜ ëª¨ì–‘ ì¸ë±ìŠ¤ 0~23;
 
 // Operations
 public:
 	void	Init(const std::string& szTexFN);
-	void	SetMoonPhase(int iIndex);	// ´ŞÀÇ ¸ğ¾ç ¼³Á¤
-	void	SetCurAngle(float fAngle)	{m_fCurRadian = D3DXToRadian(fAngle);}	// ÇöÀç °¢µµ¼³Á¤
+	void	SetMoonPhase(int iIndex);	// ë‹¬ì˜ ëª¨ì–‘ ì„¤ì •
+	void	SetCurAngle(float fAngle)	{m_fCurRadian = D3DXToRadian(fAngle);}	// í˜„ì¬ ê°ë„ì„¤ì •
 
 	void	Render(__Matrix44& matView, __Matrix44& matProj);
 	void	Release();

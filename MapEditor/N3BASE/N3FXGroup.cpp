@@ -1,4 +1,4 @@
-// N3FXGroup.cpp: implementation of the CN3FXGroup class.
+ï»¿// N3FXGroup.cpp: implementation of the CN3FXGroup class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -75,7 +75,7 @@ bool CN3FXGroup::Save(HANDLE hFile)
 
 //
 //	decode script file..
-//	½ºÅ©¸³Æ® ÆÄÀÏ ÀĞ°í ÇØ¼®½ÃÅ´...
+//	ìŠ¤í¬ë¦½íŠ¸ íŒŒì¼ ì½ê³  í•´ì„ì‹œí‚´...
 //
 #ifdef _N3TOOL
 bool CN3FXGroup::DecodeScriptFile(const char* lpPathName)

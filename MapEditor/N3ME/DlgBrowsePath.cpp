@@ -1,4 +1,4 @@
-// DlgBrowsePath.cpp : implementation file
+ï»¿// DlgBrowsePath.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -67,7 +67,7 @@ BOOL CDlgBrowsePath::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// ÃÖ±Ù¿¡ ¾´ Æú´õ¸¦ °¡Á®¿Â´Ù...
+	// ìµœê·¼ì— ì“´ í´ë”ë¥¼ ê°€ì ¸ì˜¨ë‹¤...
 	char szInitDir[256];
 	DWORD dwLength = 256;
 	memset(szInitDir, 0, 256);
@@ -182,13 +182,13 @@ void CDlgBrowsePath::OnSynchFolders()
 
 void CDlgBrowsePath::OnOK() 
 {
-	m_CBPath.GetWindowText(m_szPath); // °æ·Î ±â¾ï..
+	m_CBPath.GetWindowText(m_szPath); // ê²½ë¡œ ê¸°ì–µ..
 	if(m_szPath.GetLength() > 0)
 	{
-		m_CBPath.InsertString(0, m_szPath); // °æ·Î ³Ö°í...
+		m_CBPath.InsertString(0, m_szPath); // ê²½ë¡œ ë„£ê³ ...
 	}
 
-	// ÃÖ±Ù¿¡ ¾´ Æú´õ¸¦ ÀúÀåÇØµĞ´Ù....
+	// ìµœê·¼ì— ì“´ í´ë”ë¥¼ ì €ì¥í•´ë‘”ë‹¤....
 	char szInitDir[256] = "";
 	CString szKey;
 	HKEY hKey;

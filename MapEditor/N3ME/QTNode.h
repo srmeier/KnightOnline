@@ -1,4 +1,4 @@
-// QTNode.h: interface for the CQTNode class.
+ï»¿// QTNode.h: interface for the CQTNode class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-enum eQTNODESTATE { QTNODESTATE_CLIPPED = 0, QTNODESTATE_NOTRENDER, QTNODESTATE_RENDER, QTNODESTATE_UNKNOWN };	// ÄõµåÆ®¸® ³ëµåµéÀÇ »óÅÂ¼Ó¼º..
+enum eQTNODESTATE { QTNODESTATE_CLIPPED = 0, QTNODESTATE_NOTRENDER, QTNODESTATE_RENDER, QTNODESTATE_UNKNOWN };	// ì¿¼ë“œíŠ¸ë¦¬ ë…¸ë“œë“¤ì˜ ìƒíƒœì†ì„±..
 enum eDIR { DIR_LEFT = 0, DIR_TOP, DIR_RIGHT, DIR_BOTTOM, DIR_NUM };
 
 class CLyTerrain;
@@ -17,10 +17,10 @@ class CLyTerrain;
 class CQTNode  
 {
 protected:
-	int								m_CenterX;	//Áß½ÉÁ¡ÀÇ ³ôÀÌÇÊµå¹è¿­»óÀÇ ÁÂÇ¥.
-	int								m_CenterZ;	//Áß½ÉÁ¡ÀÇ ³ôÀÌÇÊµå¹è¿­»óÀÇ ÁÂÇ¥.
+	int								m_CenterX;	//ì¤‘ì‹¬ì ì˜ ë†’ì´í•„ë“œë°°ì—´ìƒì˜ ì¢Œí‘œ.
+	int								m_CenterZ;	//ì¤‘ì‹¬ì ì˜ ë†’ì´í•„ë“œë°°ì—´ìƒì˜ ì¢Œí‘œ.
 	
-	int								m_Level;	//ÄõµåÆ®¸®»ó¿¡¼­ ±íÀÌ°ª..
+	int								m_Level;	//ì¿¼ë“œíŠ¸ë¦¬ìƒì—ì„œ ê¹Šì´ê°’..
 	eQTNODESTATE					m_State;	//
 		
 	CQTNode*						m_pFriend[DIR_NUM];
@@ -29,8 +29,8 @@ protected:
 	CLyTerrain*						m_pRefTerrain;
 
 public:
-	float			m_MinY;		//ÃÖÀúÁ¡
-	float			m_MaxY;		//ÃÖ°íÁ¡
+	float			m_MinY;		//ìµœì €ì 
+	float			m_MaxY;		//ìµœê³ ì 
 	int				GetCenterX() { return m_CenterX; }
 	int				GetCenterZ() { return m_CenterZ; }
 

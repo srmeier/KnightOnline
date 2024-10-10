@@ -1,4 +1,4 @@
-// RiverMesh.cpp: implementation of the CRiverMesh class.
+ï»¿// RiverMesh.cpp: implementation of the CRiverMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -76,16 +76,16 @@ bool CRiverMesh::Load(HANDLE hFile)
 	DWORD dwNum;
 	int iLen; char szTextueFName[_MAX_PATH];
 
-	ReadFile(hFile, &m_iRiverID, sizeof(m_iRiverID), &dwNum, NULL);		// °­ ¹øÈ£
-	ReadFile(hFile, &m_fSpeed1, sizeof(m_fSpeed1), &dwNum, NULL);			// À¯¼Ó
-	ReadFile(hFile, &m_fSpeed2, sizeof(m_fSpeed2), &dwNum, NULL);			// À¯¼Ó2
-	ReadFile(hFile, &m_fMeterPerV, sizeof(m_fMeterPerV), &dwNum, NULL);	// UÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	ReadFile(hFile, &m_fMeterPerU, sizeof(m_fMeterPerU), &dwNum, NULL);	// VÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	ReadFile(hFile, &m_fMeterPerV2, sizeof(m_fMeterPerV2), &dwNum, NULL);// U2ÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	ReadFile(hFile, &m_fMeterPerU2, sizeof(m_fMeterPerU2), &dwNum, NULL);// V2ÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	ReadFile(hFile, &m_dwAlphaFactor, sizeof(m_dwAlphaFactor), &dwNum, NULL);	// °­À» Åõ¸íÇÏ°Ô ÇÏ±â À§ÇÑ ¾ËÆÄ°ª
+	ReadFile(hFile, &m_iRiverID, sizeof(m_iRiverID), &dwNum, NULL);		// ê°• ë²ˆí˜¸
+	ReadFile(hFile, &m_fSpeed1, sizeof(m_fSpeed1), &dwNum, NULL);			// ìœ ì†
+	ReadFile(hFile, &m_fSpeed2, sizeof(m_fSpeed2), &dwNum, NULL);			// ìœ ì†2
+	ReadFile(hFile, &m_fMeterPerV, sizeof(m_fMeterPerV), &dwNum, NULL);	// Uì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	ReadFile(hFile, &m_fMeterPerU, sizeof(m_fMeterPerU), &dwNum, NULL);	// Vì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	ReadFile(hFile, &m_fMeterPerV2, sizeof(m_fMeterPerV2), &dwNum, NULL);// U2ì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	ReadFile(hFile, &m_fMeterPerU2, sizeof(m_fMeterPerU2), &dwNum, NULL);// V2ì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	ReadFile(hFile, &m_dwAlphaFactor, sizeof(m_dwAlphaFactor), &dwNum, NULL);	// ê°•ì„ íˆ¬ëª…í•˜ê²Œ í•˜ê¸° ìœ„í•œ ì•ŒíŒŒê°’
 
-	ReadFile(hFile, &m_iVC, sizeof(m_iVC), &dwNum, NULL);			// Á¡ °¹¼ö
+	ReadFile(hFile, &m_iVC, sizeof(m_iVC), &dwNum, NULL);			// ì  ê°¯ìˆ˜
 	if (m_iVC>0) ReadFile(hFile, m_pVertices, m_iVC*sizeof(__VertexXyzT2), &dwNum, NULL);	// vertex buffer
 	ReadFile(hFile, &m_iIC, sizeof(m_iIC), &dwNum, NULL);			// IndexBufferCount.
 	ReadFile(hFile, &iLen, sizeof(iLen), &dwNum, NULL);				// texture name length
@@ -100,7 +100,7 @@ bool CRiverMesh::Load(HANDLE hFile)
 	ReadFile(hFile, &m_fAnimTexFPS, sizeof(m_fAnimTexFPS), &dwNum, NULL);	// Anim Tex frame/sec
 	ReadFile(hFile, &m_iAnimTextureCount, sizeof(m_iAnimTextureCount), &dwNum, NULL);	// AnimTexture Count
 
-	__ASSERT(m_pAnimTextures == NULL, "°­¹° ÅØ½ºÃÄ Æ÷ÀÎÅÍ°¡ NULLÀÌ¾ß¾ß ÇÕ´Ï´Ù.");
+	__ASSERT(m_pAnimTextures == NULL, "ê°•ë¬¼ í…ìŠ¤ì³ í¬ì¸í„°ê°€ NULLì´ì•¼ì•¼ í•©ë‹ˆë‹¤.");
 
 	if (m_iAnimTextureCount>0) m_pAnimTextures = new CN3Texture*[m_iAnimTextureCount];
 
@@ -108,7 +108,7 @@ bool CRiverMesh::Load(HANDLE hFile)
 	for (i=0; i<m_iAnimTextureCount; ++i)
 	{
 		ReadFile(hFile, &iLen, sizeof(iLen), &dwNum, NULL);	// texture name length
-		if (iLen <=0) { m_pAnimTextures[i] = NULL; __ASSERT(0, "ÅØ½ºÃÄ°¡ ¾ø´Ù"); continue;}
+		if (iLen <=0) { m_pAnimTextures[i] = NULL; __ASSERT(0, "í…ìŠ¤ì³ê°€ ì—†ë‹¤"); continue;}
 		ReadFile(hFile, szTextueFName, iLen, &dwNum, NULL);	// texture name
 		szTextueFName[iLen] = NULL;
 		m_pAnimTextures[i] = s_MngTex.Get(szTextueFName, TRUE);				// load texture
@@ -120,16 +120,16 @@ bool CRiverMesh::Save(HANDLE hFile)
 {
 	DWORD dwNum;
 
-	WriteFile(hFile, &m_iRiverID, sizeof(m_iRiverID), &dwNum, NULL);		// °­ ¹øÈ£
-	WriteFile(hFile, &m_fSpeed1, sizeof(m_fSpeed1), &dwNum, NULL);			// À¯¼Ó1
-	WriteFile(hFile, &m_fSpeed2, sizeof(m_fSpeed2), &dwNum, NULL);			// À¯¼Ó2
-	WriteFile(hFile, &m_fMeterPerV, sizeof(m_fMeterPerV), &dwNum, NULL);	// UÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	WriteFile(hFile, &m_fMeterPerU, sizeof(m_fMeterPerU), &dwNum, NULL);	// VÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	WriteFile(hFile, &m_fMeterPerV2, sizeof(m_fMeterPerV2), &dwNum, NULL);	// U2ÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	WriteFile(hFile, &m_fMeterPerU2, sizeof(m_fMeterPerU2), &dwNum, NULL);	// V2ÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	WriteFile(hFile, &m_dwAlphaFactor, sizeof(m_dwAlphaFactor), &dwNum, NULL);	// °­À» Åõ¸íÇÏ°Ô ÇÏ±â À§ÇÑ ¾ËÆÄ°ª
+	WriteFile(hFile, &m_iRiverID, sizeof(m_iRiverID), &dwNum, NULL);		// ê°• ë²ˆí˜¸
+	WriteFile(hFile, &m_fSpeed1, sizeof(m_fSpeed1), &dwNum, NULL);			// ìœ ì†1
+	WriteFile(hFile, &m_fSpeed2, sizeof(m_fSpeed2), &dwNum, NULL);			// ìœ ì†2
+	WriteFile(hFile, &m_fMeterPerV, sizeof(m_fMeterPerV), &dwNum, NULL);	// Uì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	WriteFile(hFile, &m_fMeterPerU, sizeof(m_fMeterPerU), &dwNum, NULL);	// Vì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	WriteFile(hFile, &m_fMeterPerV2, sizeof(m_fMeterPerV2), &dwNum, NULL);	// U2ì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	WriteFile(hFile, &m_fMeterPerU2, sizeof(m_fMeterPerU2), &dwNum, NULL);	// V2ì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	WriteFile(hFile, &m_dwAlphaFactor, sizeof(m_dwAlphaFactor), &dwNum, NULL);	// ê°•ì„ íˆ¬ëª…í•˜ê²Œ í•˜ê¸° ìœ„í•œ ì•ŒíŒŒê°’
 
-	WriteFile(hFile, &m_iVC, sizeof(m_iVC), &dwNum, NULL);				// Á¡ °¹¼ö
+	WriteFile(hFile, &m_iVC, sizeof(m_iVC), &dwNum, NULL);				// ì  ê°¯ìˆ˜
 	if (m_iVC>0) WriteFile(hFile, m_pVertices, m_iVC*sizeof(__VertexXyzT2), &dwNum, NULL);	// vertex buffer
 	WriteFile(hFile, &m_iIC, sizeof(m_iIC), &dwNum, NULL);				// IndexBuffer Count.
 
@@ -148,7 +148,7 @@ bool CRiverMesh::Save(HANDLE hFile)
 	int i;
 	for (i=0; i<m_iAnimTextureCount; ++i)
 	{
-		__ASSERT(m_pAnimTextures[i], "°­¹° ÅØ½ºÃÄ Æ÷ÀÎÅÍ°¡ NULLÀÔ´Ï´Ù.");
+		__ASSERT(m_pAnimTextures[i], "ê°•ë¬¼ í…ìŠ¤ì³ í¬ì¸í„°ê°€ NULLìž…ë‹ˆë‹¤.");
 		int iLen = m_pAnimTextures[i]->FileName().size();
 		WriteFile(hFile, &iLen, sizeof(iLen), &dwNum, NULL);				// texture name length
 		if (iLen>0)
@@ -180,14 +180,14 @@ void CRiverMesh::Render()
 		s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAOP, &dwAlphaOP);
 		s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAARG1, &dwAlphaArg1);
 
-		if ((m_dwAlphaFactor & 0xff000000) != 0xff000000)	// alpha factor ¼³Á¤ÇÏ±â
+		if ((m_dwAlphaFactor & 0xff000000) != 0xff000000)	// alpha factor ì„¤ì •í•˜ê¸°
 		{
-			// render state ¼¼ÆÃ
+			// render state ì„¸íŒ…
 			s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 			s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 			s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-			s_lpD3DDev->SetRenderState(D3DRS_TEXTUREFACTOR, m_dwAlphaFactor);	// alpha factor ¼³Á¤
-			// texture state ¼¼ÆÃ(alpha)
+			s_lpD3DDev->SetRenderState(D3DRS_TEXTUREFACTOR, m_dwAlphaFactor);	// alpha factor ì„¤ì •
+			// texture state ì„¸íŒ…(alpha)
 			s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
 			s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TFACTOR);
 			s_lpD3DDev->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
@@ -249,7 +249,7 @@ void CRiverMesh::Render()
 
 }
 
-void CRiverMesh::RenderVertexPoint()	// Àßº¸ÀÌ°Ô Á¡¸¸ ´Ù½Ã ±×¸®±â
+void CRiverMesh::RenderVertexPoint()	// ìž˜ë³´ì´ê²Œ ì ë§Œ ë‹¤ì‹œ ê·¸ë¦¬ê¸°
 {
 	if (m_iVC == 0 || m_pVertices == NULL) return;
 	HRESULT hr;
@@ -291,7 +291,7 @@ void CRiverMesh::RenderVertexPoint()	// Àßº¸ÀÌ°Ô Á¡¸¸ ´Ù½Ã ±×¸®±â
 		if (iScreenX >= (int)vp.X && iScreenX <= (int)vp.Width &&
 			iScreenY >= (int)vp.Y && iScreenY <= (int)vp.Height)
 		{
-			// set X (Á¡À» ÂïÀ¸¸é 1ÇÈ¼¿¹Û¿¡ ¾ÈÂïÀ¸¹Ç·Î XÇ¥½Ã¸¦ ±×¸°´Ù.
+			// set X (ì ì„ ì°ìœ¼ë©´ 1í”½ì…€ë°–ì— ì•ˆì°ìœ¼ë¯€ë¡œ Xí‘œì‹œë¥¼ ê·¸ë¦°ë‹¤.
 			Vertices[0].Set(float(iScreenX-2), float(iScreenY-2), 0.5f, 0.5f, clr);
 			Vertices[1].Set(float(iScreenX+2), float(iScreenY+2), 0.5f, 0.5f, clr);
 			Vertices[2].Set(float(iScreenX+2), float(iScreenY-2), 0.5f, 0.5f, clr);
@@ -336,7 +336,7 @@ int CRiverMesh::AddVertex()
 		return m_iVC;
 	}
 
-	// ±âÁ¸ ¸¶Áö¸· µÎÁ¡°ú Á÷°¢ÀÎ ¹æÇâ ±¸ÇÏ±â(Ä«¸Þ¶ó¿ÍÀÇ °Å¸®¿¡ µû¶ó¼­ offset°ªÀÌ ´Þ¶óÁü.)
+	// ê¸°ì¡´ ë§ˆì§€ë§‰ ë‘ì ê³¼ ì§ê°ì¸ ë°©í–¥ êµ¬í•˜ê¸°(ì¹´ë©”ë¼ì™€ì˜ ê±°ë¦¬ì— ë”°ë¼ì„œ offsetê°’ì´ ë‹¬ë¼ì§.)
 	__Vector3 v1, v2, v3, vDir, vDiff, v4, v5;
 	v1 = m_pVertices[m_iVC-4];	v2 = m_pVertices[m_iVC-3];
 	v3 = m_pVertices[m_iVC-2];	v4 = m_pVertices[m_iVC-1];
@@ -393,7 +393,7 @@ BOOL CRiverMesh::SetAnimTextureName(LPCTSTR pszFName, LPCTSTR pszExt, int iCount
 {
 	ReleaseAnimTextures();
 	if (lstrlen(pszFName)==0 || iCount <= 0) return FALSE;
-	__ASSERT(iCount<100, "°­¹° ¿¡´Ï¸ÞÀÌ¼Ç ÅØ½ºÃÄ°¡ ³Ê¹« ¸¹½À´Ï´Ù.");
+	__ASSERT(iCount<100, "ê°•ë¬¼ ì—ë‹ˆë©”ì´ì…˜ í…ìŠ¤ì³ê°€ ë„ˆë¬´ ë§ŽìŠµë‹ˆë‹¤.");
 	m_iAnimTextureCount = iCount;
 	m_pAnimTextures = new CN3Texture*[m_iAnimTextureCount];
 
@@ -434,7 +434,7 @@ void CRiverMesh::ReCalcUV()
 	float fUPerMeter2 = 1.0f/m_fMeterPerU2;
 	float fVPerMeter2 = 1.0f/m_fMeterPerV2;
 
-	// Ã³À½ µÎÁ¡ ¼³Á¤ÇÏ±â
+	// ì²˜ìŒ ë‘ì  ì„¤ì •í•˜ê¸°
 	__Vector3 vDiff; float fDiff;
 	vDiff = (__Vector3)m_pVertices[0].v - (__Vector3)m_pVertices[1].v;
 	fDiff = vDiff.Magnitude()*fUPerMeter/2;
@@ -444,7 +444,7 @@ void CRiverMesh::ReCalcUV()
 	m_pVertices[0].tu2 = 0.5f - fDiff;	m_pVertices[1].tu2 = 0.5f + fDiff;
 	m_pVertices[0].tv2 = 0.0f;			m_pVertices[1].tv2 = 0.0f;
 
-	// ³ª¸ÓÁö Á¡ °è»êÇÏ±â
+	// ë‚˜ë¨¸ì§€ ì  ê³„ì‚°í•˜ê¸°
 	for (i=1; i<iCount; ++i)
 	{
 		// U

@@ -1,4 +1,4 @@
-// N3ME.h : main header file for the N3ME application
+﻿// N3ME.h : main header file for the N3ME application
 //
 
 #if !defined(AFX_N3ME_H__D671E217_CF08_471A_B577_0055D4F66932__INCLUDED_)

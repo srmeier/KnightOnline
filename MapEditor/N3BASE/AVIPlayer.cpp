@@ -1,4 +1,4 @@
-// AVIPlayer.cpp: implementation of the CAVIPlayer class.
+﻿// AVIPlayer.cpp: implementation of the CAVIPlayer class.
 //
 //////////////////////////////////////////////////////////////////////
 

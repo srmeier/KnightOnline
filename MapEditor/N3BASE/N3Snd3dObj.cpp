@@ -1,4 +1,4 @@
-// N3Snd3dObj.cpp: implementation of the CN3Snd3dObj class.
+﻿// N3Snd3dObj.cpp: implementation of the CN3Snd3dObj class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// LogWriter.h: interface for the CLogWriter class.
+﻿// LogWriter.h: interface for the CLogWriter class.
 //
 //////////////////////////////////////////////////////////////////////
 

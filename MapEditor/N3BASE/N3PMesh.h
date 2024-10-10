@@ -1,4 +1,4 @@
-// N3PMesh.h: interface for the CN3PMesh class.
+ï»¿// N3PMesh.h: interface for the CN3PMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-//#define _USE_VERTEXBUFFER			// ¼±¾ğÇÏ¸é VertexBuffer¿Í IndexBuffer¸¦ »ç¿ëÇÑ´Ù.
+//#define _USE_VERTEXBUFFER			// ì„ ì–¸í•˜ë©´ VertexBufferì™€ IndexBufferë¥¼ ì‚¬ìš©í•œë‹¤.
 
 #include "N3BaseFileAccess.h"
 
@@ -18,7 +18,7 @@ class CN3PMesh : public CN3BaseFileAccess
 friend class CN3FXPMeshInstance;
 friend class CN3PMeshInstance;
 friend class CN3PMeshCreate;
-friend class CPMeshEditor;			// N3ViewerÀÇ Å¬·¡½º
+friend class CPMeshEditor;			// N3Viewerì˜ í´ë˜ìŠ¤
 
 public:
 	struct  __LODCtrlValue
@@ -33,15 +33,15 @@ public:
 	//	float Value;
 		int NumIndicesToLose, NumIndicesToChange, NumVerticesToLose;
 		//int *IndexChanges;
-		int iIndexChanges;	// Æ÷ÀÎÅÍ ´ë½Å n¹øÂ° ÀúÀå (0, 1, 2,...)
+		int iIndexChanges;	// í¬ì¸í„° ëŒ€ì‹  në²ˆì§¸ ì €ì¥ (0, 1, 2,...)
 		int CollapseTo;
-		bool	bShouldCollapse;	// ¿©±â¼­ º´ÇÕ/³ª´©±â¸¦ ¸ØÃß¸é ±¸¸ÛÀÌ ¶Ô¸°´Ù. ´ÙÀ½´Ü°è¸¦ ´õ ÁøÇàÇØ¾ßÇÔ.
+		bool	bShouldCollapse;	// ì—¬ê¸°ì„œ ë³‘í•©/ë‚˜ëˆ„ê¸°ë¥¼ ë©ˆì¶”ë©´ êµ¬ë©ì´ ëš¤ë¦°ë‹¤. ë‹¤ìŒë‹¨ê³„ë¥¼ ë” ì§„í–‰í•´ì•¼í•¨.
 	};
 
 protected:
 
 	//int m_iNumMaterials;
-	int m_iNumCollapses;			// »ï°¢Çü º´ÇÕ ¸®½ºÆ®
+	int m_iNumCollapses;			// ì‚¼ê°í˜• ë³‘í•© ë¦¬ìŠ¤íŠ¸
 	int m_iTotalIndexChanges;
 	int *m_pAllIndexChanges; // All the index changes
 
@@ -50,7 +50,7 @@ protected:
 
 	__EdgeCollapse	*m_pCollapses;
 
-	// Mesh Á¤º¸
+	// Mesh ì •ë³´
 #ifdef _USE_VERTEXBUFFER
 	LPDIRECT3DVERTEXBUFFER8 m_pVB;
 	LPDIRECT3DINDEXBUFFER8	m_pIB;
@@ -62,10 +62,10 @@ protected:
 	int m_iMaxNumVertices, m_iMaxNumIndices;
 	int m_iMinNumVertices, m_iMinNumIndices;
 
-	__Vector3	m_vMin, m_vMax; // ÃÖ´ë ÃÖ¼Ò°ª..
-	float		m_fRadius; // ¹İÁö¸§
+	__Vector3	m_vMin, m_vMax; // ìµœëŒ€ ìµœì†Œê°’..
+	float		m_fRadius; // ë°˜ì§€ë¦„
 
-	// LOD Á¶Á¤ Á¤º¸..(°Å¸®¿¡ µû¶ó¼­ VertexÀÇ ¼ö¸¦ Á¶Á¤ÇÒ ¼ö ÀÖ´Ù.)
+	// LOD ì¡°ì • ì •ë³´..(ê±°ë¦¬ì— ë”°ë¼ì„œ Vertexì˜ ìˆ˜ë¥¼ ì¡°ì •í•  ìˆ˜ ìˆë‹¤.)
 	int					m_iLODCtrlValueCount;
 	__LODCtrlValue*		m_pLODCtrlValues;
 protected:
@@ -87,8 +87,8 @@ public:
 //	__PMLODCtrlValue*	GetLODCtrlValue(int iIndex) const {if (iIndex>=0&&m_iLODCtrlValueCount>iIndex)return m_pLODCtrlValues+iIndex; return NULL;}
 //	void				SetLODCtrlValues(__PMLODCtrlValue* pValues) {m_pLODCtrlValues = pValues;}
 
-	__Vector3 Min() { return m_vMin; } // ¿ùµå Çà·ÄÀ» Àû¿ëÇÏÁö ¾ÊÀº»óÅÂÀÇ ÃÖ¼Ò°ªÀÌ´Ù.
-	__Vector3 Max() { return m_vMax; } // ¿ùµå Çà·ÄÀ» Àû¿ëÇÏÁö ¾ÊÀº»óÅÂÀÇ ÃÖ´ë°ªÀÌ´Ù.
+	__Vector3 Min() { return m_vMin; } // ì›”ë“œ í–‰ë ¬ì„ ì ìš©í•˜ì§€ ì•Šì€ìƒíƒœì˜ ìµœì†Œê°’ì´ë‹¤.
+	__Vector3 Max() { return m_vMax; } // ì›”ë“œ í–‰ë ¬ì„ ì ìš©í•˜ì§€ ì•Šì€ìƒíƒœì˜ ìµœëŒ€ê°’ì´ë‹¤.
 
 	void Release();
 	HRESULT Create(int iNumVertices, int iNumIndices);
@@ -113,8 +113,8 @@ public:
 #else
 	__VertexT1*		GetVertices() const { return m_pVertices; };
 	__VertexT2*		GetVertices2() const { return m_pVertices2; };
-	WORD*			GetIndices() const { return m_pIndices;};		// Á¦´ë·ÎµÈ Index°¡ ¾Æ´Ô 
-	// (Á¦´ë·Î µÈ ÀÎµ¦½º¸¦ ¾òÀ¸·Á¸é N3PMeshInstance·Î ¸¸µçÈÄ LODÁ¶Á¤ÈÄ ÀÎµ¦½º°ªÀ» ¾òÀ¸¸é µÈ´Ù.)
+	WORD*			GetIndices() const { return m_pIndices;};		// ì œëŒ€ë¡œëœ Indexê°€ ì•„ë‹˜ 
+	// (ì œëŒ€ë¡œ ëœ ì¸ë±ìŠ¤ë¥¼ ì–»ìœ¼ë ¤ë©´ N3PMeshInstanceë¡œ ë§Œë“ í›„ LODì¡°ì •í›„ ì¸ë±ìŠ¤ê°’ì„ ì–»ìœ¼ë©´ ëœë‹¤.)
 #endif
 
 #ifdef _N3TOOL

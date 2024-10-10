@@ -1,4 +1,4 @@
-// N3RiverPatch.cpp: implementation of the CN3RiverPatch class.
+﻿// N3RiverPatch.cpp: implementation of the CN3RiverPatch class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"

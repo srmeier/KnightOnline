@@ -1,4 +1,4 @@
-// ToolDlg.cpp : implementation file
+﻿// ToolDlg.cpp : implementation file
 //
 
 #include "stdafx.h"

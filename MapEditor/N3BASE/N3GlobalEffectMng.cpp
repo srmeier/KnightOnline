@@ -1,4 +1,4 @@
-// N3GlobalEffectMng.cpp: implementation of the CN3GlobalEffectMng class.
+ï»¿// N3GlobalEffectMng.cpp: implementation of the CN3GlobalEffectMng class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
@@ -147,7 +147,7 @@ void CN3GlobalEffectMng::SetWeather(int iWeather)
 		if (m_pGERain == NULL) m_pGERain = new CN3GERain;
 
 		m_fCellSize = 20.0f;
-		m_pGERain->Create(fDensity, m_fCellSize, fHeight, fRainLength, vVelocity);	// ºñ
+		m_pGERain->Create(fDensity, m_fCellSize, fHeight, fRainLength, vVelocity);	// ÂºÃ±
 		m_pGERain->SetActive(TRUE);
 		if (m_pGESnow) m_pGESnow->FadeSet(3.0f, false);
 	}
@@ -156,7 +156,7 @@ void CN3GlobalEffectMng::SetWeather(int iWeather)
 		if (m_pGESnow == NULL) m_pGESnow = new CN3GESnow;
 
 		m_fCellSize = 10.0f;
-		m_pGESnow->Create(fDensity, m_fCellSize, fHeight, fSnowSize, vVelocity);	// ´«
+		m_pGESnow->Create(fDensity, m_fCellSize, fHeight, fSnowSize, vVelocity);	// Â´Â«
 		m_pGESnow->SetActive(TRUE);
 		if (m_pGERain) m_pGERain->FadeSet(3.0f, false);
 	}
@@ -180,7 +180,7 @@ void CN3GlobalEffectMng::WeatherSetRainy(int iPercent)
 	float fRainLength = 0.4f + 0.6f * fPercent;
 
 	m_fCellSize = 20.0f;
-	m_pGERain->Create(fDensity, m_fCellSize, fHeight, fRainLength, vVelocity, 10.0f);	// ºñ
+	m_pGERain->Create(fDensity, m_fCellSize, fHeight, fRainLength, vVelocity, 10.0f);	// ÂºÃ±
 	m_pGERain->SetActive(TRUE);
 }
 
@@ -197,6 +197,6 @@ void CN3GlobalEffectMng::WeatherSetSnow(int iPercent)
 	float fSnowSize = 0.1f + 0.1f * fPercent;
 
 	m_fCellSize = 20.0f;
-	m_pGESnow->Create(fDensity, m_fCellSize, fHeight, fSnowSize, vVelocity, 10.0f);	// ºñ
+	m_pGESnow->Create(fDensity, m_fCellSize, fHeight, fSnowSize, vVelocity, 10.0f);	// ÂºÃ±
 	m_pGESnow->SetActive(TRUE);
 }

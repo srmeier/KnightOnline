@@ -1,4 +1,4 @@
-// RiverMesh.h: interface for the CRiverMesh class.
+ï»¿// RiverMesh.h: interface for the CRiverMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -55,16 +55,16 @@ protected:
 	int				m_iIC;					// Index Buffer Count.
 	int				m_iVC;					// Vertex Count.
 	CN3Texture*		m_pTexture;
-	int				m_iAnimTextureCount;	// AnimationµÇ´Â ÅØ½ºÃÄ °¹¼ö
-	CN3Texture**	m_pAnimTextures;		// AnimationµÇ´Â ÅØ½ºÃÄ Æ÷ÀÎÅÍµé..
-	float			m_fSpeed1;			// À¯¼Ó : ÃÊ´ç vÁÂÇ¥ÀÇ º¯È­·®
-	float			m_fSpeed2;			// À¯¼Ó : ÃÊ´ç v2ÁÂÇ¥ÀÇ º¯È­·®
-	float			m_fMeterPerU;		// UÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	float			m_fMeterPerV;		// VÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	float			m_fMeterPerU2;		// U2ÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	float			m_fMeterPerV2;		// V2ÁÂÇ¥ 1.0¿¡ ÇØ´çÇÏ´Â °­ÀÇ ±æÀÌ
-	float			m_fAnimTexFPS;		// AnimTextureÀÇ ÃÊ´ç frame ¼ö;
-	DWORD			m_dwAlphaFactor;	// °­À» Åõ¸íÇÏ°Ô ÇÏ±â À§ÇÑ ¾ËÆÄ°ª
+	int				m_iAnimTextureCount;	// Animationë˜ëŠ” í…ìŠ¤ì³ ê°¯ìˆ˜
+	CN3Texture**	m_pAnimTextures;		// Animationë˜ëŠ” í…ìŠ¤ì³ í¬ì¸í„°ë“¤..
+	float			m_fSpeed1;			// ìœ ì† : ì´ˆë‹¹ vì¢Œí‘œì˜ ë³€í™”ëŸ‰
+	float			m_fSpeed2;			// ìœ ì† : ì´ˆë‹¹ v2ì¢Œí‘œì˜ ë³€í™”ëŸ‰
+	float			m_fMeterPerU;		// Uì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	float			m_fMeterPerV;		// Vì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	float			m_fMeterPerU2;		// U2ì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	float			m_fMeterPerV2;		// V2ì¢Œí‘œ 1.0ì— í•´ë‹¹í•˜ëŠ” ê°•ì˜ ê¸¸ì´
+	float			m_fAnimTexFPS;		// AnimTextureì˜ ì´ˆë‹¹ frame ìˆ˜;
+	DWORD			m_dwAlphaFactor;	// ê°•ì„ íˆ¬ëª…í•˜ê²Œ í•˜ê¸° ìœ„í•œ ì•ŒíŒŒê°’
 
 // Operations
 public:
@@ -72,11 +72,11 @@ public:
 	virtual bool	Load(HANDLE hFile);
 	virtual bool	Save(HANDLE hFile);
 	void			Render();
-	void			RenderVertexPoint();	// Àßº¸ÀÌ°Ô Á¡¸¸ ´Ù½Ã ±×¸®±â
+	void			RenderVertexPoint();	// ì˜ë³´ì´ê²Œ ì ë§Œ ë‹¤ì‹œ ê·¸ë¦¬ê¸°
 
 	int				AddVertex(__Vector3& vPos1, __Vector3& vPos2, __Vector3& vPos3, __Vector3& vPos4);
 	int				AddVertex();
-	int				DeleteVertex(int iIndex);	// ½ÖÀ¸·Î Áö¿ì°í µÚ¿¡ ÀÖ´Â °ÍµéÀ» ¾ÕÀ¸·Î µÎ°³¾¿ ÀÌµ¿
+	int				DeleteVertex(int iIndex);	// ìŒìœ¼ë¡œ ì§€ìš°ê³  ë’¤ì— ìˆëŠ” ê²ƒë“¤ì„ ì•ìœ¼ë¡œ ë‘ê°œì”© ì´ë™
 	__VertexXyzT2*	GetVertex(int iIndex) {if (iIndex<0 || iIndex>=m_iVC) return NULL; return m_pVertices+iIndex;}
 	__Vector3		GetCenter();
 

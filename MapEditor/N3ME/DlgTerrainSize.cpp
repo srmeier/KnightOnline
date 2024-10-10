@@ -1,4 +1,4 @@
-// DlgTerrainSize.cpp : implementation file
+﻿// DlgTerrainSize.cpp : implementation file
 //
 
 #include "stdafx.h"

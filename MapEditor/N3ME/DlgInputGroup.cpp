@@ -1,4 +1,4 @@
-// DlgInputGroup.cpp : implementation file
+﻿// DlgInputGroup.cpp : implementation file
 //
 
 #include "stdafx.h"

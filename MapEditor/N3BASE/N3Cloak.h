@@ -1,4 +1,4 @@
-// N3Cloak.h: interface for the CN3Cloak class.
+﻿// N3Cloak.h: interface for the CN3Cloak class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,7 @@
 
 #define CLOAK_MAX_WIDTH		7
 #define CLOAK_MAX_HEIGHT	7
-#define CLOAK_SKIP_LINE		2	// ���信�� ��Ŀ� ���ؽ��� �� �ִ� ���μ�. �̺κ��� �̵��� ����. ok?
+#define CLOAK_SKIP_LINE		2	// 망토에서 장식용 버텍스가 들어가 있는 라인수. 이부분은 이동이 없다. ok?
 
 enum e_Cloak_AnchorMovePattern {AMP_NONE=0, AMP_YAWCCW, AMP_YAWCW, AMP_MOVEX, AMP_MOVEY, AMP_MOVEZ, AMP_MOVEXZ, AMP_MOVEXZ2};
 
@@ -76,8 +76,8 @@ protected:
 	
 	
 	__Particle			*m_pParticle;	
-	D3DXVECTOR3			m_GravityForce;		// �߷�(.y)�� �׻��־�� ������ �Ͼ�� �ʴ´�..
-	D3DXVECTOR3			m_Force;			// �ܺο��� �������� ��.
+	D3DXVECTOR3			m_GravityForce;		// 중력(.y)가 항상있어야 변형이 일어나지 않는다..
+	D3DXVECTOR3			m_Force;			// 외부에서 가해지는 힘.
 	
 
 	void				UpdateLocalForce();	

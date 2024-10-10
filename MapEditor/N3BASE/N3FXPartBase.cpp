@@ -1,4 +1,4 @@
-// N3FXPartBase.cpp: implementation of the CN3EffectPartBase class.
+ï»¿// N3FXPartBase.cpp: implementation of the CN3EffectPartBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -63,16 +63,16 @@ CN3FXPartBase::CN3FXPartBase()
 /*
 const DWORD RF_NOTHING			= 0x0;
 const DWORD RF_ALPHABLENDING	= 0x1;		// Alpha blending
-const DWORD RF_NOTUSEFOG		= 0x2;		// ¾È°³ ¹«½Ã
-const DWORD RF_DOUBLESIDED		= 0x4;		// ¾ç¸é - D3DCULL_NONE
-const DWORD RF_BOARD_Y			= 0x8;		// Y ÃàÀ¸·Î ÇØ¼­.. Ä«¸Ş¶ó¸¦ º»´Ù.
-const DWORD RF_POINTSAMPLING	= 0x10;		// MipMap ¿¡¼­.. PointSampling À¸·Î ÇÑ´Ù..
-const DWORD RF_WINDY			= 0x20;		// ¹Ù¶÷¿¡ ³¯¸°´Ù.. ¹Ù¶÷ÀÇ °ªÀº CN3Base::s_vWindFactor ¸¦ ÂüÁ¶ ÇÑ´Ù..
+const DWORD RF_NOTUSEFOG		= 0x2;		// ì•ˆê°œ ë¬´ì‹œ
+const DWORD RF_DOUBLESIDED		= 0x4;		// ì–‘ë©´ - D3DCULL_NONE
+const DWORD RF_BOARD_Y			= 0x8;		// Y ì¶•ìœ¼ë¡œ í•´ì„œ.. ì¹´ë©”ë¼ë¥¼ ë³¸ë‹¤.
+const DWORD RF_POINTSAMPLING	= 0x10;		// MipMap ì—ì„œ.. PointSampling ìœ¼ë¡œ í•œë‹¤..
+const DWORD RF_WINDY			= 0x20;		// ë°”ëŒì— ë‚ ë¦°ë‹¤.. ë°”ëŒì˜ ê°’ì€ CN3Base::s_vWindFactor ë¥¼ ì°¸ì¡° í•œë‹¤..
 const DWORD RF_NOTUSELIGHT		= 0x40;		// Light Off
-const DWORD RF_DIFFUSEALPHA		= 0x80;		// Diffuse °ªÀ» °®°í Åõ¸íÇÏ°Ô Alpha blending
-const DWORD RF_NOTZWRITE		= 0x100;	// ZBuffer ¿¡ ¾È¾´´Ù.
-const DWORD RF_UV_CLAMP			= 0x200;	// texture UVÀû¿ëÀ» Clamp·Î ÇÑ´Ù..default´Â wrapÀÌ´Ù..
-const DWORD RF_NOTZBUFFER		= 0x400;	// ZBuffer ¹«½Ã.
+const DWORD RF_DIFFUSEALPHA		= 0x80;		// Diffuse ê°’ì„ ê°–ê³  íˆ¬ëª…í•˜ê²Œ Alpha blending
+const DWORD RF_NOTZWRITE		= 0x100;	// ZBuffer ì— ì•ˆì“´ë‹¤.
+const DWORD RF_UV_CLAMP			= 0x200;	// texture UVì ìš©ì„ Clampë¡œ í•œë‹¤..defaultëŠ” wrapì´ë‹¤..
+const DWORD RF_NOTZBUFFER		= 0x400;	// ZBuffer ë¬´ì‹œ.
 */
 }
 
@@ -89,37 +89,37 @@ CN3FXPartBase::~CN3FXPartBase()
 
 //
 //	parse script...
-//	½ºÅ©¸³Æ® ÇØ¼­ & ¼ÂÆÃ.
+//	ìŠ¤í¬ë¦½íŠ¸ í•´ì„œ & ì…‹íŒ….
 //
 #ifdef _N3TOOL
 bool CN3FXPartBase::ParseScript(char* szCommand, char* szBuff0, char* szBuff1, char* szBuff2, char* szBuff3)
 {
-	//	ÀÌ¸§.
+	//	ì´ë¦„.
 	if(lstrcmpi(szCommand, "<name>")==0)
 	{
 		m_strName = szBuff0;
 		return true;
 	}
 
-	//	Å¸ÀÔ..
+	//	íƒ€ì…..
 	if(lstrcmpi(szCommand, "<type>")==0)
 	{
 		if(lstrcmpi(szBuff0, "particle")==0) m_iType = FX_PART_TYPE_PARTICLE;
 		if(lstrcmpi(szBuff0, "board")==0) m_iType = FX_PART_TYPE_BOARD;
 		if(lstrcmpi(szBuff0, "mesh")==0) m_iType = FX_PART_TYPE_MESH;
 		if(lstrcmpi(szBuff0, "ground")==0) m_iType = FX_PART_TYPE_BOTTOMBOARD;
-		//^^v ´õ ³ÖÀ»²¨ ÀÖÀ¸¸é ³Ö¾î¶ó..
+		//^^v ë” ë„£ì„êº¼ ìˆìœ¼ë©´ ë„£ì–´ë¼..
 		return true;
 	}
 
-	//	Áö¼Ó½Ã°£.(0ÀÌ¸é ¹«ÇÑ´ë...)
+	//	ì§€ì†ì‹œê°„.(0ì´ë©´ ë¬´í•œëŒ€...)
 	if(lstrcmpi(szCommand, "<life>")==0)
 	{
 		m_fLife = atof(szBuff0);
 		return true;
 	}
 
-	//	texture ÀÌ¸§°ú °³¼ö ÀĞ±â.
+	//	texture ì´ë¦„ê³¼ ê°œìˆ˜ ì½ê¸°.
 	if(lstrcmpi(szCommand, "<texture>")==0)
 	{
 		m_iNumTex = atoi(szBuff1);
@@ -147,14 +147,14 @@ bool CN3FXPartBase::ParseScript(char* szCommand, char* szBuff0, char* szBuff1, c
 		return true;
 	}
 
-	//	texture animation speed ¼³Á¤..
+	//	texture animation speed ì„¤ì •..
 	if(lstrcmpi(szCommand, "<texture_animation_speed>")==0)
 	{
 		m_fTexFPS = atof(szBuff0);
 		return true;
 	}
 
-	//	»ó´ëÀ§Ä¡...
+	//	ìƒëŒ€ìœ„ì¹˜...
 	if(lstrcmpi(szCommand, "<position0>")==0)
 	{
 		m_vPos.x = atof(szBuff0);
@@ -163,7 +163,7 @@ bool CN3FXPartBase::ParseScript(char* szCommand, char* szBuff0, char* szBuff1, c
 		return true;
 	}
 
-	//	¼Óµµ..
+	//	ì†ë„..
 	if(lstrcmpi(szCommand, "<velocity>")==0)
 	{
 		__Vector3 v;
@@ -173,7 +173,7 @@ bool CN3FXPartBase::ParseScript(char* szCommand, char* szBuff0, char* szBuff1, c
 		return true;
 	}
 
-	//	°¡¼Óµµ..
+	//	ê°€ì†ë„..
 	if(lstrcmpi(szCommand, "<acceleration>")==0)
 	{
 		__Vector3 v;
@@ -183,7 +183,7 @@ bool CN3FXPartBase::ParseScript(char* szCommand, char* szBuff0, char* szBuff1, c
 		return true;
 	}
 
-	//	È¸Àü °¢¼Óµµ..
+	//	íšŒì „ ê°ì†ë„..
 	if(lstrcmpi(szCommand, "<rot_velocity>")==0)
 	{
 		__Vector3 v;
@@ -303,7 +303,7 @@ bool CN3FXPartBase::ParseScript(char* szCommand, char* szBuff0, char* szBuff1, c
 
 //
 //	Decode Script File
-//	½ºÅ©¸³Æ® ÆÄÀÏ ÀĞ°í ÇØ¼®.(call parse script..)
+//	ìŠ¤í¬ë¦½íŠ¸ íŒŒì¼ ì½ê³  í•´ì„.(call parse script..)
 //
 #ifdef _N3TOOL
 bool CN3FXPartBase::DecodeScriptFile(const char* lpPathName)
@@ -350,7 +350,7 @@ bool CN3FXPartBase::DecodeScriptFile(const char* lpPathName)
 
 
 //
-//	init...º¯¼ö ÃÊ±âÈ­..
+//	init...ë³€ìˆ˜ ì´ˆê¸°í™”..
 //
 void CN3FXPartBase::Init()
 {
@@ -361,7 +361,7 @@ void CN3FXPartBase::Init()
 
 
 //
-//	start...ÆÄÆ® ±¸µ¿ ½ÃÀÛ...	
+//	start...íŒŒíŠ¸ êµ¬ë™ ì‹œì‘...	
 //
 void CN3FXPartBase::Start()
 {
@@ -371,9 +371,9 @@ void CN3FXPartBase::Start()
 
 //
 //	stop..
-//	ÆÄÆ® ¸ØÃã½Ãµµ...
-//	ÀÌÇÔ¼ö È£ÃâÇÑ´Ù°í ÆÄÆ®°¡ ¹Ù·Î ³¡³ª´Â°Ç ¾Æ´Ï´Ù..³¡³»´Â °úÁ¤À» ½ÃÀÛÇÏ´Â °Å´Ù..
-//	½ÇÁúÀûÀÎ ³¡¸ÎÀ½Àº tick¿¡¼­ ÇÒ²¬...^^
+//	íŒŒíŠ¸ ë©ˆì¶¤ì‹œë„...
+//	ì´í•¨ìˆ˜ í˜¸ì¶œí•œë‹¤ê³  íŒŒíŠ¸ê°€ ë°”ë¡œ ëë‚˜ëŠ”ê±´ ì•„ë‹ˆë‹¤..ëë‚´ëŠ” ê³¼ì •ì„ ì‹œì‘í•˜ëŠ” ê±°ë‹¤..
+//	ì‹¤ì§ˆì ì¸ ëë§ºìŒì€ tickì—ì„œ í• ê»„...^^
 //
 void CN3FXPartBase::Stop()
 {

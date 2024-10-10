@@ -1,4 +1,4 @@
-// Wall.cpp: implementation of the CWall class.
+﻿// Wall.cpp: implementation of the CWall class.
 //
 //////////////////////////////////////////////////////////////////////
 

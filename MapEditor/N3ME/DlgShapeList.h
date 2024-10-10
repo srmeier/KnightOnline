@@ -1,4 +1,4 @@
-#if !defined(AFX_DLGSHAPELIST_H__25FFD3FA_9331_4682_A4C0_80124277A0AB__INCLUDED_)
+ï»¿#if !defined(AFX_DLGSHAPELIST_H__25FFD3FA_9331_4682_A4C0_80124277A0AB__INCLUDED_)
 #define AFX_DLGSHAPELIST_H__25FFD3FA_9331_4682_A4C0_80124277A0AB__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -22,7 +22,7 @@ public:
 	CDlgShapeList(CWnd* pParent = NULL);   // standard constructor
 
 	CN3Scene* m_pSceneRef;
-	BOOL	m_IsSourceObj;		// Display¿ëÀÌ³Ä? (Åø¿¡¼­ ¿ÀºêÁ§Æ® ¸ñ·Ï)
+	BOOL	m_IsSourceObj;		// Displayìš©ì´ëƒ? (íˆ´ì—ì„œ ì˜¤ë¸Œì íŠ¸ ëª©ë¡)
 	CMapMng* m_pMapMng;
 
 // Dialog Data

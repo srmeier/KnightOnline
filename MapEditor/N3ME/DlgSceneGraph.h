@@ -1,4 +1,4 @@
-#if !defined(AFX_DLGSCENEGRAPH_H__4E0DD889_E442_4F9A_8FC2_0DEA6F939B62__INCLUDED_)
+ï»¿#if !defined(AFX_DLGSCENEGRAPH_H__4E0DD889_E442_4F9A_8FC2_0DEA6F939B62__INCLUDED_)
 #define AFX_DLGSCENEGRAPH_H__4E0DD889_E442_4F9A_8FC2_0DEA6F939B62__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -18,13 +18,13 @@ class CDlgSceneGraph : public CDialog
 {
 public:
 	CN3Scene* m_pSceneRef;
-	BOOL	m_IsSourceObj;		// Display¿ëÀÌ³Ä? (Åø¿¡¼­ ¿ÀºêÁ§Æ® ¸ñ·Ï)
+	BOOL	m_IsSourceObj;		// Displayìš©ì´ëƒ? (íˆ´ì—ì„œ ì˜¤ë¸Œì íŠ¸ ëª©ë¡)
 	CMapMng* m_pMapMng;
 
 	CImageList m_ImgList;
 protected:
 	void UpdateTreeItem(HTREEITEM hParent, CN3Base* pBase);
-	DWORD	m_dwFlag;	// ¸ñ·Ï¿¡ Ç¥½ÃÇÒ °ÍµéÀ» ³ªÅ¸³½ ÇÃ·¡±×
+	DWORD	m_dwFlag;	// ëª©ë¡ì— í‘œì‹œí•  ê²ƒë“¤ì„ ë‚˜íƒ€ë‚¸ í”Œë˜ê·¸
 
 public:
 	void SelectObject(HTREEITEM hItem, void* pItemData);

@@ -1,4 +1,4 @@
-// NPCPathMgr.h: interface for the CNPCPathMgr class.
+ï»¿// NPCPathMgr.h: interface for the CNPCPathMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -36,11 +36,11 @@ protected:
 	__Vector3			m_RBActVertex;
 	
 public:
-	CMapMng*				m_pRefMapMng;				// ÁöÇü ÂüÁ¶ Æ÷ÀÎÅÍ..
-	std::list<CNPCPath*>	m_pPaths;					// npc pathµé...
+	CMapMng*				m_pRefMapMng;				// ì§€í˜• ì°¸ì¡° í¬ì¸í„°..
+	std::list<CNPCPath*>	m_pPaths;					// npc pathë“¤...
 	CDlgMakeNPCPath*		m_pDlgMakePath;				// path make dialog..
-	bool					m_bActive;					// ÀÌ±â´ÉÀÌ È°¼ºÈ­ µÇ¾î ÀÖ´ÂÁö...1:È°¼ºÈ­, 0:ºñÈ°¼ºÈ­..
-	CNPCPath*				m_pCurrPath;					// ÇöÀç ¸¸µé°í ÀÖ´Â ±æ..or ¸¸µé·Á°í ÁØºñÇÑ ¹öÆÛ..
+	bool					m_bActive;					// ì´ê¸°ëŠ¥ì´ í™œì„±í™” ë˜ì–´ ìˆëŠ”ì§€...1:í™œì„±í™”, 0:ë¹„í™œì„±í™”..
+	CNPCPath*				m_pCurrPath;					// í˜„ì¬ ë§Œë“¤ê³  ìˆëŠ” ê¸¸..or ë§Œë“¤ë ¤ê³  ì¤€ë¹„í•œ ë²„í¼..
 
 	short**					m_pppRefEvent;
 	bool					m_bRenderMovableRegion;

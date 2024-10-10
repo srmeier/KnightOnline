@@ -1,4 +1,4 @@
-#if !defined(_MY_MACRO_H_INCLUDED_)
+﻿#if !defined(_MY_MACRO_H_INCLUDED_)
 #define _MY_MACRO_H_INCLUDED_
 
 #define _IsKeyDown(exp) (GetAsyncKeyState(exp) & 0xff00)

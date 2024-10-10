@@ -1,4 +1,4 @@
-// SoundCell.h: interface for the CSoundCell class.
+﻿// SoundCell.h: interface for the CSoundCell class.
 //
 //////////////////////////////////////////////////////////////////////
 

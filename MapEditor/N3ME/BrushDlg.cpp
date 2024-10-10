@@ -1,4 +1,4 @@
-// BrushDlg.cpp : implementation file
+﻿// BrushDlg.cpp : implementation file
 //
 
 #include "stdafx.h"

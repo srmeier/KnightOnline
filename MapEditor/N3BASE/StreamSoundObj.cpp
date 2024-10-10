@@ -1,10 +1,10 @@
-//////////////////////////////////////////////////
+ï»¿//////////////////////////////////////////////////
 //	Commented By : Lynus
-//	Commented On 2001-04-12 ¿ÀÈÄ 8:42:02
+//	Commented On 2001-04-12 ì˜¤í›„ 8:42:02
 //
 //	CStreamSoundObj class (StreamSoundObj.h)
 //
-//	End Of Comment (By Lynus On 2001-04-12 ¿ÀÈÄ 8:42:02 )
+//	End Of Comment (By Lynus On 2001-04-12 ì˜¤í›„ 8:42:02 )
 //////////////////////////////////////////////////
 #include "StdAfxBase.h"
 #include "N3SndEng.h"
@@ -187,14 +187,14 @@ void CStreamSoundObj::RealPlay()
 			{
 				if(m_bIsLoop==false)
 				{
-					//tick¿¡ ¾îÄÉ Àû¿ëÇÒ °ÍÀÎ°¡..
+					//tickì— ì–´ì¼€ ì ìš©í•  ê²ƒì¸ê°€..
 					m_PastTime = m_PlayTime;
 					Stop();
 					return;
 				}
 				else if(m_bIsLoop==true)
 				{
-					//tick¿¡ ¾îÄÉ Àû¿ëÇÒ °ÍÀÎ°¡..
+					//tickì— ì–´ì¼€ ì ìš©í•  ê²ƒì¸ê°€..
 					//Stop();
 					//m_pDSBuff->Stop();
 					Play();
@@ -239,7 +239,7 @@ void CStreamSoundObj::Release()
 
 
 //
-//	À½¾ÇÀÌ ÇÃ·¹ÀÌµÇ°í ÀÖÀ»¶§ streamming½ÃÅ°±â..
+//	ìŒì•…ì´ í”Œë ˆì´ë˜ê³  ìžˆì„ë•Œ streammingì‹œí‚¤ê¸°..
 //
 void CStreamSoundObj::Tick()
 {
@@ -288,7 +288,7 @@ void CStreamSoundObj::Tick()
 		}
 		else
 		{
-			//º¼·ý Á¡Á¡ ÀÛ°Ô....
+			//ë³¼ë¥¨ ì ì  ìž‘ê²Œ....
 			int vol = 0;
 			if(m_fFadeOutTime>0.0f)  vol = (((m_fFadeOutTime - m_fTmpSecPerFrm)/m_fFadeOutTime)*(float)m_iMaxVolume);
 			SetVolume(vol);
@@ -299,7 +299,7 @@ void CStreamSoundObj::Tick()
 
 /*
 //
-// ¶È°°´Ù.
+// ë˜‘ê°™ë‹¤.
 //
 void CStreamSoundObj::Play(float delay, float fFadeInTime)
 {
@@ -312,7 +312,7 @@ void CStreamSoundObj::Play(float delay, float fFadeInTime)
 
 
 //
-// ¶È°°´Ù.
+// ë˜‘ê°™ë‹¤.
 //
 void CStreamSoundObj::Stop(float fFadeOutTime)
 {

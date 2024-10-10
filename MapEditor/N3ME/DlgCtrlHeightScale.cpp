@@ -1,4 +1,4 @@
-// DlgCtrlHeightScale.cpp : implementation file
+﻿// DlgCtrlHeightScale.cpp : implementation file
 //
 
 #include "stdafx.h"

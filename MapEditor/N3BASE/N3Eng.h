@@ -1,4 +1,4 @@
-// N3Eng.h: interface for the CN3Eng class.
+ï»¿// N3Eng.h: interface for the CN3Eng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -19,21 +19,21 @@ public:
 	{
 		char	szDeviceName[128];
 		char	szDeviceDesc[128];
-		int		nAdapter; // ¸î¹øÂ° ±×·¡ÇÈ Ä«µåÀÎÁö.
-		int		nDevice; // ¸î¹øÂ° ÀåÄ¡ÀÎÁö.
+		int		nAdapter; // ëª‡ë²ˆì§¸ ê·¸ë˜í”½ ì¹´ë“œì¸ì§€.
+		int		nDevice; // ëª‡ë²ˆì§¸ ì¥ì¹˜ì¸ì§€.
 		
-		D3DDEVTYPE		DevType; // ÇÏµå¿ş¾î °¡¼ÓÀÎÁö.
-		int				nModeCount; // µğ½ºÇÃ·¹ÀÌ ¸ğµå °¹¼ö
-		D3DDISPLAYMODE* pModes; // µğ½ºÇÃ·¹ÀÌ ¸ğµå
+		D3DDEVTYPE		DevType; // í•˜ë“œì›¨ì–´ ê°€ì†ì¸ì§€.
+		int				nModeCount; // ë””ìŠ¤í”Œë ˆì´ ëª¨ë“œ ê°¯ìˆ˜
+		D3DDISPLAYMODE* pModes; // ë””ìŠ¤í”Œë ˆì´ ëª¨ë“œ
 	} __D3DDevInfo;
 
 	LPDIRECT3D8			m_lpD3D;
 	LPDIRECTDRAW		m_lpDD;
 
 protected:
-	int		m_nModeActive; // ÇöÀç ¼±ÅÃµÈ Mode
-	int		m_nAdapterCount; // ±×·¡ÇÈ Ä«µå °¹¼ö
-	__D3DDEV_INFO m_DeviceInfo; // Device Á¤º¸	
+	int		m_nModeActive; // í˜„ì¬ ì„ íƒëœ Mode
+	int		m_nAdapterCount; // ê·¸ë˜í”½ ì¹´ë“œ ê°¯ìˆ˜
+	__D3DDEV_INFO m_DeviceInfo; // Device ì •ë³´	
 	
 public:
 	

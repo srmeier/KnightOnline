@@ -1,4 +1,4 @@
-// EventCell.h: interface for the CEventCell class.
+﻿// EventCell.h: interface for the CEventCell class.
 //
 //////////////////////////////////////////////////////////////////////
 

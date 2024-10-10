@@ -1,4 +1,4 @@
-// N3ShapeEx.cpp: implementation of the CN3ShapeEx class.
+Ôªø// N3ShapeEx.cpp: implementation of the CN3ShapeEx class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,24 +24,24 @@ bool CN3SPartEx::Load(HANDLE hFile)
 
 	ReadFile(hFile, &(m_ActionInfo.dwActionFlag), sizeof(m_ActionInfo.dwActionFlag), &dwRWC, NULL);
 	int iStateCount = 0;
-	if (m_ActionInfo.dwActionFlag) ReadFile(hFile, &iStateCount, sizeof(iStateCount), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+	if (m_ActionInfo.dwActionFlag) ReadFile(hFile, &iStateCount, sizeof(iStateCount), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	if (AF_POS & m_ActionInfo.dwActionFlag)
 	{
 		m_ActionInfo.ActionStateInfos_Pos.assign(iStateCount);
 		for (int i=0; i<iStateCount; ++i)
-			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Pos[i]), sizeof(__Vector3), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Pos[i]), sizeof(__Vector3), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	}
 	if (AF_SCALE & m_ActionInfo.dwActionFlag)
 	{
 		m_ActionInfo.ActionStateInfos_Scale.assign(iStateCount);
 		for (int i=0; i<iStateCount; ++i)
-			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Scale[i]), sizeof(__Vector3), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Scale[i]), sizeof(__Vector3), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	}
 	if (AF_ROTATION & m_ActionInfo.dwActionFlag)
 	{
 		m_ActionInfo.ActionStateInfos_Rot.assign(iStateCount);
 		for (int i=0; i<iStateCount; ++i)
-			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Rot[i]), sizeof(__Quaternion), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Rot[i]), sizeof(__Quaternion), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	}
 
 	return true;
@@ -106,28 +106,28 @@ bool CN3ShapeEx::Load(HANDLE hFile)
 	if (false == CN3Shape::Load(hFile)) return false;
 
 	DWORD dwRWC;
-	ReadFile(hFile, &m_iActionStateCount, sizeof(m_iActionStateCount), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+	ReadFile(hFile, &m_iActionStateCount, sizeof(m_iActionStateCount), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 
 	ReadFile(hFile, &(m_ActionInfo.dwActionFlag), sizeof(m_ActionInfo.dwActionFlag), &dwRWC, NULL);
 	int iStateCount = 0;
-	if (m_ActionInfo.dwActionFlag) ReadFile(hFile, &iStateCount, sizeof(iStateCount), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+	if (m_ActionInfo.dwActionFlag) ReadFile(hFile, &iStateCount, sizeof(iStateCount), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	if (AF_POS & m_ActionInfo.dwActionFlag)
 	{
 		m_ActionInfo.ActionStateInfos_Pos.assign(iStateCount);
 		for (int i=0; i<iStateCount; ++i)
-			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Pos[i]), sizeof(__Vector3), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Pos[i]), sizeof(__Vector3), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	}
 	if (AF_SCALE & m_ActionInfo.dwActionFlag)
 	{
 		m_ActionInfo.ActionStateInfos_Scale.assign(iStateCount);
 		for (int i=0; i<iStateCount; ++i)
-			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Scale[i]), sizeof(__Vector3), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Scale[i]), sizeof(__Vector3), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	}
 	if (AF_ROTATION & m_ActionInfo.dwActionFlag)
 	{
 		m_ActionInfo.ActionStateInfos_Rot.assign(iStateCount);
 		for (int i=0; i<iStateCount; ++i)
-			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Rot[i]), sizeof(__Quaternion), &dwRWC, NULL);	// ªÛ≈¬ ¡§∫∏¿« ∞πºˆ
+			ReadFile(hFile, &(m_ActionInfo.ActionStateInfos_Rot[i]), sizeof(__Quaternion), &dwRWC, NULL);	// ÏÉÅÌÉú Ï†ïÎ≥¥Ïùò Í∞ØÏàò
 	}
 
 	return true;
@@ -136,10 +136,10 @@ bool CN3ShapeEx::Load(HANDLE hFile)
 void CN3ShapeEx::ReCalcMatrix()
 {
 /*
-	// m_Matrix ¥ŸΩ√ ∞ËªÍ..
-	CN3Transform::ReCalcMatrix(); // Transform Matrix ∏¶ ∞ËªÍ «ÿ¡÷∞Ì..
+	// m_Matrix Îã§Ïãú Í≥ÑÏÇ∞..
+	CN3Transform::ReCalcMatrix(); // Transform Matrix Î•º Í≥ÑÏÇ∞ Ìï¥Ï£ºÍ≥†..
 
-	// ∞¢ ∆ƒ∆Æ¿« ∏≈∆Æ∏ØΩ∫∏¶ ¥ŸΩ√ ∞ËªÍ.
+	// Í∞Å ÌååÌä∏Ïùò Îß§Ìä∏Î¶≠Ïä§Î•º Îã§Ïãú Í≥ÑÏÇ∞.
 	int iPC = m_Parts.size();
 	for(int i = 0; i < iPC; i++)
 	{
@@ -148,12 +148,12 @@ void CN3ShapeEx::ReCalcMatrix()
 			__ActionPart* pModPart = m_pMatchPart2ActionPart[i];
 			// Scale
 			m_Parts[i]->m_Matrix.Scale(pModPart->CurStateInfo.vScale);
-			// »∏¿¸
+			// ÌöåÏ†Ñ
 			static __Matrix44 mtxRot;
 			D3DXMatrixRotationQuaternion(&mtxRot, &(pModPart->CurStateInfo.qRot));
 			m_Parts[i]->m_Matrix *= mtxRot;
 
-			// ¿ßƒ°
+			// ÏúÑÏπò
 			m_Parts[i]->m_Matrix.PosSet(m_Parts[i]->m_vPivot + pModPart->CurStateInfo.vPos);
 			m_Parts[i]->m_Matrix *= m_Matrix;
 		}

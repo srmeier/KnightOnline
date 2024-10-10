@@ -1,4 +1,4 @@
-// N3Texture7.h: interface for the CN3Texture class.
+ï»¿// N3Texture7.h: interface for the CN3Texture class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,10 +17,10 @@ class CN3Texture : public CN3BaseFileAccess
 public:
 	typedef struct __DXT_HEADER
 	{
-		char szID[4]; // "NTF"¼ıÀÚ - Noah Texture File Ver. ?.0
+		char szID[4]; // "NTF"ìˆ«ì - Noah Texture File Ver. ?.0
 		int nWidth;
 		int nHeight;
-		D3DFORMAT Format; // 0 - ¾ĞÃà ¾ÈÇÔ 1 ~ 5 : D3DFMT_DXT1 ~ D3DFMT_DXT5
+		D3DFORMAT Format; // 0 - ì••ì¶• ì•ˆí•¨ 1 ~ 5 : D3DFMT_DXT1 ~ D3DFMT_DXT5
 		BOOL bMipMap; // Mip Map ??
 	} __DxtHeader;
 
@@ -35,13 +35,13 @@ public:
 	bool				SkipFileHandle(HANDLE hFile);
 
 #ifdef _N3TOOL
-	bool				GenerateMipMap(LPDIRECT3DSURFACE8 lpSurf = NULL); // NULL ÀÌ¸é 0 ·¹º§ÀÇ ¼­ÇÇ½º·ÎºÎÅÍ »ı¼º..
+	bool				GenerateMipMap(LPDIRECT3DSURFACE8 lpSurf = NULL); // NULL ì´ë©´ 0 ë ˆë²¨ì˜ ì„œí”¼ìŠ¤ë¡œë¶€í„° ìƒì„±..
 	bool				Convert(D3DFORMAT Format, int nWidth = 0, int nHeight = 0, BOOL bGenerateMipMap = TRUE);
 //#ifdef _N3TOOL
-	bool				SaveToFile(); // ÇöÀç ÆÄÀÏ ÀÌ¸§´ë·Î ÀúÀå.
-	bool				SaveToFile(const std::string& szFileName); // »õÀÌ¸§À¸·Î ÀúÀå.
+	bool				SaveToFile(); // í˜„ì¬ íŒŒì¼ ì´ë¦„ëŒ€ë¡œ ì €ì¥.
+	bool				SaveToFile(const std::string& szFileName); // ìƒˆì´ë¦„ìœ¼ë¡œ ì €ì¥.
 	bool				Save(HANDLE hFile);
-	bool				SaveToBitmapFile(const std::string& szFN); // 24ºñÆ® ºñÆ®¸Ê ÆÄÀÏ·Î ÀúÀå..
+	bool				SaveToBitmapFile(const std::string& szFN); // 24ë¹„íŠ¸ ë¹„íŠ¸ë§µ íŒŒì¼ë¡œ ì €ì¥..
 	bool				CreateFromSurface(LPDIRECT3DSURFACE8 lpSurf, D3DFORMAT Format, BOOL bGenerateMipMap);
 #endif // end of _N3TOOL
 
@@ -50,7 +50,7 @@ public:
 	D3DFORMAT			PixelFormat() { return m_Header.Format; }
 	int					MipMapCount() { if(NULL == m_lpTexture) return 0; else return m_lpTexture->GetLevelCount(); }
 	
-	bool				Create(int nWidth, int nHeight, D3DFORMAT Format, BOOL bGenerateMipMap); // ÀåÄ¡¿¡ ¸Â°Ô »ı¼º
+	bool				Create(int nWidth, int nHeight, D3DFORMAT Format, BOOL bGenerateMipMap); // ì¥ì¹˜ì— ë§ê²Œ ìƒì„±
 	LPDIRECT3DTEXTURE8	Get() { return m_lpTexture; }
 	operator LPDIRECT3DTEXTURE8 () { return m_lpTexture; }
 	

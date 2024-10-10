@@ -1,4 +1,4 @@
-// DlgSetDTex.cpp : implementation file
+ï»¿// DlgSetDTex.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -119,7 +119,7 @@ BOOL CDlgSetDTex::OnInitDialog()
 	CWnd* pView = GetDlgItem(IDC_TEXTUREVIEW);
 	pView->SetWindowPos(NULL, 0, 0, (int)m_fTexSurfaceSize, (int)m_fTexSurfaceSize, SWP_DRAWFRAME|SWP_NOMOVE);
 
-	//	texture ±×¸®´Â ¹öÆÛ..
+	//	texture ê·¸ë¦¬ëŠ” ë²„í¼..
 	pFrm->m_pEng->s_lpD3DDev->CreateVertexBuffer( 4*sizeof(__VertexTransformed), 0, FVF_TRANSFORMED, D3DPOOL_MANAGED, &m_pTexVB );
 	
 	__VertexTransformed* pVertices = NULL;
@@ -131,7 +131,7 @@ BOOL CDlgSetDTex::OnInitDialog()
 	pVertices[3].Set(0.0f,						m_fTexSurfaceSize-1.0f,	0.1f, 0.5f, 0x00000000, 1.0f/DTexSize,		DTexSize/DTexSize);
 	m_pTexVB->Unlock();
 
-	//	Grid ±×¸®´Â ¹öÆÛ..
+	//	Grid ê·¸ë¦¬ëŠ” ë²„í¼..
 	pFrm->m_pEng->s_lpD3DDev->CreateVertexBuffer( ((NUM_DTEXTILE-1)<<2)*sizeof(__VertexTransformedColor), 0, FVF_TRANSFORMEDCOLOR, D3DPOOL_MANAGED, &m_pGridVB );
 
 	__VertexTransformedColor* pVerticesC = NULL;
@@ -252,7 +252,7 @@ void CDlgSetDTex::OnSelchangeComboFilelist()
 	int index;
 	index = m_FileList.GetCurSel();
 	Invalidate(FALSE);
-	//µý°Å ³Ö¾î¾ß µÅ...
+	//ë”´ê±° ë„£ì–´ì•¼ ë¼...
 }
 
 
@@ -475,7 +475,7 @@ void CDlgSetDTex::OnBtnDelgroup()
 		}
 		pDTexGroupMng->DelGroup(DelGroupID);
 
-		//¸ÊÁ¤º¸µµ °»½ÅÇØ¾ß°ÚÁö? ¹«È¿ÇÑ ±×·ìÁ¤º¸´Ï±î Áö¿ö¹ö·Á¾ßÁö....
+		//ë§µì •ë³´ë„ ê°±ì‹ í•´ì•¼ê² ì§€? ë¬´íš¨í•œ ê·¸ë£¹ì •ë³´ë‹ˆê¹Œ ì§€ì›Œë²„ë ¤ì•¼ì§€....
 		CLyTerrain* pRefTerrain = pFrm->GetMapMng()->GetTerrain();
 		if(pRefTerrain)
 		{
@@ -486,7 +486,7 @@ void CDlgSetDTex::OnBtnDelgroup()
 				{
 					int TargetID;
 					
-					//2¹ø...
+					//2ë²ˆ...
 					TargetID = pRefTerrain->m_ppMapData[ix][iz].DTexInfo2.Attr.Group;
 					if(TargetID==DelGroupID)
 					{
@@ -496,7 +496,7 @@ void CDlgSetDTex::OnBtnDelgroup()
 						pRefTerrain->m_ppMapData[ix][iz].DTexInfo2.TexIdx.TexID = -1;
 					}
 
-					//1¹ø...
+					//1ë²ˆ...
 					TargetID = pRefTerrain->m_ppMapData[ix][iz].DTexInfo1.Attr.Group;
 					if(TargetID==DelGroupID)
 					{
@@ -562,7 +562,7 @@ void CDlgSetDTex::OnBtnDeldtex()
 	int index = m_FileList.GetCurSel();
 	int DelDTexID;
 
-	//dtexÁö¿ì±â...^^
+	//dtexì§€ìš°ê¸°...^^
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	CDTexGroupMng* pDTexGroupMng = pFrm->GetDTexGroupMng();
 
@@ -579,7 +579,7 @@ void CDlgSetDTex::OnBtnDeldtex()
 	if(index==count-1) m_FileList.SetCurSel(index-1);
 	else m_FileList.SetCurSel(index);
 
-	//¸ÊÁ¤º¸µµ °»½ÅÇØ¾ß°ÚÁö? ¾ø´Â ÅØ½ºÃÄÁ¤º¸´Â °°Àº ±×·ìÀÇ ´Ù¸¥ ÅØ½ºÃÄ·Î °»½Å..
+	//ë§µì •ë³´ë„ ê°±ì‹ í•´ì•¼ê² ì§€? ì—†ëŠ” í…ìŠ¤ì³ì •ë³´ëŠ” ê°™ì€ ê·¸ë£¹ì˜ ë‹¤ë¥¸ í…ìŠ¤ì³ë¡œ ê°±ì‹ ..
 	CLyTerrain* pRefTerrain = pFrm->GetMapMng()->GetTerrain();
 	if(pRefTerrain)
 	{
@@ -592,7 +592,7 @@ void CDlgSetDTex::OnBtnDeldtex()
 				int Group,Attr;
 				DTEXTILEATTR DTexTileAttr;
 
-				//2¹ø...
+				//2ë²ˆ...
 				TargetID = pRefTerrain->m_ppMapData[ix][iz].DTexInfo2.TexIdx.TexID;
 				if(TargetID==DelDTexID)
 				{
@@ -607,7 +607,7 @@ void CDlgSetDTex::OnBtnDeldtex()
 					}
 				}
 
-				//1¹ø...
+				//1ë²ˆ...
 				TargetID = pRefTerrain->m_ppMapData[ix][iz].DTexInfo1.TexIdx.TexID;
 				if(TargetID==DelDTexID)
 				{

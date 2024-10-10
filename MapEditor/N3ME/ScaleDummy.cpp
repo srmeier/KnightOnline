@@ -1,4 +1,4 @@
-// ScaleDummy.cpp: implementation of the CScaleDummy class.
+﻿// ScaleDummy.cpp: implementation of the CScaleDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 

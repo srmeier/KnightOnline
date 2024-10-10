@@ -1,4 +1,4 @@
-// MapMng.h: interface for the CMapMng class.
+ï»¿// MapMng.h: interface for the CMapMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -72,16 +72,16 @@ public:
 	CN3Scene*       GetSceneOutput() { return m_pSceneOutput;}
 	D3DSHADEMODE	m_ShadeMode;
 	D3DFILLMODE		m_FillMode;
-	bool			m_bViewWireFrame; // ¼±ÅÃµÈ ¿ÀºêÁ§Æ®¸¦ ¿ÍÀÌ¾î ÇÁ·¹ÀÓÀ¸·Î º¸°Ô ÇÑ´Ù..
-	bool			m_bRenderAxisAndGrid;			// Ãà°ú ±×¸®µå¸¦ ±×¸±Áö ¾È±×¸±Áö °áÁ¤..
+	bool			m_bViewWireFrame; // ì„ íƒëœ ì˜¤ë¸Œì íŠ¸ë¥¼ ì™€ì´ì–´ í”„ë ˆì„ìœ¼ë¡œ ë³´ê²Œ í•œë‹¤..
+	bool			m_bRenderAxisAndGrid;			// ì¶•ê³¼ ê·¸ë¦¬ë“œë¥¼ ê·¸ë¦´ì§€ ì•ˆê·¸ë¦´ì§€ ê²°ì •..
 
-	int				m_iZoneID; // Á¸ ¾ÆÀÌµğ...
+	int				m_iZoneID; // ì¡´ ì•„ì´ë””...
 	bool			m_bHideObj;
-	bool			m_bLoadingComplete; // ÀÌ°Ô ÂüÀÌ¾î¾ß¸¸ ·»´õ¸µÀ» ÇÑ´Ù..
+	bool			m_bLoadingComplete; // ì´ê²Œ ì°¸ì´ì–´ì•¼ë§Œ ë Œë”ë§ì„ í•œë‹¤..
 
-	CMainFrame*			m_pMainFrm;						// Main À©µµ¿ì
+	CMainFrame*			m_pMainFrm;						// Main ìœˆë„ìš°
 	CSowSeedMng			m_SowSeedMng;
-	CDlgShapeList*		m_pDlgSourceList;			// Object ¸ñ·ÏÀ» º¸¿©ÁÙ ´ÙÀÌ¾Ë·Î±×
+	CDlgShapeList*		m_pDlgSourceList;			// Object ëª©ë¡ì„ ë³´ì—¬ì¤„ ë‹¤ì´ì•Œë¡œê·¸
 	CN3Transform*		GetSelSourceObj(){ return m_pSelSourceObj;}
 
 protected:
@@ -91,40 +91,40 @@ protected:
 	CSoundMgr*			m_pSoundMgr;
 	CWarpMgr*			m_pWarpMgr;
 	CRegenUser*			m_pRegenUser;
-	CEventMgr*			m_pEventMgr;				//Á¸ ÀÌº¥Æ® °ü¸®...
-	CWallMgr*			m_pWall;					//Á¸ ¿Ü°¢ °¡Áö ¸øÇÏ´Â º®°ü¸®..
-	CNPCPathMgr*		m_pNPCPath;					// NPC ±æ ¸¸µå´Â Å¬·¡½º..
-	CLyTerrain*			m_pTerrain;						// ÁöÇü
-	CN3Scene*			m_pSceneSource;					// source object ¸ñ·Ï¿¡ º¸¿©ÁÙ °ÍµéÀ» ´ãÀº Scene
-	CN3Scene*			m_pSceneOutput;					// ¸Ê¿¡ ¹èÄ¡ÇÑ Object¸¦ Æ÷ÇÔÇÑ Scene
+	CEventMgr*			m_pEventMgr;				//ì¡´ ì´ë²¤íŠ¸ ê´€ë¦¬...
+	CWallMgr*			m_pWall;					//ì¡´ ì™¸ê° ê°€ì§€ ëª»í•˜ëŠ” ë²½ê´€ë¦¬..
+	CNPCPathMgr*		m_pNPCPath;					// NPC ê¸¸ ë§Œë“œëŠ” í´ë˜ìŠ¤..
+	CLyTerrain*			m_pTerrain;						// ì§€í˜•
+	CN3Scene*			m_pSceneSource;					// source object ëª©ë¡ì— ë³´ì—¬ì¤„ ê²ƒë“¤ì„ ë‹´ì€ Scene
+	CN3Scene*			m_pSceneOutput;					// ë§µì— ë°°ì¹˜í•œ Objectë¥¼ í¬í•¨í•œ Scene
 	
-	//CDlgSceneGraph*		m_pDlgSourceList;			// Object ¸ñ·ÏÀ» º¸¿©ÁÙ ´ÙÀÌ¾Ë·Î±×
-	//CDlgSceneGraph*		m_pDlgOutputList;			// ¸Ê¿¡ ¹èÄ¡ÇÑ Object¸¦ º¸¿©ÁÙ ´ÙÀÌ¾Ë·Î±×
-	CDlgShapeList*		m_pDlgOutputList;			// ¸Ê¿¡ ¹èÄ¡ÇÑ Object¸¦ º¸¿©ÁÙ ´ÙÀÌ¾Ë·Î±×
-	CDlgBase*			m_pDlgBase;						// °´Ã¼ µî·ÏÁ¤º¸ ÆíÁı ´ëÈ­»óÀÚ..
-	CBrushDlg*			m_pBrushDlg;					// ÁöÇü ÆíÁı ºê·¯½¬ ¿É¼ÇÁöÁ¤ÇØÁÖ´Â ´ëÈ­»óÀÚ
+	//CDlgSceneGraph*		m_pDlgSourceList;			// Object ëª©ë¡ì„ ë³´ì—¬ì¤„ ë‹¤ì´ì•Œë¡œê·¸
+	//CDlgSceneGraph*		m_pDlgOutputList;			// ë§µì— ë°°ì¹˜í•œ Objectë¥¼ ë³´ì—¬ì¤„ ë‹¤ì´ì•Œë¡œê·¸
+	CDlgShapeList*		m_pDlgOutputList;			// ë§µì— ë°°ì¹˜í•œ Objectë¥¼ ë³´ì—¬ì¤„ ë‹¤ì´ì•Œë¡œê·¸
+	CDlgBase*			m_pDlgBase;						// ê°ì²´ ë“±ë¡ì •ë³´ í¸ì§‘ ëŒ€í™”ìƒì..
+	CBrushDlg*			m_pBrushDlg;					// ì§€í˜• í¸ì§‘ ë¸ŒëŸ¬ì‰¬ ì˜µì…˜ì§€ì •í•´ì£¼ëŠ” ëŒ€í™”ìƒì
 	
 
-	CN3Transform*		m_pSelSourceObj;				// source object ¸ñ·Ï¿¡¼­ ¼±ÅÃÇÑ °Í
-//	CTypedPtrArray<CPtrArray, CN3TransformCollision*> m_SelOutputObjArray;	// ¸Ê¿¡ ¹èÄ¡ÇÑ Object Áß ¼±ÅÃÇÑ °Íµé
-	CTypedPtrArray<CPtrArray, CN3Transform*>	m_SelOutputObjArray;	// ¸Ê¿¡ ¹èÄ¡ÇÑ Object Áß ¼±ÅÃÇÑ °Íµé
+	CN3Transform*		m_pSelSourceObj;				// source object ëª©ë¡ì—ì„œ ì„ íƒí•œ ê²ƒ
+//	CTypedPtrArray<CPtrArray, CN3TransformCollision*> m_SelOutputObjArray;	// ë§µì— ë°°ì¹˜í•œ Object ì¤‘ ì„ íƒí•œ ê²ƒë“¤
+	CTypedPtrArray<CPtrArray, CN3Transform*>	m_SelOutputObjArray;	// ë§µì— ë°°ì¹˜í•œ Object ì¤‘ ì„ íƒí•œ ê²ƒë“¤
 
-	ENUM_EDIT_STATE		m_eSelObjBackState;		//	ÀÓ½Ãº¹»ç(ctrl+c)ÀÇ »óÅÂÇ¥½Ã
-	CTypedPtrArray<CPtrArray, CN3Transform*>	m_SelOutputObjBack;	// ¸Ê¿¡ ¹èÄ¡ÇÑ Object Áß ¼±ÅÃÇÑ °Íµé °¡Áö°í ÀÖÀ½
+	ENUM_EDIT_STATE		m_eSelObjBackState;		//	ì„ì‹œë³µì‚¬(ctrl+c)ì˜ ìƒíƒœí‘œì‹œ
+	CTypedPtrArray<CPtrArray, CN3Transform*>	m_SelOutputObjBack;	// ë§µì— ë°°ì¹˜í•œ Object ì¤‘ ì„ íƒí•œ ê²ƒë“¤ ê°€ì§€ê³  ìˆìŒ
 
-	int					m_CursorMode;					// ¸¶¿ì½ºÀÇ ±â´É ¸ğµå ±¸ºĞ
-	BOOL				m_bRenderSelObj;				// source object ¸ñ·Ï¿¡¼­ ¼±ÅÃµÈ °ÍÀ» ±×¸±Áö ¾È±×¸±Áö °áÁ¤
+	int					m_CursorMode;					// ë§ˆìš°ìŠ¤ì˜ ê¸°ëŠ¥ ëª¨ë“œ êµ¬ë¶„
+	BOOL				m_bRenderSelObj;				// source object ëª©ë¡ì—ì„œ ì„ íƒëœ ê²ƒì„ ê·¸ë¦´ì§€ ì•ˆê·¸ë¦´ì§€ ê²°ì •
 
-	CTransDummy*		m_pDummy;						// ¹°Ã¼¸¦ ÀÌµ¿ È¸Àü È®´ë/Ãà¼Ò ÇÏ´Â ±â´ÉÀ» ´ã´çÇÏ´Â Å¬·¡½º
-	CPosDummy			m_PosDummy;						// ÀÌµ¿
-	CRotDummy			m_RotDummy;						// È¸Àü
-	CScaleDummy			m_ScaleDummy;					// È®´ë/Ãà¼Ò
-	CRiverMng			m_RiverMng;						// °­¹° Á¤º¸°ü¸®
-	CPondMng			m_PondMng;						// ¿¬¸ø Á¤º¸°ü¸®
+	CTransDummy*		m_pDummy;						// ë¬¼ì²´ë¥¼ ì´ë™ íšŒì „ í™•ëŒ€/ì¶•ì†Œ í•˜ëŠ” ê¸°ëŠ¥ì„ ë‹´ë‹¹í•˜ëŠ” í´ë˜ìŠ¤
+	CPosDummy			m_PosDummy;						// ì´ë™
+	CRotDummy			m_RotDummy;						// íšŒì „
+	CScaleDummy			m_ScaleDummy;					// í™•ëŒ€/ì¶•ì†Œ
+	CRiverMng			m_RiverMng;						// ê°•ë¬¼ ì •ë³´ê´€ë¦¬
+	CPondMng			m_PondMng;						// ì—°ëª» ì •ë³´ê´€ë¦¬
 
-	RECT				m_rcSelDrag;					// µå·¡±× ¿µ¿ª
+	RECT				m_rcSelDrag;					// ë“œë˜ê·¸ ì˜ì—­
 
-	struct __Sort										// Object pickingÇÒ¶§ Á¤·ÄÇÏ´Â ±¸Á¶Ã¼
+	struct __Sort										// Object pickingí• ë•Œ ì •ë ¬í•˜ëŠ” êµ¬ì¡°ì²´
 	{
 		CN3TransformCollision*	pObj;
 		float		fCamDist;
@@ -138,56 +138,56 @@ public:
 	void	DeleteSelectedSourceObjects();
 	void	DeleteOverlappedObjects();
 	void	DeleteUnusedFiles();
-	void	SetZoneID(int id) { m_iZoneID = id; if(m_pTerrain) m_pTerrain->m_iZoneID = id; }	//ÁöÇü Á¸ ¾ÆÀÌµğ ¼ÂÆÃ.
+	void	SetZoneID(int id) { m_iZoneID = id; if(m_pTerrain) m_pTerrain->m_iZoneID = id; }	//ì§€í˜• ì¡´ ì•„ì´ë”” ì…‹íŒ….
 	void	ImportShape(const char* szFullPath);
-	void	MakeTerrainMovableAttr(CN3ShapeMgr* pShapeMgr);		//ÁöÇü¿¡¼­ °¥¼ö ÀÖ´Â Å¸ÀÏ°ú °¥ ¼ö ¾ø´Â Å¸ÀÏÀ» Á¤¸®ÇØ¶ó..
-	void	ImportPostDataFromScene(const char* szFileName); // Scene ¿¡¼­ ¿ÀºêÁ§Æ® ¹èÄ¡µÈ°É ºÒ·¯¿Â´Ù..
+	void	MakeTerrainMovableAttr(CN3ShapeMgr* pShapeMgr);		//ì§€í˜•ì—ì„œ ê°ˆìˆ˜ ìˆëŠ” íƒ€ì¼ê³¼ ê°ˆ ìˆ˜ ì—†ëŠ” íƒ€ì¼ì„ ì •ë¦¬í•´ë¼..
+	void	ImportPostDataFromScene(const char* szFileName); // Scene ì—ì„œ ì˜¤ë¸Œì íŠ¸ ë°°ì¹˜ëœê±¸ ë¶ˆëŸ¬ì˜¨ë‹¤..
 	void	UpDateFP(); 
 	void	Tick();
 	void	Render();
 	void	Release();
 	void	SavePartition(float x, float z, float width);
-	void	SaveToFile(LPCTSTR lpszPathName);			// Map ÆÄÀÏ ÀúÀå
-	void	LoadFromFile(LPCTSTR lpszPathName);			// Map ÆÄÀÏ ºÒ·¯¿À±â
-	BOOL	MouseMsgFilter(LPMSG pMsg);			// ¸¶¿ì½ºÀÇ ±â´É
-	void	ImportTerrain(const char* szMeshFN);			// VMesh ÆÄÀÏ¿¡¼­ ÁöÇü µ¥ÀÌÅÍ ÀĞ¾î¿À±â
-	void	ImportTerrainHeight(const char* szMeshFN);		// VMesh ÆÄÀÏ¿¡¼­ ÁöÇüÀÇ ³ôÀÌ°ª¸¸ ÀĞ¾î¿À±â..
-	void	MakeGameFiles(LPCTSTR lpszPathName, float fSize = 128.0f);	// °ÔÀÓ µ¥ÀÌÅÍ·Î º¯È¯ÇÏ±â
+	void	SaveToFile(LPCTSTR lpszPathName);			// Map íŒŒì¼ ì €ì¥
+	void	LoadFromFile(LPCTSTR lpszPathName);			// Map íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°
+	BOOL	MouseMsgFilter(LPMSG pMsg);			// ë§ˆìš°ìŠ¤ì˜ ê¸°ëŠ¥
+	void	ImportTerrain(const char* szMeshFN);			// VMesh íŒŒì¼ì—ì„œ ì§€í˜• ë°ì´í„° ì½ì–´ì˜¤ê¸°
+	void	ImportTerrainHeight(const char* szMeshFN);		// VMesh íŒŒì¼ì—ì„œ ì§€í˜•ì˜ ë†’ì´ê°’ë§Œ ì½ì–´ì˜¤ê¸°..
+	void	MakeGameFiles(LPCTSTR lpszPathName, float fSize = 128.0f);	// ê²Œì„ ë°ì´í„°ë¡œ ë³€í™˜í•˜ê¸°
 	void	MakeServerDataFiles(LPCTSTR lpszPathName);
-	void	SelectObject(CN3Base* pObj, BOOL IsSourceObj, BOOL bAdd = FALSE);	// °´Ã¼¸¦ ¼±ÅÃÇÑ´Ù.
-	void	RenderObjectToWindow(CN3TransformCollision* pObj, HWND hWnd);	// Æ¯Á¤ À©µµ¿ì¿¡ Object¸¦ ±×·ÁÁØ´Ù.
-	void	SetCursorMode(int iMode);						// ¸¶¿ì½ºÄ¿¼­ÀÇ ÀÌ¿ë¹æ¹ıÀ» ¹Ù²Û´Ù.
-	int		GetCursorMode() const {return m_CursorMode;}	// ¸¶¿ì½º Ä¿¼­ÀÇ ÀÌ¿ë¹æ¹ıÀ» ¾ò´Â´Ù.
-	void	Invalidate();									// View È­¸é °»½Å
-	void	FocusSelObj();									// ¼±ÅÃµÈ °´Ã¼·Î Æ÷ÅÍ½º¸¦ ¿Å±ä´Ù.
-	void	FocusAll();										// ÀüÃ¼ ¸ÊÀ» º¼¼ö ÀÖµµ·Ï ÇÑ´Ù.
-	void	FocusAt(__Vector3 v);							// ÁöÁ¤µÈ Á¡À¸·Î Æ÷Ä¿½º ¿Å°Ü.
-	void	DropSelObjToTerrain();							// ¼±ÅÃÇÑ °´Ã¼¸¦ ÁöÇü¿¡ ºÙÀÎ´Ù.(Y°ª¸¸ Á¶Á¤)
-	void	DeleteSelObjectFromOutputScene();			// OutputScene¿¡¼­ ¼±ÅÃÇÑ °´Ã¼¸¦ Áö¿î´Ù.
-	void	RenderDragRect(RECT* rc);					// µå·¡±× ¿µ¿ªÀ» ±×¸°´Ù.
-	void	UpdateAll();								// source ¿Í output dialog¸¦ update½ÃÅ²´Ù.
+	void	SelectObject(CN3Base* pObj, BOOL IsSourceObj, BOOL bAdd = FALSE);	// ê°ì²´ë¥¼ ì„ íƒí•œë‹¤.
+	void	RenderObjectToWindow(CN3TransformCollision* pObj, HWND hWnd);	// íŠ¹ì • ìœˆë„ìš°ì— Objectë¥¼ ê·¸ë ¤ì¤€ë‹¤.
+	void	SetCursorMode(int iMode);						// ë§ˆìš°ìŠ¤ì»¤ì„œì˜ ì´ìš©ë°©ë²•ì„ ë°”ê¾¼ë‹¤.
+	int		GetCursorMode() const {return m_CursorMode;}	// ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ ì´ìš©ë°©ë²•ì„ ì–»ëŠ”ë‹¤.
+	void	Invalidate();									// View í™”ë©´ ê°±ì‹ 
+	void	FocusSelObj();									// ì„ íƒëœ ê°ì²´ë¡œ í¬í„°ìŠ¤ë¥¼ ì˜®ê¸´ë‹¤.
+	void	FocusAll();										// ì „ì²´ ë§µì„ ë³¼ìˆ˜ ìˆë„ë¡ í•œë‹¤.
+	void	FocusAt(__Vector3 v);							// ì§€ì •ëœ ì ìœ¼ë¡œ í¬ì»¤ìŠ¤ ì˜®ê²¨.
+	void	DropSelObjToTerrain();							// ì„ íƒí•œ ê°ì²´ë¥¼ ì§€í˜•ì— ë¶™ì¸ë‹¤.(Yê°’ë§Œ ì¡°ì •)
+	void	DeleteSelObjectFromOutputScene();			// OutputSceneì—ì„œ ì„ íƒí•œ ê°ì²´ë¥¼ ì§€ìš´ë‹¤.
+	void	RenderDragRect(RECT* rc);					// ë“œë˜ê·¸ ì˜ì—­ì„ ê·¸ë¦°ë‹¤.
+	void	UpdateAll();								// source ì™€ output dialogë¥¼ updateì‹œí‚¨ë‹¤.
 
-	void	LoadObjectPostData(LPCTSTR lpszFileName);		// Shape ¹èÄ¡Á¤º¸¸¦ textÆÄÀÏ¿¡¼­ ÀĞ¾î¿Â´Ù.
-	void	SaveObjectPostData(LPCTSTR lpszFileName);		// Shape ¹èÄ¡Á¤º¸¸¦ textÆÄÀÏ·Î ÀúÀåÇÑ´Ù.
+	void	LoadObjectPostData(LPCTSTR lpszFileName);		// Shape ë°°ì¹˜ì •ë³´ë¥¼ textíŒŒì¼ì—ì„œ ì½ì–´ì˜¨ë‹¤.
+	void	SaveObjectPostData(LPCTSTR lpszFileName);		// Shape ë°°ì¹˜ì •ë³´ë¥¼ textíŒŒì¼ë¡œ ì €ì¥í•œë‹¤.
 	void	SaveObjectPostDataPartition(LPCTSTR lpszFileName, float psx, float psz, float width);
-	void	RenderGrid(float fGridSize, float fMaxDistance);	// ¸Ê¿¡ ÀÏÁ¤°£°İÀ¸·ÎGrid¸¦ ±×·ÁÁØ´Ù
-	void	OnSelChanged();								// ¼±ÅÃÇÑ °´Ã¼°¡ ¹Ù²î¾úÀ»¶§ ÇØÁÙ°Íµé
-	void	SelectObjectByDragRect(RECT* pRect, BOOL bAdd);	// µå·¡±× ÇØ¼­ °´Ã¼ ¼±ÅÃÇÏ±â
-	void	LoadSourceObjects();						// Folder ¿¡¼­ Source Object ¸¦ ÀĞ¾î¿Â´Ù.
-	CN3Transform* AddChr(CN3Scene* pDestScene, const std::string& szFN, BOOL bGenerateChainNumber);		// Æ¯Á¤Scene¿¡ Ä³¸¯ÅÍ °´Ã¼¸¦ º¹»çÇØ Ãß°¡
-	CN3Transform* AddShape(CN3Scene* pDestScene, const std::string& szFN, BOOL bGenerateChainNumber);	// Æ¯Á¤Scene¿¡ Shape °´Ã¼¸¦ º¹»çÇØ Ãß°¡
-	CN3Transform* AddObjectToOutputScene(CN3Transform* pObj);	// ¼Ò½º¸ñ·Ï¿¡¼­ ¼±ÅÃÇÑ Object¸¦ ³ÖÀ¸¸é OutputSceneÀ¸·Î º¹»çÇØ¼­ ³Ö¾îÁØ´Ù.
+	void	RenderGrid(float fGridSize, float fMaxDistance);	// ë§µì— ì¼ì •ê°„ê²©ìœ¼ë¡œGridë¥¼ ê·¸ë ¤ì¤€ë‹¤
+	void	OnSelChanged();								// ì„ íƒí•œ ê°ì²´ê°€ ë°”ë€Œì—ˆì„ë•Œ í•´ì¤„ê²ƒë“¤
+	void	SelectObjectByDragRect(RECT* pRect, BOOL bAdd);	// ë“œë˜ê·¸ í•´ì„œ ê°ì²´ ì„ íƒí•˜ê¸°
+	void	LoadSourceObjects();						// Folder ì—ì„œ Source Object ë¥¼ ì½ì–´ì˜¨ë‹¤.
+	CN3Transform* AddChr(CN3Scene* pDestScene, const std::string& szFN, BOOL bGenerateChainNumber);		// íŠ¹ì •Sceneì— ìºë¦­í„° ê°ì²´ë¥¼ ë³µì‚¬í•´ ì¶”ê°€
+	CN3Transform* AddShape(CN3Scene* pDestScene, const std::string& szFN, BOOL bGenerateChainNumber);	// íŠ¹ì •Sceneì— Shape ê°ì²´ë¥¼ ë³µì‚¬í•´ ì¶”ê°€
+	CN3Transform* AddObjectToOutputScene(CN3Transform* pObj);	// ì†ŒìŠ¤ëª©ë¡ì—ì„œ ì„ íƒí•œ Objectë¥¼ ë„£ìœ¼ë©´ OutputSceneìœ¼ë¡œ ë³µì‚¬í•´ì„œ ë„£ì–´ì¤€ë‹¤.
 	CN3Camera* CameraGet();
 
-	CN3Base*	Pick(POINT point, int* pnPart);												// °´Ã¼ picking ÇÔ¼ö
-	static int SortByCameraDistance(const void *pArg1, const void *pArg2);	// Ä«¸Ş¶ó °Å¸®¿¡ µû¸¥ Á¤·ÄÇÔ¼ö qsort¿¡ ÀÌ¿ë
+	CN3Base*	Pick(POINT point, int* pnPart);												// ê°ì²´ picking í•¨ìˆ˜
+	static int SortByCameraDistance(const void *pArg1, const void *pArg2);	// ì¹´ë©”ë¼ ê±°ë¦¬ì— ë”°ë¥¸ ì •ë ¬í•¨ìˆ˜ qsortì— ì´ìš©
 
-//	BOOL	CameraMove(LPMSG pMsg);		// Ä«¸Ş¶ó ÀÌµ¿¿¡ °üÇÑ ¸Ş¼¼Áö Ã³¸®
-	BOOL	GetObjectMinMax(CN3Transform* pObj, __Vector3& vMin, __Vector3& vMax);	// °´Ã¼ÀÇ ÃÖ´ëÃÖ¼ÒÁ¡ Ã£±â
+//	BOOL	CameraMove(LPMSG pMsg);		// ì¹´ë©”ë¼ ì´ë™ì— ê´€í•œ ë©”ì„¸ì§€ ì²˜ë¦¬
+	BOOL	GetObjectMinMax(CN3Transform* pObj, __Vector3& vMin, __Vector3& vMax);	// ê°ì²´ì˜ ìµœëŒ€ìµœì†Œì  ì°¾ê¸°
 
 	CStatusBar* GetStatusBar();
 
-	void	SetEditState(ENUM_EDIT_STATE eEditStat);	//	µå·Î¿ìÇØ¼­ ¼±ÅÃÇÑ ¿ÀºêÁ§Æ®¸¦ edit
+	void	SetEditState(ENUM_EDIT_STATE eEditStat);	//	ë“œë¡œìš°í•´ì„œ ì„ íƒí•œ ì˜¤ë¸Œì íŠ¸ë¥¼ edit
 };
 
 #endif // !defined(AFX_MAPMNG_H__995D141A_97C5_4CE7_B100_D729B35E9959__INCLUDED_)

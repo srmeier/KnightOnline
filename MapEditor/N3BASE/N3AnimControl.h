@@ -1,4 +1,4 @@
-// N3AnimControl.h: interface for the CN3AnimControl class.
+ï»¿// N3AnimControl.h: interface for the CN3AnimControl class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,9 +21,9 @@ typedef struct __AnimData
 public:
 	std::string	szName;
 
-	float	fFrmStart; // »óÃ¼ ½ÃÀÛ
-	float	fFrmEnd; // »óÃ¼ ³¡
-	float	fFrmPerSec; // ÃÊ´ç 30ÇÁ·¹ÀÓÀÌ Ç¥ÁØÀÌ´Ù..
+	float	fFrmStart; // ìƒì²´ ì‹œìž‘
+	float	fFrmEnd; // ìƒì²´ ë
+	float	fFrmPerSec; // ì´ˆë‹¹ 30í”„ë ˆìž„ì´ í‘œì¤€ì´ë‹¤..
 
 	float	fFrmPlugTraceStart;
 	float	fFrmPlugTraceEnd;
@@ -31,21 +31,21 @@ public:
 	float	fFrmSound0;
 	float	fFrmSound1;
 
-	float	fTimeBlend; // ´Ù¸¥ µ¿ÀÛ°ú ¿¬°á½Ã ºí·»µù ½Ã°£
-	int		iBlendFlags; // ºí·»µù ÇÃ·¡±× 0 ÀÌ¸é °Á ºí·»µù.. 1ÀÌ¸é ·çÇÎ½Ã ºí·»µù Å¸ÀÓ¸¸Å­ ½Ã°£ Áö¿¬
+	float	fTimeBlend; // ë‹¤ë¥¸ ë™ìž‘ê³¼ ì—°ê²°ì‹œ ë¸”ë Œë”© ì‹œê°„
+	int		iBlendFlags; // ë¸”ë Œë”© í”Œëž˜ê·¸ 0 ì´ë©´ ê± ë¸”ë Œë”©.. 1ì´ë©´ ë£¨í•‘ì‹œ ë¸”ë Œë”© íƒ€ìž„ë§Œí¼ ì‹œê°„ ì§€ì—°
 	
 	float	fFrmStrike0;
 	float	fFrmStrike1;
 	
 	__AnimData()
 	{
-		fFrmPerSec = 30.0f; // ÃÊ´ç 30ÇÁ·¹ÀÓÀÌ Ç¥ÁØÀÌ´Ù..
+		fFrmPerSec = 30.0f; // ì´ˆë‹¹ 30í”„ë ˆìž„ì´ í‘œì¤€ì´ë‹¤..
 
 		fFrmStart = fFrmEnd = 0;
 		fFrmPlugTraceStart = fFrmPlugTraceEnd = 0;
 		fFrmSound0 = fFrmSound1 = 0;
-		fTimeBlend = 0.25f; // ±âº» ºí·»µù ½Ã°£..
-		iBlendFlags = 0; // ºí·»µù ÇÃ·¡±× 0 ÀÌ¸é °Á ºí·»µù.. 1ÀÌ¸é ·çÇÎ½Ã ºí·»µù Å¸ÀÓ¸¸Å­ ½Ã°£ Áö¿¬
+		fTimeBlend = 0.25f; // ê¸°ë³¸ ë¸”ë Œë”© ì‹œê°„..
+		iBlendFlags = 0; // ë¸”ë Œë”© í”Œëž˜ê·¸ 0 ì´ë©´ ê± ë¸”ë Œë”©.. 1ì´ë©´ ë£¨í•‘ì‹œ ë¸”ë Œë”© íƒ€ìž„ë§Œí¼ ì‹œê°„ ì§€ì—°
 		fFrmStrike0 = fFrmStrike1 = 0;
 	}
 	
@@ -62,7 +62,7 @@ public:
 		fFrmSound1 = other.fFrmSound1;
 
 		fTimeBlend = other.fTimeBlend;
-		iBlendFlags = other.iBlendFlags; // ºí·»µù ÇÃ·¡±× 0 ÀÌ¸é °Á ºí·»µù.. 1ÀÌ¸é ·çÇÎ½Ã ºí·»µù Å¸ÀÓ¸¸Å­ ½Ã°£ Áö¿¬
+		iBlendFlags = other.iBlendFlags; // ë¸”ë Œë”© í”Œëž˜ê·¸ 0 ì´ë©´ ê± ë¸”ë Œë”©.. 1ì´ë©´ ë£¨í•‘ì‹œ ë¸”ë Œë”© íƒ€ìž„ë§Œí¼ ì‹œê°„ ì§€ì—°
 		
 		fFrmStrike0 = other.fFrmStrike0;
 		fFrmStrike1 = other.fFrmStrike1;
@@ -77,11 +77,11 @@ public:
 		DWORD dwRWC = 0;
 
 		int nL = 0;
-		ReadFile(hFile, &nL, 4, &dwRWC, NULL); // ¿ø·¡´Â ¹®ÀÚ¿­ Æ÷ÀÎÅÍ°¡ ÀÖ´øÀÚ¸®ÀÌ´Ù.. È£È¯¼ºÀ» À§Çì¼­.. °Á...
+		ReadFile(hFile, &nL, 4, &dwRWC, NULL); // ì›ëž˜ëŠ” ë¬¸ìžì—´ í¬ì¸í„°ê°€ ìžˆë˜ìžë¦¬ì´ë‹¤.. í˜¸í™˜ì„±ì„ ìœ„í—¤ì„œ.. ê±...
 
-		ReadFile(hFile, &fFrmStart, 4, &dwRWC, NULL); // »óÃ¼ ½ÃÀÛ
-		ReadFile(hFile, &fFrmEnd, 4, &dwRWC, NULL); // »óÃ¼ ³¡
-		ReadFile(hFile, &fFrmPerSec, 4, &dwRWC, NULL); // ÃÊ´ç 30ÇÁ·¹ÀÓÀÌ Ç¥ÁØÀÌ´Ù..
+		ReadFile(hFile, &fFrmStart, 4, &dwRWC, NULL); // ìƒì²´ ì‹œìž‘
+		ReadFile(hFile, &fFrmEnd, 4, &dwRWC, NULL); // ìƒì²´ ë
+		ReadFile(hFile, &fFrmPerSec, 4, &dwRWC, NULL); // ì´ˆë‹¹ 30í”„ë ˆìž„ì´ í‘œì¤€ì´ë‹¤..
 
 		ReadFile(hFile, &fFrmPlugTraceStart, 4, &dwRWC, NULL);
 		ReadFile(hFile, &fFrmPlugTraceEnd, 4, &dwRWC, NULL);
@@ -90,12 +90,12 @@ public:
 		ReadFile(hFile, &fFrmSound1, 4, &dwRWC, NULL);
 
 		ReadFile(hFile, &fTimeBlend, 4, &dwRWC, NULL);
-		ReadFile(hFile, &iBlendFlags, 4, &dwRWC, NULL); // ºí·»µù ÇÃ·¡±× 0 ÀÌ¸é °Á ºí·»µù.. 1ÀÌ¸é ·çÇÎ½Ã ºí·»µù Å¸ÀÓ¸¸Å­ ½Ã°£ Áö¿¬
+		ReadFile(hFile, &iBlendFlags, 4, &dwRWC, NULL); // ë¸”ë Œë”© í”Œëž˜ê·¸ 0 ì´ë©´ ê± ë¸”ë Œë”©.. 1ì´ë©´ ë£¨í•‘ì‹œ ë¸”ë Œë”© íƒ€ìž„ë§Œí¼ ì‹œê°„ ì§€ì—°
 		
 		ReadFile(hFile, &fFrmStrike0, 4, &dwRWC, NULL);
 		ReadFile(hFile, &fFrmStrike1, 4, &dwRWC, NULL);
 
-		// ÀÌ¸§ ÀÐ±â..
+		// ì´ë¦„ ì½ê¸°..
 		szName = "";
 		ReadFile(hFile, &nL, 4, &dwRWC, NULL);
 		if(nL > 0)
@@ -112,11 +112,11 @@ public:
 		DWORD dwRWC = 0;
 
 		int nL = 0;
-		WriteFile(hFile, &nL, 4, &dwRWC, NULL); // ¿ø·¡´Â ¹®ÀÚ¿­ Æ÷ÀÎÅÍ°¡ ÀÖ´øÀÚ¸®ÀÌ´Ù.. È£È¯¼ºÀ» À§Çì¼­.. °Á...
+		WriteFile(hFile, &nL, 4, &dwRWC, NULL); // ì›ëž˜ëŠ” ë¬¸ìžì—´ í¬ì¸í„°ê°€ ìžˆë˜ìžë¦¬ì´ë‹¤.. í˜¸í™˜ì„±ì„ ìœ„í—¤ì„œ.. ê±...
 
-		WriteFile(hFile, &fFrmStart, 4, &dwRWC, NULL); // »óÃ¼ ½ÃÀÛ
-		WriteFile(hFile, &fFrmEnd, 4, &dwRWC, NULL); // »óÃ¼ ³¡
-		WriteFile(hFile, &fFrmPerSec, 4, &dwRWC, NULL); // ÃÊ´ç 30ÇÁ·¹ÀÓÀÌ Ç¥ÁØÀÌ´Ù..
+		WriteFile(hFile, &fFrmStart, 4, &dwRWC, NULL); // ìƒì²´ ì‹œìž‘
+		WriteFile(hFile, &fFrmEnd, 4, &dwRWC, NULL); // ìƒì²´ ë
+		WriteFile(hFile, &fFrmPerSec, 4, &dwRWC, NULL); // ì´ˆë‹¹ 30í”„ë ˆìž„ì´ í‘œì¤€ì´ë‹¤..
 
 		WriteFile(hFile, &fFrmPlugTraceStart, 4, &dwRWC, NULL);
 		WriteFile(hFile, &fFrmPlugTraceEnd, 4, &dwRWC, NULL);
@@ -125,12 +125,12 @@ public:
 		WriteFile(hFile, &fFrmSound1, 4, &dwRWC, NULL);
 
 		WriteFile(hFile, &fTimeBlend, 4, &dwRWC, NULL);
-		WriteFile(hFile, &iBlendFlags, 4, &dwRWC, NULL); // ºí·»µù ÇÃ·¡±× 0 ÀÌ¸é °Á ºí·»µù.. 1ÀÌ¸é ·çÇÎ½Ã ºí·»µù Å¸ÀÓ¸¸Å­ ½Ã°£ Áö¿¬
+		WriteFile(hFile, &iBlendFlags, 4, &dwRWC, NULL); // ë¸”ë Œë”© í”Œëž˜ê·¸ 0 ì´ë©´ ê± ë¸”ë Œë”©.. 1ì´ë©´ ë£¨í•‘ì‹œ ë¸”ë Œë”© íƒ€ìž„ë§Œí¼ ì‹œê°„ ì§€ì—°
 		
 		WriteFile(hFile, &fFrmStrike0, 4, &dwRWC, NULL);
 		WriteFile(hFile, &fFrmStrike1, 4, &dwRWC, NULL);
 
-		// ÀÌ¸§ ÀÐ±â..
+		// ì´ë¦„ ì½ê¸°..
 		nL = szName.size();
 		WriteFile(hFile, &nL, 4, &dwRWC, NULL);
 		if(nL > 0) WriteFile(hFile, szName.c_str(), nL, &dwRWC, NULL);

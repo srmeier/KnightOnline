@@ -1,4 +1,4 @@
-// N3FXParticle.h: interface for the CN3FXParticle class.
+ï»¿// N3FXParticle.h: interface for the CN3FXParticle class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,35 +25,35 @@ public:
 
 	__Matrix44					m_mtxVI;				//	inverse view mtx..
 
-	int							m_iNumParticle;			//	ÆÄÆ¼Å¬ÀÇ ÃÑ ¼ö..(maximum)
-	int							m_iNumLodParticle;		//	°Å¸®¿¡ µû¸¥ ÆÄÆ¼Å¬ °¹¼ö
-	//float						m_fParticleSize;		//	ÆÄÆ¼Å¬ÀÇ Å©±â
-	std::pair<float, float>		m_pair_fParticleSize;	//	ÆÄÆ¼Å¬ Å©±âÀÇ ¹üÀ§
-	std::pair<float, float>		m_pair_fParticleLife;	//	ÆÄÆ¼Å¬ »ı¸íÀÇ ¹üÀ§
+	int							m_iNumParticle;			//	íŒŒí‹°í´ì˜ ì´ ìˆ˜..(maximum)
+	int							m_iNumLodParticle;		//	ê±°ë¦¬ì— ë”°ë¥¸ íŒŒí‹°í´ ê°¯ìˆ˜
+	//float						m_fParticleSize;		//	íŒŒí‹°í´ì˜ í¬ê¸°
+	std::pair<float, float>		m_pair_fParticleSize;	//	íŒŒí‹°í´ í¬ê¸°ì˜ ë²”ìœ„
+	std::pair<float, float>		m_pair_fParticleLife;	//	íŒŒí‹°í´ ìƒëª…ì˜ ë²”ìœ„
 	
-	std::list<CN3FXParticle*>	m_pVBList_Alive;		//	»ì¾ÆÀÖ´Â ÆÄÆ¼Å¬À» ´ã°í ÀÖ´Â ¹öÆÛ..
-	std::list<CN3FXParticle*>	m_pVBList_Dead;			//	Á×Àº ÆÄÆ¼Å¬À» ´ã°í ÀÖ´Â ¹öÆÛ..
+	std::list<CN3FXParticle*>	m_pVBList_Alive;		//	ì‚´ì•„ìˆëŠ” íŒŒí‹°í´ì„ ë‹´ê³  ìˆëŠ” ë²„í¼..
+	std::list<CN3FXParticle*>	m_pVBList_Dead;			//	ì£½ì€ íŒŒí‹°í´ì„ ë‹´ê³  ìˆëŠ” ë²„í¼..
 
-	float						m_fCreateDelay;			//	ÆÄÆ¼Å¬ »ı¼º ½Ã°£ °£°İ.
-	float						m_CurrCreateDelay;		//	ÇöÀç ±îÁö create delay time..
-	int							m_iNumCreate;			//	ÇÑ¹ø »ı¼º½Ã ¸¸µé¾îÁö´Â ÆÄÆ¼Å¬ ¼ö.
+	float						m_fCreateDelay;			//	íŒŒí‹°í´ ìƒì„± ì‹œê°„ ê°„ê²©.
+	float						m_CurrCreateDelay;		//	í˜„ì¬ ê¹Œì§€ create delay time..
+	int							m_iNumCreate;			//	í•œë²ˆ ìƒì„±ì‹œ ë§Œë“¤ì–´ì§€ëŠ” íŒŒí‹°í´ ìˆ˜.
 
-	__Vector3					m_MinCreateRange;		//	ÆÄÆ¼Å¬ »ı¼º ÀÚÀ¯µµ ¹üÀ§..min..
-	__Vector3					m_MaxCreateRange;		//	ÆÄÆ¼Å¬ »ı¼º ÀÚÀ¯µµ ¹üÀ§..max..
+	__Vector3					m_MinCreateRange;		//	íŒŒí‹°í´ ìƒì„± ììœ ë„ ë²”ìœ„..min..
+	__Vector3					m_MaxCreateRange;		//	íŒŒí‹°í´ ìƒì„± ììœ ë„ ë²”ìœ„..max..
 
 	//emitter...
-	DWORD						m_dwEmitType;			//	¹ß»çÇüÅÂ..(spread, gather)..
-	PARTICLEEMITCONDITION		m_uEmitCon;				//	¹ß»çÇüÅÂ¿¡ µû¸¥ ÇÊ¿ä µ¥ÀÌÅ¸..
+	DWORD						m_dwEmitType;			//	ë°œì‚¬í˜•íƒœ..(spread, gather)..
+	PARTICLEEMITCONDITION		m_uEmitCon;				//	ë°œì‚¬í˜•íƒœì— ë”°ë¥¸ í•„ìš” ë°ì´íƒ€..
 	__Vector3					m_vEmitterDir;
 	__Vector3					m_vPrevShapePos;
 	__Vector3					m_vShapePos;
 
 	//particle..
-	__Vector3	m_vPtEmitDir;		//emitter¿¡¼­ ÆÄÆ¼Å¬ ºĞ»ç¹æÇâ..
-	float		m_fPtVelocity;		//ÆÄÆ¼Å¬ ºĞ»ç¼Óµµ..
-	float		m_fPtAccel;			//ºĞ»ç °¡¼Óµµ..
-	float		m_fPtRotVelocity;	//ÆÄÆ¼Å¬ È¸Àü ¼Óµµ..
-	float		m_fPtGravity;		//Áß·Â°¡¼Óµµ..
+	__Vector3	m_vPtEmitDir;		//emitterì—ì„œ íŒŒí‹°í´ ë¶„ì‚¬ë°©í–¥..
+	float		m_fPtVelocity;		//íŒŒí‹°í´ ë¶„ì‚¬ì†ë„..
+	float		m_fPtAccel;			//ë¶„ì‚¬ ê°€ì†ë„..
+	float		m_fPtRotVelocity;	//íŒŒí‹°í´ íšŒì „ ì†ë„..
+	float		m_fPtGravity;		//ì¤‘ë ¥ê°€ì†ë„..
 
 	//related particle color....
 	DWORD		m_dwChangeColor[NUM_KEY_COLOR];
@@ -66,7 +66,7 @@ public:
 	bool		m_bAnimKey;
 
 	//particle local rotate......2002.10.21.
-	float		m_fTexRotateVelocity;		//	ÆÄÆ¼Å¬ ÅØ½ºÃÄ¸¦ ·ÎÄÃ ZÃàÀ¸·Î È¸Àü½ÃÄÑ¼­ ºù±Ûºù±Û µµ´Â °ÍÃ³·³ º¸ÀÌ°Ô...(¼Óµµ)
+	float		m_fTexRotateVelocity;		//	íŒŒí‹°í´ í…ìŠ¤ì³ë¥¼ ë¡œì»¬ Zì¶•ìœ¼ë¡œ íšŒì „ì‹œì¼œì„œ ë¹™ê¸€ë¹™ê¸€ ë„ëŠ” ê²ƒì²˜ëŸ¼ ë³´ì´ê²Œ...(ì†ë„)
 	float		m_fScaleVelX;
 	float		m_fScaleVelY;
 
@@ -88,7 +88,7 @@ protected:
 	float CameraDist(__Vector3 v1, __Vector3 v2, __Vector3 v3);
 
 	//////////////////////////////////////////////
-	//m_pVBList_Alive¸¦ ¼ÒÆ®ÇÏ±âÀ§ÇÔÀÌ¾ß..
+	//m_pVBList_Aliveë¥¼ ì†ŒíŠ¸í•˜ê¸°ìœ„í•¨ì´ì•¼..
 	void	PSort();
 	void	PMerge(std::list<CN3FXParticle*>& l1, std::list<CN3FXParticle*>& l2);
 	bool	PComp(CN3FXParticle* pP1, CN3FXParticle* pP2);
@@ -96,13 +96,13 @@ protected:
 	//////////////////////////////////////////////
 	
 public:
-	void	Init();				//	°¢Á¾ º¯¼öµéÀ» Ã³À½ ·ÎµùÇÑ »óÅÂ·Î ÃÊ±âÈ­...
-	void	Start();			//	ÆÄÆ® ±¸µ¿ ½ÃÀÛ.
-	void	Stop();				//	ÆÄÆ® ±¸µ¿ ¸ØÃã..
+	void	Init();				//	ê°ì¢… ë³€ìˆ˜ë“¤ì„ ì²˜ìŒ ë¡œë”©í•œ ìƒíƒœë¡œ ì´ˆê¸°í™”...
+	void	Start();			//	íŒŒíŠ¸ êµ¬ë™ ì‹œì‘.
+	void	Stop();				//	íŒŒíŠ¸ êµ¬ë™ ë©ˆì¶¤..
 	bool	Tick();				//	ticktick...
-	void	Render();			//	È­¸é¿¡ »Ñ¸®±â..
-	bool	Load(HANDLE hFile);	//	°ÔÀÓÆÄÀÏ ºÒ·¯¿À±â.
-	bool	Save(HANDLE hFile);	//	°ÔÀÓÆÄÀÏ ÀúÀå¿À±â.
+	void	Render();			//	í™”ë©´ì— ë¿Œë¦¬ê¸°..
+	bool	Load(HANDLE hFile);	//	ê²Œì„íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°.
+	bool	Save(HANDLE hFile);	//	ê²Œì„íŒŒì¼ ì €ì¥ì˜¤ê¸°.
 	void	Duplicate(CN3FXPartParticles* pSrc);
 
 	bool	GetColor(int key, DWORD& color);

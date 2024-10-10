@@ -1,4 +1,4 @@
-// DlgDTexGroupView.cpp : implementation file
+ï»¿// DlgDTexGroupView.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -137,7 +137,7 @@ void CDlgDTexGroupView::OnSelchangedTreeDtexGroup(NMHDR* pNMHDR, LRESULT* pResul
 	HTREEITEM hChild = m_Tree.GetChildItem(hTree);
 	HTREEITEM hParent = m_Tree.GetParentItem(hTree);
 
-	if(hParent==NULL)// ±× ±×·ìÀÇ ´ëÇ¥ÀûÀÎ ½æ³×ÀÏ¸¸ º¸¿©ÁÖÀÚ..
+	if(hParent==NULL)// ê·¸ ê·¸ë£¹ì˜ ëŒ€í‘œì ì¸ ì¸ë„¤ì¼ë§Œ ë³´ì—¬ì£¼ì..
 	{
 		hTree = m_Tree.GetChildItem(hTree);
 		hTree = m_Tree.GetChildItem(hTree);

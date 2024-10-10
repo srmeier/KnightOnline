@@ -1,4 +1,4 @@
-// N3FXPartBillBoard.cpp: implementation of the CN3FXPartBillBoard class.
+ï»¿// N3FXPartBillBoard.cpp: implementation of the CN3FXPartBillBoard class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -66,7 +66,7 @@ bool CN3FXPartBillBoard::ParseScript(char* szCommand, char* szBuff0, char* szBuf
 {
 	if(CN3FXPartBase::ParseScript(szCommand, szBuff0, szBuff1, szBuff2, szBuff3)) return true;
 
-	//	º¸µå °¹¼ö.
+	//	ë³´ë“œ ê°¯ìˆ˜.
 	if(lstrcmpi(szCommand, "<billboard_count>")==0)
 	{
 		m_iNum = atoi(szBuff0);
@@ -74,7 +74,7 @@ bool CN3FXPartBillBoard::ParseScript(char* szCommand, char* szBuff0, char* szBuf
 		return true;
 	}
 
-	//	º¸µå Å©±â.
+	//	ë³´ë“œ í¬ê¸°.
 	if(lstrcmpi(szCommand, "<billboard_size>")==0)
 	{
 		m_fSizeX = atof(szBuff0);
@@ -296,7 +296,7 @@ bool CN3FXPartBillBoard::Tick()
 		}
 	}
 
-	//À§Ä¡¿¡ °üÇÑ Æ½Æ½...m_vCurrPos
+	//ìœ„ì¹˜ì— ê´€í•œ í‹±í‹±...m_vCurrPos
 	m_vCurrVelocity += m_vAcceleration*CN3Base::s_fSecPerFrm;
 	m_vCurrPos += m_vCurrVelocity*CN3Base::s_fSecPerFrm;
 
@@ -348,21 +348,21 @@ bool CN3FXPartBillBoard::IsDead()
 
 //
 //	render...
-//	ÀÏ´ÜÀº ÆÄÆ¼Å¬ ÇÏ³ª¾¿ ±×¸®°í....
-//	³ªÁß¿¡´Â °°Àº ÅØ½ºÃÄ ¾²´Â °Íµé³¢¸® ¹­¾î¼­ ±×¸®ÀÚ...
+//	ì¼ë‹¨ì€ íŒŒí‹°í´ í•˜ë‚˜ì”© ê·¸ë¦¬ê³ ....
+//	ë‚˜ì¤‘ì—ëŠ” ê°™ì€ í…ìŠ¤ì³ ì“°ëŠ” ê²ƒë“¤ë¼ë¦¬ ë¬¶ì–´ì„œ ê·¸ë¦¬ì...
 //
 void CN3FXPartBillBoard::Render()
 {
 	if(m_iTexIdx >= m_iNumTex) return;
 
-	//È¸Àü...
+	//íšŒì „...
 	__Matrix44 mtxRotZ;
 	mtxRotZ.Identity();
 	mtxRotZ.RotationZ(m_fCurrLife*m_vRotVelocity.x);
 
 	if(!m_bRoateOnlyY)
 	{
-		//À§Ä¡ÁöÁ¤ & ³ª¸¦ ¹Ù¶óº¸°Ô ¼ÂÆÃ..
+		//ìœ„ì¹˜ì§€ì • & ë‚˜ë¥¼ ë°”ë¼ë³´ê²Œ ì…‹íŒ…..
 		__Matrix44 mtxVI;
 		mtxVI = s_CameraData.mtxViewInverse;
 		__Vector3 vpp;
@@ -453,7 +453,7 @@ void CN3FXPartBillBoard::Render()
 	}
 	else
 	{
-		//À§Ä¡ÁöÁ¤ & ³ª¸¦ ¹Ù¶óº¸°Ô ¼ÂÆÃ..
+		//ìœ„ì¹˜ì§€ì • & ë‚˜ë¥¼ ë°”ë¼ë³´ê²Œ ì…‹íŒ…..
 		__Vector3 AbsoluteCurrPos = Rotate2AbsolutePos(m_vCurrPos);
 		__Vector3 vRadiusPos = s_CameraData.vEye - (AbsoluteCurrPos + m_pRefBundle->m_vPos);
 
@@ -548,7 +548,7 @@ void CN3FXPartBillBoard::Render()
 		}
 	}
 
-	if(m_bAlpha) // Alpha »ç¿ë
+	if(m_bAlpha) // Alpha ì‚¬ìš©
 	{
 		__AlphaPrimitive* pAP = s_AlphaMgr.Add();
 		if(pAP)
@@ -575,7 +575,7 @@ void CN3FXPartBillBoard::Render()
 			pAP->pwIndices			= NULL;
 		}
 
-		return; // ·»´õ¸µ ¾ÈÇÏÁö·Õ.
+		return; // ë Œë”ë§ ì•ˆí•˜ì§€ë¡±.
 	}
 	else 
 	{

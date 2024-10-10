@@ -1,4 +1,4 @@
-// DlgLoadTileSet.cpp : implementation file
+﻿// DlgLoadTileSet.cpp : implementation file
 //
 
 #include "stdafx.h"

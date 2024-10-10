@@ -1,4 +1,4 @@
-// N3SkyMng.h: interface for the CN3SkyMng class.
+ï»¿// N3SkyMng.h: interface for the CN3SkyMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -12,25 +12,25 @@
 #include "N3BaseFileAccess.h"
 #include <vector>
 
-const float TIME_REAL_PER_GAME = 10.0f;						// ½ÇÁ¦ ½Ã°£°ú game½Ã°£ÀÇ ºñÀ²(ÇöÀç °ÔÀÓÀº ½ÇÁ¦ ½Ã°£º¸´Ù ¿­¹è »¡¸® µ¹¾Æ°£´Ù..)
-const float TIME_GAME_PER_REAL = 1.0f/TIME_REAL_PER_GAME;	// game½Ã°£°ú ½ÇÁ¦ ½Ã°£ÀÇ ºñÀ²
+const float TIME_REAL_PER_GAME = 10.0f;						// ì‹¤ì œ ì‹œê°„ê³¼ gameì‹œê°„ì˜ ë¹„ìœ¨(í˜„ì¬ ê²Œì„ì€ ì‹¤ì œ ì‹œê°„ë³´ë‹¤ ì—´ë°° ë¹¨ë¦¬ ëŒì•„ê°„ë‹¤..)
+const float TIME_GAME_PER_REAL = 1.0f/TIME_REAL_PER_GAME;	// gameì‹œê°„ê³¼ ì‹¤ì œ ì‹œê°„ì˜ ë¹„ìœ¨
 #define CONVERT_SEC(h, m, s) ((h)*3600 + (m)*60 + (s))
 
-// ½Ã°£ °ü¸®
-enum		eSKY_DAYCHANGE {	SDC_SKYCOLOR=0,		// ÇÏ´Ã»ö
-								SDC_FOGCOLOR,		// ¾È°³»ö
-								SDC_STARCOUNT,		// º° ¼ö
-								SDC_MOONPHASE,		// ´Ş ¸ğ¾ç
-								SDC_SUNCOLOR,		// ÇØ »ö, Å©±â - 1000 ÀÌ ºäÆ÷Æ®¿¡¼­ ²ËÂ÷´Â Å©±â.
-								SDC_GLOWCOLOR,		// ÇØÀÇ glow»ö, Å©±â - 1000 ÀÌ ºäÆ÷Æ®¿¡¼­ ²ËÂ÷´Â Å©±â.
-								SDC_FLARECOLOR,		// ÇØÀÇ flare»ö, Å©±â - 1000 ÀÌ ºäÆ÷Æ®¿¡¼­ ²ËÂ÷´Â Å©±â.
-								SDC_CLOUD1COLOR,	// ±¸¸§Ãş 1ÀÇ »ö
-								SDC_CLOUD2COLOR,	// ±¸¸§Ãş 2ÀÇ »ö
-								SDC_CLOUDTEX,		// ±¸¸§ ÅØ½ºÃÄ ¹Ù²Ù±â
+// ì‹œê°„ ê´€ë¦¬
+enum		eSKY_DAYCHANGE {	SDC_SKYCOLOR=0,		// í•˜ëŠ˜ìƒ‰
+								SDC_FOGCOLOR,		// ì•ˆê°œìƒ‰
+								SDC_STARCOUNT,		// ë³„ ìˆ˜
+								SDC_MOONPHASE,		// ë‹¬ ëª¨ì–‘
+								SDC_SUNCOLOR,		// í•´ ìƒ‰, í¬ê¸° - 1000 ì´ ë·°í¬íŠ¸ì—ì„œ ê½‰ì°¨ëŠ” í¬ê¸°.
+								SDC_GLOWCOLOR,		// í•´ì˜ glowìƒ‰, í¬ê¸° - 1000 ì´ ë·°í¬íŠ¸ì—ì„œ ê½‰ì°¨ëŠ” í¬ê¸°.
+								SDC_FLARECOLOR,		// í•´ì˜ flareìƒ‰, í¬ê¸° - 1000 ì´ ë·°í¬íŠ¸ì—ì„œ ê½‰ì°¨ëŠ” í¬ê¸°.
+								SDC_CLOUD1COLOR,	// êµ¬ë¦„ì¸µ 1ì˜ ìƒ‰
+								SDC_CLOUD2COLOR,	// êµ¬ë¦„ì¸µ 2ì˜ ìƒ‰
+								SDC_CLOUDTEX,		// êµ¬ë¦„ í…ìŠ¤ì³ ë°”ê¾¸ê¸°
 								
 								SDC_LIGHT0COLOR,	// Direction Light 0
 								SDC_LIGHT1COLOR,	// Direction Light 1
-								SDC_LIGHT2COLOR,	// ÇÃ·¹ÀÌ¾î ÁÖÀ§ÀÇ Light
+								SDC_LIGHT2COLOR,	// í”Œë ˆì´ì–´ ì£¼ìœ„ì˜ Light
 								
 								NUM_SKYDAYCHANGE,
 								
@@ -39,12 +39,12 @@ enum		eSKY_DAYCHANGE {	SDC_SKYCOLOR=0,		// ÇÏ´Ã»ö
 
 struct		__SKY_DAYCHANGE
 {
-	std::string		szName;			// ÀÌ¸§ ºÙÀÌ±â..
-	eSKY_DAYCHANGE	eSkyDayChange;	// ¾î¶² º¯È­ÀÎ°¡?
-	DWORD			dwWhen;			// ¾ğÁ¦ º¯È­½ÃÀÛÀÎ°¡?(0½ÃºÎÅÍ ÃÊ´ÜÀ§·Î ³ªÅ¸³½ ½Ã°£)
+	std::string		szName;			// ì´ë¦„ ë¶™ì´ê¸°..
+	eSKY_DAYCHANGE	eSkyDayChange;	// ì–´ë–¤ ë³€í™”ì¸ê°€?
+	DWORD			dwWhen;			// ì–¸ì œ ë³€í™”ì‹œì‘ì¸ê°€?(0ì‹œë¶€í„° ì´ˆë‹¨ìœ„ë¡œ ë‚˜íƒ€ë‚¸ ì‹œê°„)
 	DWORD			dwParam1;		// parameter 1
 	DWORD			dwParam2;		// parameter 2
-	float			fHowLong;		// ¾ó¸¶³ª °É¸±°ÍÀÎ°¡?(½Ç½Ã°£ ÃÊ)
+	float			fHowLong;		// ì–¼ë§ˆë‚˜ ê±¸ë¦´ê²ƒì¸ê°€?(ì‹¤ì‹œê°„ ì´ˆ)
 
 	void Init()
 	{
@@ -116,9 +116,9 @@ public:
 	virtual ~CN3SkyMng();
 // Attributes
 public:
-	enum		eSKY_WEATHER {  SW_CLEAR=1,	// ¸¼À½
-								SW_RAINY,	// ºñ
-								SW_SNOW};	// ´«
+	enum		eSKY_WEATHER {  SW_CLEAR=1,	// ë§‘ìŒ
+								SW_RAINY,	// ë¹„
+								SW_SNOW};	// ëˆˆ
 protected:
 	class CN3Sky*			m_pSky;
 	class CN3Moon*			m_pMoon;
@@ -128,31 +128,31 @@ protected:
 	class CN3ColorChange*	m_pLightColorDiffuses[MAX_GAME_LIGHT];
 	class CN3ColorChange*	m_pLightColorAmbients[MAX_GAME_LIGHT];
 
-	std::vector<__SKY_DAYCHANGE> m_DayChanges;		// Á¤º¸ÀÔ·ÂÈÄ¿¡ qsortÇÏÀÚ
+	std::vector<__SKY_DAYCHANGE> m_DayChanges;		// ì •ë³´ì…ë ¥í›„ì— qsortí•˜ì
 	int					m_iDayChangeCurPos;
 
-	std::vector<__SKY_DAYCHANGE> m_WeatherChanges;		// Á¤º¸ÀÔ·ÂÈÄ¿¡ qsortÇÏÀÚ
+	std::vector<__SKY_DAYCHANGE> m_WeatherChanges;		// ì •ë³´ì…ë ¥í›„ì— qsortí•˜ì
 	int					m_iWeatherChangeCurPos;
 
-	DWORD		m_dwCheckTick;	// ¼­¹ö¿¡¼­ ½Ã°£À» ¹ŞÀ»¶§ÀÇ À©µµ¿ìTickCount(½Ç½Ã°£) (°ÔÀÓ½Ã°£À¸·Î 24½Ã¿¡ ´Ù½Ã ¼³Á¤ÇÏ±âµµ ÇÑ´Ù.)
-	DWORD		m_dwCheckGameTime;	// ¼­¹ö¿¡¼­ ³»·Á¹ŞÀº ½Ã°£(°ÔÀÓ ½Ã°£ ÃÊ´ÜÀ§) 0 ~ (24*60*60)
+	DWORD		m_dwCheckTick;	// ì„œë²„ì—ì„œ ì‹œê°„ì„ ë°›ì„ë•Œì˜ ìœˆë„ìš°TickCount(ì‹¤ì‹œê°„) (ê²Œì„ì‹œê°„ìœ¼ë¡œ 24ì‹œì— ë‹¤ì‹œ ì„¤ì •í•˜ê¸°ë„ í•œë‹¤.)
+	DWORD		m_dwCheckGameTime;	// ì„œë²„ì—ì„œ ë‚´ë ¤ë°›ì€ ì‹œê°„(ê²Œì„ ì‹œê°„ ì´ˆë‹¨ìœ„) 0 ~ (24*60*60)
 	eSKY_WEATHER	m_eWeather;
 
 	int			m_iYear;
 	int			m_iMonth;
 	int			m_iDay;
 
-	int			m_iHourFix;		// ÇØ,´Ş ¹æÇâ °íÁ¤½Ã ½Ã°£À¸·Î ³ªÅ¸³»´Â ¹æÇâ.
+	int			m_iHourFix;		// í•´,ë‹¬ ë°©í–¥ ê³ ì •ì‹œ ì‹œê°„ìœ¼ë¡œ ë‚˜íƒ€ë‚´ëŠ” ë°©í–¥.
 
 
-	float			m_fCellSize;	// ³»ºÎ ¼¿ Å©±â
-	POINT			m_CurCellPos;	// ÇöÀç ³»ºÎ¼¿ ÁÂÇ¥
-	__Vector3		m_vPos[9];		// ÁÖº¯ ¼¿ 9Ä­ÀÇ Áß½ÉÁÂÇ¥µé
+	float			m_fCellSize;	// ë‚´ë¶€ ì…€ í¬ê¸°
+	POINT			m_CurCellPos;	// í˜„ì¬ ë‚´ë¶€ì…€ ì¢Œí‘œ
+	__Vector3		m_vPos[9];		// ì£¼ë³€ ì…€ 9ì¹¸ì˜ ì¤‘ì‹¬ì¢Œí‘œë“¤
 
-	// È¿°úµé..
-	class CN3GERain*		m_pGERain;		// ºñ
-	class CN3GESnow*		m_pGESnow;		// ´«
-#ifdef _N3GAME // °ÔÀÓÀÌ ¾Æ´Ñ Åø¿¡¼­´Â ÇÊ¿ä¾ø´Ù...
+	// íš¨ê³¼ë“¤..
+	class CN3GERain*		m_pGERain;		// ë¹„
+	class CN3GESnow*		m_pGESnow;		// ëˆˆ
+#ifdef _N3GAME // ê²Œì„ì´ ì•„ë‹Œ íˆ´ì—ì„œëŠ” í•„ìš”ì—†ë‹¤...
 	class CN3SndObj*		m_pSnd_Weather_Rain;
 	class CN3SndObj*		m_pSnd_Weather_Snow;
 #endif // #ifdef _N3GAME
@@ -184,7 +184,7 @@ public:
 
 	bool Load(HANDLE hFile);
 
-#ifdef _N3GAME // °ÔÀÓÀÌ ¾Æ´Ñ Åø¿¡¼­´Â ÇÊ¿ä¾ø´Ù...
+#ifdef _N3GAME // ê²Œì„ì´ ì•„ë‹Œ íˆ´ì—ì„œëŠ” í•„ìš”ì—†ë‹¤...
 	void ReleaseSound();
 #endif // #ifdef _N3GAME
 
@@ -210,27 +210,27 @@ public:
 	D3DCOLOR	GetLightAmbientColor(int iIndex);
 
 	void	Release();
-	void	Render(); // ÇÏ´Ã¸¸ ·»´õ¸µ..
-	void	RenderWeather(); // ºñ³ª ´«µîÀÇ ³¯¾¾ ·»´õ¸µ..
+	void	Render(); // í•˜ëŠ˜ë§Œ ë Œë”ë§..
+	void	RenderWeather(); // ë¹„ë‚˜ ëˆˆë“±ì˜ ë‚ ì”¨ ë Œë”ë§..
 	void	Tick();
 
-	// ½Ã°£ °ü¸®
+	// ì‹œê°„ ê´€ë¦¬
 	void	GetGameTime(int* piYear, int* piMonth, int* piDay, int* piHour, int*piMin);
 	void	SetGameTime(int iYear, int iMonth, int iDay, int iHour, int iMin);
-	void	SetWeather(eSKY_WEATHER eWeather, int iPercentage);	//	³¯¾¾ ¼¼ÆÃ
+	void	SetWeather(eSKY_WEATHER eWeather, int iPercentage);	//	ë‚ ì”¨ ì„¸íŒ…
 	
-	void	SunAndMoonDirectionFixByHour(int iHour); // ÇØ¿Í ´Ş °¢µµ °ü¸®
+	void	SunAndMoonDirectionFixByHour(int iHour); // í•´ì™€ ë‹¬ ê°ë„ ê´€ë¦¬
 
-//	By : Ecli666 ( On 2002-04-04 ¿ÀÀü 10:53:58 )
+//	By : Ecli666 ( On 2002-04-04 ì˜¤ì „ 10:53:58 )
 //
 	CN3Sun*	GetSunPointer()	{	return m_pSun;	}
-//	~(By Ecli666 On 2002-04-04 ¿ÀÀü 10:53:58 )
+//	~(By Ecli666 On 2002-04-04 ì˜¤ì „ 10:53:58 )
 	
 protected:
-	void		SetCheckGameTime(DWORD dwCheckGameTime);//	CheckGameTimeÀ» Á¤ÇØÁÖ°í ÇöÀç½Ã°£À» ´Ù½Ã ¼¼ÆÃÇÑ´Ù.(Æ¯Á¤ ½Ã°£À¸·Î °­Á¦ÀûÀ¸·Î ¸¸µé¶§ È£ÃâÇÑ´Ù.)
-	int			GetLatestChange(eSKY_DAYCHANGE eSDC, int iPos);// m_pDayChangeQueues¿¡¼­ ÁöÁ¤µÈ À§Ä¡(iPos) ÀÌÀüÀÇ °¡Àå ÃÖ±Ù¿¡ º¯È­ÇÏ´Â À§Ä¡ ¾ò¾î¿À±â
+	void		SetCheckGameTime(DWORD dwCheckGameTime);//	CheckGameTimeì„ ì •í•´ì£¼ê³  í˜„ì¬ì‹œê°„ì„ ë‹¤ì‹œ ì„¸íŒ…í•œë‹¤.(íŠ¹ì • ì‹œê°„ìœ¼ë¡œ ê°•ì œì ìœ¼ë¡œ ë§Œë“¤ë•Œ í˜¸ì¶œí•œë‹¤.)
+	int			GetLatestChange(eSKY_DAYCHANGE eSDC, int iPos);// m_pDayChangeQueuesì—ì„œ ì§€ì •ëœ ìœ„ì¹˜(iPos) ì´ì „ì˜ ê°€ì¥ ìµœê·¼ì— ë³€í™”í•˜ëŠ” ìœ„ì¹˜ ì–»ì–´ì˜¤ê¸°
 	void		ChangeSky(__SKY_DAYCHANGE* pSDC, float fTakeTime);
-	int			GetDayChangePos_AfterNSec(DWORD dwCurGameTime, float fSec);		// ½Ç½Ã°£ NÃÊ ÈÄ¿¡ DayChangeQueueÀÇ À§Ä¡ ±¸ÇÏ±â
+	int			GetDayChangePos_AfterNSec(DWORD dwCurGameTime, float fSec);		// ì‹¤ì‹œê°„ Nì´ˆ í›„ì— DayChangeQueueì˜ ìœ„ì¹˜ êµ¬í•˜ê¸°
 	static int		CompareTime(const void* pArg1, const void* pArg2);
 
 };

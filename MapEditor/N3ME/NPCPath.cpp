@@ -1,4 +1,4 @@
-// NPCPath.cpp: implementation of the CNPCPath class.
+﻿// NPCPath.cpp: implementation of the CNPCPath class.
 //
 //////////////////////////////////////////////////////////////////////
 

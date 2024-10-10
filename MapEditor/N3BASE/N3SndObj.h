@@ -1,4 +1,4 @@
-// N3SndObj.h: interface for the CN3SndObj class.
+ï»¿// N3SndObj.h: interface for the CN3SndObj class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ protected:
 	float					m_fTmpSecPerFrm;
 
 public:
-	std::string				m_szFileName;	//ÆÄÀÏÀÌ¸§...(ID ´ë¿ë).
+	std::string				m_szFileName;	//íŒŒì¼ì´ë¦„...(ID ëŒ€ìš©).
 	
 
 protected:
@@ -66,7 +66,7 @@ public:
 	int		GetMaxVolume() { return m_iMaxVolume; }
 
 	void	Init();
-	void	Release(); // ÂüÁ¶ Ä«¿îÆ®¸¦ ¸®ÅÏ ÇØÁØ´Ù.. »ç¿îµå ¸Å´ÏÀú¿¡¼­´Â ÀÌ ÂüÁ¶ Ä«¿îÆ®¸¦ º¸°í ¸Ê¿¡¼­ Áö¿î´Ù..
+	void	Release(); // ì°¸ì¡° ì¹´ìš´íŠ¸ë¥¼ ë¦¬í„´ í•´ì¤€ë‹¤.. ì‚¬ìš´ë“œ ë§¤ë‹ˆì €ì—ì„œëŠ” ì´ ì°¸ì¡° ì¹´ìš´íŠ¸ë¥¼ ë³´ê³  ë§µì—ì„œ ì§€ìš´ë‹¤..
 	virtual bool Create(const std::string& szFN, e_SndType eType);
 	bool	Duplicate(CN3SndObj* pSrc, e_SndType eType, D3DVECTOR* pPos = NULL);
 

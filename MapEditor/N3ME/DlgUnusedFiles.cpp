@@ -1,4 +1,4 @@
-// DlgUnusedFiles.cpp : implementation file
+ï»¿// DlgUnusedFiles.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -49,7 +49,7 @@ void CDlgUnusedFiles::OnDelete()
 	int iSelFNC = m_ListFiles.GetSelCount();
 	if(iSelFNC <= 0) return;
 
-	int iYesNo = MessageBox("Áö¿ì½Ã°Ú½À´Ï±î?", "È®ÀÎ", MB_YESNO);
+	int iYesNo = MessageBox("ì§€ìš°ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", MB_YESNO);
 
 	if(IDYES != iYesNo) return;
 

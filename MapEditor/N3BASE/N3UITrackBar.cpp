@@ -1,4 +1,4 @@
-// N3UITrackBar.cpp: implementation of the CN3UITrackBar class.
+ï»¿// N3UITrackBar.cpp: implementation of the CN3UITrackBar class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -47,11 +47,11 @@ bool CN3UITrackBar::Load(HANDLE hFile)
 {
 	if (false == CN3UIBase::Load(hFile)) return false;
 
-	// ImageRef ¼³Á¤ÇÏ±â
+	// ImageRef ì„¤ì •í•˜ê¸°
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// image¸¸ °ñ¶ó³»±â
+		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// imageë§Œ ê³¨ë¼ë‚´ê¸°
 		int iImageType = (int)(pChild->GetReserved());
 		if (IMAGETYPE_BKGND == iImageType)
 		{
@@ -68,7 +68,7 @@ bool CN3UITrackBar::Load(HANDLE hFile)
 void CN3UITrackBar::SetRegion(const RECT& Rect)
 {
 	CN3UIBase::SetRegion(Rect);
-	if(m_pBkGndImageRef) m_pBkGndImageRef->SetRegion(m_rcRegion);	// ¹è°æÀÌ¹ÌÁö´Â °°Àº ¿µ¿ªÀ¸·Î
+	if(m_pBkGndImageRef) m_pBkGndImageRef->SetRegion(m_rcRegion);	// ë°°ê²½ì´ë¯¸ì§€ëŠ” ê°™ì€ ì˜ì—­ìœ¼ë¡œ
 	RECT rcThumb = m_pThumbImageRef->GetRegion();
 
 	int iThumbWidth = rcThumb.right - rcThumb.left;		int iThumbHeight = rcThumb.bottom - rcThumb.top;
@@ -76,15 +76,15 @@ void CN3UITrackBar::SetRegion(const RECT& Rect)
 	if (iBkWidth<=0 || iBkHeight<=0) return;
 	
 	if ( iThumbWidth<=0 && iThumbHeight<=0 )
-	{	// thumb ÀÌ¹ÌÁö´Â ¼³Á¤µÇ¾î ÀÖÁö ¾Ê´Ù¸é ÀÓÀ¸·Î Àû´çÇÏ°Ô ¼³Á¤
+	{	// thumb ì´ë¯¸ì§€ëŠ” ì„¤ì •ë˜ì–´ ìˆì§€ ì•Šë‹¤ë©´ ì„ìœ¼ë¡œ ì ë‹¹í•˜ê²Œ ì„¤ì •
 		RECT rc;
 		if (UISTYLE_TRACKBAR_VERTICAL == m_dwStyle)
-		{	// ¼¼·Î
+		{	// ì„¸ë¡œ
 			rc.left = Rect.left;		rc.top = Rect.top + iBkHeight*0.3f;
 			rc.right = Rect.right;	rc.bottom = rc.top + iBkHeight*0.3f;
 		}
 		else
-		{	// °¡·Î
+		{	// ê°€ë¡œ
 			rc.left = Rect.left + iBkWidth*0.3f;		rc.top = Rect.top;
 			rc.right = rc.left + iBkWidth*0.3f;			rc.bottom = Rect.bottom;
 		}
@@ -97,27 +97,27 @@ DWORD CN3UITrackBar::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& p
 {
 	DWORD dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
-	if (false == IsIn(ptCur.x, ptCur.y))	// ¿µ¿ª ¹ÛÀÌ¸é
+	if (false == IsIn(ptCur.x, ptCur.y))	// ì˜ì—­ ë°–ì´ë©´
 	{
 		SetState(UI_STATE_COMMON_NONE);
 		return dwRet;
 	}
-	dwRet |= UI_MOUSEPROC_INREGION;	// ÀÌ¹øÁÂÇ¥°¡ ¿µ¿ª ¾ÈÀÌ´Ù.
+	dwRet |= UI_MOUSEPROC_INREGION;	// ì´ë²ˆì¢Œí‘œê°€ ì˜ì—­ ì•ˆì´ë‹¤.
 
 	if (UI_STATE_TRACKBAR_THUMBDRAG == m_eState)
 	{
-		if(dwFlags & UI_MOUSE_LBCLICKED)  // ¿ŞÂÊ¹öÆ° ¶¼´Â ¼ø°£
+		if(dwFlags & UI_MOUSE_LBCLICKED)  // ì™¼ìª½ë²„íŠ¼ ë–¼ëŠ” ìˆœê°„
 		{
-			SetState(UI_STATE_COMMON_NONE);		// drag ÇØÁ¦
+			SetState(UI_STATE_COMMON_NONE);		// drag í•´ì œ
 			dwRet |= UI_MOUSEPROC_DONESOMETHING;
 			return dwRet;
 		}
 		else if (dwFlags & UI_MOUSE_LBDOWN)
 		{
-			// thumbÀ» ¿òÁ÷ÀÎ´Ù.
+			// thumbì„ ì›€ì§ì¸ë‹¤.
 			if (UISTYLE_TRACKBAR_VERTICAL == m_dwStyle)	UpDownThumbPos(ptCur.y - ptOld.y);
 			else UpDownThumbPos(ptCur.x - ptOld.x);
-			// ºÎ¸ğ¿¡°Ô ¸Ş¼¼Áö¸¦ º¸³»ÀÚ
+			// ë¶€ëª¨ì—ê²Œ ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ì
 			if (m_pParent) m_pParent->ReceiveMessage(this, UIMSG_TRACKBAR_POS);
 			dwRet |= UI_MOUSEPROC_DONESOMETHING;
 			return dwRet;
@@ -125,26 +125,26 @@ DWORD CN3UITrackBar::MouseProc(DWORD dwFlags, const POINT& ptCur, const POINT& p
 	}
 	else
 	{
-		if(dwFlags & UI_MOUSE_LBCLICK)  // ¿ŞÂÊ¹öÆ° ´­¸£´Â ¼ø°£
+		if(dwFlags & UI_MOUSE_LBCLICK)  // ì™¼ìª½ë²„íŠ¼ ëˆŒë¥´ëŠ” ìˆœê°„
 		{
-			if (m_pThumbImageRef->IsIn(ptCur.x, ptCur.y))	// thumbÀ» ´­·¶´Ù.
+			if (m_pThumbImageRef->IsIn(ptCur.x, ptCur.y))	// thumbì„ ëˆŒë €ë‹¤.
 			{
 				SetState(UI_STATE_TRACKBAR_THUMBDRAG);
 				dwRet |= UI_MOUSEPROC_DONESOMETHING;
 				return dwRet;
 			}
-			else	// thumbÀ§ºÎºĞ ¶Ç´Â ¾Æ·¡ ºÎºĞ(ÁÂ ¶Ç´Â ¿ì ¿©¹é)À» ´­·¶µû.
+			else	// thumbìœ„ë¶€ë¶„ ë˜ëŠ” ì•„ë˜ ë¶€ë¶„(ì¢Œ ë˜ëŠ” ìš° ì—¬ë°±)ì„ ëˆŒë €ë”°.
 			{
 				RECT rcThumb = m_pThumbImageRef->GetRegion();
 				if (UISTYLE_TRACKBAR_VERTICAL == m_dwStyle)
 				{
-					if (ptCur.y <= rcThumb.top) SetCurrentPos(m_iCurPos-m_iPageSize);// À­ºÎºĞ Å¬¸¯
-					else SetCurrentPos(m_iCurPos+m_iPageSize);// ¾Æ·¡ ºÎºĞ Å¬¸¯
+					if (ptCur.y <= rcThumb.top) SetCurrentPos(m_iCurPos-m_iPageSize);// ìœ—ë¶€ë¶„ í´ë¦­
+					else SetCurrentPos(m_iCurPos+m_iPageSize);// ì•„ë˜ ë¶€ë¶„ í´ë¦­
 				}
 				else
 				{
-					if (ptCur.x <= rcThumb.left) SetCurrentPos(m_iCurPos-m_iPageSize);// ¿ŞÂÊ ºÎºĞ Å¬¸¯
-					else SetCurrentPos(m_iCurPos+m_iPageSize);// ¿À¸¥ÂÊ ºÎºĞ Å¬¸¯
+					if (ptCur.x <= rcThumb.left) SetCurrentPos(m_iCurPos-m_iPageSize);// ì™¼ìª½ ë¶€ë¶„ í´ë¦­
+					else SetCurrentPos(m_iCurPos+m_iPageSize);// ì˜¤ë¥¸ìª½ ë¶€ë¶„ í´ë¦­
 				}
 				if (m_pParent) m_pParent->ReceiveMessage(this, UIMSG_TRACKBAR_POS);
 				dwRet |= UI_MOUSEPROC_DONESOMETHING;
@@ -181,7 +181,7 @@ void CN3UITrackBar::SetCurrentPos(int iPos)
 	UpdateThumbPos();
 }
 
-// Pos¼öÄ¡·Î ThumbÀÇ À§Ä¡¸¦ Á¶Á¤
+// Posìˆ˜ì¹˜ë¡œ Thumbì˜ ìœ„ì¹˜ë¥¼ ì¡°ì •
 void CN3UITrackBar::UpdateThumbPos()
 {
 	if (NULL == m_pThumbImageRef) return;
@@ -202,60 +202,60 @@ void CN3UITrackBar::UpdateThumbPos()
 	}
 }
 
-// thumbÀ» pixel´ÜÀ§·Î À§Ä¡ Á¶Á¤ÇÏ°í thumbÀÇ À§Ä¡¸¦ ¹ÙÅÁÀ¸·Î pos ¼öÄ¡¸¦ °è»êÇÏ¿© ³ÖÀ½
+// thumbì„ pixelë‹¨ìœ„ë¡œ ìœ„ì¹˜ ì¡°ì •í•˜ê³  thumbì˜ ìœ„ì¹˜ë¥¼ ë°”íƒ•ìœ¼ë¡œ pos ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•˜ì—¬ ë„£ìŒ
 void CN3UITrackBar::UpDownThumbPos(int iDiff)
 {
 	if (NULL == m_pThumbImageRef) return;
 	RECT rcThumb = m_pThumbImageRef->GetRegion();
 
-	if (UISTYLE_TRACKBAR_VERTICAL == m_dwStyle)		// ¾Æ·¡ ¿òÁ÷ÀÏ ´ë
+	if (UISTYLE_TRACKBAR_VERTICAL == m_dwStyle)		// ì•„ë˜ ì›€ì§ì¼ ëŒ€
 	{
 		int iRegionHeight = m_rcRegion.bottom - m_rcRegion.top;
 		int iThumbHeight = rcThumb.bottom - rcThumb.top;
 		if (0==iRegionHeight || 0==iThumbHeight) return;
 
-		// ¿Å±äÈÄ thumbÀÇ À§Ä¡ percentage ±¸ÇÏ±â
+		// ì˜®ê¸´í›„ thumbì˜ ìœ„ì¹˜ percentage êµ¬í•˜ê¸°
 		float fPercentage = ((rcThumb.top-m_rcRegion.top)+iDiff) / (((float)(iRegionHeight)) - iThumbHeight);
 
-		if (fPercentage>1.0f)	// ³Ê¹« ¾Æ·¡·Î ³»·È´Ù.
+		if (fPercentage>1.0f)	// ë„ˆë¬´ ì•„ë˜ë¡œ ë‚´ë ¸ë‹¤.
 		{
 			m_pThumbImageRef->SetPos(rcThumb.left, rcThumb.bottom-iThumbHeight);
-			m_iCurPos = m_iMaxPos;		// SetCurrentPosÇÔ¼ö¸¦ È£ÃâÇÏ¸é thumbÀ§Ä¡¸¦ ´Ù½Ã °è»êÇÏ±â ¶§¹®¿¡ Á÷Á¢ ¹Ù²Ù¾îÁÜ.
+			m_iCurPos = m_iMaxPos;		// SetCurrentPosí•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë©´ thumbìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•˜ê¸° ë•Œë¬¸ì— ì§ì ‘ ë°”ê¾¸ì–´ì¤Œ.
 		}
-		else if (fPercentage<0.0f)	// ³Ê¹« À§·Î ¿Ã·È´Ù.
+		else if (fPercentage<0.0f)	// ë„ˆë¬´ ìœ„ë¡œ ì˜¬ë ¸ë‹¤.
 		{
 			m_pThumbImageRef->SetPos(rcThumb.left, rcThumb.top);
-			m_iCurPos = m_iMinPos;// SetCurrentPosÇÔ¼ö¸¦ È£ÃâÇÏ¸é thumbÀ§Ä¡¸¦ ´Ù½Ã °è»êÇÏ±â ¶§¹®¿¡ Á÷Á¢ ¹Ù²Ù¾îÁÜ.
+			m_iCurPos = m_iMinPos;// SetCurrentPosí•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë©´ thumbìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•˜ê¸° ë•Œë¬¸ì— ì§ì ‘ ë°”ê¾¸ì–´ì¤Œ.
 		}
 		else
 		{
 			m_pThumbImageRef->SetPos(rcThumb.left, rcThumb.top+iDiff);
-			m_iCurPos = m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage;// SetCurrentPosÇÔ¼ö¸¦ È£ÃâÇÏ¸é thumbÀ§Ä¡¸¦ ´Ù½Ã °è»êÇÏ±â ¶§¹®¿¡ Á÷Á¢ ¹Ù²Ù¾îÁÜ.
+			m_iCurPos = m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage;// SetCurrentPosí•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë©´ thumbìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•˜ê¸° ë•Œë¬¸ì— ì§ì ‘ ë°”ê¾¸ì–´ì¤Œ.
 		}
 	}
-	else											// ÁÂ¿ì·Î ¿òÁ÷ÀÏ ¶§
+	else											// ì¢Œìš°ë¡œ ì›€ì§ì¼ ë•Œ
 	{
 		int iRegionWidth = m_rcRegion.right - m_rcRegion.left;
 		int iThumbWidth = rcThumb.right - rcThumb.left;
 		if (0==iRegionWidth || 0==iThumbWidth) return;
 
-		// ¿Å±äÈÄ thumbÀÇ À§Ä¡ percentage ±¸ÇÏ±â
+		// ì˜®ê¸´í›„ thumbì˜ ìœ„ì¹˜ percentage êµ¬í•˜ê¸°
 		float fPercentage = ((rcThumb.left-m_rcRegion.left)+iDiff) / (((float)(iRegionWidth)) - iThumbWidth);
 
-		if (fPercentage>1.0f)	// ³Ê¹« ¿À¸¥ÂÊÀ¸·Î ¹Ğ¾ú´Ù.
+		if (fPercentage>1.0f)	// ë„ˆë¬´ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ë°€ì—ˆë‹¤.
 		{
 			m_pThumbImageRef->SetPos(rcThumb.right-iThumbWidth, rcThumb.top);
-			m_iCurPos = m_iMaxPos;// SetCurrentPosÇÔ¼ö¸¦ È£ÃâÇÏ¸é thumbÀ§Ä¡¸¦ ´Ù½Ã °è»êÇÏ±â ¶§¹®¿¡ Á÷Á¢ ¹Ù²Ù¾îÁÜ.
+			m_iCurPos = m_iMaxPos;// SetCurrentPosí•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë©´ thumbìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•˜ê¸° ë•Œë¬¸ì— ì§ì ‘ ë°”ê¾¸ì–´ì¤Œ.
 		}
-		else if (fPercentage<0.0f)	// ³Ê¹« ¿ŞÂÊÀ¸·Î ¹Ğ¾ú´Ù
+		else if (fPercentage<0.0f)	// ë„ˆë¬´ ì™¼ìª½ìœ¼ë¡œ ë°€ì—ˆë‹¤
 		{
 			m_pThumbImageRef->SetPos(rcThumb.left, rcThumb.top);
-			m_iCurPos = m_iMinPos;// SetCurrentPosÇÔ¼ö¸¦ È£ÃâÇÏ¸é thumbÀ§Ä¡¸¦ ´Ù½Ã °è»êÇÏ±â ¶§¹®¿¡ Á÷Á¢ ¹Ù²Ù¾îÁÜ.
+			m_iCurPos = m_iMinPos;// SetCurrentPosí•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë©´ thumbìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•˜ê¸° ë•Œë¬¸ì— ì§ì ‘ ë°”ê¾¸ì–´ì¤Œ.
 		}
 		else
 		{
 			m_pThumbImageRef->SetPos(rcThumb.left+iDiff, rcThumb.top);
-			m_iCurPos = m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage;// SetCurrentPosÇÔ¼ö¸¦ È£ÃâÇÏ¸é thumbÀ§Ä¡¸¦ ´Ù½Ã °è»êÇÏ±â ¶§¹®¿¡ Á÷Á¢ ¹Ù²Ù¾îÁÜ.
+			m_iCurPos = m_iMinPos + (m_iMaxPos-m_iMinPos)*fPercentage;// SetCurrentPosí•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë©´ thumbìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•˜ê¸° ë•Œë¬¸ì— ì§ì ‘ ë°”ê¾¸ì–´ì¤Œ.
 		}
 	}
 }
@@ -265,16 +265,16 @@ void CN3UITrackBar::operator = (const CN3UITrackBar& other)
 {
 	CN3UIBase::operator = (other);
 
-	m_iMaxPos = other.m_iMaxPos;									// ÃÖ´ë
-	m_iMinPos = other.m_iMinPos;									// ÃÖ¼Ò
-	m_iCurPos = other.m_iCurPos;									// ÇöÀç °ª
-	m_iPageSize = other.m_iPageSize;								// page´ÜÀ§ ÀÌµ¿ÇÒ¶§ ÀÌµ¿°ª
+	m_iMaxPos = other.m_iMaxPos;									// ìµœëŒ€
+	m_iMinPos = other.m_iMinPos;									// ìµœì†Œ
+	m_iCurPos = other.m_iCurPos;									// í˜„ì¬ ê°’
+	m_iPageSize = other.m_iPageSize;								// pageë‹¨ìœ„ ì´ë™í• ë•Œ ì´ë™ê°’
 
-	// ImageRef ¼³Á¤ÇÏ±â
+	// ImageRef ì„¤ì •í•˜ê¸°
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// image¸¸ °ñ¶ó³»±â
+		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// imageë§Œ ê³¨ë¼ë‚´ê¸°
 		int iImageType = (int)(pChild->GetReserved());
 		if (IMAGETYPE_BKGND == iImageType)
 		{
@@ -289,7 +289,7 @@ void CN3UITrackBar::operator = (const CN3UITrackBar& other)
 
 void CN3UITrackBar::CreateImages()
 {
-	__ASSERT(NULL == m_pBkGndImageRef && NULL == m_pThumbImageRef, "ÀÌ¹ÌÁö°¡ ÀÌ¹Ì ÇÒ´çµÇ¾î ÀÖ¾î¿©");
+	__ASSERT(NULL == m_pBkGndImageRef && NULL == m_pThumbImageRef, "ì´ë¯¸ì§€ê°€ ì´ë¯¸ í• ë‹¹ë˜ì–´ ìˆì–´ì—¬");
 	m_pBkGndImageRef = new CN3UIImage();
 	m_pBkGndImageRef->Init(this);
 	m_pBkGndImageRef->SetReserved(IMAGETYPE_BKGND);
@@ -298,7 +298,7 @@ void CN3UITrackBar::CreateImages()
 	m_pThumbImageRef->Init(this);
 	m_pThumbImageRef->SetReserved(IMAGETYPE_THUMB);
 
-	SetRegion(m_rcRegion);	// ¿µ¿ª ´Ù½Ã ¼³Á¤
+	SetRegion(m_rcRegion);	// ì˜ì—­ ë‹¤ì‹œ ì„¤ì •
 }
 
 void CN3UITrackBar::DeleteBkImage()

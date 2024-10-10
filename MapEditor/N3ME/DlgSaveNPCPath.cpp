@@ -1,4 +1,4 @@
-// DlgSaveNPCPath.cpp : implementation file
+﻿// DlgSaveNPCPath.cpp : implementation file
 //
 
 #include "stdafx.h"

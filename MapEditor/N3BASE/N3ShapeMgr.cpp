@@ -1,4 +1,4 @@
-// N3ShapeMgr.cpp: implementation of the CN3ShapeMgr class.
+ï»¿// N3ShapeMgr.cpp: implementation of the CN3ShapeMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -80,7 +80,7 @@ void CN3ShapeMgr::Release()
 #endif // end of #ifndef _3DSERVER
 
 #ifdef _N3TOOL
-	m_CollisionExtras.clear(); // Ãß°¡·Î ³ÖÀ» Ãæµ¹Ã¼Å© µ¥ÀÌÅÍ
+	m_CollisionExtras.clear(); // ì¶”ê°€ë¡œ ë„£ì„ ì¶©ëŒì²´í¬ ë°ì´í„°
 #endif // end of #ifedef _N3TOOL
 }
 
@@ -105,7 +105,7 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 
 #ifdef _N3GAME
 #ifndef _REPENT
-	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // ·Îµù¹Ù..
+	CUILoading* pUILoading = CGameProcedure::s_pUILoading; // ë¡œë”©ë°”..
 #endif
 #endif // end of #ifndef _N3GAME
 
@@ -123,27 +123,27 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 		for(int i = 0; i < iSC; i++)
 		{
 			ReadFile(hFile, &dwType, 4, &dwRWC, NULL); // Shape Type
-			if(dwType & OBJ_SHAPE_EXTRA) pShape = new CN3ShapeExtra(); // ¼º¹®µî È®ÀåµÈ Object ·Î ¾µ°æ¿ì..
+			if(dwType & OBJ_SHAPE_EXTRA) pShape = new CN3ShapeExtra(); // ì„±ë¬¸ë“± í™•ì¥ëœ Object ë¡œ ì“¸ê²½ìš°..
 			else pShape = new CN3Shape();
 			m_Shapes.push_back(pShape);
 
-			// pShape->m_iEventID; ¹ÙÀÎµå Æ÷ÀÎÆ® 100~, 200~ ¼º¹® 1100~, 1200~ ·¹¹ö 2100~, 2200~
-			// pShape->m_iEventType; 0-¹ÙÀÎµåÆ÷ÀÎÆ® 1-¼º¹®(ÁÂ¿ì¿­¸²) 2-¼º¹®(»óÇÏ¿­¸²) 3-·¹¹ö(»óÇÏ´ç±è) 4-±ê¹ß(º¸ÀÓ, ¾Èº¸ÀÓ)
-			// pShape->m_iNPC_ID; Á¶Á¾ÇÒ Object ID
+			// pShape->m_iEventID; ë°”ì¸ë“œ í¬ì¸íŠ¸ 100~, 200~ ì„±ë¬¸ 1100~, 1200~ ë ˆë²„ 2100~, 2200~
+			// pShape->m_iEventType; 0-ë°”ì¸ë“œí¬ì¸íŠ¸ 1-ì„±ë¬¸(ì¢Œìš°ì—´ë¦¼) 2-ì„±ë¬¸(ìƒí•˜ì—´ë¦¼) 3-ë ˆë²„(ìƒí•˜ë‹¹ê¹€) 4-ê¹ƒë°œ(ë³´ì„, ì•ˆë³´ì„)
+			// pShape->m_iNPC_ID; ì¡°ì¢…í•  Object ID
 			// pShape->m_iNPC_Status; toggle 0, 1
 			
 			pShape->Load(hFile);
-			if(pShape->m_iEventID) //  ID °¡ ÀÖ´Â ¿ÀºêÁ§Æ® ... NPC ·Î ¾µ¼ö ÀÖ´Ù..
+			if(pShape->m_iEventID) //  ID ê°€ ìˆëŠ” ì˜¤ë¸Œì íŠ¸ ... NPC ë¡œ ì“¸ìˆ˜ ìˆë‹¤..
 			{
 				m_ShapesHaveID.push_back(pShape);
-				pShape->MakeCollisionMeshByParts(); // ÇöÀç ¸ğ½À ±×´ë·Î... Ãæµ¹ ¸Ş½Ã¸¦ ¸¸µç´Ù...
+				pShape->MakeCollisionMeshByParts(); // í˜„ì¬ ëª¨ìŠµ ê·¸ëŒ€ë¡œ... ì¶©ëŒ ë©”ì‹œë¥¼ ë§Œë“ ë‹¤...
 
 				TRACE("  Load OBject Event : ID(%d) Type(%d) CtrlID(%d) Status(%d)\n",
 					pShape->m_iEventID, pShape->m_iEventType, pShape->m_iNPC_ID, pShape->m_iNPC_Status);
 
-				if(	1 == pShape->m_iEventType || // ÁÂ¿ì¿­¸²¼º¹®,
-					2 == pShape->m_iEventType ||  // »óÇÏ¿­¸²¼º¹®
-					3 == pShape->m_iEventType )  // »óÇÏ ·¹¹ö
+				if(	1 == pShape->m_iEventType || // ì¢Œìš°ì—´ë¦¼ì„±ë¬¸,
+					2 == pShape->m_iEventType ||  // ìƒí•˜ì—´ë¦¼ì„±ë¬¸
+					3 == pShape->m_iEventType )  // ìƒí•˜ ë ˆë²„
 				{
 					pShape->m_bVisible = false;
 				}
@@ -151,12 +151,12 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 			}
 #ifdef _N3GAME
 			
-			// °­Á¦ ÄÚµù... °¢Á¾ ¼º¹® ¿­±â..
+			// ê°•ì œ ì½”ë”©... ê°ì¢… ì„±ë¬¸ ì—´ê¸°..
 //			if(dwType & OBJ_SHAPE_EXTRA)
 //			{
-//				CN3ShapeExtra* pSE = (CN3ShapeExtra*)pShape; // ¼º¹®µî È®ÀåµÈ Object ·Î ¾µ°æ¿ì..
-//				pSE->RotateTo(0, __Vector3(0,1,0), 80, 1, true); // ¹Ù·Î ¿­±â.
-//				pSE->RotateTo(1, __Vector3(0,1,0), -80, 1, true); // ¹Ù·Î ¿­±â.
+//				CN3ShapeExtra* pSE = (CN3ShapeExtra*)pShape; // ì„±ë¬¸ë“± í™•ì¥ëœ Object ë¡œ ì“¸ê²½ìš°..
+//				pSE->RotateTo(0, __Vector3(0,1,0), 80, 1, true); // ë°”ë¡œ ì—´ê¸°.
+//				pSE->RotateTo(1, __Vector3(0,1,0), -80, 1, true); // ë°”ë¡œ ì—´ê¸°.
 //			}
 
 			if(!(i%64))
@@ -185,7 +185,7 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 	ReadFile(hFile, &m_fMapLength, 4, &dwRWC, NULL); // Shape Count
 	this->Create(m_fMapWidth, m_fMapLength);
 
-	// Ãæµ¹ Ã¼Å© Æú¸®°ï µ¥ÀÌÅÍ ÀĞ±â..
+	// ì¶©ëŒ ì²´í¬ í´ë¦¬ê³¤ ë°ì´í„° ì½ê¸°..
 	ReadFile(hFile, &m_nCollisionFaceCount, 4, &dwRWC, NULL);
 	delete [] m_pvCollisions; m_pvCollisions = NULL;
 	if(m_nCollisionFaceCount > 0)
@@ -194,7 +194,7 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 		ReadFile(hFile, m_pvCollisions, sizeof(__Vector3) * m_nCollisionFaceCount * 3, &dwRWC, NULL);
 	}
 
-	// Cell Data ¾²±â.
+	// Cell Data ì“°ê¸°.
 	BOOL bExist = FALSE;
 	int z = 0;
 	for(float fZ = 0.0f; fZ < m_fMapLength; fZ += CELL_MAIN_SIZE, z++)
@@ -204,7 +204,7 @@ bool CN3ShapeMgr::LoadCollisionData(HANDLE hFile)
 		{
 			delete m_pCells[x][z]; m_pCells[x][z] = NULL;
 
-			ReadFile(hFile, &bExist, 4, &dwRWC, NULL); // µ¥ÀÌÅÍ°¡ ÀÖ´Â ¼¿ÀÎÁö ¾²°í..
+			ReadFile(hFile, &bExist, 4, &dwRWC, NULL); // ë°ì´í„°ê°€ ìˆëŠ” ì…€ì¸ì§€ ì“°ê³ ..
 			if(FALSE == bExist) continue;
 
 			m_pCells[x][z] = new __CellMain;
@@ -230,11 +230,11 @@ bool CN3ShapeMgr::Save(HANDLE hFile)
 	{
 		dwType = m_Shapes[i]->Type();
 		if(m_Shapes[i]->m_iEventID || m_Shapes[i]->m_iEventType || m_Shapes[i]->m_iNPC_ID || m_Shapes[i]->m_iNPC_Status)
-			dwType |= OBJ_SHAPE_EXTRA; // NPC ID °¡ ÀÖÀ¸¸é.. È®Àå Shape ·Î ...
+			dwType |= OBJ_SHAPE_EXTRA; // NPC ID ê°€ ìˆìœ¼ë©´.. í™•ì¥ Shape ë¡œ ...
 
 		WriteFile(hFile, &dwType, 4, &dwRWC, NULL); // Shape Type
-		m_Shapes[i]->CollisionMeshSet(""); // Ãæµ¹ ¸Ş½Ã´Â Áö¿öÁØ´Ù..
-		m_Shapes[i]->ClimbMeshSet(""); // Ãæµ¹ ¸Ş½Ã´Â Áö¿öÁØ´Ù..
+		m_Shapes[i]->CollisionMeshSet(""); // ì¶©ëŒ ë©”ì‹œëŠ” ì§€ì›Œì¤€ë‹¤..
+		m_Shapes[i]->ClimbMeshSet(""); // ì¶©ëŒ ë©”ì‹œëŠ” ì§€ì›Œì¤€ë‹¤..
 		m_Shapes[i]->Save(hFile);
 	}
 #endif // end of #ifndef _3DSERVER
@@ -247,17 +247,17 @@ bool CN3ShapeMgr::SaveCollisionData(HANDLE hFile)
 {
 	DWORD dwRWC;
 
-	WriteFile(hFile, &m_fMapWidth, 4, &dwRWC, NULL); // ¸Ê ½ÇÁ¦ ¹ÌÅÍ ´ÜÀ§ ³Êºñ
-	WriteFile(hFile, &m_fMapLength, 4, &dwRWC, NULL); // ¸Ê ½ÇÁ¦ ¹ÌÅÍ ´ÜÀ§ ±æÀÌ
+	WriteFile(hFile, &m_fMapWidth, 4, &dwRWC, NULL); // ë§µ ì‹¤ì œ ë¯¸í„° ë‹¨ìœ„ ë„ˆë¹„
+	WriteFile(hFile, &m_fMapLength, 4, &dwRWC, NULL); // ë§µ ì‹¤ì œ ë¯¸í„° ë‹¨ìœ„ ê¸¸ì´
 
-	// Ãæµ¹ Ã¼Å© Æú¸®°ï µ¥ÀÌÅÍ ¾²±â..
+	// ì¶©ëŒ ì²´í¬ í´ë¦¬ê³¤ ë°ì´í„° ì“°ê¸°..
 	WriteFile(hFile, &m_nCollisionFaceCount, 4, &dwRWC, NULL);
 	if(m_nCollisionFaceCount > 0)
 	{
 		WriteFile(hFile, m_pvCollisions, sizeof(__Vector3) * m_nCollisionFaceCount * 3, &dwRWC, NULL);
 	}
 
-	// Cell Data ¾²±â.
+	// Cell Data ì“°ê¸°.
 	int z = 0;
 	for(float fZ = 0.0f; fZ < m_fMapLength; fZ += CELL_MAIN_SIZE, z++)
 	{
@@ -266,7 +266,7 @@ bool CN3ShapeMgr::SaveCollisionData(HANDLE hFile)
 		{
 			BOOL bExist = FALSE;
 			if(m_pCells[x][z]) bExist = TRUE;
-			WriteFile(hFile, &bExist, 4, &dwRWC, NULL); // µ¥ÀÌÅÍ°¡ ÀÖ´Â ¼¿ÀÎÁö ¾²°í..
+			WriteFile(hFile, &bExist, 4, &dwRWC, NULL); // ë°ì´í„°ê°€ ìˆëŠ” ì…€ì¸ì§€ ì“°ê³ ..
 
 			if(NULL == m_pCells[x][z]) continue;
 
@@ -278,7 +278,7 @@ bool CN3ShapeMgr::SaveCollisionData(HANDLE hFile)
 }
 #endif // end of _N3TOOL
 
-bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // ¸ÊÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ ¹ÌÅÍ ´ÜÀ§·Î ³Ö´Â´Ù..
+bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // ë§µì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ë¯¸í„° ë‹¨ìœ„ë¡œ ë„£ëŠ”ë‹¤..
 {
 	if(	fMapWidth <= 0.0f || fMapWidth > MAX_CELL_MAIN * CELL_MAIN_SIZE ||
 		fMapLength <= 0.0f || fMapLength > MAX_CELL_MAIN * CELL_MAIN_SIZE )
@@ -297,7 +297,7 @@ void CN3ShapeMgr::GenerateCollisionData()
 {
 	int nFC = 0, iSC = m_Shapes.size();
 	int i;
-	for(i = 0; i < iSC; i++) // Shape ¿¡ ÀÖ´Â Ãæµ¹ ¸Ş½Ã ¸¸Å­ »ı¼º.
+	for(i = 0; i < iSC; i++) // Shape ì— ìˆëŠ” ì¶©ëŒ ë©”ì‹œ ë§Œí¼ ìƒì„±.
 	{
 		CN3VMesh* pVM = m_Shapes[i]->CollisionMesh();
 		if (NULL == pVM) continue;
@@ -313,17 +313,17 @@ void CN3ShapeMgr::GenerateCollisionData()
 		}
 	}
 
-	nFC += m_CollisionExtras.size() / 3; // Ãß°¡ Ãæµ¹ µ¥ÀÌÅÍ..
+	nFC += m_CollisionExtras.size() / 3; // ì¶”ê°€ ì¶©ëŒ ë°ì´í„°..
 
 	if(nFC <= 0) return;
 	
 	m_nCollisionFaceCount = nFC;
 	delete [] m_pvCollisions; m_pvCollisions = NULL;
-	m_pvCollisions = new __Vector3[nFC * 3]; // Ãæµ¹ Æú¸®°ï »ı¼º
+	m_pvCollisions = new __Vector3[nFC * 3]; // ì¶©ëŒ í´ë¦¬ê³¤ ìƒì„±
 	memset(m_pvCollisions, 0, sizeof(__Vector3) * nFC * 3);
 
 	int nCPC = 0; // Collision Polygon Count
-	for(i = 0; i < iSC; i++) // Shape ¿¡ ÀÖ´Â Ãæµ¹ ¸Ş½Ã ¸¸Å­ µ¥ÀÌÅÍ º¹»ç..
+	for(i = 0; i < iSC; i++) // Shape ì— ìˆëŠ” ì¶©ëŒ ë©”ì‹œ ë§Œí¼ ë°ì´í„° ë³µì‚¬..
 	{
 		CN3VMesh* pVMesh = m_Shapes[i]->CollisionMesh();
 		if (NULL == pVMesh) continue;
@@ -334,7 +334,7 @@ void CN3ShapeMgr::GenerateCollisionData()
 			WORD* pwIs = pVMesh->Indices();
 			for(int j = 0; j < nIC; j++)
 			{
-				m_pvCollisions[nCPC++] = pVSrc[pwIs[j]] * m_Shapes[i]->m_Matrix; // ¿ùµå À§Ä¡ÀÌ´Ù.
+				m_pvCollisions[nCPC++] = pVSrc[pwIs[j]] * m_Shapes[i]->m_Matrix; // ì›”ë“œ ìœ„ì¹˜ì´ë‹¤.
 			}
 		}
 		else 
@@ -342,12 +342,12 @@ void CN3ShapeMgr::GenerateCollisionData()
 			int nVC = pVMesh->VertexCount();
 			for(int j = 0; j < nVC; j++)
 			{
-				m_pvCollisions[nCPC++] = pVSrc[j] * m_Shapes[i]->m_Matrix; // ¿ùµå À§Ä¡ÀÌ´Ù.
+				m_pvCollisions[nCPC++] = pVSrc[j] * m_Shapes[i]->m_Matrix; // ì›”ë“œ ìœ„ì¹˜ì´ë‹¤.
 			}
 		}
 	}
 
-	// Ãß°¡ Ãæµ¹ µ¥ÀÌÅÍ ³Ö±â..
+	// ì¶”ê°€ ì¶©ëŒ ë°ì´í„° ë„£ê¸°..
 	it_Vector3 it = m_CollisionExtras.begin(), itEnd = m_CollisionExtras.end();
 	for(; it != itEnd; it++)
 	{
@@ -356,12 +356,12 @@ void CN3ShapeMgr::GenerateCollisionData()
 
 	if(nCPC != (nFC * 3))
 	{
-		__ASSERT(0, "Ãæµ¹ Ã¼Å© Æú¸®°ïÀÇ Á¡°¹¼ö¿Í ¸é °¹¼ö°¡ ´Ù¸¨´Ï´Ù.");
+		__ASSERT(0, "ì¶©ëŒ ì²´í¬ í´ë¦¬ê³¤ì˜ ì ê°¯ìˆ˜ì™€ ë©´ ê°¯ìˆ˜ê°€ ë‹¤ë¦…ë‹ˆë‹¤.");
 		this->Release();
 		return;
 	}
 
-	// °¢ ¼±ºĞÀÌ ¼¿¿¡ °ÉÃÄ ÀÖ´ÂÁö È¤Àº Æ÷ÇÔµÇ¾î ÀÖ´ÂÁö µîµî ÆÇ´ÜÇØ¼­ ÀÎµ¦½º »ı¼ºÀ» ÇÑ´Ù.
+	// ê° ì„ ë¶„ì´ ì…€ì— ê±¸ì³ ìˆëŠ”ì§€ í˜¹ì€ í¬í•¨ë˜ì–´ ìˆëŠ”ì§€ ë“±ë“± íŒë‹¨í•´ì„œ ì¸ë±ìŠ¤ ìƒì„±ì„ í•œë‹¤.
 	int xSMax = (int)(m_fMapWidth / CELL_SUB_SIZE);
 	int zSMax = (int)(m_fMapLength / CELL_SUB_SIZE);
 	for(i = 0; i < nFC; i++)
@@ -375,9 +375,9 @@ void CN3ShapeMgr::GenerateCollisionData()
 		vEdge[2][0] = m_pvCollisions[i*3+2];
 		vEdge[2][1] = m_pvCollisions[i*3];
 
-		for(int j = 0; j < 3; j++) // °ÉÃÄ ÀÖ´Â ¸Ş½Ã ¸¸Å­ »ı¼º...
+		for(int j = 0; j < 3; j++) // ê±¸ì³ ìˆëŠ” ë©”ì‹œ ë§Œí¼ ìƒì„±...
 		{
-			// ¹üÀ§¸¦ Á¤ÇÏ°í..
+			// ë²”ìœ„ë¥¼ ì •í•˜ê³ ..
 			int xx1 = 0, xx2 = 0, zz1 = 0, zz2 = 0;
 
 			if(vEdge[j][0].x < vEdge[j][1].x) 
@@ -412,7 +412,7 @@ void CN3ShapeMgr::GenerateCollisionData()
 			if(zz2 < 0) zz2 = 0;
 			if(zz2 >= zSMax) zz2 = zSMax - 1;
 
-			for(int z = zz1; z <= zz2; z++) // ¹üÀ§¸¸Å­ Ã³¸®..
+			for(int z = zz1; z <= zz2; z++) // ë²”ìœ„ë§Œí¼ ì²˜ë¦¬..
 			{
 				float fZMin = (float)(z * CELL_SUB_SIZE);
 				float fZMax = (float)((z+1) * CELL_SUB_SIZE);
@@ -433,17 +433,17 @@ void CN3ShapeMgr::GenerateCollisionData()
 					if(vEdge[j][1].x < fXMin) dwOC1 |= 0x000f;
 					
 					bool bWriteID = false;
-					if(dwOC0 & dwOC1) bWriteID = false; // µÎ ³¡Á¡ÀÌ °°Àº º¯ÀÇ ¿ÜºÎ¿¡ ÀÖ´Ù.
-					else if(dwOC0 == 0 && dwOC1 == 0) bWriteID = true;// ¼±ºĞÀÌ »ç°¢Çü ³»ºÎ¿¡ ÀÖÀ½
-					else if((dwOC0 == 0 && dwOC1 != 0) || (dwOC0 != 0 && dwOC1 == 0)) bWriteID = true;// ¼±ºĞ ÇÑÁ¡Àº ¼¿ÀÇ ³»ºÎ¿¡ ÇÑÁ¡Àº ¿ÜºÎ¿¡ ÀÖÀ½.
-					else if((dwOC0 & dwOC1) == 0) // µÎ …LÁ¡ ¸ğµÎ ¼¿ ¿ÜºÎ¿¡ ÀÖÁö¸¸ ÆÇ´ÜÀ» ´Ù½Ã ÇØ¾ß ÇÑ´Ù.
+					if(dwOC0 & dwOC1) bWriteID = false; // ë‘ ëì ì´ ê°™ì€ ë³€ì˜ ì™¸ë¶€ì— ìˆë‹¤.
+					else if(dwOC0 == 0 && dwOC1 == 0) bWriteID = true;// ì„ ë¶„ì´ ì‚¬ê°í˜• ë‚´ë¶€ì— ìˆìŒ
+					else if((dwOC0 == 0 && dwOC1 != 0) || (dwOC0 != 0 && dwOC1 == 0)) bWriteID = true;// ì„ ë¶„ í•œì ì€ ì…€ì˜ ë‚´ë¶€ì— í•œì ì€ ì™¸ë¶€ì— ìˆìŒ.
+					else if((dwOC0 & dwOC1) == 0) // ë‘ Â…Lì  ëª¨ë‘ ì…€ ì™¸ë¶€ì— ìˆì§€ë§Œ íŒë‹¨ì„ ë‹¤ì‹œ í•´ì•¼ í•œë‹¤.
 					{
-						float fXCross = vEdge[j][0].x + (fZMax - vEdge[j][0].z) * (vEdge[j][1].x - vEdge[j][0].x) / (vEdge[j][1].z - vEdge[j][0].z); // À§ÀÇ º¯°úÀÇ ±³Â÷Á¡À» °è»êÇÏ°í..
-						if(fXCross < fXMin) bWriteID = false; // ¿ÏÀüÈ÷ ¿Ü°û¿¡ ÀÖ´Ù.
-						else bWriteID = true; // °ÉÃ³ÀÖ´Ù.
+						float fXCross = vEdge[j][0].x + (fZMax - vEdge[j][0].z) * (vEdge[j][1].x - vEdge[j][0].x) / (vEdge[j][1].z - vEdge[j][0].z); // ìœ„ì˜ ë³€ê³¼ì˜ êµì°¨ì ì„ ê³„ì‚°í•˜ê³ ..
+						if(fXCross < fXMin) bWriteID = false; // ì™„ì „íˆ ì™¸ê³½ì— ìˆë‹¤.
+						else bWriteID = true; // ê±¸ì²˜ìˆë‹¤.
 					}
 
-					if(false == bWriteID) // ¸¸¾à °É¸°°Ô ¾ø´Ù¸é... À§¿¡¼­ Á÷¼±À» ½î¾Æ¼­ Ãæµ¹ÀÎÁö Ã¼Å©ÇÑ´Ù.
+					if(false == bWriteID) // ë§Œì•½ ê±¸ë¦°ê²Œ ì—†ë‹¤ë©´... ìœ„ì—ì„œ ì§ì„ ì„ ì˜ì•„ì„œ ì¶©ëŒì¸ì§€ ì²´í¬í•œë‹¤.
 					{
 						__Vector3 vPos, vDir;
 						vDir.Set(0, -1.0f, 0);
@@ -454,17 +454,17 @@ void CN3ShapeMgr::GenerateCollisionData()
 							for(float fX = xx3; fX <= xx4 && false == bWriteID; fX += 0.25f)
 							{
 								vPos.Set(fX, 10000.0f, fZ);
-								if(::_IntersectTriangle(vPos, vDir, m_pvCollisions[i*3], m_pvCollisions[i*3+1], m_pvCollisions[i*3+2])) // Æú¸®°ï Ãæµ¹ Ã¼Å©..
+								if(::_IntersectTriangle(vPos, vDir, m_pvCollisions[i*3], m_pvCollisions[i*3+1], m_pvCollisions[i*3+2])) // í´ë¦¬ê³¤ ì¶©ëŒ ì²´í¬..
 								{
-									bWriteID = true; // Ãæµ¹ Æú¸®°ï ÀÎµ¦½º¸¦ ¾²°Ô ¸¸µç´Ù..
+									bWriteID = true; // ì¶©ëŒ í´ë¦¬ê³¤ ì¸ë±ìŠ¤ë¥¼ ì“°ê²Œ ë§Œë“ ë‹¤..
 								}
 							}
 						}
 					}
 					
-					if(false == bWriteID) continue; // Ãæµ¹ Æú¸®°ï ¾µÀÏ ¾ø¼Ò..
+					if(false == bWriteID) continue; // ì¶©ëŒ í´ë¦¬ê³¤ ì“¸ì¼ ì—†ì†Œ..
 					
-					// Ãæµ¹ Á¤º¸¸¦ ½á¾ß ÇÑ´Ù..
+					// ì¶©ëŒ ì •ë³´ë¥¼ ì¨ì•¼ í•œë‹¤..
 					int nX = x / CELL_MAIN_DEVIDE;
 					int nZ = z / CELL_MAIN_DEVIDE;
 					if(nX < 0 || nX >= MAX_CELL_MAIN || nZ < 0 && nZ >= MAX_CELL_MAIN) continue;
@@ -481,7 +481,7 @@ void CN3ShapeMgr::GenerateCollisionData()
 					int nCCPC = pSubCell->nCCPolyCount; // Collision Check Polygon Count
 
 					bool bOverlapped = false;
-					for(int k = 0; k < nCCPC; k++) // Áßº¹ µÇ´ÂÁö Ã¼Å©
+					for(int k = 0; k < nCCPC; k++) // ì¤‘ë³µ ë˜ëŠ”ì§€ ì²´í¬
 					{
 						if(i * 3 == pSubCell->pdwCCVertIndices[k*3]) 
 						{
@@ -490,34 +490,34 @@ void CN3ShapeMgr::GenerateCollisionData()
 						}
 					}
 
-					if(true == bOverlapped) continue; // °ãÄ£°Ô ÀÖ´ÂÁö Ã¼Å©
-					// Áßº¹µÈ°Ô ¾øÀ¸¸é..
-					if(0 == nCCPC) // Ã· »ı¼º µÇ¾úÀ¸¸é..
+					if(true == bOverlapped) continue; // ê²¹ì¹œê²Œ ìˆëŠ”ì§€ ì²´í¬
+					// ì¤‘ë³µëœê²Œ ì—†ìœ¼ë©´..
+					if(0 == nCCPC) // ì²¨ ìƒì„± ë˜ì—ˆìœ¼ë©´..
 					{
 						pSubCell->pdwCCVertIndices = new DWORD[768];
 						memset(pSubCell->pdwCCVertIndices, 0, 768 * 4);
 					}
-//					else // ÀÌ¹Ì ÀÖÀ¸¸é..
+//					else // ì´ë¯¸ ìˆìœ¼ë©´..
 //					{
 //						DWORD* pwBack = pSubCell->pdwCCVertIndices;
 //						pSubCell->pdwCCVertIndices = new DWORD[(nCCPC+1)*3];
-//						memcpy(pSubCell->pdwCCVertIndices, pwBack, nCCPC * 3 * 4); // Á¡¼¼°³°¡ ÇÏ³ªÀÇ Æú¸®°ïÀÌ°í ¿öµå ÀÎµ¦½ºÀÌ¹Ç·Î..
+//						memcpy(pSubCell->pdwCCVertIndices, pwBack, nCCPC * 3 * 4); // ì ì„¸ê°œê°€ í•˜ë‚˜ì˜ í´ë¦¬ê³¤ì´ê³  ì›Œë“œ ì¸ë±ìŠ¤ì´ë¯€ë¡œ..
 //						delete [] pwBack;
 //					}
 					
 					if(nCCPC >= 256)
 					{
-						__ASSERT(0, "Ãæµ¹ Ã¼Å© Æú¸®°ï ¼ö°¡ ³Ê¹« ¸¹½À´Ï´Ù");
+						__ASSERT(0, "ì¶©ëŒ ì²´í¬ í´ë¦¬ê³¤ ìˆ˜ê°€ ë„ˆë¬´ ë§ìŠµë‹ˆë‹¤");
 						continue;
 					}
 
-					pSubCell->pdwCCVertIndices[nCCPC*3+0] = i * 3 + 0; // ÀÎµ¦½º ÀúÀå..
-					pSubCell->pdwCCVertIndices[nCCPC*3+1] = i * 3 + 1; // ÀÎµ¦½º ÀúÀå..
-					pSubCell->pdwCCVertIndices[nCCPC*3+2] = i * 3 + 2; // ÀÎµ¦½º ÀúÀå..
-					pSubCell->nCCPolyCount++; // Collision Check Polygon Count ¸¦ ´Ã¸°´Ù.
+					pSubCell->pdwCCVertIndices[nCCPC*3+0] = i * 3 + 0; // ì¸ë±ìŠ¤ ì €ì¥..
+					pSubCell->pdwCCVertIndices[nCCPC*3+1] = i * 3 + 1; // ì¸ë±ìŠ¤ ì €ì¥..
+					pSubCell->pdwCCVertIndices[nCCPC*3+2] = i * 3 + 2; // ì¸ë±ìŠ¤ ì €ì¥..
+					pSubCell->nCCPolyCount++; // Collision Check Polygon Count ë¥¼ ëŠ˜ë¦°ë‹¤.
 				} // end of for(int x = xx1; x <= xx2; x++)
-			} // end of for(int z = zz1; z <= zz2; z++) // ¹üÀ§¸¸Å­ Ã³¸®..
-		} // end of for(int j = 0; j < 3; j++) // °ÉÃÄ ÀÖ´Â ¸Ş½Ã ¸¸Å­ »ı¼º...
+			} // end of for(int z = zz1; z <= zz2; z++) // ë²”ìœ„ë§Œí¼ ì²˜ë¦¬..
+		} // end of for(int j = 0; j < 3; j++) // ê±¸ì³ ìˆëŠ” ë©”ì‹œ ë§Œí¼ ìƒì„±...
 	}
 }
 #endif // end of _N3TOOL
@@ -535,9 +535,9 @@ int CN3ShapeMgr::Add(CN3Shape *pShape)
 		return -1;
 	}
 
-	pShape->SaveToFile(); // ÆÄÀÏ·Î ÀúÀåÇÏ°í..
+	pShape->SaveToFile(); // íŒŒì¼ë¡œ ì €ì¥í•˜ê³ ..
 	CN3Shape* pShapeAdd = new CN3Shape();
-	if(false == pShapeAdd->LoadFromFile(pShape->FileName())) // ÀÌ ÆÄÀÏÀ» ¿­Àº ´ÙÀ½
+	if(false == pShapeAdd->LoadFromFile(pShape->FileName())) // ì´ íŒŒì¼ì„ ì—´ì€ ë‹¤ìŒ
 	{
 		delete pShapeAdd;
 		return -1;
@@ -549,11 +549,11 @@ int CN3ShapeMgr::Add(CN3Shape *pShape)
 	}
 
 	int iSC = m_pCells[nX][nZ]->nShapeCount;
-	if(0 == iSC) // Ã· »ı¼º µÇ¾úÀ¸¸é..
+	if(0 == iSC) // ì²¨ ìƒì„± ë˜ì—ˆìœ¼ë©´..
 	{
 		m_pCells[nX][nZ]->pwShapeIndices = new WORD[iSC+1];
 	}
-	else // ÀÌ¹Ì ÀÖÀ¸¸é..
+	else // ì´ë¯¸ ìˆìœ¼ë©´..
 	{
 		WORD* pwBack = m_pCells[nX][nZ]->pwShapeIndices;
 		m_pCells[nX][nZ]->pwShapeIndices = new WORD[iSC+1];
@@ -561,10 +561,10 @@ int CN3ShapeMgr::Add(CN3Shape *pShape)
 		delete [] pwBack;
 	}
 	
-	m_pCells[nX][nZ]->pwShapeIndices[iSC] = m_Shapes.size(); // ÀÎµ¦½º ÀúÀå..
+	m_pCells[nX][nZ]->pwShapeIndices[iSC] = m_Shapes.size(); // ì¸ë±ìŠ¤ ì €ì¥..
 
-	m_Shapes.push_back(pShapeAdd); // Ãß°¡ ÇÑ´Ù..
-	m_pCells[nX][nZ]->nShapeCount++; // Shape Count ¸¦ ´Ã¸°´Ù.
+	m_Shapes.push_back(pShapeAdd); // ì¶”ê°€ í•œë‹¤..
+	m_pCells[nX][nZ]->nShapeCount++; // Shape Count ë¥¼ ëŠ˜ë¦°ë‹¤.
 
 	return m_Shapes.size() - 1;
 }
@@ -574,9 +574,9 @@ int CN3ShapeMgr::Add(CN3Shape *pShape)
 bool CN3ShapeMgr::AddCollisionTriangle(const __Vector3& v1, const __Vector3& v2, const __Vector3& v3)
 {
 	int count = m_CollisionExtras.size();
-	m_CollisionExtras.push_back(v1); // Ãß°¡·Î ³ÖÀ» Ãæµ¹Ã¼Å© µ¥ÀÌÅÍ
-	m_CollisionExtras.push_back(v2); // Ãß°¡·Î ³ÖÀ» Ãæµ¹Ã¼Å© µ¥ÀÌÅÍ
-	m_CollisionExtras.push_back(v3); // Ãß°¡·Î ³ÖÀ» Ãæµ¹Ã¼Å© µ¥ÀÌÅÍ
+	m_CollisionExtras.push_back(v1); // ì¶”ê°€ë¡œ ë„£ì„ ì¶©ëŒì²´í¬ ë°ì´í„°
+	m_CollisionExtras.push_back(v2); // ì¶”ê°€ë¡œ ë„£ì„ ì¶©ëŒì²´í¬ ë°ì´í„°
+	m_CollisionExtras.push_back(v3); // ì¶”ê°€ë¡œ ë„£ì„ ì¶©ëŒì²´í¬ ë°ì´í„°
 
 	if((count+3)==m_CollisionExtras.size()) return true;
 
@@ -625,7 +625,7 @@ void CN3ShapeMgr::Tick()
 	__CellMain* pCellCur = NULL;
 	int i = 0, iShp = 0, iSIndex = 0, iSC = m_Shapes.size();;
 	m_ShapesToRender.clear();
-	// ·»´õ¸µ ¸®½ºÆ® ºñ¿ì°í..
+	// ë Œë”ë§ ë¦¬ìŠ¤íŠ¸ ë¹„ìš°ê³ ..
 	
 	for(int zM = zMainS; zM < zMainE; zM++)
 	{
@@ -668,28 +668,28 @@ void CN3ShapeMgr::Render()
 }
 #endif // end of #ifndef _3DSERVER
 
-bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// Ãæµ¹ À§Ä¡
-									const __Vector3& vDir,		// ¹æÇâ º¤ÅÍ
-									float fSpeedPerSec,			// ÃÊ´ç ¿òÁ÷ÀÌ´Â ¼Óµµ
-									__Vector3* pvCol,			// Ãæµ¹ ÁöÁ¡
-									__Vector3* pvNormal,		// Ãæµ¹ÇÑ¸éÀÇ ¹ı¼±º¤ÅÍ
-									__Vector3* pVec)			// Ãæµ¹ÇÑ ¸é ÀÇ Æú¸®°ï __Vector3[3]
+bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// ì¶©ëŒ ìœ„ì¹˜
+									const __Vector3& vDir,		// ë°©í–¥ ë²¡í„°
+									float fSpeedPerSec,			// ì´ˆë‹¹ ì›€ì§ì´ëŠ” ì†ë„
+									__Vector3* pvCol,			// ì¶©ëŒ ì§€ì 
+									__Vector3* pvNormal,		// ì¶©ëŒí•œë©´ì˜ ë²•ì„ ë²¡í„°
+									__Vector3* pVec)			// ì¶©ëŒí•œ ë©´ ì˜ í´ë¦¬ê³¤ __Vector3[3]
 {
-	if(fSpeedPerSec <= 0) return false; // ¿òÁ÷ÀÌ´Â ¼Óµµ°¡ ¾ø°Å³ª ¹İ´ë·Î ¿òÁ÷ÀÌ¸é ³Ñ¾î°£´Ù..
+	if(fSpeedPerSec <= 0) return false; // ì›€ì§ì´ëŠ” ì†ë„ê°€ ì—†ê±°ë‚˜ ë°˜ëŒ€ë¡œ ì›€ì§ì´ë©´ ë„˜ì–´ê°„ë‹¤..
 	static __CellSub* ppCells[128];
-	__Vector3 vPosNext = vPos + (vDir * fSpeedPerSec); // ´ÙÀ½ À§Ä¡
+	__Vector3 vPosNext = vPos + (vDir * fSpeedPerSec); // ë‹¤ìŒ ìœ„ì¹˜
 	
 	int iSubCellCount = 0;
 	if(fSpeedPerSec < 4.0f) 
 	{
 		__Vector3 vPos2 = vPos + (vDir * 4.0f);
-		iSubCellCount = this->SubCellPathThru(vPos, vPos2, 128, ppCells); // Åë°úÇÏ´Â ¼­ºê¼¿À» °¡Á®¿Â´Ù..
+		iSubCellCount = this->SubCellPathThru(vPos, vPos2, 128, ppCells); // í†µê³¼í•˜ëŠ” ì„œë¸Œì…€ì„ ê°€ì ¸ì˜¨ë‹¤..
 	}
 	else
 	{
-		iSubCellCount = this->SubCellPathThru(vPos, vPosNext, 128, ppCells); // Åë°úÇÏ´Â ¼­ºê¼¿À» °¡Á®¿Â´Ù..
+		iSubCellCount = this->SubCellPathThru(vPos, vPosNext, 128, ppCells); // í†µê³¼í•˜ëŠ” ì„œë¸Œì…€ì„ ê°€ì ¸ì˜¨ë‹¤..
 	}
-	if(iSubCellCount <= 0) return false; // ¾øÀ½ ¸»ÀÚ.
+	if(iSubCellCount <= 0) return false; // ì—†ìŒ ë§ì.
 
 	__Vector3 vColTmp(0,0,0);
 	int nIndex0, nIndex1, nIndex2;
@@ -710,11 +710,11 @@ bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// Ãæµ¹ À§Ä¡
 			if(false == ::_IntersectTriangle(vPos, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2], fT, fU, fV, &vColTmp)) continue;
 			if(false == ::_IntersectTriangle(vPosNext, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2]))
 			{
-				fDistTmp = (vPos - vColTmp).Magnitude(); // °Å¸®¸¦ Àçº¸°í..
+				fDistTmp = (vPos - vColTmp).Magnitude(); // ê±°ë¦¬ë¥¼ ì¬ë³´ê³ ..
 				if(fDistTmp < fDistClosest) 
 				{
 					fDistClosest = fDistTmp;
-					// Ãæµ¹ÀÌ´Ù..
+					// ì¶©ëŒì´ë‹¤..
 					if(pvCol) *pvCol = vColTmp;
 					if(pvNormal)
 					{
@@ -739,19 +739,19 @@ bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// Ãæµ¹ À§Ä¡
 #ifndef _3DSERVER
 	else
 	{
-		it_Shp it = m_ShapesToRender.begin(), itEnd = m_ShapesToRender.end(); // ´«¿¡ º¸ÀÌ´Â°Í¸¸ ´ë»óÀ¸·Î ÇØ¼­...
+		it_Shp it = m_ShapesToRender.begin(), itEnd = m_ShapesToRender.end(); // ëˆˆì— ë³´ì´ëŠ”ê²ƒë§Œ ëŒ€ìƒìœ¼ë¡œ í•´ì„œ...
 		int iSC = m_ShapesToRender.size();	
 
 		if(iSC > 0)
 		{
-			// °Å¸®¼øÀ¸·Î Á¤·Ä..
+			// ê±°ë¦¬ìˆœìœ¼ë¡œ ì •ë ¬..
 			CN3Shape* pShape = NULL;
 			std::vector<CN3Shape*> Shapes;
 			for(int i = 0; it != itEnd; it++, i++)
 			{
 				pShape = *it;
 				if(NULL == pShape->CollisionMesh()) continue;
-				if((pShape->Pos() - vPos).Magnitude() > pShape->Radius() * 2) continue; // ¸Ö¸® ¶³¾îÁø°Å¸é Áö³ª°£´Ù..
+				if((pShape->Pos() - vPos).Magnitude() > pShape->Radius() * 2) continue; // ë©€ë¦¬ ë–¨ì–´ì§„ê±°ë©´ ì§€ë‚˜ê°„ë‹¤..
 
 				Shapes.push_back(pShape);
 			}
@@ -759,7 +759,7 @@ bool CN3ShapeMgr::CheckCollision(	const __Vector3& vPos,		// Ãæµ¹ À§Ä¡
 			if(Shapes.empty()) return false;
 
 			iSC = Shapes.size();
-			if(iSC > 1) qsort(&(Shapes[0]), iSC, 4, SortByCameraDistance); // Ä«¸Ş¶ó °Å¸®¿¡ µû¶ó Á¤·ÄÇÏ°í..
+			if(iSC > 1) qsort(&(Shapes[0]), iSC, 4, SortByCameraDistance); // ì¹´ë©”ë¼ ê±°ë¦¬ì— ë”°ë¼ ì •ë ¬í•˜ê³ ..
 
 			CN3VMesh* pVMesh = NULL;
 			for(i = 0; i < iSC; i++)
@@ -789,8 +789,8 @@ bool CN3ShapeMgr::CheckCollisionCamera(__Vector3& vEyeResult, const __Vector3& v
 	__Vector3 vCol(0,0,0);
 	if(false == this->CheckCollision(vAt, vDir, fD, &vCol)) return false;
 
-	float fDelta = (vEyeResult - vCol).Magnitude(); // Ãæµ¹Á¡°ú Ã³´Ùº¸´Â °Å¸®¸¦ Àçº¸°í..
-	if(fDelta < fNP * 2.0f) return false; // ³Ê¹« °¡±îÀÌ ºÙÀ¸¸é µ¹¾Æ°£´Ù..
+	float fDelta = (vEyeResult - vCol).Magnitude(); // ì¶©ëŒì ê³¼ ì²˜ë‹¤ë³´ëŠ” ê±°ë¦¬ë¥¼ ì¬ë³´ê³ ..
+	if(fDelta < fNP * 2.0f) return false; // ë„ˆë¬´ ê°€ê¹Œì´ ë¶™ìœ¼ë©´ ëŒì•„ê°„ë‹¤..
 	
 	vEyeResult -= vDir * fDelta;
 	return true;
@@ -868,10 +868,10 @@ CN3Shape* CN3ShapeMgr::Pick(int iXScreen, int iYScreen, bool bMustHaveEvent, __V
 	__Vector3 vPos, vDir;
 	::_Convert2D_To_3DCoordinate(iXScreen, iYScreen, s_CameraData.mtxView, s_CameraData.mtxProjection, s_CameraData.vp, vPos, vDir);
 
-	it_Shp it = m_ShapesToRender.begin(), itEnd = m_ShapesToRender.end(); // ´«¿¡ º¸ÀÌ´Â°Í¸¸ ´ë»óÀ¸·Î ÇØ¼­...
+	it_Shp it = m_ShapesToRender.begin(), itEnd = m_ShapesToRender.end(); // ëˆˆì— ë³´ì´ëŠ”ê²ƒë§Œ ëŒ€ìƒìœ¼ë¡œ í•´ì„œ...
 	int iSC = m_ShapesToRender.size();
 
-	// °Å¸®¼øÀ¸·Î Á¤·Ä..
+	// ê±°ë¦¬ìˆœìœ¼ë¡œ ì •ë ¬..
 	std::vector<CN3Shape*> Shapes(iSC, NULL);
 	int i;
 	for(i = 0; it != itEnd; it++, i++) { Shapes[i] = *it; }
@@ -879,7 +879,7 @@ CN3Shape* CN3ShapeMgr::Pick(int iXScreen, int iYScreen, bool bMustHaveEvent, __V
 
 	for(i = 0; i < iSC; i++)
 	{
-		if(bMustHaveEvent && Shapes[i]->m_iEventID <= 0) continue; // ÀÌº¥Æ®°¡ ÀÖ¾î¾ß ÇÑ´Ù¸é...
+		if(bMustHaveEvent && Shapes[i]->m_iEventID <= 0) continue; // ì´ë²¤íŠ¸ê°€ ìˆì–´ì•¼ í•œë‹¤ë©´...
 		if(Shapes[i]->CheckCollisionPrecisely(false, vPos, vDir, pvPick) >= 0)
 			return Shapes[i];
 	}
@@ -896,10 +896,10 @@ CN3Shape* CN3ShapeMgr::PickMovable(int iXScreen, int iYScreen, __Vector3* pvPick
 	__Vector3 vPos, vDir;
 	::_Convert2D_To_3DCoordinate(iXScreen, iYScreen, s_CameraData.mtxView, s_CameraData.mtxProjection, s_CameraData.vp, vPos, vDir);
 
-	it_Shp it = m_ShapesToRender.begin(), itEnd = m_ShapesToRender.end(); // ´«¿¡ º¸ÀÌ´Â°Í¸¸ ´ë»óÀ¸·Î ÇØ¼­...
+	it_Shp it = m_ShapesToRender.begin(), itEnd = m_ShapesToRender.end(); // ëˆˆì— ë³´ì´ëŠ”ê²ƒë§Œ ëŒ€ìƒìœ¼ë¡œ í•´ì„œ...
 	int iSC = m_ShapesToRender.size();
 
-	// °Å¸®¼øÀ¸·Î Á¤·Ä..
+	// ê±°ë¦¬ìˆœìœ¼ë¡œ ì •ë ¬..
 	std::vector<CN3Shape*> Shapes(iSC, NULL);
 	int i;
 	for(i = 0; it != itEnd; it++, i++) { Shapes[i] = *it; }
@@ -939,17 +939,17 @@ int CN3ShapeMgr::SortByCameraDistance(const void* pArg1, const void* pArg2)
 	float fDist1 = (CN3Base::s_CameraData.vEye - pShape1->Pos()).Magnitude();
 	float fDist2 = (CN3Base::s_CameraData.vEye - pShape2->Pos()).Magnitude();
 
-	if(fDist1 < fDist2) return -1; // °¡±î¿ì¸é true;
+	if(fDist1 < fDist2) return -1; // ê°€ê¹Œìš°ë©´ true;
 	else if(fDist1 > fDist2) return 1;
 	else return 0;
 }
 #endif // end of #ifndef _3DSERVER
 
-int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, int iMaxSubCell, __CellSub** ppSubCells) // º¤ÅÍ »çÀÌ¿¡ °ÉÄ£ ¼¿Æ÷ÀÎÅÍ µ¹·ÁÁØ´Ù..
+int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, int iMaxSubCell, __CellSub** ppSubCells) // ë²¡í„° ì‚¬ì´ì— ê±¸ì¹œ ì…€í¬ì¸í„° ëŒë ¤ì¤€ë‹¤..
 {
 	if(NULL == ppSubCells) return 0;
 
-	// ¹üÀ§¸¦ Á¤ÇÏ°í..
+	// ë²”ìœ„ë¥¼ ì •í•˜ê³ ..
 	int xx1 = 0, xx2 = 0, zz1 = 0, zz2 = 0;
 
 	if(vFrom.x < vAt.x) { xx1 = (int)(vFrom.x / CELL_SUB_SIZE); xx2 = (int)(vAt.x / CELL_SUB_SIZE); }
@@ -961,7 +961,7 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, i
 	bool bPathThru;
 	float fZMin, fZMax, fXMin, fXMax;
 	int iSubCellCount = 0;
-	for(int z = zz1; z <= zz2; z++) // ¹üÀ§¸¸Å­ Ã³¸®..
+	for(int z = zz1; z <= zz2; z++) // ë²”ìœ„ë§Œí¼ ì²˜ë¦¬..
 	{
 		fZMin = (float)(z * CELL_SUB_SIZE);
 		fZMax = (float)((z+1) * CELL_SUB_SIZE);
@@ -982,23 +982,23 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, i
 			if(vAt.x < fXMin) dwOC1 |= 0x000f;
 			
 			bPathThru = false;
-			if(dwOC0 & dwOC1) bPathThru = false; // µÎ ³¡Á¡ÀÌ °°Àº º¯ÀÇ ¿ÜºÎ¿¡ ÀÖ´Ù.
-			else if(dwOC0 == 0 && dwOC1 == 0) bPathThru = true;// ¼±ºĞÀÌ »ç°¢Çü ³»ºÎ¿¡ ÀÖÀ½
-			else if((dwOC0 == 0 && dwOC1 != 0) || (dwOC0 != 0 && dwOC1 == 0)) bPathThru = true;// ¼±ºĞ ÇÑÁ¡Àº ¼¿ÀÇ ³»ºÎ¿¡ ÇÑÁ¡Àº ¿ÜºÎ¿¡ ÀÖÀ½.
-			else if((dwOC0 & dwOC1) == 0) // µÎ …LÁ¡ ¸ğµÎ ¼¿ ¿ÜºÎ¿¡ ÀÖÁö¸¸ ÆÇ´ÜÀ» ´Ù½Ã ÇØ¾ß ÇÑ´Ù.
+			if(dwOC0 & dwOC1) bPathThru = false; // ë‘ ëì ì´ ê°™ì€ ë³€ì˜ ì™¸ë¶€ì— ìˆë‹¤.
+			else if(dwOC0 == 0 && dwOC1 == 0) bPathThru = true;// ì„ ë¶„ì´ ì‚¬ê°í˜• ë‚´ë¶€ì— ìˆìŒ
+			else if((dwOC0 == 0 && dwOC1 != 0) || (dwOC0 != 0 && dwOC1 == 0)) bPathThru = true;// ì„ ë¶„ í•œì ì€ ì…€ì˜ ë‚´ë¶€ì— í•œì ì€ ì™¸ë¶€ì— ìˆìŒ.
+			else if((dwOC0 & dwOC1) == 0) // ë‘ Â…Lì  ëª¨ë‘ ì…€ ì™¸ë¶€ì— ìˆì§€ë§Œ íŒë‹¨ì„ ë‹¤ì‹œ í•´ì•¼ í•œë‹¤.
 			{
-				float fXCross = vFrom.x + (fZMax - vFrom.z) * (vAt.x - vFrom.x) / (vAt.z - vFrom.z); // À§ÀÇ º¯°úÀÇ ±³Â÷Á¡À» °è»êÇÏ°í..
-				if(fXCross < fXMin) bPathThru = false; // ¿ÏÀüÈ÷ ¿Ü°û¿¡ ÀÖ´Ù.
-				else bPathThru = true; // °ÉÃ³ÀÖ´Ù.
+				float fXCross = vFrom.x + (fZMax - vFrom.z) * (vAt.x - vFrom.x) / (vAt.z - vFrom.z); // ìœ„ì˜ ë³€ê³¼ì˜ êµì°¨ì ì„ ê³„ì‚°í•˜ê³ ..
+				if(fXCross < fXMin) bPathThru = false; // ì™„ì „íˆ ì™¸ê³½ì— ìˆë‹¤.
+				else bPathThru = true; // ê±¸ì²˜ìˆë‹¤.
 			}
 
 			if(false == bPathThru) continue;
 
-			// Ãæµ¹ Á¤º¸¸¦ ½á¾ß ÇÑ´Ù..
+			// ì¶©ëŒ ì •ë³´ë¥¼ ì¨ì•¼ í•œë‹¤..
 			int nX = x / CELL_MAIN_DEVIDE;
 			int nZ = z / CELL_MAIN_DEVIDE;
-			if(nX < 0 || nX >= MAX_CELL_MAIN || nZ < 0 && nZ >= MAX_CELL_MAIN) continue; // ¸ŞÀÎ¼¿¹Ù±ù¿¡ ÀÖÀ½ Áö³ª°£´Ù.
-			if(NULL == m_pCells[nX][nZ]) continue; // ¸ŞÀÎ¼¿ÀÌ ³ÎÀÌ¸é Áö³ª°£´Ù..
+			if(nX < 0 || nX >= MAX_CELL_MAIN || nZ < 0 && nZ >= MAX_CELL_MAIN) continue; // ë©”ì¸ì…€ë°”ê¹¥ì— ìˆìŒ ì§€ë‚˜ê°„ë‹¤.
+			if(NULL == m_pCells[nX][nZ]) continue; // ë©”ì¸ì…€ì´ ë„ì´ë©´ ì§€ë‚˜ê°„ë‹¤..
 
 			int nXSub = x%CELL_MAIN_DEVIDE;
 			int nZSub = z%CELL_MAIN_DEVIDE;
@@ -1008,23 +1008,23 @@ int CN3ShapeMgr::SubCellPathThru(const __Vector3& vFrom, const __Vector3& vAt, i
 
 			if(iSubCellCount >= iMaxSubCell) return iMaxSubCell;
 		} // end of for(int x = xx1; x <= xx2; x++)
-	} // end of for(int z = zz1; z <= zz2; z++) // ¹üÀ§¸¸Å­ Ã³¸®..
+	} // end of for(int z = zz1; z <= zz2; z++) // ë²”ìœ„ë§Œí¼ ì²˜ë¦¬..
 
-	return iSubCellCount; // °ÉÄ£ ¼¿ Æ÷ÀÎÅÍ µ¹·ÁÁÖ±â..
+	return iSubCellCount; // ê±¸ì¹œ ì…€ í¬ì¸í„° ëŒë ¤ì£¼ê¸°..
 }
 
-float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, float fDist, __Vector3* pvNormal) // °¡Àå °¡±î¿î ³ôÀÌ°ªÀ» µ¹·ÁÁØ´Ù. ¾øÀ¸¸é -FLT_MAX À» µ¹·ÁÁØ´Ù.
+float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, float fDist, __Vector3* pvNormal) // ê°€ì¥ ê°€ê¹Œìš´ ë†’ì´ê°’ì„ ëŒë ¤ì¤€ë‹¤. ì—†ìœ¼ë©´ -FLT_MAX ì„ ëŒë ¤ì¤€ë‹¤.
 {
-	__CellSub* pCell = this->SubCell(vPos.x, vPos.z); // ¼­ºê¼¿À» °¡Á®¿Â´Ù..
-	if(NULL == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // ¾øÀ½ ¸»ÀÚ.
+	__CellSub* pCell = this->SubCell(vPos.x, vPos.z); // ì„œë¸Œì…€ì„ ê°€ì ¸ì˜¨ë‹¤..
+	if(NULL == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // ì—†ìŒ ë§ì.
 
-	__Vector3 vPosV = vPos; vPosV.y = 5000.0f; // ²À´ë±â¿¡ À§Ä¡¸¦ ÇÏ°í..
-	__Vector3 vDir(0,-1, 0); // ¼öÁ÷ ¹æÇâ º¤ÅÍ
-	__Vector3 vColTmp(0,0,0); // ÃÖÁ¾ÀûÀ¸·Î °¡Àå °¡±î¿î Ãæµ¹ À§Ä¡..
+	__Vector3 vPosV = vPos; vPosV.y = 5000.0f; // ê¼­ëŒ€ê¸°ì— ìœ„ì¹˜ë¥¼ í•˜ê³ ..
+	__Vector3 vDir(0,-1, 0); // ìˆ˜ì§ ë°©í–¥ ë²¡í„°
+	__Vector3 vColTmp(0,0,0); // ìµœì¢…ì ìœ¼ë¡œ ê°€ì¥ ê°€ê¹Œìš´ ì¶©ëŒ ìœ„ì¹˜..
 
 	int nIndex0, nIndex1, nIndex2;
 	float fT, fU, fV;
-	float fNearst = FLT_MAX, fMinTmp = 0, fHeight = -FLT_MAX;		// ÀÏ´Ü ÃÖ¼Ò°ªÀ» Å«°ªÀ¸·Î Àâ°í..
+	float fNearst = FLT_MAX, fMinTmp = 0, fHeight = -FLT_MAX;		// ì¼ë‹¨ ìµœì†Œê°’ì„ í°ê°’ìœ¼ë¡œ ì¡ê³ ..
 
 	for ( int i = 0; i < pCell->nCCPolyCount; i++ )
 	{
@@ -1032,14 +1032,14 @@ float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, float fDist, __Vect
 		nIndex1 = pCell->pdwCCVertIndices[i*3+1];
 		nIndex2 = pCell->pdwCCVertIndices[i*3+2];
 		
-		// Ãæµ¹µÈ Á¡ÀÌ ÀÖÀ¸¸é..
+		// ì¶©ëŒëœ ì ì´ ìˆìœ¼ë©´..
 		if(true == ::_IntersectTriangle(vPosV, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2], fT, fU, fV, &vColTmp))
 		{
 			fMinTmp = (vColTmp - vPos).Magnitude();
-			if(fMinTmp < fNearst) // °¡Àå °¡±î¿î Ãæµ¹ À§Ä¡¸¦ Ã£±â À§ÇÑ ÄÚµå..
+			if(fMinTmp < fNearst) // ê°€ì¥ ê°€ê¹Œìš´ ì¶©ëŒ ìœ„ì¹˜ë¥¼ ì°¾ê¸° ìœ„í•œ ì½”ë“œ..
 			{
 				fNearst = fMinTmp;
-				fHeight = vColTmp.y; // ³ôÀÌ°ª.
+				fHeight = vColTmp.y; // ë†’ì´ê°’.
 
 				if(pvNormal)
 				{
@@ -1053,14 +1053,14 @@ float CN3ShapeMgr::GetHeightNearstPos(const __Vector3 &vPos, float fDist, __Vect
 	return fHeight;
 }
 
-float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // °¡Àå ³ôÀº °÷À» µ¹·ÁÁØ´Ù.. ¾øÀ¸¸é -FLT_MAX°ªÀ» µ¹·ÁÁØ´Ù.
+float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // ê°€ì¥ ë†’ì€ ê³³ì„ ëŒë ¤ì¤€ë‹¤.. ì—†ìœ¼ë©´ -FLT_MAXê°’ì„ ëŒë ¤ì¤€ë‹¤.
 {
-	__CellSub* pCell = this->SubCell(fX, fZ); // ¼­ºê¼¿À» °¡Á®¿Â´Ù..
-	if(NULL == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // ¾øÀ½ ¸»ÀÚ.
+	__CellSub* pCell = this->SubCell(fX, fZ); // ì„œë¸Œì…€ì„ ê°€ì ¸ì˜¨ë‹¤..
+	if(NULL == pCell || pCell->nCCPolyCount <= 0) return -FLT_MAX; // ì—†ìŒ ë§ì.
 
-	__Vector3 vPosV(fX, 5000.0f, fZ); // ²À´ë±â¿¡ À§Ä¡¸¦ ÇÏ°í..
-	__Vector3 vDir(0,-1, 0); // ¼öÁ÷ ¹æÇâ º¤ÅÍ
-	__Vector3 vColTmp(0,0,0); // ÃÖÁ¾ÀûÀ¸·Î °¡Àå °¡±î¿î Ãæµ¹ À§Ä¡..
+	__Vector3 vPosV(fX, 5000.0f, fZ); // ê¼­ëŒ€ê¸°ì— ìœ„ì¹˜ë¥¼ í•˜ê³ ..
+	__Vector3 vDir(0,-1, 0); // ìˆ˜ì§ ë°©í–¥ ë²¡í„°
+	__Vector3 vColTmp(0,0,0); // ìµœì¢…ì ìœ¼ë¡œ ê°€ì¥ ê°€ê¹Œìš´ ì¶©ëŒ ìœ„ì¹˜..
 
 	int nIndex0, nIndex1, nIndex2;
 	float fT, fU, fV;
@@ -1072,7 +1072,7 @@ float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // °¡Àå ³ô
 		nIndex1 = pCell->pdwCCVertIndices[i*3+1];
 		nIndex2 = pCell->pdwCCVertIndices[i*3+2];
 		
-		// Ãæµ¹µÈ Á¡ÀÌ ÀÖÀ¸¸é..
+		// ì¶©ëŒëœ ì ì´ ìˆìœ¼ë©´..
 		if(true == ::_IntersectTriangle(vPosV, vDir, m_pvCollisions[nIndex0], m_pvCollisions[nIndex1], m_pvCollisions[nIndex2], fT, fU, fV, &vColTmp))
 		{
 			if(vColTmp.y > fMaxTmp)
@@ -1090,7 +1090,7 @@ float CN3ShapeMgr::GetHeight(float fX, float fZ, __Vector3* pvNormal) // °¡Àå ³ô
 	return fMaxTmp;
 }
 
-void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´ç À§Ä¡ÀÇ ¼¿ Æ÷ÀÎÅÍ¸¦ µ¹·ÁÁØ´Ù.
+void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// í•´ë‹¹ ìœ„ì¹˜ì˜ ì…€ í¬ì¸í„°ë¥¼ ëŒë ¤ì¤€ë‹¤.
 {
 	int x = (int)(vPos.x / CELL_MAIN_SIZE);
 	int z = (int)(vPos.z / CELL_MAIN_SIZE);
@@ -1147,7 +1147,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 					break;
 				}
 
-				if ( (x != 0) && (xx == 0) )											// x °¨¼Ò, z Áõ°¡.
+				if ( (x != 0) && (xx == 0) )											// x ê°ì†Œ, z ì¦ê°€.
 				{
 					if ( (z != (MAX_CELL_MAIN-1)) && ( zz == (CELL_MAIN_DEVIDE-1) ) )
 						if ( m_pCells[x-1][z+1] != NULL )
@@ -1162,7 +1162,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 					break;
 				}
 
-				if ( (z != (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1) ) )		// x °¨¼Ò, z Áõ°¡.
+				if ( (z != (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1) ) )		// x ê°ì†Œ, z ì¦ê°€.
 				{
 					if ( (x != 0) && (xx == 0) )
 						if ( m_pCells[x-1][z+1] != NULL )
@@ -1184,7 +1184,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 					break;
 
 			case 3:
-				if ( (z == (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1)) )			// z Áõ°¡.
+				if ( (z == (MAX_CELL_MAIN-1)) && (zz == (CELL_MAIN_DEVIDE-1)) )			// z ì¦ê°€.
 				{
 					ppSubCell[i] = NULL;
 					break;
@@ -1206,7 +1206,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 				break;
 
 			case 4:
-				if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )			// x Áõ°¡, z Áõ°¡.
+				if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )			// x ì¦ê°€, z ì¦ê°€.
 				{
 					ppSubCell[i] = NULL;
 					break;
@@ -1254,7 +1254,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 					ppSubCell[i] = NULL;					
 				break;
 
-			case 5:																		// x Áõ°¡.
+			case 5:																		// x ì¦ê°€.
 				if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )
 				{
 					ppSubCell[i] = NULL;
@@ -1276,7 +1276,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 					ppSubCell[i] = NULL;					
 				break;
 
-			case 6:																		// x Áõ°¡. z °¨¼Ò.		
+			case 6:																		// x ì¦ê°€. z ê°ì†Œ.		
 				if ( (x == (MAX_CELL_MAIN-1)) && (xx == (CELL_MAIN_DEVIDE-1)) )
 				{
 					ppSubCell[i] = NULL;
@@ -1325,7 +1325,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 					ppSubCell[i] = NULL;					
 				break;
 
-			case 7:																		// z °¨¼Ò.
+			case 7:																		// z ê°ì†Œ.
 				if ( (z == 0) && (zz == 0) )	
 				{
 					ppSubCell[i] = NULL;
@@ -1347,7 +1347,7 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// ÇØ´
 					ppSubCell[i] = NULL;					
 				break;
 
-			case 8:																		// x °¨¼Ò, z °¨¼Ò.
+			case 8:																		// x ê°ì†Œ, z ê°ì†Œ.
 				if ( (x == 0) && (xx == 0) )
 				{
 					ppSubCell[i] = NULL;

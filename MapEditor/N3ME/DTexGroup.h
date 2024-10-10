@@ -1,4 +1,4 @@
-// DTexGroup.h: interface for the CDTexGroup class.
+﻿// DTexGroup.h: interface for the CDTexGroup class.
 //
 //////////////////////////////////////////////////////////////////////
 

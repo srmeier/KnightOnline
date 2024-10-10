@@ -1,4 +1,4 @@
-// DlgSetLightMap.cpp : implementation file
+﻿// DlgSetLightMap.cpp : implementation file
 //
 
 #include "stdafx.h"

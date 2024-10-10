@@ -1,4 +1,4 @@
-// N3River.cpp: implementation of the CN3River class.
+﻿// N3River.cpp: implementation of the CN3River class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"

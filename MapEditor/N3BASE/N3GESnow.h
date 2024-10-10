@@ -1,4 +1,4 @@
-// N3GESnow.h: interface for the CN3GESnow class.
+ï»¿// N3GESnow.h: interface for the CN3GESnow class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,24 +17,24 @@ class CN3GESnow : public CN3GlobalEffect
 protected:
 	struct __SnowParticle
 	{
-		__Vector3	vPos;							// È¸Àü ¹İ°æÀÇ ÁÜ½É
-		__Vector3	vOffset1, vOffset2, vOffset3;	// Á¡ 1 2 3ÀÌ ÆÄÆ¼Å¬ ÁßÁ¡¿¡¼­ ¶³¾îÁø Á¤µµ
-		float		fRadius;						// È¸Àü ¹İ°æ
-		float		fRadian;						// ÇöÀç È¸ÀüµÈ °¢µµ
-		//float		fRVel							// È¸Àü°¢¼Óµµ (¿ì¼± ÀÏÁ¤ÇÏ´Ù°í °¡Á¤)
-		// __Vector3 vVelocity						// ¶³¾îÁö´Â ¼Óµµ(¿ì¼± ¸ğµÎ °°´Ù°í °¡Á¤)
+		__Vector3	vPos;							// íšŒì „ ë°˜ê²½ì˜ ì¤Œì‹¬
+		__Vector3	vOffset1, vOffset2, vOffset3;	// ì  1 2 3ì´ íŒŒí‹°í´ ì¤‘ì ì—ì„œ ë–¨ì–´ì§„ ì •ë„
+		float		fRadius;						// íšŒì „ ë°˜ê²½
+		float		fRadian;						// í˜„ì¬ íšŒì „ëœ ê°ë„
+		//float		fRVel							// íšŒì „ê°ì†ë„ (ìš°ì„  ì¼ì •í•˜ë‹¤ê³  ê°€ì •)
+		// __Vector3 vVelocity						// ë–¨ì–´ì§€ëŠ” ì†ë„(ìš°ì„  ëª¨ë‘ ê°™ë‹¤ê³  ê°€ì •)
 	};
 
 // Attributes
 public:
 	void SetVelocity(__Vector3& v) {m_vVelocity = v;}
 protected:
-	float		m_fWidth;		// ´«ÀÌ ¶³¾îÁö´Â °ø°£ÀÇ ³Êºñ
-	float		m_fHeight;		// ´«ÀÌ ¶³¾îÁö´Â °ø°£ÀÇ ³ôÀÌ
-	float		m_fSnowSize;	// ´« ÇÏ³ªÀÇ Å©±â
-	__Vector3	m_vVelocity;	// ÀüÃ¼ÀûÀ¸·Î ¶³¾îÁö´Â ¹æÇâ°ú ¼Óµµ
-	CN3Texture*	m_pTex;			// ´« ÅØ½ºÃÄ
-	__SnowParticle*	m_pSnowParticle;	// ´«¼ÛÀÌ Á¤º¸
+	float		m_fWidth;		// ëˆˆì´ ë–¨ì–´ì§€ëŠ” ê³µê°„ì˜ ë„ˆë¹„
+	float		m_fHeight;		// ëˆˆì´ ë–¨ì–´ì§€ëŠ” ê³µê°„ì˜ ë†’ì´
+	float		m_fSnowSize;	// ëˆˆ í•˜ë‚˜ì˜ í¬ê¸°
+	__Vector3	m_vVelocity;	// ì „ì²´ì ìœ¼ë¡œ ë–¨ì–´ì§€ëŠ” ë°©í–¥ê³¼ ì†ë„
+	CN3Texture*	m_pTex;			// ëˆˆ í…ìŠ¤ì³
+	__SnowParticle*	m_pSnowParticle;	// ëˆˆì†¡ì´ ì •ë³´
 
 // Operations
 public:

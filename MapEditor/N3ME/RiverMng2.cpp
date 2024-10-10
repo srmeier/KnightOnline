@@ -1,4 +1,4 @@
-// RiverMng2.cpp: implementation of the CRiverMng2 class.
+ï»¿// RiverMng2.cpp: implementation of the CRiverMng2 class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -93,7 +93,7 @@ void CRiverMng2::Render()
 
 	D3DXMATRIX mtx;	D3DXMatrixIdentity(&mtx);
 		
-	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ¿ùµå Çà·Ä Àû¿ë..
+	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx); // ì›”ë“œ í–‰ë ¬ ì ìš©..
 
 	// backup state
 	DWORD dwAlphaEnable, dwSrcBlend, dwDestBlend;
@@ -395,7 +395,7 @@ void CRiverMng2::MakeTileVB(__VertexRiver *pVtx, int x, int z)
 	//DWORD color = 0xa0ffffff;
 	DWORD color = 0x80ffffff;
 
-	//if((x+z)%2==0)	// ½½·¡½¬ ¸ğ¾çÀÇ Å¸ÀÏ..
+	//if((x+z)%2==0)	// ìŠ¬ë˜ì‰¬ ëª¨ì–‘ì˜ íƒ€ì¼..
 	{
 		__Vector3 v;
 		v.x = x*TERRAIN_CELL_SIZE;
@@ -425,7 +425,7 @@ void CRiverMng2::MakeTileVB(__VertexRiver *pVtx, int x, int z)
 
 		return;
 	}
-//	if((x+z)%2==1)	//¹é½½·¹½¬ ¸ğ¾çÀÇ Å¸ÀÏ..
+//	if((x+z)%2==1)	//ë°±ìŠ¬ë ˆì‰¬ ëª¨ì–‘ì˜ íƒ€ì¼..
 //	{
 //		__Vector3 v;
 //		v.x = x*TERRAIN_CELL_SIZE;

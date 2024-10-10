@@ -1,4 +1,4 @@
-// DlgMapView.cpp : implementation file
+﻿// DlgMapView.cpp : implementation file
 //
 
 #include "stdafx.h"

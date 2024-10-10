@@ -1,4 +1,4 @@
-// TransDummy.h: interface for the CTransDummy class.
+ï»¿// TransDummy.h: interface for the CTransDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,10 +17,10 @@ const int NUM_CUBEVERTEX = 36;
 
 struct __DUMMYCUBE
 {
-	int iType;		// Center , X, Y, Z Á¾·ù ±¸ºĞ.
-	__VertexXyzNormalColor	Vertices[NUM_CUBEVERTEX];	// Å¥ºêÀÇ ±¸¼º Á¡µé
-	__Vector3				vCenterPos;	// Å¥ºêÀÇ °¡¿îµ¥ Á¡
-	float					fDistance;	// Ä«¸Ş¶ó¿ÍÀÇ °Å¸®
+	int iType;		// Center , X, Y, Z ì¢…ë¥˜ êµ¬ë¶„.
+	__VertexXyzNormalColor	Vertices[NUM_CUBEVERTEX];	// íë¸Œì˜ êµ¬ì„± ì ë“¤
+	__Vector3				vCenterPos;	// íë¸Œì˜ ê°€ìš´ë° ì 
+	float					fDistance;	// ì¹´ë©”ë¼ì™€ì˜ ê±°ë¦¬
 };
 
 class CLyTerrain;
@@ -36,29 +36,29 @@ public:
 // Attributes
 public:
 protected:
-	__DUMMYCUBE			m_DummyCubes[NUM_DUMMY];	// 4°³ÀÇ Å¥ºê(center, x, y, z);
-	__VertexXyzColor	m_LineVertices[6];			// 4°³ÀÇ Å¥ºê¸¦ ÀÌ¾îÁÖ´Â ¼±À» ±¸¼ºÇÏ´Â Á¡
-	CTypedPtrArray<CPtrArray, CN3Transform*> m_SelObjArray;	// MapMng¿¡¼­ ¼±ÅÃµÈ °´Ã¼µé
-	__DUMMYCUBE*		m_pSortedCubes[NUM_DUMMY];	// Cube °Å¸®¿¡ µû¶ó Á¤·ÄµÈ Æ÷ÀÎÅÍ
-	__DUMMYCUBE*		m_pSelectedCube;			// ¼±ÅÃµÈ Å¥ºê
-	__Vector3			m_vPrevPos;	// ÀÌ¹ø ¸¶¿ì½º µå·¡±× ÀÌÀü¿¡ À§Ä¡ È¸Àü È®´ë/Ãà¼Ò°ª
-	__Quaternion		m_qPrevRot;	// ÀÌ¹ø ¸¶¿ì½º µå·¡±× ÀÌÀü¿¡ À§Ä¡ È¸Àü È®´ë/Ãà¼Ò°ª
-	__Vector3*			m_vPrevScaleArray;	// ÀÌ¹ø ¸¶¿ì½º µå·¡±× ÀÌÀü¿¡ È®´ë/Ãà¼Ò°ªµé (¼±ÅÃµÈ °´Ã¼µé ¸ğµÎÀÇ °ªÀ» °¡Áö°í ÀÖ¾î¾ß ÇÏ±â ¶§¹®¿¡ ¹è¿­)
+	__DUMMYCUBE			m_DummyCubes[NUM_DUMMY];	// 4ê°œì˜ íë¸Œ(center, x, y, z);
+	__VertexXyzColor	m_LineVertices[6];			// 4ê°œì˜ íë¸Œë¥¼ ì´ì–´ì£¼ëŠ” ì„ ì„ êµ¬ì„±í•˜ëŠ” ì 
+	CTypedPtrArray<CPtrArray, CN3Transform*> m_SelObjArray;	// MapMngì—ì„œ ì„ íƒëœ ê°ì²´ë“¤
+	__DUMMYCUBE*		m_pSortedCubes[NUM_DUMMY];	// Cube ê±°ë¦¬ì— ë”°ë¼ ì •ë ¬ëœ í¬ì¸í„°
+	__DUMMYCUBE*		m_pSelectedCube;			// ì„ íƒëœ íë¸Œ
+	__Vector3			m_vPrevPos;	// ì´ë²ˆ ë§ˆìš°ìŠ¤ ë“œë˜ê·¸ ì´ì „ì— ìœ„ì¹˜ íšŒì „ í™•ëŒ€/ì¶•ì†Œê°’
+	__Quaternion		m_qPrevRot;	// ì´ë²ˆ ë§ˆìš°ìŠ¤ ë“œë˜ê·¸ ì´ì „ì— ìœ„ì¹˜ íšŒì „ í™•ëŒ€/ì¶•ì†Œê°’
+	__Vector3*			m_vPrevScaleArray;	// ì´ë²ˆ ë§ˆìš°ìŠ¤ ë“œë˜ê·¸ ì´ì „ì— í™•ëŒ€/ì¶•ì†Œê°’ë“¤ (ì„ íƒëœ ê°ì²´ë“¤ ëª¨ë‘ì˜ ê°’ì„ ê°€ì§€ê³  ìˆì–´ì•¼ í•˜ê¸° ë•Œë¬¸ì— ë°°ì—´)
 
 // Operations
 public:
 	virtual void Tick();
 	virtual void Render();
 	virtual void Release();
-	virtual void SetSelObj(CN3Transform* pObj);		// ¼±ÅÃµÈ °´Ã¼ ¹Ù²Ù±â
-	virtual void AddSelObj(CN3Transform* pObj);	// ¼±ÅÃµÈ °´Ã¼ Ãß°¡
-	virtual BOOL MouseMsgFilter(LPMSG pMsg);	// ¸¶¿ì½º ¸Ş¼¼Áö Ã³¸®
-	void GetPickRay(POINT point, __Vector3& vDir, __Vector3& vOrig);	// ¸¶¿ì½º Æ÷ÀÎÅÍ°¡ °¡¸®Å°´Â ÂÊÀ¸·Î »¸¾î³ª°¡´Â ¼± ¾ò´Â ÇÔ¼ö
+	virtual void SetSelObj(CN3Transform* pObj);		// ì„ íƒëœ ê°ì²´ ë°”ê¾¸ê¸°
+	virtual void AddSelObj(CN3Transform* pObj);	// ì„ íƒëœ ê°ì²´ ì¶”ê°€
+	virtual BOOL MouseMsgFilter(LPMSG pMsg);	// ë§ˆìš°ìŠ¤ ë©”ì„¸ì§€ ì²˜ë¦¬
+	void GetPickRay(POINT point, __Vector3& vDir, __Vector3& vOrig);	// ë§ˆìš°ìŠ¤ í¬ì¸í„°ê°€ ê°€ë¦¬í‚¤ëŠ” ìª½ìœ¼ë¡œ ë»—ì–´ë‚˜ê°€ëŠ” ì„  ì–»ëŠ” í•¨ìˆ˜
 protected:
-	__DUMMYCUBE* Pick(int x, int y);	// Å¥ºê picking
-	void InitDummyCube(int iType, __DUMMYCUBE* pDummyCube, __Vector3& vOffset, D3DCOLOR color);	// Å¥ºê ÃÊ±âÈ­
-	static int SortCube(const void* pArg1, const void* pArg2);	// Å¥ºê Ä«¸Ş¶ó °Å¸®¿¡ ´ëÇÑ Á¤·ÄÇÔ¼ö
-	virtual void TransDiff(__Vector3* pvDiffPos, __Quaternion* pvDiffRot, __Vector3* pvDiffScale);		// Â÷ÀÌ¸¸Å­ ¼±ÅÃµÈ ¿À¹ÇÁ§Æ®µéÀ» º¯Çü½ÃÅ²´Ù.
+	__DUMMYCUBE* Pick(int x, int y);	// íë¸Œ picking
+	void InitDummyCube(int iType, __DUMMYCUBE* pDummyCube, __Vector3& vOffset, D3DCOLOR color);	// íë¸Œ ì´ˆê¸°í™”
+	static int SortCube(const void* pArg1, const void* pArg2);	// íë¸Œ ì¹´ë©”ë¼ ê±°ë¦¬ì— ëŒ€í•œ ì •ë ¬í•¨ìˆ˜
+	virtual void TransDiff(__Vector3* pvDiffPos, __Quaternion* pvDiffRot, __Vector3* pvDiffScale);		// ì°¨ì´ë§Œí¼ ì„ íƒëœ ì˜¤ë¯€ì íŠ¸ë“¤ì„ ë³€í˜•ì‹œí‚¨ë‹¤.
 };
 
 #endif // !defined(AFX_TRANSDUMMY_H__EBD00CDE_FCE8_411E_A7A3_020D137904E2__INCLUDED_)

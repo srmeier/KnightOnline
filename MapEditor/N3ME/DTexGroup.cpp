@@ -1,4 +1,4 @@
-// DTexGroup.cpp: implementation of the CDTexGroup class.
+ï»¿// DTexGroup.cpp: implementation of the CDTexGroup class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -111,14 +111,14 @@ void CDTexGroup::DelAttrByDTexID(int DTexID)
 	it_DTexTileAttr it; 
 	for(int i=DTEX_FULL; i<DTEX_MAX; i++)
 	{
-		//¸®½ºÆ® µ¹¸é¼­ DTexIndx¿Í °°Àº°Å ³ª¿À¸é ´Ù ¾ø¾Ö¹ö·Á...
+		//ë¦¬ìŠ¤íŠ¸ ëŒë©´ì„œ DTexIndxì™€ ê°™ì€ê±° ë‚˜ì˜¤ë©´ ë‹¤ ì—†ì• ë²„ë ¤...
 		it = m_Attributes[i].begin();
 		while(it!=m_Attributes[i].end())
 		{
 			DTEXTILEATTR* pTile = *it;
 			if(pTile->TexID == DTexID)
 			{
-				//Áö¿ìÀÚ...
+				//ì§€ìš°ì...
 				delete (*it);
 				it = m_Attributes[i].erase(it);
 			}
@@ -129,8 +129,8 @@ void CDTexGroup::DelAttrByDTexID(int DTexID)
 
 
 //
-//	DTexMng¿¡ ÀÖ´Â Á¤º¸µé Ã»¼Ò...
-//	DTex¿¡ ÀúÀåµÇ¾î ÀÖ´Â ÇöÀç ±×·ì Á¤º¸¸¦ NONEÀ¸·Î ¼ÂÆÃ..
+//	DTexMngì— ìˆëŠ” ì •ë³´ë“¤ ì²­ì†Œ...
+//	DTexì— ì €ì¥ë˜ì–´ ìˆëŠ” í˜„ì¬ ê·¸ë£¹ ì •ë³´ë¥¼ NONEìœ¼ë¡œ ì…‹íŒ…..
 //
 void CDTexGroup::ClearDTex()
 {

@@ -1,4 +1,4 @@
-#if !defined(AFX_PROGRESSBAR_H__302B9656_4C10_4648_8A00_D23F8F9AD5DB__INCLUDED_)
+ï»¿#if !defined(AFX_PROGRESSBAR_H__302B9656_4C10_4648_8A00_D23F8F9AD5DB__INCLUDED_)
 #define AFX_PROGRESSBAR_H__302B9656_4C10_4648_8A00_D23F8F9AD5DB__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -26,12 +26,12 @@ protected:
 // Operations
 public:
 	BOOL Create(LPCTSTR strMessage, int nSize, int MaxValue);	
-	// nSize : progress barÀÇ °¡·Î pixel Å©±â
-	// MaxValue : progress barÀÇ stepÀÇ ÃÖ´ë°ª
+	// nSize : progress barì˜ ê°€ë¡œ pixel í¬ê¸°
+	// MaxValue : progress barì˜ stepì˜ ìµœëŒ€ê°’
 
-	CStatusBar* GetStatusBar();		// MainFrame¿¡¼­ StatusBar Æ÷ÀÎÅÍ ¾ò¾î¿À±â
-	void Resize();					// À§Ä¡¿Í Å©±â Á¶Á¤
-	void Clear();					// ÃÊ±âÈ­
+	CStatusBar* GetStatusBar();		// MainFrameì—ì„œ StatusBar í¬ì¸í„° ì–»ì–´ì˜¤ê¸°
+	void Resize();					// ìœ„ì¹˜ì™€ í¬ê¸° ì¡°ì •
+	void Clear();					// ì´ˆê¸°í™”
 
 // Overrides
 	// ClassWizard generated virtual function overrides

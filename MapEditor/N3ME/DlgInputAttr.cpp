@@ -1,4 +1,4 @@
-// DlgInputAttr.cpp : implementation file
+﻿// DlgInputAttr.cpp : implementation file
 //
 
 #include "stdafx.h"

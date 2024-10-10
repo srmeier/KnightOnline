@@ -1,4 +1,4 @@
-// N3FXPartParticles.h: interface for the CN3FXPartParticles class.
+ï»¿// N3FXPartParticles.h: interface for the CN3FXPartParticles class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,24 +22,24 @@ public:
 	int			m_iNumTex;
 	int			m_iTexIdx;
 	
-	__Vector3	m_vCreatePoint;	//»ı¼º±âÁØÀ§Ä¡..
-	__Vector3	m_vAxis;		//±âÁØ¹æÇâ..(È¸ÀüÃà)
-	__Vector3	m_vVelocity;	//ÁøÇà¹æÇâ..
+	__Vector3	m_vCreatePoint;	//ìƒì„±ê¸°ì¤€ìœ„ì¹˜..
+	__Vector3	m_vAxis;		//ê¸°ì¤€ë°©í–¥..(íšŒì „ì¶•)
+	__Vector3	m_vVelocity;	//ì§„í–‰ë°©í–¥..
 	__Vector3	m_vAccel;		//
 
 	float		m_fDropVel;		//
 	float		m_fDropY;		//
 	float		m_fRot;			//
-	__Vector3	m_vLcPos;		//·ÎÄÃ...
+	__Vector3	m_vLcPos;		//ë¡œì»¬...
 	__Vector3	m_vWdPos;		//	
 	DWORD		m_dwColor;		//
-	float		m_fSize;		//¿ø·¡Å©±â
-	//float		m_fCurrSize;	//ÇöÀç
+	float		m_fSize;		//ì›ë˜í¬ê¸°
+	//float		m_fCurrSize;	//í˜„ì¬
 
 public:
 	bool Tick();
 	
-//»ı¼ºÀÚ ¼Ò¸êÀÚ..
+//ìƒì„±ì ì†Œë©¸ì..
 	CN3FXParticle();	
 	virtual ~CN3FXParticle();
 };

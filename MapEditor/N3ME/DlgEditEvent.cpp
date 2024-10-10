@@ -1,4 +1,4 @@
-// DlgEditEvent.cpp : implementation file
+﻿// DlgEditEvent.cpp : implementation file
 //
 
 #include "stdafx.h"
