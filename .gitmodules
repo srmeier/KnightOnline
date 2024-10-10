@@ -1,0 +1,10 @@
+[submodule "deps/dx9sdk"]
+	path = deps/dx9sdk
+	url = https://github.com/twostars/microsoft-directx-sdk
+[submodule "deps/dx81sdk"]
+	path = deps/dx81sdk
+	url = https://github.com/twostars/microsoft-directx-sdk
+	branch = v8.1
+[submodule "deps/atlmfc-2013"]
+	path = deps/atlmfc-2013
+	url = https://github.com/twostars/atlmfc-2013

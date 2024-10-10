@@ -13,6 +13,8 @@
 // CN3FXPlugPart
 #include "N3BaseFileAccess.h"
 
+#include <vector>
+
 class CN3FXPlugPart : public CN3BaseFileAccess  
 {
 #ifdef _N3TOOL

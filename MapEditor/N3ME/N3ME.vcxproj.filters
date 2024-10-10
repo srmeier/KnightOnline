@@ -366,8 +366,15 @@
     <ClCompile Include="WarpMgr.cpp">
       <Filter>N3ME</Filter>
     </ClCompile>
-    <ClCompile Include="DlgMapView.cpp" />
-    <ClCompile Include="SowSeedMng.cpp" />
+    <ClCompile Include="DlgMapView.cpp">
+      <Filter>N3ME</Filter>
+    </ClCompile>
+    <ClCompile Include="SowSeedMng.cpp">
+      <Filter>N3ME</Filter>
+    </ClCompile>
+    <ClCompile Include="..\N3BASE\StdAfxBase.cpp">
+      <Filter>N3Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\N3Base\BitMapFile.h">
@@ -721,8 +728,12 @@
     <ClInclude Include="WarpMgr.h">
       <Filter>N3ME</Filter>
     </ClInclude>
-    <ClInclude Include="DlgMapView.h" />
-    <ClInclude Include="SowSeedMng.h" />
+    <ClInclude Include="DlgMapView.h">
+      <Filter>N3ME</Filter>
+    </ClInclude>
+    <ClInclude Include="SowSeedMng.h">
+      <Filter>N3ME</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="N3ME.rc">

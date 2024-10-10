@@ -11,13 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <SccProjectName>"$/N3ME", DHBAAAAA</SccProjectName>
-    <SccLocalPath>.</SccLocalPath>
     <Keyword>MFCProj</Keyword>
     <ProjectGuid>{1A926F1A-DA72-4D4A-8EA7-E511187398EB}</ProjectGuid>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="..\..\props\platform_root.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v140</PlatformToolset>
@@ -35,28 +33,29 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
   </ImportGroup>
+  <Import Project="$(PropsDir)mfc2013.props" />
+  <Import Project="$(PropsDir)directx8.props" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>Debug\</OutDir>
     <IntDir>Debug\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);C:\DXSDK\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\DXSDK\lib</LibraryPath>
-    <ExecutablePath>$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\DXSDK\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\DXSDK\lib</LibraryPath>
   </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PreprocessorDefinitions>NO_WARN_MBCS_MFC_DEPRECATION;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0501;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -68,11 +67,7 @@
       <MinimalRebuild>true</MinimalRebuild>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_N3TOOL;_KNIGHT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
-      <PrecompiledHeaderOutputFile>.\Debug\N3ME.pch</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\Debug\</ObjectFileName>
-      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
@@ -80,7 +75,6 @@
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\Debug\N3ME.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -90,18 +84,14 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Debug\N3ME.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>Debug\N3ME.exe</OutputFile>
-      <AdditionalDependencies>legacy_stdio_definitions.lib;D3D8.lib;D3DX8.lib;dxerr8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <IgnoreSpecificDefaultLibraries>libci.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,16 +104,11 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_N3TOOL;_KNIGHT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
       <BrowseInformation>true</BrowseInformation>
-      <PrecompiledHeaderOutputFile>.\Release\N3ME.pch</PrecompiledHeaderOutputFile>
-      <ObjectFileName>.\Release\</ObjectFileName>
-      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <TypeLibraryName>.\Release\N3ME.tlb</TypeLibraryName>
       <MkTypLibCompatible>true</MkTypLibCompatible>
       <TargetEnvironment>Win32</TargetEnvironment>
     </Midl>
@@ -133,17 +118,13 @@
     </ResourceCompile>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>.\Release\N3ME.bsc</OutputFile>
     </Bscmake>
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>Release\N3ME.exe</OutputFile>
-      <AdditionalDependencies>legacy_stdio_definitions.lib;D3D8.lib;D3DX8.lib;dxerr8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>
-      <IgnoreSpecificDefaultLibraries>libci.lib</IgnoreSpecificDefaultLibraries>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -162,46 +143,169 @@
     <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Common Control\PropertyList.cpp" />
-    <ClCompile Include="..\N3Base\BitMapFile.cpp" />
-    <ClCompile Include="..\N3Base\LogWriter.cpp" />
-    <ClCompile Include="..\N3Base\N3AlphaPrimitiveManager.cpp" />
-    <ClCompile Include="..\N3Base\N3AnimControl.cpp" />
-    <ClCompile Include="..\N3Base\N3AnimKey.cpp" />
-    <ClCompile Include="..\N3Base\N3Base.cpp" />
-    <ClCompile Include="..\N3Base\N3BaseFileAccess.cpp" />
-    <ClCompile Include="..\N3Base\N3Camera.cpp" />
-    <ClCompile Include="..\N3Base\N3Chr.cpp" />
-    <ClCompile Include="..\N3Base\N3Eng.cpp" />
-    <ClCompile Include="..\N3BASE\N3EngTool.cpp" />
-    <ClCompile Include="..\N3Base\N3FXBundle.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPartBase.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPartBillBoard.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPartBottomBoard.cpp" />
-    <ClCompile Include="..\N3Base\N3FXParticle.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPartMesh.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPartParticles.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPlug.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPMesh.cpp" />
-    <ClCompile Include="..\N3Base\N3FXPMeshInstance.cpp" />
-    <ClCompile Include="..\N3Base\N3FXShape.cpp" />
-    <ClCompile Include="..\N3Base\N3IMesh.cpp" />
-    <ClCompile Include="..\N3Base\N3Joint.cpp" />
-    <ClCompile Include="..\N3Base\N3Light.cpp" />
-    <ClCompile Include="..\N3Base\N3Mesh.cpp" />
-    <ClCompile Include="..\N3Base\N3PMesh.cpp" />
-    <ClCompile Include="..\N3Base\N3PMeshCreate.cpp" />
-    <ClCompile Include="..\N3Base\N3PMeshInstance.cpp" />
-    <ClCompile Include="..\N3Base\N3Scene.cpp" />
-    <ClCompile Include="..\N3Base\N3Shape.cpp" />
-    <ClCompile Include="..\N3BASE\N3ShapeExtra.cpp" />
-    <ClCompile Include="..\N3Base\N3ShapeMgr.cpp" />
-    <ClCompile Include="..\N3Base\N3Skin.cpp" />
-    <ClCompile Include="..\N3Base\N3Texture.cpp" />
-    <ClCompile Include="..\N3Base\N3Transform.cpp" />
-    <ClCompile Include="..\N3Base\N3TransformCollision.cpp" />
-    <ClCompile Include="..\N3Base\N3VMesh.cpp" />
-    <ClCompile Include="..\N3Base\Pick.cpp" />
+    <ClCompile Include="..\Common Control\PropertyList.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\BitMapFile.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\LogWriter.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3AlphaPrimitiveManager.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3AnimControl.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3AnimKey.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Base.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3BaseFileAccess.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Camera.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Chr.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Eng.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3BASE\N3EngTool.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXBundle.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPartBase.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPartBillBoard.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPartBottomBoard.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXParticle.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPartMesh.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPartParticles.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPlug.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPMesh.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXPMeshInstance.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3FXShape.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3IMesh.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Joint.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Light.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Mesh.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3PMesh.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3PMeshCreate.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3PMeshInstance.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Scene.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Shape.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3BASE\N3ShapeExtra.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3ShapeMgr.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Skin.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Texture.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3Transform.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3TransformCollision.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\N3VMesh.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3Base\Pick.cpp">
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\N3BASE\StdAfxBase.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>StdAfxBase.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)StdAfxBase.pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
     <ClCompile Include="BrushDlg.cpp" />
     <ClCompile Include="DlgAddDTex.cpp" />
     <ClCompile Include="DlgAddSoundGroup.cpp" />
@@ -268,7 +372,9 @@
     <ClCompile Include="SoundCell.cpp" />
     <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="SowSeedMng.cpp" />
-    <ClCompile Include="StdAfx.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="TransDummy.cpp" />
     <ClCompile Include="VtxPosDummy.cpp" />
     <ClCompile Include="Wall.cpp" />
