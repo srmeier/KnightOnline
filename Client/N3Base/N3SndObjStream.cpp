@@ -1,10 +1,10 @@
-//////////////////////////////////////////////////
+ï»¿//////////////////////////////////////////////////
 //	Commented By : Lynus
-//	Commented On 2001-04-12 ¿ÀÈÄ 8:42:02
+//	Commented On 2001-04-12 ì˜¤í›„ 8:42:02
 //
 //	CN3SndObjStream class (N3SndObjStream.h)
 //
-//	End Of Comment (By Lynus On 2001-04-12 ¿ÀÈÄ 8:42:02 )
+//	End Of Comment (By Lynus On 2001-04-12 ì˜¤í›„ 8:42:02 )
 //////////////////////////////////////////////////
 #include "N3SndObjStream.h"
 #include "N3SndMgr.h"
@@ -188,14 +188,14 @@ void CN3SndObjStream::RealPlay()
 			{
 				if(m_bIsLoop==false)
 				{
-					//tick¿¡ ¾îÄÉ Àû¿ëÇÒ °ÍÀÎ°¡..
+					//tickì— ì–´ì¼€ ì ìš©í•  ê²ƒì¸ê°€..
 					m_PastTime = m_PlayTime;
 					Stop();
 					return;
 				}
 				else if(m_bIsLoop==true)
 				{
-					//tick¿¡ ¾îÄÉ Àû¿ëÇÒ °ÍÀÎ°¡..
+					//tickì— ì–´ì¼€ ì ìš©í•  ê²ƒì¸ê°€..
 					//Stop();
 					//m_lpDSBuff->Stop();
 					Play();
@@ -240,7 +240,7 @@ void CN3SndObjStream::Release()
 
 
 //
-//	À½¾ÇÀÌ ÇÃ·¹ÀÌµÇ°í ÀÖÀ»¶§ streamming½ÃÅ°±â..
+//	ìŒì•…ì´ í”Œë ˆì´ë˜ê³  ìžˆì„ë•Œ streammingì‹œí‚¤ê¸°..
 //
 void CN3SndObjStream::Tick()
 {
@@ -289,7 +289,7 @@ void CN3SndObjStream::Tick()
 		}
 		else
 		{
-			//º¼·ý Á¡Á¡ ÀÛ°Ô....
+			//ë³¼ë¥¨ ì ì  ìž‘ê²Œ....
 			int vol = 0;
 			if(m_fFadeOutTime>0.0f)  vol = (int)(((m_fFadeOutTime - m_fTmpSecPerFrm)/m_fFadeOutTime)*(float)m_iMaxVolume);
 			SetVolume(vol);
@@ -300,7 +300,7 @@ void CN3SndObjStream::Tick()
 
 /*
 //
-// ¶È°°´Ù.
+// ë˜‘ê°™ë‹¤.
 //
 void CN3SndObjStream::Play(float delay, float fFadeInTime)
 {
@@ -313,7 +313,7 @@ void CN3SndObjStream::Play(float delay, float fFadeInTime)
 
 
 //
-// ¶È°°´Ù.
+// ë˜‘ê°™ë‹¤.
 //
 void CN3SndObjStream::Stop(float fFadeOutTime)
 {

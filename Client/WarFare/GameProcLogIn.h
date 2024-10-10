@@ -1,4 +1,4 @@
-// GameProcLogIn.h: interface for the CGameProcLogIn class.
+Ôªø// GameProcLogIn.h: interface for the CGameProcLogIn class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,14 +21,14 @@ public:
 	class CN3Camera*	m_pCamera;
 	class CN3Light*		m_pLights[3];
 
-	bool			m_bLogIn; // ∑Œ±◊¿Œ ¡ﬂ∫π πÊ¡ˆ..
+	bool			m_bLogIn; // Î°úÍ∑∏Ïù∏ Ï§ëÎ≥µ Î∞©ÏßÄ..
 	std::string		m_szRegistrationSite;
 
 public:
 	void	MsgRecv_GameServerGroupList(Packet& pkt);
 	void	MsgRecv_AccountLogIn(int iCmd, Packet& pkt);
 	int		MsgRecv_VersionCheck(Packet& pkt); // virtual
-	int		MsgRecv_GameServerLogIn(Packet& pkt); // virtual - ±π∞° π¯»£∏¶ ∏Æ≈œ«—¥Ÿ.
+	int		MsgRecv_GameServerLogIn(Packet& pkt); // virtual - Íµ≠Í∞Ä Î≤àÌò∏Î•º Î¶¨ÌÑ¥ÌïúÎã§.
 
 	bool	MsgSend_AccountLogIn(enum e_LogInClassification eLIC);
 
@@ -42,7 +42,7 @@ protected:
 
 public:
 
-	void ConnectToGameServer(); // ∞Ì∏• ∞‘¿” º≠πˆø° ¡¢º”
+	void ConnectToGameServer(); // Í≥†Î•∏ Í≤åÏûÑ ÏÑúÎ≤ÑÏóê Ï†ëÏÜç
 	CGameProcLogIn();
 	virtual ~CGameProcLogIn();
 //	void PacketSend_MGameLogin();

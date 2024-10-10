@@ -1,4 +1,4 @@
-// UIWarp.cpp: implementation of the UIWarp class.
+ï»¿// UIWarp.cpp: implementation of the UIWarp class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -30,7 +30,7 @@ CUIWarp::CUIWarp()
 	m_pBtn_Cancel = NULL;
 	
 	m_pList_Infos = NULL;
-	m_pText_Agreement = NULL; // µ¿ÀÇ »çÇ×..
+	m_pText_Agreement = NULL; // ë™ì˜ ì‚¬í•­..
 }
 
 CUIWarp::~CUIWarp()
@@ -67,7 +67,7 @@ bool CUIWarp::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	{
 		if(pSender == m_pList_Infos)
 		{
-			this->UpdateAgreement(); // µ¿ÀÇ¹® ¾÷µ¥ÀÌÆ®..
+			this->UpdateAgreement(); // ë™ì˜ë¬¸ ì—…ë°ì´íŠ¸..
 		}
 	}
 	else if (dwMsg & UIMSG_LIST_DBLCLK)

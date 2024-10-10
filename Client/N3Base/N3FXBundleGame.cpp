@@ -1,4 +1,4 @@
-// N3FXBundleGame.cpp: implementation of the CN3FXBundleGame class.
+ï»¿// N3FXBundleGame.cpp: implementation of the CN3FXBundleGame class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -260,7 +260,7 @@ bool CN3FXBundleGame::Tick()
 					m_vPos += m_vDir*CN3Base::s_fSecPerFrm*m_fVelocity;
 					
 					float fTerrainY = s_pTerrain->GetHeight(m_vPos.x, m_vPos.z);
-					if(m_vPos.y <= fTerrainY) m_vPos.y = fTerrainY + 0.3f;	//¶¥À» Å¸°í ³¯¶ó°¡¶ó..
+					if(m_vPos.y <= fTerrainY) m_vPos.y = fTerrainY + 0.3f;	//ë•…ì„ íƒ€ê³  ë‚ ë¼ê°€ë¼..
 					break;
 					*/
 				}
@@ -298,7 +298,7 @@ bool CN3FXBundleGame::Tick()
 				m_vPos += m_vDir*CN3Base::s_fSecPerFrm*m_fVelocity;
 
 				//float fTerrainY = s_pTerrain->GetHeight(m_vPos.x, m_vPos.z);
-				//if(m_vPos.y <= fTerrainY) m_vPos.y = fTerrainY + 0.3f;	//¶¥À» Å¸°í ³¯¶ó°¡¶ó..
+				//if(m_vPos.y <= fTerrainY) m_vPos.y = fTerrainY + 0.3f;	//ë•…ì„ íƒ€ê³  ë‚ ë¼ê°€ë¼..
 				break;
 			}
 
@@ -322,7 +322,7 @@ bool CN3FXBundleGame::Tick()
 			}
 		case FX_BUNDLE_REGION_POISON:
 			{
-				CN3Camera* pCamera = CGameProcedure::s_pEng->CameraGetActive();		// È°¼ºÈ­µÈ Ä«¸Þ¶ó ¾ò±â..
+				CN3Camera* pCamera = CGameProcedure::s_pEng->CameraGetActive();		// í™œì„±í™”ëœ ì¹´ë©”ë¼ ì–»ê¸°..
 
 				__Vector3 vEyePos = pCamera->EyePos();
 				__Vector3 vEyeAt  = pCamera->AtPos();

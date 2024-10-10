@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include <time.h>
 #include <cstdarg>
 #include "GameSocket.h"
@@ -479,7 +479,7 @@ void CServerDlg::GetServerResource(int nResourceID, string * result, ...)
 	va_end(args);
 }
 
-// game server¿¡ ¸ðµç npcÁ¤º¸¸¦ Àü¼Û..
+// game serverì— ëª¨ë“  npcì •ë³´ë¥¼ ì „ì†¡..
 void CServerDlg::AllNpcInfo()
 {
 	Packet result;
@@ -858,7 +858,7 @@ void CServerDlg::ResetBattleZone()
 		MAP *pMap = itr->second;
 		if (pMap == nullptr || pMap->m_byRoomEvent == 0) 
 			continue;
-		//if( pMap->IsRoomStatusCheck() == true )	continue;	// ÀüÃ¼¹æÀÌ Å¬¸®¾î µÇ¾ú´Ù¸é
+		//if( pMap->IsRoomStatusCheck() == true )	continue;	// ì „ì²´ë°©ì´ í´ë¦¬ì–´ ë˜ì—ˆë‹¤ë©´
 		pMap->InitializeRoom();
 	}
 	TRACE("ServerDlg - ResetBattleZone() : end \n");

@@ -1,4 +1,4 @@
-// N3EngTool.h: interface for the CN3EngTool class.
+ï»¿// N3EngTool.h: interface for the CN3EngTool class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -14,49 +14,49 @@
 struct __EXPORT_OPTION
 {
 	char szID[8];		// ID "N3Scene1"
-	char szRemark[64];	// ¼³¸í..
+	char szRemark[64];	// ì„¤ëª…..
 	
-	int nNodeCount; // ÀüÃ¼ ³ëµå Ä«¿îÆ®
+	int nNodeCount; // ì „ì²´ ë…¸ë“œ ì¹´ìš´íŠ¸
 	
 	BOOL	bAnimationKey; 
-	int		nFrmStart;	// ¿¡´Ï¸ŞÀÌ¼Ç ½ÃÀÛ ÇÁ·¹ÀÓ 
-	int		nFrmEnd;	// ¿¡´Ï¸ŞÀÌ¼Ç ³¡ ÇÁ·¹ÀÓ
-	float	fSamplingRate; // Key Sampling - 30.0f °¡ Ç¥ÁØ..
+	int		nFrmStart;	// ì—ë‹ˆë©”ì´ì…˜ ì‹œì‘ í”„ë ˆì„ 
+	int		nFrmEnd;	// ì—ë‹ˆë©”ì´ì…˜ ë í”„ë ˆì„
+	float	fSamplingRate; // Key Sampling - 30.0f ê°€ í‘œì¤€..
 
-	D3DCOLORVALUE dcvBackground;	// ¹è°æ »ö
-	D3DCOLORVALUE dcvAmbientLight;	// ±âº» Á¶¸í »ö
+	D3DCOLORVALUE dcvBackground;	// ë°°ê²½ ìƒ‰
+	D3DCOLORVALUE dcvAmbientLight;	// ê¸°ë³¸ ì¡°ëª… ìƒ‰
 
-//	int nCameraCount;	// scene ³»ÀÇ Ä«¸Ş¶ó °¹¼ö
-//	int nMaterialCount;	// scene ³»ÀÇ ÀçÁú °¹¼ö
-//	int nTextureCount;	// scene ³»ÀÇ ÅØ½ºÃ³ °¹¼ö
-//	int nLightCount;	// scene ³»ÀÇ Á¶¸í °¹¼ö
+//	int nCameraCount;	// scene ë‚´ì˜ ì¹´ë©”ë¼ ê°¯ìˆ˜
+//	int nMaterialCount;	// scene ë‚´ì˜ ì¬ì§ˆ ê°¯ìˆ˜
+//	int nTextureCount;	// scene ë‚´ì˜ í…ìŠ¤ì²˜ ê°¯ìˆ˜
+//	int nLightCount;	// scene ë‚´ì˜ ì¡°ëª… ê°¯ìˆ˜
 
-	BOOL bExportCamera;	// Ä«¸Ş¶ó µ¥ÀÌÅÍ¸¦ °®°í ÀÖ´Ù.
-	BOOL bExportLight;		// ¶óÀÌÆ® µ¥ÀÌÅÍ¸¦ °®°í ÀÖ´Ù.
-	BOOL bExportGeometry;	// Áö¿À¸ŞÆ®¸® µ¥ÀÌÅÍ¸¦ °®°í ÀÖ´Ù.
-	BOOL bExportDummy;	// µµ¿ì¹Ì ¿ÀºêÁ§Æ®(??? - ½ÇÁ¦ °×¿¡¼­´Â ÇÊ¿ä¾ø°í °³¹ß½Ã¿¡¸¸ ÇÊ¿äÇÑ ¿ÀºêÁ§Æ®¸¦ ¸»ÇÑ´Ù)µ¥ÀÌÅÍ¸¦ °®°í ÀÖ´Ù. 
-	BOOL bExportCharacter;	// µµ¿ì¹Ì ¿ÀºêÁ§Æ®(??? - ½ÇÁ¦ °×¿¡¼­´Â ÇÊ¿ä¾ø°í °³¹ß½Ã¿¡¸¸ ÇÊ¿äÇÑ ¿ÀºêÁ§Æ®¸¦ ¸»ÇÑ´Ù)µ¥ÀÌÅÍ¸¦ °®°í ÀÖ´Ù. 
+	BOOL bExportCamera;	// ì¹´ë©”ë¼ ë°ì´í„°ë¥¼ ê°–ê³  ìˆë‹¤.
+	BOOL bExportLight;		// ë¼ì´íŠ¸ ë°ì´í„°ë¥¼ ê°–ê³  ìˆë‹¤.
+	BOOL bExportGeometry;	// ì§€ì˜¤ë©”íŠ¸ë¦¬ ë°ì´í„°ë¥¼ ê°–ê³  ìˆë‹¤.
+	BOOL bExportDummy;	// ë„ìš°ë¯¸ ì˜¤ë¸Œì íŠ¸(??? - ì‹¤ì œ ê²œì—ì„œëŠ” í•„ìš”ì—†ê³  ê°œë°œì‹œì—ë§Œ í•„ìš”í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ ë§í•œë‹¤)ë°ì´í„°ë¥¼ ê°–ê³  ìˆë‹¤. 
+	BOOL bExportCharacter;	// ë„ìš°ë¯¸ ì˜¤ë¸Œì íŠ¸(??? - ì‹¤ì œ ê²œì—ì„œëŠ” í•„ìš”ì—†ê³  ê°œë°œì‹œì—ë§Œ í•„ìš”í•œ ì˜¤ë¸Œì íŠ¸ë¥¼ ë§í•œë‹¤)ë°ì´í„°ë¥¼ ê°–ê³  ìˆë‹¤. 
 	
-	BOOL bExportSelectedOnly; // ¼±ÅÃµÈ °Í¸¸ ???
+	BOOL bExportSelectedOnly; // ì„ íƒëœ ê²ƒë§Œ ???
 
-	BOOL bGenerateFileName; // ÆÄÀÏ ÀÌ¸§À» 0_0000_00_0 Æ÷¸ËÀ¸·Î ¹Ù²Û´Ù..??
-	BOOL bGenerateSmoothNormal; // ºÎµå·´°Ô º¸ÀÌµµ·Ï ¹ı¼± º¤ÅÍµéÀ» Àç °è»êÇÑ´Ù.
-//	BOOL bGenerateProgressiveMesh; // Progressive Mesh »ı¼º
-	BOOL bGenerateHalfSizeTexture; // ÅØ½ºÃ³ ÆÄÀÏÀ» ÀÚµ¿À¸·Î ÃÖÀûÈ­ ½ÃÄÑ¼­ »ı¼º Direct3D ÀÇ Æ÷¸Ë¿¡ ¸Â°Ô 2ÀÇ Á¦°ö¼ö ´ÜÀ§·Î ¸ÂÃß¾î¼­ "OBM" ºñÆ®¸Ê ÆÄÀÏ·Î ÀúÀå.
-	BOOL bGenerateCompressedTexture; // Texture ¾ĞÃà »ç¿ë
+	BOOL bGenerateFileName; // íŒŒì¼ ì´ë¦„ì„ 0_0000_00_0 í¬ë§·ìœ¼ë¡œ ë°”ê¾¼ë‹¤..??
+	BOOL bGenerateSmoothNormal; // ë¶€ë“œëŸ½ê²Œ ë³´ì´ë„ë¡ ë²•ì„  ë²¡í„°ë“¤ì„ ì¬ ê³„ì‚°í•œë‹¤.
+//	BOOL bGenerateProgressiveMesh; // Progressive Mesh ìƒì„±
+	BOOL bGenerateHalfSizeTexture; // í…ìŠ¤ì²˜ íŒŒì¼ì„ ìë™ìœ¼ë¡œ ìµœì í™” ì‹œì¼œì„œ ìƒì„± Direct3D ì˜ í¬ë§·ì— ë§ê²Œ 2ì˜ ì œê³±ìˆ˜ ë‹¨ìœ„ë¡œ ë§ì¶”ì–´ì„œ "OBM" ë¹„íŠ¸ë§µ íŒŒì¼ë¡œ ì €ì¥.
+	BOOL bGenerateCompressedTexture; // Texture ì••ì¶• ì‚¬ìš©
 
-	char szSubDir[_MAX_DIR];		// export ÇÒ¶§ ÀúÀåÇÏ´Â subÆú´õ¸¦ ÁöÁ¤ÇØÁØ´Ù.
+	char szSubDir[_MAX_DIR];		// export í• ë•Œ ì €ì¥í•˜ëŠ” subí´ë”ë¥¼ ì§€ì •í•´ì¤€ë‹¤.
 };
 
 class CN3EngTool : public CN3Eng  
 {
 public:
-	int					m_nGridLineCount; // ±×¸®µå ¶óÀÎ Ä«¿îÆ®..
-	__VertexColor*		m_pVGrids; // ±×¸®µå ·»´õ¸µ ¿ë
+	int					m_nGridLineCount; // ê·¸ë¦¬ë“œ ë¼ì¸ ì¹´ìš´íŠ¸..
+	__VertexColor*		m_pVGrids; // ê·¸ë¦¬ë“œ ë Œë”ë§ ìš©
 
-	__VertexColor		m_VAxis[60]; // Ãà ·»´õ¸µ ¿ë
-	__VertexColor		m_VDir[6]; // ¹æÇâ Ç¥½Ã ¿ë
-	__VertexTransformed m_VPreview[6];	// ÅØ½ºÃ³ ÇÁ¸®ºä ¿ë
+	__VertexColor		m_VAxis[60]; // ì¶• ë Œë”ë§ ìš©
+	__VertexColor		m_VDir[6]; // ë°©í–¥ í‘œì‹œ ìš©
+	__VertexTransformed m_VPreview[6];	// í…ìŠ¤ì²˜ í”„ë¦¬ë·° ìš©
 
 
 

@@ -1,4 +1,4 @@
-// N3PMeshCreate.h: interface for the CN3PMeshCreate class.
+ï»¿// N3PMeshCreate.h: interface for the CN3PMeshCreate class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,10 +23,10 @@ public:
 public:
 	struct __PMCreateOption
 	{
-		bool	bUseSumOfLoss;		// LossÀÇ ÇÕÀ» »ç¿ëÇÒ °ÍÀÎ°¡ ¾Æ´Ï¸é ..
-		bool	bTriangleWeight;	// »ç¶óÁú »ï°¢Çü °¡ÁßÄ¡ °è»ê ÇÒ °ÍÀÎ°¡?
-		bool	bArea; // false = sum of side °¡ÁßÄ¡¸¦ ³ÐÀÌ·Î ÇÒ °ÍÀÎ°¡? ¼¼ º¯ÀÇ ÇÕÀ¸·Î ÇÒ °ÍÀÎ°¡?
-		float	fWeight; 	// °¡ÁßÄ¡
+		bool	bUseSumOfLoss;		// Lossì˜ í•©ì„ ì‚¬ìš©í•  ê²ƒì¸ê°€ ì•„ë‹ˆë©´ ..
+		bool	bTriangleWeight;	// ì‚¬ë¼ì§ˆ ì‚¼ê°í˜• ê°€ì¤‘ì¹˜ ê³„ì‚° í•  ê²ƒì¸ê°€?
+		bool	bArea; // false = sum of side ê°€ì¤‘ì¹˜ë¥¼ ë„“ì´ë¡œ í•  ê²ƒì¸ê°€? ì„¸ ë³€ì˜ í•©ìœ¼ë¡œ í•  ê²ƒì¸ê°€?
+		float	fWeight; 	// ê°€ì¤‘ì¹˜
 	};
 
 protected:
@@ -45,7 +45,7 @@ protected:
 	void combine_modified(float &sofar, uint16_t *tri, int which, int what_to, bool bSumOfLoss);
 
 public:
-	int ReGenerate(CN3PMesh* pPMesh); // ´Ù½Ã »ý¼ºÇÑ´Ù..
+	int ReGenerate(CN3PMesh* pPMesh); // ë‹¤ì‹œ ìƒì„±í•œë‹¤..
 	// Do the calculation
 	void CreateCollapseList();
 
@@ -54,7 +54,7 @@ public:
 
 	__PMCreateOption m_PMCOption;
 
-	// N3Mesh -> CN3PMeshCreate ·Î ÄÁ¹öÆÃ..
+	// N3Mesh -> CN3PMeshCreate ë¡œ ì»¨ë²„íŒ…..
 	bool ConvertFromN3Mesh(CN3Mesh* pN3Mesh);
 	bool ConvertFromN3PMesh(CN3PMesh* pN3PMesh);
 
@@ -78,7 +78,7 @@ protected:
 				 bool &IsOver);
 	void Collapse(uint16_t& pt_to, uint16_t& pt_from, float edge_val);
 
-// mesh Á¤º¸
+// mesh ì •ë³´
 protected:
 
 	// A material is an array of vertices and an array of triangles (which is an array of 3x as many indices)

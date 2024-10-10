@@ -1,4 +1,4 @@
-// UILoadingDlg.cpp: implementation of the UILoadingDlg class.
+﻿// UILoadingDlg.cpp: implementation of the UILoadingDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

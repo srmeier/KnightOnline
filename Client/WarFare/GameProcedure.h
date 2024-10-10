@@ -1,4 +1,4 @@
-// GameProcedure.h: interface for the CGameProcedure class.
+ï»¿// GameProcedure.h: interface for the CGameProcedure class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -57,15 +57,15 @@ public:
 class CGameProcedure : public CGameBase
 {
 public:
-	static class CN3SndObjStream*	s_pSnd_BGM;			// ¸ŞÀÎ ¹è°æÀ½¾Ç Æ÷ÀÎÅÍ..
-	static class CLocalInput*		s_pLocalInput;		// ¸¶¿ì½º¿Í Å°º¸µå ÀÔ·Â °´Ã¼ .. Direct Input À» ½è´Ù.
-	static class CAPISocket*		s_pSocket;			// ¸ŞÀÎ ¼ÒÄÏ °´Ã¼
-	static class CAPISocket*		s_pSocketSub;		// ¼­ºê ¼ÒÄÏ °´Ã¼..
+	static class CN3SndObjStream*	s_pSnd_BGM;			// ë©”ì¸ ë°°ê²½ìŒì•… í¬ì¸í„°..
+	static class CLocalInput*		s_pLocalInput;		// ë§ˆìš°ìŠ¤ì™€ í‚¤ë³´ë“œ ì…ë ¥ ê°ì²´ .. Direct Input ì„ ì¼ë‹¤.
+	static class CAPISocket*		s_pSocket;			// ë©”ì¸ ì†Œì¼“ ê°ì²´
+	static class CAPISocket*		s_pSocketSub;		// ì„œë¸Œ ì†Œì¼“ ê°ì²´..
 	static class CGameEng*			s_pEng;				// 3D Wrapper Engine
 	static class CN3FXMgr*			s_pFX;
 	
 	static class CUIManager*		s_pUIMgr;					// UI Manager
-	static class CUILoading*		s_pUILoading;				// ·Îµù¹Ù..
+	static class CUILoading*		s_pUILoading;				// ë¡œë”©ë°”..
 	static class CUIMessageBoxManager*	s_pMsgBoxMgr;			// MessageBox Manager
 
 	static class CGameProcLogIn*			s_pProcLogIn;
@@ -88,20 +88,20 @@ public:
 	static SDL_Cursor* s_hCursorPreRepair;
 	static SDL_Cursor* s_hCursorNowRepair;
 
-	static e_LogInClassification	s_eLogInClassification; // Á¢¼ÓÇÑ ¼­ºñ½º.. MGame, Daum, KnightOnLine ....
-	static std::string				s_szAccount; // °èÁ¤ ¹®ÀÚ¿­..
-	static std::string				s_szPassWord; // °èÁ¤ ºñ¹ø..
-	static std::string				s_szServer; // ¼­¹öÀÌ¸§ ¹®ÀÚ¿­..
-	static int						s_iChrSelectIndex; // ÀÌ°èÁ¤ÀÇ ¸î¹øÂ° Ä³¸¯ÀÎÁö...??
+	static e_LogInClassification	s_eLogInClassification; // ì ‘ì†í•œ ì„œë¹„ìŠ¤.. MGame, Daum, KnightOnLine ....
+	static std::string				s_szAccount; // ê³„ì • ë¬¸ìì—´..
+	static std::string				s_szPassWord; // ê³„ì • ë¹„ë²ˆ..
+	static std::string				s_szServer; // ì„œë²„ì´ë¦„ ë¬¸ìì—´..
+	static int						s_iChrSelectIndex; // ì´ê³„ì •ì˜ ëª‡ë²ˆì§¸ ìºë¦­ì¸ì§€...??
 
 	static bool		m_bCursorLocked;
 	static SDL_Cursor*	m_hPrevGameCursor;
-	static HWND		s_hWndSubSocket; // ¼­ºê ¼ÒÄÏ¿ë À©µµ¿ì ÇÚµé..
+	static HWND		s_hWndSubSocket; // ì„œë¸Œ ì†Œì¼“ìš© ìœˆë„ìš° í•¸ë“¤..
 
-	static bool		s_bNeedReportConnectionClosed; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
-	static bool		s_bWindowed; // Ã¢¸ğµå ½ÇÇà??
-	static bool		s_bKeyPress;	//Å°°¡ ´­·ÁÁ³À»¶§ ui¿¡¼­ ÇØ´çÇÏ´Â Á¶ÀÛµÈÀûÀÌ ÀÖ´Ù¸é
-	static bool		s_bKeyPressed;	//Å°°¡ ¿Ã¶ó°¬À»¶§ ui¿¡¼­ ÇØ´çÇÏ´Â Á¶ÀÛµÈÀûÀÌ ÀÖ´Ù¸é
+	static bool		s_bNeedReportConnectionClosed; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
+	static bool		s_bWindowed; // ì°½ëª¨ë“œ ì‹¤í–‰??
+	static bool		s_bKeyPress;	//í‚¤ê°€ ëˆŒë ¤ì¡Œì„ë•Œ uiì—ì„œ í•´ë‹¹í•˜ëŠ” ì¡°ì‘ëœì ì´ ìˆë‹¤ë©´
+	static bool		s_bKeyPressed;	//í‚¤ê°€ ì˜¬ë¼ê°”ì„ë•Œ uiì—ì„œ í•´ë‹¹í•˜ëŠ” ì¡°ì‘ëœì ì´ ìˆë‹¤ë©´
 
 	// NOTE: adding boolean to check if window has focus or not
 	static bool		s_bIsWindowInFocus;
@@ -119,8 +119,8 @@ public:
 	static void ReportServerConnectionClosed(bool bNeedQuitGame);
 	static void ReportDebugStringAndSendToServer(const std::string& szDebug);
 
-	virtual int		MsgRecv_VersionCheck(Packet& pkt); // ¾ÏÈ£È­ Å°µµ °°ÀÌ ¹Ş´Â´Ù..
-	virtual int		MsgRecv_GameServerLogIn(Packet& pkt); // virtual - ±¹°¡¹øÈ£¸¦ ¸®ÅÏÇÑ´Ù.
+	virtual int		MsgRecv_VersionCheck(Packet& pkt); // ì•”í˜¸í™” í‚¤ë„ ê°™ì´ ë°›ëŠ”ë‹¤..
+	virtual int		MsgRecv_GameServerLogIn(Packet& pkt); // virtual - êµ­ê°€ë²ˆí˜¸ë¥¼ ë¦¬í„´í•œë‹¤.
 	virtual bool	MsgRecv_CharacterSelect(Packet& pkt);
 
 	static void		MsgSend_GameServerLogIn();
@@ -130,9 +130,9 @@ public:
 
 
 	
-	virtual void Release(); // ¸®¼Ò½º Ç®¾îÁÖ±â..
-	virtual void Init(); // ÇÊ¿äÇÑ ¿ä¼ÒµéÀ» ÃÊ±âÈ­ ¹× ·Îµù
-	virtual void Tick();  // ÇÁ·Î½ÃÁ® ÀÎµ¦½º¸¦ ¸®ÅÏÇÑ´Ù. 0 ÀÌ¸é ±×´ë·Î ÁøÇà
+	virtual void Release(); // ë¦¬ì†ŒìŠ¤ í’€ì–´ì£¼ê¸°..
+	virtual void Init(); // í•„ìš”í•œ ìš”ì†Œë“¤ì„ ì´ˆê¸°í™” ë° ë¡œë”©
+	virtual void Tick();  // í”„ë¡œì‹œì ¸ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´í•œë‹¤. 0 ì´ë©´ ê·¸ëŒ€ë¡œ ì§„í–‰
 	virtual void Render();
 	virtual void ProcessUIKeyInput(bool bEnable = true);
 

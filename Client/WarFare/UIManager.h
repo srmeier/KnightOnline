@@ -1,4 +1,4 @@
-// UIManager.h: interface for the CUIManager class.
+ï»¿// UIManager.h: interface for the CUIManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,17 +21,17 @@ protected:
 		DWORD dwZEnable, dwAlphaBlend, dwSrcBlend, dwDestBlend, dwFog;
 		DWORD dwMagFilter, dwMinFilter, dwMipFilter;
 #ifdef _DEBUG
-		BOOL	bSet;	// ÀÌ¹Ì °ªÀÌ 3D deviceÀÇ °ªÀ¸·Î ¼¼ÆÃÀÌ µÇ¾ú´ÂÁö ÆÇ´Ü.
+		BOOL	bSet;	// ì´ë¯¸ ê°’ì´ 3D deviceì˜ ê°’ìœ¼ë¡œ ì„¸íŒ…ì´ ë˜ì—ˆëŠ”ì§€ íŒë‹¨.
 #endif
 	};
 	
 	static __RenderStateForUI s_sRSFU;	// RenderStateForUI
 	uint32_t		m_dwMouseFlagsCur;
-	bool		m_bEnableOperation;		// UI Á¶ÀÛÀÌ °¡´ÉÇÑ »óÅÂÀÎ°¡?
+	bool		m_bEnableOperation;		// UI ì¡°ì‘ì´ ê°€ëŠ¥í•œ ìƒíƒœì¸ê°€?
 	CN3UIBase*	m_pUIFocused;
 
 public:
-	bool		m_bDoneSomething;		// UI ¿¡¼­ Á¶ÀÛÀ» Çß´Ù...
+	bool		m_bDoneSomething;		// UI ì—ì„œ ì¡°ì‘ì„ í–ˆë‹¤...
 
 public:
 	void UserMoveHideUIs();
@@ -39,16 +39,16 @@ public:
 	static void	RenderStateRestore();
 	static void	RenderStateSet();
 
-	void	EnableOperationSet(bool bEnable) { m_bEnableOperation = bEnable; } // UI Á¶ÀÛ °¡´É/ºÒ°¡´É..
-	bool	EnableOperation() { return m_bEnableOperation; } // UI Á¶ÀÛÀÌ °¡´ÉÇÑ »óÅÂÀÎ°¡?
+	void	EnableOperationSet(bool bEnable) { m_bEnableOperation = bEnable; } // UI ì¡°ì‘ ê°€ëŠ¥/ë¶ˆê°€ëŠ¥..
+	bool	EnableOperation() { return m_bEnableOperation; } // UI ì¡°ì‘ì´ ê°€ëŠ¥í•œ ìƒíƒœì¸ê°€?
 
 	void		Release();
 	void		Tick();
 	uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	uint32_t		GetCurMouseFlags() { return m_dwMouseFlagsCur; }
-	CN3UIBase*	GetFocusedUI() { return m_pUIFocused; } // ÂïÀº UI °¡Á®¿À±â..
-	void		SetFocusedUI(CN3UIBase* pUI); // ÂïÀº UI °¡Á®¿À±â..
-	CN3UIBase*	GetTopUI(bool bVisible); // ÃÖ»óÀ§¿¡ ÀÖ´Â UI °¡Á®¿À±â.
+	CN3UIBase*	GetFocusedUI() { return m_pUIFocused; } // ì°ì€ UI ê°€ì ¸ì˜¤ê¸°..
+	void		SetFocusedUI(CN3UIBase* pUI); // ì°ì€ UI ê°€ì ¸ì˜¤ê¸°..
+	CN3UIBase*	GetTopUI(bool bVisible); // ìµœìƒìœ„ì— ìˆëŠ” UI ê°€ì ¸ì˜¤ê¸°.
 	void		SetVisibleFocusedUI(CN3UIBase* pUI);
 	CN3UIBase*	ReFocusUI();
 	void		Render();

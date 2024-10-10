@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MAP.h"
 #include "ServerDlg.h"
 #include "Region.h"
@@ -251,7 +251,7 @@ bool MAP::LoadRoomEvent()
 			buf[index] = (uint8_t) 0;
 			t_index = 0;
 
-			if( buf[t_index] == ';' || buf[t_index] == '/' )	{		// ÁÖ¼®¿¡ ´ëÇÑ Ã³¸®
+			if( buf[t_index] == ';' || buf[t_index] == '/' )	{		// ì£¼ì„ì— ëŒ€í•œ ì²˜ë¦¬
 				index = 0;
 				continue;
 			}
@@ -394,13 +394,13 @@ int MAP::IsRoomCheck(float fx, float fz)
 				pRoom->m_tDelayTime = UNIXTIME;
 				room_number = itr->first;
 				TRACE(" Room Check - number = %d, x=%d, z=%d\n", room_number, nX, nZ);
-				//wsprintf(notify, "** ¾Ë¸² : [%d Zone][%d] ¹æ¿¡ µé¾î¿À½Å°ÍÀ» È¯¿µÇÕ´Ï´Ù **", m_nZoneNumber, pRoom->m_sRoomNumber);
+				//wsprintf(notify, "** ì•Œë¦¼ : [%d Zone][%d] ë°©ì— ë“¤ì–´ì˜¤ì‹ ê²ƒì„ í™˜ì˜í•©ë‹ˆë‹¤ **", m_nZoneNumber, pRoom->m_sRoomNumber);
 				//g_pMain->SendSystemMsg(notify, PUBLIC_CHAT);
 			}
 			else // room already in progress
 			{
 				pRoom->m_byStatus = RoomStatusCleared;
-				//wsprintf(notify, "** ¾Ë¸² : [%d Zone][%d] ¸ñÇ¥ÁöÁ¡±îÁö µµÂøÇØ¼­ Å¬¸®¾î µË´Ï´Ù¤· **", m_nZoneNumber, pRoom->m_sRoomNumber);
+				//wsprintf(notify, "** ì•Œë¦¼ : [%d Zone][%d] ëª©í‘œì§€ì ê¹Œì§€ ë„ì°©í•´ì„œ í´ë¦¬ì–´ ë©ë‹ˆë‹¤ã…‡ **", m_nZoneNumber, pRoom->m_sRoomNumber);
 				//g_pMain->SendSystemMsg(notify, PUBLIC_CHAT);
 			}
 

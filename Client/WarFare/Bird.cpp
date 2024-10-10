@@ -1,4 +1,4 @@
-// Bird.cpp: implementation of the CBird class.
+ï»¿// Bird.cpp: implementation of the CBird class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -66,14 +66,14 @@ void CBird::Tick()
 	m_fFactorY2 += (m_fFactorYSpeed2*s_fSecPerFrm);
 	if (m_fFactorY2 > 2*D3DX_PI) m_fFactorY2 -= (2*D3DX_PI);
 
-	// À§Ä¡°è»ê
+	// ìœ„ì¹˜ê³„ì‚°
 	__Vector3 vPos;
 	 vPos.Set(	sinf(m_fFactor1)*m_fRadius*cosf(m_fRadian),
 				m_fRadiusY*(sinf(m_fFactorY1)+cosf(m_fFactorY2))/2.0f,
 				sinf(m_fFactor2)*m_fRadius*sinf(m_fRadian));
 
-	 // °¢µµ °è»ê
-	 // ¹ÌºÐ½ÄÀ» ÀÌ¿ëÇÏ¿© ±â¿ï±â ±¸ÇÏ±â
+	 // ê°ë„ ê³„ì‚°
+	 // ë¯¸ë¶„ì‹ì„ ì´ìš©í•˜ì—¬ ê¸°ìš¸ê¸° êµ¬í•˜ê¸°
 	float x = (m_fFactorSpeed1*cosf(m_fFactor1)*cosf(m_fRadian) - 
 		 m_fRadianSpeed*sinf(m_fFactor1)*sinf(m_fRadian));
 	float z = (m_fFactorSpeed2*cosf(m_fFactor2)*sinf(m_fRadian) + 
@@ -108,7 +108,7 @@ void CBird::Render()
 int CBird::LoadBird(const std::string& szFN)
 {
 	Release();
-	FILE* stream = fopen(szFN.c_str(), "r"); //textÆÄÀÏ·Î ¸¸µç´Ù 
+	FILE* stream = fopen(szFN.c_str(), "r"); //textíŒŒì¼ë¡œ ë§Œë“ ë‹¤ 
 	if(NULL == stream)
 	{
 #if _DEBUG
@@ -121,15 +121,15 @@ int CBird::LoadBird(const std::string& szFN)
 
 	char szRrcName[_MAX_PATH];
 	float	fSpeed = 0.0f;
-	int result = fscanf(stream, "ResourceName = %s\n", szRrcName);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Pivot = %f %f %f\n", &(m_vPivot.x), &(m_vPivot.y), &(m_vPivot.z));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Radius = %f\n", &m_fRadius);					__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "RadiusY = %f\n", &m_fRadiusY);					__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Speed = %f\n", &fSpeed);						__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+	int result = fscanf(stream, "ResourceName = %s\n", szRrcName);			__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Pivot = %f %f %f\n", &(m_vPivot.x), &(m_vPivot.y), &(m_vPivot.z));	__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Radius = %f\n", &m_fRadius);					__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "RadiusY = %f\n", &m_fRadiusY);					__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Speed = %f\n", &fSpeed);						__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 
 	fclose(stream);
 
-	__ASSERT(m_pShape == NULL, "Bird memory leak °¡´É¼º");
+	__ASSERT(m_pShape == NULL, "Bird memory leak ê°€ëŠ¥ì„±");
 	m_pShape = new CN3Shape;
 	m_pShape->LoadFromFile(szRrcName);
 

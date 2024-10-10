@@ -1,4 +1,4 @@
-// N3BaseFileAccess.h: interface for the CN3BaseFileAccess class.
+ï»¿// N3BaseFileAccess.h: interface for the CN3BaseFileAccess class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -29,23 +29,23 @@ static const int N3FORMAT_VER_DEFAULT = N3FORMAT_VER_1264;//N3FORMAT_VER_1068;
 class CN3BaseFileAccess : public CN3Base
 {
 protected:
-	std::string		m_szFileName; // Base Path ¸¦ Á¦¿ÜÇÑ ·ÎÄÃ °æ·Î + ÆÄÀÏ ÀÌ¸§
+	std::string		m_szFileName; // Base Path ë¥¼ ì œì™¸í•œ ë¡œì»¬ ê²½ë¡œ + íŒŒì¼ ì´ë¦„
 
 public:
 	uint32_t m_iFileFormatVersion;
-	int m_iLOD; // ·ÎµùÇÒ¶§ ¾µ LOD
+	int m_iLOD; // ë¡œë”©í• ë•Œ ì“¸ LOD
 
 public:
 	const std::string& FileName() const { return m_szFileName; } // Full Path
 	void FileNameSet(const std::string& szFileName);
 
-	bool LoadFromFile(); // ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À±â.
-	virtual bool LoadFromFile(const std::string& szFileName, uint32_t iVer = N3FORMAT_VER_DEFAULT); // ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À±â.
-	virtual bool Load(HANDLE hFile); // ÇÚµé¿¡¼­ ÀĞ¾î¿À±â..
+	bool LoadFromFile(); // íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ê¸°.
+	virtual bool LoadFromFile(const std::string& szFileName, uint32_t iVer = N3FORMAT_VER_DEFAULT); // íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ê¸°.
+	virtual bool Load(HANDLE hFile); // í•¸ë“¤ì—ì„œ ì½ì–´ì˜¤ê¸°..
 
-	virtual bool SaveToFile(); // ÇöÀç ÆÄÀÏ ÀÌ¸§´ë·Î ÀúÀå.
-	virtual bool SaveToFile(const std::string& szFileName); // »õÀÌ¸§À¸·Î ÀúÀå.
-	virtual bool Save(HANDLE hFile); // ÇÚµéÀ» ÅëÇØ ÀúÀå..
+	virtual bool SaveToFile(); // í˜„ì¬ íŒŒì¼ ì´ë¦„ëŒ€ë¡œ ì €ì¥.
+	virtual bool SaveToFile(const std::string& szFileName); // ìƒˆì´ë¦„ìœ¼ë¡œ ì €ì¥.
+	virtual bool Save(HANDLE hFile); // í•¸ë“¤ì„ í†µí•´ ì €ì¥..
 
 public:
 	void Release();

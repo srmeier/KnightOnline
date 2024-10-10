@@ -1,4 +1,4 @@
-// UIInventory.h: interface for the CUIInventory class.
+ï»¿// UIInventory.h: interface for the CUIInventory class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ const int	ITEM_ATTACH_POS_BELT			= 14;
 const int	ITEM_ATTACH_POS_INVENTORY		= 15;
 
 
-enum e_InvenState { INV_STATE_NORMAL = 1, INV_STATE_REPAIR, };		// ÀÎº¥Åä¸® »óÅÂ.. ±âÁ¸ÀÇ »óÅÂ¿Í ±¸º°ÇÏ±â À§ÇØ.. ¼ö¸® »óÅÂ°¡ Ãß°¡µÆ´Ù..
+enum e_InvenState { INV_STATE_NORMAL = 1, INV_STATE_REPAIR, };		// ì¸ë²¤í† ë¦¬ ìƒíƒœ.. ê¸°ì¡´ì˜ ìƒíƒœì™€ êµ¬ë³„í•˜ê¸° ìœ„í•´.. ìˆ˜ë¦¬ ìƒíƒœê°€ ì¶”ê°€ëë‹¤..
 
 
 //////////////////////////////////////////////////////////////////////
@@ -63,9 +63,9 @@ protected:
 	e_InvenState		  m_eInvenState;
 	CItemRepairMgr		m_cItemRepairMgr;
 
-	bool					m_bOpenningNow; // ¿­¸®°í ÀÖ´Ù..
-	bool					m_bClosingNow;	// ´İÈ÷°í ÀÖ´Ù..
-	float					 m_fMoveDelta; // ºÎµå·´°Ô ¿­¸®°í ´İÈ÷°Ô ¸¸µé±â À§ÇØ¼­ ÇöÀçÀ§Ä¡ °è»ê¿¡ ºÎµ¿¼Ò¼öÁ¡À» ¾´´Ù..
+	bool					m_bOpenningNow; // ì—´ë¦¬ê³  ìˆë‹¤..
+	bool					m_bClosingNow;	// ë‹«íˆê³  ìˆë‹¤..
+	float					 m_fMoveDelta; // ë¶€ë“œëŸ½ê²Œ ì—´ë¦¬ê³  ë‹«íˆê²Œ ë§Œë“¤ê¸° ìœ„í•´ì„œ í˜„ì¬ìœ„ì¹˜ ê³„ì‚°ì— ë¶€ë™ì†Œìˆ˜ì ì„ ì“´ë‹¤..
 
 	CN3UIArea*			m_pArea_User;
 	CN3UIArea*			m_pArea_Destroy;
@@ -87,7 +87,7 @@ protected:
 
 	RECT				GetSampleRect();
 
-	// °Ë»çÇÏ´Â ·çÆ¾..
+	// ê²€ì‚¬í•˜ëŠ” ë£¨í‹´..
 	bool				IsValidRaceAndClass(__TABLE_ITEM_BASIC* pItem, __TABLE_ITEM_EXT* pItemExt); 
 	bool				IsValidPosFromInvToArm(int iOrder);
 	bool				IsValidPosFromArmToArm(int iOrder);
@@ -148,7 +148,7 @@ public:
 
 	int					GetCountInInvByID(int iID);
 
-	// ¼Ò¸ğ¼º ¾ÆÀÌÅÛÀ» ¼ÒºñÇÑ °æ¿ì or Not..
+	// ì†Œëª¨ì„± ì•„ì´í…œì„ ì†Œë¹„í•œ ê²½ìš° or Not..
 	void				ItemCountChange(int iDistrict, int iIndex, int iCount, int iID, int iDurability);
 
 	// child dlg func..

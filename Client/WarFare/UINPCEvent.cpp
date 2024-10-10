@@ -1,4 +1,4 @@
-// UINPCEvent.cpp: implementation of the UINPCEvent class.
+ï»¿// UINPCEvent.cpp: implementation of the UINPCEvent class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -60,7 +60,7 @@ bool CUINPCEvent::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	{
 		if(pSender->m_szID == "Btn_Sale")
 		{
-			if (CGameProcedure::s_pProcMain->m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE) 	/* °³ÀÎ°£ »ó°Å·¡ ÁßÀÌ¸é.. */
+			if (CGameProcedure::s_pProcMain->m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE) 	/* ê°œì¸ê°„ ìƒê±°ë˜ ì¤‘ì´ë©´.. */
 				return true;
 
 			Close();
@@ -75,7 +75,7 @@ bool CUINPCEvent::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 		if(pSender->m_szID == "Btn_Repair")
 		{
-			if (CGameProcedure::s_pProcMain->m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE) 	/* °³ÀÎ°£ »ó°Å·¡ ÁßÀÌ¸é.. */
+			if (CGameProcedure::s_pProcMain->m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE) 	/* ê°œì¸ê°„ ìƒê±°ë˜ ì¤‘ì´ë©´.. */
 				return true;
 
 			Close();

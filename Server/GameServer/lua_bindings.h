@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 LUA_FUNCTION(CheckPercent);
 LUA_FUNCTION(HowmuchItem);

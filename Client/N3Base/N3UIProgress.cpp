@@ -1,4 +1,4 @@
-// CN3UIProgress.cpp: implementation of the CN3UIProgress class.
+ï»¿// CN3UIProgress.cpp: implementation of the CN3UIProgress class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,7 +25,7 @@ CN3UIProgress::CN3UIProgress()
 	m_iValueToReach = 0;
 	m_fCurValue = 0;
 	m_fChangeSpeedPerSec = 0;
-	m_fTimeToDelay = 0;					// Áö¿¬½Ã°£..
+	m_fTimeToDelay = 0;					// ì§€ì—°ì‹œê°„..
 }
 
 CN3UIProgress::~CN3UIProgress()
@@ -64,10 +64,10 @@ void CN3UIProgress::SetCurValue(int iValue, float fTimeToDelay, float fChangeSpe
 	if (m_iValueToReach == iValue) return;
 	
 	m_iValueToReach = iValue;
-	m_fTimeToDelay = fTimeToDelay; // Áö¿¬½Ã°£..
+	m_fTimeToDelay = fTimeToDelay; // ì§€ì—°ì‹œê°„..
 	m_fChangeSpeedPerSec = fChangeSpeedPerSec;
 	
-	if(0.0f == fTimeToDelay  && 0.0f == fChangeSpeedPerSec) // Áö¿¬ ½Ã°£ÀÌ ¾øÀ¸¸é ¹Ù·Î ¼¼ÆÃ..
+	if(0.0f == fTimeToDelay  && 0.0f == fChangeSpeedPerSec) // ì§€ì—° ì‹œê°„ì´ ì—†ìœ¼ë©´ ë°”ë¡œ ì„¸íŒ…..
 	{
 		m_fCurValue = (float)iValue;
 		UpdateFrGndImage();
@@ -154,7 +154,7 @@ void CN3UIProgress::UpdateFrGndImage()
 }
 
 void CN3UIProgress::SetFrGndUVFromFrGndImage()
-// m_pFrGndImgRef·ÎºÎÅÍ uvÁÂÇ¥¸¦ ¾ò¾î¿Í¼­ m_frcFrGndImgUV¸¦ ¼¼ÆÃÇÑ´Ù.
+// m_pFrGndImgRefë¡œë¶€í„° uvì¢Œí‘œë¥¼ ì–»ì–´ì™€ì„œ m_frcFrGndImgUVë¥¼ ì„¸íŒ…í•œë‹¤.
 {
 	__ASSERT(m_pFrGndImgRef, "not found foreground image in N3UIProgress");
 	if (NULL == m_pFrGndImgRef) return;
@@ -166,11 +166,11 @@ bool CN3UIProgress::Load(HANDLE hFile)
 {
 	if (false == CN3UIBase::Load(hFile)) return false;
 
-	// m_ImageRef ¼³Á¤ÇÏ±â
+	// m_ImageRef ì„¤ì •í•˜ê¸°
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// image¸¸ °ñ¶ó³»±â
+		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// imageë§Œ ê³¨ë¼ë‚´ê¸°
 		int iImageType = (int)(pChild->GetReserved());
 		if (iImageType == IMAGETYPE_BKGND)
 		{
@@ -190,20 +190,20 @@ void CN3UIProgress::operator = (const CN3UIProgress& other)
 {
 	CN3UIBase::operator = (other);
 
-	m_frcFrGndImgUV = other.m_frcFrGndImgUV;				// m_FrGndImgRef ÀÇ uvÁÂÇ¥
-	m_iMaxValue = other.m_iMaxValue;					// ÃÖ´ë
-	m_iMinValue = other.m_iMinValue;					// ÃÖ¼Ò
-	m_fCurValue = other.m_fCurValue;					// ÇöÀç °ª - ºÎµå·´°Ô Á¡Â÷ °ªÀ» ¿Ã·Á°¡·Á°í float ·Î Çß´Ù..
-	m_fChangeSpeedPerSec = other.m_fChangeSpeedPerSec;			// ÇöÀç°ªÀÌ º¯ÇØ¾ß µÇ´Â ¼Óµµ.. Unit SpeedPerSec
-	m_iValueToReach = other.m_iValueToReach;				// µµ´ŞÇØ¾ß µÉ°ª - ºÎµå·´°Ô °ªÀÌ ¿Ã¶ó°¡´Â °æ¿ì¿¡ ÇÊ¿äÇÏ´Ù..
-	m_fTimeToDelay = other.m_fTimeToDelay;					// Áö¿¬½Ã°£..
-	m_iStepValue = other.m_iStepValue;					// º¯È­°ª StepIt()À» ÅëÇÑ º¯È­µÇ´Â °ª
+	m_frcFrGndImgUV = other.m_frcFrGndImgUV;				// m_FrGndImgRef ì˜ uvì¢Œí‘œ
+	m_iMaxValue = other.m_iMaxValue;					// ìµœëŒ€
+	m_iMinValue = other.m_iMinValue;					// ìµœì†Œ
+	m_fCurValue = other.m_fCurValue;					// í˜„ì¬ ê°’ - ë¶€ë“œëŸ½ê²Œ ì ì°¨ ê°’ì„ ì˜¬ë ¤ê°€ë ¤ê³  float ë¡œ í–ˆë‹¤..
+	m_fChangeSpeedPerSec = other.m_fChangeSpeedPerSec;			// í˜„ì¬ê°’ì´ ë³€í•´ì•¼ ë˜ëŠ” ì†ë„.. Unit SpeedPerSec
+	m_iValueToReach = other.m_iValueToReach;				// ë„ë‹¬í•´ì•¼ ë ê°’ - ë¶€ë“œëŸ½ê²Œ ê°’ì´ ì˜¬ë¼ê°€ëŠ” ê²½ìš°ì— í•„ìš”í•˜ë‹¤..
+	m_fTimeToDelay = other.m_fTimeToDelay;					// ì§€ì—°ì‹œê°„..
+	m_iStepValue = other.m_iStepValue;					// ë³€í™”ê°’ StepIt()ì„ í†µí•œ ë³€í™”ë˜ëŠ” ê°’
 
-	// m_ImageRef ¼³Á¤ÇÏ±â
+	// m_ImageRef ì„¤ì •í•˜ê¸°
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// image¸¸ °ñ¶ó³»±â
+		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// imageë§Œ ê³¨ë¼ë‚´ê¸°
 		int iImageType = (int)(pChild->GetReserved());
 		if (iImageType == IMAGETYPE_BKGND)
 		{
@@ -219,11 +219,11 @@ void CN3UIProgress::operator = (const CN3UIProgress& other)
 
 bool CN3UIProgress::Save(HANDLE hFile)
 {
-	int iCur = (int)m_fCurValue;	// ÀÌÀü »óÅÂ ±â¾ïÇØ ³õ±â
-	SetCurValue(m_iMaxValue);	// foreground°¡ ²Ë Ã¤¿î ÀÌ¹ÌÁö ¸¸µé±â
-	bool bRet = CN3UIBase::Save(hFile);	// ÀúÀåÇÏ±â
+	int iCur = (int)m_fCurValue;	// ì´ì „ ìƒíƒœ ê¸°ì–µí•´ ë†“ê¸°
+	SetCurValue(m_iMaxValue);	// foregroundê°€ ê½‰ ì±„ìš´ ì´ë¯¸ì§€ ë§Œë“¤ê¸°
+	bool bRet = CN3UIBase::Save(hFile);	// ì €ì¥í•˜ê¸°
 
-	SetCurValue((int)m_fCurValue);	// ÀÌÀü »óÅÂ·Î µÇµ¹¸®±â
+	SetCurValue((int)m_fCurValue);	// ì´ì „ ìƒíƒœë¡œ ë˜ëŒë¦¬ê¸°
 
 	return bRet;
 }
@@ -233,20 +233,20 @@ void CN3UIProgress::CreateImages()
 	m_pBkGndImgRef = new CN3UIImage();
 	m_pBkGndImgRef->Init(this);
 	m_pBkGndImgRef->SetRegion(m_rcRegion);
-	m_pBkGndImgRef->SetReserved(IMAGETYPE_BKGND);	// ÀÌ ÀÌ¹ÌÁö°¡ ¹è°æÀÌ¹ÌÁöÀÓÀ» ÁöÁ¤ÇØÁÜ
+	m_pBkGndImgRef->SetReserved(IMAGETYPE_BKGND);	// ì´ ì´ë¯¸ì§€ê°€ ë°°ê²½ì´ë¯¸ì§€ì„ì„ ì§€ì •í•´ì¤Œ
 
 	m_pFrGndImgRef = new CN3UIImage();
 	m_pFrGndImgRef->Init(this);
 	m_pFrGndImgRef->SetRegion(m_rcRegion);
-	m_pFrGndImgRef->SetReserved(IMAGETYPE_FRGND);	// ÀÌ ÀÌ¹ÌÁö°¡ foreground ÀÌ¹ÌÁöÀÓÀ» ÁöÁ¤ÇØÁÜ
+	m_pFrGndImgRef->SetReserved(IMAGETYPE_FRGND);	// ì´ ì´ë¯¸ì§€ê°€ foreground ì´ë¯¸ì§€ì„ì„ ì§€ì •í•´ì¤Œ
 
-	// ÀÓ½Ã·Î ³Ö±â
+	// ì„ì‹œë¡œ ë„£ê¸°
 	m_iMaxValue = 100;
 	m_iMinValue = 0;
 	m_fCurValue = 70;
 }
 
-void CN3UIProgress::DeleteBkGndImage()	// Back groundÀÌ¹ÌÁö´Â ÇÊ¿ä ¾ø´Â °æ¿ì°¡ ÀÖ´Ù.
+void CN3UIProgress::DeleteBkGndImage()	// Back groundì´ë¯¸ì§€ëŠ” í•„ìš” ì—†ëŠ” ê²½ìš°ê°€ ìˆë‹¤.
 {
 	if (m_pBkGndImgRef)	{ delete m_pBkGndImgRef; m_pBkGndImgRef = NULL;}
 }
@@ -259,7 +259,7 @@ void CN3UIProgress::Tick()
 
 	if(m_fTimeToDelay > 0)
 	{
-		m_fTimeToDelay -= s_fSecPerFrm; // ½Ã°£ Áö¿¬
+		m_fTimeToDelay -= s_fSecPerFrm; // ì‹œê°„ ì§€ì—°
 		if(m_fTimeToDelay < 0) m_fTimeToDelay = 0;
 		return;
 	}
@@ -269,13 +269,13 @@ void CN3UIProgress::Tick()
 	
 	if(m_fCurValue < m_iValueToReach)
 	{
-		m_fCurValue += m_fChangeSpeedPerSec * s_fSecPerFrm; // ÃÊ´ç 30 ÆÛ¼¾Æ® ¿Ã¶ó°¡°Ô Á¶Á¤..
+		m_fCurValue += m_fChangeSpeedPerSec * s_fSecPerFrm; // ì´ˆë‹¹ 30 í¼ì„¼íŠ¸ ì˜¬ë¼ê°€ê²Œ ì¡°ì •..
 		if(m_fCurValue > m_iValueToReach) m_fCurValue = (float)m_iValueToReach;
 		UpdateFrGndImage();
 	}
 	else if(m_fCurValue > m_iValueToReach)
 	{
-		m_fCurValue -= m_fChangeSpeedPerSec * s_fSecPerFrm; // ÃÊ´ç 30 ÆÛ¼¾Æ® ¿Ã¶ó°¡°Ô Á¶Á¤..
+		m_fCurValue -= m_fChangeSpeedPerSec * s_fSecPerFrm; // ì´ˆë‹¹ 30 í¼ì„¼íŠ¸ ì˜¬ë¼ê°€ê²Œ ì¡°ì •..
 		if(m_fCurValue < m_iValueToReach) m_fCurValue = (float)m_iValueToReach;
 		UpdateFrGndImage();
 	}

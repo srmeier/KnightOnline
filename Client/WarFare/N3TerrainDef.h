@@ -1,8 +1,8 @@
-////////////////////////////////////////////////////////////////////////////////////////
+ï»¿////////////////////////////////////////////////////////////////////////////////////////
 //
 //	N3TerrainDef.h
-//	- ÀÌ°ÍÀú°Í Terrain¿¡ °ü·ÃµÈ ÀÚ·áÇüÁ¤ÀÇ, »ó¼öÁ¤ÀÇ...
-//	- °ÔÀÓ¿¡ ¾²´Â ÁöÇü (ÄõµåÆ®¸® ¾Æ´Ô...^^)
+//	- ì´ê²ƒì €ê²ƒ Terrainì— ê´€ë ¨ëœ ìžë£Œí˜•ì •ì˜, ìƒìˆ˜ì •ì˜...
+//	- ê²Œìž„ì— ì“°ëŠ” ì§€í˜• (ì¿¼ë“œíŠ¸ë¦¬ ì•„ë‹˜...^^)
 //	- 2001. 10. 22.
 //
 //	By Donghoon..
@@ -13,17 +13,17 @@
 #define __N3TERRAINDEF_H__
 
 // Constant Definitions..
-const int PATCH_TILE_SIZE = 8;		//	ÆÐÄ¡ ÇÏ³ª¿¡ Å¸ÀÏÀÌ 8x8°³ µé¾î°£´Ù.
-const float TILE_SIZE = 4.0f;			//	Å¸ÀÏÇÏ³ª´ç ±æÀÌ 4m
-const int MAX_LOD_LEVEL = 10;		//	LOD¼öÁØÀÌ °¡Àå ³ôÀº ´Ü°è °¡Àå Detail...
-const int MIN_LOD_LEVEL = 0;		//	LOD¼öÁØÀÌ °¡Àå ³·Àº ´Ü°è °¡Àå Rough...
+const int PATCH_TILE_SIZE = 8;		//	íŒ¨ì¹˜ í•˜ë‚˜ì— íƒ€ì¼ì´ 8x8ê°œ ë“¤ì–´ê°„ë‹¤.
+const float TILE_SIZE = 4.0f;			//	íƒ€ì¼í•˜ë‚˜ë‹¹ ê¸¸ì´ 4m
+const int MAX_LOD_LEVEL = 10;		//	LODìˆ˜ì¤€ì´ ê°€ìž¥ ë†’ì€ ë‹¨ê³„ ê°€ìž¥ Detail...
+const int MIN_LOD_LEVEL = 0;		//	LODìˆ˜ì¤€ì´ ê°€ìž¥ ë‚®ì€ ë‹¨ê³„ ê°€ìž¥ Rough...
 const int MAX_PATCH_LEVEL = 3;		//	2 ^ 3 = 8.
-const int PATCH_PIXEL_SIZE = 32;	//	ÆÐÄ¡ÇÏ³ª¿¡ µé¾î°¡´Â ÇÈ¼¿¼ö..
-const int UNITUV = 32;				//	ÄÃ·¯¸Ê ÅØ½ºÃÄ ÇÑÀå¿¡ µé¾î°¡´Â Å¸ÀÏ¼ö..
-const int LIGHTMAP_TEX_SIZE = 16;	//	Å¸ÀÏ ÇÏ³ª´ç µé¾î°¡´Â ¶óÀÌÆ®¸Ê ÅØ½ºÃÄ Å©±â.
-const int TILE_PIXEL_SIZE = 128;	//	Å¸ÀÏÇÏ³ªÀÇ ½ÇÁ¦ ÇÈ¼¿ »çÀÌÁî.
-const int COLORMAPTEX_SIZE = 128;	//	ÄÃ·¯¸Ê ÅØ½ºÃÄÀÇ ÇÈ¼¿Å©±â..128x128
-const int DISTANCE_TABLE_SIZE = 64; //	¼¿´ÜÀ§ÀÇ °Å¸® Å×ÀÌºí Å©±â(64 x 64)..
+const int PATCH_PIXEL_SIZE = 32;	//	íŒ¨ì¹˜í•˜ë‚˜ì— ë“¤ì–´ê°€ëŠ” í”½ì…€ìˆ˜..
+const int UNITUV = 32;				//	ì»¬ëŸ¬ë§µ í…ìŠ¤ì³ í•œìž¥ì— ë“¤ì–´ê°€ëŠ” íƒ€ì¼ìˆ˜..
+const int LIGHTMAP_TEX_SIZE = 16;	//	íƒ€ì¼ í•˜ë‚˜ë‹¹ ë“¤ì–´ê°€ëŠ” ë¼ì´íŠ¸ë§µ í…ìŠ¤ì³ í¬ê¸°.
+const int TILE_PIXEL_SIZE = 128;	//	íƒ€ì¼í•˜ë‚˜ì˜ ì‹¤ì œ í”½ì…€ ì‚¬ì´ì¦ˆ.
+const int COLORMAPTEX_SIZE = 128;	//	ì»¬ëŸ¬ë§µ í…ìŠ¤ì³ì˜ í”½ì…€í¬ê¸°..128x128
+const int DISTANCE_TABLE_SIZE = 64; //	ì…€ë‹¨ìœ„ì˜ ê±°ë¦¬ í…Œì´ë¸” í¬ê¸°(64 x 64)..
 const int MAX_GRASS	= 8;
 const int MAX_TERRAIN_SOUND_EFFECT = 4;
 
@@ -33,14 +33,14 @@ enum { DIR_LT = 0, DIR_CT = 1, DIR_RT = 2,
 		DIR_WARP = 9 }; 
 
 // Structure Definitions..
-typedef struct __MapData			// ¸Êµ¥ÀÌÅÍ...
+typedef struct __MapData			// ë§µë°ì´í„°...
 {
-	float	fHeight;				//Å¸ÀÏÅØ½ºÃÄ°¡ ²ËÂ÷´ÂÁö ¾Æ´ÑÁö..
-	uint32_t	bIsTileFull	: 1;		//ÁöÇüÀÇ ³ôÀÌ°ª..
-	uint32_t	Tex1Dir		: 5;		//Ã¹¹øÂ° Å¸ÀÏ ÅØ½ºÃÄ Âï´Â ¹æÇâ.
-	uint32_t	Tex2Dir		: 5;		//µÎ¹øÂ° Å¸ÀÏ ÅØ½ºÃÄ Âï´Â ¹æÇâ.
-	uint32_t	Tex1Idx		: 10;		//Ã¹¹øÂ° Å¸ÀÏ ÅØ½ºÃÄÀÇ ÀÎµ¦½º.
-	uint32_t	Tex2Idx		: 10;		//µÎ¹øÂ° Å¸ÀÏ ÅØ½ºÃÄÀÇ ÀÎµ¦½º.
+	float	fHeight;				//íƒ€ì¼í…ìŠ¤ì³ê°€ ê½‰ì°¨ëŠ”ì§€ ì•„ë‹Œì§€..
+	uint32_t	bIsTileFull	: 1;		//ì§€í˜•ì˜ ë†’ì´ê°’..
+	uint32_t	Tex1Dir		: 5;		//ì²«ë²ˆì§¸ íƒ€ì¼ í…ìŠ¤ì³ ì°ëŠ” ë°©í–¥.
+	uint32_t	Tex2Dir		: 5;		//ë‘ë²ˆì§¸ íƒ€ì¼ í…ìŠ¤ì³ ì°ëŠ” ë°©í–¥.
+	uint32_t	Tex1Idx		: 10;		//ì²«ë²ˆì§¸ íƒ€ì¼ í…ìŠ¤ì³ì˜ ì¸ë±ìŠ¤.
+	uint32_t	Tex2Idx		: 10;		//ë‘ë²ˆì§¸ íƒ€ì¼ í…ìŠ¤ì³ì˜ ì¸ë±ìŠ¤.
 	
 	__MapData()
 	{

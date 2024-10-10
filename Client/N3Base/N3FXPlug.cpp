@@ -1,4 +1,4 @@
-// N3FXPlug.cpp: implementation of the CN3FXPlug class.
+ï»¿// N3FXPlug.cpp: implementation of the CN3FXPlug class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -83,10 +83,10 @@ void CN3FXPlugPart::Tick(const __Matrix44& mtxParent)
 {
 	if (m_pFXB)
 	{
-		// À§Ä¡
+		// ìœ„ì¹˜
 		m_pFXB->m_vPos = m_vOffsetPos*mtxParent;
 
-		// È¸Àü
+		// íšŒì „
 		static __Matrix44 mtxRot;
 		mtxRot = mtxParent; mtxRot.PosSet(0,0,0);
 		m_pFXB->m_vDir = m_vOffsetDir*mtxRot;
@@ -100,7 +100,7 @@ void CN3FXPlugPart::Tick(const CN3Chr* pChr)
 	__ASSERT(pChr, "no chr");
 	if (m_pFXB)
 	{
-		// À§Ä¡
+		// ìœ„ì¹˜
 		const __Matrix44* pMtxJoint = pChr->MatrixGet(m_nRefIndex);
 		if (NULL == pMtxJoint) return;
 
@@ -109,7 +109,7 @@ void CN3FXPlugPart::Tick(const CN3Chr* pChr)
 		mtx *= pChr->m_Matrix;
 		m_pFXB->m_vPos = m_vOffsetPos*mtx;
 		
-		// È¸Àü
+		// íšŒì „
 		mtx.PosSet(0,0,0);
 		m_pFXB->m_vDir = m_vOffsetDir*mtx;
 
@@ -128,10 +128,10 @@ void CN3FXPlugPart::SetFXB(const std::string& strFN)
 	else m_pFXB->Release();
 	m_pFXB->LoadFromFile(strFN);
 
-	m_vOffsetPos = m_pFXB->m_vPos;	//ÀÏ´Ü FXB¿¡ ¼³Á¤µÇ¾î ÀÖ´Â vPos¿Í vDir°ªÀ» °¡Á®¿Í¼­ Àû¿ë.
+	m_vOffsetPos = m_pFXB->m_vPos;	//ì¼ë‹¨ FXBì— ì„¤ì •ë˜ì–´ ìˆëŠ” vPosì™€ vDirê°’ì„ ê°€ì ¸ì™€ì„œ ì ìš©.
 	m_vOffsetDir = m_pFXB->m_vDir;
 
-	m_pFXB->Init();					// FX ³ª¿À°Ô ÇÏ±â
+	m_pFXB->Init();					// FX ë‚˜ì˜¤ê²Œ í•˜ê¸°
 	m_pFXB->Trigger();
 }
 
@@ -174,7 +174,7 @@ bool CN3FXPlug::Load(HANDLE hFile)
 	__ASSERT(0 == m_FXPParts.size(), "must 0");
 	DWORD dwNum;
 	int i, nCount;
-	ReadFile(hFile, &nCount, sizeof(nCount), &dwNum, NULL);		// PartÀÇ °¹¼ö
+	ReadFile(hFile, &nCount, sizeof(nCount), &dwNum, NULL);		// Partì˜ ê°¯ìˆ˜
 
 	if (nCount > 0) m_FXPParts.assign(nCount, NULL);
 	for(i=0; i<nCount; ++i)
@@ -221,29 +221,29 @@ bool CN3FXPlug::Save(HANDLE hFile)
 {
 	if (false == CN3BaseFileAccess::Save(hFile)) return false;
 
-	RemoveFXPParts_HaveNoBundle();	// ¹øµé ¾ø´Â ÆÄÆ®µé Áö¿ì±â
+	RemoveFXPParts_HaveNoBundle();	// ë²ˆë“¤ ì—†ëŠ” íŒŒíŠ¸ë“¤ ì§€ìš°ê¸°
 
 	DWORD dwNum;
 	int i, nCount = m_FXPParts.size();
-	WriteFile(hFile, &nCount, sizeof(nCount), &dwNum, NULL);		// PartÀÇ °¹¼ö
+	WriteFile(hFile, &nCount, sizeof(nCount), &dwNum, NULL);		// Partì˜ ê°¯ìˆ˜
 	for(i=0; i<nCount; ++i)	m_FXPParts[i]->Save(hFile);
 
 	return true;
 }
 
-void CN3FXPlug::RemoveFXPParts_HaveNoBundle()	// ¹øµé ¾ø´Â Partµé Á¦°ÅÇÏ±â
+void CN3FXPlug::RemoveFXPParts_HaveNoBundle()	// ë²ˆë“¤ ì—†ëŠ” Partë“¤ ì œê±°í•˜ê¸°
 {
 	int i, nCount = m_FXPParts.size();
 	for(i=0; i<nCount; ++i)
 	{
 		if (m_FXPParts[i] && NULL == m_FXPParts[i]->GetFXB())
 		{
-			delete m_FXPParts[i];								// FXB°¡ ¾øÀ¸¸é ÀÌ ÆÄÆ®´Â Áö¿î´Ù.
+			delete m_FXPParts[i];								// FXBê°€ ì—†ìœ¼ë©´ ì´ íŒŒíŠ¸ëŠ” ì§€ìš´ë‹¤.
 			m_FXPParts[i] = NULL;
 		}
 	}
 
-	// NULLÀÎ Æ÷ÀÎÅÍµéÀ» ¾ø¾Ø´Ù.
+	// NULLì¸ í¬ì¸í„°ë“¤ì„ ì—†ì•¤ë‹¤.
 	std::vector<CN3FXPlugPart*>::iterator itor;
 	for (itor = m_FXPParts.begin(); itor != m_FXPParts.end();)
 	{

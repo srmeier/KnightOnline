@@ -1,4 +1,4 @@
-// LightMgr.cpp: implementation of the CLightMgr class.
+ï»¿// LightMgr.cpp: implementation of the CLightMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -55,32 +55,32 @@ void CLightMgr::Release()
 	/////////////////////////////////////////////
 		
 	///////////////////////////////////////////////////////////////
-	// ±âº» ¶óÀÌÆ® ¼¼ÆÃ
+	// ê¸°ë³¸ ë¼ì´íŠ¸ ì„¸íŒ…
 	D3DCOLORVALUE crLgt;
 
 	crLgt.a = 0.0f, crLgt.r = crLgt.g = crLgt.b = 0.8f;
-	CN3Light* pLightGlobal = new CN3Light(); // ÀüÃ¼¸¦ ºñÃâ ¶óÀÌÆ®..
+	CN3Light* pLightGlobal = new CN3Light(); // ì „ì²´ë¥¼ ë¹„ì¶œ ë¼ì´íŠ¸..
 	pLightGlobal->m_Data.InitDirection(LGT_DEFAULT0, __Vector3(0,-1,0), crLgt);
 	m_pActiveLight[LGT_DEFAULT0] = pLightGlobal;
 
 
 	crLgt.a = 0.0f, crLgt.r = crLgt.g = crLgt.b = 0.5f;
-	CN3Light* pLightGlobal2 = new CN3Light(); // ¹İ´ë Æí¿¡¼­ ÀüÃ¼¸¦ ºñÃâ ¶óÀÌÆ®..
+	CN3Light* pLightGlobal2 = new CN3Light(); // ë°˜ëŒ€ í¸ì—ì„œ ì „ì²´ë¥¼ ë¹„ì¶œ ë¼ì´íŠ¸..
 	pLightGlobal2->m_Data.InitDirection(LGT_DEFAULT1, __Vector3(0,1,0), crLgt);
 	m_pActiveLight[LGT_DEFAULT1] = pLightGlobal2;
 
 	crLgt.a = 0.0f, crLgt.r = crLgt.g = crLgt.b = 0.3f;
-	CN3Light* pLight = new CN3Light(); // Ä«¸Ş¶ó¿Í ºÙ¾î ´Ù´Ñ´Ù...
+	CN3Light* pLight = new CN3Light(); // ì¹´ë©”ë¼ì™€ ë¶™ì–´ ë‹¤ë‹Œë‹¤...
 	pLight->m_Data.InitPoint(LGT_DEFAULT2, __Vector3(0,0,0), crLgt, 32.0f);
 	m_pActiveLight[LGT_DEFAULT2] = pLight;
-	// ±âº» ¶óÀÌÆ® ¼¼ÆÃ
+	// ê¸°ë³¸ ë¼ì´íŠ¸ ì„¸íŒ…
 	///////////////////////////////////////////////////////////////	
 }
 
 void CLightMgr::Tick()
 {
 	int i;
-	//°Å¸®¿¡ µû¶ó Ãß·Á³»°í...
+	//ê±°ë¦¬ì— ë”°ë¼ ì¶”ë ¤ë‚´ê³ ...
 	int NumSlotEmpty = 0;
 	float LimitLeft, LimitRight, LimitUp, LimitDown;
 	LimitLeft = CN3Base::s_CameraData.vEye.x - LIGHT_VALIDRANGE;
@@ -134,7 +134,7 @@ void CLightMgr::Tick()
 		else it++;
 	}
 
-	//tickµ¹·Á¶ó..
+	//tickëŒë ¤ë¼..
 	for(i=0;i<LGT_MAX;i++)
 	{
 		if(m_pActiveLight[i])

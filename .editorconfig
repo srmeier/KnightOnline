@@ -1,0 +1,10 @@
+# Visual Studio generated .editorconfig file with C++ settings.
+root = true
+
+[*.{c,cpp,cxx,h,hpp,hxx,inl}]
+
+charset = utf-8-bom
+
+[*.evt]
+
+charset = utf-8

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define CONF_GAME_SERVER	"./GameServer.ini"
 

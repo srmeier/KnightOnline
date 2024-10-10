@@ -1,4 +1,4 @@
-// Grass.cpp: implementation of the CGrassMng class.
+ï»¿// Grass.cpp: implementation of the CGrassMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,9 +27,9 @@ CGrassMng::CGrassMng()
 
 CGrassMng::~CGrassMng()
 {
-	CLogWriter::Write("CGrassMng::~CGrassMng -> ¼Ò¸êÀÚ"); // TmpLog1122
+	CLogWriter::Write("CGrassMng::~CGrassMng -> ì†Œë©¸ì"); // TmpLog1122
 	Release();
-	CLogWriter::Write("CGrassMng::~CGrassMng -> ¼Ò¸êÀÚ finish"); // TmpLog1122
+	CLogWriter::Write("CGrassMng::~CGrassMng -> ì†Œë©¸ì finish"); // TmpLog1122
 }
 
 
@@ -48,7 +48,7 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 {
 	if(m_bChkZoneChange==false) return;
 
-	__Vector3 vCamPos = pProc->s_pEng->s_CameraData.vEye;	//	ÇöÀç Ä«¸Ş¶óÀÇ À§Ä¡
+	__Vector3 vCamPos = pProc->s_pEng->s_CameraData.vEye;	//	í˜„ì¬ ì¹´ë©”ë¼ì˜ ìœ„ì¹˜
 
 	ChkTileRange(vCamPos.x,vCamPos.z);
 
@@ -59,7 +59,7 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 		{
 			pGrassBoard->ScaleSet(1.5f, 1.5f, 1.5f);
 
-			//	Ä«¸Ş¶ó ¹ÛÀÌ¸é ·£´õ¸¦ ÇÏÁö ¾Ê´Â´Ù.
+			//	ì¹´ë©”ë¼ ë°–ì´ë©´ ëœë”ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 			vCamPos = pGrassBoard->GetPo();
 			IsCamOut = pProc->s_pEng->s_CameraData.IsOutOfFrustum(vCamPos,3);
 			if(IsCamOut==TRUE)
@@ -127,9 +127,9 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 				return;
 		}
 
-		// ÁöÇüÁ¤º¸(Ç®ÀÌ À§Ä¡ÇÑ Å¸ÀÏÀÇ ÁöÇüÁ¤º¸¸¦ ¾ò´Â´Ù)
-		uint8_t cGroundInfo = s_pTerrain->GetGrassAttr(((uint16_t)m_pCount[i].x)/TILE_SIZE, ((uint16_t)m_pCount[i].z)/TILE_SIZE);	//	ÇöÀç Å¸ÀÏÀÇ Á¤º¸
-		if(cGroundInfo==0)	//	Ç®À» »Ñ¸®´Â ¼¿(¿µ¿ª,Áö¿ª) ¾Æ´Ô
+		// ì§€í˜•ì •ë³´(í’€ì´ ìœ„ì¹˜í•œ íƒ€ì¼ì˜ ì§€í˜•ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤)
+		uint8_t cGroundInfo = s_pTerrain->GetGrassAttr(((uint16_t)m_pCount[i].x)/TILE_SIZE, ((uint16_t)m_pCount[i].z)/TILE_SIZE);	//	í˜„ì¬ íƒ€ì¼ì˜ ì •ë³´
+		if(cGroundInfo==0)	//	í’€ì„ ë¿Œë¦¬ëŠ” ì…€(ì˜ì—­,ì§€ì—­) ì•„ë‹˜
 		{
 			pGrass->m_bCamOut = TRUE;
 			continue;
@@ -137,13 +137,13 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 
 		GrassIndex |= cGroundInfo;
 
-		m_pCount[i].y = s_pTerrain->GetHeight(m_pCount[i].x, m_pCount[i].z);	//	³ôÀÌ ¼³Á¤
+		m_pCount[i].y = s_pTerrain->GetHeight(m_pCount[i].x, m_pCount[i].z);	//	ë†’ì´ ì„¤ì •
 
     	pGrass->ScaleSet(1.5f, 1.5f, 1.5f);
 		vPivot.Set(m_pCount[i].x,m_pCount[i].y,m_pCount[i].z);
 
 		BOOL IsCamOut;
-		//	Ä«¸Ş¶ó ¹ÛÀÌ¸é ·£´õ¸¦ ÇÏÁö ¾Ê´Â´Ù.
+		//	ì¹´ë©”ë¼ ë°–ì´ë©´ ëœë”ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		IsCamOut = pProc->s_pEng->s_CameraData.IsOutOfFrustum(vPivot,1);
 		if(IsCamOut==TRUE)
 		{
@@ -151,18 +151,18 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 			continue;
 		}
 
-		//	°Å¸®¸¦ °è»êÇÏ¿© ºÎµå·´°Ô º¸ÀÌ°Ô ÇÑ´Ù.
+		//	ê±°ë¦¬ë¥¼ ê³„ì‚°í•˜ì—¬ ë¶€ë“œëŸ½ê²Œ ë³´ì´ê²Œ í•œë‹¤.
 		__Vector3 leng = vCamPos - m_pCount[i];
 		float lengs = leng.Magnitude();
-		IsCamOut = pGrass->SetBrightLevel(lengs);	//	°Å¸®°£ ¾ËÆÄ, ·£´õÇÏ°Ô²û ÀÚµ¿ ¼¼ÆÃ
-		if(IsCamOut == TRUE) 	//	°Å¸®°¡ ¸Ö¸é ·£´õ¸¦ ¾ÈÇÑ´Ù.
+		IsCamOut = pGrass->SetBrightLevel(lengs);	//	ê±°ë¦¬ê°„ ì•ŒíŒŒ, ëœë”í•˜ê²Œë” ìë™ ì„¸íŒ…
+		if(IsCamOut == TRUE) 	//	ê±°ë¦¬ê°€ ë©€ë©´ ëœë”ë¥¼ ì•ˆí•œë‹¤.
 		{
 			pGrass->m_bCamOut = TRUE;
 			continue;
 		}
 
-		pGrass->PosSet(vPivot);		//	À§Ä¡ ÀÔ·Â
-		pGrass->Tick(-1);			//	Ä«¸Ş¶óÀÇ À§Ä¡¿¡ ¸Â°Ô º¯È¯
+		pGrass->PosSet(vPivot);		//	ìœ„ì¹˜ ì…ë ¥
+		pGrass->Tick(-1);			//	ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ì— ë§ê²Œ ë³€í™˜
 		if(pGrass->ThisTexIsHave(cGroundInfo) == false)
 		{
 			int nGrassNum;
@@ -170,10 +170,10 @@ void CGrassMng::Tick(CGameProcedure* pProc)
 			FindGrassIndex(cGroundInfo,nGrassNum,uCGrassMngIndex);
 			pGrass->TexSelectNum(nGrassNum,uCGrassMngIndex);
 		}
-		pGrass->m_bCamOut = FALSE;	//	È­¸é¿¡ »Ñ·ÁÁÜ(·£´õ)
+		pGrass->m_bCamOut = FALSE;	//	í™”ë©´ì— ë¿Œë ¤ì¤Œ(ëœë”)
 	}
 
-	//	¸¸¾à ´Ù¸¥ Ç®ÀÇ Á¾·ù¿¡ º¯µ¿ÀÌ »ı°åÀ» °æ¿ì ¸ğµÎ Áö¿ì°í ´Ù½Ã Ç®·Î Ã¤¿î´Ù
+	//	ë§Œì•½ ë‹¤ë¥¸ í’€ì˜ ì¢…ë¥˜ì— ë³€ë™ì´ ìƒê²¼ì„ ê²½ìš° ëª¨ë‘ ì§€ìš°ê³  ë‹¤ì‹œ í’€ë¡œ ì±„ìš´ë‹¤
 	if(m_ucDrawIndex!=GrassIndex)
 	{
 		m_ucDrawIndex = GrassIndex;
@@ -191,7 +191,7 @@ void CGrassMng::FindGrassIndex(uint8_t GrassIndex,int& nFineGrass,uint8_t& ucFin
 
 	FindGrassIndex(GrassIndex,InputGrass,InputGrassOrg,GrassInputCount);
 
-	if(GrassInputCount>0) //	¸¸¾à Ç®ÀÌ 2°³ ÀÌ»óÀÌ¸é ·£´ıÀ¸·Î ±¸ÇÑ´Ù
+	if(GrassInputCount>0) //	ë§Œì•½ í’€ì´ 2ê°œ ì´ìƒì´ë©´ ëœë¤ìœ¼ë¡œ êµ¬í•œë‹¤
 	{
 		nFineGrass = (int)(rand()%GrassInputCount);
 	}
@@ -219,13 +219,13 @@ void CGrassMng::Render()
 	CN3Base::s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAARG1, &dwAlphaArg1);
 	CN3Base::s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAARG1, &dwAlphaArg2);
 
-	// render state ¼¼ÆÃ
+	// render state ì„¸íŒ…
 	CN3Base::s_lpD3DDev->SetRenderState( D3DRS_LIGHTING,	TRUE );  
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 
-	// texture state ¼¼ÆÃ (alpha)
+	// texture state ì„¸íŒ… (alpha)
 	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
@@ -354,7 +354,7 @@ bool CGrassMng::ChangeZone()
 {
 	Release();
 
-	//	ÀÌ¹ø Á¸¿¡¼­ ¾²ÀÏ ±×¸²ÀÇ ÃÖ´ë °¹¼ö
+	//	ì´ë²ˆ ì¡´ì—ì„œ ì“°ì¼ ê·¸ë¦¼ì˜ ìµœëŒ€ ê°¯ìˆ˜
 	if (!ACT_WORLD->GetTerrainRef()) return false;
 	m_iFileMaxNum = ACT_WORLD->GetTerrainRef()->m_iNumGrass;
 
@@ -364,7 +364,7 @@ bool CGrassMng::ChangeZone()
 		return false;
 	}
 
-	//	±×¸²ÀÇ ¼ö¸¹Å« ÀÌ¸§À» ¿Å±â°í ³ª¸ÓÁö Áö¿ò
+	//	ê·¸ë¦¼ì˜ ìˆ˜ë§í° ì´ë¦„ì„ ì˜®ê¸°ê³  ë‚˜ë¨¸ì§€ ì§€ì›€
 	for(int i=0;i<m_iFileMaxNum;i++)
 	{
 #ifdef _DEBUG
@@ -384,11 +384,11 @@ bool CGrassMng::ChangeZone()
 	}
 
 
-	//	Áö±İ ¿Å±ä ÁöÇü¿¡¼­ ¾²ÀÏ Ç®ÀÇ ÀÎµ¦½º¸¦ °¡Áü
+	//	ì§€ê¸ˆ ì˜®ê¸´ ì§€í˜•ì—ì„œ ì“°ì¼ í’€ì˜ ì¸ë±ìŠ¤ë¥¼ ê°€ì§
 	__Vector3 vCamPos = CGameBase::s_CameraData.vEye;
 	this->ChkTileRange(vCamPos.x,vCamPos.z);
 
-	//	Tick,Render¸¦ Çã¶ô
+	//	Tick,Renderë¥¼ í—ˆë½
 	m_bChkZoneChange=true;
 
 	return true;
@@ -402,16 +402,16 @@ inline bool CGrassMng::IsInRect(float fPoX,float fPoY,float* fRange)
 
 void CGrassMng::ChkTileRange(float fCamX,float fCamZ)
 {
-	if(IsInRect(fCamX,fCamZ,m_fChkRange)==true) return;	//	°íÄ¥°Ô ¾ø¾î
+	if(IsInRect(fCamX,fCamZ,m_fChkRange)==true) return;	//	ê³ ì¹ ê²Œ ì—†ì–´
 
-	//	Ä³¸¯ÅÍÀÇ ¹Ù·Î ÇÑÄ­ÀÇ ¿µ¿ª
+	//	ìºë¦­í„°ì˜ ë°”ë¡œ í•œì¹¸ì˜ ì˜ì—­
 	float fCompRange[4];
 	fCompRange[GRASS_LEFT]   = (fCamX/TILE_SIZE)*TILE_SIZE;
 	fCompRange[GRASS_RIGHT]  = fCompRange[GRASS_LEFT]+TILE_SIZE;
 	fCompRange[GRASS_TOP]    = (fCamZ/TILE_SIZE)*TILE_SIZE;	
 	fCompRange[GRASS_BOTTOM] = fCompRange[GRASS_TOP]+TILE_SIZE;
 
-	//	ÀüÃ¼ ±¸¿ª
+	//	ì „ì²´ êµ¬ì—­
 	float fLargeRange[4];
 	fLargeRange[GRASS_LEFT]	  = fCompRange[GRASS_LEFT] - 5*TILE_SIZE;
 	fLargeRange[GRASS_RIGHT]  = fCompRange[GRASS_RIGHT] + 5*TILE_SIZE;
@@ -419,10 +419,10 @@ void CGrassMng::ChkTileRange(float fCamX,float fCamZ)
 	fLargeRange[GRASS_BOTTOM] = fCompRange[GRASS_BOTTOM] + 5*TILE_SIZE;
 
 
-	//	»õ·Î¿î Å¸ÀÏÀÇ ¿µ¿ªÀ» ¾ò¾î¿Â´Ù
+	//	ìƒˆë¡œìš´ íƒ€ì¼ì˜ ì˜ì—­ì„ ì–»ì–´ì˜¨ë‹¤
 	uint16_t FineTile[GRASS_TILENUM*2];
 	int iFineTile=0;
-	FineNewTile(FineTile,iFineTile,fCompRange,fLargeRange);	//	¹Ù²Ù¾î¾ßÇÒ Å¸ÀÏ Ã£À½
+	FineNewTile(FineTile,iFineTile,fCompRange,fLargeRange);	//	ë°”ê¾¸ì–´ì•¼í•  íƒ€ì¼ ì°¾ìŒ
 
 
 	int iTileCount=0;
@@ -437,19 +437,19 @@ void CGrassMng::ChkTileRange(float fCamX,float fCamZ)
 
 			vCenter = pBoard->GetPo();
 
-			//	¿µ¿ª ¹ş¾î³­ ±¸¿ª¿¡ Ã£Àº±¸¿ª ³ÖÀ½
+			//	ì˜ì—­ ë²—ì–´ë‚œ êµ¬ì—­ì— ì°¾ì€êµ¬ì—­ ë„£ìŒ
 			if(IsInRect( vCenter.x,vCenter.z,fLargeRange )==false)
 			{
 				if (!ACT_WORLD->GetTerrainRef())
 					continue;
 				usGrassInfo = ACT_WORLD->GetTerrainRef()->GetGrassAttr(
 					(FineTile[iTileCount+0]) / (int)TILE_SIZE,
-					(FineTile[iTileCount+1]) / (int)TILE_SIZE);	//	ÇöÀç Å¸ÀÏÀÇ Á¤º¸
+					(FineTile[iTileCount+1]) / (int)TILE_SIZE);	//	í˜„ì¬ íƒ€ì¼ì˜ ì •ë³´
 
-				vCenter.Set(FineTile[iTileCount],0.0f,FineTile[iTileCount+1]);	//	¿ŞÂÊÀ§ÀÇ ÁÂÇ¥
+				vCenter.Set(FineTile[iTileCount],0.0f,FineTile[iTileCount+1]);	//	ì™¼ìª½ìœ„ì˜ ì¢Œí‘œ
 				vCenter.y = ACT_WORLD->GetTerrainRef()->GetHeight(vCenter.x,vCenter.z);
 
-				pBoard->SetInfo(vCenter,usGrassInfo);	//	Å¸ÀÏÀÇ Á¤º¸¸¦ ¹ÙÅÁÀ¸·Î Ç® °»½Å
+				pBoard->SetInfo(vCenter,usGrassInfo);	//	íƒ€ì¼ì˜ ì •ë³´ë¥¼ ë°”íƒ•ìœ¼ë¡œ í’€ ê°±ì‹ 
 
 				iTileCount+=2;
 			}

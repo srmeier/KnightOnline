@@ -1,4 +1,4 @@
-// Bird.h: interface for the CBird class.
+ï»¿// Bird.h: interface for the CBird class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,20 +23,20 @@ public:
 // Attributes
 public:
 protected:
-	// ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À´Â Á¤º¸
+	// íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ëŠ” ì •ë³´
 	CN3Shape*	m_pShape;		// Shape pointer
-	__Vector3	m_vPivot;		// Áß½ÉÁ¡(Áß½ÉÁ¡¿¡¼­ ¹İ°æ m_fRadius¸¸Å­ ¹üÀ§³»¿¡¼­ ¿òÁ÷ÀÎ´Ù.
-	float		m_fRadius;		// ¹İ°æ
+	__Vector3	m_vPivot;		// ì¤‘ì‹¬ì (ì¤‘ì‹¬ì ì—ì„œ ë°˜ê²½ m_fRadiusë§Œí¼ ë²”ìœ„ë‚´ì—ì„œ ì›€ì§ì¸ë‹¤.
+	float		m_fRadius;		// ë°˜ê²½
 
-//	__Vector3	m_vVelocity;	// ÇöÀç ¼Óµµ(½ºÇÇµå+¹æÇâ)
-	float		m_fRadianSpeed;		// ¼Ó·Â
-	float		m_fRadian;		// ÇöÀç Å¸¿øÀÇ À§Ä¡°¢
+//	__Vector3	m_vVelocity;	// í˜„ì¬ ì†ë„(ìŠ¤í”¼ë“œ+ë°©í–¥)
+	float		m_fRadianSpeed;		// ì†ë ¥
+	float		m_fRadian;		// í˜„ì¬ íƒ€ì›ì˜ ìœ„ì¹˜ê°
 	float		m_fFactor1,	m_fFactor2;
 	float		m_fFactorSpeed1,	m_fFactorSpeed2;
 
-	float		m_fRadiusY;		// ³ôÀÌ ¹İ°æ
-	float		m_fFactorY1, m_fFactorY2;	// ³ôÀÌ º¯È­ ¿ä¼Ò
-	float		m_fFactorYSpeed1, m_fFactorYSpeed2;	// ³ôÀÌ º¯È­ ¿ä¼Ò º¯È­À²..
+	float		m_fRadiusY;		// ë†’ì´ ë°˜ê²½
+	float		m_fFactorY1, m_fFactorY2;	// ë†’ì´ ë³€í™” ìš”ì†Œ
+	float		m_fFactorYSpeed1, m_fFactorYSpeed2;	// ë†’ì´ ë³€í™” ìš”ì†Œ ë³€í™”ìœ¨..
 
 	CN3SndObj*	m_pSnd;
 	float		m_fSndInterval;

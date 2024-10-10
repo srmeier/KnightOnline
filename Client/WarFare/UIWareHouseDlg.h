@@ -1,4 +1,4 @@
-// UIWareHouseDlg.h: interface for the UIWareHouseDlg class.
+ï»¿// UIWareHouseDlg.h: interface for the UIWareHouseDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ class CUIWareHouseDlg : public CN3UIWndBase, public IMouseWheelInputDlg
 	friend class CUIInventory;
 
 public:
-// Á÷Á¢ Á¢±ÙÇØ¾ß ÇÒ °´Ã¼ ÂüÁ¶ Æ÷ÀÎÅÍ
+// ì§ì ‘ ì ‘ê·¼í•´ì•¼ í•  ê°ì²´ ì°¸ì¡° í¬ì¸í„°
 	__IconItemSkill*		m_pMyWare[MAX_ITEM_WARE_PAGE][MAX_ITEM_TRADE];
 	__IconItemSkill*		m_pMyWareInv[MAX_ITEM_INVENTORY];
 	CN3UIString*			m_pStrMyGold;

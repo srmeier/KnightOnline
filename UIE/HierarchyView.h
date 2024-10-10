@@ -1,4 +1,4 @@
-// HierarchyView.h : interface of the CHierarchyView class
+ï»¿// HierarchyView.h : interface of the CHierarchyView class
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -24,9 +24,9 @@ public:
 // Operations
 public:
 protected:
-	void UpdateAllInfo();										// ¸ğµç tree item Á¤º¸ °»½ÅÇÏ±â
-	void UpdateTreeItem(HTREEITEM hParent, CN3UIBase *pUIBase);	// tree item Á¤º¸ °»½ÅÇÏ±â
-	void SelectObject(HTREEITEM hItem,  CN3UIBase* pUIBase);	// UPBase Æ÷ÀÎÅÍ·Î tree item ¼±ÅÃÇÏ±â
+	void UpdateAllInfo();										// ëª¨ë“  tree item ì •ë³´ ê°±ì‹ í•˜ê¸°
+	void UpdateTreeItem(HTREEITEM hParent, CN3UIBase *pUIBase);	// tree item ì •ë³´ ê°±ì‹ í•˜ê¸°
+	void SelectObject(HTREEITEM hItem,  CN3UIBase* pUIBase);	// UPBase í¬ì¸í„°ë¡œ tree item ì„ íƒí•˜ê¸°
 
 public:
 // Overrides

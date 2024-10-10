@@ -1,4 +1,4 @@
-// N3GlobalEffect.cpp: implementation of the CN3GlobalEffect class.
+ï»¿// N3GlobalEffect.cpp: implementation of the CN3GlobalEffect class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -20,8 +20,8 @@ CN3GlobalEffect::CN3GlobalEffect()
 	m_bActive = FALSE;
 	m_iVC = 0;
 	m_iIC = 0;
-	m_fFadeTime = 0.0f; // ÀÌ½Ã°£ µ¿¾È Â÷Â÷ ¸ñÇ¥ÇÑ ¾ç¸¸Å­ ÆÄÆ¼Å¬ÀÇ ¼ö°¡ ´Ã¾î³­´Ù..
-	m_fFadeTimeCur = 0.0f; // Áö³­½Ã°£..
+	m_fFadeTime = 0.0f; // ì´ì‹œê°„ ë™ì•ˆ ì°¨ì°¨ ëª©í‘œí•œ ì–‘ë§Œí¼ íŒŒí‹°í´ì˜ ìˆ˜ê°€ ëŠ˜ì–´ë‚œë‹¤..
+	m_fFadeTimeCur = 0.0f; // ì§€ë‚œì‹œê°„..
 	m_iFadeMode = 0;
 }
 
@@ -38,8 +38,8 @@ void CN3GlobalEffect::Release()
 	m_bActive = FALSE;
 	m_iVC = 0;
 	m_iIC = 0;
-	m_fFadeTime = 0.0f; // ÀÌ½Ã°£ µ¿¾È Â÷Â÷ ¸ñÇ¥ÇÑ ¾ç¸¸Å­ ÆÄÆ¼Å¬ÀÇ ¼ö°¡ ´Ã¾î³­´Ù..
-	m_fFadeTimeCur = 0.0f; // Áö³­½Ã°£..
+	m_fFadeTime = 0.0f; // ì´ì‹œê°„ ë™ì•ˆ ì°¨ì°¨ ëª©í‘œí•œ ì–‘ë§Œí¼ íŒŒí‹°í´ì˜ ìˆ˜ê°€ ëŠ˜ì–´ë‚œë‹¤..
+	m_fFadeTimeCur = 0.0f; // ì§€ë‚œì‹œê°„..
 	m_iFadeMode = 0;
 
 	CN3Transform::Release();
@@ -49,7 +49,7 @@ void CN3GlobalEffect::Tick()
 {
 	CN3Transform::Tick(-1);
 
-	if(m_iFadeMode && m_fFadeTime > 0) // ½Ã°£À» Áö³ª°Ô ÇÑ´Ù..
+	if(m_iFadeMode && m_fFadeTime > 0) // ì‹œê°„ì„ ì§€ë‚˜ê²Œ í•œë‹¤..
 	{
 		m_fFadeTimeCur += s_fSecPerFrm;
 		if(m_fFadeTimeCur > m_fFadeTime) m_fFadeTimeCur = m_fFadeTime;

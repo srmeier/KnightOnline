@@ -1,4 +1,4 @@
-// UIQuestTalk.cpp: implementation of the CUIQuestTalk class.
+﻿// UIQuestTalk.cpp: implementation of the CUIQuestTalk class.
 //
 //////////////////////////////////////////////////////////////////////
 

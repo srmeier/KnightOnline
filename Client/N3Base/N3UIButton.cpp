@@ -1,4 +1,4 @@
-// N3UIButton.cpp: implementation of the CN3UIButton class.
+ï»¿// N3UIButton.cpp: implementation of the CN3UIButton class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -66,7 +66,7 @@ void CN3UIButton::SetRegion(const RECT& Rect)
 BOOL CN3UIButton::MoveOffset(int iOffsetX, int iOffsetY)
 {
 	if (FALSE == CN3UIBase::MoveOffset(iOffsetX, iOffsetY)) return FALSE;
-	// click ¿µ¿ª
+	// click ì˜ì—­
 	m_rcClick.left += iOffsetX;		m_rcClick.top += iOffsetY;
 	m_rcClick.right += iOffsetX;	m_rcClick.bottom += iOffsetY;	
 	return TRUE;
@@ -105,9 +105,9 @@ void CN3UIButton::Render()
 	for(UIListReverseItor itor = m_Children.rbegin(); m_Children.rend() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		for(i = 0; i < NUM_BTN_STATE; i++) // ¹öÆ°ÀÇ ±¸¼º ¿ä¼Ò°¡ ¾Æ´ÑÁö º¸°í..
+		for(i = 0; i < NUM_BTN_STATE; i++) // ë²„íŠ¼ì˜ êµ¬ì„± ìš”ì†Œê°€ ì•„ë‹Œì§€ ë³´ê³ ..
 			if(pChild == m_ImageRef[i]) break;
-		if(i >= NUM_BTN_STATE) pChild->Render(); // ¹öÆ° Â÷ÀÏµå°¡ ¾Æ´Ï¸é ·»´õ¸µ..
+		if(i >= NUM_BTN_STATE) pChild->Render(); // ë²„íŠ¼ ì°¨ì¼ë“œê°€ ì•„ë‹ˆë©´ ë Œë”ë§..
 	}
 }
 
@@ -122,126 +122,126 @@ uint32_t CN3UIButton::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POIN
 #endif
 #endif
 
-	if(false == IsIn(ptCur.x, ptCur.y))	// ¿µ¿ª ¹ÛÀÌ¸é
+	if(false == IsIn(ptCur.x, ptCur.y))	// ì˜ì—­ ë°–ì´ë©´
 	{
-		if (false == IsIn(ptOld.x, ptOld.y))	return dwRet; // ÀÌÀü pointerµµ ¿µ¿ª ¹ÛÀÌ¾úÀ¸¸é ±×³É ¸®ÅÏ
-		dwRet |= UI_MOUSEPROC_PREVINREGION;	// ÀÌÀü ¸¶¿ì½º ÁÂÇ¥´Â ¿µ¿ª ¾ÈÀÌ¾ú´Ù.
+		if (false == IsIn(ptOld.x, ptOld.y))	return dwRet; // ì´ì „ pointerë„ ì˜ì—­ ë°–ì´ì—ˆìœ¼ë©´ ê·¸ëƒ¥ ë¦¬í„´
+		dwRet |= UI_MOUSEPROC_PREVINREGION;	// ì´ì „ ë§ˆìš°ìŠ¤ ì¢Œí‘œëŠ” ì˜ì—­ ì•ˆì´ì—ˆë‹¤.
 
-		if (UI_STATE_BUTTON_DISABLE == m_eState) return dwRet;	// disableÀÌ¸é ±×³É ¸®ÅÏ
+		if (UI_STATE_BUTTON_DISABLE == m_eState) return dwRet;	// disableì´ë©´ ê·¸ëƒ¥ ë¦¬í„´
 
-		if(UISTYLE_BTN_NORMAL & m_dwStyle) // normal ¹öÆ° ÀÌ¸é
+		if(UISTYLE_BTN_NORMAL & m_dwStyle) // normal ë²„íŠ¼ ì´ë©´
 		{
-			SetState(UI_STATE_BUTTON_NORMAL);	// normal »óÅÂ·Î
+			SetState(UI_STATE_BUTTON_NORMAL);	// normal ìƒíƒœë¡œ
 		}
-		else if (UISTYLE_BTN_CHECK & m_dwStyle) // check ¹öÆ° ÀÌ¸é
+		else if (UISTYLE_BTN_CHECK & m_dwStyle) // check ë²„íŠ¼ ì´ë©´
 		{
-			if (UI_STATE_BUTTON_DOWN_2CHECKUP == m_eState)	// up½ÃÅ°·Á´Ù ¸¸ °æ¿ì 
-				SetState(UI_STATE_BUTTON_DOWN);	// down »óÅÂ·Î
-			else if (UI_STATE_BUTTON_DOWN_2CHECKDOWN == m_eState ||	// down½ÃÅ°·Á´Ù ¸¸ °æ¿ì ¶Ç´Â
-				UI_STATE_BUTTON_ON == m_eState)	// on »óÅÂÀÏ °æ¿ì
-				SetState(UI_STATE_BUTTON_NORMAL);	// normal »óÅÂ·Î
+			if (UI_STATE_BUTTON_DOWN_2CHECKUP == m_eState)	// upì‹œí‚¤ë ¤ë‹¤ ë§Œ ê²½ìš° 
+				SetState(UI_STATE_BUTTON_DOWN);	// down ìƒíƒœë¡œ
+			else if (UI_STATE_BUTTON_DOWN_2CHECKDOWN == m_eState ||	// downì‹œí‚¤ë ¤ë‹¤ ë§Œ ê²½ìš° ë˜ëŠ”
+				UI_STATE_BUTTON_ON == m_eState)	// on ìƒíƒœì¼ ê²½ìš°
+				SetState(UI_STATE_BUTTON_NORMAL);	// normal ìƒíƒœë¡œ
 		}
-		return dwRet; // ¿µ¿ª ¹ÛÀÌ¹Ç·Î ´õÀÌ»ó Ã³¸® ÇÏÁö ¾Ê´Â´Ù.
+		return dwRet; // ì˜ì—­ ë°–ì´ë¯€ë¡œ ë”ì´ìƒ ì²˜ë¦¬ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	}
-	dwRet |= UI_MOUSEPROC_INREGION;	// ÀÌ¹ø ¸¶¿ì½º ÁÂÇ¥´Â ¿µ¿ª ¾ÈÀÌ´Ù
+	dwRet |= UI_MOUSEPROC_INREGION;	// ì´ë²ˆ ë§ˆìš°ìŠ¤ ì¢Œí‘œëŠ” ì˜ì—­ ì•ˆì´ë‹¤
 
-	if (UI_STATE_BUTTON_DISABLE == m_eState) return dwRet;	// disableÀÌ¸é ±×³É ¸®ÅÏ
+	if (UI_STATE_BUTTON_DISABLE == m_eState) return dwRet;	// disableì´ë©´ ê·¸ëƒ¥ ë¦¬í„´
 
-	// Å¬¸¯ ¿µ¿ª ¹ÛÀÌ¸é
+	// í´ë¦­ ì˜ì—­ ë°–ì´ë©´
 	if (FALSE == PtInRect(&m_rcClick, ptCur))
 	{
-		if(UISTYLE_BTN_NORMAL & m_dwStyle) // normal ¹öÆ° ÀÌ¸é
+		if(UISTYLE_BTN_NORMAL & m_dwStyle) // normal ë²„íŠ¼ ì´ë©´
 		{
-			SetState(UI_STATE_BUTTON_NORMAL);	// normal »óÅÂ·Î
+			SetState(UI_STATE_BUTTON_NORMAL);	// normal ìƒíƒœë¡œ
 		}
-		else if (UISTYLE_BTN_CHECK & m_dwStyle) // check ¹öÆ° ÀÌ¸é
+		else if (UISTYLE_BTN_CHECK & m_dwStyle) // check ë²„íŠ¼ ì´ë©´
 		{
-			if (UI_STATE_BUTTON_DOWN_2CHECKUP == m_eState)	// up½ÃÅ°·Á´Ù ¸¸ °æ¿ì 
-				SetState(UI_STATE_BUTTON_DOWN);	// down »óÅÂ·Î
-			else if (UI_STATE_BUTTON_DOWN_2CHECKDOWN == m_eState ||	// down½ÃÅ°·Á´Ù ¸¸ °æ¿ì ¶Ç´Â
-				UI_STATE_BUTTON_ON == m_eState)	// on »óÅÂÀÏ °æ¿ì
-				SetState(UI_STATE_BUTTON_NORMAL);	// normal »óÅÂ·Î
+			if (UI_STATE_BUTTON_DOWN_2CHECKUP == m_eState)	// upì‹œí‚¤ë ¤ë‹¤ ë§Œ ê²½ìš° 
+				SetState(UI_STATE_BUTTON_DOWN);	// down ìƒíƒœë¡œ
+			else if (UI_STATE_BUTTON_DOWN_2CHECKDOWN == m_eState ||	// downì‹œí‚¤ë ¤ë‹¤ ë§Œ ê²½ìš° ë˜ëŠ”
+				UI_STATE_BUTTON_ON == m_eState)	// on ìƒíƒœì¼ ê²½ìš°
+				SetState(UI_STATE_BUTTON_NORMAL);	// normal ìƒíƒœë¡œ
 		}
 		return dwRet;
 	}
 
-	// ¾Æ·¡´Â Å¬¸¯ ¿µ¿ª ¾ÈÀÏ¶§..
-	// normal ¹öÆ° ÀÌ¸é
+	// ì•„ë˜ëŠ” í´ë¦­ ì˜ì—­ ì•ˆì¼ë•Œ..
+	// normal ë²„íŠ¼ ì´ë©´
 	if(UISTYLE_BTN_NORMAL & m_dwStyle)
 	{
-		if(dwFlags & UI_MOUSE_LBCLICK)  // ¿ŞÂÊ¹öÆ° ´­¸£´Â ¼ø°£
+		if(dwFlags & UI_MOUSE_LBCLICK)  // ì™¼ìª½ë²„íŠ¼ ëˆŒë¥´ëŠ” ìˆœê°„
 		{
-			SetState(UI_STATE_BUTTON_DOWN); // ´©¸¥ »óÅÂ·Î ¸¸µé°í..
-			if (m_pSnd_Click) m_pSnd_Click->Play();	// »ç¿îµå°¡ ÀÖÀ¸¸é play ÇÏ±â
+			SetState(UI_STATE_BUTTON_DOWN); // ëˆ„ë¥¸ ìƒíƒœë¡œ ë§Œë“¤ê³ ..
+			if (m_pSnd_Click) m_pSnd_Click->Play();	// ì‚¬ìš´ë“œê°€ ìˆìœ¼ë©´ play í•˜ê¸°
 			dwRet |= UI_MOUSEPROC_DONESOMETHING;
 			return dwRet;
 		}
-		else if(dwFlags & UI_MOUSE_LBCLICKED) // ¿ŞÂÊ¹öÆ°À» ¶¼´Â ¼ø°£
+		else if(dwFlags & UI_MOUSE_LBCLICKED) // ì™¼ìª½ë²„íŠ¼ì„ ë–¼ëŠ” ìˆœê°„
 		{
-			if(m_pParent && UI_STATE_BUTTON_DOWN == m_eState) // ÀÌÀü »óÅÂ°¡ ¹öÆ°À» Down »óÅÂÀÌ¸é
+			if(m_pParent && UI_STATE_BUTTON_DOWN == m_eState) // ì´ì „ ìƒíƒœê°€ ë²„íŠ¼ì„ Down ìƒíƒœì´ë©´
 			{
-				SetState(UI_STATE_BUTTON_ON); // ¹öÆ°À» On »óÅÂ·Î ¸¸µç´Ù..
-				m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+				SetState(UI_STATE_BUTTON_ON); // ë²„íŠ¼ì„ On ìƒíƒœë¡œ ë§Œë“ ë‹¤..
+				m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 			}
 			dwRet |= UI_MOUSEPROC_DONESOMETHING;
 			return dwRet;
 		}
-		else if (UI_STATE_BUTTON_NORMAL == m_eState)	// normal»óÅÂÀÌ¸é on»óÅÂ·Î..
+		else if (UI_STATE_BUTTON_NORMAL == m_eState)	// normalìƒíƒœì´ë©´ onìƒíƒœë¡œ..
 		{
-			SetState(UI_STATE_BUTTON_ON); // On »óÅÂ·Î ¸¸µé°í..
-			if (m_pSnd_On) m_pSnd_On->Play();	// »ç¿îµå°¡ ÀÖÀ¸¸é play ÇÏ±â
+			SetState(UI_STATE_BUTTON_ON); // On ìƒíƒœë¡œ ë§Œë“¤ê³ ..
+			if (m_pSnd_On) m_pSnd_On->Play();	// ì‚¬ìš´ë“œê°€ ìˆìœ¼ë©´ play í•˜ê¸°
 			dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
 			return dwRet;
-			// UI_MOUSEPROC_DONESOMETHING¸¦ ³ÖÀ¸¸é ¾ÈµÈ´Ù.(¸¶¿ì½º Æ÷ÀÎÅÍ°¡ ¹öÆ°¿¡¼­ ´Ù¸¥ ¹öÆ°À¸·Î ºü¸£°Ô ¿Å°Ü°¥¶§ 
-			// ÀÌÀü ¹öÆ°ÀÇ »óÅÂ°¡ ÀÌ»óÇØÁö´Â °ÍÀ» ¹æÁöÇÏ±â À§ÇØ)
+			// UI_MOUSEPROC_DONESOMETHINGë¥¼ ë„£ìœ¼ë©´ ì•ˆëœë‹¤.(ë§ˆìš°ìŠ¤ í¬ì¸í„°ê°€ ë²„íŠ¼ì—ì„œ ë‹¤ë¥¸ ë²„íŠ¼ìœ¼ë¡œ ë¹ ë¥´ê²Œ ì˜®ê²¨ê°ˆë•Œ 
+			// ì´ì „ ë²„íŠ¼ì˜ ìƒíƒœê°€ ì´ìƒí•´ì§€ëŠ” ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´)
 		}
 	}
 
-	// Ã¼Å© ¹öÆ°ÀÌ¸é
+	// ì²´í¬ ë²„íŠ¼ì´ë©´
 	else if(UISTYLE_BTN_CHECK & m_dwStyle) 
 	{
-		if(dwFlags & UI_MOUSE_LBCLICK)  // ¿ŞÂÊ¹öÆ° ´­¸£´Â ¼ø°£
+		if(dwFlags & UI_MOUSE_LBCLICK)  // ì™¼ìª½ë²„íŠ¼ ëˆŒë¥´ëŠ” ìˆœê°„
 		{
 			if (UI_STATE_BUTTON_NORMAL == m_eState || UI_STATE_BUTTON_ON == m_eState)
 			{
-				SetState(UI_STATE_BUTTON_DOWN_2CHECKDOWN); // ÀÓ½Ã·Î ´©¸¥ »óÅÂ(DOWN_2CHECKDOWN)·Î ¸¸µé°í..
-				if (m_pSnd_Click) m_pSnd_Click->Play();	// »ç¿îµå°¡ ÀÖÀ¸¸é play ÇÏ±â
+				SetState(UI_STATE_BUTTON_DOWN_2CHECKDOWN); // ì„ì‹œë¡œ ëˆ„ë¥¸ ìƒíƒœ(DOWN_2CHECKDOWN)ë¡œ ë§Œë“¤ê³ ..
+				if (m_pSnd_Click) m_pSnd_Click->Play();	// ì‚¬ìš´ë“œê°€ ìˆìœ¼ë©´ play í•˜ê¸°
 				dwRet |= UI_MOUSEPROC_DONESOMETHING;
 				return dwRet;
 			}
 			else if(UI_STATE_BUTTON_DOWN == m_eState)
 			{
-				SetState(UI_STATE_BUTTON_DOWN_2CHECKUP); // ÀÓ½Ã·Î ´©¸¥ »óÅÂ(DOWN_2CHECKUP)·Î ¸¸µé°í..
-				if (m_pSnd_Click) m_pSnd_Click->Play();	// »ç¿îµå°¡ ÀÖÀ¸¸é play ÇÏ±â
+				SetState(UI_STATE_BUTTON_DOWN_2CHECKUP); // ì„ì‹œë¡œ ëˆ„ë¥¸ ìƒíƒœ(DOWN_2CHECKUP)ë¡œ ë§Œë“¤ê³ ..
+				if (m_pSnd_Click) m_pSnd_Click->Play();	// ì‚¬ìš´ë“œê°€ ìˆìœ¼ë©´ play í•˜ê¸°
 				dwRet |= UI_MOUSEPROC_DONESOMETHING;
 				return dwRet;
 			}
 		}
-		else if(dwFlags & UI_MOUSE_LBCLICKED)  // ¿ŞÂÊ¹öÆ° ¶¼´Â ¼ø°£
+		else if(dwFlags & UI_MOUSE_LBCLICKED)  // ì™¼ìª½ë²„íŠ¼ ë–¼ëŠ” ìˆœê°„
 		{
-			if(UI_STATE_BUTTON_DOWN_2CHECKDOWN == m_eState) // ÀÌÀü »óÅÂ°¡ 2CHECKDOWN »óÅÂÀÌ¸é
+			if(UI_STATE_BUTTON_DOWN_2CHECKDOWN == m_eState) // ì´ì „ ìƒíƒœê°€ 2CHECKDOWN ìƒíƒœì´ë©´
 			{
-				SetState(UI_STATE_BUTTON_DOWN); // down »óÅÂ·Î ¸¸µé±â
-				if (m_pParent) m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+				SetState(UI_STATE_BUTTON_DOWN); // down ìƒíƒœë¡œ ë§Œë“¤ê¸°
+				if (m_pParent) m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 				dwRet |= UI_MOUSEPROC_DONESOMETHING;
 				return dwRet;
 			}
-			else if (UI_STATE_BUTTON_DOWN_2CHECKUP == m_eState) // ÀüÀÇ »óÅÂ°¡ 2CHECKUP »óÅÂÀÌ¸é
+			else if (UI_STATE_BUTTON_DOWN_2CHECKUP == m_eState) // ì „ì˜ ìƒíƒœê°€ 2CHECKUP ìƒíƒœì´ë©´
 			{
-				SetState(UI_STATE_BUTTON_ON); // On »óÅÂ·Î ¸¸µé±â
-				if (m_pParent) m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+				SetState(UI_STATE_BUTTON_ON); // On ìƒíƒœë¡œ ë§Œë“¤ê¸°
+				if (m_pParent) m_pParent->ReceiveMessage(this, UIMSG_BUTTON_CLICK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 				dwRet |= UI_MOUSEPROC_DONESOMETHING;
 				return dwRet;
 			}
 		}
-		else if (UI_STATE_BUTTON_NORMAL == m_eState)	// normal»óÅÂÀÌ¸é on»óÅÂ·Î..
+		else if (UI_STATE_BUTTON_NORMAL == m_eState)	// normalìƒíƒœì´ë©´ onìƒíƒœë¡œ..
 		{
-			SetState(UI_STATE_BUTTON_ON); // On »óÅÂ·Î ¸¸µé°í..
-			if (m_pSnd_On) m_pSnd_On->Play();	// »ç¿îµå°¡ ÀÖÀ¸¸é play ÇÏ±â
+			SetState(UI_STATE_BUTTON_ON); // On ìƒíƒœë¡œ ë§Œë“¤ê³ ..
+			if (m_pSnd_On) m_pSnd_On->Play();	// ì‚¬ìš´ë“œê°€ ìˆìœ¼ë©´ play í•˜ê¸°
 			dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
 			return dwRet;
-			// UI_MOUSEPROC_DONESOMETHING¸¦ ³ÖÀ¸¸é ¾ÈµÈ´Ù.(¸¶¿ì½º Æ÷ÀÎÅÍ°¡ ¹öÆ°¿¡¼­ ´Ù¸¥ ¹öÆ°À¸·Î ºü¸£°Ô ¿Å°Ü°¥¶§ 
-			// ÀÌÀü ¹öÆ°ÀÇ »óÅÂ°¡ ÀÌ»óÇØÁö´Â °ÍÀ» ¹æÁöÇÏ±â À§ÇØ)
+			// UI_MOUSEPROC_DONESOMETHINGë¥¼ ë„£ìœ¼ë©´ ì•ˆëœë‹¤.(ë§ˆìš°ìŠ¤ í¬ì¸í„°ê°€ ë²„íŠ¼ì—ì„œ ë‹¤ë¥¸ ë²„íŠ¼ìœ¼ë¡œ ë¹ ë¥´ê²Œ ì˜®ê²¨ê°ˆë•Œ 
+			// ì´ì „ ë²„íŠ¼ì˜ ìƒíƒœê°€ ì´ìƒí•´ì§€ëŠ” ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´)
 		}
 
 	}
@@ -254,13 +254,13 @@ bool CN3UIButton::Load(HANDLE hFile)
 	if (false == CN3UIBase::Load(hFile)) return false;
 
 	DWORD dwNum;
-	ReadFile(hFile, &m_rcClick, sizeof(m_rcClick), &dwNum, NULL);	// click ¿µ¿ª
+	ReadFile(hFile, &m_rcClick, sizeof(m_rcClick), &dwNum, NULL);	// click ì˜ì—­
 
-	// m_ImageRef ¼³Á¤ÇÏ±â
+	// m_ImageRef ì„¤ì •í•˜ê¸°
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// image¸¸ °ñ¶ó³»±â
+		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// imageë§Œ ê³¨ë¼ë‚´ê¸°
 		int iBtnState = (int)(pChild->GetReserved());
 		if (iBtnState<NUM_BTN_STATE)
 		{
@@ -268,9 +268,9 @@ bool CN3UIButton::Load(HANDLE hFile)
 		}
 	}
 
-	// ÀÌÀü uifÆÄÀÏÀ» ÄÁ¹öÆÃ ÇÏ·Á¸é »ç¿îµå ·Îµå ÇÏ´Â ºÎºĞ ¸·±â
+	// ì´ì „ uifíŒŒì¼ì„ ì»¨ë²„íŒ… í•˜ë ¤ë©´ ì‚¬ìš´ë“œ ë¡œë“œ í•˜ëŠ” ë¶€ë¶„ ë§‰ê¸°
 	int iSndFNLen = 0;
-	ReadFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	»ç¿îµå ÆÄÀÏ ¹®ÀÚ¿­ ±æÀÌ
+	ReadFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	ì‚¬ìš´ë“œ íŒŒì¼ ë¬¸ìì—´ ê¸¸ì´
 	if (iSndFNLen>0)
 	{
 		std::vector<char> buffer(iSndFNLen+1, NULL);
@@ -280,7 +280,7 @@ bool CN3UIButton::Load(HANDLE hFile)
 		m_pSnd_On = s_SndMgr.CreateObj(&buffer[0], SNDTYPE_2D);
 	}
 
-	ReadFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	»ç¿îµå ÆÄÀÏ ¹®ÀÚ¿­ ±æÀÌ
+	ReadFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	ì‚¬ìš´ë“œ íŒŒì¼ ë¬¸ìì—´ ê¸¸ì´
 	if (iSndFNLen>0)
 	{
 		std::vector<char> buffer(iSndFNLen+1, NULL);
@@ -297,15 +297,15 @@ void CN3UIButton::operator = (const CN3UIButton& other)
 {
 	CN3UIBase::operator = (other);
 
-	m_rcClick = other.m_rcClick;			// Å¬¸¯ ¿µ¿ª
-	SetSndOn(other.GetSndFName_On());		// »ç¿îµå
-	SetSndClick(other.GetSndFName_Click());	// »ç¿îµå
+	m_rcClick = other.m_rcClick;			// í´ë¦­ ì˜ì—­
+	SetSndOn(other.GetSndFName_On());		// ì‚¬ìš´ë“œ
+	SetSndClick(other.GetSndFName_Click());	// ì‚¬ìš´ë“œ
 
-	// m_ImageRef ¼³Á¤ÇÏ±â
+	// m_ImageRef ì„¤ì •í•˜ê¸°
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
-		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// image¸¸ °ñ¶ó³»±â
+		if (UI_TYPE_IMAGE != pChild->UIType()) continue;	// imageë§Œ ê³¨ë¼ë‚´ê¸°
 		int iBtnState = (int)(pChild->GetReserved());
 		if (iBtnState<NUM_BTN_STATE)
 		{
@@ -319,33 +319,33 @@ bool CN3UIButton::Save(HANDLE hFile)
 {
 	if (false == CN3UIBase::Save(hFile)) return false;
 	DWORD dwNum;
-	WriteFile(hFile, &m_rcClick, sizeof(m_rcClick), &dwNum, NULL);	// click ¿µ¿ª
+	WriteFile(hFile, &m_rcClick, sizeof(m_rcClick), &dwNum, NULL);	// click ì˜ì—­
 
 	int iSndFNLen = 0;
 	if (m_pSnd_On) iSndFNLen = m_pSnd_On->m_szFileName.size();
-	WriteFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	»ç¿îµå ÆÄÀÏ ¹®ÀÚ¿­ ±æÀÌ
+	WriteFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	ì‚¬ìš´ë“œ íŒŒì¼ ë¬¸ìì—´ ê¸¸ì´
 	if (iSndFNLen>0) WriteFile(hFile, m_pSnd_On->m_szFileName.c_str(), iSndFNLen, &dwNum, NULL);
 
 	iSndFNLen = 0;
 	if (m_pSnd_Click) iSndFNLen = m_pSnd_Click->m_szFileName.size();
-	WriteFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	»ç¿îµå ÆÄÀÏ ¹®ÀÚ¿­ ±æÀÌ
+	WriteFile(hFile, &iSndFNLen, sizeof(iSndFNLen), &dwNum, NULL);		//	ì‚¬ìš´ë“œ íŒŒì¼ ë¬¸ìì—´ ê¸¸ì´
 	if (iSndFNLen>0) WriteFile(hFile, m_pSnd_Click->m_szFileName.c_str(), iSndFNLen, &dwNum, NULL);
 
 	return true;
 }
 
-// Åø¿¡¼­ »ç¿ëÇÏ±â À§ÇÑ ÇÔ¼ö : n3uiImage¸¦ »ı¼ºÇÑ´Ù.
+// íˆ´ì—ì„œ ì‚¬ìš©í•˜ê¸° ìœ„í•œ í•¨ìˆ˜ : n3uiImageë¥¼ ìƒì„±í•œë‹¤.
 void CN3UIButton::CreateImages()
 {
 	int i;
 	for (i=0; i<NUM_BTN_STATE; ++i)
 	{
-		__ASSERT(NULL == m_ImageRef[i],"ÀÌ¹ÌÁö°¡ ÀÌ¹Ì ÇÒ´çµÇ¾î ÀÖ¾î¿©");
+		__ASSERT(NULL == m_ImageRef[i],"ì´ë¯¸ì§€ê°€ ì´ë¯¸ í• ë‹¹ë˜ì–´ ìˆì–´ì—¬");
 		m_ImageRef[i] = new CN3UIImage();
 		m_ImageRef[i]->Init(this);
 		m_ImageRef[i]->SetRegion(m_rcRegion);
 
-		m_ImageRef[i]->SetReserved(i);		// »óÅÂ ¹øÈ£(eBTN_STATE) ÇÒ´ç.
+		m_ImageRef[i]->SetReserved(i);		// ìƒíƒœ ë²ˆí˜¸(eBTN_STATE) í• ë‹¹.
 	}
 }
 #endif
@@ -356,7 +356,7 @@ void CN3UIButton::SetSndOn(const std::string& strFileName)
 	if (0 == strFileName.size()) return;
 
 	CN3BaseFileAccess tmpBase;
-	tmpBase.FileNameSet(strFileName);	// Base°æ·Î¿¡ ´ëÇØ¼­ »ó´ëÀû °æ·Î¸¦ ³Ñ°ÜÁØ´Ù.
+	tmpBase.FileNameSet(strFileName);	// Baseê²½ë¡œì— ëŒ€í•´ì„œ ìƒëŒ€ì  ê²½ë¡œë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 
 	SetCurrentDirectory(tmpBase.PathGet().c_str());
 	m_pSnd_On = s_SndMgr.CreateObj(tmpBase.FileName(), SNDTYPE_2D);
@@ -368,7 +368,7 @@ void CN3UIButton::SetSndClick(const std::string& strFileName)
 	if (0 == strFileName.size()) return;
 
 	CN3BaseFileAccess tmpBase;
-	tmpBase.FileNameSet(strFileName);	// Base°æ·Î¿¡ ´ëÇØ¼­ »ó´ëÀû °æ·Î¸¦ ³Ñ°ÜÁØ´Ù.
+	tmpBase.FileNameSet(strFileName);	// Baseê²½ë¡œì— ëŒ€í•´ì„œ ìƒëŒ€ì  ê²½ë¡œë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 
 	SetCurrentDirectory(tmpBase.PathGet().c_str());
 	m_pSnd_Click = s_SndMgr.CreateObj(tmpBase.FileName(), SNDTYPE_2D);

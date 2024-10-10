@@ -1,4 +1,4 @@
-// N3UIIcon.cpp: implementation of the CN3UIIcon class.
+ï»¿// N3UIIcon.cpp: implementation of the CN3UIIcon class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -49,73 +49,73 @@ uint32_t CN3UIIcon::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT&
 
 	rect = GetMoveRect();
 
-	if(!::PtInRect(&rect, ptCur))		// ¿µ¿ª ¹ÛÀÌ¸é
+	if(!::PtInRect(&rect, ptCur))		// ì˜ì—­ ë°–ì´ë©´
 	{
 		dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
 		return dwRet;
 	}
 
-	if((dwFlags & UI_MOUSE_LBCLICK) && !(dwFlags & UI_MOUSE_RBDOWN))  // ¿ŞÂÊ¹öÆ° ´­¸£´Â ¼ø°£
+	if((dwFlags & UI_MOUSE_LBCLICK) && !(dwFlags & UI_MOUSE_RBDOWN))  // ì™¼ìª½ë²„íŠ¼ ëˆŒë¥´ëŠ” ìˆœê°„
 	{
 		m_pParent->SetState(UI_STATE_ICON_MOVING);
-		m_pParent->ReceiveMessage(this, UIMSG_ICON_DOWN_FIRST); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_ICON_DOWN_FIRST); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 		return dwRet;
 	}
 
-	if((dwFlags & UI_MOUSE_LBCLICKED) && !(dwFlags & UI_MOUSE_RBDOWN)) // ¿ŞÂÊ¹öÆ°À» ¶¼´Â ¼ø°£
+	if((dwFlags & UI_MOUSE_LBCLICKED) && !(dwFlags & UI_MOUSE_RBDOWN)) // ì™¼ìª½ë²„íŠ¼ì„ ë–¼ëŠ” ìˆœê°„
 	{
-		if(m_pParent && m_pParent->GetState() == UI_STATE_ICON_MOVING) // ÀÌÀü »óÅÂ°¡ ¹öÆ°À» Down »óÅÂÀÌ¸é
+		if(m_pParent && m_pParent->GetState() == UI_STATE_ICON_MOVING) // ì´ì „ ìƒíƒœê°€ ë²„íŠ¼ì„ Down ìƒíƒœì´ë©´
 		{
 			m_pParent->SetState(UI_STATE_COMMON_NONE);
-			m_pParent->ReceiveMessage(this, UIMSG_ICON_UP); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+			m_pParent->ReceiveMessage(this, UIMSG_ICON_UP); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 			dwRet |= UI_MOUSEPROC_DONESOMETHING;
 			return dwRet;
 		}
 	}
 
-	if ((dwFlags & UI_MOUSE_RBCLICK)  && !(dwFlags & UI_MOUSE_LBDOWN))	// ¿À¸¥ÂÊ
+	if ((dwFlags & UI_MOUSE_RBCLICK)  && !(dwFlags & UI_MOUSE_LBDOWN))	// ì˜¤ë¥¸ìª½
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_ICON_RDOWN_FIRST); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_ICON_RDOWN_FIRST); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 		return dwRet;
 	}
 
-	if((dwFlags & UI_MOUSE_RBCLICKED)  && !(dwFlags & UI_MOUSE_LBDOWN))// ¿À¸¥ÂÊ ¹öÆ°À» ¶¼´Â ¼ø°£
+	if((dwFlags & UI_MOUSE_RBCLICKED)  && !(dwFlags & UI_MOUSE_LBDOWN))// ì˜¤ë¥¸ìª½ ë²„íŠ¼ì„ ë–¼ëŠ” ìˆœê°„
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_ICON_RUP); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_ICON_RUP); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 		return dwRet;
 	}
 
-	if (dwFlags & UI_MOUSE_LBDOWN)	// ¿ŞÂÊ
+	if (dwFlags & UI_MOUSE_LBDOWN)	// ì™¼ìª½
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_ICON_DOWN); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_ICON_DOWN); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 		return dwRet;
 	}
 /*
 	else
 	{
-		if(m_pParent && m_pParent->GetState() == UI_STATE_ICON_MOVING) // ÀÌÀü »óÅÂ°¡ ¹öÆ°À» Down »óÅÂÀÌ¸é
+		if(m_pParent && m_pParent->GetState() == UI_STATE_ICON_MOVING) // ì´ì „ ìƒíƒœê°€ ë²„íŠ¼ì„ Down ìƒíƒœì´ë©´
 		{
-			m_pParent->ReceiveMessage(this, UIMSG_ICON_UP); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+			m_pParent->ReceiveMessage(this, UIMSG_ICON_UP); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 			dwRet |= UI_MOUSEPROC_DONESOMETHING;
 			return dwRet;
 		}
 	}
 */
 
-	if (dwFlags & UI_MOUSE_LBDBLCLK)	// ¿ŞÂÊ ´õºí Å¬¸¯
+	if (dwFlags & UI_MOUSE_LBDBLCLK)	// ì™¼ìª½ ë”ë¸” í´ë¦­
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_ICON_DBLCLK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_ICON_DBLCLK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 		return dwRet;
 	}
 
-	if (dwFlags & UI_MOUSE_RBDBLCLK)	// ¿À¸¥ÂÊ ´õºí Å¬¸¯
+	if (dwFlags & UI_MOUSE_RBDBLCLK)	// ì˜¤ë¥¸ìª½ ë”ë¸” í´ë¦­
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_ICON_RDBLCLK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_ICON_RDBLCLK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 		return dwRet;
 	}

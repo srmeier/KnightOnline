@@ -1,4 +1,4 @@
-// LightMgr.h: interface for the CLightMgr class.
+﻿// LightMgr.h: interface for the CLightMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// UICmdList.h: interface for the CUICmdList class.
+ï»¿// UICmdList.h: interface for the CUICmdList class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,9 +24,9 @@ protected:
 	CN3UIList*		m_pList_CmdCat;
 	CN3UIList*		m_pList_Cmds;
 
-	bool		m_bOpenningNow; // ¿­¸®°í ÀÖ´Ù..
-	bool		m_bClosingNow;	// ´İÈ÷°í ÀÖ´Ù..
-	float		m_fMoveDelta; // ºÎµå·´°Ô ¿­¸®°í ´İÈ÷°Ô ¸¸µé±â À§ÇØ¼­ ÇöÀçÀ§Ä¡ °è»ê¿¡ ºÎµ¿¼Ò¼öÁ¡À» ¾´´Ù..
+	bool		m_bOpenningNow; // ì—´ë¦¬ê³  ìˆë‹¤..
+	bool		m_bClosingNow;	// ë‹«íˆê³  ìˆë‹¤..
+	float		m_fMoveDelta; // ë¶€ë“œëŸ½ê²Œ ì—´ë¦¬ê³  ë‹«íˆê²Œ ë§Œë“¤ê¸° ìœ„í•´ì„œ í˜„ì¬ìœ„ì¹˜ ê³„ì‚°ì— ë¶€ë™ì†Œìˆ˜ì ì„ ì“´ë‹¤..
 
 	int			m_iRBtnDownOffs;
 
@@ -54,10 +54,10 @@ public:
 	bool UpdateCommandList(uint8_t cmd);
 	bool ExecuteCommand(uint8_t cmdSel);
 
-	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // ¸Ş½ÃÁö¸¦ ¹Ş´Â´Ù.. º¸³½³ğ, msg
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // ë©”ì‹œì§€ë¥¼ ë°›ëŠ”ë‹¤.. ë³´ë‚¸ë†ˆ, msg
 
 	virtual void	Tick();
-	virtual void	Render(); // ¹Ì´Ï¸Ê ·»´õ¸µ..
+	virtual void	Render(); // ë¯¸ë‹ˆë§µ ë Œë”ë§..
 	virtual bool	Load(HANDLE hFile);
 
 	virtual void	Release();

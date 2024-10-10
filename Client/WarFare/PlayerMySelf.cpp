@@ -1,4 +1,4 @@
-// PlayerMgr.cpp: implementation of the CPlayerMySelf class.
+ï»¿// PlayerMgr.cpp: implementation of the CPlayerMySelf class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -35,17 +35,17 @@ CPlayerMySelf::CPlayerMySelf()
 {
 	m_ePlayerType = PLAYER_MYSELF; // Player Type ... Base, NPC, OTher, MySelf
 
-	m_bRunning = false;				// ¶Ù´ÂÁö..
-	m_bMoveContinous = false;		// °è¼Ó ¿òÁ÷ÀÌ´ÂÁö..
-	m_bAttackContinous = false;		// °è¼Ó °ø°İÇÏ´Â »óÅÂÀÎÁö..
-	m_bSitDown = false;				// ¾É¾ÆÀÖ´Â »óÅÂÀÎÁö....
-	m_bRecruitParty = false;		// ÆÄÆ¼¸ğÁıÁß??
+	m_bRunning = false;				// ë›°ëŠ”ì§€..
+	m_bMoveContinous = false;		// ê³„ì† ì›€ì§ì´ëŠ”ì§€..
+	m_bAttackContinous = false;		// ê³„ì† ê³µê²©í•˜ëŠ” ìƒíƒœì¸ì§€..
+	m_bSitDown = false;				// ì•‰ì•„ìˆëŠ” ìƒíƒœì¸ì§€....
+	m_bRecruitParty = false;		// íŒŒí‹°ëª¨ì§‘ì¤‘??
 	
-	m_bStun = false;				// ±âÀı..
-	m_fStunTime = 0.0f;				// ±âÀıÇÑ ½Ã°£..
+	m_bStun = false;				// ê¸°ì ˆ..
+	m_fStunTime = 0.0f;				// ê¸°ì ˆí•œ ì‹œê°„..
 
 
-	m_fAttackTimeRecent = CN3Base::TimeGet();	// ÃÖ±Ù¿¡ °ø°İÇÑ ½Ã°£..
+	m_fAttackTimeRecent = CN3Base::TimeGet();	// ìµœê·¼ì— ê³µê²©í•œ ì‹œê°„..
 	m_bTempMoveTurbo = false;
 
 	m_InfoExt.Init();
@@ -54,11 +54,11 @@ CPlayerMySelf::CPlayerMySelf()
 	m_ChrInv.PartAlloc(PART_POS_COUNT);
 	m_ChrInv.PlugAlloc(PLUG_POS_COUNT);
 
-	m_iSendRegeneration = 0;	// ÇÑ¹ø º¸³»¸é ´Ù½Ã Á×À»¶§±îÁö ¾Èº¸³»´Â ÇÃ·¡±×	
+	m_iSendRegeneration = 0;	// í•œë²ˆ ë³´ë‚´ë©´ ë‹¤ì‹œ ì£½ì„ë•Œê¹Œì§€ ì•ˆë³´ë‚´ëŠ” í”Œë˜ê·¸	
 
 	m_dwMagicID = 0xffffffff;
 	m_fCastingTime = 0.0f;
-	m_pObjectTarget = NULL; // Å¸°Ù ¿ÀºêÁ§Æ® Æ÷ÀÎÅÍ..
+	m_pObjectTarget = NULL; // íƒ€ê²Ÿ ì˜¤ë¸Œì íŠ¸ í¬ì¸í„°..
 }
 
 CPlayerMySelf::~CPlayerMySelf()
@@ -78,16 +78,16 @@ void CPlayerMySelf::Release()
 	m_bTargetOrPosMove = false;
 	m_iMoveTarget = -1;
 
-	m_bRunning = false;				// ¶Ù´ÂÁö..
-	m_bMoveContinous = false;		// °è¼Ó ¿òÁ÷ÀÌ´ÂÁö..
-	m_bAttackContinous = false;		// °è¼Ó °ø°İÇÏ´Â »óÅÂÀÎÁö..
-	m_bSitDown = false;				// ¾É¾ÆÀÖ´Â »óÅÂÀÎÁö....
-	m_bRecruitParty = false;		// ÆÄÆ¼¸ğÁıÁß??
+	m_bRunning = false;				// ë›°ëŠ”ì§€..
+	m_bMoveContinous = false;		// ê³„ì† ì›€ì§ì´ëŠ”ì§€..
+	m_bAttackContinous = false;		// ê³„ì† ê³µê²©í•˜ëŠ” ìƒíƒœì¸ì§€..
+	m_bSitDown = false;				// ì•‰ì•„ìˆëŠ” ìƒíƒœì¸ì§€....
+	m_bRecruitParty = false;		// íŒŒí‹°ëª¨ì§‘ì¤‘??
 
-	m_bStun = false;				// ±âÀı..
-	m_fStunTime = 0.0f;				// ±âÀıÇÑ ½Ã°£..
+	m_bStun = false;				// ê¸°ì ˆ..
+	m_fStunTime = 0.0f;				// ê¸°ì ˆí•œ ì‹œê°„..
 
-	m_fAttackTimeRecent = CN3Base::TimeGet();	// ÃÖ±Ù¿¡ °ø°İÇÑ ½Ã°£..
+	m_fAttackTimeRecent = CN3Base::TimeGet();	// ìµœê·¼ì— ê³µê²©í•œ ì‹œê°„..
 	m_bTempMoveTurbo = false;
 
 	m_InfoExt.Init();
@@ -97,7 +97,7 @@ void CPlayerMySelf::Release()
 	m_ChrInv.PartAlloc(PART_POS_COUNT);
 	m_ChrInv.PlugAlloc(PLUG_POS_COUNT);
 
-	m_pObjectTarget = NULL; // Å¸°Ù ¿ÀºêÁ§Æ® Æ÷ÀÎÅÍ..
+	m_pObjectTarget = NULL; // íƒ€ê²Ÿ ì˜¤ë¸Œì íŠ¸ í¬ì¸í„°..
 
 	CPlayerBase::Release();
 }
@@ -123,7 +123,7 @@ void CPlayerMySelf::Tick()
 {
 	BOOL	bAnim = TRUE;
 
-	if(	PSA_DEATH == m_eState)  // Á×´Â »óÅÂÀÌ°í... Á×´Â ¿¡´Ï¸ŞÀÌ¼ÇÀÌ ³¡³ª¸é.. // ÇÑ¹ø º¸³»¸é ´Ù½Ã Á×À»¶§±îÁö ¾Èº¸³»´Â ÇÃ·¡±×
+	if(	PSA_DEATH == m_eState)  // ì£½ëŠ” ìƒíƒœì´ê³ ... ì£½ëŠ” ì—ë‹ˆë©”ì´ì…˜ì´ ëë‚˜ë©´.. // í•œë²ˆ ë³´ë‚´ë©´ ë‹¤ì‹œ ì£½ì„ë•Œê¹Œì§€ ì•ˆë³´ë‚´ëŠ” í”Œë˜ê·¸
 	{
 		if(0 == m_iSendRegeneration) 
 		{
@@ -135,32 +135,32 @@ void CPlayerMySelf::Tick()
 		return;
 	}
 
-	if(m_fTimeAfterDeath > 0) // °­Á¦·Î Á×¿©¾ß ÇÑ´Ù..
+	if(m_fTimeAfterDeath > 0) // ê°•ì œë¡œ ì£½ì—¬ì•¼ í•œë‹¤..
 	{
 		if(m_fTimeAfterDeath > 3.0f)
-			this->Action(PSA_DYING, false); // 3 ÃÊ°¡ Áö³ª¾ß Á×´Â´Ù.
-		CPlayerBase::Tick();  // È¸Àü, ÁöÁ¤µÈ ¿¡´Ï¸ŞÀÌ¼Ç Tick ¹× »ö±ò ÁöÁ¤ Ã³¸®.. µîµî..
+			this->Action(PSA_DYING, false); // 3 ì´ˆê°€ ì§€ë‚˜ì•¼ ì£½ëŠ”ë‹¤.
+		CPlayerBase::Tick();  // íšŒì „, ì§€ì •ëœ ì—ë‹ˆë©”ì´ì…˜ Tick ë° ìƒ‰ê¹” ì§€ì • ì²˜ë¦¬.. ë“±ë“±..
 		return;
 	}
 	
-	if(IsDead()) // Á×Àº »óÅÂ¸é µ¹¾Æ°£´Ù.
+	if(IsDead()) // ì£½ì€ ìƒíƒœë©´ ëŒì•„ê°„ë‹¤.
 	{
 		CGameProcedure::s_pProcMain->CommandEnableAttackContinous(false, NULL);
-		CPlayerBase::Tick();  // È¸Àü, ÁöÁ¤µÈ ¿¡´Ï¸ŞÀÌ¼Ç Tick ¹× »ö±ò ÁöÁ¤ Ã³¸®.. µîµî..
+		CPlayerBase::Tick();  // íšŒì „, ì§€ì •ëœ ì—ë‹ˆë©”ì´ì…˜ Tick ë° ìƒ‰ê¹” ì§€ì • ì²˜ë¦¬.. ë“±ë“±..
 		return;
 	}
 
 	////////////////////////////////////////////////////////////////////////////////
-	// ³» ÇÃ·¹ÀÌ¾î´Â ¿òÁ÷ÀÌ´Â°Ô ´Ù¸¥³Ñµé°ú ´Ù¸£±â ¶§¹®¿¡ Æ¯º°ÇÏ°Ô Ã³¸®..
+	// ë‚´ í”Œë ˆì´ì–´ëŠ” ì›€ì§ì´ëŠ”ê²Œ ë‹¤ë¥¸ë„˜ë“¤ê³¼ ë‹¤ë¥´ê¸° ë•Œë¬¸ì— íŠ¹ë³„í•˜ê²Œ ì²˜ë¦¬..
 	if(	PSM_WALK == m_eStateMove ||
 		PSM_WALK_BACKWARD  == m_eStateMove ||
-		PSM_RUN == m_eStateMove ) // ¾ÕµÚ·Î °É¾î°¡°Å³ª ´Ş·Á°¡¸é.
+		PSM_RUN == m_eStateMove ) // ì•ë’¤ë¡œ ê±¸ì–´ê°€ê±°ë‚˜ ë‹¬ë ¤ê°€ë©´.
 	{
-		this->MoveSpeedCalculationAndCheckCollision(); // ¿òÁ÷ÀÌ´Â ¼Óµµ ¹× Ãæµ¹Ã¼Å©...
-		if(0 == m_fMoveSpeedPerSec) // ¼Óµµ°¡ ¾øÀ¸¸é Ãæµ¹Ã¼Å© °á°ú ¸ø°¡´Â °Å´Ù...
+		this->MoveSpeedCalculationAndCheckCollision(); // ì›€ì§ì´ëŠ” ì†ë„ ë° ì¶©ëŒì²´í¬...
+		if(0 == m_fMoveSpeedPerSec) // ì†ë„ê°€ ì—†ìœ¼ë©´ ì¶©ëŒì²´í¬ ê²°ê³¼ ëª»ê°€ëŠ” ê±°ë‹¤...
 		{
 			this->ActionMove(PSM_STOP);
-			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // Á¤Áö ÆĞÅ¶ º¸³»±â..
+			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // ì •ì§€ íŒ¨í‚· ë³´ë‚´ê¸°..
 		}
 
 		__Vector3 vPos = this->Position();
@@ -177,7 +177,7 @@ void CPlayerMySelf::Tick()
 		CPlayerBase::m_pSnd_MyMove = NULL;
 		m_fMoveSpeedPerSec = 0;
 	}
-	// ³» ÇÃ·¹ÀÌ¾î´Â ¿òÁ÷ÀÌ´Â°Ô ´Ù¸¥³Ñµé°ú ´Ù¸£±â ¶§¹®¿¡ Æ¯º°ÇÏ°Ô Ã³¸®..
+	// ë‚´ í”Œë ˆì´ì–´ëŠ” ì›€ì§ì´ëŠ”ê²Œ ë‹¤ë¥¸ë„˜ë“¤ê³¼ ë‹¤ë¥´ê¸° ë•Œë¬¸ì— íŠ¹ë³„í•˜ê²Œ ì²˜ë¦¬..
 	////////////////////////////////////////////////////////////////////////////////
 
 	CPlayerBase* pTarget = NULL;
@@ -193,77 +193,77 @@ void CPlayerMySelf::Tick()
 		{
 			float fTime = CN3Base::TimeGet();
 			
-			// È°½î±â, ¼®±Ã ½î±â µî ½ºÅ³·Î Ã³¸®ÇÑ´Ù..
+			// í™œì˜ê¸°, ì„ê¶ ì˜ê¸° ë“± ìŠ¤í‚¬ë¡œ ì²˜ë¦¬í•œë‹¤..
 			if(	(m_pItemPlugBasics[PLUG_POS_LEFTHAND] && ITEM_CLASS_BOW == m_pItemPlugBasics[PLUG_POS_LEFTHAND]->byClass ) || 
 				(m_pItemPlugBasics[PLUG_POS_LEFTHAND] && ITEM_CLASS_BOW_LONG == m_pItemPlugBasics[PLUG_POS_LEFTHAND]->byClass ) || 
 				(m_pItemPlugBasics[PLUG_POS_RIGHTHAND] && ITEM_CLASS_BOW_CROSS == m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->byClass) )
 			{
-				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(102003); // ½ºÅ³ Å×ÀÌºí¿¡¼­ ±âº» È° ½ºÅ³À» Ã£°í
+				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(102003); // ìŠ¤í‚¬ í…Œì´ë¸”ì—ì„œ ê¸°ë³¸ í™œ ìŠ¤í‚¬ì„ ì°¾ê³ 
 				if(pSkill)
 				{
-					if(pTarget->IsAlive())//ÀÓ½Ã À¯Àú°¡ »ì¾Æ ÀÖ´Â »óÅÂ¿¡¼­¸¸...
+					if(pTarget->IsAlive())//ì„ì‹œ ìœ ì €ê°€ ì‚´ì•„ ìˆëŠ” ìƒíƒœì—ì„œë§Œ...
 					{
 						float fInterval = (pSkill->iCastTime / 10.f) + 0.15f;
 						if(m_fAttackDelta > 0) fInterval /= m_fAttackDelta;
-						if(fTime > m_fAttackTimeRecent + fInterval) // °ø°İ °£°İÀÌ ³ÑÀ¸¸é.. °ø°İ!
+						if(fTime > m_fAttackTimeRecent + fInterval) // ê³µê²© ê°„ê²©ì´ ë„˜ìœ¼ë©´.. ê³µê²©!
 						{
 							if(CGameProcedure::s_pProcMain->m_pMagicSkillMng->MsgSend_MagicProcess(m_iIDTarget, pSkill))
-							{// ½ºÅ³ ÆĞÅ¶ º¸³»±â¿¡ ¼º°øÇÏ¸é.
+							{// ìŠ¤í‚¬ íŒ¨í‚· ë³´ë‚´ê¸°ì— ì„±ê³µí•˜ë©´.
 								//TRACE("%.2f\n", fTime - m_fAttackTimeRecent);
 							}
-							m_fAttackTimeRecent = fTime;	// ÃÖ±Ù¿¡ °ø°İÇÑ ½Ã°£..
+							m_fAttackTimeRecent = fTime;	// ìµœê·¼ì— ê³µê²©í•œ ì‹œê°„..
 						}
 					}
 				}
 			}
-			else if( m_pItemPlugBasics[PLUG_POS_RIGHTHAND] && ITEM_CLASS_LAUNCHER == m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->byClass ) // ÅõÃ¢¿ë ¾ÆÀÌÅÛÀÌ¸é..
+			else if( m_pItemPlugBasics[PLUG_POS_RIGHTHAND] && ITEM_CLASS_LAUNCHER == m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->byClass ) // íˆ¬ì°½ìš© ì•„ì´í…œì´ë©´..
 			{
-				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(102009); // ½ºÅ³ Å×ÀÌºí¿¡¼­ ±âº» È° ½ºÅ³À» Ã£°í
-				if(pSkill && fTime > m_fAttackTimeRecent + (pSkill->iCastTime / 10.f)) // °ø°İ °£°İÀÌ ³ÑÀ¸¸é.. °ø°İ!
+				__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(102009); // ìŠ¤í‚¬ í…Œì´ë¸”ì—ì„œ ê¸°ë³¸ í™œ ìŠ¤í‚¬ì„ ì°¾ê³ 
+				if(pSkill && fTime > m_fAttackTimeRecent + (pSkill->iCastTime / 10.f)) // ê³µê²© ê°„ê²©ì´ ë„˜ìœ¼ë©´.. ê³µê²©!
 				{
-					if(pTarget->IsAlive())//ÀÓ½Ã À¯Àú°¡ »ì¾Æ ÀÖ´Â »óÅÂ¿¡¼­¸¸
+					if(pTarget->IsAlive())//ì„ì‹œ ìœ ì €ê°€ ì‚´ì•„ ìˆëŠ” ìƒíƒœì—ì„œë§Œ
 					{
-						CGameProcedure::s_pProcMain->m_pMagicSkillMng->MsgSend_MagicProcess(m_iIDTarget, pSkill); // ½ºÅ³ ÆĞÅ¶ º¸³»±â¿¡ ¼º°øÇÏ¸é.
+						CGameProcedure::s_pProcMain->m_pMagicSkillMng->MsgSend_MagicProcess(m_iIDTarget, pSkill); // ìŠ¤í‚¬ íŒ¨í‚· ë³´ë‚´ê¸°ì— ì„±ê³µí•˜ë©´.
 						//TRACE("%.2f\n", fTime - m_fAttackTimeRecent);
-						m_fAttackTimeRecent = fTime;	// ÃÖ±Ù¿¡ °ø°İÇÑ ½Ã°£..
+						m_fAttackTimeRecent = fTime;	// ìµœê·¼ì— ê³µê²©í•œ ì‹œê°„..
 					}
 				}
 			}
-			else // °Á °ø°İÀÌ¸é..
+			else // ê± ê³µê²©ì´ë©´..
 			{
 				float fIntervalTable = 1.0f;
-				if(m_pItemPlugBasics[PLUG_POS_RIGHTHAND] && m_pItemPlugExts[PLUG_POS_RIGHTHAND]) // °ø°İ °£°İ Á¤ÀÇ
+				if(m_pItemPlugBasics[PLUG_POS_RIGHTHAND] && m_pItemPlugExts[PLUG_POS_RIGHTHAND]) // ê³µê²© ê°„ê²© ì •ì˜
 				{
 					fIntervalTable = (m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->siAttackInterval / 100.0f)
-						* (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->siAttackIntervalPercentage / 100.0f); // 100 Àº 1ÃÊ 110 ÀÌ¸é 1.1 ÃÊµî.. ÆÛ¼¾Æ®·Î °£´Ù...
+						* (m_pItemPlugExts[PLUG_POS_RIGHTHAND]->siAttackIntervalPercentage / 100.0f); // 100 ì€ 1ì´ˆ 110 ì´ë©´ 1.1 ì´ˆë“±.. í¼ì„¼íŠ¸ë¡œ ê°„ë‹¤...
 				}
 				
 				float fInterval = fIntervalTable;
-				if(m_fAttackDelta > 0) fInterval /= m_fAttackDelta; // ½ºÅ³ÀÌ³ª ¸¶¹ı¿¡ ÀÇÇØ º¯ÇÏ´Â °ø°İ ¼Óµµ.. 1.0 ÀÌ ±âº»ÀÌ°í Å¬¼ö·Ï ´õ »¡¸® °ø°İÇÑ´Ù.
+				if(m_fAttackDelta > 0) fInterval /= m_fAttackDelta; // ìŠ¤í‚¬ì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ë³€í•˜ëŠ” ê³µê²© ì†ë„.. 1.0 ì´ ê¸°ë³¸ì´ê³  í´ìˆ˜ë¡ ë” ë¹¨ë¦¬ ê³µê²©í•œë‹¤.
 
-				if(	fTime > m_fAttackTimeRecent + fInterval) // °ø°İ °£°İÀÌ ³ÑÀ¸¸é.. °ø°İ!
+				if(	fTime > m_fAttackTimeRecent + fInterval) // ê³µê²© ê°„ê²©ì´ ë„˜ìœ¼ë©´.. ê³µê²©!
 				{
 					bool bCastingNow = CGameProcedure::s_pProcMain->m_pMagicSkillMng->IsCasting();
-					if(false == bCastingNow) // Ä³½ºÆÃ ÁßÀÌ¸é °ø°İ ÆĞÅ¶À» º¸³»Áö ¾Ê´Â´Ù.
+					if(false == bCastingNow) // ìºìŠ¤íŒ… ì¤‘ì´ë©´ ê³µê²© íŒ¨í‚·ì„ ë³´ë‚´ì§€ ì•ŠëŠ”ë‹¤.
 					{
 						bool bAttackable = IsAttackableTarget(pTarget);
-						if(bAttackable) // °ø°İ °¡´É..
+						if(bAttackable) // ê³µê²© ê°€ëŠ¥..
 						{
-							float fDistance = s_pPlayer->DistanceExceptRadius(pTarget); // °ø°İ°Å¸®
+							float fDistance = s_pPlayer->DistanceExceptRadius(pTarget); // ê³µê²©ê±°ë¦¬
 							
 							CGameProcedure::s_pProcMain->MsgSend_Attack(pTarget->IDNumber(), fIntervalTable, fDistance);
-							if(m_iSkillStep == 0 && PSA_ATTACK != m_eState && m_fFlickeringFactor == 1.0f) // ½ºÅ³À» ¾²´Â°Ô ¾Æ´Ñµ¥ °ø°İÇÏÁö ¾ÊÀ¸¸é..
-								this->Action(PSA_ATTACK, true, pTarget); // °ø°İ ÁßÀÌ¾Æ´Ï¸é °ø°İÇÑ´Ù..
+							if(m_iSkillStep == 0 && PSA_ATTACK != m_eState && m_fFlickeringFactor == 1.0f) // ìŠ¤í‚¬ì„ ì“°ëŠ”ê²Œ ì•„ë‹Œë° ê³µê²©í•˜ì§€ ì•Šìœ¼ë©´..
+								this->Action(PSA_ATTACK, true, pTarget); // ê³µê²© ì¤‘ì´ì•„ë‹ˆë©´ ê³µê²©í•œë‹¤..
 							
-							m_fAttackTimeRecent = fTime;	// ÃÖ±Ù¿¡ °ø°İÇÑ ½Ã°£..
+							m_fAttackTimeRecent = fTime;	// ìµœê·¼ì— ê³µê²©í•œ ì‹œê°„..
 						}
 						else 
 						{
 							if(CGameProcedure::s_pEng->ViewPoint() == VP_THIRD_PERSON)
 							{
-								CGameProcedure::s_pPlayer->RotateTo(pTarget); // ¹æÇâÀ» µ¹¸°´Ù.
+								CGameProcedure::s_pPlayer->RotateTo(pTarget); // ë°©í–¥ì„ ëŒë¦°ë‹¤.
 
-								float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude(); // °ø°İ °Å¸®¸¦ ±¸ÇÏ°í..
+								float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude(); // ê³µê²© ê±°ë¦¬ë¥¼ êµ¬í•˜ê³ ..
 								float fDistLimit = this->AttackableDistance(pTarget);
 
 								if(fDist > fDistLimit && !m_bTargetOrPosMove)
@@ -272,45 +272,45 @@ void CPlayerMySelf::Tick()
 									s_pPlayer->SetMoveTargetID(pTarget->IDNumber());
 								}
 							}
-							if(m_iSkillStep == 0 && PSA_SITDOWN != m_eState) // ½ºÅ³À» ¾²´Â°Ô ¾Æ´Ñµ¥ ¾É¾ÆÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é..
-								this->Action(PSA_BASIC, true); // ±âº»ÀÚ¼¼..
+							if(m_iSkillStep == 0 && PSA_SITDOWN != m_eState) // ìŠ¤í‚¬ì„ ì“°ëŠ”ê²Œ ì•„ë‹Œë° ì•‰ì•„ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´..
+								this->Action(PSA_BASIC, true); // ê¸°ë³¸ìì„¸..
 						}
 					}
 				}
 			}
 
-			if(fTime == m_fAttackTimeRecent) // °ø°İÇßÀ¸¸é..
-				CGameProcedure::s_pProcMain->CommandSitDown(false, false); // ÀÏÀ¸ÄÑ ¼¼¿î´Ù.. ¾É¾ÆÀÖ´Â »óÅÂ¿¡¼­ ¹ö±×°¡ ÀÖ´Ù..
+			if(fTime == m_fAttackTimeRecent) // ê³µê²©í–ˆìœ¼ë©´..
+				CGameProcedure::s_pProcMain->CommandSitDown(false, false); // ì¼ìœ¼ì¼œ ì„¸ìš´ë‹¤.. ì•‰ì•„ìˆëŠ” ìƒíƒœì—ì„œ ë²„ê·¸ê°€ ìˆë‹¤..
 		}
 	}
 
 
-	if(m_bStun) // ±âÀıÇØ ÀÖÀ¸¸é..
+	if(m_bStun) // ê¸°ì ˆí•´ ìˆìœ¼ë©´..
 	{
-		m_fStunTime -= s_fSecPerFrm; // ±âÀı ½Ã°£ Ã³¸®..
-		if(m_fStunTime < 0) this->StunRelease(); // ±âÀı Ç®¾îÁÖ±â..
+		m_fStunTime -= s_fSecPerFrm; // ê¸°ì ˆ ì‹œê°„ ì²˜ë¦¬..
+		if(m_fStunTime < 0) this->StunRelease(); // ê¸°ì ˆ í’€ì–´ì£¼ê¸°..
 	}
 
 
-	if(PSA_ATTACK == m_eState || m_iSkillStep != 0) // °ø°İ ÁßÀÌ°Å³ª ½ºÅ³ »ç¿ëÁßÀÌ¸é..
+	if(PSA_ATTACK == m_eState || m_iSkillStep != 0) // ê³µê²© ì¤‘ì´ê±°ë‚˜ ìŠ¤í‚¬ ì‚¬ìš©ì¤‘ì´ë©´..
 	{
-		if(!pTarget) pTarget = TargetPointerCheck(false); // Å¸°Ù Æ÷ÀÎÅÍ¸¦ ¾ò¾î¿Â´Ù..
-		CPlayerBase::ProcessAttack(pTarget); // °ø°İ¿¡ °üÇÑ ·çÆ¾ Ã³¸®.. ¿¡´Ï¸ŞÀÌ¼Ç ¼¼ÆÃ°ú Ãæµ¹¸¸ Ã³¸®ÇÒ»Ó ÆĞÅ¶Àº Ã³¸® ¾ÈÇÑ´Ù..
+		if(!pTarget) pTarget = TargetPointerCheck(false); // íƒ€ê²Ÿ í¬ì¸í„°ë¥¼ ì–»ì–´ì˜¨ë‹¤..
+		CPlayerBase::ProcessAttack(pTarget); // ê³µê²©ì— ê´€í•œ ë£¨í‹´ ì²˜ë¦¬.. ì—ë‹ˆë©”ì´ì…˜ ì„¸íŒ…ê³¼ ì¶©ëŒë§Œ ì²˜ë¦¬í• ë¿ íŒ¨í‚·ì€ ì²˜ë¦¬ ì•ˆí•œë‹¤..
 	}
 
 	if(m_dwMagicID != 0xffffffff) 
 		m_fCastingTime += CN3Base::s_fSecPerFrm;
 
-	CPlayerBase::Tick(); // È¸Àü, ÁöÁ¤µÈ ¿¡´Ï¸ŞÀÌ¼Ç Tick ¹× »ö±ò ÁöÁ¤ Ã³¸®.. µîµî..
+	CPlayerBase::Tick(); // íšŒì „, ì§€ì •ëœ ì—ë‹ˆë©”ì´ì…˜ Tick ë° ìƒ‰ê¹” ì§€ì • ì²˜ë¦¬.. ë“±ë“±..
 }
 
 void CPlayerMySelf::Render(float fSunAngle)
 {
-	// °­Á¦·Î LOD ·¹º§ + 1
+	// ê°•ì œë¡œ LOD ë ˆë²¨ + 1
 	m_Chr.m_nLOD--;
 	if(m_Chr.m_nLOD < 0) m_Chr.m_nLOD = 0;
 
-	int iLODDeltaPrev = CN3Chr::LODDelta(); // ³»Ä³¸¯Àº Á»´õ Á¤±³ÇÏ°Ô ±×¸®ÀÚ..
+	int iLODDeltaPrev = CN3Chr::LODDelta(); // ë‚´ìºë¦­ì€ ì¢€ë” ì •êµí•˜ê²Œ ê·¸ë¦¬ì..
 	CN3Chr::LODDeltaSet(0);
 	CPlayerBase::Render(fSunAngle);
 	CN3Chr::LODDeltaSet(iLODDeltaPrev);
@@ -323,10 +323,10 @@ bool CPlayerMySelf::ToggleAttackContinous()
 {
 	if(!IsAlive()) return false;
 
-	if(false == m_bAttackContinous) // Å¸°ÙÀÌ ÀÖ´ÂÁö º»´Ù..
+	if(false == m_bAttackContinous) // íƒ€ê²Ÿì´ ìˆëŠ”ì§€ ë³¸ë‹¤..
 	{
 		CPlayerNPC* pTarget = s_pOPMgr->CharacterGetByID(m_iIDTarget, true);
-		if(pTarget) //  && !IsOutOfAttackRange(pTarget)) // Å¸°ÙÀÌ ÀÖ°í °ø°İ °¡´ÉÇÑ ¹üÀ§¿¡ ÀÖÀ»¶§¸¸
+		if(pTarget) //  && !IsOutOfAttackRange(pTarget)) // íƒ€ê²Ÿì´ ìˆê³  ê³µê²© ê°€ëŠ¥í•œ ë²”ìœ„ì— ìˆì„ë•Œë§Œ
 		{
 			this->m_bAttackContinous = true;
 		}
@@ -341,7 +341,7 @@ bool CPlayerMySelf::ToggleAttackContinous()
 
 bool CPlayerMySelf::ToggleRunMode()
 {
-	m_bRunning = !m_bRunning; // ¶Ù´ÂÁö..
+	m_bRunning = !m_bRunning; // ë›°ëŠ”ì§€..
 	if(true == m_bRunning)
 	{
 		if(PSM_WALK == m_eStateMove) 
@@ -364,12 +364,12 @@ bool CPlayerMySelf::ToggleRunMode()
 
 void CPlayerMySelf::ToggleMoveMode()
 {
-	m_bMoveContinous = !m_bMoveContinous; // °è¼Ó ¿òÁ÷ÀÌ´ÂÁö..
+	m_bMoveContinous = !m_bMoveContinous; // ê³„ì† ì›€ì§ì´ëŠ”ì§€..
 	
 	int nAni = ANI_BREATH;
-	if(m_bMoveContinous) // °è¼Ó ¿òÁ÷¿©¾ß ÇÏ¸é..
+	if(m_bMoveContinous) // ê³„ì† ì›€ì§ì—¬ì•¼ í•˜ë©´..
 	{
-		if(m_bRunning) // ¶Ù¸é..
+		if(m_bRunning) // ë›°ë©´..
 		{
 			m_eStateMove = PSM_RUN;
 			nAni = ANI_RUN;
@@ -380,24 +380,24 @@ void CPlayerMySelf::ToggleMoveMode()
 			nAni = ANI_WALK;
 		}
 
-		float fSpeed = this->MoveSpeedCalculationAndCheckCollision(); // ¿òÁ÷ÀÌ´Â ¼Óµµ ¹× Ãæµ¹Ã¼Å©...
-		if(0 == fSpeed) // °¥¼ö ¾øÀ¸¸é...
+		float fSpeed = this->MoveSpeedCalculationAndCheckCollision(); // ì›€ì§ì´ëŠ” ì†ë„ ë° ì¶©ëŒì²´í¬...
+		if(0 == fSpeed) // ê°ˆìˆ˜ ì—†ìœ¼ë©´...
 		{
 			m_bMoveContinous = false;
 			m_eStateMove = PSM_STOP;
 			m_eState = PSA_BASIC;
-			nAni = this->JudgeAnimationBreath(); // Å¸°ÙÀÌ ÀÖÀ¸¸é. µé°í ÀÖ´Â ¹«±â¿¡ µû¶ó ±âº» ¿¡´Ï¸ŞÀÌ¼Ç ÆÇ´Ù.. ¾øÀ¸¸é °Á ±âº» ¿¡´Ï¸ŞÀÌ¼Ç
+			nAni = this->JudgeAnimationBreath(); // íƒ€ê²Ÿì´ ìˆìœ¼ë©´. ë“¤ê³  ìˆëŠ” ë¬´ê¸°ì— ë”°ë¼ ê¸°ë³¸ ì—ë‹ˆë©”ì´ì…˜ íŒë‹¤.. ì—†ìœ¼ë©´ ê± ê¸°ë³¸ ì—ë‹ˆë©”ì´ì…˜
 		}
 	} 
 	else
 	{
 		m_eStateMove = PSM_STOP;
 		m_eState = PSA_BASIC;
-		nAni = this->JudgeAnimationBreath(); // Å¸°ÙÀÌ ÀÖÀ¸¸é. µé°í ÀÖ´Â ¹«±â¿¡ µû¶ó ±âº» ¿¡´Ï¸ŞÀÌ¼Ç ÆÇ´Ù.. ¾øÀ¸¸é °Á ±âº» ¿¡´Ï¸ŞÀÌ¼Ç
+		nAni = this->JudgeAnimationBreath(); // íƒ€ê²Ÿì´ ìˆìœ¼ë©´. ë“¤ê³  ìˆëŠ” ë¬´ê¸°ì— ë”°ë¼ ê¸°ë³¸ ì—ë‹ˆë©”ì´ì…˜ íŒë‹¤.. ì—†ìœ¼ë©´ ê± ê¸°ë³¸ ì—ë‹ˆë©”ì´ì…˜
 	}
 
 	this->AnimationClear();
-	m_Chr.AniCurSet(nAni); // ÅëÂ°·Î °È°í µÚ±â, ¸ØÃß±â Àû¿ë
+	m_Chr.AniCurSet(nAni); // í†µì§¸ë¡œ ê±·ê³  ë’¤ê¸°, ë©ˆì¶”ê¸° ì ìš©
 }
 
 __Vector3 CPlayerMySelf::NextPos(float fTimeAfter)
@@ -409,13 +409,13 @@ __Vector3 CPlayerMySelf::NextPos(float fTimeAfter)
 	return vNextPos;
 }
 
-void CPlayerMySelf::RotAdd(const float fRotRadianPerSec)			// y ÃàÀ» ±âÁØÀ¸·Î ÃÊ´ç È¸ÀüÇÏ´Â ¼Óµµ¸¦ ³Ö¾îÁØ´Ù.
+void CPlayerMySelf::RotAdd(const float fRotRadianPerSec)			// y ì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ ì´ˆë‹¹ íšŒì „í•˜ëŠ” ì†ë„ë¥¼ ë„£ì–´ì¤€ë‹¤.
 {
 	m_fYawCur += fRotRadianPerSec * s_fSecPerFrm;
 
 	if(m_fYawCur >= D3DXToRadian(180.0f) * 2) m_fYawCur -= D3DXToRadian(180.0f) * 2;
 	if(m_fYawCur <= -D3DXToRadian(180.0f) * 2) m_fYawCur += D3DXToRadian(180.0f) * 2;
-	m_fYawToReach = m_fYawCur; // ¹Ù·Î µ¹¸°´Ù..
+	m_fYawToReach = m_fYawCur; // ë°”ë¡œ ëŒë¦°ë‹¤..
 }
 
 void CPlayerMySelf::InventoryChrRender(const RECT& Rect)
@@ -446,7 +446,7 @@ void CPlayerMySelf::InventoryChrRender(const RECT& Rect)
 	lgt0.Diffuse.r = 220/255.0f; lgt0.Diffuse.g = 255/255.0f; lgt0.Diffuse.b = 220/255.0f;
 	CN3Base::s_lpD3DDev->SetLight(0, &lgt0);
 
-	//Ä³¸¯ÅÍ Âï±â..
+	//ìºë¦­í„° ì°ê¸°..
 	//
 	__Matrix44 mtxproj, mtxview, mtxworld, mtxprojback, mtxviewback, mtxworldback;
 
@@ -467,7 +467,7 @@ void CPlayerMySelf::InventoryChrRender(const RECT& Rect)
 
 
 ///////////////////////////////////////////////////////////////
-// 2d ÁÂÇ¥ ±¸ÇÔ..
+// 2d ì¢Œí‘œ êµ¬í•¨..
 
 	// 2d -> 3d..
 	__Vector3 vPos;
@@ -508,7 +508,7 @@ void CPlayerMySelf::InventoryChrRender(const RECT& Rect)
 	CN3Base::s_lpD3DDev->SetRenderState( D3DRS_FOGENABLE , dwUsefog );
 	for ( i = 0; i < 8; i++ )	CN3Base::s_lpD3DDev->LightEnable(i, bLight[i]);
 */
-	// ¾Æ·¡·Î dino¼öÁ¤
+	// ì•„ë˜ë¡œ dinoìˆ˜ì •
 	// backup render state
 	DWORD dwLighting;
 	D3DLIGHT9 BackupLight0;
@@ -523,7 +523,7 @@ void CPlayerMySelf::InventoryChrRender(const RECT& Rect)
 	for ( int i = 1; i < 8; ++i )	s_lpD3DDev->LightEnable(i, FALSE);
 	s_lpD3DDev->LightEnable(0, TRUE);
 
-	// 0¹ø light ¼³Á¤
+	// 0ë²ˆ light ì„¤ì •
 	D3DLIGHT9 Light0;
 	memset(&Light0, 0, sizeof(D3DLIGHT9));
 	Light0.Type = D3DLIGHT_POINT;
@@ -533,10 +533,10 @@ void CPlayerMySelf::InventoryChrRender(const RECT& Rect)
 	Light0.Diffuse.r = 220/255.0f; Light0.Diffuse.g = 255/255.0f; Light0.Diffuse.b = 220/255.0f;
 	s_lpD3DDev->SetLight(0, &Light0);
 
-	// Ä³¸¯ÅÍ À§Ä¡¿Í ¹æÇâ ¼¼ÆÃ
+	// ìºë¦­í„° ìœ„ì¹˜ì™€ ë°©í–¥ ì„¸íŒ…
 	m_ChrInv.PosSet(__Vector3(0,0,0));
 	__Quaternion qt;
-	qt.RotationAxis(0.0f, 1.0f, 0.0f, D3DXToRadian(18.0f));	// ¾à°£ ºñ½ºµëÇÏ°Ô ¼­ÀÖ°Ô..
+	qt.RotationAxis(0.0f, 1.0f, 0.0f, D3DXToRadian(18.0f));	// ì•½ê°„ ë¹„ìŠ¤ë“¬í•˜ê²Œ ì„œìˆê²Œ..
 	m_ChrInv.RotSet(qt);
 
 	// render
@@ -562,7 +562,7 @@ void CPlayerMySelf::InventoryChrAnimationInitialize()
 	int iAniTmp = m_ChrInv.AniCtrl()->Count() - 1;
 	m_ChrInv.AniCurSet(iAniTmp, false, 0);
 	m_ChrInv.AniCurSet(ANI_BREATH, false, 0);
-	m_ChrInv.Tick(); // ÇÑ¹ø ÇØÁØ´Ù..
+	m_ChrInv.Tick(); // í•œë²ˆ í•´ì¤€ë‹¤..
 }
 
 CN3CPlugBase* CPlayerMySelf::PlugSet(e_PlugPosition ePos, const std::string& szFN, __TABLE_ITEM_BASIC* pItemBasic, __TABLE_ITEM_EXT* pItemExt)
@@ -580,15 +580,15 @@ CN3CPlugBase* CPlayerMySelf::PlugSet(e_PlugPosition ePos, const std::string& szF
 		m_pItemPlugExts[ePos] = pItemExt;
 		if(pItemBasic)
 		{
-			if(pItemBasic->byClass == ITEM_CLASS_SHIELD) iJoint = m_pLooksRef->iJointLH2; // ¹æÆĞÀÎ °æ¿ì
-			else iJoint = m_pLooksRef->iJointLH; // ¿Ş¼Õ ³¡..
+			if(pItemBasic->byClass == ITEM_CLASS_SHIELD) iJoint = m_pLooksRef->iJointLH2; // ë°©íŒ¨ì¸ ê²½ìš°
+			else iJoint = m_pLooksRef->iJointLH; // ì™¼ì† ë..
 		}
 	}
 	else if (PLUG_POS_KNIGHTS_GRADE == ePos)
 	{
 		m_pItemPlugBasics[ePos] = pItemBasic;
 		m_pItemPlugExts[ePos] = pItemExt;
-		iJoint = m_pLooksRef->iJointRH - 2; // ¿À¸¥ÂÊ ÆÈ¸ñ
+		iJoint = m_pLooksRef->iJointRH - 2; // ì˜¤ë¥¸ìª½ íŒ”ëª©
 	}
 	else if (PLUG_POS_BACK == ePos)
 	{
@@ -599,12 +599,12 @@ CN3CPlugBase* CPlayerMySelf::PlugSet(e_PlugPosition ePos, const std::string& szF
 	CN3CPlugBase* pPlug = m_ChrInv.PlugSet(ePos, szFN);
 	if(NULL == pPlug) return NULL;
 
-	if(PLUG_POS_LEFTHAND == ePos || PLUG_POS_RIGHTHAND == ePos) // Å°¿¡ ºñ·ÊÇØ¼­ Å©°Ô Å°¿î´Ù. ±âº»Å°´Â 1.8 ¹ÌÅÍÀÌ´Ù. 
+	if(PLUG_POS_LEFTHAND == ePos || PLUG_POS_RIGHTHAND == ePos) // í‚¤ì— ë¹„ë¡€í•´ì„œ í¬ê²Œ í‚¤ìš´ë‹¤. ê¸°ë³¸í‚¤ëŠ” 1.8 ë¯¸í„°ì´ë‹¤. 
 	{
 		float fScale = m_Chr.Height() / 1.8f;
 		fScale *= pPlug->Scale().y / m_Chr.Scale().y;
 		pPlug->ScaleSet(__Vector3(fScale, fScale, fScale));
-		pPlug->m_nJointIndex = iJoint; // °üÀı ¹øÈ£ ¼¼ÆÃ..
+		pPlug->m_nJointIndex = iJoint; // ê´€ì ˆ ë²ˆí˜¸ ì„¸íŒ…..
 	}
 //	else if(PLUG_POS_BACK == ePos)
 //	{
@@ -624,54 +624,54 @@ CN3CPart* CPlayerMySelf::PartSet(e_PartPosition ePos, const std::string& szFN, _
 		return NULL;
 	}
 
-	if(PART_POS_UPPER == ePos) // »óÃ¼ÀÏ °æ¿ì Æ¯º°ÇÑ Ã³¸®°¡ ÇÊ¿ä..
+	if(PART_POS_UPPER == ePos) // ìƒì²´ì¼ ê²½ìš° íŠ¹ë³„í•œ ì²˜ë¦¬ê°€ í•„ìš”..
 	{
-		if(pItemBasic) // ÀÔÈ÷´Â °æ¿ì
+		if(pItemBasic) // ì…íˆëŠ” ê²½ìš°
 		{
-			if(pItemBasic->byIsRobeType && m_Chr.Part(PART_POS_LOWER)) // ·Îºê Å¸ÀÔÀÇ ÅëÂ¥ À­¿ÊÀÌ°í ¾Æ·¡¿¡ ¹º°¡ ÀÔ°í ÀÖÀ¸¸é..
+			if(pItemBasic->byIsRobeType && m_Chr.Part(PART_POS_LOWER)) // ë¡œë¸Œ íƒ€ì…ì˜ í†µì§œ ìœ—ì˜·ì´ê³  ì•„ë˜ì— ë­”ê°€ ì…ê³  ìˆìœ¼ë©´..
 			{
-				m_ChrInv.PartSet(PART_POS_LOWER, ""); // ¾Æ·¡¸¦ ºñ¿öÁØ´Ù..
+				m_ChrInv.PartSet(PART_POS_LOWER, ""); // ì•„ë˜ë¥¼ ë¹„ì›Œì¤€ë‹¤..
 				m_Chr.PartSet(PART_POS_LOWER, "");
 			}
 		}
-		else // »óÃ¼¸¦ ¹ş´Â °æ¿ì
+		else // ìƒì²´ë¥¼ ë²—ëŠ” ê²½ìš°
 		{
-			if(m_pItemPartBasics[ePos] && m_pItemPartBasics[ePos]->byIsRobeType) // Àü¿¡ Âø¿ëÇß´ø°Ô ·Îºê¸é..
+			if(m_pItemPartBasics[ePos] && m_pItemPartBasics[ePos]->byIsRobeType) // ì „ì— ì°©ìš©í–ˆë˜ê²Œ ë¡œë¸Œë©´..
 			{
-				if(m_pItemPartBasics[PART_POS_LOWER]) // ÇÏÃ¼¿¡ ¾ÆÀÌÅÛÀÌ ÀÔÇôÀÖÀ¸¸é..
+				if(m_pItemPartBasics[PART_POS_LOWER]) // í•˜ì²´ì— ì•„ì´í…œì´ ì…í˜€ìˆìœ¼ë©´..
 				{
 					std::string szFN2;
 					e_PartPosition ePartPos2 = PART_POS_UNKNOWN;
 					e_PlugPosition ePlugPos2 = PLUG_POS_UNKNOWN;
 					CGameProcedure::MakeResrcFileNameForUPC(m_pItemPartBasics[PART_POS_LOWER], &szFN2, NULL, ePartPos2, ePlugPos2, m_InfoBase.eRace);
 					
-					m_ChrInv.PartSet(PART_POS_LOWER, szFN2); // ÇÏÃ¼¿¡ ÀüÀÇ ¿ÊÀ» ÀÔÈù´Ù..
+					m_ChrInv.PartSet(PART_POS_LOWER, szFN2); // í•˜ì²´ì— ì „ì˜ ì˜·ì„ ì…íŒë‹¤..
 					m_Chr.PartSet(PART_POS_LOWER, szFN2);
 				}
-				else // ÇÏÃ¼¿¡ ÀÔ°í ÀÖ¾ú´ø ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é..
+				else // í•˜ì²´ì— ì…ê³  ìˆì—ˆë˜ ì•„ì´í…œì´ ì—†ë‹¤ë©´..
 				{
-					__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// User Player Character Skin ±¸Á¶Ã¼ Æ÷ÀÎÅÍ..
-					m_ChrInv.PartSet(PART_POS_LOWER, pLooks->szPartFNs[PART_POS_LOWER]); // ÇÏÃ¼¿¡ ±âº»¿ÊÀ» ÀÔÈù´Ù.
-					m_Chr.PartSet(PART_POS_LOWER, pLooks->szPartFNs[PART_POS_LOWER]); // ÇÏÃ¼¿¡ ±âº»¿ÊÀ» ÀÔÈù´Ù.
+					__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// User Player Character Skin êµ¬ì¡°ì²´ í¬ì¸í„°..
+					m_ChrInv.PartSet(PART_POS_LOWER, pLooks->szPartFNs[PART_POS_LOWER]); // í•˜ì²´ì— ê¸°ë³¸ì˜·ì„ ì…íŒë‹¤.
+					m_Chr.PartSet(PART_POS_LOWER, pLooks->szPartFNs[PART_POS_LOWER]); // í•˜ì²´ì— ê¸°ë³¸ì˜·ì„ ì…íŒë‹¤.
 				}
 			}
 		}
 	}
-	else if(PART_POS_LOWER == ePos) // ÇÏÃ¼ÀÏ °æ¿ì..
+	else if(PART_POS_LOWER == ePos) // í•˜ì²´ì¼ ê²½ìš°..
 	{
-		// ¾ÆÀÌÅÛÀ» Âø¿ëÇÏ°Ç ¹ş°Ç°£¿¡...
-		if(m_pItemPartBasics[PART_POS_UPPER] && m_pItemPartBasics[PART_POS_UPPER]->byIsRobeType) // Àü¿¡ »óÃ¼¿¡ Âø¿ëÇß´ø°Ô ·Îºê¸é..
+		// ì•„ì´í…œì„ ì°©ìš©í•˜ê±´ ë²—ê±´ê°„ì—...
+		if(m_pItemPartBasics[PART_POS_UPPER] && m_pItemPartBasics[PART_POS_UPPER]->byIsRobeType) // ì „ì— ìƒì²´ì— ì°©ìš©í–ˆë˜ê²Œ ë¡œë¸Œë©´..
 		{
-			m_pItemPartBasics[ePos] = pItemBasic; // ¾ÆÀÌÅÛ Àû¿ë
+			m_pItemPartBasics[ePos] = pItemBasic; // ì•„ì´í…œ ì ìš©
 			m_pItemPartExts[ePos] = pItemExt;
 			m_ChrInv.PartSet(ePos, "");
-			m_Chr.PartSet(ePos, ""); // ÇÏÃ¼´Â ¹ş±â°í(?)..
-			return NULL; // µ¹¾Æ°£´Ù.
+			m_Chr.PartSet(ePos, ""); // í•˜ì²´ëŠ” ë²—ê¸°ê³ (?)..
+			return NULL; // ëŒì•„ê°„ë‹¤.
 		}
 	}
 
 	CN3CPart* pPart = NULL;
-	if(szFN.empty()) // ÆÄÀÏ ÀÌ¸§ÀÌ ¾ø´Â°Å¸é.. ±âº» Âø¿ë..
+	if(szFN.empty()) // íŒŒì¼ ì´ë¦„ì´ ì—†ëŠ”ê±°ë©´.. ê¸°ë³¸ ì°©ìš©..
 	{
 		if(PART_POS_HAIR_HELMET == ePos)
 		{
@@ -685,7 +685,7 @@ CN3CPart* CPlayerMySelf::PartSet(e_PartPosition ePos, const std::string& szFN, _
 		}
 		else
 		{
-			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// Player Character Skin ±¸Á¶Ã¼ Æ÷ÀÎÅÍ..
+			__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);	// Player Character Skin êµ¬ì¡°ì²´ í¬ì¸í„°..
 			if(pLooks)
 			{
 				m_ChrInv.PartSet(ePos, pLooks->szPartFNs[ePos]);
@@ -700,7 +700,7 @@ CN3CPart* CPlayerMySelf::PartSet(e_PartPosition ePos, const std::string& szFN, _
 		pPart = m_Chr.PartSet(ePos, szFN);
 	}
 
-	m_pItemPartBasics[ePos] = pItemBasic; // ¾ÆÀÌÅÛ Àû¿ë
+	m_pItemPartBasics[ePos] = pItemBasic; // ì•„ì´í…œ ì ìš©
 	m_pItemPartExts[ePos] = pItemExt;
 
 	return pPart;
@@ -714,7 +714,7 @@ bool CPlayerMySelf::InitChr(__TABLE_PLAYER_LOOKS* pTbl)
 	m_ChrInv.AniCtrlSet(pTbl->szAniFN);
 	
 	float fScale = 2.1f / m_Chr.Height();
-	m_ChrInv.ScaleSet(fScale, fScale, fScale); // ÀÎº¥Åä¸® Ã¢¿¡ µé¾î°¡°Ô Å©±â¸¦ ÁÙ¿©ÁØ´Ù..
+	m_ChrInv.ScaleSet(fScale, fScale, fScale); // ì¸ë²¤í† ë¦¬ ì°½ì— ë“¤ì–´ê°€ê²Œ í¬ê¸°ë¥¼ ì¤„ì—¬ì¤€ë‹¤..
 
 	return true;
 }
@@ -723,10 +723,10 @@ float CPlayerMySelf::AttackableDistance(CPlayerBase* pTarget)
 {
 	if(NULL == pTarget) return 0;
 
-	float fDistLimit = (m_Chr.Radius() + pTarget->Radius())/2.0f; // °ø°İ °Å¸®Á¦ÇÑ..
+	float fDistLimit = (m_Chr.Radius() + pTarget->Radius())/2.0f; // ê³µê²© ê±°ë¦¬ì œí•œ..
 	if(m_pItemPlugBasics[0])
-		fDistLimit += m_pItemPlugBasics[0]->siAttackRange / 10.0f; // ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ¸¸é..
-	else if(m_pItemPlugBasics[1] && ITEM_POS_TWOHANDLEFT == m_pItemPlugBasics[1]->byAttachPoint) // ¿Ş¼Õ¿¡ ÅõÇÚµå·¹ÇÁÆ®(È°) ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ¸¸é..
+		fDistLimit += m_pItemPlugBasics[0]->siAttackRange / 10.0f; // ì•„ì´í…œì„ ë“¤ê³  ìˆìœ¼ë©´..
+	else if(m_pItemPlugBasics[1] && ITEM_POS_TWOHANDLEFT == m_pItemPlugBasics[1]->byAttachPoint) // ì™¼ì†ì— íˆ¬í•¸ë“œë ˆí”„íŠ¸(í™œ) ì•„ì´í…œì„ ë“¤ê³  ìˆìœ¼ë©´..
 		fDistLimit += m_pItemPlugBasics[1]->siAttackRange / 10.0f;
 
 	return fDistLimit;
@@ -737,16 +737,16 @@ float CPlayerMySelf::DistanceExceptRadius(CPlayerBase* pTarget)
 	if(NULL == pTarget) return 0;
 
 	float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude();
-	float fDistRadius = (m_Chr.Radius() + pTarget->Radius())/2.0f; // °ø°İ °Å¸®Á¦ÇÑ..
+	float fDistRadius = (m_Chr.Radius() + pTarget->Radius())/2.0f; // ê³µê²© ê±°ë¦¬ì œí•œ..
 
 	return fDist - fDistRadius;
 }
 
 bool CPlayerMySelf::IsAttackableTarget(CPlayerBase* pTarget, bool bMesureAngle)
 {
-	if(m_fFlickeringFactor != 1.0f) return false;	//ºÎÈ°ÇØ¼­ ±ôºıÀÌ´Â °æ¿ì´Â °ø°İÇÒ¼ö ¾ø´Ù.
-	if(NULL == pTarget || pTarget->IsDead()) return false;  //Á×Àº »óÅÂÀÇ Ä³¸¯Àº °ø°İÇÏÁö ¸øÇÏ°Ô - ´Ü Á×±â Á÷ÀüÀÇ Ä³¸¯Àº Á¦¿ÜÇÑ´Ù..
-	if(pTarget->m_InfoBase.eNation == m_InfoBase.eNation) return false; // °°Àº ±¹°¡ÀÌ´Ù..
+	if(m_fFlickeringFactor != 1.0f) return false;	//ë¶€í™œí•´ì„œ ê¹œë¹¡ì´ëŠ” ê²½ìš°ëŠ” ê³µê²©í• ìˆ˜ ì—†ë‹¤.
+	if(NULL == pTarget || pTarget->IsDead()) return false;  //ì£½ì€ ìƒíƒœì˜ ìºë¦­ì€ ê³µê²©í•˜ì§€ ëª»í•˜ê²Œ - ë‹¨ ì£½ê¸° ì§ì „ì˜ ìºë¦­ì€ ì œì™¸í•œë‹¤..
+	if(pTarget->m_InfoBase.eNation == m_InfoBase.eNation) return false; // ê°™ì€ êµ­ê°€ì´ë‹¤..
 
 	//-------------------------------------------------------------------------
 	/*
@@ -761,11 +761,11 @@ bool CPlayerMySelf::IsAttackableTarget(CPlayerBase* pTarget, bool bMesureAngle)
 	*/
 	//-------------------------------------------------------------------------
 
-	float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude(); // °ø°İ °Å¸®¸¦ ±¸ÇÏ°í..
+	float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude(); // ê³µê²© ê±°ë¦¬ë¥¼ êµ¬í•˜ê³ ..
 	float fDistLimit = this->AttackableDistance(pTarget);
-	if(fDist > fDistLimit) return false; // °Å¸®°¡ ÀÏÁ¤ÀÌ»ó ¶³¾îÁ® ÀÖÀ¸¸é µ¹¾Æ°£´Ù.
+	if(fDist > fDistLimit) return false; // ê±°ë¦¬ê°€ ì¼ì •ì´ìƒ ë–¨ì–´ì ¸ ìˆìœ¼ë©´ ëŒì•„ê°„ë‹¤.
 
-	if(bMesureAngle)// °¢µµ¸¦ º»´Ù..
+	if(bMesureAngle)// ê°ë„ë¥¼ ë³¸ë‹¤..
 	{
 		__Vector3 vDir = this->Direction(); vDir.y = 0; vDir.Normalize();
 		__Vector3 vDirTarget = pTarget->Position() - m_Chr.Pos(); vDirTarget.y = 0; vDirTarget.Normalize();
@@ -798,14 +798,14 @@ bool CPlayerMySelf::CheckCollision()
 		fSpeed *= -1.0f;
 		vDir *= -1.0f;
 	}
-	__Vector3 vPosNext = vPos + (vDir * fSpeed); // ´ÙÀ½ À§Ä¡ °è»ê..
+	__Vector3 vPosNext = vPos + (vDir * fSpeed); // ë‹¤ìŒ ìœ„ì¹˜ ê³„ì‚°..
 	if (s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && 
 		false == ACT_WORLD->IsInTerrainWithTerrain(vPosNext.x, vPosNext.z, vPos) )
-		return true; // °æ°è ¾È¿¡ ÀÖÁö ¾ÊÀ¸¸é..
+		return true; // ê²½ê³„ ì•ˆì— ìˆì§€ ì•Šìœ¼ë©´..
 
 
 	//////////////////////////////////
-	// ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿Í Ã¼Å©..
+	// ë‹¤ë¥¸ í”Œë ˆì´ì–´ì™€ ì²´í¬..
 	CPlayerOther* pUPC = NULL;
 	float fHeightSum, fMag;
 	it_UPC it = s_pOPMgr->m_UPCs.begin(), itEnd = s_pOPMgr->m_UPCs.end();
@@ -813,8 +813,8 @@ bool CPlayerMySelf::CheckCollision()
 	{
 		pUPC = it->second;
 
-		if(pUPC->IsDead()) continue; //Á×¾î ÀÖ´Â »óÅÂÀÇ Ä³¸¯ÅÍ´Â Ãæµ¹Ã¼Å©¸¦ ÇÏÁö ¾Ê´Â´Ù.
-		if(m_InfoBase.eNation == pUPC->m_InfoBase.eNation) continue; // °°Àº ±¹°¡...
+		if(pUPC->IsDead()) continue; //ì£½ì–´ ìˆëŠ” ìƒíƒœì˜ ìºë¦­í„°ëŠ” ì¶©ëŒì²´í¬ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤.
+		if(m_InfoBase.eNation == pUPC->m_InfoBase.eNation) continue; // ê°™ì€ êµ­ê°€...
 
 		//-------------------------------------------------------------------------
 		/*
@@ -833,32 +833,32 @@ bool CPlayerMySelf::CheckCollision()
 		if(fMag < 32.0f)
 		{
 			fHeightSum = (pUPC->Height() + m_Chr.Height()) / 2.5f;
-			if(fMag < fHeightSum) // °Å¸®°¡ Å°ÀÇ ÇÕº¸´Ù ÀÛÀ¸¸é..
+			if(fMag < fHeightSum) // ê±°ë¦¬ê°€ í‚¤ì˜ í•©ë³´ë‹¤ ì‘ìœ¼ë©´..
 			{
-				float fMag2 = (pUPC->Position() - vPosNext).Magnitude(); // ´ÙÀ½À§Ä¡°¡ ´õ °¡±î¿ì¸é.
+				float fMag2 = (pUPC->Position() - vPosNext).Magnitude(); // ë‹¤ìŒìœ„ì¹˜ê°€ ë” ê°€ê¹Œìš°ë©´.
 				if(s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && fMag2 < fMag)
 					return true;
 			}
 		}
 	}
-	// ´Ù¸¥ ÇÃ·¹ÀÌ¾î¿Í Ã¼Å©..
+	// ë‹¤ë¥¸ í”Œë ˆì´ì–´ì™€ ì²´í¬..
 	//////////////////////////////////
 
 //	__TABLE_ZONE* pZoneInfo = s_pTbl_Zones.Find(m_InfoExt.iZoneCur);
 //	if(pZoneInfo && pZoneInfo->bNPCCollisionCheck) //this_zone
 
-	//Àû±¹ ¿£ÇÇ¾¾´Â Ãæµ¹ Ã¼Å©¸¦ ÇÑ´Ù.
+	//ì êµ­ ì—”í”¼ì”¨ëŠ” ì¶©ëŒ ì²´í¬ë¥¼ í•œë‹¤.
 	CPlayerNPC* pNPC = NULL;
 	it_NPC it_N = s_pOPMgr->m_NPCs.begin(),	it_NEnd	= s_pOPMgr->m_NPCs.end();
 	for(; it_N != it_NEnd; it_N++)
 	{
 		pNPC = it_N->second;
 
-		if(pNPC->m_pShapeExtraRef) continue; // ¼º¹®µîÀÇ ÇüÅÂÀÌ¸é Ãæµ¹Ã¼Å©¸¦ ÇÏÁö ¾Ê´Â´Ù..
+		if(pNPC->m_pShapeExtraRef) continue; // ì„±ë¬¸ë“±ì˜ í˜•íƒœì´ë©´ ì¶©ëŒì²´í¬ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤..
 
-		if(m_InfoBase.eNation == pNPC->m_InfoBase.eNation) continue; // °°Àº ±¹°¡...
+		if(m_InfoBase.eNation == pNPC->m_InfoBase.eNation) continue; // ê°™ì€ êµ­ê°€...
 		// NOTE(srmeier): I believe these are for passing through monsters and such
-		if(m_InfoBase.eNation == NATION_KARUS && pNPC->m_InfoBase.eNation != NATION_ELMORAD) continue; // Àû±¹ ¿£ÇÇ¾¾´Â Ãæµ¹ Ã¼Å©¸¦ ÇÑ´Ù.
+		if(m_InfoBase.eNation == NATION_KARUS && pNPC->m_InfoBase.eNation != NATION_ELMORAD) continue; // ì êµ­ ì—”í”¼ì”¨ëŠ” ì¶©ëŒ ì²´í¬ë¥¼ í•œë‹¤.
 		if(m_InfoBase.eNation == NATION_ELMORAD && pNPC->m_InfoBase.eNation != NATION_KARUS) continue; // 
 
 		//-------------------------------------------------------------------------
@@ -878,9 +878,9 @@ bool CPlayerMySelf::CheckCollision()
 		if(fMag < 32.0f)
 		{
 			fHeightSum = (pNPC->Height() + m_Chr.Height()) / 2.5f;
-			if(fMag < fHeightSum) // °Å¸®°¡ Å°ÀÇ ÇÕº¸´Ù ÀÛÀ¸¸é..
+			if(fMag < fHeightSum) // ê±°ë¦¬ê°€ í‚¤ì˜ í•©ë³´ë‹¤ ì‘ìœ¼ë©´..
 			{
-				float fMag2 = (pNPC->Position() - vPosNext).Magnitude(); // ´ÙÀ½À§Ä¡°¡ ´õ °¡±î¿ì¸é.
+				float fMag2 = (pNPC->Position() - vPosNext).Magnitude(); // ë‹¤ìŒìœ„ì¹˜ê°€ ë” ê°€ê¹Œìš°ë©´.
 				if(s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && fMag2 < fMag)
 					return true;
 			}
@@ -888,27 +888,27 @@ bool CPlayerMySelf::CheckCollision()
 	}//for(
 
 
-	// ¿ÀºêÁ§Æ®¿Í Ãæµ¹Ã¼Å©..
+	// ì˜¤ë¸Œì íŠ¸ì™€ ì¶©ëŒì²´í¬..
 	__Vector3 vPos2 = vPos, vCol, vNormal;
 	if (!s_pWorldMgr->IsIndoor())
-		vPos2.y += 0.5f; // Ä³¸¯ÅÍ ¹ß³ôÀÌ¿¡¼­ 0.5 ¹ÌÅÍ ³ôÀÌ À§¿¡¼­ Ãæµ¹Ã¼Å©ÇÑ´Ù.
+		vPos2.y += 0.5f; // ìºë¦­í„° ë°œë†’ì´ì—ì„œ 0.5 ë¯¸í„° ë†’ì´ ìœ„ì—ì„œ ì¶©ëŒì²´í¬í•œë‹¤.
 	else
-		vPos2.y += 0.6f; // Ä³¸¯ÅÍ ¹ß³ôÀÌ¿¡¼­ 0.6 ¹ÌÅÍ ³ôÀÌ À§¿¡¼­ Ãæµ¹Ã¼Å©ÇÑ´Ù.	ÀÌ ÇÔ¼ö ³»¿¡¼­ ¾²´Â 0.6Àº PvsMgrÀÇ m_fVolumeOffs.. ^^
+		vPos2.y += 0.6f; // ìºë¦­í„° ë°œë†’ì´ì—ì„œ 0.6 ë¯¸í„° ë†’ì´ ìœ„ì—ì„œ ì¶©ëŒì²´í¬í•œë‹¤.	ì´ í•¨ìˆ˜ ë‚´ì—ì„œ ì“°ëŠ” 0.6ì€ PvsMgrì˜ m_fVolumeOffs.. ^^
 	bool bColShape = ACT_WORLD->CheckCollisionWithShape(vPos2, vDir, fSpeed, &vCol, &vNormal);
-	if(s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && bColShape) return true; // ¿ÀºêÁ§Æ®¿Í Ãæµ¹°ªÀÌ ÀÖÀ¸¸é 
+	if(s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && bColShape) return true; // ì˜¤ë¸Œì íŠ¸ì™€ ì¶©ëŒê°’ì´ ìˆìœ¼ë©´ 
 
 	////////////////////////////////////////////////////////////////////////////////
-	// Áö¸é°ú ¿ÀºêÁ§Æ®ÀÇ ³ôÀÌ°ª ±¸ÇÏ±â..
-	float fYTerrain = ACT_WORLD->GetHeightWithTerrain(vPosNext.x, vPosNext.z);		// Áö¸éÀÇ ³ôÀÌ°ª..
-	float fYClimb = ACT_WORLD->GetHeightNearstPosWithShape(vPosNext, CN3Base::s_fSecPerFrm * 30.0f, &vNormal); // Ãæµ¹ Ã¼Å© ¿ÀºêÁ§Æ®ÀÇ ³ôÀÌ°ª..
-	vNormal.y = 0; // ÀÌ·¡¾ß Á¤»óÀûÀÎ °æ»ç¸¦ ¾òÀ»¼ö ÀÖ´Ù..
+	// ì§€ë©´ê³¼ ì˜¤ë¸Œì íŠ¸ì˜ ë†’ì´ê°’ êµ¬í•˜ê¸°..
+	float fYTerrain = ACT_WORLD->GetHeightWithTerrain(vPosNext.x, vPosNext.z);		// ì§€ë©´ì˜ ë†’ì´ê°’..
+	float fYClimb = ACT_WORLD->GetHeightNearstPosWithShape(vPosNext, CN3Base::s_fSecPerFrm * 30.0f, &vNormal); // ì¶©ëŒ ì²´í¬ ì˜¤ë¸Œì íŠ¸ì˜ ë†’ì´ê°’..
+	vNormal.y = 0; // ì´ë˜ì•¼ ì •ìƒì ì¸ ê²½ì‚¬ë¥¼ ì–»ì„ìˆ˜ ìˆë‹¤..
 	
 	if (!s_pWorldMgr->IsIndoor())
 	{
-		if(fYClimb > fYTerrain && fYClimb < vPosNext.y + ((30.0f/CN3Base::s_fFrmPerSec) * 0.5f)) // Ãæµ¹ Ã¼Å© ¿ÀºêÁ§Æ® ³ôÀÌ°ªÀÌ ÀÖ°í ÁöÇüº¸´Ù ³ôÀ» °æ¿ì¸¸ ³ôÀÌ°ª Àû¿ë
+		if(fYClimb > fYTerrain && fYClimb < vPosNext.y + ((30.0f/CN3Base::s_fFrmPerSec) * 0.5f)) // ì¶©ëŒ ì²´í¬ ì˜¤ë¸Œì íŠ¸ ë†’ì´ê°’ì´ ìˆê³  ì§€í˜•ë³´ë‹¤ ë†’ì„ ê²½ìš°ë§Œ ë†’ì´ê°’ ì ìš©
 		{
 			if(s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && 
-				vNormal.Magnitude() > MAX_INCLINE_CLIMB && vNormal.Dot(vDir) <= 0.0f) // °æ»ç Ã¼Å©..
+				vNormal.Magnitude() > MAX_INCLINE_CLIMB && vNormal.Dot(vDir) <= 0.0f) // ê²½ì‚¬ ì²´í¬..
 			{
 				return true;
 			}
@@ -916,21 +916,21 @@ bool CPlayerMySelf::CheckCollision()
 		}
 		else
 		{
-			// ÁöÇüÀÇ °æ»ç°¡ 45 µµ ÀÌÇÏÀÎÁö Ã¼Å©
+			// ì§€í˜•ì˜ ê²½ì‚¬ê°€ 45 ë„ ì´í•˜ì¸ì§€ ì²´í¬
 			if(s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && 
 				true == ACT_WORLD->CheckInclineWithTerrain(vPosNext, vDir, MAX_INCLINE_CLIMB))
 			{
 				return true;
 			}
-			m_fYNext = fYTerrain; // ´ÙÀ½ À§Ä¡¸¦ ¸ÂÃß°í..
+			m_fYNext = fYTerrain; // ë‹¤ìŒ ìœ„ì¹˜ë¥¼ ë§ì¶”ê³ ..
 		}
 	}
-	else	// ÀÏ´Ü..
+	else	// ì¼ë‹¨..
 	{
 		if ((fYClimb > fYTerrain) && (fYClimb < vPosNext.y + 0.6f))
 			m_fYNext = fYClimb;
 		else
-			m_fYNext = fYTerrain; // ´ÙÀ½ À§Ä¡¸¦ ¸ÂÃß°í..
+			m_fYNext = fYTerrain; // ë‹¤ìŒ ìœ„ì¹˜ë¥¼ ë§ì¶”ê³ ..
 
 		if ((m_fYNext > vPos.y + 0.6f) || (m_fYNext < vPos.y - 0.6f*2.0f))
 		{
@@ -939,25 +939,25 @@ bool CPlayerMySelf::CheckCollision()
 		}
 	}
 
-//	else // ¿Ã¶ó°¥¼ö ¾ø´Â °÷ÀÌ¸é ÁöÇü°úÀÇ ±â¿ï±â Ã¼Å©..
+//	else // ì˜¬ë¼ê°ˆìˆ˜ ì—†ëŠ” ê³³ì´ë©´ ì§€í˜•ê³¼ì˜ ê¸°ìš¸ê¸° ì²´í¬..
 //	{
-//		// ¹æÇâÀ» ±¸ÇØ¼­.. ±â¿ï±â¿¡ µû¶ó ´Ù¸¥ ¼Óµµ¸¦ Àû¿ë
+//		// ë°©í–¥ì„ êµ¬í•´ì„œ.. ê¸°ìš¸ê¸°ì— ë”°ë¼ ë‹¤ë¥¸ ì†ë„ë¥¼ ì ìš©
 //		s_pTerrain->GetNormal(vPos.x, vPos.z, vNormal);
 //		vNormal.Normalize();
 //		vNormal.y	= 0.0f;
 //		float fM = vNormal.Magnitude();
 //		float fD = vNormal.Dot(vDir);
 //		if(fSpeed < 0) fD *= -1.0f;
-//		if(fD < 0) fSpeed *= 1.0f - (fM / 0.7071f); // ±â¿ï±â¿¡ µû¸¥ ÆÑÅÍ Àû¿ë
+//		if(fD < 0) fSpeed *= 1.0f - (fM / 0.7071f); // ê¸°ìš¸ê¸°ì— ë”°ë¥¸ íŒ©í„° ì ìš©
 //
-//		vPosNext = vPos + (vDir * fSpeed); // ´ÙÀ½ À§Ä¡ °è»ê..
+//		vPosNext = vPos + (vDir * fSpeed); // ë‹¤ìŒ ìœ„ì¹˜ ê³„ì‚°..
 //		m_fYNext = s_pTerrain->GetHeight(vPosNext.x, vPosNext.z);
 //	}
 
 	this->PositionSet(vPosNext, false);
 
 	///////////////////////////////////////////////////////////////
-	// Ä³¸¯ÅÍ Ãæµ¹ Ã¼Å©..
+	// ìºë¦­í„° ì¶©ëŒ ì²´í¬..
 //	int iSize = s_pOPMgr->m_OPCs.size();
 //	it_UPC it = s_pOPMgr->m_OPCs.begin();
 //	for( int i = 0; i < iSize; i++, it++ )
@@ -973,7 +973,7 @@ bool CPlayerMySelf::CheckCollision()
 void CPlayerMySelf::InitFace()
 {
 	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);
-	if(pLooks && !pLooks->szPartFNs[PART_POS_FACE].empty()) // ¾ÆÀÌÅÛÀÌ ÀÖ°í ¾ó±¼ ÀÌ¸§ÀÌ ÀÖÀ¸¸é..
+	if(pLooks && !pLooks->szPartFNs[PART_POS_FACE].empty()) // ì•„ì´í…œì´ ìˆê³  ì–¼êµ´ ì´ë¦„ì´ ìˆìœ¼ë©´..
 	{
 		char szBuff[256] = "", szDir[128] = "", szFName[128] = "", szExt[16] = "";
 		::_splitpath(pLooks->szPartFNs[PART_POS_FACE].c_str(), NULL, szDir, szFName, szExt);
@@ -985,7 +985,7 @@ void CPlayerMySelf::InitFace()
 void CPlayerMySelf::InitHair()
 {
 	__TABLE_PLAYER_LOOKS* pLooks = s_pTbl_UPC_Looks.Find(m_InfoBase.eRace);
-	if(pLooks && !pLooks->szPartFNs[PART_POS_HAIR_HELMET].empty()) // ¾ÆÀÌÅÛÀÌ ÀÖ°í ¾ó±¼ ÀÌ¸§ÀÌ ÀÖÀ¸¸é..
+	if(pLooks && !pLooks->szPartFNs[PART_POS_HAIR_HELMET].empty()) // ì•„ì´í…œì´ ìˆê³  ì–¼êµ´ ì´ë¦„ì´ ìˆìœ¼ë©´..
 	{
 		char szBuff[256] = "", szDir[128] = "", szFName[128] = "", szExt[16] = "";
 		::_splitpath(pLooks->szPartFNs[PART_POS_HAIR_HELMET].c_str(), NULL, szDir, szFName, szExt);
@@ -1019,7 +1019,7 @@ void CPlayerMySelf::KnightsInfoSet(int iID, const std::string& szName, int iGrad
 			m_pClanFont->RestoreDeviceObjects();
 		}
 
-		m_pClanFont->SetText(m_InfoExt.szKnights.c_str(), D3DFONT_BOLD); // ÆùÆ®¿¡ ÅØ½ºÆ® ÁöÁ¤.
+		m_pClanFont->SetText(m_InfoExt.szKnights.c_str(), D3DFONT_BOLD); // í°íŠ¸ì— í…ìŠ¤íŠ¸ ì§€ì •.
 		m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
 	}
 }
@@ -1039,32 +1039,32 @@ void CPlayerMySelf::SetSoundAndInitFont(uint32_t dwFontFlag)
 			m_pClanFont->RestoreDeviceObjects();
 		}
 
-		m_pClanFont->SetText(m_InfoExt.szKnights.c_str()); // ÆùÆ®¿¡ ÅØ½ºÆ® ÁöÁ¤.
+		m_pClanFont->SetText(m_InfoExt.szKnights.c_str()); // í°íŠ¸ì— í…ìŠ¤íŠ¸ ì§€ì •.
 		m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
 	}
 }
 
-float CPlayerMySelf::MoveSpeedCalculationAndCheckCollision() // ¼Óµµ¸¦ ±¸ÇÏ°í ±× ¼Óµµ·Î Ãæµ¹ Ã¼Å©¸¦ ÇÑ´Ù. ¸®ÅÏ°ªÀÌ 0 ÀÌ¸é Ãæµ¹ÀÌ´Ù..
+float CPlayerMySelf::MoveSpeedCalculationAndCheckCollision() // ì†ë„ë¥¼ êµ¬í•˜ê³  ê·¸ ì†ë„ë¡œ ì¶©ëŒ ì²´í¬ë¥¼ í•œë‹¤. ë¦¬í„´ê°’ì´ 0 ì´ë©´ ì¶©ëŒì´ë‹¤..
 {
 	m_fMoveSpeedPerSec = MOVE_SPEED_WHEN_WALK;
 	if(PSM_RUN == m_eStateMove) m_fMoveSpeedPerSec *= MOVE_DELTA_WHEN_RUNNING;
 	else if(PSM_STOP == m_eStateMove) m_fMoveSpeedPerSec = 0.0f;
 	else if(PSM_WALK_BACKWARD == m_eStateMove) m_fMoveSpeedPerSec *= -1.0f;
-	m_fMoveSpeedPerSec *= m_fMoveDelta; // ÀÌµ¿ ¼Óµµ º¯ÇÏ±â¿¡ µû¶ó¼­... °öÇØÁØ´Ù.
+	m_fMoveSpeedPerSec *= m_fMoveDelta; // ì´ë™ ì†ë„ ë³€í•˜ê¸°ì— ë”°ë¼ì„œ... ê³±í•´ì¤€ë‹¤.
 
-	if(m_bTempMoveTurbo) // °³¹ß¿ë ÇÃ·¡±×...
+	if(m_bTempMoveTurbo) // ê°œë°œìš© í”Œë˜ê·¸...
 	{
 		m_fMoveSpeedPerSec *= 10.0f;
 	}
 
-	if(this->CheckCollision()) // Ãæµ¹ Ã¼Å©¸é..
+	if(this->CheckCollision()) // ì¶©ëŒ ì²´í¬ë©´..
 	{
 		if(CGameProcedure::s_pProcMain)
 			CGameProcedure::s_pProcMain->CommandMove(MD_STOP, true);
 		m_fMoveSpeedPerSec = 0;
 	}
 
-	// ¹æÇâÀ» ±¸ÇØ¼­.. ±â¿ï±â¿¡ µû¶ó ´Ù¸¥ ¼Óµµ¸¦ Àû¿ë
+	// ë°©í–¥ì„ êµ¬í•´ì„œ.. ê¸°ìš¸ê¸°ì— ë”°ë¼ ë‹¤ë¥¸ ì†ë„ë¥¼ ì ìš©
 /*	__Vector3 vDir = this->Direction();
 	__Vector3 vPos = m_Chr.Pos(), vNormal(0,1,0);
 	s_pTerrain->GetNormal(vPos.x, vPos.z, vNormal);
@@ -1076,25 +1076,25 @@ float CPlayerMySelf::MoveSpeedCalculationAndCheckCollision() // ¼Óµµ¸¦ ±¸ÇÏ°í ±×
 //	if (fM > MAX_INCLINE_CLIMB && fD <= 0.0f )
 //	{
 //	}
-	if(fD < 0) fSpeed *= 1.0f - (fM / 0.7071f); // ±â¿ï±â¿¡ µû¸¥ ÆÑÅÍ Àû¿ë
+	if(fD < 0) fSpeed *= 1.0f - (fM / 0.7071f); // ê¸°ìš¸ê¸°ì— ë”°ë¥¸ íŒ©í„° ì ìš©
 */	
 	return m_fMoveSpeedPerSec;
 
 }
 
-void CPlayerMySelf::Stun(float fTime) // ÀÏÁ¤ÇÑ ½Ã°£µ¿¾È ±âÀı ½ÃÅ°±â.
+void CPlayerMySelf::Stun(float fTime) // ì¼ì •í•œ ì‹œê°„ë™ì•ˆ ê¸°ì ˆ ì‹œí‚¤ê¸°.
 {
-	m_bStun = true;				// ±âÀı..
-	m_fStunTime = fTime;		// ±âÀıÇÑ ½Ã°£..
+	m_bStun = true;				// ê¸°ì ˆ..
+	m_fStunTime = fTime;		// ê¸°ì ˆí•œ ì‹œê°„..
 
-	CGameProcedure::s_pProcMain->CommandEnableAttackContinous(false, NULL); // °ø°İ ¸ØÃß°í..
-	CGameProcedure::s_pProcMain->CommandMove(MD_STOP, true); // ¿òÁ÷ÀÓÀ» ¸ØÃß°Ô ÇÏ°í..
+	CGameProcedure::s_pProcMain->CommandEnableAttackContinous(false, NULL); // ê³µê²© ë©ˆì¶”ê³ ..
+	CGameProcedure::s_pProcMain->CommandMove(MD_STOP, true); // ì›€ì§ì„ì„ ë©ˆì¶”ê²Œ í•˜ê³ ..
 }
 
-void CPlayerMySelf::StunRelease() // ±âÀı Ç®±â..
+void CPlayerMySelf::StunRelease() // ê¸°ì ˆ í’€ê¸°..
 {
-	m_bStun = false;			// ±âÀı..
-	m_fStunTime = 0.0f;			// ±âÀıÇÑ ½Ã°£..
+	m_bStun = false;			// ê¸°ì ˆ..
+	m_fStunTime = 0.0f;			// ê¸°ì ˆí•œ ì‹œê°„..
 }
 
 void CPlayerMySelf::TargetOrPosMove()
@@ -1113,7 +1113,7 @@ void CPlayerMySelf::TargetOrPosMove()
 		else
 		{
 			this->ActionMove(PSM_STOP);
-			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // Á¤Áö ÆĞÅ¶ º¸³»±â..
+			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // ì •ì§€ íŒ¨í‚· ë³´ë‚´ê¸°..
 		}
 	}
 
@@ -1122,20 +1122,20 @@ void CPlayerMySelf::TargetOrPosMove()
 	vDir.Normalize();
 
 	float fYaw = ::_Yaw2D(vDir.x, vDir.z);
-	this->RotateTo(fYaw, true); // ¹æÇâÀ» µ¹¸®°í
+	this->RotateTo(fYaw, true); // ë°©í–¥ì„ ëŒë¦¬ê³ 
 
 	if( m_iMoveTarget >= 0 )
 	{
 		CPlayerNPC* pTarget = s_pOPMgr->CharacterGetByID(m_iMoveTarget, true);
 
-		float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude(); // °ø°İ °Å¸®¸¦ ±¸ÇÏ°í..
+		float fDist = (pTarget->Position() - m_Chr.Pos()).Magnitude(); // ê³µê²© ê±°ë¦¬ë¥¼ êµ¬í•˜ê³ ..
 		float fDistLimit = this->AttackableDistance(pTarget);
 
 		if(fDist < fDistLimit)
 		{
 			CGameProcedure::s_pProcMain->CommandEnableAttackContinous(true, pTarget);
 			this->ActionMove(PSM_STOP);
-			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // Á¤Áö ÆĞÅ¶ º¸³»±â..
+			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // ì •ì§€ íŒ¨í‚· ë³´ë‚´ê¸°..
 		}
 	}
 	else
@@ -1144,7 +1144,7 @@ void CPlayerMySelf::TargetOrPosMove()
 		if( fDist < 0.5f )
 		{
 			this->ActionMove(PSM_STOP);
-			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // Á¤Áö ÆĞÅ¶ º¸³»±â..
+			CGameProcedure::s_pProcMain->MsgSend_Move(false, false); // ì •ì§€ íŒ¨í‚· ë³´ë‚´ê¸°..
 		}
 	}
 }

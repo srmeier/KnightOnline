@@ -1,4 +1,4 @@
-// UINotice.cpp: implementation of the CUINotice class.
+ï»¿// UINotice.cpp: implementation of the CUINotice class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -59,7 +59,7 @@ bool CUINotice::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 
-	//s_CameraData.vp;  //ºÒ·¯ ¿À´Â °úÁ¤À» »ìÆìº»´Ù 
+	//s_CameraData.vp;  //ë¶ˆëŸ¬ ì˜¤ëŠ” ê³¼ì •ì„ ì‚´í´ë³¸ë‹¤ 
 	//uint32_t mm = s_CameraData.vp.Height;
 	//uint32_t ss = s_CameraData.vp.Width;	
 
@@ -75,7 +75,7 @@ bool CUINotice::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	{
 		if(pSender == m_pScrollBar)
 		{
-			// ½ºÅ©·Ñ¹Ù¿¡ ¸Â´Â Ã¤ÆÃ Line ¼³Á¤
+			// ìŠ¤í¬ë¡¤ë°”ì— ë§ëŠ” ì±„íŒ… Line ì„¤ì •
 			int iCurLinePos = m_pScrollBar->GetCurrentPos();
 		}
 	}
@@ -87,7 +87,7 @@ void CUINotice::GenerateText()
 {
 	if(NULL == m_pText_Notice) return;
 	
-	// ±ÛÀÚ¼ö¸¦ ¼¾´Ù..
+	// ê¸€ììˆ˜ë¥¼ ì„¼ë‹¤..
 	int iTextLen = 0;
 	it_String it = m_Texts.begin(), itEnd = m_Texts.end();
 	for(; it != itEnd; it++)
@@ -97,7 +97,7 @@ void CUINotice::GenerateText()
 
 	std::vector<char> szBuff(iTextLen * 2, 0);
 
-	// ±ÛÀÚµéÀ» ºÙÀÌ°í  // LineFeed, Carriage return À» ºÙÀÎ´Ù.
+	// ê¸€ìë“¤ì„ ë¶™ì´ê³   // LineFeed, Carriage return ì„ ë¶™ì¸ë‹¤.
 	it = m_Texts.begin(); itEnd = m_Texts.end();
 	for(; it != itEnd; it++)
 	{
@@ -105,7 +105,7 @@ void CUINotice::GenerateText()
 		lstrcat(&(szBuff[0]), "\n");
 	}
 
-	m_pText_Notice->SetString(&(szBuff[0])); // ±ÛÀÚ Àû¿ë..
+	m_pText_Notice->SetString(&(szBuff[0])); // ê¸€ì ì ìš©..
 }
 
 bool CUINotice::OnKeyPress(int iKey)

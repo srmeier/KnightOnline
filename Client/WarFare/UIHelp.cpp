@@ -1,4 +1,4 @@
-// UIHelp.cpp: implementation of the CUIHelp class.
+﻿// UIHelp.cpp: implementation of the CUIHelp class.
 //
 //////////////////////////////////////////////////////////////////////
 

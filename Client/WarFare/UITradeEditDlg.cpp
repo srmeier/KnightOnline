@@ -1,4 +1,4 @@
-// UITradeEditDlg.cpp: implementation of the CUITradeEditDlg class.
+ï»¿// UITradeEditDlg.cpp: implementation of the CUITradeEditDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ void CUITradeEditDlg::Release()
 	CN3UIBase::Release();
 }
 
-int	CUITradeEditDlg::GetQuantity() // "edit_trade" Edit Control ¿¡¼­ Á¤¼ö°ªÀ» ¾ò¿À¿Â´Ù..
+int	CUITradeEditDlg::GetQuantity() // "edit_trade" Edit Control ì—ì„œ ì •ìˆ˜ê°’ì„ ì–»ì˜¤ì˜¨ë‹¤..
 {
 	CN3UIEdit* pEdit = (CN3UIEdit*)this->GetChildByID("edit_trade");
 	__ASSERT(pEdit, "NULL UI Component!!");
@@ -58,7 +58,7 @@ int	CUITradeEditDlg::GetQuantity() // "edit_trade" Edit Control ¿¡¼­ Á¤¼ö°ªÀ» ¾ò
 	return atoi(pEdit->GetString().c_str());
 }
 
-void CUITradeEditDlg::SetQuantity(int iQuantity) // "edit_trade" Edit Control ¿¡¼­ Á¤¼ö°ªÀ» ¹®ÀÚ¿­·Î ¼¼ÆÃÇÑ´Ù..
+void CUITradeEditDlg::SetQuantity(int iQuantity) // "edit_trade" Edit Control ì—ì„œ ì •ìˆ˜ê°’ì„ ë¬¸ìžì—´ë¡œ ì„¸íŒ…í•œë‹¤..
 {
 	CN3UIEdit* pEdit = (CN3UIEdit*)this->GetChildByID("edit_trade");
 	__ASSERT(pEdit, "NULL UI Component!!");

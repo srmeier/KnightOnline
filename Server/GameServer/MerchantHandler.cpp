@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 
 using std::string;
 
@@ -378,7 +378,7 @@ void CUser::GiveMerchantItems()
 	for (int i = 0; i < MAX_MERCH_ITEMS; i++)
 	{
 		_MERCH_DATA *pMerch = &m_arMerchantItems[i];  
-		// Prevent k�pe bug :P
+		// Prevent küpe bug :P
 		if (pMerch->nNum == 0) continue;
 		_ITEM_DATA *pItem = &m_sItemArray[pMerch->bOriginalSlot];
 

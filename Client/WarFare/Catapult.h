@@ -1,4 +1,4 @@
-// Catapult.h: interface for the CCatapult class.
+ï»¿// Catapult.h: interface for the CCatapult class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,29 +21,29 @@ public:
 public:
 	struct __Thrower
 	{
-		// ÆÄÀÏ¿¡¼­ ÀĞ¾î¿À´Â Á¤º¸
-		CN3SPart*	pThrowerPart;			// ThrowerÀÇ ÆÄÆ® Æ÷ÀÎÅÍ
-		float	fLimitRadian;			// ÇÑ°è È¸Àü °¢µµ
-		float	fRadianAccel;			// È¸Àü °¡¼Óµµ
-		float	fRadianSpeed2Reload;	// ÀçÀåÀü È¸Àü ¼Óµµ
-		float	fReloadDelayTime;		// ¿ÏÀü ¹ß»çÈÄ ÀçÀåÀü ½ÃÀÛÇÏ±â±îÁöÀÇ ½Ã°£ delay
-		float	fRecoilRadian;			// ¹ß»çÈÄ ¹İµ¿ÇÏ´Â °¢µµ
-		class CN3Shape*	pStone;			// ¹ß»çÇÏ´Â µ¹µ¢ÀÌ shape Æ÷ÀÎÅÍ
-		__Vector3		vStoneOffset;	// µ¹µ¢ÀÌ offset (throwerÀÇ pivot Á¡¿¡¼­ ¶³¾îÁø °Å¸®)
+		// íŒŒì¼ì—ì„œ ì½ì–´ì˜¤ëŠ” ì •ë³´
+		CN3SPart*	pThrowerPart;			// Throwerì˜ íŒŒíŠ¸ í¬ì¸í„°
+		float	fLimitRadian;			// í•œê³„ íšŒì „ ê°ë„
+		float	fRadianAccel;			// íšŒì „ ê°€ì†ë„
+		float	fRadianSpeed2Reload;	// ì¬ì¥ì „ íšŒì „ ì†ë„
+		float	fReloadDelayTime;		// ì™„ì „ ë°œì‚¬í›„ ì¬ì¥ì „ ì‹œì‘í•˜ê¸°ê¹Œì§€ì˜ ì‹œê°„ delay
+		float	fRecoilRadian;			// ë°œì‚¬í›„ ë°˜ë™í•˜ëŠ” ê°ë„
+		class CN3Shape*	pStone;			// ë°œì‚¬í•˜ëŠ” ëŒë©ì´ shape í¬ì¸í„°
+		__Vector3		vStoneOffset;	// ëŒë©ì´ offset (throwerì˜ pivot ì ì—ì„œ ë–¨ì–´ì§„ ê±°ë¦¬)
 
-		// ÆÄÀÏ¿¡¼­ ÀĞÀº Á¤º¸¸¦ Åä´ë·Î ¸¸µé¾îÁö´Â Á¤º¸
-		float	fReleaseTime;			// ¹ß»çÈÄ ÇÑ°è È¸Àü °¢µµ¿¡ µµ´ŞÇÏ±â±îÁöÀÇ ½Ã°£ [ sqrtf(fLimitRadian/fRadianAccel) ]
+		// íŒŒì¼ì—ì„œ ì½ì€ ì •ë³´ë¥¼ í† ëŒ€ë¡œ ë§Œë“¤ì–´ì§€ëŠ” ì •ë³´
+		float	fReleaseTime;			// ë°œì‚¬í›„ í•œê³„ íšŒì „ ê°ë„ì— ë„ë‹¬í•˜ê¸°ê¹Œì§€ì˜ ì‹œê°„ [ sqrtf(fLimitRadian/fRadianAccel) ]
 
-		// °ÔÀÓ Áß¿¡ »ç¿ëµÇ´Â Á¤º¸
-		float	fTime;					// ¹ß»ç °æ°ú ½Ã°£(ÃÊ) ¹ß½Ã ½Ã°£0À» ±âÁØÀ¸·Î ÃàÀûµÊ.
-		BOOL	bFire;					// ¹ß»çÁßÀÎ°¡?
-		float	fCurRadian;				// ÇöÀç Thrower°¡ µ¹¾Æ°£ È¸Àü°¢
-		BOOL	bDontRenderStone;		// ¹ß»çÇÏ´Â µ¹À» ¾È±×¸± °ÍÀÎ°¡?
+		// ê²Œì„ ì¤‘ì— ì‚¬ìš©ë˜ëŠ” ì •ë³´
+		float	fTime;					// ë°œì‚¬ ê²½ê³¼ ì‹œê°„(ì´ˆ) ë°œì‹œ ì‹œê°„0ì„ ê¸°ì¤€ìœ¼ë¡œ ì¶•ì ë¨.
+		BOOL	bFire;					// ë°œì‚¬ì¤‘ì¸ê°€?
+		float	fCurRadian;				// í˜„ì¬ Throwerê°€ ëŒì•„ê°„ íšŒì „ê°
+		BOOL	bDontRenderStone;		// ë°œì‚¬í•˜ëŠ” ëŒì„ ì•ˆê·¸ë¦´ ê²ƒì¸ê°€?
 	};
 // Attributes
 public:
 protected:
-	__Thrower		m_Thrower;			// ¹ß»ç´ë
+	__Thrower		m_Thrower;			// ë°œì‚¬ëŒ€
 
 // Operations
 public:
@@ -55,9 +55,9 @@ protected:
 	virtual void	ReCalcMatrix4AnimatedPart();
 	void			ThrowStone(__Vector3& vPos, __Vector3& vVel, CN3Shape* pShape) const;
 
-// ¸Ó½Å µ¿ÀÛ °ü·Ã
+// ë¨¸ì‹  ë™ì‘ ê´€ë ¨
 public:
-	virtual void	Fire();		// ¹ß»ç
+	virtual void	Fire();		// ë°œì‚¬
 };
 
 #endif // !defined(AFX_CATAPULT_H__9D404701_4B6D_4DFE_9BDD_7125FA9B3CE8__INCLUDED_)

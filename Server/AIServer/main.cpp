@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "../shared/signal_handler.h"
 
 CServerDlg * g_pMain;

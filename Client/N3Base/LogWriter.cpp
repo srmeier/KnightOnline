@@ -1,4 +1,4 @@
-// LogWriter.cpp: implementation of the CLogWriter class.
+ï»¿// LogWriter.cpp: implementation of the CLogWriter class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -41,7 +41,7 @@ void CLogWriter::Open(const std::string& szFN)
 
 	DWORD dwSizeHigh = 0;
 	DWORD dwSizeLow = ::GetFileSize(hFile, &dwSizeHigh);
-	if(dwSizeLow > 256000)  // ÆÄÀÏ »çÀÌÁî°¡ ³Ê¹« Å©¸é Áö¿î´Ù..
+	if(dwSizeLow > 256000)  // íŒŒì¼ ì‚¬ì´ì¦ˆê°€ ë„ˆë¬´ í¬ë©´ ì§€ìš´ë‹¤..
 	{
 		CloseHandle(hFile);
 		::DeleteFile(s_szFileName.c_str());
@@ -49,7 +49,7 @@ void CLogWriter::Open(const std::string& szFN)
 		if(INVALID_HANDLE_VALUE == hFile) return;
 	}
 
-	::SetFilePointer(hFile, 0, NULL, FILE_END); // Ãß°¡ ÇÏ±â À§ÇØ¼­ ÆÄÀÏÀÇ ³¡À¸·Î ¿Å±â°í..
+	::SetFilePointer(hFile, 0, NULL, FILE_END); // ì¶”ê°€ í•˜ê¸° ìœ„í•´ì„œ íŒŒì¼ì˜ ëìœ¼ë¡œ ì˜®ê¸°ê³ ..
 
 	char szBuff[1024];
 	SYSTEMTIME time;
@@ -78,7 +78,7 @@ void CLogWriter::Close()
 
 	if(hFile)
 	{
-		::SetFilePointer(hFile, 0, NULL, FILE_END); // Ãß°¡ ÇÏ±â À§ÇØ¼­ ÆÄÀÏÀÇ ³¡À¸·Î ¿Å±â°í..
+		::SetFilePointer(hFile, 0, NULL, FILE_END); // ì¶”ê°€ í•˜ê¸° ìœ„í•´ì„œ íŒŒì¼ì˜ ëìœ¼ë¡œ ì˜®ê¸°ê³ ..
 
 		char szBuff[1024];
 		SYSTEMTIME time;
@@ -131,7 +131,7 @@ void CLogWriter::Write(const char *lpszFormat, ...)
 
 	if(hFile)
 	{
-		::SetFilePointer(hFile, 0, NULL, FILE_END); // Ãß°¡ ÇÏ±â À§ÇØ¼­ ÆÄÀÏÀÇ ³¡À¸·Î ¿Å±â°í..
+		::SetFilePointer(hFile, 0, NULL, FILE_END); // ì¶”ê°€ í•˜ê¸° ìœ„í•´ì„œ íŒŒì¼ì˜ ëìœ¼ë¡œ ì˜®ê¸°ê³ ..
 
 		WriteFile(hFile, szFinal, iLength, &dwRWC, NULL);
 		CloseHandle(hFile);

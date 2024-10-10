@@ -1,4 +1,4 @@
-// DlgReplace.cpp : implementation file
+﻿// DlgReplace.cpp : implementation file
 //
 
 #include "stdafx.h"

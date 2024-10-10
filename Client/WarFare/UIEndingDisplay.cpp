@@ -1,4 +1,4 @@
-// UIEndingDisplay.cpp: implementation of the CUIEndingDisplay class.
+ï»¿// UIEndingDisplay.cpp: implementation of the CUIEndingDisplay class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -33,20 +33,20 @@ void CUIEndingDisplay::Release()
 
 void CUIEndingDisplay::Render()
 {
-	// È­¸é °¡¿îµ¥·Î ¸ÂÃß±â..
+	// í™”ë©´ ê°€ìš´ë°ë¡œ ë§ì¶”ê¸°..
 	RECT rc = this->GetRegion();
 	int iX = (s_CameraData.vp.Width - (rc.right - rc.left))/2;
 	int iY = (s_CameraData.vp.Height - (rc.bottom - rc.top))/2;
 	this->SetPos(iX, iY);
 
 	D3DCOLOR crEnv = 0x00000000;
-	CGameEng::Clear(crEnv); // ¹è°æÀº °ËÀº»ö
-	CGameEng::s_lpD3DDev->BeginScene();			// ¾À ·»´õ ¤µÀÛ...
+	CGameEng::Clear(crEnv); // ë°°ê²½ì€ ê²€ì€ìƒ‰
+	CGameEng::s_lpD3DDev->BeginScene();			// ì”¬ ë Œë” ã……ì‘...
 
 	CUIManager::RenderStateSet();
 	CN3UIBase::Render();
 	CUIManager::RenderStateRestore();
 	
-	CGameEng::s_lpD3DDev->EndScene();			// ¾À ·»´õ ½ÃÀÛ...
+	CGameEng::s_lpD3DDev->EndScene();			// ì”¬ ë Œë” ì‹œì‘...
 	CGameEng::Present(CN3Base::s_hWndBase);
 }

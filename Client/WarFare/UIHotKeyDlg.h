@@ -1,4 +1,4 @@
-// UIHotKeyDlg.h: interface for the CUIHotKeyDlg class.
+﻿// UIHotKeyDlg.h: interface for the CUIHotKeyDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// UIHelp.h: interface for the CUIHelp class.
+﻿// UIHelp.h: interface for the CUIHelp class.
 //
 //////////////////////////////////////////////////////////////////////
 

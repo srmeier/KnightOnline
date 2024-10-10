@@ -1,4 +1,4 @@
-// UILoadingDlg.h: interface for the UILoadingDlg class.
+﻿// UILoadingDlg.h: interface for the UILoadingDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

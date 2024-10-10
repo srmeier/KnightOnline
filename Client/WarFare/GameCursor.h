@@ -1,4 +1,4 @@
-// GameCursor.h: interface for the CGameCursor class.
+﻿// GameCursor.h: interface for the CGameCursor class.
 //
 //////////////////////////////////////////////////////////////////////
 

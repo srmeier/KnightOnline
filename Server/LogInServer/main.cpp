@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "../shared/signal_handler.h"
 
 LoginServer * g_pMain;

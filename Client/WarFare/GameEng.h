@@ -1,4 +1,4 @@
-// GameEng.h: interface for the CGameEng class.
+ï»¿// GameEng.h: interface for the CGameEng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -15,12 +15,12 @@
 typedef std::list<class CN3Light*>::iterator		it_Light;
 typedef std::list<class CN3Camera*> ::iterator	it_Camera;
 
-// Ä«¸Ş¶ó ½ÃÁ¡
-enum e_ViewPoint		{	VP_BACKWARD = 0,			// ÇÃ·¹ÀÌ¾î µî µÚ¿¡¼­ ¹Ù¶óº» ¸ğ½À 1.5ÀÎÄª
-							VP_FIRST_PERSON = 1,		// ÀÏÀÎÄª
-							VP_FOWARD = 2,				// ÇÃ·¹ÀÌ¾î ¾Õ¿¡¼­ ¹Ù¶óº½..
-							VP_THIRD_PERSON = 3,		// »ïÀÎÄª ¸ğµå .. ¸¶¿ì½ºµµ µ¿ÀÛÇÔ..
-							VP_UNKNOWN = 0xffffffff };  // °³¹ßÀ» À§ÇØ Ä«¸Ş¶ó¸¸ ºü¸£°Ô....
+// ì¹´ë©”ë¼ ì‹œì 
+enum e_ViewPoint		{	VP_BACKWARD = 0,			// í”Œë ˆì´ì–´ ë“± ë’¤ì—ì„œ ë°”ë¼ë³¸ ëª¨ìŠµ 1.5ì¸ì¹­
+							VP_FIRST_PERSON = 1,		// ì¼ì¸ì¹­
+							VP_FOWARD = 2,				// í”Œë ˆì´ì–´ ì•ì—ì„œ ë°”ë¼ë´„..
+							VP_THIRD_PERSON = 3,		// ì‚¼ì¸ì¹­ ëª¨ë“œ .. ë§ˆìš°ìŠ¤ë„ ë™ì‘í•¨..
+							VP_UNKNOWN = 0xffffffff };  // ê°œë°œì„ ìœ„í•´ ì¹´ë©”ë¼ë§Œ ë¹ ë¥´ê²Œ....
 
 const float CAMERA_MOVE_SPEED = 5.0f;
 
@@ -38,59 +38,59 @@ protected:
 	__Vector3		m_vEyeToReach;
 	__Vector3		m_vAtToReach;
 
-	float			m_fFPDeltaCur; // ÇöÀç 
-	float			m_fFPDeltaToReach; // ÀÌ°ªÀ» ¸ñÇ¥·Î ÇØ¼­ º¯ÇÑ´Ù.
+	float			m_fFPDeltaCur; // í˜„ì¬ 
+	float			m_fFPDeltaToReach; // ì´ê°’ì„ ëª©í‘œë¡œ í•´ì„œ ë³€í•œë‹¤.
 
-	float			m_fRotPitchBackward; // 1.5ÀÎÄª ½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó ÇÇÄ¡ °¢µµ.
-	float			m_fRotPitchFirstPerson; // ÀÏÀÎÄª ½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó ÇÇÄ¡ °¢µµ.
-	float			m_fRotPitchFoward; // ¾Õ¿¡¼­ º» ½ÃÁ¡ÀÏ¶§  Ä«¸Ş¶ó ÇÇÄ¡ °¢µµ.
-	float			m_fRotPitchThirdFirson; // »ïÀÎÄª ½ÃÁ¡ Ä«¸Ş¶ó ÇÇÄ¡ °¢µµ
+	float			m_fRotPitchBackward; // 1.5ì¸ì¹­ ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ í”¼ì¹˜ ê°ë„.
+	float			m_fRotPitchFirstPerson; // ì¼ì¸ì¹­ ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ í”¼ì¹˜ ê°ë„.
+	float			m_fRotPitchFoward; // ì•ì—ì„œ ë³¸ ì‹œì ì¼ë•Œ  ì¹´ë©”ë¼ í”¼ì¹˜ ê°ë„.
+	float			m_fRotPitchThirdFirson; // ì‚¼ì¸ì¹­ ì‹œì  ì¹´ë©”ë¼ í”¼ì¹˜ ê°ë„
 	
-	float			m_fOffsetVPGod; // À§¿¡¼­ ¹Ù¶óº» ½ÃÁ¡ÀÏ °æ¿ì¿¡ °Å¸®..
-	float			m_fRotYawVPGod; // À§¿¡¼­ ¹Ù¶óº» ½ÃÁ¡ÀÏ °æ¿ì¿¡ Ä«¸Ş¶ó È¸Àü°¢µµ..
+	float			m_fOffsetVPGod; // ìœ„ì—ì„œ ë°”ë¼ë³¸ ì‹œì ì¼ ê²½ìš°ì— ê±°ë¦¬..
+	float			m_fRotYawVPGod; // ìœ„ì—ì„œ ë°”ë¼ë³¸ ì‹œì ì¼ ê²½ìš°ì— ì¹´ë©”ë¼ íšŒì „ê°ë„..
 
-	float			m_fZoomBackwardOrFoward; // 1.5ÀÎÄª, ¾Õ¿¡¼­ º» ½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó Zoom 1.0f °¡ ±âÁØÀÌ´Ù.
-	float			m_fLightningTimeRemain; // ¹ø°³ Ä¥¶§ Å¸ÀÌ¸Ó..
+	float			m_fZoomBackwardOrFoward; // 1.5ì¸ì¹­, ì•ì—ì„œ ë³¸ ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ Zoom 1.0f ê°€ ê¸°ì¤€ì´ë‹¤.
+	float			m_fLightningTimeRemain; // ë²ˆê°œ ì¹ ë•Œ íƒ€ì´ë¨¸..
 
-	e_ViewPoint		m_eViewPoint; // Ä«¸Ş¶ó ½ÃÁ¡.
+	e_ViewPoint		m_eViewPoint; // ì¹´ë©”ë¼ ì‹œì .
 
 public:
 	void			SetDefaultLight(CN3Light* pSun, CN3Light* pSupport, CN3Light* pCam);
 	void			RestoreLighting();
 	void			BackupReleaseLighting();
-	void			Lightning(); // ¹ø°³ Ä¡¸ç ¶óÀÌÆ® Á¶ÀıÇÏ±â.
+	void			Lightning(); // ë²ˆê°œ ì¹˜ë©° ë¼ì´íŠ¸ ì¡°ì ˆí•˜ê¸°.
 	float			FarPlaneDeltaCur() { return m_fFPDeltaCur; }
 	float			FarPlaneDeltaToReach() { return m_fFPDeltaToReach; }
 	void			FarPlaneDeltaSet(float fFPDelta, bool bUpdateImmediately);
 
-	// Light ÇÔ¼öµé
+	// Light í•¨ìˆ˜ë“¤
 	//void			LightAdd(CN3Light* pLight) { m_Lights.push_back(pLight); }
 	//int				LightCount() { return m_Lights.size(); }
 	//CN3Light*		Light(int index);
 
-	// Camera ÇÔ¼öµé
+	// Camera í•¨ìˆ˜ë“¤
 	void			CameraAdd(CN3Camera *pCamera) { m_Cameras.push_back(pCamera); }
 	int				CameraCount() { return m_Cameras.size(); }
 	CN3Camera*		Camera(size_t index);
 	void			CameraSetActiveByIndex(size_t index) { CN3Camera* pCam = this->Camera(index); if(pCam) m_pActiveCam = pCam; }
 	CN3Camera*		CameraGetActive() { return m_pActiveCam; }
 
-	// Ãß°¡ÇÑ°Í..
+	// ì¶”ê°€í•œê²ƒ..
 	void			ViewPointChange(e_ViewPoint eVP = VP_UNKNOWN);
-	e_ViewPoint		ViewPoint() { return m_eViewPoint; } // ½ÃÁ¡..
+	e_ViewPoint		ViewPoint() { return m_eViewPoint; } // ì‹œì ..
 	void			CameraPitchAdd(float fRotXPerSec);
 	void			CameraYawAdd(float fRotYPerSec);
 	void			CameraZoom(float fDelta);
-	float			CameraYaw() { return m_fRotYawVPGod; } // À§¿¡¼­ ¹Ù¶óº» ½ÃÁ¡ÀÏ °æ¿ì¿¡ Ä«¸Ş¶ó È¸Àü°¢µµ..
+	float			CameraYaw() { return m_fRotYawVPGod; } // ìœ„ì—ì„œ ë°”ë¼ë³¸ ì‹œì ì¼ ê²½ìš°ì— ì¹´ë©”ë¼ íšŒì „ê°ë„..
 	void			SetActiveCamera(CN3Camera* pCamera) { m_pActiveCam = pCamera; }
-	void			Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò..
-						const D3DCOLOR* crAmbients,			// Ambient ¶óÀÌÆ® »ö±ò..
-						const D3DCOLOR crFog,				// ¾È°³ »ö±ò..
-						const __Vector3& vPosPlayer,		// ÇÃ·¹ÀÌ¾î À§Ä¡
-						const __Quaternion& qtPlayer,		// È¸Àü ÄõÅÍ´Ï¾ğ
-						float fHeightPlayer,				// Å°¸¦ ÀÎ¼ö·Î ³ÖÀ¸¸é Ä«¸Ş¶ó¿Í ¶óÀÌÆ® Ã³¸®..
-						float fSunRadianZ);					// ÇØÀÇ Z °¢µµ..
-	void			ApplyCameraAndLight(); // Ä«¸Ş¶ó¿Í ¶óÀÌÆ®¿¡ ¼¼ÆÃµÈ °ª Àû¿ë. ¶óÀÌÆ®´Â ÇØÀÇ °¢µµ¿¡ µû¶ó ´Ù¸£°Ô ÇÑ´Ù.
+	void			Tick(const D3DCOLOR* crDiffuses,			// Diffuse ë¼ì´íŠ¸ ìƒ‰ê¹”..
+						const D3DCOLOR* crAmbients,			// Ambient ë¼ì´íŠ¸ ìƒ‰ê¹”..
+						const D3DCOLOR crFog,				// ì•ˆê°œ ìƒ‰ê¹”..
+						const __Vector3& vPosPlayer,		// í”Œë ˆì´ì–´ ìœ„ì¹˜
+						const __Quaternion& qtPlayer,		// íšŒì „ ì¿¼í„°ë‹ˆì–¸
+						float fHeightPlayer,				// í‚¤ë¥¼ ì¸ìˆ˜ë¡œ ë„£ìœ¼ë©´ ì¹´ë©”ë¼ì™€ ë¼ì´íŠ¸ ì²˜ë¦¬..
+						float fSunRadianZ);					// í•´ì˜ Z ê°ë„..
+	void			ApplyCameraAndLight(); // ì¹´ë©”ë¼ì™€ ë¼ì´íŠ¸ì— ì„¸íŒ…ëœ ê°’ ì ìš©. ë¼ì´íŠ¸ëŠ” í•´ì˜ ê°ë„ì— ë”°ë¼ ë‹¤ë¥´ê²Œ í•œë‹¤.
 
 	CGameEng();
 	virtual ~CGameEng();

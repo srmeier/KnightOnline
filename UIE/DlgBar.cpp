@@ -1,4 +1,4 @@
-// DlgBar.cpp : implementation file
+ï»¿// DlgBar.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -52,7 +52,7 @@ void CDlgBar::OnButtonBasepath()
 	CString strPath;
 	if (pWnd) pWnd->GetWindowText(strPath);
 	char szFolder[_MAX_PATH] = "";
-	char szTitle[] = "Select a base path:";//"¸®¼Ò½º base°æ·Î¸¦ ¼±ÅÃÇØÁÖ¼¼¿ä.";
+	char szTitle[] = "Select a base path:";//"ë¦¬ì†ŒìŠ¤ baseê²½ë¡œë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.";
 
     BROWSEINFO bi;
 	LPCITEMIDLIST lpidl;

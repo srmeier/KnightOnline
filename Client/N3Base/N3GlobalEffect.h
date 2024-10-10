@@ -1,4 +1,4 @@
-// N3GlobalEffect.h: interface for the CN3GlobalEffect class.
+ï»¿// N3GlobalEffect.h: interface for the CN3GlobalEffect class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -29,8 +29,8 @@ protected:
 	LPDIRECT3DINDEXBUFFER9		m_pIB;
 	uint32_t						m_dwEffectType;
 	BOOL						m_bActive;
-	float						m_fFadeTime; // ÀÌ½Ã°£ µ¿¾È Â÷Â÷ ¸ñÇ¥ÇÑ ¾ç¸¸Å­ ÆÄÆ¼Å¬ÀÇ ¼ö°¡ ´Ã¾î³­´Ù..
-	float						m_fFadeTimeCur; // Áö³­½Ã°£..
+	float						m_fFadeTime; // ì´ì‹œê°„ ë™ì•ˆ ì°¨ì°¨ ëª©í‘œí•œ ì–‘ë§Œí¼ íŒŒí‹°í´ì˜ ìˆ˜ê°€ ëŠ˜ì–´ë‚œë‹¤..
+	float						m_fFadeTimeCur; // ì§€ë‚œì‹œê°„..
 	int							m_iFadeMode; // 1 - FadeIn 0... -1 FadeOut
 
 // Operations

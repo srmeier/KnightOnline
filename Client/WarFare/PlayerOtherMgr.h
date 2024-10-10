@@ -1,4 +1,4 @@
-// PlayerOtherMgr.h: interface for the CPlayerOtherMgr class.
+ï»¿// PlayerOtherMgr.h: interface for the CPlayerOtherMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -32,11 +32,11 @@ class CPlayerOtherMgr : public CGameBase
 public:
 //	std::list<CPlayerNPC*>		m_NPCs;		// NPC
 //	std::list<CPlayerOther*>	m_UPCs;		// User Player Character
-//	std::list<CPlayerNPC*>		m_Corpses;	// Á×Àº³ğ.. Á×´Â ¿¡´Ï¸ŞÀÌ¼Ç ¹× ½Ã°£ÀÌ Áö³ª¸é ¾ø¾îÁö°Ô ÇÑ´Ù..
+//	std::list<CPlayerNPC*>		m_Corpses;	// ì£½ì€ë†ˆ.. ì£½ëŠ” ì—ë‹ˆë©”ì´ì…˜ ë° ì‹œê°„ì´ ì§€ë‚˜ë©´ ì—†ì–´ì§€ê²Œ í•œë‹¤..
 	std::map<int, CPlayerNPC*>		m_NPCs;		// NPC
 	std::map<int, CPlayerOther*>	m_UPCs;		// User Player Character
-	std::map<int, CPlayerNPC*>		m_Corpses;	// Á×Àº³ğ.. Á×´Â ¿¡´Ï¸ŞÀÌ¼Ç ¹× ½Ã°£ÀÌ Áö³ª¸é ¾ø¾îÁö°Ô ÇÑ´Ù..
-	int								m_iChrCountToRender; // ·»´õ¸µµÇ´Â Ä³¸¯ Ä«¿îÆ®
+	std::map<int, CPlayerNPC*>		m_Corpses;	// ì£½ì€ë†ˆ.. ì£½ëŠ” ì—ë‹ˆë©”ì´ì…˜ ë° ì‹œê°„ì´ ì§€ë‚˜ë©´ ì—†ì–´ì§€ê²Œ í•œë‹¤..
+	int								m_iChrCountToRender; // ë Œë”ë§ë˜ëŠ” ìºë¦­ ì¹´ìš´íŠ¸
 
 public:
 	bool				IsValidCharacter(CPlayerBase* pCharacter);
@@ -44,28 +44,28 @@ public:
 	void				Render(float fSunAngle);
 
 	void				NPCAdd(CPlayerNPC* pNPC);
-	bool				NPCDelete(int iID);								// °íÀ¯ ID ¿Í ÀÏÄ¡ÇÏ´Â NPC¸¦ ¸®½ºÆ®¿¡¼­ Á¦°Å.. ¹× ¸®¼Ò½º ÇØÁ¦ 
+	bool				NPCDelete(int iID);								// ê³ ìœ  ID ì™€ ì¼ì¹˜í•˜ëŠ” NPCë¥¼ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œê±°.. ë° ë¦¬ì†ŒìŠ¤ í•´ì œ 
 	void				UPCAdd(CPlayerOther* pPlayer);
-	bool				UPCDelete(int iID);								// °íÀ¯ ID ¿Í ÀÏÄ¡ÇÏ´Â NPC¸¦ ¸®½ºÆ®¿¡¼­ Á¦°Å.. ¹× ¸®¼Ò½º ÇØÁ¦ 
+	bool				UPCDelete(int iID);								// ê³ ìœ  ID ì™€ ì¼ì¹˜í•˜ëŠ” NPCë¥¼ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œê±°.. ë° ë¦¬ì†ŒìŠ¤ í•´ì œ 
 
-//	CPlayerOther*		UPCGetByName(const char* szID);					// User Player Character ¿Í NPC ¸¦ Á¶»çÇØ¼­ Æ÷ÀÎÅÍ¸¦ °¡Á®¿Â´Ù.
-	CPlayerOther*		UPCGetByID(int iID, bool bFromAliveOnly);		// User Player Character ¿Í NPC ¸¦ Á¶»çÇØ¼­ Æ÷ÀÎÅÍ¸¦ °¡Á®¿Â´Ù.
-//	CPlayerNPC*			NPCGetByName(const char* szID);					// User Player Character ¿Í NPC ¸¦ Á¶»çÇØ¼­ Æ÷ÀÎÅÍ¸¦ °¡Á®¿Â´Ù.
-	CPlayerNPC*			NPCGetByID(int iID, bool bFromAliveOnly);		// User Player Character ¿Í NPC ¸¦ Á¶»çÇØ¼­ Æ÷ÀÎÅÍ¸¦ °¡Á®¿Â´Ù.
+//	CPlayerOther*		UPCGetByName(const char* szID);					// User Player Character ì™€ NPC ë¥¼ ì¡°ì‚¬í•´ì„œ í¬ì¸í„°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+	CPlayerOther*		UPCGetByID(int iID, bool bFromAliveOnly);		// User Player Character ì™€ NPC ë¥¼ ì¡°ì‚¬í•´ì„œ í¬ì¸í„°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+//	CPlayerNPC*			NPCGetByName(const char* szID);					// User Player Character ì™€ NPC ë¥¼ ì¡°ì‚¬í•´ì„œ í¬ì¸í„°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+	CPlayerNPC*			NPCGetByID(int iID, bool bFromAliveOnly);		// User Player Character ì™€ NPC ë¥¼ ì¡°ì‚¬í•´ì„œ í¬ì¸í„°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	CPlayerNPC*			NPCGetByPos(const __Vector3& vPos);
-	CPlayerNPC*			CharacterGetByID(int iID, bool bFromAliveOnly); // User, NPC ¾È °¡¸®°í °¡Á®¿Â´Ù..
-	CPlayerNPC*			CharacterGetByNearstEnemy(e_Nation eNation, const __Vector3& vPosPlayer); // °¡Àå °¡±î¿î Àû °¡Á®¿À±â..
-	bool				CharacterDelete(int iID); // User, NPC ¾È °¡¸®°í Áö¿î´Ù..
+	CPlayerNPC*			CharacterGetByID(int iID, bool bFromAliveOnly); // User, NPC ì•ˆ ê°€ë¦¬ê³  ê°€ì ¸ì˜¨ë‹¤..
+	CPlayerNPC*			CharacterGetByNearstEnemy(e_Nation eNation, const __Vector3& vPosPlayer); // ê°€ì¥ ê°€ê¹Œìš´ ì  ê°€ì ¸ì˜¤ê¸°..
+	bool				CharacterDelete(int iID); // User, NPC ì•ˆ ê°€ë¦¬ê³  ì§€ìš´ë‹¤..
 
-	CPlayerBase*		CorpseGetByID(int iID);							// ½ÃÃ¼µé¿¡¼­ Player Character ¿Í NPC ¸¦ Á¶»çÇØ¼­ Æ÷ÀÎÅÍ¸¦ °¡Á®¿Â´Ù.
+	CPlayerBase*		CorpseGetByID(int iID);							// ì‹œì²´ë“¤ì—ì„œ Player Character ì™€ NPC ë¥¼ ì¡°ì‚¬í•´ì„œ í¬ì¸í„°ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	void				CorpseRemove(CPlayerNPC* pCorpse, bool bRemoveImmediately = false);
 	void				CorpseAdd(CPlayerNPC* pNPC);
 	void				CorpseAdd(int iID);
-	CPlayerNPC*			CorpseGetNearstNPC(bool bMustHaveItem, e_Nation eNation, const __Vector3& vPosPlayer); // °¡Àå °¡±î¿î Àû ½ÃÃ¼ °¡Á®¿À±â..
-	void				MoveToCorpsesForcely(CPlayerNPC* pNPC, bool bErase);			// ¾ÆÀÌµğ°¡ °ãÄ¡°Å³ª ÇÏ¸é °­Á¦·Î ½ÃÃ¼¸¦ ¸¸µç´Ù..
+	CPlayerNPC*			CorpseGetNearstNPC(bool bMustHaveItem, e_Nation eNation, const __Vector3& vPosPlayer); // ê°€ì¥ ê°€ê¹Œìš´ ì  ì‹œì²´ ê°€ì ¸ì˜¤ê¸°..
+	void				MoveToCorpsesForcely(CPlayerNPC* pNPC, bool bErase);			// ì•„ì´ë””ê°€ ê²¹ì¹˜ê±°ë‚˜ í•˜ë©´ ê°•ì œë¡œ ì‹œì²´ë¥¼ ë§Œë“ ë‹¤..
 
 
-	//.. PickingµÈ PlayerOther °è»ê..
+	//.. Pickingëœ PlayerOther ê³„ì‚°..
 	CPlayerNPC*			Pick(int ixScreen, int iyScreen, int& iIDResult, __Vector3* pvPick = NULL);
 	CPlayerNPC*			PickNPC(int ixScreen, int iyScreen, int& iIDResult, __Vector3* pvPick = NULL);
 	CPlayerOther*		PickUPC(int ixScreen, int iyScreen, int& iIDResult, __Vector3* pvPick = NULL);
@@ -73,7 +73,7 @@ public:
 	CPlayerNPC*			PickNPCPrecisely(int ixScreen, int iyScreen, int& iIDResult, __Vector3* pvPick = NULL);
 	CPlayerOther*		PickUPCPrecisely(int ixScreen, int iyScreen, int& iIDResult, __Vector3* pvPick = NULL);
 	CPlayerNPC*			PickAllPrecisely(int ixScreen, int iyScreen, int &iIDResult, __Vector3* pvPick);
-	CPlayerNPC*			PickCorpse(int ixScreen, int iyScreen, int& iIDResult); // ½ÃÃ¼Áß Å¬¸¯..
+	CPlayerNPC*			PickCorpse(int ixScreen, int iyScreen, int& iIDResult); // ì‹œì²´ì¤‘ í´ë¦­..
 	static int			SortByCameraDistance(const void* pArg1, const void* pArg2);
 
 	void				ReleaseUPCs();
@@ -128,8 +128,8 @@ inline CPlayerNPC* CPlayerOtherMgr::CharacterGetByID(int iID, bool bFromAliveOnl
 {
 	if(iID < 0) return 0;
 
-	CPlayerNPC* pBPC = this->NPCGetByID(iID, bFromAliveOnly);		// ¸ÕÀú  NPC Áß¿¡¼­ Ã£¾Æº¸°í..
-	if(NULL == pBPC) pBPC = this->UPCGetByID(iID, bFromAliveOnly);			// ¾øÀ½ User µéµµ Ã£¾Æº»´Ù..
+	CPlayerNPC* pBPC = this->NPCGetByID(iID, bFromAliveOnly);		// ë¨¼ì €  NPC ì¤‘ì—ì„œ ì°¾ì•„ë³´ê³ ..
+	if(NULL == pBPC) pBPC = this->UPCGetByID(iID, bFromAliveOnly);			// ì—†ìŒ User ë“¤ë„ ì°¾ì•„ë³¸ë‹¤..
 
 	return pBPC;
 }
@@ -137,11 +137,11 @@ inline CPlayerNPC* CPlayerOtherMgr::CharacterGetByID(int iID, bool bFromAliveOnl
 inline void CPlayerOtherMgr::UPCAdd(CPlayerOther* pUPC)
 {
 	it_UPC it = m_UPCs.find(pUPC->IDNumber());
-	if(it == m_UPCs.end()) // Áßº¹µÈ°Ô ¾øÀ¸¸é..
+	if(it == m_UPCs.end()) // ì¤‘ë³µëœê²Œ ì—†ìœ¼ë©´..
 	{
 		m_UPCs.insert(val_UPC(pUPC->IDNumber(), pUPC));
 	}
-	else // Áßº¹µÇ¾úÀ¸¸é..
+	else // ì¤‘ë³µë˜ì—ˆìœ¼ë©´..
 	{
 		T_Delete(it->second);
 		it->second = pUPC;
@@ -161,11 +161,11 @@ inline bool CPlayerOtherMgr::UPCDelete(int iID)
 inline void CPlayerOtherMgr::NPCAdd(CPlayerNPC* pNPC)
 {
 	it_NPC it = m_NPCs.find(pNPC->IDNumber());
-	if(it == m_NPCs.end()) // Áßº¹µÈ°Ô ¾øÀ¸¸é..
+	if(it == m_NPCs.end()) // ì¤‘ë³µëœê²Œ ì—†ìœ¼ë©´..
 	{
 		m_NPCs.insert(val_NPC(pNPC->IDNumber(), pNPC));
 	}
-	else // Áßº¹µÇ¾úÀ¸¸é..
+	else // ì¤‘ë³µë˜ì—ˆìœ¼ë©´..
 	{
 		T_Delete(it->second);
 		it->second = pNPC;

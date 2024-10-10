@@ -1,4 +1,4 @@
-// UIEndingDisplay.h: interface for the CUIEndingDisplay class.
+﻿// UIEndingDisplay.h: interface for the CUIEndingDisplay class.
 //
 //////////////////////////////////////////////////////////////////////
 

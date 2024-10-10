@@ -1,4 +1,4 @@
-// N3UIWndBase.h: interface for the CN3UIWndBase class.
+ï»¿// N3UIWndBase.h: interface for the CN3UIWndBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,12 +24,12 @@ enum e_UIWND				{
 								UIWND_INVENTORY = 0,		// Inventory Wnd..
 								UIWND_TRANSACTION, 			// Transaction Wnd..
 								UIWND_DROPITEM,				// Drop Item Wnd..
-								UIWND_PER_TRADE,			// °³ÀÎ°£ °Å·¡..
+								UIWND_PER_TRADE,			// ê°œì¸ê°„ ê±°ë˜..
 								UIWND_SKILL_TREE,			// Skill Icon Info Wnd..
 								UIWND_HOTKEY,				// Hot Key Wnd..
 								UIWND_PER_TRADE_EDIT,		// Per Trade Edit Wnd..
 								UIWND_EXCHANGE_REPAIR,		// Exchange Repair Wnd..
-								UIWND_WARE_HOUSE,			// º¸°üÇÔ..
+								UIWND_WARE_HOUSE,			// ë³´ê´€í•¨..
 								UIWND_UNKNOWN,				// Wnd Unknown..
 							};
 
@@ -45,7 +45,7 @@ enum e_UIWND_DISTRICT		{
 								UIWND_DISTRICT_SKILL_HOTKEY,		// Skillicon district of Hotkey icon wnd..
 								UIWND_DISTRICT_EX_RE_NPC,			// Exchange Repair Wnd Npc District..			
 								UIWND_DISTRICT_EX_RE_INV,			// Exchange Repair Wnd Inv District..
-								UIWND_DISTRICT_TRADE_MY,			// Npc ¿ÍÀÇ °Å·¡¿¡¼­ ³» ¿µ¿ª..
+								UIWND_DISTRICT_TRADE_MY,			// Npc ì™€ì˜ ê±°ë˜ì—ì„œ ë‚´ ì˜ì—­..
 								UIWND_DISTRICT_PER_TRADE_INV,		// Inv District of Per Trade Wnd ..
 								UIWND_DISTRICT_UNKNOWN,				// District Unknown..
 							};
@@ -79,7 +79,7 @@ struct	__IconItemSkill		{
 										__TABLE_ITEM_BASIC*	pItemBasic;		// Item.. ^^
 										__TABLE_ITEM_EXT*	pItemExt;
 										int					iCount;
-										int					iDurability;	// ³»±¸·Â
+										int					iDurability;	// ë‚´êµ¬ë ¥
 										};
 
 									__TABLE_UPC_SKILL*		pSkill;			// Skill.. ^^
@@ -129,7 +129,7 @@ class CUIImageTooltipDlg;
 class CCountableItemEditDlg;
 
 // Class ^^
-class CN3UIWndBase  : public CN3UIBase		// °¡»ó ÇÔ¼ö·Î ÀÚ½ÄÀÇ Area °¹¼ö¸¦ ÆÄ¾ÇÇÒ ¼ö ÀÖ´Â ÇÔ¼ö°¡ ÀÖ¾î¾ß ÇÏÁö ¾ÊÀ» ±î???
+class CN3UIWndBase  : public CN3UIBase		// ê°€ìƒ í•¨ìˆ˜ë¡œ ìì‹ì˜ Area ê°¯ìˆ˜ë¥¼ íŒŒì•…í•  ìˆ˜ ìˆëŠ” í•¨ìˆ˜ê°€ ìˆì–´ì•¼ í•˜ì§€ ì•Šì„ ê¹Œ???
 											// int GetChildCountByAreaType(eAreatype .. ) ^^
 {
 	void				PlayItemEtcSound();
@@ -146,7 +146,7 @@ public:
 protected:
 	e_UIWND						m_eUIWnd;
 
-	static int					s_iRefCount; // ÂüÁ¶ Ä«¿îÆ®...
+	static int					s_iRefCount; // ì°¸ì¡° ì¹´ìš´íŠ¸...
 	static CN3SndObj*			s_pSnd_Item_Etc;
 	static CN3SndObj*			s_pSnd_Item_Weapon;
 	static CN3SndObj*			s_pSnd_Item_Armor;

@@ -1,4 +1,4 @@
-#include "resource.h"
+ï»¿#include "resource.h"
 #include "UITargetBar.h"
 
 #include "N3UIProgress.h"
@@ -33,7 +33,7 @@ void CUITargetBar::UpdateHP(int iHP, int iHPMax, bool bUpdateImmediately)
 	int iPercentage = iHP * 100 / iHPMax;
 
 	if(bUpdateImmediately) m_pProgressHP->SetCurValue(iPercentage);
-	else m_pProgressHP->SetCurValue(iPercentage, 0.5f, 50.0f);				// 1ÃÊµÚ¿¡ ÃÊ´ç 50 ÀÇ ¼Óµµ·Î º¯ÇÏ°Ô ÇÑ´Ù.
+	else m_pProgressHP->SetCurValue(iPercentage, 0.5f, 50.0f);				// 1ì´ˆë’¤ì— ì´ˆë‹¹ 50 ì˜ ì†ë„ë¡œ ë³€í•˜ê²Œ í•œë‹¤.
 	return;
 }
 
@@ -54,7 +54,7 @@ bool CUITargetBar::Load(HANDLE hFile)
 	m_pStringID = (CN3UIString*)GetChildByID("text_target");	__ASSERT(m_pStringID, "NULL UI Component!!");
 
 	if(m_pProgressHP) m_pProgressHP->SetRange(0, 100);
-	if(m_pStringID) // ÆùÆ®¸¦ ¹Ù²Û´Ù.
+	if(m_pStringID) // í°íŠ¸ë¥¼ ë°”ê¾¼ë‹¤.
 	{
 		std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
 		

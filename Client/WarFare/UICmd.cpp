@@ -1,4 +1,4 @@
-// UICmd.cpp: implementation of the CUICmd class.
+ï»¿// UICmd.cpp: implementation of the CUICmd class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,27 +25,27 @@ static char THIS_FILE[]=__FILE__;
 
 CUICmd::CUICmd()
 {
-	m_pBtn_Exit = NULL;			//³ª°¡±â
+	m_pBtn_Exit = NULL;			//ë‚˜ê°€ê¸°
 
-	m_pBtn_Act = NULL;			//Çàµ¿
-	m_pBtn_Act_Walk = NULL;	//°È±â
-	m_pBtn_Act_Run = NULL;		//´Þ¸®±â
-	m_pBtn_Act_Stop = NULL;	//¼­±â
-	m_pBtn_Act_Attack = NULL;	//°ø°Ý
+	m_pBtn_Act = NULL;			//í–‰ë™
+	m_pBtn_Act_Walk = NULL;	//ê±·ê¸°
+	m_pBtn_Act_Run = NULL;		//ë‹¬ë¦¬ê¸°
+	m_pBtn_Act_Stop = NULL;	//ì„œê¸°
+	m_pBtn_Act_Attack = NULL;	//ê³µê²©
 	
-	m_pBtn_Act_StandUp = NULL; // ÀÏ¾î¼­±â.
-	m_pBtn_Act_SitDown = NULL;	// ¾É±â
+	m_pBtn_Act_StandUp = NULL; // ì¼ì–´ì„œê¸°.
+	m_pBtn_Act_SitDown = NULL;	// ì•‰ê¸°
 
-	m_pBtn_Camera = NULL;			//Ä«¸Þ¶ó
-	m_pBtn_Inventory = NULL;		//¾ÆÀÌÅÛ Ã¢ 
-	m_pBtn_Party_Invite = NULL;	//ÆÄÆ¼ ÃÊ´ë
-	m_pBtn_Party_Disband = NULL;	//ÆÄÆ¼ Å»Åð
-	m_pBtn_CmdList = NULL;			//¿É¼Ç
-	m_pBtn_Quest = NULL;			//Äù½ºÆ®
-	m_pBtn_Character = NULL;		//ÀÚ±â Á¤º¸Ã¢   
-	m_pBtn_Skill = NULL;			//½ºÅ³Æ®¸® ¶Ç´Â ¸¶¹ýÃ¢ 
-	m_pBtn_Belong = NULL;			//¼Ò¼Ó ±â»ç´Ü 
-	m_pBtn_Map = NULL;				// ¹Ì´Ï¸Ê
+	m_pBtn_Camera = NULL;			//ì¹´ë©”ë¼
+	m_pBtn_Inventory = NULL;		//ì•„ì´í…œ ì°½ 
+	m_pBtn_Party_Invite = NULL;	//íŒŒí‹° ì´ˆëŒ€
+	m_pBtn_Party_Disband = NULL;	//íŒŒí‹° íƒˆí‡´
+	m_pBtn_CmdList = NULL;			//ì˜µì…˜
+	m_pBtn_Quest = NULL;			//í€˜ìŠ¤íŠ¸
+	m_pBtn_Character = NULL;		//ìžê¸° ì •ë³´ì°½   
+	m_pBtn_Skill = NULL;			//ìŠ¤í‚¬íŠ¸ë¦¬ ë˜ëŠ” ë§ˆë²•ì°½ 
+	m_pBtn_Belong = NULL;			//ì†Œì† ê¸°ì‚¬ë‹¨ 
+	m_pBtn_Map = NULL;				// ë¯¸ë‹ˆë§µ
 }
 
 CUICmd::~CUICmd()
@@ -65,7 +65,7 @@ bool CUICmd::Load(HANDLE hFile)
 	m_pBtn_Act_StandUp =	GetChildByID("btn_stand");		//__ASSERT(m_pBtn_Act_StandUp, "NULL UI Component!!");
 	m_pBtn_Act_SitDown =	GetChildByID("btn_sit");		//__ASSERT(m_pBtn_Act_SitDown, "NULL UI Component!!");
 
-	if(m_pBtn_Act_StandUp) m_pBtn_Act_StandUp->SetVisible(false); // ÀÏ¾î¼­±â ¹öÆ°Àº ¹Ì¸® Á×¿©³õ´Â´Ù..
+	if(m_pBtn_Act_StandUp) m_pBtn_Act_StandUp->SetVisible(false); // ì¼ì–´ì„œê¸° ë²„íŠ¼ì€ ë¯¸ë¦¬ ì£½ì—¬ë†“ëŠ”ë‹¤..
 	
 	m_pBtn_Character =		GetChildByID("btn_character");	//__ASSERT(m_pBtn_Character, "NULL UI Component!!");
 	m_pBtn_Inventory =		GetChildByID("btn_inventory");	//__ASSERT(m_pBtn_Inventory, "NULL UI Component!!");
@@ -146,9 +146,9 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		else if(pSender == m_pBtn_Party_Invite)
 		{
 			CPlayerOther* pUPC = CGameProcedure::s_pOPMgr->UPCGetByID(CGameProcedure::s_pPlayer->m_iIDTarget, true);
-			if(pUPC && pUPC->m_InfoBase.eNation == CGameProcedure::s_pPlayer->m_InfoBase.eNation) // ±¹°¡ Ã¼Å©
+			if(pUPC && pUPC->m_InfoBase.eNation == CGameProcedure::s_pPlayer->m_InfoBase.eNation) // êµ­ê°€ ì²´í¬
 			{
-				CGameProcedure::s_pProcMain->MsgSend_PartyOrForceCreate(0, pUPC->IDString()); // ÆÄÆ¼ ÃÊ´ëÇÏ±â..
+				CGameProcedure::s_pProcMain->MsgSend_PartyOrForceCreate(0, pUPC->IDString()); // íŒŒí‹° ì´ˆëŒ€í•˜ê¸°..
 			}
 		}
 
@@ -160,10 +160,10 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			bool bIAmLeader = false, bIAmMemberOfParty = false;
 			int iMemberIndex = -1;
 			CPlayerBase* pTarget = NULL;
-			pMain->PartyOrForceConditionGet(bIAmLeader, bIAmMemberOfParty, iMemberIndex, pTarget); // ÆÄÆ¼ÀÇ »óÈ²À» º¸°í..
+			pMain->PartyOrForceConditionGet(bIAmLeader, bIAmMemberOfParty, iMemberIndex, pTarget); // íŒŒí‹°ì˜ ìƒí™©ì„ ë³´ê³ ..
 			
 			std::string szMsg;
-			if(bIAmLeader) // ³»°¡ ¸®´õ¸é..
+			if(bIAmLeader) // ë‚´ê°€ ë¦¬ë”ë©´..
 			{
 				if(iMemberIndex > 0)
 				{
@@ -177,7 +177,7 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 				::_LoadStringFromResource(IDS_PARTY_CONFIRM_LEAVE, szMsg);
 			}
 
-			if(!szMsg.empty()) CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_PARTY_DISBAND); // ÆÄÆ¼ ÇØÃ¼,ÃàÃâ,Å»ÅðÇÏ±â..È®ÀÎ
+			if(!szMsg.empty()) CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_PARTY_DISBAND); // íŒŒí‹° í•´ì²´,ì¶•ì¶œ,íƒˆí‡´í•˜ê¸°..í™•ì¸
 		}
 
 		else if(pSender == m_pBtn_Act_SitDown)
@@ -207,7 +207,7 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 /*
 void CUICmd::SetVisibleActButtons(bool bVisible)
 {
-	//Çàµ¿
+	//í–‰ë™
 	if(m_pBtn_Act_Walk) m_pBtn_Act_Walk->SetVisible(bVisible); 
 	if(m_pBtn_Act_Run) m_pBtn_Act_Run->SetVisible(bVisible);
 	if(m_pBtn_Act_Stop) m_pBtn_Act_Stop->SetVisible(bVisible);
@@ -220,7 +220,7 @@ void CUICmd::SetVisibleActButtons(bool bVisible)
 /*
 void CUICmd::SetVisibleOptButtons(bool bVisible)
 {
-	//¿É¼Ç
+	//ì˜µì…˜
 	if(m_pBtn_Opt_Quest) m_pBtn_Opt_Quest->SetVisible(bVisible);
 	if(m_pBtn_Character) m_pBtn_Character->SetVisible(bVisible);	
 	if(m_pBtn_Skill) m_pBtn_Skill->SetVisible(bVisible);
@@ -232,22 +232,22 @@ void CUICmd::SetVisibleOptButtons(bool bVisible)
 void CUICmd::UpdatePartyButtons(bool bIAmLeader, bool bIAmMemberOfParty, int iMemberIndex, const CPlayerBase* pTarget)
 {
 	bool bInvite = true;
-	if(bIAmLeader) // ³»°¡ ¸®´õÀÌ¸é.. 
+	if(bIAmLeader) // ë‚´ê°€ ë¦¬ë”ì´ë©´.. 
 	{
-		if(pTarget) // Å¸°ÙÀÌ ÀÖ°í..
+		if(pTarget) // íƒ€ê²Ÿì´ ìžˆê³ ..
 		{
-			if(iMemberIndex > 0) bInvite = false; // Å¸°ÙÀÌ ÆÄÆ¼¿øÀÌ¸é..ÃàÃâ °¡´ÉÇÏ°Ô.
+			if(iMemberIndex > 0) bInvite = false; // íƒ€ê²Ÿì´ íŒŒí‹°ì›ì´ë©´..ì¶•ì¶œ ê°€ëŠ¥í•˜ê²Œ.
 			else bInvite = true;
 		}
 		else
 		{
-			bInvite = false; // ¸®´õµµ ³ª°¥¼ö ÀÖ´Ù..
+			bInvite = false; // ë¦¬ë”ë„ ë‚˜ê°ˆìˆ˜ ìžˆë‹¤..
 		}
 	}
 	else
 	{
-		if(bIAmMemberOfParty) bInvite = false; // ¸®´õ´Â ¾Æ´ÏÁö¸¸ ÆÄÆ¼¿¡ µé¾îÀÖ´Â »óÅÂÀÌ¸é.. Å»Åð°¡´É..
-		else bInvite = true; // ÆÄÆ¼¿¡ ¾Èµé¾î ÀÖ´Ù¸é ÃÊ´ë °¡´É...
+		if(bIAmMemberOfParty) bInvite = false; // ë¦¬ë”ëŠ” ì•„ë‹ˆì§€ë§Œ íŒŒí‹°ì— ë“¤ì–´ìžˆëŠ” ìƒíƒœì´ë©´.. íƒˆí‡´ê°€ëŠ¥..
+		else bInvite = true; // íŒŒí‹°ì— ì•ˆë“¤ì–´ ìžˆë‹¤ë©´ ì´ˆëŒ€ ê°€ëŠ¥...
 	}
 
 	if(m_pBtn_Party_Invite) m_pBtn_Party_Invite->SetVisible(bInvite);
@@ -259,8 +259,8 @@ bool CUICmd::OnKeyPress(int iKey)
 	switch(iKey)
 	{
 	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
-		{	//hotkey°¡ Æ÷Ä¿½º ÀâÇôÀÖÀ»¶§´Â ´Ù¸¥ ui¸¦ ´ÝÀ»¼ö ¾øÀ¸¹Ç·Î DIK_ESCAPE°¡ µé¾î¿À¸é Æ÷Ä¿½º¸¦ ´Ù½ÃÀâ°í
-			//¿­·ÁÀÖ´Â ´Ù¸¥ À¯¾ÆÀÌ¸¦ ´Ý¾ÆÁØ´Ù.
+		{	//hotkeyê°€ í¬ì»¤ìŠ¤ ìž¡í˜€ìžˆì„ë•ŒëŠ” ë‹¤ë¥¸ uië¥¼ ë‹«ì„ìˆ˜ ì—†ìœ¼ë¯€ë¡œ DIK_ESCAPEê°€ ë“¤ì–´ì˜¤ë©´ í¬ì»¤ìŠ¤ë¥¼ ë‹¤ì‹œìž¡ê³ 
+			//ì—´ë ¤ìžˆëŠ” ë‹¤ë¥¸ ìœ ì•„ì´ë¥¼ ë‹«ì•„ì¤€ë‹¤.
 			CGameProcedure::s_pUIMgr->ReFocusUI();//this_ui
 			CN3UIBase* pFocus = CGameProcedure::s_pUIMgr->GetFocusedUI();
 			if(pFocus && pFocus != this) pFocus->OnKeyPress(iKey);

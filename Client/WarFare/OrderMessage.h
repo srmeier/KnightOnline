@@ -1,4 +1,4 @@
-// OrderMessage.h: interface for the COrderMessage class.
+﻿// OrderMessage.h: interface for the COrderMessage class.
 //
 //////////////////////////////////////////////////////////////////////
 

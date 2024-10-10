@@ -1,4 +1,4 @@
-// DlgUnusedFileList.cpp : implementation file
+﻿// DlgUnusedFileList.cpp : implementation file
 //
 
 #include "stdafx.h"

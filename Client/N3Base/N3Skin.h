@@ -1,4 +1,4 @@
-// N3Skin.h: interface for the CN3Skin class.
+ï»¿// N3Skin.h: interface for the CN3Skin class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -13,10 +13,10 @@
 
 struct __VertexSkinned
 {
-	__Vector3	vOrigin; // ¿ø·¡ Á¡ À§Ä¡..
-	int			nAffect; // °üÀı ¸î°³°¡ ¿µÇâÀ» ÁÖ´ÂÁö..
-	int*		pnJoints; // °üÀı ÀÎµ¦½º
-	float*		pfWeights; // °¡ÁßÄ¡
+	__Vector3	vOrigin; // ì›ë˜ ì  ìœ„ì¹˜..
+	int			nAffect; // ê´€ì ˆ ëª‡ê°œê°€ ì˜í–¥ì„ ì£¼ëŠ”ì§€..
+	int*		pnJoints; // ê´€ì ˆ ì¸ë±ìŠ¤
+	float*		pfWeights; // ê°€ì¤‘ì¹˜
 
 	__VertexSkinned() { memset(this, 0, sizeof(__VertexSkinned)); }
 	~__VertexSkinned() { delete [] pnJoints; delete [] pfWeights; }
@@ -45,7 +45,7 @@ public:
 
 #ifdef _N3TOOL
 	bool				Save(HANDLE hFile);
-	void				RecalcWeight();		// ¿şÀÌÆ®°ª ´Ù½Ã °è»êÇÏ±â
+	void				RecalcWeight();		// ì›¨ì´íŠ¸ê°’ ë‹¤ì‹œ ê³„ì‚°í•˜ê¸°
 #endif // end of _N3TOOL
 	
 	void Release();

@@ -1,4 +1,4 @@
-// UIMessageBoxManager.h: interface for the CUIMessageBoxManager class.
+﻿// UIMessageBoxManager.h: interface for the CUIMessageBoxManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

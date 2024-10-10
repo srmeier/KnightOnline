@@ -1,4 +1,4 @@
-// UIPartyBBSSelector.h: interface for the CUIPartyBBSSelector class.
+﻿// UIPartyBBSSelector.h: interface for the CUIPartyBBSSelector class.
 //
 //////////////////////////////////////////////////////////////////////
 

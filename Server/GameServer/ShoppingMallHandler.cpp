@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "DBAgent.h"
 
 void CUser::ShoppingMall(Packet & pkt)

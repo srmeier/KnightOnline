@@ -1,4 +1,4 @@
-// UIWarp.h: interface for the UIWarp class.
+ï»¿// UIWarp.h: interface for the UIWarp class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -15,11 +15,11 @@
 
 struct __WarpInfo
 {
-	int iID; // ÀÌ ¹øÈ£¸¦ ¼­¹ö¿¡°Ô ³¯¸°´Ù.. 
+	int iID; // ì´ ë²ˆí˜¸ë¥¼ ì„œë²„ì—ê²Œ ë‚ ë¦°ë‹¤.. 
 	std::string szName;
-	std::string szAgreement; // À¯ÀúÇÑÅ× ¾Ë¸®°í µ¿ÀÇ¸¦ ±¸ÇÏ´Â ±Û..
+	std::string szAgreement; // ìœ ì €í•œí…Œ ì•Œë¦¬ê³  ë™ì˜ë¥¼ êµ¬í•˜ëŠ” ê¸€..
 	int iZone;
-	int iMaxUser; // ÃÖ´ë Á¦ÇÑ ÀÎ¿ø¼ö..
+	int iMaxUser; // ìµœëŒ€ ì œí•œ ì¸ì›ìˆ˜..
 	int iGold;
 	__Vector3 vPos;
 };
@@ -33,7 +33,7 @@ protected:
 	class CN3UIButton*		m_pBtn_Cancel;
 	
 	class CN3UIList*		m_pList_Infos;
-	class CN3UIString*		m_pText_Agreement; // µ¿ÀÇ »çÇ×..
+	class CN3UIString*		m_pText_Agreement; // ë™ì˜ ì‚¬í•­..
 
 	std::list<__WarpInfo> m_ListInfos;
 

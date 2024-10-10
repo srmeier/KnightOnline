@@ -1,4 +1,4 @@
-// UITradeBBSEditDlg.h: interface for the CUITradeBBSEditDlg class.
+﻿// UITradeBBSEditDlg.h: interface for the CUITradeBBSEditDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// N3MeshIndexed: implementation of the CN3IMesh class.
+ï»¿// N3MeshIndexed: implementation of the CN3IMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "N3IMesh.h"
@@ -21,8 +21,8 @@ CN3IMesh::CN3IMesh()
 
 	m_nFC = 0;
 
-	m_pwVtxIndices = NULL; // Á¡ ÀÎµ¦½º ¸®½ºÆ®. 
-	m_pwUVsIndices = NULL; // ÅØ½ºÃ³ ÁÂÇ¥ ÀÎµ¦½º ¸®½ºÆ®.
+	m_pwVtxIndices = NULL; // ì  ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸. 
+	m_pwUVsIndices = NULL; // í…ìŠ¤ì²˜ ì¢Œí‘œ ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸.
 
 	m_nVC = m_nUVC = 0;
 	m_pVertices = NULL;
@@ -35,8 +35,8 @@ CN3IMesh::~CN3IMesh()
 	delete [] m_pVertices; m_pVertices = NULL;
 	delete [] m_pfUVs; m_pfUVs = NULL;
 
-	delete [] m_pwVtxIndices; m_pwVtxIndices = NULL; // Á¡ ÀÎµ¦½º ¸®½ºÆ®. 
-	delete [] m_pwUVsIndices; m_pwUVsIndices = NULL; // ÅØ½ºÃ³ ÁÂÇ¥ ÀÎµ¦½º ¸®½ºÆ®.
+	delete [] m_pwVtxIndices; m_pwVtxIndices = NULL; // ì  ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸. 
+	delete [] m_pwUVsIndices; m_pwUVsIndices = NULL; // í…ìŠ¤ì²˜ ì¢Œí‘œ ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸.
 
 //	if(m_lpVB) m_lpVB->Release();
 }
@@ -52,8 +52,8 @@ void CN3IMesh::Release()
 	delete [] m_pVertices; m_pVertices = NULL;
 	delete [] m_pfUVs; m_pfUVs = NULL;
 
-	delete [] m_pwVtxIndices; m_pwVtxIndices = NULL; // Á¡ ÀÎµ¦½º ¸®½ºÆ®. 
-	delete [] m_pwUVsIndices; m_pwUVsIndices = NULL; // ÅØ½ºÃ³ ÁÂÇ¥ ÀÎµ¦½º ¸®½ºÆ®.
+	delete [] m_pwVtxIndices; m_pwVtxIndices = NULL; // ì  ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸. 
+	delete [] m_pwUVsIndices; m_pwUVsIndices = NULL; // í…ìŠ¤ì²˜ ì¢Œí‘œ ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸.
 
 //	if(m_lpVB) m_lpVB->Release(); m_lpVB = NULL;
 
@@ -79,7 +79,7 @@ bool CN3IMesh::Create(int nFC, int nVC, int nUVC)
 	
 	if(nUVC > 0)
 	{
-		m_nUVC = nUVC; m_pfUVs = new float[nUVC*2]; memset(m_pfUVs, 0, 8 * nUVC); // »çÀÌÁî°¡ 8 ÀÎ ÀÌÀ¯´Â float 2°³¶ó ±×·¸´Ù..
+		m_nUVC = nUVC; m_pfUVs = new float[nUVC*2]; memset(m_pfUVs, 0, 8 * nUVC); // ì‚¬ì´ì¦ˆê°€ 8 ì¸ ì´ìœ ëŠ” float 2ê°œë¼ ê·¸ë ‡ë‹¤..
 		m_pwUVsIndices = new uint16_t[nFC*3]; memset(m_pwUVsIndices, 0, 2 * nFC * 3); // uint16_t
 	}
 
@@ -298,7 +298,7 @@ void CN3IMesh::RenderSelected()
 		vFace[1] = pVs[i*3+1];
 		vFace[2] = pVs[i*3+2];
 		vFace[3] = vFace[0];
-		CN3Base::RenderLines(vFace, 3, 0xff00ff00); // ³ì»öÀ¸·Î ·»´õ¸µ..
+		CN3Base::RenderLines(vFace, 3, 0xff00ff00); // ë…¹ìƒ‰ìœ¼ë¡œ ë Œë”ë§..
 	}
 }
 #endif // end of _N3TOOL
@@ -331,7 +331,7 @@ bool CN3IMesh::Load(HANDLE hFile)
 		ReadFile(hFile, m_pwUVsIndices, 2 * nFC * 3, (DWORD *)&dwRWC, NULL); // uint16_t
 	}
 
-	this->FindMinMax(); // ÃÖ¼Ò ÃÖ´ë°ªÀ» Ã£´Â´Ù..
+	this->FindMinMax(); // ìµœì†Œ ìµœëŒ€ê°’ì„ ì°¾ëŠ”ë‹¤..
 
 	return true;
 }
@@ -370,7 +370,7 @@ void CN3IMesh::FindMinMax()
 
 	if(m_pVertices == NULL || m_nVC < 0) return;
 
-	// ÃÖ¼Ò, ÃÖ´ë Á¡À» Ã£´Â´Ù.
+	// ìµœì†Œ, ìµœëŒ€ ì ì„ ì°¾ëŠ”ë‹¤.
 	m_vMin.Set(FLT_MAX, FLT_MAX, FLT_MAX);
 	m_vMax.Set(-FLT_MAX, -FLT_MAX, -FLT_MAX);
 	for(int i = 0; i < m_nVC; i++)

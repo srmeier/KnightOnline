@@ -1,4 +1,4 @@
-// AVIPlayer.h: interface for the CAVIPlayer class.
+﻿// AVIPlayer.h: interface for the CAVIPlayer class.
 //
 //////////////////////////////////////////////////////////////////////
 

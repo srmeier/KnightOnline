@@ -1,4 +1,4 @@
-// EventManager.cpp: implementation of the CEventManager class.
+﻿// EventManager.cpp: implementation of the CEventManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// UISkillTreeDlg.h: interface for the CUISkillTreeDlg class.
+ï»¿// UISkillTreeDlg.h: interface for the CUISkillTreeDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,9 +24,9 @@ const int SKILL_DEF_SPECIAL2 = 3;
 const int SKILL_DEF_SPECIAL3 = 4;
 
 
-// MAX_SKILL_KIND_OF	:						 Base Skill 1°³, Àü¹® ½ºÅ³ 4°³..			
-// MAX_SKILL_IN_PAGE	:						 ÇÑ ÆäÀÌÁö ³»ÀÇ ¾ÆÀÌÄÜ °¹¼ö..				
-// MAX_SKILL_PAGE_NUM	:						 ½ºÅ³ ÇÑ°³°¡ °¡Áö´Â ÃÖ´ë ÆäÀÌÁö¼ö..		
+// MAX_SKILL_KIND_OF	:						 Base Skill 1ê°œ, ì „ë¬¸ ìŠ¤í‚¬ 4ê°œ..			
+// MAX_SKILL_IN_PAGE	:						 í•œ í˜ì´ì§€ ë‚´ì˜ ì•„ì´ì½˜ ê°¯ìˆ˜..				
+// MAX_SKILL_PAGE_NUM	:						 ìŠ¤í‚¬ í•œê°œê°€ ê°€ì§€ëŠ” ìµœëŒ€ í˜ì´ì§€ìˆ˜..		
 
 
 //////////////////////////////////////////////////////////////////////
@@ -34,9 +34,9 @@ const int SKILL_DEF_SPECIAL3 = 4;
 class CUISkillTreeDlg    : public CN3UIWndBase, public IMouseWheelInputDlg
 {
 protected:
-	bool		m_bOpenningNow; // ¿­¸®°í ÀÖ´Ù..
-	bool		m_bClosingNow;	// ´İÈ÷°í ÀÖ´Ù..
-	float		m_fMoveDelta; // ºÎµå·´°Ô ¿­¸®°í ´İÈ÷°Ô ¸¸µé±â À§ÇØ¼­ ÇöÀçÀ§Ä¡ °è»ê¿¡ ºÎµ¿¼Ò¼öÁ¡À» ¾´´Ù..
+	bool		m_bOpenningNow; // ì—´ë¦¬ê³  ìˆë‹¤..
+	bool		m_bClosingNow;	// ë‹«íˆê³  ìˆë‹¤..
+	float		m_fMoveDelta; // ë¶€ë“œëŸ½ê²Œ ì—´ë¦¬ê³  ë‹«íˆê²Œ ë§Œë“¤ê¸° ìœ„í•´ì„œ í˜„ì¬ìœ„ì¹˜ ê³„ì‚°ì— ë¶€ë™ì†Œìˆ˜ì ì„ ì“´ë‹¤..
 
 	int			m_iRBtnDownOffs;
 
@@ -49,9 +49,9 @@ public:
 	int					m_iCurKindOf;
 	int					m_iCurSkillPage;
 
-	int					m_iSkillInfo[MAX_SKILL_FROM_SERVER];										// ¼­¹ö·Î ¹Ş´Â ½½·Ô Á¤º¸..	
-	__IconItemSkill*	m_pMySkillTree[MAX_SKILL_KIND_OF][MAX_SKILL_PAGE_NUM][MAX_SKILL_IN_PAGE];	// ÃÑ ½ºÅ³ Á¤º¸..
-	int					m_iCurInPageOffset[MAX_SKILL_KIND_OF];										// ½ºÅ³´ç ÇöÀç ÆäÀÌÁö ¿É¼Â..
+	int					m_iSkillInfo[MAX_SKILL_FROM_SERVER];										// ì„œë²„ë¡œ ë°›ëŠ” ìŠ¬ë¡¯ ì •ë³´..	
+	__IconItemSkill*	m_pMySkillTree[MAX_SKILL_KIND_OF][MAX_SKILL_PAGE_NUM][MAX_SKILL_IN_PAGE];	// ì´ ìŠ¤í‚¬ ì •ë³´..
+	int					m_iCurInPageOffset[MAX_SKILL_KIND_OF];										// ìŠ¤í‚¬ë‹¹ í˜„ì¬ í˜ì´ì§€ ì˜µì…‹..
 
 protected:
 	void				AllClearImageByName(const std::string& szFN, bool bTrueOrNot);
@@ -81,8 +81,8 @@ public:
 
 	void				AddSkillToPage(__TABLE_UPC_SKILL* pUSkill, int iOffset = 0, bool bHasLevelToUse = true);
 
-	void				SetPageInIconRegion(int iKindOf, int iPageNum);		// ¾ÆÀÌÄÜ ¿ª¿ª¿¡¼­ ÇöÀç ÆäÀÌÁö ¼³Á¤..
-	void				SetPageInCharRegion();								// ¹®ÀÚ ¿ª¿ª¿¡¼­ ÇöÀç ÆäÀÌÁö ¼³Á¤..
+	void				SetPageInIconRegion(int iKindOf, int iPageNum);		// ì•„ì´ì½˜ ì—­ì—­ì—ì„œ í˜„ì¬ í˜ì´ì§€ ì„¤ì •..
+	void				SetPageInCharRegion();								// ë¬¸ì ì—­ì—­ì—ì„œ í˜„ì¬ í˜ì´ì§€ ì„¤ì •..
 
 	CN3UIImage*		   GetChildImageByName(const std::string& szFN);
 	CN3UIBase*			GetChildBaseByName(const std::string &szFN);	

@@ -1,4 +1,4 @@
-// N3FXBundle.h: interface for the CN3FXPartParticles class.
+ï»¿// N3FXBundle.h: interface for the CN3FXPartParticles class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -12,47 +12,47 @@
 class CN3FXBundle : public CN3BaseFileAccess  
 {
 public:
-	// ±âº» Á¤º¸µé...
+	// ê¸°ë³¸ ì •ë³´ë“¤...
 	
-	int					m_iVersion;		//¹øµé¹öÀü
-	std::string			m_strName;		//¹øµéÀÌ¸§
-	int					m_iMoveType;	//¿òÁ÷ÀÌ´Â ÇüÅÂ..
+	int					m_iVersion;		//ë²ˆë“¤ë²„ì „
+	std::string			m_strName;		//ë²ˆë“¤ì´ë¦„
+	int					m_iMoveType;	//ì›€ì§ì´ëŠ” í˜•íƒœ..
 	float				m_fVelocity;
-	bool				m_bStatic;		//À§Ä¡¸¦ °íÁ¤½ÃÅ³°ÍÀÎ°¡....
+	bool				m_bStatic;		//ìœ„ì¹˜ë¥¼ ê³ ì •ì‹œí‚¬ê²ƒì¸ê°€....
 
-	float				m_fLife0;		//¹øµéÀÇ ¼ö¸í..
+	float				m_fLife0;		//ë²ˆë“¤ì˜ ìˆ˜ëª…..
 
 	FXPARTWITHSTARTTIME*	m_pPart[MAX_FX_PART];
 	
-	// º¯ÇÏ´Â Á¤º¸µé...
-	float				m_fLife;		//ÇöÀç ³ªÀÌ..
-	uint32_t				m_dwState;		//ÇöÀç ¹øµéÀÇ »óÅÂ
+	// ë³€í•˜ëŠ” ì •ë³´ë“¤...
+	float				m_fLife;		//í˜„ì¬ ë‚˜ì´..
+	uint32_t				m_dwState;		//í˜„ì¬ ë²ˆë“¤ì˜ ìƒíƒœ
 
-	__Vector3			m_vPos;			//ÇöÀç ¹øµéÀÇ À§Ä¡.
-	__Vector3			m_vPrePos;		//·Îµù ¶Ç´Â Duplicate ÇÏ±âÀü¿¡ ÀÓ½Ã·Î À§Ä¡ ÁöÁ¤
-	__Vector3			m_vDestPos;		//ÇöÀç ¹øµéÀÇ ¸ñÇ¥À§Ä¡. 
-	__Vector3			m_vDir;			//ÇöÀç ¹øµéÀÇ ¹æÇâ.
+	__Vector3			m_vPos;			//í˜„ì¬ ë²ˆë“¤ì˜ ìœ„ì¹˜.
+	__Vector3			m_vPrePos;		//ë¡œë”© ë˜ëŠ” Duplicate í•˜ê¸°ì „ì— ì„ì‹œë¡œ ìœ„ì¹˜ ì§€ì •
+	__Vector3			m_vDestPos;		//í˜„ì¬ ë²ˆë“¤ì˜ ëª©í‘œìœ„ì¹˜. 
+	__Vector3			m_vDir;			//í˜„ì¬ ë²ˆë“¤ì˜ ë°©í–¥.
 	
-	int					m_iSourceID;	//ÀÌ È¿°ú¸¦ ¾²´Â ÁÖÃ¼ÀÇ ¾ÆÀÌµğ..(°ÔÀÓ¿¡¼­..)
-	int					m_iTargetID;	//ÀÌ È¿°ú¸¦ ¹Ş´Â ´ë»óÀÇ ¾ÆÀÌµğ..(°ÔÀÓ¿¡¼­..)
-	int					m_iTargetJoint;	//ÀÌ È¿°ú¸¦ ¹Ş´Â ´ë»óÀÇ ºÎÀ§..(°ÔÀÓ¿¡¼­..)
+	int					m_iSourceID;	//ì´ íš¨ê³¼ë¥¼ ì“°ëŠ” ì£¼ì²´ì˜ ì•„ì´ë””..(ê²Œì„ì—ì„œ..)
+	int					m_iTargetID;	//ì´ íš¨ê³¼ë¥¼ ë°›ëŠ” ëŒ€ìƒì˜ ì•„ì´ë””..(ê²Œì„ì—ì„œ..)
+	int					m_iTargetJoint;	//ì´ íš¨ê³¼ë¥¼ ë°›ëŠ” ëŒ€ìƒì˜ ë¶€ìœ„..(ê²Œì„ì—ì„œ..)
 	int					m_iSourceJoint;
 
 	bool				m_bDependScale;
 	//__Vector3			m_vTargetScale;
 	float				m_fTargetScale;
 
-//	int					m_iNumStep;		//¸î´Ü°è³ª Á¸ÀçÇÏ´ÂÁö...^^
-//	int					m_iCurrStep;	//ÇöÀç ÁøÇàÁßÀÎ ½ÃÄö½º
+//	int					m_iNumStep;		//ëª‡ë‹¨ê³„ë‚˜ ì¡´ì¬í•˜ëŠ”ì§€...^^
+//	int					m_iCurrStep;	//í˜„ì¬ ì§„í–‰ì¤‘ì¸ ì‹œí€€ìŠ¤
 	static float		m_fEffectSndDist;
 
 	class CN3SndObj*	m_pSndObj;
 
 protected:
-	bool	CheckAllPartsDead();		//¸ğµç ÆÄÆ®µéÀÌ Á×¾ú´ÂÁö °Ë»ç..
+	bool	CheckAllPartsDead();		//ëª¨ë“  íŒŒíŠ¸ë“¤ì´ ì£½ì—ˆëŠ”ì§€ ê²€ì‚¬..
 
 public:
-//±âº»ÀûÀ¸·Î ÇÊ¿äÇÑ ÇÔ¼öµé...
+//ê¸°ë³¸ì ìœ¼ë¡œ í•„ìš”í•œ í•¨ìˆ˜ë“¤...
 	virtual void	Trigger(int iSourceID=0, int iTargetID = 0, int iTargetJoint = 0, int iSndID = -1);
 	virtual bool	Tick();
 	virtual void	Duplicate(CN3FXBundle* pDestBundle);
@@ -63,8 +63,8 @@ public:
 	void	Render();
 	uint32_t	GetState() { return m_dwState; }
 
-	virtual bool	Load(HANDLE hFile); // ÇÚµé¿¡¼­ ÀĞ¾î¿À±â..
-	bool	Save(HANDLE hFile);	// ÀúÀåÇÏ±â..
+	virtual bool	Load(HANDLE hFile); // í•¸ë“¤ì—ì„œ ì½ì–´ì˜¤ê¸°..
+	bool	Save(HANDLE hFile);	// ì €ì¥í•˜ê¸°..
 
 //	int				GetPartCount() { return m_pPartList.size(); }
 	CN3FXPartBase*	GetPart(int i);
@@ -73,11 +73,11 @@ public:
 	static void		SetEffectSndDistance(float fDist) { m_fEffectSndDist = fDist; }
 	static float	GetEffectSndDistance() { return m_fEffectSndDist; }
 
-//»ı¼ºÀÚ ¼Ò¸êÀÚ..
+//ìƒì„±ì ì†Œë©¸ì..
 	CN3FXBundle();	
 	virtual ~CN3FXBundle();
 
-#ifdef _N3TOOL	//Åø¿¡¼­¸¸ ¾²´Â ÇÔ¼öµé...
+#ifdef _N3TOOL	//íˆ´ì—ì„œë§Œ ì“°ëŠ” í•¨ìˆ˜ë“¤...
 public:
 	CN3FXPartBase*	SetPart(const char* pFileName);
 	bool	DecodeScriptFile(const char* lpPathName);

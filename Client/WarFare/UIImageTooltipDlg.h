@@ -1,4 +1,4 @@
-// UIImageTooltipDlg.h: interface for the CUIImageTooltipDlg class.
+ï»¿// UIImageTooltipDlg.h: interface for the CUIImageTooltipDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,16 +23,16 @@
 
 class CUIImageTooltipDlg    : public CN3UIBase  
 {
-	const D3DCOLOR		m_CYellow;	// ·¹¾î...
-	const D3DCOLOR		m_CBlue;	// ¸ÅÁ÷...	
-	const D3DCOLOR		m_CGold;	// À¯´ÏÅ©...
-	const D3DCOLOR		m_CIvory;	// ¾÷±×·¹ÀÌµå..
-	const D3DCOLOR		m_CGreen;	// ¿É¼Ç...	ÀúÇ×·Â, ´É·ÂÄ¡ »ó½Â, ¸¶¹ı¼Ó¼º..
-	const D3DCOLOR		m_CWhite;	// ÀÏ¹İ...
-	const D3DCOLOR		m_CRed;		// ¹º°¡ Á¦ÇÑ¿¡ °É¸±¶§..
+	const D3DCOLOR		m_CYellow;	// ë ˆì–´...
+	const D3DCOLOR		m_CBlue;	// ë§¤ì§...	
+	const D3DCOLOR		m_CGold;	// ìœ ë‹ˆí¬...
+	const D3DCOLOR		m_CIvory;	// ì—…ê·¸ë ˆì´ë“œ..
+	const D3DCOLOR		m_CGreen;	// ì˜µì…˜...	ì €í•­ë ¥, ëŠ¥ë ¥ì¹˜ ìƒìŠ¹, ë§ˆë²•ì†ì„±..
+	const D3DCOLOR		m_CWhite;	// ì¼ë°˜...
+	const D3DCOLOR		m_CRed;		// ë­”ê°€ ì œí•œì— ê±¸ë¦´ë•Œ..
 
 public:
-	CN3UIString*		m_pStr[MAX_TOOLTIP_COUNT];			// ½ºÆ®·ø.. ^^
+	CN3UIString*		m_pStr[MAX_TOOLTIP_COUNT];			// ìŠ¤íŠ¸ë¥‘.. ^^
 	std::string			m_pstdstr[MAX_TOOLTIP_COUNT];
 	CN3UIImage*			m_pImg;
 

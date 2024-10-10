@@ -1,4 +1,4 @@
-// MachineMng.cpp: implementation of the CMachineMng class.
+ï»¿// MachineMng.cpp: implementation of the CMachineMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -107,7 +107,7 @@ void CMachineMng::ReceiveReplyMsg(ReplyMsg& RPMsg)
 //				if(g_Facade.m_pSndMgr->m_IdxCatapultThrow == g_Facade.m_pSndMgr->m_NumCatapultThrow) g_Facade.m_pSndMgr->m_IdxCatapultThrow = 0;
 			}
 			break;		
-		case ID_MACHINE_POSITION:	// Åõ¼®±â À§Ä¡ Àç¼³Á¤
+		case ID_MACHINE_POSITION:	// íˆ¬ì„ê¸° ìœ„ì¹˜ ì¬ì„¤ì •
 			pMachine = GetMachine(RPMsg.s_pStrID);
 			if (pMachine)
 			{
@@ -124,7 +124,7 @@ void CMachineMng::AddMachine(ReplyMsg& RPMsg)
 //	if (lstrlen(RPMsg.s_cprscID) == 0) return;
 
 	char szFileName[_MAX_PATH] = "misc\\machines\\catapult.mcn";
-	FILE* stream = fopen(szFileName, "r"); //textÆÄÀÏ·Î ¸¸µç´Ù 
+	FILE* stream = fopen(szFileName, "r"); //textíŒŒì¼ë¡œ ë§Œë“ ë‹¤ 
 #if _DEBUG
 	char szErr[512];
 	if(NULL == stream)
@@ -134,8 +134,8 @@ void CMachineMng::AddMachine(ReplyMsg& RPMsg)
 	}
 #endif
 
-	char szMachineType[64];		// machine Á¾·ù
-	int result = fscanf(stream, "Machine_Type = %s\n", szMachineType);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+	char szMachineType[64];		// machine ì¢…ë¥˜
+	int result = fscanf(stream, "Machine_Type = %s\n", szMachineType);			__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 	CMachineBase* pMachine = NULL;
 
 	if (lstrcmpi(szMachineType, "catapult") == 0)

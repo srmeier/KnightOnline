@@ -1,4 +1,4 @@
-// APISocket.cpp: implementation of the CAPISocket class.
+Ôªø// APISocket.cpp: implementation of the CAPISocket class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@ int			CAPISocket::s_nInstanceCount = 0;
 
 
 #ifdef _CRYPTION
-BOOL		CAPISocket::s_bCryptionFlag = FALSE;			//0 : ∫Òæœ»£»≠ , 1 : æœ»£»≠
+BOOL		CAPISocket::s_bCryptionFlag = FALSE;			//0 : ÎπÑÏïîÌò∏Ìôî , 1 : ÏïîÌò∏Ìôî
 CJvCryption	CAPISocket::s_JvCrypt;
 uint32_t	CAPISocket::s_wSendVal = 0;
 uint32_t	CAPISocket::s_wRcvVal = 0;
@@ -41,7 +41,7 @@ CAPISocket::CAPISocket()
 
 	m_iSendByteCount = 0;
 	m_bConnected = FALSE;
-	m_bEnableSend = TRUE; // ∫∏≥ª±‚ ∞°¥…..?
+	m_bEnableSend = TRUE; // Î≥¥ÎÇ¥Í∏∞ Í∞ÄÎä•..?
 }
 
 CAPISocket::~CAPISocket()
@@ -68,7 +68,7 @@ void CAPISocket::Release()
 
 	m_iSendByteCount = 0;
 
-	// ≈Î∞Ë∏¶ Ω·¡ÿ¥Ÿ..
+	// ÌÜµÍ≥ÑÎ•º Ïç®Ï§ÄÎã§..
 #ifdef _DEBUG
 /*	DWORD dwRWC = 0;
 	char szFN1[256] = "", szFN2[256] = "";
@@ -83,7 +83,7 @@ void CAPISocket::Release()
 	char szBuff[64] = "";
 	char szCmd[32] = "";
 
-	strcpy(szBuff, "Packet\tæÁ\t»Ωºˆ\r\n");
+	strcpy(szBuff, "Packet\tÏñë\tÌöüÏàò\r\n");
 	WriteFile(hFile1, szBuff, lstrlen(szBuff), &dwRWC, NULL);
 	WriteFile(hFile2, szBuff, lstrlen(szBuff), &dwRWC, NULL);
 
@@ -136,10 +136,10 @@ void CAPISocket::Disconnect()
 	m_dwPort = 0;
 
 	m_bConnected = FALSE;
-	m_bEnableSend = TRUE; // ∫∏≥ª±‚ ∞°¥…..?
+	m_bEnableSend = TRUE; // Î≥¥ÎÇ¥Í∏∞ Í∞ÄÎä•..?
 
 #ifdef _CRYPTION
-	InitCrypt(0); // æœ»£»≠ «ÿ¡¶..
+	InitCrypt(0); // ÏïîÌò∏Ìôî Ìï¥Ï†ú..
 #endif // #ifdef _CRYPTION
 }
 
@@ -195,7 +195,7 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 
 	m_hSocket = (void *)sock;
 
-	// º“ƒœ ø…º«
+	// ÏÜåÏºì ÏòµÏÖò
 	int iRecvBufferLen = RECEIVE_BUF_SIZE;
 	int iErr = setsockopt(sock, SOL_SOCKET, SO_RCVBUF, (char*)&iRecvBufferLen, 4);
   
@@ -286,7 +286,7 @@ BOOL CAPISocket::ReceiveProcess()
 			int16_t siCore = *((int16_t*)(pData+2));
 			if ( siCore <= iCount )
 			{
-				if ( PACKET_TAIL == ntohs(*((uint16_t*)(pData+iCount-2))) ) // ∆–≈∂ ≤ø∏Æ ∫Œ∫– ∞ÀªÁ..
+				if ( PACKET_TAIL == ntohs(*((uint16_t*)(pData+iCount-2))) ) // Ìå®ÌÇ∑ Íº¨Î¶¨ Î∂ÄÎ∂Ñ Í≤ÄÏÇ¨..
 				{
 					Packet * pkt = new Packet();
 					if (s_bCryptionFlag)
@@ -315,7 +315,7 @@ BOOL CAPISocket::ReceiveProcess()
 					}
 
 					m_qRecvPkt.push(pkt);
-					m_CB.HeadIncrease(siCore + 6); // »Ø«¸ πˆ∆€ ¿Œµ¶Ω∫ ¡ı∞° Ω√≈∞±‚..
+					m_CB.HeadIncrease(siCore + 6); // ÌôòÌòï Î≤ÑÌçº Ïù∏Îç±Ïä§ Ï¶ùÍ∞Ä ÏãúÌÇ§Í∏∞..
 					bFoundTail = TRUE;
 #ifdef _DEBUG
 					uint8_t byCmd = pData[4];
@@ -327,9 +327,9 @@ BOOL CAPISocket::ReceiveProcess()
 		}
 		else
 		{
-			// ∆–≈∂¿Ã ±˙¡≥¥Ÿ??
+			// Ìå®ÌÇ∑Ïù¥ Íπ®Ï°åÎã§??
 			__ASSERT(0, "broken packet header.. skip!");
-			m_CB.HeadIncrease(iCount); // »Ø«¸ πˆ∆€ ¿Œµ¶Ω∫ ¡ı∞° Ω√≈∞±‚..
+			m_CB.HeadIncrease(iCount); // ÌôòÌòï Î≤ÑÌçº Ïù∏Îç±Ïä§ Ï¶ùÍ∞Ä ÏãúÌÇ§Í∏∞..
 		}
 
 		delete[] pData, pData = NULL;
@@ -340,7 +340,7 @@ BOOL CAPISocket::ReceiveProcess()
 
 void CAPISocket::Send(uint8_t* pData, int nSize)
 {
-	if(!m_bEnableSend) return; // ∫∏≥ª±‚ ∞°¥…..?
+	if(!m_bEnableSend) return; // Î≥¥ÎÇ¥Í∏∞ Í∞ÄÎä•..?
 	if (INVALID_SOCKET == (SOCKET)m_hSocket || FALSE == m_bConnected)
 		return;
 
@@ -399,7 +399,7 @@ void CAPISocket::Send(uint8_t* pData, int nSize)
 	}
 
 #ifdef _DEBUG
-	uint8_t byCmd = pData[0]; // ≈Î∞Ë ≥÷±‚..
+	uint8_t byCmd = pData[0]; // ÌÜµÍ≥Ñ ÎÑ£Í∏∞..
 
 //	__SocketStatisics SS;
 //	SS.dwTime = GetTickCount();

@@ -1,4 +1,4 @@
-// UIDead.cpp: implementation of the CUIDead class.
+ï»¿// UIDead.cpp: implementation of the CUIDead class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -139,7 +139,7 @@ uint32_t CUIDead::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POINT &p
 	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible) return dwRet;
 
-	// UI ¿òÁ÷ÀÌ´Â ÄÚµå
+	// UI ì›€ì§ì´ëŠ” ì½”ë“œ
 	if (UI_STATE_COMMON_MOVE == m_eState)
 	{
 		if (dwFlags&UI_MOUSE_LBCLICKED)
@@ -154,25 +154,25 @@ uint32_t CUIDead::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POINT &p
 		return dwRet;
 	}
 
-	if(false == IsIn(ptCur.x, ptCur.y))	// ¿µ¿ª ¹ÛÀÌ¸é
+	if(false == IsIn(ptCur.x, ptCur.y))	// ì˜ì—­ ë°–ì´ë©´
 	{
 		if(false == IsIn(ptOld.x, ptOld.y))
 		{
-			return dwRet;// ÀÌÀü ÁÂÇ¥µµ ¿µ¿ª ¹ÛÀÌ¸é 
+			return dwRet;// ì´ì „ ì¢Œí‘œë„ ì˜ì—­ ë°–ì´ë©´ 
 		}
-		dwRet |= UI_MOUSEPROC_PREVINREGION;	// ÀÌÀü ÁÂÇ¥´Â ¿µ¿ª ¾ÈÀÌ¾ú´Ù.
+		dwRet |= UI_MOUSEPROC_PREVINREGION;	// ì´ì „ ì¢Œí‘œëŠ” ì˜ì—­ ì•ˆì´ì—ˆë‹¤.
 	}
 	else
 	{
-		// tool tip °ü·Ã
+		// tool tip ê´€ë ¨
 		if (s_pTooltipCtrl) s_pTooltipCtrl->SetText(m_szToolTip);
 	}
-	dwRet |= UI_MOUSEPROC_INREGION;	// ÀÌ¹ø ÁÂÇ¥´Â ¿µ¿ª ¾ÈÀÌ´Ù.
+	dwRet |= UI_MOUSEPROC_INREGION;	// ì´ë²ˆ ì¢Œí‘œëŠ” ì˜ì—­ ì•ˆì´ë‹¤.
 
 	if(m_pChildUI && m_pChildUI->IsVisible())
 		return dwRet;
 
-	// child¿¡°Ô ¸Ş¼¼Áö Àü´Ş
+	// childì—ê²Œ ë©”ì„¸ì§€ ì „ë‹¬
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (*itor);
@@ -193,17 +193,17 @@ uint32_t CUIDead::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POINT &p
 		}
 
 		if (UI_MOUSEPROC_DONESOMETHING & dwChildRet)
-		{	// ÀÌ°æ¿ì¿¡´Â ¸Õ°¡ Æ÷Ä¿½º¸¦ ¹ŞÀº °æ¿ìÀÌ´Ù.
-			// (¾Æ·¡ ÄÚµå´Â dialog¸¦ °ü¸®ÇÏ´Â °÷¿¡¼­ ÇØ¾ß ÇÑ´Ù. µû¶ó¼­ ¸·¾Æ³õÀ½)
-//			m_Children.erase(itor);			// ¿ì¼± ¸®½ºÆ®¿¡¼­ Áö¿ì°í
-//			m_Children.push_front(pChild);	// ¸Ç¾Õ¿¡ ³Ö´Â´Ù. ±×¸®´Â ¼ø¼­¸¦ ¸Ç ³ªÁß¿¡ ±×¸®µµ·Ï ÇÏ·Á°í
+		{	// ì´ê²½ìš°ì—ëŠ” ë¨¼ê°€ í¬ì»¤ìŠ¤ë¥¼ ë°›ì€ ê²½ìš°ì´ë‹¤.
+			// (ì•„ë˜ ì½”ë“œëŠ” dialogë¥¼ ê´€ë¦¬í•˜ëŠ” ê³³ì—ì„œ í•´ì•¼ í•œë‹¤. ë”°ë¼ì„œ ë§‰ì•„ë†“ìŒ)
+//			m_Children.erase(itor);			// ìš°ì„  ë¦¬ìŠ¤íŠ¸ì—ì„œ ì§€ìš°ê³ 
+//			m_Children.push_front(pChild);	// ë§¨ì•ì— ë„£ëŠ”ë‹¤. ê·¸ë¦¬ëŠ” ìˆœì„œë¥¼ ë§¨ ë‚˜ì¤‘ì— ê·¸ë¦¬ë„ë¡ í•˜ë ¤ê³ 
 
 			dwRet |= (UI_MOUSEPROC_CHILDDONESOMETHING|UI_MOUSEPROC_DONESOMETHING);
 			return dwRet;
 		}
 	}
 
-	// UI ¿òÁ÷ÀÌ´Â ÄÚµå
+	// UI ì›€ì§ì´ëŠ” ì½”ë“œ
 	if (UI_STATE_COMMON_MOVE != m_eState && 
 			PtInRect(&m_rcMovable, ptCur) && (dwFlags&UI_MOUSE_LBCLICK) )
 	{
@@ -238,18 +238,18 @@ void CUIDead::MsgSend_Revival(uint8_t byType)
 {
 	if(m_bProcessing) return;
 
-	if(CGameProcedure::s_pPlayer->m_iSendRegeneration >= 2) return; // ÇÑ¹ø º¸³»¸é ´Ù½Ã Á×À»¶§±îÁö ¾Èº¸³»´Â ÇÃ·¡±×
+	if(CGameProcedure::s_pPlayer->m_iSendRegeneration >= 2) return; // í•œë²ˆ ë³´ë‚´ë©´ ë‹¤ì‹œ ì£½ì„ë•Œê¹Œì§€ ì•ˆë³´ë‚´ëŠ” í”Œë˜ê·¸
 
 	uint8_t byBuff[4];
 	int iOffset=0;
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_REGENE);
 	CAPISocket::MP_AddByte(byBuff, iOffset, byType);
-	CGameProcedure::s_pSocket->Send(byBuff, iOffset); // º¸³½´Ù..
+	CGameProcedure::s_pSocket->Send(byBuff, iOffset); // ë³´ë‚¸ë‹¤..
 
 	CLogWriter::Write("Send Regeneration");
-	CGameProcedure::s_pPlayer->m_iSendRegeneration = 2; // ÇÑ¹ø º¸³»¸é ´Ù½Ã Á×À»¶§±îÁö ¾Èº¸³»´Â ÇÃ·¡±×
-	//TRACE("º¸³¿ - ´Ù½Ã »ì¾Æ³ª±â\n");
+	CGameProcedure::s_pPlayer->m_iSendRegeneration = 2; // í•œë²ˆ ë³´ë‚´ë©´ ë‹¤ì‹œ ì£½ì„ë•Œê¹Œì§€ ì•ˆë³´ë‚´ëŠ” í”Œë˜ê·¸
+	//TRACE("ë³´ëƒ„ - ë‹¤ì‹œ ì‚´ì•„ë‚˜ê¸°\n");
 
 	m_bProcessing = true;
 }
@@ -263,15 +263,15 @@ void CUIDead::MsgRecv_Revival(Packet& pkt)
 	vPosPlayer.z = (pkt.read<uint16_t>())/10.0f;
 	vPosPlayer.y = (pkt.read<int16_t>())/10.0f;
 	
-	CGameProcedure::s_pProcMain->InitPlayerPosition(vPosPlayer); // ÇÃ·¹ÀÌ¾î À§Ä¡ ÃÊ±âÈ­.. ÀÏÀ¸ÄÑ ¼¼¿ì°í, ±âº»µ¿ÀÛÀ» ÃëÇÏ°Ô ÇÑ´Ù.
-	CGameProcedure::s_pPlayer->RegenerateCollisionMesh(); // Ãæµ¹ ¸Ş½Ã¸¦ ´Ù½Ã ¸¸µç´Ù..
+	CGameProcedure::s_pProcMain->InitPlayerPosition(vPosPlayer); // í”Œë ˆì´ì–´ ìœ„ì¹˜ ì´ˆê¸°í™”.. ì¼ìœ¼ì¼œ ì„¸ìš°ê³ , ê¸°ë³¸ë™ì‘ì„ ì·¨í•˜ê²Œ í•œë‹¤.
+	CGameProcedure::s_pPlayer->RegenerateCollisionMesh(); // ì¶©ëŒ ë©”ì‹œë¥¼ ë‹¤ì‹œ ë§Œë“ ë‹¤..
 
-	CGameProcedure::s_pPlayer->m_iSendRegeneration = 0; // ÇÑ¹ø º¸³»¸é ´Ù½Ã Á×À»¶§±îÁö ¾Èº¸³»´Â ÇÃ·¡±×
-	CGameProcedure::s_pPlayer->m_fTimeAfterDeath = 0; // ÇÑ¹ø º¸³»¸é ´Ù½Ã Á×À»¶§±îÁö ¾Èº¸³»´Â ÇÃ·¡±×
-	//TRACE("¹ŞÀ½ - ´Ù½Ã »ì¾Æ³ª±â(%.1f, %.1f)\n", vPosPlayer.x, vPosPlayer.z);
+	CGameProcedure::s_pPlayer->m_iSendRegeneration = 0; // í•œë²ˆ ë³´ë‚´ë©´ ë‹¤ì‹œ ì£½ì„ë•Œê¹Œì§€ ì•ˆë³´ë‚´ëŠ” í”Œë˜ê·¸
+	CGameProcedure::s_pPlayer->m_fTimeAfterDeath = 0; // í•œë²ˆ ë³´ë‚´ë©´ ë‹¤ì‹œ ì£½ì„ë•Œê¹Œì§€ ì•ˆë³´ë‚´ëŠ” í”Œë˜ê·¸
+	//TRACE("ë°›ìŒ - ë‹¤ì‹œ ì‚´ì•„ë‚˜ê¸°(%.1f, %.1f)\n", vPosPlayer.x, vPosPlayer.z);
 
 	//
-	//¸¶¹ı & È¿°ú ÃÊ±âÈ­..
+	//ë§ˆë²• & íš¨ê³¼ ì´ˆê¸°í™”..
 	if(CGameProcedure::s_pProcMain->m_pUIStateBarAndMiniMap) 
 		CGameProcedure::s_pProcMain->m_pUIStateBarAndMiniMap->ClearMagic();
 	if(CGameProcedure::s_pProcMain->m_pMagicSkillMng) 

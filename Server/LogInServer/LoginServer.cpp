@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <sstream>
 #include "../shared/Ini.h"
 #include "../shared/DateTime.h"

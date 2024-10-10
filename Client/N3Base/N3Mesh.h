@@ -1,4 +1,4 @@
-// N3MeshNormal.h: interface for the C3DObject class.
+ï»¿// N3MeshNormal.h: interface for the C3DObject class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,11 +17,11 @@ class CN3PMesh;
 class CN3Mesh : public CN3BaseFileAccess
 {
 protected:
-	__VertexT1*	m_pVertices; // Á¡ ¹öÆÛ
-	uint16_t*		m_psnIndices; // ÀÎµ¦½º ¹öÆÛ
+	__VertexT1*	m_pVertices; // ì  ë²„í¼
+	uint16_t*		m_psnIndices; // ì¸ë±ìŠ¤ ë²„í¼
 
-	int		m_nVC; // Á¡ °¹¼ö
-	int		m_nIC; // Á¡ °¹¼ö
+	int		m_nVC; // ì  ê°¯ìˆ˜
+	int		m_nIC; // ì  ê°¯ìˆ˜
 	__Vector3 m_vMin, m_vMax;
 
 public:
@@ -32,7 +32,7 @@ public:
 	int			VertexCount() { return m_nVC; }
 	__VertexT1*	Vertices() { return m_pVertices; }
 	int			IndexCount() { return m_nIC; }
-	uint16_t*		Indices() { return m_psnIndices; } // ÀÎµ¦½º ¹öÆÛ
+	uint16_t*		Indices() { return m_psnIndices; } // ì¸ë±ìŠ¤ ë²„í¼
 
 	bool	Load(HANDLE hFile);
 

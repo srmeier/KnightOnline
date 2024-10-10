@@ -1,4 +1,4 @@
-// Catapult.cpp: implementation of the CCatapult class.
+ï»¿// Catapult.cpp: implementation of the CCatapult class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -35,7 +35,7 @@ void CCatapult::ReCalcMatrix4AnimatedPart()
 {
 	CMachineBase::ReCalcMatrix4AnimatedPart();
 
-	if (m_Thrower.bFire == TRUE)	// ¹ß»ç »óÅÂÀÌ¸é
+	if (m_Thrower.bFire == TRUE)	// ë°œì‚¬ ìƒíƒœì´ë©´
 	{
 		int iSize = m_Parts.size();
 		for(int i = 0; i < iSize; i++)
@@ -56,7 +56,7 @@ void CCatapult::Render()
 {
 	CMachineBase::Render();
 
-	__ASSERT(m_Thrower.pStone, "Åõ¼®±â¿¡ µ¹¸ÍÀÌ ¾øÀ½");
+	__ASSERT(m_Thrower.pStone, "íˆ¬ì„ê¸°ì— ëŒë§¹ì´ ì—†ìŒ");
 	if (m_Thrower.bDontRenderStone == FALSE ) m_Thrower.pStone->Render();
 }
 
@@ -69,36 +69,36 @@ void CCatapult::Tick(float fFrm)
 	}
 
 	BOOL IsStoneThrown = FALSE;
-	if (m_Thrower.bFire == TRUE)	// ¹ß»ç »óÅÂÀÌ¸é
+	if (m_Thrower.bFire == TRUE)	// ë°œì‚¬ ìƒíƒœì´ë©´
 	{
 		m_Thrower.fTime += s_fSecPerFrm;
 		float fReloadTime = m_Thrower.fTime - (m_Thrower.fReleaseTime + m_Thrower.fReloadDelayTime);
-		if (fReloadTime<0)	// ¹ß»çÁßÀÌ°Å³ª delay»óÅÂÁß..
+		if (fReloadTime<0)	// ë°œì‚¬ì¤‘ì´ê±°ë‚˜ delayìƒíƒœì¤‘..
 		{
 			float fVibrationTime = m_Thrower.fTime - m_Thrower.fReleaseTime;
 			if (fVibrationTime<0)
 			{
 				m_Thrower.fCurRadian = -m_Thrower.fRadianAccel*(m_Thrower.fTime*m_Thrower.fTime);
 			}
-			else // ¹ß»çÈÄ ¹İµ¿À¸·Î ÀÎÇØ Áøµ¿Áß 
+			else // ë°œì‚¬í›„ ë°˜ë™ìœ¼ë¡œ ì¸í•´ ì§„ë™ì¤‘ 
 			{
 				if (m_Thrower.bDontRenderStone == FALSE)
 				{
-					m_Thrower.bDontRenderStone = TRUE;	// µ¹µ¢ÀÌ ¾È±×¸®±â
+					m_Thrower.bDontRenderStone = TRUE;	// ëŒë©ì´ ì•ˆê·¸ë¦¬ê¸°
 
-					// µ¹ ³¯¸®´Â ¸Ş¼¼Áö ¹ß»ı ÇØ¾ß ÇÑ´Ù.(ÇÑ¹ø¸¸)
+					// ëŒ ë‚ ë¦¬ëŠ” ë©”ì„¸ì§€ ë°œìƒ í•´ì•¼ í•œë‹¤.(í•œë²ˆë§Œ)
 					IsStoneThrown = TRUE;
 				}
 
 				float fFactor = fVibrationTime*20.0f;
-				// Áøµ¿ 5¹ø¸¸..
+				// ì§„ë™ 5ë²ˆë§Œ..
 				if ( fFactor < D3DX_PI*8) m_Thrower.fCurRadian = -m_Thrower.fLimitRadian - sinf(fFactor) * (m_Thrower.fRecoilRadian/(10*(1.0f+fVibrationTime)*(1.0f+fVibrationTime)));
 				else m_Thrower.fCurRadian = -m_Thrower.fLimitRadian;
 			}
 		}
 		else
 		{
-			m_Thrower.bDontRenderStone = TRUE;	// µ¹µ¢ÀÌ ¾È±×¸®±â
+			m_Thrower.bDontRenderStone = TRUE;	// ëŒë©ì´ ì•ˆê·¸ë¦¬ê¸°
 
 			m_Thrower.fCurRadian = -(m_Thrower.fLimitRadian - fReloadTime*m_Thrower.fRadianSpeed2Reload);
 			if (m_Thrower.fCurRadian > 0)
@@ -112,7 +112,7 @@ void CCatapult::Tick(float fFrm)
 	}
 	CMachineBase::Tick(fFrm);
 
-	// µ¹µ¢ÀÌ À§Ä¡ °è»ê
+	// ëŒë©ì´ ìœ„ì¹˜ ê³„ì‚°
 	if (m_Thrower.bDontRenderStone == FALSE)
 	{
 		__Matrix44& mtx = m_Thrower.pStone->m_Matrix;
@@ -126,14 +126,14 @@ void CCatapult::Tick(float fFrm)
 
 	if (IsStoneThrown)
 	{
-		__Matrix44 mtx; // È¸Àü Çà·Ä ±¸ÇÏ±â..
+		__Matrix44 mtx; // íšŒì „ í–‰ë ¬ êµ¬í•˜ê¸°..
 		mtx.Identity();
 		mtx.RotationX(m_Thrower.fLimitRadian);
 		mtx.PosSet(m_Thrower.pThrowerPart->m_vPivot);
 		mtx *= m_Matrix;
 
-		// µ¹ ³¯¸®´Â ¸Ş¼¼Áö ¹ß»ı
-		// tigger - 08.25 Á÷Á¢ ¸Ş½ÃÁö¸¦ ¸¸µé¾î¼­ ³¯¸°´Ù..
+		// ëŒ ë‚ ë¦¬ëŠ” ë©”ì„¸ì§€ ë°œìƒ
+		// tigger - 08.25 ì§ì ‘ ë©”ì‹œì§€ë¥¼ ë§Œë“¤ì–´ì„œ ë‚ ë¦°ë‹¤..
 		LocalMsg Msg;
 		Msg.s_MagicNum			= MAGIC_NUM;
 		Msg.s_iAddressLen		= CN3GameBase::s_pMsgRouter->GetThisClassLevel(ID_FX_MGR);
@@ -142,14 +142,14 @@ void CCatapult::Tick(float fFrm)
 		Msg.s_ipAddress[1]		= ID_FX_MGR;
 
 		Msg.s_iGameID			= ID_THROW_STONE;
-		Msg.s_vPos				= m_Thrower.vStoneOffset * mtx; // À§Ä¡
-		__Vector3 vVel; vVel.Set(0, sinf(m_fFireRadian), cosf(m_fFireRadian)); // ¹æÇâ °è»ê.
+		Msg.s_vPos				= m_Thrower.vStoneOffset * mtx; // ìœ„ì¹˜
+		__Vector3 vVel; vVel.Set(0, sinf(m_fFireRadian), cosf(m_fFireRadian)); // ë°©í–¥ ê³„ì‚°.
 		mtx = m_Matrix;	mtx.PosSet(0,0,0);
-		Msg.s_vDir= vVel*mtx; Msg.s_vDir.Normalize();// ¹æÇâ
-		Msg.s_fVelocity			= m_fFireSpeed; // ³¯¾Æ°¡´Â ½ºÇÇµå..
-		Msg.s_pShape			= m_Thrower.pStone; // µ¹ Shape
+		Msg.s_vDir= vVel*mtx; Msg.s_vDir.Normalize();// ë°©í–¥
+		Msg.s_fVelocity			= m_fFireSpeed; // ë‚ ì•„ê°€ëŠ” ìŠ¤í”¼ë“œ..
+		Msg.s_pShape			= m_Thrower.pStone; // ëŒ Shape
 		
-		CN3GameBase::s_pMsgRouter->m_cMsgQueue.RouteLocalMsg(Msg); // Message º¸³¿..
+		CN3GameBase::s_pMsgRouter->m_cMsgQueue.RouteLocalMsg(Msg); // Message ë³´ëƒ„..
 	}
 */
 }
@@ -160,38 +160,38 @@ void CCatapult::LoadMachine(FILE* stream)
 	Release();
 	CMachineBase::LoadMachine(stream);
 
-	char szThrowerName[_MAX_PATH];	// Thrower pmeshÆÄÀÏ ÀÌ¸§
-	char szStoneShapeName[_MAX_PATH];	// stone shapeÀÇ ÀÌ¸§
+	char szThrowerName[_MAX_PATH];	// Thrower pmeshíŒŒì¼ ì´ë¦„
+	char szStoneShapeName[_MAX_PATH];	// stone shapeì˜ ì´ë¦„
 
 	int result;
 	float x, y, z;
-	result = fscanf(stream, "Thrower_Name = %s\n", &szThrowerName);						__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Thrower_LimitRadian = %f\n", &(m_Thrower.fLimitRadian));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Thrower_RadianAccel = %f\n", &(m_Thrower.fRadianAccel));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Thrower_RadianSpeed2Reload = %f\n", &(m_Thrower.fRadianSpeed2Reload));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Thrower_ReloadDelayTime = %f\n", &(m_Thrower.fReloadDelayTime));		__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Thrower_RecoilRadian = %f\n", &(m_Thrower.fRecoilRadian));				__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Thrower_StoneShapeName = %s\n", szStoneShapeName);						__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Thrower_StoneOffset = %f %f %f\n", &x, &y, &z);						__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+	result = fscanf(stream, "Thrower_Name = %s\n", &szThrowerName);						__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Thrower_LimitRadian = %f\n", &(m_Thrower.fLimitRadian));	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Thrower_RadianAccel = %f\n", &(m_Thrower.fRadianAccel));	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Thrower_RadianSpeed2Reload = %f\n", &(m_Thrower.fRadianSpeed2Reload));	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Thrower_ReloadDelayTime = %f\n", &(m_Thrower.fReloadDelayTime));		__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Thrower_RecoilRadian = %f\n", &(m_Thrower.fRecoilRadian));				__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Thrower_StoneShapeName = %s\n", szStoneShapeName);						__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Thrower_StoneOffset = %f %f %f\n", &x, &y, &z);						__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 
-	__ASSERT(m_Thrower.pStone == NULL, "catapult memory leak °¡´É¼º Á¸Àç");
+	__ASSERT(m_Thrower.pStone == NULL, "catapult memory leak ê°€ëŠ¥ì„± ì¡´ì¬");
 	m_Thrower.pStone = new CN3Shape;
 	m_Thrower.pStone->Load(szStoneShapeName);
 	m_Thrower.vStoneOffset.Set(x, y, z);
 
-	// ¹ß»ç¿¡ °É¸®´Â ½Ã°£ °è»ê
+	// ë°œì‚¬ì— ê±¸ë¦¬ëŠ” ì‹œê°„ ê³„ì‚°
 	m_Thrower.fReleaseTime = sqrtf(m_Thrower.fLimitRadian/m_Thrower.fRadianAccel);
 
-	// Thrower Ã£±â
+	// Thrower ì°¾ê¸°
 	m_Thrower.pThrowerPart = GetPartByPMeshName(szThrowerName);
 }
 
 void CCatapult::Fire()
 {
-	if (m_Thrower.bFire == TRUE) return;	// ÀÌ¹Ì ¹ß»ç»óÅÂÀÌ´Ù.
+	if (m_Thrower.bFire == TRUE) return;	// ì´ë¯¸ ë°œì‚¬ìƒíƒœì´ë‹¤.
 
 	m_Thrower.bFire = TRUE;
 	m_Thrower.fTime = 0;
 	m_Thrower.fCurRadian = 0;
-	m_Thrower.bDontRenderStone = FALSE;	// µ¹µ¢ÀÌ ±×¸®±â
+	m_Thrower.bDontRenderStone = FALSE;	// ëŒë©ì´ ê·¸ë¦¬ê¸°
 }

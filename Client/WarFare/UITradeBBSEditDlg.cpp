@@ -1,4 +1,4 @@
-// UITradeBBSEditDlg.cpp: implementation of the CUITradeBBSEditDlg class.
+﻿// UITradeBBSEditDlg.cpp: implementation of the CUITradeBBSEditDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

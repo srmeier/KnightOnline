@@ -1,4 +1,4 @@
-// UITransactionDlg.h: interface for the CUITransactionDlg class.
+ï»¿// UITransactionDlg.h: interface for the CUITransactionDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@ class CUITransactionDlg   : public CN3UIWndBase, public IMouseWheelInputDlg
 	friend class CUIInventory;
 
 public:
-// Á÷Á¢ Á¢±ÙÇØ¾ß ÇÒ °´Ã¼ ÂüÁ¶ Æ÷ÀÎÅÍ
+// ì§ì ‘ ì ‘ê·¼í•´ì•¼ í•  ê°ì²´ ì°¸ì¡° í¬ì¸í„°
 	__IconItemSkill*		m_pMyTrade[MAX_ITEM_TRADE_PAGE][MAX_ITEM_TRADE];
 	__IconItemSkill*		m_pMyTradeInv[MAX_ITEM_INVENTORY];
 	CN3UIString*			m_pStrMyGold;
@@ -89,7 +89,7 @@ public:
 	void				SendToServerBuyMsg(int itemID, byte pos, int iCount);
 	void				SendToServerMoveMsg(int itemID, byte startpos, byte destpos);
 
-	// ¹°°Ç ±¸ÀÔÀÌ ¼­¹ö¿¡°Ô º¸³»±âÀü ¼º°ø..
+	// ë¬¼ê±´ êµ¬ì…ì´ ì„œë²„ì—ê²Œ ë³´ë‚´ê¸°ì „ ì„±ê³µ..
 	void				ReceiveItemDropByTradeSuccess();
 
 	CN3UIBase*			GetChildButtonByName(const std::string& szFN);
@@ -105,7 +105,7 @@ public:
 	void				ReceiveResultTradeMoveSuccess();
 	void				ReceiveResultTradeMoveFail();
 
-	// Å¸ÀÌÆ² Ç¥½Ã..
+	// íƒ€ì´í‹€ í‘œì‹œ..
 	void				ShowTitle(e_NpcTrade eNT);
 
 	void				GoldUpdate();

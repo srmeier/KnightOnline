@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Map.h"
 #include <set>
 #include "../shared/SMDFile.h"

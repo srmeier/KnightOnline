@@ -1,4 +1,4 @@
-// UICreateClanName.h: interface for the UICreateClanName class.
+﻿// UICreateClanName.h: interface for the UICreateClanName class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define MAX_CLAN_USERS			36
 #define MIN_NATIONAL_POINTS		500

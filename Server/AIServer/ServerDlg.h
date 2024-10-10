@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Define.h"
 #include "../shared/KOSocketMgr.h"
@@ -124,14 +124,14 @@ public:
 
 	UserSessionMap m_pUser;
 
-	Atomic<uint16_t>	m_TotalNPC;			// DB¿¡ÀÖ´Â ÃÑ ¼ö
+	Atomic<uint16_t>	m_TotalNPC;			// DBì—ìˆëŠ” ì´ ìˆ˜
 	Atomic<uint16_t>	m_CurrentNPC;
-	int16_t			m_sTotalMap;		// Zone ¼ö 
-	int16_t			m_sMapEventNpc;		// Map¿¡¼­ ÀĞ¾îµéÀÌ´Â event npc ¼ö
+	int16_t			m_sTotalMap;		// Zone ìˆ˜ 
+	int16_t			m_sMapEventNpc;		// Mapì—ì„œ ì½ì–´ë“¤ì´ëŠ” event npc ìˆ˜
 
-	bool			m_bFirstServerFlag;		// ¼­¹ö°¡ Ã³À½½ÃÀÛÇÑ ÈÄ °ÔÀÓ¼­¹ö°¡ ºÙÀº °æ¿ì¿¡´Â 1, ºÙÁö ¾ÊÀº °æ¿ì 0
-	uint8_t  m_byBattleEvent;				   // ÀüÀï ÀÌº¥Æ® °ü·Ã ÇÃ·¡±×( 1:ÀüÀïÁßÀÌ ¾Æ´Ô, 0:ÀüÀïÁß)
-	int16_t m_sKillKarusNpc, m_sKillElmoNpc; // ÀüÀïµ¿¾È¿¡ Á×Àº npc¼ıÀÚ
+	bool			m_bFirstServerFlag;		// ì„œë²„ê°€ ì²˜ìŒì‹œì‘í•œ í›„ ê²Œì„ì„œë²„ê°€ ë¶™ì€ ê²½ìš°ì—ëŠ” 1, ë¶™ì§€ ì•Šì€ ê²½ìš° 0
+	uint8_t  m_byBattleEvent;				   // ì „ìŸ ì´ë²¤íŠ¸ ê´€ë ¨ í”Œë˜ê·¸( 1:ì „ìŸì¤‘ì´ ì•„ë‹˜, 0:ì „ìŸì¤‘)
+	int16_t m_sKillKarusNpc, m_sKillElmoNpc; // ì „ìŸë™ì•ˆì— ì£½ì€ npcìˆ«ì
 
 	uint16_t	m_iYear, m_iMonth, m_iDate, m_iHour, m_iMin, m_iAmount;
 	uint8_t m_iWeather;

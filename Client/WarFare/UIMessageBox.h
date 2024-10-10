@@ -1,4 +1,4 @@
-// UIMessageBox.h: interface for the CUIMessageBox class.
+ï»¿// UIMessageBox.h: interface for the CUIMessageBox class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,8 +25,8 @@ protected:
 	CN3UIString*	m_pText_Title;
 	CN3UIEdit*		m_pEdit_Common;
 public:
-	e_Behavior	m_eBehavior;	// OK ¹öÆ°À» ´©¸£¸é ÇÒÁş...
-	int			m_iStyle;		// ¸Ş½ÃÁö ¹Ú½º ½ºÅ¸ÀÏ
+	e_Behavior	m_eBehavior;	// OK ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ í• ì§“...
+	int			m_iStyle;		// ë©”ì‹œì§€ ë°•ìŠ¤ ìŠ¤íƒ€ì¼
 
 public:
 	bool OnKeyPress(int iKey);

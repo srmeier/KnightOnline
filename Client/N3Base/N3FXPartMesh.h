@@ -1,4 +1,4 @@
-// N3FXPartMesh.h: interface for the CN3FXPartMesh class.
+ï»¿// N3FXPartMesh.h: interface for the CN3FXPartMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,9 +17,9 @@ public:
 
 	uint32_t		m_dwCurrColor;	//
 	
-	char		m_cTextureMoveDir;	//ÅØ½ºÃÄ ÀÌµ¿ ¹æÇâ..1:up 2:down, 3:left, 4:right
-	float		m_fu;				//ÅØ½ºÃÄ ÀÌµ¿ ¼Óµµ
-	float		m_fv;				//ÅØ½ºÃÄ ÀÌµ¿ ¼Óµµ
+	char		m_cTextureMoveDir;	//í…ìŠ¤ì³ ì´ë™ ë°©í–¥..1:up 2:down, 3:left, 4:right
+	float		m_fu;				//í…ìŠ¤ì³ ì´ë™ ì†ë„
+	float		m_fv;				//í…ìŠ¤ì³ ì´ë™ ì†ë„
 
 	__Vector3	m_vUnitScale;
 	__Vector3	m_vScaleVel;
@@ -34,13 +34,13 @@ protected:
 	bool	IsDead();
 
 public:
-	void	Init();				//	°¢Á¾ º¯¼öµéÀ» Ã³À½ ·ÎµùÇÑ »óÅÂ·Î ÃÊ±âÈ­...
-	void	Start();			//	ÆÄÆ® ±¸µ¿ ½ÃÀÛ.
-	void	Stop();				//	ÆÄÆ® ±¸µ¿ ¸ØÃã..
+	void	Init();				//	ê°ì¢… ë³€ìˆ˜ë“¤ì„ ì²˜ìŒ ë¡œë”©í•œ ìƒíƒœë¡œ ì´ˆê¸°í™”...
+	void	Start();			//	íŒŒíŠ¸ êµ¬ë™ ì‹œì‘.
+	void	Stop();				//	íŒŒíŠ¸ êµ¬ë™ ë©ˆì¶¤..
 	bool	Tick();				//	ticktick...
-	void	Render();			//	È­¸é¿¡ »Ñ¸®±â..
-	bool	Load(HANDLE hFile);	//	°ÔÀÓÆÄÀÏ ºÒ·¯¿À±â.
-	bool	Save(HANDLE hFile);	//	°ÔÀÓÆÄÀÏ ÀúÀå¿À±â.
+	void	Render();			//	í™”ë©´ì— ë¿Œë¦¬ê¸°..
+	bool	Load(HANDLE hFile);	//	ê²Œì„íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°.
+	bool	Save(HANDLE hFile);	//	ê²Œì„íŒŒì¼ ì €ì¥ì˜¤ê¸°.
 	void	Duplicate(CN3FXPartMesh* pSrc);
 		
 public:

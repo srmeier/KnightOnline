@@ -1,4 +1,4 @@
-// GameCursor.cpp: implementation of the CGameCursor class.
+﻿// GameCursor.cpp: implementation of the CGameCursor class.
 //
 //////////////////////////////////////////////////////////////////////
 

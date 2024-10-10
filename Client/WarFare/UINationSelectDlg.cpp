@@ -1,4 +1,4 @@
-// UINationSelectDlg.cpp: implementation of the CUINationSelectDlg class.
+ï»¿// UINationSelectDlg.cpp: implementation of the CUINationSelectDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -61,7 +61,7 @@ bool CUINationSelectDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		else
 		if ( pSender == m_pBtnBack ) // Back
 		{
-			CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn); // Ä³¸¯ÅÍ ¼±ÅÃ ÇÁ·Î½ÃÀú·Î ÇÑ´Ù..
+			CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn); // ìºë¦­í„° ì„ íƒ í”„ë¡œì‹œì €ë¡œ í•œë‹¤..
 		}
 	}
 

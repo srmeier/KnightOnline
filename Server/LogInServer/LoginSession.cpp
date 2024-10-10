@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "../shared/DateTime.h"
 
 LSPacketHandler PacketHandlers[NUM_LS_OPCODES];

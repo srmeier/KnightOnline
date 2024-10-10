@@ -1,4 +1,4 @@
-// UIQuestMenu.h: interface for the CUIQuestMenu class.
+﻿// UIQuestMenu.h: interface for the CUIQuestMenu class.
 //
 //////////////////////////////////////////////////////////////////////
 

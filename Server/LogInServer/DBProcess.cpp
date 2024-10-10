@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 
 bool CDBProcess::Connect(string & szDSN, string & szUser, string & szPass)
 {

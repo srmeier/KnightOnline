@@ -1,4 +1,4 @@
-// UIE.h : main header file for the UIE application
+﻿// UIE.h : main header file for the UIE application
 //
 
 #if !defined(AFX_UIE_H__83F51B13_FAF0_4DD2_8383_7BE9C8C4AD44__INCLUDED_)

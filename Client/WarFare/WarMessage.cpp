@@ -1,4 +1,4 @@
-// WarMessage.cpp: implementation of the CWarMessage class.
+ï»¿// WarMessage.cpp: implementation of the CWarMessage class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -56,7 +56,7 @@ void CWarMessage::SetMessage(const std::string& szText, uint32_t dwFlags, uint32
 {
 	if (m_pMessageFont)
 	{
-		m_pMessageFont->SetText(szText, dwFlags); // ÆùÆ®¿¡ ÅØ½ºÆ® ÁöÁ¤.
+		m_pMessageFont->SetText(szText, dwFlags); // í°íŠ¸ì— í…ìŠ¤íŠ¸ ì§€ì •.
 		m_pMessageFont->SetFontColor(dwColor);
 		m_fTime = WAR_MESSAGE_SHOW_TIME;
 	}

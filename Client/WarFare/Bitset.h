@@ -1,4 +1,4 @@
-#if !defined(AFX_Bitset_h__INCLUDED_)
+﻿#if !defined(AFX_Bitset_h__INCLUDED_)
 #define AFX_Bitset_h__INCLUDED_
 
 #if _MSC_VER > 1000

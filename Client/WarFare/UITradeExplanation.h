@@ -1,4 +1,4 @@
-// UITradeExplanation.h: interface for the CUITradeExplanation class.
+﻿// UITradeExplanation.h: interface for the CUITradeExplanation class.
 //
 //////////////////////////////////////////////////////////////////////
 

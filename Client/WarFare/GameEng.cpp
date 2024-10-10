@@ -1,4 +1,4 @@
-// GameEng.cpp: implementation of the CGameEng class.
+ï»¿// GameEng.cpp: implementation of the CGameEng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ CGameEng::CGameEng()
 {
 	m_pActiveCam	= NULL;
 
-	// ÇÁ·Î±×·¥ÀÌ ½ÇÇàµÈ °æ·Î..
+	// í”„ë¡œê·¸ë¨ì´ ì‹¤í–‰ëœ ê²½ë¡œ..
 	char szBuf[_MAX_PATH];
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR];
 	::GetModuleFileName(NULL, szBuf, _MAX_PATH);
@@ -32,7 +32,7 @@ CGameEng::CGameEng()
 	_makepath(szBuf, szDrive, szDir, NULL, NULL);
 
 	///////////////////////////////////////////////////////////////
-	// ±âº» Ä«¸Ş¶ó ¼¼ÆÃ..
+	// ê¸°ë³¸ ì¹´ë©”ë¼ ì„¸íŒ…..
 	CN3Camera* pCamera			= new CN3Camera();
 	pCamera->m_bFogUse			= TRUE;
 	pCamera->m_Data.fFOV		= D3DXToRadian(70);
@@ -44,51 +44,51 @@ CGameEng::CGameEng()
 	m_vEyeToReach = pCamera->EyePos();
 	m_vAtToReach = pCamera->AtPos();
 
-//	m_eViewPoint = VP_BACKWARD; // ±âº»Àº 1.5ÀÎÄª(ÇÃ·¹ÀÌ¾î µÚ¿¡¼­ ¹Ù¶óº» ¸ğ½À)À¸·Î ½ÃÀÛ.
-	m_eViewPoint = VP_THIRD_PERSON; // ±âº»Àº 3ÀÎÄªÀ¸·Î ½ÃÀÛ.
-	m_fRotPitchFirstPerson = 0.0f; // ÀÏÀÎÄª ½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó ÇÇÄ¡ °¢µµ.
-	m_fRotPitchBackward = 0.0f; // »ïÀÎÄª ½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó ÇÇÄ¡ °¢µµ.
-	m_fRotPitchFoward = 0.0f; // ¾Õ¿¡¼­ º» ½ÃÁ¡ÀÏ¶§  Ä«¸Ş¶ó ÇÇÄ¡ °¢µµ.
+//	m_eViewPoint = VP_BACKWARD; // ê¸°ë³¸ì€ 1.5ì¸ì¹­(í”Œë ˆì´ì–´ ë’¤ì—ì„œ ë°”ë¼ë³¸ ëª¨ìŠµ)ìœ¼ë¡œ ì‹œì‘.
+	m_eViewPoint = VP_THIRD_PERSON; // ê¸°ë³¸ì€ 3ì¸ì¹­ìœ¼ë¡œ ì‹œì‘.
+	m_fRotPitchFirstPerson = 0.0f; // ì¼ì¸ì¹­ ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ í”¼ì¹˜ ê°ë„.
+	m_fRotPitchBackward = 0.0f; // ì‚¼ì¸ì¹­ ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ í”¼ì¹˜ ê°ë„.
+	m_fRotPitchFoward = 0.0f; // ì•ì—ì„œ ë³¸ ì‹œì ì¼ë•Œ  ì¹´ë©”ë¼ í”¼ì¹˜ ê°ë„.
 	m_fRotPitchThirdFirson = D3DXToRadian(25.0f);
-	m_fOffsetVPGod = 7.0f; // À§¿¡¼­ º»½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó °Å¸®..
-	m_fRotYawVPGod = 0.0f; // À§¿¡¼­ ¹Ù¶óº» ½ÃÁ¡ÀÏ °æ¿ì¿¡ Ä«¸Ş¶ó È¸Àü°¢µµ..
-	m_fZoomBackwardOrFoward = 1.0f; // 1.5ÀÎÄª, ¾Õ¿¡¼­ º» ½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó Zoom 1.0f °¡ ±âÁØÀÌ´Ù.
-	// ±âº» Ä«¸Ş¶ó ¼¼ÆÃ..
+	m_fOffsetVPGod = 7.0f; // ìœ„ì—ì„œ ë³¸ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ ê±°ë¦¬..
+	m_fRotYawVPGod = 0.0f; // ìœ„ì—ì„œ ë°”ë¼ë³¸ ì‹œì ì¼ ê²½ìš°ì— ì¹´ë©”ë¼ íšŒì „ê°ë„..
+	m_fZoomBackwardOrFoward = 1.0f; // 1.5ì¸ì¹­, ì•ì—ì„œ ë³¸ ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ Zoom 1.0f ê°€ ê¸°ì¤€ì´ë‹¤.
+	// ê¸°ë³¸ ì¹´ë©”ë¼ ì„¸íŒ…..
 	///////////////////////////////////////////////////////////////
 
-	m_fLightningTimeRemain = 0.0f; // ¹ø°³ Ä¥¶§ Å¸ÀÌ¸Ó..
+	m_fLightningTimeRemain = 0.0f; // ë²ˆê°œ ì¹ ë•Œ íƒ€ì´ë¨¸..
 
 	///////////////////////////////////////////////////////////////
-	// ±âº» ¶óÀÌÆ® ¼¼ÆÃ
+	// ê¸°ë³¸ ë¼ì´íŠ¸ ì„¸íŒ…
 	/*
 	D3DCOLORVALUE crLgt;
 
 	crLgt.a = 0.0f, crLgt.r = crLgt.g = crLgt.b = 0.8f;
-	CN3Light* pLightGlobal = new CN3Light(); // ÀüÃ¼¸¦ ºñÃâ ¶óÀÌÆ®..
+	CN3Light* pLightGlobal = new CN3Light(); // ì „ì²´ë¥¼ ë¹„ì¶œ ë¼ì´íŠ¸..
 	pLightGlobal->m_Data.InitDirection(0, __Vector3(0,-1,0), crLgt);
 	this->LightAdd(pLightGlobal);
 
 	crLgt.a = 0.0f, crLgt.r = crLgt.g = crLgt.b = 0.5f;
-	CN3Light* pLightGlobal2 = new CN3Light(); // ¹İ´ë Æí¿¡¼­ ÀüÃ¼¸¦ ºñÃâ ¶óÀÌÆ®..
+	CN3Light* pLightGlobal2 = new CN3Light(); // ë°˜ëŒ€ í¸ì—ì„œ ì „ì²´ë¥¼ ë¹„ì¶œ ë¼ì´íŠ¸..
 	pLightGlobal2->m_Data.InitDirection(1, __Vector3(0,1,0), crLgt);
 	this->LightAdd(pLightGlobal2);
 
 	crLgt.a = 0.0f, crLgt.r = crLgt.g = crLgt.b = 0.3f;
-	CN3Light* pLight = new CN3Light(); // Ä«¸Ş¶ó¿Í ºÙ¾î ´Ù´Ñ´Ù...
+	CN3Light* pLight = new CN3Light(); // ì¹´ë©”ë¼ì™€ ë¶™ì–´ ë‹¤ë‹Œë‹¤...
 	pLight->m_Data.InitPoint(2, __Vector3(0,0,0), crLgt, 32.0f);
 	this->LightAdd(pLight);
 	*/
-	// ±âº» ¶óÀÌÆ® ¼¼ÆÃ
+	// ê¸°ë³¸ ë¼ì´íŠ¸ ì„¸íŒ…
 	///////////////////////////////////////////////////////////////
 	m_pRefLightSun = NULL;
 	m_pRefLightSupport = NULL;
 	m_pRefLightCam = NULL;
 
-	m_fFPDeltaCur = 1.0f; // ÇöÀç 
-	m_fFPDeltaToReach = 1.0f; // ÀÌ°ªÀ» ¸ñÇ¥·Î ÇØ¼­ º¯ÇÑ´Ù.
+	m_fFPDeltaCur = 1.0f; // í˜„ì¬ 
+	m_fFPDeltaToReach = 1.0f; // ì´ê°’ì„ ëª©í‘œë¡œ í•´ì„œ ë³€í•œë‹¤.
 
 //	m_fLightDeltaCur = 1.0f;
-//	m_fLightDeltaToReach = 1.0f; // ÀÌ°ªÀ» ¸ñÇ¥·Î ÇØ¼­ º¯ÇÑ´Ù.
+//	m_fLightDeltaToReach = 1.0f; // ì´ê°’ì„ ëª©í‘œë¡œ í•´ì„œ ë³€í•œë‹¤.
 }
 
 CGameEng::~CGameEng()
@@ -156,13 +156,13 @@ void CGameEng::SetDefaultLight(CN3Light* pSun, CN3Light* pSupport, CN3Light* pCa
 // 
 //////////////////////////////////////////////////////////////////////
 
-void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ ¾´´Ù.
-					const D3DCOLOR* crAmbients,			// Ambient ¶óÀÌÆ® »ö±ò.. 3 °³ ¾´´Ù.
-					const D3DCOLOR crFog,				// ¾È°³ »ö±ò..
-					const __Vector3& vPosPlayer,		// ÇÃ·¹ÀÌ¾î À§Ä¡
-					const __Quaternion& qtPlayer,		// È¸Àü ÄõÅÍ´Ï¾ğ
-					float fHeightPlayer,				// Å°¸¦ ÀÎ¼ö·Î ³ÖÀ¸¸é Ä«¸Ş¶ó¿Í ¶óÀÌÆ® Ã³¸®..
-					float fSunRadianZ)					// ÇØÀÇ Z °¢µµ..
+void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ë¼ì´íŠ¸ ìƒ‰ê¹”.. 3 ê°œ ì“´ë‹¤.
+					const D3DCOLOR* crAmbients,			// Ambient ë¼ì´íŠ¸ ìƒ‰ê¹”.. 3 ê°œ ì“´ë‹¤.
+					const D3DCOLOR crFog,				// ì•ˆê°œ ìƒ‰ê¹”..
+					const __Vector3& vPosPlayer,		// í”Œë ˆì´ì–´ ìœ„ì¹˜
+					const __Quaternion& qtPlayer,		// íšŒì „ ì¿¼í„°ë‹ˆì–¸
+					float fHeightPlayer,				// í‚¤ë¥¼ ì¸ìˆ˜ë¡œ ë„£ìœ¼ë©´ ì¹´ë©”ë¼ì™€ ë¼ì´íŠ¸ ì²˜ë¦¬..
+					float fSunRadianZ)					// í•´ì˜ Z ê°ë„..
 {
 	if(NULL == m_pActiveCam) return;
 
@@ -172,7 +172,7 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 	__Vector3 vAxis(0,1,0);
 	qtRot.AxisAngle(vAxis, fYaw);
 	
-	if(vAxis.y < 0) // È¸ÀüÃàÀÌ À½¼öÀÌ¸é.
+	if(vAxis.y < 0) // íšŒì „ì¶•ì´ ìŒìˆ˜ì´ë©´.
 	{
 		vAxis.y *= -1.0f;
 		fYaw *= -1.0f;
@@ -223,28 +223,28 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////
-	// Ä«¸Ş¶ó Ãæµ¹ Ã¼Å©...
-	if(VP_FIRST_PERSON == m_eViewPoint) // ÀÏÀÎÄª¶§´Â Ãæµ¹Ã¼Å© ¾ÈÇÑ´Ù.
+	// ì¹´ë©”ë¼ ì¶©ëŒ ì²´í¬...
+	if(VP_FIRST_PERSON == m_eViewPoint) // ì¼ì¸ì¹­ë•ŒëŠ” ì¶©ëŒì²´í¬ ì•ˆí•œë‹¤.
 	{
-		m_pActiveCam->LookAt(m_vEyeToReach, m_vAtToReach, __Vector3(0,1,0)); // Ã³´Ùº»´Ù..
+		m_pActiveCam->LookAt(m_vEyeToReach, m_vAtToReach, __Vector3(0,1,0)); // ì²˜ë‹¤ë³¸ë‹¤..
 	}
 	else
 	{
 		__Vector3 vEyeResult = m_vEyeToReach;
 		float fNP = m_pActiveCam->m_Data.fNP;
-		CGameBase::ACT_WORLD->CheckCollisionCameraWithTerrain(vEyeResult, m_vAtToReach, fNP); // ÁöÇü°ú Ãæµ¹Ã¼Å©
-		CGameBase::ACT_WORLD->CheckCollisionCameraWithShape(vEyeResult, m_vAtToReach, fNP); // ¿ÀºêÁ§Æ®¿Í Ãæµ¹Ã¼Å©..
-		m_pActiveCam->LookAt(vEyeResult, m_vAtToReach, __Vector3(0,1,0)); // Ã³´Ùº»´Ù..
+		CGameBase::ACT_WORLD->CheckCollisionCameraWithTerrain(vEyeResult, m_vAtToReach, fNP); // ì§€í˜•ê³¼ ì¶©ëŒì²´í¬
+		CGameBase::ACT_WORLD->CheckCollisionCameraWithShape(vEyeResult, m_vAtToReach, fNP); // ì˜¤ë¸Œì íŠ¸ì™€ ì¶©ëŒì²´í¬..
+		m_pActiveCam->LookAt(vEyeResult, m_vAtToReach, __Vector3(0,1,0)); // ì²˜ë‹¤ë³¸ë‹¤..
 	}
-	// Ä«¸Ş¶ó Ãæµ¹ Ã¼Å©...
+	// ì¹´ë©”ë¼ ì¶©ëŒ ì²´í¬...
 	////////////////////////////////////////////////////////////////////////////////////
 
 
-	// ÆÄ ÇÃ·¹ÀÎ °ªÀ» Á¶Á¤..
-	// ApplyCameraAndLight ¿¡¼­ ½ÇÁ¦·Î ¾È°³µîÀÇ °ªÀ» Á¶ÀıÇÑ´Ù.
+	// íŒŒ í”Œë ˆì¸ ê°’ì„ ì¡°ì •..
+	// ApplyCameraAndLight ì—ì„œ ì‹¤ì œë¡œ ì•ˆê°œë“±ì˜ ê°’ì„ ì¡°ì ˆí•œë‹¤.
 	if(m_fFPDeltaCur != m_fFPDeltaToReach)
 	{
-		float fFPChange = (m_fFPDeltaToReach - m_fFPDeltaCur) * s_fSecPerFrm / 5.0f; // 5ÃÊµ¿¾È º¯ÇÏ°Ô ÇÑ´Ù.
+		float fFPChange = (m_fFPDeltaToReach - m_fFPDeltaCur) * s_fSecPerFrm / 5.0f; // 5ì´ˆë™ì•ˆ ë³€í•˜ê²Œ í•œë‹¤.
 		m_fFPDeltaCur += fFPChange;
 
 		if(fFPChange < 0 && m_fFPDeltaCur < m_fFPDeltaToReach) m_fFPDeltaCur = m_fFPDeltaToReach;
@@ -253,11 +253,11 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 	float fFPToRestore = m_pActiveCam->m_Data.fFP;
 	m_pActiveCam->m_Data.fFP = s_Options.iViewDist * m_fFPDeltaCur;
 	
-	m_pActiveCam->m_FogColor = crFog; // ¾È°³»öÀ» ¸ÂÃá´Ù..
-	m_pActiveCam->Tick(); // Àû¿ë¹× »ç¸éÃ¼µîµîÀÇ °ªµéÀ» °è»ê..
+	m_pActiveCam->m_FogColor = crFog; // ì•ˆê°œìƒ‰ì„ ë§ì¶˜ë‹¤..
+	m_pActiveCam->Tick(); // ì ìš©ë° ì‚¬ë©´ì²´ë“±ë“±ì˜ ê°’ë“¤ì„ ê³„ì‚°..
 
 	__Matrix44 mtxRotSun;
-	mtxRotSun.RotationZ(fSunRadianZ); // ÇØÀÇ °¢µµ¿¡ ¸ÂÃá´Ù..
+	mtxRotSun.RotationZ(fSunRadianZ); // í•´ì˜ ê°ë„ì— ë§ì¶˜ë‹¤..
 
 	/*
 	it_Light itLgt = m_Lights.begin();
@@ -267,33 +267,33 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 		CN3Light* pLight = *itLgt;
 		__ASSERT(pLight, "Light pointer is NULL!!!");
 		
-		if(0 == pLight->m_Data.nNumber) // ±âº» µğ·º¼Å³Î ¶óÀÌÆ®
+		if(0 == pLight->m_Data.nNumber) // ê¸°ë³¸ ë””ë ‰ì…”ë„ ë¼ì´íŠ¸
 		{
-			// View Matrix °¢µµ¿Í ¹æÇâÀ» ¸ÂÃá´Ù..
+			// View Matrix ê°ë„ì™€ ë°©í–¥ì„ ë§ì¶˜ë‹¤..
 //			__Vector3 vDir(0.0f,-1.5f,1.0f);
 //			vDir.Normalize();
 //			__Matrix44 mtxVI = s_CameraData.mtxViewInverse;
 //			mtxVI.PosSet(0,0,0);
 //			pLight->m_Data.Direction = vDir * mtxVI;
 
-			// ÇØ¿Í ¹æÇâÀ» ¸ÂÃá´Ù..
+			// í•´ì™€ ë°©í–¥ì„ ë§ì¶˜ë‹¤..
 			__Matrix44 mtxRot; mtxRot.RotationZ(fSunRadianZ);
 			__Vector3 vDir(-1,0,1);
 			vDir *= mtxRot;
 			vDir.Normalize();
 			pLight->m_Data.Direction = vDir;
 			
-			// ¶óÀÌÆ® ÄÃ·¯ Àû¿ë..
+			// ë¼ì´íŠ¸ ì»¬ëŸ¬ ì ìš©..
 			pLight->m_Data.Diffuse = ::_D3DCOLOR_To_D3DCOLORVALUE(crDiffuses[0]);
 			pLight->m_Data.Ambient = ::_D3DCOLOR_To_D3DCOLORVALUE(crAmbients[0]);
 		}
 		else if(1 == pLight->m_Data.nNumber)
 		{
-			__Vector3 vDir(2,-3, 2); // À§¿¡¼­ ¾Æ·¡·Î ...
+			__Vector3 vDir(2,-3, 2); // ìœ„ì—ì„œ ì•„ë˜ë¡œ ...
 			vDir.Normalize();
 			pLight->m_Data.Direction = vDir;
 			
-			// ¶óÀÌÆ® ÄÃ·¯ Àû¿ë..
+			// ë¼ì´íŠ¸ ì»¬ëŸ¬ ì ìš©..
 			pLight->m_Data.Diffuse = ::_D3DCOLOR_To_D3DCOLORVALUE(crDiffuses[1]);
 			pLight->m_Data.Ambient = ::_D3DCOLOR_To_D3DCOLORVALUE(crAmbients[1]);
 		}
@@ -301,15 +301,15 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 		{
 			__Vector3 vPos = s_CameraData.vEye;
 			vPos.y += 16.0f;
-			pLight->PosSet(vPos); // Ä«¸Ş¶ó À§¿¡ °¡°Ô ÇÑ´Ù..
+			pLight->PosSet(vPos); // ì¹´ë©”ë¼ ìœ„ì— ê°€ê²Œ í•œë‹¤..
 			
-			// ¶óÀÌÆ® ÄÃ·¯ Àû¿ë..
+			// ë¼ì´íŠ¸ ì»¬ëŸ¬ ì ìš©..
 			pLight->m_Data.Diffuse = ::_D3DCOLOR_To_D3DCOLORVALUE(crDiffuses[2]);
 			pLight->m_Data.Ambient = ::_D3DCOLOR_To_D3DCOLORVALUE(crAmbients[2]);
 		}
 
 
-		// ¹ø°³ Ã³¸®..
+		// ë²ˆê°œ ì²˜ë¦¬..
 		if(m_fLightningTimeRemain > 0)
 		{
 			float fLightningDelta = 0;
@@ -332,18 +332,18 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 	*/
 	if(m_pRefLightSun)
 	{
-		// ÇØ¿Í ¹æÇâÀ» ¸ÂÃá´Ù..
+		// í•´ì™€ ë°©í–¥ì„ ë§ì¶˜ë‹¤..
 		__Matrix44 mtxRot; mtxRot.RotationZ(fSunRadianZ);
 		__Vector3 vDir(-1,0,1);
 		vDir *= mtxRot;
 		vDir.Normalize();
 		m_pRefLightSun->m_Data.Direction = vDir;
 		
-		// ¶óÀÌÆ® ÄÃ·¯ Àû¿ë..
+		// ë¼ì´íŠ¸ ì»¬ëŸ¬ ì ìš©..
 		m_pRefLightSun->m_Data.Diffuse = ::_D3DCOLOR_To_D3DCOLORVALUE(crDiffuses[0]);
 		m_pRefLightSun->m_Data.Ambient = ::_D3DCOLOR_To_D3DCOLORVALUE(crAmbients[0]);
 
-		// ¹ø°³ Ã³¸®..
+		// ë²ˆê°œ ì²˜ë¦¬..
 		if(m_fLightningTimeRemain > 0)
 		{
 			float fLightningDelta = 0;
@@ -363,15 +363,15 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 	}
 	if(m_pRefLightSupport)
 	{
-		__Vector3 vDir(2,-3, 2); // À§¿¡¼­ ¾Æ·¡·Î ...
+		__Vector3 vDir(2,-3, 2); // ìœ„ì—ì„œ ì•„ë˜ë¡œ ...
 		vDir.Normalize();
 		m_pRefLightSupport->m_Data.Direction = vDir;
 		
-		// ¶óÀÌÆ® ÄÃ·¯ Àû¿ë..
+		// ë¼ì´íŠ¸ ì»¬ëŸ¬ ì ìš©..
 		m_pRefLightSupport->m_Data.Diffuse = ::_D3DCOLOR_To_D3DCOLORVALUE(crDiffuses[1]);
 		m_pRefLightSupport->m_Data.Ambient = ::_D3DCOLOR_To_D3DCOLORVALUE(crAmbients[1]);
 
-		// ¹ø°³ Ã³¸®..
+		// ë²ˆê°œ ì²˜ë¦¬..
 		if(m_fLightningTimeRemain > 0)
 		{
 			float fLightningDelta = 0;
@@ -393,13 +393,13 @@ void CGameEng::Tick(const D3DCOLOR* crDiffuses,			// Diffuse ¶óÀÌÆ® »ö±ò.. 3 °³ 
 	{
 		__Vector3 vPos = s_CameraData.vEye;
 		vPos.y += 16.0f;
-		m_pRefLightCam->PosSet(vPos); // Ä«¸Ş¶ó À§¿¡ °¡°Ô ÇÑ´Ù..
+		m_pRefLightCam->PosSet(vPos); // ì¹´ë©”ë¼ ìœ„ì— ê°€ê²Œ í•œë‹¤..
 		
-		// ¶óÀÌÆ® ÄÃ·¯ Àû¿ë..
+		// ë¼ì´íŠ¸ ì»¬ëŸ¬ ì ìš©..
 		m_pRefLightCam->m_Data.Diffuse = ::_D3DCOLOR_To_D3DCOLORVALUE(crDiffuses[2]);
 		m_pRefLightCam->m_Data.Ambient = ::_D3DCOLOR_To_D3DCOLORVALUE(crAmbients[2]);
 
-		// ¹ø°³ Ã³¸®..
+		// ë²ˆê°œ ì²˜ë¦¬..
 		if(m_fLightningTimeRemain > 0)
 		{
 			float fLightningDelta = 0;
@@ -424,7 +424,7 @@ void CGameEng::ApplyCameraAndLight()
 {
 	if(m_pActiveCam)
 	{
-		m_pActiveCam->Apply(); // À§ÀÇ °Å ´ë½Å¿¡ ÇÏ³ª¸¸ ¾´´Ù...
+		m_pActiveCam->Apply(); // ìœ„ì˜ ê±° ëŒ€ì‹ ì— í•˜ë‚˜ë§Œ ì“´ë‹¤...
 	}
 /*
 	for(it_Light it = m_Lights.begin(), itEnd = m_Lights.end(); it != itEnd; it++)
@@ -446,11 +446,11 @@ void CGameEng::ViewPointChange(e_ViewPoint eVP)
 
 		int iVP = (int)(m_eViewPoint) + 1;
 		if ( iVP > (VP_THIRD_PERSON) ) iVP = VP_BACKWARD;
-		m_eViewPoint = (e_ViewPoint)iVP;						// ½ÃÁ¡ Áõ°¡..
+		m_eViewPoint = (e_ViewPoint)iVP;						// ì‹œì  ì¦ê°€..
 	}
 	else
 	{
-		m_eViewPoint = eVP;						// ½ÃÁ¡ Áõ°¡..
+		m_eViewPoint = eVP;						// ì‹œì  ì¦ê°€..
 	}
 }
 
@@ -462,37 +462,37 @@ void CGameEng::CameraPitchAdd(float fRotXPerSec)
 	if(VP_BACKWARD == m_eViewPoint)
 	{
 		m_fRotPitchBackward += fRotXPerSec * s_fSecPerFrm;
-		if(m_fRotPitchBackward > fPitchMax) m_fRotPitchBackward = fPitchMax; // ¾Æ·¡ º¸´Â°ª
-		else if(m_fRotPitchBackward < fPitchMin) m_fRotPitchBackward = fPitchMin; // À§º¸´Â °ª..
+		if(m_fRotPitchBackward > fPitchMax) m_fRotPitchBackward = fPitchMax; // ì•„ë˜ ë³´ëŠ”ê°’
+		else if(m_fRotPitchBackward < fPitchMin) m_fRotPitchBackward = fPitchMin; // ìœ„ë³´ëŠ” ê°’..
 	}
 	else if(VP_FIRST_PERSON == m_eViewPoint)
 	{
 		m_fRotPitchFirstPerson += fRotXPerSec * s_fSecPerFrm;
-		if(m_fRotPitchFirstPerson > fPitchMax) m_fRotPitchFirstPerson = fPitchMax; // ¾Æ·¡ º¸´Â°ª
-		else if(m_fRotPitchFirstPerson < fPitchMin) m_fRotPitchFirstPerson = fPitchMin; // À§º¸´Â °ª..
+		if(m_fRotPitchFirstPerson > fPitchMax) m_fRotPitchFirstPerson = fPitchMax; // ì•„ë˜ ë³´ëŠ”ê°’
+		else if(m_fRotPitchFirstPerson < fPitchMin) m_fRotPitchFirstPerson = fPitchMin; // ìœ„ë³´ëŠ” ê°’..
 	}
 	else if(VP_FOWARD == m_eViewPoint)
 	{
 		m_fRotPitchFoward += fRotXPerSec * s_fSecPerFrm;
-		if(m_fRotPitchFoward > fPitchMax) m_fRotPitchFoward = fPitchMax; // ¾Æ·¡ º¸´Â°ª
-		else if(m_fRotPitchFoward < fPitchMin) m_fRotPitchFoward = fPitchMin; // À§º¸´Â °ª..
+		if(m_fRotPitchFoward > fPitchMax) m_fRotPitchFoward = fPitchMax; // ì•„ë˜ ë³´ëŠ”ê°’
+		else if(m_fRotPitchFoward < fPitchMin) m_fRotPitchFoward = fPitchMin; // ìœ„ë³´ëŠ” ê°’..
 	}
-	else if(VP_THIRD_PERSON == m_eViewPoint) // À§¿¡¼­ º¸´Â °Ç °Å¸®¸¸ ´Ã¿´´Ù ÁÙ¿´´Ù ÇÑ´Ù..
+	else if(VP_THIRD_PERSON == m_eViewPoint) // ìœ„ì—ì„œ ë³´ëŠ” ê±´ ê±°ë¦¬ë§Œ ëŠ˜ì˜€ë‹¤ ì¤„ì˜€ë‹¤ í•œë‹¤..
 	{
-		fPitchMin = D3DXToRadian(10.0f); // Á© ¹Ø¿¡°ª ÇÑ°è
+		fPitchMin = D3DXToRadian(10.0f); // ì ¤ ë°‘ì—ê°’ í•œê³„
 
 		m_fRotPitchThirdFirson += fRotXPerSec * s_fSecPerFrm;
-		if(m_fRotPitchThirdFirson > fPitchMax) m_fRotPitchThirdFirson = fPitchMax; // ¾Æ·¡ º¸´Â°ª
-		else if(m_fRotPitchThirdFirson < fPitchMin) m_fRotPitchThirdFirson = fPitchMin; // À§º¸´Â °ª..
+		if(m_fRotPitchThirdFirson > fPitchMax) m_fRotPitchThirdFirson = fPitchMax; // ì•„ë˜ ë³´ëŠ”ê°’
+		else if(m_fRotPitchThirdFirson < fPitchMin) m_fRotPitchThirdFirson = fPitchMin; // ìœ„ë³´ëŠ” ê°’..
 	}
 }
 
 void CGameEng::CameraYawAdd(float fRotYPerSec)
 {
-	if(VP_THIRD_PERSON == m_eViewPoint) // À§¿¡¼­ º¸´Â °Ç ..
+	if(VP_THIRD_PERSON == m_eViewPoint) // ìœ„ì—ì„œ ë³´ëŠ” ê±´ ..
 	{
-		m_fRotYawVPGod += fRotYPerSec * s_fSecPerFrm; // À§¿¡¼­ ¹Ù¶óº» ½ÃÁ¡ÀÏ °æ¿ì¿¡ Ä«¸Ş¶ó È¸Àü°¢µµ..
-		return; // µ¹¾Æ°£´Ù!
+		m_fRotYawVPGod += fRotYPerSec * s_fSecPerFrm; // ìœ„ì—ì„œ ë°”ë¼ë³¸ ì‹œì ì¼ ê²½ìš°ì— ì¹´ë©”ë¼ íšŒì „ê°ë„..
+		return; // ëŒì•„ê°„ë‹¤!
 	}
 }
 
@@ -501,18 +501,18 @@ void CGameEng::CameraZoom(float fDelta)
 	if(NULL == m_pActiveCam) return;
 	if(VP_BACKWARD == m_eViewPoint || VP_FOWARD == m_eViewPoint)
 	{
-		m_fZoomBackwardOrFoward -= fDelta * s_fSecPerFrm; // 1.5ÀÎÄª, ¾Õ¿¡¼­ º» ½ÃÁ¡ÀÏ¶§ Ä«¸Ş¶ó Zoom 1.0f °¡ ±âÁØÀÌ´Ù.
-		if(m_fZoomBackwardOrFoward < 0.4f) m_fZoomBackwardOrFoward = 0.4f; // ¾Æ·¡ º¸´Â°ª
+		m_fZoomBackwardOrFoward -= fDelta * s_fSecPerFrm; // 1.5ì¸ì¹­, ì•ì—ì„œ ë³¸ ì‹œì ì¼ë•Œ ì¹´ë©”ë¼ Zoom 1.0f ê°€ ê¸°ì¤€ì´ë‹¤.
+		if(m_fZoomBackwardOrFoward < 0.4f) m_fZoomBackwardOrFoward = 0.4f; // ì•„ë˜ ë³´ëŠ”ê°’
 		else if(m_fZoomBackwardOrFoward >= 1.6f) m_fZoomBackwardOrFoward = 1.6f;
 	}
-	else if(VP_THIRD_PERSON == m_eViewPoint) // À§¿¡¼­ º¸´Â °Ç °Å¸®¸¸ ´Ã¿´´Ù ÁÙ¿´´Ù ÇÑ´Ù..
+	else if(VP_THIRD_PERSON == m_eViewPoint) // ìœ„ì—ì„œ ë³´ëŠ” ê±´ ê±°ë¦¬ë§Œ ëŠ˜ì˜€ë‹¤ ì¤„ì˜€ë‹¤ í•œë‹¤..
 	{
 		// NOTE (zoom way back): search for "zoom way back" to get here
 
 		m_fOffsetVPGod -= 4.0f * fDelta * s_fSecPerFrm;
-		if(m_fOffsetVPGod < 2.0f) m_fOffsetVPGod = 2.0f; // ³Ê¹«ÀÛ¾ÆÁö¸é ¸ØÃß°í..
-		else if(m_fOffsetVPGod > 10.0f) m_fOffsetVPGod = 10.0f; // ³Ê¹« Ä¿Á®µµ ¸ØÃß°í..
-		return; // µ¹¾Æ°£´Ù!
+		if(m_fOffsetVPGod < 2.0f) m_fOffsetVPGod = 2.0f; // ë„ˆë¬´ì‘ì•„ì§€ë©´ ë©ˆì¶”ê³ ..
+		else if(m_fOffsetVPGod > 10.0f) m_fOffsetVPGod = 10.0f; // ë„ˆë¬´ ì»¤ì ¸ë„ ë©ˆì¶”ê³ ..
+		return; // ëŒì•„ê°„ë‹¤!
 	}
 }
 
@@ -536,5 +536,5 @@ void CGameEng::FarPlaneDeltaSet(float fFPDelta, bool bUpdateImmediately)
 
 void CGameEng::Lightning()
 {
-	m_fLightningTimeRemain = LIGHTNING_DURATION; // ¹ø°³ Ä¥¶§ Å¸ÀÌ¸Ó..
+	m_fLightningTimeRemain = LIGHTNING_DURATION; // ë²ˆê°œ ì¹ ë•Œ íƒ€ì´ë¨¸..
 }

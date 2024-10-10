@@ -1,4 +1,4 @@
-// N3Sky.cpp: implementation of the CN3Sky class.
+﻿// N3Sky.cpp: implementation of the CN3Sky class.
 //
 //////////////////////////////////////////////////////////////////////
 

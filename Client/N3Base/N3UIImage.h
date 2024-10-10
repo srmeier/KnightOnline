@@ -1,5 +1,5 @@
-// N3UIImage.h: interface for the CN3UIImage class.
-// º¸°­ÇØ¾ß ÇÒ Á¡ : animationµÇ´Â ÀÌ¹ÌÁöµµ ±×¸®µµ·Ï °¡´ÉÇÏ°Ô ÇÏÀÚ..
+ï»¿// N3UIImage.h: interface for the CN3UIImage class.
+// ë³´ê°•í•´ì•¼ í•  ì  : animationë˜ëŠ” ì´ë¯¸ì§€ë„ ê·¸ë¦¬ë„ë¡ ê°€ëŠ¥í•˜ê²Œ í•˜ì..
 //////////////////////////////////////////////////////////////////////
 
 #if !defined(AFX_N3UIIMAGE_H__80AE123C_5A12_4A0E_9CF0_511ED98BB896__INCLUDED_)
@@ -15,7 +15,7 @@ class N3Texture;
 class CN3UIImage : public CN3UIBase  
 {
 #ifdef _N3TOOL
-friend class CPropertyView;	// Åø¿¡¼­ °¢ º¯¼öµéÀ» Á¢±ÙÇÏ±â À§ÇØ¼­ 
+friend class CPropertyView;	// íˆ´ì—ì„œ ê° ë³€ìˆ˜ë“¤ì„ ì ‘ê·¼í•˜ê¸° ìœ„í•´ì„œ 
 #endif
 
 public:
@@ -27,40 +27,40 @@ public:
 	__FLOAT_RECT*			GetUVRect() {return &m_frcUVRect;}
 protected:
 	LPDIRECT3DVERTEXBUFFER9 m_pVB;			// vertex buffer
-	CN3Texture*				m_pTexRef;		// texture ÂüÁ¶ Æ÷ÀÎÅÍ (s_TexMng¿¡¼­ °ü¸®ÇÏ¹Ç·Î ÂüÁ¶Æ÷ÀÎÅÍÀÌ´Ù.)
-	std::string				m_szTexFN;		// ÅØ½ºÃ³ ÀÌ¸§.. µû·Î °®°í ÀÖ´Â ÀÌÀ¯´Â Åø¿¡¼­ ÅØ½ºÃ³ ºÎ¸£±â°¡ ½ÇÆĞÇÒ °æ¿ì¸¦ ´ëºñÇØ¼­ÀÌ´Ù.
-	__FLOAT_RECT			m_frcUVRect;	// uv ÁÂÇ¥¸¦ ÀúÀå
-	D3DCOLOR				m_Color;		// Ä®¶ó(¹è°æ ÀÌ¹ÌÁö°¡ ¾øÀ»°æ¿ì »ç¿ëµÈ´Ù.)
+	CN3Texture*				m_pTexRef;		// texture ì°¸ì¡° í¬ì¸í„° (s_TexMngì—ì„œ ê´€ë¦¬í•˜ë¯€ë¡œ ì°¸ì¡°í¬ì¸í„°ì´ë‹¤.)
+	std::string				m_szTexFN;		// í…ìŠ¤ì²˜ ì´ë¦„.. ë”°ë¡œ ê°–ê³  ìˆëŠ” ì´ìœ ëŠ” íˆ´ì—ì„œ í…ìŠ¤ì²˜ ë¶€ë¥´ê¸°ê°€ ì‹¤íŒ¨í•  ê²½ìš°ë¥¼ ëŒ€ë¹„í•´ì„œì´ë‹¤.
+	__FLOAT_RECT			m_frcUVRect;	// uv ì¢Œí‘œë¥¼ ì €ì¥
+	D3DCOLOR				m_Color;		// ì¹¼ë¼(ë°°ê²½ ì´ë¯¸ì§€ê°€ ì—†ì„ê²½ìš° ì‚¬ìš©ëœë‹¤.)
 
-	float					m_fAnimFrame;	// 1ÃÊ´ç ±×·ÁÁö´Â ÀÌ¹ÌÁöÀÇ ¼ö
-	int						m_iAnimCount;	// AnimateµÇ´Â ÀÌ¹ÌÁö ¼ö(LoadÇÒ ¶§ childÀÇ ¼ıÀÚ·Î ÆÄ¾Ç)
-	float					m_fCurAnimFrame;	// ÇöÀç ±×·ÁÁú animate frame index (¼Ò¼ö´Â ¹ö¸®°í »ç¿ëÇÏÀÚ)
-	CN3UIImage**			m_pAnimImagesRef;	// Animate µÉ ÀÚ½Ä ÀÌ¹ÌÁöµé ÂüÁ¶ Æ÷ÀÎÅÍµé
+	float					m_fAnimFrame;	// 1ì´ˆë‹¹ ê·¸ë ¤ì§€ëŠ” ì´ë¯¸ì§€ì˜ ìˆ˜
+	int						m_iAnimCount;	// Animateë˜ëŠ” ì´ë¯¸ì§€ ìˆ˜(Loadí•  ë•Œ childì˜ ìˆ«ìë¡œ íŒŒì•…)
+	float					m_fCurAnimFrame;	// í˜„ì¬ ê·¸ë ¤ì§ˆ animate frame index (ì†Œìˆ˜ëŠ” ë²„ë¦¬ê³  ì‚¬ìš©í•˜ì)
+	CN3UIImage**			m_pAnimImagesRef;	// Animate ë  ìì‹ ì´ë¯¸ì§€ë“¤ ì°¸ì¡° í¬ì¸í„°ë“¤
 
 //	Operations
 public:
 	D3DCOLOR	GetColor()	{ return m_Color; }
 
-	CN3Texture*		GetTex() const { return m_pTexRef; }	// Texture Æ÷ÀÎÅÍ ¾ò±â
-	void			SetTex(const std::string& szFN);		// Texture ÁöÁ¤
-	void			SetUVRect(float left, float top, float right, float bottom);	// imageÀÇ uvÁÂÇ¥ ÁöÁ¤
-	void			SetColor(D3DCOLOR color);				// Ä®¶ó ÁöÁ¤
+	CN3Texture*		GetTex() const { return m_pTexRef; }	// Texture í¬ì¸í„° ì–»ê¸°
+	void			SetTex(const std::string& szFN);		// Texture ì§€ì •
+	void			SetUVRect(float left, float top, float right, float bottom);	// imageì˜ uvì¢Œí‘œ ì§€ì •
+	void			SetColor(D3DCOLOR color);				// ì¹¼ë¼ ì§€ì •
 
-	virtual void	SetRegion(const RECT& Rect);					// ¿µ¿ª ÁöÁ¤
+	virtual void	SetRegion(const RECT& Rect);					// ì˜ì—­ ì§€ì •
 	virtual BOOL	MoveOffset(int iOffsetX, int iOffsetY);
 	virtual void	Release();								// Release
 	virtual void	Tick();									// Tick
-	virtual void	Render();								// ±×¸®±â
+	virtual void	Render();								// ê·¸ë¦¬ê¸°
 	virtual void	RenderIconWrapper();
-	virtual void	Init(CN3UIBase* pParent);				// ÃÊ±âÈ­
+	virtual void	Init(CN3UIBase* pParent);				// ì´ˆê¸°í™”
 	virtual bool	Load(HANDLE hFile);
 
 	virtual void	operator = (const CN3UIImage& other);
 
 protected:
-	bool			CreateVB();								// 4°³ÀÇ vertex¸¦ °¡Áø vertex buffer »ı¼º
-	virtual void	SetVB();								// vertex buffer ´Ù½Ã ¼¼ÆÃ
-// tool¿¡¼­ »ç¿ëÇÏ´Â ÇÔ¼öµé
+	bool			CreateVB();								// 4ê°œì˜ vertexë¥¼ ê°€ì§„ vertex buffer ìƒì„±
+	virtual void	SetVB();								// vertex buffer ë‹¤ì‹œ ì„¸íŒ…
+// toolì—ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜ë“¤
 #ifdef _N3TOOL
 public:
 	virtual bool	Save(HANDLE hFile);

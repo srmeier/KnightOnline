@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 void StartConsoleInputThread();
 void CleanupConsoleInputThread();

@@ -1,4 +1,4 @@
-// DlgAnimate.cpp : implementation file
+﻿// DlgAnimate.cpp : implementation file
 //
 
 #include "stdafx.h"

@@ -1,4 +1,4 @@
-// UIRepairTooltipDlg.cpp: implementation of the UIRepairTooltipDlg class.
+ï»¿// UIRepairTooltipDlg.cpp: implementation of the UIRepairTooltipDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -44,16 +44,16 @@ void CUIRepairTooltipDlg::Release()
 
 void CUIRepairTooltipDlg::InitPos()
 {
-	m_pStr[0] = (CN3UIString* )GetChildByID("string_repairgold");				//ÀÌ¸§ 
+	m_pStr[0] = (CN3UIString* )GetChildByID("string_repairgold");				//ì´ë¦„ 
 	__ASSERT(m_pStr[0], "NULL UI Component!!");
 	m_pStr[0]->SetString("0");	
-	m_pStr[1] = (CN3UIString* )GetChildByID("string_dur_max");					//ÀÌ¸§ 
+	m_pStr[1] = (CN3UIString* )GetChildByID("string_dur_max");					//ì´ë¦„ 
 	__ASSERT(m_pStr[1], "NULL UI Component!!");
 	m_pStr[1]->SetString("0");	
-	m_pStr[2] = (CN3UIString* )GetChildByID("string_dur_current");				//ÀÌ¸§ 
+	m_pStr[2] = (CN3UIString* )GetChildByID("string_dur_current");				//ì´ë¦„ 
 	__ASSERT(m_pStr[2], "NULL UI Component!!");
 	m_pStr[2]->SetString("0");	
-	m_pStr[3] = (CN3UIString* )GetChildByID("string_title");					//ÀÌ¸§ 
+	m_pStr[3] = (CN3UIString* )GetChildByID("string_title");					//ì´ë¦„ 
 	__ASSERT(m_pStr[3], "NULL UI Component!!");
 	m_pStr[3]->SetString("0");	
 	BackupStrColor();

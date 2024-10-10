@@ -1,4 +1,4 @@
-#if !defined(AFX_DLGTEXTURE_H__A7C76815_D640_4A33_AEE0_2C53DC8D7CD8__INCLUDED_)
+ï»¿#if !defined(AFX_DLGTEXTURE_H__A7C76815_D640_4A33_AEE0_2C53DC8D7CD8__INCLUDED_)
 #define AFX_DLGTEXTURE_H__A7C76815_D640_4A33_AEE0_2C53DC8D7CD8__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -36,7 +36,7 @@ protected:
 public:
 	void	SetTexture(LPCTSTR pszFileName);
 	BOOL	GetSelectedUVRect(struct __FLOAT_RECT* pFRect) const;
-	void	SetSelectedUVRect(const struct __FLOAT_RECT* pFRect);	// ÇöÀç ¼±ÅÃµÈ UVÁÂÇ¥ ³Ö±â
+	void	SetSelectedUVRect(const struct __FLOAT_RECT* pFRect);	// í˜„ì¬ ì„ íƒëœ UVì¢Œí‘œ ë„£ê¸°
 	CRect	GetSelectedRect() const;
 	void	SetImageTypes(int iCount, char** pszNames);
 	CRect	GetImageRect(int iIndex, __FLOAT_RECT* pUVRect = NULL);

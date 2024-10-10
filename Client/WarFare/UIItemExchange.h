@@ -1,4 +1,4 @@
-// UIItemExchange.h: interface for the CUIItemRepairExchange class.
+﻿// UIItemExchange.h: interface for the CUIItemRepairExchange class.
 //
 //////////////////////////////////////////////////////////////////////
 

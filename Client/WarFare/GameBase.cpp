@@ -1,4 +1,4 @@
-// GameBase.cpp: implementation of the CGameBase class.
+ï»¿// GameBase.cpp: implementation of the CGameBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -32,9 +32,9 @@ CN3TableBase<__TABLE_QUEST_MENU>		CGameBase::s_pTbl_QuestMenu;
 CN3TableBase<__TABLE_QUEST_TALK>		CGameBase::s_pTbl_QuestTalk;
 
 
-CN3WorldManager*	CGameBase::s_pWorldMgr = NULL;		// ¿ùµå ¸Å´ÏÁ®..
-CPlayerOtherMgr*	CGameBase::s_pOPMgr = NULL;				// Other Player Manager - ´Ù¸¥ À¯Àú °ü¸® Å¬·¡½º..
-CPlayerMySelf*		CGameBase::s_pPlayer = NULL;			// À¯Àú Å¬·¡½º..
+CN3WorldManager*	CGameBase::s_pWorldMgr = NULL;		// ì›”ë“œ ë§¤ë‹ˆì ¸..
+CPlayerOtherMgr*	CGameBase::s_pOPMgr = NULL;				// Other Player Manager - ë‹¤ë¥¸ ìœ ì € ê´€ë¦¬ í´ë˜ìŠ¤..
+CPlayerMySelf*		CGameBase::s_pPlayer = NULL;			// ìœ ì € í´ë˜ìŠ¤..
 	
 CGameBase::CGameBase()
 {
@@ -59,13 +59,13 @@ void CGameBase::StaticMemberInit()
 
 	std::string szFN;
 	szFN = "Data\\Texts" + szLangTail;		s_pTbl_Texts.LoadFromFile(szFN.c_str());
-	szFN = "Data\\Zones.tbl";				s_pTbl_Zones.LoadFromFile(szFN.c_str());		// Zone Á¤º¸¿¡ °üÇÑ Table
+	szFN = "Data\\Zones.tbl";				s_pTbl_Zones.LoadFromFile(szFN.c_str());		// Zone ì •ë³´ì— ê´€í•œ Table
 	szFN = "Data\\UIs" + szLangTail;		s_pTbl_UI.LoadFromFile(szFN.c_str());			// UI Resource File Table loading
-	szFN = "Data\\UPC_DefaultLooks.tbl";	s_pTbl_UPC_Looks.LoadFromFile(szFN.c_str());	// ÇÃ·¹ÀÌ¾îµéÀÇ ±âº» ¸ğ½ÀÀÌ µÇ´Â NPC Resource Table loading
+	szFN = "Data\\UPC_DefaultLooks.tbl";	s_pTbl_UPC_Looks.LoadFromFile(szFN.c_str());	// í”Œë ˆì´ì–´ë“¤ì˜ ê¸°ë³¸ ëª¨ìŠµì´ ë˜ëŠ” NPC Resource Table loading
 	szFN = "Data\\Item_Org" + szLangTail;	s_pTbl_Items_Basic.LoadFromFile(szFN.c_str());	// Item Resource Table loading
 
-	szFN = "Data\\Quest_Menu" + szLangTail;	s_pTbl_QuestMenu.LoadFromFile(szFN.c_str());	// Äù½ºÆ® °ü·Ã ¼±ÅÃ¸Ş´º
-	szFN = "Data\\Quest_Talk" + szLangTail;	s_pTbl_QuestTalk.LoadFromFile(szFN.c_str());	// Äù½ºÆ® °ü·Ã Áö¹®
+	szFN = "Data\\Quest_Menu" + szLangTail;	s_pTbl_QuestMenu.LoadFromFile(szFN.c_str());	// í€˜ìŠ¤íŠ¸ ê´€ë ¨ ì„ íƒë©”ë‰´
+	szFN = "Data\\Quest_Talk" + szLangTail;	s_pTbl_QuestTalk.LoadFromFile(szFN.c_str());	// í€˜ìŠ¤íŠ¸ ê´€ë ¨ ì§€ë¬¸
 
 	for(int i = 0; i < MAX_ITEM_EXTENSION; i++)
 	{
@@ -76,13 +76,13 @@ void CGameBase::StaticMemberInit()
 	}
 
 	szFN = "Data\\NPC_Looks.tbl";					s_pTbl_NPC_Looks.LoadFromFile(szFN.c_str());		// NPC Resource Table loading
-	szFN = "Data\\skill_magic_main" + szLangTail;	s_pTbl_Skill.LoadFromFile(szFN.c_str());			// Skill Á¤º¸¿¡ °üÇÑ Table
-	szFN = "Data\\Exchange_Quest.tbl";				s_pTbl_Exchange_Quest.LoadFromFile(szFN.c_str());	// ±³È¯ Äù½ºÆ®¿¡ °üÇÑ Å×ÀÌºí..
+	szFN = "Data\\skill_magic_main" + szLangTail;	s_pTbl_Skill.LoadFromFile(szFN.c_str());			// Skill ì •ë³´ì— ê´€í•œ Table
+	szFN = "Data\\Exchange_Quest.tbl";				s_pTbl_Exchange_Quest.LoadFromFile(szFN.c_str());	// êµí™˜ í€˜ìŠ¤íŠ¸ì— ê´€í•œ í…Œì´ë¸”..
 	szFN = "Data\\fx.tbl";							s_pTbl_FXSource.LoadFromFile(szFN.c_str());
 
 	s_pWorldMgr = new CN3WorldManager();
 	s_pOPMgr = new CPlayerOtherMgr();
-	s_pPlayer = new CPlayerMySelf(); // ±âº»ÀûÀÎ ³» ÇÃ·¹ÀÌ¾î »ı¼º..
+	s_pPlayer = new CPlayerMySelf(); // ê¸°ë³¸ì ì¸ ë‚´ í”Œë ˆì´ì–´ ìƒì„±..
 }
 
 void CGameBase::StaticMemberRelease()
@@ -213,13 +213,13 @@ bool CGameBase::GetTextByKnightsDuty(e_KnightsDuty eDuty, std::string& szText)
 {
 	switch(eDuty)
 	{
-		case KNIGHTS_DUTY_UNKNOWN:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szText); break; // ????? ÂÑ°Ü³²??
-		case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szText); break; // Â¡°èÁß.
-		case KNIGHTS_DUTY_TRAINEE:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szText); break; // °ß½À±â»ç
-		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szText); break; // ÀÏ¹İ±â»ç
-		case KNIGHTS_DUTY_OFFICER:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szText); break; // Àå±³
-		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szText); break; // ºÎ´ÜÀå.
-		case KNIGHTS_DUTY_CHIEF:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szText); break; // ±â»ç´ÜÀå Á÷À§..
+		case KNIGHTS_DUTY_UNKNOWN:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szText); break; // ????? ì«“ê²¨ë‚¨??
+		case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szText); break; // ì§•ê³„ì¤‘.
+		case KNIGHTS_DUTY_TRAINEE:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szText); break; // ê²¬ìŠµê¸°ì‚¬
+		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szText); break; // ì¼ë°˜ê¸°ì‚¬
+		case KNIGHTS_DUTY_OFFICER:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szText); break; // ì¥êµ
+		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szText); break; // ë¶€ë‹¨ì¥.
+		case KNIGHTS_DUTY_CHIEF:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szText); break; // ê¸°ì‚¬ë‹¨ì¥ ì§ìœ„..
 		default: __ASSERT(0, "Invalid Knights Duty"); szText = "Unknown Duty"; return false;
 	}
 
@@ -232,70 +232,70 @@ bool CGameBase::GetTextByItemClass(e_ItemClass eItemClass, std::string& szText)
 	{
 		case ITEM_CLASS_DAGGER:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_DAGGER, szText);
-			break; // ´Ü°Ë(dagger)
+			break; // ë‹¨ê²€(dagger)
 		case ITEM_CLASS_SWORD:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD, szText);
-			break; // ÇÑ¼Õ°Ë(onehandsword)
+			break; // í•œì†ê²€(onehandsword)
 		case ITEM_CLASS_SWORD_2H:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD_2H, szText);
-			break; // 3 : ¾ç¼Õ°Ë(twohandsword)
+			break; // 3 : ì–‘ì†ê²€(twohandsword)
 		case ITEM_CLASS_AXE:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_AXE, szText);
-			break; // ÇÑ¼Õµµ³¢(onehandaxe)
+			break; // í•œì†ë„ë¼(onehandaxe)
 		case ITEM_CLASS_AXE_2H:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_AXE_2H, szText);
-			break; // µÎ¼Õµµ³¢(twohandaxe)
+			break; // ë‘ì†ë„ë¼(twohandaxe)
 		case ITEM_CLASS_MACE:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_MACE, szText);
-			break; // ÇÑ¼ÕÅ¸°İ¹«±â(mace)
+			break; // í•œì†íƒ€ê²©ë¬´ê¸°(mace)
 		case ITEM_CLASS_MACE_2H:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_MACE_2H, szText);
-			break; // µÎ¼ÕÅ¸°İ¹«±â(twohandmace)
+			break; // ë‘ì†íƒ€ê²©ë¬´ê¸°(twohandmace)
 		case ITEM_CLASS_SPEAR:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_SPEAR, szText);
-			break; // Ã¢(spear)
+			break; // ì°½(spear)
 		case ITEM_CLASS_POLEARM:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_POLEARM, szText);
-			break; // Æú¾Ï(polearm)
+			break; // í´ì•”(polearm)
 
 		case ITEM_CLASS_SHIELD:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_SHIELD, szText);
-			break; // ½¯µå(shield)
+			break; // ì‰´ë“œ(shield)
 
 		case ITEM_CLASS_BOW:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW, szText);
-			break; //  ¼îÆ®º¸¿ì(Shortbow)
+			break; //  ì‡¼íŠ¸ë³´ìš°(Shortbow)
 		case ITEM_CLASS_BOW_CROSS:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_CROSS, szText);
-			break; // Å©·Î½ºº¸¿ì(crossbow)
+			break; // í¬ë¡œìŠ¤ë³´ìš°(crossbow)
 		case ITEM_CLASS_BOW_LONG:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_LONG, szText);
-			break; // ·Õº¸¿ì(longbow)
+			break; // ë¡±ë³´ìš°(longbow)
 
 		case ITEM_CLASS_EARRING:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_EARRING, szText);
-			break; // ±Í°ÉÀÌ
+			break; // ê·€ê±¸ì´
 		case ITEM_CLASS_AMULET:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_AMULET, szText);
-			break; // ¸ñ°ÉÀÌ
+			break; // ëª©ê±¸ì´
 		case ITEM_CLASS_RING:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_RING, szText);
-			break; // ¹İÁö
+			break; // ë°˜ì§€
 		case ITEM_CLASS_BELT:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_BELT, szText);
-			break; // Çã¸®¶ì
+			break; // í—ˆë¦¬ë 
 		case ITEM_CLASS_CHARM:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_CHARM, szText);
-			break; //ÀÎº¥Åä¸®¿¡ Áö´Ï°í ÀÖ´Â ¾ÆÀÌÅÛ
+			break; //ì¸ë²¤í† ë¦¬ì— ì§€ë‹ˆê³  ìˆëŠ” ì•„ì´í…œ
 		case ITEM_CLASS_JEWEL:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_JEWEL, szText);
-			break; //º¸¼®Á¾·ù
+			break; //ë³´ì„ì¢…ë¥˜
 		case ITEM_CLASS_POTION:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_POTION, szText);
-			break; // ¹°¾à
+			break; // ë¬¼ì•½
 		case ITEM_CLASS_SCROLL:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_SCROLL, szText);
-			break; // ½ºÅ©·Ñ
+			break; // ìŠ¤í¬ë¡¤
 
 
 
@@ -305,26 +305,26 @@ bool CGameBase::GetTextByItemClass(e_ItemClass eItemClass, std::string& szText)
 						
 		case ITEM_CLASS_STAFF:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_STAFF, szText);
-			break; // ÁöÆÎÀÌ(staff)
+			break; // ì§€íŒ¡ì´(staff)
 		case ITEM_CLASS_ARROW:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_ARROW, szText);
-			break; // È­»ì(Arrow)
+			break; // í™”ì‚´(Arrow)
 		case ITEM_CLASS_JAVELIN:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_JAVELIN, szText);
-			break; // ÅõÃ¢
+			break; // íˆ¬ì°½
 		
 		case ITEM_CLASS_ARMOR_WARRIOR:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_WARRIOR, szText);
-			break; // Àü»ç ¹æ¾î±¸
+			break; // ì „ì‚¬ ë°©ì–´êµ¬
 		case ITEM_CLASS_ARMOR_ROGUE:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_ROGUE, szText);
-			break; // ·Î±× ¹æ¾î±¸
+			break; // ë¡œê·¸ ë°©ì–´êµ¬
 		case ITEM_CLASS_ARMOR_MAGE:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_MAGE, szText);
-			break; // ¸¶¹ı»ç ¹æ¾î±¸
+			break; // ë§ˆë²•ì‚¬ ë°©ì–´êµ¬
 		case ITEM_CLASS_ARMOR_PRIEST:
 			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_PRIEST, szText); 
-			break; // »çÁ¦ ¹æ¾î±¸
+			break; // ì‚¬ì œ ë°©ì–´êµ¬
 		default:
 //			__ASSERT(0, "Invalid Item Class"); szText = "Unknonw Item Class";
 			return false;
@@ -337,12 +337,12 @@ bool CGameBase::GetTextByAttrib(e_ItemAttrib eAttrib, std::string& szAttrib)
 {
 	switch(eAttrib)
 	{
-		case ITEM_ATTRIB_GENERAL:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_GENERAL, szAttrib); break; // ´Ü°Ë(dagger)
-		case ITEM_ATTRIB_MAGIC:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_MAGIC, szAttrib); break; // ÇÑ¼Õ°Ë(onehandsword)
-		case ITEM_ATTRIB_LAIR:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_LAIR, szAttrib); break; // 3 : ¾ç¼Õ°Ë(twohandsword)
-		case ITEM_ATTRIB_CRAFT:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_CRAFT, szAttrib); break; // ÇÑ¼Õµµ³¢(onehandaxe)
-		case ITEM_ATTRIB_UNIQUE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UNIQUE, szAttrib); break; // µÎ¼Õµµ³¢(twohandaxe)
-		case ITEM_ATTRIB_UPGRADE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UPGRADE, szAttrib); break; // ÇÑ¼ÕÅ¸°İ¹«±â(mace)
+		case ITEM_ATTRIB_GENERAL:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_GENERAL, szAttrib); break; // ë‹¨ê²€(dagger)
+		case ITEM_ATTRIB_MAGIC:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_MAGIC, szAttrib); break; // í•œì†ê²€(onehandsword)
+		case ITEM_ATTRIB_LAIR:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_LAIR, szAttrib); break; // 3 : ì–‘ì†ê²€(twohandsword)
+		case ITEM_ATTRIB_CRAFT:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_CRAFT, szAttrib); break; // í•œì†ë„ë¼(onehandaxe)
+		case ITEM_ATTRIB_UNIQUE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UNIQUE, szAttrib); break; // ë‘ì†ë„ë¼(twohandaxe)
+		case ITEM_ATTRIB_UPGRADE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UPGRADE, szAttrib); break; // í•œì†íƒ€ê²©ë¬´ê¸°(mace)
 		default:
 			return false;
 	}
@@ -440,14 +440,14 @@ bool CGameBase::GetTextByRace(e_Race eRace, std::string& szText)
 
 D3DCOLOR CGameBase::GetIDColorByLevelDifference(int iLevelDiff)
 {
-	// ·¹º§ Â÷ÀÌ¿¡ µû¸¥ »ö±ò...
-	// º¸¶ó»ö : ÇÃ·¹ÀÌ¾îº¸´Ù +8, 
-	// »¡°£»ö: ÇÃ·¹ÀÌ¾îº¸´Ù +5, +6, +7
-	// ³ë¶õ»ö : ÇÃ·¹ÀÌ¾î¾îº¸´Ù +2, +3, +4
-	// Èò»ö : -1 ? ÇÃ·¹ÀÌ¾î  ? 1
-	// ÆÄ¶õ»ö : ÇÃ·¹ÀÌ¾îº¸´Ù 2·¹º§ ÀÌÇÏ -2, -3, -4   
-	// ÃÊ·Ï»ö : ÇÃ·¹ÀÌ¾îº¸´Ù -5, -6, -7
-	// ÇÏ´Ã»ö : ÇÃ·¹ÀÌ¾îº¸´Ù -8, ¡¦(°æÇèÄ¡¸¦ ¾òÁö ¸øÇÔ)
+	// ë ˆë²¨ ì°¨ì´ì— ë”°ë¥¸ ìƒ‰ê¹”...
+	// ë³´ë¼ìƒ‰ : í”Œë ˆì´ì–´ë³´ë‹¤ +8, 
+	// ë¹¨ê°„ìƒ‰: í”Œë ˆì´ì–´ë³´ë‹¤ +5, +6, +7
+	// ë…¸ë€ìƒ‰ : í”Œë ˆì´ì–´ì–´ë³´ë‹¤ +2, +3, +4
+	// í°ìƒ‰ : -1 ? í”Œë ˆì´ì–´  ? 1
+	// íŒŒë€ìƒ‰ : í”Œë ˆì´ì–´ë³´ë‹¤ 2ë ˆë²¨ ì´í•˜ -2, -3, -4   
+	// ì´ˆë¡ìƒ‰ : í”Œë ˆì´ì–´ë³´ë‹¤ -5, -6, -7
+	// í•˜ëŠ˜ìƒ‰ : í”Œë ˆì´ì–´ë³´ë‹¤ -8, â€¦(ê²½í—˜ì¹˜ë¥¼ ì–»ì§€ ëª»í•¨)
 	
 	D3DCOLOR crID = 0xffffffff;
 	if(iLevelDiff >= 8)			crID = D3DCOLOR_ARGB(255, 255, 0, 255);
@@ -461,12 +461,12 @@ D3DCOLOR CGameBase::GetIDColorByLevelDifference(int iLevelDiff)
 	return crID;
 }
 
-// Item Data ¸¦ °¡Áö°í ÆÄÀÏÀÌ¸§À» ¸¸µç´Ù..
-e_ItemType CGameBase::MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ¾ÆÀÌÅÛ µ¥ÀÌÅÍ...
+// Item Data ë¥¼ ê°€ì§€ê³  íŒŒì¼ì´ë¦„ì„ ë§Œë“ ë‹¤..
+e_ItemType CGameBase::MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ì•„ì´í…œ ë°ì´í„°...
 												std::string* pszResrcFN,			// Resource FileName
 												std::string* pszIconFN,			// Icon FileName
-												e_PartPosition& ePartPosition,	// Part ÀÏ°æ¿ì Index
-												e_PlugPosition& ePlugPosition,	// Plug ÀÏ°æ¿ì Index
+												e_PartPosition& ePartPosition,	// Part ì¼ê²½ìš° Index
+												e_PlugPosition& ePlugPosition,	// Plug ì¼ê²½ìš° Index
 												e_Race eRace /*= RACE_UNKNOWN*/)
 {	
 	ePartPosition = PART_POS_UNKNOWN;
@@ -476,12 +476,12 @@ e_ItemType CGameBase::MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ¾Æ
 
 	if(NULL == pItem) return ITEM_TYPE_UNKNOWN;
 	
-	// ÃÑ 8 ÀÚ¸®ÀÌ´Ù.
+	// ì´ 8 ìë¦¬ì´ë‹¤.
 	e_ItemType eType	= ITEM_TYPE_UNKNOWN;
-	e_ItemPosition ePos	= (e_ItemPosition)pItem->byAttachPoint;	// ÀåÂøÀ§Ä¡...
+	e_ItemPosition ePos	= (e_ItemPosition)pItem->byAttachPoint;	// ì¥ì°©ìœ„ì¹˜...
 
 	int iPos = 0;
-	std::string szExt; // È®ÀåÀÚ..
+	std::string szExt; // í™•ì¥ì..
 	
 	if(ePos >= ITEM_POS_DUAL && ePos <= ITEM_POS_TWOHANDLEFT)
 	{
@@ -493,11 +493,11 @@ e_ItemType CGameBase::MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ¾Æ
 	}
 	else if(ePos >= ITEM_POS_UPPER && ePos <= ITEM_POS_SHOES)
 	{
-		if(ITEM_POS_UPPER == ePos)			ePartPosition = PART_POS_UPPER; 		// »óÃ¼
-		else if(ITEM_POS_LOWER == ePos)		ePartPosition = PART_POS_LOWER; 		// ÇÏÃ¼
-		else if(ITEM_POS_HEAD == ePos)		ePartPosition = PART_POS_HAIR_HELMET; 	// Åõ±¸
-		else if(ITEM_POS_GLOVES == ePos)	ePartPosition = PART_POS_HANDS; 		// ÆÈ
-		else if(ITEM_POS_SHOES == ePos)		ePartPosition = PART_POS_FEET;			// ¹ß
+		if(ITEM_POS_UPPER == ePos)			ePartPosition = PART_POS_UPPER; 		// ìƒì²´
+		else if(ITEM_POS_LOWER == ePos)		ePartPosition = PART_POS_LOWER; 		// í•˜ì²´
+		else if(ITEM_POS_HEAD == ePos)		ePartPosition = PART_POS_HAIR_HELMET; 	// íˆ¬êµ¬
+		else if(ITEM_POS_GLOVES == ePos)	ePartPosition = PART_POS_HANDS; 		// íŒ”
+		else if(ITEM_POS_SHOES == ePos)		ePartPosition = PART_POS_FEET;			// ë°œ
 		else { __ASSERT(0, "lll"); }
 		
 		eType = ITEM_TYPE_PART;
@@ -548,7 +548,7 @@ e_ItemType CGameBase::MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ¾Æ
 
 			*pszResrcFN = &buffer[0];
 		}
-		else // ¾ÆÀÌÄÜ¸¸ ÀÖ´Â ÇÃ·¯±×³ª ÆÄÆ® ÀÏ¼öµµ ÀÖ´Ù...
+		else // ì•„ì´ì½˜ë§Œ ìˆëŠ” í”ŒëŸ¬ê·¸ë‚˜ íŒŒíŠ¸ ì¼ìˆ˜ë„ ìˆë‹¤...
 		{
 			*pszResrcFN = "";
 		}
@@ -571,8 +571,8 @@ e_ItemType CGameBase::MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ¾Æ
 bool CGameBase::IsValidCharacter(CPlayerBase* pCharacter)
 {
 	if(NULL == pCharacter) return false;
-	if(pCharacter == s_pPlayer) return true; // ÇÃ·¹ÀÌ¾îÀÌ´Ù.
-	return s_pOPMgr->IsValidCharacter(pCharacter); //  ÀÏ´Ü »ì¾ÆÀÖ´Â ³ÑµéÁß¿¡¼­ °¡Á®¿Íº¸°í.. 
+	if(pCharacter == s_pPlayer) return true; // í”Œë ˆì´ì–´ì´ë‹¤.
+	return s_pOPMgr->IsValidCharacter(pCharacter); //  ì¼ë‹¨ ì‚´ì•„ìˆëŠ” ë„˜ë“¤ì¤‘ì—ì„œ ê°€ì ¸ì™€ë³´ê³ .. 
 }
 
 CPlayerBase* CGameBase::CharacterGetByID(int iID, bool bFromAlive)

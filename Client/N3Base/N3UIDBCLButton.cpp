@@ -1,4 +1,4 @@
-// N3UIIcon.cpp: implementation of the CN3UIIcon class.
+ï»¿// N3UIIcon.cpp: implementation of the CN3UIIcon class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -30,7 +30,7 @@ uint32_t CN3UIDBCLButton::MouseProc(uint32_t dwFlags, const POINT& ptCur, const 
 	uint32_t dwRet = UI_MOUSEPROC_NONE;
 
 	RECT rect = GetRegion();
-	if(!::PtInRect(&rect, ptCur))		// ¿µ¿ª ¹ÛÀÌ¸é
+	if(!::PtInRect(&rect, ptCur))		// ì˜ì—­ ë°–ì´ë©´
 	{
 		dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);
 		return dwRet;
@@ -38,7 +38,7 @@ uint32_t CN3UIDBCLButton::MouseProc(uint32_t dwFlags, const POINT& ptCur, const 
 
 	if (dwFlags & UI_MOUSE_LBDBLCLK)
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_ICON_DBLCLK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_ICON_DBLCLK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 		return dwRet;
 	}

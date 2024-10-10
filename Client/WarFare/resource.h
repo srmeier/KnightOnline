@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define IDS_BIND_POINT_FAILED           1001
 #define IDS_BIND_POINT_REQUEST_FAIL     1002

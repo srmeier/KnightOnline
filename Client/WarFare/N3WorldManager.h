@@ -1,4 +1,4 @@
-// N3WorldManager.h: interface for the CN3WorldManager class.
+﻿// N3WorldManager.h: interface for the CN3WorldManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

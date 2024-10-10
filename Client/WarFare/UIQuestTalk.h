@@ -1,4 +1,4 @@
-// UIQuestTalk.h: interface for the CUIQuestTalk class.
+﻿// UIQuestTalk.h: interface for the CUIQuestTalk class.
 //
 //////////////////////////////////////////////////////////////////////
 

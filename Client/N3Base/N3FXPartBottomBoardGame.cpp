@@ -1,4 +1,4 @@
-// N3FXPartBottomBoard.cpp: implementation of the CN3FXPartBottomBoard class.
+﻿// N3FXPartBottomBoard.cpp: implementation of the CN3FXPartBottomBoard class.
 //
 //////////////////////////////////////////////////////////////////////
 

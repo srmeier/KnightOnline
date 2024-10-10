@@ -1,4 +1,4 @@
-// BirdMng.h: interface for the CBirdMng class.
+ï»¿// BirdMng.h: interface for the CBirdMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,7 +17,7 @@ typedef struct __TABLE_BIRD
 	uint32_t dwID; // zone ID
 	char* pszTerrainFN; // Terrain FileName - Terrain, Tile Map, ColorMap....
 	char* pszColorMapFN;
-	char* pszObjectPostDataFN; // Object À§Ä¡ Á¤º¸ - ÀÌ¾È¿¡ Ãæµ¹ Ã¼Å© µ¥ÀÌÅÍµµ µé¾î ÀÖ´Ù.
+	char* pszObjectPostDataFN; // Object ìœ„ì¹˜ ì •ë³´ - ì´ì•ˆì— ì¶©ëŒ ì²´í¬ ë°ì´í„°ë„ ë“¤ì–´ ìˆë‹¤.
 } TABLE_BIRD;
 
 

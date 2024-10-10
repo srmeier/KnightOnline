@@ -1,4 +1,4 @@
-// ServerMesh.h: interface for the CServerMesh class.
+﻿// ServerMesh.h: interface for the CServerMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 

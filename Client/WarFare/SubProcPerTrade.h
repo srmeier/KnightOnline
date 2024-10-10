@@ -1,4 +1,4 @@
-// SubProcPerTrade.h: interface for the CSubProcPerTrade class.
+ï»¿// SubProcPerTrade.h: interface for the CSubProcPerTrade class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,38 +11,38 @@
 
 #include "N3Base.h"
 
-enum e_PerTradeState	{												// ¾ÆÀÌÅÛ °³ÀÎ °Å·¡ »óÅÂ..
-							PER_TRADE_STATE_NONE = 0,					// ¾Æ¹«°Íµµ ¾Æ´Ô..
-							PER_TRADE_STATE_WAIT_FOR_REQ,				// »ó´ë¹æ¿¡°Ô ¿äÃ»ÇÏ°í ÀÀ´äÀ» ±â´Ù¸²..
-							PER_TRADE_STATE_WAIT_FOR_MY_DECISION_AGREE_OR_DISAGREE,	// »ó´ë¹æ¿¡°Ô¼­ ¿äÃ»¹Þ°í ³» °áÁ¤À» ±â´Ù¸²..
-							PER_TRADE_STATE_NORMAL,						// ¾ÆÀÌÅÛ °³ÀÎ °Å·¡ Á¤»óÀûÀÎ »óÅÂ..
-							PER_TRADE_STATE_ADD_AND_WAIT_FROM_SERVER,	// ¾ÆÀÌÅÛÀ» ´õÇÏ°í ¼­¹ö·Î ºÎÅÍ ÀÀ´äÀ» ±â´Ù¸²..	
-							PER_TRARE_STATE_EDITTING,					// ¾ÆÀÌÅÛ °³ÀÎ °Å·¡ ±Ý¾×ÀÌ³ª °¹¼öµî ÆíÁýÁß..
-							PER_TRADE_STATE_MY_TRADE_DECISION_DONE,		// ³» °Å·¡ ¹öÆ° ´©¸¥ »óÅÂ..	
+enum e_PerTradeState	{												// ì•„ì´í…œ ê°œì¸ ê±°ëž˜ ìƒíƒœ..
+							PER_TRADE_STATE_NONE = 0,					// ì•„ë¬´ê²ƒë„ ì•„ë‹˜..
+							PER_TRADE_STATE_WAIT_FOR_REQ,				// ìƒëŒ€ë°©ì—ê²Œ ìš”ì²­í•˜ê³  ì‘ë‹µì„ ê¸°ë‹¤ë¦¼..
+							PER_TRADE_STATE_WAIT_FOR_MY_DECISION_AGREE_OR_DISAGREE,	// ìƒëŒ€ë°©ì—ê²Œì„œ ìš”ì²­ë°›ê³  ë‚´ ê²°ì •ì„ ê¸°ë‹¤ë¦¼..
+							PER_TRADE_STATE_NORMAL,						// ì•„ì´í…œ ê°œì¸ ê±°ëž˜ ì •ìƒì ì¸ ìƒíƒœ..
+							PER_TRADE_STATE_ADD_AND_WAIT_FROM_SERVER,	// ì•„ì´í…œì„ ë”í•˜ê³  ì„œë²„ë¡œ ë¶€í„° ì‘ë‹µì„ ê¸°ë‹¤ë¦¼..	
+							PER_TRARE_STATE_EDITTING,					// ì•„ì´í…œ ê°œì¸ ê±°ëž˜ ê¸ˆì•¡ì´ë‚˜ ê°¯ìˆ˜ë“± íŽ¸ì§‘ì¤‘..
+							PER_TRADE_STATE_MY_TRADE_DECISION_DONE,		// ë‚´ ê±°ëž˜ ë²„íŠ¼ ëˆ„ë¥¸ ìƒíƒœ..	
 						};
 
-enum e_PerTradeResultCode	{										// ¾ÆÀÌÅÛ °Å·¡°¡ ÇØÁ¦µÇ´Â ÄÚµå Á¤ÀÇ..								
-								PER_TRADE_RESULT_MY_DISAGREE = 0,	// °Å·¡¸¦ ½ÅÃ»¹ÞÀº ³»°¡ °Å·¡ ½ÅÃ»À» Ãë¼Ò..
-								PER_TRADE_RESULT_OTHER_DISAGREE,	// °Å·¡¸¦ ½ÅÃ»¹ÞÀº »ó´ë¹æÀÌ °Å·¡ ½ÅÃ»À» Ãë¼Ò..
-								PER_TRADE_RESULT_MY_CANCEL,			// °Å·¡¸¦ ½ÅÃ»ÇÑ ³»°¡ °Å·¡ ½ÅÃ»À» Ãë¼Ò..
+enum e_PerTradeResultCode	{										// ì•„ì´í…œ ê±°ëž˜ê°€ í•´ì œë˜ëŠ” ì½”ë“œ ì •ì˜..								
+								PER_TRADE_RESULT_MY_DISAGREE = 0,	// ê±°ëž˜ë¥¼ ì‹ ì²­ë°›ì€ ë‚´ê°€ ê±°ëž˜ ì‹ ì²­ì„ ì·¨ì†Œ..
+								PER_TRADE_RESULT_OTHER_DISAGREE,	// ê±°ëž˜ë¥¼ ì‹ ì²­ë°›ì€ ìƒëŒ€ë°©ì´ ê±°ëž˜ ì‹ ì²­ì„ ì·¨ì†Œ..
+								PER_TRADE_RESULT_MY_CANCEL,			// ê±°ëž˜ë¥¼ ì‹ ì²­í•œ ë‚´ê°€ ê±°ëž˜ ì‹ ì²­ì„ ì·¨ì†Œ..
 
 
 							};
 
-enum e_PerTradeProceedCode	{										// ¾ÆÀÌÅÛ °Å·¡°¡ °è¼ÓµÇ´Â »óÅÂ¸¦ Á¤ÀÇ..
-								PER_TRADE_RESULT_MY_AGREE = 0,		// °Å·¡¸¦ ½ÅÃ»¹ÞÀº ³»°¡ °Å·¡ ½ÅÃ»À» Çã¶ô..
-								PER_TRADE_RESULT_OTHER_AGREE,		// °Å·¡¸¦ ½ÅÃ»¹ÞÀº »ó´ë¹æÀÌ °Å·¡ ½ÅÃ»À» Çã¶ô..
+enum e_PerTradeProceedCode	{										// ì•„ì´í…œ ê±°ëž˜ê°€ ê³„ì†ë˜ëŠ” ìƒíƒœë¥¼ ì •ì˜..
+								PER_TRADE_RESULT_MY_AGREE = 0,		// ê±°ëž˜ë¥¼ ì‹ ì²­ë°›ì€ ë‚´ê°€ ê±°ëž˜ ì‹ ì²­ì„ í—ˆë½..
+								PER_TRADE_RESULT_OTHER_AGREE,		// ê±°ëž˜ë¥¼ ì‹ ì²­ë°›ì€ ìƒëŒ€ë°©ì´ ê±°ëž˜ ì‹ ì²­ì„ í—ˆë½..
 
 
 
 							};
 
 enum e_PerTradeItemKindBackup	{
-									PER_TRADE_ITEM_MONEY = 0,		// Àü¿¡ °³ÀÎ °Å·¡Ã¢À¸·Î ADDÇÑ °ÍÀÌ µ·ÀÌ´Ù..
-									PER_TRADE_ITEM_OTHER,			// Àü¿¡ °³ÀÎ °Å·¡Ã¢À¸·Î ADDÇÑ °ÍÀÌ ¾ÆÀÌÅÛÀÌ´Ù..
+									PER_TRADE_ITEM_MONEY = 0,		// ì „ì— ê°œì¸ ê±°ëž˜ì°½ìœ¼ë¡œ ADDí•œ ê²ƒì´ ëˆì´ë‹¤..
+									PER_TRADE_ITEM_OTHER,			// ì „ì— ê°œì¸ ê±°ëž˜ì°½ìœ¼ë¡œ ADDí•œ ê²ƒì´ ì•„ì´í…œì´ë‹¤..
 								};
 
-const uint32_t dwGold = 900000000;	// À½...
+const uint32_t dwGold = 900000000;	// ìŒ...
 
 class CUIManager;
 class CUIPerTradeDlg;
@@ -73,13 +73,13 @@ public:
 
 	void	InitPerTradeDlg(CUIManager* pUIManager);
 
-	void	EnterWaitMsgFromServerStatePerTradeReq();			// ³»°¡ ¾ÆÀÌÅÛ °Å·¡¸¦ Å¸ÀÎ¿¡°Ô ½ÅÃ»ÇÑ »óÅÂ..
-	void	EnterWaitMsgFromServerStatePerTradeReq(std::string szName);			// ³»°¡ ¾ÆÀÌÅÛ °Å·¡¸¦ Å¸ÀÎ¿¡°Ô ½ÅÃ»ÇÑ »óÅÂ..
-	void	EnterWaitMyDecisionToPerTrade(int iOtherID);		// ³»°¡ Å¸ÀÎ¿¡°Ô¼­ ¾ÆÀÌÅÛ °Å·¡¸¦ ½ÅÃ» ¹ÞÀº »óÅÂ..
-	void	LeavePerTradeState(e_PerTradeResultCode ePTRC);		// ¾ÆÀÌÅÛ °Å·¡ »óÅÂ°¡ ÇØÁ¦µÇ´Â ÄÚµå..
-	void	ProcessProceed(e_PerTradeProceedCode ePTPC);		// ¾ÆÀÌÅÛ °Å·¡°¡ °è¼ÓµÇ´Â »óÅÂ¸¦ Á¤ÀÇ..
+	void	EnterWaitMsgFromServerStatePerTradeReq();			// ë‚´ê°€ ì•„ì´í…œ ê±°ëž˜ë¥¼ íƒ€ì¸ì—ê²Œ ì‹ ì²­í•œ ìƒíƒœ..
+	void	EnterWaitMsgFromServerStatePerTradeReq(std::string szName);			// ë‚´ê°€ ì•„ì´í…œ ê±°ëž˜ë¥¼ íƒ€ì¸ì—ê²Œ ì‹ ì²­í•œ ìƒíƒœ..
+	void	EnterWaitMyDecisionToPerTrade(int iOtherID);		// ë‚´ê°€ íƒ€ì¸ì—ê²Œì„œ ì•„ì´í…œ ê±°ëž˜ë¥¼ ì‹ ì²­ ë°›ì€ ìƒíƒœ..
+	void	LeavePerTradeState(e_PerTradeResultCode ePTRC);		// ì•„ì´í…œ ê±°ëž˜ ìƒíƒœê°€ í•´ì œë˜ëŠ” ì½”ë“œ..
+	void	ProcessProceed(e_PerTradeProceedCode ePTPC);		// ì•„ì´í…œ ê±°ëž˜ê°€ ê³„ì†ë˜ëŠ” ìƒíƒœë¥¼ ì •ì˜..
 
-	void	SecureCodeBegin();									// º¸È£ ÄÚµå..
+	void	SecureCodeBegin();									// ë³´í˜¸ ì½”ë“œ..
 
 	void	PerTradeCoreStart();
 	void	PerTradeCoreInvDisable();
@@ -88,12 +88,12 @@ public:
 	void	ItemCountEditOK();
 	void	ItemCountEditCancel();
 
-	void	FinalizePerTrade();									// ¸» ±×´ë·Î ÃÖÁ¾ µÞÃ³¸®..
-	void	PerTradeCompleteSuccess();							// °³ÀÎ °Å·¡ ÃÖÁ¾ ¼º°ø..
-	void	PerTradeCompleteCancel();							// °³ÀÎ °Å·¡ Ãë¼Ò..	
+	void	FinalizePerTrade();									// ë§ ê·¸ëŒ€ë¡œ ìµœì¢… ë’·ì²˜ë¦¬..
+	void	PerTradeCompleteSuccess();							// ê°œì¸ ê±°ëž˜ ìµœì¢… ì„±ê³µ..
+	void	PerTradeCompleteCancel();							// ê°œì¸ ê±°ëž˜ ì·¨ì†Œ..	
 
-	void	PerTradeMyDecision();								// ³»°¡ °Å·¡¸¦ °áÁ¤ Çß´Ù..
-	void	PerTradeOtherDecision();							// ´Ù¸¥ »ç¶÷ÀÌ °Å·¡¸¦ °áÁ¤ Çß´Ù..
+	void	PerTradeMyDecision();								// ë‚´ê°€ ê±°ëž˜ë¥¼ ê²°ì • í–ˆë‹¤..
+	void	PerTradeOtherDecision();							// ë‹¤ë¥¸ ì‚¬ëžŒì´ ê±°ëž˜ë¥¼ ê²°ì • í–ˆë‹¤..
 
 	void	SecureJobStuffByMyDecision();
 

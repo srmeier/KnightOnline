@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "NpcMagicProcess.h"
 #include "ServerDlg.h"
 #include "Npc.h"

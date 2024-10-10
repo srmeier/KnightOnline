@@ -1,4 +1,4 @@
-// N3UIStatic.h: interface for the CN3UIStatic class.
+ï»¿// N3UIStatic.h: interface for the CN3UIStatic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -18,9 +18,9 @@ public:
 	virtual ~CN3UIStatic();
 // Attributes
 protected:
-	CN3UIString*	m_pBuffOutRef;		// CN3UIString ÂüÁ¶ Æ÷ÀÎÅÍ (½ÇÁ¦´Â child¸®½ºÆ®¿¡¼­ °ü¸®)
-	CN3UIImage*		m_pImageBkGnd;		// ¹è°æ ÀÌ¹ÌÁö ÂüÁ¶ Æ÷ÀÎÅÍ (½ÇÁ¦´Â child¸®½ºÆ®¿¡¼­ °ü¸®)
-	CN3SndObj*		m_pSnd_Click;	// staticÀÌ ´­¸®´Â ¼ø°£ ³»´Â ¼Ò¸®
+	CN3UIString*	m_pBuffOutRef;		// CN3UIString ì°¸ì¡° í¬ì¸í„° (ì‹¤ì œëŠ” childë¦¬ìŠ¤íŠ¸ì—ì„œ ê´€ë¦¬)
+	CN3UIImage*		m_pImageBkGnd;		// ë°°ê²½ ì´ë¯¸ì§€ ì°¸ì¡° í¬ì¸í„° (ì‹¤ì œëŠ” childë¦¬ìŠ¤íŠ¸ì—ì„œ ê´€ë¦¬)
+	CN3SndObj*		m_pSnd_Click;	// staticì´ ëˆŒë¦¬ëŠ” ìˆœê°„ ë‚´ëŠ” ì†Œë¦¬
 	
 // Operations
 public:
@@ -34,14 +34,14 @@ public:
 protected:
 
 #ifdef _N3TOOL
-// Åø¿¡¼­¸¸ »ç¿ëÇÏ´Â ÇÔ¼ö
+// íˆ´ì—ì„œë§Œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
 public:
 	virtual	void	operator = (const CN3UIStatic& other);
 	virtual bool	Save(HANDLE hFile);
-	void			CreateImageAndString();		// ¹è°æ ÀÌ¹ÌÁö ¹× string »ı¼ºÇÏ±â
+	void			CreateImageAndString();		// ë°°ê²½ ì´ë¯¸ì§€ ë° string ìƒì„±í•˜ê¸°
 	CN3UIImage*		GetImageBkGnd() const {return m_pImageBkGnd;}
 	CN3UIString*	GetUIString() const {return m_pBuffOutRef;}
-	void			DeleteImage();		// ÀÌ¹ÌÁö¸¦ »ç¿ëÇÏÁö ¾Ê´Â staticÀÏ °æ¿ì È£ÃâÇÏ¸é Áö¿öÁø´Ù.
+	void			DeleteImage();		// ì´ë¯¸ì§€ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” staticì¼ ê²½ìš° í˜¸ì¶œí•˜ë©´ ì§€ì›Œì§„ë‹¤.
 	void			SetSndClick(const std::string& strFileName);
 	std::string		GetSndFName_Click() const;
 #endif

@@ -1,12 +1,12 @@
-// N3UITooltip.h: interface for the CN3UITooltip class.
-// CN3UIBase¿¡ EnableTooltip() °ú DestroyTooltip()ÇÔ¼ö°¡ ¾Æ·¡ Ç×¸ñµéÀ» °ü¸®ÇØÁİ´Ï´Ù.
-// 1. tooltipÀº ºÎ¸ğ¸¦ null·Î ÇØÁÖ°í µû·Î °ü¸® ÇØ¾ß ÇÕ´Ï´Ù.
-// 2. Save/Loadµµ µû·Î °ü¸®ÇÕ´Ï´Ù.
+ï»¿// N3UITooltip.h: interface for the CN3UITooltip class.
+// CN3UIBaseì— EnableTooltip() ê³¼ DestroyTooltip()í•¨ìˆ˜ê°€ ì•„ë˜ í•­ëª©ë“¤ì„ ê´€ë¦¬í•´ì¤ë‹ˆë‹¤.
+// 1. tooltipì€ ë¶€ëª¨ë¥¼ nullë¡œ í•´ì£¼ê³  ë”°ë¡œ ê´€ë¦¬ í•´ì•¼ í•©ë‹ˆë‹¤.
+// 2. Save/Loadë„ ë”°ë¡œ ê´€ë¦¬í•©ë‹ˆë‹¤.
 //
-// ¾Æ·¡ Ç×¸ñµéÀº À§ÀÇ Ç×¸ñ ¿Ü¿¡µµ Ã³¸®ÇØÁÖ¾î¾ß ÇÒ °ÍµéÀÔ´Ï´Ù.
-// 1. Render´Â ¸ğµç UI¸¦ ´Ù ±×¸°ÈÄ RenderÇØ¾ß ÇÕ´Ï´Ù.
-// 2. MouseProcÇÔ¼ö¸¦ È£ÃâÇØÁà¾ß ÇÕ´Ï´Ù.
-// 3. TickÇÔ¼öµµ È£ÃâÇØÁà¾ß ÇÕ´Ï´Ù.
+// ì•„ë˜ í•­ëª©ë“¤ì€ ìœ„ì˜ í•­ëª© ì™¸ì—ë„ ì²˜ë¦¬í•´ì£¼ì–´ì•¼ í•  ê²ƒë“¤ì…ë‹ˆë‹¤.
+// 1. RenderëŠ” ëª¨ë“  UIë¥¼ ë‹¤ ê·¸ë¦°í›„ Renderí•´ì•¼ í•©ë‹ˆë‹¤.
+// 2. MouseProcí•¨ìˆ˜ë¥¼ í˜¸ì¶œí•´ì¤˜ì•¼ í•©ë‹ˆë‹¤.
+// 3. Tickí•¨ìˆ˜ë„ í˜¸ì¶œí•´ì¤˜ì•¼ í•©ë‹ˆë‹¤.
 //////////////////////////////////////////////////////////////////////
 
 #if !defined(AFX_N3UITOOLTIP_H__7085B857_C8EE_410D_AB27_5332D26DF01A__INCLUDED_)
@@ -27,9 +27,9 @@ public:
 // Attributes
 public:
 protected:
-	float			m_fHoverTime;	// ¸¶¿ì½º°¡ ÇÑ°÷¿¡¼­ Á¤ÁöÇÏ¿© ÀÖ´Â ½Ã°£(´©Àû)
-	bool			m_bSetText;		// ÀÌ¹Ì text°¡ ¼³Á¤µÇ¾ú´Â°¡?
-	POINT			m_ptCursor;		// Ä¿¼­ÀÇ À§Ä¡
+	float			m_fHoverTime;	// ë§ˆìš°ìŠ¤ê°€ í•œê³³ì—ì„œ ì •ì§€í•˜ì—¬ ìˆëŠ” ì‹œê°„(ëˆ„ì )
+	bool			m_bSetText;		// ì´ë¯¸ textê°€ ì„¤ì •ë˜ì—ˆëŠ”ê°€?
+	POINT			m_ptCursor;		// ì»¤ì„œì˜ ìœ„ì¹˜
 
 // Operations
 public:

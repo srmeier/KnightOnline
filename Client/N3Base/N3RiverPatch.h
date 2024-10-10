@@ -1,4 +1,4 @@
-// N3RiverPatch.h: interface for the CN3RiverPatch class.
+ï»¿// N3RiverPatch.h: interface for the CN3RiverPatch class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -13,10 +13,10 @@
 
 struct __VertexRiver : public __VertexXyzT2
 {
-	uint16_t			index;			// Á¡ÀÇ Index
+	uint16_t			index;			// ì ì˜ Index
 };
 
-struct __River		// °­ÀÇ Á¡Á¤º¸(Á¤·ÄÀ» À§ÇÑ..)
+struct __River		// ê°•ì˜ ì ì •ë³´(ì •ë ¬ì„ ìœ„í•œ..)
 {
 	int16_t			iRiverID;
 	int				iVertexCount;
@@ -26,7 +26,7 @@ struct __River		// °­ÀÇ Á¡Á¤º¸(Á¤·ÄÀ» À§ÇÑ..)
 	~__River() {if (pVertices) {delete [] pVertices; pVertices = NULL;}}
 };
 
-struct __RiverEx	// °­ÀÇ Á¡Á¤º¸(vertex buffer¸¦ À§ÇÑ..)
+struct __RiverEx	// ê°•ì˜ ì ì •ë³´(vertex bufferë¥¼ ìœ„í•œ..)
 {
 	int16_t			iRiverID;
 	int				iVertexCount;
@@ -40,7 +40,7 @@ struct __RiverEx	// °­ÀÇ Á¡Á¤º¸(vertex buffer¸¦ À§ÇÑ..)
 		if (pIndices) {delete [] pIndices; pIndices = NULL;}}
 };
 
-class CN3RiverPatch : public CN3Base  // °¢ patch¿¡ ¼ÓÇÑ °­µéÀÇ Á¤º¸.
+class CN3RiverPatch : public CN3Base  // ê° patchì— ì†í•œ ê°•ë“¤ì˜ ì •ë³´.
 {
 public:
 	CN3RiverPatch();

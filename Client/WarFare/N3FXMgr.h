@@ -1,4 +1,4 @@
-// N3FXMgr.h: interface for the CN3FXMgr class.
+ï»¿// N3FXMgr.h: interface for the CN3FXMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@
 
 class CN3FXBundleGame;
 
-typedef struct __FXBundleOrigin	// ¹øµé¿¡¼­ ÆÄÆ®µé °ü¸®ÇÒ¶§..
+typedef struct __FXBundleOrigin	// ë²ˆë“¤ì—ì„œ íŒŒíŠ¸ë“¤ ê´€ë¦¬í• ë•Œ..
 {
 	class CN3FXBundleGame*	pBundle;
 	int						iNum;

@@ -1,4 +1,4 @@
-#ifndef __GAME_DEF_H_
+﻿#ifndef __GAME_DEF_H_
 #define __GAME_DEF_H_
 
 #include <string>

@@ -1,4 +1,4 @@
-// N3Transform.h: interface for the CN3Transform class.
+ï»¿// N3Transform.h: interface for the CN3Transform class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,18 +21,18 @@ protected:
 
 public:
 	__Vector3		m_vPos;
-	__Matrix44		m_Matrix; // º¯È¯ Çà·Ä
+	__Matrix44		m_Matrix; // ë³€í™˜ í–‰ë ¬
 
-	CN3AnimKey		m_KeyPos; // ¿¡´Ï¸ŞÀÌ¼Ç Å°
+	CN3AnimKey		m_KeyPos; // ì—ë‹ˆë©”ì´ì…˜ í‚¤
 	CN3AnimKey		m_KeyRot;
 	CN3AnimKey		m_KeyScale;
 
-	float			m_fFrmWhole; // ÀüÃ¼ ÇÁ·¹ÀÓ¼ö
-	float			m_fFrmCur; // ÇöÀç ÇÁ·¹ÀÓ
+	float			m_fFrmWhole; // ì „ì²´ í”„ë ˆì„ìˆ˜
+	float			m_fFrmCur; // í˜„ì¬ í”„ë ˆì„
 
 public:
 	virtual void	Tick(float fFrm = FRAME_SELFPLAY);
-	virtual bool	TickAnimationKey(float fFrm); // Animation Key Tick... Animation Key °¡ ÀÖ¾î ¿òÁ÷ÀÌ¸é true, ¾Æ´Ï¸é false ¸¦ return;
+	virtual bool	TickAnimationKey(float fFrm); // Animation Key Tick... Animation Key ê°€ ìˆì–´ ì›€ì§ì´ë©´ true, ì•„ë‹ˆë©´ false ë¥¼ return;
 
 	__Vector3		Pos() const { return m_vPos; }
 	__Quaternion	Rot() const { return m_qRot; }

@@ -1,4 +1,4 @@
-// N3Shape.cpp: implementation of the C3DObject class.
+ï»¿// N3Shape.cpp: implementation of the C3DObject class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "N3Shape.h"
@@ -14,18 +14,18 @@ CN3SPart::CN3SPart()
 {
 	m_dwType |= OBJ_SHAPE_PART;
 
-	m_vPivot.Set(0,0,0); // Local Ãà
-	m_Matrix.Identity(); // World Matrix.. Shape Loading ¶§ ¹Ì¸® °è»êÇØ¾ß ÁÁ´Ù..		
-	m_bOutOfCameraRange = TRUE; // Camera ¹üÀ§ ¹Ù±ù¿¡ ÀÖÀ½...
+	m_vPivot.Set(0,0,0); // Local ì¶•
+	m_Matrix.Identity(); // World Matrix.. Shape Loading ë•Œ ë¯¸ë¦¬ ê³„ì‚°í•´ì•¼ ì¢‹ë‹¤..		
+	m_bOutOfCameraRange = TRUE; // Camera ë²”ìœ„ ë°”ê¹¥ì— ìˆìŒ...
 	m_Mtl.Init(); // Material
 	m_fTexFPS = 10.0f; // Texture Animation Interval;
-	m_fTexIndex = 0; // Current Texture Index.. Animation ½ÃÅ³¶§ ÇÊ¿äÇÑ ÀÎµ¦½ºÀÌ´Ù..
+	m_fTexIndex = 0; // Current Texture Index.. Animation ì‹œí‚¬ë•Œ í•„ìš”í•œ ì¸ë±ìŠ¤ì´ë‹¤..
 
-//	m_vWindFactorCur.Zero();		// ÇöÀç ¹Ù¶÷ ºÎ´Â °ª.. ÀÌ°ªÀ¸·Î È¸ÀüÀ» ½ÃÅ²´Ù..
-//	m_vWindFactorToReach.Zero();	// ¹Ù¶÷ ºÎ´Â °ª..
-	m_fTimeToSetWind = 0;			// ¹Ù¶÷ ºÎ´Â °ªÀ» ¹Ù²Ù±â À§ÇÑ ½Ã°£..
-	m_fWindFactorCur = 0;			// ÇöÀç ¹Ù¶÷ ºÎ´Â °ª.. ÀÌ°ªÀ¸·Î È¸ÀüÀ» ½ÃÅ²´Ù..
-	m_fWindFactorToReach = 0;		// ¹Ù¶÷ ºÎ´Â °ª..
+//	m_vWindFactorCur.Zero();		// í˜„ì¬ ë°”ëŒ ë¶€ëŠ” ê°’.. ì´ê°’ìœ¼ë¡œ íšŒì „ì„ ì‹œí‚¨ë‹¤..
+//	m_vWindFactorToReach.Zero();	// ë°”ëŒ ë¶€ëŠ” ê°’..
+	m_fTimeToSetWind = 0;			// ë°”ëŒ ë¶€ëŠ” ê°’ì„ ë°”ê¾¸ê¸° ìœ„í•œ ì‹œê°„..
+	m_fWindFactorCur = 0;			// í˜„ì¬ ë°”ëŒ ë¶€ëŠ” ê°’.. ì´ê°’ìœ¼ë¡œ íšŒì „ì„ ì‹œí‚¨ë‹¤..
+	m_fWindFactorToReach = 0;		// ë°”ëŒ ë¶€ëŠ” ê°’..
 }
 
 CN3SPart::~CN3SPart()
@@ -36,18 +36,18 @@ CN3SPart::~CN3SPart()
 
 void CN3SPart::Release()
 {
-	m_vPivot.Set(0,0,0); // Local Ãà
-	m_Matrix.Identity(); // World Matrix.. Shape Loading ¶§ ¹Ì¸® °è»êÇØ¾ß ÁÁ´Ù..		
-	m_bOutOfCameraRange = TRUE; // Camera ¹üÀ§ ¹Ù±ù¿¡ ÀÖÀ½...
+	m_vPivot.Set(0,0,0); // Local ì¶•
+	m_Matrix.Identity(); // World Matrix.. Shape Loading ë•Œ ë¯¸ë¦¬ ê³„ì‚°í•´ì•¼ ì¢‹ë‹¤..		
+	m_bOutOfCameraRange = TRUE; // Camera ë²”ìœ„ ë°”ê¹¥ì— ìˆìŒ...
 	m_Mtl.Init(); // Material
 	m_fTexFPS = 10.0f; // Texture Animation Interval;
-	m_fTexIndex = 0; // Current Texture Index.. Animation ½ÃÅ³¶§ ÇÊ¿äÇÑ ÀÎµ¦½ºÀÌ´Ù..
+	m_fTexIndex = 0; // Current Texture Index.. Animation ì‹œí‚¬ë•Œ í•„ìš”í•œ ì¸ë±ìŠ¤ì´ë‹¤..
 
-//	m_vWindFactorCur.Zero();		// ÇöÀç ¹Ù¶÷ ºÎ´Â °ª.. ÀÌ°ªÀ¸·Î È¸ÀüÀ» ½ÃÅ²´Ù..
-//	m_vWindFactorToReach.Zero();	// ¹Ù¶÷ ºÎ´Â °ª..
-	m_fTimeToSetWind = 0;			// ¹Ù¶÷ ºÎ´Â °ªÀ» ¹Ù²Ù±â À§ÇÑ ½Ã°£..
-	m_fWindFactorCur = 0;			// ÇöÀç ¹Ù¶÷ ºÎ´Â °ª.. ÀÌ°ªÀ¸·Î È¸ÀüÀ» ½ÃÅ²´Ù..
-	m_fWindFactorToReach = 0;		// ¹Ù¶÷ ºÎ´Â °ª..
+//	m_vWindFactorCur.Zero();		// í˜„ì¬ ë°”ëŒ ë¶€ëŠ” ê°’.. ì´ê°’ìœ¼ë¡œ íšŒì „ì„ ì‹œí‚¨ë‹¤..
+//	m_vWindFactorToReach.Zero();	// ë°”ëŒ ë¶€ëŠ” ê°’..
+	m_fTimeToSetWind = 0;			// ë°”ëŒ ë¶€ëŠ” ê°’ì„ ë°”ê¾¸ê¸° ìœ„í•œ ì‹œê°„..
+	m_fWindFactorCur = 0;			// í˜„ì¬ ë°”ëŒ ë¶€ëŠ” ê°’.. ì´ê°’ìœ¼ë¡œ íšŒì „ì„ ì‹œí‚¨ë‹¤..
+	m_fWindFactorToReach = 0;		// ë°”ëŒ ë¶€ëŠ” ê°’..
 
 	int iTC = m_TexRefs.size();
 	for(int i = 0; i < iTC; i++) s_MngTex.Delete(&m_TexRefs[i]);
@@ -71,16 +71,16 @@ void CN3SPart::TexAlloc(int nCount)
 	m_TexRefs.assign(nCount, NULL);
 }
 
-void CN3SPart::Tick(const __Matrix44& mtxParent, const __Quaternion& qRot, float fScale) // timeGetTime À¸·Î ¾òÀº °ªÀ» ³ÖÀ¸¸é Texture Animation À» ÄÁÆ®·Ñ ÇÑ´Ù..
+void CN3SPart::Tick(const __Matrix44& mtxParent, const __Quaternion& qRot, float fScale) // timeGetTime ìœ¼ë¡œ ì–»ì€ ê°’ì„ ë„£ìœ¼ë©´ Texture Animation ì„ ì»¨íŠ¸ë¡¤ í•œë‹¤..
 {
 	CN3PMesh* pPMesh = m_PMInst.GetMesh();
 	if(NULL == pPMesh) return;
 
 	m_bOutOfCameraRange = FALSE;
 
-	// Ä«¸Ş¶ó¿Í ¸Ö¸® ¶³¾îÁö¸é Áö³ª°£´Ù..
+	// ì¹´ë©”ë¼ì™€ ë©€ë¦¬ ë–¨ì–´ì§€ë©´ ì§€ë‚˜ê°„ë‹¤..
 	__Vector3 vCenter = (this->Min() + this->Max()) * 0.5f;
-	if(s_CameraData.IsOutOfFrustum(vCenter, this->Radius() * fScale)) // Ä«¸Ş¶ó »ç¸éÃ¼ ¹Ù±ùÀÌ¸é Áö³ª°£´Ù..
+	if(s_CameraData.IsOutOfFrustum(vCenter, this->Radius() * fScale)) // ì¹´ë©”ë¼ ì‚¬ë©´ì²´ ë°”ê¹¥ì´ë©´ ì§€ë‚˜ê°„ë‹¤..
 	{
 		m_bOutOfCameraRange = TRUE;
 		return;
@@ -91,25 +91,25 @@ void CN3SPart::Tick(const __Matrix44& mtxParent, const __Quaternion& qRot, float
 //	float fLOD = fDist + fDist * (s_CameraData.fFOV - 1.0f) / 3.0f;
 //	float fLOD = fDist * s_CameraData.fFOV * (512.0f / s_CameraData.fFP);
 
-	// Ä«¸Ş¶ó °Å¸®¿¡ µû¶ó LOD ¼öÁØÀ» Á¶ÀıÇÑ´Ù.
+	// ì¹´ë©”ë¼ ê±°ë¦¬ì— ë”°ë¼ LOD ìˆ˜ì¤€ì„ ì¡°ì ˆí•œë‹¤.
 //	fLOD *= 256.0f / s_CameraData.fFP;
 	m_PMInst.SetLOD(fLOD);
 	
 	int iTC = m_TexRefs.size();
-	if(iTC > 1) // ÅØ½ºÃ³ ¿¡´Ï¸ŞÀÌ¼Ç
+	if(iTC > 1) // í…ìŠ¤ì²˜ ì—ë‹ˆë©”ì´ì…˜
 	{
 		m_fTexIndex += CN3Base::s_fSecPerFrm * m_fTexFPS;
-		if(m_fTexIndex >= iTC) m_fTexIndex -= (iTC * m_fTexIndex) / iTC; // Á¤¼ö·Î ³ª´©¸é ¼Ò¼ıÁ¡¸¸ ³²±â°Ô µÈ´Ù??(ÇÏ¿©Æ° ºñ½ÁÇØ~)
+		if(m_fTexIndex >= iTC) m_fTexIndex -= (iTC * m_fTexIndex) / iTC; // ì •ìˆ˜ë¡œ ë‚˜ëˆ„ë©´ ì†Œìˆ«ì ë§Œ ë‚¨ê¸°ê²Œ ëœë‹¤??(í•˜ì—¬íŠ¼ ë¹„ìŠ·í•´~)
 	}
 
-	if(m_Mtl.nRenderFlags & RF_BOARD_Y) // Ä«¸Ş¶ó¸¦ ¹Ù¶óºÁ¾ßÇÏ´Â °Å¸é..
+	if(m_Mtl.nRenderFlags & RF_BOARD_Y) // ì¹´ë©”ë¼ë¥¼ ë°”ë¼ë´ì•¼í•˜ëŠ” ê±°ë©´..
 	{
 		__Vector3 vPos = m_vPivot * mtxParent;
 		__Vector3 vDir = s_CameraData.vEye - vPos;
 		if( vDir.x > 0.0f ) m_Matrix.RotationY(-atanf(vDir.z/vDir.x) - (D3DX_PI * 0.5f));
 		else m_Matrix.RotationY(-atanf(vDir.z/vDir.x) + (D3DX_PI * 0.5f));
 
-		// ºÎ¸ğ È¸Àü°ú ¹İ´ë·Î È¸ÀüÀ» ½ÃÅ²´Ù..
+		// ë¶€ëª¨ íšŒì „ê³¼ ë°˜ëŒ€ë¡œ íšŒì „ì„ ì‹œí‚¨ë‹¤..
 		float fAngle;
 		qRot.AxisAngle(vDir, fAngle);
 		if(fAngle != 0)
@@ -123,7 +123,7 @@ void CN3SPart::Tick(const __Matrix44& mtxParent, const __Quaternion& qRot, float
 		m_Matrix.PosSet(vPos);
 	}
 
-	if(m_Mtl.nRenderFlags & RF_WINDY) // ¹Ù¶÷¿¡ »ìÂ¦ ³¯·Á¾ß ÇÏ¸é..
+	if(m_Mtl.nRenderFlags & RF_WINDY) // ë°”ëŒì— ì‚´ì§ ë‚ ë ¤ì•¼ í•˜ë©´..
 	{
 		m_fTimeToSetWind -= CN3Base::s_fSecPerFrm;
 
@@ -131,11 +131,11 @@ void CN3SPart::Tick(const __Matrix44& mtxParent, const __Quaternion& qRot, float
 		if(m_fTimeToSetWind <= 0)
 		{
 //			m_vWindFactorToReach.x = 0.05f - (0.1f * (rand()%100) / 100.0f);
-//			m_vWindFactorToReach.y = 0.05f - (0.1f * (rand()%100) / 100.0f); // À§¾Æ·¡·Î´Â Á¶±İ¸¸ ºÒ°Ô ÇÑ´Ù.
+//			m_vWindFactorToReach.y = 0.05f - (0.1f * (rand()%100) / 100.0f); // ìœ„ì•„ë˜ë¡œëŠ” ì¡°ê¸ˆë§Œ ë¶ˆê²Œ í•œë‹¤.
 //			m_vWindFactorToReach.z = 0.05f - (0.1f * (rand()%100) / 100.0f);
 
 			m_fWindFactorToReach = (rand()%100)/100.0f;
-			m_fTimeToSetWind = 3.0f * ((rand()%100)/100.0f); // ¹Ù¶÷ÀÌ Áö¼ÓµÉ °ª..
+			m_fTimeToSetWind = 3.0f * ((rand()%100)/100.0f); // ë°”ëŒì´ ì§€ì†ë  ê°’..
 		}
 		else if(m_fWindFactorToReach != m_fWindFactorCur)
 //		else if(m_vWindFactorToReach != m_vWindFactorCur)
@@ -183,7 +183,7 @@ void CN3SPart::Render()
 		if(iTexIndex >= 0 && iTexIndex < iTC && m_TexRefs[iTexIndex]) lpTex = m_TexRefs[iTexIndex]->Get();
 	}
 
-	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha »ç¿ë
+	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha ì‚¬ìš©
 	{
 		__AlphaPrimitive* pAP = s_AlphaMgr.Add();
 		if(pAP)
@@ -204,7 +204,7 @@ void CN3SPart::Render()
 			pAP->pwIndices			= m_PMInst.GetIndices();
 		}
 
-		return; // ·»´õ¸µ ¾ÈÇÏÁö·Õ.
+		return; // ë Œë”ë§ ì•ˆí•˜ì§€ë¡±.
 	}
 
 //	static uint32_t dwAlpha, dwFog, dwCull;
@@ -218,7 +218,7 @@ void CN3SPart::Render()
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
 #endif
 
-	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ¹«½Ã..
+	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ë¬´ì‹œ..
 	{
 		s_lpD3DDev->GetRenderState(D3DRS_FOGENABLE, &dwFog);
 		if(TRUE == dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
@@ -229,7 +229,7 @@ void CN3SPart::Render()
 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	}
 
-	s_lpD3DDev->SetMaterial(&m_Mtl); // ÀçÁú ¼³Á¤..
+	s_lpD3DDev->SetMaterial(&m_Mtl); // ì¬ì§ˆ ì„¤ì •..
 	s_lpD3DDev->SetTexture(0, lpTex);
 	if(NULL != lpTex)
 	{
@@ -243,13 +243,13 @@ void CN3SPart::Render()
 		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
 	}
 
-	// ·ÎµùÇÒ¶§ ¹Ì¸® °è»êÇØ ³õÀº ¿ùµå Çà·Ä Àû¿ë..
+	// ë¡œë”©í• ë•Œ ë¯¸ë¦¬ ê³„ì‚°í•´ ë†“ì€ ì›”ë“œ í–‰ë ¬ ì ìš©..
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 	m_PMInst.Render();
 
 //	if((m_Mtl.nRenderFlags & RF_ALPHABLENDING) && FALSE == dwAlpha)	s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ¾È°³ »ç¿ëÇÏÁö ¾Ê´Â´Ù..
+	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ì•ˆê°œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤..
 	if((m_Mtl.nRenderFlags & RF_DOUBLESIDED) && D3DCULL_NONE != dwCull) 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, dwCull);
 }
 
@@ -301,7 +301,7 @@ void CN3SPart::RenderSelected(bool bWireFrame)
 #ifdef _N3TOOL
 void CN3SPart::RenderAxis()
 {
-	// Ãà±×¸®±â..
+	// ì¶•ê·¸ë¦¬ê¸°..
 	float fRadius = 1.0f;
 	if(m_PMInst.GetMesh()) fRadius = m_PMInst.GetMesh()->Radius();
 	static CN3Transform TTmp;
@@ -319,22 +319,22 @@ bool CN3SPart::Load(HANDLE hFile)
 	ReadFile(hFile, &m_vPivot, sizeof(__Vector3), &dwRWC, NULL);
 
 	ReadFile(hFile, &nL, 4, &dwRWC, NULL); // Mesh FileName
-	ReadFile(hFile, szFN, nL, &dwRWC, NULL); szFN[nL] = NULL; // ¸Ş½Ã ÆÄÀÏ ÀÌ¸§..
+	ReadFile(hFile, szFN, nL, &dwRWC, NULL); szFN[nL] = NULL; // ë©”ì‹œ íŒŒì¼ ì´ë¦„..
 	this->MeshSet(szFN);
 
-	ReadFile(hFile, &m_Mtl, sizeof(__Material), &dwRWC, NULL); // ÀçÁú
+	ReadFile(hFile, &m_Mtl, sizeof(__Material), &dwRWC, NULL); // ì¬ì§ˆ
 
 	int iTC = 0;
 	ReadFile(hFile, &iTC, 4, &dwRWC, NULL);
 	ReadFile(hFile, &m_fTexFPS, 4, &dwRWC, NULL);
 	m_TexRefs.clear();
-	this->TexAlloc(iTC); // Texture Pointer Pointer ÇÒ´ç..
-	for(int j = 0; j < iTC; j++) // Texture Count ¸¸Å­ ÆÄÀÏ ÀÌ¸§ ÀĞ¾î¼­ ÅØ½ºÃ³ ºÎ¸£±â..
+	this->TexAlloc(iTC); // Texture Pointer Pointer í• ë‹¹..
+	for(int j = 0; j < iTC; j++) // Texture Count ë§Œí¼ íŒŒì¼ ì´ë¦„ ì½ì–´ì„œ í…ìŠ¤ì²˜ ë¶€ë¥´ê¸°..
 	{
 		ReadFile(hFile, &nL, 4, &dwRWC, NULL);
 		if(nL > 0)
 		{
-			ReadFile(hFile, szFN, nL, &dwRWC, NULL); szFN[nL] = NULL; // ÅØ½ºÃ³ ÆÄÀÏ ÀÌ¸§..
+			ReadFile(hFile, szFN, nL, &dwRWC, NULL); szFN[nL] = NULL; // í…ìŠ¤ì²˜ íŒŒì¼ ì´ë¦„..
 			m_TexRefs[j] = s_MngTex.Get(szFN, true, s_Options.iTexLOD_Shape);
 		}
 	}
@@ -353,13 +353,13 @@ bool CN3SPart::Save(HANDLE hFile)
 	__ASSERT(pPMesh, "Progressive mesh pointer is NULL!");
 	int nL = 0;
 	if (pPMesh) nL = pPMesh->FileName().size();
-	else MessageBox(s_hWndBase, "Progressive mesh pointer is NULL! : object°¡ Á¦´ë·Î º¸ÀÌÁö ¾ÊÀ» ¼ö ÀÖ½À´Ï´Ù.(¸®¼Ò½º ÆÄÀÏÀÌ LoadµÇÁö ¾Ê¾ÒÀ» °¡´É¼ºÀÌ Å­)", "warning", MB_OK);
+	else MessageBox(s_hWndBase, "Progressive mesh pointer is NULL! : objectê°€ ì œëŒ€ë¡œ ë³´ì´ì§€ ì•Šì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.(ë¦¬ì†ŒìŠ¤ íŒŒì¼ì´ Loadë˜ì§€ ì•Šì•˜ì„ ê°€ëŠ¥ì„±ì´ í¼)", "warning", MB_OK);
 
 	WriteFile(hFile, &nL, 4, &dwRWC, NULL); // Mesh FileName
 	if(nL > 0)
 	{
 		
-//		if(-1 == pPMesh->FileName().find("object\\")) // ÀÓ½Ã·Î °æ·Î¸¦ ¹Ù²Ù·Á°í ³Ö¾ú´Ù.. ³ªÁß¿¡ ÇÊ¿ä¾øÀ½ Áö¿î´Ù..
+//		if(-1 == pPMesh->FileName().find("object\\")) // ì„ì‹œë¡œ ê²½ë¡œë¥¼ ë°”ê¾¸ë ¤ê³  ë„£ì—ˆë‹¤.. ë‚˜ì¤‘ì— í•„ìš”ì—†ìŒ ì§€ìš´ë‹¤..
 //		{
 //			char szFNTmp[256];
 //			wsprintf(szFNTmp, "Object\\%s.N3PMesh", pPMesh->Name());
@@ -373,15 +373,15 @@ bool CN3SPart::Save(HANDLE hFile)
 
 
 
-		WriteFile(hFile, pPMesh->FileName().c_str(), nL, &dwRWC, NULL); // ¸Ş½Ã ÆÄÀÏ ÀÌ¸§..
+		WriteFile(hFile, pPMesh->FileName().c_str(), nL, &dwRWC, NULL); // ë©”ì‹œ íŒŒì¼ ì´ë¦„..
 	}
 
-	WriteFile(hFile, &m_Mtl, sizeof(__Material), &dwRWC, NULL); // ÀçÁú
+	WriteFile(hFile, &m_Mtl, sizeof(__Material), &dwRWC, NULL); // ì¬ì§ˆ
 
 	int iTC = m_TexRefs.size();
 	WriteFile(hFile, &iTC, 4, &dwRWC, NULL);
 	WriteFile(hFile, &m_fTexFPS, 4, &dwRWC, NULL);
-	for(int j = 0; j < iTC; j++) // Texture File ÀÌ¸§ ¾²±â...
+	for(int j = 0; j < iTC; j++) // Texture File ì´ë¦„ ì“°ê¸°...
 	{
 		if(m_TexRefs[j]) nL = m_TexRefs[j]->FileName().size();
 		else nL = 0;
@@ -390,9 +390,9 @@ bool CN3SPart::Save(HANDLE hFile)
 		if(nL > 0)
 		{
 			
-//			if(-1 == m_TexRefs[j]->FileName().find("object\\")) // ÀÓ½Ã·Î °æ·Î¸¦ ¹Ù²Ù·Á°í ³Ö¾ú´Ù.. ³ªÁß¿¡ ÇÊ¿ä¾øÀ½ Áö¿î´Ù..
+//			if(-1 == m_TexRefs[j]->FileName().find("object\\")) // ì„ì‹œë¡œ ê²½ë¡œë¥¼ ë°”ê¾¸ë ¤ê³  ë„£ì—ˆë‹¤.. ë‚˜ì¤‘ì— í•„ìš”ì—†ìŒ ì§€ìš´ë‹¤..
 //			{
-//				// Æú´õ ÀÌ¸§À» ºĞ¸®ÇÏ°í..
+//				// í´ë” ì´ë¦„ì„ ë¶„ë¦¬í•˜ê³ ..
 //				char szDrive[_MAX_DRIVE], szDir[_MAX_DIR], szFName[_MAX_FNAME], szExt[_MAX_EXT];
 //				_splitpath(m_TexRefs[j]->FileName(), szDrive, szDir, szFName, szExt);
 //
@@ -409,7 +409,7 @@ bool CN3SPart::Save(HANDLE hFile)
 			
 			
 			
-			WriteFile(hFile, m_TexRefs[j]->FileName().c_str(), nL, &dwRWC, NULL); // ÅÃ½ºÃ³ ÆÄÀÏ ÀÌ¸§..
+			WriteFile(hFile, m_TexRefs[j]->FileName().c_str(), nL, &dwRWC, NULL); // íƒìŠ¤ì²˜ íŒŒì¼ ì´ë¦„..
 		}
 	}
 
@@ -434,7 +434,7 @@ void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 		if(iTexIndex >= 0 && iTexIndex < iTC && m_TexRefs[iTexIndex]) lpTex = m_TexRefs[iTexIndex]->Get();
 	}
 
-	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha »ç¿ë
+	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha ì‚¬ìš©
 	{
 		__AlphaPrimitive* pAP = s_AlphaMgr.Add();
 		if(pAP)
@@ -455,7 +455,7 @@ void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 			pAP->pwIndices			= m_PMInst.GetIndices();
 		}
 
-		return; // ·»´õ¸µ ¾ÈÇÏÁö·Õ.
+		return; // ë Œë”ë§ ì•ˆí•˜ì§€ë¡±.
 	}
 
 	static uint32_t dwFog, dwCull;
@@ -464,7 +464,7 @@ void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
 #endif
 
-	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ¹«½Ã..
+	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ë¬´ì‹œ..
 	{
 		s_lpD3DDev->GetRenderState(D3DRS_FOGENABLE, &dwFog);
 		if(TRUE == dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
@@ -475,7 +475,7 @@ void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	}
 
-	s_lpD3DDev->SetMaterial(&m_Mtl); // ÀçÁú ¼³Á¤..
+	s_lpD3DDev->SetMaterial(&m_Mtl); // ì¬ì§ˆ ì„¤ì •..
 	s_lpD3DDev->SetTexture(0, lpTex);
 	if(NULL != lpTex)
 	{
@@ -489,12 +489,12 @@ void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
 		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
 	}
 
-	// ·ÎµùÇÒ¶§ ¹Ì¸® °è»êÇØ ³õÀº ¿ùµå Çà·Ä Àû¿ë..
+	// ë¡œë”©í• ë•Œ ë¯¸ë¦¬ ê³„ì‚°í•´ ë†“ì€ ì›”ë“œ í–‰ë ¬ ì ìš©..
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 	m_PMInst.PartialRender(iCount, pIB);
 
-	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ¾È°³ »ç¿ëÇÏÁö ¾Ê´Â´Ù..
+	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ì•ˆê°œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤..
 	if((m_Mtl.nRenderFlags & RF_DOUBLESIDED) && D3DCULL_NONE != dwCull) 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, dwCull);
 }
 #else
@@ -514,7 +514,7 @@ void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 		if(iTexIndex >= 0 && iTexIndex < iTC && m_TexRefs[iTexIndex]) lpTex = m_TexRefs[iTexIndex]->Get();
 	}
 
-	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha »ç¿ë
+	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha ì‚¬ìš©
 	{
 		__AlphaPrimitive* pAP = s_AlphaMgr.Add();
 		if(pAP)
@@ -535,7 +535,7 @@ void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 			pAP->pwIndices			= m_PMInst.GetIndices();
 		}
 
-		return; // ·»´õ¸µ ¾ÈÇÏÁö·Õ.
+		return; // ë Œë”ë§ ì•ˆí•˜ì§€ë¡±.
 	}
 
 	DWORD dwFog, dwCull;
@@ -544,7 +544,7 @@ void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
 #endif
 
-	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ¹«½Ã..
+	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog ë¬´ì‹œ..
 	{
 		s_lpD3DDev->GetRenderState(D3DRS_FOGENABLE, &dwFog);
 		if(TRUE == dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
@@ -555,7 +555,7 @@ void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	}
 
-	s_lpD3DDev->SetMaterial(&m_Mtl); // ÀçÁú ¼³Á¤..
+	s_lpD3DDev->SetMaterial(&m_Mtl); // ì¬ì§ˆ ì„¤ì •..
 	s_lpD3DDev->SetTexture(0, lpTex);
 	if(NULL != lpTex)
 	{
@@ -569,12 +569,12 @@ void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
 	}
 
-	// ·ÎµùÇÒ¶§ ¹Ì¸® °è»êÇØ ³õÀº ¿ùµå Çà·Ä Àû¿ë..
+	// ë¡œë”©í• ë•Œ ë¯¸ë¦¬ ê³„ì‚°í•´ ë†“ì€ ì›”ë“œ í–‰ë ¬ ì ìš©..
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 	m_PMInst.PartialRender(iCount, pIndices);
 
-	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ¾È°³ »ç¿ëÇÏÁö ¾Ê´Â´Ù..
+	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // ì•ˆê°œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤..
 	if((m_Mtl.nRenderFlags & RF_DOUBLESIDED) && D3DCULL_NONE != dwCull) 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, dwCull);
 }
 #endif
@@ -596,8 +596,8 @@ CN3Shape::CN3Shape()
 	m_iBelong = 0;
 	m_iEventID = 0; // Event ID
 	m_iEventType = 0; // Event Type
-	m_iNPC_ID = 0;  // NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC ID
-	m_iNPC_Status = 0; // NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC Status
+	m_iNPC_ID = 0;  // NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC ID
+	m_iNPC_Status = 0; // NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC Status
 }
 
 CN3Shape::~CN3Shape()
@@ -618,9 +618,9 @@ void CN3Shape::Release()
 	
 	m_iBelong = 0;
 	m_iEventID = 0; // Event ID
-	m_iEventType = 0; // Event Type - ¹ÙÀÎµåÆ÷ÀÎÆ®,¼º¹®,·¹¹ö µîµî...
-	m_iNPC_ID = 0;  // NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC ID
-	m_iNPC_Status = 0; // NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC Status
+	m_iEventType = 0; // Event Type - ë°”ì¸ë“œí¬ì¸íŠ¸,ì„±ë¬¸,ë ˆë²„ ë“±ë“±...
+	m_iNPC_ID = 0;  // NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC ID
+	m_iNPC_Status = 0; // NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC Status
 
 	CN3TransformCollision::Release();
 }
@@ -629,13 +629,13 @@ void CN3Shape::Tick(float fFrm)
 {
 	if(false == m_bVisible) return;
 
-	// ¸¸¾à °¡±î¿î °Å¸®¸é.. Á»´õ ÄÃ¸µÀ» ´À½¼ÇÏ°Ô ÇÑ´Ù..
-	// °¡Àå Å« ½ºÄÉÀÏ °ªÀ» Ã£¾Æ¼­..
+	// ë§Œì•½ ê°€ê¹Œìš´ ê±°ë¦¬ë©´.. ì¢€ë” ì»¬ë§ì„ ëŠìŠ¨í•˜ê²Œ í•œë‹¤..
+	// ê°€ì¥ í° ìŠ¤ì¼€ì¼ ê°’ì„ ì°¾ì•„ì„œ..
 	float fScale = m_vScale.x;
 	if(fScale < m_vScale.y) fScale = m_vScale.y;
 	if(fScale < m_vScale.z) fScale = m_vScale.z;
 
-	// Ä«¸Ş¶ó¿Í ¸Ö¸® ¶³¾îÁö¸é Áö³ª°£´Ù..
+	// ì¹´ë©”ë¼ì™€ ë©€ë¦¬ ë–¨ì–´ì§€ë©´ ì§€ë‚˜ê°„ë‹¤..
 	float fDist = (m_vPos - s_CameraData.vEye).Magnitude();
 	if(fDist > s_CameraData.fFP + m_fRadius * fScale * 2.0f)
 	{
@@ -667,8 +667,8 @@ void CN3Shape::Tick(float fFrm)
 	}
 }
 
-// Ä«¸Ş¶ó À§Ä¡, Ä«¸Ş¶ó Æò¸é(°üÂû ÀıµÎÃ¼ Æò¸é) -> 12°³ÀÇ º¤ÅÍ ¹è¿­·Î µÇ¾î ÀÖ´Ù.
-// [0][1]:Ä«¸Ş¶ó À§Ä¡¿Í º¤ÅÍ, [2][3]:Ä«¸Ş¶ó ¹üÀ§ À§Ä¡¿Í ¹æÇâ º¤ÅÍ, [4][5] ~ [10][11]:»óÇÏÁÂ¿ìÆò¸éº¤ÅÍ
+// ì¹´ë©”ë¼ ìœ„ì¹˜, ì¹´ë©”ë¼ í‰ë©´(ê´€ì°° ì ˆë‘ì²´ í‰ë©´) -> 12ê°œì˜ ë²¡í„° ë°°ì—´ë¡œ ë˜ì–´ ìˆë‹¤.
+// [0][1]:ì¹´ë©”ë¼ ìœ„ì¹˜ì™€ ë²¡í„°, [2][3]:ì¹´ë©”ë¼ ë²”ìœ„ ìœ„ì¹˜ì™€ ë°©í–¥ ë²¡í„°, [4][5] ~ [10][11]:ìƒí•˜ì¢Œìš°í‰ë©´ë²¡í„°
 void CN3Shape::Render()
 {
 	if(false == m_bVisible) return;
@@ -690,7 +690,7 @@ void CN3Shape::Render()
 #ifdef _N3TOOL
 void CN3Shape::RenderSelected(bool bWireFrame)
 {
-	// Ãà±×¸®±â..
+	// ì¶•ê·¸ë¦¬ê¸°..
 	CN3Transform::Render(NULL, m_fRadius * 3.0f);
 
 	CN3SPart* pPD = NULL;
@@ -704,7 +704,7 @@ void CN3Shape::RenderSelected(bool bWireFrame)
 
 bool CN3Shape::Load(HANDLE hFile)
 {
-	CN3TransformCollision::Load(hFile); // ±âº»Á¤º¸ ÀĞ±â...
+	CN3TransformCollision::Load(hFile); // ê¸°ë³¸ì •ë³´ ì½ê¸°...
 
 	DWORD dwRWC = 0;
 	
@@ -720,15 +720,15 @@ bool CN3Shape::Load(HANDLE hFile)
 		{
 			m_Parts[i] = new CN3SPart();
 			m_Parts[i]->Load(hFile);
-			m_Parts[i]->ReCalcMatrix(m_Matrix); // Part Matrix °è»ê
+			m_Parts[i]->ReCalcMatrix(m_Matrix); // Part Matrix ê³„ì‚°
 		}
 	}
 		
-	ReadFile(hFile, &m_iBelong, 4, &dwRWC, NULL);	// ¼Ò¼Ó
+	ReadFile(hFile, &m_iBelong, 4, &dwRWC, NULL);	// ì†Œì†
 	ReadFile(hFile, &m_iEventID, 4, &dwRWC, NULL);	// Event ID
-	ReadFile(hFile, &m_iEventType, 4, &dwRWC, NULL); // Event Type - ¹ÙÀÎµå Æ÷ÀÎÆ®, ¼º¹®, ·¹¹ö µîµî...
-	ReadFile(hFile, &m_iNPC_ID, 4, &dwRWC, NULL);	// NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC ID
-	ReadFile(hFile, &m_iNPC_Status, 4, &dwRWC, NULL); // NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC Status
+	ReadFile(hFile, &m_iEventType, 4, &dwRWC, NULL); // Event Type - ë°”ì¸ë“œ í¬ì¸íŠ¸, ì„±ë¬¸, ë ˆë²„ ë“±ë“±...
+	ReadFile(hFile, &m_iNPC_ID, 4, &dwRWC, NULL);	// NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC ID
+	ReadFile(hFile, &m_iNPC_Status, 4, &dwRWC, NULL); // NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC Status
 
 	this->FindMinMax();
 
@@ -737,13 +737,13 @@ bool CN3Shape::Load(HANDLE hFile)
 
 bool CN3Shape::LoadTransformOnly(HANDLE hFile)
 {
-	return CN3Transform::Load(hFile); // ±âº»Á¤º¸ ÀĞ±â...
+	return CN3Transform::Load(hFile); // ê¸°ë³¸ì •ë³´ ì½ê¸°...
 }
 
 #ifdef _N3TOOL
 bool CN3Shape::Save(HANDLE hFile)
 {
-	CN3TransformCollision::Save(hFile); // ±âº»Á¤º¸ ÀĞ±â...
+	CN3TransformCollision::Save(hFile); // ê¸°ë³¸ì •ë³´ ì½ê¸°...
 	
 	DWORD dwRWC = 0;
 	
@@ -757,11 +757,11 @@ bool CN3Shape::Save(HANDLE hFile)
 		m_Parts[i]->Save(hFile);
 	}
 
-	WriteFile(hFile, &m_iBelong, 4, &dwRWC, NULL);		// ¼Ò¼Ó
+	WriteFile(hFile, &m_iBelong, 4, &dwRWC, NULL);		// ì†Œì†
 	WriteFile(hFile, &m_iEventID, 4, &dwRWC, NULL);		// Event ID
-	WriteFile(hFile, &m_iEventType, 4, &dwRWC, NULL);		// Event Type - ¹ÙÀÎµå Æ÷ÀÎÆ®, ¼º¹®, ·¹¹ö µîµî...
-	WriteFile(hFile, &m_iNPC_ID, 4, &dwRWC, NULL);		// NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC ID
-	WriteFile(hFile, &m_iNPC_Status, 4, &dwRWC, NULL);	// NPC ·Î ¾²´Â ¿ÀºêÁ§Æ®ÀÏ °æ¿ì NPC Status
+	WriteFile(hFile, &m_iEventType, 4, &dwRWC, NULL);		// Event Type - ë°”ì¸ë“œ í¬ì¸íŠ¸, ì„±ë¬¸, ë ˆë²„ ë“±ë“±...
+	WriteFile(hFile, &m_iNPC_ID, 4, &dwRWC, NULL);		// NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC ID
+	WriteFile(hFile, &m_iNPC_Status, 4, &dwRWC, NULL);	// NPC ë¡œ ì“°ëŠ” ì˜¤ë¸Œì íŠ¸ì¼ ê²½ìš° NPC Status
 
 	return true;
 }
@@ -810,15 +810,15 @@ bool CN3Shape::IsPMeshProcessed()
 
 void CN3Shape::ReCalcMatrix()
 {
-	CN3Transform::ReCalcMatrix(); // Transfomr Matrix ¸¦ °è»ê ÇØÁÖ°í..
+	CN3Transform::ReCalcMatrix(); // Transfomr Matrix ë¥¼ ê³„ì‚° í•´ì£¼ê³ ..
 
-	// °¢ ÆÄÆ®ÀÇ ¸ÅÆ®¸¯½º¸¦ ´Ù½Ã °è»êÇØ ÁØ´Ù..
+	// ê° íŒŒíŠ¸ì˜ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ ì¤€ë‹¤..
 	ReCalcPartMatrix();
 }
 
 void CN3Shape::ReCalcPartMatrix()
 {
-	// °¢ ÆÄÆ®ÀÇ ¸ÅÆ®¸¯½º¸¦ ´Ù½Ã °è»êÇØ ÁØ´Ù..
+	// ê° íŒŒíŠ¸ì˜ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ ì¤€ë‹¤..
 	int iPC = m_Parts.size();
 	for(int i = 0; i < iPC; i++)
 	{
@@ -840,13 +840,13 @@ void CN3Shape::FindMinMax()
 	__Vector3 vMinTmp(0,0,0);
 	__Vector3 vMaxTmp(0,0,0);
 
-	// °¡Àå Å« ÁöÁ¡Ã£±â..
+	// ê°€ì¥ í° ì§€ì ì°¾ê¸°..
 	static __Matrix44 mtxWI;
 	D3DXMatrixInverse(&mtxWI, NULL, &m_Matrix); // World Matrix Inverse
 	for(int i = 0; i < iPC; i++)
 	{
-		vMinTmp = m_Parts[i]->Min() * mtxWI; // ¿ùµå »óÀÇ ÃÖ¼Ò°ªÀ» ·ÎÄÃ ÁÂÇ¥·Î ¹Ù²Ù¾îÁØ´Ù..
-		vMaxTmp = m_Parts[i]->Max() * mtxWI; // ¿ùµå »óÀÇ ÃÖ´ë°ªÀ» ·ÎÄÃ ÁÂÇ¥·Î ¹Ù²Ù¾îÁØ´Ù..
+		vMinTmp = m_Parts[i]->Min() * mtxWI; // ì›”ë“œ ìƒì˜ ìµœì†Œê°’ì„ ë¡œì»¬ ì¢Œí‘œë¡œ ë°”ê¾¸ì–´ì¤€ë‹¤..
+		vMaxTmp = m_Parts[i]->Max() * mtxWI; // ì›”ë“œ ìƒì˜ ìµœëŒ€ê°’ì„ ë¡œì»¬ ì¢Œí‘œë¡œ ë°”ê¾¸ì–´ì¤€ë‹¤..
 
 		if(vMinTmp.x < m_vMin.x) m_vMin.x = vMinTmp.x;
 		if(vMinTmp.y < m_vMin.y) m_vMin.y = vMinTmp.y;
@@ -856,7 +856,7 @@ void CN3Shape::FindMinMax()
 		if(vMaxTmp.z > m_vMax.z) m_vMax.z = vMaxTmp.z;
 	}
 
-	// ÃÖ´ë ÃÖ¼Ò°ªÀ» °®°í ¹İÁö¸§ °è»êÇÑ´Ù..
+	// ìµœëŒ€ ìµœì†Œê°’ì„ ê°–ê³  ë°˜ì§€ë¦„ ê³„ì‚°í•œë‹¤..
 	m_fRadius = (m_vMax - m_vMin).Magnitude() * 0.5f;
 }
 
@@ -882,7 +882,7 @@ int CN3Shape::CheckCollisionPrecisely(bool bIgnoreBoxCheck, int ixScreen, int iy
 
 int CN3Shape::CheckCollisionPrecisely(bool bIgnoreBoxCheck, const __Vector3& vPos, const __Vector3& vDir, __Vector3* pVCol, __Vector3* pVNormal)
 {
-	if(false == bIgnoreBoxCheck && false == ::_CheckCollisionByBox(vPos, vDir, m_vMin * m_Matrix, m_vMax * m_Matrix)) return -1; // ¹Ú½º Ã¼Å© ¸ÕÀúÇÑ´Ù..
+	if(false == bIgnoreBoxCheck && false == ::_CheckCollisionByBox(vPos, vDir, m_vMin * m_Matrix, m_vMax * m_Matrix)) return -1; // ë°•ìŠ¤ ì²´í¬ ë¨¼ì €í•œë‹¤..
 
 	__Vector3 vPos2 = vPos, vDir2 = vDir;
 	int iPC = m_Parts.size();
@@ -896,18 +896,18 @@ int CN3Shape::CheckCollisionPrecisely(bool bIgnoreBoxCheck, const __Vector3& vPo
 		int nIndexCount = pPMI->GetNumIndices();
 
 		int nFC = nIndexCount / 3; // Face Count
-		if(nFC > 64 && false == ::_CheckCollisionByBox(vPos, vDir, m_Parts[i]->Min(), m_Parts[i]->Max())) continue;  // Face ¼ö°¡ 24 °³º¸´Ù ¸¹Àº °æ¿ì ÀÏ´Ü ¹Ú½ºÃ¼Å©¸¦ ÇÑ´Ù..
+		if(nFC > 64 && false == ::_CheckCollisionByBox(vPos, vDir, m_Parts[i]->Min(), m_Parts[i]->Max())) continue;  // Face ìˆ˜ê°€ 24 ê°œë³´ë‹¤ ë§ì€ ê²½ìš° ì¼ë‹¨ ë°•ìŠ¤ì²´í¬ë¥¼ í•œë‹¤..
 		
 		static __Matrix44 mtxWI;
 		D3DXMatrixInverse(&mtxWI, NULL, &(m_Parts[i]->m_Matrix)); // World Matrix Inverse
 
 		vPos2 = vPos * mtxWI;
 		mtxWI.PosSet(0,0,0);
-		vDir2 = vDir * mtxWI; // ¿ªÇà·Ä·Î È¸Àü..
+		vDir2 = vDir * mtxWI; // ì—­í–‰ë ¬ë¡œ íšŒì „..
 
 		int nCI0, nCI1, nCI2;
 		__Vector3 v0, v1, v2;
-		for(int j = 0; j < nFC; j++) // °¢°¢ÀÇ Face ¸¶´Ù Ãæµ¹Ã¼Å©..
+		for(int j = 0; j < nFC; j++) // ê°ê°ì˜ Face ë§ˆë‹¤ ì¶©ëŒì²´í¬..
 		{
 			nCI0 = pwIs[j*3+0];
 			nCI1 = pwIs[j*3+1];
@@ -925,8 +925,8 @@ int CN3Shape::CheckCollisionPrecisely(bool bIgnoreBoxCheck, const __Vector3& vPo
 				(*pVNormal).Normalize();
 
 				D3DXMatrixInverse(&mtxWI, NULL, &(m_Parts[i]->m_Matrix)); // World Matrix Inverse
-				mtxWI.PosSet(0,0,0); // ¿ªÇà·Ä·Î È¸Àü..
-				(*pVNormal) *= mtxWI; // ¿ªÇà·Ä·Î È¸Àü..
+				mtxWI.PosSet(0,0,0); // ì—­í–‰ë ¬ë¡œ íšŒì „..
+				(*pVNormal) *= mtxWI; // ì—­í–‰ë ¬ë¡œ íšŒì „..
 			}
 			return i;
 		}
@@ -935,7 +935,7 @@ int CN3Shape::CheckCollisionPrecisely(bool bIgnoreBoxCheck, const __Vector3& vPo
 	return -1;
 }
 
-bool CN3Shape::MakeCollisionMeshByParts()  // Ãæµ¹ ¸Ş½Ã¸¦ ¹Ú½º·Î ¸¸µç´Ù...
+bool CN3Shape::MakeCollisionMeshByParts()  // ì¶©ëŒ ë©”ì‹œë¥¼ ë°•ìŠ¤ë¡œ ë§Œë“ ë‹¤...
 {
 	int iPC = m_Parts.size();
 	int iVC = 0, iIC = 0;
@@ -990,10 +990,10 @@ bool CN3Shape::MakeCollisionMeshByParts()  // Ãæµ¹ ¸Ş½Ã¸¦ ¹Ú½º·Î ¸¸µç´Ù...
 
 	int iCount = CN3Base::s_MngVMesh.Count();
 	char szBuff[256];
-	sprintf(szBuff, "%s_collision_%d.n3vmesh", m_szFileName.c_str(), iCount); // ÀÓ½Ã·Î ÀÌ¸§ÀÏ Áş°í..
+	sprintf(szBuff, "%s_collision_%d.n3vmesh", m_szFileName.c_str(), iCount); // ì„ì‹œë¡œ ì´ë¦„ì¼ ì§“ê³ ..
 
 	pVMesh->FileNameSet(szBuff);
-	CN3Base::s_MngVMesh.Delete(&m_pMeshCollision); // ÀüÀÇ °Å Áö¿ì°í..
+	CN3Base::s_MngVMesh.Delete(&m_pMeshCollision); // ì „ì˜ ê±° ì§€ìš°ê³ ..
 	CN3Base::s_MngVMesh.Add(pVMesh);
 	m_pMeshCollision = s_MngVMesh.Get(pVMesh->FileName());
 
@@ -1002,7 +1002,7 @@ bool CN3Shape::MakeCollisionMeshByParts()  // Ãæµ¹ ¸Ş½Ã¸¦ ¹Ú½º·Î ¸¸µç´Ù...
 	return true;
 }
 
-bool CN3Shape::MakeCollisionMeshByPartsDetail()  // ÇöÀç ¸ğ½À ±×´ë·Î... Ãæµ¹ ¸Ş½Ã¸¦ ¸¸µç´Ù...
+bool CN3Shape::MakeCollisionMeshByPartsDetail()  // í˜„ì¬ ëª¨ìŠµ ê·¸ëŒ€ë¡œ... ì¶©ëŒ ë©”ì‹œë¥¼ ë§Œë“ ë‹¤...
 {
 	int iPC = m_Parts.size();
 	int iMaxNumVertices = 0, iMaxNumIndices = 0;
@@ -1067,10 +1067,10 @@ bool CN3Shape::MakeCollisionMeshByPartsDetail()  // ÇöÀç ¸ğ½À ±×´ë·Î... Ãæµ¹ ¸Ş½
 
 	int iCount = CN3Base::s_MngVMesh.Count();
 	char szBuff[256];
-	sprintf(szBuff, "%s_collision_%d.n3vmesh", m_szFileName.c_str(), iCount); // ÀÓ½Ã·Î ÀÌ¸§ÀÏ Áş°í..
+	sprintf(szBuff, "%s_collision_%d.n3vmesh", m_szFileName.c_str(), iCount); // ì„ì‹œë¡œ ì´ë¦„ì¼ ì§“ê³ ..
 
 	pVMesh->FileNameSet(szBuff);
-	CN3Base::s_MngVMesh.Delete(&m_pMeshCollision); // ÀüÀÇ °Å Áö¿ì°í..
+	CN3Base::s_MngVMesh.Delete(&m_pMeshCollision); // ì „ì˜ ê±° ì§€ìš°ê³ ..
 	CN3Base::s_MngVMesh.Add(pVMesh);
 	m_pMeshCollision = s_MngVMesh.Get(pVMesh->FileName());
 
@@ -1082,7 +1082,7 @@ bool CN3Shape::MakeCollisionMeshByPartsDetail()  // ÇöÀç ¸ğ½À ±×´ë·Î... Ãæµ¹ ¸Ş½
 #ifdef _N3TOOL
 void CN3Shape::MakeDefaultMaterial()
 {
-	// °¢ ÆÄÆ®ÀÇ ÀçÁúÀ» ±âº»ÀûÀÎ Èò»öÀ¸·Î ÇØÁØ´Ù..
+	// ê° íŒŒíŠ¸ì˜ ì¬ì§ˆì„ ê¸°ë³¸ì ì¸ í°ìƒ‰ìœ¼ë¡œ í•´ì¤€ë‹¤..
 	__Material mtlBasic;
 	mtlBasic.Init();
 
@@ -1097,11 +1097,11 @@ void CN3Shape::MakeDefaultMaterial()
 #ifdef _N3TOOL
 void CN3Shape::RemoveRenderFlags(int nFlags)
 {
-	// °¢ ÆÄÆ®ÀÇ ¸ÅÆ®¸¯½º¸¦ ´Ù½Ã °è»êÇØ ÁØ´Ù..
+	// ê° íŒŒíŠ¸ì˜ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ ì¤€ë‹¤..
 	int iPC = m_Parts.size();
 	for(int i = 0; i < iPC; i++)
 	{
-		m_Parts[i]->m_Mtl.nRenderFlags &= (~nFlags);; // ±âº» Èò»ö..
+		m_Parts[i]->m_Mtl.nRenderFlags &= (~nFlags);; // ê¸°ë³¸ í°ìƒ‰..
 	}
 }
 #endif // end of _N3TOOL
@@ -1131,7 +1131,7 @@ bool CN3Shape::SaveToSameFolder(const std::string& szFullPath)
 	for(i = 0; i < iPC; i++)
 	{
 		szOldFN = m_Parts[i]->Mesh()->FileName();
-		OldPartFNs.push_back(szOldFN); // ÆÄÀÏ ÀÌ¸§ º¸°ü..
+		OldPartFNs.push_back(szOldFN); // íŒŒì¼ ì´ë¦„ ë³´ê´€..
 
 		_splitpath(szOldFN.c_str(), szDrive, szDir, szFName, szExt);
 		szNameTmp = szPath + szFName + szExt;
@@ -1143,7 +1143,7 @@ bool CN3Shape::SaveToSameFolder(const std::string& szFullPath)
 			CN3Texture* pTex = m_Parts[i]->Tex(j);
 
 			szOldFN = pTex->FileName();
-			OldTexFNs.push_back(szOldFN); // ÆÄÀÏ ÀÌ¸§ º¸°ü..
+			OldTexFNs.push_back(szOldFN); // íŒŒì¼ ì´ë¦„ ë³´ê´€..
 
 			_splitpath(szOldFN.c_str(), szDrive, szDir, szFName, szExt);
 			szNameTmp = szPath + szFName + szExt;
@@ -1157,7 +1157,7 @@ bool CN3Shape::SaveToSameFolder(const std::string& szFullPath)
 	this->SaveToFile(szNameTmp);
 	m_szFileName = szOldFN;
 
-	// ¿ø·¡´ë·Î ÆÄÀÏ ÀÌ¸§ µ¹·Á³õ±â..
+	// ì›ë˜ëŒ€ë¡œ íŒŒì¼ ì´ë¦„ ëŒë ¤ë†“ê¸°..
 	iPC = m_Parts.size();
 	int iSeq = 0;
 	for(i = 0; i < iPC; i++)
@@ -1172,7 +1172,7 @@ bool CN3Shape::SaveToSameFolder(const std::string& szFullPath)
 		}
 	}
 
-//	By : Ecli666 ( On 2002-10-16 ¿ÀÀü 11:44:19 )
+//	By : Ecli666 ( On 2002-10-16 ì˜¤ì „ 11:44:19 )
 //
 	// TODO(srmeier): m_pvCollisions is undefined, if I need this I'll have to revisit this
 	/*
@@ -1183,7 +1183,7 @@ bool CN3Shape::SaveToSameFolder(const std::string& szFullPath)
 	CollisionMesh()->FileNameSet(szOldFN);	
 	*/
 
-//	~(By Ecli666 On 2002-10-16 ¿ÀÀü 11:44:19 )
+//	~(By Ecli666 On 2002-10-16 ì˜¤ì „ 11:44:19 )
 
 	return true;
 }
@@ -1235,7 +1235,7 @@ bool CN3Shape::SaveToSameFolderAndMore(const std::string& szFullPath, const std:
 	this->SaveToFile(szNameTmp);
 	m_szFileName = szRelativePath + szFName + szExt;
 
-//	By : Ecli666 ( On 2002-10-16 ¿ÀÀü 11:44:19 )
+//	By : Ecli666 ( On 2002-10-16 ì˜¤ì „ 11:44:19 )
 //
 	if (CollisionMesh())
 	{
@@ -1245,14 +1245,14 @@ bool CN3Shape::SaveToSameFolderAndMore(const std::string& szFullPath, const std:
 		szOldFN = szFName; szOldFN += szExt; 
 		CollisionMesh()->FileNameSet(szRelativePath + szFName + szExt);	
 	}
-//	~(By Ecli666 On 2002-10-16 ¿ÀÀü 11:44:19 )
+//	~(By Ecli666 On 2002-10-16 ì˜¤ì „ 11:44:19 )
 
 	return true;
 }
 
 #endif // end of _N3TOOL
 
-//	By : Ecli666 ( On 2002-08-06 ¿ÀÈÄ 4:33:32 )
+//	By : Ecli666 ( On 2002-08-06 ì˜¤í›„ 4:33:32 )
 //
 void CN3Shape::SetMaxLOD()
 {
@@ -1338,5 +1338,5 @@ void CN3Shape::PartialGetCollision(int iIndex, __Vector3& vec)
 	CollisionMesh()->PartialGetCollision(iIndex, vec);
 }
 
-//	~(By Ecli666 On 2002-08-06 ¿ÀÈÄ 4:33:32 )
+//	~(By Ecli666 On 2002-08-06 ì˜¤í›„ 4:33:32 )
 

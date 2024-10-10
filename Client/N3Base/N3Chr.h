@@ -1,4 +1,4 @@
-// N3Chr.h: interface for the CN3Chr class.
+ï»¿// N3Chr.h: interface for the CN3Chr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@
 #include <vector>
 
 const int MAX_CHR_JOINT = 256;
-const int MAX_CHR_LOD = 4; // 4 ´Ü°è Level Of Detail
+const int MAX_CHR_LOD = 4; // 4 ë‹¨ê³„ Level Of Detail
 const int MAX_CHR_LOD_DELTA = 4;
 
 class CN3CPartSkins : public CN3BaseFileAccess
@@ -55,7 +55,7 @@ public:
 	bool				m_bVisible;
 protected:
 	CN3Texture*			m_pTexRef;
-	CN3Texture*			m_pTexOverlapRef; // À§¿¡ µ¡Ä¥ÇÒ ÅØ½ºÃ³
+	CN3Texture*			m_pTexOverlapRef; // ìœ„ì— ë§ì¹ í•  í…ìŠ¤ì²˜
 //	std::vector<class CN3AnimatedTexture*> m_AnimatedTextures;
 	CN3CPartSkins*		m_pSkinsRef;
 public:
@@ -66,7 +66,7 @@ public:
 	CN3Texture*		TexSet(const std::string& szFN) { s_MngTex.Delete(&m_pTexRef); m_pTexRef = s_MngTex.Get(szFN, true, s_Options.iTexLOD_Chr); return m_pTexRef; }
 	void			TexSet(CN3Texture* pTex) { s_MngTex.Delete(&m_pTexRef); m_pTexRef = pTex; }
 	
-	CN3Texture*		TexOverlap() { return m_pTexOverlapRef; }  // À§¿¡ µ¡Ä¥ÇÒ ÅØ½ºÃ³
+	CN3Texture*		TexOverlap() { return m_pTexOverlapRef; }  // ìœ„ì— ë§ì¹ í•  í…ìŠ¤ì²˜
 	CN3Texture*		TexOverlapSet(const std::string& szFN);
 	void			TexOverlapSet(CN3Texture* pTex);
 	
@@ -98,17 +98,17 @@ class CN3CPlugBase : public CN3BaseFileAccess
 public:
 	e_PlugType			m_ePlugType;
 	bool				m_bVisible;
-	int					m_nJointIndex; // ºÙ´Â Mesh ÀÇ Joint Index.. ¾î´À Á¶ÀÎÆ®¿¡ ºÙ´À³Ä.. ±×°ÍÀÌ ¹®Á¦·Î´Ù...
-	__Vector3			m_vPosition; // ºÙ´Â Mesh ÀÇ Offset Vector.
-	__Vector3			m_vScale; // ºÙ´Â Mesh ÀÇ ½ºÄÉÀÏ.
+	int					m_nJointIndex; // ë¶™ëŠ” Mesh ì˜ Joint Index.. ì–´ëŠ ì¡°ì¸íŠ¸ì— ë¶™ëŠëƒ.. ê·¸ê²ƒì´ ë¬¸ì œë¡œë‹¤...
+	__Vector3			m_vPosition; // ë¶™ëŠ” Mesh ì˜ Offset Vector.
+	__Vector3			m_vScale; // ë¶™ëŠ” Mesh ì˜ ìŠ¤ì¼€ì¼.
 	__Material			m_Mtl;
 	__Matrix44			m_Matrix;	
 
 protected:
 	CN3PMeshInstance	m_PMeshInst; // Progressive Mesh Instance
 	CN3Texture*			m_pTexRef; // Texture Reference Pointer
-	CN3Texture*			m_pTexOverlapRef; // À§¿¡ µ¡Ä¥ÇÒ Texture Reference Pointer
-//		__Vector3 m_vRotation; // ºÙ´Â Mesh ÀÇ RotationÀÏ.
+	CN3Texture*			m_pTexOverlapRef; // ìœ„ì— ë§ì¹ í•  Texture Reference Pointer
+//		__Vector3 m_vRotation; // ë¶™ëŠ” Mesh ì˜ Rotationì¼.
 	__Matrix44			m_MtxRot; // Rotation Matrix;
 
 public:
@@ -138,7 +138,7 @@ public:
 	CN3Texture* TexSet(const std::string& szFN) { s_MngTex.Delete(&m_pTexRef); m_pTexRef = s_MngTex.Get(szFN, true, s_Options.iTexLOD_Chr); return m_pTexRef; }
 	void		TexSet(CN3Texture* pTex) { s_MngTex.Delete(&m_pTexRef); m_pTexRef = pTex; }
 
-	CN3Texture* TexOverlap() { return m_pTexOverlapRef; }  // À§¿¡ µ¡Ä¥ÇÒ ÅØ½ºÃ³
+	CN3Texture* TexOverlap() { return m_pTexOverlapRef; }  // ìœ„ì— ë§ì¹ í•  í…ìŠ¤ì²˜
 	CN3Texture* TexOverlapSet(const std::string& szFN);
 	void		TexOverlapSet(CN3Texture* pTex);
 	
@@ -154,13 +154,13 @@ class CN3CPlug: public CN3CPlugBase
 {
 public:
 	bool			m_bRenderTrace;
-	int 			m_nTraceStep; // ±ËÀûÀÇ ±æÀÌ..
-	D3DCOLOR		m_crTrace; // ±ËÀû »ö±ò.. °ËÀº»öÀÌ¸é ¾ø´Ù..
-	float			m_fTrace0; // ±ËÀû À§Ä¡..
-	float			m_fTrace1; // ±ËÀû À§Ä¡..
+	int 			m_nTraceStep; // ê¶¤ì ì˜ ê¸¸ì´..
+	D3DCOLOR		m_crTrace; // ê¶¤ì  ìƒ‰ê¹”.. ê²€ì€ìƒ‰ì´ë©´ ì—†ë‹¤..
+	float			m_fTrace0; // ê¶¤ì  ìœ„ì¹˜..
+	float			m_fTrace1; // ê¶¤ì  ìœ„ì¹˜..
 
 	//fx.......
-	CN3PMeshInstance			m_PMeshInstFX; // FX ¿¡ ¾µ PMesh Instance
+	CN3PMeshInstance			m_PMeshInstFX; // FX ì— ì“¸ PMesh Instance
 	class CN3FXBundle*			m_pFXMainBundle;
 	class CN3FXBundle*			m_pFXTailBundle[MAX_FXTAIL];
 	class CN3FXPartBillBoard*	m_pFXPart;
@@ -172,7 +172,7 @@ public:
 #ifdef _N3TOOL
 	virtual bool	Save(HANDLE hFile);
 	void			ImportPMesh(const std::string& szFileName);
-	void			RenderFXLines(const __Matrix44& mtxParent, const __Matrix44& mtxJoint); // FX µé¾î°¥ °÷¿¡ ¼±À» ±×·ÁÁØ´Ù.
+	void			RenderFXLines(const __Matrix44& mtxParent, const __Matrix44& mtxJoint); // FX ë“¤ì–´ê°ˆ ê³³ì— ì„ ì„ ê·¸ë ¤ì¤€ë‹¤.
 #endif // end of _N3TOOL
 	virtual void	Render(const __Matrix44& mtxParent, const __Matrix44& mtxJoint);
 	virtual void	Release();
@@ -209,9 +209,9 @@ protected:
 #endif
 };
 
-const int MAX_CHR_ANI_PART = 2; // 0 - »óÃ¼, 1 - ÇÏÃ¼ ::: °üÀıµéÀ» ³ª´©¾î¼­ ³ª´©¾î¼­ ¿¡´Ï¸ŞÀÌ¼Ç ¼³Á¤..
-const int MAX_PLUG_TRACE = 2; // ÃÖ´ë µÎ°³ÀÇ ¹«±â ±ËÀûÀ» ³²±ä´Ù..
-const int MAX_PLUG_TRACE_VERTEX = 64; // ¹«±â ±ËÀû Á¡ÀÇ ¼ö.. Á¡ 8 °³·Î´Â ÀÜ»óÀÌ 3´Ü°è·Î ³²´Â´Ù..
+const int MAX_CHR_ANI_PART = 2; // 0 - ìƒì²´, 1 - í•˜ì²´ ::: ê´€ì ˆë“¤ì„ ë‚˜ëˆ„ì–´ì„œ ë‚˜ëˆ„ì–´ì„œ ì—ë‹ˆë©”ì´ì…˜ ì„¤ì •..
+const int MAX_PLUG_TRACE = 2; // ìµœëŒ€ ë‘ê°œì˜ ë¬´ê¸° ê¶¤ì ì„ ë‚¨ê¸´ë‹¤..
+const int MAX_PLUG_TRACE_VERTEX = 64; // ë¬´ê¸° ê¶¤ì  ì ì˜ ìˆ˜.. ì  8 ê°œë¡œëŠ” ì”ìƒì´ 3ë‹¨ê³„ë¡œ ë‚¨ëŠ”ë‹¤..
 
 typedef std::vector<CN3CPart*>::iterator	it_CPart;
 typedef std::vector<CN3CPlug*>::iterator	it_CPlug;
@@ -222,25 +222,25 @@ class CN3Chr : public CN3TransformCollision
 	friend class CPlayerMySelf;
 
 public:
-	int							m_nLOD; // Level Of Detail - °­Á¦·Î ¼¼ÆÃÇÒ¼ö ÀÖµµ·Ï ÇÑ´Ù..
-	int							m_nLOD_0; // Level Of Detail - 0°¡Àå µğÅ×ÀÏÇÑ °ªÀ¸·Î °è»êµÈ LOD °­Á¦·Î ¼¼ÆÃÇÒ¼ö ÀÖµµ·Ï ÇÑ´Ù..
+	int							m_nLOD; // Level Of Detail - ê°•ì œë¡œ ì„¸íŒ…í• ìˆ˜ ìˆë„ë¡ í•œë‹¤..
+	int							m_nLOD_0; // Level Of Detail - 0ê°€ì¥ ë””í…Œì¼í•œ ê°’ìœ¼ë¡œ ê³„ì‚°ëœ LOD ê°•ì œë¡œ ì„¸íŒ…í• ìˆ˜ ìˆë„ë¡ í•œë‹¤..
 
 protected:
-	static int s_iLODDelta; // LOD °è»ê¿¡ ÇÊ¿äÇÑ ÀÎµ¦½º..
+	static int s_iLODDelta; // LOD ê³„ì‚°ì— í•„ìš”í•œ ì¸ë±ìŠ¤..
 
-	CN3Joint*					m_pRootJointRef; // ÇÑ°³ÀÇ »À´ë¸¸À» ¾´´Ù..
+	CN3Joint*					m_pRootJointRef; // í•œê°œì˜ ë¼ˆëŒ€ë§Œì„ ì“´ë‹¤..
 	
-	std::vector<CN3Joint*>		m_JointRefs; // °¢ Á¶ÀÎÆ®¿¡ ÂüÁ¶ Æ÷ÀÎÅÍ
-	std::vector<__Matrix44>		m_MtxJoints; // °¢ Á¶ÀÎÆ®ÀÇ Çà·Ä.. Æ÷ÀÎÅÍ·Î µÎÁö ¾ÊÀº ÀÌÀ¯´Â °¢ Ä³¸¯ÅÍ¸¶´Ù µû·Î ¿¡´Ï¸ŞÀÌ¼ÇÀÌ µÇ±â À§ÇÔÀÌ´Ù..
-	std::vector<__Matrix44>		m_MtxInverses; // Á¶ÀÎÆ®¿¡ ´ëÇÑ ¿ªÇà·Ä
+	std::vector<CN3Joint*>		m_JointRefs; // ê° ì¡°ì¸íŠ¸ì— ì°¸ì¡° í¬ì¸í„°
+	std::vector<__Matrix44>		m_MtxJoints; // ê° ì¡°ì¸íŠ¸ì˜ í–‰ë ¬.. í¬ì¸í„°ë¡œ ë‘ì§€ ì•Šì€ ì´ìœ ëŠ” ê° ìºë¦­í„°ë§ˆë‹¤ ë”°ë¡œ ì—ë‹ˆë©”ì´ì…˜ì´ ë˜ê¸° ìœ„í•¨ì´ë‹¤..
+	std::vector<__Matrix44>		m_MtxInverses; // ì¡°ì¸íŠ¸ì— ëŒ€í•œ ì—­í–‰ë ¬
 
-	std::vector<CN3CPart*>		m_Parts; // °¢ Ä³¸¯ÅÍÀÇ ºÎºĞº° Data Pointer List
-	std::vector<CN3CPlug*>		m_Plugs; // ÀÌ Ä³¸¯ÅÍ¿¡ ºÙÀÌ´Â ¹«±âµîÀÇ Data Pointer List
+	std::vector<CN3CPart*>		m_Parts; // ê° ìºë¦­í„°ì˜ ë¶€ë¶„ë³„ Data Pointer List
+	std::vector<CN3CPlug*>		m_Plugs; // ì´ ìºë¦­í„°ì— ë¶™ì´ëŠ” ë¬´ê¸°ë“±ì˜ Data Pointer List
 	std::vector<__VertexColor*>	m_vTraces; // Plug Trace Polygon
-	class CN3FXPlug*			m_pFXPlug;	// Ä³¸¯ÅÍ¿¡ FX¸¦ ºÙÀÌ´Â °Í.
+	class CN3FXPlug*			m_pFXPlug;	// ìºë¦­í„°ì— FXë¥¼ ë¶™ì´ëŠ” ê²ƒ.
 
-	int							m_nJointPartStarts[MAX_CHR_ANI_PART]; // Á¶ÀÎÆ®ÀÇ ÀÏºÎºĞÀÌ µû·Î ¿¡´Ï¸ŞÀÌ¼Ç µÇ¾ß ÇÑ´Ù¸é.. Á¶ÀÎÆ® ÀÎµ¦½º ½ÃÀÛ ¹øÈ£
-	int							m_nJointPartEnds[MAX_CHR_ANI_PART]; // Á¶ÀÎÆ®ÀÇ ÀÏºÎºĞÀÌ µû·Î ¿¡´Ï¸ŞÀÌ¼Ç µÇ¾ß ÇÑ´Ù¸é.. Á¶ÀÎÆ® ÀÎµ¦½º ³¡ ¹øÈ£
+	int							m_nJointPartStarts[MAX_CHR_ANI_PART]; // ì¡°ì¸íŠ¸ì˜ ì¼ë¶€ë¶„ì´ ë”°ë¡œ ì—ë‹ˆë©”ì´ì…˜ ë˜ì•¼ í•œë‹¤ë©´.. ì¡°ì¸íŠ¸ ì¸ë±ìŠ¤ ì‹œì‘ ë²ˆí˜¸
+	int							m_nJointPartEnds[MAX_CHR_ANI_PART]; // ì¡°ì¸íŠ¸ì˜ ì¼ë¶€ë¶„ì´ ë”°ë¡œ ì—ë‹ˆë©”ì´ì…˜ ë˜ì•¼ í•œë‹¤ë©´.. ì¡°ì¸íŠ¸ ì¸ë±ìŠ¤ ë ë²ˆí˜¸
 	
 //	CN3Skin*	m_pSkinCollision;
 	
@@ -248,32 +248,32 @@ protected:
 
 	struct __FrmCtrl
 	{
-		__AnimData*		pAniData;	// ÇöÀç ¿¡´Ï¸ŞÀÌ¼Ç µ¥ÀÌÅÍ Æ÷ÀÎÅÍ..
+		__AnimData*		pAniData;	// í˜„ì¬ ì—ë‹ˆë©”ì´ì…˜ ë°ì´í„° í¬ì¸í„°..
 
-		int		iAni;					// ÇöÀç ¿¡´Ï¸ŞÀÌ¼Ç
-		bool	bOnceAndFreeze;			// ÇÑ¹ø¸¸ ÇÏ°í ¸ØÃç¾ß ÇÏ´Â°¡??
-		bool	bProcessingDelayNow;	// Áö±İ Áö¿¬½Ã°£À» Ã³¸®ÇÏ´Â°¡??
-		float	fFrmCur;				// ÇöÀç ÇÁ·¹ÀÓ
-		float	fFrmPrev;				// ÃÖ±Ù ÇÁ·¹ÀÓ
-		int		iAniLoop;				// ¿¡´Ï¸ŞÀÌ¼ÇÀÌ ³¡³µ³ª??
-		float	fBlendFrm;				// ÇöÀç ¿¡´Ï¸ŞÀÌ¼ÇÀÇ ½ÃÀÛÇÁ·¹ÀÓ°ú ºí·»µùÇÒ ÇÁ·¹ÀÓ
-		float	fBlendTimeCur;			// ÇöÀç ºí·»µù ½Ã°£..
-		float	fBlendTime;				// ºí·»µùÇÒ ½Ã°£. (ÃÊ´ÜÀ§)
-		float	fFreezeTime;			// ¸ØÃâ ½Ã°£..
+		int		iAni;					// í˜„ì¬ ì—ë‹ˆë©”ì´ì…˜
+		bool	bOnceAndFreeze;			// í•œë²ˆë§Œ í•˜ê³  ë©ˆì¶°ì•¼ í•˜ëŠ”ê°€??
+		bool	bProcessingDelayNow;	// ì§€ê¸ˆ ì§€ì—°ì‹œê°„ì„ ì²˜ë¦¬í•˜ëŠ”ê°€??
+		float	fFrmCur;				// í˜„ì¬ í”„ë ˆì„
+		float	fFrmPrev;				// ìµœê·¼ í”„ë ˆì„
+		int		iAniLoop;				// ì—ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ë‚˜??
+		float	fBlendFrm;				// í˜„ì¬ ì—ë‹ˆë©”ì´ì…˜ì˜ ì‹œì‘í”„ë ˆì„ê³¼ ë¸”ë Œë”©í•  í”„ë ˆì„
+		float	fBlendTimeCur;			// í˜„ì¬ ë¸”ë Œë”© ì‹œê°„..
+		float	fBlendTime;				// ë¸”ë Œë”©í•  ì‹œê°„. (ì´ˆë‹¨ìœ„)
+		float	fFreezeTime;			// ë©ˆì¶œ ì‹œê°„..
 
 		void Init()
 		{
 			pAniData = NULL;
-			iAni = -1;						// ÇöÀç ¿¡´Ï¸ŞÀÌ¼Ç
-			bOnceAndFreeze = false;			// µ¹¾Æ°¥ ¿¡´Ï¸ŞÀÌ¼Ç..
-			bProcessingDelayNow = false;	// Áö±İ Áö¿¬½Ã°£À» Ã³¸®ÇÏ´Â°¡??
+			iAni = -1;						// í˜„ì¬ ì—ë‹ˆë©”ì´ì…˜
+			bOnceAndFreeze = false;			// ëŒì•„ê°ˆ ì—ë‹ˆë©”ì´ì…˜..
+			bProcessingDelayNow = false;	// ì§€ê¸ˆ ì§€ì—°ì‹œê°„ì„ ì²˜ë¦¬í•˜ëŠ”ê°€??
 
 			fFrmCur = 0;
-			fFrmPrev = 0;					// ÃÖ±Ù ÇÁ·¹ÀÓ
-			iAniLoop = 0;					// ¿¡´Ï¸ŞÀÌ¼ÇÀÌ ³¡³µ´Â°¡?
-			fBlendFrm = 0;					// ºí·»µùÇÒ ¿¡´Ï¸ŞÀÌ¼Ç µ¥ÀÌÅÍ Æ÷ÀÎÅÍ..
-			fBlendTimeCur = 0;				// ÇöÀç ºí·»µù ½Ã°£..
-			fBlendTime = 0;					// ºí·»µùÇÒ ½Ã°£. (ÃÊ´ÜÀ§)
+			fFrmPrev = 0;					// ìµœê·¼ í”„ë ˆì„
+			iAniLoop = 0;					// ì—ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ëŠ”ê°€?
+			fBlendFrm = 0;					// ë¸”ë Œë”©í•  ì—ë‹ˆë©”ì´ì…˜ ë°ì´í„° í¬ì¸í„°..
+			fBlendTimeCur = 0;				// í˜„ì¬ ë¸”ë Œë”© ì‹œê°„..
+			fBlendTime = 0;					// ë¸”ë Œë”©í•  ì‹œê°„. (ì´ˆë‹¨ìœ„)
 		}
 		__FrmCtrl()
 		{
@@ -281,8 +281,8 @@ protected:
 		}
 	};
 	__FrmCtrl		m_FrmCtrl;
-	__FrmCtrl		m_FrmCtrlUpper;	// »óÃ¼¿ë...
-	float			m_fAniSpeedDelta; // ¿¡´Ï¸ŞÀÌ¼Ç ¼Óµµ Á¶Á¤ º¯¼ö 1 ÀÌº¸Åë, ´õ Å©¸é »¡¶óÁø´Ù..
+	__FrmCtrl		m_FrmCtrlUpper;	// ìƒì²´ìš©...
+	float			m_fAniSpeedDelta; // ì—ë‹ˆë©”ì´ì…˜ ì†ë„ ì¡°ì • ë³€ìˆ˜ 1 ì´ë³´í†µ, ë” í¬ë©´ ë¹¨ë¼ì§„ë‹¤..
 
 public:
 	int				CheckCollisionPrecisely(const __Vector3& vPos, const __Vector3& vDir, __Vector3* pvPick = NULL);
@@ -290,7 +290,7 @@ public:
 	static void		LODDeltaSet(int iLODDelta) { if(s_iLODDelta >= 0 && iLODDelta <= 3) s_iLODDelta = iLODDelta; }
 	static int 		LODDelta() { return s_iLODDelta; }
 
-	void			FindMinMax(); // ÃÖ´ë ÃÖ¼Ò°ªÀ» Ã£´Â´Ù.
+	void			FindMinMax(); // ìµœëŒ€ ìµœì†Œê°’ì„ ì°¾ëŠ”ë‹¤.
 	int				JointPartStart(int nAniPart) { if(nAniPart < 0 || nAniPart >= MAX_CHR_ANI_PART) return -1; return m_nJointPartStarts[nAniPart]; }
 	int				JointPartEnd(int nAniPart) { if(nAniPart < 0 || nAniPart >= MAX_CHR_ANI_PART) return -1; return m_nJointPartEnds[nAniPart]; }
 	void			JointPartSet(int nAniPart, int nJS, int nJE);
@@ -326,54 +326,54 @@ public:
 	void		TickPlugs(float fLOD);
 	void		RemakePlugTracePolygons();
 
-	float		Height() { return m_vMax.y * m_vScale.y; } // ½ºÄÉÀÏÀ» Àû¿ëÇÑ Å° ...
-	float		Radius() { return m_fRadius * m_vScale.y; } // ½ºÄÉÀÏÀ» Àû¿ëÇÑ ³Êºñ...
+	float		Height() { return m_vMax.y * m_vScale.y; } // ìŠ¤ì¼€ì¼ì„ ì ìš©í•œ í‚¤ ...
+	float		Radius() { return m_fRadius * m_vScale.y; } // ìŠ¤ì¼€ì¼ì„ ì ìš©í•œ ë„ˆë¹„...
 
 	CN3Joint*	Joint() { return m_pRootJointRef; }
 	void		JointSet(const std::string& szFN);
 
-	// Animation °ü·Ã ÇÔ¼ö
+	// Animation ê´€ë ¨ í•¨ìˆ˜
 #ifdef _N3TOOL
 	void		AniDefaultSet();
 #endif // #ifdef _N3TOOL
 	CN3AnimControl* AniCtrl() { return m_pAniCtrlRef; }
 	void		AniCtrlSet(const std::string& szFN);
 	int			AniIndexCur() { return m_FrmCtrl.iAni; }
-	int			AniCurSet(	int iAni,							// Animation ¹øÈ£,
-							bool bOnceAndFreeze = false,		// ÇÑ¹ø¸¸ µ¹°í ¸ØÃß¾î¾ß ÇÏ´Â°¡??
-							float fBlendTime = FLT_MIN,			// ºí·»µùÇÏ´Â ½Ã°£(ÃÊ´ÜÀ§), 
-							float fFreezeTime = 0, 				// ¸ØÃâ½Ã°£...
-							bool bStopUpperAnimation = true);	// »óÃ¼ ¿¡´Ï¸ŞÀÌ¼ÇÀÌ ÀÖÀ¸¸é.. ¸ØÃßµµ·Ï
+	int			AniCurSet(	int iAni,							// Animation ë²ˆí˜¸,
+							bool bOnceAndFreeze = false,		// í•œë²ˆë§Œ ëŒê³  ë©ˆì¶”ì–´ì•¼ í•˜ëŠ”ê°€??
+							float fBlendTime = FLT_MIN,			// ë¸”ë Œë”©í•˜ëŠ” ì‹œê°„(ì´ˆë‹¨ìœ„), 
+							float fFreezeTime = 0, 				// ë©ˆì¶œì‹œê°„...
+							bool bStopUpperAnimation = true);	// ìƒì²´ ì—ë‹ˆë©”ì´ì…˜ì´ ìˆìœ¼ë©´.. ë©ˆì¶”ë„ë¡
 	void		AniUpperSet(int nAni, float fFreezeTime = 0);
-	void		AniFixToLastFrame( int iAni ); // ¸¶Áö¸· ÇÁ·¹ÀÓÀ¸·Î °íÁ¤ ½ÃÄÑ ¹ö¸°´Ù.
+	void		AniFixToLastFrame( int iAni ); // ë§ˆì§€ë§‰ í”„ë ˆì„ìœ¼ë¡œ ê³ ì • ì‹œì¼œ ë²„ë¦°ë‹¤.
 
-	bool		IsAnimEnd(); // ÇÑ¹ø ÇÏ°í ¸ØÃß´Â ¿¡´Ï¸ŞÀÌ¼Ç ÀÏ°æ¿ì .. ³¡³µ´ÂÁö?? È¤Àº ÇÑ¹øÇÏ°í ÀüÀÇ µ¿ÀÛÀ¸·Î µ¹¾Æ°¡´Â ¿¡´Ï¸ŞÀÌ¼ÇÀÏ °æ¿ì µ¹¾Æ°¬´ÂÁö?
+	bool		IsAnimEnd(); // í•œë²ˆ í•˜ê³  ë©ˆì¶”ëŠ” ì—ë‹ˆë©”ì´ì…˜ ì¼ê²½ìš° .. ëë‚¬ëŠ”ì§€?? í˜¹ì€ í•œë²ˆí•˜ê³  ì „ì˜ ë™ì‘ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ì—ë‹ˆë©”ì´ì…˜ì¼ ê²½ìš° ëŒì•„ê°”ëŠ”ì§€?
 
 	float		FrmCur() { return m_FrmCtrl.fFrmCur; }
 	float		FrmPrev() { return m_FrmCtrl.fFrmPrev; }
 	float		AniBlendDelta();
-	float		AniSpeedDelta() { return m_fAniSpeedDelta; } // ¿¡´Ï¸ŞÀÌ¼Ç ¼Óµµ Á¶Á¤ º¯¼ö 1 ÀÌº¸Åë, ´õ Å©¸é »¡¶óÁø´Ù..
-	void		AniSpeedDeltaSet(float fDelta) { if(fDelta > 0.1f && fDelta < 10.0f) m_fAniSpeedDelta = fDelta; } // ¿¡´Ï¸ŞÀÌ¼Ç ¼Óµµ Á¶Á¤ º¯¼ö 1 ÀÌº¸Åë, ´õ Å©¸é »¡¶óÁø´Ù..
+	float		AniSpeedDelta() { return m_fAniSpeedDelta; } // ì—ë‹ˆë©”ì´ì…˜ ì†ë„ ì¡°ì • ë³€ìˆ˜ 1 ì´ë³´í†µ, ë” í¬ë©´ ë¹¨ë¼ì§„ë‹¤..
+	void		AniSpeedDeltaSet(float fDelta) { if(fDelta > 0.1f && fDelta < 10.0f) m_fAniSpeedDelta = fDelta; } // ì—ë‹ˆë©”ì´ì…˜ ì†ë„ ì¡°ì • ë³€ìˆ˜ 1 ì´ë³´í†µ, ë” í¬ë©´ ë¹¨ë¼ì§„ë‹¤..
 
-	// Sound Player °ü·Ã ÇÔ¼ö
+	// Sound Player ê´€ë ¨ í•¨ìˆ˜
 	bool		NeedPlaySound0();
 	bool		NeedPlaySound1();
 
-	// °¡Â¥ Å¸°İÀ» À§ÇÑ ÇÔ¼ö..
+	// ê°€ì§œ íƒ€ê²©ì„ ìœ„í•œ í•¨ìˆ˜..
 	bool		NeedStrike0();
 	bool		NeedStrike1();
 
-	// ·çÇÎÀÌ ´Ù½Ã ½ÃÀÛµÇ´Â Å¸ÀÌ¹ÖÀÎ°¡?
+	// ë£¨í•‘ì´ ë‹¤ì‹œ ì‹œì‘ë˜ëŠ” íƒ€ì´ë°ì¸ê°€?
 	bool		IsLoopingAgain();
 	
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-10 ¿ÀÈÄ 2:35:32 )
+//	Coded (By Dino On 2002-10-10 ì˜¤í›„ 2:35:32 )
 //	FXPlug
 	class CN3FXPlug*	FXPlugSet(const std::string& strFN);
 	class CN3FXPlug*	FXPlugCreate();
 	class CN3FXPlug*	FXPlugGet() {return m_pFXPlug;}
 	void				FXPlugDelete();
-//	End Of Code (By Dino On 2002-10-10 ¿ÀÈÄ 2:35:32 )
+//	End Of Code (By Dino On 2002-10-10 ì˜¤í›„ 2:35:32 )
 //////////////////////////////////////////////////
 
 	void		Init();
@@ -395,7 +395,7 @@ public:
 
 };
 
-inline bool CN3Chr::IsAnimEnd() // ÇÑ¹ø ÇÏ°í ¸ØÃß´Â ¿¡´Ï¸ŞÀÌ¼Ç ÀÏ°æ¿ì .. ³¡³µ´ÂÁö?? È¤Àº ÇÑ¹øÇÏ°í ÀüÀÇ µ¿ÀÛÀ¸·Î µ¹¾Æ°¡´Â ¿¡´Ï¸ŞÀÌ¼ÇÀÏ °æ¿ì µ¹¾Æ°¬´ÂÁö?
+inline bool CN3Chr::IsAnimEnd() // í•œë²ˆ í•˜ê³  ë©ˆì¶”ëŠ” ì—ë‹ˆë©”ì´ì…˜ ì¼ê²½ìš° .. ëë‚¬ëŠ”ì§€?? í˜¹ì€ í•œë²ˆí•˜ê³  ì „ì˜ ë™ì‘ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ì—ë‹ˆë©”ì´ì…˜ì¼ ê²½ìš° ëŒì•„ê°”ëŠ”ì§€?
 {
 	if(m_FrmCtrlUpper.pAniData)
 	{
@@ -415,7 +415,7 @@ inline float CN3Chr::AniBlendDelta()
 	return m_FrmCtrl.fBlendTimeCur / m_FrmCtrl.fBlendTime;
 }
 
-// Sound Player °ü·Ã ÇÔ¼ö
+// Sound Player ê´€ë ¨ í•¨ìˆ˜
 inline bool	CN3Chr::NeedPlaySound0()
 {
 	if(NULL == m_FrmCtrl.pAniData) return false;
@@ -435,7 +435,7 @@ inline bool	CN3Chr::NeedPlaySound0()
 	return false;
 }
 
-inline bool CN3Chr::IsLoopingAgain()	// ·çÇÎÀÌ ´Ù½Ã ½ÃÀÛµÇ´Â Å¸ÀÌ¹ÖÀÎ°¡?
+inline bool CN3Chr::IsLoopingAgain()	// ë£¨í•‘ì´ ë‹¤ì‹œ ì‹œì‘ë˜ëŠ” íƒ€ì´ë°ì¸ê°€?
 {
 	if(NULL == m_FrmCtrl.pAniData) return false;
 
@@ -445,7 +445,7 @@ inline bool CN3Chr::IsLoopingAgain()	// ·çÇÎÀÌ ´Ù½Ã ½ÃÀÛµÇ´Â Å¸ÀÌ¹ÖÀÎ°¡?
 		if(	m_FrmCtrlUpper.fFrmPrev > m_FrmCtrlUpper.fFrmCur) return true;
 	}
 
-	if(m_FrmCtrl.iAniLoop <= 0) return false;	// ·çÇÎÀÌ ¾Æ´Ï´Ù.
+	if(m_FrmCtrl.iAniLoop <= 0) return false;	// ë£¨í•‘ì´ ì•„ë‹ˆë‹¤.
 	if(	m_FrmCtrl.fFrmPrev > m_FrmCtrl.fFrmCur) return true;
 
 	return false;

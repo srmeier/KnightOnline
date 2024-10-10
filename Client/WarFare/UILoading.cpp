@@ -1,4 +1,4 @@
-// UILoading.cpp: implementation of the UILoading class.
+ï»¿// UILoading.cpp: implementation of the UILoading class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -57,8 +57,8 @@ bool CUILoading::Load(HANDLE hFile)
 	m_pText_Info = (CN3UIString*)(CN3UIBase::GetChildByID("Text_Info")); __ASSERT(m_pText_Info, "NULL UI Component!!");
 	m_pProgress_Loading = (CN3UIProgress*)(CN3UIBase::GetChildByID("Progress_Loading")); __ASSERT(m_pProgress_Loading, "NULL UI Component!!");
 
-	this->SetPosCenter(); // °¡¿îµ¥·Î ¸ÂÃß±â..
-	m_pText_Version->SetPos(10, 10); // Version Àº ¸ÇÀ§¿¡ Ç¥½Ã..
+	this->SetPosCenter(); // ê°€ìš´ë°ë¡œ ë§žì¶”ê¸°..
+	m_pText_Version->SetPos(10, 10); // Version ì€ ë§¨ìœ„ì— í‘œì‹œ..
 	
 	if(m_pProgress_Loading) m_pProgress_Loading->SetRange(0, 100);
 
@@ -71,14 +71,14 @@ void CUILoading::Render(const std::string& szInfo, int iPercentage)
 	if(m_pProgress_Loading) m_pProgress_Loading->SetCurValue(iPercentage);
 
 	D3DCOLOR crEnv = 0x00000000;
-	CGameProcedure::s_pEng->Clear(crEnv); // ¹è°æÀº °ËÀº»ö
-	CN3Base::s_lpD3DDev->BeginScene();			// ¾À ·»´õ ¤µÀÛ...
+	CGameProcedure::s_pEng->Clear(crEnv); // ë°°ê²½ì€ ê²€ì€ìƒ‰
+	CN3Base::s_lpD3DDev->BeginScene();			// ì”¬ ë Œë” ã……ìž‘...
 	
 	CN3UIBase::Tick();
 	CUIManager::RenderStateSet();
 	CN3UIBase::Render();
 	CUIManager::RenderStateRestore();
 	
-	CN3Base::s_lpD3DDev->EndScene();			// ¾À ·»´õ ½ÃÀÛ...
+	CN3Base::s_lpD3DDev->EndScene();			// ì”¬ ë Œë” ì‹œìž‘...
 	CGameProcedure::s_pEng->Present(CN3Base::s_hWndBase);
 }

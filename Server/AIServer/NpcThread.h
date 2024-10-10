@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 uint32_t THREADCALL NpcThreadProc(void * lpParam /* CNpcThread ptr */);
 uint32_t THREADCALL ZoneEventThreadProc(void * lpParam /* = nullptr */);

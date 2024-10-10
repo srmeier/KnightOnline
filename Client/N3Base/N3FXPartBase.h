@@ -1,4 +1,4 @@
-// N3FXPartBase.h: interface for the CN3FXPartBase class.
+ï»¿// N3FXPartBase.h: interface for the CN3FXPartBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -18,30 +18,30 @@ class CN3FXBundle;
 class CN3FXPartBase : public CN3BaseFileAccess  
 {
 public:
-//¸â¹ö º¯¼öµé..
-	int				m_iVersion;			//	ÀÚ·áÀÇ ¹öÀü..
+//ë©¤ë²„ ë³€ìˆ˜ë“¤..
+	int				m_iVersion;			//	ìë£Œì˜ ë²„ì „..
 	int				m_iBaseVersion;
 
-	CN3FXBundle*	m_pRefBundle;		//	³»°¡ ¼ÓÇÑ ¹øµéÀÇ Æ÷ÀÎÅÍ.
-	CN3FXPartBase*	m_pRefPrevPart;		//	³» ¾ÕÀÇ ÆÄÆ®..
+	CN3FXBundle*	m_pRefBundle;		//	ë‚´ê°€ ì†í•œ ë²ˆë“¤ì˜ í¬ì¸í„°.
+	CN3FXPartBase*	m_pRefPrevPart;		//	ë‚´ ì•ì˜ íŒŒíŠ¸..
 
-	int				m_iType;			//	Çü½ÄÅ¸ÀÔ(particle, mesh, board...)
-	float			m_fLife;			//	ÇÃ·¹ÀÌ½Ã°£..
+	int				m_iType;			//	í˜•ì‹íƒ€ì…(particle, mesh, board...)
+	float			m_fLife;			//	í”Œë ˆì´ì‹œê°„..
 
-	std::string		m_strName;			//	ÆÄÆ®ÀÌ¸§..
+	std::string		m_strName;			//	íŒŒíŠ¸ì´ë¦„..
 
-	__Vector3		m_vVelocity;		//	ÃÊ´ç ¿òÁ÷ÀÌ´Â ¼Óµµ..(ÃÊ¼Óµµ)
-	__Vector3		m_vAcceleration;	//	°¡¼Óµµ...(Áß·Â°¡¼Óµµ¸¦ ³Ö°í ½ÍÀ¸¸é y = -9.8..^^
-	__Vector3		m_vRotVelocity;		//	ÃÊ´ç È¸ÀüÇÒ ¼ö ÀÖ´Â °¢¼Óµµ..
+	__Vector3		m_vVelocity;		//	ì´ˆë‹¹ ì›€ì§ì´ëŠ” ì†ë„..(ì´ˆì†ë„)
+	__Vector3		m_vAcceleration;	//	ê°€ì†ë„...(ì¤‘ë ¥ê°€ì†ë„ë¥¼ ë„£ê³  ì‹¶ìœ¼ë©´ y = -9.8..^^
+	__Vector3		m_vRotVelocity;		//	ì´ˆë‹¹ íšŒì „í•  ìˆ˜ ìˆëŠ” ê°ì†ë„..
 
 	float			m_fCurrLife;			
 	__Vector3		m_vCurrVelocity;
 	__Vector3		m_vCurrPos;
 
-	uint32_t			m_dwState;			//	ÇöÀç ÆÄÆ®ÀÇ »óÅÂ..
-	__Vector3		m_vPos;				//	¹øµé¿¡¼­ ÆÄÆ®ÀÇ À§Ä¡.
+	uint32_t			m_dwState;			//	í˜„ì¬ íŒŒíŠ¸ì˜ ìƒíƒœ..
+	__Vector3		m_vPos;				//	ë²ˆë“¤ì—ì„œ íŒŒíŠ¸ì˜ ìœ„ì¹˜.
 
-	bool			m_bOnGround;		//¹Ù´Ú¿¡ ºÙ¾î¼­ °¥ °ÍÀÎ°¡...
+	bool			m_bOnGround;		//ë°”ë‹¥ì— ë¶™ì–´ì„œ ê°ˆ ê²ƒì¸ê°€...
 
 	//texture..
 	char			m_pTexName[MAX_PATH];
@@ -69,25 +69,25 @@ protected:
 public:
 	virtual float	GetGroundHeight(float x, float z) { return 0.01f; }
 
-	virtual void	Init();				//	°¢Á¾ º¯¼öµéÀ» Ã³À½ ·ÎµùÇÑ »óÅÂ·Î ÃÊ±âÈ­...
-	virtual void	Start();			//	ÆÄÆ® ±¸µ¿ ½ÃÀÛ.
-	virtual void	Stop();				//	ÆÄÆ® ±¸µ¿ ¸ØÃã..
+	virtual void	Init();				//	ê°ì¢… ë³€ìˆ˜ë“¤ì„ ì²˜ìŒ ë¡œë”©í•œ ìƒíƒœë¡œ ì´ˆê¸°í™”...
+	virtual void	Start();			//	íŒŒíŠ¸ êµ¬ë™ ì‹œì‘.
+	virtual void	Stop();				//	íŒŒíŠ¸ êµ¬ë™ ë©ˆì¶¤..
 	virtual bool	Tick();				//	ticktick...
-	virtual void	Render();			//	È­¸é¿¡ »Ñ¸®±â..
-	virtual bool	Load(HANDLE hFile);	//	°ÔÀÓÆÄÀÏ ºÒ·¯¿À±â.
-	virtual bool	Save(HANDLE hFile);	//	°ÔÀÓÆÄÀÏ ÀúÀåÇÏ±â.
+	virtual void	Render();			//	í™”ë©´ì— ë¿Œë¦¬ê¸°..
+	virtual bool	Load(HANDLE hFile);	//	ê²Œì„íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°.
+	virtual bool	Save(HANDLE hFile);	//	ê²Œì„íŒŒì¼ ì €ì¥í•˜ê¸°.
 	void	Duplicate(CN3FXPartBase* pSrc);
 
 #ifdef _N3TOOL
 protected:
-	virtual bool	ParseScript(char* szCommand, char* szBuff0, char* szBuff1, char* szBuff2, char* szBuff3);	//½ÇÁúÀûÀÎ ½ºÅ©¸³Æ® ÇØ¼® ÇÔ¼ö..
+	virtual bool	ParseScript(char* szCommand, char* szBuff0, char* szBuff1, char* szBuff2, char* szBuff3);	//ì‹¤ì§ˆì ì¸ ìŠ¤í¬ë¦½íŠ¸ í•´ì„ í•¨ìˆ˜..
 	
 public:
 	bool	DecodeScriptFile(const char* lpPathName);
 #endif // end of _N3TOOL
 
 public:
-//»ı¼ºÀÚ ¼Ò¸êÀÚ..
+//ìƒì„±ì ì†Œë©¸ì..
 	CN3FXPartBase();
 	virtual ~CN3FXPartBase();
 };

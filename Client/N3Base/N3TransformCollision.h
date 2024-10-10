@@ -1,4 +1,4 @@
-// N3TransformCollision.h: interface for the CN3TransformCollision class.
+ï»¿// N3TransformCollision.h: interface for the CN3TransformCollision class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,17 +17,17 @@
 class CN3TransformCollision : public CN3Transform  
 {
 protected:
-	float			m_fRadius; // ¹ÝÁö¸§..
-	__Vector3		m_vMin, m_vMax; // ÃÖ´ë ÃÖ¼ÒÁ¡..
-	CN3VMesh*		m_pMeshCollision; // Ãæµ¹ Ã¼Å©¿ë ¸Þ½Ã..
-	CN3VMesh*		m_pMeshClimb; // ±â¾î ¿Ã¶ó°¡´Â Ãæµ¹ Ã¼Å©¿ë ¸Þ½Ã..
+	float			m_fRadius; // ë°˜ì§€ë¦„..
+	__Vector3		m_vMin, m_vMax; // ìµœëŒ€ ìµœì†Œì ..
+	CN3VMesh*		m_pMeshCollision; // ì¶©ëŒ ì²´í¬ìš© ë©”ì‹œ..
+	CN3VMesh*		m_pMeshClimb; // ê¸°ì–´ ì˜¬ë¼ê°€ëŠ” ì¶©ëŒ ì²´í¬ìš© ë©”ì‹œ..
 
 public:
 	virtual void	FindMinMax();
-	__Vector3		Min() { return m_vMin * m_Matrix; } // ¿ùµå »óÀÇ ÃÖ¼Ò°ª
-	__Vector3		Max() { return m_vMax * m_Matrix; } // ¿ùµå »óÀÇ ÃÖ´ë°ª
-	__Vector3		RawMin() { return m_vMin; } // ¿ùµå »óÀÇ ÃÖ¼Ò°ª
-	__Vector3		RawMax() { return m_vMax; } // ¿ùµå »óÀÇ ÃÖ´ë°ª
+	__Vector3		Min() { return m_vMin * m_Matrix; } // ì›”ë“œ ìƒì˜ ìµœì†Œê°’
+	__Vector3		Max() { return m_vMax * m_Matrix; } // ì›”ë“œ ìƒì˜ ìµœëŒ€ê°’
+	__Vector3		RawMin() { return m_vMin; } // ì›”ë“œ ìƒì˜ ìµœì†Œê°’
+	__Vector3		RawMax() { return m_vMax; } // ì›”ë“œ ìƒì˜ ìµœëŒ€ê°’
 	float			Radius() { return m_fRadius * m_vScale.y; }
 
 	void			SetRadius(float fRadius) { m_fRadius = fRadius; }
@@ -36,11 +36,11 @@ public:
 	void			SetMeshCollision(const std::string& szFN) { m_pMeshCollision = s_MngVMesh.Get(szFN); }
 	void			SetMeshClimb(const std::string& szFN) { m_pMeshClimb = s_MngVMesh.Get(szFN); }
 	
-//	By : Dino ( On 2001-08-27 ¿ÀÈÄ 9:15:24 )
-//	ÁÖ¾îÁø ÁöÁ¡ÀÌ m_fRadius ¹üÀ§¾È¿¡ ÀÖ´ÂÁö Ã¼Å©
+//	By : Dino ( On 2001-08-27 ì˜¤í›„ 9:15:24 )
+//	ì£¼ì–´ì§„ ì§€ì ì´ m_fRadius ë²”ìœ„ì•ˆì— ìžˆëŠ”ì§€ ì²´í¬
 	bool			IsInRadius(__Vector3& vCheckPos)	{return ((vCheckPos - m_vPos).Magnitude() > m_fRadius ? FALSE : TRUE);}
 	bool			IsInRadiusXZ(float fX, float fZ) {fX -= m_vPos.x; fZ -= m_vPos.z; return (sqrtf(fX*fX + fZ*fZ) > m_fRadius ? FALSE : TRUE);}
-//	~(By Dino On 2001-08-27 ¿ÀÈÄ 9:15:24 )
+//	~(By Dino On 2001-08-27 ì˜¤í›„ 9:15:24 )
 
 	virtual int		CheckCollisionPrecisely(bool bIgnoreBoxCheck, int ixScreen, int iyScreen, __Vector3* pVCol = NULL, __Vector3* pVNormal = NULL);
 //	BOOL CheckClimb(int x, int y, __Vector3* pVCol = NULL, __Vector3* pVNormal = NULL, __Vector3* pVPolygon = NULL);

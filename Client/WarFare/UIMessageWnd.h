@@ -1,4 +1,4 @@
-// UIMessageWnd.h: interface for the CUIMessageWnd class.
+ï»¿// UIMessageWnd.h: interface for the CUIMessageWnd class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,33 +16,33 @@
 class CUIMessageWnd : public CN3UIBase  
 {
 protected:
-	CN3UIString*	m_pChatOut;		// Ã¤ÆÃÀÌ Ãâ·ÂµÇ´Â UIString ÂüÁ¶Æ÷ÀÎÅÍ(½ÇÁ¦ m_Child·Î °ü¸®), ±Û¾¾Ã¼¿Í ÃÊ±â ¿µ¿ª¸¸ ÂüÁ¶ÇÑ´Ù.
-	CN3UIScrollBar* m_pScrollbar;	// scrollbar ÂüÁ¶Æ÷ÀÎÅÍ(½ÇÁ¦ m_Child·Î °ü¸®)
+	CN3UIString*	m_pChatOut;		// ì±„íŒ…ì´ ì¶œë ¥ë˜ëŠ” UIString ì°¸ì¡°í¬ì¸í„°(ì‹¤ì œ m_Childë¡œ ê´€ë¦¬), ê¸€ì”¨ì²´ì™€ ì´ˆê¸° ì˜ì—­ë§Œ ì°¸ì¡°í•œë‹¤.
+	CN3UIScrollBar* m_pScrollbar;	// scrollbar ì°¸ì¡°í¬ì¸í„°(ì‹¤ì œ m_Childë¡œ ê´€ë¦¬)
 	CN3UIBase*		m_pBtn_Fold;
 
-	ChatList		m_ChatBuffer;		// Ã¤ÆÃ packet±âÁØÀ¸·Î µÈ buffer
-	ChatList		m_LineBuffer;		// Line ±âÁØÀ¸·Î µÈ buffer
+	ChatList		m_ChatBuffer;		// ì±„íŒ… packetê¸°ì¤€ìœ¼ë¡œ ëœ buffer
+	ChatList		m_LineBuffer;		// Line ê¸°ì¤€ìœ¼ë¡œ ëœ buffer
 	
-	int				m_iChatLineCount;	// Ã¤ÆÃÃ¢¿¡ Ãâ·ÂµÇ´Â lineÀÇ ¼ö(Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ ´Ù½Ã °è»êÇØÁÖÀÚ.)
-	RECT			m_rcChatOutRegion;	// Ã¤ÆÃÀÌ Ãâ·ÂµÇ´Â ¿µ¿ª
-	CN3UIString**	m_ppUILines;		// Ã¤ÆÃÀÌ Ãâ·ÂµÇ´Â UIString ¹è¿­Æ÷ÀÎÅÍ(Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇÏ¹Ç·Î ¹è¿­µµ º¯ÇÑ´Ù.
+	int				m_iChatLineCount;	// ì±„íŒ…ì°½ì— ì¶œë ¥ë˜ëŠ” lineì˜ ìˆ˜(ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í–ˆì„ë•Œ ë‹¤ì‹œ ê³„ì‚°í•´ì£¼ì.)
+	RECT			m_rcChatOutRegion;	// ì±„íŒ…ì´ ì¶œë ¥ë˜ëŠ” ì˜ì—­
+	CN3UIString**	m_ppUILines;		// ì±„íŒ…ì´ ì¶œë ¥ë˜ëŠ” UIString ë°°ì—´í¬ì¸í„°(ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í•˜ë¯€ë¡œ ë°°ì—´ë„ ë³€í•œë‹¤.
 
 protected:
-	void			SetTopLine(int iTopLine);		// ¸Ç À­ÁÙÀ» ÁöÁ¤ÇØÁØ´Ù.
-	void			AddLineBuffer(const std::string& szString, D3DCOLOR color);	// line ¹öÆÛ¸¦ ¸¸µé¾îÁØ´Ù.(³Ê¹« ±æ¸é ¾Ë¾Æ¼­ 2ÁÙ·Î ¸¸µé¾îÁØ´Ù.)
-	void			RecalcLineBuffer();		// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é line buffer¸¦ ´Ù½Ã °è»êÇØ¼­ ³Ö¾îÁØ´Ù.
+	void			SetTopLine(int iTopLine);		// ë§¨ ìœ—ì¤„ì„ ì§€ì •í•´ì¤€ë‹¤.
+	void			AddLineBuffer(const std::string& szString, D3DCOLOR color);	// line ë²„í¼ë¥¼ ë§Œë“¤ì–´ì¤€ë‹¤.(ë„ˆë¬´ ê¸¸ë©´ ì•Œì•„ì„œ 2ì¤„ë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.)
+	void			RecalcLineBuffer();		// ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í–ˆì„ë•Œ í˜¸ì¶œí•´ì£¼ë©´ line bufferë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ë„£ì–´ì¤€ë‹¤.
 	void			CreateLines();
 
 // Operations
 public:
 	bool OnKeyPress(int iKey);
-	BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// offsetY¸¸Å­ ÀÌµ¿ÇØÁØ´Ù.(region, children, move rect ÀÌµ¿)
+	BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// offsetYë§Œí¼ ì´ë™í•´ì¤€ë‹¤.(region, children, move rect ì´ë™)
 	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void	Release();
 	bool	Load(HANDLE hFile);
-	void	SetRegion(const RECT& Rect);	// ¿µ¿ª ÁöÁ¤(»çÀÌÁî°¡ º¯ÇÒ¶§ È£ÃâµÈ´Ù. ´Ü¼ø ÀÌµ¿Àº È£ÃâµÇÁö ¾Ê´Â´Ù.(´Ü¼øÀÌµ¿Àº MoveOffsetÀÌ È£Ãâ))
+	void	SetRegion(const RECT& Rect);	// ì˜ì—­ ì§€ì •(ì‚¬ì´ì¦ˆê°€ ë³€í• ë•Œ í˜¸ì¶œëœë‹¤. ë‹¨ìˆœ ì´ë™ì€ í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.(ë‹¨ìˆœì´ë™ì€ MoveOffsetì´ í˜¸ì¶œ))
 
-	void	AddMsg(const std::string& szString, D3DCOLOR color = 0xffffffff);		// Ã¤ÆÃ ¸Ş¼¼Áö¸¦ ÀúÀåÇÏ°í ¾Ë¸ÂÀº ÇüÅÂ·Î È­¸é¿¡ Ãâ·ÂÇØÁØ´Ù.
+	void	AddMsg(const std::string& szString, D3DCOLOR color = 0xffffffff);		// ì±„íŒ… ë©”ì„¸ì§€ë¥¼ ì €ì¥í•˜ê³  ì•Œë§ì€ í˜•íƒœë¡œ í™”ë©´ì— ì¶œë ¥í•´ì¤€ë‹¤.
 
 	CUIMessageWnd();
 	virtual ~CUIMessageWnd();

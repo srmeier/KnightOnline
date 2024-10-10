@@ -1,4 +1,4 @@
-// N3FXPMesh.h: interface for the CN3FXPMesh class.
+﻿// N3FXPMesh.h: interface for the CN3FXPMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 

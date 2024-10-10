@@ -1,4 +1,4 @@
-// PlayerMgr.h: interface for the CPlayerMySelf class.
+ï»¿// PlayerMgr.h: interface for the CPlayerMySelf class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,53 +16,53 @@
 class CPlayerMySelf : public CPlayerBase
 {
 protected:
-	bool			m_bRunning; // ¶Ù´ÂÁö..
-	float			m_fAttackTimeRecent;	// ÃÖ±Ù¿¡ °ø°İÇÑ ½Ã°£..
+	bool			m_bRunning; // ë›°ëŠ”ì§€..
+	float			m_fAttackTimeRecent;	// ìµœê·¼ì— ê³µê²©í•œ ì‹œê°„..
 
-	__Vector3		m_vCollisionOffsets[3]; // Çã¸® ºÎºĞ 2°³ÀÇ Ãæµ¹ Ã¼Å© + ¸Ó¸® ºÎºĞ 1°³ÀÇ Ãæµ¹ Ã¼Å©..
+	__Vector3		m_vCollisionOffsets[3]; // í—ˆë¦¬ ë¶€ë¶„ 2ê°œì˜ ì¶©ëŒ ì²´í¬ + ë¨¸ë¦¬ ë¶€ë¶„ 1ê°œì˜ ì¶©ëŒ ì²´í¬..
 
 public:	
 	__InfoPlayerMySelf	m_InfoExt;
-	CN3Chr				m_ChrInv;				// Ä³¸¯ÅÍ ±âº» °´Ã¼...
-	bool				m_bMoveContinous;		// °è¼Ó ¿òÁ÷ÀÌ´ÂÁö..
-	bool				m_bAttackContinous;		// °è¼Ó °ø°İÇÏ´Â »óÅÂÀÎÁö..
-	bool				m_bSitDown;				// ¾É¾ÆÀÖ´Â »óÅÂÀÎÁö....
-	bool				m_bRecruitParty;		// ÆÄÆ¼ ¸ğÁıÁß??
+	CN3Chr				m_ChrInv;				// ìºë¦­í„° ê¸°ë³¸ ê°ì²´...
+	bool				m_bMoveContinous;		// ê³„ì† ì›€ì§ì´ëŠ”ì§€..
+	bool				m_bAttackContinous;		// ê³„ì† ê³µê²©í•˜ëŠ” ìƒíƒœì¸ì§€..
+	bool				m_bSitDown;				// ì•‰ì•„ìˆëŠ” ìƒíƒœì¸ì§€....
+	bool				m_bRecruitParty;		// íŒŒí‹° ëª¨ì§‘ì¤‘??
 
-	bool				m_bStun;				// ±âÀı..
-	float				m_fStunTime;			// ±âÀıÇÑ ½Ã°£..
+	bool				m_bStun;				// ê¸°ì ˆ..
+	float				m_fStunTime;			// ê¸°ì ˆí•œ ì‹œê°„..
 
-	int					m_iSendRegeneration;	// ÇÑ¹ø º¸³»¸é ´Ù½Ã Á×À»¶§±îÁö ¾Èº¸³»´Â ÇÃ·¡±× 0 ÀÏ¶§´Â ¸Ş½ÃÁö ¹Ú½º¸¦ ¶ç¿î´Ù..
-	bool				m_bTempMoveTurbo;		// °³¹ßÀ» À§ÇØ ÀÓ½Ã·Î ³ÖÀº ÄÚµå.. ¹«Áö ºü¸£°Ô ¿òÁ÷ÀÌ°Ô ÇÑ´Ù.. Tick ÂüÁ¶.
+	int					m_iSendRegeneration;	// í•œë²ˆ ë³´ë‚´ë©´ ë‹¤ì‹œ ì£½ì„ë•Œê¹Œì§€ ì•ˆë³´ë‚´ëŠ” í”Œë˜ê·¸ 0 ì¼ë•ŒëŠ” ë©”ì‹œì§€ ë°•ìŠ¤ë¥¼ ë„ìš´ë‹¤..
+	bool				m_bTempMoveTurbo;		// ê°œë°œì„ ìœ„í•´ ì„ì‹œë¡œ ë„£ì€ ì½”ë“œ.. ë¬´ì§€ ë¹ ë¥´ê²Œ ì›€ì§ì´ê²Œ í•œë‹¤.. Tick ì°¸ì¡°.
 
-	uint32_t				m_dwMagicID;			// ¾²°í ÀÖ´Â ¸¶¹ı..
-	float				m_fCastingTime;			// ¸¶¹ı ÁÖ¹® °Å´Â ½Ã°£..
+	uint32_t				m_dwMagicID;			// ì“°ê³  ìˆëŠ” ë§ˆë²•..
+	float				m_fCastingTime;			// ë§ˆë²• ì£¼ë¬¸ ê±°ëŠ” ì‹œê°„..
 	
-	class CN3Shape*		m_pObjectTarget;		// Å¸°Ù ¿ÀºêÁ§Æ® Æ÷ÀÎÅÍ..
+	class CN3Shape*		m_pObjectTarget;		// íƒ€ê²Ÿ ì˜¤ë¸Œì íŠ¸ í¬ì¸í„°..
 
-	bool				m_bTargetOrPosMove;		// Å¸°ÙÀÌ³ª ÁöÁ¡ ÀÌµ¿ ¿©ºÎ
-	int					m_iMoveTarget;			// Å¸°Ù ¾ÆÀÌµğ
-	__Vector3			m_vTargetPos;			// ÀÌµ¿ÇÒ ÁöÁ¡ À§Ä¡
+	bool				m_bTargetOrPosMove;		// íƒ€ê²Ÿì´ë‚˜ ì§€ì  ì´ë™ ì—¬ë¶€
+	int					m_iMoveTarget;			// íƒ€ê²Ÿ ì•„ì´ë””
+	__Vector3			m_vTargetPos;			// ì´ë™í•  ì§€ì  ìœ„ì¹˜
 	void				SetMoveTargetID(int iID);
 	void				SetMoveTargetPos(__Vector3 vPos);
 
 public:	
 	void			TargetOrPosMove();
-	void			Stun(float fTime); // ÀÏÁ¤ÇÑ ½Ã°£µ¿¾È ±âÀı ½ÃÅ°±â.
-	void			StunRelease(); // ±âÀı Ç®±â..
+	void			Stun(float fTime); // ì¼ì •í•œ ì‹œê°„ë™ì•ˆ ê¸°ì ˆ ì‹œí‚¤ê¸°.
+	void			StunRelease(); // ê¸°ì ˆ í’€ê¸°..
 
-	float			MoveSpeedCalculationAndCheckCollision(); // ¼Óµµ¸¦ ±¸ÇÏ°í ±× ¼Óµµ·Î Ãæµ¹ Ã¼Å©¸¦ ÇÑ´Ù. ¸®ÅÏ°ªÀÌ 0 ÀÌ¸é Ãæµ¹ÀÌ´Ù..
+	float			MoveSpeedCalculationAndCheckCollision(); // ì†ë„ë¥¼ êµ¬í•˜ê³  ê·¸ ì†ë„ë¡œ ì¶©ëŒ ì²´í¬ë¥¼ í•œë‹¤. ë¦¬í„´ê°’ì´ 0 ì´ë©´ ì¶©ëŒì´ë‹¤..
 
-	void			InitFace(); // °®°í ÀÖ´Â Á¤º¸·Î ¾ó±¼À» ÃÊ±âÈ­ ÇÑ´Ù..
-	void			InitHair(); // °®°í ÀÖ´Â Á¤º¸·Î ¸Ó¸®Ä«¶ôÀ» ÃÊ±âÈ­ ÇÑ´Ù..
+	void			InitFace(); // ê°–ê³  ìˆëŠ” ì •ë³´ë¡œ ì–¼êµ´ì„ ì´ˆê¸°í™” í•œë‹¤..
+	void			InitHair(); // ê°–ê³  ìˆëŠ” ì •ë³´ë¡œ ë¨¸ë¦¬ì¹´ë½ì„ ì´ˆê¸°í™” í•œë‹¤..
 	void			KnightsInfoSet(int iID, const std::string& szName, int iGrade, int iRank);
 	void			SetSoundAndInitFont(uint32_t dwFontFlag = 0UL);
 
 	float			AttackableDistance(CPlayerBase* pTarget);
 	float			DistanceExceptRadius(CPlayerBase* pTarget);
-	bool			IsAttackableTarget(CPlayerBase* pTarget, bool bMesureAngle = true); // °ø°İ °¡´ÉÇÑ ¹üÀ§¿¡ ÀÖ´ÂÁö..
+	bool			IsAttackableTarget(CPlayerBase* pTarget, bool bMesureAngle = true); // ê³µê²© ê°€ëŠ¥í•œ ë²”ìœ„ì— ìˆëŠ”ì§€..
 	bool			IsRunning() { return m_bRunning; }
-	bool			CheckCollision();		// ¿òÁ÷ÀÌ´Â Ã³¸®¿Í Ãæµ¹Ã¼Å©¸¦ ÇÑ´Ù. Ãæµ¹µÇ´Â°Ô ÀÖÀ¸¸é ¿òÁ÷ÀÌÁö ¾Ê´Â´Ù.
+	bool			CheckCollision();		// ì›€ì§ì´ëŠ” ì²˜ë¦¬ì™€ ì¶©ëŒì²´í¬ë¥¼ í•œë‹¤. ì¶©ëŒë˜ëŠ”ê²Œ ìˆìœ¼ë©´ ì›€ì§ì´ì§€ ì•ŠëŠ”ë‹¤.
 	//.. 
 	bool			InitChr(__TABLE_PLAYER_LOOKS* pTblUPC);
 	CN3CPart*		PartSet(e_PartPosition ePos, const std::string& szFN, __TABLE_ITEM_BASIC* pItemBasic, __TABLE_ITEM_EXT* pItemExt);
@@ -72,7 +72,7 @@ public:
 	void			Render(float fSunAngle);
 
 	__Vector3		NextPos(float fTimeAfter);
-	void			RotAdd(const float fRotRadianPerSec);			// y ÃàÀ» ±âÁØÀ¸·Î ÃÊ´ç È¸ÀüÇÏ´Â ¼Óµµ¸¦ ³Ö¾îÁØ´Ù.
+	void			RotAdd(const float fRotRadianPerSec);			// y ì¶•ì„ ê¸°ì¤€ìœ¼ë¡œ ì´ˆë‹¹ íšŒì „í•˜ëŠ” ì†ë„ë¥¼ ë„£ì–´ì¤€ë‹¤.
 	
 	bool			ToggleAttackContinous();
 	bool			ToggleRunMode();

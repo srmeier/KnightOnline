@@ -1,4 +1,4 @@
-// GameProcNationSelect.cpp: implementation of the CGameProcNationSelect class.
+ï»¿// GameProcNationSelect.cpp: implementation of the CGameProcNationSelect class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,7 +25,7 @@ static char THIS_FILE[]=__FILE__;
 CGameProcNationSelect::CGameProcNationSelect()
 {
 	m_pUINationSelectDlg = NULL;
-	s_pPlayer->m_InfoBase.eNation = NATION_NOTSELECTED; // ¾ÆÁ÷ ±¹°¡¸¦ ¼±ÅÃÇÏÁö ¾Ê¾Ò´Ù..
+	s_pPlayer->m_InfoBase.eNation = NATION_NOTSELECTED; // ì•„ì§ êµ­ê°€ë¥¼ ì„ íƒí•˜ì§€ ì•Šì•˜ë‹¤..
 }
 
 CGameProcNationSelect::~CGameProcNationSelect()
@@ -55,43 +55,43 @@ void CGameProcNationSelect::Init()
 	m_pUINationSelectDlg = new CUINationSelectDlg();
 	m_pUINationSelectDlg->Init(s_pUIMgr);
 	m_pUINationSelectDlg->LoadFromFile(szTemp);
-	m_pUINationSelectDlg->m_pProcNationSelectRef = this; // ÂüÁ¶ Æ÷ÀÎÅÍ ³Ö±â..
+	m_pUINationSelectDlg->m_pProcNationSelectRef = this; // ì°¸ì¡° í¬ì¸í„° ë„£ê¸°..
 
-	s_pPlayer->m_InfoBase.eNation = NATION_NOTSELECTED; // ¾ÆÁ÷ ±¹°¡¸¦ ¼±ÅÃÇÏÁö ¾Ê¾Ò´Ù..
+	s_pPlayer->m_InfoBase.eNation = NATION_NOTSELECTED; // ì•„ì§ êµ­ê°€ë¥¼ ì„ íƒí•˜ì§€ ì•Šì•˜ë‹¤..
 }
 
 void CGameProcNationSelect::Tick()
 {
-	CGameProcedure::Tick();	// Å°, ¸¶¿ì½º ÀÔ·Â µîµî..
+	CGameProcedure::Tick();	// í‚¤, ë§ˆìš°ìŠ¤ ì…ë ¥ ë“±ë“±..
 
 	if(NATION_KARUS == s_pPlayer->m_InfoBase.eNation || NATION_ELMORAD == s_pPlayer->m_InfoBase.eNation)
-		CGameProcedure::ProcActiveSet((CGameProcedure*)s_pProcCharacterSelect); // ±¹°¡¸¦ °ñ¶úÀ¸¸é Ä³¸¯ÅÍ ¼±ÅÃÀ¸·Î ¹Ù·Î °£´Ù..
+		CGameProcedure::ProcActiveSet((CGameProcedure*)s_pProcCharacterSelect); // êµ­ê°€ë¥¼ ê³¨ëìœ¼ë©´ ìºë¦­í„° ì„ íƒìœ¼ë¡œ ë°”ë¡œ ê°„ë‹¤..
 }
 
 void CGameProcNationSelect::Render()
 {
-	uint32_t color = 0x00000000; // °ËÀº»öÀ¸·Î..
-	s_pEng->Clear(color); // Å¬¸®¾î..
-	s_pEng->s_lpD3DDev->BeginScene();			// ¾À ·»´õ ¤µÀÛ...
+	uint32_t color = 0x00000000; // ê²€ì€ìƒ‰ìœ¼ë¡œ..
+	s_pEng->Clear(color); // í´ë¦¬ì–´..
+	s_pEng->s_lpD3DDev->BeginScene();			// ì”¬ ë Œë” ã……ì‘...
 
-	CGameProcedure::Render(); // UI ³ª ±×¹ÛÀÇ ±âº»ÀûÀÎ °Íµé ·»´õ¸µ..
+	CGameProcedure::Render(); // UI ë‚˜ ê·¸ë°–ì˜ ê¸°ë³¸ì ì¸ ê²ƒë“¤ ë Œë”ë§..
 
-	s_pEng->s_lpD3DDev->EndScene();			// ¾À ·»´õ ½ÃÀÛ...
+	s_pEng->s_lpD3DDev->EndScene();			// ì”¬ ë Œë” ì‹œì‘...
 	s_pEng->Present(CN3Base::s_hWndBase);
 }
 
 
 void CGameProcNationSelect::MsgSendNationSelect(e_Nation eNation)
 {
-	uint8_t byBuff[4];										// ÆĞÅ¶ ¹öÆÛ..
-	int iOffset=0;										// ¹öÆÛÀÇ ¿ÀÇÁ¼Â..
+	uint8_t byBuff[4];										// íŒ¨í‚· ë²„í¼..
+	int iOffset=0;										// ë²„í¼ì˜ ì˜¤í”„ì…‹..
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_NATION);	// Ä¿¸àµå.
-	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)eNation);		// ¾ÆÀÌµğ ±æÀÌ..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_SEL_NATION);	// ì»¤ë©˜ë“œ.
+	CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)eNation);		// ì•„ì´ë”” ê¸¸ì´..
 		
-	s_pSocket->Send(byBuff, iOffset);								// º¸³½´Ù
+	s_pSocket->Send(byBuff, iOffset);								// ë³´ë‚¸ë‹¤
 
-	s_pUIMgr->EnableOperationSet(false); // ÀÀ´ä ÆĞÅ¶À» ¹Ş±â Àü±îÁö ¾Æ¹«Áş ¸øÇÏ°Ô ÇÑ´Ù..
+	s_pUIMgr->EnableOperationSet(false); // ì‘ë‹µ íŒ¨í‚·ì„ ë°›ê¸° ì „ê¹Œì§€ ì•„ë¬´ì§“ ëª»í•˜ê²Œ í•œë‹¤..
 }
 
 bool CGameProcNationSelect::ProcessPacket(Packet& pkt)
@@ -102,14 +102,14 @@ bool CGameProcNationSelect::ProcessPacket(Packet& pkt)
 
 	pkt.rpos(rpos);
 
-	int iCmd = pkt.read<uint8_t>();	// Ä¿¸àµå ÆÄ½Ì..
-	switch ( iCmd )										// Ä¿¸àµå¿¡ ´Ù¶ó¼­ ºĞ±â..
+	int iCmd = pkt.read<uint8_t>();	// ì»¤ë©˜ë“œ íŒŒì‹±..
+	switch ( iCmd )										// ì»¤ë©˜ë“œì— ë‹¤ë¼ì„œ ë¶„ê¸°..
 	{
-		case WIZ_SEL_NATION:							// Ä³¸¯ÅÍ ¼±ÅÃ ¸Ş½ÃÁö..
+		case WIZ_SEL_NATION:							// ìºë¦­í„° ì„ íƒ ë©”ì‹œì§€..
 		{
-			int iNation = pkt.read<uint8_t>(); // ±¹°¡ - 0 ½ÇÆĞ.. 1 - Ä«·ç½º 2 - ¿¤¸ğ¶óµå..
+			int iNation = pkt.read<uint8_t>(); // êµ­ê°€ - 0 ì‹¤íŒ¨.. 1 - ì¹´ë£¨ìŠ¤ 2 - ì—˜ëª¨ë¼ë“œ..
 
-			if( 0 == iNation ) 	s_pPlayer->m_InfoBase.eNation = NATION_NOTSELECTED; // ¾ÆÁ÷ ±¹°¡¸¦ ¼±ÅÃÇÏÁö ¾Ê¾Ò´Ù..
+			if( 0 == iNation ) 	s_pPlayer->m_InfoBase.eNation = NATION_NOTSELECTED; // ì•„ì§ êµ­ê°€ë¥¼ ì„ íƒí•˜ì§€ ì•Šì•˜ë‹¤..
 			else if( 1 == iNation ) s_pPlayer->m_InfoBase.eNation = NATION_KARUS;
 			else if( 2 == iNation ) s_pPlayer->m_InfoBase.eNation = NATION_ELMORAD;
 		}

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "KnightsManager.h"
 
 void CUser::QuestDataRequest()
@@ -241,7 +241,7 @@ void CUser::QuestV2MonsterDataRequest()
 void CUser::QuestV2ExecuteHelper(_QUEST_HELPER * pQuestHelper)
 {
 	if (pQuestHelper == nullptr
-		/*|| !CheckExistEvent(pQuestHelper->sEventDataIndex, 2)*/ && pQuestHelper->bQuestType != 3)//g�rev verme sorunu
+		/*|| !CheckExistEvent(pQuestHelper->sEventDataIndex, 2)*/ && pQuestHelper->bQuestType != 3)//görev verme sorunu
 		return;
 
 	QuestV2RunEvent(pQuestHelper, pQuestHelper->nEventTriggerIndex); // NOTE: Fulfill will use nEventCompleteIndex

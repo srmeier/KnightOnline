@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "LuaEngine.h"
 #include "../shared/KOSocket.h"

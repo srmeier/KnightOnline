@@ -1,4 +1,4 @@
-// UIManager.cpp: implementation of the CUIManager class.
+ï»¿// UIManager.cpp: implementation of the CUIManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -31,10 +31,10 @@ CUIManager::__RenderStateForUI CUIManager::s_sRSFU; // RenderStateForUI
 CUIManager::CUIManager()
 {
 	m_dwMouseFlagsCur = 0;
-	m_bEnableOperation = true;					// UI Á¶ÀÛÀÌ °¡´ÉÇÑ »óÅÂÀÎ°¡?
+	m_bEnableOperation = true;					// UI ì¡°ì‘ì´ ê°€ëŠ¥í•œ ìƒíƒœì¸ê°€?
 	m_pUIFocused = NULL;
 
-	m_bDoneSomething = false;					// UI ¿¡¼­ Á¶ÀÛÀ» Çß´Ù...
+	m_bDoneSomething = false;					// UI ì—ì„œ ì¡°ì‘ì„ í–ˆë‹¤...
 }
 
 CUIManager::~CUIManager()
@@ -51,13 +51,13 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 	m_dwMouseFlagsCur = UI_MOUSEPROC_NONE;
 	if (!m_bVisible || !m_bEnableOperation) return m_dwMouseFlagsCur;
 
-	if (s_pTooltipCtrl)	s_pTooltipCtrl->MouseProc(dwFlags, ptCur, ptOld);	// ÅøÆÁ¿¡°Ô ¸¶¿ì½º ¸Ş¼¼Áö Àü´Ş.
+	if (s_pTooltipCtrl)	s_pTooltipCtrl->MouseProc(dwFlags, ptCur, ptOld);	// íˆ´íŒì—ê²Œ ë§ˆìš°ìŠ¤ ë©”ì„¸ì§€ ì „ë‹¬.
 
-	// child¿¡°Ô ¸Ş¼¼Áö Àü´Ş
+	// childì—ê²Œ ë©”ì„¸ì§€ ì „ë‹¬
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; )
 	{
 		CN3UIBase* pChild = (*itor);
-		// »ó°Å·¡ ÁßÀÌ¸é ¾ÆÀÌÄÜ ¸Å´ÏÀú À©µµ¿ì¸¸ ÀÛµ¿..
+		// ìƒê±°ë˜ ì¤‘ì´ë©´ ì•„ì´ì½˜ ë§¤ë‹ˆì € ìœˆë„ìš°ë§Œ ì‘ë™..
 		if ( CGameProcedure::s_pProcMain && CGameProcedure::s_pProcMain->m_pUITransactionDlg && 
 			(CGameProcedure::s_pProcMain->m_pUITransactionDlg->IsVisible()))// && (pChild->UIType() != UI_TYPE_ICON_MANAGER) )
 		{	
@@ -67,7 +67,7 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 					{	++itor; continue;	}
 			}
 		}
-		// º¸°üÇÔ¿¡ º¸°üÁßÀÌ¸é ¾ÆÀÌÄÜ ¸Å´ÏÀú À©µµ¿ì¸¸ ÀÛµ¿..
+		// ë³´ê´€í•¨ì— ë³´ê´€ì¤‘ì´ë©´ ì•„ì´ì½˜ ë§¤ë‹ˆì € ìœˆë„ìš°ë§Œ ì‘ë™..
 		if ( CGameProcedure::s_pProcMain && CGameProcedure::s_pProcMain->m_pUIWareHouseDlg && 
 			(CGameProcedure::s_pProcMain->m_pUIWareHouseDlg->IsVisible()))// && (pChild->UIType() != UI_TYPE_ICON_MANAGER) )
 		{	
@@ -77,7 +77,7 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 					{	++itor; continue;	}
 			}
 		}
-		// °³ÀÎ°£ °Å·¡ÁßÀÌ¸é ¾ÆÀÌÄÜ ¸Å´ÏÀú À©µµ¿ì¸¸ ÀÛµ¿.. µ· ¾×¼ö³ª È­»ì °¹¼öµîÀ» ÀÔ·ÂÇÏ´Â ÁßÀÌ¸é.. ÀÔ·Â À©µµ¿ì¸¸ ÀÛµ¿..
+		// ê°œì¸ê°„ ê±°ë˜ì¤‘ì´ë©´ ì•„ì´ì½˜ ë§¤ë‹ˆì € ìœˆë„ìš°ë§Œ ì‘ë™.. ëˆ ì•¡ìˆ˜ë‚˜ í™”ì‚´ ê°¯ìˆ˜ë“±ì„ ì…ë ¥í•˜ëŠ” ì¤‘ì´ë©´.. ì…ë ¥ ìœˆë„ìš°ë§Œ ì‘ë™..
 		if ( CGameProcedure::s_pProcMain && CGameProcedure::s_pProcMain->m_pSubProcPerTrade &&
 			(CGameProcedure::s_pProcMain->m_pSubProcPerTrade->m_ePerTradeState != PER_TRADE_STATE_NONE) )
 		{	
@@ -98,7 +98,7 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 		{
 			uint32_t dwRet = pChild->m_pChildUI->MouseProc(dwFlags, ptCur, ptOld);
 			if (UI_MOUSEPROC_DONESOMETHING & dwRet)
-			{	// ÀÌ°æ¿ì¿¡´Â ¸Õ°¡ Æ÷Ä¿½º¸¦ ¹ŞÀº °æ¿ìÀÌ´Ù.
+			{	// ì´ê²½ìš°ì—ëŠ” ë¨¼ê°€ í¬ì»¤ìŠ¤ë¥¼ ë°›ì€ ê²½ìš°ì´ë‹¤.
 				pChild->MouseProc(0, ptCur, ptOld);
 				m_dwMouseFlagsCur |= (UI_MOUSEPROC_DONESOMETHING|UI_MOUSEPROC_CHILDDONESOMETHING);
 
@@ -107,7 +107,7 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 				return m_dwMouseFlagsCur;
 			}
 			else if ( (	UI_MOUSE_LBCLICK & dwFlags) && (UI_MOUSEPROC_INREGION & dwRet) )
-			{	// ¿µ¿ª ¾ÈÀ» Å¬¸¯ ÇßÀ»¶§ ¸Õ°¡ ÀÏÀ» Çß´Ù°í ÇÏ°í ¸®ÅÏÇØ¹ö¸°´Ù.
+			{	// ì˜ì—­ ì•ˆì„ í´ë¦­ í–ˆì„ë•Œ ë¨¼ê°€ ì¼ì„ í–ˆë‹¤ê³  í•˜ê³  ë¦¬í„´í•´ë²„ë¦°ë‹¤.
 				pChild->MouseProc(0, ptCur, ptOld);
 				m_dwMouseFlagsCur |= (UI_MOUSEPROC_DIALOGFOCUS);
 				
@@ -119,7 +119,7 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 
 		uint32_t dwChildRet = pChild->MouseProc(dwFlags, ptCur, ptOld);
 		if (UI_MOUSEPROC_DONESOMETHING & dwChildRet)
-		{	// ÀÌ°æ¿ì¿¡´Â ¸Õ°¡ Æ÷Ä¿½º¸¦ ¹ŞÀº °æ¿ìÀÌ´Ù.
+		{	// ì´ê²½ìš°ì—ëŠ” ë¨¼ê°€ í¬ì»¤ìŠ¤ë¥¼ ë°›ì€ ê²½ìš°ì´ë‹¤.
 			m_dwMouseFlagsCur |= (UI_MOUSEPROC_DONESOMETHING|UI_MOUSEPROC_CHILDDONESOMETHING);
 
 			SetFocusedUI(pChild);//this_ui
@@ -127,7 +127,7 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 			return m_dwMouseFlagsCur;
 		}
 		else if ( (	UI_MOUSE_LBCLICK & dwFlags) && (UI_MOUSEPROC_INREGION & dwChildRet) )
-		{	// ¿µ¿ª ¾ÈÀ» Å¬¸¯ ÇßÀ»¶§ ¸Õ°¡ ÀÏÀ» Çß´Ù°í ÇÏ°í ¸®ÅÏÇØ¹ö¸°´Ù.
+		{	// ì˜ì—­ ì•ˆì„ í´ë¦­ í–ˆì„ë•Œ ë¨¼ê°€ ì¼ì„ í–ˆë‹¤ê³  í•˜ê³  ë¦¬í„´í•´ë²„ë¦°ë‹¤.
 			m_dwMouseFlagsCur |= (UI_MOUSEPROC_DIALOGFOCUS);
 			
 			SetFocusedUI(pChild);//this_ui
@@ -140,12 +140,12 @@ uint32_t CUIManager::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT
 		m_dwMouseFlagsCur |= dwChildRet;
 	}
 
-//	if(UI_MOUSE_LBCLICK & dwFlags) m_pUIFocused = NULL; // Æ÷Ä¿½º ¹ŞÀº UI ±â·Ï.. ¾Æ¹«°Íµµ ¾ÈÇÏ¸é.. ³ÎÀÌ´Ù..
+//	if(UI_MOUSE_LBCLICK & dwFlags) m_pUIFocused = NULL; // í¬ì»¤ìŠ¤ ë°›ì€ UI ê¸°ë¡.. ì•„ë¬´ê²ƒë„ ì•ˆí•˜ë©´.. ë„ì´ë‹¤..
 
 	return m_dwMouseFlagsCur;
 }
 
-void CUIManager::ReorderChildList()	// ´ÙÀÌ¾Ë·Î±× ¼ø¼­ Àç¹èÄ¡
+void CUIManager::ReorderChildList()	// ë‹¤ì´ì•Œë¡œê·¸ ìˆœì„œ ì¬ë°°ì¹˜
 {
 	int iChildCount = m_Children.size();
 	if (iChildCount<=0) return;
@@ -157,7 +157,7 @@ void CUIManager::ReorderChildList()	// ´ÙÀÌ¾Ë·Î±× ¼ø¼­ Àç¹èÄ¡
 		CN3UIBase* pChild = (*itor);
 		if (pChild->GetStyle() & UISTYLE_ALWAYSTOP)
 		{
-			itor = m_Children.erase(itor);			// ¿ì¼± ¸®½ºÆ®¿¡¼­ Áö¿ì°í
+			itor = m_Children.erase(itor);			// ìš°ì„  ë¦¬ìŠ¤íŠ¸ì—ì„œ ì§€ìš°ê³ 
 			ppBuffer[iAlwaysTopChildCount++] = pChild;
 		}
 		else ++itor;
@@ -165,7 +165,7 @@ void CUIManager::ReorderChildList()	// ´ÙÀÌ¾Ë·Î±× ¼ø¼­ Àç¹èÄ¡
 	int i;
 	for (i=iAlwaysTopChildCount-1; i>=0; --i)
 	{
-		m_Children.push_front(ppBuffer[i]);	// ¸Ç¾Õ¿¡ ³Ö´Â´Ù. ±×¸®´Â ¼ø¼­¸¦ ¸Ç ³ªÁß¿¡ ±×¸®µµ·Ï ÇÏ°í ¸Ş¼¼Áö¸¦ ¸Ç ¸ÕÀú ¹Ş°Ô ÇÏ·Á°í
+		m_Children.push_front(ppBuffer[i]);	// ë§¨ì•ì— ë„£ëŠ”ë‹¤. ê·¸ë¦¬ëŠ” ìˆœì„œë¥¼ ë§¨ ë‚˜ì¤‘ì— ê·¸ë¦¬ë„ë¡ í•˜ê³  ë©”ì„¸ì§€ë¥¼ ë§¨ ë¨¼ì € ë°›ê²Œ í•˜ë ¤ê³ 
 	}
 	delete [] ppBuffer;
 }
@@ -180,7 +180,7 @@ void CUIManager::Render()
 {
 	this->RenderStateSet();
 
-	CN3UIBase::Render();	// ÀÚ½Äµé render
+	CN3UIBase::Render();	// ìì‹ë“¤ render
 	if (s_pTooltipCtrl) s_pTooltipCtrl->Render();	// tooltip render
 
 	/*
@@ -191,7 +191,7 @@ void CUIManager::Render()
 	*/
 	////////////////////////////////////////////////////////
 #ifdef _DEBUG
-	CDFont* m_pDFont = new CDFont("±¼¸²", 10);	// default ·Î ±¼¸² 16À¸·Î ¼³Á¤
+	CDFont* m_pDFont = new CDFont("êµ´ë¦¼", 10);	// default ë¡œ êµ´ë¦¼ 16ìœ¼ë¡œ ì„¤ì •
 	m_pDFont->InitDeviceObjects(CN3Base::s_lpD3DDev);
 	m_pDFont->RestoreDeviceObjects();
 
@@ -243,7 +243,7 @@ void CUIManager::RenderStateSet()
 	if(NULL == s_lpD3DDev) return;
 
 #ifdef _DEBUG
-	__ASSERT(FALSE == s_sRSFU.bSet, "ÀÌÀü¿¡ RenderStateSet()ÇÔ¼ö¸¦ È£ÃâÇÏ°í RenderStateRestore()ÇÔ¼ö°¡ È£ÃâµÇÁö ¾ÊÀº »óÅÂÀÔ´Ï´Ù.");
+	__ASSERT(FALSE == s_sRSFU.bSet, "ì´ì „ì— RenderStateSet()í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ê³  RenderStateRestore()í•¨ìˆ˜ê°€ í˜¸ì¶œë˜ì§€ ì•Šì€ ìƒíƒœì…ë‹ˆë‹¤.");
 	s_sRSFU.bSet = TRUE;
 #endif
 
@@ -267,7 +267,7 @@ void CUIManager::RenderStateSet()
 	if (TRUE != s_sRSFU.dwAlphaBlend) s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	if (D3DBLEND_SRCALPHA != s_sRSFU.dwSrcBlend) s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	if (D3DBLEND_INVSRCALPHA != s_sRSFU.dwDestBlend) s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	if (FALSE != s_sRSFU.dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE   , FALSE);	// 2dµµ fog¸¦ ¸Ô´Â´Ù ¤Ñ.¤Ñ;
+	if (FALSE != s_sRSFU.dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE   , FALSE);	// 2dë„ fogë¥¼ ë¨¹ëŠ”ë‹¤ ã…¡.ã…¡;
 	if (D3DTEXF_POINT != s_sRSFU.dwMagFilter ) s_lpD3DDev->SetSamplerState(0, D3DSAMP_MAGFILTER,   D3DTEXF_POINT);
 	if (D3DTEXF_POINT != s_sRSFU.dwMinFilter ) s_lpD3DDev->SetSamplerState(0, D3DSAMP_MINFILTER,   D3DTEXF_POINT);
 	if (D3DTEXF_NONE != s_sRSFU.dwMipFilter ) s_lpD3DDev->SetSamplerState(0, D3DSAMP_MIPFILTER,   D3DTEXF_NONE);
@@ -276,7 +276,7 @@ void CUIManager::RenderStateSet()
 void CUIManager::RenderStateRestore()
 {
 #ifdef _DEBUG
-	__ASSERT(TRUE == s_sRSFU.bSet, "ÀÌÀü¿¡ RenderStateSet()ÇÔ¼ö¸¦ È£ÃâÇÏÁö ¾Ê¾Ò½À´Ï´Ù.");
+	__ASSERT(TRUE == s_sRSFU.bSet, "ì´ì „ì— RenderStateSet()í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 	s_sRSFU.bSet = FALSE;
 #endif
 
@@ -296,16 +296,16 @@ bool CUIManager::BroadcastIconDropMsg(__IconItemSkill* spItem)
 	bool bFound = false;
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
 
-	// À©µµ¿ìµéÀ» µ¹¾Æ ´Ù´Ï¸é¼­ °Ë»ç..
+	// ìœˆë„ìš°ë“¤ì„ ëŒì•„ ë‹¤ë‹ˆë©´ì„œ ê²€ì‚¬..
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		if ( bFound ) break;
 		CN3UIBase* pChild = (*itor);
 		if ( pChild->UIType() == UI_TYPE_ICON_MANAGER )
 		{
-			// ÇØ´ç À©µµ¿ì°¡ º¸ÀÌ°í(È°¼ºÈ­ µÇ¾î ÀÖ°í), ±× À©µµ¿ì ¿µ¿ª ¾È¿¡ ÀÖÀ¸¸é..
+			// í•´ë‹¹ ìœˆë„ìš°ê°€ ë³´ì´ê³ (í™œì„±í™” ë˜ì–´ ìˆê³ ), ê·¸ ìœˆë„ìš° ì˜ì—­ ì•ˆì— ìˆìœ¼ë©´..
 			if ( ((CN3UIWndBase* )pChild)->IsVisible() && ((CN3UIWndBase* )pChild)->IsIn(ptCur.x, ptCur.y) )
-				// ÇØ´ç À©µµ¿ì¿¡ ¾ÆÀÌÄÜ µå·Ó ¸Ş½ÃÁö ÇÔ¼ö¸¦ È£Ãâ..
+				// í•´ë‹¹ ìœˆë„ìš°ì— ì•„ì´ì½˜ ë“œë¡­ ë©”ì‹œì§€ í•¨ìˆ˜ë¥¼ í˜¸ì¶œ..
 				if ( ((CN3UIWndBase* )pChild)->ReceiveIconDrop(spItem, ptCur) )
 					return true;
 				else
@@ -313,7 +313,7 @@ bool CUIManager::BroadcastIconDropMsg(__IconItemSkill* spItem)
 		}
 	}
 
-	// ¾î´À ´©±¸ÀÇ ¿µ¿ª¿¡µµ ¼ÓÇÏÁö ¾ÊÀ¸¸é.. ÇØ´ç ¾ÆÀÌÄÜÀ» °¡Áø À©µµ¿ì¿¡°Ô Cancel ¸Ş½ÃÁö¸¦ ³¯·Á ÁØ´Ù..
+	// ì–´ëŠ ëˆ„êµ¬ì˜ ì˜ì—­ì—ë„ ì†í•˜ì§€ ì•Šìœ¼ë©´.. í•´ë‹¹ ì•„ì´ì½˜ì„ ê°€ì§„ ìœˆë„ìš°ì—ê²Œ Cancel ë©”ì‹œì§€ë¥¼ ë‚ ë ¤ ì¤€ë‹¤..
 	if ( !bFound )
 	{
 		switch ( CN3UIWndBase::m_sSelectedIconInfo.UIWndSelect.UIWnd )
@@ -372,9 +372,9 @@ void CUIManager::SetFocusedUI(CN3UIBase* pUI)
 	}
 	if(it == itEnd) return;
 
-	it = m_Children.erase(it);			// ¿ì¼± ¸®½ºÆ®¿¡¼­ Áö¿ì°í
-	m_Children.push_front(pUI);	// ¸Ç¾Õ¿¡ ³Ö´Â´Ù. ±×¸®´Â ¼ø¼­¸¦ ¸Ç ³ªÁß¿¡ ±×¸®µµ·Ï ÇÏ°í ¸Ş¼¼Áö¸¦ ¸Ç ¸ÕÀú ¹Ş°Ô ÇÏ·Á°í
-	ReorderChildList();	// child list ÀçÁ¤·Ä(Ç×»ó À§¿¡ ¶ß´Â dialog ¶§¹®¿¡ ´Ù½Ã Á¤·ÄÇÑ´Ù.)
+	it = m_Children.erase(it);			// ìš°ì„  ë¦¬ìŠ¤íŠ¸ì—ì„œ ì§€ìš°ê³ 
+	m_Children.push_front(pUI);	// ë§¨ì•ì— ë„£ëŠ”ë‹¤. ê·¸ë¦¬ëŠ” ìˆœì„œë¥¼ ë§¨ ë‚˜ì¤‘ì— ê·¸ë¦¬ë„ë¡ í•˜ê³  ë©”ì„¸ì§€ë¥¼ ë§¨ ë¨¼ì € ë°›ê²Œ í•˜ë ¤ê³ 
+	ReorderChildList();	// child list ì¬ì •ë ¬(í•­ìƒ ìœ„ì— ëœ¨ëŠ” dialog ë•Œë¬¸ì— ë‹¤ì‹œ ì •ë ¬í•œë‹¤.)
 
 	m_pUIFocused = this->GetTopUI(true);
 }
@@ -460,9 +460,9 @@ void CUIManager::SetVisibleFocusedUI(CN3UIBase *pUI)
 
 	if(!(dwUIStyle & UISTYLE_FOCUS_UNABLE))
 	{
-		it = m_Children.erase(it);			// ¿ì¼± ¸®½ºÆ®¿¡¼­ Áö¿ì°í
-		m_Children.push_front(pUI);	// ¸Ç¾Õ¿¡ ³Ö´Â´Ù. ±×¸®´Â ¼ø¼­¸¦ ¸Ç ³ªÁß¿¡ ±×¸®µµ·Ï ÇÏ°í ¸Ş¼¼Áö¸¦ ¸Ç ¸ÕÀú ¹Ş°Ô ÇÏ·Á°í
-		ReorderChildList();	// child list ÀçÁ¤·Ä(Ç×»ó À§¿¡ ¶ß´Â dialog ¶§¹®¿¡ ´Ù½Ã Á¤·ÄÇÑ´Ù.)
+		it = m_Children.erase(it);			// ìš°ì„  ë¦¬ìŠ¤íŠ¸ì—ì„œ ì§€ìš°ê³ 
+		m_Children.push_front(pUI);	// ë§¨ì•ì— ë„£ëŠ”ë‹¤. ê·¸ë¦¬ëŠ” ìˆœì„œë¥¼ ë§¨ ë‚˜ì¤‘ì— ê·¸ë¦¬ë„ë¡ í•˜ê³  ë©”ì„¸ì§€ë¥¼ ë§¨ ë¨¼ì € ë°›ê²Œ í•˜ë ¤ê³ 
+		ReorderChildList();	// child list ì¬ì •ë ¬(í•­ìƒ ìœ„ì— ëœ¨ëŠ” dialog ë•Œë¬¸ì— ë‹¤ì‹œ ì •ë ¬í•œë‹¤.)
 	}
 
 	m_pUIFocused = this->GetEnableFocusTopUI(true);
@@ -480,9 +480,9 @@ CN3UIBase* CUIManager::GetEnableFocusTopUI(bool bVisible)
 	for(; it != itEnd; it++)
 	{
 		CN3UIBase* pUI = *(it);
-		if(pUI && pUI->IsVisible() &&	//º¸ÀÌ°í
-			!(pUI->GetStyle() & UISTYLE_FOCUS_UNABLE) && //Æ÷Ä¿½º°¡ °¡´ÉÇÏ°í
-			!(pUI->GetStyle() & UISTYLE_HIDE_UNABLE)) //´İÈú¼ö ÀÖ´Â
+		if(pUI && pUI->IsVisible() &&	//ë³´ì´ê³ 
+			!(pUI->GetStyle() & UISTYLE_FOCUS_UNABLE) && //í¬ì»¤ìŠ¤ê°€ ê°€ëŠ¥í•˜ê³ 
+			!(pUI->GetStyle() & UISTYLE_HIDE_UNABLE)) //ë‹«íìˆ˜ ìˆëŠ”
 			return pUI;
 	}
 	

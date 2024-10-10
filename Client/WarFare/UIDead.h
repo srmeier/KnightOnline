@@ -1,4 +1,4 @@
-// UIDead.h: interface for the CUIDead class.
+﻿// UIDead.h: interface for the CUIDead class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// UIHotKeyDlg.cpp: implementation of the CUIHotKeyDlg class.
+ï»¿// UIHotKeyDlg.cpp: implementation of the CUIHotKeyDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -103,10 +103,10 @@ uint32_t CUIHotKeyDlg::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POI
 {
 	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if ( !IsVisible() ) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
-	// ½ÇÁ¦·Î ¾²Áø ¾Ê´Â´Ù..
+	// ì‹¤ì œë¡œ ì“°ì§„ ì•ŠëŠ”ë‹¤..
 	if (CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer) { dwRet |= CN3UIBase::MouseProc(dwFlags, ptCur, ptOld);  return dwRet; }
 
-	// µå·¡±× µÇ´Â ¾ÆÀÌÄÜ °»½Å..
+	// ë“œë˜ê·¸ ë˜ëŠ” ì•„ì´ì½˜ ê°±ì‹ ..
 	if ( GetState() == UI_STATE_ICON_MOVING ) 
 	{
 		if(CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo)
@@ -157,7 +157,7 @@ bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			break;
 
 		case UIMSG_ICON_RUP:
-			// Hot Key À©µµ¿ì¸¦ µ¹¾Æ ´Ù´Ï¸é¼­ °Ë»ç..
+			// Hot Key ìœˆë„ìš°ë¥¼ ëŒì•„ ë‹¤ë‹ˆë©´ì„œ ê²€ì‚¬..
 			if ( IsIn(ptCur.x, ptCur.y) )
 			{
 				int iOrder = GetAreaiOrder();
@@ -171,11 +171,11 @@ bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			break;
 
 		case UIMSG_ICON_UP:
-			// Hot Key À©µµ¿ì¸¦ µ¹¾Æ ´Ù´Ï¸é¼­ °Ë»ç..
+			// Hot Key ìœˆë„ìš°ë¥¼ ëŒì•„ ë‹¤ë‹ˆë©´ì„œ ê²€ì‚¬..
 			if ( IsIn(ptCur.x, ptCur.y) )
 			{
 				int iOrder = GetAreaiOrder();
-				if ( CN3UIWndBase::m_sSkillSelectInfo.iOrder == iOrder )	// ½ÇÇà..
+				if ( CN3UIWndBase::m_sSkillSelectInfo.iOrder == iOrder )	// ì‹¤í–‰..
 				{
 					CN3UIArea* pArea;
 					pArea = CN3UIWndBase::GetChildAreaByiOrder(UI_AREA_TYPE_SKILL_HOTKEY, iOrder);
@@ -191,13 +191,13 @@ bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 				{
 					if ( iOrder == -1 )
 					{
-						// ¸®¼Ò½º Free..
+						// ë¦¬ì†ŒìŠ¤ Free..
 						spSkill = CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo;
 
-						// ¸Å´ÏÀú¿¡¼­ Á¦°Å..
+						// ë§¤ë‹ˆì €ì—ì„œ ì œê±°..
 						RemoveChild(spSkill->pUIIcon);
 
-						// ¸®¼Ò½º Á¦°Å..
+						// ë¦¬ì†ŒìŠ¤ ì œê±°..
 						spSkill->pUIIcon->Release();
 						delete spSkill->pUIIcon;
 						spSkill->pUIIcon = NULL;
@@ -212,18 +212,18 @@ bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 						CloseIconRegistry();
 					}
-					else	// ¿Å±â±â..
+					else	// ì˜®ê¸°ê¸°..
 					{
-						// ±âÁ¸ ¾ÆÀÌÄÜÀÌ ÀÖ´Ù¸é..
+						// ê¸°ì¡´ ì•„ì´ì½˜ì´ ìˆë‹¤ë©´..
 						if ( m_pMyHotkey[m_iCurPage][iOrder] )
 						{
-							// ±âÁ¸ ¾ÆÀÌÄÜÀ» »èÁ¦ÇÑ´Ù..
+							// ê¸°ì¡´ ì•„ì´ì½˜ì„ ì‚­ì œí•œë‹¤..
 							spSkill = m_pMyHotkey[m_iCurPage][iOrder];
 
-							// ¸Å´ÏÀú¿¡¼­ Á¦°Å..
+							// ë§¤ë‹ˆì €ì—ì„œ ì œê±°..
 							RemoveChild(spSkill->pUIIcon);
 
-							// ¸®¼Ò½º Á¦°Å..
+							// ë¦¬ì†ŒìŠ¤ ì œê±°..
 							spSkill->pUIIcon->Release();
 							delete spSkill->pUIIcon;
 							spSkill->pUIIcon = NULL;
@@ -254,15 +254,15 @@ bool CUIHotKeyDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 					}
 				}
 			}
-			else		// »èÁ¦..
+			else		// ì‚­ì œ..
 			{
-				// ¸®¼Ò½º Free..
+				// ë¦¬ì†ŒìŠ¤ Free..
 				spSkill = CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo;
 
-				// ¸Å´ÏÀú¿¡¼­ Á¦°Å..
+				// ë§¤ë‹ˆì €ì—ì„œ ì œê±°..
 				RemoveChild(spSkill->pUIIcon);
 
-				// ¸®¼Ò½º Á¦°Å..
+				// ë¦¬ì†ŒìŠ¤ ì œê±°..
 				spSkill->pUIIcon->Release();
 				delete spSkill->pUIIcon;
 				spSkill->pUIIcon = NULL;
@@ -294,7 +294,7 @@ void CUIHotKeyDlg::Render()
 	bool bTooltipRender = false;
 	__IconItemSkill* pSkill = NULL;
 
-	if (!m_bVisible) return;	// º¸ÀÌÁö ¾ÊÀ¸¸é ÀÚ½ÄµéÀ» renderÇÏÁö ¾Ê´Â´Ù.
+	if (!m_bVisible) return;	// ë³´ì´ì§€ ì•Šìœ¼ë©´ ìì‹ë“¤ì„ renderí•˜ì§€ ì•ŠëŠ”ë‹¤.
 	DisableTooltipDisplay();
 	DisableCountStrDisplay();
 
@@ -316,7 +316,7 @@ void CUIHotKeyDlg::Render()
 			RenderSelectIcon(pUIIcon);
 	}
 
-	// ÇöÀç ÆäÀÌÁö¿¡¼­ 
+	// í˜„ì¬ í˜ì´ì§€ì—ì„œ 
 	CN3UIArea* pArea;
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
 
@@ -396,7 +396,7 @@ void CUIHotKeyDlg::InitIconUpdate()
 		{
 			__TABLE_UPC_SKILL* pUSkill = NULL;
 
-			// Skill Tree Window°¡ ¾ÆÀÌµğ¸¦ °®°í ÀÖÁö ¾ÊÀ¸¸é continue.. 
+			// Skill Tree Windowê°€ ì•„ì´ë””ë¥¼ ê°–ê³  ìˆì§€ ì•Šìœ¼ë©´ continue.. 
 			if ( (HD.iID < UIITEM_TYPE_SONGPYUN_ID_MIN) &&  (!CGameProcedure::s_pProcMain->m_pUISkillTreeDlg->HasIDSkill(HD.iID)) )
 				continue;
 
@@ -407,12 +407,12 @@ void CUIHotKeyDlg::InitIconUpdate()
 			__IconItemSkill* spSkill = new __IconItemSkill();
 			spSkill->pSkill = pUSkill;
 
-			// ¾ÆÀÌÄÜ ÀÌ¸§ ¸¸µé±â.. ^^
+			// ì•„ì´ì½˜ ì´ë¦„ ë§Œë“¤ê¸°.. ^^
 			std::vector<char> buffer(256, NULL);
 			sprintf(&buffer[0],	"UI\\skillicon_%.2d_%d.dxt", HD.iID%100, HD.iID/100);
 			spSkill->szIconFN = &buffer[0];
 
-			// ¾ÆÀÌÄÜ ·ÎµåÇÏ±â.. ^^
+			// ì•„ì´ì½˜ ë¡œë“œí•˜ê¸°.. ^^
 			spSkill->pUIIcon = new CN3UIIcon;
 			spSkill->pUIIcon->Init(this);
 			spSkill->pUIIcon->SetTex(spSkill->szIconFN);
@@ -428,7 +428,7 @@ void CUIHotKeyDlg::InitIconUpdate()
 				spSkill->pUIIcon->SetMoveRect(pArea->GetRegion());
 			}
 
-			// ¾ÆÀÌÄÜ Á¤º¸ ÀúÀå..
+			// ì•„ì´ì½˜ ì •ë³´ ì €ì¥..
 			m_pMyHotkey[HD.row][HD.column] = spSkill;
 		}
 		iSkillCount++;
@@ -519,13 +519,13 @@ void CUIHotKeyDlg::AllFactorClear()
 		{
 			if ( m_pMyHotkey[i][j] != NULL )
 			{
-				// ¸®¼Ò½º Free..
+				// ë¦¬ì†ŒìŠ¤ Free..
 				spSkill = m_pMyHotkey[i][j];
 
-				// ¸Å´ÏÀú¿¡¼­ Á¦°Å..
+				// ë§¤ë‹ˆì €ì—ì„œ ì œê±°..
 				RemoveChild(spSkill->pUIIcon);
 
-				// ¸®¼Ò½º Á¦°Å..
+				// ë¦¬ì†ŒìŠ¤ ì œê±°..
 				spSkill->pUIIcon->Release();
 				delete spSkill->pUIIcon;
 				spSkill->pUIIcon = NULL;
@@ -541,7 +541,7 @@ void CUIHotKeyDlg::AllFactorClear()
 
 int	CUIHotKeyDlg::GetAreaiOrder()
 {
-	// ¸ÕÀú Area¸¦ °Ë»öÇÑ´Ù..
+	// ë¨¼ì € Areaë¥¼ ê²€ìƒ‰í•œë‹¤..
 	CN3UIArea* pArea;
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
 
@@ -557,7 +557,7 @@ int	CUIHotKeyDlg::GetAreaiOrder()
 
 bool CUIHotKeyDlg::IsSelectedSkillInRealIconArea()
 {
-	// ¸ÕÀú Area¸¦ °Ë»öÇÑ´Ù..
+	// ë¨¼ì € Areaë¥¼ ê²€ìƒ‰í•œë‹¤..
 	CN3UIArea* pArea;
 	bool bFound = false;
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
@@ -601,13 +601,13 @@ void CUIHotKeyDlg::SetReceiveSelectedSkill(int iIndex)
 
 	if (m_pMyHotkey[m_iCurPage][iIndex] != NULL)
 	{
-		// ¸®¼Ò½º Free..
+		// ë¦¬ì†ŒìŠ¤ Free..
 		spSkill = m_pMyHotkey[m_iCurPage][iIndex];
 
-		// ¸Å´ÏÀú¿¡¼­ Á¦°Å..
+		// ë§¤ë‹ˆì €ì—ì„œ ì œê±°..
 		RemoveChild(spSkill->pUIIcon);
 
-		// ¸®¼Ò½º Á¦°Å..
+		// ë¦¬ì†ŒìŠ¤ ì œê±°..
 		spSkill->pUIIcon->Release();
 		delete spSkill->pUIIcon;
 		spSkill->pUIIcon = NULL;
@@ -619,7 +619,7 @@ void CUIHotKeyDlg::SetReceiveSelectedSkill(int iIndex)
 	CN3UIArea* pArea;
 	pArea = CN3UIWndBase::GetChildAreaByiOrder(UI_AREA_TYPE_SKILL_HOTKEY, iIndex);
 
-	// ±× ´ÙÀ½¿¡.. ±× ÀÚ¸®¿¡ 
+	// ê·¸ ë‹¤ìŒì—.. ê·¸ ìë¦¬ì— 
 	m_pMyHotkey[m_iCurPage][iIndex] = CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo;
 	m_pMyHotkey[m_iCurPage][iIndex]->szIconFN = CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo->szIconFN;
 	m_pMyHotkey[m_iCurPage][iIndex]->pUIIcon->SetRegion(pArea->GetRegion());
@@ -709,8 +709,8 @@ void CUIHotKeyDlg::DoOperate(__IconItemSkill*	pSkill)
 	if(!pSkill) return;
 
 	//char szBuf[512];
-	// ¸Ş½ÃÁö ¹Ú½º Ãâ·Â..	
-	//wsprintf(szBuf, "%s ½ºÅ³ÀÌ »ç¿ëµÇ¾ú½À´Ï´Ù.", pSkill->pSkill->szName.c_str() );
+	// ë©”ì‹œì§€ ë°•ìŠ¤ ì¶œë ¥..	
+	//wsprintf(szBuf, "%s ìŠ¤í‚¬ì´ ì‚¬ìš©ë˜ì—ˆìŠµë‹ˆë‹¤.", pSkill->pSkill->szName.c_str() );
 	//CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffff00);
 
 	PlayRepairSound();					
@@ -729,13 +729,13 @@ void CUIHotKeyDlg::ClassChangeHotkeyFlush()
 		{
 			if ( m_pMyHotkey[i][j] != NULL )
 			{
-				// ¸®¼Ò½º Free..
+				// ë¦¬ì†ŒìŠ¤ Free..
 				spSkill = m_pMyHotkey[i][j];
 
-				// ¸Å´ÏÀú¿¡¼­ Á¦°Å..
+				// ë§¤ë‹ˆì €ì—ì„œ ì œê±°..
 				RemoveChild(spSkill->pUIIcon);
 
-				// ¸®¼Ò½º Á¦°Å..
+				// ë¦¬ì†ŒìŠ¤ ì œê±°..
 				spSkill->pUIIcon->Release();
 				delete spSkill->pUIIcon;
 				spSkill->pUIIcon = NULL;
@@ -838,7 +838,7 @@ int CUIHotKeyDlg::GetCountCurPageIndex(__IconItemSkill* spSkill)
 bool CUIHotKeyDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 {
 	bool bFound = false;
-	// ³»°¡ °¡Á³´ø ¾ÆÀÌÄÜÀÌ ¾Æ´Ï¸é..
+	// ë‚´ê°€ ê°€ì¡Œë˜ ì•„ì´ì½˜ì´ ì•„ë‹ˆë©´..
 	if ( CN3UIWndBase::m_sSelectedIconInfo.UIWndSelect.UIWnd != UIWND_INVENTORY )
 		return false;
 	else
@@ -861,16 +861,16 @@ bool CUIHotKeyDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 
 		__IconItemSkill* spSkill, *spItem;
 
-		// ±âÁ¸ ¾ÆÀÌÄÜÀÌ ÀÖ´Ù¸é..
+		// ê¸°ì¡´ ì•„ì´ì½˜ì´ ìˆë‹¤ë©´..
 		if ( m_pMyHotkey[m_iCurPage][iOrder] )
 		{
-			// ±âÁ¸ ¾ÆÀÌÄÜÀ» »èÁ¦ÇÑ´Ù..
+			// ê¸°ì¡´ ì•„ì´ì½˜ì„ ì‚­ì œí•œë‹¤..
 			spSkill = m_pMyHotkey[m_iCurPage][iOrder];
 
-			// ¸Å´ÏÀú¿¡¼­ Á¦°Å..
+			// ë§¤ë‹ˆì €ì—ì„œ ì œê±°..
 			RemoveChild(spSkill->pUIIcon);
 
-			// ¸®¼Ò½º Á¦°Å..
+			// ë¦¬ì†ŒìŠ¤ ì œê±°..
 			spSkill->pUIIcon->Release();
 			delete spSkill->pUIIcon;
 			spSkill->pUIIcon = NULL;
@@ -888,12 +888,12 @@ bool CUIHotKeyDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 		spSkill = new __IconItemSkill();
 		spSkill->pSkill = pUSkill;
 
-		// ¾ÆÀÌÄÜ ÀÌ¸§ ¸¸µé±â.. ^^
+		// ì•„ì´ì½˜ ì´ë¦„ ë§Œë“¤ê¸°.. ^^
 		std::vector<char> buffer(256, NULL);
 		sprintf(&buffer[0],	"UI\\skillicon_%.2d_%d.dxt", spItem->pItemBasic->dwEffectID1%100, spItem->pItemBasic->dwEffectID1/100);
 		spSkill->szIconFN = &buffer[0];
 
-		// ¾ÆÀÌÄÜ ·ÎµåÇÏ±â.. ^^
+		// ì•„ì´ì½˜ ë¡œë“œí•˜ê¸°.. ^^
 		spSkill->pUIIcon = new CN3UIIcon;
 		spSkill->pUIIcon->Init(this);
 		spSkill->pUIIcon->SetTex(spSkill->szIconFN);
@@ -938,7 +938,7 @@ void CUIHotKeyDlg::RenderSelectIcon(CN3UIIcon* pUIIcon)
 {
 	if(!pUIIcon) return;
 
-	RECT rc = pUIIcon->GetRegion(); // ¼±ÅÃ Ç¥½Ã
+	RECT rc = pUIIcon->GetRegion(); // ì„ íƒ í‘œì‹œ
 
 	__VertexTransformedColor vLines[5];
 	vLines[0].Set((float)rc.left, (float)rc.top, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);
@@ -990,8 +990,8 @@ bool CUIHotKeyDlg::OnKeyPress(int iKey)
 	switch(iKey)
 	{
 	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
-		{	//hotkey°¡ Æ÷Ä¿½º ÀâÇôÀÖÀ»¶§´Â ´Ù¸¥ ui¸¦ ´İÀ»¼ö ¾øÀ¸¹Ç·Î DIK_ESCAPE°¡ µé¾î¿À¸é Æ÷Ä¿½º¸¦ ´Ù½ÃÀâ°í
-			//¿­·ÁÀÖ´Â ´Ù¸¥ À¯¾ÆÀÌ¸¦ ´İ¾ÆÁØ´Ù.
+		{	//hotkeyê°€ í¬ì»¤ìŠ¤ ì¡í˜€ìˆì„ë•ŒëŠ” ë‹¤ë¥¸ uië¥¼ ë‹«ì„ìˆ˜ ì—†ìœ¼ë¯€ë¡œ DIK_ESCAPEê°€ ë“¤ì–´ì˜¤ë©´ í¬ì»¤ìŠ¤ë¥¼ ë‹¤ì‹œì¡ê³ 
+			//ì—´ë ¤ìˆëŠ” ë‹¤ë¥¸ ìœ ì•„ì´ë¥¼ ë‹«ì•„ì¤€ë‹¤.
 			CGameProcedure::s_pUIMgr->ReFocusUI();//this_ui
 			CN3UIBase* pFocus = CGameProcedure::s_pUIMgr->GetFocusedUI();
 			if(pFocus && pFocus != this) pFocus->OnKeyPress(iKey);

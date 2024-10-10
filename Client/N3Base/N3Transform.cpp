@@ -1,4 +1,4 @@
-// N3Obj.cpp: implementation of the CN3 class.
+ï»¿// N3Obj.cpp: implementation of the CN3 class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "N3Transform.h"
@@ -12,12 +12,12 @@ CN3Transform::CN3Transform()
 {
 	m_dwType |= OBJ_TRANSFORM;
 
-	m_vPos.Set(0,0,0); // À§Ä¡, ½ºÄÉÀÏ, È¸Àü º¤ÅÍ. 
+	m_vPos.Set(0,0,0); // ìœ„ì¹˜, ìŠ¤ì¼€ì¼, íšŒì „ ë²¡í„°. 
 	m_vScale.Set(1,1,1);
 	m_qRot.Identity();
 	m_Matrix.Identity();
 
-	// ¿¡´Ï¸ŞÀÌ¼Ç Å°
+	// ì—ë‹ˆë©”ì´ì…˜ í‚¤
 	m_fFrmCur = 0;
 	m_fFrmWhole = 0;
 }
@@ -28,13 +28,13 @@ CN3Transform::~CN3Transform()
 
 void CN3Transform::Release()
 {
-	m_vPos.Set(0,0,0); // À§Ä¡, ½ºÄÉÀÏ, È¸Àü º¤ÅÍ. 
+	m_vPos.Set(0,0,0); // ìœ„ì¹˜, ìŠ¤ì¼€ì¼, íšŒì „ ë²¡í„°. 
 	m_vScale.Set(1,1,1);
 	m_qRot.Identity();
 
 	m_Matrix.Identity();
 
-	// ¿¡´Ï¸ŞÀÌ¼Ç Å°
+	// ì—ë‹ˆë©”ì´ì…˜ í‚¤
 	m_fFrmCur = 0;
 	m_fFrmWhole = 0;
 
@@ -50,11 +50,11 @@ bool CN3Transform::Load(HANDLE hFile)
 	CN3BaseFileAccess::Load(hFile);
 
 	DWORD dwRWC = 0;
-	ReadFile(hFile, &m_vPos, sizeof(__Vector3), &dwRWC, NULL); // À§Ä¡, ½ºÄÉÀÏ, È¸Àü º¤ÅÍ. 
+	ReadFile(hFile, &m_vPos, sizeof(__Vector3), &dwRWC, NULL); // ìœ„ì¹˜, ìŠ¤ì¼€ì¼, íšŒì „ ë²¡í„°. 
 	ReadFile(hFile, &m_qRot, sizeof(__Quaternion), &dwRWC, NULL);
 	ReadFile(hFile, &m_vScale, sizeof(__Vector3), &dwRWC, NULL);
 
-	// ¿¡´Ï¸ŞÀÌ¼Ç Å°
+	// ì—ë‹ˆë©”ì´ì…˜ í‚¤
 	m_KeyPos.Load(hFile);
 	m_KeyRot.Load(hFile);
 	m_KeyScale.Load(hFile);
@@ -71,7 +71,7 @@ bool CN3Transform::Load(HANDLE hFile)
 	fFrmWhole = m_KeyScale.Count() * m_KeyScale.SamplingRate() / 30.0f;
 	if(fFrmWhole > m_fFrmWhole) m_fFrmWhole = fFrmWhole;
 
-	this->ReCalcMatrix(); // º¯È¯ Çà·Ä °è»ê..
+	this->ReCalcMatrix(); // ë³€í™˜ í–‰ë ¬ ê³„ì‚°..
 
 	return true;
 }
@@ -82,11 +82,11 @@ bool CN3Transform::Save(HANDLE hFile)
 	CN3BaseFileAccess::Save(hFile);
 
 	DWORD dwRWC = 0;
-	WriteFile(hFile, &m_vPos, sizeof(__Vector3), &dwRWC, NULL); // À§Ä¡, ½ºÄÉÀÏ, È¸Àü º¤ÅÍ. 
+	WriteFile(hFile, &m_vPos, sizeof(__Vector3), &dwRWC, NULL); // ìœ„ì¹˜, ìŠ¤ì¼€ì¼, íšŒì „ ë²¡í„°. 
 	WriteFile(hFile, &m_qRot, sizeof(__Quaternion), &dwRWC, NULL);
 	WriteFile(hFile, &m_vScale, sizeof(__Vector3), &dwRWC, NULL);
 
-	// ¿¡´Ï¸ŞÀÌ¼Ç Å°
+	// ì—ë‹ˆë©”ì´ì…˜ í‚¤
 	m_KeyPos.Save(hFile);
 	m_KeyRot.Save(hFile);
 	m_KeyScale.Save(hFile);
@@ -111,7 +111,7 @@ void CN3Transform::Tick(float fFrm)
 
 	bool bNdeedReCalcMatrix = this->TickAnimationKey(m_fFrmCur);
 	
-	if(m_dwType & OBJ_JOINT) return; // Joint ÀÏ °æ¿ì´Â Çà·ÄÀ» °è»êÇÏ´Â ¹æ¹ıÀÌ ´Ù¸£±â ¶«½Ã ³Ñ¾î°£´Ù..
+	if(m_dwType & OBJ_JOINT) return; // Joint ì¼ ê²½ìš°ëŠ” í–‰ë ¬ì„ ê³„ì‚°í•˜ëŠ” ë°©ë²•ì´ ë‹¤ë¥´ê¸° ë•œì‹œ ë„˜ì–´ê°„ë‹¤..
 
 	if(bNdeedReCalcMatrix) this->ReCalcMatrix();
 }
@@ -130,7 +130,7 @@ void CN3Transform::ReCalcMatrix()
 
 bool CN3Transform::TickAnimationKey(float fFrm)
 {
-	// ¿¡´Ï¸ŞÀÌ¼Ç Å°
+	// ì—ë‹ˆë©”ì´ì…˜ í‚¤
 	int nKCP = m_KeyPos.Count();
 	int nKCR = m_KeyRot.Count();
 	int nKCS = m_KeyScale.Count();
@@ -147,7 +147,7 @@ bool CN3Transform::TickAnimationKey(float fFrm)
 #ifdef _N3TOOL
 void CN3Transform::Render(const __Matrix44* pMtxParent, float fUnitSize)
 {
-	// Ãà ±×¸®±â..
+	// ì¶• ê·¸ë¦¬ê¸°..
 	static __Vector3 vAxis[9];
 	static bool bAxisCreated = false;
 	if(false == bAxisCreated)
@@ -156,9 +156,9 @@ void CN3Transform::Render(const __Matrix44* pMtxParent, float fUnitSize)
 		__Matrix44 mtxRot;
 		for(int i = 0; i < 3; i++)
 		{
-			if(i == 0) { mtxRot.Identity(); } // X Ãà
-			else if(i == 1) { mtxRot.RotationZ(D3DXToRadian(90.0f)); } // Y Ãà
-			else if(i == 2) { mtxRot.RotationY(D3DXToRadian(-90.0f)); } // Z Ãà
+			if(i == 0) { mtxRot.Identity(); } // X ì¶•
+			else if(i == 1) { mtxRot.RotationZ(D3DXToRadian(90.0f)); } // Y ì¶•
+			else if(i == 2) { mtxRot.RotationY(D3DXToRadian(-90.0f)); } // Z ì¶•
 			
 			vAxis[i*3+0] = v0*mtxRot;
 			vAxis[i*3+1] = v1*mtxRot;
@@ -169,22 +169,22 @@ void CN3Transform::Render(const __Matrix44* pMtxParent, float fUnitSize)
 	}
 
 	__Matrix44 mtxBox;
-	mtxBox.Scale(fUnitSize, fUnitSize, fUnitSize); // °üÀıºÎ ¹Ú½º¿¡ ½ºÄÉÀÏ Àû¿ë
+	mtxBox.Scale(fUnitSize, fUnitSize, fUnitSize); // ê´€ì ˆë¶€ ë°•ìŠ¤ì— ìŠ¤ì¼€ì¼ ì ìš©
 	mtxBox *= m_Matrix;
 
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtxBox);
-	CN3Base::RenderLines(&(vAxis[0]), 2, 0xffff0000); // ¼±±×¸®±â..
-	CN3Base::RenderLines(&(vAxis[3]), 2, 0xff00ff00); // ¼±±×¸®±â..
-	CN3Base::RenderLines(&(vAxis[6]), 2, 0xff0000ff); // ¼±±×¸®±â..
+	CN3Base::RenderLines(&(vAxis[0]), 2, 0xffff0000); // ì„ ê·¸ë¦¬ê¸°..
+	CN3Base::RenderLines(&(vAxis[3]), 2, 0xff00ff00); // ì„ ê·¸ë¦¬ê¸°..
+	CN3Base::RenderLines(&(vAxis[6]), 2, 0xff0000ff); // ì„ ê·¸ë¦¬ê¸°..
 }
 #endif // end of _N3TOOL
 
 /*
 #if _DEBUG 
-// ¼±ÅÃ »óÀÚ ¸¸µé±â.
+// ì„ íƒ ìƒì ë§Œë“¤ê¸°.
 void CN3Transform::GenerateSelectBox(__Vector3 &vMin, __Vector3 &vMax)
 {
-	// Bounding Box Vertex Buffer »ı¼º
+	// Bounding Box Vertex Buffer ìƒì„±
 	if(m_lpVBBox != NULL) { m_lpVBBox->Release(); m_lpVBBox = NULL; }
 	HRESULT rval = m_lpDevRef->CreateVertexBuffer(54 * sizeof(__VertexColor), 0, FVF_CV, D3DPOOL_MANAGED, &m_lpVBBox);
 	if(rval != D3D_OK)
@@ -193,17 +193,17 @@ void CN3Transform::GenerateSelectBox(__Vector3 &vMin, __Vector3 &vMax)
 		if(rval != D3D_OK)
 		{
 			char szDebug[256]; D3DXGetErrorString(rval, szDebug, 256);
-			MessageBox(s_hWndBase, szDebug, "VertexBuffer »ı¼º ½ÇÆĞ", MB_OK);
+			MessageBox(s_hWndBase, szDebug, "VertexBuffer ìƒì„± ì‹¤íŒ¨", MB_OK);
 			return;
 		}
 	}
 
-	float fW = (vMax.x - vMin.x)/5, fH = (vMax.y - vMin.y)/5, fL = (vMax.z - vMin.z)/5; // ±æÀÌ ³ôÀÌ ³Êºñ (x y z)
+	float fW = (vMax.x - vMin.x)/5, fH = (vMax.y - vMin.y)/5, fL = (vMax.z - vMin.z)/5; // ê¸¸ì´ ë†’ì´ ë„ˆë¹„ (x y z)
 
 	__VertexColor* pVC;
 	m_lpVBBox->Lock(0, 0, (uint8_t**)&pVC, NULL);
 	
-	pVC[4] =  pVC[2] =  pVC[0] =  __VertexColor(vMin.x, vMax.y, vMin.z, 0xff7f7f7f);  // Á¤¸é - ¾Æ·¡¿Í °°Àº ¼± ¸®½ºÆ®¸¦ ¸¸µç´Ù.
+	pVC[4] =  pVC[2] =  pVC[0] =  __VertexColor(vMin.x, vMax.y, vMin.z, 0xff7f7f7f);  // ì •ë©´ - ì•„ë˜ì™€ ê°™ì€ ì„  ë¦¬ìŠ¤íŠ¸ë¥¼ ë§Œë“ ë‹¤.
 	pVC[10] = pVC[8] =  pVC[6] =  __VertexColor(vMax.x, vMax.y, vMin.z, 0xff7f7f7f);  //  /          /
 	pVC[16] = pVC[14] = pVC[12] = __VertexColor(vMax.x, vMin.y, vMin.z, 0xff7f7f7f);  // +--      --+
 	pVC[22] = pVC[20] = pVC[18] = __VertexColor(vMin.x, vMin.y, vMin.z, 0xff7f7f7f);  // |          |
@@ -225,12 +225,12 @@ void CN3Transform::GenerateSelectBox(__Vector3 &vMin, __Vector3 &vMax)
 	__Vector3 vLength = (vMax - vMin);
 	float fLength = vLength.Magnitude();
 	__Vector3 vCenter = vMin + (vMax - vMin)/2.0f;
-	pVC[48].Set(0, 0, 0, 0xffff0000); pVC[48].x -= vLength.x/2 + fLength/5 + 0.5f;// x Ãà »¡°£»ö -> »¡°£»ö
-	pVC[49].Set(0, 0, 0, 0xffff0000); pVC[49].x += vLength.x/2 + fLength/5 + 0.5f;// x Ãà »¡°£»ö -> »¡°£»ö
-	pVC[50].Set(0, 0, 0, 0xff00ff00); pVC[50].y -= vLength.y/2 + fLength/5 + 0.5f;// y Ãà ³ì»ö -> ³ì»ö
-	pVC[51].Set(0, 0, 0, 0xff00ff00); pVC[51].y += vLength.y/2 + fLength/5 + 0.5f;// y Ãà ³ì»ö -> ³ì»ö
-	pVC[52].Set(0, 0, 0, 0xff0000ff); pVC[52].z -= vLength.z/2 + fLength/5 + 0.5f;// z Ãà ÆÄ¶õ»ö -> ÆÄ¶õ»ö
-	pVC[53].Set(0, 0, 0, 0xff0000ff); pVC[53].z += vLength.z/2 + fLength/5 + 0.5f;// z Ãà ÆÄ¶õ»ö -> ÆÄ¶õ»ö
+	pVC[48].Set(0, 0, 0, 0xffff0000); pVC[48].x -= vLength.x/2 + fLength/5 + 0.5f;// x ì¶• ë¹¨ê°„ìƒ‰ -> ë¹¨ê°„ìƒ‰
+	pVC[49].Set(0, 0, 0, 0xffff0000); pVC[49].x += vLength.x/2 + fLength/5 + 0.5f;// x ì¶• ë¹¨ê°„ìƒ‰ -> ë¹¨ê°„ìƒ‰
+	pVC[50].Set(0, 0, 0, 0xff00ff00); pVC[50].y -= vLength.y/2 + fLength/5 + 0.5f;// y ì¶• ë…¹ìƒ‰ -> ë…¹ìƒ‰
+	pVC[51].Set(0, 0, 0, 0xff00ff00); pVC[51].y += vLength.y/2 + fLength/5 + 0.5f;// y ì¶• ë…¹ìƒ‰ -> ë…¹ìƒ‰
+	pVC[52].Set(0, 0, 0, 0xff0000ff); pVC[52].z -= vLength.z/2 + fLength/5 + 0.5f;// z ì¶• íŒŒë€ìƒ‰ -> íŒŒë€ìƒ‰
+	pVC[53].Set(0, 0, 0, 0xff0000ff); pVC[53].z += vLength.z/2 + fLength/5 + 0.5f;// z ì¶• íŒŒë€ìƒ‰ -> íŒŒë€ìƒ‰
 	m_lpVBBox->Unlock();
 }
 #endif

@@ -1,4 +1,4 @@
-// UITradeSellBBS.cpp: implementation of the CUITradeSellBBS class.
+ï»¿// UITradeSellBBS.cpp: implementation of the CUITradeSellBBS class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -93,7 +93,7 @@ bool CUITradeSellBBS::Load(HANDLE hFile)
 		m_pText[i] = (CN3UIString*)(this->GetChildByID(szBuf));
 	}
 
-	m_iCurPage = 0; // ÇöÀç ÆäÀÌÁö..
+	m_iCurPage = 0; // í˜„ì¬ í˜ì´ì§€..
 
 	__TABLE_UI_RESRC*	pTblUI	= NULL;
 	pTblUI = CGameBase::s_pTbl_UI.Find(NATION_ELMORAD);
@@ -125,7 +125,7 @@ bool CUITradeSellBBS::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		{
 			float fTime = CN3Base::TimeGet();
 			if( fTime - m_fTime < 3.0f )
-				return true;//³Ê¹« ÀÚÁÖ »õµ¥ÀÌÅÍ ¿äÃ»À» ¸øÇÏ°Ô ÇÔ 3ÃÊ¿¡ ÇÑ¹øÁ¤µµ·Î Á¦¾àÀ» µÒ.
+				return true;//ë„ˆë¬´ ìì£¼ ìƒˆë°ì´í„° ìš”ì²­ì„ ëª»í•˜ê²Œ í•¨ 3ì´ˆì— í•œë²ˆì •ë„ë¡œ ì œì•½ì„ ë‘ .
 			m_fTime = fTime;
 
 			this->MsgSend_RefreshData(m_iCurPage);
@@ -216,13 +216,13 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(Packet& pkt)
 
 			switch(bySubResult)
 			{
-			case 1://1: ÀÏ¹İÀûÀÎ ½ÇÆĞ
+			case 1://1: ì¼ë°˜ì ì¸ ì‹¤íŒ¨
 				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL1, szMsg);
 				break;
-			case 2://2: µ·ÀÌ ¾ø¾î¼­ ½ÇÆĞ
+			case 2://2: ëˆì´ ì—†ì–´ì„œ ì‹¤íŒ¨
 				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
 				break;
-			case 3://3: Ç×¸ñÀÌ ¾ø¾î¼­ ½ÇÆĞ
+			case 3://3: í•­ëª©ì´ ì—†ì–´ì„œ ì‹¤íŒ¨
 				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
 				break;
 			}
@@ -248,20 +248,20 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(Packet& pkt)
 
 			switch(bySubResult)
 			{
-			case 1://1: ÀÏ¹İÀûÀÎ ½ÇÆĞ
+			case 1://1: ì¼ë°˜ì ì¸ ì‹¤íŒ¨
 				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL5, szMsg);
 				break;
-			case 2://2: µ·ÀÌ ¾ø¾î¼­ ½ÇÆĞ
+			case 2://2: ëˆì´ ì—†ì–´ì„œ ì‹¤íŒ¨
 				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
 				break;
-			case 3://3: Ç×¸ñÀÌ ¾ø¾î¼­ ½ÇÆĞ
+			case 3://3: í•­ëª©ì´ ì—†ì–´ì„œ ì‹¤íŒ¨
 				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
 				break;
 			}
 
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff0000);
 		}
-		return; //½ÇÆĞÇß´Ù¸é
+		return; //ì‹¤íŒ¨í–ˆë‹¤ë©´
 	}
 
 	if(bySubType == N3_SP_TYPE_BBS_OPEN)
@@ -309,8 +309,8 @@ void CUITradeSellBBS::MsgRecv_RefreshData(Packet& pkt)
 		if(iLen>0) pkt.readString(Info.szTitle, iLen);
 		iLen = pkt.read<int16_t>();
 		if(iLen>0) pkt.readString(Info.szExplanation, iLen);
-		Info.iPrice = pkt.read<uint32_t>();		//¾ÆÀÌÅÛ¿¡ Á¦½ÃÇÑ °¡°İ
-		Info.sIndex = pkt.read<int16_t>();		//µî·ÏµÈ ÀÎµ¦½º
+		Info.iPrice = pkt.read<uint32_t>();		//ì•„ì´í…œì— ì œì‹œí•œ ê°€ê²©
+		Info.sIndex = pkt.read<int16_t>();		//ë“±ë¡ëœ ì¸ë±ìŠ¤
 
 		if( Info.sID != -1 )
 			m_Datas.push_back(Info);
@@ -330,7 +330,7 @@ void CUITradeSellBBS::MsgRecv_RefreshData(Packet& pkt)
 
 void CUITradeSellBBS::RefreshPage()
 {
-	if(m_pString_Page) m_pString_Page->SetStringAsInt(m_iCurPage+1); // ÆäÀÌÁö Ç¥½Ã..
+	if(m_pString_Page) m_pString_Page->SetStringAsInt(m_iCurPage+1); // í˜ì´ì§€ í‘œì‹œ..
 
 	ResetContent();
 
@@ -348,7 +348,7 @@ void CUITradeSellBBS::RefreshPage()
 
 void CUITradeSellBBS::MsgSend_RefreshData(int iCurPage)
 {
-	if(m_bProcessing) return; //Àü¿¡ º¸³½ ÆĞÅ¶ ÀÀ´äÀÌ ¾øÀ¸¸é
+	if(m_bProcessing) return; //ì „ì— ë³´ë‚¸ íŒ¨í‚· ì‘ë‹µì´ ì—†ìœ¼ë©´
 
 	uint8_t byBuff[10];
 	int iOffset=0;
@@ -365,7 +365,7 @@ void CUITradeSellBBS::MsgSend_RefreshData(int iCurPage)
 
 void CUITradeSellBBS::MsgSend_Register()
 {
-	if(m_bProcessing) return; //Àü¿¡ º¸³½ ÆĞÅ¶ ÀÀ´äÀÌ ¾øÀ¸¸é
+	if(m_bProcessing) return; //ì „ì— ë³´ë‚¸ íŒ¨í‚· ì‘ë‹µì´ ì—†ìœ¼ë©´
 	if(!CGameProcedure::s_pProcMain->m_pUITradeBBSEdit) return;
 	int16_t sLen = 0;
 	std::string szTitle;
@@ -399,7 +399,7 @@ void CUITradeSellBBS::MsgSend_Register()
 
 void CUITradeSellBBS::MsgSend_RegisterCancel(int16_t sIndex)
 {
-	if(m_bProcessing) return; //Àü¿¡ º¸³½ ÆĞÅ¶ ÀÀ´äÀÌ ¾øÀ¸¸é
+	if(m_bProcessing) return; //ì „ì— ë³´ë‚¸ íŒ¨í‚· ì‘ë‹µì´ ì—†ìœ¼ë©´
 
 	uint8_t byBuff[10];
 	int iOffset=0;
@@ -458,7 +458,7 @@ void CUITradeSellBBS::CallBackProc(int iID, uint32_t dwFlag)
 
 void CUITradeSellBBS::OnButtonRegister()
 {
-	if(m_bProcessing) return; //Àü¿¡ º¸³½ ÆĞÅ¶ ÀÀ´äÀÌ ¾øÀ¸¸é
+	if(m_bProcessing) return; //ì „ì— ë³´ë‚¸ íŒ¨í‚· ì‘ë‹µì´ ì—†ìœ¼ë©´
 
 	if(m_byBBSKind == N3_SP_TRADE_BBS_BUY)
 	{
@@ -490,7 +490,7 @@ void CUITradeSellBBS::OnButtonRegister()
 
 void CUITradeSellBBS::OnButtonRegisterCancel()
 {
-	if(m_bProcessing) return; //Àü¿¡ º¸³½ ÆĞÅ¶ ÀÀ´äÀÌ ¾øÀ¸¸é
+	if(m_bProcessing) return; //ì „ì— ë³´ë‚¸ íŒ¨í‚· ì‘ë‹µì´ ì—†ìœ¼ë©´
 	if(m_iCurIndex <= -1) return;
 
 	it_TradeSellBBS it = m_Datas.begin();
@@ -503,12 +503,12 @@ void CUITradeSellBBS::OnButtonRegisterCancel()
 			__InfoTradeSellBBS ITSB = (*it);
 
 			if(0 == lstrcmpi(ITSB.szID.c_str(), CGameProcedure::s_pPlayer->m_InfoBase.szID.c_str()))
-			{//ÀÚ±â°Í¸¸ µî·ÏÇØÁ¦ÇÏ°Ô..
+			{//ìê¸°ê²ƒë§Œ ë“±ë¡í•´ì œí•˜ê²Œ..
 				MsgSend_RegisterCancel(ITSB.sIndex);
 				break;
 			}
 			else if(AUTHORITY_MANAGER == CGameProcedure::s_pProcMain->s_pPlayer->m_InfoBase.iAuthority)
-			{//¿î¿µÀÚ¿¡°Ô´Â ÇØÁ¦ ±ÇÇÑÀ» ÁØ´Ù...(µµ¹è³ª ¿å¼³µîÀÇ °Ô½Ã¹° »èÁ¦¸¦ À§ÇØ¼­...)
+			{//ìš´ì˜ìì—ê²ŒëŠ” í•´ì œ ê¶Œí•œì„ ì¤€ë‹¤...(ë„ë°°ë‚˜ ìš•ì„¤ë“±ì˜ ê²Œì‹œë¬¼ ì‚­ì œë¥¼ ìœ„í•´ì„œ...)
 				MsgSend_RegisterCancel(ITSB.sIndex);
 				break;
 			}
@@ -529,7 +529,7 @@ void CUITradeSellBBS::OnButtonWhisper()
 		{
 			__InfoTradeSellBBS ITSB = (*it);
 			if(0 != lstrcmpi(ITSB.szID.c_str(), CGameProcedure::s_pPlayer->m_InfoBase.szID.c_str()))
-			{//³ª ÀÚ½Å¿¡°Ô´Â ±Ó¼Ó¸»À» ¸øÇÏ°Ô ÇÑ´Ù...
+			{//ë‚˜ ìì‹ ì—ê²ŒëŠ” ê·“ì†ë§ì„ ëª»í•˜ê²Œ í•œë‹¤...
 				CGameProcedure::s_pProcMain->MsgSend_ChatSelectTarget(ITSB.szID);
 			}
 			break;
@@ -548,7 +548,7 @@ void CUITradeSellBBS::SetVisible(bool bVisible)
 
 void CUITradeSellBBS::OnButtonTrade()
 {
-	if(m_bProcessing) return; //Àü¿¡ º¸³½ ÆĞÅ¶ ÀÀ´äÀÌ ¾øÀ¸¸é
+	if(m_bProcessing) return; //ì „ì— ë³´ë‚¸ íŒ¨í‚· ì‘ë‹µì´ ì—†ìœ¼ë©´
 
 	if(m_iCurIndex <= -1) return;
 
@@ -633,9 +633,9 @@ void CUITradeSellBBS::OnListExplanation()
 
 void CUITradeSellBBS::MsgSend_PerTrade()
 {
-	if(m_bProcessing) return; //Àü¿¡ º¸³½ ÆĞÅ¶ ÀÀ´äÀÌ ¾øÀ¸¸é
+	if(m_bProcessing) return; //ì „ì— ë³´ë‚¸ íŒ¨í‚· ì‘ë‹µì´ ì—†ìœ¼ë©´
 	if(0 == lstrcmpi(m_ITSB.szID.c_str(), CGameProcedure::s_pPlayer->m_InfoBase.szID.c_str()))
-		return; //ÀÚ±â ÀÚ½Å¿¡°Ô´Â °Å·¡¸¦ ÇÏÁö ¸øÇÏ°Ô
+		return; //ìê¸° ìì‹ ì—ê²ŒëŠ” ê±°ë˜ë¥¼ í•˜ì§€ ëª»í•˜ê²Œ
 
 	uint8_t byBuff[10];
 

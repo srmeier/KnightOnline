@@ -1,4 +1,4 @@
-// PvsMgr.cpp: implementation of the CPvsMgr class.
+ï»¿// PvsMgr.cpp: implementation of the CPvsMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -146,10 +146,10 @@ bool CPvsMgr::Load(HANDLE hFile)
 	if (iT != ciVersion)
 		return LoadOldVersion(hFile, iT);
 
-	// N3Scene È­ÀÏ.. ¾È¾´´Ù.. -.-;
+	// N3Scene í™”ì¼.. ì•ˆì“´ë‹¤.. -.-;
 	std::string strSrc = ReadDecryptString(hFile), strDest;
 
-	// ÀüÃ¼ ÀÌµ¿°ª.. ¾È½¼´Ù.. -.-;
+	// ì „ì²´ ì´ë™ê°’.. ì•ˆìŠ¨ë‹¤.. -.-;
 	ReadFile(hFile, &iT, sizeof(int), &dwNum, NULL);
 	ReadFile(hFile, &iT, sizeof(int), &dwNum, NULL);	
 	ReadFile(hFile, &iT, sizeof(int), &dwNum, NULL);	
@@ -164,7 +164,7 @@ bool CPvsMgr::Load(HANDLE hFile)
 		ShapeInfo*	pSI = new ShapeInfo;
 		ReadFile(hFile, &pSI->m_iID, sizeof(int), &dwNum, NULL);
 		
-		// ¹®ÀÚ¿­ ±æÀÌ..
+		// ë¬¸ìì—´ ê¸¸ì´..
 		strSrc = ReadDecryptString(hFile);
 		_splitpath(strSrc.c_str(), szDrive, szDir, szFName, szExt);
 		strDest = szFName;	strDest +=  szExt;
@@ -230,7 +230,7 @@ CPortalVolume* CPvsMgr::GetPortalVolPointerByID(int iID)
 
 	while(it != m_pPvsList.end())
 	{
-		// ÀÚ½ÅÀÇ µ¥ÀÌÅÍ ÀúÀå..
+		// ìì‹ ì˜ ë°ì´í„° ì €ì¥..
 		pVol = *it++;
 		if (pVol->m_iID == iID)
 			return pVol;
@@ -432,12 +432,12 @@ CN3Shape* CPvsMgr::PickWithShape(int iXScreen, int iYScreen, bool bMustHaveEvent
 	return m_pCurVol->PickWithShape(iXScreen, iYScreen, bMustHaveEvent, pvPick);
 }
 
-bool CPvsMgr::CheckCollisionWithShape(	const __Vector3& vPos,				 // Ãæµ¹ À§Ä¡
-																	const __Vector3& vDir,				   // ¹æÇâ º¤ÅÍ
-																	float fSpeedPerSec,					    // ÃÊ´ç ¿òÁ÷ÀÌ´Â ¼Óµµ
-																	__Vector3* pvCol,						 // Ãæµ¹ ÁöÁ¡
-																	__Vector3* pvNormal,				  // Ãæµ¹ÇÑ¸éÀÇ ¹ı¼±º¤ÅÍ
-																	__Vector3* pVec)						// Ãæµ¹ÇÑ ¸é ÀÇ Æú¸®°ï __Vector3[3]
+bool CPvsMgr::CheckCollisionWithShape(	const __Vector3& vPos,				 // ì¶©ëŒ ìœ„ì¹˜
+																	const __Vector3& vDir,				   // ë°©í–¥ ë²¡í„°
+																	float fSpeedPerSec,					    // ì´ˆë‹¹ ì›€ì§ì´ëŠ” ì†ë„
+																	__Vector3* pvCol,						 // ì¶©ëŒ ì§€ì 
+																	__Vector3* pvNormal,				  // ì¶©ëŒí•œë©´ì˜ ë²•ì„ ë²¡í„°
+																	__Vector3* pVec)						// ì¶©ëŒí•œ ë©´ ì˜ í´ë¦¬ê³¤ __Vector3[3]
 {
 	if (!m_pCurVol)
 		Tick();

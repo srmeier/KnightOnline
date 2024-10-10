@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "RoomEvent.h"
 #include "resource.h"
 #include "Npc.h"
@@ -43,7 +43,7 @@ void CRoomEvent::Initialize()
 
 void CRoomEvent::MainRoom()
 {
-	// Á¶°Ç °Ë»ö¸ÕÀú ÇØ¾ß °ÚÁö..
+	// ì¡°ê±´ ê²€ìƒ‰ë¨¼ì € í•´ì•¼ ê² ì§€..
 	bool bCheck = false, bRunCheck = false;
 	int event_num  = m_Logic[m_byLogicNumber-1].sNumber;
 
@@ -53,7 +53,7 @@ void CRoomEvent::MainRoom()
 		event_num = m_Exec[m_byLogicNumber-1].sNumber; 
 		bRunCheck = RunEvent( event_num );
 		if( bRunCheck )	{
-			//wsprintf(notify, "** ¾Ë¸² : [%d]¹æÀÌ Å¬¸®¾î µÇ¾î½À´Ï´Ù. **", m_sRoomNumber);
+			//wsprintf(notify, "** ì•Œë¦¼ : [%d]ë°©ì´ í´ë¦¬ì–´ ë˜ì–´ìŠµë‹ˆë‹¤. **", m_sRoomNumber);
 			//g_pMain->SendSystemMsg(notify, PUBLIC_CHAT);
 			m_byStatus = RoomStatusCleared;
 		}
@@ -72,7 +72,7 @@ bool CRoomEvent::CheckEvent(int event_num)
 	}
 
 	switch( event_num )	{
-	case 1:					// Æ¯Á¤ ¸ó½ºÅÍ¸¦ Á×ÀÌ´Â °æ¿ì
+	case 1:					// íŠ¹ì • ëª¬ìŠ¤í„°ë¥¼ ì£½ì´ëŠ” ê²½ìš°
 		nOption_1 = m_Logic[ m_byLogicNumber-1 ].sOption_1;
 		pNpc = GetNpcPtr( nOption_1 );
 		if( pNpc )	{
@@ -83,29 +83,29 @@ bool CRoomEvent::CheckEvent(int event_num)
 		}
 		//TRACE("---Check Event : monster dead = %d \n", nMonsterNid);
 		break;
-	case 2:					// ¸ğµç ¸ó½ºÅÍ¸¦ Á×¿©¶ó
+	case 2:					// ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ ì£½ì—¬ë¼
 		bRetValue = CheckMonsterCount( 0, 0, 3 );
 		if( bRetValue )	{
-			TRACE("¸ğµç ¸ó½ºÅÍ¸¦ Á×¿©¶ó Á×ÀÓ\n");
+			TRACE("ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ ì£½ì—¬ë¼ ì£½ì„\n");
 			return true;
 		}
 		break;
-	case 3:					// ¸îºĞµ¿¾È ¹öÅß¶ó
+	case 3:					// ëª‡ë¶„ë™ì•ˆ ë²„í…¨ë¼
 		nMinute = m_Logic[ m_byLogicNumber-1 ].sOption_1;
-		nMinute = nMinute * 60;								// ºĞÀ» ÃÊ·Î º¯È¯
-		if (UNIXTIME >= m_tDelayTime + nMinute )	{		// Á¦ÇÑ½Ã°£ Á¾·á
+		nMinute = nMinute * 60;								// ë¶„ì„ ì´ˆë¡œ ë³€í™˜
+		if (UNIXTIME >= m_tDelayTime + nMinute )	{		// ì œí•œì‹œê°„ ì¢…ë£Œ
 			return true;
 		}
 		break;
-	case 4:					// ¸ñÇ¥ÁöÁ¡±îÁö ÀÌµ¿
+	case 4:					// ëª©í‘œì§€ì ê¹Œì§€ ì´ë™
 
 		break;
-	case 5:					// Æ¯Á¤¸ó½ºÅÍ¸¦ ¿É¼Ç2ÀÇ ¸¶¸®¼ö ¸¸Å­ Á×¿©¶ó
+	case 5:					// íŠ¹ì •ëª¬ìŠ¤í„°ë¥¼ ì˜µì…˜2ì˜ ë§ˆë¦¬ìˆ˜ ë§Œí¼ ì£½ì—¬ë¼
 		nOption_1 = m_Logic[ m_byLogicNumber-1 ].sOption_1;
 		nOption_2 = m_Logic[ m_byLogicNumber-1 ].sOption_2;
 		bRetValue = CheckMonsterCount( nOption_1, nOption_2, 1 );
 		if( bRetValue )	{
-			TRACE("Æ¯Á¤¸ó½ºÅÍ(%d)¸¦ %d¸¶¸® Á×ÀÓ\n", nOption_1, nOption_2);
+			TRACE("íŠ¹ì •ëª¬ìŠ¤í„°(%d)ë¥¼ %dë§ˆë¦¬ ì£½ì„\n", nOption_1, nOption_2);
 			return true;
 		}
 		break;
@@ -123,60 +123,60 @@ bool CRoomEvent::RunEvent( int event_num )
 	int nOption_1 = 0, nOption_2 = 0;
 	bool bRetValue = false;
 	switch( event_num )	{
-	case 1:					// ´Ù¸¥ ¸ó½ºÅÍÀÇ ÃâÇö
+	case 1:					// ë‹¤ë¥¸ ëª¬ìŠ¤í„°ì˜ ì¶œí˜„
 		nOption_1 = m_Exec[ m_byLogicNumber-1 ].sOption_1;
 		pNpc = GetNpcPtr( nOption_1 );
 		if( pNpc )	{
-			pNpc->m_byChangeType = 3;	// ¸ó½ºÅÍ ÃâÇöÇØÁÖ¼¼¿©...
+			pNpc->m_byChangeType = 3;	// ëª¬ìŠ¤í„° ì¶œí˜„í•´ì£¼ì„¸ì—¬...
 			pNpc->SetLive();
 		}
 		else	{
-			TRACE("### RunEvent Error : ¸ó½ºÅÍ ÃâÇö ÇÒ ¼ö ¾ø´ç = %d, logic=%d ###\n", nOption_1, m_byLogicNumber);
+			TRACE("### RunEvent Error : ëª¬ìŠ¤í„° ì¶œí˜„ í•  ìˆ˜ ì—†ë‹¹ = %d, logic=%d ###\n", nOption_1, m_byLogicNumber);
 		}
-		if( m_byCheck == m_byLogicNumber )	{	// ¹æÀÌ Å¬¸®¾î
+		if( m_byCheck == m_byLogicNumber )	{	// ë°©ì´ í´ë¦¬ì–´
 			return true;
 		}
 		else		m_byLogicNumber++;
 
 		break;
-	case 2:					// ¹®ÀÌ ¿­¸²
+	case 2:					// ë¬¸ì´ ì—´ë¦¼
 		nOption_1 = m_Exec[ m_byLogicNumber-1 ].sOption_1;
 		pNpc = GetNpcPtr( nOption_1 );
 		if( pNpc )	{
 
 		}
 		else	{
-			TRACE("### RunEvent Error : ¹® ´ã´ç ¸ó½ºÅÍ ÃâÇö ÇÒ ¼ö ¾ø´ç = %d, logic=%d ###\n", nOption_1, m_byLogicNumber);
+			TRACE("### RunEvent Error : ë¬¸ ë‹´ë‹¹ ëª¬ìŠ¤í„° ì¶œí˜„ í•  ìˆ˜ ì—†ë‹¹ = %d, logic=%d ###\n", nOption_1, m_byLogicNumber);
 		}
 
-		//wsprintf(notify, "** ¾Ë¸² : [%d] ¹®ÀÌ ¿­¸³´Ï´Ù **", m_sRoomNumber);
+		//wsprintf(notify, "** ì•Œë¦¼ : [%d] ë¬¸ì´ ì—´ë¦½ë‹ˆë‹¤ **", m_sRoomNumber);
 		//g_pMain->SendSystemMsg(notify, PUBLIC_CHAT);
 
-		if( m_byCheck == m_byLogicNumber )	{	// ¹æÀÌ Å¬¸®¾î
+		if( m_byCheck == m_byLogicNumber )	{	// ë°©ì´ í´ë¦¬ì–´
 			return true;
 		}
 		else		m_byLogicNumber++;
 
 		break;
-	case 3:					// ´Ù¸¥ ¸ó½ºÅÍ·Î º¯È¯
-		if( m_byCheck == m_byLogicNumber )	{	// ¹æÀÌ Å¬¸®¾î
+	case 3:					// ë‹¤ë¥¸ ëª¬ìŠ¤í„°ë¡œ ë³€í™˜
+		if( m_byCheck == m_byLogicNumber )	{	// ë°©ì´ í´ë¦¬ì–´
 			return true;
 		}
 		break;
-	case 4:					// Æ¯Á¤¸ó½ºÅÍ ¿É¼Ç2ÀÇ ¸¶¸®¼ö¸¸Å­ ÃâÇö
+	case 4:					// íŠ¹ì •ëª¬ìŠ¤í„° ì˜µì…˜2ì˜ ë§ˆë¦¬ìˆ˜ë§Œí¼ ì¶œí˜„
 		nOption_1 = m_Exec[ m_byLogicNumber-1 ].sOption_1;
 		nOption_2 = m_Exec[ m_byLogicNumber-1 ].sOption_2;
 		bRetValue = CheckMonsterCount( nOption_1, nOption_2, 2 );
 
-		//wsprintf(notify, "** ¾Ë¸² : [%d, %d] ¸ó½ºÅÍ ÃâÇö **", nOption_1, nOption_2);
+		//wsprintf(notify, "** ì•Œë¦¼ : [%d, %d] ëª¬ìŠ¤í„° ì¶œí˜„ **", nOption_1, nOption_2);
 		//g_pMain->SendSystemMsg(notify, PUBLIC_CHAT);
 
-		if( m_byCheck == m_byLogicNumber )	{	// ¹æÀÌ Å¬¸®¾î
+		if( m_byCheck == m_byLogicNumber )	{	// ë°©ì´ í´ë¦¬ì–´
 			return true;
 		}
 		else		m_byLogicNumber++;
 		break;
-	case 100:					// Æ¯Á¤¸ó½ºÅÍ ¿É¼Ç2ÀÇ ¸¶¸®¼ö¸¸Å­ ÃâÇö
+	case 100:					// íŠ¹ì •ëª¬ìŠ¤í„° ì˜µì…˜2ì˜ ë§ˆë¦¬ìˆ˜ë§Œí¼ ì¶œí˜„
 		nOption_1 = m_Exec[ m_byLogicNumber-1 ].sOption_1;
 		nOption_2 = m_Exec[ m_byLogicNumber-1 ].sOption_2;
 
@@ -184,7 +184,7 @@ bool CRoomEvent::RunEvent( int event_num )
 		if( nOption_1 != 0 )	{
 			EndEventSay( nOption_1, nOption_2 );
 		}
-		if( m_byCheck == m_byLogicNumber )	{	// ¹æÀÌ Å¬¸®¾î
+		if( m_byCheck == m_byLogicNumber )	{	// ë°©ì´ í´ë¦¬ì–´
 			return true;
 		}
 		else		m_byLogicNumber++;
@@ -274,7 +274,7 @@ void CRoomEvent::InitializeRoom()
 	m_tDelayTime = 0;
 	m_byLogicNumber = 1;
 
-	CheckMonsterCount(0, 0, 4);	// ¸ó½ºÅÍÀÇ m_byChangeType=0À¸·Î ÃÊ±âÈ­ 
+	CheckMonsterCount(0, 0, 4);	// ëª¬ìŠ¤í„°ì˜ m_byChangeType=0ìœ¼ë¡œ ì´ˆê¸°í™” 
 }
 
 void CRoomEvent::EndEventSay( int option1, int option2 )

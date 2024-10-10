@@ -1,4 +1,4 @@
-// MagicSkillMng.h: interface for the CMagicSkillMng class.
+ï»¿// MagicSkillMng.h: interface for the CMagicSkillMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -38,7 +38,7 @@ public:
 	int						m_iTarget;
 	__Vector3				m_vTargetPos;
 
-	//³ª¸¦ Å¸°ÙÀ¸·Î ÀâÀº ¸ó½ºÅÍÃ³¸® °ü·Ã..
+	//ë‚˜ë¥¼ íƒ€ê²Ÿìœ¼ë¡œ ì¡ì€ ëª¬ìŠ¤í„°ì²˜ë¦¬ ê´€ë ¨..
 	std::map<int, uint32_t>	m_MobList;	//	int m_iMobID; uint32_t m_dwMobMagicID;
 	
 	//related type4.....
@@ -76,17 +76,17 @@ public:
 	float					m_fDelay;
 		
 	//related region magic...
-	uint32_t					m_dwRegionMagicState;	//0:¸¶Ä§..1:Áö¿ª¼±ÅÃÁß..2:Áö¿ª¼±ÅÃÇßÀ½.
-	__TABLE_UPC_SKILL		m_dwRegionSkill;		//¼±ÅÃµÈ Áö¿ª½ºÅ³..
+	uint32_t					m_dwRegionMagicState;	//0:ë§ˆì¹¨..1:ì§€ì—­ì„ íƒì¤‘..2:ì§€ì—­ì„ íƒí–ˆìŒ.
+	__TABLE_UPC_SKILL		m_dwRegionSkill;		//ì„ íƒëœ ì§€ì—­ìŠ¤í‚¬..
 
 	//related non-casting action magic...
-	uint32_t					m_dwCastingStateNonAction;	//0:¾Æ¹«°Íµµ ¾ø´Â Æò¿ÂÇÑ »óÅÂ 1: Ä³½ºÆÃÁß
+	uint32_t					m_dwCastingStateNonAction;	//0:ì•„ë¬´ê²ƒë„ ì—†ëŠ” í‰ì˜¨í•œ ìƒíƒœ 1: ìºìŠ¤íŒ…ì¤‘
 	float					m_fCastTimeNonAction;
 	uint32_t					m_dwNonActionMagicID;
 	int						m_iNonActionMagicTarget;
 	float					m_fRecastTimeNonAction;
 
-	//Áö¿ª¸¶¹ı..
+	//ì§€ì—­ë§ˆë²•..
 	int						m_iMyRegionTargetFXID;
 
 
@@ -122,7 +122,7 @@ public:
 	void	StunMySelf(__TABLE_UPC_SKILL_TYPE_3* pType3);
 	void	StopCastingByRatio();
 	void	ClearDurationalMagic();
-	D3DCOLOR	TraceColorGet(__TABLE_UPC_SKILL* pSkill); // ½ºÅ³ÀÇ Á¾·ù¿¡ µû¶ó °Ë±âÀÇ »öÀ» Á¤ÇÑ´Ù..
+	D3DCOLOR	TraceColorGet(__TABLE_UPC_SKILL* pSkill); // ìŠ¤í‚¬ì˜ ì¢…ë¥˜ì— ë”°ë¼ ê²€ê¸°ì˜ ìƒ‰ì„ ì •í•œë‹¤..
 
 	bool	IsPositiveMagic(uint32_t dwMagicID);
 	bool	IsCasting();

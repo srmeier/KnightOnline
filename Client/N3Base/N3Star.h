@@ -1,4 +1,4 @@
-// N3Star.h: interface for the CN3Star class.
+ï»¿// N3Star.h: interface for the CN3Star class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,10 +23,10 @@ public:
 public:
 	int		GetNumStar() const {return m_iCurNumStar;}
 protected:
-	int		m_iCurNumStar;		// ÇöÀç ¶°ÀÖ´Â º°ÀÇ ¼ö
-	int		m_iNextNumStar;		// ¾ÕÀ¸·Î º¸ÀÏ º° ¼ıÀÚ
-	float	m_fAddTime;			// º° ÇÏ³ª°¡ Ãß°¡µÇ°Å³ª ¾ø¾îÁö´Â ½Ã°£ °£°İ
-	BOOL	m_bIncrease;		// º°ÀÌ Áõ°¡ÇÒ °ÍÀÎ°¡ °¨¼ÒÇÒ °ÍÀÎ°¡
+	int		m_iCurNumStar;		// í˜„ì¬ ë– ìˆëŠ” ë³„ì˜ ìˆ˜
+	int		m_iNextNumStar;		// ì•ìœ¼ë¡œ ë³´ì¼ ë³„ ìˆ«ì
+	float	m_fAddTime;			// ë³„ í•˜ë‚˜ê°€ ì¶”ê°€ë˜ê±°ë‚˜ ì—†ì–´ì§€ëŠ” ì‹œê°„ ê°„ê²©
+	BOOL	m_bIncrease;		// ë³„ì´ ì¦ê°€í•  ê²ƒì¸ê°€ ê°ì†Œí•  ê²ƒì¸ê°€
 	__VertexXyzColor	m_Stars[MAX_STAR];
 // Operations
 public:

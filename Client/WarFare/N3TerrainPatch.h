@@ -1,4 +1,4 @@
-// N3Patch.h: interface for the CN3TerrainPatch class.
+ï»¿// N3Patch.h: interface for the CN3TerrainPatch class.
 // 2001.10.22.
 //
 //////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ protected:
 	CN3Texture**				m_pRefLightMapTex;
 	int							m_NumLightMapTex;
 
-	//TileÁö¿ø ¾ÈÇÏ´Â Ä«µåµéÀ» À§ÇÑ ¼³Á¤.
+	//Tileì§€ì› ì•ˆí•˜ëŠ” ì¹´ë“œë“¤ì„ ìœ„í•œ ì„¤ì •.
 	//LPDIRECT3DVERTEXBUFFER8		m_pFoolishTileVB;
 	//int							m_NumFoolishTile;
 

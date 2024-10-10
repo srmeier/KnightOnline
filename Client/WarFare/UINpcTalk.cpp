@@ -1,4 +1,4 @@
-// UINpcTalk.cpp: implementation of the CUINpcTalk class.
+﻿// UINpcTalk.cpp: implementation of the CUINpcTalk class.
 //
 //////////////////////////////////////////////////////////////////////
 

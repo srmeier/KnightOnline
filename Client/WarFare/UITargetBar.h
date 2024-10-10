@@ -1,4 +1,4 @@
-// UITargetBar.h: interface for the UITargetBar class.
+ï»¿// UITargetBar.h: interface for the UITargetBar class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@ class CUITargetBar       : public CN3UIBase
 public:
 	class CN3UIProgress*	m_pProgressHP;
 	class CN3UIString *		m_pStringID;
-	float m_fTimeSendPacketLast; // ÀÌ°É ±âÁØÀ¸·Î 1ÃÊ¿¡ ÇÑ¹ø¾¿ Å¸°ÙÀÇ Á¤º¸ ¿äÃ»..
+	float m_fTimeSendPacketLast; // ì´ê±¸ ê¸°ì¤€ìœ¼ë¡œ 1ì´ˆì— í•œë²ˆì”© íƒ€ê²Ÿì˜ ì •ë³´ ìš”ì²­..
 
 public:
 	void	UpdateHP(int iHP, int iMaxHP, bool bUpdateImmediately);

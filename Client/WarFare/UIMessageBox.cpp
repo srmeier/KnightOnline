@@ -1,4 +1,4 @@
-// UIMessageBox.cpp: implementation of the CUIMessageBox class.
+ï»¿// UIMessageBox.cpp: implementation of the CUIMessageBox class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -83,7 +83,7 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if(NULL == pSender) return false;
 
-	//s_CameraData.vp;  //ºÒ·¯ ¿À´Â °úÁ¤À» »ìÆìº»´Ù 
+	//s_CameraData.vp;  //ë¶ˆëŸ¬ ì˜¤ëŠ” ê³¼ì •ì„ ì‚´íŽ´ë³¸ë‹¤ 
 	//uint32_t mm = s_CameraData.vp.Height;
 	//uint32_t ss = s_CameraData.vp.Width;	
 
@@ -105,7 +105,7 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			{
 				case BEHAVIOR_EXIT :
 					{
-						if(CGameProcedure::s_pProcActive == pProcMain) // Áö±Ý ¸ÞÀÎ ÇÁ·Î½ÃÀúÀÌ¸é..
+						if(CGameProcedure::s_pProcActive == pProcMain) // ì§€ê¸ˆ ë©”ì¸ í”„ë¡œì‹œì €ì´ë©´..
 						{
 							pProcMain->ReleaseSound();
 							//::PostQuitMessage(0);
@@ -117,37 +117,37 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 							CGameBase::s_bRunning = false;
 						}
 					}
-					break; // ³¡³½´Ù.. 
+					break; // ëë‚¸ë‹¤.. 
 				case BEHAVIOR_RESTART_GAME :
 					{
-						if(CGameProcedure::s_pProcActive == pProcMain) // Áö±Ý ¸ÞÀÎ ÇÁ·Î½ÃÀúÀÌ¸é..
+						if(CGameProcedure::s_pProcActive == pProcMain) // ì§€ê¸ˆ ë©”ì¸ í”„ë¡œì‹œì €ì´ë©´..
 						{
 							std::string szIP = CGameProcedure::s_pSocket->GetCurrentIP();
 							uint32_t dwPort = CGameProcedure::s_pSocket->GetCurrentPort();
 							
-							CGameProcedure::s_bNeedReportConnectionClosed = false; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
+							CGameProcedure::s_bNeedReportConnectionClosed = false; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
 							CGameProcedure::s_pSocket->Disconnect();
-							Sleep(2000); // 2ÃÊ µô·¹ÀÌ.. ¼­¹ö°¡ Ã³¸®ÇÒ ½Ã°£À» ÁØ´Ù.
+							Sleep(2000); // 2ì´ˆ ë”œë ˆì´.. ì„œë²„ê°€ ì²˜ë¦¬í•  ì‹œê°„ì„ ì¤€ë‹¤.
 							//CGameProcedure::s_pSocket->Connect(CGameProcedure::s_hWndBase, szIP.c_str(), dwPort);
-							CGameProcedure::s_bNeedReportConnectionClosed = true; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
+							CGameProcedure::s_bNeedReportConnectionClosed = true; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
 
 							CGameProcedure::MsgSend_GameServerLogIn();
-							CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcCharacterSelect); // ´Ù½Ã Ä³¸¯ÅÍ °í¸£ÀÚ..
+							CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcCharacterSelect); // ë‹¤ì‹œ ìºë¦­í„° ê³ ë¥´ìž..
 						}
 					}
 					break;
-				case BEHAVIOR_REGENERATION :			pProcMain->MsgSend_Regen(); break;// ºÎÈ° ¸Þ½ÃÁö ³¯¸®±â..
+				case BEHAVIOR_REGENERATION :			pProcMain->MsgSend_Regen(); break;// ë¶€í™œ ë©”ì‹œì§€ ë‚ ë¦¬ê¸°..
 				case BEHAVIOR_PARTY_PERMIT :			pProcMain->MsgSend_PartyOrForcePermit(0, true); break;
 				case BEHAVIOR_PARTY_DISBAND :			pProcMain->MsgSend_PartyOrForceLeave(0); break;
 				case BEHAVIOR_FORCE_PERMIT :			pProcMain->MsgSend_PartyOrForcePermit(1, true); break;
 				case BEHAVIOR_FORCE_DISBAND :			pProcMain->MsgSend_PartyOrForceLeave(1); break;
 				case BEHAVIOR_REQUEST_BINDPOINT :		if(pShape) pProcMain->MsgSend_ObjectEvent(pShape->m_iEventID, 0); 	break;
 				case BEHAVIOR_KNIGHTS_CREATE:			pProcMain->m_pUICreateClanName->MsgSend_MakeClan(); break;
-				case BEHAVIOR_KNIGHTS_DESTROY :			pProcMain->m_pUIKnightsOp->MsgSend_KnightsDestroy(); break; // ±â»ç´Ü »Ç°³±â..
-				case BEHAVIOR_KNIGHTS_WITHDRAW :		pProcMain->m_pUIKnightsOp->MsgSend_KnightsWithdraw(); break; // ±â»ç´Ü Å»ÅðÇÏ±â..
-				case BEHAVIOR_PERSONAL_TRADE_PERMIT :	pProcMain->m_pSubProcPerTrade->ProcessProceed(PER_TRADE_RESULT_MY_AGREE);	break;	// ³»°¡ Çã¶ô..
+				case BEHAVIOR_KNIGHTS_DESTROY :			pProcMain->m_pUIKnightsOp->MsgSend_KnightsDestroy(); break; // ê¸°ì‚¬ë‹¨ ë½€ê°œê¸°..
+				case BEHAVIOR_KNIGHTS_WITHDRAW :		pProcMain->m_pUIKnightsOp->MsgSend_KnightsWithdraw(); break; // ê¸°ì‚¬ë‹¨ íƒˆí‡´í•˜ê¸°..
+				case BEHAVIOR_PERSONAL_TRADE_PERMIT :	pProcMain->m_pSubProcPerTrade->ProcessProceed(PER_TRADE_RESULT_MY_AGREE);	break;	// ë‚´ê°€ í—ˆë½..
 				case BEHAVIOR_MGAME_LOGIN:				/*pProcLogIn->MsgSend_AccountLogIn(LIC_MGAME);*/ break;
-				case BEHAVIOR_DELETE_CHR: // Ä³¸¯ÅÍ Áö¿ì±â..
+				case BEHAVIOR_DELETE_CHR: // ìºë¦­í„° ì§€ìš°ê¸°..
 					{
 						std::string szKey;
 						if(m_pEdit_Common) szKey = m_pEdit_Common->GetString();
@@ -157,12 +157,12 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 				case BEHAVIOR_CLAN_JOIN: 
 					pProcMain->MsgSend_KnightsJoinReq(true);
 					break;
-				case BEHAVIOR_PARTY_BBS_REGISTER:			if(pProcMain->m_pUIPartyBBS)pProcMain->m_pUIPartyBBS->MsgSend_Register(); break;// ÆÄÆ¼ °Ô½ÃÆÇ¿¡ µî·Ï
-				case BEHAVIOR_PARTY_BBS_REGISTER_CANCEL:	if(pProcMain->m_pUIPartyBBS)pProcMain->m_pUIPartyBBS->MsgSend_RegisterCancel(); break;// ÆÄÆ¼ °Ô½ÃÆÇ¿¡ µî·Ï ÇØÁ¦
+				case BEHAVIOR_PARTY_BBS_REGISTER:			if(pProcMain->m_pUIPartyBBS)pProcMain->m_pUIPartyBBS->MsgSend_Register(); break;// íŒŒí‹° ê²Œì‹œíŒì— ë“±ë¡
+				case BEHAVIOR_PARTY_BBS_REGISTER_CANCEL:	if(pProcMain->m_pUIPartyBBS)pProcMain->m_pUIPartyBBS->MsgSend_RegisterCancel(); break;// íŒŒí‹° ê²Œì‹œíŒì— ë“±ë¡ í•´ì œ
 				case BEHAVIOR_EXECUTE_OPTION:
 					{
-						::ShellExecute(NULL, "open", "Option.exe", NULL, NULL, SW_SHOWNORMAL); // È¨ÆäÀÌÁö·Î ÀÌµ¿..
-						//PostQuitMessage(0);	// Á¾·á...
+						::ShellExecute(NULL, "open", "Option.exe", NULL, NULL, SW_SHOWNORMAL); // í™ˆíŽ˜ì´ì§€ë¡œ ì´ë™..
+						//PostQuitMessage(0);	// ì¢…ë£Œ...
 						CGameBase::s_bRunning = false;
 					}
 					break;
@@ -183,8 +183,8 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			{
 			case BEHAVIOR_PARTY_PERMIT:				pProcMain->MsgSend_PartyOrForcePermit(0, false); break;
 			case BEHAVIOR_FORCE_PERMIT:				pProcMain->MsgSend_PartyOrForcePermit(1, false); break;
-			case BEHAVIOR_PERSONAL_TRADE_PERMIT :	pProcMain->m_pSubProcPerTrade->LeavePerTradeState(PER_TRADE_RESULT_MY_DISAGREE);	break;	// ³»°¡ °ÅÀý..
-			case BEHAVIOR_PERSONAL_TRADE_FMT_WAIT:	pProcMain->m_pSubProcPerTrade->LeavePerTradeState(PER_TRADE_RESULT_MY_CANCEL);	break;	// ³»°¡ Ãë¼Ò..
+			case BEHAVIOR_PERSONAL_TRADE_PERMIT :	pProcMain->m_pSubProcPerTrade->LeavePerTradeState(PER_TRADE_RESULT_MY_DISAGREE);	break;	// ë‚´ê°€ ê±°ì ˆ..
+			case BEHAVIOR_PERSONAL_TRADE_FMT_WAIT:	pProcMain->m_pSubProcPerTrade->LeavePerTradeState(PER_TRADE_RESULT_MY_CANCEL);	break;	// ë‚´ê°€ ì·¨ì†Œ..
 			case BEHAVIOR_CLAN_JOIN: pProcMain->MsgSend_KnightsJoinReq(false); break;
 			}
 		}

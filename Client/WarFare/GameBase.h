@@ -1,4 +1,4 @@
-// N3GameBase.h: interface for the CN3GameBase class.
+ï»¿// N3GameBase.h: interface for the CN3GameBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,25 +21,25 @@ public:
 	static bool s_bRunning;
 
 	static CN3TableBase<__TABLE_TEXTS>				s_pTbl_Texts;
-	static CN3TableBase<__TABLE_ZONE>				s_pTbl_Zones;			// Zone Á¤º¸¿¡ °üÇÑ Å×ÀÌºí..
+	static CN3TableBase<__TABLE_ZONE>				s_pTbl_Zones;			// Zone ì •ë³´ì— ê´€í•œ í…Œì´ë¸”..
 	static CN3TableBase<__TABLE_UI_RESRC>			s_pTbl_UI;				// UI FileName Table
-	static CN3TableBase<__TABLE_ITEM_BASIC>			s_pTbl_Items_Basic;		// °¢ À¯ÀúÀÇ(³» ÀÚ½Å°ú ÁÖÀ§ ´Ù¸¥ »ç¶÷) Å¬·¹½ºº° ÀåÂø ¾ÆÀÌÅÛ ¸®¼Ò½º Å×ÀÌºí
-	static CN3TableBase<__TABLE_ITEM_EXT>			s_pTbl_Items_Exts[MAX_ITEM_EXTENSION];		// °¢ À¯ÀúÀÇ(³» ÀÚ½Å°ú ÁÖÀ§ ´Ù¸¥ »ç¶÷) Å¬·¹½ºº° ÀåÂø ¾ÆÀÌÅÛ ¸®¼Ò½º Å×ÀÌºí
-	static CN3TableBase<__TABLE_PLAYER_LOOKS>		s_pTbl_UPC_Looks;		// °¢ À¯ÀúÀÇ(³» ÀÚ½Å°ú ÁÖÀ§ ´Ù¸¥ »ç¶÷) Å¬·¹½ºº° ±âº» ½ºÅ²
-	static CN3TableBase<__TABLE_PLAYER_LOOKS>		s_pTbl_NPC_Looks;		// NPC, Mob ±âº» ¸ğ½À - 6°³ÀÇ Ä³¸¯ÅÍ ÆÄÆ®(), 2°³ÀÇ ÇÃ·¯±×
-	static CN3TableBase<__TABLE_UPC_SKILL>			s_pTbl_Skill;			// Skill Á¤º¸¿¡ °üÇÑ Table
-	static CN3TableBase<__TABLE_EXCHANGE_QUEST>		s_pTbl_Exchange_Quest;	// ±³È¯ Äù½ºÆ®¿¡ °üÇÑ Å×ÀÌºí..
-	static CN3TableBase<__TABLE_FX>					s_pTbl_FXSource;		// FX¼Ò½º Á¤º¸ Å×ÀÌºí..
-	static CN3TableBase<__TABLE_QUEST_MENU>			s_pTbl_QuestMenu;		// Äù½ºÆ® ¼±ÅÃ ¸Ş´º
-	static CN3TableBase<__TABLE_QUEST_TALK>			s_pTbl_QuestTalk;		// Äù½ºÆ® Áö¹®
+	static CN3TableBase<__TABLE_ITEM_BASIC>			s_pTbl_Items_Basic;		// ê° ìœ ì €ì˜(ë‚´ ìì‹ ê³¼ ì£¼ìœ„ ë‹¤ë¥¸ ì‚¬ëŒ) í´ë ˆìŠ¤ë³„ ì¥ì°© ì•„ì´í…œ ë¦¬ì†ŒìŠ¤ í…Œì´ë¸”
+	static CN3TableBase<__TABLE_ITEM_EXT>			s_pTbl_Items_Exts[MAX_ITEM_EXTENSION];		// ê° ìœ ì €ì˜(ë‚´ ìì‹ ê³¼ ì£¼ìœ„ ë‹¤ë¥¸ ì‚¬ëŒ) í´ë ˆìŠ¤ë³„ ì¥ì°© ì•„ì´í…œ ë¦¬ì†ŒìŠ¤ í…Œì´ë¸”
+	static CN3TableBase<__TABLE_PLAYER_LOOKS>		s_pTbl_UPC_Looks;		// ê° ìœ ì €ì˜(ë‚´ ìì‹ ê³¼ ì£¼ìœ„ ë‹¤ë¥¸ ì‚¬ëŒ) í´ë ˆìŠ¤ë³„ ê¸°ë³¸ ìŠ¤í‚¨
+	static CN3TableBase<__TABLE_PLAYER_LOOKS>		s_pTbl_NPC_Looks;		// NPC, Mob ê¸°ë³¸ ëª¨ìŠµ - 6ê°œì˜ ìºë¦­í„° íŒŒíŠ¸(), 2ê°œì˜ í”ŒëŸ¬ê·¸
+	static CN3TableBase<__TABLE_UPC_SKILL>			s_pTbl_Skill;			// Skill ì •ë³´ì— ê´€í•œ Table
+	static CN3TableBase<__TABLE_EXCHANGE_QUEST>		s_pTbl_Exchange_Quest;	// êµí™˜ í€˜ìŠ¤íŠ¸ì— ê´€í•œ í…Œì´ë¸”..
+	static CN3TableBase<__TABLE_FX>					s_pTbl_FXSource;		// FXì†ŒìŠ¤ ì •ë³´ í…Œì´ë¸”..
+	static CN3TableBase<__TABLE_QUEST_MENU>			s_pTbl_QuestMenu;		// í€˜ìŠ¤íŠ¸ ì„ íƒ ë©”ë‰´
+	static CN3TableBase<__TABLE_QUEST_TALK>			s_pTbl_QuestTalk;		// í€˜ìŠ¤íŠ¸ ì§€ë¬¸
 
-	static class CN3WorldManager*	s_pWorldMgr;								// ¿ùµå ¸Å´ÏÁ® Å¬·¡½º..
-	static class CPlayerOtherMgr*		s_pOPMgr;									// Other Player Manager - ´Ù¸¥ À¯Àú °ü¸® Å¬·¡½º..
-	static class CPlayerMySelf*			s_pPlayer;			// À¯Àú Å¬·¡½º..
+	static class CN3WorldManager*	s_pWorldMgr;								// ì›”ë“œ ë§¤ë‹ˆì ¸ í´ë˜ìŠ¤..
+	static class CPlayerOtherMgr*		s_pOPMgr;									// Other Player Manager - ë‹¤ë¥¸ ìœ ì € ê´€ë¦¬ í´ë˜ìŠ¤..
+	static class CPlayerMySelf*			s_pPlayer;			// ìœ ì € í´ë˜ìŠ¤..
 	
 protected:
-	static void StaticMemberInit(); // Å×ÀÌºí ¹× ±âº» ÁöÇü, ¿ÀºêÁ§Æ®, Ä³¸®ÅÍµî ÃÊ±âÈ­..
-	static void StaticMemberRelease(); // Å×ÀÌºí ¹× ±âº» ÁöÇü, ¿ÀºêÁ§Æ®, Ä³¸®ÅÍµî ÃÊ±âÈ­..
+	static void StaticMemberInit(); // í…Œì´ë¸” ë° ê¸°ë³¸ ì§€í˜•, ì˜¤ë¸Œì íŠ¸, ìºë¦¬í„°ë“± ì´ˆê¸°í™”..
+	static void StaticMemberRelease(); // í…Œì´ë¸” ë° ê¸°ë³¸ ì§€í˜•, ì˜¤ë¸Œì íŠ¸, ìºë¦¬í„°ë“± ì´ˆê¸°í™”..
 
 public:
 	static bool	GetTextByAttrib(e_ItemAttrib eAttrib, std::string& szAttrib);
@@ -48,13 +48,13 @@ public:
 	static bool GetTextByKnightsDuty(e_KnightsDuty eDuty, std::string& szText);
 	static bool GetTextByNation(e_Nation eNation, std::string& szText);
 	static bool GetTextByRace(e_Race eRace, std::string& szText);
-	static D3DCOLOR				GetIDColorByLevelDifference(int iLevelDiff); // ·¹º§ Â÷ÀÌ¿¡ µû¸¥ ID »ö µ¹·ÁÁØ´Ù.
-	static e_Class_Represent	GetRepresentClass(e_Class eClass); // ¼¼ºÎÁ÷¾÷À» ³Ö¾îÁÖ¸é ´ëÇ¥µÇ´Â Á÷¾÷À» µ¹·ÁÁØ´Ù.
-	static e_ItemType MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ¾ÆÀÌÅÛ µ¥ÀÌÅÍ...
+	static D3DCOLOR				GetIDColorByLevelDifference(int iLevelDiff); // ë ˆë²¨ ì°¨ì´ì— ë”°ë¥¸ ID ìƒ‰ ëŒë ¤ì¤€ë‹¤.
+	static e_Class_Represent	GetRepresentClass(e_Class eClass); // ì„¸ë¶€ì§ì—…ì„ ë„£ì–´ì£¼ë©´ ëŒ€í‘œë˜ëŠ” ì§ì—…ì„ ëŒë ¤ì¤€ë‹¤.
+	static e_ItemType MakeResrcFileNameForUPC(	__TABLE_ITEM_BASIC* pItem,		// ì•„ì´í…œ ë°ì´í„°...
 												std::string* szResrcFN,			// Resource FileName
 												std::string* szIconFN,			// Icon FileName
-												e_PartPosition& ePartPosition,	// Part ÀÏ°æ¿ì Index
-												e_PlugPosition& ePlugPosition,  // Plug ÀÏ°æ¿ì Index
+												e_PartPosition& ePartPosition,	// Part ì¼ê²½ìš° Index
+												e_PlugPosition& ePlugPosition,  // Plug ì¼ê²½ìš° Index
 												e_Race eRace = RACE_UNKNOWN);
 
 	class CPlayerBase*	CharacterGetByID(int iID, bool bFromAlive);

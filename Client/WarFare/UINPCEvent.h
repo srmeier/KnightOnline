@@ -1,4 +1,4 @@
-// UINPCEvent.h: interface for the UINPCEvent class.
+﻿// UINPCEvent.h: interface for the UINPCEvent class.
 //
 //////////////////////////////////////////////////////////////////////
 

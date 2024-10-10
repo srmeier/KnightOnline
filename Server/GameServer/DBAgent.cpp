@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "../shared/database/OdbcConnection.h"
 #include "KnightsManager.h"
 #include "DBAgent.h"

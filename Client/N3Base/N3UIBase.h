@@ -1,4 +1,4 @@
-// N3UIBase.h: interface for the CN3UIBase class.
+ï»¿// N3UIBase.h: interface for the CN3UIBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -42,9 +42,9 @@ class CN3UIBase : public CN3BaseFileAccess
 //friend class CN3IME;
 #ifdef _N3TOOL
 friend class CN3UIBase;
-friend class CHierarchyView;	// Åø¿¡¼­ child list¸¦ Á¢±ÙÇÏ±â À§ÇØ¼­.
-friend class CPropertyView;	// Åø¿¡¼­ °¢ º¯¼öµéÀ» Á¢±ÙÇÏ±â À§ÇØ¼­ 
-friend class CUIEView;	// Åø¿¡¼­ child list¸¦ Á¢±ÙÇÏ±â À§ÇØ¼­.
+friend class CHierarchyView;	// íˆ´ì—ì„œ child listë¥¼ ì ‘ê·¼í•˜ê¸° ìœ„í•´ì„œ.
+friend class CPropertyView;	// íˆ´ì—ì„œ ê° ë³€ìˆ˜ë“¤ì„ ì ‘ê·¼í•˜ê¸° ìœ„í•´ì„œ 
+friend class CUIEView;	// íˆ´ì—ì„œ child listë¥¼ ì ‘ê·¼í•˜ê¸° ìœ„í•´ì„œ.
 #endif
 
 public:
@@ -56,11 +56,11 @@ public:
 
 	static CN3UITooltip*	s_pTooltipCtrl;		// tool tip
 	
-	CN3UIBase*	m_pChildUI;		// UI ºÎ¼ÓÀÌ ¾Æ´Ï¶ó ´Ù¸¥ UI¸¦ ÀÚ½ÄÀ¸·Î °®´Â´Ù..
+	CN3UIBase*	m_pChildUI;		// UI ë¶€ì†ì´ ì•„ë‹ˆë¼ ë‹¤ë¥¸ UIë¥¼ ìì‹ìœ¼ë¡œ ê°–ëŠ”ë‹¤..
 	CN3UIBase*	m_pParentUI;
 
 protected:
-	static std::string	s_szStringTmp;		// ÀÓ½Ã ¹®ÀÚ¿­.. Æ÷ÀÎÅÍ¸¦ ³Ñ±â±â À§ÇØ¼­ÀÌ´Ù..
+	static std::string	s_szStringTmp;		// ì„ì‹œ ë¬¸ìì—´.. í¬ì¸í„°ë¥¼ ë„˜ê¸°ê¸° ìœ„í•´ì„œì´ë‹¤..
 
 	int			m_iChildID;
 	CN3UIBase*	m_pParent;		// parent pointer
@@ -68,16 +68,16 @@ protected:
 	eUI_TYPE	m_eType;		// UI Type - button, image .....
 	eUI_STATE	m_eState;		// UI state
 	uint32_t		m_dwStyle;		// style
-	uint32_t		m_dwReserved;	// ±âÅ¸ ÀÓ½Ã·Î ³Ö°í ½ÍÀº Á¤º¸¸¦ ³ÖÀ¸¸é µÈ´Ù.
+	uint32_t		m_dwReserved;	// ê¸°íƒ€ ì„ì‹œë¡œ ë„£ê³  ì‹¶ì€ ì •ë³´ë¥¼ ë„£ìœ¼ë©´ ëœë‹¤.
 
-	RECT		m_rcRegion;		// UI - screen coordinates (screen : main window client area) ÁßÀÇ : ºÎ¸ğ¿¡ ´ëÇÑ »ó´ëÁÂÇ¥°¡ ¾Æ´Ï´Ù.
-	RECT		m_rcMovable;	// UI¸¦ µå·¡±× ÇÏ¿© ¿òÁ÷ÀÌ°Ô ÇÒ ¼ö ÀÖ´Â ¿µ¿ª - (screen : main window client area)           ~~~~~~~
+	RECT		m_rcRegion;		// UI - screen coordinates (screen : main window client area) ì¤‘ì˜ : ë¶€ëª¨ì— ëŒ€í•œ ìƒëŒ€ì¢Œí‘œê°€ ì•„ë‹ˆë‹¤.
+	RECT		m_rcMovable;	// UIë¥¼ ë“œë˜ê·¸ í•˜ì—¬ ì›€ì§ì´ê²Œ í•  ìˆ˜ ìˆëŠ” ì˜ì—­ - (screen : main window client area)           ~~~~~~~
 
-	bool		m_bVisible;		// È­¸é¿¡ º¸ÀÌ´Â°¡ (ºÎ¸ğ°¡ º¸ÀÌÁö ¾ÊÀ¸¸é ÀÚ½ÄµéÀº render ÇÏÁö ¾Ê´Â´Ù.)
-	CN3SndObj*	m_pSnd_OpenUI;	// UI°¡ È­¸é¿¡ º¸ÀÌ´Â ¼ø°£ ³»´Â ¼Ò¸®
-	CN3SndObj*	m_pSnd_CloseUI;	// UI°¡ È­¸é¿¡¼­ »ç¶óÁö´Â ¼ø°£ ³»´Â ¼Ò¸®
+	bool		m_bVisible;		// í™”ë©´ì— ë³´ì´ëŠ”ê°€ (ë¶€ëª¨ê°€ ë³´ì´ì§€ ì•Šìœ¼ë©´ ìì‹ë“¤ì€ render í•˜ì§€ ì•ŠëŠ”ë‹¤.)
+	CN3SndObj*	m_pSnd_OpenUI;	// UIê°€ í™”ë©´ì— ë³´ì´ëŠ” ìˆœê°„ ë‚´ëŠ” ì†Œë¦¬
+	CN3SndObj*	m_pSnd_CloseUI;	// UIê°€ í™”ë©´ì—ì„œ ì‚¬ë¼ì§€ëŠ” ìˆœê°„ ë‚´ëŠ” ì†Œë¦¬
 
-	static CN3UIEdit*		s_pFocusedEdit;		// ÇöÀç Æ÷Ä¿½º¸¦ °¡Áö°í ÀÖ´Â Edit, NULLÀÌ¸é ¾Æ¹«µµ Æ÷Ä¿½º¸¦ °¡Áö°í ÀÖÁö ¾Ê´Ù.
+	static CN3UIEdit*		s_pFocusedEdit;		// í˜„ì¬ í¬ì»¤ìŠ¤ë¥¼ ê°€ì§€ê³  ìˆëŠ” Edit, NULLì´ë©´ ì•„ë¬´ë„ í¬ì»¤ìŠ¤ë¥¼ ê°€ì§€ê³  ìˆì§€ ì•Šë‹¤.
 	
 public:
 	CN3UIBase();
@@ -99,25 +99,25 @@ public:
 	static CN3UITooltip*	GetTooltipCtrl() {return s_pTooltipCtrl;}
 	uint32_t			GetStyle()	{return m_dwStyle;}
 
-	void			SetUIType(eUI_TYPE eUIType) { m_eType = eUIType; }	// by ecli666 Åø¿¡ ±â´É ³Ö±â ±ÍÂú¾Æ¼­.. ^^
+	void			SetUIType(eUI_TYPE eUIType) { m_eType = eUIType; }	// by ecli666 íˆ´ì— ê¸°ëŠ¥ ë„£ê¸° ê·€ì°®ì•„ì„œ.. ^^
 // Operations
 public:	
 	bool			IsIn(int x, int y);
 	void			AddChild(CN3UIBase* pChild) { m_Children.push_front(pChild); }
-	void			RemoveChild(CN3UIBase* pChild); // ÀÚ½Ä ¸®½ºÆ®¿¡¼­ Æ÷ÀÎÅÍ¸¸ ¾ø¾îÁö°í ½ÇÁ¦·Î delete µÇÁö´Â ¾Ê´Â´Ù.
-	void			SetParent(CN3UIBase* pParent);	// ºÎ¸ğ¸¦ ¹Ù²Û´Ù.
+	void			RemoveChild(CN3UIBase* pChild); // ìì‹ ë¦¬ìŠ¤íŠ¸ì—ì„œ í¬ì¸í„°ë§Œ ì—†ì–´ì§€ê³  ì‹¤ì œë¡œ delete ë˜ì§€ëŠ” ì•ŠëŠ”ë‹¤.
+	void			SetParent(CN3UIBase* pParent);	// ë¶€ëª¨ë¥¼ ë°”ê¾¼ë‹¤.
 	int				GetWidth() { return m_rcRegion.right - m_rcRegion.left; }
 	int				GetHeight() { return m_rcRegion.bottom - m_rcRegion.top; }
 	POINT			GetPos() const;
-	virtual void	SetPos(int x, int y);	// À§Ä¡ ÁöÁ¤(chilrenÀÇ À§Ä¡µµ °°ÀÌ ¹Ù²Ù¾îÁØ´Ù.) ³»ºÎÀûÀ¸·Î MoveOffsetÇÔ¼ö¸¦ ºÎ¸¥´Ù.
-	void			SetPosCenter();	// È­¸é Á¤°¡¿îµ¥·Î ¸ÂÃß¾îÁØ´Ù..(chilrenÀÇ À§Ä¡µµ °°ÀÌ ¹Ù²Ù¾îÁØ´Ù.) ³»ºÎÀûÀ¸·Î MoveOffsetÇÔ¼ö¸¦ ºÎ¸¥´Ù.
+	virtual void	SetPos(int x, int y);	// ìœ„ì¹˜ ì§€ì •(chilrenì˜ ìœ„ì¹˜ë„ ê°™ì´ ë°”ê¾¸ì–´ì¤€ë‹¤.) ë‚´ë¶€ì ìœ¼ë¡œ MoveOffsetí•¨ìˆ˜ë¥¼ ë¶€ë¥¸ë‹¤.
+	void			SetPosCenter();	// í™”ë©´ ì •ê°€ìš´ë°ë¡œ ë§ì¶”ì–´ì¤€ë‹¤..(chilrenì˜ ìœ„ì¹˜ë„ ê°™ì´ ë°”ê¾¸ì–´ì¤€ë‹¤.) ë‚´ë¶€ì ìœ¼ë¡œ MoveOffsetí•¨ìˆ˜ë¥¼ ë¶€ë¥¸ë‹¤.
 	CN3UIBase*		GetChildByID(const std::string& szID);
 
-	virtual void	SetRegion(const RECT& pRect) { m_rcRegion = pRect; }	// ¿µ¿ª ÁöÁ¤
-	virtual BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// offset¸¸Å­ ÀÌµ¿ÇØÁØ´Ù.(region, children, move rect ÀÌµ¿)
-	virtual void	SetSize(int iWidth, int iHeight);	// Å©±â ÁöÁ¤
+	virtual void	SetRegion(const RECT& pRect) { m_rcRegion = pRect; }	// ì˜ì—­ ì§€ì •
+	virtual BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// offsetë§Œí¼ ì´ë™í•´ì¤€ë‹¤.(region, children, move rect ì´ë™)
+	virtual void	SetSize(int iWidth, int iHeight);	// í¬ê¸° ì§€ì •
 	virtual void	SetState(eUI_STATE eState) { m_eState = eState; }
-	virtual void	SetStyle(uint32_t dwStyle) {m_dwStyle = dwStyle;}	// styleÁöÁ¤
+	virtual void	SetStyle(uint32_t dwStyle) {m_dwStyle = dwStyle;}	// styleì§€ì •
 	virtual void	SetVisible(bool bVisible);
 
 	virtual void	SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false);
@@ -125,17 +125,17 @@ public:
 	virtual void	CallBackProc(int iID, uint32_t dwFlag);
 	virtual void	ShowWindow(int iID = -1, CN3UIBase* pParent = NULL);
 	virtual bool	Load(HANDLE hFile);
-	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // ¸Ş½ÃÁö¸¦ ¹Ş´Â´Ù.. º¸³½³ğ, msg
+	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // ë©”ì‹œì§€ë¥¼ ë°›ëŠ”ë‹¤.. ë³´ë‚¸ë†ˆ, msg
 	virtual uint32_t	MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
 	virtual void	Tick();
 	virtual void	Render();
-	virtual void	Release(); // ÀÚ½Ä Æ÷ÀÎÅÍ±îÁö delete ÇÑ´Ù..
+	virtual void	Release(); // ìì‹ í¬ì¸í„°ê¹Œì§€ delete í•œë‹¤..
 	virtual void	Init(CN3UIBase* pParent);
 	virtual bool	OnKeyPress(int iKey) { return false; }
 	virtual bool	OnKeyPressed(int iKey) { return false; }
 
-	static	bool	EnableTooltip(const std::string& szFN);	// tooltip UI¸¦ ÃÊ±âÈ­ ÇØÁØ´Ù.
-	static	void	DestroyTooltip();	// tooltip ui¿¡ °ü·ÃµÈ °ÍÀ» ÇØÁ¦ÇØÁØ´Ù.
+	static	bool	EnableTooltip(const std::string& szFN);	// tooltip UIë¥¼ ì´ˆê¸°í™” í•´ì¤€ë‹¤.
+	static	void	DestroyTooltip();	// tooltip uiì— ê´€ë ¨ëœ ê²ƒì„ í•´ì œí•´ì¤€ë‹¤.
 
 	int				GetChildrenCount() { return m_Children.size(); }
 	CN3UIBase*		GetChildByIndex(size_t iIndex)

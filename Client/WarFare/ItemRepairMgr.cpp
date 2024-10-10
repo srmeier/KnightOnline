@@ -1,4 +1,4 @@
-// ItemRepairMgr.cpp: implementation of the CItemRepairMgr class.
+ï»¿// ItemRepairMgr.cpp: implementation of the CItemRepairMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -49,7 +49,7 @@ void CItemRepairMgr::Tick()
 
 	POINT ptCur			= CGameProcedure::s_pLocalInput->MouseGetPos();
 
-	// À§Ä¡¸¦ ±¸ÇØ¼­ 
+	// ìœ„ì¹˜ë¥¼ êµ¬í•´ì„œ 
 	int i;	int iArm = 0x00; int iOrder = -1; __IconItemSkill* spItem = NULL;
 	for (i = 0; i < ITEM_SLOT_COUNT; i++)
 	{
@@ -82,13 +82,13 @@ void CItemRepairMgr::Tick()
 		}
 	}
 
-	// ¾ÆÀÌÄÜ À§¿¡ ÀÖÀ¸¸é..  
+	// ì•„ì´ì½˜ ìœ„ì— ìžˆìœ¼ë©´..  
 	int iRepairGold = 0;
 	if (spItem)
 	{
 		iRepairGold = CalcRepairGold(spItem);
 
-		// ¼ö¸® °¡°Ý ÅøÆÁ Ç¥½Ã..
+		// ìˆ˜ë¦¬ ê°€ê²© íˆ´íŒ í‘œì‹œ..
 		if (pDlg)
 		{
 			pDlg->m_bBRender		= true;
@@ -98,23 +98,23 @@ void CItemRepairMgr::Tick()
 			pDlg->m_iBRequiredGold	= iRepairGold;
 		}
 
-		// ³»°¡ °¡Áø µ· º¸´Ù ¼ö¸® ºñ¿ëÀÌ ºñ½Î¸é.. 
+		// ë‚´ê°€ ê°€ì§„ ëˆ ë³´ë‹¤ ìˆ˜ë¦¬ ë¹„ìš©ì´ ë¹„ì‹¸ë©´.. 
 		if (iRepairGold > s_pPlayer->m_InfoExt.iGold)
 		{
-			// »¡°²°Ô Ç¥½Ã.. 
+			// ë¹¨ê°›ê²Œ í‘œì‹œ.. 
 			if (pDlg)
 				pDlg->m_bBHaveEnough = false;
 		}
 		else
 		{
-			//¾ÆÀÌ¸é ¿ø·¡ »ö±ò..
+			//ì•„ì´ë©´ ì›ëž˜ ìƒ‰ê¹”..
 			if (pDlg)
 				pDlg->m_bBHaveEnough = true;
 		}
 	}
 
-	uint32_t dwMouseFlags	= CGameProcedure::s_pLocalInput->MouseGetFlag();	// ¸¶¿ì½º ¹öÆ° ÇÃ·¡±× - LocalInput.h ÂüÁ¶
-	if (dwMouseFlags & MOUSE_LBCLICK)		// ¿ÞÂÊ ¹öÆ°À» ´©¸£¸é..
+	uint32_t dwMouseFlags	= CGameProcedure::s_pLocalInput->MouseGetFlag();	// ë§ˆìš°ìŠ¤ ë²„íŠ¼ í”Œëž˜ê·¸ - LocalInput.h ì°¸ì¡°
+	if (dwMouseFlags & MOUSE_LBCLICK)		// ì™¼ìª½ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´..
 	{
 		m_pspItemBack	= spItem;
 		m_iArm			= iArm;
@@ -125,28 +125,28 @@ void CItemRepairMgr::Tick()
 		if (m_pspItemBack && spItem && (m_pspItemBack == spItem) )
 		{
 			// Send To Server..
-			if (iRepairGold > 0)										// ¼ö¸® °¡°ÝÀÌ ÀÖÀ¸¸é..
+			if (iRepairGold > 0)										// ìˆ˜ë¦¬ ê°€ê²©ì´ ìžˆìœ¼ë©´..
 			{
-				// ³»°¡ °¡Áø µ· º¸´Ù ¼ö¸® ºñ¿ëÀÌ ºñ½Î¸é.. 
+				// ë‚´ê°€ ê°€ì§„ ëˆ ë³´ë‹¤ ìˆ˜ë¦¬ ë¹„ìš©ì´ ë¹„ì‹¸ë©´.. 
 				if (iRepairGold > s_pPlayer->m_InfoExt.iGold)
 				{
-					// ¼­¹ö¿¡°Ô º¸³»Áö ¾Ê°í ¸Þ½ÃÁö Ç¥½Ã.. 
+					// ì„œë²„ì—ê²Œ ë³´ë‚´ì§€ ì•Šê³  ë©”ì‹œì§€ í‘œì‹œ.. 
 					std::string szMsg; ::_LoadStringFromResource(IDS_REPAIR_LACK_GOLD, szMsg);
 					CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff00ff);
 				}
 				else
 				{
-					uint8_t byBuff[8];															// ÆÐÅ¶ ¹öÆÛ..
-					int iOffset=0;															// ÆÐÅ¶ ¿ÀÇÁ¼Â..
+					uint8_t byBuff[8];															// íŒ¨í‚· ë²„í¼..
+					int iOffset=0;															// íŒ¨í‚· ì˜¤í”„ì…‹..
 
-					CAPISocket::MP_AddByte(byBuff, iOffset,  WIZ_ITEM_REPAIR);			// °ÔÀÓ ½ºÅ¸Æ® ÆÐÅ¶ Ä¿¸àµå..
-					CAPISocket::MP_AddByte(byBuff, iOffset,  iArm);							// ¾ÆÀÌµð ±æÀÌ ÆÐÅ¶¿¡ ³Ö±â..
-					CAPISocket::MP_AddByte(byBuff, iOffset,  iOrder);							// ¾ÆÀÌµð ±æÀÌ ÆÐÅ¶¿¡ ³Ö±â..
-					CAPISocket::MP_AddDword(byBuff, iOffset, spItem->pItemBasic->dwID+spItem->pItemExt->dwID);	// ¾ÆÀÌµð ¹®ÀÚ¿­ ÆÐÅ¶¿¡ ³Ö±â..
+					CAPISocket::MP_AddByte(byBuff, iOffset,  WIZ_ITEM_REPAIR);			// ê²Œìž„ ìŠ¤íƒ€íŠ¸ íŒ¨í‚· ì»¤ë©˜ë“œ..
+					CAPISocket::MP_AddByte(byBuff, iOffset,  iArm);							// ì•„ì´ë”” ê¸¸ì´ íŒ¨í‚·ì— ë„£ê¸°..
+					CAPISocket::MP_AddByte(byBuff, iOffset,  iOrder);							// ì•„ì´ë”” ê¸¸ì´ íŒ¨í‚·ì— ë„£ê¸°..
+					CAPISocket::MP_AddDword(byBuff, iOffset, spItem->pItemBasic->dwID+spItem->pItemExt->dwID);	// ì•„ì´ë”” ë¬¸ìžì—´ íŒ¨í‚·ì— ë„£ê¸°..
 
 					CGameProcedure::s_pSocket->Send(byBuff, iOffset);	
 
-					// ÀÀ´äÀ» ±â´Ù¸²..
+					// ì‘ë‹µì„ ê¸°ë‹¤ë¦¼..
 					CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer = true;
 
 					// Change To Cursor..
@@ -164,34 +164,34 @@ void CItemRepairMgr::ReceiveResultFromServer(int iResult, int iUserGold)
 	if (!pInv) return;
 	if (!m_pspItemBack) return;
 
-	// ¼º°øÀÌ¸é npc¿µ¿ªÀÇ Durability¸¦ ÃÖ´ë°ªÀ¸·Î..
+	// ì„±ê³µì´ë©´ npcì˜ì—­ì˜ Durabilityë¥¼ ìµœëŒ€ê°’ìœ¼ë¡œ..
 	if(iResult == 0x01)
 	{
 		m_pspItemBack->iDurability = m_pspItemBack->pItemBasic->siMaxDurability+m_pspItemBack->pItemExt->siMaxDurability;
 
 		switch (m_iArm)
 		{
-			case 0x01: // ÀåÂøÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛ
+			case 0x01: // ìž¥ì°©í•˜ê³  ìžˆëŠ” ì•„ì´í…œ
 				pInv->m_pMySlot[m_iiOrder] = m_pspItemBack;
-				s_pPlayer->DurabilitySet((e_ItemSlot)m_iiOrder, m_pspItemBack->iDurability); // ³»±¸·ÂÀ» º¹±¸ ÇØÁØ´Ù..
+				s_pPlayer->DurabilitySet((e_ItemSlot)m_iiOrder, m_pspItemBack->iDurability); // ë‚´êµ¬ë ¥ì„ ë³µêµ¬ í•´ì¤€ë‹¤..
 				break;
 
-			case 0x02: // ÀÎº¥Åä¸®¿¡ ÀÖ´Â ¾ÆÀÌÅÛ..
+			case 0x02: // ì¸ë²¤í† ë¦¬ì— ìžˆëŠ” ì•„ì´í…œ..
 				pInv->m_pMyInvWnd[m_iiOrder] = m_pspItemBack;
 				break;
 		}
 
-		// ¾ÆÀÌÄÜ »óÅÂ°¡ UISTYLE_DURABILITY_EXHAUST ÀÌ¸é..
+		// ì•„ì´ì½˜ ìƒíƒœê°€ UISTYLE_DURABILITY_EXHAUST ì´ë©´..
 		m_pspItemBack->pUIIcon->SetStyle(m_pspItemBack->pUIIcon->GetStyle() & (~UISTYLE_DURABILITY_EXHAUST));
 		
 		if (pDlg)	pDlg->m_iBRequiredGold	= 0;
 		pInv->PlayRepairSound();
 	}
 
-	// µ· ¾÷µ¥ÀÌÆ®..
+	// ëˆ ì—…ë°ì´íŠ¸..
 	UpdateUserTotalGold(iUserGold);
 
-	// ÀÀ´ä ±â´Ù¸² ÇØÁ¦..
+	// ì‘ë‹µ ê¸°ë‹¤ë¦¼ í•´ì œ..
 	CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer = false;
 
 	// Change To Cursor..
@@ -202,7 +202,7 @@ void CItemRepairMgr::UpdateUserTotalGold(int iGold)
 {
 	char szGold[32];
 
-	// µ· ¾÷µ¥ÀÌÆ®..
+	// ëˆ ì—…ë°ì´íŠ¸..
 	s_pPlayer->m_InfoExt.iGold = iGold;
 	sprintf(szGold, "%d", iGold);
 	CGameProcedure::s_pProcMain->m_pUIInventory->GoldUpdate();

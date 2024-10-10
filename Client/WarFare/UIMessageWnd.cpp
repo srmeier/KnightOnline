@@ -1,4 +1,4 @@
-// UIMessageWnd.cpp: implementation of the CUIMessageWnd class.
+ï»¿// UIMessageWnd.cpp: implementation of the CUIMessageWnd class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ CUIMessageWnd::CUIMessageWnd()
 
 CUIMessageWnd::~CUIMessageWnd()
 {
-	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ÀÇ Æ÷ÀÎÅÍ´Â ¸Ş¸ğ¸® ÇÒ´çµÇ¾î ÀÖ¾îµµ ºÎ¸ğ°¡ ÇØÁ¦µÉ¶§ ÀÚµ¿À¸·Î ÇØÁ¦ÇÏ¹Ç·Î ¾ÈÁö¿ö¾ß ÇÑ´Ù.
+	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ì˜ í¬ì¸í„°ëŠ” ë©”ëª¨ë¦¬ í• ë‹¹ë˜ì–´ ìˆì–´ë„ ë¶€ëª¨ê°€ í•´ì œë ë•Œ ìë™ìœ¼ë¡œ í•´ì œí•˜ë¯€ë¡œ ì•ˆì§€ì›Œì•¼ í•œë‹¤.
 
 	ChatListItor itor;
 	for(itor = m_ChatBuffer.begin(); m_ChatBuffer.end() != itor; ++itor)
@@ -57,7 +57,7 @@ void CUIMessageWnd::Release()
 	m_pScrollbar = NULL;
 	m_pBtn_Fold = NULL;
 	m_iChatLineCount = 0;
-	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ÀÇ Æ÷ÀÎÅÍ´Â ¸Ş¸ğ¸® ÇÒ´çµÇ¾î ÀÖ¾îµµ ºÎ¸ğ°¡ ÇØÁ¦µÉ¶§ ÀÚµ¿À¸·Î ÇØÁ¦ÇÏ¹Ç·Î ¾ÈÁö¿ö¾ß ÇÑ´Ù.
+	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ì˜ í¬ì¸í„°ëŠ” ë©”ëª¨ë¦¬ í• ë‹¹ë˜ì–´ ìˆì–´ë„ ë¶€ëª¨ê°€ í•´ì œë ë•Œ ìë™ìœ¼ë¡œ í•´ì œí•˜ë¯€ë¡œ ì•ˆì§€ì›Œì•¼ í•œë‹¤.
 	ZeroMemory(&m_rcChatOutRegion, sizeof(m_rcChatOutRegion));
 
 	ChatListItor itor;
@@ -79,15 +79,15 @@ void CUIMessageWnd::Release()
 BOOL CUIMessageWnd::MoveOffset(int iOffsetX, int iOffsetY)
 {
 	if (0 == iOffsetX && 0 == iOffsetY) return FALSE;
-	// ui ¿µ¿ª
+	// ui ì˜ì—­
 	m_rcRegion.left += iOffsetX;		m_rcRegion.top += iOffsetY;
 	m_rcRegion.right += iOffsetX;		m_rcRegion.bottom += iOffsetY;
 
-	// movable ¿µ¿ª
+	// movable ì˜ì—­
 	m_rcMovable.left += iOffsetX;		m_rcMovable.top += iOffsetY;
 	m_rcMovable.right += iOffsetX;		m_rcMovable.bottom += iOffsetY;
 
-	// children ÁÂÇ¥ °»½Å
+	// children ì¢Œí‘œ ê°±ì‹ 
 	CN3UIBase* pCUI = NULL; // Child UI...
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
@@ -96,7 +96,7 @@ BOOL CUIMessageWnd::MoveOffset(int iOffsetX, int iOffsetY)
 		pCUI->MoveOffset(iOffsetX, iOffsetY);
 	}
 
-	//¿©±â¿¡ Ã¤ÆÃÃ¢ ¿Å±â´Â °Íµµ ³Ö¾î¶ó...
+	//ì—¬ê¸°ì— ì±„íŒ…ì°½ ì˜®ê¸°ëŠ” ê²ƒë„ ë„£ì–´ë¼...
 	/*RECT rt = CGameProcedure::s_pProcMain->m_pUIChatDlg->GetRegion();
 	POINT pt = this->GetPos();
 	if( (pt.x != rt.right) || ( pt.y != rt.top) )
@@ -124,7 +124,7 @@ bool CUIMessageWnd::Load(HANDLE hFile)
 	m_rcChatOutRegion = m_pChatOut->GetRegion();
 	CreateLines();
 
-	__ASSERT(0<m_iChatLineCount,"Ã¤ÆÃÃ¢ÀÌ ³Ê¹« ÀÛ¾Æ¿ä");
+	__ASSERT(0<m_iChatLineCount,"ì±„íŒ…ì°½ì´ ë„ˆë¬´ ì‘ì•„ìš”");
 	
 	return true;
 }
@@ -139,7 +139,7 @@ bool CUIMessageWnd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 	if (dwMsg == UIMSG_SCROLLBAR_POS)
 	{
-		// ½ºÅ©·Ñ¹Ù¿¡ ¸Â´Â Ã¤ÆÃ Line ¼³Á¤
+		// ìŠ¤í¬ë¡¤ë°”ì— ë§ëŠ” ì±„íŒ… Line ì„¤ì •
 		int iCurLinePos = m_pScrollbar->GetCurrentPos();
 		SetTopLine(iCurLinePos);
 		return true;
@@ -167,7 +167,7 @@ void CUIMessageWnd::CreateLines()
 		delete [] m_ppUILines; m_ppUILines = NULL;
 	}
 	SIZE size;
-	if (m_pChatOut && m_pChatOut->GetTextExtent("°¡", lstrlen("°¡"), &size) && size.cy>0)
+	if (m_pChatOut && m_pChatOut->GetTextExtent("ê°€", lstrlen("ê°€"), &size) && size.cy>0)
 	{
 		m_iChatLineCount = (m_rcChatOutRegion.bottom - m_rcChatOutRegion.top)/size.cy;
 	}
@@ -198,13 +198,13 @@ void CUIMessageWnd::AddMsg(const std::string& szString, D3DCOLOR color)
 	__ASSERT(m_pScrollbar, "");
 	if (0 >= iStrLen) return;
 
-	// ChatBuffer¿¡ ³Ö±â
+	// ChatBufferì— ë„£ê¸°
 	__ChatInfo* pChatInfo = new __ChatInfo;
 	pChatInfo->szChat = szString;
 	pChatInfo->color = color;
 	m_ChatBuffer.push_back(pChatInfo);
 	
-	if (m_ChatBuffer.size() > 255)	// 255°³°¡ ³ÑÀ¸¸é ¾Õ¿¡¼­ºÎÅÍ Áö¿ì±â
+	if (m_ChatBuffer.size() > 255)	// 255ê°œê°€ ë„˜ìœ¼ë©´ ì•ì—ì„œë¶€í„° ì§€ìš°ê¸°
 	{
 		__ChatInfo* pTemp = m_ChatBuffer.front();
 		if (pTemp) delete pTemp;
@@ -212,16 +212,16 @@ void CUIMessageWnd::AddMsg(const std::string& szString, D3DCOLOR color)
 		m_ChatBuffer.pop_front();
 	}
 
-	// line buffer ¿¡ ³Ö±â
+	// line buffer ì— ë„£ê¸°
 	AddLineBuffer(szString, color);
 	
-	// Line buffer °¹¼ö Á¶Àı
-	int iCurLinePos = m_pScrollbar->GetCurrentPos();	// ÇöÀç scroll bar°¡ °¡¸®Å°°í ÀÖ´Â line
+	// Line buffer ê°¯ìˆ˜ ì¡°ì ˆ
+	int iCurLinePos = m_pScrollbar->GetCurrentPos();	// í˜„ì¬ scroll barê°€ ê°€ë¦¬í‚¤ê³  ìˆëŠ” line
 	BOOL bAutoScroll = (m_pScrollbar->GetMaxPos() == iCurLinePos) ? TRUE : FALSE;
 
-	while (m_LineBuffer.size() > MAX_CHAT_LINES && 0 < iCurLinePos)	// MAX_CHAT_LINESÀº ÃÖ´ë lineÀÇ ¼ö (´Ü ½ºÅ©·Ñ¹Ù°¡ 0ÀÎ °÷¿¡ ÀÖÀ¸¸é lineÀ» Áö¿ìÁö ¾ÊÀ¸¹Ç·Î 500°³¸¦ ³Ñ±æ ¼ö ÀÖ´Ù)
+	while (m_LineBuffer.size() > MAX_CHAT_LINES && 0 < iCurLinePos)	// MAX_CHAT_LINESì€ ìµœëŒ€ lineì˜ ìˆ˜ (ë‹¨ ìŠ¤í¬ë¡¤ë°”ê°€ 0ì¸ ê³³ì— ìˆìœ¼ë©´ lineì„ ì§€ìš°ì§€ ì•Šìœ¼ë¯€ë¡œ 500ê°œë¥¼ ë„˜ê¸¸ ìˆ˜ ìˆë‹¤)
 	{
-		// ÇÑÁÙ Áö¿ì±â
+		// í•œì¤„ ì§€ìš°ê¸°
 		__ChatInfo* pTemp = m_LineBuffer.front();
 		if (pTemp) delete pTemp;
 		m_LineBuffer.pop_front();
@@ -231,16 +231,16 @@ void CUIMessageWnd::AddMsg(const std::string& szString, D3DCOLOR color)
 	int iLineBufferSize = m_LineBuffer.size();
 	int iMaxScrollPos = iLineBufferSize-m_iChatLineCount;
 	if (iMaxScrollPos<0) iMaxScrollPos = 0;
-	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ¼³Á¤
+	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ì„¤ì •
 
-	// ÀÚµ¿À¸·Î ½ºÅ©·ÑÀÌ¸é
+	// ìë™ìœ¼ë¡œ ìŠ¤í¬ë¡¤ì´ë©´
 	if ( bAutoScroll) iCurLinePos = iMaxScrollPos;
 	if (iCurLinePos < 0) iCurLinePos = 0;
 
-	// ½ºÅ©·Ñ¹Ù ÇöÀç À§Ä¡ Àç¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°” í˜„ì¬ ìœ„ì¹˜ ì¬ì„¤ì •
 	m_pScrollbar->SetCurrentPos(iCurLinePos);
 
-	// ½ºÅ©·Ñ¹Ù¿¡ ¸Â´Â Ã¤ÆÃ Line ¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°”ì— ë§ëŠ” ì±„íŒ… Line ì„¤ì •
 	SetTopLine(iCurLinePos);
 }
 
@@ -251,13 +251,13 @@ void CUIMessageWnd::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 	__ASSERT(m_pChatOut, "");
 	const int iStrLen = szString.size();
 
-	// line buffer ³Ö±â
+	// line buffer ë„£ê¸°
 	SIZE size;
 	if (FALSE == m_pChatOut->GetTextExtent(szString, iStrLen, &size)) {__ASSERT(0,"no device context"); return;}
 
 	const int iRegionWidth = m_rcChatOutRegion.right - m_rcChatOutRegion.left;
 
-	// ±ÛÀÚ ÀÚ¸£´Â ÄÚµå, ¿µ¿ª ¹ÛÀ¸·Î ¹ş¾î³ª´Â ±ÛÀÚ´Â ÀÚ¸£°í ¹Ø¿¡ ÁÙ¿¡..
+	// ê¸€ì ìë¥´ëŠ” ì½”ë“œ, ì˜ì—­ ë°–ìœ¼ë¡œ ë²—ì–´ë‚˜ëŠ” ê¸€ìëŠ” ìë¥´ê³  ë°‘ì— ì¤„ì—..
 	int iCX=0;
 	int iCount = 0;
 	int iLineStart = 0;
@@ -275,7 +275,7 @@ void CUIMessageWnd::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 				int iLineLength = iCount - iLineStart + 1;
 				std::string szLine;
 				pLineInfo->szChat = szString.substr(iLineStart, iLineLength);
-			}	// ¿¬¼ÓµÈ \nÀÏ °æ¿ì pszLine = NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+			}	// ì—°ì†ëœ \nì¼ ê²½ìš° pszLine = NULLì´ ë  ìˆ˜ ìˆë‹¤.
 
 			++iCount;
 			iLineStart = iCount;
@@ -284,14 +284,14 @@ void CUIMessageWnd::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 		else
 		{
 			int iCC=0;
-			if (0x80 & szString[iCount])	iCC = 2;	// 2BYTE ¹®ÀÚ
-			else							iCC = 1;	// 1BYTE ¹®ÀÚ
+			if (0x80 & szString[iCount])	iCC = 2;	// 2BYTE ë¬¸ì
+			else							iCC = 1;	// 1BYTE ë¬¸ì
 
 			BOOL bFlag = m_pChatOut->GetTextExtent(&(szString[iCount]), iCC, &size);
 			__ASSERT(bFlag, "cannot get size of dfont");
-			if ((iCX+size.cx) > iRegionWidth)	// °¡·Î ±æÀÌ°¡ ³Ñ¾úÀ¸¸é
+			if ((iCX+size.cx) > iRegionWidth)	// ê°€ë¡œ ê¸¸ì´ê°€ ë„˜ì—ˆìœ¼ë©´
 			{
-				// ÇÑ ¶óÀÎ ´õ Ãß°¡ÇÏ±â
+				// í•œ ë¼ì¸ ë” ì¶”ê°€í•˜ê¸°
 				
 				int iLineLength = iCount - iLineStart;
 				if (iLineLength>0)
@@ -304,19 +304,19 @@ void CUIMessageWnd::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 				}
 				else
 				{
-					__ASSERT(iRegionWidth>15, "³Ê¹« Á¼¾Æ¼­ ÇÑ±ÛÀÚµµ ÂïÀ» ¼ö°¡ ¾ø´Ù");
+					__ASSERT(iRegionWidth>15, "ë„ˆë¬´ ì¢ì•„ì„œ í•œê¸€ìë„ ì°ì„ ìˆ˜ê°€ ì—†ë‹¤");
 					break;
 				}
 				iLineStart = iCount;
 				iCX = 0;
 			}
-			// ±ÛÀÚ ´õÇÏ±â
+			// ê¸€ì ë”í•˜ê¸°
 			iCount += iCC;
 			iCX += size.cx;
 		}
 	}
 
-	// ¸Ç ¸¶Áö¸· Ãâ Ã³¸®
+	// ë§¨ ë§ˆì§€ë§‰ ì¶œ ì²˜ë¦¬
 	int iLineLength = iStrLen - iLineStart;
 	if (iLineLength>0)
 	{
@@ -337,7 +337,7 @@ void CUIMessageWnd::SetTopLine(int iTopLine)
 	else if (iTopLine > iLineBufferSize) iTopLine = iLineBufferSize;
 	
 	int i;
-	// ¾ÕÁÙ¼­ºÎÅÍ Â÷·Ê·Î ÀÓ½Ã¹öÆÛ¿¡ ÀúÀåÇÏ°í string ±æÀÌ ÃøÁ¤
+	// ì•ì¤„ì„œë¶€í„° ì°¨ë¡€ë¡œ ì„ì‹œë²„í¼ì— ì €ì¥í•˜ê³  string ê¸¸ì´ ì¸¡ì •
 	__ChatInfo** ppLineInfos  = new __ChatInfo*[m_iChatLineCount];
 	ZeroMemory(ppLineInfos, sizeof(__ChatInfo*)*m_iChatLineCount);
 
@@ -350,8 +350,8 @@ void CUIMessageWnd::SetTopLine(int iTopLine)
 	}
 
 	__ASSERT(m_ppUILines, "null pointer");
-	// ¾Õ¿¡¼­ºÎÅÍ ¸Â°Ô Â÷·Ê·Î °¢°¢ ¹öÆÛ¿¡ ³Ö±â
-	int iRealLine = i;	// ½ÇÁ¦ Ãâ·ÂµÇ´Â ÁÙ ¼ö
+	// ì•ì—ì„œë¶€í„° ë§ê²Œ ì°¨ë¡€ë¡œ ê°ê° ë²„í¼ì— ë„£ê¸°
+	int iRealLine = i;	// ì‹¤ì œ ì¶œë ¥ë˜ëŠ” ì¤„ ìˆ˜
 	int iRealLineCount = 0;
 	for (i=0; i<iRealLine; ++i)
 	{
@@ -363,14 +363,14 @@ void CUIMessageWnd::SetTopLine(int iTopLine)
 	for (i=iRealLineCount; i<m_iChatLineCount; ++i)
 	{
 		if (NULL == m_ppUILines[i]) continue;
-		m_ppUILines[i]->SetString("");	// ³ª¸ÓÁö´Â ºóÄ­ ¸¸µé±â
+		m_ppUILines[i]->SetString("");	// ë‚˜ë¨¸ì§€ëŠ” ë¹ˆì¹¸ ë§Œë“¤ê¸°
 	}
 	delete [] ppLineInfos;
 }
 
-void CUIMessageWnd::RecalcLineBuffer()	// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é line buffer¸¦ ´Ù½Ã °è»êÇØ¼­ ³Ö¾îÁØ´Ù.
+void CUIMessageWnd::RecalcLineBuffer()	// ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í–ˆì„ë•Œ í˜¸ì¶œí•´ì£¼ë©´ line bufferë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ë„£ì–´ì¤€ë‹¤.
 {
-	// line buffer ÃÊ±âÈ­ÇÏ±â
+	// line buffer ì´ˆê¸°í™”í•˜ê¸°
 	ChatListItor itor;
 	for(itor = m_LineBuffer.begin(); m_LineBuffer.end() != itor; ++itor)
 	{
@@ -379,17 +379,17 @@ void CUIMessageWnd::RecalcLineBuffer()	// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é li
 	}
 	m_LineBuffer.clear();
 
-	// Line buffer ´Ù½Ã ³Ö±â
+	// Line buffer ë‹¤ì‹œ ë„£ê¸°
 	for(itor = m_ChatBuffer.begin(); m_ChatBuffer.end() != itor; ++itor)
 	{
 		__ChatInfo* pChatBuff = (*itor);
 		if (pChatBuff) AddLineBuffer(pChatBuff->szChat, pChatBuff->color);
 	}
 
-	// Line buffer °¹¼ö Á¶Àı
-	while (m_LineBuffer.size() > MAX_CHAT_LINES)	// MAX_CHAT_LINESÀº ÃÖ´ë lineÀÇ ¼ö
+	// Line buffer ê°¯ìˆ˜ ì¡°ì ˆ
+	while (m_LineBuffer.size() > MAX_CHAT_LINES)	// MAX_CHAT_LINESì€ ìµœëŒ€ lineì˜ ìˆ˜
 	{
-		// ÇÑÁÙ Áö¿ì±â
+		// í•œì¤„ ì§€ìš°ê¸°
 		__ChatInfo* pLineBuff = m_LineBuffer.front();
 		if (pLineBuff) delete pLineBuff;
 		m_LineBuffer.pop_front();
@@ -398,22 +398,22 @@ void CUIMessageWnd::RecalcLineBuffer()	// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é li
 	int iLineBufferSize = m_LineBuffer.size();
 	int iMaxScrollPos = iLineBufferSize-m_iChatLineCount;
 	if (iMaxScrollPos<0) iMaxScrollPos = 0;
-	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ¼³Á¤
+	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ì„¤ì •
 
-	// ½ºÅ©·Ñ¹Ù ÇöÀç À§Ä¡ Àç¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°” í˜„ì¬ ìœ„ì¹˜ ì¬ì„¤ì •
 	m_pScrollbar->SetCurrentPos(iMaxScrollPos);
 
-	// ½ºÅ©·Ñ¹Ù¿¡ ¸Â´Â Ã¤ÆÃ Line ¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°”ì— ë§ëŠ” ì±„íŒ… Line ì„¤ì •
 	SetTopLine(iMaxScrollPos);
 }
 
 void CUIMessageWnd::SetRegion(const RECT& Rect)
 {
 	CN3UIBase::SetRegion(Rect);
-	// ÀÚ½ÄµéÀ» Àû´çÈ÷ ¹èÄ¡ÇÑ´Ù.
-	// m_rcChatOutRegion = ;	// Ã¤ÆÃ Ãâ·Â ¿µ¿ªÀ» ´Ù½Ã ÁöÁ¤ÇØÁØ´Ù.
-	//CreateLines();	// Ã¤ÆÃ ¶óÀÎÀ» ¸îÁÙ µé¾î°¥Áö °è»êÇÏ°í ´Ù½Ã ¸¸µç´Ù.
-	//RecalcLineBuffer();	// ¶óÀÎ ¹öÆÛ¸¦ ´Ù Áö¿ì°í ´Ù½Ã ¸¸µé¾îÁÖ°í ±Û¾¾¸¦ Ç¥½ÃÇÑ´Ù.
+	// ìì‹ë“¤ì„ ì ë‹¹íˆ ë°°ì¹˜í•œë‹¤.
+	// m_rcChatOutRegion = ;	// ì±„íŒ… ì¶œë ¥ ì˜ì—­ì„ ë‹¤ì‹œ ì§€ì •í•´ì¤€ë‹¤.
+	//CreateLines();	// ì±„íŒ… ë¼ì¸ì„ ëª‡ì¤„ ë“¤ì–´ê°ˆì§€ ê³„ì‚°í•˜ê³  ë‹¤ì‹œ ë§Œë“ ë‹¤.
+	//RecalcLineBuffer();	// ë¼ì¸ ë²„í¼ë¥¼ ë‹¤ ì§€ìš°ê³  ë‹¤ì‹œ ë§Œë“¤ì–´ì£¼ê³  ê¸€ì”¨ë¥¼ í‘œì‹œí•œë‹¤.
 }
 
 
@@ -422,8 +422,8 @@ bool CUIMessageWnd::OnKeyPress(int iKey)
 	switch(iKey)
 	{
 	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
-		{	//hotkey°¡ Æ÷Ä¿½º ÀâÇôÀÖÀ»¶§´Â ´Ù¸¥ ui¸¦ ´İÀ»¼ö ¾øÀ¸¹Ç·Î DIK_ESCAPE°¡ µé¾î¿À¸é Æ÷Ä¿½º¸¦ ´Ù½ÃÀâ°í
-			//¿­·ÁÀÖ´Â ´Ù¸¥ À¯¾ÆÀÌ¸¦ ´İ¾ÆÁØ´Ù.
+		{	//hotkeyê°€ í¬ì»¤ìŠ¤ ì¡í˜€ìˆì„ë•ŒëŠ” ë‹¤ë¥¸ uië¥¼ ë‹«ì„ìˆ˜ ì—†ìœ¼ë¯€ë¡œ DIK_ESCAPEê°€ ë“¤ì–´ì˜¤ë©´ í¬ì»¤ìŠ¤ë¥¼ ë‹¤ì‹œì¡ê³ 
+			//ì—´ë ¤ìˆëŠ” ë‹¤ë¥¸ ìœ ì•„ì´ë¥¼ ë‹«ì•„ì¤€ë‹¤.
 			CGameProcedure::s_pUIMgr->ReFocusUI();//this_ui
 			CN3UIBase* pFocus = CGameProcedure::s_pUIMgr->GetFocusedUI();
 			if(pFocus && pFocus != this) pFocus->OnKeyPress(iKey);

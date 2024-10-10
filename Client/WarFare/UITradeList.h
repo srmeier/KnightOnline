@@ -1,4 +1,4 @@
-// UITradeList.h: interface for the CUITradeList class.
+ï»¿// UITradeList.h: interface for the CUITradeList class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@ class CUITradeList       : public CN3UIBase
 {
 	CN3UIString*		m_pStr_List[9];
 	std::string			m_sStr[40];
-	CN3UIScrollBar*		m_pScrollbar;	// scrollbar ÂüÁ¶Æ÷ÀÎÅÍ(½ÇÁ¦ m_Child·Î °ü¸®)
+	CN3UIScrollBar*		m_pScrollbar;	// scrollbar ì°¸ì¡°í¬ì¸í„°(ì‹¤ì œ m_Childë¡œ ê´€ë¦¬)
 
 public:
 	CUITradeList();
@@ -35,7 +35,7 @@ public:
 	void Open(int iIDTarget = -1);
 	void Close();
 
-	void SetTopLine(int iTopLine);		// ¸Ç À­ÁÙÀ» ÁöÁ¤ÇØÁØ´Ù.
+	void SetTopLine(int iTopLine);		// ë§¨ ìœ—ì¤„ì„ ì§€ì •í•´ì¤€ë‹¤.
 };
 
 #endif // !defined(AFX_UITRADELIST_H__B4807FE6_499A_47DE_BEA0_642E52708F0D__INCLUDED_)

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Region.h"
 #include "User.h"
 #include "Npc.h"

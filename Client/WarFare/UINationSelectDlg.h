@@ -1,4 +1,4 @@
-// UINationSelectDlg.h: interface for the CUINationSelectDlg class.
+﻿// UINationSelectDlg.h: interface for the CUINationSelectDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // Classes
 #define KARUWARRIOR			101	// Beginner Karus Warrior

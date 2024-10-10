@@ -1,4 +1,4 @@
-// MachineBase.h: interface for the CMachineBase class.
+ï»¿// MachineBase.h: interface for the CMachineBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -35,32 +35,32 @@ public:
 	enum {WHEEL_FL=0, WHEEL_FR=1, WHEEL_BL=2, WHEEL_BR=3, NUM_WHEEL=4};
 	struct __Wheel
 	{
-		// ¹ÙÄû Á¤º¸
-//		__Vector3			m_vPivot;	// Local Ãà
-		CN3SPart*				pPart;	// ShapeÀÇ ¹ÙÄû PartÆ÷ÀÎÅÍ
+		// ë°”í€´ ì •ë³´
+//		__Vector3			m_vPivot;	// Local ì¶•
+		CN3SPart*				pPart;	// Shapeì˜ ë°”í€´ Partí¬ì¸í„°
 
-		// ¹ÙÄû Á¤º¸ ÀÔ·Â¹ŞÀº ÈÄ °è»êÇØÁÖ´Â °ªµé.
-		float				fRadius;	// ¹ÙÄûÀÇ ¹İÁö¸§
-		float				fRotateRatio;// machineÀÌ 1.0f(rad)È¸ÀüÇÒ¶§ ¹ÙÄû°¡ µ¹¾Æ°¡´Â °¢µµ(rad) Á¤µµ
+		// ë°”í€´ ì •ë³´ ì…ë ¥ë°›ì€ í›„ ê³„ì‚°í•´ì£¼ëŠ” ê°’ë“¤.
+		float				fRadius;	// ë°”í€´ì˜ ë°˜ì§€ë¦„
+		float				fRotateRatio;// machineì´ 1.0f(rad)íšŒì „í• ë•Œ ë°”í€´ê°€ ëŒì•„ê°€ëŠ” ê°ë„(rad) ì •ë„
 
-		// °ÔÀÓ ÁøÇà½Ã ¹Ù²î´Â Á¤º¸.
-		float				fRadian;	// ÇöÀç ¹ÙÄûÀÇ µ¹¾Æ°£ °¢µµ. (xÃàÀ¸·Î µ¹¸°´Ù.)
+		// ê²Œì„ ì§„í–‰ì‹œ ë°”ë€ŒëŠ” ì •ë³´.
+		float				fRadian;	// í˜„ì¬ ë°”í€´ì˜ ëŒì•„ê°„ ê°ë„. (xì¶•ìœ¼ë¡œ ëŒë¦°ë‹¤.)
 	};
 
 	std::string 	m_szID;				// id string
 
 protected:
 	__Wheel			m_Wheel[NUM_WHEEL];
-	float			m_fSpeed;			// ÃÊ´ç ÀÌµ¿¼Óµµ(ÀüÈÄÁø)
-	float			m_fRotateSpeed;		// ÃÊ´ç È¸Àü °¢¼Óµµ
-	//__Vector3		m_vDir;				// machineÀÇ ÁøÇà¹æÇâ
-	float			m_fDirRadian;		// ÁøÇà¹æÇâ °¢µµ(z¾çÀÇ ¹æÇâÀÌ 0.0f);
+	float			m_fSpeed;			// ì´ˆë‹¹ ì´ë™ì†ë„(ì „í›„ì§„)
+	float			m_fRotateSpeed;		// ì´ˆë‹¹ íšŒì „ ê°ì†ë„
+	//__Vector3		m_vDir;				// machineì˜ ì§„í–‰ë°©í–¥
+	float			m_fDirRadian;		// ì§„í–‰ë°©í–¥ ê°ë„(zì–‘ì˜ ë°©í–¥ì´ 0.0f);
 	uint32_t			m_dwMachineState;
-	BOOL*			m_bSkipCalcPartMtx;		// ÆÄÆ® ¸ŞÆ®¸¯½º °è»ê °Ç³Ê¶Ù±â(part°¹¼ö¸¸Å­ ÇÒ´çµÊ)
-	__Vector3		m_vBalancePoint[4];		// ±ÕÇüÀ» Àâ±âÀ§ÇÑ 4Á¡ÀÇ À§Ä¡(ÀüÈÄÁÂ¿ì) ·ÎÄÃÁÂÇ¥ÀÓ.
+	BOOL*			m_bSkipCalcPartMtx;		// íŒŒíŠ¸ ë©”íŠ¸ë¦­ìŠ¤ ê³„ì‚° ê±´ë„ˆë›°ê¸°(partê°¯ìˆ˜ë§Œí¼ í• ë‹¹ë¨)
+	__Vector3		m_vBalancePoint[4];		// ê· í˜•ì„ ì¡ê¸°ìœ„í•œ 4ì ì˜ ìœ„ì¹˜(ì „í›„ì¢Œìš°) ë¡œì»¬ì¢Œí‘œì„.
 
-	float			m_fFireRadian;		// ¹ß»ç°¢
-	float			m_fFireSpeed;		// ¹ß»ç¼Óµµ(¼¼±â)
+	float			m_fFireRadian;		// ë°œì‚¬ê°
+	float			m_fFireSpeed;		// ë°œì‚¬ì†ë„(ì„¸ê¸°)
 
 // Attributes
 public:
@@ -81,7 +81,7 @@ public:
 protected:
 	CN3SPart*		GetPartByPMeshName(const std::string& szName);
 	virtual void	ReCalcMatrix4AnimatedPart();
-// ¸Ó½Å µ¿ÀÛ °ü·Ã
+// ë¨¸ì‹  ë™ì‘ ê´€ë ¨
 public:
 	void Stop() {m_dwMachineState = MS_STOP;}
 	void ToggleMoveForward(BOOL bOn) {if (bOn) m_dwMachineState |= MS_FORWARD; else m_dwMachineState &= (~MS_FORWARD);}
@@ -89,7 +89,7 @@ public:
 	void ToggleTurnRight(BOOL bOn) {if (bOn) m_dwMachineState |= MS_TURNRIGHT; else m_dwMachineState &= (~MS_TURNRIGHT);}
 	void ToggleTurnLeft(BOOL bOn) {if (bOn) m_dwMachineState |= MS_TURNLEFT; else m_dwMachineState &= (~MS_TURNLEFT);}
 
-	virtual void Fire();		// ¹ß»ç
+	virtual void Fire();		// ë°œì‚¬
 };
 
 #endif // !defined(AFX_MACHINEBASE_H__CA5C8B1C_9A41_465B_875E_979A9BCD0483__INCLUDED_)

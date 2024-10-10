@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "../N3BASE/N3ShapeMgr.h"
 #include "../shared/STLMap.h"
@@ -31,17 +31,17 @@ public:
 	int GetZRegionMax();
 	int16_t * GetEventIDs();
 
-	CRegion**		m_ppRegion;				// 64¹ÌÅÍÀÇ Å¸ÀÏÁ¤º¸..
+	CRegion**		m_ppRegion;				// 64ë¯¸í„°ì˜ íƒ€ì¼ì •ë³´..
 	int m_nZoneNumber;						// zone number
 	int	m_nServerNo;
 	float*		m_fHeight;
-	uint8_t		m_byRoomType;		// ¹æÀÇ ÃÊ±âÈ­°ü·Ã( 0:ÀÚµ¿À¸·Î ÃÊ±âÈ­, 1:ÀüÀïÀÌº¥Æ® °ü·Ã(Æ¯Á¤Á¶°ÇÀÌ ¿Ï·á½Ã ÃÊ±âÈ­)
+	uint8_t		m_byRoomType;		// ë°©ì˜ ì´ˆê¸°í™”ê´€ë ¨( 0:ìë™ìœ¼ë¡œ ì´ˆê¸°í™”, 1:ì „ìŸì´ë²¤íŠ¸ ê´€ë ¨(íŠ¹ì •ì¡°ê±´ì´ ì™„ë£Œì‹œ ì´ˆê¸°í™”)
 	uint8_t		m_byRoomEvent;		// event room(0:empty, 1:use)
-	RoomStatus	m_byRoomStatus;		// room status(1:ÁøÇàÁß, 2:¹æÀ» ÃÊ±âÈ­Áß, 3:¹æÃÊ±âÈ­ ¿Ï·á)
-	uint8_t		m_byInitRoomCount;	// room ÃÊ±âÈ­ ½Ã°£À» Á¦¾î(¸ó½ºÅÍ¿Í µ¿±âÈ­¸¦ ¸ÂÃß±â À§ÇØ)
+	RoomStatus	m_byRoomStatus;		// room status(1:ì§„í–‰ì¤‘, 2:ë°©ì„ ì´ˆê¸°í™”ì¤‘, 3:ë°©ì´ˆê¸°í™” ì™„ë£Œ)
+	uint8_t		m_byInitRoomCount;	// room ì´ˆê¸°í™” ì‹œê°„ì„ ì œì–´(ëª¬ìŠ¤í„°ì™€ ë™ê¸°í™”ë¥¼ ë§ì¶”ê¸° ìœ„í•´)
 	RoomEventArray	 m_arRoomEventArray;
-	int16_t	m_sKarusRoom;			// karusÀÇ ¼º°¹¼ö
-	int16_t	m_sElmoradRoom;			// elmoradÀÇ ¼º°¹¼ö
+	int16_t	m_sKarusRoom;			// karusì˜ ì„±ê°¯ìˆ˜
+	int16_t	m_sElmoradRoom;			// elmoradì˜ ì„±ê°¯ìˆ˜
 
 	std::recursive_mutex m_lock;
 
@@ -61,7 +61,7 @@ public:
 
 	CRegion * GetRegion(uint16_t regionX, uint16_t regionZ);
 
-	int IsRoomCheck(float fx, float fz);	// ´øÁ¯¿¡¼­ »ç¿ë, À¯ÀúÀÇ ÇöÀçÀ§Ä¡°¡ ´øÁ¯ÀÇ ¾î´À À§Ä¡¿¡ ÀÖ´ÂÁö¸¦ ÆÇ´Ü
+	int IsRoomCheck(float fx, float fz);	// ë˜ì ¼ì—ì„œ ì‚¬ìš©, ìœ ì €ì˜ í˜„ì¬ìœ„ì¹˜ê°€ ë˜ì ¼ì˜ ì–´ëŠ ìœ„ì¹˜ì— ìˆëŠ”ì§€ë¥¼ íŒë‹¨
 	bool IsRoomStatusCheck();
 
 	bool IsMovable(int dest_x, int dest_y);

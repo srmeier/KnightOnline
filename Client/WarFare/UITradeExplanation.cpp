@@ -1,4 +1,4 @@
-// UITradeExplanation.cpp: implementation of the CUITradeExplanation class.
+﻿// UITradeExplanation.cpp: implementation of the CUITradeExplanation class.
 //
 //////////////////////////////////////////////////////////////////////
 

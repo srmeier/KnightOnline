@@ -1,4 +1,4 @@
-// N3Scene.h: interface for the CN3Scene class.
+ï»¿// N3Scene.h: interface for the CN3Scene class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,12 +28,12 @@ typedef std::vector<class CN3Chr*>::iterator	it_Chr;
 class CN3Scene : public CN3BaseFileAccess
 {
 public:
-	float			m_fFrmCur, m_fFrmStart, m_fFrmEnd; // ÇöÀç, ½ÃÀÛ, ³¡ ÇÁ·¹ÀÓ..
-	bool			m_bDisableDefaultLight; // ÂüÀÌ¸é ±âº»¶óÀÌÆ®¸¦ ²ö´Ù..
+	float			m_fFrmCur, m_fFrmStart, m_fFrmEnd; // í˜„ì¬, ì‹œì‘, ë í”„ë ˆì„..
+	bool			m_bDisableDefaultLight; // ì°¸ì´ë©´ ê¸°ë³¸ë¼ì´íŠ¸ë¥¼ ëˆë‹¤..
 	D3DCOLOR		m_AmbientLightColor;
 
 protected:
-	int				m_nCameraActive; // ÇöÀç ¼±ÅÃµÈ Ä«¸Ş¶ó..
+	int				m_nCameraActive; // í˜„ì¬ ì„ íƒëœ ì¹´ë©”ë¼..
 	int				m_nCameraCount;
 	int				m_nLightCount;
 

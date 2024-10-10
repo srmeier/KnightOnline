@@ -1,4 +1,4 @@
-// UICmdEdit.h: interface for the UICmdEdit class.
+﻿// UICmdEdit.h: interface for the UICmdEdit class.
 //
 //////////////////////////////////////////////////////////////////////
 

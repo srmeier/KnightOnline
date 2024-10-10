@@ -1,4 +1,4 @@
-// N3UIProgress.h: interface for the CN3UIProgress class.
+ï»¿// N3UIProgress.h: interface for the CN3UIProgress class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@ class CN3UIImage;
 class CN3UIProgress : public CN3UIBase  
 {
 #ifdef _N3TOOL
-friend class CPropertyView;	// Åø¿¡¼­ °¢ º¯¼öµéÀ» Á¢±ÙÇÏ±â À§ÇØ¼­ 
+friend class CPropertyView;	// íˆ´ì—ì„œ ê° ë³€ìˆ˜ë“¤ì„ ì ‘ê·¼í•˜ê¸° ìœ„í•´ì„œ 
 #endif
 
 public:
@@ -34,16 +34,16 @@ protected:
 	CN3UIImage*		m_pBkGndImgRef;
 	CN3UIImage*		m_pFrGndImgRef;
 
-	__FLOAT_RECT	m_frcFrGndImgUV;				// m_FrGndImgRef ÀÇ uvÁÂÇ¥
+	__FLOAT_RECT	m_frcFrGndImgUV;				// m_FrGndImgRef ì˜ uvì¢Œí‘œ
 
-	int				m_iMaxValue;					// ÃÖ´ë
-	int				m_iMinValue;					// ÃÖ¼Ò
-	float			m_fCurValue;					// ÇöÀç °ª - ºÎµå·´°Ô Á¡Â÷ °ªÀ» ¿Ã·Á°¡·Á°í float ·Î Çß´Ù..
-	float			m_fChangeSpeedPerSec;			// ÇöÀç°ªÀÌ º¯ÇØ¾ß µÇ´Â ¼Óµµ.. Unit SpeedPerSec
-	int				m_iValueToReach;				// µµ´ŞÇØ¾ß µÉ°ª - ºÎµå·´°Ô °ªÀÌ ¿Ã¶ó°¡´Â °æ¿ì¿¡ ÇÊ¿äÇÏ´Ù..
-	float			m_fTimeToDelay;					// Áö¿¬½Ã°£..
+	int				m_iMaxValue;					// ìµœëŒ€
+	int				m_iMinValue;					// ìµœì†Œ
+	float			m_fCurValue;					// í˜„ì¬ ê°’ - ë¶€ë“œëŸ½ê²Œ ì ì°¨ ê°’ì„ ì˜¬ë ¤ê°€ë ¤ê³  float ë¡œ í–ˆë‹¤..
+	float			m_fChangeSpeedPerSec;			// í˜„ì¬ê°’ì´ ë³€í•´ì•¼ ë˜ëŠ” ì†ë„.. Unit SpeedPerSec
+	int				m_iValueToReach;				// ë„ë‹¬í•´ì•¼ ë ê°’ - ë¶€ë“œëŸ½ê²Œ ê°’ì´ ì˜¬ë¼ê°€ëŠ” ê²½ìš°ì— í•„ìš”í•˜ë‹¤..
+	float			m_fTimeToDelay;					// ì§€ì—°ì‹œê°„..
 	
-	int				m_iStepValue;					// º¯È­°ª StepIt()À» ÅëÇÑ º¯È­µÇ´Â °ª
+	int				m_iStepValue;					// ë³€í™”ê°’ StepIt()ì„ í†µí•œ ë³€í™”ë˜ëŠ” ê°’
 //	Operations
 public:
 	virtual void	Tick();
@@ -54,21 +54,21 @@ public:
 	virtual bool	Load(HANDLE hFile);
 
 	void			SetCurValue(int iValue, float fTimeToDelay = 0, float fChangeSpeedPerSec = 0);
-	void			SetCurValue_Smoothly(int iValue, float fPercentPerSec){SetCurValue(iValue, 0, fPercentPerSec*(m_iMaxValue-m_iMinValue));}	// ÃÊ´ç ¸î ÆÛ¼¾Æ® ¼öÄ¡·Î ¿Ã¶ó°£´Ù.
+	void			SetCurValue_Smoothly(int iValue, float fPercentPerSec){SetCurValue(iValue, 0, fPercentPerSec*(m_iMaxValue-m_iMinValue));}	// ì´ˆë‹¹ ëª‡ í¼ì„¼íŠ¸ ìˆ˜ì¹˜ë¡œ ì˜¬ë¼ê°„ë‹¤.
 	void			SetRange(int iMin, int iMax) {m_iMinValue = iMin; m_iMaxValue = iMax; UpdateFrGndImage();}
-	void			SetFrGndUVFromFrGndImage();	// m_pFrGndImgRef·ÎºÎÅÍ uvÁÂÇ¥¸¦ ¾ò¾î¿Í¼­ m_frcFrGndImgUV¸¦ ¼¼ÆÃÇÑ´Ù.
+	void			SetFrGndUVFromFrGndImage();	// m_pFrGndImgRefë¡œë¶€í„° uvì¢Œí‘œë¥¼ ì–»ì–´ì™€ì„œ m_frcFrGndImgUVë¥¼ ì„¸íŒ…í•œë‹¤.
 protected:
-	void			UpdateFrGndImage();	//m_FrGndImgRef ÀÇ ¿µ¿ª°ú uvÁÂÇ¥¸¦ m_fCurValue¿¡ µû¶ó ¾Ë¸Â°Ô ¹Ù²Û´Ù.
+	void			UpdateFrGndImage();	//m_FrGndImgRef ì˜ ì˜ì—­ê³¼ uvì¢Œí‘œë¥¼ m_fCurValueì— ë”°ë¼ ì•Œë§ê²Œ ë°”ê¾¼ë‹¤.
 
 #ifdef _N3TOOL
-// tool¿¡¼­ »ç¿ëÇÏ´Â ÇÔ¼öµé
+// toolì—ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜ë“¤
 public:
 	virtual void	operator = (const CN3UIProgress& other);
 	virtual bool	Save(HANDLE hFile);
 	CN3UIImage*		GetBkGndImgRef() const {return m_pBkGndImgRef;}
 	CN3UIImage*		GetFrGndImgRef() const {return m_pFrGndImgRef;}
-	void			CreateImages();		// ÀÌ¹ÌÁö »ı¼º
-	void			DeleteBkGndImage();	// Back groundÀÌ¹ÌÁö´Â ÇÊ¿ä ¾ø´Â °æ¿ì°¡ ÀÖ´Ù.
+	void			CreateImages();		// ì´ë¯¸ì§€ ìƒì„±
+	void			DeleteBkGndImage();	// Back groundì´ë¯¸ì§€ëŠ” í•„ìš” ì—†ëŠ” ê²½ìš°ê°€ ìˆë‹¤.
 #endif
 };
 

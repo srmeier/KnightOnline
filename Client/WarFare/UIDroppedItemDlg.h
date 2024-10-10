@@ -1,4 +1,4 @@
-// UIDroppedItemDlg.h: interface for the UIDroppedItemDlg class.
+﻿// UIDroppedItemDlg.h: interface for the UIDroppedItemDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// N3ColorChange.h: interface for the CN3ColorChange class.
+ï»¿// N3ColorChange.h: interface for the CN3ColorChange class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,12 +23,12 @@ public:
 	void		Tick();
 	void		SetPercentage(float fPercentage);
 protected:
-	D3DCOLOR	m_CurColor;	// ÇöÀç »ö.
-	D3DCOLOR	m_PrevColor;	// º¯È­ÇÏ±â Àü »ö.
-	D3DCOLOR	m_NextColor;	// ÃÖÁ¾ÀûÀ¸·Î º¯È­ÇÒ »ö.
-	float		m_fPercentage;	// ÇöÀç º¯È­µÈ Á¤µµ(0.0 ~ 1.0)
-	float		m_fRate;		// ÃÊ´ç º¯È­À²
-	float		m_fTempSec;		// ÀÓ½Ã ½Ã°£ ÀúÀå º¯¼ö
+	D3DCOLOR	m_CurColor;	// í˜„ì¬ ìƒ‰.
+	D3DCOLOR	m_PrevColor;	// ë³€í™”í•˜ê¸° ì „ ìƒ‰.
+	D3DCOLOR	m_NextColor;	// ìµœì¢…ì ìœ¼ë¡œ ë³€í™”í•  ìƒ‰.
+	float		m_fPercentage;	// í˜„ì¬ ë³€í™”ëœ ì •ë„(0.0 ~ 1.0)
+	float		m_fRate;		// ì´ˆë‹¹ ë³€í™”ìœ¨
+	float		m_fTempSec;		// ì„ì‹œ ì‹œê°„ ì €ì¥ ë³€ìˆ˜
 };
 
 class CN3DeltaChange  : public CN3Base
@@ -44,13 +44,13 @@ public:
 	void		Tick();
 	void		SetPercentage(float fPercentage);
 protected:
-	float		m_fCurDelta;	// ÇöÀç »ö.
-	float		m_fPrevDelta;	// º¯È­ÇÏ±â Àü »ö.
-	float		m_fNextDelta;	// ÃÖÁ¾ÀûÀ¸·Î º¯È­ÇÒ »ö.
+	float		m_fCurDelta;	// í˜„ì¬ ìƒ‰.
+	float		m_fPrevDelta;	// ë³€í™”í•˜ê¸° ì „ ìƒ‰.
+	float		m_fNextDelta;	// ìµœì¢…ì ìœ¼ë¡œ ë³€í™”í•  ìƒ‰.
 
-	float		m_fPercentage;	// ÇöÀç º¯È­µÈ Á¤µµ(0.0 ~ 1.0)
-	float		m_fRate;		// ÃÊ´ç º¯È­À²
-	float		m_fTempSec;		// ÀÓ½Ã ½Ã°£ ÀúÀå º¯¼ö
+	float		m_fPercentage;	// í˜„ì¬ ë³€í™”ëœ ì •ë„(0.0 ~ 1.0)
+	float		m_fRate;		// ì´ˆë‹¹ ë³€í™”ìœ¨
+	float		m_fTempSec;		// ì„ì‹œ ì‹œê°„ ì €ì¥ ë³€ìˆ˜
 };
 
 #endif // !defined(AFX_N3COLORCHANGE_H__6A4576D3_1880_40A4_AED9_39B306508D0C__INCLUDED_)

@@ -1,4 +1,4 @@
-// GameProcNationSelect.h: interface for the CGameProcNationSelect class.
+﻿// GameProcNationSelect.h: interface for the CGameProcNationSelect class.
 //
 //////////////////////////////////////////////////////////////////////
 

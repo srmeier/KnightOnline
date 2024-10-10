@@ -1,4 +1,4 @@
-// N3Base.cpp: implementation of the CN3Base class.
+ï»¿// N3Base.cpp: implementation of the CN3Base class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -19,51 +19,51 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-LPDIRECT3DDEVICE9 CN3Base::s_lpD3DDev	= NULL;			// ÂüÁ¶ Æ÷ÀÎÅÍ.. ¸Ú´ë·Î ÇØÁ¦ÇÏ¸é ¾ÈµÈ´Ù..
-uint32_t CN3Base::s_dwTextureCaps		= 0;			// Texture È£È¯¼º..
+LPDIRECT3DDEVICE9 CN3Base::s_lpD3DDev	= NULL;			// ì°¸ì¡° í¬ì¸í„°.. ë©‹ëŒ€ë¡œ í•´ì œí•˜ë©´ ì•ˆëœë‹¤..
+uint32_t CN3Base::s_dwTextureCaps		= 0;			// Texture í˜¸í™˜ì„±..
 float CN3Base::s_fFrmPerSec				= 30.0f;		// Frame Per Second
 float CN3Base::s_fSecPerFrm				= 1.0f/30.0f;	// Second per Frame
 SDL_Window * CN3Base::s_pWindow			= NULL;
-HWND CN3Base::s_hWndBase				= NULL;			// Init ÇÒ¶§ ¾´ Window Handle
-HWND CN3Base::s_hWndPresent				= NULL;			// ÃÖ±Ù¿¡ Present ÇÑ Window Handle
+HWND CN3Base::s_hWndBase				= NULL;			// Init í• ë•Œ ì“´ Window Handle
+HWND CN3Base::s_hWndPresent				= NULL;			// ìµœê·¼ì— Present í•œ Window Handle
 
-D3DPRESENT_PARAMETERS CN3Base::s_DevParam;	// Device »ı¼º Present Parameter
-D3DCAPS9 CN3Base::s_DevCaps;				// Device È£È¯¼º...
+D3DPRESENT_PARAMETERS CN3Base::s_DevParam;	// Device ìƒì„± Present Parameter
+D3DCAPS9 CN3Base::s_DevCaps;				// Device í˜¸í™˜ì„±...
 std::string CN3Base::s_szPath;
 
 __CameraData CN3Base::s_CameraData;			// Camera Data
 __ResrcInfo CN3Base::s_ResrcInfo;			// Rendering Information
-__Options CN3Base::s_Options;	// °¢Á¾ ¿É¼Çµî...
+__Options CN3Base::s_Options;	// ê°ì¢… ì˜µì…˜ë“±...
 #ifdef _DEBUG
 __RenderInfo CN3Base::s_RenderInfo;			// Rendering Information
 #endif
 
-#ifdef _N3GAME // °ÔÀÓÀÌ ¾Æ´Ñ Åø¿¡¼­´Â ÇÊ¿ä¾ø´Ù...
-CN3SndMgr CN3Base::s_SndMgr;	//»ç¿îµå ¸Ş´ÏÀú.
+#ifdef _N3GAME // ê²Œì„ì´ ì•„ë‹Œ íˆ´ì—ì„œëŠ” í•„ìš”ì—†ë‹¤...
+CN3SndMgr CN3Base::s_SndMgr;	//ì‚¬ìš´ë“œ ë©”ë‹ˆì €.
 #endif
-#ifdef _N3TOOL	// ui ¿¡µğÅÍÀÏ¶§´Â ÇÊ¿äÇÏ´Ù.
-CN3SndMgr CN3Base::s_SndMgr;	//»ç¿îµå ¸Ş´ÏÀú.
+#ifdef _N3TOOL	// ui ì—ë””í„°ì¼ë•ŒëŠ” í•„ìš”í•˜ë‹¤.
+CN3SndMgr CN3Base::s_SndMgr;	//ì‚¬ìš´ë“œ ë©”ë‹ˆì €.
 #endif
 
 CN3Mng<CN3Texture>		CN3Base::s_MngTex; // Texture Manager
 CN3Mng<CN3Mesh>			CN3Base::s_MngMesh; // Mesh Manager
-CN3Mng<CN3VMesh>		CN3Base::s_MngVMesh; // ´Ü¼øÈ÷ Æú¸®°ï¸¸ °®°í ÀÖ´Â ¸Ş½Ã - ÁÖ·Î Ãæµ¹ Ã¼Å©¿¡ ¾´´Ù..
+CN3Mng<CN3VMesh>		CN3Base::s_MngVMesh; // ë‹¨ìˆœíˆ í´ë¦¬ê³¤ë§Œ ê°–ê³  ìˆëŠ” ë©”ì‹œ - ì£¼ë¡œ ì¶©ëŒ ì²´í¬ì— ì“´ë‹¤..
 CN3Mng<CN3PMesh>		CN3Base::s_MngPMesh; // Progressive Mesh Manager
 CN3Mng<CN3Joint>		CN3Base::s_MngJoint; // Joint Manager
 CN3Mng<CN3CPartSkins>	CN3Base::s_MngSkins; // Character Part Skins Manager
 CN3Mng<CN3AnimControl>	CN3Base::s_MngAniCtrl; // Animation Manager
-CN3Mng<CN3FXPMesh>		CN3Base::s_MngFXPMesh; // FX¿¡¼­ ¾²´Â PMesh - ÆÄÀÏÀº ÀÏ¹İ PMesh¸¦ ¾²Áö¸¸ ¼ÓÀº ´Ù¸£´Ù.
-CN3Mng<CN3FXShape>		CN3Base::s_MngFXShape; // FX¿¡¼­ ¾²´Â Shape - ÆÄÀÏÀº ÀÏ¹İ shape¸¦ ¾²Áö¸¸ ¼ÓÀº ´Ù¸£´Ù.	
+CN3Mng<CN3FXPMesh>		CN3Base::s_MngFXPMesh; // FXì—ì„œ ì“°ëŠ” PMesh - íŒŒì¼ì€ ì¼ë°˜ PMeshë¥¼ ì“°ì§€ë§Œ ì†ì€ ë‹¤ë¥´ë‹¤.
+CN3Mng<CN3FXShape>		CN3Base::s_MngFXShape; // FXì—ì„œ ì“°ëŠ” Shape - íŒŒì¼ì€ ì¼ë°˜ shapeë¥¼ ì“°ì§€ë§Œ ì†ì€ ë‹¤ë¥´ë‹¤.	
 
-CN3AlphaPrimitiveManager	CN3Base::s_AlphaMgr;  // Alpha blend ÇÒ Æú¸®°ïµéÀ» °ü¸®.. Ãß°¡Çß´Ù°¡.. Ä«¸Ş¶ó °Å¸®¿¡ ¬Ãß¾î Á¤·ÄÇÏ°í ÇÑ²¨¹ø¿¡ ±×¸°´Ù..
+CN3AlphaPrimitiveManager	CN3Base::s_AlphaMgr;  // Alpha blend í•  í´ë¦¬ê³¤ë“¤ì„ ê´€ë¦¬.. ì¶”ê°€í–ˆë‹¤ê°€.. ì¹´ë©”ë¼ ê±°ë¦¬ì— Â?ä¸Š?ì •ë ¬í•˜ê³  í•œêº¼ë²ˆì— ê·¸ë¦°ë‹¤..
 
 #ifdef _N3GAME
-CLogWriter g_Log; // ·Î±× ³²±â±â...
+CLogWriter g_Log; // ë¡œê·¸ ë‚¨ê¸°ê¸°...
 #endif
 
 CN3Base::CN3Base()
 {
-	m_dwType = OBJ_BASE; // "MESH", "CAMERA", "SCENE", "???" .... µîµîµî...
+	m_dwType = OBJ_BASE; // "MESH", "CAMERA", "SCENE", "???" .... ë“±ë“±ë“±...
 	m_szName = "";
 }
 

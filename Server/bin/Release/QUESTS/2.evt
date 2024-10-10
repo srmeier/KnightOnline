@@ -94,7 +94,7 @@ A CHECK_EXIST_ITEM 379002000 10
 E ROB_ITEM 389010000 10 ;
 E ROB_ITEM 379002000 10 ;
 E SAY -1 -1 2 -1 -1 -1 -1 -1 -1 -1
-E GIVE_ITEM 389012000 10 ;30Ű��
+E GIVE_ITEM 389012000 10 ;30키로
 E RETURN
 END
 
@@ -111,7 +111,7 @@ A CHECK_EXIST_ITEM 379003000 10
 E ROB_ITEM 389010000 10 ;
 E ROB_ITEM 379003000 10 ;
 E SAY -1 -1 2 -1 -1 -1 -1 -1 -1 -1
-E GIVE_ITEM 389013000 10 ;30Ű��
+E GIVE_ITEM 389013000 10 ;30키로
 E RETURN
 END
 
@@ -145,7 +145,7 @@ A CHECK_EXIST_ITEM 379005000 10
 E ROB_ITEM 389010000 10 ;
 E ROB_ITEM 379005000 10 ;
 E SAY -1 -1 2 -1 -1 -1 -1 -1 -1 -1
-E GIVE_ITEM 389015000 10 ;30Ű��
+E GIVE_ITEM 389015000 10 ;30키로
 E RETURN
 END
 
@@ -157,89 +157,89 @@ END
 ;;;;;;;;;;;; Knight Clerk ;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-EVENT 1001	; ���ܼ������ ȣ���ϴ� �κ�
-E SELECT_MSG 21610 15952 1001 2001 1002 16951 1006 2101 35578 35623 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; ���ܵ���/�⿩������/���
+EVENT 1001	; 기사단서기관을 호출하는 부분
+E SELECT_MSG 21610 15952 1001 2001 1002 16951 1006 2101 35578 35623 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; 기사단도전/기여도리필/녹봉
 END
 
-EVENT 2001	 ;Ŭ���������� üũ
-E RUN_EVENT 2010 ;�����϶�
-E RUN_EVENT 2020 ;Ŭ�������϶�
-E RUN_EVENT 2030 ;Ŭ�������� �ƴҶ�
+EVENT 2001	 ;클랜단장임을 체크
+E RUN_EVENT 2010 ;기사단일때
+E RUN_EVENT 2020 ;클랜단장일때
+E RUN_EVENT 2030 ;클랜단장이 아닐때
 END
 
 EVENT 2010
-A CHECK_KNIGHT -1 ;�����϶�(�˻����� �޾Ƶ�~~)
-E SAY -1 -1 1059 -1 -1 -1 -1 -1 -1 -1 -1 -1 ; �����϶�
+A CHECK_KNIGHT -1 ;기사단일때(검색조건 달아도~~)
+E SAY -1 -1 1059 -1 -1 -1 -1 -1 -1 -1 -1 -1 ; 기사단일때
 E RETURN
 END
 
 EVENT 2019
-A CHECK_CLAN_GRADE 4 5 ; 3��Ŭ�������϶�
-E SAY -1 -1 1055 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;3��Ŭ�������϶�
+A CHECK_CLAN_GRADE 4 5 ; 3등클랜이하일때
+E SAY -1 -1 1055 -1 -1 -1 -1 -1 -1 -1 -1 -1 ;3등클랜이하일때
 E RETURN
 END
 
 EVENT 2020
-A CHECK_CHIEF -1 ;Ŭ�������϶�
+A CHECK_CHIEF -1 ;클랜단장일때
 E RUN_EVENT 2025
 END
 
 EVENT 2025
-E RUN_EVENT 2019 ;3��Ŭ�������϶�
-E RUN_EVENT 2035 ;3��Ŭ���̻��϶�
+E RUN_EVENT 2019 ;3등클랜이하일때
+E RUN_EVENT 2035 ;3등클랜이상일때
 END
 
 EVENT 2030
-A CHECK_NO_CHIEF -1 ;Ŭ�������� �ƴҶ�
-E SAY -1 -1 1050 -1 -1 -1 -1 -1 -1 -1 -1 -1;Ŭ�������� �ƴҶ�
+A CHECK_NO_CHIEF -1 ;클랜단장이 아닐때
+E SAY -1 -1 1050 -1 -1 -1 -1 -1 -1 -1 -1 -1;클랜단장이 아닐때
 E RETURN
 END
 
-EVENT 2035 ;3��Ŭ���̻��϶�
-A CHECK_CLAN_GRADE 1 3 ;3��Ŭ���̻��϶�
+EVENT 2035 ;3등클랜이상일때
+A CHECK_CLAN_GRADE 1 3 ;3등클랜이상일때
 E RUN_EVENT 2040
 END
 
 EVENT 2040
-E SELECT_MSG 21610 1051	601 2045 603 2056 602 2050 -1 -1 -1 -1	-1 -1 -1 -1 -1 -1 -1 -1	-1 -1 ;1�̾߱��´� /�����ϰڽ��ϴ�./��Ḧ ���ؿԽ��ϴ�.
+E SELECT_MSG 21610 1051	601 2045 603 2056 602 2050 -1 -1 -1 -1	-1 -1 -1 -1 -1 -1 -1 -1	-1 -1 ;1이야기듣는다 /도전하겠습니다./재료를 구해왔습니다.
 END
 
 EVENT 2045
-E SAY 2040 -1 1052 1053 1054 -1 -1 -1 -1 -1 -1 -1 ;1�̾߱⸦ ��´�
+E SAY 2040 -1 1052 1053 1054 -1 -1 -1 -1 -1 -1 -1 ;1이야기를 듣는다
 END
 
 EVENT 2050
-E RUN_EVENT 2055;��ᰡ ������
-E RUN_EVENT 2060;��ᰡ ������
+E RUN_EVENT 2055;재료가 없을때
+E RUN_EVENT 2060;재료가 있을때
 END
 
 EVENT 2052
-A CHECK_NOAH 0 9999999;��ư� �����Ҷ�
+A CHECK_NOAH 0 9999999;노아가 부족할때
 E SAY -1 -1 1057 -1 -1 -1 -1 -1 -1 -1 -1 -1
 E RETURN
 END
 
 EVENT 2053
-A HOWMUCH_ITEM 910045000 0 0 ;��ᰡ �����Ҷ�
+A HOWMUCH_ITEM 910045000 0 0 ;재료가 부족할때
 E SAY -1 -1 1058 -1 -1 -1 -1 -1 -1 -1 -1 -1
 E RETURN
 END
 
 EVENT 2055
-E RUN_EVENT 2052;��ư� ������
-E RUN_EVENT 2053;��ᰡ ������
+E RUN_EVENT 2052;노아가 없을때
+E RUN_EVENT 2053;재료가 없을때
 END
 
 EVENT 2056 
 A CHECK_CLAN_GRADE 1 3
-E ZONE_CHANGE_CLAN 54 150 150;�����Ѵ� 
+E ZONE_CHANGE_CLAN 54 150 150;도전한다 
 E RETURN
 END
 
 EVENT 2060
-E ROB_NOAH 10000000;��ᰡ ������ ���䱳ȯ
-E ROB_ITEM 910045000 1	;��Ÿ��
-E PROMOTE_KNIGHT ; ���� �°�
+E ROB_NOAH 10000000;재료가 있을때 망토교환
+E ROB_ITEM 910045000 1	;켄타목
+E PROMOTE_KNIGHT ; 기사단 승격
 E SAY -1 -1 1062 -1 -1 -1 -1 -1 -1 -1 -1 -1
 E RETURN
 END
@@ -475,7 +475,7 @@ END
 
 EVENT 8010
 A CHECK_NOEXIST_ITEM 910014000 5
-E SAY -1 -1 10310 -1 -1 -1 -1 -1 -1 -1 ; ������
+E SAY -1 -1 10310 -1 -1 -1 -1 -1 -1 -1 ; 재료부족
 E RETURN
 END
 
@@ -1291,7 +1291,7 @@ E RUN_EVENT 13002;
 E RUN_EVENT 13003;
 END
 
-EVENT 13002;���� �϶�
+EVENT 13002;법사 일때
 A CHECK_CLASS 209 210 203 -1 -1 -1
 E SELECT_MSG 14203 13008 11001 6013 10000 13050  17010 17050 17070 17090  17640 17640 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1;
 END
@@ -1411,7 +1411,7 @@ END
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;; Mag�g Beginner Quest Item ;;;;;;;;
+;;;;;; Mag? Beginner Quest Item ;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 EVENT 17050;
@@ -1466,7 +1466,7 @@ E RETURN
 END
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;; Mag�g Beginner Quest Item END ;;;;
+;;;;;; Mag? Beginner Quest Item END ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -1754,7 +1754,7 @@ END
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;; Mag�g Lwl 70 Questlar :D ;;;;;;;
+;;;;;;;; Mag? Lwl 70 Questlar :D ;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 EVENT 10040
@@ -1872,7 +1872,7 @@ E RETURN
 END
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;; Mag�g Lwl 70 Questlar :D END;;;;
+;;;;;;;; Mag? Lwl 70 Questlar :D END;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2073,7 +2073,7 @@ E RUN_EVENT 14155;
 E RUN_EVENT 14160;
 END
 
-EVENT 14120; �
+EVENT 14120; ?
 A CHECK_LV 1 61
 E SAY -1 -1 14120 -1 -1 -1 -1 -1 -1 -1 ;
 E RETURN
@@ -2364,7 +2364,7 @@ E SAY 15081 -1 15083 15084 -1 -1 -1 -1 -1 -1 ;
 END
 
 EVENT 15085
-;E RUN_EVENT 15086; �again commented out events =( me no likey
+;E RUN_EVENT 15086; ?gain commented out events =( me no likey
 E RUN_EVENT 15090; 
 E RUN_EVENT 15091;
 E RUN_EVENT 15092;
@@ -2599,7 +2599,7 @@ END
 
 EVENT 15865
 A CHECK_LV 50 250
-E SELECT_MSG 33333 15865 15870 15870 15875 15875 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; ù°���⹮��
+E SELECT_MSG 33333 15865 15870 15870 15875 15875 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; 첫째열쇄문제
 END
 
 EVENT 15870;
@@ -2628,7 +2628,7 @@ END
 
 EVENT 15885
 A CHECK_LV 50 250
-E SELECT_MSG 33333 15885 15890 15890 15895 15895 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; ù°���⹮��
+E SELECT_MSG 33333 15885 15890 15890 15895 15895 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; 첫째열쇄문제
 END
 
 EVENT 15890;
@@ -2685,7 +2685,7 @@ END
 
 EVENT 15925
 A CHECK_LV 50 250
-E SELECT_MSG 33333 15925 15930 15930 15935 15935 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; ù°���⹮��
+E SELECT_MSG 33333 15925 15930 15930 15935 15935 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1; 첫째열쇄문제
 END
 
 EVENT 15930; 

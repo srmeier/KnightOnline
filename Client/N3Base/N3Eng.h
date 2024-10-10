@@ -1,4 +1,4 @@
-#ifndef __N3ENG_H_
+﻿#ifndef __N3ENG_H_
 #define __N3ENG_H_
 
 #include "SDL2/SDL.h"

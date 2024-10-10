@@ -1,4 +1,4 @@
-// UIPartyBBS.h: interface for the CUIPartyBBS class.
+ï»¿// UIPartyBBS.h: interface for the CUIPartyBBS class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@
 
 typedef std::list<__InfoPartyBBS>::iterator it_PartyBBS;
 
-class CUIPartyBBS : public CN3UIBase // ÆÄÆ¼¿¡ °üÇÑ UI, ºÎ´ë¿Í °°Àº Å¬·¡½º·Î ¾´´Ù..
+class CUIPartyBBS : public CN3UIBase // íŒŒí‹°ì— ê´€í•œ UI, ë¶€ëŒ€ì™€ ê°™ì€ í´ë˜ìŠ¤ë¡œ ì“´ë‹¤..
 {
 protected:
 	class CN3UIButton*		m_pBtn_PageUp;
@@ -33,8 +33,8 @@ protected:
 	class CN3UIString*		m_pText[69];
 
 	std::list<__InfoPartyBBS>	m_Datas; // BBS Data
-	int			m_iCurPage; // ÇöÀç ÆäÀÌÁö..
-	int			m_iMaxPage;	// ÃÑ ÆäÀÌÁö..
+	int			m_iCurPage; // í˜„ì¬ í˜ì´ì§€..
+	int			m_iMaxPage;	// ì´ í˜ì´ì§€..
 	int			m_iCurIndex;
 	bool		m_bProcessing;
 	float		m_fTime;

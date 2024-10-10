@@ -1,4 +1,4 @@
-// N3UIString.cpp: implementation of the CN3UIString class.
+ï»¿// N3UIString.cpp: implementation of the CN3UIString class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -65,7 +65,7 @@ void CN3UIString::Init(CN3UIBase* pParent)
 	CN3UIBase::Init(pParent);
 
 	if(m_pDFont) delete m_pDFont; m_pDFont = NULL;
-	m_pDFont = new CDFont("±¼¸²", 16);	// default ·Î ±¼¸² 16À¸·Î ¼³Á¤
+	m_pDFont = new CDFont("êµ´ë¦¼", 16);	// default ë¡œ êµ´ë¦¼ 16ìœ¼ë¡œ ì„¤ì •
 	m_pDFont->InitDeviceObjects( CN3Base::s_lpD3DDev );
 	m_pDFont->RestoreDeviceObjects();
 }
@@ -87,7 +87,7 @@ void CN3UIString::SetStringAsInt(int iVal)
 
 void CN3UIString::SetString_NoWordWrap(const std::string& szString)
 {
-	// ¿ŞÂÊÀ§ Á¤·ÄÇØ¼­ ±×¸°´Ù.
+	// ì™¼ìª½ìœ„ ì •ë ¬í•´ì„œ ê·¸ë¦°ë‹¤.
 	m_ptDrawPos.x = m_rcRegion.left;
 	m_ptDrawPos.y = m_rcRegion.top;
 
@@ -118,7 +118,7 @@ void CN3UIString::SetStyle(uint32_t dwStyle)
 	WordWrap();
 }
 
-// ±Û¾¾Âï´Â À§Ä¡µµ ¹Ù²î¾î ÁØ´Ù.
+// ê¸€ì”¨ì°ëŠ” ìœ„ì¹˜ë„ ë°”ë€Œì–´ ì¤€ë‹¤.
 BOOL CN3UIString::MoveOffset(int iOffsetX, int iOffsetY)
 {
 	if (FALSE == CN3UIBase::MoveOffset(iOffsetX, iOffsetY)) return FALSE;
@@ -126,7 +126,7 @@ BOOL CN3UIString::MoveOffset(int iOffsetX, int iOffsetY)
 	return TRUE;
 }
 
-// ¹®ÀÚ¸¦ dwStyle¿¡ ¸Â°Ô Á¤·ÄÇØÁØ´Ù.
+// ë¬¸ìë¥¼ dwStyleì— ë§ê²Œ ì •ë ¬í•´ì¤€ë‹¤.
 void CN3UIString::WordWrap()
 {
 	m_iLineCount = 0;
@@ -138,7 +138,7 @@ void CN3UIString::WordWrap()
 	{
 		m_pDFont->SetText("");
 
-		// ±Û¾¾¸¦ ÂïÁö´Â ¾ÊÁö¸¸ editÀÇ °æ¿ì caretÀ» Âï±â¶§¹®¿¡ ±Û¾¾ ±×¸®´Â ÁÂÇ¥¸¦ ¼¼ÆÃÇØÁØ´Ù.
+		// ê¸€ì”¨ë¥¼ ì°ì§€ëŠ” ì•Šì§€ë§Œ editì˜ ê²½ìš° caretì„ ì°ê¸°ë•Œë¬¸ì— ê¸€ì”¨ ê·¸ë¦¬ëŠ” ì¢Œí‘œë¥¼ ì„¸íŒ…í•´ì¤€ë‹¤.
 		if (m_dwStyle & UISTYLE_STRING_SINGLELINE)
 		{
 			if (m_dwStyle & UISTYLE_STRING_ALIGNCENTER)	m_ptDrawPos.x = m_rcRegion.left + (m_rcRegion.right - m_rcRegion.left)/2;
@@ -146,9 +146,9 @@ void CN3UIString::WordWrap()
 
 			if (m_dwStyle & UISTYLE_STRING_ALIGNVCENTER)
 			{
-				// ¹®ÀÚ¿­ÀÇ pixel ±æÀÌ ÃøÁ¤
+				// ë¬¸ìì—´ì˜ pixel ê¸¸ì´ ì¸¡ì •
 				SIZE sizeTmp = {0, 0};
-				m_pDFont->GetTextExtent("°¡", 2, &sizeTmp);
+				m_pDFont->GetTextExtent("ê°€", 2, &sizeTmp);
 				m_ptDrawPos.y = m_rcRegion.top + ((m_rcRegion.bottom - m_rcRegion.top-sizeTmp.cy)/2);
 			}
 			else m_ptDrawPos.y = m_rcRegion.top;
@@ -162,12 +162,12 @@ void CN3UIString::WordWrap()
 		return;
 	}
 
-	// ¹®ÀÚ¿­ÀÇ pixel ±æÀÌ ÃøÁ¤
+	// ë¬¸ìì—´ì˜ pixel ê¸¸ì´ ì¸¡ì •
 	SIZE size;
 	const std::string szString = GetString();
 	iStrLen = szString.size();
 	if (FALSE == m_pDFont->GetTextExtent(szString.c_str(), iStrLen, &size))
-	{	// ±æÀÌ¸¦ ÃøÁ¤ÇÒ ¼ö ¾øÀ»°æ¿ì(m_hDC°¡ »ı¼ºµÇÁö ¾Ê¾ÒÀ»°æ¿ì)
+	{	// ê¸¸ì´ë¥¼ ì¸¡ì •í•  ìˆ˜ ì—†ì„ê²½ìš°(m_hDCê°€ ìƒì„±ë˜ì§€ ì•Šì•˜ì„ê²½ìš°)
 		m_pDFont->SetText(szString);
 		return;
 	}
@@ -177,42 +177,42 @@ void CN3UIString::WordWrap()
 
 	if (m_dwStyle & UISTYLE_STRING_SINGLELINE)
 	{
-		// ÀÓ½Ã º¯¼ö Àâ±â
+		// ì„ì‹œ ë³€ìˆ˜ ì¡ê¸°
 		std::string szNewBuff;
 
-		/*if (size.cy>iRegionHeight)	// ±ÛÀÚ ³ôÀÌ°¡ ÇØ´ç ¿µ¿ªº¸´Ù Å« °æ¿ì
+		/*if (size.cy>iRegionHeight)	// ê¸€ì ë†’ì´ê°€ í•´ë‹¹ ì˜ì—­ë³´ë‹¤ í° ê²½ìš°
 		{	
 			// NOTE: need to look into putting this back!!!
 
 			m_ptDrawPos.y = m_rcRegion.top;
-			//m_pDFont->SetText("±ÛÀÚ ³ôÀÌ°¡ STRING controlº¸´Ù Å®´Ï´Ù.");
+			//m_pDFont->SetText("ê¸€ì ë†’ì´ê°€ STRING controlë³´ë‹¤ í½ë‹ˆë‹¤.");
 			m_pDFont->SetText("Temp1");
 			return;
 		}
-		else*/ if (size.cx <= iRegionWidth)	// ±ÛÀÚ °¡·Î ±æÀÌ°¡ ¿µ¿ª ±æÀÌº¸´Ù ÀÛÀ»°æ¿ì
+		else*/ if (size.cx <= iRegionWidth)	// ê¸€ì ê°€ë¡œ ê¸¸ì´ê°€ ì˜ì—­ ê¸¸ì´ë³´ë‹¤ ì‘ì„ê²½ìš°
 		{
 			szNewBuff = m_szString;
 
-			// °¡·Î Á¤·Ä 
+			// ê°€ë¡œ ì •ë ¬ 
 			if (m_dwStyle & UISTYLE_STRING_ALIGNRIGHT) m_ptDrawPos.x = m_rcRegion.right - size.cx;
 			else if (m_dwStyle & UISTYLE_STRING_ALIGNCENTER) m_ptDrawPos.x = m_rcRegion.left + ((iRegionWidth-size.cx)/2);
 			else m_ptDrawPos.x = m_rcRegion.left;
-			// ¼¼·Î Á¤·Ä
+			// ì„¸ë¡œ ì •ë ¬
 			if (m_dwStyle & UISTYLE_STRING_ALIGNBOTTOM) m_ptDrawPos.y = m_rcRegion.bottom-size.cy;
 			else if (m_dwStyle & UISTYLE_STRING_ALIGNVCENTER) m_ptDrawPos.y = m_rcRegion.top + ((iRegionHeight-size.cy)/2);
 			else m_ptDrawPos.y = m_rcRegion.top;
 			m_iLineCount = 1;
 		}
-		else	// ±ÛÀÚ °¡·Î ±æÀÌ°¡ ¿µ¿ª ±æÀÌº¸´Ù Å¬°æ¿ì ¿µ¿ª¾È¿¡ µé¾î°¡´Â ±ÛÀÚ¸¸ Ç¥½ÃÇÏÀÚ.
+		else	// ê¸€ì ê°€ë¡œ ê¸¸ì´ê°€ ì˜ì—­ ê¸¸ì´ë³´ë‹¤ í´ê²½ìš° ì˜ì—­ì•ˆì— ë“¤ì–´ê°€ëŠ” ê¸€ìë§Œ í‘œì‹œí•˜ì.
 		{
-			// °¡·Î Á¤·ÄÀº ¿ŞÂÊ Á¤·Ä·Î.
+			// ê°€ë¡œ ì •ë ¬ì€ ì™¼ìª½ ì •ë ¬ë¡œ.
 			m_ptDrawPos.x = m_rcRegion.left;
-			// ¼¼·Î Á¤·Ä
+			// ì„¸ë¡œ ì •ë ¬
 			if (m_dwStyle & UISTYLE_STRING_ALIGNBOTTOM) m_ptDrawPos.y = m_rcRegion.bottom-size.cy;
 			else if (m_dwStyle & UISTYLE_STRING_ALIGNVCENTER) m_ptDrawPos.y = m_rcRegion.top + ((iRegionHeight-size.cy)/2);
 			else m_ptDrawPos.y = m_rcRegion.top;
 
-			// ±ÛÀÚ ÀÚ¸£´Â ÄÚµå
+			// ê¸€ì ìë¥´ëŠ” ì½”ë“œ
 			int iCount = 0;
 			while(iCount<iStrLen)
 			{
@@ -220,14 +220,14 @@ void CN3UIString::WordWrap()
 				{
 					break;
 				}
-				else if (0x80 & szString[iCount])	// 2BYTE ¹®ÀÚ
+				else if (0x80 & szString[iCount])	// 2BYTE ë¬¸ì
 				{
 					BOOL bFlag = m_pDFont->GetTextExtent(szString.c_str(), iCount+2, &size);
 					__ASSERT(bFlag, "cannot get size of dfont");
 					if (size.cx>iRegionWidth) break;
 					iCount += 2;
 				}
-				else								// 1BYTE ¹®ÀÚ
+				else								// 1BYTE ë¬¸ì
 				{
 					BOOL bFlag = m_pDFont->GetTextExtent(szString.c_str(), iCount+1, &size);
 					__ASSERT(bFlag, "cannot get size of dfont");
@@ -235,26 +235,26 @@ void CN3UIString::WordWrap()
 					++iCount;
 				}
 			}
-			// strDisplayString ¿¡ iCount ¸¸Å­¸¸ Ä«ÇÇÇÏ±â
-			szNewBuff = m_szString.substr(0, iCount);	// +1Àº ¸Ç ¸¶Áö¸·¿¡ NULL ³Ö±â À§ÇØ
+			// strDisplayString ì— iCount ë§Œí¼ë§Œ ì¹´í”¼í•˜ê¸°
+			szNewBuff = m_szString.substr(0, iCount);	// +1ì€ ë§¨ ë§ˆì§€ë§‰ì— NULL ë„£ê¸° ìœ„í•´
 			m_iLineCount = 1;
 		}
 		m_pDFont->SetText(szNewBuff);
 
 	}
 	else
-	{	// mutilineÀÏ¶§´Â Ç×»ó ¿ŞÂÊ Á¤·ÄÇØ¼­ ±×¸°´Ù.
+	{	// mutilineì¼ë•ŒëŠ” í•­ìƒ ì™¼ìª½ ì •ë ¬í•´ì„œ ê·¸ë¦°ë‹¤.
 		m_ptDrawPos.x = m_rcRegion.left;
 		m_ptDrawPos.y = m_rcRegion.top;
 
-		m_NewLineIndices.clear();	// »õ·Î¿î ¶óÀÎ ÀÎµ¦½º Å¬¸®¾î
+		m_NewLineIndices.clear();	// ìƒˆë¡œìš´ ë¼ì¸ ì¸ë±ìŠ¤ í´ë¦¬ì–´
 
-		// ±ÛÀÚ ÀÚ¸£´Â ÄÚµå, ¿µ¿ª ¹ÛÀ¸·Î ¹ş¾î³ª´Â ±ÛÀÚ´Â ÂïÁö ¾Ê´Â´Ù.
+		// ê¸€ì ìë¥´ëŠ” ì½”ë“œ, ì˜ì—­ ë°–ìœ¼ë¡œ ë²—ì–´ë‚˜ëŠ” ê¸€ìëŠ” ì°ì§€ ì•ŠëŠ”ë‹¤.
 		int iCX=0;//, iCY=0;
 		int iCount = 0;
 
-		// ¿ì¼± ¸Ç Ã³À½ ÇÑÁÙÀÌ µé¾î°¥ ¼ö ÀÖ´Â Å©±âÀÎÁö Ã¼Å©ÇÏ±â
-		BOOL bFlag = m_pDFont->GetTextExtent("ÃÖ", 2, &size);
+		// ìš°ì„  ë§¨ ì²˜ìŒ í•œì¤„ì´ ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” í¬ê¸°ì¸ì§€ ì²´í¬í•˜ê¸°
+		BOOL bFlag = m_pDFont->GetTextExtent("ìµœ", 2, &size);
 		__ASSERT(bFlag, "cannot get size of dfont");
 //		iCY += size.cy;
 //		if (iCY > iRegionHeight)
@@ -262,13 +262,13 @@ void CN3UIString::WordWrap()
 		{
 			// NOTE: need to look into returning this back !!!
 
-			//m_pDFont->SetText("±ÛÀÚ ³ôÀÌ°¡ STRING controlº¸´Ù Å®´Ï´Ù.");
+			//m_pDFont->SetText("ê¸€ì ë†’ì´ê°€ STRING controlë³´ë‹¤ í½ë‹ˆë‹¤.");
 			//m_pDFont->SetText("Temp2");
 			//return;
 		}
 
-		m_iLineCount = 1;	// ¿©±â±îÁö ¿À¸é 1ÁÙÀº ÂïÈù´Ù.
-		m_NewLineIndices.push_back(0);	// ¸Ç Ã· ½ÃÀÛÀº 0
+		m_iLineCount = 1;	// ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ 1ì¤„ì€ ì°íŒë‹¤.
+		m_NewLineIndices.push_back(0);	// ë§¨ ì²¨ ì‹œì‘ì€ 0
 
 		while(iCount<iStrLen)
 		{
@@ -276,36 +276,36 @@ void CN3UIString::WordWrap()
 			{
 //				szNewBuff += '\n';
 //				iCY += size.cy;
-//				if (iCY > iRegionHeight) break;	// ¼¼·Î ¹üÀ§°¡ ³ÑÀ¸¸é ´õÀÌ»ó ±ÛÀÚ¸¦ ÂïÁö ¾Ê´Â´Ù.
+//				if (iCY > iRegionHeight) break;	// ì„¸ë¡œ ë²”ìœ„ê°€ ë„˜ìœ¼ë©´ ë”ì´ìƒ ê¸€ìë¥¼ ì°ì§€ ì•ŠëŠ”ë‹¤.
 				++iCount;
 				iCX = 0;
 				if (iCount<iStrLen-1)
 				{
-					++m_iLineCount;	// ¸¶Áö¸· ±ÛÀÚ°¡ ¾Æ´Ò°æ¿ì ÇÑÁÙ ´õÇÏ±â 
+					++m_iLineCount;	// ë§ˆì§€ë§‰ ê¸€ìê°€ ì•„ë‹ê²½ìš° í•œì¤„ ë”í•˜ê¸° 
 					m_NewLineIndices.push_back(iCount);
 				}
 			}
 			else
 			{
 				int iCC=0;
-				if (0x80 & szString[iCount])	iCC = 2;	// 2BYTE ¹®ÀÚ
-				else iCC = 1;	// 1BYTE ¹®ÀÚ
+				if (0x80 & szString[iCount])	iCC = 2;	// 2BYTE ë¬¸ì
+				else iCC = 1;	// 1BYTE ë¬¸ì
 
 				BOOL bFlag = m_pDFont->GetTextExtent(&(szString[iCount]), iCC, &size);
 				__ASSERT(bFlag, "cannot get size of dfont");
-				if ((iCX+size.cx) > iRegionWidth)	// °¡·Î ±æÀÌ°¡ ³Ñ¾úÀ¸¸é
+				if ((iCX+size.cx) > iRegionWidth)	// ê°€ë¡œ ê¸¸ì´ê°€ ë„˜ì—ˆìœ¼ë©´
 				{
-//					szNewBuff += '\n';	// ´ÙÀ½ÁÙ·Î ³»¸°´Ù.
+//					szNewBuff += '\n';	// ë‹¤ìŒì¤„ë¡œ ë‚´ë¦°ë‹¤.
 					iCX = 0;
 //					iCY += size.cy;
-//					if (iCY > iRegionHeight) break;	// ¼¼·Î ¹üÀ§°¡ ³ÑÀ¸¸é ´õÀÌ»ó ±ÛÀÚ¸¦ ÂïÁö ¾Ê´Â´Ù.
+//					if (iCY > iRegionHeight) break;	// ì„¸ë¡œ ë²”ìœ„ê°€ ë„˜ìœ¼ë©´ ë”ì´ìƒ ê¸€ìë¥¼ ì°ì§€ ì•ŠëŠ”ë‹¤.
 					if (iCount<iStrLen-1)
 					{
-						++m_iLineCount;	// ¸¶Áö¸· ±ÛÀÚ°¡ ¾Æ´Ò°æ¿ì ÇÑÁÙ ´õÇÏ±â 
+						++m_iLineCount;	// ë§ˆì§€ë§‰ ê¸€ìê°€ ì•„ë‹ê²½ìš° í•œì¤„ ë”í•˜ê¸° 
 						m_NewLineIndices.push_back(iCount);
 					}
 				}
-				// ±ÛÀÚ Ä«ÇÇ
+				// ê¸€ì ì¹´í”¼
 //				szNewBuff += szString.substr(iCount, iCC);
 				
 				iCount += iCC;
@@ -323,7 +323,7 @@ void CN3UIString::SetStartLine(int iLine)
 	m_iStartLine = iLine;
 
 	SIZE size = {0,0};
-	BOOL bFlag = m_pDFont->GetTextExtent("ÃÖ", 2, &size);
+	BOOL bFlag = m_pDFont->GetTextExtent("ìµœ", 2, &size);
 	__ASSERT(bFlag, "cannot get size of dfont");
 	if (0 == size.cy) return;
 
@@ -346,7 +346,7 @@ void CN3UIString::SetStartLine(int iLine)
 			if ((iSize>0) && ('\n' != strNew[iSize-1])) strNew += "\n";
 		}
 	}
-	// ¸¶Áö¸·ÁÙ Ã³¸®
+	// ë§ˆì§€ë§‰ì¤„ ì²˜ë¦¬
 	if (bMoreLine)
 	{
 		if (iEndLine > 0) {
@@ -368,9 +368,9 @@ bool CN3UIString::Load(HANDLE hFile)
 {
 	if (false == CN3UIBase::Load(hFile)) return false;
 	DWORD dwNum;
-	// font Á¤º¸
+	// font ì •ë³´
 	int iStrLen = 0;
-	ReadFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ÀÌ¸§ ±æÀÌ 
+	ReadFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ì´ë¦„ ê¸¸ì´ 
 	if (iStrLen>0)
 	{
 		std::string szFontName(iStrLen, '?');
@@ -380,21 +380,21 @@ bool CN3UIString::Load(HANDLE hFile)
 		ReadFile(hFile, &dwFontHeight, sizeof(dwFontHeight), &dwNum, NULL);	// font height
 		ReadFile(hFile, &dwFontFlags, sizeof(dwFontFlags), &dwNum, NULL);	// font flag (bold, italic)
 
-		SetFont(szFontName, dwFontHeight, dwFontFlags & D3DFONT_BOLD, dwFontFlags & D3DFONT_ITALIC);	// ±Û²Ã ÁöÁ¤
+		SetFont(szFontName, dwFontHeight, dwFontFlags & D3DFONT_BOLD, dwFontFlags & D3DFONT_ITALIC);	// ê¸€ê¼´ ì§€ì •
 	}
 #ifdef _N3TOOL
 	else
 	{
-		SetFont("±¼¸²", 10, FALSE, FALSE);	// ÀÓ½Ã·Î ±Û²Ã ÁöÁ¤
-		MessageBox(s_hWndBase, "ÆùÆ®°¡ ÁöÁ¤µÇÁö ¾ÊÀº UIStringÀÌ ÀÖ¾î¼­ ±¼¸²(10)À¸·Î ¼³Á¤ÇÏ¿´½À´Ï´Ù.", "No font", MB_OK);
+		SetFont("êµ´ë¦¼", 10, FALSE, FALSE);	// ì„ì‹œë¡œ ê¸€ê¼´ ì§€ì •
+		MessageBox(s_hWndBase, "í°íŠ¸ê°€ ì§€ì •ë˜ì§€ ì•Šì€ UIStringì´ ìˆì–´ì„œ êµ´ë¦¼(10)ìœ¼ë¡œ ì„¤ì •í•˜ì˜€ìŠµë‹ˆë‹¤.", "No font", MB_OK);
 	}
 #else
 	__ASSERT(iStrLen>0, "No font name");
 #endif
 
 	// string
-	ReadFile(hFile, &m_Color, sizeof(m_Color), &dwNum, NULL);			// ±ÛÀÚ »ö
-	ReadFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// string ±æÀÌ 
+	ReadFile(hFile, &m_Color, sizeof(m_Color), &dwNum, NULL);			// ê¸€ì ìƒ‰
+	ReadFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// string ê¸¸ì´ 
 	if (iStrLen>0)
 	{
 		std::string szString(iStrLen, '?');
@@ -425,14 +425,14 @@ void CN3UIString::operator = (const CN3UIString& other)
 {
 	CN3UIBase::operator = (other);
 
-	m_ptDrawPos = other.m_ptDrawPos;		// ½ÇÁ¦ È­¸é¿¡ Ç¥½ÃµÉ ±ÛÀÚÀÇ Á¦ÀÏ ¿ŞÂÊ »ó´Ü ÁÂÇ¥
-	m_Color = other.m_Color;			// ±ÛÀÚ »ö
+	m_ptDrawPos = other.m_ptDrawPos;		// ì‹¤ì œ í™”ë©´ì— í‘œì‹œë  ê¸€ìì˜ ì œì¼ ì™¼ìª½ ìƒë‹¨ ì¢Œí‘œ
+	m_Color = other.m_Color;			// ê¸€ì ìƒ‰
 
-	// ÆùÆ® ¼³Á¤
+	// í°íŠ¸ ì„¤ì •
 	uint32_t dwFontFlags = other.GetFontFlags();
 	SetFont(other.GetFontName(), other.GetFontHeight(), dwFontFlags & D3DFONT_BOLD, dwFontFlags & D3DFONT_ITALIC);
 
-	// ±Û¾¾ ¼³Á¤
+	// ê¸€ì”¨ ì„¤ì •
 	this->SetString(other.m_szString); // m_szString = other.m_szString;			// string buffer
 }
 
@@ -441,13 +441,13 @@ bool CN3UIString::Save(HANDLE hFile)
 {
 	if (false == CN3UIBase::Save(hFile)) return false;
 	DWORD dwNum;
-	// font Á¤º¸
+	// font ì •ë³´
 	char* pszFontName = NULL;
 	__ASSERT(m_pDFont, "no font");
 	const std::string strFontName(m_pDFont->GetFontName());
 	int iStrLen = strFontName.size();
 	__ASSERT(iStrLen>0, "No font name");
-	WriteFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ÀÌ¸§ ±æÀÌ 
+	WriteFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ì´ë¦„ ê¸¸ì´ 
 	if (iStrLen>0)
 	{
 		WriteFile(hFile, strFontName.c_str(), iStrLen, &dwNum, NULL);				// string
@@ -462,10 +462,10 @@ bool CN3UIString::Save(HANDLE hFile)
 	}
 
 	// string
-	WriteFile(hFile, &m_Color, sizeof(m_Color), &dwNum, NULL);			// ±ÛÀÚ »ö
+	WriteFile(hFile, &m_Color, sizeof(m_Color), &dwNum, NULL);			// ê¸€ì ìƒ‰
 	iStrLen = 0;
 	iStrLen = m_szString.size();
-	WriteFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// string ±æÀÌ 
+	WriteFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// string ê¸¸ì´ 
 	if (iStrLen>0)
 	{
 		WriteFile(hFile, m_szString.c_str(), iStrLen, &dwNum, NULL);				// string
@@ -490,7 +490,7 @@ void CN3UIString::ChangeFont(const std::string& szFont)
 int CN3UIString::GetStringRealWidth(int iNum)
 {
 	SIZE size;
-	BOOL bFlag = m_pDFont->GetTextExtent("°¡", lstrlen("°¡"), &size);
+	BOOL bFlag = m_pDFont->GetTextExtent("ê°€", lstrlen("ê°€"), &size);
 	__ASSERT(bFlag, "cannot get size of dfont");
 	//int iLength = iNum/2;
 	//if (iLength == 0) return 0;
@@ -550,16 +550,16 @@ uint32_t CN3UIString::MouseProc(uint32_t dwFlags, const POINT &ptCur, const POIN
 #endif
 #endif
 
-	// Æ¯Á¤ ÀÌº¥Æ®¿¡ ´ëÇØ ¸Ş½ÃÁö Àü¼Û..
+	// íŠ¹ì • ì´ë²¤íŠ¸ì— ëŒ€í•´ ë©”ì‹œì§€ ì „ì†¡..
 	if(IsIn(ptCur.x, ptCur.y) && (dwFlags & UI_MOUSE_LBCLICKED) )	
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_STRING_LCLICK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_STRING_LCLICK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 //		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 	}
 
 	if(IsIn(ptCur.x, ptCur.y) && (dwFlags & UI_MOUSE_LBDBLCLK) )	
 	{
-		m_pParent->ReceiveMessage(this, UIMSG_STRING_LDCLICK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+		m_pParent->ReceiveMessage(this, UIMSG_STRING_LDCLICK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 //		dwRet |= UI_MOUSEPROC_DONESOMETHING;
 	}
 

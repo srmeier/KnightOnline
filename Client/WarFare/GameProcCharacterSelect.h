@@ -1,4 +1,4 @@
-// GameProcCharacterSelect.h: interface for the CGameProcCharacterSelect class.
+ï»¿// GameProcCharacterSelect.h: interface for the CGameProcCharacterSelect class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -30,41 +30,41 @@ class CUICharacterSelect;
 
 struct __CharacterSelectInfo
 {
-	std::string szID; // Ä³¸¯ÅÍ ¾ÆÀÌµğ ¹®ÀÚ¿­ str
-	e_Race		eRace; // Á¾Á· b
-	e_Class		eClass; // Á÷¾÷ b
-	int			iLevel ; // ·¹º§ b
-	int			iFace; // ¾ó±¼¸ğ¾ç b
-	int			iHair; // ¸Ó¸®¸ğ¾ç b
+	std::string szID; // ìºë¦­í„° ì•„ì´ë”” ë¬¸ìì—´ str
+	e_Race		eRace; // ì¢…ì¡± b
+	e_Class		eClass; // ì§ì—… b
+	int			iLevel ; // ë ˆë²¨ b
+	int			iFace; // ì–¼êµ´ëª¨ì–‘ b
+	int			iHair; // ë¨¸ë¦¬ëª¨ì–‘ b
 	int			iZone; //zone number
-	uint32_t		dwItemUpper; // »óÃ¼ dw
+	uint32_t		dwItemUpper; // ìƒì²´ dw
 	int			iItemUpperDurability;
-	uint32_t		dwItemLower; // ÇÏÃ¼ dw
+	uint32_t		dwItemLower; // í•˜ì²´ dw
 	int			iItemLowerDurability;
-	uint32_t		dwItemHelmet; // Åõ±¸ dw
+	uint32_t		dwItemHelmet; // íˆ¬êµ¬ dw
 	int			iItemHelmetDurability;
-	uint32_t		dwItemCloak; // ¾î±ú(¸ÁÅä) dw
+	uint32_t		dwItemCloak; // ì–´ê¹¨(ë§í† ) dw
 	int			iItemCloakDurability;
-	uint32_t		dwItemGloves; // Àå°© dw
+	uint32_t		dwItemGloves; // ì¥ê°‘ dw
 	int			iItemGlovesDurability;
-	uint32_t		dwItemShoes; // ½Å¹ß dw
+	uint32_t		dwItemShoes; // ì‹ ë°œ dw
 	int			iItemShoesDurability;
 
 	void clear()
 	{
 		szID			= "";
-		eRace			= RACE_UNKNOWN; // Á¾Á· b
-		eClass			= CLASS_UNKNOWN; // Á÷¾÷ b
-		iLevel			= 0; // ·¹º§ b
-		iFace			= 0; // ¾ó±¼¸ğ¾ç b
-		iHair			= 0; // ¸Ó¸®¸ğ¾ç b
+		eRace			= RACE_UNKNOWN; // ì¢…ì¡± b
+		eClass			= CLASS_UNKNOWN; // ì§ì—… b
+		iLevel			= 0; // ë ˆë²¨ b
+		iFace			= 0; // ì–¼êµ´ëª¨ì–‘ b
+		iHair			= 0; // ë¨¸ë¦¬ëª¨ì–‘ b
 		iZone			= 0; //zone number
-		dwItemUpper		= 0; // »óÃ¼ dw
-		dwItemLower		= 0; // ÇÏÃ¼ dw
-		dwItemHelmet	= 0; // Åõ±¸ dw
-		dwItemCloak		= 0; // ¾î±ú(¸ÁÅä) dw
-		dwItemGloves		= 0; // Àå°© dw
-		dwItemShoes		= 0; // ½Å¹ß dw
+		dwItemUpper		= 0; // ìƒì²´ dw
+		dwItemLower		= 0; // í•˜ì²´ dw
+		dwItemHelmet	= 0; // íˆ¬êµ¬ dw
+		dwItemCloak		= 0; // ì–´ê¹¨(ë§í† ) dw
+		dwItemGloves		= 0; // ì¥ê°‘ dw
+		dwItemShoes		= 0; // ì‹ ë°œ dw
 	}
 
 	
@@ -80,7 +80,7 @@ public:
 	class CN3Shape*			m_pActiveBg;
 
 	class CN3Chr*			m_pChrs[MAX_AVAILABLE_CHARACTER];
-	__CharacterSelectInfo	m_InfoChrs[MAX_AVAILABLE_CHARACTER]; // ÀÌ¹Ì ¸¸µé¾îÁø Ä³¸¯ÅÍ Á¤º¸..
+	__CharacterSelectInfo	m_InfoChrs[MAX_AVAILABLE_CHARACTER]; // ì´ë¯¸ ë§Œë“¤ì–´ì§„ ìºë¦­í„° ì •ë³´..
 
 	class CN3Camera*		m_pCamera;
 	class CN3Light*			m_pLights[8];

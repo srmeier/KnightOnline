@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define IDP_BATTLEZONE_OPEN									105
 #define IDP_KARUS_VICTORY									106

@@ -1,4 +1,4 @@
-// GameProcMain.h: interface for the CGameProcMain class.
+ï»¿// GameProcMain.h: interface for the CGameProcMain class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,20 +24,20 @@ protected:
 
 public:
 #ifdef _N3_64GRID_
-	CServerMesh		*m_pSMesh;									// ¼­¹ö¿¡°Ô ÇÊ¿äÇÑ ¸Ş½¬ Å¬·¡½º..
+	CServerMesh		*m_pSMesh;									// ì„œë²„ì—ê²Œ í•„ìš”í•œ ë©”ì‰¬ í´ë˜ìŠ¤..
 #endif
-	class CUIInventory*			m_pUIInventory;			// ÀÎº¥Åä¸®
-	class CUIVarious*			m_pUIVar;				// Ä³¸¯ÅÍ »óÅÂÃ¢, ±â»ç´Ü °ü¸® µîÀÌ ÆäÀÌÁö·Î µé¾î°£ ´Ù¿ëµµ UI
-	class CUIChat*				m_pUIChatDlg;			// Ã¤ÆÃ ÀÔÃâ·Â ´ëÈ­»óÀÚ..
-	class CUIMessageWnd*		m_pUIMsgDlg;			// °ÔÀÓ ¸Ş½ÃÁö Ãâ·Â »óÀÚ.
+	class CUIInventory*			m_pUIInventory;			// ì¸ë²¤í† ë¦¬
+	class CUIVarious*			m_pUIVar;				// ìºë¦­í„° ìƒíƒœì°½, ê¸°ì‚¬ë‹¨ ê´€ë¦¬ ë“±ì´ í˜ì´ì§€ë¡œ ë“¤ì–´ê°„ ë‹¤ìš©ë„ UI
+	class CUIChat*				m_pUIChatDlg;			// ì±„íŒ… ì…ì¶œë ¥ ëŒ€í™”ìƒì..
+	class CUIMessageWnd*		m_pUIMsgDlg;			// ê²Œì„ ë©”ì‹œì§€ ì¶œë ¥ ìƒì.
 	
 	// Folded UI
 	class CUIChat2*			m_pUIChatDlg2;
 	class CUIMessageWnd2*	m_pUIMsgDlg2;
 
 	class CUIStateBar*			m_pUIStateBarAndMiniMap;	// mp,hp,exp, minimap....
-	class CUICmd*				m_pUICmd;				// ¿ŞÂÊ ÇÏ´ÜÀÇ ¸í·É¹öÆ° Ã¢..
-	class CUITargetBar*			m_pUITargetBar;			// Å¸°Ù »óÅÂÃ¢..
+	class CUICmd*				m_pUICmd;				// ì™¼ìª½ í•˜ë‹¨ì˜ ëª…ë ¹ë²„íŠ¼ ì°½..
+	class CUITargetBar*			m_pUITargetBar;			// íƒ€ê²Ÿ ìƒíƒœì°½..
 	class CUICmdList*			m_pUICmdListDlg;	    
 	class CUICmdEdit*			m_pUICmdEditDlg;
 	class CUITransactionDlg*	m_pUITransactionDlg;
@@ -58,35 +58,35 @@ public:
 	
 
 
-	class CUIKnightsOperation*	m_pUIKnightsOp;					// ±â»ç´Ü ¸®½ºÆ® º¸±â, °¡ÀÔ, µî...
-	class CUIPartyBBS*			m_pUIPartyBBS;					// ÆÄÆ¼ Áö¿ø °Ô½ÃÆÇ.
-	class CUITradeSellBBS*		m_pUITradeBBS;					// »ó°Å·¡ °Ô½ÃÆÇ
+	class CUIKnightsOperation*	m_pUIKnightsOp;					// ê¸°ì‚¬ë‹¨ ë¦¬ìŠ¤íŠ¸ ë³´ê¸°, ê°€ì…, ë“±...
+	class CUIPartyBBS*			m_pUIPartyBBS;					// íŒŒí‹° ì§€ì› ê²Œì‹œíŒ.
+	class CUITradeSellBBS*		m_pUITradeBBS;					// ìƒê±°ë˜ ê²Œì‹œíŒ
 	class CUIQuestMenu*			m_pUIQuestMenu;					// Quest Menu
 	class CUIQuestTalk*			m_pUIQuestTalk;					// Quest Talk
 	class CUIDead*				m_pUIDead;						// Dead UI
-	class CUITradeBBSSelector*	m_pUITradeBBSSelector;			// »ó°Å·¡ °Ô½ÃÆÇ Á¾·ù ¼±ÅÃ
-	class CUITradeBBSEditDlg*	m_pUITradeBBSEdit;				// »ó°Å·¡ °Ô½Ã¹° ¼³¸í
+	class CUITradeBBSSelector*	m_pUITradeBBSSelector;			// ìƒê±°ë˜ ê²Œì‹œíŒ ì¢…ë¥˜ ì„ íƒ
+	class CUITradeBBSEditDlg*	m_pUITradeBBSEdit;				// ìƒê±°ë˜ ê²Œì‹œë¬¼ ì„¤ëª…
 
-	class CN3Shape*				m_pTargetSymbol;				// ÇÃ·¹ÀÌ¾î°¡ Å¸°ÙÀ¸·Î ÀâÀº Ä³¸¯ÅÍÀÇ À§Ä¡À§¿¡ ±×¸®¸é µÈ´Ù..
+	class CN3Shape*				m_pTargetSymbol;				// í”Œë ˆì´ì–´ê°€ íƒ€ê²Ÿìœ¼ë¡œ ì¡ì€ ìºë¦­í„°ì˜ ìœ„ì¹˜ìœ„ì— ê·¸ë¦¬ë©´ ëœë‹¤..
 
-	class CN3SndObjStream*		m_pSnd_Town, *m_pSnd_Battle;	//¸¶À»À½¾Ç, ÀüÅõÀ½¾Ç Æ÷ÀÎÅÍ..
+	class CN3SndObjStream*		m_pSnd_Town, *m_pSnd_Battle;	//ë§ˆì„ìŒì•…, ì „íˆ¬ìŒì•… í¬ì¸í„°..
 	class CMagicSkillMng*		m_pMagicSkillMng;
 
 	class CUINpcTalk*			m_pUINpcTalk;	
 	class CUINPCChangeEvent*	m_pUINpcChange;
 	class CUIWarp*				m_pUIWarp;
-	class CWarMessage*			m_pWarMessage;					// ÀüÀï°ü·Ã ¸Ş½ÃÁö
+	class CWarMessage*			m_pWarMessage;					// ì „ìŸê´€ë ¨ ë©”ì‹œì§€
 	class CLightMgr*			m_pLightMgr;
 
 	   
 	//..
-	BOOL		m_bLoadComplete;							// ·ÎµùÀÌ ¿Ï·áµÇ¾ú³ª??
+	BOOL		m_bLoadComplete;							// ë¡œë”©ì´ ì™„ë£Œë˜ì—ˆë‚˜??
 	
-	float		m_fMsgSendTimeMove;							// ÃÖ±Ù ÀÌµ¿ ¸Ş½ÃÁö º¸³½ ½Ã°£..
-	float		m_fMsgSendTimeRot;							// ÃÖ±Ù È¸Àü ¸Ş½ÃÁö º¸³½ ½Ã°£..
-	float		m_fPlayerYawSended; // ÃÖ±Ù¿¡ ¸Ş½ÃÁö¸¦ º¸³½ ½ÃÁ¡ÀÇ ÇÃ·¹ÀÌ¾î y Ãà È¸Àü°ª.
-	float		m_fRequestGameSave;	// ÃÖ±Ù¿¡ °ÔÀÓ µ¥ÀÌÅÍ ÀúÀåÀ» ¿äÃ»ÇÑ ½Ã°£
-	__Vector3	m_vPlayerPosSended; // ÃÖ±Ù¿¡ ¸Ş½ÃÁö¸¦ º¸³½ ½ÃÁ¡ÀÇ ÇÃ·¹ÀÌ¾î À§Ä¡.
+	float		m_fMsgSendTimeMove;							// ìµœê·¼ ì´ë™ ë©”ì‹œì§€ ë³´ë‚¸ ì‹œê°„..
+	float		m_fMsgSendTimeRot;							// ìµœê·¼ íšŒì „ ë©”ì‹œì§€ ë³´ë‚¸ ì‹œê°„..
+	float		m_fPlayerYawSended; // ìµœê·¼ì— ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ ì‹œì ì˜ í”Œë ˆì´ì–´ y ì¶• íšŒì „ê°’.
+	float		m_fRequestGameSave;	// ìµœê·¼ì— ê²Œì„ ë°ì´í„° ì €ì¥ì„ ìš”ì²­í•œ ì‹œê°„
+	__Vector3	m_vPlayerPosSended; // ìµœê·¼ì— ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ ì‹œì ì˜ í”Œë ˆì´ì–´ ìœ„ì¹˜.
 
 	__Vector3	m_vMouseLBClickedPos;
 	__Vector3	m_vMouseSkillPos;
@@ -121,15 +121,15 @@ protected:
 	bool	MsgRecv_Time(Packet& pkt);
 	bool	MsgRecv_Weather(Packet& pkt);
 	
-	bool	MsgRecv_UserInAndRequest(Packet& pkt);		// ÁÖÀ§ ¿µ¿ªÀÇ ¸ğµç User ¾ÆÀÌµğ¸¦ Ä«¿îÆ®¸¸Å­ ¹Ş´Â´Ù... ±Û±¸.. ¾÷µ¥ÀÌÆ®°¡ ÇÊ¿äÇÑ °Í¸¸ ¼­¹ö¿¡°Ô ¿äÃ»..
-	bool	MsgRecv_UserInRequested(Packet& pkt);					// ¼­¹ö¿¡°Ô ¿äÃ»ÇÑ À¯ÀúÀÇ ¾ÆÀÌµğµéÀ» ¹Ş¾Æ¼­ User Ã³¸®..
+	bool	MsgRecv_UserInAndRequest(Packet& pkt);		// ì£¼ìœ„ ì˜ì—­ì˜ ëª¨ë“  User ì•„ì´ë””ë¥¼ ì¹´ìš´íŠ¸ë§Œí¼ ë°›ëŠ”ë‹¤... ê¸€êµ¬.. ì—…ë°ì´íŠ¸ê°€ í•„ìš”í•œ ê²ƒë§Œ ì„œë²„ì—ê²Œ ìš”ì²­..
+	bool	MsgRecv_UserInRequested(Packet& pkt);					// ì„œë²„ì—ê²Œ ìš”ì²­í•œ ìœ ì €ì˜ ì•„ì´ë””ë“¤ì„ ë°›ì•„ì„œ User ì²˜ë¦¬..
 	bool	MsgRecv_UserInOut(Packet& pkt);
 	bool	MsgRecv_UserIn(Packet& pkt, bool bWithFX=false);
 	bool	MsgRecv_UserOut(Packet& pkt);
 	void	MsgRecv_UserState(Packet& pkt);
 
-	bool	MsgRecv_NPCInAndRequest(Packet& pkt);		// ÁÖÀ§ ¿µ¿ªÀÇ ¸ğµç NPC ¾ÆÀÌµğ¸¦ Ä«¿îÆ®¸¸Å­ ¹Ş´Â´Ù... ±Û±¸.. ¾÷µ¥ÀÌÆ®°¡ ÇÊ¿äÇÑ °Í¸¸ ¼­¹ö¿¡°Ô ¿äÃ»..
-	bool	MsgRecv_NPCInRequested(Packet& pkt);				// ¼­¹ö¿¡°Ô ¿äÃ»ÇÑ NPC ¾ÆÀÌµğµéÀ» ¹Ş¾Æ¼­ User Ã³¸®..
+	bool	MsgRecv_NPCInAndRequest(Packet& pkt);		// ì£¼ìœ„ ì˜ì—­ì˜ ëª¨ë“  NPC ì•„ì´ë””ë¥¼ ì¹´ìš´íŠ¸ë§Œí¼ ë°›ëŠ”ë‹¤... ê¸€êµ¬.. ì—…ë°ì´íŠ¸ê°€ í•„ìš”í•œ ê²ƒë§Œ ì„œë²„ì—ê²Œ ìš”ì²­..
+	bool	MsgRecv_NPCInRequested(Packet& pkt);				// ì„œë²„ì—ê²Œ ìš”ì²­í•œ NPC ì•„ì´ë””ë“¤ì„ ë°›ì•„ì„œ User ì²˜ë¦¬..
 	bool	MsgRecv_NPCInOut(Packet& pkt);
 	bool	MsgRecv_NPCIn(Packet& pkt);
 	bool	MsgRecv_NPCOut(Packet& pkt);
@@ -138,55 +138,55 @@ protected:
 	bool	MsgRecv_Attack(Packet& pkt);
 	bool	MsgRecv_Dead(Packet& pkt);
 
-	bool	MsgRecv_ItemMove(Packet& pkt);					// Item Move¿¡ ´ëÇÑ ÀÀ´ä..
-	bool	MsgRecv_ItemBundleDrop(Packet& pkt);			// Item ÀÌ ÇÊµå¿¡ ³ªÅ¸³ª´Âµ¥¿¡ ´ëÇÑ ÀÀ´ä
-	bool	MsgRecv_ItemBundleOpen(Packet& pkt);			// ¾ÆÀÌÅÛ »óÀÚ¸¦ ¿­°Å³ª ½ÃÃ¼¸¦ µÚÁø´Ù..
-	bool	MsgRecv_ItemTradeStart(Packet& pkt);			// ¾ÆÀÌÅÛ »ó°Å·¡..
-	bool	MsgRecv_ItemTradeResult(Packet& pkt);			// ¾ÆÀÌÅÛ »ó°Å·¡ °á°ú..
-	bool	MsgRecv_ItemDroppedGetResult(Packet& pkt);	// ¶¥¿¡ ¶³¾îÁø ¾ÆÀÌÅÛ ¸Ô±â °á°ú..
-	bool	MsgRecv_ItemWeightChange(Packet& pkt);		// ¾ÆÀÌÅÛ ¹«°Ô º¯È­..
+	bool	MsgRecv_ItemMove(Packet& pkt);					// Item Moveì— ëŒ€í•œ ì‘ë‹µ..
+	bool	MsgRecv_ItemBundleDrop(Packet& pkt);			// Item ì´ í•„ë“œì— ë‚˜íƒ€ë‚˜ëŠ”ë°ì— ëŒ€í•œ ì‘ë‹µ
+	bool	MsgRecv_ItemBundleOpen(Packet& pkt);			// ì•„ì´í…œ ìƒìë¥¼ ì—´ê±°ë‚˜ ì‹œì²´ë¥¼ ë’¤ì§„ë‹¤..
+	bool	MsgRecv_ItemTradeStart(Packet& pkt);			// ì•„ì´í…œ ìƒê±°ë˜..
+	bool	MsgRecv_ItemTradeResult(Packet& pkt);			// ì•„ì´í…œ ìƒê±°ë˜ ê²°ê³¼..
+	bool	MsgRecv_ItemDroppedGetResult(Packet& pkt);	// ë•…ì— ë–¨ì–´ì§„ ì•„ì´í…œ ë¨¹ê¸° ê²°ê³¼..
+	bool	MsgRecv_ItemWeightChange(Packet& pkt);		// ì•„ì´í…œ ë¬´ê²Œ ë³€í™”..
 
-	bool	MsgRecv_UserLookChange(Packet& pkt);			// °Ñ¸ğ½ÀÀÌ ¹Ù²ï´Ù.. ¾ÆÀÌÅÛ Âø¿ëµî
+	bool	MsgRecv_UserLookChange(Packet& pkt);			// ê²‰ëª¨ìŠµì´ ë°”ë€ë‹¤.. ì•„ì´í…œ ì°©ìš©ë“±
 
 	void	MsgRecv_TargetHP(Packet& pkt);
 
-	void	MsgRecv_ZoneChange(Packet& pkt);			// °Á ´Ü¼øÇÑ Á¸ Ã¼ÀÎÁö.
+	void	MsgRecv_ZoneChange(Packet& pkt);			// ê± ë‹¨ìˆœí•œ ì¡´ ì²´ì¸ì§€.
 
 	void	MsgRecv_Notice(Packet& pkt);
 	void	MsgRecv_PartyOrForce(Packet& pkt);
 	void	MsgRecv_PerTrade(Packet& pkt);
 
-	void	MsgRecv_SkillChange(Packet& pkt);			// ½ºÅ³ º¯È­..
-	void	MsgRecv_MagicProcess(Packet& pkt);			// ½ºÅ³ º¯È­..
-	void	MsgRecv_ClassChange(Packet& pkt);			// Á÷¾÷ º¯È­..
+	void	MsgRecv_SkillChange(Packet& pkt);			// ìŠ¤í‚¬ ë³€í™”..
+	void	MsgRecv_MagicProcess(Packet& pkt);			// ìŠ¤í‚¬ ë³€í™”..
+	void	MsgRecv_ClassChange(Packet& pkt);			// ì§ì—… ë³€í™”..
 	void	MsgRecv_ClassPromotion(Packet& pkt);
 
-	void	MsgRecv_ObjectEvent(Packet& pkt);			// ¿ÀºêÁ§Æ® ÀÌº¥Æ® ½ÅÃ»¿¡ ´ëÇÑ ÀÀ´ä
+	void	MsgRecv_ObjectEvent(Packet& pkt);			// ì˜¤ë¸Œì íŠ¸ ì´ë²¤íŠ¸ ì‹ ì²­ì— ëŒ€í•œ ì‘ë‹µ
 
-	void	MsgRecv_DurabilityChange(Packet& pkt);		// ³»±¸·Â º¯°æ..
+	void	MsgRecv_DurabilityChange(Packet& pkt);		// ë‚´êµ¬ë ¥ ë³€ê²½..
 	void	MsgRecv_NpcEvent(Packet& pkt);				// Npc Event(Exchange, Repair both).. 
 
-	void	MsgRecv_Knights(Packet& pkt);				// ±â»ç´Ü Á¶ÀÛ °ü·Ã ÆĞÅ¶..
-	void	MsgRecv_KnightsListBasic(Packet& pkt);		// ±â»ç´Ü ±âº» Á¤º¸µé..
+	void	MsgRecv_Knights(Packet& pkt);				// ê¸°ì‚¬ë‹¨ ì¡°ì‘ ê´€ë ¨ íŒ¨í‚·..
+	void	MsgRecv_KnightsListBasic(Packet& pkt);		// ê¸°ì‚¬ë‹¨ ê¸°ë³¸ ì •ë³´ë“¤..
 	
-	void	MsgRecv_CompressedPacket(Packet& pkt);		// ¾ĞÃàµÈ ÆĞÅ¶ÀÌ´Ù... ¾ĞÃà Ç®°í ·çÇÁ¸¦ µ¹¸é¼­ ÇÑ¹ø´õ ÆÄ½ÌÇØ¾ß ÇÑ´Ù!!!
-	void	MsgRecv_ContinousPacket(Packet& pkt);		// ºÙ¾î¼­ ¿À´Â ÆĞÅ¶ÀÌ´Ù.. ·çÇÁ¸¦ µ¹¸é¼­ ÇÑ¹ø´õ ÆÄ½ÌÇØ¾ß ÇÑ´Ù!!!
+	void	MsgRecv_CompressedPacket(Packet& pkt);		// ì••ì¶•ëœ íŒ¨í‚·ì´ë‹¤... ì••ì¶• í’€ê³  ë£¨í”„ë¥¼ ëŒë©´ì„œ í•œë²ˆë” íŒŒì‹±í•´ì•¼ í•œë‹¤!!!
+	void	MsgRecv_ContinousPacket(Packet& pkt);		// ë¶™ì–´ì„œ ì˜¤ëŠ” íŒ¨í‚·ì´ë‹¤.. ë£¨í”„ë¥¼ ëŒë©´ì„œ í•œë²ˆë” íŒŒì‹±í•´ì•¼ í•œë‹¤!!!
 
 	void	MsgRecv_ItemRepair(Packet& pkt);			// Item Repair Result.. 
 	void	MsgRecv_ItemCountChange(Packet& pkt);		// Item Count Change..
 	void	MsgRecv_ItemDestroy(Packet& pkt);			// Item Count Change..
 
-	void	MsgRecv_WareHouse(Packet& pkt);			// º¸°üÇÔ °ü·Ã ÆĞÅ¶..
-	void	MsgRecv_WareHouseOpen(Packet& pkt);		// º¸°üÇÔ ¿ÀÇÂ..
+	void	MsgRecv_WareHouse(Packet& pkt);			// ë³´ê´€í•¨ ê´€ë ¨ íŒ¨í‚·..
+	void	MsgRecv_WareHouseOpen(Packet& pkt);		// ë³´ê´€í•¨ ì˜¤í”ˆ..
 
-	void	MsgRecv_NpcChangeOpen(Packet& pkt);		// Class Change¿Í ÃÊ±âÈ­..
-	void	MsgRecv_AllPointInit(Packet& pkt);			// All Point ÃÊ±âÈ­..
-	void	MsgRecv_SkillPointInit(Packet& pkt);		// Skill Point ÃÊ±âÈ­..
-	void	MsgRecv_PointChangePriceQueryRequest(Packet& pkt);		// °¡°İ¿¡ ´ëÇÑ ÀÀ´ä ÆĞÅ¶..
+	void	MsgRecv_NpcChangeOpen(Packet& pkt);		// Class Changeì™€ ì´ˆê¸°í™”..
+	void	MsgRecv_AllPointInit(Packet& pkt);			// All Point ì´ˆê¸°í™”..
+	void	MsgRecv_SkillPointInit(Packet& pkt);		// Skill Point ì´ˆê¸°í™”..
+	void	MsgRecv_PointChangePriceQueryRequest(Packet& pkt);		// ê°€ê²©ì— ëŒ€í•œ ì‘ë‹µ íŒ¨í‚·..
 
-	void	MsgRecv_NoahChange(Packet& pkt);			// ³ë¾Æ º¯°æ..
-	void	MsgRecv_WarpList(Packet& pkt);				// ¿öÇÁ ¸®½ºÆ®..
-//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt);			// ¼­¹ö IP ¿Í Æ÷Æ®¸¦ ¹Ş¾Æ µ¿Á¢ÀÚ¸¦ Ã¼Å©ÇØ º»´Ù..
+	void	MsgRecv_NoahChange(Packet& pkt);			// ë…¸ì•„ ë³€ê²½..
+	void	MsgRecv_WarpList(Packet& pkt);				// ì›Œí”„ ë¦¬ìŠ¤íŠ¸..
+//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt);			// ì„œë²„ IP ì™€ í¬íŠ¸ë¥¼ ë°›ì•„ ë™ì ‘ìë¥¼ ì²´í¬í•´ ë³¸ë‹¤..
 //	void	MsgRecv_ConcurrentUserCountAndSendServerCheck(Packet& pkt);
 	
 	//knights...
@@ -219,7 +219,7 @@ public:
 	void	PlayBGM_Town();
 	void	PlayBGM_Battle();
 
-	void	DoCommercialTransaction(int iTradeID);								// »ó°Å·¡..
+	void	DoCommercialTransaction(int iTradeID);								// ìƒê±°ë˜..
 
 	const __InfoPartyOrForce*	PartyOrForceConditionGet(bool& bIAmLeader, bool& bIAmMember, int& iMemberIndex, class CPlayerBase*& pTarget);
 	void						TargetSelect(int iID, bool bMustAlive);
@@ -238,15 +238,15 @@ public:
 	bool	CommandToggleCmdList();
 	bool	OpenCmdEdit(std::string msg);
 
-	void	CommandMove(e_MoveDirection eMD, bool bStartOrEnd); // ¿òÁ÷ÀÌ´Â ¹æÇâ(ÀüÈÄÁø, ¸ØÃã), ¿òÁ÷ÀÌ±â ½ÃÀÛÇÏ´Â°¡?
+	void	CommandMove(e_MoveDirection eMD, bool bStartOrEnd); // ì›€ì§ì´ëŠ” ë°©í–¥(ì „í›„ì§„, ë©ˆì¶¤), ì›€ì§ì´ê¸° ì‹œì‘í•˜ëŠ”ê°€?
 	void	CommandEnableAttackContinous(bool bEnable, CPlayerBase* pTarget);
-	void	CommandCameraChange(); // Ä«¸Ş¶ó ½ÃÁ¡ ¹Ù²Ù±â..
+	void	CommandCameraChange(); // ì¹´ë©”ë¼ ì‹œì  ë°”ê¾¸ê¸°..
 	void	CommandSitDown(bool bLimitInterval, bool bSitDown, bool bImmediately = false);
 
-	void	CommandTargetSelect_NearstEnemy(); // °¡Àå °¡±î¿î Àû Å¸°Ù Àâ±â..
-	void	CommandTargetSelect_NearstOurForce(); // °¡Àå °¡±î¿î ÆÄÆ¼ Å¸°ÙÀâ±â..
+	void	CommandTargetSelect_NearstEnemy(); // ê°€ì¥ ê°€ê¹Œìš´ ì  íƒ€ê²Ÿ ì¡ê¸°..
+	void	CommandTargetSelect_NearstOurForce(); // ê°€ì¥ ê°€ê¹Œìš´ íŒŒí‹° íƒ€ê²Ÿì¡ê¸°..
 
-	void	CloseUIs(); // °¢Á¾ »ó°Å·¡, ¿öÇÁµîµî... UI ´İ±â..
+	void	CloseUIs(); // ê°ì¢… ìƒê±°ë˜, ì›Œí”„ë“±ë“±... UI ë‹«ê¸°..
 
 	void	NoahTrade(uint8_t bType, uint32_t dwGoldOffset, uint32_t dwGold);
 
@@ -254,22 +254,22 @@ public:
 
 	void	InitZone(int iZone, const __Vector3& vPosPlayer);
 	void	InitUI();
-	void	InitPlayerPosition(const __Vector3& vPos); // ÇÃ·¹ÀÌ¾î À§Ä¡ ÃÊ±âÈ­.. ÀÏÀ¸ÄÑ ¼¼¿ì°í, ±âº»µ¿ÀÛÀ» ÃëÇÏ°Ô ÇÑ´Ù.
+	void	InitPlayerPosition(const __Vector3& vPos); // í”Œë ˆì´ì–´ ìœ„ì¹˜ ì´ˆê¸°í™”.. ì¼ìœ¼ì¼œ ì„¸ìš°ê³ , ê¸°ë³¸ë™ì‘ì„ ì·¨í•˜ê²Œ í•œë‹¤.
 
-	void	MsgSend_Continous();												// Æ¯Á¤ Á¶°Ç(?)ÇÏ¿¡¼­ ¼­¹ö¿¡°Ô Á¤±âÀûÀ¸·Î ¸Ş½ÃÁö¸¦ º¸³¿..
-	void	MsgSend_Attack(int iTargetID, float fInterval, float fDistance);	// °ø°İ ÆĞÅ¶ ³¯¸®±â - Å×ÀÌºíÀÇ °ø°İ ÁÖ±â¸¦ °°ÀÌ Áà¼­ ÇØÅ·À» ¸·´Â´Ù.
-	void	MsgSend_Move(bool bMove, bool bContinous);							// ¼­¹ö¿¡°Ô ¿òÁ÷ÀÓ ÆĞÅ¶À» ³¯¸°´Ù.. // ¿òÁ÷ÀÌ´Â°¡ ? ÁÖ±âÀûÀ¸·Î ¿òÁ÷ÀÌ´Â °Ç°¡?
-	void	MsgSend_Rotation();													// ¼­¹ö¿¡°Ô È¸Àü ÆĞÅ¶À» ³¯¸°´Ù..
-	void	MsgSend_Chat(enum e_ChatMode eMode, const std::string& szChat);		// ¼­¹ö¿¡°Ô Ã¤ÆÃ ¸Ş½ÃÁö¸¦ ³¯¸°´Ù..
-	void	MsgSend_ChatSelectTarget(const std::string& szTargetID); // ÀÏ´ëÀÏ Ã¤ÆÃ »ó´ë Á¤ÇÏ±â.
+	void	MsgSend_Continous();												// íŠ¹ì • ì¡°ê±´(?)í•˜ì—ì„œ ì„œë²„ì—ê²Œ ì •ê¸°ì ìœ¼ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ëƒ„..
+	void	MsgSend_Attack(int iTargetID, float fInterval, float fDistance);	// ê³µê²© íŒ¨í‚· ë‚ ë¦¬ê¸° - í…Œì´ë¸”ì˜ ê³µê²© ì£¼ê¸°ë¥¼ ê°™ì´ ì¤˜ì„œ í•´í‚¹ì„ ë§‰ëŠ”ë‹¤.
+	void	MsgSend_Move(bool bMove, bool bContinous);							// ì„œë²„ì—ê²Œ ì›€ì§ì„ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.. // ì›€ì§ì´ëŠ”ê°€ ? ì£¼ê¸°ì ìœ¼ë¡œ ì›€ì§ì´ëŠ” ê±´ê°€?
+	void	MsgSend_Rotation();													// ì„œë²„ì—ê²Œ íšŒì „ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤..
+	void	MsgSend_Chat(enum e_ChatMode eMode, const std::string& szChat);		// ì„œë²„ì—ê²Œ ì±„íŒ… ë©”ì‹œì§€ë¥¼ ë‚ ë¦°ë‹¤..
+	void	MsgSend_ChatSelectTarget(const std::string& szTargetID); // ì¼ëŒ€ì¼ ì±„íŒ… ìƒëŒ€ ì •í•˜ê¸°.
 	void	MsgSend_Regen();
-	bool	MsgSend_RequestItemBundleOpen(CPlayerNPC* pCorpse); // ¾ÆÀÌÅÛ »óÀÚ¸¦ ¿­°Å³ª ½ÃÃ¼¸¦ µÚÁø´Ù..
-	void	MsgSend_RequestTargetHP(int16_t siIDTarget, uint8_t byUpdateImmediately); // 0x00 - Á¡Â÷ ´Ã¾î³ª°Ô²û.. 0x01 - Áï½Ã ¾÷µ¥ÀÌÆ®..
+	bool	MsgSend_RequestItemBundleOpen(CPlayerNPC* pCorpse); // ì•„ì´í…œ ìƒìë¥¼ ì—´ê±°ë‚˜ ì‹œì²´ë¥¼ ë’¤ì§„ë‹¤..
+	void	MsgSend_RequestTargetHP(int16_t siIDTarget, uint8_t byUpdateImmediately); // 0x00 - ì ì°¨ ëŠ˜ì–´ë‚˜ê²Œë”.. 0x01 - ì¦‰ì‹œ ì—…ë°ì´íŠ¸..
 	void	MsgSend_GameStart();
 	bool	MsgSend_NPCEvent(int16_t siIDTarget);
-	void	MsgSend_NPCInRequest(int iID); // NPC Á¤º¸°¡ ¾øÀ» °æ¿ì ¿äÃ»ÇÑ´Ù..
-	void	MsgSend_UserInRequest(int iID); // User Á¤º¸°¡ ¾øÀ» °æ¿ì ¿äÃ»ÇÑ´Ù..
-	void	MsgSend_Warp(); // ¿öÇÁ?? - Á¸Ã¼ÀÎÁö°¡ µÉ¼öµµ ÀÖ´Ù..
+	void	MsgSend_NPCInRequest(int iID); // NPC ì •ë³´ê°€ ì—†ì„ ê²½ìš° ìš”ì²­í•œë‹¤..
+	void	MsgSend_UserInRequest(int iID); // User ì •ë³´ê°€ ì—†ì„ ê²½ìš° ìš”ì²­í•œë‹¤..
+	void	MsgSend_Warp(); // ì›Œí”„?? - ì¡´ì²´ì¸ì§€ê°€ ë ìˆ˜ë„ ìˆë‹¤..
 	void	MsgSend_StateChange(enum e_SubPacket_State eSP, int iState);
 	void	MsgSend_PerTradeReq(int iDestID, bool bNear = true);
 	void	MsgSend_SpeedCheck(bool bInit = false);
@@ -278,7 +278,7 @@ public:
 	void	MsgSend_PartyOrForceLeave(int iPartyOrForce); // iPartyOrForce 1 : Party, 2:Force
 	bool	MsgSend_PartyOrForceCreate(int iPartyOrForce, const std::string& szID); // iPartyOrForce 1 : Party, 2:Force
 
-	void	MsgSend_ObjectEvent(int iEventID, int iNPCID);		// ¿ÀºêÁ§Æ®¿¡ ¼³Á¤µÇ¾î ÀÖ´Â ÀÌº¥Æ® ¿äÃ»..
+	void	MsgSend_ObjectEvent(int iEventID, int iNPCID);		// ì˜¤ë¸Œì íŠ¸ì— ì„¤ì •ë˜ì–´ ìˆëŠ” ì´ë²¤íŠ¸ ìš”ì²­..
 	void	MsgSend_Weather(int iWeather, int iPercent);
 	void	MsgSend_Time(int iHour, int iMin);
 	void	MsgSend_Administrator(enum e_SubPacket_Administrator eSP, const std::string& szID);
@@ -292,12 +292,12 @@ public:
 	void	MsgSend_CharacterSelect(); // virtual
 
 
-	void	ProcessPlayerInclination();				// °æ»ç Ã³¸®..(°¡¸¸È÷ ÀÖ¾îµµ °æ»ç°¡ ±ŞÇÏ¸é ¹Ì²ô·¯Áü..).
-	void	ProcessLocalInput(uint32_t dwMouseFlags);	// Å°º¸µå ´­¸°°ÍÀ» Ã³¸®ÇÑ´Ù..
+	void	ProcessPlayerInclination();				// ê²½ì‚¬ ì²˜ë¦¬..(ê°€ë§Œíˆ ìˆì–´ë„ ê²½ì‚¬ê°€ ê¸‰í•˜ë©´ ë¯¸ë„ëŸ¬ì§..).
+	void	ProcessLocalInput(uint32_t dwMouseFlags);	// í‚¤ë³´ë“œ ëˆŒë¦°ê²ƒì„ ì²˜ë¦¬í•œë‹¤..
 	void	ParseChattingCommand(const std::string& szCmd);
 	
 
-	void	UpdateUI_PartyOrForceButtons(); // Ä¿¸Çµå ÁÙ¿¡ ÀÖ´Â ÆÄÆ¼ ¹öÆ°À» »óÈ²¿¡ µû¶ó ¾÷µ¥ÀÌÆ® ÇØÁØ´Ù.
+	void	UpdateUI_PartyOrForceButtons(); // ì»¤ë§¨ë“œ ì¤„ì— ìˆëŠ” íŒŒí‹° ë²„íŠ¼ì„ ìƒí™©ì— ë”°ë¼ ì—…ë°ì´íŠ¸ í•´ì¤€ë‹¤.
 	void	UpdateUI_MiniMap();
 	void	UpdateUI_TargetBar();
 	void	UpdateBGM();
@@ -305,16 +305,16 @@ public:
 
 	void	RenderTarget();
 	
-	void	Init();									// UI ¿Í UI ¸®¼Ò½ºµîÀ» ÀĞ´Â´Ù.
+	void	Init();									// UI ì™€ UI ë¦¬ì†ŒìŠ¤ë“±ì„ ì½ëŠ”ë‹¤.
 	void	Release();								// Release..	
 	void	ReleaseUIs();
 	void	ReleaseSound();
 	
-	void	Tick();								// Àâ´ÙÇÑ °è»ê..
-	void	Render();							// ·»´õ¸µ..
+	void	Tick();								// ì¡ë‹¤í•œ ê³„ì‚°..
+	void	Render();							// ë Œë”ë§..
 
-	CGameProcMain();									// »ı¼ºÀÚ.
-	virtual ~CGameProcMain();							// ¼Ò¸êÀÚ.
+	CGameProcMain();									// ìƒì„±ì.
+	virtual ~CGameProcMain();							// ì†Œë©¸ì.
 };
 
 #endif // !defined(AFX_GAMEPROCMAIN_H__E1C4F2CC_5AF3_4417_8917_A52CD5523DB3__INCLUDED_)

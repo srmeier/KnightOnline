@@ -1,4 +1,4 @@
-// N3WorldManager.cpp: implementation of the CN3WorldManager class.
+ï»¿// N3WorldManager.cpp: implementation of the CN3WorldManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -51,7 +51,7 @@ void CN3WorldManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 	if (m_pActiveWorld)
 		delete m_pActiveWorld;
 
-	// Zone ¼±ÅÃ..
+	// Zone ì„ íƒ..
 	if (iZoneID != 51)	// N3Terrain..
 	{
 		CLogWriter::Write("CN3WorldManager::InitWorld Pre new Terrain ZoneID(%d)", iZoneID); // TmpLog_11_22
@@ -67,7 +67,7 @@ void CN3WorldManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 		m_bIndoor = true;
 	}
 
-	// Zone ÃÊ±âÈ­..
+	// Zone ì´ˆê¸°í™”..
 	m_pActiveWorld->InitWorld(iZoneID, vPosPlayer);
 }
 

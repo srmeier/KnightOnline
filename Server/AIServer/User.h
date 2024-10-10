@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Extern.h"
 
@@ -32,20 +32,20 @@ public:
 	INLINE uint16_t GetPartyID() { return m_sPartyNumber; }
 
 	std::string m_strUserID;
-	int16_t	m_iUserId;					// UserÀÇ ¹øÈ£
-	uint8_t	m_bLive;					// Á×¾ú´Ï? »ì¾Ò´Ï?
+	int16_t	m_iUserId;					// Userì˜ ë²ˆí˜¸
+	uint8_t	m_bLive;					// ì£½ì—ˆë‹ˆ? ì‚´ì•˜ë‹ˆ?
 
-	float			m_fWill_x;			// ´ÙÀ½ X ÁÂÇ¥
-	float			m_fWill_y;			// ´ÙÀ½ Y ÁÂÇ¥
-	float			m_fWill_z;			// ´ÙÀ½ Z ÁÂÇ¥
-	int16_t			m_sSpeed;			// À¯ÀúÀÇ ½ºÇÇµå	
+	float			m_fWill_x;			// ë‹¤ìŒ X ì¢Œí‘œ
+	float			m_fWill_y;			// ë‹¤ìŒ Y ì¢Œí‘œ
+	float			m_fWill_z;			// ë‹¤ìŒ Z ì¢Œí‘œ
+	int16_t			m_sSpeed;			// ìœ ì €ì˜ ìŠ¤í”¼ë“œ	
 
 	int16_t	m_sHP;							// HP
 	int16_t	m_sMP;							// MP
 	int16_t	m_sMaxHP;						// HP
 	int16_t	m_sMaxMP;						// MP
 
-	uint8_t	m_state;						// UserÀÇ »óÅÂ
+	uint8_t	m_state;						// Userì˜ ìƒíƒœ
 
 	uint8_t    m_byNowParty;
 	uint8_t	m_byPartyTotalMan;
@@ -54,7 +54,7 @@ public:
 
 	uint16_t	m_sItemAc;
 
-	int16_t  m_sSurroundNpcNumber[8];		// Npc ´Ù±¼~
+	int16_t  m_sSurroundNpcNumber[8];		// Npc ë‹¤êµ´~
 
 	uint8_t   m_byIsOP;
 	uint8_t	m_bInvisibilityType;

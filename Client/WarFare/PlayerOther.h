@@ -1,4 +1,4 @@
-// PlayerOther.h: interface for the CPlayerOther class.
+Ôªø// PlayerOther.h: interface for the CPlayerOther class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@ class CPlayerOther : public CPlayerNPC
 {
 	friend class CPlayerOtherMgr;
 public:
-	__InfoPlayerOther	m_InfoExt;					// ƒ≥∏Ø≈Õ ¡§∫∏ »Æ¿Â..
+	__InfoPlayerOther	m_InfoExt;					// Ï∫êÎ¶≠ÌÑ∞ Ï†ïÎ≥¥ ÌôïÏû•..
 	bool				m_bSit;
 
 public:

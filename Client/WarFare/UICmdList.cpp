@@ -1,4 +1,4 @@
-// UICmdList.cpp: implementation of the CUICmdList class.
+ï»¿// UICmdList.cpp: implementation of the CUICmdList class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -32,9 +32,9 @@ static char THIS_FILE[] = __FILE__;
 
 CUICmdList::CUICmdList()
 {
-	m_bOpenningNow = false; // ¿­¸®°í ÀÖ´Ù..
-	m_bClosingNow = false;	// ´ÝÈ÷°í ÀÖ´Ù..
-	m_fMoveDelta = 0.0f; // ºÎµå·´°Ô ¿­¸®°í ´ÝÈ÷°Ô ¸¸µé±â À§ÇØ¼­ ÇöÀçÀ§Ä¡ °è»ê¿¡ ºÎµ¿¼Ò¼öÁ¡À» ¾´´Ù..
+	m_bOpenningNow = false; // ì—´ë¦¬ê³  ìžˆë‹¤..
+	m_bClosingNow = false;	// ë‹«ížˆê³  ìžˆë‹¤..
+	m_fMoveDelta = 0.0f; // ë¶€ë“œëŸ½ê²Œ ì—´ë¦¬ê³  ë‹«ížˆê²Œ ë§Œë“¤ê¸° ìœ„í•´ì„œ í˜„ìž¬ìœ„ì¹˜ ê³„ì‚°ì— ë¶€ë™ì†Œìˆ˜ì ì„ ì“´ë‹¤..
 
 	m_pBtn_cancel = NULL;
 	m_pList_CmdCat = NULL;
@@ -60,7 +60,7 @@ bool CUICmdList::Load(HANDLE hFile)
 
 void CUICmdList::Release()
 {
-	if (m_bOpenningNow) // ¿À¸¥ÂÊ¿¡¼­ ¿ÞÂÊÀ¸·Î ½º¸£¸¤...¿­·Á¾ß ÇÑ´Ù¸é..
+	if (m_bOpenningNow) // ì˜¤ë¥¸ìª½ì—ì„œ ì™¼ìª½ìœ¼ë¡œ ìŠ¤ë¥´ë¥µ...ì—´ë ¤ì•¼ í•œë‹¤ë©´..
 	{
 		POINT ptCur = this->GetPos();
 		RECT rc = this->GetRegion();
@@ -73,7 +73,7 @@ void CUICmdList::Release()
 
 		int iXLimit = CN3Base::s_CameraData.vp.Width - (int)fWidth;
 		ptCur.x = CN3Base::s_CameraData.vp.Width - (int)m_fMoveDelta;
-		if (ptCur.x <= iXLimit) // ´Ù¿­·È´Ù!!
+		if (ptCur.x <= iXLimit) // ë‹¤ì—´ë ¸ë‹¤!!
 		{
 			ptCur.x = iXLimit;
 			m_bOpenningNow = false;
@@ -81,7 +81,7 @@ void CUICmdList::Release()
 
 		this->SetPos(ptCur.x, ptCur.y);
 	}
-	else if (m_bClosingNow) // ¿À¸¥ÂÊ¿¡¼­ ¿ÞÂÊÀ¸·Î ½º¸£¸¤...¿­·Á¾ß ÇÑ´Ù¸é..
+	else if (m_bClosingNow) // ì˜¤ë¥¸ìª½ì—ì„œ ì™¼ìª½ìœ¼ë¡œ ìŠ¤ë¥´ë¥µ...ì—´ë ¤ì•¼ í•œë‹¤ë©´..
 	{
 		POINT ptCur = this->GetPos();
 		RECT rc = this->GetRegion();
@@ -94,12 +94,12 @@ void CUICmdList::Release()
 
 		int iXLimit = CN3Base::s_CameraData.vp.Width;
 		ptCur.x = CN3Base::s_CameraData.vp.Width - (int)(fWidth - m_fMoveDelta);
-		if (ptCur.x >= iXLimit) // ´Ù ´ÝÇû´Ù..!!
+		if (ptCur.x >= iXLimit) // ë‹¤ ë‹«í˜”ë‹¤..!!
 		{
 			ptCur.x = iXLimit;
 			m_bClosingNow = false;
 
-			this->SetVisibleWithNoSound(false, false, true); // ´Ù ´ÝÇûÀ¸´Ï ´«¿¡¼­ ¾Èº¸ÀÌ°Ô ÇÑ´Ù.
+			this->SetVisibleWithNoSound(false, false, true); // ë‹¤ ë‹«í˜”ìœ¼ë‹ˆ ëˆˆì—ì„œ ì•ˆë³´ì´ê²Œ í•œë‹¤.
 		}
 
 		this->SetPos(ptCur.x, ptCur.y);
@@ -119,7 +119,7 @@ void CUICmdList::Render()
 
 void CUICmdList::Tick()
 {
-	if (m_bOpenningNow) // ¿À¸¥ÂÊ¿¡¼­ ¿ÞÂÊÀ¸·Î ½º¸£¸¤...¿­·Á¾ß ÇÑ´Ù¸é..
+	if (m_bOpenningNow) // ì˜¤ë¥¸ìª½ì—ì„œ ì™¼ìª½ìœ¼ë¡œ ìŠ¤ë¥´ë¥µ...ì—´ë ¤ì•¼ í•œë‹¤ë©´..
 	{
 		POINT ptCur = this->GetPos();
 		RECT rc = this->GetRegion();
@@ -132,7 +132,7 @@ void CUICmdList::Tick()
 
 		int iXLimit = CN3Base::s_CameraData.vp.Width - (int)fWidth;
 		ptCur.x = CN3Base::s_CameraData.vp.Width - (int)m_fMoveDelta;
-		if (ptCur.x <= iXLimit) // ´Ù¿­·È´Ù!!
+		if (ptCur.x <= iXLimit) // ë‹¤ì—´ë ¸ë‹¤!!
 		{
 			ptCur.x = iXLimit;
 			m_bOpenningNow = false;
@@ -140,7 +140,7 @@ void CUICmdList::Tick()
 
 		this->SetPos(ptCur.x, ptCur.y);
 	}
-	else if (m_bClosingNow) // ¿À¸¥ÂÊ¿¡¼­ ¿ÞÂÊÀ¸·Î ½º¸£¸¤...¿­·Á¾ß ÇÑ´Ù¸é..
+	else if (m_bClosingNow) // ì˜¤ë¥¸ìª½ì—ì„œ ì™¼ìª½ìœ¼ë¡œ ìŠ¤ë¥´ë¥µ...ì—´ë ¤ì•¼ í•œë‹¤ë©´..
 	{
 		POINT ptCur = this->GetPos();
 		RECT rc = this->GetRegion();
@@ -153,12 +153,12 @@ void CUICmdList::Tick()
 
 		int iXLimit = CN3Base::s_CameraData.vp.Width;
 		ptCur.x = CN3Base::s_CameraData.vp.Width - (int)(fWidth - m_fMoveDelta);
-		if (ptCur.x >= iXLimit) // ´Ù ´ÝÇû´Ù..!!
+		if (ptCur.x >= iXLimit) // ë‹¤ ë‹«í˜”ë‹¤..!!
 		{
 			ptCur.x = iXLimit;
 			m_bClosingNow = false;
 
-			this->SetVisibleWithNoSound(false, false, true); // ´Ù ´ÝÇûÀ¸´Ï ´«¿¡¼­ ¾Èº¸ÀÌ°Ô ÇÑ´Ù.
+			this->SetVisibleWithNoSound(false, false, true); // ë‹¤ ë‹«í˜”ìœ¼ë‹ˆ ëˆˆì—ì„œ ì•ˆë³´ì´ê²Œ í•œë‹¤.
 		}
 
 		this->SetPos(ptCur.x, ptCur.y);
@@ -202,8 +202,8 @@ bool CUICmdList::OnKeyPress(int iKey)
 	switch (iKey)
 	{
 	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
-	{	//hotkey°¡ Æ÷Ä¿½º ÀâÇôÀÖÀ»¶§´Â ´Ù¸¥ ui¸¦ ´ÝÀ»¼ö ¾øÀ¸¹Ç·Î DIK_ESCAPE°¡ µé¾î¿À¸é Æ÷Ä¿½º¸¦ ´Ù½ÃÀâ°í
-		//¿­·ÁÀÖ´Â ´Ù¸¥ À¯¾ÆÀÌ¸¦ ´Ý¾ÆÁØ´Ù.
+	{	//hotkeyê°€ í¬ì»¤ìŠ¤ ìž¡í˜€ìžˆì„ë•ŒëŠ” ë‹¤ë¥¸ uië¥¼ ë‹«ì„ìˆ˜ ì—†ìœ¼ë¯€ë¡œ DIK_ESCAPEê°€ ë“¤ì–´ì˜¤ë©´ í¬ì»¤ìŠ¤ë¥¼ ë‹¤ì‹œìž¡ê³ 
+		//ì—´ë ¤ìžˆëŠ” ë‹¤ë¥¸ ìœ ì•„ì´ë¥¼ ë‹«ì•„ì¤€ë‹¤.
 		CGameProcedure::s_pUIMgr->ReFocusUI();//this_ui
 		CN3UIBase* pFocus = CGameProcedure::s_pUIMgr->GetFocusedUI();
 		if (pFocus && pFocus != this) pFocus->OnKeyPress(iKey);
@@ -216,7 +216,7 @@ bool CUICmdList::OnKeyPress(int iKey)
 
 void CUICmdList::Open()
 {
-	// ½º¸£¸¤ ¿­¸°´Ù!!
+	// ìŠ¤ë¥´ë¥µ ì—´ë¦°ë‹¤!!
 	SetVisible(true);
 	this->SetPos(CN3Base::s_CameraData.vp.Width, 10);
 	m_fMoveDelta = 0;

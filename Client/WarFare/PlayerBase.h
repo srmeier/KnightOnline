@@ -1,4 +1,4 @@
-// CPlayerBase.h: interface for the CPlayerBase class.
+ï»¿// CPlayerBase.h: interface for the CPlayerBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,46 +16,46 @@
 #include <deque>
 #include <string>
 
-//	By : Ecli666 ( On 2002-07-22 ¿ÀÀü 9:59:19 )
+//	By : Ecli666 ( On 2002-07-22 ì˜¤ì „ 9:59:19 )
 //
-#define SHADOW_SIZE 32			// 2ÀÇ ½Â¼ö¸¸ µÈ´Ù..
+#define SHADOW_SIZE 32			// 2ì˜ ìŠ¹ìˆ˜ë§Œ ëœë‹¤..
 #define SHADOW_PLANE_SIZE 4.6f	
-#define SHADOW_COLOR 0xa;		// 16Áø¼ö ÇÑÀÚ¸®.. ¾ËÆÄ
-//	~(By Ecli666 On 2002-07-22 ¿ÀÀü 9:59:19 )
+#define SHADOW_COLOR 0xa;		// 16ì§„ìˆ˜ í•œìë¦¬.. ì•ŒíŒŒ
+//	~(By Ecli666 On 2002-07-22 ì˜¤ì „ 9:59:19 )
 
-const float TIME_CORPSE_REMAIN = 90.0f;	// ½ÃÃ¼°¡ ³²´Â ½Ã°£..
-const float TIME_CORPSE_REMOVE = 10.0f; // Åõ¸íÇØÁö¸é¼­ ¾ø¾Ù½Ã°£..
+const float TIME_CORPSE_REMAIN = 90.0f;	// ì‹œì²´ê°€ ë‚¨ëŠ” ì‹œê°„..
+const float TIME_CORPSE_REMOVE = 10.0f; // íˆ¬ëª…í•´ì§€ë©´ì„œ ì—†ì•¨ì‹œê°„..
 
 class CDFont;
 class CN3SndObj;
 
 struct __InfoPlayerBase
 {
-	int			iID;			// °íÀ¯ ID
-	std::string szID;			// ÀÌ¸§
-	D3DCOLOR	crID;			// ÀÌ¸§ »ö±ò..
-	e_Race		eRace;			// Ä³¸¯ÅÍ °ñ°İ¿¡ µû¸¥ Á¾Á·
-	e_Nation	eNation;		// ¼Ò¼Ó ±¹°¡..
-	e_Class		eClass;			// Á÷¾÷
-	int			iLevel;			// ·¹º§
+	int			iID;			// ê³ ìœ  ID
+	std::string szID;			// ì´ë¦„
+	D3DCOLOR	crID;			// ì´ë¦„ ìƒ‰ê¹”..
+	e_Race		eRace;			// ìºë¦­í„° ê³¨ê²©ì— ë”°ë¥¸ ì¢…ì¡±
+	e_Nation	eNation;		// ì†Œì† êµ­ê°€..
+	e_Class		eClass;			// ì§ì—…
+	int			iLevel;			// ë ˆë²¨
 	int			iHPMax;
 	int			iHP;
-	int			iAuthority;		// ±ÇÇÑ - 0 °ü¸®ÀÚ, 1 - ÀÏ¹İÀ¯Àú, 255 - ºí·°´çÇÑ À¯Àú...
+	int			iAuthority;		// ê¶Œí•œ - 0 ê´€ë¦¬ì, 1 - ì¼ë°˜ìœ ì €, 255 - ë¸”ëŸ­ë‹¹í•œ ìœ ì €...
 
-	bool		bRenderID;		// È­¸é¿¡ ID ¸¦ Âï´ÂÁö..
+	bool		bRenderID;		// í™”ë©´ì— ID ë¥¼ ì°ëŠ”ì§€..
 
 	void Init()
 	{
-		iID = 0;					// °íÀ¯ ID
-		szID.clear();				// ÀÌ¸§
-		crID = 0;					// ÀÌ¸§ »ö±ò..
-		eRace = RACE_UNKNOWN;		// Ä³¸¯ÅÍ °ñ°İ¿¡ µû¸¥ Á¾Á·
-		eNation = NATION_UNKNOWN;	// ¼Ò¼Ó ±¹°¡..
-		eClass = CLASS_UNKNOWN;		// Á÷¾÷
-		iLevel = 0;					// ·¹º§
+		iID = 0;					// ê³ ìœ  ID
+		szID.clear();				// ì´ë¦„
+		crID = 0;					// ì´ë¦„ ìƒ‰ê¹”..
+		eRace = RACE_UNKNOWN;		// ìºë¦­í„° ê³¨ê²©ì— ë”°ë¥¸ ì¢…ì¡±
+		eNation = NATION_UNKNOWN;	// ì†Œì† êµ­ê°€..
+		eClass = CLASS_UNKNOWN;		// ì§ì—…
+		iLevel = 0;					// ë ˆë²¨
 		iHPMax = 0;
 		iHP = 0;
-		iAuthority = 1;				// ±ÇÇÑ - 0 °ü¸®ÀÚ, 1 - ÀÏ¹İÀ¯Àú, 255 - ºí·°´çÇÑ À¯Àú...
+		iAuthority = 1;				// ê¶Œí•œ - 0 ê´€ë¦¬ì, 1 - ì¼ë°˜ìœ ì €, 255 - ë¸”ëŸ­ë‹¹í•œ ìœ ì €...
 		bRenderID = true;
 	}
 };
@@ -68,75 +68,75 @@ class CPlayerBase : public CGameBase
 protected:
 	e_PlayerType				m_ePlayerType; // Player Type ... Base, NPC, OTher, MySelf
 	
-	std::deque<e_Ani>			m_AnimationDeque;		// ¿¡´Ï¸ŞÀÌ¼Ç Å¥... ¿©±â´Ù Áı¾î ³ÖÀ¸¸é tick À» µ¹¸é¼­ Â÷·Ê´ë·Î ÇÑ´Ù..
-	bool						m_bAnimationChanged;	// Å¥¿¡ ³ÖÀº ¿¡´Ï¸ŞÀÌ¼ÇÀÌ º¯ÇÏ´Â ¼ø°£¸¸ ¼¼ÆÃµÈ´Ù..
+	std::deque<e_Ani>			m_AnimationDeque;		// ì—ë‹ˆë©”ì´ì…˜ í... ì—¬ê¸°ë‹¤ ì§‘ì–´ ë„£ìœ¼ë©´ tick ì„ ëŒë©´ì„œ ì°¨ë¡€ëŒ€ë¡œ í•œë‹¤..
+	bool						m_bAnimationChanged;	// íì— ë„£ì€ ì—ë‹ˆë©”ì´ì…˜ì´ ë³€í•˜ëŠ” ìˆœê°„ë§Œ ì„¸íŒ…ëœë‹¤..
 
-	CN3Chr						m_Chr;									// Ä³¸¯ÅÍ ±âº» °´Ã¼...
-	__TABLE_PLAYER_LOOKS*		m_pLooksRef;							// ±âº» ÂüÁ¶ Å×ÀÌºí - Ä³¸¯ÅÍ¿¡ °üÇÑ ¸®¼Ò½º Á¤º¸, °üÀı À§Ä¡, »ç¿îµå ÆÄÀÏµîµî..
-	__TABLE_ITEM_BASIC*			m_pItemPartBasics[PART_POS_COUNT];	// Ä³¸¯ÅÍ¿¡ ºÙÀº ¹«±âµé..
-	__TABLE_ITEM_EXT*			m_pItemPartExts[PART_POS_COUNT];		// Ä³¸¯ÅÍ¿¡ ºÙÀº ¹«±âµé..
-	__TABLE_ITEM_BASIC*			m_pItemPlugBasics[PLUG_POS_COUNT];	// Ä³¸¯ÅÍ¿¡ ºÙÀº ¹«±âµé..
-	__TABLE_ITEM_EXT*			m_pItemPlugExts[PLUG_POS_COUNT];		// Ä³¸¯ÅÍ¿¡ ºÙÀº ¹«±âµé..
+	CN3Chr						m_Chr;									// ìºë¦­í„° ê¸°ë³¸ ê°ì²´...
+	__TABLE_PLAYER_LOOKS*		m_pLooksRef;							// ê¸°ë³¸ ì°¸ì¡° í…Œì´ë¸” - ìºë¦­í„°ì— ê´€í•œ ë¦¬ì†ŒìŠ¤ ì •ë³´, ê´€ì ˆ ìœ„ì¹˜, ì‚¬ìš´ë“œ íŒŒì¼ë“±ë“±..
+	__TABLE_ITEM_BASIC*			m_pItemPartBasics[PART_POS_COUNT];	// ìºë¦­í„°ì— ë¶™ì€ ë¬´ê¸°ë“¤..
+	__TABLE_ITEM_EXT*			m_pItemPartExts[PART_POS_COUNT];		// ìºë¦­í„°ì— ë¶™ì€ ë¬´ê¸°ë“¤..
+	__TABLE_ITEM_BASIC*			m_pItemPlugBasics[PLUG_POS_COUNT];	// ìºë¦­í„°ì— ë¶™ì€ ë¬´ê¸°ë“¤..
+	__TABLE_ITEM_EXT*			m_pItemPlugExts[PLUG_POS_COUNT];		// ìºë¦­í„°ì— ë¶™ì€ ë¬´ê¸°ë“¤..
 
 	// ID 
-	CDFont*				m_pClanFont;			// clan or knights..ÀÌ¸§ Âï´Âµ¥ ¾²´Â Font.. -.-;
-	CDFont*				m_pIDFont;				// ID Âï´Âµ¥ ¾²´Â Font.. -.-;
-	CDFont*				m_pInfoFont;			// ÆÄÆ¼¿ø ¸ğÁıµî.. ±âÅ¸ Á¤º¸ Ç¥½Ã..
-	CDFont*				m_pBalloonFont;			// Ç³¼±¸» Ç¥½Ã...
-	float				m_fTimeBalloon;			// Ç³¼±¸» Ç¥½Ã ½Ã°£..
+	CDFont*				m_pClanFont;			// clan or knights..ì´ë¦„ ì°ëŠ”ë° ì“°ëŠ” Font.. -.-;
+	CDFont*				m_pIDFont;				// ID ì°ëŠ”ë° ì“°ëŠ” Font.. -.-;
+	CDFont*				m_pInfoFont;			// íŒŒí‹°ì› ëª¨ì§‘ë“±.. ê¸°íƒ€ ì •ë³´ í‘œì‹œ..
+	CDFont*				m_pBalloonFont;			// í’ì„ ë§ í‘œì‹œ...
+	float				m_fTimeBalloon;			// í’ì„ ë§ í‘œì‹œ ì‹œê°„..
 
-	e_StateAction		m_eState;				// Çàµ¿ »óÅÂ..
-	e_StateAction		m_eStatePrev;			// Á÷Àü¿¡ ¼¼ÆÃµÈ Çàµ¿ »óÅÂ..
-	e_StateAction		m_eStateNext;			// Á÷Àü¿¡ ¼¼ÆÃµÈ Çàµ¿ »óÅÂ..
-	e_StateMove			m_eStateMove;			// ¿òÁ÷ÀÌ´Â »óÅÂ..
-	e_StateDying		m_eStateDying;			// Á×À»¶§ ¾î¶»°Ô Á×´Â°¡..??
-	float				m_fTimeDying;			// Á×´Â ¸ğ¼ÇÀ» ÃëÇÏ´Â ½Ã°£..
+	e_StateAction		m_eState;				// í–‰ë™ ìƒíƒœ..
+	e_StateAction		m_eStatePrev;			// ì§ì „ì— ì„¸íŒ…ëœ í–‰ë™ ìƒíƒœ..
+	e_StateAction		m_eStateNext;			// ì§ì „ì— ì„¸íŒ…ëœ í–‰ë™ ìƒíƒœ..
+	e_StateMove			m_eStateMove;			// ì›€ì§ì´ëŠ” ìƒíƒœ..
+	e_StateDying		m_eStateDying;			// ì£½ì„ë•Œ ì–´ë–»ê²Œ ì£½ëŠ”ê°€..??
+	float				m_fTimeDying;			// ì£½ëŠ” ëª¨ì…˜ì„ ì·¨í•˜ëŠ” ì‹œê°„..
 
 	// by tigger
-//	By : Ecli666 ( On 2002-03-29 ¿ÀÈÄ 4:22:25 )
+//	By : Ecli666 ( On 2002-03-29 ì˜¤í›„ 4:22:25 )
 //
-//	CN3Texture*			m_pTexShadow;			// ±×¸²ÀÚ ÅØ½ºÃ³...
-//	__VertexXyzT1		m_vShadows[4];			// ±×¸²ÀÚ Æú¸®°ï..
+//	CN3Texture*			m_pTexShadow;			// ê·¸ë¦¼ì í…ìŠ¤ì²˜...
+//	__VertexXyzT1		m_vShadows[4];			// ê·¸ë¦¼ì í´ë¦¬ê³¤..
 
-//	~(By Ecli666 On 2002-03-29 ¿ÀÈÄ 4:22:25 )
+//	~(By Ecli666 On 2002-03-29 ì˜¤í›„ 4:22:25 )
 	
-	D3DCOLORVALUE	m_cvDuration;			// Áö¼Ó ÄÃ·¯ °ª
-	float			m_fDurationColorTimeCur;// ÇöÀç ½Ã°£..
-	float			m_fDurationColorTime;	// Áö¼Ó½Ã°£..
+	D3DCOLORVALUE	m_cvDuration;			// ì§€ì† ì»¬ëŸ¬ ê°’
+	float			m_fDurationColorTimeCur;// í˜„ì¬ ì‹œê°„..
+	float			m_fDurationColorTime;	// ì§€ì†ì‹œê°„..
 
-	float 			m_fFlickeringFactor;	// ±ô¹Ú°Å¸²..
-	float			m_fFlickeringTime;		// ±ô¹Ú°Å¸² ½Ã°£..
+	float 			m_fFlickeringFactor;	// ê¹œë°•ê±°ë¦¼..
+	float			m_fFlickeringTime;		// ê¹œë°•ê±°ë¦¼ ì‹œê°„..
 
-	float			m_fRotRadianPerSec;		// ÃÊ´ç È¸Àü ¶óµğ¾È°ª
-	float			m_fMoveSpeedPerSec;		// ÃÊ´ç ¿òÁ÷ÀÓ °ª.. ÀÌ°ªÀº ±âº»°ªÀÌ°í »óÅÂ(°È±â, ´Ş¸®±â, µÚ·Î, ÀúÁÖµî) ¿¡ µû¶ó °¡°¨ÇØ¼­ ¾´´Ù..
+	float			m_fRotRadianPerSec;		// ì´ˆë‹¹ íšŒì „ ë¼ë””ì•ˆê°’
+	float			m_fMoveSpeedPerSec;		// ì´ˆë‹¹ ì›€ì§ì„ ê°’.. ì´ê°’ì€ ê¸°ë³¸ê°’ì´ê³  ìƒíƒœ(ê±·ê¸°, ë‹¬ë¦¬ê¸°, ë’¤ë¡œ, ì €ì£¼ë“±) ì— ë”°ë¼ ê°€ê°í•´ì„œ ì“´ë‹¤..
 
-	float			m_fYawCur;				// ÇöÀç È¸Àü°ª..
-	float			m_fYawToReach;			// ÀÌ È¸Àü°ªÀ» ¸ñÇ¥·Î Tick ¿¡¼­ È¸ÀüÇÑ´Ù..
+	float			m_fYawCur;				// í˜„ì¬ íšŒì „ê°’..
+	float			m_fYawToReach;			// ì´ íšŒì „ê°’ì„ ëª©í‘œë¡œ Tick ì—ì„œ íšŒì „í•œë‹¤..
 
-	float			m_fYNext;				// ¿ÀºêÁ§Æ® È¤Àº ÁöÇüÀÇ Ãæµ¹ Ã¼Å©¿¡ µû¸¥ ³ôÀÌ°ª..
-	float			m_fGravityCur;			// Áß·Â°ª..
+	float			m_fYNext;				// ì˜¤ë¸Œì íŠ¸ í˜¹ì€ ì§€í˜•ì˜ ì¶©ëŒ ì²´í¬ì— ë”°ë¥¸ ë†’ì´ê°’..
+	float			m_fGravityCur;			// ì¤‘ë ¥ê°’..
 
-	float			m_fScaleToSet;			// Á¡Â÷ ½ºÄÉÀÏ °ªº¯È­..
+	float			m_fScaleToSet;			// ì ì°¨ ìŠ¤ì¼€ì¼ ê°’ë³€í™”..
 	float			m_fScalePrev;
 
 public:
-	class CN3ShapeExtra*	m_pShapeExtraRef;			// ÀÌ NPC °¡ ¼º¹®ÀÌ³ª Áıµî ¿ÀºêÁ§Æ®ÀÇ ÇüÅÂÀÌ¸é ÀÌ Æ÷ÀÎÅÍ¸¦ ¼¼ÆÃÇØ¼­ ¾´,´Ù..
+	class CN3ShapeExtra*	m_pShapeExtraRef;			// ì´ NPC ê°€ ì„±ë¬¸ì´ë‚˜ ì§‘ë“± ì˜¤ë¸Œì íŠ¸ì˜ í˜•íƒœì´ë©´ ì´ í¬ì¸í„°ë¥¼ ì„¸íŒ…í•´ì„œ ì“´,ë‹¤..
 
 	int					m_iMagicAni;
-	int					m_iIDTarget;			// Å¸°Ù ID...
-	int					m_iDroppedItemID;		// Á×ÀºÈÄ ¶³¾îÆ®¸° ¾ÆÀÌÅÛ
-	bool				m_bGuardSuccess;		// ¹æ¾î¿¡ ¼º°øÇß´ÂÁö¿¡ ´ëÇÑ ÇÃ·¡±×..
-	bool				m_bVisible;				// º¸ÀÌ´ÂÁö??
+	int					m_iIDTarget;			// íƒ€ê²Ÿ ID...
+	int					m_iDroppedItemID;		// ì£½ì€í›„ ë–¨ì–´íŠ¸ë¦° ì•„ì´í…œ
+	bool				m_bGuardSuccess;		// ë°©ì–´ì— ì„±ê³µí–ˆëŠ”ì§€ì— ëŒ€í•œ í”Œë˜ê·¸..
+	bool				m_bVisible;				// ë³´ì´ëŠ”ì§€??
 
-	__InfoPlayerBase	m_InfoBase;				// Ä³¸¯ÅÍ Á¤º¸..
-	__Vector3			m_vPosFromServer;		// ÃÖ±Ù¿¡ ¼­¹ö¿¡°Ô¼­ ¹ŞÀº ÇöÀç À§Ä¡..	
+	__InfoPlayerBase	m_InfoBase;				// ìºë¦­í„° ì •ë³´..
+	__Vector3			m_vPosFromServer;		// ìµœê·¼ì— ì„œë²„ì—ê²Œì„œ ë°›ì€ í˜„ì¬ ìœ„ì¹˜..	
 
-	float				m_fTimeAfterDeath;		// Á×ÀºÁö Áö³­½Ã°£ - 5ÃÊÁ¤µµ¸é Àû´çÇÑ°¡?? ±×Àü¿¡ °ø°İÀ» ¹ŞÀ¸¸é ¹Ù·Î Á×´Â´Ù.
+	float				m_fTimeAfterDeath;		// ì£½ì€ì§€ ì§€ë‚œì‹œê°„ - 5ì´ˆì •ë„ë©´ ì ë‹¹í•œê°€?? ê·¸ì „ì— ê³µê²©ì„ ë°›ìœ¼ë©´ ë°”ë¡œ ì£½ëŠ”ë‹¤.
 
-	int					m_iSkillStep;			// ÇöÀç ½ºÅ³À» ¾²°í ÀÖ´Ù¸é 0 ÀÌ ¾Æ´Ñ°ªÀÌ´Ù...
-	float				m_fAttackDelta;			// ½ºÅ³ÀÌ³ª ¸¶¹ı¿¡ ÀÇÇØ º¯ÇÏ´Â °ø°İ ¼Óµµ.. 1.0 ÀÌ ±âº»ÀÌ°í Å¬¼ö·Ï ´õ »¡¸® °ø°İÇÑ´Ù.
-	float				m_fMoveDelta;			// ½ºÅ³ÀÌ³ª ¸¶¹ı¿¡ ÀÇÇØ º¯ÇÏ´Â ÀÌµ¿ ¼Óµµ 1.0 ÀÌ ±âº»ÀÌ°í Å¬¼ö·Ï ´õ »¡¸® ¿òÁ÷ÀÎ´Ù.
-	__Vector3			m_vDirDying;			// Á×À»¶§ ¹Ğ¸®´Â ¹æÇâ..
+	int					m_iSkillStep;			// í˜„ì¬ ìŠ¤í‚¬ì„ ì“°ê³  ìˆë‹¤ë©´ 0 ì´ ì•„ë‹Œê°’ì´ë‹¤...
+	float				m_fAttackDelta;			// ìŠ¤í‚¬ì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ë³€í•˜ëŠ” ê³µê²© ì†ë„.. 1.0 ì´ ê¸°ë³¸ì´ê³  í´ìˆ˜ë¡ ë” ë¹¨ë¦¬ ê³µê²©í•œë‹¤.
+	float				m_fMoveDelta;			// ìŠ¤í‚¬ì´ë‚˜ ë§ˆë²•ì— ì˜í•´ ë³€í•˜ëŠ” ì´ë™ ì†ë„ 1.0 ì´ ê¸°ë³¸ì´ê³  í´ìˆ˜ë¡ ë” ë¹¨ë¦¬ ì›€ì§ì¸ë‹¤.
+	__Vector3			m_vDirDying;			// ì£½ì„ë•Œ ë°€ë¦¬ëŠ” ë°©í–¥..
 
 	//sound..
 	bool			m_bSoundAllSet;
@@ -154,8 +154,8 @@ public:
 
 	float			m_fCastFreezeTime;
 
-// ÇÔ¼ö...
-//	By : Ecli666 ( On 2002-03-29 ¿ÀÈÄ 1:32:12 )
+// í•¨ìˆ˜...
+//	By : Ecli666 ( On 2002-03-29 ì˜¤í›„ 1:32:12 )
 //	
 	CBitset				m_bitset[SHADOW_SIZE];			// Used in Quake3.. ^^
 	__VertexT1			m_pvVertex[4];
@@ -171,9 +171,9 @@ public:
 
 protected:
 	void			RenderShadow(float fSunAngle);
-//	~(By Ecli666 On 2002-03-29 ¿ÀÈÄ 1:32:12 )
+//	~(By Ecli666 On 2002-03-29 ì˜¤í›„ 1:32:12 )
 
-	virtual bool	ProcessAttack(CPlayerBase* pTarget); // °ø°İ ·çÆ¾ Ã³¸®.. Å¸°Ù Æ÷ÀÎÅÍ¸¦ ±¸ÇÏ°í Ãæµ¹Ã¼Å©±îÁö ÇÏ¸ç Ãæµ¹ÇÏ¸é ÂüÀ» ¸®ÅÏ..
+	virtual bool	ProcessAttack(CPlayerBase* pTarget); // ê³µê²© ë£¨í‹´ ì²˜ë¦¬.. íƒ€ê²Ÿ í¬ì¸í„°ë¥¼ êµ¬í•˜ê³  ì¶©ëŒì²´í¬ê¹Œì§€ í•˜ë©° ì¶©ëŒí•˜ë©´ ì°¸ì„ ë¦¬í„´..
 
 public:
 	const __Matrix44*	JointMatrixGet(int nJointIndex) { return m_Chr.MatrixGet( nJointIndex); }
@@ -185,59 +185,59 @@ public:
 	virtual void	SetSoundAndInitFont(uint32_t dwFontFlag = 0UL);
 	void			SetSoundPlug(__TABLE_ITEM_BASIC* pItemBasic);
 	void			ReleaseSoundAndFont();
-	void			RegenerateCollisionMesh(); // ÃÖ´ë ÃÖ¼Ò°ªÀ» ´Ù½Ã Ã£°í Ãæµ¹¸Ş½Ã¸¦ ´Ù½Ã ¸¸µç´Ù..
-	e_StateAction	State() { return m_eState; } // Çàµ¿ »óÅÂ...
-	e_StateMove		StateMove() { return m_eStateMove; } // ¿òÁ÷ÀÌ´Â »óÅÂ
+	void			RegenerateCollisionMesh(); // ìµœëŒ€ ìµœì†Œê°’ì„ ë‹¤ì‹œ ì°¾ê³  ì¶©ëŒë©”ì‹œë¥¼ ë‹¤ì‹œ ë§Œë“ ë‹¤..
+	e_StateAction	State() { return m_eState; } // í–‰ë™ ìƒíƒœ...
+	e_StateMove		StateMove() { return m_eStateMove; } // ì›€ì§ì´ëŠ” ìƒíƒœ
 
 	e_ItemClass		ItemClass_RightHand()
 	{
-		if(m_pItemPlugBasics[PLUG_POS_RIGHTHAND]) return (e_ItemClass)(m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->byClass); // ¾ÆÀÌÅÛ Å¸ÀÔ - ¿À¸¥¼Õ
+		if(m_pItemPlugBasics[PLUG_POS_RIGHTHAND]) return (e_ItemClass)(m_pItemPlugBasics[PLUG_POS_RIGHTHAND]->byClass); // ì•„ì´í…œ íƒ€ì… - ì˜¤ë¥¸ì†
 		else return ITEM_CLASS_UNKNOWN;
 	}
 	e_ItemClass		ItemClass_LeftHand()
 	{
-		if(m_pItemPlugBasics[PLUG_POS_LEFTHAND]) return (e_ItemClass)(m_pItemPlugBasics[PLUG_POS_LEFTHAND]->byClass); // ¾ÆÀÌÅÛ Å¸ÀÔ - ¿À¸¥¼Õ
+		if(m_pItemPlugBasics[PLUG_POS_LEFTHAND]) return (e_ItemClass)(m_pItemPlugBasics[PLUG_POS_LEFTHAND]->byClass); // ì•„ì´í…œ íƒ€ì… - ì˜¤ë¥¸ì†
 		else return ITEM_CLASS_UNKNOWN;
 	}
 	
-	e_Ani	JudgeAnimationBreath(); // ¼û½¬±â ¸ğ¼Ç ÆÇ´ÜÇÏ±â.. °¡Áø ¾ÆÀÌÅÛ°ú Å¸°ÙÀÌ ÀÖ´Â³Ä¿¡ µû¶ó ´Ù¸¥ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ.
-	e_Ani	JudgeAnimationWalk(); // °È±â ¸ğµåÆÇ´ÜÇÏ±â.. °¡Áø ¾ÆÀÌÅÛ°ú Å¸°ÙÀÌ ÀÖ´Â³Ä¿¡ µû¶ó ´Ù¸¥ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ.
-	e_Ani	JudgeAnimationRun(); // °È±â ¸ğµåÆÇ´ÜÇÏ±â.. °¡Áø ¾ÆÀÌÅÛ°ú Å¸°ÙÀÌ ÀÖ´Â³Ä¿¡ µû¶ó ´Ù¸¥ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ.
-	e_Ani	JudgeAnimationWalkBackward(); // °È±â ¸ğµåÆÇ´ÜÇÏ±â.. °¡Áø ¾ÆÀÌÅÛ°ú Å¸°ÙÀÌ ÀÖ´Â³Ä¿¡ µû¶ó ´Ù¸¥ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ.
-	e_Ani	JudgeAnimationAttack(); // °ø°İ ¸ğ¼Ç ÆÇ´ÜÇÏ±â.. °¡Áø ¾ÆÀÌÅÛ¿¡ µû¶ó ´Ù¸¥ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ.
-	e_Ani	JudgeAnimationStruck(); // ´ÜÁö NPC ¿Í À¯Àú¸¦ ±¸º°ÇØ¼­ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ
-	e_Ani	JudgeAnimationGuard(); // ¸·´Â µ¿ÀÛ ÆÇ´ÜÇÏ±â.  ´ÜÁö NPC ¿Í À¯Àú¸¦ ±¸º°ÇØ¼­ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ
-	e_Ani	JudgeAnimationDying(); // ´ÜÁö NPC ¿Í À¯Àú¸¦ ±¸º°ÇØ¼­ ¿¡´Ï¸ŞÀÌ¼Ç ÀÎµ¦½º¸¦ ¸®ÅÏ
-	e_Ani	JudgetAnimationSpellMagic(); // ¸¶¹ı µ¿ÀÛ 
+	e_Ani	JudgeAnimationBreath(); // ìˆ¨ì‰¬ê¸° ëª¨ì…˜ íŒë‹¨í•˜ê¸°.. ê°€ì§„ ì•„ì´í…œê³¼ íƒ€ê²Ÿì´ ìˆëŠ”ëƒì— ë”°ë¼ ë‹¤ë¥¸ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´.
+	e_Ani	JudgeAnimationWalk(); // ê±·ê¸° ëª¨ë“œíŒë‹¨í•˜ê¸°.. ê°€ì§„ ì•„ì´í…œê³¼ íƒ€ê²Ÿì´ ìˆëŠ”ëƒì— ë”°ë¼ ë‹¤ë¥¸ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´.
+	e_Ani	JudgeAnimationRun(); // ê±·ê¸° ëª¨ë“œíŒë‹¨í•˜ê¸°.. ê°€ì§„ ì•„ì´í…œê³¼ íƒ€ê²Ÿì´ ìˆëŠ”ëƒì— ë”°ë¼ ë‹¤ë¥¸ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´.
+	e_Ani	JudgeAnimationWalkBackward(); // ê±·ê¸° ëª¨ë“œíŒë‹¨í•˜ê¸°.. ê°€ì§„ ì•„ì´í…œê³¼ íƒ€ê²Ÿì´ ìˆëŠ”ëƒì— ë”°ë¼ ë‹¤ë¥¸ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´.
+	e_Ani	JudgeAnimationAttack(); // ê³µê²© ëª¨ì…˜ íŒë‹¨í•˜ê¸°.. ê°€ì§„ ì•„ì´í…œì— ë”°ë¼ ë‹¤ë¥¸ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´.
+	e_Ani	JudgeAnimationStruck(); // ë‹¨ì§€ NPC ì™€ ìœ ì €ë¥¼ êµ¬ë³„í•´ì„œ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´
+	e_Ani	JudgeAnimationGuard(); // ë§‰ëŠ” ë™ì‘ íŒë‹¨í•˜ê¸°.  ë‹¨ì§€ NPC ì™€ ìœ ì €ë¥¼ êµ¬ë³„í•´ì„œ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´
+	e_Ani	JudgeAnimationDying(); // ë‹¨ì§€ NPC ì™€ ìœ ì €ë¥¼ êµ¬ë³„í•´ì„œ ì—ë‹ˆë©”ì´ì…˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´
+	e_Ani	JudgetAnimationSpellMagic(); // ë§ˆë²• ë™ì‘ 
 
-	bool			IsDead() { return ( PSA_DYING == m_eState || PSA_DEATH == m_eState ); } // Á×¾îÀÖ´ÂÁö?
-	bool			IsAlive() { return !IsDead(); } // »ì¾ÆÀÖ´ÂÁö?
-	bool			IsMovingNow() { if(PSM_WALK == m_eStateMove || PSM_RUN == m_eStateMove || PSM_WALK_BACKWARD == m_eStateMove) return true; return false; } // ¿òÁ÷ÀÌ°í ÀÖ´ÂÁö?
+	bool			IsDead() { return ( PSA_DYING == m_eState || PSA_DEATH == m_eState ); } // ì£½ì–´ìˆëŠ”ì§€?
+	bool			IsAlive() { return !IsDead(); } // ì‚´ì•„ìˆëŠ”ì§€?
+	bool			IsMovingNow() { if(PSM_WALK == m_eStateMove || PSM_RUN == m_eStateMove || PSM_WALK_BACKWARD == m_eStateMove) return true; return false; } // ì›€ì§ì´ê³  ìˆëŠ”ì§€?
 
 	void			AnimationAdd(e_Ani eAni, bool bImmediately);
 	void			AnimationClear() { m_AnimationDeque.clear(); }
 	int				AnimationCountRemain() { return m_AnimationDeque.size() + 1; }
-	bool			IsAnimationChange() { return m_bAnimationChanged; }	// Å¥¿¡ ³ÖÀº ¿¡´Ï¸ŞÀÌ¼ÇÀÌ º¯ÇÏ´Â ¼ø°£¸¸ ¼¼ÆÃµÈ´Ù..
+	bool			IsAnimationChange() { return m_bAnimationChanged; }	// íì— ë„£ì€ ì—ë‹ˆë©”ì´ì…˜ì´ ë³€í•˜ëŠ” ìˆœê°„ë§Œ ì„¸íŒ…ëœë‹¤..
 
-	bool			Action(e_StateAction eState, bool bLooping, CPlayerBase* pTarget = NULL, bool bForceSet = false); // Çàµ¿ Å×ÀÌºí¿¡ µû¸¥ Çàµ¿À» ÇÑ´Ù..
-	bool			ActionMove(e_StateMove eMove); // ¿òÁ÷ÀÌ±â..
-	void			ActionDying(e_StateDying eSD, const __Vector3& vDir); // Á×´Â ¹æ¹ı °áÁ¤ÇÏ±â..
+	bool			Action(e_StateAction eState, bool bLooping, CPlayerBase* pTarget = NULL, bool bForceSet = false); // í–‰ë™ í…Œì´ë¸”ì— ë”°ë¥¸ í–‰ë™ì„ í•œë‹¤..
+	bool			ActionMove(e_StateMove eMove); // ì›€ì§ì´ê¸°..
+	void			ActionDying(e_StateDying eSD, const __Vector3& vDir); // ì£½ëŠ” ë°©ë²• ê²°ì •í•˜ê¸°..
 
-	float			Yaw() { return m_fYawCur; } // È¸Àü°ª..
+	float			Yaw() { return m_fYawCur; } // íšŒì „ê°’..
 	float			MoveSpeed() { return m_fMoveSpeedPerSec; }
 	__Vector3		Position() const { return m_Chr.Pos(); }
 	void			PositionSet(const __Vector3& vPos, bool bForcely) { m_Chr.PosSet(vPos); if(bForcely) m_fYNext = vPos.y; }
 	float			Distance(const __Vector3& vPos) { return (m_Chr.Pos() - vPos).Magnitude(); }
 	__Vector3		Scale() { return m_Chr.Scale(); }
 	void			ScaleSet(float fScale) { m_fScaleToSet = m_fScalePrev = fScale; m_Chr.ScaleSet(fScale, fScale, fScale); }
-	void			ScaleSetGradually(float fScale) { m_fScaleToSet = fScale; m_fScalePrev = m_Chr.Scale().y; } // Á¡Â÷ ½ºÄÉÀÏ º¯È­..
+	void			ScaleSetGradually(float fScale) { m_fScaleToSet = fScale; m_fScalePrev = m_Chr.Scale().y; } // ì ì°¨ ìŠ¤ì¼€ì¼ ë³€í™”..
 	__Vector3		Direction();
 	__Quaternion	Rotation() { return m_Chr.Rot(); }
 	void			RotateTo(float fYaw, bool bImmediately);
-	void			RotateTo(CPlayerBase* pOther); // ÀÌ³ÑÀ» ¹Ù¶óº»´Ù.
+	void			RotateTo(CPlayerBase* pOther); // ì´ë„˜ì„ ë°”ë¼ë³¸ë‹¤.
 	float			Height();
 	float			Radius();
-	__Vector3		HeadPosition(); // Ç×»ó º¯ÇÏ´Â ¸Ó¸®À§Ä¡¸¦ °¡Á®¿Â´Ù..
+	__Vector3		HeadPosition(); // í•­ìƒ ë³€í•˜ëŠ” ë¨¸ë¦¬ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤..
 	__Vector3		RootPosition() { if(!m_Chr.m_MtxJoints.empty()) return m_Chr.m_MtxJoints[0].Pos(); return __Vector3(0,0,0); }
 	int				LODLevel() { return m_Chr.m_nLOD; }
 
@@ -245,19 +245,19 @@ public:
 	__Vector3		Min();
 	__Vector3		Center();
 
-	void			DurationColorSet(const _D3DCOLORVALUE& color, float fDurationTime); // ÄÃ·¯¸¦ Á¤ÇÏ´Â ½Ã°£´ë·Î À¯ÁöÇÏ¸é¼­ ¿ø·¡»ö´ë·Î µ¹¾Æ°£´Ù.
+	void			DurationColorSet(const _D3DCOLORVALUE& color, float fDurationTime); // ì»¬ëŸ¬ë¥¼ ì •í•˜ëŠ” ì‹œê°„ëŒ€ë¡œ ìœ ì§€í•˜ë©´ì„œ ì›ë˜ìƒ‰ëŒ€ë¡œ ëŒì•„ê°„ë‹¤.
 	void			FlickerFactorSet(float fAlpha);
 
 	void			InfoStringSet(const std::string& szInfo, D3DCOLOR crFont);
 	void			BalloonStringSet(const std::string& szBalloon, D3DCOLOR crFont);
 	void			IDSet(int iID, const std::string& szID, D3DCOLOR crID);
 	virtual void	KnightsInfoSet(int iID, const std::string& szName, int iGrade, int iRank);
-	const std::string&	IDString() { return m_InfoBase.szID; } // ID ´Â Character Æ÷ÀÎÅÍÀÇ ÀÌ¸§À¸·Î ´ë½ÅÇÑ´Ù.
+	const std::string&	IDString() { return m_InfoBase.szID; } // ID ëŠ” Character í¬ì¸í„°ì˜ ì´ë¦„ìœ¼ë¡œ ëŒ€ì‹ í•œë‹¤.
 	int				IDNumber() { return m_InfoBase.iID; }
 	CPlayerBase*	TargetPointerCheck(bool bMustAlive);
 
 	////////////////////
-	// Ãæµ¹ Ã¼Å© ÇÔ¼öµé...
+	// ì¶©ëŒ ì²´í¬ í•¨ìˆ˜ë“¤...
 	bool				CheckCollisionByBox(const __Vector3& v0, const __Vector3& v1, __Vector3* pVCol, __Vector3* pVNormal);
 	bool				CheckCollisionToTargetByPlug(CPlayerBase* pTarget, int nPlug, __Vector3* pVCol);
 
@@ -270,17 +270,17 @@ public:
 	virtual CN3CPlugBase*	PlugSet(e_PlugPosition ePos, const std::string& szFN, __TABLE_ITEM_BASIC* pItemBasic, __TABLE_ITEM_EXT* pItemExt);
 	virtual void			DurabilitySet(e_ItemSlot eSlot, int iDurability);
 
-	void TickYaw();				// È¸Àü°ª Ã³¸®.
-	void TickAnimation();		// ¿¡´Ï¸ŞÀÌ¼Ç Ã³¸®.
-	void TickDurationColor();	// Ä³¸¯ÅÍ »ö±ò º¯È­ Ã³¸®.
-	void TickSound();			// Sound Ã³¸®..
+	void TickYaw();				// íšŒì „ê°’ ì²˜ë¦¬.
+	void TickAnimation();		// ì—ë‹ˆë©”ì´ì…˜ ì²˜ë¦¬.
+	void TickDurationColor();	// ìºë¦­í„° ìƒ‰ê¹” ë³€í™” ì²˜ë¦¬.
+	void TickSound();			// Sound ì²˜ë¦¬..
 
 	virtual void		Tick();
 	virtual void		Render(float fSunAngle);
 #ifdef _DEBUG
 	virtual void		RenderCollisionMesh() { m_Chr.RenderCollisionMesh(); }
 #endif
-	void				RenderChrInRect(CN3Chr* pChr, const RECT& Rect);	// Dino Ãß°¡, ÁöÁ¤µÈ »ç°¢Çü¾È¿¡ Ä³¸¯ÅÍ¸¦ ±×¸°´Ù. 
+	void				RenderChrInRect(CN3Chr* pChr, const RECT& Rect);	// Dino ì¶”ê°€, ì§€ì •ëœ ì‚¬ê°í˜•ì•ˆì— ìºë¦­í„°ë¥¼ ê·¸ë¦°ë‹¤. 
 
 	void				Release();
 

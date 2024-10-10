@@ -1,4 +1,4 @@
-// UITradeBBSSelector.h: interface for the CUITradeBBSSelector class.
+﻿// UITradeBBSSelector.h: interface for the CUITradeBBSSelector class.
 //
 //////////////////////////////////////////////////////////////////////
 

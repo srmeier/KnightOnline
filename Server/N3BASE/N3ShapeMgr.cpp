@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 CN3ShapeMgr::CN3ShapeMgr()
 {
@@ -113,7 +113,7 @@ bool CN3ShapeMgr::LoadCollisionData(FILE *fp)
 	return true;
 }
 
-bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // ¸ÊÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ ¹ÌÅÍ ´ÜÀ§·Î ³Ö´Â´Ù..
+bool CN3ShapeMgr::Create(float fMapWidth, float fMapLength) // ë§µì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ë¯¸í„° ë‹¨ìœ„ë¡œ ë„£ëŠ”ë‹¤..
 {
 	if(	fMapWidth <= 0.0f || fMapWidth > MAX_CELL_MAIN * CELL_MAIN_SIZE ||
 		fMapLength <= 0.0f || fMapLength > MAX_CELL_MAIN * CELL_MAIN_SIZE )

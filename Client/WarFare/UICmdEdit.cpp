@@ -1,4 +1,4 @@
-// UICmdEdit.cpp: implementation of the UINPCEvent class.
+﻿// UICmdEdit.cpp: implementation of the UINPCEvent class.
 //
 //////////////////////////////////////////////////////////////////////
 

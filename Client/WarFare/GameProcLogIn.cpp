@@ -1,4 +1,4 @@
-// GameProcLogIn.cpp: implementation of the CGameProcLogIn class.
+ï»¿// GameProcLogIn.cpp: implementation of the CGameProcLogIn class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -38,7 +38,7 @@ CGameProcLogIn::CGameProcLogIn()
 	m_pCamera = NULL;
 	for(int i = 0; i < 3; i++) m_pLights[i] = NULL;
 
-	m_bLogIn = false; // ·Î±×ÀÎ Áßº¹ ¹æÁö..
+	m_bLogIn = false; // ë¡œê·¸ì¸ ì¤‘ë³µ ë°©ì§€..
 }
 
 CGameProcLogIn::~CGameProcLogIn()
@@ -72,7 +72,7 @@ void CGameProcLogIn::Init()
 
 	m_pChr = new CN3Chr();
 	m_pChr->LoadFromFile("Intro\\Intro.N3Chr");
-	m_pChr->AniCurSet(0); // ·çÇÎ ¿¡´Ï¸ŞÀÌ¼Ç..
+	m_pChr->AniCurSet(0); // ë£¨í•‘ ì—ë‹ˆë©”ì´ì…˜..
 	
 	m_pCamera = new CN3Camera();
 	m_pCamera->EyePosSet(0.22f, 0.91f, -1.63f);
@@ -87,12 +87,12 @@ void CGameProcLogIn::Init()
 	m_pLights[2]->LoadFromFile("Intro\\2.N3Light");
 
 	s_pEng->s_SndMgr.ReleaseStreamObj(&(CGameProcedure::s_pSnd_BGM));
-	CGameProcedure::s_pSnd_BGM = s_pEng->s_SndMgr.CreateStreamObj(35);	//¸ó½ºÅÍ ¿ïºÎÂ¢´Â 26ÃÊÂ¥¸® ¼Ò¸®..
+	CGameProcedure::s_pSnd_BGM = s_pEng->s_SndMgr.CreateStreamObj(35);	//ëª¬ìŠ¤í„° ìš¸ë¶€ì§–ëŠ” 26ì´ˆì§œë¦¬ ì†Œë¦¬..
 
 	m_pUILogIn = new CUILogIn();
 	m_pUILogIn->Init(s_pUIMgr);
 	
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.GetIndexedData(0); // ±¹°¡ ±âÁØÀÌ ¾ø±â ¶§¹®ÀÌ´Ù...
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.GetIndexedData(0); // êµ­ê°€ ê¸°ì¤€ì´ ì—†ê¸° ë•Œë¬¸ì´ë‹¤...
 
 	// TODO(srmeier): the UIE saves in the old format...
 	if (pTbl) m_pUILogIn->LoadFromFile(pTbl->szLogIn);//, N3FORMAT_VER_1298);
@@ -103,10 +103,10 @@ void CGameProcLogIn::Init()
 	m_pUILogIn->SetPos(iX, iY);
 	m_pUILogIn->RecalcGradePos();
 	rc.left = 0; rc.top = 0; rc.right = CN3Base::s_CameraData.vp.Width; rc.bottom = CN3Base::s_CameraData.vp.Height;
-	m_pUILogIn->SetRegion(rc); // ÀÌ°É ²À ÇØÁà¾ß UI Ã³¸®°¡ Á¦´ë·Î µÈ´Ù..
+	m_pUILogIn->SetRegion(rc); // ì´ê±¸ ê¼­ í•´ì¤˜ì•¼ UI ì²˜ë¦¬ê°€ ì œëŒ€ë¡œ ëœë‹¤..
 	s_pUIMgr->SetFocusedUI((CN3UIBase*)m_pUILogIn);
 
-	// ¼ÒÄÏ Á¢¼Ó..
+	// ì†Œì¼“ ì ‘ì†..
 	char szIniPath[_MAX_PATH] = "";
 	lstrcpy(szIniPath, CN3Base::PathGet().c_str());
 	lstrcat(szIniPath, "Server.Ini");
@@ -131,37 +131,37 @@ void CGameProcLogIn::Init()
 	
 	if(	iServer >= 0 && lstrlen(szIPs[iServer]) )
 	{
-		s_bNeedReportConnectionClosed = false; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
+		s_bNeedReportConnectionClosed = false; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
 		int iErr = s_pSocket->Connect(s_hWndBase, szIPs[iServer], SOCKET_PORT_LOGIN);
-		s_bNeedReportConnectionClosed = true; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
+		s_bNeedReportConnectionClosed = true; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
 		
 		if(iErr) this->ReportServerConnectionFailed("LogIn Server", iErr, true);
 		else
 		{
-			m_pUILogIn->FocusToID(); // ¾ÆÀÌµğ ÀÔ·ÂÃ¢¿¡ Æ÷Ä¿½º¸¦ ¸ÂÃß°í..
+			m_pUILogIn->FocusToID(); // ì•„ì´ë”” ì…ë ¥ì°½ì— í¬ì»¤ìŠ¤ë¥¼ ë§ì¶”ê³ ..
 			
-			// °ÔÀÓ ¼­¹ö ¸®½ºÆ® ¿äÃ»..
+			// ê²Œì„ ì„œë²„ ë¦¬ìŠ¤íŠ¸ ìš”ì²­..
 			int iOffset = 0;
 			uint8_t byBuffs[4];
-			CAPISocket::MP_AddByte(byBuffs, iOffset, N3_GAMESERVER_GROUP_LIST);					// Ä¿¸àµå.
-			s_pSocket->Send(byBuffs, iOffset);											// º¸³½´Ù
+			CAPISocket::MP_AddByte(byBuffs, iOffset, N3_GAMESERVER_GROUP_LIST);					// ì»¤ë©˜ë“œ.
+			s_pSocket->Send(byBuffs, iOffset);											// ë³´ë‚¸ë‹¤
 		}
 	}
 	else
 	{
-		this->MessageBoxPost("No server list", "LogIn Server fail", MB_OK, BEHAVIOR_EXIT); // ³¡³½´Ù.
+		this->MessageBoxPost("No server list", "LogIn Server fail", MB_OK, BEHAVIOR_EXIT); // ëë‚¸ë‹¤.
 	}
 
-	// °ÔÀÓ °èÁ¤À¸·Î µé¾î ¿ÔÀ¸¸é..
+	// ê²Œì„ ê³„ì •ìœ¼ë¡œ ë“¤ì–´ ì™”ìœ¼ë©´..
 	if(LIC_KNIGHTONLINE != s_eLogInClassification)
 	{
-		this->MsgSend_AccountLogIn(s_eLogInClassification); // ·Î±×ÀÎ..
+		this->MsgSend_AccountLogIn(s_eLogInClassification); // ë¡œê·¸ì¸..
 	}
 }
 
-void CGameProcLogIn::Tick() // ÇÁ·Î½ÃÁ® ÀÎµ¦½º¸¦ ¸®ÅÏÇÑ´Ù. 0 ÀÌ¸é ±×´ë·Î ÁøÇà
+void CGameProcLogIn::Tick() // í”„ë¡œì‹œì ¸ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´í•œë‹¤. 0 ì´ë©´ ê·¸ëŒ€ë¡œ ì§„í–‰
 {
-	CGameProcedure::Tick();	// Å°, ¸¶¿ì½º ÀÔ·Â µîµî..
+	CGameProcedure::Tick();	// í‚¤, ë§ˆìš°ìŠ¤ ì…ë ¥ ë“±ë“±..
 
 	for(int i = 0; i < 3; i++) 	m_pLights[i]->Tick();
 	m_pChr->Tick();
@@ -169,7 +169,7 @@ void CGameProcLogIn::Tick() // ÇÁ·Î½ÃÁ® ÀÎµ¦½º¸¦ ¸®ÅÏÇÑ´Ù. 0 ÀÌ¸é ±×´ë·Î ÁøÇà
 	static float fTmp	= 0;
 	if(fTmp == 0)
 	{
-		if(CGameProcedure::s_pSnd_BGM) CGameProcedure::s_pSnd_BGM->Play(); // À½¾Ç ½ÃÀÛ..
+		if(CGameProcedure::s_pSnd_BGM) CGameProcedure::s_pSnd_BGM->Play(); // ìŒì•… ì‹œì‘..
 	}
 	fTmp += CN3Base::s_fSecPerFrm;
 	if(fTmp > 21.66f)
@@ -182,14 +182,14 @@ void CGameProcLogIn::Tick() // ÇÁ·Î½ÃÁ® ÀÎµ¦½º¸¦ ¸®ÅÏÇÑ´Ù. 0 ÀÌ¸é ±×´ë·Î ÁøÇà
 void CGameProcLogIn::Render()
 {
 	D3DCOLOR crEnv = 0x00000000;
-	s_pEng->Clear(crEnv); // ¹è°æÀº °ËÀº»ö
-	s_pEng->s_lpD3DDev->BeginScene();			// ¾À ·»´õ ¤µÀÛ...
+	s_pEng->Clear(crEnv); // ë°°ê²½ì€ ê²€ì€ìƒ‰
+	s_pEng->s_lpD3DDev->BeginScene();			// ì”¬ ë Œë” ã……ì‘...
 
 //	__Vector3 vEye(0.22f, 0.91f, -1.63f), vAt(-0.19f, 1.1048f, 0.0975f), vUp(0,1,0);
 //	__Matrix44 mtxView, mtxPrj, mtxWorld;
 //	mtxWorld.Identity();
 
-	 // Ä«¸Ş¶ó Àâ±â..
+	 // ì¹´ë©”ë¼ ì¡ê¸°..
 	m_pCamera->Tick();
 	m_pCamera->Apply();
 /*	D3DVIEWPORT8 vp;
@@ -209,7 +209,7 @@ void CGameProcLogIn::Render()
 	for(int i = 0; i < 8; i++) 	CN3Base::s_lpD3DDev->LightEnable(i, FALSE);
 	for(int i = 0; i < 3; i++) 	m_pLights[i]->Apply();
 
-	// ¶óÀÌÆ® Àâ±â..
+	// ë¼ì´íŠ¸ ì¡ê¸°..
 /*	D3DLIGHT8 lgt0, lgt1, lgt2;
 	
 	memset(&lgt0, 0, sizeof(D3DLIGHT8));
@@ -247,7 +247,7 @@ void CGameProcLogIn::Render()
 */
 
 	////////////////////////////////////////////
-	// ´Ş±×¸®±â..
+	// ë‹¬ê·¸ë¦¬ê¸°..
 	D3DVIEWPORT9 vp;
 	CN3Base::s_lpD3DDev->GetViewport(&vp);
 
@@ -274,15 +274,15 @@ void CGameProcLogIn::Render()
 	CN3Base::s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vMoon, sizeof(__VertexTransformed));
 
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE, dwZWrite);
-	// ´Ş±×¸®±â..
+	// ë‹¬ê·¸ë¦¬ê¸°..
 	////////////////////////////////////////////
 
 	
-	m_pChr->Render(); // Ä³¸¯ÅÍ ±×¸®±â...
+	m_pChr->Render(); // ìºë¦­í„° ê·¸ë¦¬ê¸°...
 
-	CGameProcedure::Render(); // UI ³ª ±×¹ÛÀÇ ±âº»ÀûÀÎ °Íµé ·»´õ¸µ..
+	CGameProcedure::Render(); // UI ë‚˜ ê·¸ë°–ì˜ ê¸°ë³¸ì ì¸ ê²ƒë“¤ ë Œë”ë§..
 
-	s_pEng->s_lpD3DDev->EndScene();			// ¾À ·»´õ ½ÃÀÛ...
+	s_pEng->s_lpD3DDev->EndScene();			// ì”¬ ë Œë” ì‹œì‘...
 	s_pEng->Present(CN3Base::s_hWndBase);
 }
 
@@ -290,37 +290,37 @@ bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 {
 	if(LIC_KNIGHTONLINE == eLIC) 
 	{
-		m_pUILogIn->AccountIDGet(s_szAccount); // °èÁ¤ ±â¾ï..
-		m_pUILogIn->AccountPWGet(s_szPassWord); // ºñ¹Ğ¹øÈ£ ±â¾ï..
+		m_pUILogIn->AccountIDGet(s_szAccount); // ê³„ì • ê¸°ì–µ..
+		m_pUILogIn->AccountPWGet(s_szPassWord); // ë¹„ë°€ë²ˆí˜¸ ê¸°ì–µ..
 	}
 	if(	s_szAccount.empty() || s_szPassWord.empty() || s_szAccount.size() >= 20 || s_szPassWord.size() >= 12) return false;
 
-	m_pUILogIn->SetVisibleLogInUIs(false); // ÆĞÅ¶ÀÌ µé¾î¿Ã¶§±îÁö UI ¸¦ Disable ½ÃÅ²´Ù...
+	m_pUILogIn->SetVisibleLogInUIs(false); // íŒ¨í‚·ì´ ë“¤ì–´ì˜¬ë•Œê¹Œì§€ UI ë¥¼ Disable ì‹œí‚¨ë‹¤...
 	m_pUILogIn->SetRequestedLogIn(true);
-	m_bLogIn = true; // ·Î±×ÀÎ ½Ãµµ..
+	m_bLogIn = true; // ë¡œê·¸ì¸ ì‹œë„..
 
-	uint8_t byBuff[256];										// ÆĞÅ¶ ¹öÆÛ..
-	int iOffset=0;										// ¹öÆÛÀÇ ¿ÀÇÁ¼Â..
+	uint8_t byBuff[256];										// íŒ¨í‚· ë²„í¼..
+	int iOffset=0;										// ë²„í¼ì˜ ì˜¤í”„ì…‹..
 
 	uint8_t byCmd = N3_ACCOUNT_LOGIN;
 	if(LIC_KNIGHTONLINE == eLIC) byCmd = N3_ACCOUNT_LOGIN;
 	else if(LIC_MGAME == eLIC) byCmd = N3_ACCOUNT_LOGIN_MGAME;
 //	else if(LIC_DAUM == eLIC) byCmd = N3_ACCOUNT_LOGIN_DAUM;
 
-	CAPISocket::MP_AddByte(byBuff, iOffset, byCmd);				// Ä¿¸àµå.
-	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szAccount.size());	// ¾ÆÀÌµğ ±æÀÌ..
-	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);		// ½ÇÁ¦ ¾ÆÀÌµğ..
-	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szPassWord.size());	// ÆĞ½º¿öµå ±æÀÌ
-	CAPISocket::MP_AddString(byBuff, iOffset, s_szPassWord);		// ½ÇÁ¦ ÆĞ½º¿öµå
+	CAPISocket::MP_AddByte(byBuff, iOffset, byCmd);				// ì»¤ë©˜ë“œ.
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szAccount.size());	// ì•„ì´ë”” ê¸¸ì´..
+	CAPISocket::MP_AddString(byBuff, iOffset, s_szAccount);		// ì‹¤ì œ ì•„ì´ë””..
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_szPassWord.size());	// íŒ¨ìŠ¤ì›Œë“œ ê¸¸ì´
+	CAPISocket::MP_AddString(byBuff, iOffset, s_szPassWord);		// ì‹¤ì œ íŒ¨ìŠ¤ì›Œë“œ
 		
-	s_pSocket->Send(byBuff, iOffset);								// º¸³½´Ù
+	s_pSocket->Send(byBuff, iOffset);								// ë³´ë‚¸ë‹¤
 
 	return true;
 }
 
 void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 {
-	int iServerCount = pkt.read<uint8_t>();	// ¼­¹ö °¹¼ö
+	int iServerCount = pkt.read<uint8_t>();	// ì„œë²„ ê°¯ìˆ˜
 	for(int i = 0; i < iServerCount; i++)
 	{
 		int iLen = 0;
@@ -329,7 +329,7 @@ void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 		pkt.readString(GSI.szIP, iLen);
 		iLen = pkt.read<int16_t>();
 		pkt.readString(GSI.szName, iLen);
-		GSI.iConcurrentUserCount = pkt.read<int16_t>(); // ÇöÀç µ¿½Ã Á¢¼ÓÀÚ¼ö..
+		GSI.iConcurrentUserCount = pkt.read<int16_t>(); // í˜„ì¬ ë™ì‹œ ì ‘ì†ììˆ˜..
 		
 		m_pUILogIn->ServerInfoAdd(GSI); // ServerList
 	}
@@ -339,14 +339,14 @@ void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 
 void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 {
-	int iResult = pkt.read<uint8_t>(); // Recv - b1(0:½ÇÆĞ 1:¼º°ø 2:ID¾øÀ½ 3:PWÆ²¸² 4:¼­¹öÁ¡°ËÁß)
-	if(1 == iResult) // Á¢¼Ó ¼º°ø..
+	int iResult = pkt.read<uint8_t>(); // Recv - b1(0:ì‹¤íŒ¨ 1:ì„±ê³µ 2:IDì—†ìŒ 3:PWí‹€ë¦¼ 4:ì„œë²„ì ê²€ì¤‘)
+	if(1 == iResult) // ì ‘ì† ì„±ê³µ..
 	{
-		// ¸ğµç ¸Ş½ÃÁö ¹Ú½º ´İ±â..
+		// ëª¨ë“  ë©”ì‹œì§€ ë°•ìŠ¤ ë‹«ê¸°..
 		this->MessageBoxClose(-1);
-		m_pUILogIn->OpenServerList(); // ¼­¹ö ¸®½ºÆ® ÀĞ±â..
+		m_pUILogIn->OpenServerList(); // ì„œë²„ ë¦¬ìŠ¤íŠ¸ ì½ê¸°..
 	}
-	else if(2 == iResult) // ID °¡ ¾ø¾î¼­ ½ÇÆĞÇÑ°Å¸é..
+	else if(2 == iResult) // ID ê°€ ì—†ì–´ì„œ ì‹¤íŒ¨í•œê±°ë©´..
 	{
 		if(N3_ACCOUNT_LOGIN == iCmd)
 		{
@@ -355,7 +355,7 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 			::_LoadStringFromResource(IDS_NOACCOUNT_RETRY_MGAMEID, szMsg);
 			::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
 
-			this->MessageBoxPost(szMsg, szTmp, MB_YESNO, BEHAVIOR_MGAME_LOGIN); // MGame ID ·Î Á¢¼ÓÇÒ°Å³Ä°í ¹°¾îº»´Ù.
+			this->MessageBoxPost(szMsg, szTmp, MB_YESNO, BEHAVIOR_MGAME_LOGIN); // MGame ID ë¡œ ì ‘ì†í• ê±°ëƒê³  ë¬¼ì–´ë³¸ë‹¤.
 		}
 		else
 		{
@@ -364,26 +364,26 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 			::_LoadStringFromResource(IDS_NO_MGAME_ACCOUNT, szMsg);
 			::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
 
-			this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ·Î Á¢¼ÓÇÒ°Å³Ä°í ¹°¾îº»´Ù.
+			this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ë¡œ ì ‘ì†í• ê±°ëƒê³  ë¬¼ì–´ë³¸ë‹¤.
 		}
 	}
-	else if(3 == iResult) // PassWord ½ÇÆĞ
+	else if(3 == iResult) // PassWord ì‹¤íŒ¨
 	{
 		std::string szMsg;
 		std::string szTmp;
 		::_LoadStringFromResource(IDS_WRONG_PASSWORD, szMsg);
 		::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
-		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ·Î Á¢¼ÓÇÒ°Å³Ä°í ¹°¾îº»´Ù.
+		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ë¡œ ì ‘ì†í• ê±°ëƒê³  ë¬¼ì–´ë³¸ë‹¤.
 	}
-	else if(4 == iResult) // ¼­¹ö Á¡°Ë Áß??
+	else if(4 == iResult) // ì„œë²„ ì ê²€ ì¤‘??
 	{
 		std::string szMsg;
 		std::string szTmp;
 		::_LoadStringFromResource(IDS_SERVER_CONNECT_FAIL, szMsg);
 		::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
-		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ·Î Á¢¼ÓÇÒ°Å³Ä°í ¹°¾îº»´Ù.
+		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ë¡œ ì ‘ì†í• ê±°ëƒê³  ë¬¼ì–´ë³¸ë‹¤.
 	}
-	else if(5 == iResult) // ¾î¶² ³ÑÀÌ Á¢¼ÓÇØ ÀÖ´Ù. ¼­¹ö¿¡°Ô ²÷¾î¹ö¸®¶ó°í ÇÏÀÚ..
+	else if(5 == iResult) // ì–´ë–¤ ë„˜ì´ ì ‘ì†í•´ ìˆë‹¤. ì„œë²„ì—ê²Œ ëŠì–´ë²„ë¦¬ë¼ê³  í•˜ì..
 	{
 		int iLen = pkt.read<int16_t>();
 		if (iLen > 0)
@@ -393,10 +393,10 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 			uint32_t dwPort = pkt.read<int16_t>();
 
 			CAPISocket socketTmp;
-			s_bNeedReportConnectionClosed = false; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
+			s_bNeedReportConnectionClosed = false; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
 			if(0 == socketTmp.Connect(s_hWndBase, szIP.c_str(), dwPort))
 			{
-				// ·Î±×ÀÎ ¼­¹ö¿¡¼­ ¹ŞÀº °×¼­¹ö ÁÖ¼Ò·Î Á¢¼ÓÇØ¼­ Â©¸£¶ó°í ²ÁÁö¸¥´Ù.
+				// ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ë°›ì€ ê²œì„œë²„ ì£¼ì†Œë¡œ ì ‘ì†í•´ì„œ ì§¤ë¥´ë¼ê³  ê¼°ì§€ë¥¸ë‹¤.
 				int iOffset2 = 0;
 				uint8_t Buff[32];
 				CAPISocket::MP_AddByte(Buff, iOffset2, WIZ_KICKOUT); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
@@ -404,15 +404,15 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 				CAPISocket::MP_AddString(Buff, iOffset2, s_szAccount); // Recv s1, str1(IP) s1(port) | Send s1, str1(ID)
 				
 				socketTmp.Send(Buff, iOffset2);
-				socketTmp.Disconnect(); // Â¥¸¥´Ù..
+				socketTmp.Disconnect(); // ì§œë¥¸ë‹¤..
 			}
-			s_bNeedReportConnectionClosed = true; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
+			s_bNeedReportConnectionClosed = true; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
 
 			std::string szMsg;
 			std::string szTmp;
 			::_LoadStringFromResource(IDS_LOGIN_ERR_ALREADY_CONNECTED_ACCOUNT, szMsg);
 			::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
-			this->MessageBoxPost(szMsg, szTmp, MB_OK); // ´Ù½Ã Á¢¼Ó ÇÒ°Å³Ä°í ¹°¾îº»´Ù.
+			this->MessageBoxPost(szMsg, szTmp, MB_OK); // ë‹¤ì‹œ ì ‘ì† í• ê±°ëƒê³  ë¬¼ì–´ë³¸ë‹¤.
 		}
 	}
 	else
@@ -421,14 +421,14 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 		std::string szTmp;
 		::_LoadStringFromResource(IDS_CURRENT_SERVER_ERROR, szMsg);
 		::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
-		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ·Î Á¢¼ÓÇÒ°Å³Ä°í ¹°¾îº»´Ù.
+		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID ë¡œ ì ‘ì†í• ê±°ëƒê³  ë¬¼ì–´ë³¸ë‹¤.
 	}
 
-	if(1 != iResult) // ·Î±×ÀÎ ½ÇÆĞ..
+	if(1 != iResult) // ë¡œê·¸ì¸ ì‹¤íŒ¨..
 	{
-		m_pUILogIn->SetVisibleLogInUIs(true); // Á¢¼Ó ¼º°ø..UI Á¶ÀÛ ºÒ°¡´É..
+		m_pUILogIn->SetVisibleLogInUIs(true); // ì ‘ì† ì„±ê³µ..UI ì¡°ì‘ ë¶ˆê°€ëŠ¥..
 		m_pUILogIn->SetRequestedLogIn(false);
-		m_bLogIn = false; // ·Î±×ÀÎ ½Ãµµ..
+		m_bLogIn = false; // ë¡œê·¸ì¸ ì‹œë„..
 	}
 }
 
@@ -437,16 +437,16 @@ int CGameProcLogIn::MsgRecv_VersionCheck(Packet& pkt) // virtual
 	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pkt);
 	if(iVersion == CURRENT_VERSION)
 	{
-		CGameProcedure::MsgSend_GameServerLogIn(); // °ÔÀÓ ¼­¹ö¿¡ ·Î±×ÀÎ..
+		CGameProcedure::MsgSend_GameServerLogIn(); // ê²Œì„ ì„œë²„ì— ë¡œê·¸ì¸..
 		m_pUILogIn->ConnectButtonSetEnable(false);
 	}
 
 	return iVersion;
 }
 
-int CGameProcLogIn::MsgRecv_GameServerLogIn(Packet& pkt) // virtual - ±¹°¡¹øÈ£¸¦ ¸®ÅÏÇÑ´Ù.
+int CGameProcLogIn::MsgRecv_GameServerLogIn(Packet& pkt) // virtual - êµ­ê°€ë²ˆí˜¸ë¥¼ ë¦¬í„´í•œë‹¤.
 {
-	int iNation = CGameProcedure::MsgRecv_GameServerLogIn(pkt); // ±¹°¡ - 0 ¾øÀ½ 0xff - ½ÇÆĞ..
+	int iNation = CGameProcedure::MsgRecv_GameServerLogIn(pkt); // êµ­ê°€ - 0 ì—†ìŒ 0xff - ì‹¤íŒ¨..
 
 	if( 0xff == iNation )
 	{
@@ -457,7 +457,7 @@ int CGameProcLogIn::MsgRecv_GameServerLogIn(Packet& pkt) // virtual - ±¹°¡¹øÈ£¸¦
 		char szErr[256];
 		sprintf(szErr, szFmt.c_str(), GSI.szName.c_str(), iNation);
 		this->MessageBoxPost(szErr, "", MB_OK);
-		m_pUILogIn->ConnectButtonSetEnable(true); // ½ÇÆĞ
+		m_pUILogIn->ConnectButtonSetEnable(true); // ì‹¤íŒ¨
 	}
 	else
 	{
@@ -504,16 +504,16 @@ bool CGameProcLogIn::ProcessPacket(Packet& pkt)
 	pkt.rpos(rpos);
 
 	s_pPlayer->m_InfoBase.eNation = NATION_UNKNOWN;
-	int iCmd = pkt.read<uint8_t>();	// Ä¿¸àµå ÆÄ½Ì..
+	int iCmd = pkt.read<uint8_t>();	// ì»¤ë©˜ë“œ íŒŒì‹±..
 	s_pPlayer->m_InfoBase.eNation = NATION_UNKNOWN;
-	switch ( iCmd )										// Ä¿¸àµå¿¡ ´Ù¶ó¼­ ºĞ±â..
+	switch ( iCmd )										// ì»¤ë©˜ë“œì— ë‹¤ë¼ì„œ ë¶„ê¸°..
 	{
-		case N3_GAMESERVER_GROUP_LIST: // Á¢¼ÓÇÏ¸é ¹Ù·Î º¸³»ÁØ´Ù..
+		case N3_GAMESERVER_GROUP_LIST: // ì ‘ì†í•˜ë©´ ë°”ë¡œ ë³´ë‚´ì¤€ë‹¤..
 			this->MsgRecv_GameServerGroupList(pkt);
 			return true;
 
-		case N3_ACCOUNT_LOGIN: // °èÁ¤ Á¢¼Ó ¼º°ø..
-		case N3_ACCOUNT_LOGIN_MGAME: // MGame °èÁ¤ Á¢¼Ó ¼º°ø..
+		case N3_ACCOUNT_LOGIN: // ê³„ì • ì ‘ì† ì„±ê³µ..
+		case N3_ACCOUNT_LOGIN_MGAME: // MGame ê³„ì • ì ‘ì† ì„±ê³µ..
 			this->MsgRecv_AccountLogIn(iCmd, pkt);
 			return true;
 	}
@@ -521,14 +521,14 @@ bool CGameProcLogIn::ProcessPacket(Packet& pkt)
 	return false;
 }
 
-void CGameProcLogIn::ConnectToGameServer() // °í¸¥ °ÔÀÓ ¼­¹ö¿¡ Á¢¼Ó
+void CGameProcLogIn::ConnectToGameServer() // ê³ ë¥¸ ê²Œì„ ì„œë²„ì— ì ‘ì†
 {
 	__GameServerInfo GSI;
-	if(false == m_pUILogIn->ServerInfoGetCur(GSI)) return; // ¼­¹ö¸¦ °í¸¥´ÙÀ½..
+	if(false == m_pUILogIn->ServerInfoGetCur(GSI)) return; // ì„œë²„ë¥¼ ê³ ë¥¸ë‹¤ìŒ..
 
-	s_bNeedReportConnectionClosed = false; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
-	int iErr = s_pSocket->Connect(s_hWndBase, GSI.szIP.c_str(), SOCKET_PORT_GAME); // °ÔÀÓ¼­¹ö ¼ÒÄÏ ¿¬°á
-	s_bNeedReportConnectionClosed = true; // ¼­¹öÁ¢¼ÓÀÌ ²÷¾îÁø°É º¸°íÇØ¾ß ÇÏ´ÂÁö..
+	s_bNeedReportConnectionClosed = false; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
+	int iErr = s_pSocket->Connect(s_hWndBase, GSI.szIP.c_str(), SOCKET_PORT_GAME); // ê²Œì„ì„œë²„ ì†Œì¼“ ì—°ê²°
+	s_bNeedReportConnectionClosed = true; // ì„œë²„ì ‘ì†ì´ ëŠì–´ì§„ê±¸ ë³´ê³ í•´ì•¼ í•˜ëŠ”ì§€..
 	
 	if(iErr)
 	{
@@ -541,14 +541,14 @@ void CGameProcLogIn::ConnectToGameServer() // °í¸¥ °ÔÀÓ ¼­¹ö¿¡ Á¢¼Ó
 		this->MsgSend_VersionCheck();
 	}
 }
-//	By : Ecli666 ( On 2002-07-15 ¿ÀÈÄ 7:35:16 )
+//	By : Ecli666 ( On 2002-07-15 ì˜¤í›„ 7:35:16 )
 //
 /*
 void CGameProcLogIn::PacketSend_MGameLogin()
 {
 	if(m_szID.size() >= 20 || m_szPW.size() >= 12)
 	{
-//		MessageBox("ID´Â 20 ÀÚ PassWord ´Â 12 ÀÚ ¹Ì¸¸ÀÌ¾î¾ß ÇÕ´Ï´Ù.", "LogIn Error");
+//		MessageBox("IDëŠ” 20 ì PassWord ëŠ” 12 ì ë¯¸ë§Œì´ì–´ì•¼ í•©ë‹ˆë‹¤.", "LogIn Error");
 		return;
 	}
 
@@ -556,7 +556,7 @@ void CGameProcLogIn::PacketSend_MGameLogin()
 	uint8_t send_buff[128];
 	memset( send_buff, NULL, 128 );
 
-	CAPISocket::MP_AddByte( send_buff, send_index, N3_ACCOUNT_LOGIN_MGAME); // Send - s1(ID±æÀÌ) str1(ID¹®ÀÚ¿­:20¹ÙÀÌÆ®ÀÌÇÏ) s1(PW±æÀÌ) str1(PW¹®ÀÚ¿­:12¹ÙÀÌÆ®ÀÌÇÏ) | Recv - b1(0:½ÇÆĞ 1:¼º°ø 2:ID¾øÀ½ 3:PWÆ²¸² 4:¼­¹öÁ¡°ËÁß)
+	CAPISocket::MP_AddByte( send_buff, send_index, N3_ACCOUNT_LOGIN_MGAME); // Send - s1(IDê¸¸ì´) str1(IDë¬¸ìì—´:20ë°”ì´íŠ¸ì´í•˜) s1(PWê¸¸ì´) str1(PWë¬¸ìì—´:12ë°”ì´íŠ¸ì´í•˜) | Recv - b1(0:ì‹¤íŒ¨ 1:ì„±ê³µ 2:IDì—†ìŒ 3:PWí‹€ë¦¼ 4:ì„œë²„ì ê²€ì¤‘)
 	CAPISocket::MP_AddShort( send_buff, send_index, (int16_t)(m_szID.size()));
 	CAPISocket::MP_AddString( send_buff, send_index, m_szID);
 	CAPISocket::MP_AddShort( send_buff, send_index, (int16_t)(m_szPW.size()));
@@ -565,4 +565,4 @@ void CGameProcLogIn::PacketSend_MGameLogin()
 	s_pSocket->Send( send_buff, send_index );
 }*/
 
-//	~(By Ecli666 On 2002-07-15 ¿ÀÈÄ 7:35:16 )
+//	~(By Ecli666 On 2002-07-15 ì˜¤í›„ 7:35:16 )

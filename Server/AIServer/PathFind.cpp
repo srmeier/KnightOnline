@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "MAP.h"
 #include "PathFind.h"
 #include "ServerDlg.h"

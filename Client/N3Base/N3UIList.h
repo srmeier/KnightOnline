@@ -1,4 +1,4 @@
-// N3UIList.h: interface for the CN3UIList class.
+ï»¿// N3UIList.h: interface for the CN3UIList class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@ typedef std::list<CN3UIString*>::iterator it_pString;
 class CN3UIList : public CN3UIBase  
 {
 protected:
-	size_t					m_iCurSel;		// ÇöÀç ¼±ÅÃ..
+	size_t					m_iCurSel;		// Ã‡Ã¶Ã€Ã§ Â¼Â±Ã…Ãƒ..
 	std::list<CN3UIString*>	m_ListString;	// String List
 	class CN3UIScrollBar*	m_pScrollBarRef;
 

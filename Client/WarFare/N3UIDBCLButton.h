@@ -1,4 +1,4 @@
-// N3UIIcon.h: interface for the CN3UIIcon class.
+﻿// N3UIIcon.h: interface for the CN3UIIcon class.
 //
 //////////////////////////////////////////////////////////////////////
 

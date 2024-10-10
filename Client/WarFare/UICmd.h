@@ -1,4 +1,4 @@
-// UICmd.h: interface for the CUICmd class.
+ï»¿// UICmd.h: interface for the CUICmd class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -14,27 +14,27 @@
 class CUICmd : public CN3UIBase  
 {
 public:
-	CN3UIBase*	m_pBtn_Exit;			//³ª°¡±â
+	CN3UIBase*	m_pBtn_Exit;			//ë‚˜ê°€ê¸°
 
-	CN3UIBase*	m_pBtn_Act;			//Çàµ¿
-	CN3UIBase*	m_pBtn_Act_Walk;	//°È±â
-	CN3UIBase*	m_pBtn_Act_Run;		//´Ş¸®±â
-	CN3UIBase*	m_pBtn_Act_Stop;	//¼­±â
-	CN3UIBase*	m_pBtn_Act_Attack;	//°ø°İ
+	CN3UIBase*	m_pBtn_Act;			//í–‰ë™
+	CN3UIBase*	m_pBtn_Act_Walk;	//ê±·ê¸°
+	CN3UIBase*	m_pBtn_Act_Run;		//ë‹¬ë¦¬ê¸°
+	CN3UIBase*	m_pBtn_Act_Stop;	//ì„œê¸°
+	CN3UIBase*	m_pBtn_Act_Attack;	//ê³µê²©
 	
-	CN3UIBase*	m_pBtn_Act_StandUp; // ÀÏ¾î¼­±â.
-	CN3UIBase*	m_pBtn_Act_SitDown;	// ¾É±â
+	CN3UIBase*	m_pBtn_Act_StandUp; // ì¼ì–´ì„œê¸°.
+	CN3UIBase*	m_pBtn_Act_SitDown;	// ì•‰ê¸°
 
-	CN3UIBase*	m_pBtn_Camera;			//Ä«¸Ş¶ó
-	CN3UIBase*	m_pBtn_Inventory;		//¾ÆÀÌÅÛ Ã¢ 
-	CN3UIBase*	m_pBtn_Party_Invite;	//ÆÄÆ¼ ÃÊ´ë
-	CN3UIBase*	m_pBtn_Party_Disband;	//ÆÄÆ¼ Å»Åğ
-	CN3UIBase*  m_pBtn_CmdList;			//¿É¼Ç
-	CN3UIBase*	m_pBtn_Quest;			//Äù½ºÆ®
-	CN3UIBase*	m_pBtn_Character;		//ÀÚ±â Á¤º¸Ã¢   
-	CN3UIBase*	m_pBtn_Skill;			//½ºÅ³Æ®¸® ¶Ç´Â ¸¶¹ıÃ¢ 
-	CN3UIBase*	m_pBtn_Belong;			//¼Ò¼Ó ±â»ç´Ü 
-	CN3UIBase*	m_pBtn_Map;				// ¹Ì´Ï¸Ê
+	CN3UIBase*	m_pBtn_Camera;			//ì¹´ë©”ë¼
+	CN3UIBase*	m_pBtn_Inventory;		//ì•„ì´í…œ ì°½ 
+	CN3UIBase*	m_pBtn_Party_Invite;	//íŒŒí‹° ì´ˆëŒ€
+	CN3UIBase*	m_pBtn_Party_Disband;	//íŒŒí‹° íƒˆí‡´
+	CN3UIBase*  m_pBtn_CmdList;			//ì˜µì…˜
+	CN3UIBase*	m_pBtn_Quest;			//í€˜ìŠ¤íŠ¸
+	CN3UIBase*	m_pBtn_Character;		//ìê¸° ì •ë³´ì°½   
+	CN3UIBase*	m_pBtn_Skill;			//ìŠ¤í‚¬íŠ¸ë¦¬ ë˜ëŠ” ë§ˆë²•ì°½ 
+	CN3UIBase*	m_pBtn_Belong;			//ì†Œì† ê¸°ì‚¬ë‹¨ 
+	CN3UIBase*	m_pBtn_Map;				// ë¯¸ë‹ˆë§µ
 
 public:
 	bool OnKeyPress(int iKey);

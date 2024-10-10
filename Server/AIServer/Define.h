@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 //
 //	Defines About Communication
@@ -8,7 +8,7 @@
 
 #define MAX_NPC_SIZE		30
 #define MAX_WEAPON_NAME_SIZE	40
-#define VIEW_DIST			48		// °¡½Ã°Å¸®
+#define VIEW_DIST			48		// ê°€ì‹œê±°ë¦¬
 #define MAX_UPGRADE_WEAPON	12
 
 //enum MOVE_SPEED {SPEED_SLOW=0, SPEED_NORMAL, SPEED_FAST};
@@ -52,9 +52,9 @@ struct _NpcPosition
 //
 //	About Map Object
 //
-#define USER_BAND				0			// Map À§¿¡ À¯Àú°¡ ÀÖ´Ù.
-#define NPC_BAND				10000		// Map À§¿¡ NPC(¸÷Æ÷ÇÔ)°¡ ÀÖ´Ù.
-#define INVALID_BAND			30000		// Àß¸øµÈ ID BAND
+#define USER_BAND				0			// Map ìœ„ì— ìœ ì €ê°€ ìˆë‹¤.
+#define NPC_BAND				10000		// Map ìœ„ì— NPC(ëª¹í¬í•¨)ê°€ ìˆë‹¤.
+#define INVALID_BAND			30000		// ì˜ëª»ëœ ID BAND
 
 //
 //  Item
@@ -68,12 +68,12 @@ struct _NpcPosition
 #define DEFENCE				0x02
 ////////////////////////////////////////////////////////////
 
-#define GREAT_SUCCESS			0X01		// ´ë¼º°ø
-#define SUCCESS					0X02		// ¼º°ø
-#define NORMAL					0X03		// º¸Åë
-#define	FAIL					0X04		// ½ÇÆĞ
+#define GREAT_SUCCESS			0X01		// ëŒ€ì„±ê³µ
+#define SUCCESS					0X02		// ì„±ê³µ
+#define NORMAL					0X03		// ë³´í†µ
+#define	FAIL					0X04		// ì‹¤íŒ¨
 
-#define DIR_DOWN			0			// °¢ º¸°íÀÖ´Â ¹æÇâÀ» Á¤ÀÇÇÑ´Ù.
+#define DIR_DOWN			0			// ê° ë³´ê³ ìˆëŠ” ë°©í–¥ì„ ì •ì˜í•œë‹¤.
 #define	DIR_DOWNLEFT		1
 #define DIR_LEFT			2
 #define	DIR_UPLEFT			3
@@ -84,7 +84,7 @@ struct _NpcPosition
 
 ////////////////////////////////////////////////////////////
 // Npc Type
-// Monster´Â 0ºÎÅÍ ½ÃÀÛ 10±îÁöÀÇ Å¸ÀÔ
+// MonsterëŠ” 0ë¶€í„° ì‹œì‘ 10ê¹Œì§€ì˜ íƒ€ì…
 #define NPCTYPE_MONSTER				0	// monster
 
 // Attack Type

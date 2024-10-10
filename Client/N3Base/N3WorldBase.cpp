@@ -1,4 +1,4 @@
-// N3WorldBase.cpp: implementation of the CN3WorldBase class.
+﻿// N3WorldBase.cpp: implementation of the CN3WorldBase class.
 //
 //////////////////////////////////////////////////////////////////////
 

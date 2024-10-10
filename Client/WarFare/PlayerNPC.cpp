@@ -1,4 +1,4 @@
-// PlayerNPC.cpp: implementation of the CPlayerNPC class.
+ï»¿// PlayerNPC.cpp: implementation of the CPlayerNPC class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ static char THIS_FILE[]=__FILE__;
 CPlayerNPC::CPlayerNPC()
 {
 	m_ePlayerType = PLAYER_NPC; // Player Type ... Base, NPC, OTher, MySelf
-	m_vPosFromServer = m_Chr.Pos(); // ¼­¹ö¿¡°Ô ¹ŞÀº À§Ä¡.
+	m_vPosFromServer = m_Chr.Pos(); // ì„œë²„ì—ê²Œ ë°›ì€ ìœ„ì¹˜.
 }
 
 CPlayerNPC::~CPlayerNPC()
@@ -33,22 +33,22 @@ CPlayerNPC::~CPlayerNPC()
 
 void CPlayerNPC::Tick()
 {
-	if(m_pShapeExtraRef) // ¿ÀºêÁ§Æ®ÀÌ¸é..
+	if(m_pShapeExtraRef) // ì˜¤ë¸Œì íŠ¸ì´ë©´..
 	{
 		CPlayerBase::Tick();
 		return;
 	}
 
-	if(m_fTimeAfterDeath > 0) // Á×¾î¾ßÇÏ°Å³ª Á×Àº ³ÑÀÌ¸é...
+	if(m_fTimeAfterDeath > 0) // ì£½ì–´ì•¼í•˜ê±°ë‚˜ ì£½ì€ ë„˜ì´ë©´...
 	{
 		if(m_fTimeAfterDeath > 3.0f)
-			this->Action(PSA_DYING, false); // 5 ÃÊ°¡ Áö³ª¾ß Á×´Â´Ù.
-		CPlayerBase::Tick();  // È¸Àü, ÁöÁ¤µÈ ¿¡´Ï¸ŞÀÌ¼Ç Tick ¹× »ö±ò ÁöÁ¤ Ã³¸®.. µîµî..
+			this->Action(PSA_DYING, false); // 5 ì´ˆê°€ ì§€ë‚˜ì•¼ ì£½ëŠ”ë‹¤.
+		CPlayerBase::Tick();  // íšŒì „, ì§€ì •ëœ ì—ë‹ˆë©”ì´ì…˜ Tick ë° ìƒ‰ê¹” ì§€ì • ì²˜ë¦¬.. ë“±ë“±..
 		return;
 	}
 
 	__Vector3 vPos = m_Chr.Pos();
-	if(	m_vPosFromServer.x != vPos.x || m_vPosFromServer.z != vPos.z ) // Á¶±İ ´õ °¡¾ßÇÑ´Ù.
+	if(	m_vPosFromServer.x != vPos.x || m_vPosFromServer.z != vPos.z ) // ì¡°ê¸ˆ ë” ê°€ì•¼í•œë‹¤.
 	{
 		if(m_fMoveSpeedPerSec == 0)
 		{
@@ -57,67 +57,67 @@ void CPlayerNPC::Tick()
 		}
 
 		__Vector3 vOffset = m_vPosFromServer - vPos; vOffset.y = 0;
-		__Vector3 vDir = vOffset; vDir.Normalize();  // ¹æÇâ.. 
+		__Vector3 vDir = vOffset; vDir.Normalize();  // ë°©í–¥.. 
 
-		float fSpeedAbsolute = (m_fMoveSpeedPerSec > 0) ? m_fMoveSpeedPerSec : -m_fMoveSpeedPerSec; // ¼Óµµ Àı´ë°ª
-		float fDist = vOffset.Magnitude(); // °Å¸®
-		if(fDist < fSpeedAbsolute * CN3Base::s_fSecPerFrm) // ¿òÁ÷ÀÌ´Â °Å¸®°¡ °ÅÀÇ ´Ù¿Â°Å¸é..
+		float fSpeedAbsolute = (m_fMoveSpeedPerSec > 0) ? m_fMoveSpeedPerSec : -m_fMoveSpeedPerSec; // ì†ë„ ì ˆëŒ€ê°’
+		float fDist = vOffset.Magnitude(); // ê±°ë¦¬
+		if(fDist < fSpeedAbsolute * CN3Base::s_fSecPerFrm) // ì›€ì§ì´ëŠ” ê±°ë¦¬ê°€ ê±°ì˜ ë‹¤ì˜¨ê±°ë©´..
 		{
-			vPos.x = m_vPosFromServer.x; // À§Ä¡¸¦ °íÁ¤ÇØÁÖ°í..
-			vPos.z = m_vPosFromServer.z; // À§Ä¡¸¦ °íÁ¤ÇØÁÖ°í..
-//			m_fMoveSpeedPerSec = 0; // ¿òÁ÷ÀÌ´Â ¼Óµµ¸¦ 0À¸·Î!
-			this->ActionMove(PSM_STOP); // ¿òÁ÷ÀÌ´Â ¸ğ¼Ç Ã³¸®..
+			vPos.x = m_vPosFromServer.x; // ìœ„ì¹˜ë¥¼ ê³ ì •í•´ì£¼ê³ ..
+			vPos.z = m_vPosFromServer.z; // ìœ„ì¹˜ë¥¼ ê³ ì •í•´ì£¼ê³ ..
+//			m_fMoveSpeedPerSec = 0; // ì›€ì§ì´ëŠ” ì†ë„ë¥¼ 0ìœ¼ë¡œ!
+			this->ActionMove(PSM_STOP); // ì›€ì§ì´ëŠ” ëª¨ì…˜ ì²˜ë¦¬..
 		}
 		else 
 		{
-			float fYaw = (m_fMoveSpeedPerSec < 0) ? ::_Yaw2D(-vDir.x, -vDir.z) : ::_Yaw2D(vDir.x, vDir.z); // ¹æÇâÀ» °è»êÇØ¼­..
-			this->RotateTo(fYaw, false); // ÁøÇà ¹æÇâÀ¸·Î µ¹¸®°í..
+			float fYaw = (m_fMoveSpeedPerSec < 0) ? ::_Yaw2D(-vDir.x, -vDir.z) : ::_Yaw2D(vDir.x, vDir.z); // ë°©í–¥ì„ ê³„ì‚°í•´ì„œ..
+			this->RotateTo(fYaw, false); // ì§„í–‰ ë°©í–¥ìœ¼ë¡œ ëŒë¦¬ê³ ..
 
-			e_StateMove eMove = PSM_STOP; // ¿òÁ÷ÀÓ...
-			// ÇÃ·¹ÀÌ¾î¸é °È´Â ¼Óµµ°¡ ±âÁØ ³ª¸ÓÁö´Â µ¢Ä¡¿¡ ¹İºñ·Ê..
+			e_StateMove eMove = PSM_STOP; // ì›€ì§ì„...
+			// í”Œë ˆì´ì–´ë©´ ê±·ëŠ” ì†ë„ê°€ ê¸°ì¤€ ë‚˜ë¨¸ì§€ëŠ” ë©ì¹˜ì— ë°˜ë¹„ë¡€..
 			float fStandWalk = ((PLAYER_OTHER == m_ePlayerType) ? (MOVE_SPEED_WHEN_WALK * 2.0f) : (MOVE_SPEED_WHEN_WALK * m_Chr.Radius() * 2.0f));
-			if(m_fMoveSpeedPerSec < 0) eMove = PSM_WALK_BACKWARD; // µÚ·Î °È±â..
-			else if(m_fMoveSpeedPerSec < fStandWalk) eMove = PSM_WALK; // ¾ÕÀ¸·Î °È±â..
-			else eMove = PSM_RUN; // if(fDN > 5.0f) // ´ÙÀ½ À§Ä¡ÀÇ °Å¸®°¡ ÀÏÁ¤ ÀÌ»óÀÌ¸é ¶Ù¾î°£´Ù.
-			this->ActionMove(eMove); // ¿òÁ÷ÀÌ´Â ¸ğ¼Ç Ã³¸®..
+			if(m_fMoveSpeedPerSec < 0) eMove = PSM_WALK_BACKWARD; // ë’¤ë¡œ ê±·ê¸°..
+			else if(m_fMoveSpeedPerSec < fStandWalk) eMove = PSM_WALK; // ì•ìœ¼ë¡œ ê±·ê¸°..
+			else eMove = PSM_RUN; // if(fDN > 5.0f) // ë‹¤ìŒ ìœ„ì¹˜ì˜ ê±°ë¦¬ê°€ ì¼ì • ì´ìƒì´ë©´ ë›°ì–´ê°„ë‹¤.
+			this->ActionMove(eMove); // ì›€ì§ì´ëŠ” ëª¨ì…˜ ì²˜ë¦¬..
 
-			vPos += vDir * (fSpeedAbsolute * s_fSecPerFrm); // ÀÌµ¿..
+			vPos += vDir * (fSpeedAbsolute * s_fSecPerFrm); // ì´ë™..
 		}
 
-		float fYTerrain = ACT_WORLD->GetHeightWithTerrain(vPos.x, vPos.z); // Áö¸éÀÇ ³ôÀÌ°ª..
-		float fYMesh = ACT_WORLD->GetHeightNearstPosWithShape(vPos, 1.0f); // Ãæµ¹ Ã¼Å© ¿ÀºêÁ§Æ®ÀÇ ³ôÀÌ°ª..
-		if(fYMesh != -FLT_MAX && fYMesh > fYTerrain && fYMesh < m_fYNext + 1.0f) m_fYNext = fYMesh; // ¿Ã¶ó°¥¼ö ÀÖ´Â ¿ÀºêÁ§Æ®ÀÌ°í ³ôÀÌ°ªÀÌ Áö¸éº¸´Ù ³ôÀ¸¸é.
+		float fYTerrain = ACT_WORLD->GetHeightWithTerrain(vPos.x, vPos.z); // ì§€ë©´ì˜ ë†’ì´ê°’..
+		float fYMesh = ACT_WORLD->GetHeightNearstPosWithShape(vPos, 1.0f); // ì¶©ëŒ ì²´í¬ ì˜¤ë¸Œì íŠ¸ì˜ ë†’ì´ê°’..
+		if(fYMesh != -FLT_MAX && fYMesh > fYTerrain && fYMesh < m_fYNext + 1.0f) m_fYNext = fYMesh; // ì˜¬ë¼ê°ˆìˆ˜ ìˆëŠ” ì˜¤ë¸Œì íŠ¸ì´ê³  ë†’ì´ê°’ì´ ì§€ë©´ë³´ë‹¤ ë†’ìœ¼ë©´.
 		else m_fYNext = fYTerrain;
-		this->PositionSet(vPos, false); // À§Ä¡ ÃÖÁ¾ Àû¿ë..
+		this->PositionSet(vPos, false); // ìœ„ì¹˜ ìµœì¢… ì ìš©..
 	}
 
-	if(PSA_ATTACK == m_eState || m_iSkillStep != 0) // °ø°İ ÁßÀÌ°Å³ª ½ºÅ³ »ç¿ëÁßÀÌ¸é..
+	if(PSA_ATTACK == m_eState || m_iSkillStep != 0) // ê³µê²© ì¤‘ì´ê±°ë‚˜ ìŠ¤í‚¬ ì‚¬ìš©ì¤‘ì´ë©´..
 	{
 		CPlayerBase* pTarget = this->TargetPointerCheck(false);
-		CPlayerBase::ProcessAttack(pTarget); // °ø°İ¿¡ °üÇÑ ·çÆ¾ Ã³¸®.. ¿¡´Ï¸ŞÀÌ¼Ç ¼¼ÆÃ°ú Ãæµ¹¸¸ Ã³¸®ÇÒ»Ó ÆĞÅ¶Àº Ã³¸® ¾ÈÇÑ´Ù..
+		CPlayerBase::ProcessAttack(pTarget); // ê³µê²©ì— ê´€í•œ ë£¨í‹´ ì²˜ë¦¬.. ì—ë‹ˆë©”ì´ì…˜ ì„¸íŒ…ê³¼ ì¶©ëŒë§Œ ì²˜ë¦¬í• ë¿ íŒ¨í‚·ì€ ì²˜ë¦¬ ì•ˆí•œë‹¤..
 	}
 
-	CPlayerBase::Tick(); // È¸Àü. ÀÌµ¿, ¿¡´Ï¸ŞÀÌ¼Ç Æ½.. »óÅÂ ¹Ù²ñ µîÀ» Ã³¸®ÇÑ´Ù.
+	CPlayerBase::Tick(); // íšŒì „. ì´ë™, ì—ë‹ˆë©”ì´ì…˜ í‹±.. ìƒíƒœ ë°”ë€œ ë“±ì„ ì²˜ë¦¬í•œë‹¤.
 }
 
 void CPlayerNPC::MoveTo(float fPosX, float fPosY, float fPosZ, float fSpeed, int iMoveMode)
 {
 	m_vPosFromServer.Set(fPosX, fPosY, fPosZ);
-	if(m_pShapeExtraRef) return; // ¿ÀºêÁ§Æ® Çü½ÄÀÌ¸é ¿òÁ÷ÀÏ¼ö°¡ ¾ø´Ù..
+	if(m_pShapeExtraRef) return; // ì˜¤ë¸Œì íŠ¸ í˜•ì‹ì´ë©´ ì›€ì§ì¼ìˆ˜ê°€ ì—†ë‹¤..
 
-	// iMoveMode : ÇöÀç ¿òÁ÷ÀÌ´Â »óÅÂ.. 0 -Á¤Áö 1 ¿òÁ÷ÀÓ½ÃÀÛ 2 - 1ÃÊ¸¶´Ù ÇÑ¹ø ¿¬¼Ó¿òÁ÷ÀÓ..
+	// iMoveMode : í˜„ì¬ ì›€ì§ì´ëŠ” ìƒíƒœ.. 0 -ì •ì§€ 1 ì›€ì§ì„ì‹œì‘ 2 - 1ì´ˆë§ˆë‹¤ í•œë²ˆ ì—°ì†ì›€ì§ì„..
 	if(0 == iMoveMode) 
 	{
 	}
-	else if(iMoveMode) // ¿òÁ÷ÀÓ ½ÃÀÛ.. // °è¼Ó ¿òÁ÷ÀÓ
+	else if(iMoveMode) // ì›€ì§ì„ ì‹œì‘.. // ê³„ì† ì›€ì§ì„
 	{
 		m_fMoveSpeedPerSec = fSpeed;
 		__Vector3 vPos = m_Chr.Pos(); vPos.y = 0;
 		__Vector3 vPosS(fPosX, 0, fPosZ);
 	
-		if(fSpeed) m_fMoveSpeedPerSec *= ((vPosS - vPos).Magnitude() / (fSpeed * PACKET_INTERVAL_MOVE)) * 0.85f; // ¼Óµµº¸°£.. µ¿±âÈ­¶§¹®¿¡ ±×·±´Ù.. ¾à°£ ÁÙ¿©ÁÖ´Â ÀÌÀ¯´Â ¸ØÄ©ÇÏ´Â°É ¹æÁöÇÏ±â À§ÇØ¼­ÀÌ´Ù..
-		else m_fMoveSpeedPerSec = ((vPosS - vPos).Magnitude() / (fSpeed * PACKET_INTERVAL_MOVE)) * 0.85f; // ¼Óµµº¸°£.. µ¿±âÈ­¶§¹®¿¡ ±×·±´Ù.. ¾à°£ ÁÙ¿©ÁÖ´Â ÀÌÀ¯´Â ¸ØÄ©ÇÏ´Â°É ¹æÁöÇÏ±â À§ÇØ¼­ÀÌ´Ù..
-		if(fSpeed < 0) m_fMoveSpeedPerSec *= -1.0f; // µÚ·Î °£´Ù..
+		if(fSpeed) m_fMoveSpeedPerSec *= ((vPosS - vPos).Magnitude() / (fSpeed * PACKET_INTERVAL_MOVE)) * 0.85f; // ì†ë„ë³´ê°„.. ë™ê¸°í™”ë•Œë¬¸ì— ê·¸ëŸ°ë‹¤.. ì•½ê°„ ì¤„ì—¬ì£¼ëŠ” ì´ìœ ëŠ” ë©ˆì¹«í•˜ëŠ”ê±¸ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œì´ë‹¤..
+		else m_fMoveSpeedPerSec = ((vPosS - vPos).Magnitude() / (fSpeed * PACKET_INTERVAL_MOVE)) * 0.85f; // ì†ë„ë³´ê°„.. ë™ê¸°í™”ë•Œë¬¸ì— ê·¸ëŸ°ë‹¤.. ì•½ê°„ ì¤„ì—¬ì£¼ëŠ” ì´ìœ ëŠ” ë©ˆì¹«í•˜ëŠ”ê±¸ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œì´ë‹¤..
+		if(fSpeed < 0) m_fMoveSpeedPerSec *= -1.0f; // ë’¤ë¡œ ê°„ë‹¤..
 	}
 	else
 	{

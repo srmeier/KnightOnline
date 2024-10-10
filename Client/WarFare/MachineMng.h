@@ -1,4 +1,4 @@
-// MachineMng.h: interface for the CMachineMng class.
+﻿// MachineMng.h: interface for the CMachineMng class.
 //
 //////////////////////////////////////////////////////////////////////
 

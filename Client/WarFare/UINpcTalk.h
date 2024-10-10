@@ -1,4 +1,4 @@
-// UINpcTalk.h: interface for the CUINpcTalk class.
+﻿// UINpcTalk.h: interface for the CUINpcTalk class.
 //
 //////////////////////////////////////////////////////////////////////
 

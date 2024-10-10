@@ -1,4 +1,4 @@
-// ItemRepairMgr.h: interface for the CItemRepairMgr class.
+﻿// ItemRepairMgr.h: interface for the CItemRepairMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-//	N3Terrain.h: interface for the CLyTerrain class.
+ï»¿//	N3Terrain.h: interface for the CLyTerrain class.
 //	2001. 10. 22.
 //
 //////////////////////////////////////////////////////////////////////
@@ -11,9 +11,9 @@
 #endif // _MSC_VER > 1000
 
 ////////////////////////////////
-//	º¯¼ö¾Õ¿¡ ti_°¡ ºÙÀº °Ç Å¸ÀÏ´ÜÀ§..
-//	º¯¼ö¾Õ¿¡ pat_°¡ ºÙÀº °Ç ÆÐÄ¡´ÜÀ§..
-//	º¯¼ö¾Õ¿¡ re_°¡ ºÙÀº °Ç ¹ÌÅÍ´ÜÀ§..
+//	ë³€ìˆ˜ì•žì— ti_ê°€ ë¶™ì€ ê±´ íƒ€ì¼ë‹¨ìœ„..
+//	ë³€ìˆ˜ì•žì— pat_ê°€ ë¶™ì€ ê±´ íŒ¨ì¹˜ë‹¨ìœ„..
+//	ë³€ìˆ˜ì•žì— re_ê°€ ë¶™ì€ ê±´ ë¯¸í„°ë‹¨ìœ„..
 //
 
 #include "N3BaseFileAccess.h"
@@ -37,15 +37,15 @@ public:
 	CN3TerrainPatch**	m_ppPatch;
 	POINT				m_pat_LBPos;
 	POINT				m_pat_PrevLBPos;
-	RECT				m_pat_BoundRect;	//LBPos¿¡ ´ëÇÑ »ó´ëÁÂÇ¥..
+	RECT				m_pat_BoundRect;	//LBPosì— ëŒ€í•œ ìƒëŒ€ì¢Œí‘œ..
 	int					m_iNumPatch;
-	int					m_pat_Center2Side;	//Áß½ÉÁ¡¿¡¼­ ÇÑÂÊº¯±îÁöÀÇ ±æÀÌ..
+	int					m_pat_Center2Side;	//ì¤‘ì‹¬ì ì—ì„œ í•œìª½ë³€ê¹Œì§€ì˜ ê¸¸ì´..
 	int					m_iDistanceTable[DISTANCE_TABLE_SIZE][DISTANCE_TABLE_SIZE];
 	
 	//MapInfo..
 	MAPDATA*			m_pMapData;
-	int					m_ti_MapSize;				// ¼¿ÀÌ ¸î°³ µé¾î°¡³ª.. 4096Meter -> 1024 + 1
-	int					m_pat_MapSize;				// ÆÐÄ¡ °¹¼ö.. »çÀÌÁî¿¡ µû¶ó Æ²¸®´Ù..
+	int					m_ti_MapSize;				// ì…€ì´ ëª‡ê°œ ë“¤ì–´ê°€ë‚˜.. 4096Meter -> 1024 + 1
+	int					m_pat_MapSize;				// íŒ¨ì¹˜ ê°¯ìˆ˜.. ì‚¬ì´ì¦ˆì— ë”°ë¼ í‹€ë¦¬ë‹¤..
 	__Vector3*			m_pNormal;
 
 	//LightMap Info..
@@ -64,17 +64,17 @@ public:
 	POINT				m_ti_PrevCenterPos;
 
 	//Texture...
-	uint32_t				m_NumTileTex;				// Tile Texture °¹¼ö
+	uint32_t				m_NumTileTex;				// Tile Texture ê°¯ìˆ˜
 	CN3Texture*			m_pTileTex;
 
 	//ColorMap..
 	CN3Texture**		m_ppColorMapTex;
-	int					m_iNumColorMap;				// ÄÃ·¯¸ÊÀº ºÐÇÒ ÀúÀåµÇ¾î ÀÖ´Ù.. °¹¼ö = 
+	int					m_iNumColorMap;				// ì»¬ëŸ¬ë§µì€ ë¶„í•  ì €ìž¥ë˜ì–´ ìžˆë‹¤.. ê°¯ìˆ˜ = 
 
-	//ÄÃ·¯¸ÊÀ§¿¡ µ¡ ¾º¿ì´Â ¹«´Ì¸Ê..
+	//ì»¬ëŸ¬ë§µìœ„ì— ë§ ì”Œìš°ëŠ” ë¬´ëŠ¬ë§µ..
 	CN3Texture			m_pBaseTex;
 
-	//Å¸ÀÏ¹æÇâ..
+	//íƒ€ì¼ë°©í–¥..
 	float m_fTileDirU[8][4];
 	float m_fTileDirV[8][4];
 
@@ -100,10 +100,10 @@ protected:
 	void	TestAvailableTile();
 	void	MakeDistanceTable();
 
-	inline	int	Log2(int x);	//2ÀÇ ½Â¼ö Àü¿ë....
-	int Real2Tile(float x){ return ((int)x / (int)TILE_SIZE); } // ½ÇÁÂÇ¥ -> Å¸ÀÏÁÂÇ¥...(Àý´ëÁÂÇ¥)
-	int Tile2Patch(int x) { return (x / PATCH_TILE_SIZE); } // Å¸ÀÏÁÂÇ¥ -> ÆÐÄ¡ÁÂÇ¥...(Àý´ëÁÂÇ¥°è)
-	int Real2Patch(float fX) { return ( ((int)fX / (int)TILE_SIZE) / PATCH_TILE_SIZE ); } // ½ÇÁÂÇ¥ -> ÆÐÄ¡ÁÂÇ¥..(Àý´ëÁÂÇ¥°è)
+	inline	int	Log2(int x);	//2ì˜ ìŠ¹ìˆ˜ ì „ìš©....
+	int Real2Tile(float x){ return ((int)x / (int)TILE_SIZE); } // ì‹¤ì¢Œí‘œ -> íƒ€ì¼ì¢Œí‘œ...(ì ˆëŒ€ì¢Œí‘œ)
+	int Tile2Patch(int x) { return (x / PATCH_TILE_SIZE); } // íƒ€ì¼ì¢Œí‘œ -> íŒ¨ì¹˜ì¢Œí‘œ...(ì ˆëŒ€ì¢Œí‘œê³„)
+	int Real2Patch(float fX) { return ( ((int)fX / (int)TILE_SIZE) / PATCH_TILE_SIZE ); } // ì‹¤ì¢Œí‘œ -> íŒ¨ì¹˜ì¢Œí‘œ..(ì ˆëŒ€ì¢Œí‘œê³„)
 		
 	void	LoadTileInfo(HANDLE hFile);
 	bool	CheckRenderablePatch();
@@ -143,12 +143,12 @@ public:	//additional........
 	BOOL			PickWide(int x, int y, __Vector3& vPick);
 	void			CalcCollisionTerrainByOTPlayer(__Vector3, __Vector3, __Vector3& );
 
-	bool			CheckIncline(const __Vector3& vPos, const __Vector3& vDir, float fIncline); // ÇöÀç À§Ä¡¿Í ¹æÇâ¿¡¼­ÀÇ °æ»ç°ªÀÌ ÀÎ¼ö·Î µé¾î¿Â°Íº¸´Ù Å©¸é(¸ø¿Ã¶ó°¥ °÷ÀÌ¸é) true, ÀÛÀ¸¸é false
-	bool			CheckCollisionCamera(__Vector3& vEye, const __Vector3& vAt, float fNP); // vEye ¿¡ °è»êµÈ °ªµµ µé¾î¿Â´Ù.. Ä«¸Þ¶ó Near PlaneÀ» ³ÖÀ¸¸é °è»ê.
+	bool			CheckIncline(const __Vector3& vPos, const __Vector3& vDir, float fIncline); // í˜„ìž¬ ìœ„ì¹˜ì™€ ë°©í–¥ì—ì„œì˜ ê²½ì‚¬ê°’ì´ ì¸ìˆ˜ë¡œ ë“¤ì–´ì˜¨ê²ƒë³´ë‹¤ í¬ë©´(ëª»ì˜¬ë¼ê°ˆ ê³³ì´ë©´) true, ìž‘ìœ¼ë©´ false
+	bool			CheckCollisionCamera(__Vector3& vEye, const __Vector3& vAt, float fNP); // vEye ì— ê³„ì‚°ëœ ê°’ë„ ë“¤ì–´ì˜¨ë‹¤.. ì¹´ë©”ë¼ Near Planeì„ ë„£ìœ¼ë©´ ê³„ì‚°.
 	BOOL			CheckCollisionByHeight(const __Vector3& vPos, float fUnitSize, float& fHeight)
 	{
 		fHeight = this->GetHeight(vPos.x, vPos.z);
-		if(vPos.y < fHeight + fUnitSize) return TRUE; // ÇöÀç ³ôÀÌ°¡ ÁöÇü³ôÀÌ + Å©±â º¸´Ù ÀÛ´Ù¸é 
+		if(vPos.y < fHeight + fUnitSize) return TRUE; // í˜„ìž¬ ë†’ì´ê°€ ì§€í˜•ë†’ì´ + í¬ê¸° ë³´ë‹¤ ìž‘ë‹¤ë©´ 
 		return FALSE;
 	}
 	bool			CheckCollision(__Vector3& vPos, __Vector3& vDir, float fVelocity, __Vector3* vpCol);

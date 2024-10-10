@@ -39,6 +39,7 @@
   </ImportGroup>
   <Import Project="$(PropsDir)mfc2013.props" />
   <Import Project="$(PropsDir)directx8.props" />
+  <Import Project="$(PropsDir)cp949_strings.props" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>Debug\</OutDir>

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "../shared/STLMap.h"
 
@@ -8,9 +8,9 @@ typedef CSTLMap <int>			mapNpcArray;
 
 struct _RoomEvent
 {
-	int16_t	sNumber;			// ¸í·É¾î, Á¶°Ç¹® ¹øÈ£
-	int16_t	sOption_1;			// option 1 (¸ó½ºÅÍÀÇ ¹øÈ£¸¦ ÁÖ·Î °¡Áö°í ÀÖÀ½)
-	int16_t	sOption_2;			// option 2 (¸ó½ºÅÍÀÇ ¸¶¸®¼ö)
+	int16_t	sNumber;			// ëª…ë ¹ì–´, ì¡°ê±´ë¬¸ ë²ˆí˜¸
+	int16_t	sOption_1;			// option 1 (ëª¬ìŠ¤í„°ì˜ ë²ˆí˜¸ë¥¼ ì£¼ë¡œ ê°€ì§€ê³  ìˆìŒ)
+	int16_t	sOption_2;			// option 2 (ëª¬ìŠ¤í„°ì˜ ë§ˆë¦¬ìˆ˜)
 };
 
 class CNpc;
@@ -34,28 +34,28 @@ public:
 	int     m_iZoneNumber;		// zone number
 	int16_t	m_sRoomNumber;		// room number (0:empty room)
 	RoomStatus	m_byStatus;		// room status (1:init, 2:progress, 3:clear)
-	uint8_t	m_byCheck;			// Á¶°Ç¹®ÀÇ °¹¼ö
-	uint8_t	m_byRoomType;		// ¹æÀÇ Å¸ÀÔ(0:ÀÏ¹İ, 1:ÇÔÁ¤¹æ, 2:,,,,)
+	uint8_t	m_byCheck;			// ì¡°ê±´ë¬¸ì˜ ê°¯ìˆ˜
+	uint8_t	m_byRoomType;		// ë°©ì˜ íƒ€ì…(0:ì¼ë°˜, 1:í•¨ì •ë°©, 2:,,,,)
 
 	int		m_iInitMinX;		// room region x
 	int		m_iInitMinZ;
 	int		m_iInitMaxX;
 	int		m_iInitMaxZ;
 
-	int		m_iEndMinX;			// room end region x µµÂøÁöÁ¡,,
+	int		m_iEndMinX;			// room end region x ë„ì°©ì§€ì ,,
 	int		m_iEndMinZ;
 	int		m_iEndMaxX;
 	int		m_iEndMaxZ;
 
-	_RoomEvent  m_Logic[MAX_CHECK_EVENT];		// Á¶°Çµé
-	_RoomEvent  m_Exec[MAX_CHECK_EVENT];		// ½ÇÇà¹®
+	_RoomEvent  m_Logic[MAX_CHECK_EVENT];		// ì¡°ê±´ë“¤
+	_RoomEvent  m_Exec[MAX_CHECK_EVENT];		// ì‹¤í–‰ë¬¸
 
 	time_t   m_tDelayTime;						// time
 
 	mapNpcArray	m_mapRoomNpcArray;				// room npc uid array
 
 private:
-	uint8_t    m_byLogicNumber;	// ÇöÀçÀÇ Á¶°Ç¹® °Ë»ç ¹øÈ£ (Á¶°Ç¹øÈ£´Â 1ºÎÅÍ ½ÃÀÛµÊ) (m_byCheck¿Í m_byLogicNumberÀÌ °°´Ù¸é Å¬¸®¾î »óÅÂ)
+	uint8_t    m_byLogicNumber;	// í˜„ì¬ì˜ ì¡°ê±´ë¬¸ ê²€ì‚¬ ë²ˆí˜¸ (ì¡°ê±´ë²ˆí˜¸ëŠ” 1ë¶€í„° ì‹œì‘ë¨) (m_byCheckì™€ m_byLogicNumberì´ ê°™ë‹¤ë©´ í´ë¦¬ì–´ ìƒíƒœ)
 
 
 public:

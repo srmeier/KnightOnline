@@ -1,4 +1,4 @@
-// OrderMessage.cpp: implementation of the COrderMessage class.
+﻿// OrderMessage.cpp: implementation of the COrderMessage class.
 //
 //////////////////////////////////////////////////////////////////////
 

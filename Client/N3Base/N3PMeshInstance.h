@@ -1,4 +1,4 @@
-// N3PMeshInstance.h: interface for the CN3PMeshInstance class.
+ï»¿// N3PMeshInstance.h: interface for the CN3PMeshInstance class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -33,11 +33,11 @@ protected:
 
 	int m_iNumIndices, m_iNumVertices; // number of triangles/vertices to use at this moment.
 
-	CN3PMesh::__EdgeCollapse*	m_pCollapseUpTo;	// ÂüÁ¶ Æ÷ÀÎÅÍ
+	CN3PMesh::__EdgeCollapse*	m_pCollapseUpTo;	// ì°¸ì¡° í¬ì¸í„°
 
 	// A pointer to the original mesh. This is where you'll find the vertex data (which
 	// is invariant between PMRInstance's)
-	CN3PMesh*	m_pPMesh;	// ÂüÁ¶ Æ÷ÀÎÅÍ
+	CN3PMesh*	m_pPMesh;	// ì°¸ì¡° í¬ì¸í„°
 
 public:
 	BOOL		IsLOD() { if(NULL == m_pCollapseUpTo) return FALSE; return TRUE; }
@@ -67,7 +67,7 @@ public:
 	uint16_t*		GetIndices() const { return m_pIndices;};
 #endif
 
-//	By : Ecli666 ( On 2002-08-06 ¿ÀÈÄ 4:33:04 )
+//	By : Ecli666 ( On 2002-08-06 ì˜¤í›„ 4:33:04 )
 //
 #ifdef _USE_VERTEXBUFFER
 	void			PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
@@ -76,7 +76,7 @@ public:
 #endif
 	int				 GetIndexByiOrder(int iOrder);
 __Vector3		GetVertexByIndex(size_t iIndex);
-//	~(By Ecli666 On 2002-08-06 ¿ÀÈÄ 4:33:04 )
+//	~(By Ecli666 On 2002-08-06 ì˜¤í›„ 4:33:04 )
 };
 
 #endif // !defined(AFX_N3PMeshInstance_h__INCLUDED_)

@@ -1,4 +1,4 @@
-// BirdMng.cpp: implementation of the CBirdMng class.
+ï»¿// BirdMng.cpp: implementation of the CBirdMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -41,7 +41,7 @@ void CBirdMng::LoadFromFile(const std::string& szFN)
 	Release();
 
 	if(szFN.empty()) return;
-	FILE* stream = fopen(szFN.c_str(), "r"); //textÆÄÀÏ·Î ¸¸µç´Ù 
+	FILE* stream = fopen(szFN.c_str(), "r"); //textíŒŒì¼ë¡œ ë§Œë“ ë‹¤ 
 
 	if(NULL == stream)
 	{
@@ -55,13 +55,13 @@ void CBirdMng::LoadFromFile(const std::string& szFN)
 
 	int i;
 	char szRrcName[_MAX_PATH];
-	int result = fscanf(stream, "count = %d\n", &m_iBirdCount);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+	int result = fscanf(stream, "count = %d\n", &m_iBirdCount);			__ASSERT(result != EOF, "ìž˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 
 	if(m_iBirdCount>0) m_pBird = new CBird[m_iBirdCount];
 
 	for (i=0; i<m_iBirdCount; i++)
 	{
-		result = fscanf(stream, "%s\n", szRrcName);	__ASSERT(result != EOF, "Àß¸øµÈ bird list ¼¼ÆÃ ÆÄÀÏ");
+		result = fscanf(stream, "%s\n", szRrcName);	__ASSERT(result != EOF, "ìž˜ëª»ëœ bird list ì„¸íŒ… íŒŒì¼");
 		m_pBird[i].LoadBird(szRrcName);		
 	}
 	fclose(stream);

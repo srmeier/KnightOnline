@@ -1,4 +1,4 @@
-// GameProcOption.cpp: implementation of the CGameProcOption class.
+ï»¿// GameProcOption.cpp: implementation of the CGameProcOption class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -34,10 +34,10 @@ void CGameProcOption::Release()
 
 void CGameProcOption::Render()
 {
-	CGameProcedure::Render(); // UI ³ª ±×¹ÛÀÇ ±âº»ÀûÀÎ °Íµé ·»´õ¸µ..
+	CGameProcedure::Render(); // UI ë‚˜ ê·¸ë°–ì˜ ê¸°ë³¸ì ì¸ ê²ƒë“¤ ë Œë”ë§..
 }
 
 void CGameProcOption::Tick()
 {
-	CGameProcedure::Tick();	// Å°, ¸¶¿ì½º ÀÔ·Â µîµî..
+	CGameProcedure::Tick();	// í‚¤, ë§ˆìš°ìŠ¤ ì…ë ¥ ë“±ë“±..
 }

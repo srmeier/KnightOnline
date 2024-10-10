@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "GameSocket.h"
 #include "User.h"
 #include "MAP.h"
@@ -264,7 +264,7 @@ bool CGameSocket::SetUid(float x, float z, int id, int speed)
 	CUser* pUser = g_pMain->GetUserPtr(id);
 	if(pUser == nullptr) 
 	{
-		TRACE("#### Userµî·Ï ½ÇÆĞ sid = %d ####\n", id);
+		TRACE("#### UserÂµÃ®Â·Ã Â½Ã‡Ã†Ã sid = %d ####\n", id);
 		return false;
 	}
 

@@ -1,4 +1,4 @@
-// UITradeSellBBS.h: interface for the CUITradeSellBBS class.
+ï»¿// UITradeSellBBS.h: interface for the CUITradeSellBBS class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,14 +16,14 @@
 #include "UITradeExplanation.h"
 #include <list>
 
-struct __InfoTradeSellBBS // ÆÄÆ¼ Áö¿ø °Ô½ÃÆÇ ±¸Á¶Ã¼..
+struct __InfoTradeSellBBS // íŒŒí‹° ì§€ì› ê²Œì‹œíŒ êµ¬ì¡°ì²´..
 {
-	std::string szID;			// ÆÄÆ¼ ÀÌ¸§ ¹®ÀÚ¿­
-	std::string szTitle;		// Á¦¸ñ
-	std::string szExplanation;	// ¼³¸í
-	int			iPrice;			// °¡°İ
-	int16_t		sIndex;			// µî·Ï ÀÎµ¦½º
-	int16_t		sID;			// Ä³¸¯ÅÍ ¾ÆÀÌµğ
+	std::string szID;			// íŒŒí‹° ì´ë¦„ ë¬¸ìì—´
+	std::string szTitle;		// ì œëª©
+	std::string szExplanation;	// ì„¤ëª…
+	int			iPrice;			// ê°€ê²©
+	int16_t		sIndex;			// ë“±ë¡ ì¸ë±ìŠ¤
+	int16_t		sID;			// ìºë¦­í„° ì•„ì´ë””
 
 	void Init()
 	{
@@ -71,8 +71,8 @@ protected:
 	std::list<__InfoTradeSellBBS>	m_Datas;
 	__InfoTradeSellBBS				m_ITSB;
 
-	int			m_iCurPage; // ÇöÀç ÆäÀÌÁö..
-	int			m_iMaxPage;	// ÃÑ ÆäÀÌÁö..
+	int			m_iCurPage; // í˜„ì¬ í˜ì´ì§€..
+	int			m_iMaxPage;	// ì´ í˜ì´ì§€..
 	bool		m_bProcessing;
 	uint8_t		m_byBBSKind;
 	int			m_iCurIndex;

@@ -1,4 +1,4 @@
-// N3GERain.cpp: implementation of the CN3GERain class.
+ï»¿// N3GERain.cpp: implementation of the CN3GERain class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -39,9 +39,9 @@ void CN3GERain::Tick()
 
 	int iCount = m_iVC/2;
 	int iActiveCount = iCount;
-	if(m_iFadeMode > 0) // Â÷Â÷ ¸¹¾ÆÁö°Ô ÇÑ´Ù..
+	if(m_iFadeMode > 0) // ì°¨ì°¨ ë§Žì•„ì§€ê²Œ í•œë‹¤..
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = (int)(iCount * m_fFadeTimeCur / m_fFadeTime);
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -50,7 +50,7 @@ void CN3GERain::Tick()
 	}
 	else if(m_iFadeMode < 0)
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = (int)(iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime));
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -74,13 +74,13 @@ void CN3GERain::Tick()
 
 	for (i=0; i<iActiveCount; ++i)
 	{
-		// tail À§Ä¡ °áÁ¤ÇÏ±â
+		// tail ìœ„ì¹˜ ê²°ì •í•˜ê¸°
 		__VertexXyzColor* pVTail = pVertices+i*2+0;
 		__VertexXyzColor* pVHead = pVertices+i*2+1;
 		pVTail->x += vAdd.x;	pVTail->y += vAdd.y;	pVTail->z += vAdd.z;
 
 		float fDiff = pVTail->y - (fCurY-fHalfHeight);
-		if (fDiff < 0)	// ³ôÀÌ ¹üÀ§¸¦ ¹þ¾î³µÀ» °æ¿ì
+		if (fDiff < 0)	// ë†’ì´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
 		{
 			pVTail->y -= (((int)(fDiff/m_fHeight)-1)*m_fHeight);
 			pVTail->x = m_fWidth*(rand()%10000-5000)/10000.f;
@@ -89,20 +89,20 @@ void CN3GERain::Tick()
 		else
 		{
 			fDiff = pVTail->y - (fCurY+fHalfHeight);
-			if (fDiff > 0)	// ³ôÀÌ ¹üÀ§¸¦ ¹Ý´ë·Î ¹þ¾î³µÀ»°æ¿ì
+			if (fDiff > 0)	// ë†’ì´ ë²”ìœ„ë¥¼ ë°˜ëŒ€ë¡œ ë²—ì–´ë‚¬ì„ê²½ìš°
 				pVTail->y -= ((int)(fDiff/m_fHeight)+1)*m_fHeight;
-			// x ³Êºñ ¹üÀ§¸¦ ¹þ¾î³µÀ» °æ¿ì
+			// x ë„ˆë¹„ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
 			fDiff = pVTail->x - fHalfWidth;
 			if (fDiff > 0) pVTail->x -= ((int)(fDiff/m_fWidth)+1)*m_fWidth;
 			fDiff = pVTail->x + fHalfWidth;
 			if (fDiff < 0) pVTail->x -= ((int)(fDiff/m_fWidth)-1)*m_fWidth;
-			// z ³Êºñ ¹üÀ§¸¦ ¹þ¾î³µÀ» °æ¿ì
+			// z ë„ˆë¹„ ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ì„ ê²½ìš°
 			fDiff = pVTail->z - fHalfWidth;
 			if (fDiff >  0) pVTail->z -= ((int)(fDiff/m_fWidth)+1)*m_fWidth;
 			fDiff = pVTail->z + fHalfWidth;
 			if (fDiff < 0) pVTail->z -= ((int)(fDiff/m_fWidth)-1)*m_fWidth;
 		}
-		// HeadÀÇ À§Ä¡¸¦ TailÀÇ À§Ä¡·ÎºÎÅÍ ÀÏÁ¤ °Å¸®¿¡ ¶³¾îÁø °÷¿¡ À§Ä¡½ÃÅ²´Ù.
+		// Headì˜ ìœ„ì¹˜ë¥¼ Tailì˜ ìœ„ì¹˜ë¡œë¶€í„° ì¼ì • ê±°ë¦¬ì— ë–¨ì–´ì§„ ê³³ì— ìœ„ì¹˜ì‹œí‚¨ë‹¤.
 		pVHead->x = pVTail->x + vAddLength.x;
 		pVHead->y = pVTail->y + vAddLength.y;
 		pVHead->z = pVTail->z + vAddLength.z;
@@ -119,9 +119,9 @@ void CN3GERain::Render(__Vector3& vPos)
 	int iCount = m_iVC / 2;
 	
 	int iActiveCount = iCount;
-	if(m_iFadeMode > 0) // Â÷Â÷ ¸¹¾ÆÁö°Ô ÇÑ´Ù..
+	if(m_iFadeMode > 0) // ì°¨ì°¨ ë§Žì•„ì§€ê²Œ í•œë‹¤..
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = (int)(iCount * m_fFadeTimeCur / m_fFadeTime);
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -130,7 +130,7 @@ void CN3GERain::Render(__Vector3& vPos)
 	}
 	else if(m_iFadeMode < 0)
 	{
-		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fade½Ã°£¶«¿¡ °Ç³Ê¶Ù°í ÂïÀ» ¾ç °áÁ¤..
+		if(m_fFadeTime > 0 && m_fFadeTimeCur < m_fFadeTime) // Fadeì‹œê°„ë•œì— ê±´ë„ˆë›°ê³  ì°ì„ ì–‘ ê²°ì •..
 		{
 			iActiveCount = (int)(iCount * (1.0f - m_fFadeTimeCur / m_fFadeTime));
 			if(iActiveCount > iCount) iActiveCount = iCount;
@@ -139,7 +139,7 @@ void CN3GERain::Render(__Vector3& vPos)
 	}
 	if(iActiveCount <= 0) return;
 
-	// ÀÌÀü render state ÀúÀå
+	// ì´ì „ render state ì €ìž¥
 	DWORD dwColorVertex, dwLighting, dwAlphaBlend, dwSrcAlpha, dwDestAlpha;
 	s_lpD3DDev->GetRenderState( D3DRS_COLORVERTEX , &dwColorVertex );
 	s_lpD3DDev->GetRenderState( D3DRS_LIGHTING, &dwLighting );
@@ -162,7 +162,7 @@ void CN3GERain::Render(__Vector3& vPos)
 
 	// render
 	s_lpD3DDev->SetFVF(FVF_XYZCOLOR);
-	s_lpD3DDev->SetStreamSource(0, m_pVB, 0, sizeof(__VertexXyzColor)); // ¹öÅØ½º ¹öÆÛ ÁöÁ¤
+	s_lpD3DDev->SetStreamSource(0, m_pVB, 0, sizeof(__VertexXyzColor)); // ë²„í…ìŠ¤ ë²„í¼ ì§€ì •
 	s_lpD3DDev->DrawPrimitive(D3DPT_LINELIST, 0, iActiveCount);
 
 	// restore
@@ -179,11 +179,11 @@ void CN3GERain::Create(float fDensity,
 					   float fRainLength, 
 					   const __Vector3& vVelocity,
 					   float fTimeToFade)
-// fDensity : 1 (¼¼Á¦°ö¹ÌÅÍ) ´ç ºø¹æ¿ïÀÇ °¹¼ö
-// fWidth : ºñ¿À´Â ¹üÀ§ X,Z ±æÀÌ
-// fHeight : ºñ¿À´Â ¹üÀ§ÀÇ ³ôÀÌ
-// fRainLength : ºøÁÙ±âÀÇ ±æÀÌ
-// vVelocity : ºøÁÙ±âÀÇ ¼Óµµ
+// fDensity : 1 (ì„¸ì œê³±ë¯¸í„°) ë‹¹ ë¹—ë°©ìš¸ì˜ ê°¯ìˆ˜
+// fWidth : ë¹„ì˜¤ëŠ” ë²”ìœ„ X,Z ê¸¸ì´
+// fHeight : ë¹„ì˜¤ëŠ” ë²”ìœ„ì˜ ë†’ì´
+// fRainLength : ë¹—ì¤„ê¸°ì˜ ê¸¸ì´
+// vVelocity : ë¹—ì¤„ê¸°ì˜ ì†ë„
 {
 	if(NULL == s_lpD3DDev) return;
 
@@ -202,7 +202,7 @@ void CN3GERain::Create(float fDensity,
 	m_vVelocity = vVelocity;
 	int iRainCount = (int)(fVolume*fDensity);
 
-	// m_pVB, m_pIB ¸¸µé±â
+	// m_pVB, m_pIB ë§Œë“¤ê¸°
 	m_iVC = iRainCount*2;
 	HRESULT hr = s_lpD3DDev->CreateVertexBuffer(m_iVC*sizeof(__VertexXyzColor), 0, FVF_XYZCOLOR, D3DPOOL_MANAGED, &m_pVB, NULL);
 
@@ -211,8 +211,8 @@ void CN3GERain::Create(float fDensity,
 	hr = m_pVB->Lock(0, iRainCount*2*sizeof(__VertexXyzColor), (void**)&pVertices, D3DLOCK_NOSYSLOCK);
 	if (FAILED(hr)) return;
 
-	const uint32_t dwColorA = 0x00bfbfbf,	// ²¿¸®
-				dwColorB = 0x80bfbfbf;	// ¸Ó¸®
+	const uint32_t dwColorA = 0x00bfbfbf,	// ê¼¬ë¦¬
+				dwColorB = 0x80bfbfbf;	// ë¨¸ë¦¬
 	int i;
 	__Vector3 vN = vVelocity; vN.Normalize();
 	__Vector3 vAdd = vN*fRainLength;

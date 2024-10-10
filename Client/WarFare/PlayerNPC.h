@@ -1,4 +1,4 @@
-// PlayerNPC.h: interface for the CPlayerNPC class.
+Ôªø// PlayerNPC.h: interface for the CPlayerNPC class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@ class CPlayerNPC : public CPlayerBase
 {
 	friend class CPlayerOtherMgr;
 public:
-	void			MoveTo(float fPosX, float fPosY, float fPosZ, float fMoveSpeed, int iMoveMode); // ¿Ã ¿ßƒ°∑Œ ¿Ãµø..
+	void			MoveTo(float fPosX, float fPosY, float fPosZ, float fMoveSpeed, int iMoveMode); // Ïù¥ ÏúÑÏπòÎ°ú Ïù¥Îèô..
 	virtual	void	Tick();
 
 	CPlayerNPC();

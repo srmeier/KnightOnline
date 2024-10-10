@@ -1,4 +1,4 @@
-// N3UIList.cpp: implementation of the CN3UIList class.
+ï»¿// N3UIList.cpp: implementation of the CN3UIList class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -19,10 +19,10 @@ CN3UIList::CN3UIList()
 {
 	m_eType = UI_TYPE_LIST;
 
-	m_iCurSel = 0;		// ÇöÀç ¼±ÅÃ..
+	m_iCurSel = 0;		// í˜„ì¬ ì„ íƒ..
 	m_pScrollBarRef = NULL;
 
-	m_szFontName = "±¼¸²Ã¼";
+	m_szFontName = "êµ´ë¦¼ì²´";
 	m_dwFontHeight = 10;
 	m_bFontBold = FALSE;
 	m_bFontItalic = FALSE;
@@ -43,11 +43,11 @@ void CN3UIList::Release()
 //		delete (*it);
 //	}
 
-	m_ListString.clear(); // ¾îÂ÷ÇÇ ÀÚ½ÄÀº ´ÙÁö¿ì´Ï±î... ¸®½ºÆ®ÀÇ Æ÷ÀÎÅÍ¸¦ Delete ÇÒ ÇÊ¿ä ¾ø´Ù..
+	m_ListString.clear(); // ì–´ì°¨í”¼ ìì‹ì€ ë‹¤ì§€ìš°ë‹ˆê¹Œ... ë¦¬ìŠ¤íŠ¸ì˜ í¬ì¸í„°ë¥¼ Delete í•  í•„ìš” ì—†ë‹¤..
 	m_iCurSel = 0;
 	m_pScrollBarRef = NULL;
 
-	m_szFontName = "±¼¸²Ã¼";
+	m_szFontName = "êµ´ë¦¼ì²´";
 	m_dwFontHeight = 10;
 	m_bFontBold = FALSE;
 	m_bFontItalic = FALSE;
@@ -279,10 +279,10 @@ bool CN3UIList::Load(HANDLE hFile)
 {
 	bool bSuccess = CN3UIBase::Load(hFile);
 
-	// font Á¤º¸
+	// font ì •ë³´
 	DWORD dwNum;
 	int iStrLen = 0;
-	ReadFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ÀÌ¸§ ±æÀÌ 
+	ReadFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ì´ë¦„ ê¸¸ì´ 
 	__ASSERT(iStrLen>0, "No font name");
 	if (iStrLen>0)
 	{
@@ -294,7 +294,7 @@ bool CN3UIList::Load(HANDLE hFile)
 		ReadFile(hFile, &m_bFontItalic, 4, &dwNum, NULL);	// font flag (bold, italic)
 	}
 
-	// Child Áß¿¡ Scroll Bar °¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// Child ì¤‘ì— Scroll Bar ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pUI = *itor;
@@ -308,7 +308,7 @@ bool CN3UIList::Load(HANDLE hFile)
 //			if(	pString->GetFontName != m_szFontName ||
 //				pString->GetFontHeight() != m_dwFontHeight ||
 //				m_bFontBold != (pString->GetFontFlags() & D3DFONT_BOLD) ||
-//				m_bFontItalic != (pString->GetFontFlags() & D3DFONT_ITALIC) ) // ÆùÆ®°¡ ´Ù¸£¸é.. Àû¿ë
+//				m_bFontItalic != (pString->GetFontFlags() & D3DFONT_ITALIC) ) // í°íŠ¸ê°€ ë‹¤ë¥´ë©´.. ì ìš©
 //			{
 //				pString->SetFont(m_szFontName, m_dwFontHeight, m_bFontBold, m_bFontItalic);
 //			}
@@ -325,10 +325,10 @@ bool CN3UIList::Save(HANDLE hFile)
 	
 	DWORD dwNum;
 	
-	// font Á¤º¸
+	// font ì •ë³´
 	int iStrLen = m_szFontName.size();
 	__ASSERT(iStrLen>0, "No font name");
-	WriteFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ÀÌ¸§ ±æÀÌ 
+	WriteFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL);			// font ì´ë¦„ ê¸¸ì´ 
 	if (iStrLen>0)
 	{
 		WriteFile(hFile, m_szFontName.c_str(), iStrLen, &dwNum, NULL);				// string
@@ -360,7 +360,7 @@ uint32_t CN3UIList::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT&
 	uint32_t dwRet = UI_MOUSEPROC_NONE;
 	if (!m_bVisible || UI_STATE_LIST_DISABLE == m_eState) return dwRet;
 
-	// Æ¯Á¤ ÀÌº¥Æ®¿¡ ´ëÇØ ¸Ş½ÃÁö Àü¼Û..
+	// íŠ¹ì • ì´ë²¤íŠ¸ì— ëŒ€í•´ ë©”ì‹œì§€ ì „ì†¡..
 	if(IsIn(ptCur.x, ptCur.y) && ((dwFlags & UI_MOUSE_LBCLICK) || (dwFlags & UI_MOUSE_LBDBLCLK)) )	
 	{
 		RECT rc = this->GetRegion(), rcStr;
@@ -383,12 +383,12 @@ uint32_t CN3UIList::MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT&
 				m_iCurSel = i;
 				if(dwFlags & UI_MOUSE_LBCLICK)
 				{
-					if(m_pParent) m_pParent->ReceiveMessage(this, UIMSG_LIST_SELCHANGE); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+					if(m_pParent) m_pParent->ReceiveMessage(this, UIMSG_LIST_SELCHANGE); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 					dwRet |= UIMSG_LIST_SELCHANGE;
 				}
 				else
 				{
-					if(m_pParent) m_pParent->ReceiveMessage(this, UIMSG_LIST_DBLCLK); // ºÎ¸ğ¿¡°Ô ¹öÆ° Å¬¸¯ ÅëÁö..
+					if(m_pParent) m_pParent->ReceiveMessage(this, UIMSG_LIST_DBLCLK); // ë¶€ëª¨ì—ê²Œ ë²„íŠ¼ í´ë¦­ í†µì§€..
 					dwRet |= UIMSG_LIST_DBLCLK;
 				}
 				dwRet |= UI_MOUSEPROC_DONESOMETHING;
@@ -412,7 +412,7 @@ void CN3UIList::Render()
 		CN3UIString* pStr = *it;
 		if(pStr)
 		{
-			RECT rc = pStr->GetRegion(); // ¼±ÅÃ Ç¥½Ã
+			RECT rc = pStr->GetRegion(); // ì„ íƒ í‘œì‹œ
 		
 			__VertexTransformedColor vLines[5];
 			vLines[0].Set((float)rc.left, (float)rc.top, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0xff00ff00);

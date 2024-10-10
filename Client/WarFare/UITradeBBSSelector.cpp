@@ -1,4 +1,4 @@
-// UITradeBBSSelector.cpp: implementation of the CUITradeBBSSelector class.
+Ôªø// UITradeBBSSelector.cpp: implementation of the CUITradeBBSSelector class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -73,8 +73,8 @@ bool CUITradeBBSSelector::Load(HANDLE hFile)
 
 void CUITradeBBSSelector::MsgSend_OpenTradeSellBBS()
 {
-	uint8_t byBuff[5];		// ∆–≈∂ πˆ∆€..
-	int iOffset=0;		// ∆–≈∂ ø¿«¡º¬..
+	uint8_t byBuff[5];		// Ìå®ÌÇ∑ Î≤ÑÌçº..
+	int iOffset=0;		// Ìå®ÌÇ∑ Ïò§ÌîÑÏÖã..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_BBS_OPEN);
@@ -84,8 +84,8 @@ void CUITradeBBSSelector::MsgSend_OpenTradeSellBBS()
 
 void CUITradeBBSSelector::MsgSend_OpenTradeBuyBBS()
 {
-	uint8_t byBuff[5];		// ∆–≈∂ πˆ∆€..
-	int iOffset=0;		// ∆–≈∂ ø¿«¡º¬..
+	uint8_t byBuff[5];		// Ìå®ÌÇ∑ Î≤ÑÌçº..
+	int iOffset=0;		// Ìå®ÌÇ∑ Ïò§ÌîÑÏÖã..
 
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_MARKET_BBS);		
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_TYPE_BBS_OPEN);

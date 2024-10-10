@@ -1,4 +1,4 @@
-#if !defined(AFX_TEXVIEWER_H__E7AB26A3_E760_421C_B0CE_E2118D0FB88A__INCLUDED_)
+ï»¿#if !defined(AFX_TEXVIEWER_H__E7AB26A3_E760_421C_B0CE_E2118D0FB88A__INCLUDED_)
 #define AFX_TEXVIEWER_H__E7AB26A3_E760_421C_B0CE_E2118D0FB88A__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -26,23 +26,23 @@ public:
 protected:
 	CN3Texture*		m_pTex;				// texture
 	CSize			m_TexSize;			// texture size
-	float			m_fScale;			// È­¸é ¹èÀ²
-	CPoint			m_ptLeftTopInImage;	// ÀÌ À©µµ¿ì ÁÂÃø »ó´Ü¿¡ º¸ÀÌ´Â textureÀÇ ÁÂÃø »ó´Ü ÁÂÇ¥
-	eEDITMODE		m_eEditMode;		// ÇöÀç ¾î¶² ÆíÁı »óÈ²ÀÎÁö.(¿¹, ¿µ¿ª¼±ÅÃ, zoom in/out...)
-	CRect			m_rcSelectedRect;	// ¼±ÅÃµÈ »ç°¢Çü(imageÁÂÇ¥ ±âÁØ)
-	BOOL			m_bDrag;			// µå·¡±× ÁßÀÎ°¡?
-	CPen			m_WhiteDashPen;		// Èò»ö Á¡¼±
-	CPoint			m_ptMouseOld;		// ¸¶¿ì½ºÀÇ ÀÌÀü ÁöÁ¡ ±â¾ï
-	BOOL			m_bDeselect;		// deselect ÇÒ °ÍÀÎ°¡?
-	CPoint			m_ptClickOffset;	// ¼±ÅÃ ¿µ¿ªÀ» ¿òÁ÷ÀÌ·Á°í ÇÒ¶§ clickÇßÀ»°æ¿ìÀÇ
-										// ¼±ÅÃÃ¢ÀÇ Å¬¸¯ÁöÁ¡ »ó´ëÁÂÇ¥(¼±ÅÃ ¿µ¿ªlefttop 0,0 ±âÁØ)(image pixelÁÂÇ¥°è)
+	float			m_fScale;			// í™”ë©´ ë°°ìœ¨
+	CPoint			m_ptLeftTopInImage;	// ì´ ìœˆë„ìš° ì¢Œì¸¡ ìƒë‹¨ì— ë³´ì´ëŠ” textureì˜ ì¢Œì¸¡ ìƒë‹¨ ì¢Œí‘œ
+	eEDITMODE		m_eEditMode;		// í˜„ì¬ ì–´ë–¤ í¸ì§‘ ìƒí™©ì¸ì§€.(ì˜ˆ, ì˜ì—­ì„ íƒ, zoom in/out...)
+	CRect			m_rcSelectedRect;	// ì„ íƒëœ ì‚¬ê°í˜•(imageì¢Œí‘œ ê¸°ì¤€)
+	BOOL			m_bDrag;			// ë“œë˜ê·¸ ì¤‘ì¸ê°€?
+	CPen			m_WhiteDashPen;		// í°ìƒ‰ ì ì„ 
+	CPoint			m_ptMouseOld;		// ë§ˆìš°ìŠ¤ì˜ ì´ì „ ì§€ì  ê¸°ì–µ
+	BOOL			m_bDeselect;		// deselect í•  ê²ƒì¸ê°€?
+	CPoint			m_ptClickOffset;	// ì„ íƒ ì˜ì—­ì„ ì›€ì§ì´ë ¤ê³  í• ë•Œ clickí–ˆì„ê²½ìš°ì˜
+										// ì„ íƒì°½ì˜ í´ë¦­ì§€ì  ìƒëŒ€ì¢Œí‘œ(ì„ íƒ ì˜ì—­lefttop 0,0 ê¸°ì¤€)(image pixelì¢Œí‘œê³„)
 										
 	enum	eDRAGTYPE {DRAGTYPE_NONE=0, DRAGTYPE_MOVE, DRAGTYPE_LEFT, DRAGTYPE_RIGHT,
 					DRAGTYPE_TOP, DRAGTYPE_BOTTOM, DRAGTYPE_LEFTTOP, DRAGTYPE_RIGHTTOP,
 					DRAGTYPE_LEFTBOTTOM, DRAGTYPE_RIGHTBOTTOM, DRAGTYPE_SELECT};
-	eDRAGTYPE		m_eDragType;			// Drag »óÅÂ
+	eDRAGTYPE		m_eDragType;			// Drag ìƒíƒœ
 
-	// Ä¿¼­
+	// ì»¤ì„œ
 	HCURSOR			m_hCursorSelect;
 	HCURSOR			m_hCursorZoomIn;
 	HCURSOR			m_hCursorZoomOut;
@@ -54,34 +54,34 @@ protected:
 	HCURSOR			m_hCursorSizeNWSE;
 	HCURSOR			m_hCursorSizeNESW;
 
-	// image type°ü·Ã
-	int				m_iImageTypeCount;								// ¼±ÅÃµÇ¾î¾ß ÇÒ ÀÌ¹ÌÁö Á¾·ùÀÇ ¼ö
-	CRect			m_ImageRects[MAX_IMAGETYPE];					// m_iImageTypeCount¸¸Å­ÀÇ ImageRect
-	int				m_iCurSelectedImage;							// ÇöÀç ¼±ÅÃµÈ ImageType
+	// image typeê´€ë ¨
+	int				m_iImageTypeCount;								// ì„ íƒë˜ì–´ì•¼ í•  ì´ë¯¸ì§€ ì¢…ë¥˜ì˜ ìˆ˜
+	CRect			m_ImageRects[MAX_IMAGETYPE];					// m_iImageTypeCountë§Œí¼ì˜ ImageRect
+	int				m_iCurSelectedImage;							// í˜„ì¬ ì„ íƒëœ ImageType
 // Operations
 public:
 	void			Release();
-	BOOL			Zoom(BOOL bZoomIn);		// in : È®´ë, out : Ãà¼Ò
-	BOOL			Zoom(float fScale);		// f¹è·Î Zoom ÇÏ±â 
-	void			Render();				// texture renderÇÏ±â
-	void			SetTexture(LPCTSTR pszFName);	// texture ÁöÁ¤
-	eEDITMODE		SetEditMode(eEDITMODE eMode);	// mode ¹Ù²Ù±â (zoom, hand, select) ½ÇÆĞÇÏ¸é ÀÌÀü mode¸¦ µ¹·ÁÁØ´Ù.
-	void			SetLeftTopInImage(CPoint ptLeftTop);	// ÀÌ¹ÌÁöÀÇ ÁÂÃø »ó´Ü ÁÂÇ¥ ¹Ù²Ù±â
-	BOOL			GetSelectedUVRect(struct __FLOAT_RECT* pFRect) const;	// ÇöÀç ¼±ÅÃµÈ UVÁÂÇ¥ ¾ò±â
-	void			SetSelectedUVRect(const struct __FLOAT_RECT* pFRect);	// ÇöÀç ¼±ÅÃµÈ UVÁÂÇ¥ ³Ö±â
+	BOOL			Zoom(BOOL bZoomIn);		// in : í™•ëŒ€, out : ì¶•ì†Œ
+	BOOL			Zoom(float fScale);		// fë°°ë¡œ Zoom í•˜ê¸° 
+	void			Render();				// texture renderí•˜ê¸°
+	void			SetTexture(LPCTSTR pszFName);	// texture ì§€ì •
+	eEDITMODE		SetEditMode(eEDITMODE eMode);	// mode ë°”ê¾¸ê¸° (zoom, hand, select) ì‹¤íŒ¨í•˜ë©´ ì´ì „ modeë¥¼ ëŒë ¤ì¤€ë‹¤.
+	void			SetLeftTopInImage(CPoint ptLeftTop);	// ì´ë¯¸ì§€ì˜ ì¢Œì¸¡ ìƒë‹¨ ì¢Œí‘œ ë°”ê¾¸ê¸°
+	BOOL			GetSelectedUVRect(struct __FLOAT_RECT* pFRect) const;	// í˜„ì¬ ì„ íƒëœ UVì¢Œí‘œ ì–»ê¸°
+	void			SetSelectedUVRect(const struct __FLOAT_RECT* pFRect);	// í˜„ì¬ ì„ íƒëœ UVì¢Œí‘œ ë„£ê¸°
 
-	// image type°ü·Ã
-	void			SetImageTypeCount(int iCount) {m_iImageTypeCount = iCount;}	// image type °¹¼ö Á¤ÇÏ±â
-	BOOL			SetImageTypeIndex(int iIndex);	// zero base ¼±ÅÃµÈ image typeÁ¤ÇÏ±â
+	// image typeê´€ë ¨
+	void			SetImageTypeCount(int iCount) {m_iImageTypeCount = iCount;}	// image type ê°¯ìˆ˜ ì •í•˜ê¸°
+	BOOL			SetImageTypeIndex(int iIndex);	// zero base ì„ íƒëœ image typeì •í•˜ê¸°
 	CRect			GetImageRect(int iIndex);
 	BOOL			AutoMultiRectSelect(BOOL bHorizon, CString& strErrMsg);
 protected:
-	BOOL			ScreenToImage(POINT	*pPoint);	// screenÁÂÇ¥¸¦ imageÁÂÇ¥·Î
-	BOOL			ScreenToImage(RECT* pRect);		// screenÁÂÇ¥¸¦ imageÁÂÇ¥·Î
-	BOOL			ImageToScreen(POINT	*pPoint);	// imageÁÂÇ¥¸¦ screenÁÂÇ¥·Î
-	BOOL			ImageToScreen(RECT* pRect);		// imageÁÂÇ¥¸¦ screenÁÂÇ¥·Î
+	BOOL			ScreenToImage(POINT	*pPoint);	// screenì¢Œí‘œë¥¼ imageì¢Œí‘œë¡œ
+	BOOL			ScreenToImage(RECT* pRect);		// screenì¢Œí‘œë¥¼ imageì¢Œí‘œë¡œ
+	BOOL			ImageToScreen(POINT	*pPoint);	// imageì¢Œí‘œë¥¼ screenì¢Œí‘œë¡œ
+	BOOL			ImageToScreen(RECT* pRect);		// imageì¢Œí‘œë¥¼ screenì¢Œí‘œë¡œ
 	eDRAGTYPE		CheckDragType(CRect rcSel, CPoint point);
-	void			ProcessDrag(CPoint point);		// ¿µ¿ª º¯ÇüÀÏ °æ¿ì Ã³¸®ÇÏ´Â ·çÆ¾
+	void			ProcessDrag(CPoint point);		// ì˜ì—­ ë³€í˜•ì¼ ê²½ìš° ì²˜ë¦¬í•˜ëŠ” ë£¨í‹´
 public:
 // Overrides
 	// ClassWizard generated virtual function overrides

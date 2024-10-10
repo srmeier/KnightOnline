@@ -1,4 +1,4 @@
-// UIClassChange.h: interface for the CUIClassChange class.
+﻿// UIClassChange.h: interface for the CUIClassChange class.
 //
 //////////////////////////////////////////////////////////////////////
 

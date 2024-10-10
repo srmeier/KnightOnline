@@ -1,4 +1,4 @@
-// N3GlobalEffectMng.h: interface for the CN3GlobalEffectMng class.
+ï»¿// N3GlobalEffectMng.h: interface for the CN3GlobalEffectMng class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,13 +11,13 @@
 
 #include "N3Base.h"
 
-enum {	GEW_CLEAR=0,			// ¸¼À½
-		GEW_DRIZZLE_RAIN=1,		// °¡¶ûºñ
-		GEW_RAINY=2,			// Àû´ç·®ÀÇ ºñ
-		GEW_HEAVY_RAIN=3,		// Æø¿ì
-		GEW_SNOW1=11,			// Æ÷±ÙÇÑ ´«
-		GEW_SNOW2=12,			// Àû´çÇÑ ´«
-		GEW_HEAVY_SNOW=13		// Æø¼³
+enum {	GEW_CLEAR=0,			// Â¸Â¼Ã€Â½
+		GEW_DRIZZLE_RAIN=1,		// Â°Â¡Â¶Ã»ÂºÃ±
+		GEW_RAINY=2,			// Ã€Ã»Â´Ã§Â·Â®Ã€Ã‡ ÂºÃ±
+		GEW_HEAVY_RAIN=3,		// Ã†Ã¸Â¿Ã¬
+		GEW_SNOW1=11,			// Ã†Ã·Â±Ã™Ã‡Ã‘ Â´Â«
+		GEW_SNOW2=12,			// Ã€Ã»Â´Ã§Ã‡Ã‘ Â´Â«
+		GEW_HEAVY_SNOW=13		// Ã†Ã¸Â¼Â³
 };
 
 class CN3GERain;
@@ -31,20 +31,20 @@ public:
 // Attributes
 public:
 protected:
-	float			m_fCellSize;	// ³»ºÎ ¼¿ Å©±â
-	POINT			m_CurCellPos;	// ÇöÀç ³»ºÎ¼¿ ÁÂÇ¥
-	__Vector3		m_vPos[9];		// ÁÖº¯ ¼¿ 9Ä­ÀÇ Áß½ÉÁÂÇ¥µé
+	float			m_fCellSize;	// Â³Â»ÂºÃ Â¼Â¿ Ã…Â©Â±Ã¢
+	POINT			m_CurCellPos;	// Ã‡Ã¶Ã€Ã§ Â³Â»ÂºÃÂ¼Â¿ ÃÃ‚Ã‡Â¥
+	__Vector3		m_vPos[9];		// ÃÃ–ÂºÂ¯ Â¼Â¿ 9Ã„Â­Ã€Ã‡ ÃÃŸÂ½Ã‰ÃÃ‚Ã‡Â¥ÂµÃ©
 
-	// È¿°úµé..
-	CN3GERain*		m_pGERain;		// ºñ
-	CN3GESnow*		m_pGESnow;		// ´«
+	// ÃˆÂ¿Â°ÃºÂµÃ©..
+	CN3GERain*		m_pGERain;		// ÂºÃ±
+	CN3GESnow*		m_pGESnow;		// Â´Â«
 
 // Operations
 public:
 	virtual void	Release();
 	void			Tick();
 	void			Render();
-//	void			SetWeather(int iWeather);	// ³¯¾¾ ÁöÁ¤ÇÏ±â
+//	void			SetWeather(int iWeather);	// Â³Â¯Â¾Â¾ ÃÃ¶ÃÂ¤Ã‡ÃÂ±Ã¢
 	void			WeatherSetRainy(int iPercent);
 	void			WeatherSetSnow(int iPercent);
 	void			WeatherSetClean();

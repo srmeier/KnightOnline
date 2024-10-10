@@ -1,4 +1,4 @@
-// N3FXPartBottomBoardGame.h: interface for the CN3FXPartBottomBoard class.
+﻿// N3FXPartBottomBoardGame.h: interface for the CN3FXPartBottomBoard class.
 //
 //////////////////////////////////////////////////////////////////////
 

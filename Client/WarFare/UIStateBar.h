@@ -1,4 +1,4 @@
-// UIStateBar.h: interface for the CUIStateBar class.
+ï»¿// UIStateBar.h: interface for the CUIStateBar class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -15,7 +15,7 @@ struct __PositionInfo
 {
 	__Vector3	vPos;
 	int			iID;
-	D3DCOLOR	crType; // Á¾·ù¿¡ µû¸¥ »ö±ò... 
+	D3DCOLOR	crType; // ì¢…ë¥˜ì— ë”°ë¥¸ ìƒ‰ê¹”... 
 };
 
 struct __DurationMagicImg
@@ -42,9 +42,9 @@ protected:
 	CN3UIProgress*	m_pProgress_ExpC;
 	CN3UIProgress*	m_pProgress_ExpP;
 
-	// ¹Ì´Ï¸Ê...
+	// ë¯¸ë‹ˆë§µ...
 	CN3UIBase*		m_pGroup_MiniMap;
-	CN3UIImage*		m_pImage_Map; // ÀÌ ÀÌ¹ÌÁö¿¡ ¹Ì´Ï¸Ê ÅØ½ºÃ³¸¦ Àû¿ë½ÃÅ²´Ù..
+	CN3UIImage*		m_pImage_Map; // ì´ ì´ë¯¸ì§€ì— ë¯¸ë‹ˆë§µ í…ìŠ¤ì²˜ë¥¼ ì ìš©ì‹œí‚¨ë‹¤..
 	CN3UIButton*	m_pBtn_ZoomIn;
 	CN3UIButton*	m_pBtn_ZoomOut;
 	CN3UIButton*	m_pBtn_Quest;
@@ -53,18 +53,18 @@ protected:
 	// NOTE(srmeier): new components
 	CN3UIString*	m_pText_FPS;
 
-	float			m_fZoom; // ÁöµµÀÇ ¹èÀ²..
+	float			m_fZoom; // ì§€ë„ì˜ ë°°ìœ¨..
 	float			m_fMapSizeX;
 	float			m_fMapSizeZ;
 	float			m_fYawPlayer;
 	__Vector3		m_vPosPlayer;
 	__Vector3		m_vViewPos;
 
-	__VertexTransformedColor	m_vArrows[6]; // ÇÃ·¹ÀÌ¾î À§Ä¡ È­»ìÇ¥..
+	__VertexTransformedColor	m_vArrows[6]; // í”Œë ˆì´ì–´ ìœ„ì¹˜ í™”ì‚´í‘œ..
 	std::list<__PositionInfo>	m_Positions;
-	std::list<__PositionInfo>	m_PositionsTop; // ¸Ç À§¿¡ ±×¸± À§Ä¡´ú..
+	std::list<__PositionInfo>	m_PositionsTop; // ë§¨ ìœ„ì— ê·¸ë¦´ ìœ„ì¹˜ëœ..
 
-	//ÄÃ·ÁÀÖ´Â ¸¶¹ı½ºÅ³ Ç¥½ÃÇÏ±â..
+	//ì»¬ë ¤ìˆëŠ” ë§ˆë²•ìŠ¤í‚¬ í‘œì‹œí•˜ê¸°..
 	std::list<__DurationMagicImg*> m_pMagic;
 	
 // Attributes
@@ -88,12 +88,12 @@ public:
 	void ZoomSet(float fZoom);
 	void PositionInfoAdd(int iID, const __Vector3& vPos, D3DCOLOR crID, bool bDrawTop);
 	void PositionInfoClear();
-	bool LoadMap(const std::string& szMiniMapFN, float fMapSizeX, float fMapSizeZ); // ¹Ì´Ï¸Ê ºñÆ®¸Ê ÆÄÀÏ ÀÌ¸§, ¸ÅÀÇ ³Êºñ ±æÀÌ..(Meter);
+	bool LoadMap(const std::string& szMiniMapFN, float fMapSizeX, float fMapSizeZ); // ë¯¸ë‹ˆë§µ ë¹„íŠ¸ë§µ íŒŒì¼ ì´ë¦„, ë§¤ì˜ ë„ˆë¹„ ê¸¸ì´..(Meter);
 	
-	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // ¸Ş½ÃÁö¸¦ ¹Ş´Â´Ù.. º¸³½³ğ, msg
+	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // ë©”ì‹œì§€ë¥¼ ë°›ëŠ”ë‹¤.. ë³´ë‚¸ë†ˆ, msg
 
 	virtual void	Tick();
-	virtual void	Render(); // ¹Ì´Ï¸Ê ·»´õ¸µ..
+	virtual void	Render(); // ë¯¸ë‹ˆë§µ ë Œë”ë§..
 	virtual bool	Load(HANDLE hFile);
 	
 	virtual void	Release();

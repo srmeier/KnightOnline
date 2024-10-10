@@ -1,4 +1,4 @@
-// N3TerrainManager.cpp: implementation of the CN3TerrainManager class.
+ï»¿// N3TerrainManager.cpp: implementation of the CN3TerrainManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -91,14 +91,14 @@ void CN3TerrainManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 
 
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load ColorMap"); // TmpLog_11_22
-	m_pTerrain->LoadColorMap(pZone->szColorMapFN);		// ÄÃ·¯¸Ê ·Îµå..
+	m_pTerrain->LoadColorMap(pZone->szColorMapFN);		// ì»¬ëŸ¬ë§µ ë¡œë“œ..
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Release Shapes\t%d", m_pShapes); // TmpLog_11_22
 	m_pShapes->Release();
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load Shapes"); // TmpLog_11_22
 
 
 	/*if(iZoneID == 1) m_pShapes->LoadFromFile(pZone->szObjectPostDataFN, N3FORMAT_VER_1068);
-	else*/ m_pShapes->LoadFromFile(pZone->szObjectPostDataFN);//, N3FORMAT_VER_1298);//, pZone->dwVersion);	// ¿ÀºêÁ§Æ® µ¥ÀÌÅÍ ·Îµå..
+	else*/ m_pShapes->LoadFromFile(pZone->szObjectPostDataFN);//, N3FORMAT_VER_1298);//, pZone->dwVersion);	// ì˜¤ë¸Œì íŠ¸ ë°ì´í„° ë¡œë“œ..
 	
 
 	char szFName[_MAX_PATH];
@@ -113,8 +113,8 @@ void CN3TerrainManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 //	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load Grasses\t%d", m_pGrasses); // TmpLog_11_22
 //	m_pGrasses->Init(vPosPlayer);
 	CLogWriter::Write("CN3TerrainManager::InitWorld Pre Load Sky\t%d", m_pSky); // TmpLog_11_22
-	m_pSky->LoadFromFile(pZone->szSkySetting); // ÇÏ´Ã, ±¸¸§, ÅÂ¾ç, ³¯¾¾ º¯È­µî Á¤º¸ ¹× ÅØ½ºÃ³ ·Îµù..
-	m_pSky->SunAndMoonDirectionFixByHour(pZone->iFixedSundDirection); // ÇØ, ´Þ ¹æÇâÀ» °íÁ¤ÇÏµç°¡ È¤Àº 0 ÀÌ¸é °íÁ¤ÇÏÁö ¾Ê´Â´Ù.
+	m_pSky->LoadFromFile(pZone->szSkySetting); // í•˜ëŠ˜, êµ¬ë¦„, íƒœì–‘, ë‚ ì”¨ ë³€í™”ë“± ì •ë³´ ë° í…ìŠ¤ì²˜ ë¡œë”©..
+	m_pSky->SunAndMoonDirectionFixByHour(pZone->iFixedSundDirection); // í•´, ë‹¬ ë°©í–¥ì„ ê³ ì •í•˜ë“ ê°€ í˜¹ì€ 0 ì´ë©´ ê³ ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 }
 
 void CN3TerrainManager::Tick()
@@ -277,12 +277,12 @@ CN3Shape* CN3TerrainManager::PickWithShape(int iXScreen, int iYScreen, bool bMus
 		return NULL;
 }
 
-bool CN3TerrainManager::CheckCollisionWithShape(	  const __Vector3& vPos,				 // Ãæµ¹ À§Ä¡
-																						const __Vector3& vDir,				   // ¹æÇâ º¤ÅÍ
-																						float fSpeedPerSec,					    // ÃÊ´ç ¿òÁ÷ÀÌ´Â ¼Óµµ
-																						__Vector3* pvCol,						 // Ãæµ¹ ÁöÁ¡
-																						__Vector3* pvNormal,				  // Ãæµ¹ÇÑ¸éÀÇ ¹ý¼±º¤ÅÍ
-																						__Vector3* pVec)						// Ãæµ¹ÇÑ ¸é ÀÇ Æú¸®°ï __Vector3[3]
+bool CN3TerrainManager::CheckCollisionWithShape(	  const __Vector3& vPos,				 // ì¶©ëŒ ìœ„ì¹˜
+																						const __Vector3& vDir,				   // ë°©í–¥ ë²¡í„°
+																						float fSpeedPerSec,					    // ì´ˆë‹¹ ì›€ì§ì´ëŠ” ì†ë„
+																						__Vector3* pvCol,						 // ì¶©ëŒ ì§€ì 
+																						__Vector3* pvNormal,				  // ì¶©ëŒí•œë©´ì˜ ë²•ì„ ë²¡í„°
+																						__Vector3* pVec)						// ì¶©ëŒí•œ ë©´ ì˜ í´ë¦¬ê³¤ __Vector3[3]
 {
 	if (m_pShapes) 
 		return m_pShapes->CheckCollision( vPos, vDir, fSpeedPerSec, pvCol, pvNormal, pVec);

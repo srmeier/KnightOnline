@@ -1,4 +1,4 @@
-// UIChat.cpp: implementation of the CUIChat class.
+ï»¿// UIChat.cpp: implementation of the CUIChat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,7 +22,7 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CUIChat::CUIChat()													//»ı¼ºÀÚ ¿Í ÆÄ±«ÀÚ¿¡¼­ Release¾È ºÒ·¯ ÁÖ³ª??
+CUIChat::CUIChat()													//ìƒì„±ì ì™€ íŒŒê´´ìì—ì„œ Releaseì•ˆ ë¶ˆëŸ¬ ì£¼ë‚˜??
 {
 	m_pChatOut = NULL;
 	m_pScrollbar = NULL;
@@ -54,7 +54,7 @@ CUIChat::CUIChat()													//»ı¼ºÀÚ ¿Í ÆÄ±«ÀÚ¿¡¼­ Release¾È ºÒ·¯ ÁÖ³ª??
 
 CUIChat::~CUIChat()
 {
-	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ÀÇ Æ÷ÀÎÅÍ´Â ¸Ş¸ğ¸® ÇÒ´çµÇ¾î ÀÖ¾îµµ ºÎ¸ğ°¡ ÇØÁ¦µÉ¶§ ÀÚµ¿À¸·Î ÇØÁ¦ÇÏ¹Ç·Î ¾ÈÁö¿ö¾ß ÇÑ´Ù.
+	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ì˜ í¬ì¸í„°ëŠ” ë©”ëª¨ë¦¬ í• ë‹¹ë˜ì–´ ìˆì–´ë„ ë¶€ëª¨ê°€ í•´ì œë ë•Œ ìë™ìœ¼ë¡œ í•´ì œí•˜ë¯€ë¡œ ì•ˆì§€ì›Œì•¼ í•œë‹¤.
 
 	ChatListItor itor;
 //	for(int i = 0; i < CHAT_BUFFER_COUNT; i++)
@@ -90,7 +90,7 @@ void CUIChat::Release()
 	m_pChatOut = NULL;
 	m_pScrollbar = NULL;
 	m_iChatLineCount = 0;
-	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ÀÇ Æ÷ÀÎÅÍ´Â ¸Ş¸ğ¸® ÇÒ´çµÇ¾î ÀÖ¾îµµ ºÎ¸ğ°¡ ÇØÁ¦µÉ¶§ ÀÚµ¿À¸·Î ÇØÁ¦ÇÏ¹Ç·Î ¾ÈÁö¿ö¾ß ÇÑ´Ù.
+	if (m_ppUILines) {delete [] m_ppUILines; m_ppUILines = NULL;}	// m_ppUILines[n]ì˜ í¬ì¸í„°ëŠ” ë©”ëª¨ë¦¬ í• ë‹¹ë˜ì–´ ìˆì–´ë„ ë¶€ëª¨ê°€ í•´ì œë ë•Œ ìë™ìœ¼ë¡œ í•´ì œí•˜ë¯€ë¡œ ì•ˆì§€ì›Œì•¼ í•œë‹¤.
 	ZeroMemory(&m_rcChatOutRegion, sizeof(m_rcChatOutRegion));
 
 	ChatListItor itor;
@@ -147,11 +147,11 @@ bool CUIChat::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		}
 
 		if(N3_CHAT_UNKNOWN != eCM)
-			this->ChangeChattingMode(eCM); // Ã¤ÆÃ ¸ğµå°¡ ¹Ù²î¸é..
+			this->ChangeChattingMode(eCM); // ì±„íŒ… ëª¨ë“œê°€ ë°”ë€Œë©´..
 	}
 	else if (dwMsg == UIMSG_SCROLLBAR_POS)
 	{
-		// ½ºÅ©·Ñ¹Ù¿¡ ¸Â´Â Ã¤ÆÃ Line ¼³Á¤
+		// ìŠ¤í¬ë¡¤ë°”ì— ë§ëŠ” ì±„íŒ… Line ì„¤ì •
 		int iCurLinePos = m_pScrollbar->GetCurrentPos();
 		SetTopLine(iCurLinePos);
 		return true;
@@ -160,10 +160,10 @@ bool CUIChat::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	else if (dwMsg == UIMSG_EDIT_RETURN)
 	{													
 		CN3UIEdit* pEdit = (CN3UIEdit*)pSender;
-		//Ã¤ÆÃ m_pEdit->SetString(""); ÇØ¹ö¸° ÈÄ¿¡´Â m_pEdit->GetString();ÇØ¼­ ¾ò¾î¿Â Æ÷ÀÎÅÍ°¡
-		// À¯È¿ÇÏÁö ¾ÊÀº Æ÷ÀÎÅÍ°¡ µÇ¹Ç·Î ÁÖÀÇ..
+		//ì±„íŒ… m_pEdit->SetString(""); í•´ë²„ë¦° í›„ì—ëŠ” m_pEdit->GetString();í•´ì„œ ì–»ì–´ì˜¨ í¬ì¸í„°ê°€
+		// ìœ íš¨í•˜ì§€ ì•Šì€ í¬ì¸í„°ê°€ ë˜ë¯€ë¡œ ì£¼ì˜..
 
-		// buffer¿¡ Ä«ÇÇÇØµÒ.
+		// bufferì— ì¹´í”¼í•´ë‘ .
 		m_szString = m_pEdit->GetString();
 		int iStrLen = m_szString.size();
 		if (iStrLen > 0)
@@ -188,15 +188,15 @@ bool CUIChat::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 					CGameProcedure::s_pProcMain->MsgSend_Chat(N3_CHAT_PRIVATE, szMsg);//&(m_szString[1]));
 				}
 			}
-			else if(iStrLen > 1 && '#' == m_szString[0]) // ÆÄÆ¼
+			else if(iStrLen > 1 && '#' == m_szString[0]) // íŒŒí‹°
 			{
 				CGameProcedure::s_pProcMain->MsgSend_Chat(N3_CHAT_PARTY, &(m_szString[1]));
 			}
-			else if(iStrLen > 1 && '$' == m_szString[0]) // Å¬·£
+			else if(iStrLen > 1 && '$' == m_szString[0]) // í´ëœ
 			{
 				CGameProcedure::s_pProcMain->MsgSend_Chat(N3_CHAT_CLAN, &(m_szString[1]));
 			}
-			else if(iStrLen > 1 && '!' == m_szString[0]) // ¿ÜÄ¡±â
+			else if(iStrLen > 1 && '!' == m_szString[0]) // ì™¸ì¹˜ê¸°
 			{
 				CGameProcedure::s_pProcMain->MsgSend_Chat(N3_CHAT_SHOUT, &(m_szString[1]));
 			}
@@ -207,7 +207,7 @@ bool CUIChat::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			}
 		}
 
-		// È­¸é¿¡ Ç¥½ÃµÇ´Â ±Û¾¾´Â Áö¿î´Ù.
+		// í™”ë©´ì— í‘œì‹œë˜ëŠ” ê¸€ì”¨ëŠ” ì§€ìš´ë‹¤.
 //		this->SetString("");
 //		::SetWindowText(s_hWndEdit, "");
 
@@ -230,7 +230,7 @@ void CUIChat::CreateLines()
 		delete [] m_ppUILines; m_ppUILines = NULL;
 	}
 	SIZE size;
-	if (m_pChatOut && m_pChatOut->GetTextExtent("°¡", lstrlen("°¡"), &size) && size.cy>0)
+	if (m_pChatOut && m_pChatOut->GetTextExtent("ê°€", lstrlen("ê°€"), &size) && size.cy>0)
 	{
 		m_iChatLineCount = (m_rcChatOutRegion.bottom - m_rcChatOutRegion.top)/size.cy;
 	}
@@ -265,11 +265,11 @@ bool CUIChat::Load(HANDLE hFile)
 	m_rcChatOutRegion = m_pChatOut->GetRegion();
 	CreateLines();
 
-	__ASSERT(0<m_iChatLineCount,"Ã¤ÆÃÃ¢ÀÌ ³Ê¹« ÀÛ¾Æ¿ä");
+	__ASSERT(0<m_iChatLineCount,"ì±„íŒ…ì°½ì´ ë„ˆë¬´ ì‘ì•„ìš”");
 
 	//son, chat_in
 	m_pEdit = (CN3UIEdit*)GetChildByID("edit0");				__ASSERT(m_pEdit, "NULL UI Component!!");
-	m_pEdit->SetMaxString(256); // Ã¤ÆÃ ¹®ÀÚ¿­ ±æÀÌ Á¦ÇÑ..
+	m_pEdit->SetMaxString(256); // ì±„íŒ… ë¬¸ìì—´ ê¸¸ì´ ì œí•œ..
 	//son, chat_in
 
 	m_pBtn_Normal			= GetChildByID("btn_normal");			__ASSERT(m_pBtn_Normal, "NULL UI Component!!");
@@ -281,7 +281,7 @@ bool CUIChat::Load(HANDLE hFile)
 	m_pBtn_Check			= GetChildByID("btn_check_normal");		__ASSERT(m_pBtn_Check, "NULL UI Component!!");
 	m_pBtn_Fold				= GetChildByID("btn_off");				__ASSERT(m_pBtn_Fold, "NULL UI Component!!");
 
-	this->ChangeChattingMode(N3_CHAT_NORMAL); // º¸Åë Ã¤ÆÃ ¸ğµåÀÌ´Ù..
+	this->ChangeChattingMode(N3_CHAT_NORMAL); // ë³´í†µ ì±„íŒ… ëª¨ë“œì´ë‹¤..
 
 	return true;
 }
@@ -331,14 +331,14 @@ void CUIChat::AddChatMsg(e_ChatMode eCM, const std::string& szString, D3DCOLOR c
 //		break;
 //	}
 
-	// ÀÏ¹İ ChatBuffer¿¡ ³Ö±â
+	// ì¼ë°˜ ChatBufferì— ë„£ê¸°
 //	if(CHAT_BUFFER_NORMAL != eCB)
 //	{
 		__ChatInfo* pChatInfo = new __ChatInfo(szString, color);
 //		m_ChatBuffers[CHAT_BUFFER_NORMAL].push_back(pChatInfo);
 		m_ChatBuffer.push_back(pChatInfo);
-//		if (m_ChatBuffers[CHAT_BUFFER_NORMAL].size() > 255)	// 255°³°¡ ³ÑÀ¸¸é ¾Õ¿¡¼­ºÎÅÍ Áö¿ì±â
-		if (m_ChatBuffer.size() > 255)	// 255°³°¡ ³ÑÀ¸¸é ¾Õ¿¡¼­ºÎÅÍ Áö¿ì±â
+//		if (m_ChatBuffers[CHAT_BUFFER_NORMAL].size() > 255)	// 255ê°œê°€ ë„˜ìœ¼ë©´ ì•ì—ì„œë¶€í„° ì§€ìš°ê¸°
+		if (m_ChatBuffer.size() > 255)	// 255ê°œê°€ ë„˜ìœ¼ë©´ ì•ì—ì„œë¶€í„° ì§€ìš°ê¸°
 		{
 //			__ChatInfo* pTemp = m_ChatBuffers[CHAT_BUFFER_NORMAL].front();
 			__ChatInfo* pTemp = m_ChatBuffer.front();
@@ -347,35 +347,35 @@ void CUIChat::AddChatMsg(e_ChatMode eCM, const std::string& szString, D3DCOLOR c
 //			m_ChatBuffers[CHAT_BUFFER_NORMAL].pop_front();
 			m_ChatBuffer.pop_front();
 		}
-//		this->AddLineBuffer(CHAT_BUFFER_NORMAL, szString, color); // line buffer ¿¡ ³Ö±â
-		this->AddLineBuffer(szString, color); // line buffer ¿¡ ³Ö±â
+//		this->AddLineBuffer(CHAT_BUFFER_NORMAL, szString, color); // line buffer ì— ë„£ê¸°
+		this->AddLineBuffer(szString, color); // line buffer ì— ë„£ê¸°
 //	}
 
-	// ChatBuffer¿¡ ³Ö±â
+	// ChatBufferì— ë„£ê¸°
 //	__ChatInfo* pChatInfo = new __ChatInfo(szString, color);
 //	m_ChatBuffers[eCB].push_back(pChatInfo);
-//	if (m_ChatBuffers[eCB].size() > 255)	// 255°³°¡ ³ÑÀ¸¸é ¾Õ¿¡¼­ºÎÅÍ Áö¿ì±â
+//	if (m_ChatBuffers[eCB].size() > 255)	// 255ê°œê°€ ë„˜ìœ¼ë©´ ì•ì—ì„œë¶€í„° ì§€ìš°ê¸°
 //	{
 //		__ChatInfo* pTemp = m_ChatBuffers[eCB].front();
 //		if (pTemp) delete pTemp;
 //
 //		m_ChatBuffers[eCB].pop_front();
 //	}
-//	this->AddLineBuffer(eCB, szString, color); // line buffer ¿¡ ³Ö±â
+//	this->AddLineBuffer(eCB, szString, color); // line buffer ì— ë„£ê¸°
 
-	this->AdjustScroll(); // ½ºÅ©·Ñ ¹Ù ¹× ½ºÅ©·Ñ À§Ä¡µî Á¶Á¤..
+	this->AdjustScroll(); // ìŠ¤í¬ë¡¤ ë°” ë° ìŠ¤í¬ë¡¤ ìœ„ì¹˜ë“± ì¡°ì •..
 }
 
 void CUIChat::AdjustScroll()
 {
-	// Line buffer °¹¼ö Á¶Àı
-	int iCurLinePos = m_pScrollbar->GetCurrentPos();	// ÇöÀç scroll bar°¡ °¡¸®Å°°í ÀÖ´Â line
+	// Line buffer ê°¯ìˆ˜ ì¡°ì ˆ
+	int iCurLinePos = m_pScrollbar->GetCurrentPos();	// í˜„ì¬ scroll barê°€ ê°€ë¦¬í‚¤ê³  ìˆëŠ” line
 	BOOL bAutoScroll = (m_pScrollbar->GetMaxPos() == iCurLinePos) ? TRUE : FALSE;
 
-//	while (m_LineBuffers[m_eChatBuffer].size() > MAX_CHAT_LINES && 0 < iCurLinePos)	// MAX_CHAT_LINESÀº ÃÖ´ë lineÀÇ ¼ö (´Ü ½ºÅ©·Ñ¹Ù°¡ 0ÀÎ °÷¿¡ ÀÖÀ¸¸é lineÀ» Áö¿ìÁö ¾ÊÀ¸¹Ç·Î 500°³¸¦ ³Ñ±æ ¼ö ÀÖ´Ù)
-	while (m_LineBuffer.size() > MAX_CHAT_LINES && 0 < iCurLinePos)	// MAX_CHAT_LINESÀº ÃÖ´ë lineÀÇ ¼ö (´Ü ½ºÅ©·Ñ¹Ù°¡ 0ÀÎ °÷¿¡ ÀÖÀ¸¸é lineÀ» Áö¿ìÁö ¾ÊÀ¸¹Ç·Î 500°³¸¦ ³Ñ±æ ¼ö ÀÖ´Ù)
+//	while (m_LineBuffers[m_eChatBuffer].size() > MAX_CHAT_LINES && 0 < iCurLinePos)	// MAX_CHAT_LINESì€ ìµœëŒ€ lineì˜ ìˆ˜ (ë‹¨ ìŠ¤í¬ë¡¤ë°”ê°€ 0ì¸ ê³³ì— ìˆìœ¼ë©´ lineì„ ì§€ìš°ì§€ ì•Šìœ¼ë¯€ë¡œ 500ê°œë¥¼ ë„˜ê¸¸ ìˆ˜ ìˆë‹¤)
+	while (m_LineBuffer.size() > MAX_CHAT_LINES && 0 < iCurLinePos)	// MAX_CHAT_LINESì€ ìµœëŒ€ lineì˜ ìˆ˜ (ë‹¨ ìŠ¤í¬ë¡¤ë°”ê°€ 0ì¸ ê³³ì— ìˆìœ¼ë©´ lineì„ ì§€ìš°ì§€ ì•Šìœ¼ë¯€ë¡œ 500ê°œë¥¼ ë„˜ê¸¸ ìˆ˜ ìˆë‹¤)
 	{
-		// ÇÑÁÙ Áö¿ì±â
+		// í•œì¤„ ì§€ìš°ê¸°
 //		__ChatInfo* pTemp = m_LineBuffers[m_eChatBuffer].front();
 		__ChatInfo* pTemp = m_LineBuffer.front();
 		if (pTemp) delete pTemp;
@@ -388,16 +388,16 @@ void CUIChat::AdjustScroll()
 	int iLineBufferSize = m_LineBuffer.size();
 	int iMaxScrollPos = iLineBufferSize-m_iChatLineCount;
 	if (iMaxScrollPos<0) iMaxScrollPos = 0;
-	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ¼³Á¤
+	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ì„¤ì •
 
-	// ÀÚµ¿À¸·Î ½ºÅ©·ÑÀÌ¸é
+	// ìë™ìœ¼ë¡œ ìŠ¤í¬ë¡¤ì´ë©´
 	if ( bAutoScroll) iCurLinePos = iMaxScrollPos;
 	if (iCurLinePos < 0) iCurLinePos = 0;
 
-	// ½ºÅ©·Ñ¹Ù ÇöÀç À§Ä¡ Àç¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°” í˜„ì¬ ìœ„ì¹˜ ì¬ì„¤ì •
 	m_pScrollbar->SetCurrentPos(iCurLinePos);
 
-	// ½ºÅ©·Ñ¹Ù¿¡ ¸Â´Â Ã¤ÆÃ Line ¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°”ì— ë§ëŠ” ì±„íŒ… Line ì„¤ì •
 	SetTopLine(iCurLinePos);
 }
 
@@ -409,13 +409,13 @@ void CUIChat::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 	__ASSERT(m_pChatOut, "");
 	const int iStrLen = szString.size();
 
-	// line buffer ³Ö±â
+	// line buffer ë„£ê¸°
 	SIZE size;
 	if (FALSE == m_pChatOut->GetTextExtent(szString, iStrLen, &size)) {__ASSERT(0,"no device context"); return;}
 
 	const int iRegionWidth = m_rcChatOutRegion.right - m_rcChatOutRegion.left;
 
-	// ±ÛÀÚ ÀÚ¸£´Â ÄÚµå, ¿µ¿ª ¹ÛÀ¸·Î ¹ş¾î³ª´Â ±ÛÀÚ´Â ÀÚ¸£°í ¹Ø¿¡ ÁÙ¿¡..
+	// ê¸€ì ìë¥´ëŠ” ì½”ë“œ, ì˜ì—­ ë°–ìœ¼ë¡œ ë²—ì–´ë‚˜ëŠ” ê¸€ìëŠ” ìë¥´ê³  ë°‘ì— ì¤„ì—..
 	int iCX=0;
 	int iCount = 0;
 	int iLineStart = 0;
@@ -434,7 +434,7 @@ void CUIChat::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 				int iLineLength = iCount - iLineStart + 1;
 				std::string szLine;
 				pLineInfo->szChat = szString.substr(iLineStart, iLineLength);
-			}	// ¿¬¼ÓµÈ \nÀÏ °æ¿ì pszLine = NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+			}	// ì—°ì†ëœ \nì¼ ê²½ìš° pszLine = NULLì´ ë  ìˆ˜ ìˆë‹¤.
 
 			++iCount;
 			iLineStart = iCount;
@@ -443,14 +443,14 @@ void CUIChat::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 		else
 		{
 			int iCC=0;
-			if (0x80 & szString[iCount])	iCC = 2;	// 2BYTE ¹®ÀÚ
-			else							iCC = 1;	// 1BYTE ¹®ÀÚ
+			if (0x80 & szString[iCount])	iCC = 2;	// 2BYTE ë¬¸ì
+			else							iCC = 1;	// 1BYTE ë¬¸ì
 
 			BOOL bFlag = m_pChatOut->GetTextExtent(&(szString[iCount]), iCC, &size);
 			__ASSERT(bFlag, "cannot get size of dfont");
-			if ((iCX+size.cx) > iRegionWidth)	// °¡·Î ±æÀÌ°¡ ³Ñ¾úÀ¸¸é
+			if ((iCX+size.cx) > iRegionWidth)	// ê°€ë¡œ ê¸¸ì´ê°€ ë„˜ì—ˆìœ¼ë©´
 			{
-				// ÇÑ ¶óÀÎ ´õ Ãß°¡ÇÏ±â
+				// í•œ ë¼ì¸ ë” ì¶”ê°€í•˜ê¸°
 				
 				int iLineLength = iCount - iLineStart;
 				if (iLineLength>0)
@@ -464,19 +464,19 @@ void CUIChat::AddLineBuffer(const std::string& szString, D3DCOLOR color)
 				}
 				else
 				{
-					__ASSERT(iRegionWidth>15, "³Ê¹« Á¼¾Æ¼­ ÇÑ±ÛÀÚµµ ÂïÀ» ¼ö°¡ ¾ø´Ù");
+					__ASSERT(iRegionWidth>15, "ë„ˆë¬´ ì¢ì•„ì„œ í•œê¸€ìë„ ì°ì„ ìˆ˜ê°€ ì—†ë‹¤");
 					break;
 				}
 				iLineStart = iCount;
 				iCX = 0;
 			}
-			// ±ÛÀÚ ´õÇÏ±â
+			// ê¸€ì ë”í•˜ê¸°
 			iCount += iCC;
 			iCX += size.cx;
 		}
 	}
 
-	// ¸Ç ¸¶Áö¸· Ãâ Ã³¸®
+	// ë§¨ ë§ˆì§€ë§‰ ì¶œ ì²˜ë¦¬
 	int iLineLength = iStrLen - iLineStart;
 	if (iLineLength>0)
 	{
@@ -499,7 +499,7 @@ void CUIChat::SetTopLine(int iTopLine)
 	else if (iTopLine > iLineBufferSize) iTopLine = iLineBufferSize;
 	
 	int i;
-	// ¾ÕÁÙ¼­ºÎÅÍ Â÷·Ê·Î ÀÓ½Ã¹öÆÛ¿¡ ÀúÀåÇÏ°í string ±æÀÌ ÃøÁ¤
+	// ì•ì¤„ì„œë¶€í„° ì°¨ë¡€ë¡œ ì„ì‹œë²„í¼ì— ì €ì¥í•˜ê³  string ê¸¸ì´ ì¸¡ì •
 	__ChatInfo** ppLineInfos  = new __ChatInfo*[m_iChatLineCount];
 	ZeroMemory(ppLineInfos, sizeof(__ChatInfo*)*m_iChatLineCount);
 
@@ -513,8 +513,8 @@ void CUIChat::SetTopLine(int iTopLine)
 	}
 
 	__ASSERT(m_ppUILines, "null pointer");
-	// ¾Õ¿¡¼­ºÎÅÍ ¸Â°Ô Â÷·Ê·Î °¢°¢ ¹öÆÛ¿¡ ³Ö±â
-	int iRealLine = i;	// ½ÇÁ¦ Ãâ·ÂµÇ´Â ÁÙ ¼ö
+	// ì•ì—ì„œë¶€í„° ë§ê²Œ ì°¨ë¡€ë¡œ ê°ê° ë²„í¼ì— ë„£ê¸°
+	int iRealLine = i;	// ì‹¤ì œ ì¶œë ¥ë˜ëŠ” ì¤„ ìˆ˜
 	int iRealLineCount = 0;
 	for (i=0; i<iRealLine; ++i)
 	{
@@ -526,17 +526,17 @@ void CUIChat::SetTopLine(int iTopLine)
 	for (i=iRealLineCount; i<m_iChatLineCount; ++i)
 	{
 		if (NULL == m_ppUILines[i]) continue;
-		m_ppUILines[i]->SetString("");	// ³ª¸ÓÁö´Â ºóÄ­ ¸¸µé±â
+		m_ppUILines[i]->SetString("");	// ë‚˜ë¨¸ì§€ëŠ” ë¹ˆì¹¸ ë§Œë“¤ê¸°
 	}
 	delete [] ppLineInfos;
 }
 
-void CUIChat::RecalcLineBuffers()	// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é line buffer¸¦ ´Ù½Ã °è»êÇØ¼­ ³Ö¾îÁØ´Ù.
+void CUIChat::RecalcLineBuffers()	// ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í–ˆì„ë•Œ í˜¸ì¶œí•´ì£¼ë©´ line bufferë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ë„£ì–´ì¤€ë‹¤.
 {
 	int iMaxScrollPos = 0;
 //	for(int i = 0; i < CHAT_BUFFER_COUNT; i++)
 //	{
-		// line buffer ÃÊ±âÈ­ÇÏ±â
+		// line buffer ì´ˆê¸°í™”í•˜ê¸°
 		ChatListItor itor;
 //		for(itor = m_LineBuffers[i].begin(); m_LineBuffers[i].end() != itor; ++itor)
 		for(itor = m_LineBuffer.begin(); m_LineBuffer.end() != itor; ++itor)
@@ -547,7 +547,7 @@ void CUIChat::RecalcLineBuffers()	// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é line bu
 //		m_LineBuffers[i].clear();
 		m_LineBuffer.clear();
 
-		// Line buffer ´Ù½Ã ³Ö±â
+		// Line buffer ë‹¤ì‹œ ë„£ê¸°
 //		for(itor = m_ChatBuffers[i].begin(); m_ChatBuffers[i].end() != itor; ++itor)
 		for(itor = m_ChatBuffer.begin(); m_ChatBuffer.end() != itor; ++itor)
 		{
@@ -556,11 +556,11 @@ void CUIChat::RecalcLineBuffers()	// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é line bu
 			if (pChatBuff) AddLineBuffer(pChatBuff->szChat, pChatBuff->color);
 		}
 
-		// Line buffer °¹¼ö Á¶Àı
-//		while (m_LineBuffers[i].size() > MAX_CHAT_LINES)	// MAX_CHAT_LINESÀº ÃÖ´ë lineÀÇ ¼ö
-		while (m_LineBuffer.size() > MAX_CHAT_LINES)	// MAX_CHAT_LINESÀº ÃÖ´ë lineÀÇ ¼ö
+		// Line buffer ê°¯ìˆ˜ ì¡°ì ˆ
+//		while (m_LineBuffers[i].size() > MAX_CHAT_LINES)	// MAX_CHAT_LINESì€ ìµœëŒ€ lineì˜ ìˆ˜
+		while (m_LineBuffer.size() > MAX_CHAT_LINES)	// MAX_CHAT_LINESì€ ìµœëŒ€ lineì˜ ìˆ˜
 		{
-			// ÇÑÁÙ Áö¿ì±â
+			// í•œì¤„ ì§€ìš°ê¸°
 //			__ChatInfo* pLineBuff = m_LineBuffers[i].front();
 			__ChatInfo* pLineBuff = m_LineBuffer.front();
 			if (pLineBuff) delete pLineBuff;
@@ -576,12 +576,12 @@ void CUIChat::RecalcLineBuffers()	// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é line bu
 //		}
 //	}
 
-	// ½ºÅ©·Ñ¹Ù ÇöÀç À§Ä¡ Àç¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°” í˜„ì¬ ìœ„ì¹˜ ì¬ì„¤ì •
 	if (iMaxScrollPos<0) iMaxScrollPos = 0;
-	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ¼³Á¤
+	m_pScrollbar->SetRange(0, iMaxScrollPos);	// scroll bar range ì„¤ì •
 	m_pScrollbar->SetCurrentPos(iMaxScrollPos);
 	
-	// ½ºÅ©·Ñ¹Ù¿¡ ¸Â´Â Ã¤ÆÃ Line ¼³Á¤
+	// ìŠ¤í¬ë¡¤ë°”ì— ë§ëŠ” ì±„íŒ… Line ì„¤ì •
 	SetTopLine(iMaxScrollPos);
 }
 
@@ -601,7 +601,7 @@ void CUIChat::KillFocus()
 
 BOOL CUIChat::IsChatMode()
 {
-	return ((m_pEdit && GetFocusedEdit() == m_pEdit) ? TRUE : FALSE);			//	TRUE --> Ã¼ÆÃ¸ğµå°¡ ¾Æ´Ò¶§ 
+	return ((m_pEdit && GetFocusedEdit() == m_pEdit) ? TRUE : FALSE);			//	TRUE --> ì²´íŒ…ëª¨ë“œê°€ ì•„ë‹ë•Œ 
 }
 //son, chat_in
 
@@ -626,15 +626,15 @@ void CUIChat::SetCaretPos(int iPos)
 BOOL CUIChat::MoveOffset(int iOffsetX, int iOffsetY)
 {
 	if (0 == iOffsetX && 0 == iOffsetY) return FALSE;
-	// ui ¿µ¿ª
+	// ui ì˜ì—­
 	m_rcRegion.left += iOffsetX;		m_rcRegion.top += iOffsetY;
 	m_rcRegion.right += iOffsetX;		m_rcRegion.bottom += iOffsetY;
 
-	// movable ¿µ¿ª
+	// movable ì˜ì—­
 	m_rcMovable.left += iOffsetX;		m_rcMovable.top += iOffsetY;
 	m_rcMovable.right += iOffsetX;		m_rcMovable.bottom += iOffsetY;
 
-	// children ÁÂÇ¥ °»½Å
+	// children ì¢Œí‘œ ê°±ì‹ 
 	CN3UIBase* pCUI = NULL; // Child UI...
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
@@ -665,10 +665,10 @@ BOOL CUIChat::MoveOffset(int iOffsetX, int iOffsetY)
 void CUIChat::SetRegion(const RECT& Rect)
 {
 	CN3UIBase::SetRegion(Rect);
-	// ÀÚ½ÄµéÀ» Àû´çÈ÷ ¹èÄ¡ÇÑ´Ù.
-	// m_rcChatOutRegion = ;	// Ã¤ÆÃ Ãâ·Â ¿µ¿ªÀ» ´Ù½Ã ÁöÁ¤ÇØÁØ´Ù.
-	//CreateLines();	// Ã¤ÆÃ ¶óÀÎÀ» ¸îÁÙ µé¾î°¥Áö °è»êÇÏ°í ´Ù½Ã ¸¸µç´Ù.
-	//RecalcLineBuffers();	// ¶óÀÎ ¹öÆÛ¸¦ ´Ù Áö¿ì°í ´Ù½Ã ¸¸µé¾îÁÖ°í ±Û¾¾¸¦ Ç¥½ÃÇÑ´Ù.
+	// ìì‹ë“¤ì„ ì ë‹¹íˆ ë°°ì¹˜í•œë‹¤.
+	// m_rcChatOutRegion = ;	// ì±„íŒ… ì¶œë ¥ ì˜ì—­ì„ ë‹¤ì‹œ ì§€ì •í•´ì¤€ë‹¤.
+	//CreateLines();	// ì±„íŒ… ë¼ì¸ì„ ëª‡ì¤„ ë“¤ì–´ê°ˆì§€ ê³„ì‚°í•˜ê³  ë‹¤ì‹œ ë§Œë“ ë‹¤.
+	//RecalcLineBuffers();	// ë¼ì¸ ë²„í¼ë¥¼ ë‹¤ ì§€ìš°ê³  ë‹¤ì‹œ ë§Œë“¤ì–´ì£¼ê³  ê¸€ì”¨ë¥¼ í‘œì‹œí•œë‹¤.
 }
 
 void CUIChat::ChangeChattingMode(e_ChatMode eCM)
@@ -723,7 +723,7 @@ void CUIChat::ChangeChattingMode(e_ChatMode eCM)
 		else pBtns[i]->SetState(UI_STATE_BUTTON_NORMAL);
 	}
 
-//	if(eCBPrev != m_eChatBuffer) this->AdjustScroll(); // Ã¤ÆÃ ¸ğµå°¡ ´Ş¶óÁö¸é..
+//	if(eCBPrev != m_eChatBuffer) this->AdjustScroll(); // ì±„íŒ… ëª¨ë“œê°€ ë‹¬ë¼ì§€ë©´..
 }
 
 void CUIChat::ChatListenEnable()
@@ -754,8 +754,8 @@ bool CUIChat::OnKeyPress(int iKey)
 	switch(iKey)
 	{
 	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
-		{	//hotkey°¡ Æ÷Ä¿½º ÀâÇôÀÖÀ»¶§´Â ´Ù¸¥ ui¸¦ ´İÀ»¼ö ¾øÀ¸¹Ç·Î DIK_ESCAPE°¡ µé¾î¿À¸é Æ÷Ä¿½º¸¦ ´Ù½ÃÀâ°í
-			//¿­·ÁÀÖ´Â ´Ù¸¥ À¯¾ÆÀÌ¸¦ ´İ¾ÆÁØ´Ù.
+		{	//hotkeyê°€ í¬ì»¤ìŠ¤ ì¡í˜€ìˆì„ë•ŒëŠ” ë‹¤ë¥¸ uië¥¼ ë‹«ì„ìˆ˜ ì—†ìœ¼ë¯€ë¡œ DIK_ESCAPEê°€ ë“¤ì–´ì˜¤ë©´ í¬ì»¤ìŠ¤ë¥¼ ë‹¤ì‹œì¡ê³ 
+			//ì—´ë ¤ìˆëŠ” ë‹¤ë¥¸ ìœ ì•„ì´ë¥¼ ë‹«ì•„ì¤€ë‹¤.
 			CGameProcedure::s_pUIMgr->ReFocusUI();//this_ui
 			CN3UIBase* pFocus = CGameProcedure::s_pUIMgr->GetFocusedUI();
 			if(pFocus && pFocus != this) pFocus->OnKeyPress(iKey);

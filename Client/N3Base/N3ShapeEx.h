@@ -1,11 +1,11 @@
-// N3ShapeEx.h: interface for the CN3ShapeEx class.
-// ¸¸µçÀÌ : dino
-// n3shapeÀÇ ÇÑ ÀÏºÎºĞÀ» ¿òÁ÷ÀÏ ¼ö ÀÖ°Ô ÇÑ Å¬·¡½º
-// »óÅÂ(0¹ø »óÅÂ, 1¹ø»óÅÂ, 2¹ø»óÅÂ)¸¦ º¯°æÇÒ ¼ö ÀÖ´Ù.
-// »óÅÂ º¯°æ½Ã (½Ã°£À» ³Ö¾îÁÖ¸é »óÅÂ°£ÀÇ pos rot scale Á¤º¸¸¦ linearÇÏ°Ô º¯È­½ÃÅ²´Ù.
+ï»¿// N3ShapeEx.h: interface for the CN3ShapeEx class.
+// ë§Œë“ ì´ : dino
+// n3shapeì˜ í•œ ì¼ë¶€ë¶„ì„ ì›€ì§ì¼ ìˆ˜ ìˆê²Œ í•œ í´ë˜ìŠ¤
+// ìƒíƒœ(0ë²ˆ ìƒíƒœ, 1ë²ˆìƒíƒœ, 2ë²ˆìƒíƒœ)ë¥¼ ë³€ê²½í•  ìˆ˜ ìˆë‹¤.
+// ìƒíƒœ ë³€ê²½ì‹œ (ì‹œê°„ì„ ë„£ì–´ì£¼ë©´ ìƒíƒœê°„ì˜ pos rot scale ì •ë³´ë¥¼ linearí•˜ê²Œ ë³€í™”ì‹œí‚¨ë‹¤.
 
-// °³¼±Á¡ : Shape ÀüÃ¼°¡ ¿òÁ÷ÀÌ´Â »óÅÂ¸¦ Ãß°¡ÇÏÀÚ
-//          ¼³°è½Ã Ãß°¡ÇÏ·Á´Ù ³Ê¹« º¹ÀâÇÏ¿© º¸·ùÇÔ. ¸®¸¶Å© µÈ ºÎºĞÀÌ ±×¿¡ °ü·ÃµÈ °ÍÀÓ. Ãß°¡ º¸°­ÇØ¾ßÇÔ.
+// ê°œì„ ì  : Shape ì „ì²´ê°€ ì›€ì§ì´ëŠ” ìƒíƒœë¥¼ ì¶”ê°€í•˜ì
+//          ì„¤ê³„ì‹œ ì¶”ê°€í•˜ë ¤ë‹¤ ë„ˆë¬´ ë³µì¡í•˜ì—¬ ë³´ë¥˜í•¨. ë¦¬ë§ˆí¬ ëœ ë¶€ë¶„ì´ ê·¸ì— ê´€ë ¨ëœ ê²ƒì„. ì¶”ê°€ ë³´ê°•í•´ì•¼í•¨.
 //////////////////////////////////////////////////////////////////////
 
 #if !defined(AFX_N3SHAPEEX_H__C7E1DD38_999B_4AE7_942F_58A9225C2061__INCLUDED_)
@@ -16,19 +16,19 @@
 #endif // _MSC_VER > 1000
 
 #include "N3Shape.h"
-const uint32_t AF_POS = 0x00000001;		// Pos º¯È­°¡ ÀÖ´Ù.
-const uint32_t AF_SCALE = 0x00000002;		// Scale º¯È­°¡ ÀÖ´Ù.
-const uint32_t AF_ROTATION = 0x00000004;		// Rotation º¯È­°¡ ÀÖ´Ù.
+const uint32_t AF_POS = 0x00000001;		// Pos ë³€í™”ê°€ ìˆë‹¤.
+const uint32_t AF_SCALE = 0x00000002;		// Scale ë³€í™”ê°€ ìˆë‹¤.
+const uint32_t AF_ROTATION = 0x00000004;		// Rotation ë³€í™”ê°€ ìˆë‹¤.
 
 struct __ActionInfo
 {
-	uint32_t				dwActionFlag;			// Pos, Scale, Rot º¯È­°¡ ÀÖ´Â°¡?
-	std::vector<__Vector3>		ActionStateInfos_Pos;		// ¿òÁ÷ÀÏ »óÅÂ Á¤º¸µé(ÀÌµ¿ Á¤º¸ ÀÖ´Ù¸é m_iActionStateCount°³)
-	std::vector<__Vector3>		ActionStateInfos_Scale;	// È®´ëÃà¼Ò
-	std::vector<__Quaternion>	ActionStateInfos_Rot;		// È¸Àü
-//	__Vector3			vCurAction_Pos;	// ÇöÀç ¿òÁ÷ÀÎ »óÅÂ Á¤º¸(tick¿¡ µû¶ó º¯È­ÇÑ´Ù)
-//	__Vector3			vCurAction_Scale;	// ÇöÀç ¿òÁ÷ÀÎ »óÅÂ Á¤º¸(tick¿¡ µû¶ó º¯È­ÇÑ´Ù)
-//	__Quaternion		qtCurAction_Rot;	// ÇöÀç ¿òÁ÷ÀÎ »óÅÂ Á¤º¸(tick¿¡ µû¶ó º¯È­ÇÑ´Ù)
+	uint32_t				dwActionFlag;			// Pos, Scale, Rot ë³€í™”ê°€ ìˆëŠ”ê°€?
+	std::vector<__Vector3>		ActionStateInfos_Pos;		// ì›€ì§ì¼ ìƒíƒœ ì •ë³´ë“¤(ì´ë™ ì •ë³´ ìˆë‹¤ë©´ m_iActionStateCountê°œ)
+	std::vector<__Vector3>		ActionStateInfos_Scale;	// í™•ëŒ€ì¶•ì†Œ
+	std::vector<__Quaternion>	ActionStateInfos_Rot;		// íšŒì „
+//	__Vector3			vCurAction_Pos;	// í˜„ì¬ ì›€ì§ì¸ ìƒíƒœ ì •ë³´(tickì— ë”°ë¼ ë³€í™”í•œë‹¤)
+//	__Vector3			vCurAction_Scale;	// í˜„ì¬ ì›€ì§ì¸ ìƒíƒœ ì •ë³´(tickì— ë”°ë¼ ë³€í™”í•œë‹¤)
+//	__Quaternion		qtCurAction_Rot;	// í˜„ì¬ ì›€ì§ì¸ ìƒíƒœ ì •ë³´(tickì— ë”°ë¼ ë³€í™”í•œë‹¤)
 };
 
 class CN3SPartEx : public CN3SPart
@@ -40,7 +40,7 @@ public:
 // Attributes
 public:
 protected:
-	__ActionInfo		m_ActionInfo;	// ¿òÁ÷ÀÓ¿¡ °üÇÑ Á¤º¸
+	__ActionInfo		m_ActionInfo;	// ì›€ì§ì„ì— ê´€í•œ ì •ë³´
 // Operations
 public:
 	virtual void Release();
@@ -65,17 +65,17 @@ protected:
 // Attributes
 public:
 protected:
-	int		m_iActionStateCount;		// »óÅÂ°¡ ¸î°³°¡ ÀÖ´ÂÁö ³ªÅ¸³½´Ù.
-	int		m_iCurActionState;		// ÇöÀç »óÅÂ
-	int		m_iPrevActionState;		// ÀÌÀü »óÅÂ(»õ·Î¿î »óÅÂ¸¦ ¼³Á¤ÇØÁÖ¸é AnimationµÇ´Â µ¿¾È ÀÌÀü»óÅÂ¸¦ ÀúÀåÇØµĞ´Ù.
-	float	m_fActionTimeChanged;		// »óÅÂ°¡ ¿ÏÀüÈ÷ ¹Ù²î´Â ½Ã°£
-	float	m_fActionTimeChanging;	// »óÅÂ°¡ ¹Ù²î´Â ½ÃÀÛ½Ã°£ºÎÅÍ Áö±İ±îÁöÀÇ °æ°ú ½Ã°£
+	int		m_iActionStateCount;		// ìƒíƒœê°€ ëª‡ê°œê°€ ìˆëŠ”ì§€ ë‚˜íƒ€ë‚¸ë‹¤.
+	int		m_iCurActionState;		// í˜„ì¬ ìƒíƒœ
+	int		m_iPrevActionState;		// ì´ì „ ìƒíƒœ(ìƒˆë¡œìš´ ìƒíƒœë¥¼ ì„¤ì •í•´ì£¼ë©´ Animationë˜ëŠ” ë™ì•ˆ ì´ì „ìƒíƒœë¥¼ ì €ì¥í•´ë‘”ë‹¤.
+	float	m_fActionTimeChanged;		// ìƒíƒœê°€ ì™„ì „íˆ ë°”ë€ŒëŠ” ì‹œê°„
+	float	m_fActionTimeChanging;	// ìƒíƒœê°€ ë°”ë€ŒëŠ” ì‹œì‘ì‹œê°„ë¶€í„° ì§€ê¸ˆê¹Œì§€ì˜ ê²½ê³¼ ì‹œê°„
 
-	__ActionInfo		m_ActionInfo;	// ¿òÁ÷ÀÓ¿¡ °üÇÑ Á¤º¸
+	__ActionInfo		m_ActionInfo;	// ì›€ì§ì„ì— ê´€í•œ ì •ë³´
 
 // Operations
 public:
-	BOOL	SetState(int iState, float fSec);	// fSec½Ã°£µ¿¾È »óÅÂ¸¦ ¹Ù²Û´Ù. (fSecÀÌ 0ÀÏ°æ¿ì Áï½Ã ¹Ù²ï´Ù.)
+	BOOL	SetState(int iState, float fSec);	// fSecì‹œê°„ë™ì•ˆ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤. (fSecì´ 0ì¼ê²½ìš° ì¦‰ì‹œ ë°”ë€ë‹¤.)
 	virtual void	Release();
 	virtual void	ReCalcMatrix();
 	virtual void	Tick(float fFrm = FRAME_SELFPLAY);

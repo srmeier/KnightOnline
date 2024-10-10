@@ -1,4 +1,4 @@
-// N3VMesh.h: interface for the C3DObject class.
+ï»¿// N3VMesh.h: interface for the C3DObject class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,21 +16,21 @@ class CN3IMesh;
 class CN3VMesh : public CN3BaseFileAccess
 {
 protected:
-	__Vector3*	m_pVertices; // Á¡ ¹öÆÛ
-	int			m_nVC; // Á¡ °¹¼ö
+	__Vector3*	m_pVertices; // ì  ë²„í¼
+	int			m_nVC; // ì  ê°¯ìˆ˜
 
 	uint16_t*		m_pwIndices; // Index...
 	int			m_nIC; // Index Count
 
 	__Vector3	m_vMin;
 	__Vector3	m_vMax;
-	float		m_fRadius; // ¹İÁö¸§
+	float		m_fRadius; // ë°˜ì§€ë¦„
 
 public:
 	__Vector3	Min() { return m_vMin; }
 	__Vector3	Max() { return m_vMax; }
 	bool		Pick(const __Matrix44& MtxWorld, const __Vector3& vPos, const __Vector3& vDir, __Vector3* pVCol = NULL, __Vector3* pVNormal = NULL);
-	bool		CheckCollision(const __Matrix44& MtxWorld, const __Vector3& v0, const __Vector3& v1, __Vector3* pVCol = NULL, __Vector3* pVNormal = NULL); // Local ÁÂÇ¥¸¦ ÅëÇÑ Ãæµ¹ Ã¼Å© ÆÇÁ¤..
+	bool		CheckCollision(const __Matrix44& MtxWorld, const __Vector3& v0, const __Vector3& v1, __Vector3* pVCol = NULL, __Vector3* pVNormal = NULL); // Local ì¢Œí‘œë¥¼ í†µí•œ ì¶©ëŒ ì²´í¬ íŒì •..
 	float		Radius() { return m_fRadius; }
 	void		FindMinMax();
 	void		Render(D3DCOLOR crLine);
@@ -55,13 +55,13 @@ public:
 	CN3VMesh();
 	virtual ~CN3VMesh();
 
-//	By : Ecli666 ( On 2002-08-09 ¿ÀÈÄ 2:47:59 )
+//	By : Ecli666 ( On 2002-08-09 ì˜¤í›„ 2:47:59 )
 //
 	int				GetColIndexByiOrder(int iOrder);
 __Vector3	  GetColVertexByIndex(int iIndex); 
 	void			PartialColRender(int iCount, int* piIndices);
 	void			PartialGetCollision(int iIndex, __Vector3& vec);
-//	~(By Ecli666 On 2002-08-09 ¿ÀÈÄ 2:47:59 )
+//	~(By Ecli666 On 2002-08-09 ì˜¤í›„ 2:47:59 )
 };
 
 #endif // !defined(AFX_N3VMesh_h__INCLUDED_)

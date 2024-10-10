@@ -1,4 +1,4 @@
-// WarMessage.h: interface for the CWarMessage class.
+﻿// WarMessage.h: interface for the CWarMessage class.
 //
 //////////////////////////////////////////////////////////////////////
 

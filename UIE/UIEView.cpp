@@ -1,4 +1,4 @@
-// UIEView.cpp : implementation of the CUIEView class
+ï»¿// UIEView.cpp : implementation of the CUIEView class
 //
 
 #include "stdafx.h"
@@ -95,7 +95,7 @@ void CUIEView::OnDraw(CDC* pDC)
 	CUIEDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 
-	if (UIEMODE_PREVIEW == m_eMode) return;	// previewÀÏ¶§´Â ±×³É ¸®ÅÏ
+	if (UIEMODE_PREVIEW == m_eMode) return;	// previewì¼ë•ŒëŠ” ê·¸ëƒ¥ ë¦¬í„´
 
 	int iUIC = pDoc->GetSelectedUICount();
 	for(int i = 0 ; i < iUIC; i++)
@@ -115,7 +115,7 @@ void CUIEView::OnDraw(CDC* pDC)
 		}
 
 		if (RT_NONE == m_eSelectedRectType)
-		{	// Rect ¼öÁ¤ÁßÀÌ ¾Æ´Ò¶§ °¢°¢ Rect Ç¥½Ã
+		{	// Rect ìˆ˜ì •ì¤‘ì´ ì•„ë‹ë•Œ ê°ê° Rect í‘œì‹œ
 
 			// region
 			RECT rcRegion = pUI->GetRegion();
@@ -153,7 +153,7 @@ void CUIEView::OnDraw(CDC* pDC)
 		}
 	}
 	
-	if(RT_NONE != m_eSelectedRectType)// Rect ¼öÁ¤ÁßÀÏ¶§ °¢°¢ Rect Ç¥½Ã
+	if(RT_NONE != m_eSelectedRectType)// Rect ìˆ˜ì •ì¤‘ì¼ë•Œ ê°ê° Rect í‘œì‹œ
 	{
 		CPen SelPen(PS_DOT, 1, RGB(0,0,0));
 		CPen* pOldPen = pDC->SelectObject(&SelPen);
@@ -161,7 +161,7 @@ void CUIEView::OnDraw(CDC* pDC)
 		pDC->SelectObject(pOldPen);
 	}
 
-	if(m_bViewGrid) // ±×¸®µå º¸±â..
+	if(m_bViewGrid) // ê·¸ë¦¬ë“œ ë³´ê¸°..
 	{
 		CRect rc;
 		CPen pen, penThick;
@@ -251,7 +251,7 @@ BOOL CUIEView::OnEraseBkgnd(CDC* pDC)
 
 	pEng->s_lpD3DDev->BeginScene();
 
-	//	±×¸®±â...
+	//	ê·¸ë¦¬ê¸°...
 	switch(m_eMode)
 	{
 	case UIEMODE_PREVIEW:
@@ -290,14 +290,14 @@ void CUIEView::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		CN3UIBase* pSelectedUI = pDoc->GetSelectedUI();
 		if (RT_NONE != m_eSelectedRectType && pSelectedUI)
-		{	// ÁöÁ¤µÈ »ç°¢Çü º¯ÇüÀÏ¶§
+		{	// ì§€ì •ëœ ì‚¬ê°í˜• ë³€í˜•ì¼ë•Œ
 			if (-1000 != m_rcSelectedRect.left) m_eDragType = CheckDragType(m_rcSelectedRect, point);
 			else m_eDragType = DRAGTYPE_NONE;
 		}
 
 		if (DRAGTYPE_NONE == m_eDragType)
-		{	// m_RootUIÀÇ ÀÚ½ÄÁß¿¡¼­ point¿¡ À§Ä¡ÇÑ ui ¼±ÅÃÇÏ±â
-			if(!(nFlags & MK_CONTROL)) pDoc->SetSelectedUI(NULL); // ÄÁÆ®·Ñ Å°¸¦ ´©¸£Áö ¾ÊÀ¸¸é ¸ÖÆ¼ ¼¿·ºÆ® ÇØÁ¦ÈÄ..
+		{	// m_RootUIì˜ ìžì‹ì¤‘ì—ì„œ pointì— ìœ„ì¹˜í•œ ui ì„ íƒí•˜ê¸°
+			if(!(nFlags & MK_CONTROL)) pDoc->SetSelectedUI(NULL); // ì»¨íŠ¸ë¡¤ í‚¤ë¥¼ ëˆ„ë¥´ì§€ ì•Šìœ¼ë©´ ë©€í‹° ì…€ë ‰íŠ¸ í•´ì œí›„..
 			
 			CN3UIBase* pRootUI = GetDocument()->GetRootUI();
 			CN3UIBase* pUISelected = NULL;
@@ -308,7 +308,7 @@ void CUIEView::OnLButtonDown(UINT nFlags, CPoint point)
 				if(pUISelected) break;
 			}
 
-			if(NULL == pUISelected && pRootUI->IsIn(point.x, point.y)) pUISelected = pRootUI; // ¾Ï°Íµµ ¸øÂïÀ¸¸é ·çÆ®UI¸¦ Âï¾îº»´Ù.
+			if(NULL == pUISelected && pRootUI->IsIn(point.x, point.y)) pUISelected = pRootUI; // ì•”ê²ƒë„ ëª»ì°ìœ¼ë©´ ë£¨íŠ¸UIë¥¼ ì°ì–´ë³¸ë‹¤.
 			if(pUISelected) pDoc->SetSelectedUI(pUISelected);
 		}
 		else SetCapture();
@@ -405,7 +405,7 @@ BOOL CUIEView::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	{
 		char* pszRsrcID = NULL;
 		eDRAGTYPE		eDT = m_eDragType;
-		if (DRAGTYPE_NONE == m_eDragType)	// µå·¹±× ÁßÀÌ ¾Æ´Ï¸é cursorÀÇ À§Ä¡¸¦ ¾ò¾î¼­ Å×½ºÆ®ÇÏ±â
+		if (DRAGTYPE_NONE == m_eDragType)	// ë“œë ˆê·¸ ì¤‘ì´ ì•„ë‹ˆë©´ cursorì˜ ìœ„ì¹˜ë¥¼ ì–»ì–´ì„œ í…ŒìŠ¤íŠ¸í•˜ê¸°
 		{
 			CPoint pt;
 			if (GetCursorPos(&pt))
@@ -444,7 +444,7 @@ BOOL CUIEView::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	return CView::OnSetCursor(pWnd, nHitTest, message);
 }
 
-// mode ¹Ù²Ù±â
+// mode ë°”ê¾¸ê¸°
 void CUIEView::SetMode(eUIE_MODE eMode)
 {
 	m_eMode = eMode;
@@ -452,7 +452,7 @@ void CUIEView::SetMode(eUIE_MODE eMode)
 	Invalidate();
 }
 
-// ¹Ì¸®º¸±â render
+// ë¯¸ë¦¬ë³´ê¸° render
 void CUIEView::RenderPreview()
 {
 	CUIEDoc* pDoc = GetDocument();
@@ -478,7 +478,7 @@ void CUIEView::RenderPreview()
 	if (TRUE != dwAlphaBlend) lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	if (D3DBLEND_SRCALPHA != dwSrcBlend) lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	if (D3DBLEND_INVSRCALPHA != dwDestBlend) lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	if (FALSE != dwFog) lpD3DDev->SetRenderState(D3DRS_FOGENABLE   , FALSE);	// 2dµµ fog¸¦ ¸Ô´Â´Ù ¤Ñ.¤Ñ;
+	if (FALSE != dwFog) lpD3DDev->SetRenderState(D3DRS_FOGENABLE   , FALSE);	// 2dë„ fogë¥¼ ë¨¹ëŠ”ë‹¤ ã…¡.ã…¡;
 	if (D3DTEXF_POINT != dwMagFilter) lpD3DDev->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT); //lpD3DDev->SetTextureStageState(0, D3DTSS_MAGFILTER,   D3DTEXF_POINT);
 	if (D3DTEXF_POINT != dwMinFilter) lpD3DDev->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT); //lpD3DDev->SetTextureStageState(0, D3DTSS_MINFILTER,   D3DTEXF_POINT);
 	if (D3DTEXF_NONE != dwMipFilter) lpD3DDev->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_NONE); //lpD3DDev->SetTextureStageState(0, D3DTSS_MIPFILTER,   D3DTEXF_NONE);
@@ -524,7 +524,7 @@ void CUIEView::RenderEditview()
 	if (TRUE != dwAlphaBlend) lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	if (D3DBLEND_SRCALPHA != dwSrcBlend) lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	if (D3DBLEND_INVSRCALPHA != dwDestBlend) lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	if (FALSE != dwFog) lpD3DDev->SetRenderState(D3DRS_FOGENABLE   , FALSE);	// 2dµµ fog¸¦ ¸Ô´Â´Ù ¤Ñ.¤Ñ;
+	if (FALSE != dwFog) lpD3DDev->SetRenderState(D3DRS_FOGENABLE   , FALSE);	// 2dë„ fogë¥¼ ë¨¹ëŠ”ë‹¤ ã…¡.ã…¡;
 	if (D3DTEXF_POINT != dwMagFilter) lpD3DDev->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT); //lpD3DDev->SetTextureStageState(0, D3DTSS_MAGFILTER,   D3DTEXF_POINT);
 	if (D3DTEXF_POINT != dwMinFilter ) lpD3DDev->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT); //lpD3DDev->SetTextureStageState(0, D3DTSS_MINFILTER,   D3DTEXF_POINT);
 	if (D3DTEXF_NONE != dwMipFilter ) lpD3DDev->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_NONE); //lpD3DDev->SetTextureStageState(0, D3DTSS_MIPFILTER,   D3DTEXF_NONE);
@@ -537,7 +537,7 @@ void CUIEView::RenderEditview()
 	for(int i = 0; i < iUIC; i++)
 	{
 		CN3UIBase* pUI = pDoc->GetSelectedUI(i);
-		if (pUI) pUI->Render();	// ¼±ÅÃµÈ UIÇÑ¹ø ´õ ±×¸®±â(µÚ¿¡ °¡¸± ¼öµµ ÀÖÀ¸´Ï±î ÇÑ¹ø ´õ ±×¸°´Ù. button°°Àº °æ¿ì Æ¯È÷)
+		if (pUI) pUI->Render();	// ì„ íƒëœ UIí•œë²ˆ ë” ê·¸ë¦¬ê¸°(ë’¤ì— ê°€ë¦´ ìˆ˜ë„ ìžˆìœ¼ë‹ˆê¹Œ í•œë²ˆ ë” ê·¸ë¦°ë‹¤. buttonê°™ì€ ê²½ìš° íŠ¹ížˆ)
 	}
 
 	// restore
@@ -557,10 +557,10 @@ void CUIEView::SelectRectType(eRECTTYPE eRectType)
 	m_rcSelectedRect.SetRect(-1000,-1000,-1000,-1000);
 	CN3UIBase* pSelectedUI = GetDocument()->GetSelectedUI();
 
-	// ¼±ÅÃµÈ UI°¡ ¾øÀ¸¸é RT_NONEÀ¸·Î ¸¸µé°í ¸®ÅÏ
+	// ì„ íƒëœ UIê°€ ì—†ìœ¼ë©´ RT_NONEìœ¼ë¡œ ë§Œë“¤ê³  ë¦¬í„´
 	if (NULL == pSelectedUI){	m_eSelectedRectType = RT_NONE;	Invalidate(); return;}
 
-	// ¼±ÅÃµÈ UI¿¡¼­ RectType¿¡ ¸Â´Â »ç°¢Çü °¡Á®¿À±â
+	// ì„ íƒëœ UIì—ì„œ RectTypeì— ë§žëŠ” ì‚¬ê°í˜• ê°€ì ¸ì˜¤ê¸°
 	switch(m_eSelectedRectType)
 	{
 	case RT_NONE:
@@ -682,7 +682,7 @@ BOOL CUIEView::MoveSelectedRect(int dx, int dy)
 	return FALSE;
 }
 
-// selected rectÁ¤º¸¸¦ Åä´ë·Î UI Á¤º¸¸¦ °»½ÅÇÏ±â
+// selected rectì •ë³´ë¥¼ í† ëŒ€ë¡œ UI ì •ë³´ë¥¼ ê°±ì‹ í•˜ê¸°
 void CUIEView::UpdateUIInfo_SelectedRect()
 {
 	CUIEDoc* pDoc = this->GetDocument();
@@ -707,7 +707,7 @@ void CUIEView::UpdateUIInfo_SelectedRect()
 						CPoint ptOffset = ptMouse - m_ptOldLBPos;
 						pSelectedUI->MoveOffset(ptOffset.x, ptOffset.y);
 					}
-					else if(i == 0 && m_eDragType >= DRAGTYPE_LEFT && m_eDragType <= DRAGTYPE_RIGHTBOTTOM) // ¸¶Áö¸·¿¡ ¼±ÅÃÇÑ UI
+					else if(i == 0 && m_eDragType >= DRAGTYPE_LEFT && m_eDragType <= DRAGTYPE_RIGHTBOTTOM) // ë§ˆì§€ë§‰ì— ì„ íƒí•œ UI
 					{
 						pSelectedUI->SetRegion(m_rcSelectedRect);
 						pSelectedUI->SetSize(m_rcSelectedRect.Width(), m_rcSelectedRect.Height());
@@ -718,9 +718,9 @@ void CUIEView::UpdateUIInfo_SelectedRect()
 						pSelectedUI->SetSize(m_rcSelectedRect.Width(), m_rcSelectedRect.Height());
 					}
 
-					if(pSelectedUI->GetParent()) // ºÎ¸ð UI °¡ ÀÖÀ¸¸é..
+					if(pSelectedUI->GetParent()) // ë¶€ëª¨ UI ê°€ ìžˆìœ¼ë©´..
 					{
-						pSelectedUI->GetParent()->ResizeAutomaticalyByChild(); // ÀÚµ¿À¸·Î ¿µ¿ª ´Ù½Ã °è»ê..
+						pSelectedUI->GetParent()->ResizeAutomaticalyByChild(); // ìžë™ìœ¼ë¡œ ì˜ì—­ ë‹¤ì‹œ ê³„ì‚°..
 					}
 				}
 
@@ -817,7 +817,7 @@ BOOL CUIEView::PreTranslateMessage(MSG* pMsg)
 
 void CUIEView::OnViewGrid() 
 {
-	m_bViewGrid = !m_bViewGrid; // ±×¸®µå º¸±â..
+	m_bViewGrid = !m_bViewGrid; // ê·¸ë¦¬ë“œ ë³´ê¸°..
 	this->InvalidateRect(NULL, FALSE);
 }
 

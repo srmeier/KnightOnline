@@ -1,4 +1,4 @@
-// UICharacterCreate.h: interface for the CUICharacterCreate class.
+ï»¿// UICharacterCreate.h: interface for the CUICharacterCreate class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@ class CN3UIImage;
 
 const int MAX_RACE_SELECT = 4;
 const int MAX_CLASS_SELECT = 4;
-const int MAX_STATS = 5; // Èû, Ã¼·Â, ¹ÎÃ¸, Áö´É, ¸¶·Â
+const int MAX_STATS = 5; // ÃˆÃ», ÃƒÂ¼Â·Ã‚, Â¹ÃÃƒÂ¸, ÃÃ¶Â´Ã‰, Â¸Â¶Â·Ã‚
 
 class CUICharacterCreate : public CN3UIBase
 {

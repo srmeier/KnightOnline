@@ -1,4 +1,4 @@
-// GameProcOption.h: interface for the CGameProcOption class.
+﻿// GameProcOption.h: interface for the CGameProcOption class.
 //
 //////////////////////////////////////////////////////////////////////
 

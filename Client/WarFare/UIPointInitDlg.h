@@ -1,4 +1,4 @@
-// UIPointInitDlg.h: interface for the UIPointInitDlg class.
+﻿// UIPointInitDlg.h: interface for the UIPointInitDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

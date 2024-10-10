@@ -1,4 +1,4 @@
-// DungeonManager.cpp: implementation of the CDungeonManager class.
+ï»¿// DungeonManager.cpp: implementation of the CDungeonManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -124,12 +124,12 @@ float CDungeonManager::GetHeightWithShape(float fX, float fZ, __Vector3* pvNorma
 	return m_pvsmgr.GetHeightWithShape(fX, fZ, pvNormal);
 }
 
-bool CDungeonManager::CheckCollisionWithShape(	const __Vector3& vPos,				 // Ãæµ¹ À§Ä¡
-														const __Vector3& vDir,				   // ¹æÇâ º¤ÅÍ
-														float fSpeedPerSec,					    // ÃÊ´ç ¿òÁ÷ÀÌ´Â ¼Óµµ
-														__Vector3* pvCol,						 // Ãæµ¹ ÁöÁ¡
-														__Vector3* pvNormal,				  // Ãæµ¹ÇÑ¸éÀÇ ¹ı¼±º¤ÅÍ
-														__Vector3* pVec)						// Ãæµ¹ÇÑ ¸é ÀÇ Æú¸®°ï __Vector3[3]
+bool CDungeonManager::CheckCollisionWithShape(	const __Vector3& vPos,				 // ì¶©ëŒ ìœ„ì¹˜
+														const __Vector3& vDir,				   // ë°©í–¥ ë²¡í„°
+														float fSpeedPerSec,					    // ì´ˆë‹¹ ì›€ì§ì´ëŠ” ì†ë„
+														__Vector3* pvCol,						 // ì¶©ëŒ ì§€ì 
+														__Vector3* pvNormal,				  // ì¶©ëŒí•œë©´ì˜ ë²•ì„ ë²¡í„°
+														__Vector3* pVec)						// ì¶©ëŒí•œ ë©´ ì˜ í´ë¦¬ê³¤ __Vector3[3]
 {
 	return m_pvsmgr.CheckCollisionWithShape(vPos, vDir, fSpeedPerSec, pvCol, pvNormal, pVec);
 }

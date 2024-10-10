@@ -1,4 +1,4 @@
-// N3GERain.h: interface for the CN3GERain class.
+﻿// N3GERain.h: interface for the CN3GERain class.
 //
 //////////////////////////////////////////////////////////////////////
 

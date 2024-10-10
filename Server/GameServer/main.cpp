@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "../shared/Condition.h"
 #include "ConsoleInputThread.h"
 #include "../shared/signal_handler.h"

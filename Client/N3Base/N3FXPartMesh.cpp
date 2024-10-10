@@ -1,4 +1,4 @@
-// N3FXPartMesh.cpp: implementation of the CN3FXPartMesh class.
+ï»¿// N3FXPartMesh.cpp: implementation of the CN3FXPartMesh class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -387,13 +387,13 @@ bool CN3FXPartMesh::Tick()
 	return true;
 
 /*	
-	//È¸Àü°ú ÀÌµ¿..
+	//íšŒì „ê³¼ ì´ë™..
 	__Matrix44 mtx;
 	mtx.Identity();]
 	mtx.Rotation(m_fCurrLife*m_vRotVelocity);
 	__Quaternion qtLocalRot(mtx);
 	
-	//mesh¹æÇâ°ú bundle¹æÇâÀ» ¸ÂÃç¶ó...
+	//meshë°©í–¥ê³¼ bundleë°©í–¥ì„ ë§ì¶°ë¼...
 	__Quaternion qtBundle;
 	__Vector3 vDirAxis;
 	float fDirAng;
@@ -438,7 +438,7 @@ bool CN3FXPartMesh::Tick()
 	//m_pShape->ScaleSet(m_vUnitScale.x+vScale.x, m_vUnitScale.y+vScale.y, m_vUnitScale.z+vScale.z);
 	m_pShape->ScaleSet(vScale.x, vScale.y, vScale.z);
 
-	//ÅØ½ºÃÄ ÀÌµ¿..
+	//í…ìŠ¤ì³ ì´ë™..
 	if(m_cTextureMoveDir>0)
 	{
 		int cnt = m_pShape->PartCount();
@@ -478,7 +478,7 @@ void CN3FXPartMesh::Rotate()
 
 	m_pShape->m_mtxParent.Rotation(m_fCurrLife*m_vRotVelocity);
 		
-	//mesh¹æÇâ°ú bundle¹æÇâÀ» ¸ÂÃç¶ó...
+	//meshë°©í–¥ê³¼ bundleë°©í–¥ì„ ë§ì¶°ë¼...
 	__Quaternion qtBundle;
 	__Vector3 vDirAxis;
 	float fDirAng;
@@ -631,12 +631,12 @@ bool CN3FXPartMesh::IsDead()
 
 //
 //	render...
-//	ÀÏ´ÜÀº ÆÄÆ¼Å¬ ÇÏ³ª¾¿ ±×¸®°í....
-//	³ªÁß¿¡´Â °°Àº ÅØ½ºÃÄ ¾²´Â °Íµé³¢¸® ¹­¾î¼­ ±×¸®ÀÚ...
+//	ì¼ë‹¨ì€ íŒŒí‹°í´ í•˜ë‚˜ì”© ê·¸ë¦¬ê³ ....
+//	ë‚˜ì¤‘ì—ëŠ” ê°™ì€ í…ìŠ¤ì³ ì“°ëŠ” ê²ƒë“¤ë¼ë¦¬ ë¬¶ì–´ì„œ ê·¸ë¦¬ì...
 //
 void CN3FXPartMesh::Render()
 {
-	// render state ¼¼ÆÃ
+	// render state ì„¸íŒ…
 	if(!m_pShape) return;
 
 	DWORD dwAlpha;

@@ -1,4 +1,4 @@
-// N3FXPlug.h: interface for the CN3FXPlug class.
+ï»¿// N3FXPlug.h: interface for the CN3FXPlug class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -30,10 +30,10 @@ public:
 public:
 protected:
 	class CN3FXBundle*	m_pFXB;
-	int					m_nRefIndex;	// referance index (Ä³¸¯ÅÍ : joint index)
+	int					m_nRefIndex;	// referance index (ìºë¦­í„° : joint index)
 
-	__Vector3			m_vOffsetPos;	// Joint¿Í ¶³¾îÁø Á¤µµ
-	__Vector3			m_vOffsetDir;	// Joint¿Í ¶³¾îÁø ¹æÇâ
+	__Vector3			m_vOffsetPos;	// Jointì™€ ë–¨ì–´ì§„ ì •ë„
+	__Vector3			m_vOffsetDir;	// Jointì™€ ë–¨ì–´ì§„ ë°©í–¥
 
 // Operations
 public:
@@ -80,11 +80,11 @@ public:
 	virtual bool	Load(HANDLE hFile);
 
 	void			StopAll(bool bImmediately = false);	// FX Stop
-	void			TriggerAll();						// FX ½ÃÀÛ
+	void			TriggerAll();						// FX ì‹œì‘
 
 #ifdef _N3TOOL
 	virtual bool	Save(HANDLE hFile);
-	void			RemoveFXPParts_HaveNoBundle();		// ¹øµé ¾ø´Â Partµé Á¦°ÅÇÏ±â
+	void			RemoveFXPParts_HaveNoBundle();		// ë²ˆë“¤ ì—†ëŠ” Partë“¤ ì œê±°í•˜ê¸°
 
 	CN3FXPlugPart*	FXPPartAdd();
 	void			FXPPartDelete(int nIndex);

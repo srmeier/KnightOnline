@@ -1,4 +1,4 @@
-#if !defined(AFX_PROPERTYVIEW_H__5DBF88F9_D535_4292_A230_CB192C574AD5__INCLUDED_)
+ï»¿#if !defined(AFX_PROPERTYVIEW_H__5DBF88F9_D535_4292_A230_CB192C574AD5__INCLUDED_)
 #define AFX_PROPERTYVIEW_H__5DBF88F9_D535_4292_A230_CB192C574AD5__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -54,22 +54,22 @@ public:
 
 // Operations
 public:
-	void UpdateInfo();		// ¸ğµç Á¤º¸ °»½Å
-	void UpdateUIBaseInfo();			// BaseÁ¤º¸ °»½Å
-	void UpdateUIImageInfo();			// ImageÁ¤º¸ °»½Å
-	void UpdateUIStringInfo();			// StringÁ¤º¸ °»½Å
-	void UpdateUIListInfo();			// ListÁ¤º¸ °»½Å
-	void UpdateUIButtonInfo();			// ButtonÁ¤º¸ °»½Å
-	void UpdateUIEditInfo();			// EditÁ¤º¸ °»½Å
-	void UpdateUIProgressInfo();		// ProgressÁ¤º¸ °»½Å
-	void UpdateUITrackBarInfo();		// TrackbarÁ¤º¸ °»½Å
-	void UpdateUIScrollBarInfo();		// ScrollBarÁ¤º¸ °»½Å
-	void UpdateUIAreaInfo();			// AreaÁ¤º¸ °»½Å
-	void UpdateUIIconSlotInfo();		// IconSlot Á¤º¸ °»½Å(¸®ÆæÆ® Àü¿ë)
-	void UpdateUIStaticInfo();			// Static Á¤º¸ °»½Å
+	void UpdateInfo();		// ëª¨ë“  ì •ë³´ ê°±ì‹ 
+	void UpdateUIBaseInfo();			// Baseì •ë³´ ê°±ì‹ 
+	void UpdateUIImageInfo();			// Imageì •ë³´ ê°±ì‹ 
+	void UpdateUIStringInfo();			// Stringì •ë³´ ê°±ì‹ 
+	void UpdateUIListInfo();			// Listì •ë³´ ê°±ì‹ 
+	void UpdateUIButtonInfo();			// Buttonì •ë³´ ê°±ì‹ 
+	void UpdateUIEditInfo();			// Editì •ë³´ ê°±ì‹ 
+	void UpdateUIProgressInfo();		// Progressì •ë³´ ê°±ì‹ 
+	void UpdateUITrackBarInfo();		// Trackbarì •ë³´ ê°±ì‹ 
+	void UpdateUIScrollBarInfo();		// ScrollBarì •ë³´ ê°±ì‹ 
+	void UpdateUIAreaInfo();			// Areaì •ë³´ ê°±ì‹ 
+	void UpdateUIIconSlotInfo();		// IconSlot ì •ë³´ ê°±ì‹ (ë¦¬íœíŠ¸ ì „ìš©)
+	void UpdateUIStaticInfo();			// Static ì •ë³´ ê°±ì‹ 
 protected:
-	void Resize();			// È­¸é ±¸¼º¿ä¼Ò Àç¹èÄ¡
-	void SetPropertyListPos(CPropertyList* pList, CPoint& ptWndPos);	// ±¸¼º¿ä¼Ò Æ¯Á¤À§Ä¡¿¡ ¹èÄ¡ÇÏ´Â ÇÔ¼ö
+	void Resize();			// í™”ë©´ êµ¬ì„±ìš”ì†Œ ì¬ë°°ì¹˜
+	void SetPropertyListPos(CPropertyList* pList, CPoint& ptWndPos);	// êµ¬ì„±ìš”ì†Œ íŠ¹ì •ìœ„ì¹˜ì— ë°°ì¹˜í•˜ëŠ” í•¨ìˆ˜
 public:
 // Overrides
 	// ClassWizard generated virtual function overrides

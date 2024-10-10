@@ -1,4 +1,4 @@
-// DungeonManager.h: interface for the CDungeonManager class.
+ï»¿// DungeonManager.h: interface for the CDungeonManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -45,12 +45,12 @@ class CDungeonManager : public CN3WorldBase
 	float GetHeightWithShape(float fX, float fZ, __Vector3* pvNormal = NULL); 
 	CN3Shape* ShapeGetByIDWithShape(int iID);
 	CN3Shape* PickWithShape(int iXScreen, int iYScreen, bool bMustHaveEvent, __Vector3* pvPick = NULL);
-	bool CheckCollisionWithShape(	const __Vector3& vPos,				 // Ãæµ¹ À§Ä¡
-														const __Vector3& vDir,				   // ¹æÇâ º¤ÅÍ
-														float fSpeedPerSec,					    // ÃÊ´ç ¿òÁ÷ÀÌ´Â ¼Óµµ
-														__Vector3* pvCol = NULL,			 // Ãæµ¹ ÁöÁ¡
-														__Vector3* pvNormal = NULL,		 // Ãæµ¹ÇÑ¸éÀÇ ¹ı¼±º¤ÅÍ
-														__Vector3* pVec = NULL);			// Ãæµ¹ÇÑ ¸é ÀÇ Æú¸®°ï __Vector3[3]
+	bool CheckCollisionWithShape(	const __Vector3& vPos,				 // ì¶©ëŒ ìœ„ì¹˜
+														const __Vector3& vDir,				   // ë°©í–¥ ë²¡í„°
+														float fSpeedPerSec,					    // ì´ˆë‹¹ ì›€ì§ì´ëŠ” ì†ë„
+														__Vector3* pvCol = NULL,			 // ì¶©ëŒ ì§€ì 
+														__Vector3* pvNormal = NULL,		 // ì¶©ëŒí•œë©´ì˜ ë²•ì„ ë²¡í„°
+														__Vector3* pVec = NULL);			// ì¶©ëŒí•œ ë©´ ì˜ í´ë¦¬ê³¤ __Vector3[3]
 
 	// Rendering..
 	void RenderTerrain();

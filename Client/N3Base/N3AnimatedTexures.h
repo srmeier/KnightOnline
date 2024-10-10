@@ -1,4 +1,4 @@
-// N3AnimatedTexures.h: interface for the CN3AnimatedTexures class.
+﻿// N3AnimatedTexures.h: interface for the CN3AnimatedTexures class.
 //
 //////////////////////////////////////////////////////////////////////
 

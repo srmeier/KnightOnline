@@ -1,4 +1,4 @@
-// UINotice.h: interface for the CUINotice class.
+﻿// UINotice.h: interface for the CUINotice class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// EventManager.h: interface for the CEventManager class.
+﻿// EventManager.h: interface for the CEventManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

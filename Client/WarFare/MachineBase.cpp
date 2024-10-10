@@ -1,4 +1,4 @@
-// MachineBase.cpp: implementation of the CMachineBase class.
+ï»¿// MachineBase.cpp: implementation of the CMachineBase class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -42,7 +42,7 @@ void CMachineBase::Release()
 
 void CMachineBase::ReCalcMatrix4AnimatedPart()
 {
-	// ¹ÙÄû ÆÄÆ®ÀÇ ¸ÅÆ®¸¯½º¸¦ ´Ù½Ã °è»êÇØ ÁØ´Ù..
+	// ë°”í€´ íŒŒíŠ¸ì˜ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ ì¤€ë‹¤..
 	int iPC = m_Parts.size();
 	for(int i = 0; i < iPC; i++)
 	{
@@ -63,9 +63,9 @@ void CMachineBase::ReCalcMatrix4AnimatedPart()
 
 void CMachineBase::ReCalcMatrix()
 {
-//	CN3Transform::ReCalcMatrix(); // Transfomr Matrix ¸¦ °è»ê ÇØÁÖ°í..
+//	CN3Transform::ReCalcMatrix(); // Transfomr Matrix ë¥¼ ê³„ì‚° í•´ì£¼ê³ ..
 /*
-	// ±ÕÇüÀâ±â À§ÇÑ °è»ê
+	// ê· í˜•ì¡ê¸° ìœ„í•œ ê³„ì‚°
 	static __Matrix44 mtx1;	static __Matrix44 mtx2;
 	mtx1.Scale(m_vScale);	mtx2.Rotation(0, m_fDirRadian, 0);
 	mtx1 *= mtx2;	mtx1.PosSet(m_vPos);
@@ -76,16 +76,16 @@ void CMachineBase::ReCalcMatrix()
 	__Vector3 vPos2 = m_vBalancePoint[1]*mtx1;
 	vPos1.y = pTerrain->GetHeight(vPos1.x, vPos1.z);
 	vPos2.y = pTerrain->GetHeight(vPos2.x, vPos2.z);
-	if (vPos1.y != -FLT_MAX && vPos2.y != -FLT_MAX) fPitch = asinf((vPos2.y - vPos1.y)/(vPos1-vPos2).Magnitude());	// ÁöÇü¹üÀ§ ¾ÈÀÏ¶§ °è»ê
+	if (vPos1.y != -FLT_MAX && vPos2.y != -FLT_MAX) fPitch = asinf((vPos2.y - vPos1.y)/(vPos1-vPos2).Magnitude());	// ì§€í˜•ë²”ìœ„ ì•ˆì¼ë•Œ ê³„ì‚°
 	vPos1 = m_vBalancePoint[2]*mtx1;
 	vPos2 = m_vBalancePoint[3]*mtx1;
 	vPos1.y = pTerrain->GetHeight(vPos1.x, vPos1.z);
 	vPos2.y = pTerrain->GetHeight(vPos2.x, vPos2.z);
-	if (vPos1.y != -FLT_MAX && vPos2.y != -FLT_MAX) fRoll = asinf((vPos2.y - vPos1.y)/(vPos1-vPos2).Magnitude());	// ÁöÇü¹üÀ§ ¾ÈÀÏ¶§¸¸ °è»ê
+	if (vPos1.y != -FLT_MAX && vPos2.y != -FLT_MAX) fRoll = asinf((vPos2.y - vPos1.y)/(vPos1-vPos2).Magnitude());	// ì§€í˜•ë²”ìœ„ ì•ˆì¼ë•Œë§Œ ê³„ì‚°
 
-	// machineÀÇ ½ºÄÉÀÏ, È¸Àü, À§Ä¡ °è»ê
+	// machineì˜ ìŠ¤ì¼€ì¼, íšŒì „, ìœ„ì¹˜ ê³„ì‚°
 	D3DXMatrixRotationYawPitchRoll(&mtx1, -m_fDirRadian, fPitch, fRoll);
-	// -m_fDirRadian : -¸¦ ºÙ¿©ÁÖ´Â ÀÌÀ¯´Â N3Base¿¡ Á¤ÀÇµÈ matrix¿¬»ê°ú d3dÀÇ ¿¬»êÀÌ ¹İ´ë·Î µÇ¾î ÀÖ¾î¼­.. 
+	// -m_fDirRadian : -ë¥¼ ë¶™ì—¬ì£¼ëŠ” ì´ìœ ëŠ” N3Baseì— ì •ì˜ëœ matrixì—°ì‚°ê³¼ d3dì˜ ì—°ì‚°ì´ ë°˜ëŒ€ë¡œ ë˜ì–´ ìˆì–´ì„œ.. 
 
 	m_Matrix.Scale(m_vScale);
 	m_Matrix *= mtx1;
@@ -93,7 +93,7 @@ void CMachineBase::ReCalcMatrix()
 
 	ReCalcMatrix4AnimatedPart();
 
-	// Animate µÇÁö ¾Ê´Â ³ª¸ÓÁö ÆÄÆ®ÀÇ ¸ÅÆ®¸¯½º¸¦ ´Ù½Ã °è»ê.
+	// Animate ë˜ì§€ ì•ŠëŠ” ë‚˜ë¨¸ì§€ íŒŒíŠ¸ì˜ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ë‹¤ì‹œ ê³„ì‚°.
 	int iPC = m_Parts.size();
 	for(int i = 0; i < iPC; i++)
 	{
@@ -106,7 +106,7 @@ void CMachineBase::ReCalcMatrix()
 void CMachineBase::Render()
 {
 	CN3Shape::Render();
-	if (m_bSkipCalcPartMtx) ZeroMemory(m_bSkipCalcPartMtx, sizeof(m_bSkipCalcPartMtx[0])*PartCount());		// ±×¸°ÈÄ part matrix°è»ê ÇÃ·¡±× ÃÊ±âÈ­
+	if (m_bSkipCalcPartMtx) ZeroMemory(m_bSkipCalcPartMtx, sizeof(m_bSkipCalcPartMtx[0])*PartCount());		// ê·¸ë¦°í›„ part matrixê³„ì‚° í”Œë˜ê·¸ ì´ˆê¸°í™”
 }
 
 void CMachineBase::Tick(float fFrm)
@@ -114,8 +114,8 @@ void CMachineBase::Tick(float fFrm)
 /*	CN3Shape::Tick(fFrm);
 	if (m_bDontRender) return;
 
-	// È¸Àü °è»ê
-	if (!((m_dwMachineState & MS_TURNRIGHT) && (m_dwMachineState & MS_TURNLEFT)))	// ÁÂ¿ì µ¿½Ã°¡ ¾Æ´Ï¸é
+	// íšŒì „ ê³„ì‚°
+	if (!((m_dwMachineState & MS_TURNRIGHT) && (m_dwMachineState & MS_TURNLEFT)))	// ì¢Œìš° ë™ì‹œê°€ ì•„ë‹ˆë©´
 	{
 		float fAddRadian = 0.0f;
 		if (m_dwMachineState & MS_TURNRIGHT)
@@ -130,7 +130,7 @@ void CMachineBase::Tick(float fFrm)
 			m_fDirRadian += fAddRadian;
 			if (m_fDirRadian > (2 * D3DX_PI)) m_fDirRadian -= (2 * D3DX_PI);
 		}
-		// ¹ÙÄû È¸Àü°¢ °è»ê.
+		// ë°”í€´ íšŒì „ê° ê³„ì‚°.
 		int i;
 		for (i=0; i<NUM_WHEEL; ++i)
 		{
@@ -142,8 +142,8 @@ void CMachineBase::Tick(float fFrm)
 	__Vector3 vDir;	vDir.Set(cosf(f90d+m_fDirRadian), 0, sinf(f90d+m_fDirRadian));
 	__Vector3 vPosDiff;	vPosDiff.Set(0,0,0);
 
-	// ÀüÈÄ ÀÌµ¿ °è»ê.
-	if (!((m_dwMachineState & MS_FORWARD) && (m_dwMachineState & MS_BACKWARD)))	// ¾ÕµÚ µ¿½Ã°¡ ¾Æ´Ï¸é
+	// ì „í›„ ì´ë™ ê³„ì‚°.
+	if (!((m_dwMachineState & MS_FORWARD) && (m_dwMachineState & MS_BACKWARD)))	// ì•ë’¤ ë™ì‹œê°€ ì•„ë‹ˆë©´
 	{
 		float fDistance = 0.0f;
 		if (m_dwMachineState & MS_FORWARD) fDistance = (m_fSpeed*s_fSecPerFrm);
@@ -153,12 +153,12 @@ void CMachineBase::Tick(float fFrm)
 		{
 			vPosDiff = vDir*fDistance;
 
-			// ÁöÇü¿¡ µû¸¥ yÁÂÇ¥ °è»ê
+			// ì§€í˜•ì— ë”°ë¥¸ yì¢Œí‘œ ê³„ì‚°
 			__Vector3 vPos = m_vPos + vPosDiff;
 			vPos.y = CN3GameBase::s_pArith->m_pTerrain->GetHeight(vPos.x, vPos.z);
 			m_vPos = vPos;
 
-			// ¹ÙÄû È¸Àü°¢ °è»ê.
+			// ë°”í€´ íšŒì „ê° ê³„ì‚°.
 			int i;
 			for (i=0; i<NUM_WHEEL; ++i)
 			{
@@ -167,7 +167,7 @@ void CMachineBase::Tick(float fFrm)
 		}
 	}
 
-	// ¹ÙÄû È¸Àü°¢ 0~2pi »çÀÌ·Î Á¶Á¤
+	// ë°”í€´ íšŒì „ê° 0~2pi ì‚¬ì´ë¡œ ì¡°ì •
 	int i;
 	for (i=0; i<NUM_WHEEL; ++i)
 	{
@@ -175,10 +175,10 @@ void CMachineBase::Tick(float fFrm)
 		else if (m_Wheel[i].fRadian < 0.0f)	m_Wheel[i].fRadian += (D3DX_PI*2);
 	}
 
-	// Rotate °è»ê
+	// Rotate ê³„ì‚°
 //	m_vRot.y = m_fDirRadian;
 
-	// ÀÌµ¿ ÈÄ matrix°è»ê.
+	// ì´ë™ í›„ matrixê³„ì‚°.
 	ReCalcMatrix();
 */
 }
@@ -203,43 +203,43 @@ void CMachineBase::LoadMachine(FILE* stream)
 	if (stream == NULL) return;
 
 	Release();
-	char szSrcName[_MAX_PATH];	// shape sourceÆÄÀÏ ÀÌ¸§
-	char szWheel[NUM_WHEEL][_MAX_PATH];	// ¹ÙÄû pmeshÀÌ¸§
+	char szSrcName[_MAX_PATH];	// shape sourceíŒŒì¼ ì´ë¦„
+	char szWheel[NUM_WHEEL][_MAX_PATH];	// ë°”í€´ pmeshì´ë¦„
 
 	int result;
-	result = fscanf(stream, "Speed = %f\n", &m_fSpeed);	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "RotateSpeed = %f\n", &m_fRotateSpeed);	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Shape_Name = %s\n", szSrcName);					__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Wheel_FL = %s\n", szWheel[WHEEL_FL]);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Wheel_FR = %s\n", szWheel[WHEEL_FR]);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Wheel_BL = %s\n", szWheel[WHEEL_BL]);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-	result = fscanf(stream, "Wheel_BR = %s\n", szWheel[WHEEL_BR]);			__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-//	result = fscanf(stream, "WheelRadius_FL = %f\n", &(m_Wheel[WHEEL_FL].fRadius));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-//	result = fscanf(stream, "WheelRadius_FR = %f\n", &(m_Wheel[WHEEL_FR].fRadius));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-//	result = fscanf(stream, "WheelRadius_BL = %f\n", &(m_Wheel[WHEEL_BL].fRadius));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
-//	result = fscanf(stream, "WheelRadius_BR = %f\n", &(m_Wheel[WHEEL_BR].fRadius));	__ASSERT(result != EOF, "Àß¸øµÈ Machine ¼¼ÆÃ ÆÄÀÏ");
+	result = fscanf(stream, "Speed = %f\n", &m_fSpeed);	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "RotateSpeed = %f\n", &m_fRotateSpeed);	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Shape_Name = %s\n", szSrcName);					__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Wheel_FL = %s\n", szWheel[WHEEL_FL]);			__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Wheel_FR = %s\n", szWheel[WHEEL_FR]);			__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Wheel_BL = %s\n", szWheel[WHEEL_BL]);			__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+	result = fscanf(stream, "Wheel_BR = %s\n", szWheel[WHEEL_BR]);			__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+//	result = fscanf(stream, "WheelRadius_FL = %f\n", &(m_Wheel[WHEEL_FL].fRadius));	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+//	result = fscanf(stream, "WheelRadius_FR = %f\n", &(m_Wheel[WHEEL_FR].fRadius));	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+//	result = fscanf(stream, "WheelRadius_BL = %f\n", &(m_Wheel[WHEEL_BL].fRadius));	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
+//	result = fscanf(stream, "WheelRadius_BR = %f\n", &(m_Wheel[WHEEL_BR].fRadius));	__ASSERT(result != EOF, "ì˜ëª»ëœ Machine ì„¸íŒ… íŒŒì¼");
 
-	// shape loadÇÏ±â
+	// shape loadí•˜ê¸°
 	this->Load(szSrcName);
 
-	__ASSERT(m_bSkipCalcPartMtx == NULL, "Machine¿¡¼­ ¸Ş¸ğ¸® ¸¯ °¡´É¼º");
+	__ASSERT(m_bSkipCalcPartMtx == NULL, "Machineì—ì„œ ë©”ëª¨ë¦¬ ë¦­ ê°€ëŠ¥ì„±");
 	int iPartCount = PartCount();
 	if (iPartCount>0) m_bSkipCalcPartMtx = new BOOL[iPartCount];
 	ZeroMemory(m_bSkipCalcPartMtx, sizeof(m_bSkipCalcPartMtx[0])*iPartCount);
 
-	// °¢°¢ÀÇ ¹ÙÄû CN3SPart Æ÷ÀÎÅÍ Ã£±â
+	// ê°ê°ì˜ ë°”í€´ CN3SPart í¬ì¸í„° ì°¾ê¸°
 	int i;
 	for (i=0; i<NUM_WHEEL; ++i)
 	{
 		m_Wheel[i].pPart = GetPartByPMeshName(szWheel[i]);
-		__ASSERT(m_Wheel[i].pPart, "MachineÀÇ ¹ÙÄû ÆÄÆ®°¡ NULLÀÔ´Ï´Ù.");
-		// ¹ÙÄû ¹İÁö¸§ ±¸ÇÏ±â
+		__ASSERT(m_Wheel[i].pPart, "Machineì˜ ë°”í€´ íŒŒíŠ¸ê°€ NULLì…ë‹ˆë‹¤.");
+		// ë°”í€´ ë°˜ì§€ë¦„ êµ¬í•˜ê¸°
 		CN3PMesh* pPMesh = m_Wheel[i].pPart->Mesh();
-		__ASSERT(pPMesh, "machine ¹ÙÄûÀÇ PMesh°¡ ¾ø¾î¿ä.");
+		__ASSERT(pPMesh, "machine ë°”í€´ì˜ PMeshê°€ ì—†ì–´ìš”.");
 		m_Wheel[i].fRadius = (pPMesh->Max().y - pPMesh->Min().y)/2.0f;
 	}
 
-	// machineÀÌ 1.0f(rad)È¸ÀüÇÒ¶§ ¹ÙÄû°¡ µ¹¾Æ°¡´Â °¢µµ(rad) Á¤µµ °è»êÇÏ±â
+	// machineì´ 1.0f(rad)íšŒì „í• ë•Œ ë°”í€´ê°€ ëŒì•„ê°€ëŠ” ê°ë„(rad) ì •ë„ ê³„ì‚°í•˜ê¸°
 	for (i=0; i<NUM_WHEEL; ++i)
 	{
 		if (i == WHEEL_FL || i == WHEEL_BL)
@@ -248,14 +248,14 @@ void CMachineBase::LoadMachine(FILE* stream)
 			m_Wheel[i].fRotateRatio = -m_Wheel[i].pPart->m_vPivot.Magnitude() / m_Wheel[i].fRadius;
 	}
 
-	// ±ÕÇüÀ» Àâ±âÀ§ÇÑ Á¡ °è»êÇÏ±â
-	m_vBalancePoint[0] =	m_Wheel[WHEEL_FL].pPart->m_vPivot +				// Àü
+	// ê· í˜•ì„ ì¡ê¸°ìœ„í•œ ì  ê³„ì‚°í•˜ê¸°
+	m_vBalancePoint[0] =	m_Wheel[WHEEL_FL].pPart->m_vPivot +				// ì „
 							0.5*(m_Wheel[WHEEL_FR].pPart->m_vPivot - m_Wheel[WHEEL_FL].pPart->m_vPivot);
-	m_vBalancePoint[1] =	m_Wheel[WHEEL_BL].pPart->m_vPivot +				// ÈÄ
+	m_vBalancePoint[1] =	m_Wheel[WHEEL_BL].pPart->m_vPivot +				// í›„
 							0.5*(m_Wheel[WHEEL_BR].pPart->m_vPivot - m_Wheel[WHEEL_BL].pPart->m_vPivot);
-	m_vBalancePoint[2] =	m_Wheel[WHEEL_FL].pPart->m_vPivot +				// ÁÂ
+	m_vBalancePoint[2] =	m_Wheel[WHEEL_FL].pPart->m_vPivot +				// ì¢Œ
 							0.5*(m_Wheel[WHEEL_BL].pPart->m_vPivot - m_Wheel[WHEEL_FL].pPart->m_vPivot);
-	m_vBalancePoint[3] =	m_Wheel[WHEEL_FR].pPart->m_vPivot +				// ¿ì
+	m_vBalancePoint[3] =	m_Wheel[WHEEL_FR].pPart->m_vPivot +				// ìš°
 							0.5*(m_Wheel[WHEEL_BR].pPart->m_vPivot - m_Wheel[WHEEL_FR].pPart->m_vPivot);
 }
 

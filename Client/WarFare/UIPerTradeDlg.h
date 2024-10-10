@@ -1,4 +1,4 @@
-// UIPerTradeDlg.h: interface for the CUIPerTradeDlg class.
+ï»¿// UIPerTradeDlg.h: interface for the CUIPerTradeDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@ class CUIPerTradeDlg    : public CN3UIWndBase
 public:
 	CSubProcPerTrade*	m_pSubProcPerTrade;
 
-// Á÷Á¢ Á¢±ÙÇØ¾ß ÇÒ °´Ã¼ ÂüÁ¶ Æ÷ÀÎÅÍ
+// ì§ì ‘ ì ‘ê·¼í•´ì•¼ í•  ê°ì²´ ì°¸ì¡° í¬ì¸í„°
 	__IconItemSkill*		m_pPerTradeMy[MAX_ITEM_PER_TRADE];
 	__IconItemSkill*		m_pPerTradeOther[MAX_ITEM_PER_TRADE];
 	__IconItemSkill*		m_pPerTradeInv[MAX_ITEM_INVENTORY];
@@ -36,7 +36,7 @@ public:
 	int						m_iBackupiOrder[MAX_ITEM_PER_TRADE];
 
 	CUIImageTooltipDlg*		m_pUITooltipDlg;
-	int						m_iBackupiCount;	// Àü¿¡ ¿Å±ä È­»ìµîÀÇ °¹¼ö..
+	int						m_iBackupiCount;	// ì „ì— ì˜®ê¸´ í™”ì‚´ë“±ì˜ ê°¯ìˆ˜..
 
 	CN3UIString*			m_pStrMyGold;
 

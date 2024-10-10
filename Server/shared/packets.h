@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #define WIZ_LOGIN				0x01	// Account Login
 #define WIZ_NEW_CHAR			0x02	// Create Character DB
@@ -82,7 +82,7 @@
 #define WIZ_MARKET_BBS			0x50	// For the market bulletin board service...
 #define WIZ_KICKOUT				0x51	// Account ID forbid duplicate connection
 #define WIZ_CLIENT_EVENT		0x52	// Client Event (for quest)
-#define WIZ_MAP_EVENT			0x53	// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹«½¼ ¿¡ÄÚ·Î ¾²°í ÀÖµ¥¿ä.
+#define WIZ_MAP_EVENT			0x53	// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë¬´ìŠ¨ ì—ì½”ë¡œ ì“°ê³  ìˆë°ìš”.
 #define WIZ_WEIGHT_CHANGE		0x54	// Notify change of weight
 #define WIZ_SELECT_MSG			0x55	// Select Event Message...
 #define WIZ_NPC_SAY				0x56	// Select Event Message...
@@ -116,7 +116,7 @@
 #define WIZ_PREMIUM				0x71
 #define WIZ_HACKTOOL			0x72
 #define WIZ_RENTAL				0x73
-#define WIZ_PACKET5				0x74 //süreli item
+#define WIZ_PACKET5				0x74 //s?eli item
 #define WIZ_CHALLENGE			0x75
 #define WIZ_PET					0x76
 #define WIZ_CHINA				0x77 // we shouldn't need to worry about this
@@ -707,7 +707,7 @@ enum BattleWinnerTypes
 
 
 // ---------------------------------------------------------------------
-// AI Server¿Í °ÔÀÓ¼­¹ö°£ÀÇ Npc¿¡ °ü·ÃµÈ ÆĞÅ¶Àº 1¹ø~49¹ø 
+// AI Serverì™€ ê²Œì„ì„œë²„ê°„ì˜ Npcì— ê´€ë ¨ëœ íŒ¨í‚·ì€ 1ë²ˆ~49ë²ˆ 
 // ---------------------------------------------------------------------
 const uint8_t AI_SERVER_CONNECT	= 1;
 const uint8_t	NPC_INFO_ALL		= 2;
@@ -728,7 +728,7 @@ const uint8_t AG_NPC_UPDATE	= 16;
 const uint8_t AG_NPC_KILL_REQ	= 17;
 
 // ---------------------------------------------------------------------
-// AI Server¿Í °ÔÀÓ¼­¹ö°£ÀÇ User, Npc °øÅë °ü·ÃµÈ ÆĞÅ¶Àº 50¹ø~100¹ø 
+// AI Serverì™€ ê²Œì„ì„œë²„ê°„ì˜ User, Npc ê³µí†µ ê´€ë ¨ëœ íŒ¨í‚·ì€ 50ë²ˆ~100ë²ˆ 
 // ---------------------------------------------------------------------
 const uint8_t	AG_SERVER_INFO			= 50;	// 
 const uint8_t	AG_ATTACK_REQ			= 51;	// Attck Packet
@@ -740,9 +740,9 @@ const uint8_t	AG_COMPRESSED_DATA		= 56;	// Packet Data compressed
 const uint8_t	AG_ZONE_CHANGE			= 57;	// Zone change
 const uint8_t	AG_MAGIC_ATTACK_REQ		= 58;	// Magic Attck Packet
 const uint8_t	AG_MAGIC_ATTACK_RESULT	= 59;	// Magic Attck Packet
-const uint8_t	AG_USER_INFO_ALL		= 60;	// UserÀÇ ¸ğµç Á¤º¸ Àü¼Û
+const uint8_t	AG_USER_INFO_ALL		= 60;	// Userì˜ ëª¨ë“  ì •ë³´ ì „ì†¡
 const uint8_t	AG_LONG_MAGIC_ATTACK	= 61;	// Magic Attck Packet
-const uint8_t	AG_PARTY_INFO_ALL		= 62;	// PartyÀÇ ¸ğµç Á¤º¸ Àü¼Û
+const uint8_t	AG_PARTY_INFO_ALL		= 62;	// Partyì˜ ëª¨ë“  ì •ë³´ ì „ì†¡
 const uint8_t	AG_HEAL_MAGIC			= 63;	// Healing magic
 const uint8_t	AG_TIME_WEATHER			= 64;	// time and whether info
 const uint8_t	AG_BATTLE_EVENT			= 65;	// battle event
@@ -764,18 +764,18 @@ const uint8_t	BATTLE_EVENT_MAX_USER	= 4;	// battle event result ( user name )
 const uint8_t	BATTLE_EVENT_KILL_USER	= 5;	// battle event result ( user kill count )
 
 // ---------------------------------------------------------------------
-// AI Server¿Í °ÔÀÓ¼­¹ö°£ÀÇ User¿¡ °ü·ÃµÈ ÆĞÅ¶Àº 101¹ø ºÎÅÍ ½ÃÀÛ
+// AI Serverì™€ ê²Œì„ì„œë²„ê°„ì˜ Userì— ê´€ë ¨ëœ íŒ¨í‚·ì€ 101ë²ˆ ë¶€í„° ì‹œì‘
 // ---------------------------------------------------------------------
-const uint8_t	AG_USER_INFO		= 101;	// UserÀÇ Á¤º¸
-const uint8_t	AG_USER_INOUT		= 102;	// UserÀÇ In,Out Á¤º¸
-const uint8_t	AG_USER_MOVE		= 103;	// UserÀÇ move Á¤º¸
-const uint8_t	AG_USER_MOVEEDGE	= 104;	// UserÀÇ move end Á¤º¸
-const uint8_t	AG_USER_SET_HP		= 105;	// UserÀÇ HP
-const uint8_t	AG_USER_LOG_OUT		= 106;	// UserÀÇ LogOut
-const uint8_t	AG_USER_REGENE		= 107;	// UserÀÇ Regene
-const uint8_t	AG_USER_EXP			= 108;	// UserÀÇ °æÇèÄ¡
-const uint8_t	AG_USER_UPDATE		= 109;	// UserÀÇ Update Info
-const uint8_t	AG_USER_FAIL		= 110;	// Àß¸øµÈ À¯Àú Ã³¸®...
-const uint8_t	AG_USER_PARTY		= 111;	// ÆÄÆ¼Ã³¸® ´ã´ç
+const uint8_t	AG_USER_INFO		= 101;	// Userì˜ ì •ë³´
+const uint8_t	AG_USER_INOUT		= 102;	// Userì˜ In,Out ì •ë³´
+const uint8_t	AG_USER_MOVE		= 103;	// Userì˜ move ì •ë³´
+const uint8_t	AG_USER_MOVEEDGE	= 104;	// Userì˜ move end ì •ë³´
+const uint8_t	AG_USER_SET_HP		= 105;	// Userì˜ HP
+const uint8_t	AG_USER_LOG_OUT		= 106;	// Userì˜ LogOut
+const uint8_t	AG_USER_REGENE		= 107;	// Userì˜ Regene
+const uint8_t	AG_USER_EXP			= 108;	// Userì˜ ê²½í—˜ì¹˜
+const uint8_t	AG_USER_UPDATE		= 109;	// Userì˜ Update Info
+const uint8_t	AG_USER_FAIL		= 110;	// ì˜ëª»ëœ ìœ ì € ì²˜ë¦¬...
+const uint8_t	AG_USER_PARTY		= 111;	// íŒŒí‹°ì²˜ë¦¬ ë‹´ë‹¹
 const uint8_t	AG_USER_VISIBILITY  = 112;	// updates invisibility status
 const uint8_t	AG_NPC_HP_CHANGE	= 113;	// updates an NPC's HP

@@ -1,4 +1,4 @@
-// N3River2.cpp: implementation of the CN3River2 class.
+﻿// N3River2.cpp: implementation of the CN3River2 class.
 //
 //////////////////////////////////////////////////////////////////////
 

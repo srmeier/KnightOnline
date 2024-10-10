@@ -1,4 +1,4 @@
-// UILoading.h: interface for the UILoading class.
+﻿// UILoading.h: interface for the UILoading class.
 //
 //////////////////////////////////////////////////////////////////////
 

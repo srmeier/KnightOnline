@@ -1,4 +1,4 @@
-#ifndef __N3TERRAINDEF_H_
+﻿#ifndef __N3TERRAINDEF_H_
 #define __N3TERRAINDEF_H_
 
 #include <list>

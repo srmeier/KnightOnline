@@ -1,4 +1,4 @@
-// N3UIEdit.h: interface for the CN3UIEdit class.
+ï»¿// N3UIEdit.h: interface for the CN3UIEdit class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -29,14 +29,14 @@ protected:
 		void	SetSize(int iSize);
 		void	SetColor(D3DCOLOR color);
 		void	Render(LPDIRECT3DDEVICE9 lpD3DDev);
-		void	InitFlckering();		// ±ô¹ÚÀÓ ÃÊ±âÈ­..
-		BOOL	m_bVisible;				// º¸ÀÌ³ª
+		void	InitFlckering();		// ê¹œë°•ì„ ì´ˆê¸°í™”..
+		BOOL	m_bVisible;				// ë³´ì´ë‚˜
 	protected:
-		int		m_iSize;				// caretÀÇ pixel Å©±â
-		float	m_fFlickerTimePrev;	// ±ô¹ÚÀÌ±â À§ÇÑ ½Ã°£..
+		int		m_iSize;				// caretì˜ pixel í¬ê¸°
+		float	m_fFlickerTimePrev;	// ê¹œë°•ì´ê¸° ìœ„í•œ ì‹œê°„..
 		bool	m_bFlickerStatus;
-//		POINT	m_ptPos;				// caretÀÇ pixel ÁÂÇ¥
-		__VertexTransformedColor	m_pVB[2];	// vertex ¹öÆÛ
+//		POINT	m_ptPos;				// caretì˜ pixel ì¢Œí‘œ
+		__VertexTransformedColor	m_pVB[2];	// vertex ë²„í¼
 	};
 
 // Attributes
@@ -63,12 +63,12 @@ public:
 
 protected:
 	static CN3Caret		s_Caret;
-	UINT				m_nCaretPos;		// ±ÛÀÚ ´ÜÀ§À§Ä¡(byte´ÜÀ§)
-	int					m_iCompLength;		// ÇöÀç Á¶ÇÕÁßÀÎ ±ÛÀÚÀÇ byte¼ö 0ÀÌ¸é Á¶ÇÕÁßÀÌ ¾Æ´Ï´Ù.
-	size_t				m_iMaxStrLen;		// ¾µ¼ö ÀÖ´Â ±Û¾¾ÀÇ ÃÖ´ë ¼ıÀÚ
+	UINT				m_nCaretPos;		// ê¸€ì ë‹¨ìœ„ìœ„ì¹˜(byteë‹¨ìœ„)
+	int					m_iCompLength;		// í˜„ì¬ ì¡°í•©ì¤‘ì¸ ê¸€ìì˜ byteìˆ˜ 0ì´ë©´ ì¡°í•©ì¤‘ì´ ì•„ë‹ˆë‹¤.
+	size_t				m_iMaxStrLen;		// ì“¸ìˆ˜ ìˆëŠ” ê¸€ì”¨ì˜ ìµœëŒ€ ìˆ«ì
 	std::string			m_szPassword;		// password buffer
 
-	CN3SndObj*			m_pSnd_Typing;		// Å¸ÀÌÇÎ ÇÒ ¶§ ³ª´Â ¼Ò¸®
+	CN3SndObj*			m_pSnd_Typing;		// íƒ€ì´í•‘ í•  ë•Œ ë‚˜ëŠ” ì†Œë¦¬
 // Operations
 public:
 	virtual const std::string&	GetString();
@@ -79,14 +79,14 @@ public:
 	virtual void		Release();
 	virtual void		SetVisible(bool bVisible);
 	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual BOOL		MoveOffset(int iOffsetX, int iOffsetY);		// À§Ä¡ ÁöÁ¤(chilrenÀÇ À§Ä¡µµ °°ÀÌ ¹Ù²Ù¾îÁØ´Ù. caretÀ§Ä¡µµ °°ÀÌ ¹Ù²Ù¾îÁÜ.)
-	void				KillFocus();			// Æ÷Ä¿½º¸¦ ¾ø¾Ø´Ù.
-	bool				SetFocus();				// Æ÷Ä¿½º¸¦ ÁØ´Ù.
+	virtual BOOL		MoveOffset(int iOffsetX, int iOffsetY);		// ìœ„ì¹˜ ì§€ì •(chilrenì˜ ìœ„ì¹˜ë„ ê°™ì´ ë°”ê¾¸ì–´ì¤€ë‹¤. caretìœ„ì¹˜ë„ ê°™ì´ ë°”ê¾¸ì–´ì¤Œ.)
+	void				KillFocus();			// í¬ì»¤ìŠ¤ë¥¼ ì—†ì•¤ë‹¤.
+	bool				SetFocus();				// í¬ì»¤ìŠ¤ë¥¼ ì¤€ë‹¤.
 	bool				HaveFocus() const {return (this == s_pFocusedEdit);}
-	void				SetCaretPos(UINT nPos);	//¸î¹øÂ° ¹ÙÀÌÆ®¿¡ ÀÖ´ÂÁö ¼³Á¤ÇÑ´Ù.
-	void				SetMaxString(size_t iMax);		// ÃÖ´ë ±Û¾¾ ¼ö¸¦ Á¤ÇØÁØ´Ù.
+	void				SetCaretPos(UINT nPos);	//ëª‡ë²ˆì§¸ ë°”ì´íŠ¸ì— ìˆëŠ”ì§€ ì„¤ì •í•œë‹¤.
+	void				SetMaxString(size_t iMax);		// ìµœëŒ€ ê¸€ì”¨ ìˆ˜ë¥¼ ì •í•´ì¤€ë‹¤.
 protected:
-	BOOL				IsHangulMiddleByte( const char* lpszStr, int iPos );	// ÇÑ±ÛÀÇ 2¹øÂ° ¹ÙÀÌÆ® ±ÛÀÚÀÎ°¡?
+	BOOL				IsHangulMiddleByte( const char* lpszStr, int iPos );	// í•œê¸€ì˜ 2ë²ˆì§¸ ë°”ì´íŠ¸ ê¸€ìì¸ê°€?
 
 #ifdef _N3TOOL
 public:	

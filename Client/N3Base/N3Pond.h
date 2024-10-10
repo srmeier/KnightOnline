@@ -1,4 +1,4 @@
-// N3Pond.h: interface for the CN3Pond class.
+ï»¿// N3Pond.h: interface for the CN3Pond class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -43,19 +43,19 @@ public:
 	{
 	public:
 		CN3Texture*		m_pTexWave;
-		BOOL			m_bTick2Rand;	//	½Ã¾ß¿¡ µé¾î¿Í tick°úrend¸¦ ½ÇÇà°áÁ¤
+		BOOL			m_bTick2Rand;	//	ì‹œì•¼ì— ë“¤ì–´ì™€ tickê³¼rendë¥¼ ì‹¤í–‰ê²°ì •
 		__VertexPond*	m_pVertices;	//	Vertices
-		float*			m_pfVelocityArray;	//	°è»ê ÀúÀå
-		float			m_pfMaxHeight;	//	¹°°áÀÌ ¾î´ÀÁ¤µµ ÀÌ»ó ¿Ã¶ó°¡Áö ¸øÇÏ°Ô ÇÔ
-		uint16_t*			m_wpIndex;		//	±×¸²À» ±×¸± ¼ø¼­
+		float*			m_pfVelocityArray;	//	ê³„ì‚° ì €ì¥
+		float			m_pfMaxHeight;	//	ë¬¼ê²°ì´ ì–´ëŠì •ë„ ì´ìƒ ì˜¬ë¼ê°€ì§€ ëª»í•˜ê²Œ í•¨
+		uint16_t*			m_wpIndex;		//	ê·¸ë¦¼ì„ ê·¸ë¦´ ìˆœì„œ
 		int				m_iIC;			// Index Buffer Count.
 		int				m_iVC;			// Vertex Count.
 
-		int				m_iWidthVtx,m_iHeightVtx;		// °è»ê¿¡ ÇÊ¿ä
+		int				m_iWidthVtx,m_iHeightVtx;		// ê³„ì‚°ì— í•„ìš”
 		float			m_fmin,m_fmax,m_fmaxcal,m_fmincal;
 
-		__Vector3		m_vCenterPo;	//	¿¬¸øÀÇ Áß°£ÁöÁ¡
-		float			m_fRadius;		//	¿¬¸øÀÇ Áö¸§
+		__Vector3		m_vCenterPo;	//	ì—°ëª»ì˜ ì¤‘ê°„ì§€ì 
+		float			m_fRadius;		//	ì—°ëª»ì˜ ì§€ë¦„
 
 		CPongMesh() {m_bTick2Rand=FALSE;m_pVertices=NULL,m_wpIndex=NULL;m_pfVelocityArray=NULL;m_pTexWave=NULL;};
 		virtual ~CPongMesh() 
@@ -68,14 +68,14 @@ public:
 	};
 
 public:
-	int				m_iPondMeshNum;	//	ÀüÃ¼ ¿¬¸øÀÇ °¹¼ö
-	CPongMesh*		m_pCPondMesh;	//	¿¬¸øÀÇ Á¤º¸
+	int				m_iPondMeshNum;	//	ì „ì²´ ì—°ëª»ì˜ ê°¯ìˆ˜
+	CPongMesh*		m_pCPondMesh;	//	ì—°ëª»ì˜ ì •ë³´
 
 	CN3Texture*		m_pTexPond[MAX_POND_TEX];	
 	float			m_fTexIndex;
 
-	int				m_iMaxVtxNum;	//	°¡Àå ¸¹Àº vertices¼ö
-	float*			m_pfMaxVtx;		//	¹°°á³ôÀÌ °è»êÀ» À§ÇÑ ÀÓ½Ã
+	int				m_iMaxVtxNum;	//	ê°€ì¥ ë§ì€ verticesìˆ˜
+	float*			m_pfMaxVtx;		//	ë¬¼ê²°ë†’ì´ ê³„ì‚°ì„ ìœ„í•œ ì„ì‹œ
 
 public:
 	void		Release();

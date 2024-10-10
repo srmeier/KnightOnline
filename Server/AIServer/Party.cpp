@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Party.h"
 #include "User.h"
 
@@ -54,7 +54,7 @@ void CParty::PartyCreate(Packet & pkt)
 	pParty->uid[0] = sUid;
 
 	if( g_pMain->m_arParty.PutData( pParty->wIndex, pParty ) ) {
-		TRACE("Party - Create() : Party »ı¼º  number = %d, uid=%d, %d \n", sPartyIndex, pParty->uid[0], pParty->uid[1]);
+		TRACE("Party - Create() : Party ìƒì„±  number = %d, uid=%d, %d \n", sPartyIndex, pParty->uid[0], pParty->uid[1]);
 	}
 }
 
@@ -68,7 +68,7 @@ void CParty::PartyInsert(Packet & pkt)
 	CUser* pUser = nullptr;
 
 	pParty = g_pMain->m_arParty.GetData( sPartyIndex );
-	if( !pParty ) {				// ÀÌ»óÇÑ °æ¿ì
+	if( !pParty ) {				// ì´ìƒí•œ ê²½ìš°
 		return;
 	}
 
@@ -92,7 +92,7 @@ void CParty::PartyRemove(Packet & pkt)
 	if (sUid > MAX_USER) return;
 
 	pParty = g_pMain->m_arParty.GetData( sPartyIndex );
-	if( !pParty ) {				// ÀÌ»óÇÑ °æ¿ì
+	if( !pParty ) {				// ì´ìƒí•œ ê²½ìš°
 		return;
 	}
 

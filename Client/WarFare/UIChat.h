@@ -1,4 +1,4 @@
-// UIChat.h: interface for the CUIChat class.
+ï»¿// UIChat.h: interface for the CUIChat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,8 +16,8 @@
 
 struct __ChatInfo
 {
-	std::string szChat; // ¹®ÀÚ¿­
-	D3DCOLOR	color; // ¹®ÀÚ¿­ »ö±ò
+	std::string szChat; // ë¬¸ìì—´
+	D3DCOLOR	color; // ë¬¸ìì—´ ìƒ‰ê¹”
 
 	__ChatInfo() {};
 	__ChatInfo(const std::string& szChat_Arg, D3DCOLOR color_Arg) { szChat = szChat_Arg; color = color_Arg; }
@@ -31,19 +31,19 @@ const int MAX_CHAT_LINES = 100;
 class CUIChat : public CN3UIBase  
 {
 protected:
-//	ChatList		m_ChatBuffers[CHAT_BUFFER_COUNT];		// Ã¤ÆÃ packet±âÁØÀ¸·Î µÈ buffer
-//	ChatList		m_LineBuffers[CHAT_BUFFER_COUNT];		// Line ±âÁØÀ¸·Î µÈ buffer
-	ChatList		m_ChatBuffer;		// Ã¤ÆÃ packet±âÁØÀ¸·Î µÈ buffer
-	ChatList		m_LineBuffer;		// Line ±âÁØÀ¸·Î µÈ buffer
-	ChatList		m_ContinueMsg;		// Áö¼ÓÀûÀ¸·Î °øÁöÇØÁÖ´Â ¸Ş½ÃÁö buffer
+//	ChatList		m_ChatBuffers[CHAT_BUFFER_COUNT];		// ì±„íŒ… packetê¸°ì¤€ìœ¼ë¡œ ëœ buffer
+//	ChatList		m_LineBuffers[CHAT_BUFFER_COUNT];		// Line ê¸°ì¤€ìœ¼ë¡œ ëœ buffer
+	ChatList		m_ChatBuffer;		// ì±„íŒ… packetê¸°ì¤€ìœ¼ë¡œ ëœ buffer
+	ChatList		m_LineBuffer;		// Line ê¸°ì¤€ìœ¼ë¡œ ëœ buffer
+	ChatList		m_ContinueMsg;		// ì§€ì†ì ìœ¼ë¡œ ê³µì§€í•´ì£¼ëŠ” ë©”ì‹œì§€ buffer
 	int				m_iCurContinueMsg;
 
-	CN3UIString*	m_pNoticeTitle;		// Ã¤ÆÃÃ¢ ¸ÇÀ­ÁÙ¿¡ Ç¥½ÃµÉ °øÁö...
-	CN3UIString*	m_pChatOut;			// Ã¤ÆÃÀÌ Ãâ·ÂµÇ´Â UIString ÂüÁ¶Æ÷ÀÎÅÍ(½ÇÁ¦ m_Child·Î °ü¸®), ±Û¾¾Ã¼¿Í ÃÊ±â ¿µ¿ª¸¸ ÂüÁ¶ÇÑ´Ù.
-	CN3UIScrollBar* m_pScrollbar;		// scrollbar ÂüÁ¶Æ÷ÀÎÅÍ(½ÇÁ¦ m_Child·Î °ü¸®)
-	int				m_iChatLineCount;	// Ã¤ÆÃÃ¢¿¡ Ãâ·ÂµÇ´Â lineÀÇ ¼ö(Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ ´Ù½Ã °è»êÇØÁÖÀÚ.)
-	RECT			m_rcChatOutRegion;	// Ã¤ÆÃÀÌ Ãâ·ÂµÇ´Â ¿µ¿ª
-	CN3UIString**	m_ppUILines;		// Ã¤ÆÃÀÌ Ãâ·ÂµÇ´Â UIString ¹è¿­Æ÷ÀÎÅÍ(Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇÏ¹Ç·Î ¹è¿­µµ º¯ÇÑ´Ù.
+	CN3UIString*	m_pNoticeTitle;		// ì±„íŒ…ì°½ ë§¨ìœ—ì¤„ì— í‘œì‹œë  ê³µì§€...
+	CN3UIString*	m_pChatOut;			// ì±„íŒ…ì´ ì¶œë ¥ë˜ëŠ” UIString ì°¸ì¡°í¬ì¸í„°(ì‹¤ì œ m_Childë¡œ ê´€ë¦¬), ê¸€ì”¨ì²´ì™€ ì´ˆê¸° ì˜ì—­ë§Œ ì°¸ì¡°í•œë‹¤.
+	CN3UIScrollBar* m_pScrollbar;		// scrollbar ì°¸ì¡°í¬ì¸í„°(ì‹¤ì œ m_Childë¡œ ê´€ë¦¬)
+	int				m_iChatLineCount;	// ì±„íŒ…ì°½ì— ì¶œë ¥ë˜ëŠ” lineì˜ ìˆ˜(ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í–ˆì„ë•Œ ë‹¤ì‹œ ê³„ì‚°í•´ì£¼ì.)
+	RECT			m_rcChatOutRegion;	// ì±„íŒ…ì´ ì¶œë ¥ë˜ëŠ” ì˜ì—­
+	CN3UIString**	m_ppUILines;		// ì±„íŒ…ì´ ì¶œë ¥ë˜ëŠ” UIString ë°°ì—´í¬ì¸í„°(ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í•˜ë¯€ë¡œ ë°°ì—´ë„ ë³€í•œë‹¤.
 
 	CN3UIEdit*		m_pEdit;			//son, chat_in
 	std::string		m_szString;			//son, chat_in
@@ -65,22 +65,22 @@ protected:
 	bool			m_bChatParty;
 
 	bool			m_bKillFocus;
-//	e_ChatBuffer	m_eChatBuffer; // Ã¤ÆÃ Ç¥½Ã ¸ğµå .. ¹öÆÛ°¡ ³ª´©¾îÁ®ÀÖ´Ù..
+//	e_ChatBuffer	m_eChatBuffer; // ì±„íŒ… í‘œì‹œ ëª¨ë“œ .. ë²„í¼ê°€ ë‚˜ëˆ„ì–´ì ¸ìˆë‹¤..
 	
 /*
-	ChatList		m_MsgBuffer;		// Ã¤ÆÃ packet±âÁØÀ¸·Î µÈ buffer
-	ChatList		m_MsgLineBuffer;	// Line ±âÁØÀ¸·Î µÈ buffer
+	ChatList		m_MsgBuffer;		// ì±„íŒ… packetê¸°ì¤€ìœ¼ë¡œ ëœ buffer
+	ChatList		m_MsgLineBuffer;	// Line ê¸°ì¤€ìœ¼ë¡œ ëœ buffer
 
-	CN3UIString*	m_pMsgOut;		// Ã¤ÆÃÀÌ Ãâ·ÂµÇ´Â UIString ÂüÁ¶Æ÷ÀÎÅÍ(½ÇÁ¦ m_Child·Î °ü¸®)
-	CN3UIScrollBar* m_pMsgScrollbar;	// scrollbar ÂüÁ¶Æ÷ÀÎÅÍ(½ÇÁ¦ m_Child·Î °ü¸®)
-	int				m_iMsgLineCount;	// Ã¤ÆÃÃ¢¿¡ Ãâ·ÂµÇ´Â lineÀÇ ¼ö(Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ ´Ù½Ã °è»êÇØÁÖÀÚ.)
+	CN3UIString*	m_pMsgOut;		// ì±„íŒ…ì´ ì¶œë ¥ë˜ëŠ” UIString ì°¸ì¡°í¬ì¸í„°(ì‹¤ì œ m_Childë¡œ ê´€ë¦¬)
+	CN3UIScrollBar* m_pMsgScrollbar;	// scrollbar ì°¸ì¡°í¬ì¸í„°(ì‹¤ì œ m_Childë¡œ ê´€ë¦¬)
+	int				m_iMsgLineCount;	// ì±„íŒ…ì°½ì— ì¶œë ¥ë˜ëŠ” lineì˜ ìˆ˜(ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í–ˆì„ë•Œ ë‹¤ì‹œ ê³„ì‚°í•´ì£¼ì.)
 */
 
 protected:
-	void			SetTopLine(int iTopLine);		// ¸Ç À­ÁÙÀ» ÁöÁ¤ÇØÁØ´Ù.
-//	void			AddLineBuffer(e_ChatBuffer eCB, const std::string& szString, D3DCOLOR color);	// line ¹öÆÛ¸¦ ¸¸µé¾îÁØ´Ù.(³Ê¹« ±æ¸é ¾Ë¾Æ¼­ 2ÁÙ·Î ¸¸µé¾îÁØ´Ù.)
-	void			AddLineBuffer(const std::string& szString, D3DCOLOR color);	// line ¹öÆÛ¸¦ ¸¸µé¾îÁØ´Ù.(³Ê¹« ±æ¸é ¾Ë¾Æ¼­ 2ÁÙ·Î ¸¸µé¾îÁØ´Ù.)
-	void			RecalcLineBuffers();		// Ã¤ÆÃÃ¢ »çÀÌÁî°¡ º¯ÇßÀ»¶§ È£ÃâÇØÁÖ¸é line buffer¸¦ ´Ù½Ã °è»êÇØ¼­ ³Ö¾îÁØ´Ù.
+	void			SetTopLine(int iTopLine);		// ë§¨ ìœ—ì¤„ì„ ì§€ì •í•´ì¤€ë‹¤.
+//	void			AddLineBuffer(e_ChatBuffer eCB, const std::string& szString, D3DCOLOR color);	// line ë²„í¼ë¥¼ ë§Œë“¤ì–´ì¤€ë‹¤.(ë„ˆë¬´ ê¸¸ë©´ ì•Œì•„ì„œ 2ì¤„ë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.)
+	void			AddLineBuffer(const std::string& szString, D3DCOLOR color);	// line ë²„í¼ë¥¼ ë§Œë“¤ì–´ì¤€ë‹¤.(ë„ˆë¬´ ê¸¸ë©´ ì•Œì•„ì„œ 2ì¤„ë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.)
+	void			RecalcLineBuffers();		// ì±„íŒ…ì°½ ì‚¬ì´ì¦ˆê°€ ë³€í–ˆì„ë•Œ í˜¸ì¶œí•´ì£¼ë©´ line bufferë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ë„£ì–´ì¤€ë‹¤.
 	void			CreateLines();
 
 // Operations
@@ -93,18 +93,18 @@ public:
 	void			SetEnableKillFocus(bool bKillFocus) { m_bKillFocus = bKillFocus; }
 	void			ChatListenEnable();
 	void			ChangeChattingMode(e_ChatMode eCM);
-	virtual BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// Offset¸¸Å­ ÀÌµ¿ÇØÁØ´Ù.(region, children, move rect ÀÌµ¿)
+	virtual BOOL	MoveOffset(int iOffsetX, int iOffsetY);	// Offsetë§Œí¼ ì´ë™í•´ì¤€ë‹¤.(region, children, move rect ì´ë™)
 	virtual bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	virtual void	Release();
 	virtual bool	Load(HANDLE hFile);
-	virtual void	SetRegion(const RECT& Rect);	// ¿µ¿ª ÁöÁ¤(»çÀÌÁî°¡ º¯ÇÒ¶§ È£ÃâµÈ´Ù. ´Ü¼ø ÀÌµ¿Àº È£ÃâµÇÁö ¾Ê´Â´Ù.(´Ü¼øÀÌµ¿Àº MoveOffsetÀÌ È£Ãâ))
+	virtual void	SetRegion(const RECT& Rect);	// ì˜ì—­ ì§€ì •(ì‚¬ì´ì¦ˆê°€ ë³€í• ë•Œ í˜¸ì¶œëœë‹¤. ë‹¨ìˆœ ì´ë™ì€ í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.(ë‹¨ìˆœì´ë™ì€ MoveOffsetì´ í˜¸ì¶œ))
 
 	void				SetString(const std::string& szChat);
 	void				SetCaretPos(int iPos);
 	const std::string&	GetString() const {return m_szString;}				//son, chat_in
-	void				AddChatMsg(e_ChatMode eCM, const std::string& szString, D3DCOLOR color = 0xffffffff);		// Ã¤ÆÃ ¸Ş¼¼Áö¸¦ ÀúÀåÇÏ°í ¾Ë¸ÂÀº ÇüÅÂ·Î È­¸é¿¡ Ãâ·ÂÇØÁØ´Ù.
+	void				AddChatMsg(e_ChatMode eCM, const std::string& szString, D3DCOLOR color = 0xffffffff);		// ì±„íŒ… ë©”ì„¸ì§€ë¥¼ ì €ì¥í•˜ê³  ì•Œë§ì€ í˜•íƒœë¡œ í™”ë©´ì— ì¶œë ¥í•´ì¤€ë‹¤.
 	void				AddContinueMsg(e_ChatMode eCM, const std::string& szString, D3DCOLOR color = 0xffffffff);
-	void				AdjustScroll(); // ½ºÅ©·Ñ À§Ä¡µî Á¶Á¤..
+	void				AdjustScroll(); // ìŠ¤í¬ë¡¤ ìœ„ì¹˜ë“± ì¡°ì •..
 
 	BOOL			IsChatMode();
 	void			SetFocus();

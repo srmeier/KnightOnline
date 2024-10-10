@@ -1,4 +1,4 @@
-// N3SndObj2D.h: interface for the CN3SndObj2D class.
+ï»¿// N3SndObj2D.h: interface for the CN3SndObj2D class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -37,7 +37,7 @@ protected:
 public:
 	int						m_iID;
 	bool					m_bUse;
-	std::string				m_szFileName;	//ÆÄÀÏÀÌ¸§...(ID ´ë¿ë).
+	std::string				m_szFileName;	//íŒŒì¼ì´ë¦„...(ID ëŒ€ìš©).
 	
 
 protected:

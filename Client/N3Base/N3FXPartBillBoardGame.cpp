@@ -1,4 +1,4 @@
-// N3FXPartBillBoard.cpp: implementation of the CN3FXPartBillBoard class.
+﻿// N3FXPartBillBoard.cpp: implementation of the CN3FXPartBillBoard class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// UINPCChangeEvent.h: interface for the CUINPCChangeEvent class.
+﻿// UINPCChangeEvent.h: interface for the CUINPCChangeEvent class.
 //
 //////////////////////////////////////////////////////////////////////
 

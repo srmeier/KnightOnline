@@ -1,4 +1,4 @@
-// N3EngTool.cpp: implementation of the CN3EngTool class.
+﻿// N3EngTool.cpp: implementation of the CN3EngTool class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "N3Light.h"

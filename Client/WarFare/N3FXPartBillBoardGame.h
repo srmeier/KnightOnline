@@ -1,4 +1,4 @@
-// N3FXPartBillBoardGame.h: interface for the CN3FXPartBillBoard class.
+﻿// N3FXPartBillBoardGame.h: interface for the CN3FXPartBillBoard class.
 //
 //////////////////////////////////////////////////////////////////////
 

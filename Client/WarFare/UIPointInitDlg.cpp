@@ -1,4 +1,4 @@
-// UIPointInitDlg.cpp: implementation of the UIPointInitDlg class.
+﻿// UIPointInitDlg.cpp: implementation of the UIPointInitDlg class.
 //
 //////////////////////////////////////////////////////////////////////
 

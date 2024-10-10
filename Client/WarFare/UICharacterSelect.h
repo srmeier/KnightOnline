@@ -1,4 +1,4 @@
-// UICharacterSelect.h: interface for the UICharacterSelect class.
+﻿// UICharacterSelect.h: interface for the UICharacterSelect class.
 //
 //////////////////////////////////////////////////////////////////////
 
