@@ -133,6 +133,7 @@ public:
 	virtual void	Init(CN3UIBase* pParent);
 	virtual bool	OnKeyPress(int iKey) { return false; }
 	virtual bool	OnKeyPressed(int iKey) { return false; }
+	virtual bool	OnMouseWheelEvent(short delta) { return false; }
 
 	static	bool	EnableTooltip(const std::string& szFN);	// tooltip UI를 초기화 해준다.
 	static	void	DestroyTooltip();	// tooltip ui에 관련된 것을 해제해준다.

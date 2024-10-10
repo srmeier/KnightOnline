@@ -18,8 +18,10 @@
 #include <time.h>
 
 #include "DFont.h"
-#include "IMouseWheelInputDlg.h"
 #include "UIManager.h"
+#include "UIMessageBoxManager.h"
+
+#include <windowsx.h>
 
 HWND CreateMainWindow(HINSTANCE hInstance);
 LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -329,23 +331,31 @@ LRESULT CALLBACK WndProcMain(
 
 		case WM_MOUSEWHEEL:
 		{
+			CN3UIBase* pUI = nullptr;
+			if (CGameProcedure::s_pMsgBoxMgr != nullptr)
+				pUI = CGameProcedure::s_pMsgBoxMgr->GetFocusMsgBox();
+
+			short delta = GET_WHEEL_DELTA_WPARAM(wParam);
+
+			POINT ptCur;
+			ptCur.x = GET_X_LPARAM(lParam);
+			ptCur.y = GET_Y_LPARAM(lParam);
+
+			if (pUI != nullptr
+				&& pUI->IsVisible()
+				&& pUI->OnMouseWheelEvent(delta))
+				break;
+
+			if (CGameProcedure::s_pUIMgr != nullptr)
+				pUI = CGameProcedure::s_pUIMgr->GetFocusedUI();
+
+			if (pUI != nullptr
+				&& pUI->IsVisible()
+				&& pUI->OnMouseWheelEvent(delta))
+				break;
+
 			if (CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain)
-			{
-				float fDelta = ((int16_t) HIWORD(wParam)) * 0.05f;
-
-				CN3UIBase* focused = CGameProcedure::s_pUIMgr->GetFocusedUI();
-
-				if (focused)
-				{
-					int key = fDelta > 0 ? DIK_PRIOR : DIK_NEXT;
-					if (IMouseWheelInputDlg* t = dynamic_cast<IMouseWheelInputDlg*>(focused))
-						t->OnKeyPress(key);
-					else
-						CGameProcedure::s_pEng->CameraZoom(fDelta);
-				}
-				else
-					CGameProcedure::s_pEng->CameraZoom(fDelta);
-			}
+				CGameProcedure::s_pEng->CameraZoom(delta * 0.05f);
 		} break;
 	}
 

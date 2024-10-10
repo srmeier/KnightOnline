@@ -18,12 +18,12 @@
 
 #include "GameDef.h"
 #include "N3UIWndBase.h"
-#include "IMouseWheelInputDlg.h"
+
 enum e_NpcTrade {	UI_BLACKSMITH = 1, UI_STORE, UI_INN	};
 
 //////////////////////////////////////////////////////////////////////
 
-class CUITransactionDlg   : public CN3UIWndBase, public IMouseWheelInputDlg
+class CUITransactionDlg   : public CN3UIWndBase
 {
 	friend class CUIInventory;
 
@@ -57,33 +57,34 @@ protected:
 
 public:
 	CUITransactionDlg();
-	virtual				~CUITransactionDlg();
-	void				Release();
+	~CUITransactionDlg() override;
+	void				Release() override;
 
 	//this_ui_add_start
-	bool				OnKeyPress(int iKey);
-	bool				Load(HANDLE hFile);
-	void				SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false);
-	void				SetVisible(bool bVisible);
+	bool				OnKeyPress(int iKey) override;
+	bool				Load(HANDLE hFile) override;
+	void				SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false) override;
+	void				SetVisible(bool bVisible) override;
 	//this_ui_add_end
 
-	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
-	void				Render();
+	uint32_t			MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld) override;
+	bool				ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg) override;
+	bool				OnMouseWheelEvent(short delta) override;
+	void				Render() override;
 	void				LeaveTransactionState();
 	void				EnterTransactionState();
 
-	void				InitIconWnd(e_UIWND eWnd);
-	void				InitIconUpdate();
+	void				InitIconWnd(e_UIWND eWnd) override;
+	void				InitIconUpdate() override;
 
-	__IconItemSkill*	GetHighlightIconItem(CN3UIIcon* pUIIcon);
+	__IconItemSkill*	GetHighlightIconItem(CN3UIIcon* pUIIcon) override;
 
 	void				IconRestore();	
 
-	bool				ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur);
+	bool				ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur) override;
 
-	void				CancelIconDrop(__IconItemSkill* spItem);
-	void				AcceptIconDrop(__IconItemSkill* spItem);
+	void				CancelIconDrop(__IconItemSkill* spItem) override;
+	void				AcceptIconDrop(__IconItemSkill* spItem) override;
 
 	void				SendToServerSellMsg(int itemID, byte pos, int iCount);
 	void				SendToServerBuyMsg(int itemID, byte pos, int iCount);

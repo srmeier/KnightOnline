@@ -476,6 +476,17 @@ bool CUIWareHouseDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	return true;
 }
 
+bool CUIWareHouseDlg::OnMouseWheelEvent(
+	short delta)
+{
+	if (delta > 0)
+		ReceiveMessage(m_pBtnPageUp, UIMSG_BUTTON_CLICK);
+	else
+		ReceiveMessage(m_pBtnPageDown, UIMSG_BUTTON_CLICK);
+
+	return true;
+}
+
 void CUIWareHouseDlg::LeaveWareHouseState()
 {
 	if ( IsVisible() )

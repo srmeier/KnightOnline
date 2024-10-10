@@ -751,6 +751,17 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 	SetPageInIconRegion(iCurKindOfBackup, iCurSkillPageBackup);
 }
 
+bool CUISkillTreeDlg::OnMouseWheelEvent(
+	short delta)
+{
+	if (delta > 0)
+		PageLeft();
+	else
+		PageRight();
+
+	return true;
+}
+
 void CUISkillTreeDlg::Render()
 {
 	if (!m_bVisible) return;	// 보이지 않으면 자식들을 render하지 않는다.

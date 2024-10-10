@@ -1514,6 +1514,17 @@ bool CUITransactionDlg::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	return true;
 }
 
+bool CUITransactionDlg::OnMouseWheelEvent(
+	short delta)
+{
+	if (delta > 0)
+		ReceiveMessage(m_pBtnPageUp, UIMSG_BUTTON_CLICK);
+	else
+		ReceiveMessage(m_pBtnPageDown, UIMSG_BUTTON_CLICK);
+
+	return true;
+}
+
 CN3UIBase* CUITransactionDlg::GetChildButtonByName(const std::string& szFN)
 {
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)

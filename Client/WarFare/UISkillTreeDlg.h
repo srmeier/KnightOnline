@@ -15,7 +15,6 @@
 #include "N3UIButton.h"
 #include "N3UIImage.h"
 #include "N3UIString.h"
-#include "IMouseWheelInputDlg.h"
 
 const int SKILL_DEF_BASIC = 0;
 const int SKILL_DEF_SPECIAL0 = 1;
@@ -31,7 +30,7 @@ const int SKILL_DEF_SPECIAL3 = 4;
 
 //////////////////////////////////////////////////////////////////////
 
-class CUISkillTreeDlg    : public CN3UIWndBase, public IMouseWheelInputDlg
+class CUISkillTreeDlg    : public CN3UIWndBase
 {
 protected:
 	bool		m_bOpenningNow; // 열리고 있다..
@@ -61,22 +60,23 @@ protected:
 public:
 	void SetVisible(bool bVisible);
 	CUISkillTreeDlg();
-	virtual ~CUISkillTreeDlg();
+	~CUISkillTreeDlg() override;
 
-	void				SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false);
-	bool				OnKeyPress(int iKey);
-	virtual	void		Release();
-	virtual void		Tick();
-	virtual uint32_t		MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld);
-	virtual bool		ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
-	void				Render();
+	void				SetVisibleWithNoSound(bool bVisible, bool bWork = false, bool bReFocus = false) override;
+	bool				OnKeyPress(int iKey) override;
+	void				Release() override;
+	void				Tick() override;
+	uint32_t			MouseProc(uint32_t dwFlags, const POINT& ptCur, const POINT& ptOld) override;
+	bool				ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg) override;
+	bool				OnMouseWheelEvent(short delta) override;
+	void				Render() override;
 	void				Open();
 	void				Close();
 
-	void				InitIconWnd(e_UIWND eWnd);	
-	void				InitIconUpdate();
+	void				InitIconWnd(e_UIWND eWnd) override;	
+	void				InitIconUpdate() override;
 
-	__IconItemSkill*	GetHighlightIconItem(CN3UIIcon* pUIIcon);
+	__IconItemSkill*	GetHighlightIconItem(CN3UIIcon* pUIIcon) override;
 	int					GetSkilliOrder(__IconItemSkill* spSkill);
 
 	void				AddSkillToPage(__TABLE_UPC_SKILL* pUSkill, int iOffset = 0, bool bHasLevelToUse = true);
@@ -84,8 +84,8 @@ public:
 	void				SetPageInIconRegion(int iKindOf, int iPageNum);		// 아이콘 역역에서 현재 페이지 설정..
 	void				SetPageInCharRegion();								// 문자 역역에서 현재 페이지 설정..
 
-	CN3UIImage*		   GetChildImageByName(const std::string& szFN);
-	CN3UIBase*			GetChildBaseByName(const std::string &szFN);	
+	CN3UIImage*			GetChildImageByName(const std::string& szFN);
+	CN3UIBase*			GetChildBaseByName(const std::string& szFN);	
 	CN3UIButton*		GetChildButtonByName(const std::string& szFN);
 
 	void				PageLeft();
@@ -102,7 +102,7 @@ public:
 	void				ButtonTooltipRender(int iIndex);
 
 	void				UpdateDisableCheck();
-	int					  GetIndexInArea(POINT pt);
+	int					GetIndexInArea(POINT pt);
 };
 
 #endif // !defined(AFX_UISKILLTREEDLG_H__2A724E44_B3A7_41E4_B588_8AF6BC7FB911__INCLUDED_)

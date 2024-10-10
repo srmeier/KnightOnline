@@ -596,9 +596,6 @@
     <ClInclude Include="UICmdEdit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IMouseWheelInputDlg.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
