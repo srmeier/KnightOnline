@@ -126,7 +126,7 @@ void CGameProcedure::Init()
 	s_pUIMgr->SetFocusedUI(NULL);
 }
 
-void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
+void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, SDL_Window* pWindow)
 {
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 게임 기본 3D 엔진 만들기..
@@ -222,7 +222,7 @@ void CGameProcedure::StaticMemberInit(SDL_Window* pWindow)
 	*/
 
 	s_pLocalInput = new CLocalInput();
-	s_pLocalInput->Init(pWindow, FALSE); // Input 만 초기화.
+	s_pLocalInput->Init(hInstance, hWndMain, FALSE); // Input 만 초기화.
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// Sound 초기화..

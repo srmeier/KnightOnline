@@ -137,7 +137,7 @@ public:
 	virtual void ProcessUIKeyInput(bool bEnable = true);
 
 	static bool	IsUIKeyOperated();
-	static void	StaticMemberInit(SDL_Window* pWindow);
+	static void	StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, SDL_Window* pWindow);
 	static void StaticMemberRelease();
 
 	static void TickActive();

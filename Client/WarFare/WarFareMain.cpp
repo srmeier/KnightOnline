@@ -20,6 +20,7 @@
 #include "SDL2/SDL_net.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_mixer.h"
+#include "SDL2/SDL_syswm.h"
 
 #include "DFont.h"
 
@@ -146,8 +147,7 @@ int SDL_main(int argc, char** argv)
 		SDL_WINDOWPOS_CENTERED,
 		CN3Base::s_Options.iViewWidth,
 		CN3Base::s_Options.iViewHeight,
-		windowFlags
-	);
+		windowFlags);
 
 	if(pWindow == NULL) {
 		fprintf(stderr, "ER: %s\n", SDL_GetError());
@@ -155,12 +155,19 @@ int SDL_main(int argc, char** argv)
 		return false;
 	}
 
+	SDL_SysWMinfo info;
+	SDL_VERSION(&info.version);
+	SDL_GetWindowWMInfo(pWindow, &info);
+
 	CGameProcedure::s_bWindowed = true;
 
-	// NOTE: allocate the static members
-	CGameProcedure::StaticMemberInit(pWindow);
+	// allocate the static members
+	CGameProcedure::StaticMemberInit(
+		GetModuleHandle(nullptr),
+		info.info.win.window,
+		pWindow);
 
-	// NOTE: set the games current procedure to s_pProcLogIn
+	// set the game's current procedure to s_pProcLogIn
 	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
 
 	/*
