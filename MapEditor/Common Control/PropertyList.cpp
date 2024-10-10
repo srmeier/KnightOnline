@@ -1,4 +1,4 @@
-// PropertyList.cpp : implementation file
+ï»¿// PropertyList.cpp : implementation file
 //
 //#include "StdAfx.h"
 #include "PropertyList.h"
@@ -114,10 +114,10 @@ void CPropertyList::DrawItem(LPDRAWITEMSTRUCT lpDIS)
 											rect2.right-3,rect2.bottom+3),
 					DT_LEFT | DT_SINGLELINE);
 
-		// ¸¸¾à ÄÃ·¯¸é..
+		// ë§Œì•½ ì»¬ëŸ¬ë©´..
 		if(pItem->m_nItemType == PIT_COLOR)
 		{
-			dc.FillSolidRect(CRect(rect.left+2,rect.top+2,rect.right-4,rect.bottom-4), pItem->m_crColor); // ¹è°æ »ö ±×¸®±â..
+			dc.FillSolidRect(CRect(rect.left+2,rect.top+2,rect.right-4,rect.bottom-4), pItem->m_crColor); // ë°°ê²½ ìƒ‰ ê·¸ë¦¬ê¸°..
 		}
 		else if(pItem->m_nItemType == PIT_COMBO)
 		{
@@ -349,7 +349,7 @@ void CPropertyList::OnSelchangeCmbBox()
 		pItem->m_crColor = m_ComboBox.GetCurSel();
 
 		CWnd* pWnd = GetParent();
-		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ºÎ¸ğ À©µµ¿ì¿¡ ¸Ş½ÃÁö º¸³»±â..
+		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ë¶€ëª¨ ìœˆë„ìš°ì— ë©”ì‹œì§€ ë³´ë‚´ê¸°..
 	}
 }
 
@@ -362,7 +362,7 @@ void CPropertyList::OnChangeEditBox()
 	pItem->m_curValue = newStr;
 
 	CWnd* pWnd = GetParent();
-	if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ºÎ¸ğ À©µµ¿ì¿¡ ¸Ş½ÃÁö º¸³»±â..
+	if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ë¶€ëª¨ ìœˆë„ìš°ì— ë©”ì‹œì§€ ë³´ë‚´ê¸°..
 }
 
 void CPropertyList::OnButton()
@@ -383,7 +383,7 @@ void CPropertyList::OnButton()
 		}
 
 		CWnd* pWnd = GetParent();
-		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ºÎ¸ğ À©µµ¿ì¿¡ ¸Ş½ÃÁö º¸³»±â..
+		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ë¶€ëª¨ ìœˆë„ìš°ì— ë©”ì‹œì§€ ë³´ë‚´ê¸°..
 
 	}
 	else if (pItem->m_nItemType == PIT_FILE)
@@ -408,7 +408,7 @@ void CPropertyList::OnButton()
 		}
 
 		CWnd* pWnd = GetParent();
-		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ºÎ¸ğ À©µµ¿ì¿¡ ¸Ş½ÃÁö º¸³»±â..
+		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ë¶€ëª¨ ìœˆë„ìš°ì— ë©”ì‹œì§€ ë³´ë‚´ê¸°..
 
 	}
 	else if (pItem->m_nItemType == PIT_FILE_MULTI)
@@ -436,7 +436,7 @@ void CPropertyList::OnButton()
 				pItem->m_curValue += szFNs[iSC-1];
 				pItem->m_curValue += '\n';
 
-				for(int i = 1; i < iSC-1; i++) // 1 ºÎÅÍ ½ÃÀÛÇÏ´Â ÀÌÀ¯´Â ÆÄÀÏ ´ëÈ­»óÀÚ¿¡¼­ ¿©·¯ ÆÄÀÏÀ» ºÎ¸£¸é Ã·°ú ³¡ ÆÄÀÏ ÀÌ¸§ÀÌ ¹Ù²î±â ¶§¹®ÀÌ´Ù.
+				for(int i = 1; i < iSC-1; i++) // 1 ë¶€í„° ì‹œì‘í•˜ëŠ” ì´ìœ ëŠ” íŒŒì¼ ëŒ€í™”ìƒìì—ì„œ ì—¬ëŸ¬ íŒŒì¼ì„ ë¶€ë¥´ë©´ ì²¨ê³¼ ë íŒŒì¼ ì´ë¦„ì´ ë°”ë€Œê¸° ë•Œë¬¸ì´ë‹¤.
 				{
 					pItem->m_curValue += szFNs[i];
 					pItem->m_curValue += '\n';
@@ -449,7 +449,7 @@ void CPropertyList::OnButton()
 				Invalidate();
 
 				CWnd* pWnd = GetParent();
-				if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ºÎ¸ğ À©µµ¿ì¿¡ ¸Ş½ÃÁö º¸³»±â..
+				if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ë¶€ëª¨ ìœˆë„ìš°ì— ë©”ì‹œì§€ ë³´ë‚´ê¸°..
 			}
 		}
 	}
@@ -468,12 +468,12 @@ void CPropertyList::OnButton()
 		}
 
 		CWnd* pWnd = GetParent();
-		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ºÎ¸ğ À©µµ¿ì¿¡ ¸Ş½ÃÁö º¸³»±â..
+		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ë¶€ëª¨ ìœˆë„ìš°ì— ë©”ì‹œì§€ ë³´ë‚´ê¸°..
 	}
 	else
 	{
 		CWnd* pWnd = GetParent();
-		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ºÎ¸ğ À©µµ¿ì¿¡ ¸Ş½ÃÁö º¸³»±â..
+		if(pWnd) pWnd->SendMessage(WM_NOTIFY, (DWORD)this, (DWORD)pItem); // ë¶€ëª¨ ìœˆë„ìš°ì— ë©”ì‹œì§€ ë³´ë‚´ê¸°..
 	}
 }
 
