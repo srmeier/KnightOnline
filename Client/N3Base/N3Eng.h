@@ -2,10 +2,7 @@
 #define __N3ENG_H_
 
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_net.h"
 #include "SDL2/SDL_image.h"
-#include "SDL2/SDL_mixer.h"
 
 #include "ddraw.h"
 #include "N3Base.h"

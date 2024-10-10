@@ -14,12 +14,9 @@
 #include "N3WorldManager.h"
 #include "../Server/shared/Ini.h"
 
-#include "time.h"
+#include <time.h>
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_net.h"
 #include "SDL2/SDL_image.h"
-#include "SDL2/SDL_mixer.h"
 #include "SDL2/SDL_syswm.h"
 
 #include "DFont.h"
@@ -111,28 +108,9 @@ int SDL_main(int argc, char** argv)
 	SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
 	//
 
-	if(TTF_Init() == -1) {
-		fprintf(stderr, "ER: %s\n", TTF_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
-
 	int flags = IMG_INIT_JPG|IMG_INIT_PNG;
 	if((IMG_Init(flags)&flags) != flags) {
 		fprintf(stderr, "ER: %s\n", IMG_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
-
-	flags = MIX_INIT_OGG|MIX_INIT_MP3;
-	if((Mix_Init(flags)&flags) != flags) {
-		fprintf(stderr, "ER: %s\n", Mix_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
-
-	if(SDLNet_Init() == -1) {
-		fprintf(stderr, "ER: %s\n", SDLNet_GetError());
 		Sleep(1000 * 5);
 		return false;
 	}
