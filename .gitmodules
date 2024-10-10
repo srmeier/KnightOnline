@@ -8,3 +8,6 @@
 [submodule "deps/atlmfc-2013"]
 	path = deps/atlmfc-2013
 	url = https://github.com/twostars/atlmfc-2013
+[submodule "Client/Data"]
+	path = Client/Data
+	url = https://github.com/twostars/ko-client-assets
