@@ -258,7 +258,7 @@ bool CUICmd::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+	case DIK_ESCAPE:
 		{	//hotkey가 포커스 잡혀있을때는 다른 ui를 닫을수 없으므로 DIK_ESCAPE가 들어오면 포커스를 다시잡고
 			//열려있는 다른 유아이를 닫아준다.
 			CGameProcedure::s_pUIMgr->ReFocusUI();//this_ui

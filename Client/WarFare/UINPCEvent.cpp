@@ -152,7 +152,7 @@ void CUINPCEvent::Close()
 
 bool CUINPCEvent::OnKeyPress(int iKey)
 {
-	if(/*DIK_ESCAPE*/SDL_SCANCODE_ESCAPE == iKey)
+	if(DIK_ESCAPE == iKey)
 	{
 		this->Close();
 		return true;

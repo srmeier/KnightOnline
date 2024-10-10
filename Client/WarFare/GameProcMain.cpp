@@ -482,7 +482,7 @@ void CGameProcMain::Tick()
 	if(!s_pSocket->IsConnected()) return;
 
 #ifdef _DEBUG
-	if(s_pLocalInput->IsKeyPressed(SDL_SCANCODE_F11))
+	if(s_pLocalInput->IsKeyPressed(DIK_F11))
 	{
 		uint8_t byBuff[32];
 		int iOffset = 0;
@@ -1195,8 +1195,8 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 	if(s_pEng->ViewPoint() == VP_THIRD_PERSON)
 	{
 		float fPitch = 0;
-		if(s_pLocalInput->IsKeyDown(SDL_SCANCODE_HOME)) fPitch = D3DXToRadian(45.0f);		// home 키가 눌리면..
-		else if(s_pLocalInput->IsKeyDown(SDL_SCANCODE_END)) fPitch = D3DXToRadian(-45.0f);	// End 키가 눌리면..
+		if(s_pLocalInput->IsKeyDown(DIK_HOME)) fPitch = D3DXToRadian(45.0f);		// home 키가 눌리면..
+		else if(s_pLocalInput->IsKeyDown(DIK_END)) fPitch = D3DXToRadian(-45.0f);	// End 키가 눌리면..
 		if(fPitch) s_pEng->CameraPitchAdd(fPitch);
 	}
 
@@ -1204,7 +1204,7 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 	{
 		if(s_pPlayer->m_InfoBase.iAuthority == AUTHORITY_MANAGER) //게임 운영자는 이 기능을 사용할수 있다.
 		{
-			if ( s_pLocalInput->IsKeyDown(SDL_SCANCODE_Q) ) s_pPlayer->m_bTempMoveTurbo = true; // 엄청 빨리 움직이게 한다..  // 임시 함수.. 나중에 없애자..
+			if ( s_pLocalInput->IsKeyDown(DIK_Q) ) s_pPlayer->m_bTempMoveTurbo = true; // 엄청 빨리 움직이게 한다..  // 임시 함수.. 나중에 없애자..
 			else s_pPlayer->m_bTempMoveTurbo = false; // 엄청 빨리 움직이게 한다..  // 임시 함수.. 나중에 없애자..
 		}
 
@@ -1218,21 +1218,21 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 			this->CommandTargetSelect_NearstOurForce(); // 가장 가까운 파티 타겟잡기..
 
 		float fRotKeyDelta = D3DXToRadian(60); // 초당 60 도 돌기..
-		if(s_pLocalInput->IsKeyDown(KM_ROTATE_LEFT) || s_pLocalInput->IsKeyDown(SDL_SCANCODE_LEFT))	
+		if(s_pLocalInput->IsKeyDown(KM_ROTATE_LEFT) || s_pLocalInput->IsKeyDown(DIK_LEFT))	
 		{
 			if(s_pPlayer->IsAlive()) s_pPlayer->RotAdd(-fRotKeyDelta); // 초당 180 도 왼쪽으로 돌기.
 			if(m_pUIDroppedItemDlg->IsVisible()) m_pUIDroppedItemDlg->LeaveDroppedState();	
 		}
-		if(s_pLocalInput->IsKeyDown(KM_ROTATE_RIGHT) || s_pLocalInput->IsKeyDown(SDL_SCANCODE_RIGHT))	
+		if(s_pLocalInput->IsKeyDown(KM_ROTATE_RIGHT) || s_pLocalInput->IsKeyDown(DIK_RIGHT))	
 		{
 			if(s_pPlayer->IsAlive()) s_pPlayer->RotAdd(fRotKeyDelta); // 초당 180 도 오른쪽으로 돌기.
 			if(m_pUIDroppedItemDlg->IsVisible()) m_pUIDroppedItemDlg->LeaveDroppedState();	
 		}
 		
-		if(s_pLocalInput->IsKeyDown(KM_MOVE_FOWARD) || s_pLocalInput->IsKeyDown(SDL_SCANCODE_UP))
+		if(s_pLocalInput->IsKeyDown(KM_MOVE_FOWARD) || s_pLocalInput->IsKeyDown(DIK_UP))
 		{
 			bool bStart = false;
-			if(s_pLocalInput->IsKeyPress(KM_MOVE_FOWARD) || s_pLocalInput->IsKeyPress(SDL_SCANCODE_UP))
+			if(s_pLocalInput->IsKeyPress(KM_MOVE_FOWARD) || s_pLocalInput->IsKeyPress(DIK_UP))
 			{
 				if(VP_THIRD_PERSON == s_pEng->ViewPoint())
 				{
@@ -1246,10 +1246,10 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 			}
 			this->CommandMove(MD_FOWARD, bStart); // 앞으로 이동..
 		}
-		else if(s_pLocalInput->IsKeyDown(KM_MOVE_BACKWARD) || s_pLocalInput->IsKeyDown(SDL_SCANCODE_DOWN))
+		else if(s_pLocalInput->IsKeyDown(KM_MOVE_BACKWARD) || s_pLocalInput->IsKeyDown(DIK_DOWN))
 		{
 			bool bStart = false;
-			if(s_pLocalInput->IsKeyPress(KM_MOVE_BACKWARD) || s_pLocalInput->IsKeyPress(SDL_SCANCODE_DOWN)) 
+			if(s_pLocalInput->IsKeyPress(KM_MOVE_BACKWARD) || s_pLocalInput->IsKeyPress(DIK_DOWN)) 
 			{
 				if(VP_THIRD_PERSON == s_pEng->ViewPoint())
 				{
@@ -1268,8 +1268,8 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 			this->CommandToggleMoveContinous();
 		}
 
-		if(	s_pLocalInput->IsKeyPressed(KM_MOVE_FOWARD) || s_pLocalInput->IsKeyPressed(SDL_SCANCODE_UP) || 
-			s_pLocalInput->IsKeyPressed(KM_MOVE_BACKWARD) || s_pLocalInput->IsKeyPressed(SDL_SCANCODE_DOWN) ) // 전진/후진 키를 떼는 순간. 
+		if(	s_pLocalInput->IsKeyPressed(KM_MOVE_FOWARD) || s_pLocalInput->IsKeyPressed(DIK_UP) || 
+			s_pLocalInput->IsKeyPressed(KM_MOVE_BACKWARD) || s_pLocalInput->IsKeyPressed(DIK_DOWN) ) // 전진/후진 키를 떼는 순간. 
 		{
 			this->CommandMove(MD_STOP, true);
 		}
@@ -1291,10 +1291,10 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 			this->CommandToggleUIMiniMap();
 		}
 
-		if (s_pLocalInput->IsKeyPress(SDL_SCANCODE_PAGEUP))
+		if (s_pLocalInput->IsKeyPress(DIK_PRIOR))
 			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->PageUp();
 		
-		if (s_pLocalInput->IsKeyPress(SDL_SCANCODE_PAGEDOWN))
+		if (s_pLocalInput->IsKeyPress(DIK_NEXT))
 			if (m_pUIHotKeyDlg)	m_pUIHotKeyDlg->PageDown();
 
 		if (s_pLocalInput->IsKeyPress(KM_SKILL_PAGE_1))
@@ -1318,7 +1318,7 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 
 	// ..... 나머지 키보드 처리..
 #if _DEBUG
-	if(s_pLocalInput->IsKeyPress(SDL_SCANCODE_F12)) // 디버깅 테스트..
+	if(s_pLocalInput->IsKeyPress(DIK_F12)) // 디버깅 테스트..
 		s_pEng->Lightning(); // 번개 치기..
 #endif
 }
@@ -7376,7 +7376,7 @@ bool CGameProcMain::OnMouseLBtnPress(POINT ptCur, POINT ptPrev)
 
 		if(pTarget)
 		{
-			if(s_pLocalInput->IsKeyDown(SDL_SCANCODE_LCTRL) || s_pLocalInput->IsKeyDown(SDL_SCANCODE_RCTRL))
+			if(s_pLocalInput->IsKeyDown(DIK_LCONTROL) || s_pLocalInput->IsKeyDown(DIK_RCONTROL))
 			{
 				if(s_pPlayer->IsAttackableTarget(pTarget, false))
 				{
@@ -7420,7 +7420,7 @@ bool CGameProcMain::OnMouseLBtnPress(POINT ptCur, POINT ptPrev)
 	}
 	else if(!s_pPlayer->IsDead())
 	{
-		if(pTarget && (s_pLocalInput->IsKeyDown(SDL_SCANCODE_LCTRL) || s_pLocalInput->IsKeyDown(SDL_SCANCODE_RCTRL)))
+		if(pTarget && (s_pLocalInput->IsKeyDown(DIK_LCONTROL) || s_pLocalInput->IsKeyDown(DIK_RCONTROL)))
 		{
 			if(s_pPlayer->IsAttackableTarget(pTarget, false))
 			{
@@ -7514,7 +7514,7 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 {
 	if(s_pUIMgr->m_bDoneSomething) return false;
 
-	if(s_pLocalInput->IsKeyDown(SDL_SCANCODE_LCTRL) || s_pLocalInput->IsKeyDown(SDL_SCANCODE_RCTRL))
+	if(s_pLocalInput->IsKeyDown(DIK_LCONTROL) || s_pLocalInput->IsKeyDown(DIK_RCONTROL))
 	{
 		m_pUIHotKeyDlg->EffectTriggerByMouse();
 		return true;
@@ -7678,7 +7678,7 @@ void CGameProcMain::ProcessUIKeyInput(bool bEnable)
 	if(m_pUIChatDlg && !m_pUIChatDlg->IsChatMode())
 	{
 		CGameProcedure::ProcessUIKeyInput();
-		if(s_pLocalInput->IsKeyPress(SDL_SCANCODE_RETURN) && !s_bKeyPress)
+		if(s_pLocalInput->IsKeyPress(DIK_RETURN) && !s_bKeyPress)
 		{
 			m_pUIChatDlg->SetFocus();
 		}

@@ -394,7 +394,7 @@ void CGameProcedure::Tick()
 	CN3Base::s_SndMgr.Tick(); // Sound Engine...
 
 	// 스크린 캡쳐 키..
-	if(s_pLocalInput->IsKeyPress(SDL_SCANCODE_KP_MINUS)) // 키패드의 마이너스 키를 누르면..
+	if(s_pLocalInput->IsKeyPress(DIK_NUMPADMINUS)) // 키패드의 마이너스 키를 누르면..
 	{
 		SYSTEMTIME st;
 		::GetLocalTime(&st);

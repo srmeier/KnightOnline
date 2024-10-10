@@ -392,7 +392,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 	{
 		switch (iKey)
 		{
-		case SDL_SCANCODE_TAB://DIK_TAB:
+		case DIK_TAB:
 			FocusCircular();
 			return true;
 			//		case DIK_NUMPADENTER:
@@ -405,7 +405,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 	{
 		switch (iKey)
 		{
-		case SDL_SCANCODE_UP://DIK_UP:
+		case DIK_UP:
 		{
 			if (NULL == m_pList_Server) return false;
 
@@ -415,7 +415,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 			int iCnt = m_pList_Server->GetCount();
 		}
 		return true;
-		case SDL_SCANCODE_DOWN://DIK_DOWN:
+		case DIK_DOWN:
 		{
 			if (NULL == m_pList_Server) return false;
 
@@ -425,8 +425,8 @@ bool CUILogIn::OnKeyPress(int iKey)
 			if (iCnt - iIndex > 1) m_pList_Server->SetCurSel(iIndex + 1);
 		}
 		return true;
-		case SDL_SCANCODE_KP_ENTER://DIK_NUMPADENTER:
-		case SDL_SCANCODE_RETURN://DIK_RETURN:
+		case DIK_NUMPADENTER:
+		case DIK_RETURN:
 			ReceiveMessage(m_pBtn_Connect, UIMSG_BUTTON_CLICK);
 			return true;
 		}

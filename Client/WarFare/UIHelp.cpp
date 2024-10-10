@@ -109,13 +109,13 @@ bool CUIHelp::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case SDL_SCANCODE_PAGEUP://DIK_PRIOR:
+	case DIK_PRIOR:
 		ReceiveMessage(m_pBtn_Prev, UIMSG_BUTTON_CLICK);
 		return true;
-	case SDL_SCANCODE_PAGEDOWN://DIK_NEXT:
+	case DIK_NEXT:
 		ReceiveMessage(m_pBtn_Next, UIMSG_BUTTON_CLICK);
 		return true;
-	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+	case DIK_ESCAPE:
 		ReceiveMessage(m_pBtn_Close, UIMSG_BUTTON_CLICK);
 		return true;
 	}

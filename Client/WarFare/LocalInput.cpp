@@ -206,7 +206,7 @@ LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 				
 				if (focused)
 				{
-					int key = fDelta > 0 ? SDL_SCANCODE_PAGEUP : SDL_SCANCODE_PAGEDOWN;
+					int key = fDelta > 0 ? DIK_PRIOR : DIK_NEXT;
 					if (IMouseWheelInputDlg* t = dynamic_cast<IMouseWheelInputDlg*>(focused))
 						t->OnKeyPress(key);
 					else

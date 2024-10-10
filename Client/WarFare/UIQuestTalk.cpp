@@ -124,10 +124,10 @@ bool CUIQuestTalk::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+	case DIK_ESCAPE:
 		SetVisible(false);
 		return true;
-	case SDL_SCANCODE_RETURN://DIK_RETURN:
+	case DIK_RETURN:
 		ReceiveMessage(m_pBtnOk, UIMSG_BUTTON_CLICK);
 		return true;
 	}
