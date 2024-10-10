@@ -726,7 +726,7 @@ void CN3CPlug::RenderFXLines(const __Matrix44& mtxParent, const __Matrix44& mtxJ
 	mtx *= mtxParent;
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx);
 
-	uint32_t dwCull;
+	DWORD dwCull;
 	s_lpD3DDev->GetRenderState(D3DRS_CULLMODE, &dwCull);
 	s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_PMeshInstFX.SetLOD((s_CameraData.vEye - mtx.Pos()).Magnitude() * s_CameraData.fFOV);

@@ -486,6 +486,7 @@ BOOL CN3Eng::FindDepthStencilFormat(UINT iAdapter, D3DDEVTYPE DeviceType, D3DFOR
 }
 
 
+#ifndef _N3TOOL
 void CN3Eng::Present(HWND hWnd, RECT* pRC)
 {
 //	HRESULT rval = s_lpD3DDev->TestCooperativeLevel();
@@ -569,8 +570,7 @@ void CN3Eng::Present(HWND hWnd, RECT* pRC)
 	// 프레임 율 측정...
 	////////////////////////////////////////////////////////////////////////////////
 }
-
-#ifdef _N3TOOL
+#else // _N3TOOL
 void CN3Eng::Present(HWND hWnd, RECT* pRC) {
 	RECT rc;
 	if(s_DevParam.Windowed)

@@ -97,7 +97,7 @@ bool CN3Joint::Save(HANDLE hFile)
 #ifdef _N3TOOL
 void CN3Joint::Render(const __Matrix44* pMtxParent, float fUnitSize)
 {
-	uint32_t dwAlpha, dwFog, dwLight, dwZ;
+	DWORD dwAlpha, dwFog, dwLight, dwZ;
 	s_lpD3DDev->GetRenderState(D3DRS_ZENABLE, &dwZ);
 	s_lpD3DDev->GetRenderState(D3DRS_FOGENABLE, &dwFog);
 	s_lpD3DDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlpha);

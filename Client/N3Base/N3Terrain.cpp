@@ -980,6 +980,7 @@ void CN3Terrain::DispositionPatch()
 //
 void CN3Terrain::SetLightMap(int dir)
 {
+#ifndef _N3TOOL
 	__TABLE_ZONE* pZoneData = CGameBase::s_pTbl_Zones.Find(CGameBase::s_pPlayer->m_InfoExt.iZoneCur);
 	if(!pZoneData) return;
 
@@ -1137,6 +1138,7 @@ void CN3Terrain::SetLightMap(int dir)
 
 	delete[] Addr;
 	CloseHandle(hFile);
+#endif
 }
 
 

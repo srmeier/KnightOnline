@@ -773,7 +773,7 @@ bool CN3UIBase::SwapChild(CN3UIBase* pChild1, CN3UIBase* pChild2)
 		if(*itor2 == pChild2) break;
 	if(itor2 == m_Children.end()) return false;
 
-	swap(*itor1, *itor2);
+	std::swap(*itor1, *itor2);
 
 	return true;
 }
@@ -823,7 +823,7 @@ bool CN3UIBase::MoveToLower(CN3UIBase* pChild)
 			UIListItor itNext = itor1; itNext++;
 			if(itNext != m_Children.end())
 			{
-				swap(*itNext, *itor1);
+				std::swap(*itNext, *itor1);
 				return true;
 			}
 			break;
@@ -844,7 +844,7 @@ bool CN3UIBase::MoveToUpper(CN3UIBase* pChild)
 			if(itor1 != m_Children.begin())
 			{
 				UIListItor itPrev = itor1; itPrev--;
-				swap(*itPrev, *itor1);
+				std::swap(*itPrev, *itor1);
 				return true;
 			}
 			break;
