@@ -554,9 +554,6 @@ struct __InfoPartyBBS // 파티 지원 게시판 구조체..
 	}
 };
 
-enum {	RESRC_UI_LOGIN = 0, RESRC_UI_CHARACTERSELECT, RESRC_UI_CHARACTERCREATE, RESRC_UI_INVENTORY, RESRC_UI_CHAT,
-		RESRC_UI_MYINFORMATION, RESRC_UI_TARGET, RESRC_UI_HOTKEY, RESRC_UI_FUNCTION };
-
 typedef struct __TABLE_TEXTS
 {
 	uint32_t		dwID;
@@ -565,7 +562,7 @@ typedef struct __TABLE_TEXTS
 
 typedef struct __TABLE_ZONE
 {
-	uint32_t       dwID;                 // zone ID
+	uint32_t    dwID;                 // zone ID
 	std::string	szTerrainFN;          // GTD
 
 	std::string szName;
@@ -575,27 +572,27 @@ typedef struct __TABLE_ZONE
 	std::string	szObjectPostDataFN;   // OPD
 
 #if __VERSION > 1264
-	std::string szReserved;
+	std::string szOpdExtFN;           // OPDEXT
 #endif
 
 	std::string	szMiniMapFN;          // DXT
 	std::string szSkySetting;         // N3Sky
-	int         bIndicateEnemyPlayer; // SByte (now Int32)
+	int         bIndicateEnemyPlayer; // Int32 (BOOL)
 	int         iFixedSundDirection;  // Int32
 	std::string szLightObjFN;         // GLO
 
-	std::string szGEVFN;              // GEV
+	std::string szGevFN;              // GEV
 	int         iIdk0;                // idk
-	std::string szENSFN;              // ENS
+	std::string szEnsFN;              // ENS
 	float       fIdk1;                // idk
-	std::string szFLAGFN;             // FLAG
-	uint32_t       iIdk2;
-	uint32_t       iIdk3;
-	uint32_t       iIdk4;
-	uint32_t       iIdk5;
-	std::string szOPDSUBFN;           // OPDSUB
+	std::string szFlagFN;             // FLAG
+	uint32_t    iIdk2;
+	uint32_t    iIdk3;
+	uint32_t    iIdk4;
+	uint32_t    iIdk5;
+	std::string szOpdSubFN;           // OPDSUB
 	int         iIdk6;
-	std::string szEVTSUB;             // EVTSUB
+	std::string szEvtSub;             // EVTSUB
 } TABLE_ZONE;
 
 typedef struct __TABLE_UI_RESRC
