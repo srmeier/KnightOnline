@@ -16,7 +16,7 @@ enum e_LogInClassification { LIC_KNIGHTONLINE = 0, LIC_MGAME = 1, LIC_DAUM = 2 }
 
 #include "N3WorldManager.h"
 
-#include "SDL2/SDL.h"
+#include "../include/SDL2/SDL.h"
 
 #define		UI_POST_WND_CHAT		"Wnd_Chat"
 #define		UI_POST_WND_HOTKEY		"Wnd_Hotkey"
@@ -101,7 +101,6 @@ public:
 
 	// NOTE: adding boolean to check if window has focus or not
 	static bool		s_bIsWindowInFocus;
-	static bool		s_bWindowHasMouseFocus;
 
 public:
 	static std::string MessageBoxPost(const std::string& szMsg, const std::string& szTitle, int iStyle, e_Behavior eBehavior = BEHAVIOR_NOTHING);
@@ -133,7 +132,7 @@ public:
 	virtual void ProcessUIKeyInput(bool bEnable = true);
 
 	static bool	IsUIKeyOperated();
-	static void	StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, SDL_Window* pWindow);
+	static void	StaticMemberInit(HINSTANCE hInstance, HWND hWndMain);
 	static void StaticMemberRelease();
 
 	static void TickActive();

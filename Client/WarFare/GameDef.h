@@ -7,7 +7,7 @@
 #include "shared/types.h"
 #include "shared/version.h"
 
-#include "SDL2/SDL.h"
+#include "../include/SDL2/SDL.h"
 
 // TODO: Shift this logic into a separate header and generally clean this shared logic up
 #ifndef ASSERT

@@ -1081,77 +1081,68 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 	if (!s_bIsWindowInFocus)
 		return;
 
-	if (s_bWindowHasMouseFocus)
+	POINT ptPrev = s_pLocalInput->MouseGetPosOld();
+	POINT ptCur = s_pLocalInput->MouseGetPos();
+
+	OnMouseMove(ptCur, ptPrev);
+
+	//static POINT ptPrev_RB ={};
+
+	if (dwMouseFlags & MOUSE_RBCLICK)
 	{
-		POINT ptPrev = s_pLocalInput->MouseGetPosOld();
-		POINT ptCur = s_pLocalInput->MouseGetPos();
+		// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
+		OnMouseRBtnPress(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_RBDOWN)
+	{
+		// NOTE: this is where the right click rotation and zoom out occur
+		OnMouseRbtnDown(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_RBCLICK)
+	{
+		OnMouseRBtnPressd(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_RBDBLCLK)
+	{
+		OnMouseRDBtnPress(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_LBCLICK)
+	{
+		// NOTE: move on click
+		OnMouseLBtnPress(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_LBDOWN)
+	{
+		// NOTE: move on held down click
+		OnMouseLbtnDown(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_LBCLICKED)
+	{
+		OnMouseLBtnPressd(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_LBDBLCLK)
+	{
+		OnMouseLDBtnPress(ptCur, ptPrev);
+	}
+	if (dwMouseFlags & MOUSE_MBCLICK)
+	{
+		OnMouseMBtnPress(ptCur, ptPrev);
+	}
 
-		OnMouseMove(ptCur, ptPrev);
-
-		//static POINT ptPrev_RB ={};
-
-		if (dwMouseFlags & MOUSE_RBCLICK)
+	// Moves camera when mouse is on the borders of the screen. For both X & Y
+	if (!(dwMouseFlags & MOUSE_RBDOWN))
+	{
+		float fRotY = 0, fRotX = 0;
+		if (0 == ptCur.x) fRotY = -2.0f;
+		else if ((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
+		if (0 == ptCur.y) fRotX = -1.0f;
+		else if ((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
+		if (fRotY)
 		{
-			// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
-			OnMouseRBtnPress(ptCur, ptPrev);
+			if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
+			else s_pPlayer->RotAdd(fRotY);
 		}
-		if (dwMouseFlags & MOUSE_RBDOWN)
-		{
-			// NOTE: this is where the right click rotation and zoom out occur
-			//if(!SDL_GetRelativeMouseMode()) ptPrev_RB = ptCur;
-			//else {
-			//	int x, y;
-			//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
-			//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
-			//}
-			OnMouseRbtnDown(ptCur, ptPrev);
-		}
-		if (dwMouseFlags & MOUSE_RBCLICK)
-		{
-			OnMouseRBtnPressd(ptCur, ptPrev);
-		}
-		if (dwMouseFlags & MOUSE_RBDBLCLK)
-		{
-			OnMouseRDBtnPress(ptCur, ptPrev);
-		}
-		if (dwMouseFlags & MOUSE_LBCLICK)
-		{
-			// NOTE: move on click
-			OnMouseLBtnPress(ptCur, ptPrev);
-		}
-		if (dwMouseFlags & MOUSE_LBDOWN)
-		{
-			// NOTE: move on held down click
-			OnMouseLbtnDown(ptCur, ptPrev);
-		}
-		if (dwMouseFlags & MOUSE_LBCLICKED)
-		{
-			OnMouseLBtnPressd(ptCur, ptPrev);
-		}
-		if (dwMouseFlags & MOUSE_LBDBLCLK)
-		{
-			OnMouseLDBtnPress(ptCur, ptPrev);
-		}
-		if (dwMouseFlags & MOUSE_MBCLICK)
-		{
-			OnMouseMBtnPress(ptCur, ptPrev);
-		}
-
-		// Moves camera when mouse is on the borders of the screen. For both X & Y
-		if (!(dwMouseFlags & MOUSE_RBDOWN))
-		{
-			float fRotY = 0, fRotX = 0;
-			if (0 == ptCur.x) fRotY = -2.0f;
-			else if ((CN3Base::s_CameraData.vp.Width - 1) == ptCur.x) fRotY = 2.0f;
-			if (0 == ptCur.y) fRotX = -1.0f;
-			else if ((CN3Base::s_CameraData.vp.Height - 1) == ptCur.y) fRotX = 1.0f;
-			if (fRotY)
-			{
-				if (VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-				else s_pPlayer->RotAdd(fRotY);
-			}
-			if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
-		}
+		if (fRotX && VP_THIRD_PERSON != s_pEng->ViewPoint()) s_pEng->CameraPitchAdd(fRotX);
 	}
 
 	int iHotKey = -1;

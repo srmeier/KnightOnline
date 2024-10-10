@@ -103,9 +103,6 @@ bool CGameProcedure::s_bKeyPressed = false;	//키가 올라갔을때 ui에서 �
 // NOTE: adding boolean to check if window has focus or not
 bool CGameProcedure::s_bIsWindowInFocus = true;
 
-// NOTE: added a bool for whether window has mouse focus or not
-bool CGameProcedure::s_bWindowHasMouseFocus = true;
-
 CGameProcedure::CGameProcedure()
 {
 	m_bCursorLocked = false;
@@ -126,7 +123,9 @@ void CGameProcedure::Init()
 	s_pUIMgr->SetFocusedUI(NULL);
 }
 
-void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, SDL_Window* pWindow)
+void CGameProcedure::StaticMemberInit(
+	HINSTANCE hInstance,
+	HWND hWndMain)
 {
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 게임 기본 3D 엔진 만들기..
@@ -153,12 +152,19 @@ void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, SDL_Wi
 #endif // #ifndef _DEBUG
 */
 
-
 	s_pEng = new CGameEng();
-	if(false == s_pEng->Init(s_bWindowed, pWindow, CN3Base::s_Options.iViewWidth, CN3Base::s_Options.iViewHeight, CN3Base::s_Options.iViewColorDepth, TRUE)) exit(-1);
+	if (!s_pEng->Init(
+		s_bWindowed,
+		hWndMain,
+		s_Options.iViewWidth,
+		s_Options.iViewHeight,
+		s_Options.iViewColorDepth,
+		TRUE))
+		exit(-1);
+
 	// 게임 기본 3D 엔진 만들기..
-	
-	
+	::SetFocus(hWndMain); // Set focus this window..
+
 	RECT rc;
 	::GetClientRect(s_hWndBase, &rc);
 	RECT rcTmp = rc; rcTmp.left = (rc.right - rc.left) / 2; rcTmp.bottom = rcTmp.top + 30;

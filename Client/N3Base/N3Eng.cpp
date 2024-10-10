@@ -1,13 +1,8 @@
-﻿/*
-*/
-
-#include "N3Eng.h"
+﻿#include "N3Eng.h"
 #include "N3Light.h"
 #include "LogWriter.h"
-#include "SDL2/SDL_syswm.h"
 
-//-----------------------------------------------------------------------------
-CN3Eng::CN3Eng(void)
+CN3Eng::CN3Eng()
 {
 	m_lpDD          = NULL;
 	m_lpD3D         = NULL;
@@ -35,12 +30,19 @@ CN3Eng::CN3Eng(void)
 		exit(-1);
 	}
 
-	if(s_szPath.empty())
-		PathSet(SDL_GetBasePath());
+	// 프로그램이 실행된 경로..
+	if (s_szPath.empty())
+	{
+		char szPath[256];
+		char szDrive[_MAX_DRIVE], szDir[_MAX_DIR];
+		::GetModuleFileName(NULL, szPath, 256);
+		_splitpath(szPath, szDrive, szDir, NULL, NULL);
+		sprintf(szPath, "%s%s", szDrive, szDir);
+		this->PathSet(szPath); // 경로 설정..	
+	}
 }
 
-//-----------------------------------------------------------------------------
-CN3Eng::~CN3Eng(void)
+CN3Eng::~CN3Eng()
 {
 	CN3Base::ReleaseResrc();
 	delete [] m_DeviceInfo.pModes;
@@ -66,8 +68,7 @@ CN3Eng::~CN3Eng(void)
 #endif
 }
 
-//-----------------------------------------------------------------------------
-void CN3Eng::Release(void)
+void CN3Eng::Release()
 {
 	m_nModeActive   = -1;
 	m_nAdapterCount =  1;
@@ -109,7 +110,7 @@ void CN3Eng::SetViewPort(RECT& rc)
 }
 
 //-----------------------------------------------------------------------------
-void CN3Eng::SetDefaultEnvironment(void)
+void CN3Eng::SetDefaultEnvironment()
 {
 	__Matrix44 matWorld; matWorld.Identity();
 
@@ -243,29 +244,6 @@ void CN3Eng::SetProjection(float fNear, float fFar, float fLens, float fAspect)
 	__Matrix44 matProjection;
 	D3DXMatrixPerspectiveFovLH(&matProjection, fLens, fAspect, fNear, fFar);
 	s_lpD3DDev->SetTransform(D3DTS_PROJECTION, &matProjection);
-}
-
-bool CN3Eng::Init(
-	BOOL bWindowed,
-	SDL_Window* pWindow,
-	uint32_t dwWidth,
-	uint32_t dwHeight,
-	uint32_t dwBPP,
-	BOOL bUseHW)
-{
-	SDL_SysWMinfo info;
-	SDL_VERSION(&info.version);
-	SDL_GetWindowWMInfo(pWindow, &info);
-
-	s_pWindow = pWindow;
-
-	return Init(
-		bWindowed,
-		info.info.win.window,
-		dwWidth,
-		dwHeight,
-		dwBPP,
-		bUseHW);
 }
 
 bool CN3Eng::Init(
@@ -486,26 +464,17 @@ void CN3Eng::Present(HWND hWnd, RECT* pRC)
 //		return;
 //	}
 
-	/*
 	RECT rc;
-	if(s_DevParam.Windowed) // 윈도우 모드면...
+	if (s_DevParam.Windowed) // 윈도우 모드면...
 	{
 		GetClientRect(s_hWndBase, &rc);
 		pRC = &rc;
 	}
-	*/
 
-
-
-
-	//SDL_Renderer* s_pRenderer = SDL_GetRenderer(pWindow);
-	//SDL_RenderPresent(s_pRenderer);
-
-	
-	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
+	HRESULT rval = s_lpD3DDev->Present(pRC, pRC, hWnd, nullptr);
 	if(D3D_OK == rval)
 	{
-		//s_hWndPresent = hWnd; // Present window handle 을 저장해 놓는다.
+		s_hWndPresent = hWnd; // Present window handle 을 저장해 놓는다.
 	}
 	else if(D3DERR_DEVICELOST == rval || D3DERR_DEVICENOTRESET == rval)
 	{
@@ -521,7 +490,7 @@ void CN3Eng::Present(HWND hWnd, RECT* pRC)
 		}
 		else
 		{
-			rval = s_lpD3DDev->Present(pRC, pRC, hWnd, NULL);
+			rval = s_lpD3DDev->Present(pRC, pRC, hWnd, nullptr);
 		}
 		return;
 	}
@@ -596,26 +565,21 @@ void CN3Eng::Present(HWND hWnd, RECT* pRC) {
 void CN3Eng::Clear(D3DCOLOR crFill, RECT* pRC)
 {
 	RECT rc;
-	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
+	if (pRC == nullptr
+		&& s_DevParam.Windowed) // 윈도우 모드면...
 	{
 		GetClientRect(s_hWndBase, &rc);
-
-		//int x, y, w, h;
-		//SDL_GetWindowPosition(s_hWndBase, &x, &y);
-		//SDL_GetWindowSize(s_hWndBase, &w, &h);
-		//rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
-
 		pRC = &rc;
 	}
 
-	if(pRC)
+	if (pRC != nullptr)
 	{
 		_D3DRECT rc3D = { pRC->left, pRC->top, pRC->right, pRC->bottom };
 		s_lpD3DDev->Clear(1, &rc3D, D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, crFill, 1.0f, 0);
 	}
 	else
 	{
-		s_lpD3DDev->Clear(0, NULL, D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, crFill, 1.0f, 0);
+		s_lpD3DDev->Clear(0, nullptr, D3DCLEAR_ZBUFFER | D3DCLEAR_TARGET, crFill, 1.0f, 0);
 	}
 
 #ifdef _DEBUG
@@ -648,19 +612,14 @@ void CN3Eng::ClearAuto(RECT* pRC)
 void CN3Eng::ClearZBuffer(const RECT* pRC)
 {
 	RECT rc;
-	if(NULL == pRC && s_DevParam.Windowed) // 윈도우 모드면...
+	if (pRC == nullptr
+		&& s_DevParam.Windowed) // 윈도우 모드면...
 	{
 		GetClientRect(s_hWndBase, &rc);
-
-		//int x, y, w, h;
-		//SDL_GetWindowPosition(s_hWndBase, &x, &y);
-		//SDL_GetWindowSize(s_hWndBase, &w, &h);
-		//rc.left = x; rc.right = (x+w); rc.top = y; rc.bottom = (y+h);
-
 		pRC = &rc;
 	}
 
-	if(pRC) 
+	if (pRC != nullptr) 
 	{
 		D3DRECT rc3D = { pRC->left, pRC->top, pRC->right, pRC->bottom };
 		s_lpD3DDev->Clear(1, &rc3D, D3DCLEAR_ZBUFFER, 0, 1.0f, 0);

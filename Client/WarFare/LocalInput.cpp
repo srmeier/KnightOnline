@@ -2,23 +2,11 @@
 */
 
 //#include "StdAfx.h"
-#include <winsock.h>
-
 #include "LocalInput.h"
-#include "mmsystem.h"
-#include "GameBase.h"
+#include <mmsystem.h>
 
-#include "GameProcedure.h"
-#include "N3UIEdit.h"
-#include "UIChat.h"
 #include "GameProcMain.h"
-#include "APISocket.h"
 #include "GameEng.h"
-
-#include "SDL2\SDL_syswm.h"
-
-#include "UIManager.h"
-#include "IMouseWheelInputDlg.h"
 
 CLocalInput::CLocalInput()
 {
@@ -192,138 +180,6 @@ void CLocalInput::UnacquireKeyboard()
 	}
 }
 
-//-----------------------------------------------------------------------------
-/*
-- NOTE: WndProcMain processes the messages for the main window
-*/
-LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch(message)
-	{
-		case WM_COMMAND: {
-			uint16_t wNotifyCode = HIWORD(wParam); // notification code
-			CN3UIEdit* pEdit = CN3UIEdit::GetFocusedEdit();
-
-			if(wNotifyCode == EN_CHANGE && pEdit) {
-				uint16_t wID = LOWORD(wParam); // item, control, or accelerator identifier
-				HWND hwndCtl = (HWND)lParam;
-
-				if(CN3UIEdit::s_hWndEdit == hwndCtl) {
-					pEdit->UpdateTextFromEditCtrl();
-					pEdit->UpdateCaretPosFromEditCtrl();
-					CGameProcedure::SetGameCursor(CGameProcedure::s_hCursorNormal);
-				}
-			}
-		} break;
-
-		case WM_NOTIFY: {
-			int idCtrl = (int) wParam; 
-			NMHDR* pnmh = (NMHDR*) lParam; 
-		} break;
-
-		case WM_KEYDOWN: {
-			int iLangID = ::GetUserDefaultLangID();
-			if(iLangID == 0x0404) { // Taiwan Language
-				CUIChat* pUIChat = CGameProcedure::s_pProcMain->m_pUIChatDlg;
-				int iVK = (int)wParam;
-
-				if(
-					pUIChat && iVK != VK_ESCAPE && iVK != VK_RETURN &&
-					CGameProcedure::s_pProcMain &&
-					CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain &&
-					!pUIChat->IsChatMode()
-				) {
-					if(!(GetKeyState(VK_CONTROL)&0x8000)) {
-						pUIChat->SetFocus();
-						PostMessage(CN3UIEdit::s_hWndEdit, WM_KEYDOWN, wParam, lParam);
-						return 0;
-					}
-				}
-			}
-		} break;
-
-		case WM_SOCKETMSG: {
-			switch(WSAGETSELECTEVENT(lParam))
-			{
-				case FD_CONNECT: {
-					//TRACE("Socket connected..\n");
-				} break;
-				case FD_CLOSE: {
-					if(CGameProcedure::s_bNeedReportConnectionClosed) 
-						CGameProcedure::ReportServerConnectionClosed(true);
-					//TRACE("Socket closed..\n");
-				}  break;
-				case FD_READ: {
-					CGameProcedure::s_pSocket->Receive();
-				} break;
-				default: {
-					__ASSERT(0, "WM_SOCKETMSG: unknown socket flag.");
-				} break;
-			}
-		} break;
-
-			/*
-		case WM_ACTIVATE: {
-			int iActive = LOWORD(wParam);           // activation flag 
-			int iMinimized = (BOOL) HIWORD(wParam); // minimized flag 
-			HWND hwndPrevious = (HWND) lParam;      // window handle 
-
-			switch(iActive)
-			{
-				case WA_CLICKACTIVE:
-				case WA_ACTIVE: {
-					#ifdef _DEBUG
-						g_bActive = TRUE;
-					#endif
-				} break;
-				case WA_INACTIVE: {
-					#ifdef _DEBUG
-						g_bActive = FALSE;
-					#endif
-
-					if(CGameProcedure::s_bWindowed == false) {
-						CLogWriter::Write("WA_INACTIVE.");
-						PostQuitMessage(0);
-					}
-				} break;
-			}
-		} break;
-		*/
-
-			/*
-		case WM_CLOSE:
-		case WM_DESTROY:
-		case WM_QUIT: {
-			CGameProcedure::s_pSocket->Disconnect();
-			CGameProcedure::s_pSocketSub->Disconnect();
-
-			PostQuitMessage(0);
-		} break;
-		*/
-		
-		case WM_MOUSEWHEEL: {
-			if(CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain) {
-				float fDelta = ((int16_t)HIWORD(wParam)) * 0.05f;
-
-				CN3UIBase* focused = CGameProcedure::s_pUIMgr->GetFocusedUI();
-				
-				if (focused)
-				{
-					int key = fDelta > 0 ? DIK_PRIOR : DIK_NEXT;
-					if (IMouseWheelInputDlg* t = dynamic_cast<IMouseWheelInputDlg*>(focused))
-						t->OnKeyPress(key);
-					else
-						CGameProcedure::s_pEng->CameraZoom(fDelta);
-				}
-				else
-					CGameProcedure::s_pEng->CameraZoom(fDelta);
-			}
-		} break;
-	}
-	
-	return 0;//DefWindowProc(hWnd, message, wParam, lParam);
-}
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Updates all devices. Call this before you check for input.
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -475,49 +331,6 @@ void CLocalInput::Tick()
 		{
 			m_rcRBDrag.left = m_ptCurMouse.x;
 			m_rcRBDrag.top = m_ptCurMouse.y;
-		}
-	}
-
-	SDL_Event uSDLEvents = {};
-	while (SDL_PollEvent(&uSDLEvents))
-	{
-		switch (uSDLEvents.type)
-		{
-			case SDL_QUIT:
-			{
-				CGameProcedure::s_pSocket->Disconnect();
-				CGameProcedure::s_pSocketSub->Disconnect();
-				CGameBase::s_bRunning = false;
-			} break;
-
-			case SDL_WINDOWEVENT:
-			{
-				switch (uSDLEvents.window.event)
-				{
-					case SDL_WINDOWEVENT_FOCUS_GAINED:
-						CGameProcedure::s_bIsWindowInFocus = true;
-						break;
-					case SDL_WINDOWEVENT_FOCUS_LOST:
-						CGameProcedure::s_bIsWindowInFocus = false;
-						break;
-					case SDL_WINDOWEVENT_ENTER:
-						CGameProcedure::s_bWindowHasMouseFocus = true;
-						break;
-					case SDL_WINDOWEVENT_LEAVE:
-						CGameProcedure::s_bWindowHasMouseFocus = false;
-						break;
-				}
-			} break;
-
-			case SDL_SYSWMEVENT:
-			{
-				// TEMP: until things become less window's dependent
-				WndProcMain(
-					uSDLEvents.syswm.msg->msg.win.hwnd,
-					uSDLEvents.syswm.msg->msg.win.msg,
-					uSDLEvents.syswm.msg->msg.win.wParam,
-					uSDLEvents.syswm.msg->msg.win.lParam);
-			} break;
 		}
 	}
 }

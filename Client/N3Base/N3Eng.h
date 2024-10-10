@@ -1,9 +1,7 @@
 ﻿#ifndef __N3ENG_H_
 #define __N3ENG_H_
 
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
-
+#include "../Client/include/SDL2/SDL.h"
 #include "ddraw.h"
 #include "N3Base.h"
 #include "N3BaseFileAccess.h"
@@ -48,14 +46,6 @@ public:
 	static void ClearZBuffer(const RECT* pRC = NULL);
 	static void Clear(D3DCOLOR crFill, RECT* pRC = NULL);
 	static void Present(HWND hWnd, RECT* pRC = NULL);
-
-	bool Init(
-		BOOL bWindowed,
-		SDL_Window* pWindow,
-		uint32_t dwWidth,
-		uint32_t dwHeight,
-		uint32_t dwBPP,
-		BOOL bUseHW);
 
 	bool Init(
 		BOOL bWindowed,
