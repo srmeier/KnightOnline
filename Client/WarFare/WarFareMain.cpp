@@ -337,10 +337,6 @@ LRESULT CALLBACK WndProcMain(
 
 			short delta = GET_WHEEL_DELTA_WPARAM(wParam);
 
-			POINT ptCur;
-			ptCur.x = GET_X_LPARAM(lParam);
-			ptCur.y = GET_Y_LPARAM(lParam);
-
 			if (pUI != nullptr
 				&& pUI->IsVisible()
 				&& pUI->OnMouseWheelEvent(delta))
