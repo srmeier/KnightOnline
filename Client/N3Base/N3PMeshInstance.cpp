@@ -1,6 +1,7 @@
 ﻿// N3PMeshInstance.cpp: implementation of the CN3PMeshInstance class.
 //
 //////////////////////////////////////////////////////////////////////
+#include "StdAfxBase.h"
 #include "N3PMeshInstance.h"
 
 #ifdef _DEBUG

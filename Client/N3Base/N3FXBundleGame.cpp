@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include "StdAfxBase.h"
 #include "..\WarFare\N3FXBundleGame.h"
 #include "..\WarFare\GameProcMain.h"
 #include "..\WarFare\PlayerBase.h"

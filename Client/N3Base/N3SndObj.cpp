@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include "StdAfxBase.h"
 #include "N3SndObj.h"
 #include "N3Base.h"
 #include <math.h>

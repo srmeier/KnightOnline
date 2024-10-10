@@ -1,4 +1,5 @@
-﻿#include "N3Eng.h"
+﻿#include "StdAfxBase.h"
+#include "N3Eng.h"
 #include "N3Light.h"
 #include "LogWriter.h"
 

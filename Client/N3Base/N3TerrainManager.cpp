@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "StdAfxBase.h"
 
 #include "N3SkyMng.h"
 #include "N3ShapeMgr.h"

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "StdAfxBase.h"
 //#include "resource.h"
 #include "..\WarFare\N3WorldManager.h"
 #include "LogWriter.h"

@@ -2,8 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include <Windows.h>
-#include "shared/types.h"
+#include "StdAfxBase.h"
 
 #include "Jpeg.h"
 #include <math.h>

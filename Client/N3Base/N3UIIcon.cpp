@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "StdAfxBase.h"
 #include "..\WarFare\N3UIIcon.h"
 #include "..\WarFare\N3UIWndBase.h"
 #include "..\WarFare\GameProcedure.h"

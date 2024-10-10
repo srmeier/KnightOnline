@@ -2,9 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#include <Windows.h>
-#include "shared/types.h"
-#include <string>
+#include "StdAfxBase.h"
 #include "BitMapFile.h"
 
 #ifdef _DEBUG

@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include "StdAfxBase.h"
 #include <stdio.h>
 #include "N3Base.h"
 #include "LogWriter.h"

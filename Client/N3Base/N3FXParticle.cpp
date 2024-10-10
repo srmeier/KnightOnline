@@ -2,6 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include "StdAfxBase.h"
 #include "N3FXParticle.h"
 #include "N3FXPartParticles.h"
 

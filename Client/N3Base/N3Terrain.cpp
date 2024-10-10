@@ -4,7 +4,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "StdAfx.h"
+#include "StdAfxBase.h"
 #include <stdio.h>
 #include "..\WarFare\N3Terrain.h"
 #include "..\WarFare\N3TerrainPatch.h"

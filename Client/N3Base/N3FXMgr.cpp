@@ -3,6 +3,7 @@
 /////////////
 /////////////////////////////////////////////////////////
 
+#include "StdAfxBase.h"
 #include "..\WarFare\N3FXMgr.h"
 #include "..\WarFare\GameBase.h"
 #include "..\WarFare\GameProcmain.h"

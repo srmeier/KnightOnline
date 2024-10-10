@@ -1,7 +1,7 @@
 ﻿// DFont.cpp: implementation of the CDFont class.
 //
 //////////////////////////////////////////////////////////////////////
-#include <D3DX9.h>
+#include "StdAfxBase.h"
 #include "DFont.h"
 
 const int MAX_NUM_VERTICES = 50*6;
