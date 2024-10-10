@@ -1,7 +1,7 @@
 ﻿// UIDroppedItemDlg.cpp: implementation of the UIDroppedItemDlg class.
 //
 //////////////////////////////////////////////////////////////////////
-//#include "stdafx.h"
+#include "stdafx.h"
 
 #include "UIDroppedItemDlg.h"
 

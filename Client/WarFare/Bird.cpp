@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "StdAfx.h"
+#include "stdafx.h"
 #include "Bird.h"
 #include "N3Shape.h"
 #include "N3SndObj.h"

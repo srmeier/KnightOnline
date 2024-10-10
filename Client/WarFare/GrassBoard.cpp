@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "StdAfx.h"
+#include "stdafx.h"
 #include "GrassBoard.h"
 #include "N3Terrain.h"
 #include "N3Texture.h"

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "StdAfx.h"
+#include "stdafx.h"
 #include "MachineBase.h"
 #include "Catapult.h"
 #include "MachineMng.h"

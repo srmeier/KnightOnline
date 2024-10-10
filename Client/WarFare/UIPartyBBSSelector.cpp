@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "UIPartyBBSSelector.h"
 
 #include "GameProcedure.h"

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "StdAfx.h"
+#include "stdafx.h"
 #include "resource.h"
 #include "GameProcedure.h"
 #include "PlayerOther.h"

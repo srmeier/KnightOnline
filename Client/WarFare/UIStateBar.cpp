@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "GameDef.h"
 #include "UIStateBar.h"
 #include "GameProcedure.h"

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "UITradeBBSEditDlg.h"
 #include "N3UIEdit.h"
 #include "N3UIButton.h"

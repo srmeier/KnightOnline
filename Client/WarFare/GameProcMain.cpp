@@ -1,9 +1,7 @@
 ﻿// GameProcMain.cpp: implementation of the CGameProcMain class.
 //
 //////////////////////////////////////////////////////////////////////
-#include <io.h>
-
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "resource.h"
 
 #include "GameEng.h"
@@ -73,6 +71,9 @@
 #include "N3SndObj.h"
 #include "N3SndObjStream.h"
 #include "N3SndMgr.h"
+
+#include <io.h>
+
 
 #ifdef _DEBUG
 #undef THIS_FILE

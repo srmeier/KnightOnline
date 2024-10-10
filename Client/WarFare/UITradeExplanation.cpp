@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "UITradeExplanation.h"
 #include "N3UIButton.h"
 #include "N3UIString.h"

@@ -55,6 +55,10 @@
     <TargetName>KnightOnLine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>shared.lib;ws2_32.lib;jpegLib.lib;winmm.lib;imm32.lib;wsock32.lib;DInput8.lib;N3Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -125,6 +129,9 @@
     <ClCompile Include="PortalVolume.cpp" />
     <ClCompile Include="PvsMgr.cpp" />
     <ClCompile Include="ServerMesh.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="SubProcPerTrade.cpp" />
     <ClCompile Include="UICharacterCreate.cpp" />
     <ClCompile Include="UICharacterSelect.cpp" />
@@ -202,6 +209,7 @@
     <ClInclude Include="GameProcOption.h" />
     <ClInclude Include="GrassBoard.h" />
     <ClInclude Include="GrassMng.h" />
+    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="UICmdEdit.h" />
     <ClInclude Include="UICmdList.h" />
     <ClInclude Include="ItemRepairMgr.h" />

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "resource.h"
 #include "UILogIn.h"
 #include "GameProcLogIn.h"

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "StdAfx.h"
+#include "stdafx.h"
 #include "MachineBase.h"
 #include "N3Terrain.h"
 

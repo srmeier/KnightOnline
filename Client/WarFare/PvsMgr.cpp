@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "PvsMgr.h"
 #include "GameBase.h"
 #include "PlayerMySelf.h"

@@ -1,8 +1,10 @@
-﻿#include "resource.h"
+﻿#include "StdAfx.h"
 #include "UITargetBar.h"
 
 #include "N3UIProgress.h"
 #include "N3UIString.h"
+
+#include "resource.h"
 
 CUITargetBar::CUITargetBar()
 {

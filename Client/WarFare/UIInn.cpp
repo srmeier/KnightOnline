@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "stdafx.h"
+#include "stdafx.h"
 #include "resource.h"
 #include "UIInn.h"
 #include "UICreateClanName.h"

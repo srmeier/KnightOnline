@@ -1,7 +1,7 @@
 ﻿/*
 */
 
-//#include "StdAfx.h"
+#include "stdafx.h"
 #include "UIChat.h"
 #include "GameEng.h"
 #include "resource.h"
