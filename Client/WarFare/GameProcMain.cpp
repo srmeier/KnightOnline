@@ -1137,19 +1137,6 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 			OnMouseMBtnPress(ptCur, ptPrev);
 		}
 
-		// reset mouse visibility
-		if (!(dwMouseFlags&MOUSE_RBDOWN) && SDL_ShowCursor(SDL_QUERY) == SDL_DISABLE) {
-			SDL_ShowCursor(SDL_ENABLE);
-		}
-		//if(!(dwMouseFlags&MOUSE_RBDOWN) && SDL_GetRelativeMouseMode()) {
-		//	SDL_SetRelativeMouseMode(SDL_FALSE);
-		//	int x, y;
-		//	SDL_GetWindowPosition(s_hWndBase, &x, &y);
-		//	SetCursorPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
-		//	s_pLocalInput->MouseSetPos(ptPrev_RB.x+x, ptPrev_RB.y+y);
-		//}
-
-
 		// Moves camera when mouse is on the borders of the screen. For both X & Y
 		if (!(dwMouseFlags & MOUSE_RBDOWN))
 		{
@@ -7633,19 +7620,9 @@ bool CGameProcMain::OnMouseRbtnDown(POINT ptCur, POINT ptPrev)
 
 	if(fRotY || fRotX)
 	{
-		//SDL_SetRelativeMouseMode(SDL_TRUE);
-		if(SDL_ShowCursor(SDL_QUERY)==SDL_ENABLE) {
-			SDL_ShowCursor(SDL_DISABLE);
-		}
-
-		int x, y;
-		SDL_GetWindowPosition(s_pWindow, &x, &y);
-		SetCursorPos(ptPrev.x+x, ptPrev.y+y);
+		SetGameCursor(nullptr);
+		::SetCursorPos(ptPrev.x, ptPrev.y);
 		s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
-
-		//SetGameCursor(NULL);
-		//::SetCursorPos(ptPrev.x, ptPrev.y);
-		//s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
 	}
 
 	return true;

@@ -56,44 +56,44 @@ static char THIS_FILE[]=__FILE__;
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-CN3SndObjStream*	CGameProcedure::s_pSnd_BGM = NULL;			// 메인 배경음악 포인터..
-CLocalInput*		CGameProcedure::s_pLocalInput = NULL;		// 마우스와 키보드 입력 객체 .. Direct Input 을 썼다.
-CAPISocket*			CGameProcedure::s_pSocket = NULL;			// 메인 소켓 객체
-CAPISocket*			CGameProcedure::s_pSocketSub = NULL;		// 서브 소켓 객체
-CGameEng*			CGameProcedure::s_pEng = NULL;				// 3D Wrapper Engine
-CN3FXMgr*			CGameProcedure::s_pFX = NULL;
+CN3SndObjStream*	CGameProcedure::s_pSnd_BGM = nullptr;			// 메인 배경음악 포인터..
+CLocalInput*		CGameProcedure::s_pLocalInput = nullptr;		// 마우스와 키보드 입력 객체 .. Direct Input 을 썼다.
+CAPISocket*			CGameProcedure::s_pSocket = nullptr;			// 메인 소켓 객체
+CAPISocket*			CGameProcedure::s_pSocketSub = nullptr;		// 서브 소켓 객체
+CGameEng*			CGameProcedure::s_pEng = nullptr;				// 3D Wrapper Engine
+CN3FXMgr*			CGameProcedure::s_pFX = nullptr;
 
-CUIManager*			CGameProcedure::s_pUIMgr = NULL;			// UI Manager
-CUILoading*			CGameProcedure::s_pUILoading = NULL;		// 로딩바..
-CUIMessageBoxManager*	CGameProcedure::s_pMsgBoxMgr = NULL;		// MessageBox Manager
+CUIManager*			CGameProcedure::s_pUIMgr = nullptr;			// UI Manager
+CUILoading*			CGameProcedure::s_pUILoading = nullptr;		// 로딩바..
+CUIMessageBoxManager*	CGameProcedure::s_pMsgBoxMgr = nullptr;		// MessageBox Manager
 //bool				CGameProcedure::s_bUseSpeedHack = false;
 
-CGameProcedure*				CGameProcedure::s_pProcPrev = NULL;
-CGameProcedure*				CGameProcedure::s_pProcActive = NULL;
+CGameProcedure*				CGameProcedure::s_pProcPrev = nullptr;
+CGameProcedure*				CGameProcedure::s_pProcActive = nullptr;
 
-CGameProcLogIn*				CGameProcedure::s_pProcLogIn = NULL;
-CGameProcNationSelect*		CGameProcedure::s_pProcNationSelect = NULL;
-CGameProcCharacterCreate*	CGameProcedure::s_pProcCharacterCreate = NULL;
-CGameProcCharacterSelect*	CGameProcedure::s_pProcCharacterSelect = NULL;
-CGameProcMain*				CGameProcedure::s_pProcMain = NULL;
-CGameProcOption*			CGameProcedure::s_pProcOption = NULL;
-CGameCursor*				CGameProcedure::s_pGameCursor = NULL;
+CGameProcLogIn*				CGameProcedure::s_pProcLogIn = nullptr;
+CGameProcNationSelect*		CGameProcedure::s_pProcNationSelect = nullptr;
+CGameProcCharacterCreate*	CGameProcedure::s_pProcCharacterCreate = nullptr;
+CGameProcCharacterSelect*	CGameProcedure::s_pProcCharacterSelect = nullptr;
+CGameProcMain*				CGameProcedure::s_pProcMain = nullptr;
+CGameProcOption*			CGameProcedure::s_pProcOption = nullptr;
+CGameCursor*				CGameProcedure::s_pGameCursor = nullptr;
 
-SDL_Cursor*	CGameProcedure::s_hCursorNormal    = NULL;
-SDL_Cursor*	CGameProcedure::s_hCursorNormal1   = NULL;
-SDL_Cursor*	CGameProcedure::s_hCursorClick     = NULL;
-SDL_Cursor*	CGameProcedure::s_hCursorClick1    = NULL;
-SDL_Cursor*	CGameProcedure::s_hCursorAttack    = NULL;
-SDL_Cursor*	CGameProcedure::s_hCursorPreRepair = NULL;
-SDL_Cursor*	CGameProcedure::s_hCursorNowRepair = NULL;
+HCURSOR	CGameProcedure::s_hCursorNormal    = nullptr;
+HCURSOR	CGameProcedure::s_hCursorNormal1   = nullptr;
+HCURSOR CGameProcedure::s_hCursorClick     = nullptr;
+HCURSOR CGameProcedure::s_hCursorClick1    = nullptr;
+HCURSOR CGameProcedure::s_hCursorAttack    = nullptr;
+HCURSOR CGameProcedure::s_hCursorPreRepair = nullptr;
+HCURSOR CGameProcedure::s_hCursorNowRepair = nullptr;
 
 e_LogInClassification CGameProcedure::s_eLogInClassification; // 접속한 서비스.. MGame, Daum, KnightOnLine ....
 std::string	CGameProcedure::s_szAccount = ""; // 계정 문자열..
 std::string	CGameProcedure::s_szPassWord = ""; // 계정 비번..
 std::string	CGameProcedure::s_szServer = ""; // 서버 문자열..
 bool CGameProcedure::m_bCursorLocked = false;
-SDL_Cursor*	CGameProcedure::m_hPrevGameCursor = NULL;
-HWND CGameProcedure::s_hWndSubSocket = NULL; // 서브 소켓용 윈도우 핸들..
+HCURSOR CGameProcedure::m_hPrevGameCursor = nullptr;
+HWND CGameProcedure::s_hWndSubSocket = nullptr; // 서브 소켓용 윈도우 핸들..
 int	CGameProcedure::s_iChrSelectIndex = 0;
 bool CGameProcedure::s_bNeedReportConnectionClosed = false; // 서버접속이 끊어진걸 보고해야 하는지..
 bool CGameProcedure::s_bWindowed = false; // 창모드 실행??
@@ -175,51 +175,22 @@ void CGameProcedure::StaticMemberInit(HINSTANCE hInstance, HWND hWndMain, SDL_Wi
 	s_pSocketSub = new CAPISocket();
 
 
-	SDL_Surface* pSurf0 = IMG_Load("cursor_normal.cur");
-	SDL_Surface* pSurf1 = IMG_Load("cursor_normal1.cur");
-	SDL_Surface* pSurf2 = IMG_Load("cursor_click.cur");
-	SDL_Surface* pSurf3 = IMG_Load("cursor_click1.cur");
-	SDL_Surface* pSurf4 = IMG_Load("cursor_attack.cur");
-	SDL_Surface* pSurf5 = IMG_Load("repair0.cur");
-	SDL_Surface* pSurf6 = IMG_Load("repair1.cur");
-	SDL_Surface* pSurf7 = IMG_Load("WarFare.ico");
+	// 커서 만들기..
+	s_hCursorNormal =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NORMAL));
+	s_hCursorNormal1 =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NORMAL1));
+	s_hCursorClick =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_CLICK));
+	s_hCursorClick1 =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_CLICK1));
+	s_hCursorAttack =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_ATTACK));
+	s_hCursorPreRepair =	LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_PRE_REPAIR));
+	s_hCursorNowRepair =	LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NOW_REPAIR));
 
-	if(pSurf0==NULL||pSurf1==NULL||pSurf2==NULL||pSurf3==NULL||pSurf4==NULL||pSurf5==NULL||pSurf6==NULL||pSurf7==NULL) {
-		printf("ERROR: Unable to load image. %s\n", IMG_GetError());
-		system("pause");
-		//Sleep(1000 * 5);
-		exit(-1);
-	}
-
-	s_hCursorNormal    = SDL_CreateColorCursor(pSurf0, 0, 0);
-	s_hCursorNormal1   = SDL_CreateColorCursor(pSurf1, 0, 0);
-	s_hCursorClick     = SDL_CreateColorCursor(pSurf2, 0, 0);
-	s_hCursorClick1    = SDL_CreateColorCursor(pSurf3, 0, 0);
-	s_hCursorAttack    = SDL_CreateColorCursor(pSurf4, 0, 0);
-	s_hCursorPreRepair = SDL_CreateColorCursor(pSurf5, 0, 0);
-	s_hCursorNowRepair = SDL_CreateColorCursor(pSurf6, 0, 0);
-
-	SDL_SetCursor(s_hCursorNormal);
-	SDL_SetWindowIcon(pWindow, pSurf7);
-
-	SDL_FreeSurface(pSurf0);
-	SDL_FreeSurface(pSurf1);
-	SDL_FreeSurface(pSurf2);
-	SDL_FreeSurface(pSurf3);
-	SDL_FreeSurface(pSurf4);
-	SDL_FreeSurface(pSurf5);
-	SDL_FreeSurface(pSurf6);
-	SDL_FreeSurface(pSurf7);
-
-
-	/*
-	if(!CN3Base::s_Options.bWindowCursor)
+	if (!CN3Base::s_Options.bWindowCursor)
 	{
 		s_pGameCursor = new CGameCursor();
 		s_pGameCursor->LoadFromFile("ui\\cursor.uif");
 	}
+
 	SetGameCursor(s_hCursorNormal);
-	*/
 
 	s_pLocalInput = new CLocalInput();
 	s_pLocalInput->Init(hInstance, hWndMain, FALSE); // Input 만 초기화.
@@ -365,14 +336,14 @@ void CGameProcedure::Tick()
 	POINT ptCur = s_pLocalInput->MouseGetPos();
 
 	e_Nation eNation = s_pPlayer->m_InfoBase.eNation;
-	if(dwMouseFlags & MOUSE_LBCLICK) SDL_SetCursor(((NATION_ELMORAD == eNation) ? s_hCursorClick1 : s_hCursorClick));
-	else if(dwMouseFlags & MOUSE_LBCLICKED) SDL_SetCursor(((NATION_ELMORAD == eNation) ? s_hCursorNormal1 : s_hCursorNormal));
+	if(dwMouseFlags & MOUSE_LBCLICK) SetGameCursor(((NATION_ELMORAD == eNation) ? s_hCursorClick1 : s_hCursorClick));
+	else if(dwMouseFlags & MOUSE_LBCLICKED) SetGameCursor(((NATION_ELMORAD == eNation) ? s_hCursorNormal1 : s_hCursorNormal));
 	if(dwMouseFlags & MOUSE_RBCLICKED)
 	{
 		if(s_pPlayer->m_bAttackContinous && s_pProcActive == s_pProcMain) // 메인 프로시져 이면..
-			SDL_SetCursor(s_hCursorAttack);
+			SetGameCursor(s_hCursorAttack);
 		else
-			SDL_SetCursor(((NATION_ELMORAD == eNation) ? s_hCursorNormal1 : s_hCursorNormal));
+			SetGameCursor(((NATION_ELMORAD == eNation) ? s_hCursorNormal1 : s_hCursorNormal));
 	}
 
 	uint32_t dwRet = 0;
@@ -694,7 +665,7 @@ void CGameProcedure::UIPostData_Read(const std::string& szKey, CN3UIBase* pUI, i
 	else pUI->SetPos(WI.ptPosition.x, WI.ptPosition.y);
 }
 
-void CGameProcedure::SetGameCursor(SDL_Cursor* hCursor, bool bLocked)
+void CGameProcedure::SetGameCursor(HCURSOR hCursor, bool bLocked)
 {
 	if(s_pGameCursor)
 	{
@@ -730,14 +701,14 @@ void CGameProcedure::SetGameCursor(SDL_Cursor* hCursor, bool bLocked)
 		if ((m_bCursorLocked) && (!bLocked) ) return;
 		else if ( ((m_bCursorLocked) && bLocked) || ((!m_bCursorLocked) && !bLocked) )
 		{
-			SDL_SetCursor(hCursor);
+			SetCursor(hCursor);
 			return;
 		}
 		else if ((!m_bCursorLocked) && bLocked)
 		{
-			m_hPrevGameCursor = SDL_GetCursor();
+			m_hPrevGameCursor = GetCursor();
 			m_bCursorLocked = true;
-			SDL_SetCursor(hCursor);
+			SetCursor(hCursor);
 		}
 	}
 }
@@ -762,7 +733,7 @@ void CGameProcedure::RestoreGameCursor()
 		if (m_bCursorLocked) 
 			m_bCursorLocked = false;
 
-		SDL_SetCursor(m_hPrevGameCursor);	
+		SetCursor(m_hPrevGameCursor);	
 	}
 }
 
