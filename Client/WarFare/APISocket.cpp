@@ -356,7 +356,7 @@ void CAPISocket::Send(uint8_t* pData, int nSize)
 		memcpy(pTBuf, &s_wSendVal, sizeof(uint32_t));
 		memcpy((pTBuf + 4), pData, nSize);
 
-		*((Uint32*)(pTBuf + (nSize + 4))) = crc32(pTBuf, (nSize + 4), -1);
+		*((uint32_t*)(pTBuf + (nSize + 4))) = crc32(pTBuf, (nSize + 4), -1);
 
 		s_JvCrypt.JvEncryptionFast((nSize + 4 + 4), pTBuf, pTBuf);
 

@@ -104,10 +104,10 @@ bool CUIPointInitDlg::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case SDL_SCANCODE_RETURN://DIK_RETURN:
+	case DIK_RETURN:
 		ReceiveMessage(m_pBtn_Ok, UIMSG_BUTTON_CLICK);
 		return true;
-	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+	case DIK_ESCAPE:
 		ReceiveMessage(m_pBtn_Cancel, UIMSG_BUTTON_CLICK);
 		return true;
 	}

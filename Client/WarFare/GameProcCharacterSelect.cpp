@@ -268,7 +268,7 @@ NowRotating:
 
 	if (!IsUIKeyOperated())
 	{
-		if ( s_pLocalInput->IsKeyPress(SDL_SCANCODE_RETURN) )									 
+		if ( s_pLocalInput->IsKeyPress(DIK_RETURN) )									 
 			ProcessOnReturn();
 	}
 }

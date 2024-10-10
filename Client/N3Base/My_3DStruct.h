@@ -1106,15 +1106,12 @@ const uint32_t OBJ_ANIM_CONTROL			= 0x40000000;
 
 
 #include "CrtDbg.h"
-#include "SDL2/SDL.h"
 
 #ifndef _DEBUG
-//#define __ASSERT(expr, expMessage) SDL_assert(expr)
 #define __ASSERT(expr, expMessage) \
 if(!(expr)) {\
 	printf("ERROR-> %s\n%s: %d\n\n", expMessage, __FILE__, __LINE__);\
 }
-//system("pause");\
 
 #else
 
@@ -1122,7 +1119,6 @@ if(!(expr)) {\
 if(!(expr)) {\
 	printf("ERROR-> %s\n%s: %d\n\n", expMessage, __FILE__, __LINE__);\
 }
-//system("pause");\
 
 /*
 #define __ASSERT(expr, expMessage) \

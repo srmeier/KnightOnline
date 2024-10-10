@@ -2,11 +2,10 @@
 #define __GAME_DEF_H_
 
 #include <string>
+#include <dinput.h>
 
 #include "shared/types.h"
 #include "shared/version.h"
-
-#include "SDL2/SDL.h"
 
 // TODO: Shift this logic into a separate header and generally clean this shared logic up
 #ifndef ASSERT
@@ -56,41 +55,41 @@ enum ZoneAbilityType
 };
 
 // 단축키 지정해 놓은 부분..
-enum eKeyMap {	KM_HOTKEY1 = SDL_SCANCODE_1, 
-				KM_HOTKEY2 = SDL_SCANCODE_2, 
-				KM_HOTKEY3 = SDL_SCANCODE_3, 
-				KM_HOTKEY4 = SDL_SCANCODE_4, 
-				KM_HOTKEY5 = SDL_SCANCODE_5, 
-				KM_HOTKEY6 = SDL_SCANCODE_6, 
-				KM_HOTKEY7 = SDL_SCANCODE_7, 
-				KM_HOTKEY8 = SDL_SCANCODE_8, 
-				KM_TOGGLE_RUN = SDL_SCANCODE_T, 
-				KM_TOGGLE_MOVE_CONTINOUS = SDL_SCANCODE_E, 
-				KM_TOGGLE_ATTACK = SDL_SCANCODE_R, 
-				KM_TOGGLE_SITDOWN = SDL_SCANCODE_C, 
-				KM_TOGGLE_INVENTORY = SDL_SCANCODE_I, 
-				KM_TOGGLE_SKILL = SDL_SCANCODE_K, 
-				KM_TOGGLE_STATE = SDL_SCANCODE_U, 
-				KM_TOGGLE_MINIMAP = SDL_SCANCODE_M, 
-				KM_TOGGLE_HELP = SDL_SCANCODE_F10,
-				KM_TOGGLE_CMDLIST = SDL_SCANCODE_H,
-				KM_CAMERA_CHANGE = SDL_SCANCODE_F9, 
-				KM_DROPPED_ITEM_OPEN = SDL_SCANCODE_F, 
-				KM_MOVE_FOWARD = SDL_SCANCODE_W, 
-				KM_MOVE_BACKWARD = SDL_SCANCODE_S, 
-				KM_ROTATE_LEFT = SDL_SCANCODE_A, 
-				KM_ROTATE_RIGHT = SDL_SCANCODE_D, 
-				KM_TARGET_NEARST_ENEMY = SDL_SCANCODE_Z, 
-				KM_TARGET_NEARST_PARTY = SDL_SCANCODE_X, 
-				KM_TARGET_NEARST_FRIEND = SDL_SCANCODE_V, 
-				KM_SKILL_PAGE_1 = SDL_SCANCODE_F1, 
-				KM_SKILL_PAGE_2 = SDL_SCANCODE_F2,
-				KM_SKILL_PAGE_3 = SDL_SCANCODE_F3,
-				KM_SKILL_PAGE_4 = SDL_SCANCODE_F4,
-				KM_SKILL_PAGE_5 = SDL_SCANCODE_F5,
-				KM_SKILL_PAGE_6 = SDL_SCANCODE_F6,
-				KM_SKILL_PAGE_7 = SDL_SCANCODE_F7,
-				KM_SKILL_PAGE_8 = SDL_SCANCODE_F8 };
+enum eKeyMap {	KM_HOTKEY1 = DIK_1, 
+				KM_HOTKEY2 = DIK_2, 
+				KM_HOTKEY3 = DIK_3, 
+				KM_HOTKEY4 = DIK_4, 
+				KM_HOTKEY5 = DIK_5, 
+				KM_HOTKEY6 = DIK_6, 
+				KM_HOTKEY7 = DIK_7, 
+				KM_HOTKEY8 = DIK_8, 
+				KM_TOGGLE_RUN = DIK_T, 
+				KM_TOGGLE_MOVE_CONTINOUS = DIK_E, 
+				KM_TOGGLE_ATTACK = DIK_R, 
+				KM_TOGGLE_SITDOWN = DIK_C, 
+				KM_TOGGLE_INVENTORY = DIK_I, 
+				KM_TOGGLE_SKILL = DIK_K, 
+				KM_TOGGLE_STATE = DIK_U, 
+				KM_TOGGLE_MINIMAP = DIK_M, 
+				KM_TOGGLE_HELP = DIK_F10,
+				KM_TOGGLE_CMDLIST = DIK_H,
+				KM_CAMERA_CHANGE = DIK_F9, 
+				KM_DROPPED_ITEM_OPEN = DIK_F, 
+				KM_MOVE_FOWARD = DIK_W, 
+				KM_MOVE_BACKWARD = DIK_S, 
+				KM_ROTATE_LEFT = DIK_A, 
+				KM_ROTATE_RIGHT = DIK_D, 
+				KM_TARGET_NEARST_ENEMY = DIK_Z, 
+				KM_TARGET_NEARST_PARTY = DIK_X, 
+				KM_TARGET_NEARST_FRIEND = DIK_V, 
+				KM_SKILL_PAGE_1 = DIK_F1, 
+				KM_SKILL_PAGE_2 = DIK_F2,
+				KM_SKILL_PAGE_3 = DIK_F3,
+				KM_SKILL_PAGE_4 = DIK_F4,
+				KM_SKILL_PAGE_5 = DIK_F5,
+				KM_SKILL_PAGE_6 = DIK_F6,
+				KM_SKILL_PAGE_7 = DIK_F7,
+				KM_SKILL_PAGE_8 = DIK_F8 };
 
 enum e_PlayerType { PLAYER_BASE = 0, PLAYER_NPC = 1, PLAYER_OTHER = 2, PLAYER_MYSELF = 3 };
 
@@ -404,8 +403,8 @@ struct __InfoPlayerMySelf : public __InfoPlayerOther
 			
 	int					iTargetHPPercent;
 	int					iGold;
-	Uint64				iExpNext;
-	Uint64				iExp;
+	uint64_t			iExpNext;
+	uint64_t			iExp;
 	int					iRealmPoint;		// 국가 기여도
 	int					iRealmPointMonthly;		// @Demircivi.
 	e_KnightsDuty		eKnightsDuty;		// 기사단 권한

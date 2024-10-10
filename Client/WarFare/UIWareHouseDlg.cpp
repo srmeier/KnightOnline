@@ -2011,13 +2011,13 @@ bool CUIWareHouseDlg::OnKeyPress(int iKey)
 {
 	switch(iKey)
 	{
-	case SDL_SCANCODE_PAGEUP://DIK_PRIOR:
+	case DIK_PRIOR:
 		ReceiveMessage(m_pBtnPageUp, UIMSG_BUTTON_CLICK);
 		return true;
-	case SDL_SCANCODE_PAGEDOWN://DIK_NEXT:
+	case DIK_NEXT:
 		ReceiveMessage(m_pBtnPageDown, UIMSG_BUTTON_CLICK);
 		return true;
-	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+	case DIK_ESCAPE:
 		ReceiveMessage(m_pBtnClose, UIMSG_BUTTON_CLICK);
 		return true;
 	}

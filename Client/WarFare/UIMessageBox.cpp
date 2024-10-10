@@ -106,16 +106,9 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 				case BEHAVIOR_EXIT :
 					{
 						if(CGameProcedure::s_pProcActive == pProcMain) // 지금 메인 프로시저이면..
-						{
 							pProcMain->ReleaseSound();
-							//::PostQuitMessage(0);
-							CGameBase::s_bRunning = false;
-						}
-						else
-						{
-							//::PostQuitMessage(0);
-							CGameBase::s_bRunning = false;
-						}
+
+						::PostQuitMessage(0);
 					}
 					break; // 끝낸다.. 
 				case BEHAVIOR_RESTART_GAME :
@@ -162,8 +155,7 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 				case BEHAVIOR_EXECUTE_OPTION:
 					{
 						::ShellExecute(NULL, "open", "Option.exe", NULL, NULL, SW_SHOWNORMAL); // 홈페이지로 이동..
-						//PostQuitMessage(0);	// 종료...
-						CGameBase::s_bRunning = false;
+						PostQuitMessage(0);	// 종료...
 					}
 					break;
 				default: break;
@@ -259,10 +251,10 @@ bool CUIMessageBox::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+		case DIK_ESCAPE:
 			ReceiveMessage(m_pBtn_No, UIMSG_BUTTON_CLICK);
 			return true;
-		case SDL_SCANCODE_RETURN://DIK_RETURN:
+		case DIK_RETURN:
 			ReceiveMessage(m_pBtn_Yes, UIMSG_BUTTON_CLICK);
 			return true;
 		}
@@ -271,8 +263,8 @@ bool CUIMessageBox::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
-		case SDL_SCANCODE_RETURN://DIK_RETURN:
+		case DIK_ESCAPE:
+		case DIK_RETURN:
 			ReceiveMessage(m_pBtn_Cancel, UIMSG_BUTTON_CLICK);
 			return true;
 		}
@@ -281,8 +273,8 @@ bool CUIMessageBox::OnKeyPress(int iKey)
 	{
 		switch(iKey)
 		{
-		case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
-		case SDL_SCANCODE_RETURN://DIK_RETURN:
+		case DIK_ESCAPE:
+		case DIK_RETURN:
 			ReceiveMessage(m_pBtn_OK, UIMSG_BUTTON_CLICK);
 			return true;
 		}

@@ -39,7 +39,7 @@ protected:
 public:
 	void SetVisible(bool bVisible);
 	bool OnKeyPress(int iKey);
-	void	MsgSend_SelectMenu(Uint8 index);
+	void	MsgSend_SelectMenu(uint8_t index);
 	bool	ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
 	void	InitBase();
 	bool	Load(HANDLE hFile);

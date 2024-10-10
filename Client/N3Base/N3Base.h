@@ -166,7 +166,6 @@ public:
 	static D3DPRESENT_PARAMETERS	s_DevParam; // Device 생성 Present Parameter
 	static D3DCAPS9					s_DevCaps; // Device 호환성...
 	static uint32_t					s_dwTextureCaps; // Texture 지원.. DXT1 ~ DXT5, Square Only
-	static struct SDL_Window *		s_pWindow;
 	static HWND						s_hWndBase; // Init 할때 쓴 Window Handle
 	static HWND						s_hWndPresent; // 최근에 Present 한 Window Handle
 

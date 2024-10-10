@@ -124,7 +124,7 @@ bool CUIInn::OnKeyPress(int iChar)
 {
 	switch(iChar)
 	{
-	case SDL_SCANCODE_ESCAPE://DIK_ESCAPE:
+	case DIK_ESCAPE:
 		SetVisible(false);
 		return true;
 	}

@@ -14,18 +14,22 @@
 #include "N3WorldManager.h"
 #include "../Server/shared/Ini.h"
 
-#include "time.h"
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_net.h"
-#include "SDL2/SDL_image.h"
-#include "SDL2/SDL_mixer.h"
+#include <WinSock2.h>
+#include <time.h>
 
 #include "DFont.h"
+#include "IMouseWheelInputDlg.h"
+#include "UIManager.h"
 
-//-----------------------------------------------------------------------------
-int SDL_main(int argc, char** argv)
-{	
+HWND CreateMainWindow(HINSTANCE hInstance);
+LRESULT CALLBACK WndProcMain(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+int APIENTRY WinMain(
+	HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR     lpCmdLine,
+	int       nCmdShow)
+{
 	// NOTE: get the current directory and make it known to CN3Base
 	char szPath[_MAX_PATH] = "";
 	GetCurrentDirectory(_MAX_PATH, szPath);
@@ -98,100 +102,252 @@ int SDL_main(int argc, char** argv)
 	// NOTE: should we show window full screen?
 	CN3Base::s_Options.bWindowMode = ini.GetBool("Screen", "WindowMode", false);
 
-	srand((uint32_t) time(NULL));
+	srand((uint32_t) time(nullptr));
 
-	if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		fprintf(stderr, "ER: %s\n", SDL_GetError());
-		Sleep(1000 * 5);//If the user can't read the error, there is no point in warning them.
-		return false;
+	// 메인 윈도우를 만들고..
+	HWND hWndMain = CreateMainWindow(hInstance);
+	if (hWndMain == nullptr)
+	{
+		CLogWriter::Write("Cannot create window.");
+		exit(-1);
 	}
 
-	// TEMP: until we can get off windows
-	SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE);
-	//
-
-	if(TTF_Init() == -1) {
-		fprintf(stderr, "ER: %s\n", TTF_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
-
-	int flags = IMG_INIT_JPG|IMG_INIT_PNG;
-	if((IMG_Init(flags)&flags) != flags) {
-		fprintf(stderr, "ER: %s\n", IMG_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
-
-	flags = MIX_INIT_OGG|MIX_INIT_MP3;
-	if((Mix_Init(flags)&flags) != flags) {
-		fprintf(stderr, "ER: %s\n", Mix_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
-
-	if(SDLNet_Init() == -1) {
-		fprintf(stderr, "ER: %s\n", SDLNet_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
-
-	Uint32 windowFlags = SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_SHOWN;
-	if (!CN3Base::s_Options.bWindowMode)
-		windowFlags |= SDL_WINDOW_FULLSCREEN;
-
-	SDL_Window* pWindow = SDL_CreateWindow(
-		"KnightOnline",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		CN3Base::s_Options.iViewWidth,
-		CN3Base::s_Options.iViewHeight,
-		windowFlags
-	);
-
-	if(pWindow == NULL) {
-		fprintf(stderr, "ER: %s\n", SDL_GetError());
-		Sleep(1000 * 5);
-		return false;
-	}
+	::ShowWindow(hWndMain, nCmdShow); // 보여준다..
+	::SetActiveWindow(hWndMain);
 
 	CGameProcedure::s_bWindowed = true;
 
-	// NOTE: allocate the static members
-	CGameProcedure::StaticMemberInit(pWindow);
+	// allocate the static members
+	CGameProcedure::StaticMemberInit(
+		hInstance,
+		hWndMain);
 
-	// NOTE: set the games current procedure to s_pProcLogIn
+	// set the game's current procedure to s_pProcLogIn
 	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
 
-	/*
-	// TESTING ----------
-	CGameBase::s_pPlayer->m_InfoBase.eRace = RACE_KA_ARKTUAREK;
-	CGameBase::s_pPlayer->m_InfoBase.eNation = NATION_KARUS;
-	CGameBase::s_pPlayer->m_InfoBase.eClass = CLASS_KA_WARRIOR;
-	CGameBase::s_pPlayer->m_InfoExt.iZoneInit = 0x01;
-	CGameBase::s_pPlayer->m_InfoExt.iZoneCur = 1;
-	CGameBase::s_pPlayer->IDSet(-1, "testing", 0xffffffff);
-	CGameBase::s_pPlayer->m_InfoBase.iAuthority == AUTHORITY_MANAGER;
+#if _DEBUG
+	HACCEL hAccel = LoadAccelerators( NULL, MAKEINTRESOURCE(IDR_MAIN_ACCELATOR) );
+	HDC hDC = GetDC(hWndMain);
+#endif // #if _DEBUG
 
-	__TABLE_PLAYER_LOOKS* pLooks = CGameBase::s_pTbl_UPC_Looks.Find(CGameBase::s_pPlayer->m_InfoBase.eRace);
-	CGameBase::s_pPlayer->InitChr(pLooks);
-
-	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcMain);
-	//CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcCharacterSelect);
-	// TESTING -----------
-	*/
-
+	MSG msg = {};
 	BOOL bGotMsg = FALSE;
-	MSG msg = { 0 };
 
-	CGameBase::s_bRunning = true;
+	while (WM_QUIT != msg.message)
+	{
+		// Use PeekMessage() if the app is active, so we can use idle time to
+		// render the scene. Else, use GetMessage() to avoid eating CPU time.
+		if (CGameProcedure::s_bIsWindowInFocus)
+			bGotMsg = PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE);
+		else
+			bGotMsg = GetMessage(&msg, nullptr, 0U, 0U);
 
-	while(CGameBase::s_bRunning) {
-		CGameProcedure::TickActive();
-		CGameProcedure::RenderActive();
+		if (bGotMsg)
+		{
+#if _DEBUG
+			if (0 == TranslateAccelerator(hWndMain, hAccel, &msg))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+#else
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+#endif // #if _DEBUG
+		}
+		else
+		{
+			// Render a frame during idle time (no messages are waiting)
+			CGameProcedure::TickActive();
+			CGameProcedure::RenderActive();
+		}
 	}
+
+#if _DEBUG
+	ReleaseDC(hWndMain, hDC);
+	DestroyAcceleratorTable(hAccel);
+#endif // #if _DEBUG
 
 	CGameProcedure::StaticMemberRelease();
 
-	return 0;
+	return msg.wParam;
+}
+
+HWND CreateMainWindow(HINSTANCE hInstance)
+{
+	WNDCLASSEXA wc;
+
+	//  only register the window class once - use hInstance as a flag. 
+	wc.cbSize        = sizeof(WNDCLASSEXA);
+	wc.style         = 0;
+	wc.lpfnWndProc   = (WNDPROC) WndProcMain;
+	wc.cbClsExtra    = 0;
+	wc.cbWndExtra    = 0;
+	wc.hInstance     = hInstance;
+	wc.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAIN));
+	wc.hCursor       = nullptr;
+	wc.hbrBackground = (HBRUSH) GetStockObject(NULL_BRUSH);
+	wc.lpszMenuName  = nullptr;
+	wc.lpszClassName = "Knight OnLine Client";
+	wc.hIconSm       = nullptr;
+
+	if (0 == ::RegisterClassExA(&wc))
+	{
+		CLogWriter::Write("Cannot register window class.");
+		exit(-1);
+	}
+
+	DWORD style;
+	int iViewWidth, iViewHeight;
+	if (CN3Base::s_Options.bWindowMode)
+	{
+		style = WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU | WS_GROUP;
+
+		RECT rc;
+		rc.left = 0;
+		rc.right = CN3Base::s_Options.iViewWidth;
+		rc.top = 0;
+		rc.bottom = CN3Base::s_Options.iViewHeight;
+
+		AdjustWindowRect(&rc, style, FALSE);
+
+		iViewWidth = rc.right - rc.left;
+		iViewHeight = rc.bottom - rc.top;
+	}
+	else
+	{
+		style = WS_POPUP | WS_CLIPCHILDREN;
+		iViewWidth = CN3Base::s_Options.iViewWidth;
+		iViewHeight = CN3Base::s_Options.iViewHeight;
+	}
+
+	return ::CreateWindowExA(
+		0,
+		wc.lpszClassName,
+		"Knight OnLine Client",
+		style,
+		0,
+		0,
+		iViewWidth,
+		iViewHeight,
+		0,
+		0,
+		hInstance,
+		nullptr);
+}
+
+/*
+	WndProcMain processes the messages for the main window
+*/
+LRESULT CALLBACK WndProcMain(
+	HWND hWnd,
+	UINT message,
+	WPARAM wParam,
+	LPARAM lParam)
+{
+	switch(message)
+	{
+		case WM_COMMAND:
+		{
+			uint16_t wNotifyCode = HIWORD(wParam); // notification code
+			CN3UIEdit* pEdit = CN3UIEdit::GetFocusedEdit();
+
+			if (wNotifyCode == EN_CHANGE && pEdit)
+			{
+				uint16_t wID = LOWORD(wParam); // item, control, or accelerator identifier
+				HWND hwndCtl = (HWND) lParam;
+
+				if (CN3UIEdit::s_hWndEdit == hwndCtl)
+				{
+					pEdit->UpdateTextFromEditCtrl();
+					pEdit->UpdateCaretPosFromEditCtrl();
+					CGameProcedure::SetGameCursor(CGameProcedure::s_hCursorNormal);
+				}
+			}
+		} break;
+
+		case WM_SOCKETMSG:
+		{
+			switch (WSAGETSELECTEVENT(lParam))
+			{
+				case FD_CONNECT:
+				{
+				  //TRACE("Socket connected..\n");
+				} break;
+				case FD_CLOSE:
+				{
+					if (CGameProcedure::s_bNeedReportConnectionClosed)
+						CGameProcedure::ReportServerConnectionClosed(true);
+					//TRACE("Socket closed..\n");
+				}  break;
+				case FD_READ:
+				{
+					CGameProcedure::s_pSocket->Receive();
+				} break;
+				default:
+				{
+					__ASSERT(0, "WM_SOCKETMSG: unknown socket flag.");
+				} break;
+			}
+		} break;
+
+		case WM_ACTIVATE:
+		{
+			int iActive = LOWORD(wParam);           // activation flag 
+			int iMinimized = (BOOL) HIWORD(wParam); // minimized flag 
+			HWND hwndPrevious = (HWND) lParam;      // window handle 
+
+			switch (iActive)
+			{
+				case WA_CLICKACTIVE:
+				case WA_ACTIVE:
+					SetFocus(hWnd);
+					CGameProcedure::s_bIsWindowInFocus = true;
+					return 1;
+
+				case WA_INACTIVE:
+					CGameProcedure::s_bIsWindowInFocus = false;
+
+					if (!CGameProcedure::s_bWindowed)
+					{
+						CLogWriter::Write("WA_INACTIVE.");
+						PostQuitMessage(0);
+					}
+					break;
+			}
+		} break;
+
+		case WM_CLOSE:
+		case WM_DESTROY:
+		case WM_QUIT:
+		{
+			CGameProcedure::s_pSocket->Disconnect();
+			CGameProcedure::s_pSocketSub->Disconnect();
+
+			PostQuitMessage(0);
+		} break;
+
+		case WM_MOUSEWHEEL:
+		{
+			if (CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain)
+			{
+				float fDelta = ((int16_t) HIWORD(wParam)) * 0.05f;
+
+				CN3UIBase* focused = CGameProcedure::s_pUIMgr->GetFocusedUI();
+
+				if (focused)
+				{
+					int key = fDelta > 0 ? DIK_PRIOR : DIK_NEXT;
+					if (IMouseWheelInputDlg* t = dynamic_cast<IMouseWheelInputDlg*>(focused))
+						t->OnKeyPress(key);
+					else
+						CGameProcedure::s_pEng->CameraZoom(fDelta);
+				}
+				else
+					CGameProcedure::s_pEng->CameraZoom(fDelta);
+			}
+		} break;
+	}
+
+	return DefWindowProc(hWnd, message, wParam, lParam);
 }

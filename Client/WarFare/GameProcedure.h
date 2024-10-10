@@ -16,12 +16,6 @@ enum e_LogInClassification { LIC_KNIGHTONLINE = 0, LIC_MGAME = 1, LIC_DAUM = 2 }
 
 #include "N3WorldManager.h"
 
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_net.h"
-#include "SDL2/SDL_image.h"
-#include "SDL2/SDL_mixer.h"
-
 #define		UI_POST_WND_CHAT		"Wnd_Chat"
 #define		UI_POST_WND_HOTKEY		"Wnd_Hotkey"
 #define		UI_POST_WND_PARTY		"Wnd_Party"
@@ -80,13 +74,13 @@ public:
 
 	static class CGameCursor*				s_pGameCursor;
 
-	static SDL_Cursor* s_hCursorNormal;
-	static SDL_Cursor* s_hCursorNormal1;
-	static SDL_Cursor* s_hCursorClick;
-	static SDL_Cursor* s_hCursorClick1;
-	static SDL_Cursor* s_hCursorAttack;
-	static SDL_Cursor* s_hCursorPreRepair;
-	static SDL_Cursor* s_hCursorNowRepair;
+	static HCURSOR s_hCursorNormal;
+	static HCURSOR s_hCursorNormal1;
+	static HCURSOR s_hCursorClick;
+	static HCURSOR s_hCursorClick1;
+	static HCURSOR s_hCursorAttack;
+	static HCURSOR s_hCursorPreRepair;
+	static HCURSOR s_hCursorNowRepair;
 
 	static e_LogInClassification	s_eLogInClassification; // 접속한 서비스.. MGame, Daum, KnightOnLine ....
 	static std::string				s_szAccount; // 계정 문자열..
@@ -95,7 +89,7 @@ public:
 	static int						s_iChrSelectIndex; // 이계정의 몇번째 캐릭인지...??
 
 	static bool		m_bCursorLocked;
-	static SDL_Cursor*	m_hPrevGameCursor;
+	static HCURSOR	m_hPrevGameCursor;
 	static HWND		s_hWndSubSocket; // 서브 소켓용 윈도우 핸들..
 
 	static bool		s_bNeedReportConnectionClosed; // 서버접속이 끊어진걸 보고해야 하는지..
@@ -105,7 +99,6 @@ public:
 
 	// NOTE: adding boolean to check if window has focus or not
 	static bool		s_bIsWindowInFocus;
-	static bool		s_bWindowHasMouseFocus;
 
 public:
 	static std::string MessageBoxPost(const std::string& szMsg, const std::string& szTitle, int iStyle, e_Behavior eBehavior = BEHAVIOR_NOTHING);
@@ -137,7 +130,7 @@ public:
 	virtual void ProcessUIKeyInput(bool bEnable = true);
 
 	static bool	IsUIKeyOperated();
-	static void	StaticMemberInit(SDL_Window* pWindow);
+	static void	StaticMemberInit(HINSTANCE hInstance, HWND hWndMain);
 	static void StaticMemberRelease();
 
 	static void TickActive();
@@ -151,7 +144,7 @@ public:
 
 	static bool CaptureScreenAndSaveToFile(const std::string& szFN);
 
-	static void	SetGameCursor(SDL_Cursor* hCursor, bool bLocked = false);
+	static void	SetGameCursor(HCURSOR hCursor, bool bLocked = false);
 	static void	SetGameCursor(e_Cursor eCursor, bool bLocked = false);
 	static void RestoreGameCursor();
 

@@ -1688,7 +1688,7 @@ void CUIVarious::UpdateKnightsInfo()
 
 bool CUIVarious::OnKeyPress(int iKey)
 {
-	if(/*DIK_ESCAPE*/SDL_SCANCODE_ESCAPE == iKey)
+	if(DIK_ESCAPE == iKey)
 	{
 		if(!m_bClosingNow) this->Close();
 		return true;
