@@ -16,8 +16,6 @@ enum e_LogInClassification { LIC_KNIGHTONLINE = 0, LIC_MGAME = 1, LIC_DAUM = 2 }
 
 #include "N3WorldManager.h"
 
-#include "../include/SDL2/SDL.h"
-
 #define		UI_POST_WND_CHAT		"Wnd_Chat"
 #define		UI_POST_WND_HOTKEY		"Wnd_Hotkey"
 #define		UI_POST_WND_PARTY		"Wnd_Party"

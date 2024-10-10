@@ -32,11 +32,11 @@ enum {
 typedef struct __MapData {
 	float fHeight;
 
-	Uint32 bIsTileFull : 1;
-	Uint32 Tex1Dir     : 5;
-	Uint32 Tex2Dir     : 5;
-	Uint32 Tex1Idx     : 10;
-	Uint32 Tex2Idx     : 10;
+	uint32_t bIsTileFull : 1;
+	uint32_t Tex1Dir     : 5;
+	uint32_t Tex2Dir     : 5;
+	uint32_t Tex1Idx     : 10;
+	uint32_t Tex2Idx     : 10;
 
 	__MapData(void) {
 		fHeight     = FLT_MIN;

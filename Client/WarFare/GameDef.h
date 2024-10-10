@@ -7,8 +7,6 @@
 #include "shared/types.h"
 #include "shared/version.h"
 
-#include "../include/SDL2/SDL.h"
-
 // TODO: Shift this logic into a separate header and generally clean this shared logic up
 #ifndef ASSERT
 #if defined(_DEBUG)
@@ -405,8 +403,8 @@ struct __InfoPlayerMySelf : public __InfoPlayerOther
 			
 	int					iTargetHPPercent;
 	int					iGold;
-	Uint64				iExpNext;
-	Uint64				iExp;
+	uint64_t			iExpNext;
+	uint64_t			iExp;
 	int					iRealmPoint;		// 국가 기여도
 	int					iRealmPointMonthly;		// @Demircivi.
 	e_KnightsDuty		eKnightsDuty;		// 기사단 권한

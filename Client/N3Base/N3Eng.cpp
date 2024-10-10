@@ -155,7 +155,7 @@ void CN3Eng::LookAt(__Vector3 &vEye, __Vector3 &vAt, __Vector3 &vUp)
 }
 
 //-----------------------------------------------------------------------------
-bool CN3Eng::Reset(bool bWindowed, Uint32 dwWidth, Uint32 dwHeight, Uint32 dwBPP)
+bool CN3Eng::Reset(bool bWindowed, uint32_t dwWidth, uint32_t dwHeight, uint32_t dwBPP)
 {
 	if (s_lpD3DDev == NULL) return false;
 	if (dwWidth <= 0 || dwHeight <= 0) return false;

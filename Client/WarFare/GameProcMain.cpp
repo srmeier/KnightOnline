@@ -750,7 +750,7 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 #endif
 		case WIZ_ZONEABILITY: {
 			// NOTE(srmeier): this is a custom packet used to set terrain zoneability
-			Uint8 opcode = pkt.read<uint8_t>();
+			uint8_t opcode = pkt.read<uint8_t>();
 
 			switch (opcode) {
 				case 0x03://0x01:
@@ -959,7 +959,7 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 			return true;
 		case WIZ_CHAT_TARGET:
 			{
-				Uint8 type = pkt.read<uint8_t>();
+				uint8_t type = pkt.read<uint8_t>();
 				int err = pkt.read<int16_t>();
 
 				std::string szID, szMsg;
@@ -3522,8 +3522,8 @@ void CGameProcMain::MsgRecv_MyInfo_MSP(Packet& pkt)
 
 void CGameProcMain::MsgRecv_MyInfo_EXP(Packet& pkt)
 {
-	Uint64 iExp = pkt.read<uint32_t>();
-	Uint64 iOldExp = s_pPlayer->m_InfoExt.iExp;
+	uint64_t iExp = pkt.read<uint32_t>();
+	uint64_t iOldExp = s_pPlayer->m_InfoExt.iExp;
 
 	s_pPlayer->m_InfoExt.iExp = iExp;
 	m_pUIVar->m_pPageState->UpdateExp(iExp, s_pPlayer->m_InfoExt.iExpNext);
@@ -3564,8 +3564,8 @@ bool CGameProcMain::MsgRecv_MyInfo_LevelChange(Packet& pkt)
 		uint8_t	bExtraSkillPoint		= pkt.read<uint8_t>();	// 토탈 포인트
 		//TRACE("Skill change Extra value %d\n", bExtraSkillPoint);
 
-		Uint64 iExpNext	= pkt.read<uint32_t>(); 
-		Uint64 iExp		= pkt.read<uint32_t>();
+		uint64_t iExpNext	= pkt.read<uint32_t>(); 
+		uint64_t iExp		= pkt.read<uint32_t>();
 			
 		pInfoExt->iExpNext	= iExpNext; 
 		pInfoExt->iExp		= iExp; 
@@ -4807,7 +4807,7 @@ void CGameProcMain::MsgRecv_ZoneChange(Packet& pkt)
 			uint8_t byBuff[4];
 			int iOffset_send = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, (Uint8)ZoneChangeLoading);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t)ZoneChangeLoading);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
 
@@ -4815,7 +4815,7 @@ void CGameProcMain::MsgRecv_ZoneChange(Packet& pkt)
 			uint8_t byBuff[4];
 			int iOffset_send = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, (Uint8)ZoneChangeLoaded);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t)ZoneChangeLoaded);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
 
@@ -6264,7 +6264,7 @@ void CGameProcMain::MsgRecv_WareHouseOpen(Packet& pkt)		// 보관함 오픈..
 	if (m_pUIWareHouseDlg->IsVisible())
 		return;
 
-	Uint8 idk = pkt.read<uint8_t>();
+	uint8_t idk = pkt.read<uint8_t>();
 
 	int iWareGold, iItemID, iItemDurability, iItemCount;
 	iWareGold		= pkt.read<uint32_t>();

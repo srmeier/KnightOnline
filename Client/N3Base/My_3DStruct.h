@@ -1106,7 +1106,6 @@ const uint32_t OBJ_ANIM_CONTROL			= 0x40000000;
 
 
 #include "CrtDbg.h"
-#include "../Client/include/SDL2/SDL.h"
 
 #ifndef _DEBUG
 #define __ASSERT(expr, expMessage) \
