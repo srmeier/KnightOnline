@@ -53,14 +53,26 @@ public:
 	static void Present(HWND hWnd, RECT* pRC = NULL);
 
 	bool Init(
-		BOOL bWindowed, SDL_Window* pWindow,
-		uint32_t dwWidth, uint32_t dwHeight, uint32_t dwBPP, BOOL bUseHW
-	);
+		BOOL bWindowed,
+		SDL_Window* pWindow,
+		uint32_t dwWidth,
+		uint32_t dwHeight,
+		uint32_t dwBPP,
+		BOOL bUseHW);
+
+	bool Init(
+		BOOL bWindowed,
+		HWND hWnd,
+		uint32_t dwWidth,
+		uint32_t dwHeight,
+		uint32_t dwBPP,
+		BOOL bUseHW);
 
 	BOOL FindDepthStencilFormat(
-		UINT iAdapter, D3DDEVTYPE DeviceType,
-		D3DFORMAT TargetFormat, D3DFORMAT* pDepthStencilFormat
-	);
+		UINT iAdapter,
+		D3DDEVTYPE DeviceType,
+		D3DFORMAT TargetFormat,
+		D3DFORMAT* pDepthStencilFormat);
 
 public:
 	CN3Eng(void);

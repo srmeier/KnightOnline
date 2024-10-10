@@ -245,53 +245,40 @@ void CN3Eng::SetProjection(float fNear, float fFar, float fLens, float fAspect)
 	s_lpD3DDev->SetTransform(D3DTS_PROJECTION, &matProjection);
 }
 
-//-----------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//-----------------------------------------------------------------------------
-bool CN3Eng::Init(BOOL bWindowed, SDL_Window* pWindow, uint32_t dwWidth, uint32_t dwHeight, uint32_t dwBPP, BOOL bUseHW)
+bool CN3Eng::Init(
+	BOOL bWindowed,
+	SDL_Window* pWindow,
+	uint32_t dwWidth,
+	uint32_t dwHeight,
+	uint32_t dwBPP,
+	BOOL bUseHW)
 {
-	/*
-	SDL_Renderer* s_pSDLRenderer;
-
-	s_pSDLRenderer = SDL_CreateRenderer(
-		pWindow, -1,
-		SDL_RENDERER_ACCELERATED|
-		SDL_RENDERER_PRESENTVSYNC
-	);
-
-	if(s_pSDLRenderer == NULL) {
-		fprintf(stderr, "ER: %s\n", SDL_GetError());
-		exit(-1);
-	}
-
-	s_lpD3DDev = SDL_RenderGetD3D9Device(s_pSDLRenderer);
-	s_lpD3DDev->GetDirect3D(&m_lpD3D);
-	*/
-
-	//
-
-	memset(&s_ResrcInfo, 0, sizeof(__ResrcInfo)); // Rendering Information 초기화..
-
 	SDL_SysWMinfo info;
 	SDL_VERSION(&info.version);
 	SDL_GetWindowWMInfo(pWindow, &info);
 
-	s_hWndBase = info.info.win.window; // TODO: Remove this when we move away from DX
 	s_pWindow = pWindow;
+
+	return Init(
+		bWindowed,
+		info.info.win.window,
+		dwWidth,
+		dwHeight,
+		dwBPP,
+		bUseHW);
+}
+
+bool CN3Eng::Init(
+	BOOL bWindowed,
+	HWND hWnd,
+	uint32_t dwWidth,
+	uint32_t dwHeight,
+	uint32_t dwBPP,
+	BOOL bUseHW)
+{
+	memset(&s_ResrcInfo, 0, sizeof(__ResrcInfo)); // Rendering Information 초기화..
+
+	s_hWndBase = hWnd;
 
 	// FIX (srmeier): I really have no idea what the second arguement here should be
 	int nAMC = m_lpD3D->GetAdapterModeCount(0, D3DFMT_X8R8G8B8); // 디스플레이 모드 카운트
