@@ -67,62 +67,11 @@ void CAPISocket::Release()
 	}
 
 	m_iSendByteCount = 0;
-
-	// 통계를 써준다..
+		
 #ifdef _DEBUG
-/*	DWORD dwRWC = 0;
-	char szFN1[256] = "", szFN2[256] = "";
-	SYSTEMTIME ST;
-	::GetLocalTime(&ST);
-	sprintf(szFN1, "Socket_Statistics_Send_%d_%d_%d_%d.txt", ST.wMonth, ST.wDay, ST.wHour, ST.wMinute);
-	sprintf(szFN2, "Socket_Statistics_Recv_%d_%d_%d_%d.txt", ST.wMonth, ST.wDay, ST.wHour, ST.wMinute);
-	HANDLE hFile1 = ::CreateFile(szFN1, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	HANDLE hFile2 = ::CreateFile(szFN2, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	
-	char szBuff[64] = "";
-	char szCmd[32] = "";
-
-	strcpy(szBuff, "Packet\t양\t횟수\r\n");
-	WriteFile(hFile1, szBuff, lstrlen(szBuff), &dwRWC, NULL);
-	WriteFile(hFile2, szBuff, lstrlen(szBuff), &dwRWC, NULL);
-
-	for(int i = 0; i < 255; i++)
-	{
-		if(i == WIZ_NPC_MOVE) lstrcpy(szCmd, "NPC Move");
-		else if(i == WIZ_ATTACK) lstrcpy(szCmd, "Attack");
-		else if(i == WIZ_MOVE) lstrcpy(szCmd, "User Move");
-		else if(i == WIZ_MAGIC_PROCESS) lstrcpy(szCmd, "Magic");
-		else if(i == WIZ_CHAT) lstrcpy(szCmd, "Chatting");
-		else 
-		{
-			sprintf(szCmd, "ETC : %d", i);
-		}
-
-		if(m_Statistics_Send_Sum[i].iSize > 0 || m_Statistics_Send_Sum[i].dwTime > 0)
-		{
-			sprintf(szBuff, "%s\t%d\t%d\t\r\n", szCmd, m_Statistics_Send_Sum[i].iSize, m_Statistics_Send_Sum[i].dwTime);
-			WriteFile(hFile1, szBuff, lstrlen(szBuff), &dwRWC, NULL);
-		}
-
-		if(m_Statistics_Recv_Sum[i].iSize > 0 || m_Statistics_Recv_Sum[i].dwTime > 0)
-		{
-			sprintf(szBuff, "%s\t%d\t%d\t\r\n", szCmd, m_Statistics_Recv_Sum[i].iSize, m_Statistics_Recv_Sum[i].dwTime);
-			WriteFile(hFile2, szBuff, lstrlen(szBuff), &dwRWC, NULL);
-		}
-	}
-*/
-	
-	for(int i = 0; i < 255; i++)
-	{
-		memset(m_Statistics_Send_Sum, 0, sizeof(m_Statistics_Send_Sum));
-		memset(m_Statistics_Recv_Sum, 0, sizeof(m_Statistics_Recv_Sum));
-	}
-
-//	CloseHandle(hFile1);
-//	CloseHandle(hFile2);
+	memset(m_Statistics_Send_Sum, 0, sizeof(m_Statistics_Send_Sum));
+	memset(m_Statistics_Recv_Sum, 0, sizeof(m_Statistics_Recv_Sum));
 #endif
-
 }
 
 void CAPISocket::Disconnect()
@@ -222,11 +171,8 @@ int CAPISocket::Connect(HWND hWnd, const char* pszIP, uint32_t dwPort)
 	m_bConnected = TRUE;
 	
 #ifdef _DEBUG
-	for(i = 0; i < 255; i++)
-	{
-		memset(m_Statistics_Send_Sum, 0, sizeof(m_Statistics_Send_Sum));
-		memset(m_Statistics_Recv_Sum, 0, sizeof(m_Statistics_Recv_Sum));
-	}
+	memset(m_Statistics_Send_Sum, 0, sizeof(m_Statistics_Send_Sum));
+	memset(m_Statistics_Recv_Sum, 0, sizeof(m_Statistics_Recv_Sum));
 #endif
 	
 	return 0;
@@ -400,11 +346,6 @@ void CAPISocket::Send(uint8_t* pData, int nSize)
 
 #ifdef _DEBUG
 	uint8_t byCmd = pData[0]; // 통계 넣기..
-
-//	__SocketStatisics SS;
-//	SS.dwTime = GetTickCount();
-//	SS.iSize = nSize;
-//	m_Statistics_Send[byCmd].push_back(SS);
 
 	m_Statistics_Send_Sum[byCmd].dwTime++;
 	m_Statistics_Send_Sum[byCmd].iSize += nSize;
