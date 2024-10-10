@@ -5593,8 +5593,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 
 		case CMD_EXIT:
 		{
-			//PostQuitMessage(0);
-			CGameBase::s_bRunning = false;
+			PostQuitMessage(0);
 		}
 		break;
 

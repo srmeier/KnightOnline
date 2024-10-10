@@ -84,7 +84,7 @@ public:
 	BOOL IsKeyPress(int iIndex) { if(iIndex < 0 || iIndex >= NUMDIKEYS) return FALSE; return m_bKeyPresses[iIndex]; } // 키보드를 누르는 순간... "DInput.h" 에 정의 되어 있는 DIK_???? 스캔코드를 참조..
 	BOOL IsKeyPressed(int iIndex) { if(iIndex < 0 || iIndex >= NUMDIKEYS) return FALSE; return m_bKeyPresseds[iIndex]; } // 키보드를 누르고나서 떼는 순간... "DInput.h" 에 정의 되어 있는 DIK_???? 스캔코드를 참조..
 	
-	BOOL Init(HINSTANCE hInst, HWND hWnd, BOOL bActivateKeyboard = TRUE);
+	BOOL Init(HINSTANCE hInst, HWND hWnd);
 
 	void Tick(void);
 	void KeyboardFlushData();

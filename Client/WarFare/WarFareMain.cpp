@@ -125,37 +125,52 @@ int APIENTRY WinMain(
 	// set the game's current procedure to s_pProcLogIn
 	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
 
-	/*
-	// TESTING ----------
-	CGameBase::s_pPlayer->m_InfoBase.eRace = RACE_KA_ARKTUAREK;
-	CGameBase::s_pPlayer->m_InfoBase.eNation = NATION_KARUS;
-	CGameBase::s_pPlayer->m_InfoBase.eClass = CLASS_KA_WARRIOR;
-	CGameBase::s_pPlayer->m_InfoExt.iZoneInit = 0x01;
-	CGameBase::s_pPlayer->m_InfoExt.iZoneCur = 1;
-	CGameBase::s_pPlayer->IDSet(-1, "testing", 0xffffffff);
-	CGameBase::s_pPlayer->m_InfoBase.iAuthority == AUTHORITY_MANAGER;
+#if _DEBUG
+	HACCEL hAccel = LoadAccelerators( NULL, MAKEINTRESOURCE(IDR_MAIN_ACCELATOR) );
+	HDC hDC = GetDC(hWndMain);
+#endif // #if _DEBUG
 
-	__TABLE_PLAYER_LOOKS* pLooks = CGameBase::s_pTbl_UPC_Looks.Find(CGameBase::s_pPlayer->m_InfoBase.eRace);
-	CGameBase::s_pPlayer->InitChr(pLooks);
-
-	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcMain);
-	//CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcCharacterSelect);
-	// TESTING -----------
-	*/
-
+	MSG msg = {};
 	BOOL bGotMsg = FALSE;
-	MSG msg = { 0 };
 
-	CGameBase::s_bRunning = true;
+	while (WM_QUIT != msg.message)
+	{
+		// Use PeekMessage() if the app is active, so we can use idle time to
+		// render the scene. Else, use GetMessage() to avoid eating CPU time.
+		if (CGameProcedure::s_bIsWindowInFocus)
+			bGotMsg = PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE);
+		else
+			bGotMsg = GetMessage(&msg, nullptr, 0U, 0U);
 
-	while(CGameBase::s_bRunning) {
-		CGameProcedure::TickActive();
-		CGameProcedure::RenderActive();
+		if (bGotMsg)
+		{
+#if _DEBUG
+			if (0 == TranslateAccelerator(hWndMain, hAccel, &msg))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+#else
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+#endif // #if _DEBUG
+		}
+		else
+		{
+			// Render a frame during idle time (no messages are waiting)
+			CGameProcedure::TickActive();
+			CGameProcedure::RenderActive();
+		}
 	}
+
+#if _DEBUG
+	ReleaseDC(hWndMain, hDC);
+	DestroyAcceleratorTable(hAccel);
+#endif // #if _DEBUG
 
 	CGameProcedure::StaticMemberRelease();
 
-	return 0;
+	return msg.wParam;
 }
 
 HWND CreateMainWindow(HINSTANCE hInstance)

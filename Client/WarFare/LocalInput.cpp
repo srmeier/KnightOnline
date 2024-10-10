@@ -62,7 +62,7 @@ CLocalInput::~CLocalInput()
 // Try to accquire all devices. Use SetActiveDevices() if you do not want 
 // some devices.
 //////////////////////////////////////////////////////////////////////////////////
-BOOL CLocalInput::Init(HINSTANCE hInst, HWND hWnd, BOOL bActivateKeyboard)
+BOOL CLocalInput::Init(HINSTANCE hInst, HWND hWnd)
 {
 	HRESULT rval;
 

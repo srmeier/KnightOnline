@@ -180,15 +180,14 @@ void CGameProcedure::StaticMemberInit(
 	s_pSocket = new CAPISocket();
 	s_pSocketSub = new CAPISocket();
 
-
 	// 커서 만들기..
-	s_hCursorNormal =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NORMAL));
-	s_hCursorNormal1 =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NORMAL1));
-	s_hCursorClick =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_CLICK));
-	s_hCursorClick1 =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_CLICK1));
-	s_hCursorAttack =		LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_ATTACK));
-	s_hCursorPreRepair =	LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_PRE_REPAIR));
-	s_hCursorNowRepair =	LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NOW_REPAIR));
+	s_hCursorNormal		= LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NORMAL));
+	s_hCursorNormal1	= LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NORMAL1));
+	s_hCursorClick		= LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_CLICK));
+	s_hCursorClick1		= LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_CLICK1));
+	s_hCursorAttack		= LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_ATTACK));
+	s_hCursorPreRepair	= LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_PRE_REPAIR));
+	s_hCursorNowRepair	= LoadCursor(hInstance, MAKEINTRESOURCE(IDC_CURSOR_NOW_REPAIR));
 
 	if (!CN3Base::s_Options.bWindowCursor)
 	{
@@ -199,7 +198,7 @@ void CGameProcedure::StaticMemberInit(
 	SetGameCursor(s_hCursorNormal);
 
 	s_pLocalInput = new CLocalInput();
-	s_pLocalInput->Init(hInstance, hWndMain, FALSE); // Input 만 초기화.
+	s_pLocalInput->Init(hInstance, hWndMain); // Input 만 초기화.
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// Sound 초기화..

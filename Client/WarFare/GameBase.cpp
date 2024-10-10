@@ -16,8 +16,6 @@
 static char THIS_FILE[]=__FILE__;
 #endif
 
-bool CGameBase::s_bRunning = false;
-
 CN3TableBase<__TABLE_TEXTS>				CGameBase::s_pTbl_Texts;
 CN3TableBase<__TABLE_ZONE>				CGameBase::s_pTbl_Zones;
 CN3TableBase<__TABLE_UI_RESRC>			CGameBase::s_pTbl_UI;

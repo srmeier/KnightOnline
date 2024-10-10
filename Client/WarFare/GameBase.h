@@ -18,8 +18,6 @@ class CGameBase : public CN3Base
 #define ACT_WORLD s_pWorldMgr->GetActiveWorld()
 
 public:
-	static bool s_bRunning;
-
 	static CN3TableBase<__TABLE_TEXTS>				s_pTbl_Texts;
 	static CN3TableBase<__TABLE_ZONE>				s_pTbl_Zones;			// Zone 정보에 관한 테이블..
 	static CN3TableBase<__TABLE_UI_RESRC>			s_pTbl_UI;				// UI FileName Table

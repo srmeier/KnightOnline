@@ -78,8 +78,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		}
 		else if (pSender == m_pBtn_Cancel)
 		{
-			//PostQuitMessage(0);	// 종료...
-			CGameBase::s_bRunning = false;
+			PostQuitMessage(0);	// 종료...
 			return true;
 		}
 		else if (pSender == m_pBtn_Option) // 옵션..
