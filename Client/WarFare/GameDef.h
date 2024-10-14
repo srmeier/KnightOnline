@@ -1001,7 +1001,7 @@ typedef struct __TABLE_UPC_SKILL
 
 typedef struct __TABLE_UPC_SKILL_TYPE_1
 {
-	uint32_t		dwID;			// SKILL 고유 ID
+	uint32_t	dwID;			// SKILL 고유 ID
 	int			iSuccessType;	// 성공타입.
 	int			iSuccessRatio;	// 성공률
 	int			iPower;			// 공격력
@@ -1015,18 +1015,18 @@ typedef struct __TABLE_UPC_SKILL_TYPE_1
 
 typedef struct __TABLE_UPC_SKILL_TYPE_2
 {
-	uint32_t		dwID;			// SKILL 고유 ID
+	uint32_t	dwID;			// SKILL 고유 ID
 	int			iSuccessType;	// 성공타입.
 	int			iPower;			// 공격력
-	int iIdk1;
+	int			iAddDamage;
 	int			iAddDist;		// 거리증가
 	int			iNumArrow;		// 화살요구수
 } TABLE_UPC_SKILL_TYPE_2;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_3
 {
-	uint32_t		dwID;			// SKILL 고유 ID
-	int iIdk1;
+	uint32_t	dwID;			// SKILL 고유 ID
+	int			iRadius;
 	int			iDDType;
 	int			iStartDamage;
 	int			iDuraDamage;
@@ -1036,19 +1036,21 @@ typedef struct __TABLE_UPC_SKILL_TYPE_3
 
 typedef struct __TABLE_UPC_SKILL_TYPE_4
 {
-	uint32_t		dwID;			// 일련번호
-	
+	uint32_t	dwID;			// 일련번호
 	
 	int			iBuffType;		// 버프타입
-	//int iIDK0;
-	int iIDK1;
-	
+	int			iRadius;
 	int			iDuration;
 	int			iAttackSpeed;	// 공격속도
 	int			iMoveSpeed;		// 이동속도
 	int			iAC;			// 방어력
+	int			iACPct;
 	int			iAttack;		// 공격력
+	int			iMagicAttack;
 	int			iMaxHP;			// MAXHP
+	int			iMaxHPPct;
+	int			iMaxMP;
+	int			iMaxMPPct;
 	int			iStr;			// 힘
 	int			iSta;			// 체력
 	int			iDex;			// 민첩
@@ -1061,12 +1063,7 @@ typedef struct __TABLE_UPC_SKILL_TYPE_4
 	int			iDeseaseResist;	// 저주저항
 	int			iPoisonResist;	// 독저항
 
-	int iIdk0;
-	int	iIdk2;
-	int	iIdk3;
-	int	iIdk4;
-	int	iIdk5;
-	int	iIdk6;
+	int			iExpPct;
 } TABLE_UPC_SKILL_TYPE_4;
 
 typedef struct __TABLE_UPC_SKILL_TYPE_5
