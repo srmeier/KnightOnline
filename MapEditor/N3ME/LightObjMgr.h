@@ -9,8 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../N3BASE/N3BaseFileAccess.h"
-#include "../N3Base/N3Light.h"
+#include <N3Base/N3BaseFileAccess.h>
+#include <N3Base/N3Light.h>
 #include <list>
 #include "VtxPosDummy.h"
 

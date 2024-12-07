@@ -9,7 +9,7 @@
 
 #include "DlgDTexGroupView.h"
 #include "MainFrm.h"
-#include "..\N3Base\\N3EngTool.h"
+#include <N3Base/N3EngTool.h>
 #include "DTexMng.h"
 #include "DTex.h"
 

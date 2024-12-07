@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "n3me.h"
 #include "RiverMesh.h"
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3Texture.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -165,7 +165,7 @@ void CRiverMesh::Render()
 
 	__Matrix44 matWorld;	matWorld.Identity();
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &matWorld);
-	s_lpD3DDev->SetVertexShader(FVF_XYZT2);
+	s_lpD3DDev->SetFVF(FVF_XYZT2);
 
 	// Texture state
 	if (m_pTexture && m_iVC>4)
@@ -271,11 +271,11 @@ void CRiverMesh::RenderVertexPoint()	// 잘보이게 점만 다시 그리기
 	s_lpD3DDev->GetTransform(D3DTS_VIEW, &matView);
 	s_lpD3DDev->GetTransform(D3DTS_PROJECTION, &matProj);
 	D3DXMatrixMultiply(&matVP, &matView, &matProj);
-	D3DVIEWPORT8 vp = s_CameraData.vp;
+	D3DVIEWPORT9 vp = s_CameraData.vp;
 
 	__VertexTransformedColor Vertices[4];
 	D3DCOLOR clr = D3DCOLOR_ARGB(0xff, 0xff, 0x00, 0x00);
-	s_lpD3DDev->SetVertexShader(FVF_TRANSFORMEDCOLOR);
+	s_lpD3DDev->SetFVF(FVF_TRANSFORMEDCOLOR);
 
 	int i;
 	for (i=0; i<m_iVC; ++i)

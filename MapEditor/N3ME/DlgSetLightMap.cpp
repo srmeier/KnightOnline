@@ -5,7 +5,7 @@
 #include "n3me.h"
 #include "DlgSetLightMap.h"
 #include "MainFrm.h"
-#include "../N3Base/N3EngTool.h"
+#include <N3Base/N3EngTool.h>
 #include "LyTerrainDef.h"
 
 #ifdef _DEBUG

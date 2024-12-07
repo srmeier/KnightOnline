@@ -19,7 +19,7 @@ enum {CM_SELECT = 1, CM_OBJECT_BRUSH = 2, CM_POS = 3, CM_ROTATE = 4, CM_SCALE = 
 const int NUM_UNIT_LIGHT = 2;
 
 #include <afxtempl.h>
-#include "../N3Base/N3Base.h"
+#include <N3Base/N3Base.h>
 #include "PosDummy.h"
 #include "RotDummy.h"
 #include "ScaleDummy.h"

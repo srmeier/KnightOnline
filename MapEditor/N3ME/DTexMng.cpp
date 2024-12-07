@@ -8,7 +8,7 @@
 #include "LyTerrainDef.h"
 
 #include "DTex.h"
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3Texture.h>
 #include "DlgDTexGroupView.h"
 #include "DTexMng.h"
 #include "DTexGroupMng.h"

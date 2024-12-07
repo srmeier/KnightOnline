@@ -75,7 +75,7 @@ void CRegenUser::Render()
 	hr = s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 	hr = s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	hr = s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
+	hr = s_lpD3DDev->SetFVF(FVF_XYZCOLOR);
 
 	__VertexXyzColor v[4];
 

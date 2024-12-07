@@ -87,7 +87,7 @@ public:
 	virtual ~CSowSeedMng();
 	void SetActive(BOOL flage);
 
-	void Render(LPDIRECT3DDEVICE8 lpD3DDevice);
+	void Render(LPDIRECT3DDEVICE9 lpD3DDevice);
 	// Mouse 메세지 처리
 	BOOL MouseMessage(LPMSG pMsg);	
 	void Release();
@@ -97,7 +97,7 @@ public:
 	int  SelectSeed(POINT point);
 	void SetListPos(void);
 	void CreateBox(__Vector3 Max,__Vector3 Min);
-	void Render_Box(LPDIRECT3DDEVICE8 lpD3DDevice,__Vector3 Pos);
+	void Render_Box(LPDIRECT3DDEVICE9 lpD3DDevice,__Vector3 Pos);
 	void SaveData(void);
 	void LoadData(void);
 	void SaveDataGame(void);

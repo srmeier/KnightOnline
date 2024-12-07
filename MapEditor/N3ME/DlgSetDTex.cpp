@@ -7,8 +7,8 @@
 #include "DTexMng.h"
 #include "DTexGroupMng.h"
 #include "MainFrm.h"
-#include "../N3Base/N3EngTool.h"
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3EngTool.h>
+#include <N3Base/N3Texture.h>
 #include "DlgInputAttr.h"
 #include "DlgInputGroup.h"
 #include "DlgDelGroup.h"
@@ -120,10 +120,10 @@ BOOL CDlgSetDTex::OnInitDialog()
 	pView->SetWindowPos(NULL, 0, 0, (int)m_fTexSurfaceSize, (int)m_fTexSurfaceSize, SWP_DRAWFRAME|SWP_NOMOVE);
 
 	//	texture 그리는 버퍼..
-	pFrm->m_pEng->s_lpD3DDev->CreateVertexBuffer( 4*sizeof(__VertexTransformed), 0, FVF_TRANSFORMED, D3DPOOL_MANAGED, &m_pTexVB );
+	pFrm->m_pEng->s_lpD3DDev->CreateVertexBuffer( 4*sizeof(__VertexTransformed), 0, FVF_TRANSFORMED, D3DPOOL_MANAGED, &m_pTexVB, nullptr );
 	
 	__VertexTransformed* pVertices = NULL;
-	m_pTexVB->Lock( 0, 0, (BYTE**)&pVertices, 0 );
+	m_pTexVB->Lock( 0, 0, (void**)&pVertices, 0 );
 	float DTexSize = (float)DTEX_SIZE;
 	pVertices[0].Set(0.0f,						0.0f,					0.1f, 0.5f, 0x00000000, 1.0f/DTexSize,		1.0f/DTexSize);
 	pVertices[1].Set(m_fTexSurfaceSize-1.0f,	0.0f,					0.1f, 0.5f, 0x00000000, DTexSize/DTexSize,	1.0f/DTexSize);
@@ -132,10 +132,10 @@ BOOL CDlgSetDTex::OnInitDialog()
 	m_pTexVB->Unlock();
 
 	//	Grid 그리는 버퍼..
-	pFrm->m_pEng->s_lpD3DDev->CreateVertexBuffer( ((NUM_DTEXTILE-1)<<2)*sizeof(__VertexTransformedColor), 0, FVF_TRANSFORMEDCOLOR, D3DPOOL_MANAGED, &m_pGridVB );
+	pFrm->m_pEng->s_lpD3DDev->CreateVertexBuffer( ((NUM_DTEXTILE-1)<<2)*sizeof(__VertexTransformedColor), 0, FVF_TRANSFORMEDCOLOR, D3DPOOL_MANAGED, &m_pGridVB, nullptr );
 
 	__VertexTransformedColor* pVerticesC = NULL;
-	m_pGridVB->Lock(0,0, (BYTE**)&pVerticesC, 0);
+	m_pGridVB->Lock(0,0, (void**)&pVerticesC, 0);
 
 	int GridInterval = (int)m_fTexSurfaceSize / NUM_DTEXTILE;
 	for(i=1;i<NUM_DTEXTILE;i++)
@@ -170,12 +170,12 @@ void CDlgSetDTex::OnDestroy()
 }
 
 
-void CDlgSetDTex::RenderTex(LPDIRECT3DDEVICE8 lpDDev)
+void CDlgSetDTex::RenderTex(LPDIRECT3DDEVICE9 lpDDev)
 {
 	if(!m_pTexVB) return;
 	
 	HRESULT hr;	
-	LPDIRECT3DTEXTURE8 lpTex = NULL;
+	LPDIRECT3DTEXTURE9 lpTex = NULL;
 	int CurrTex = m_FileList.GetCurSel();
 	if(CurrTex<0) return;
 
@@ -191,8 +191,8 @@ void CDlgSetDTex::RenderTex(LPDIRECT3DDEVICE8 lpDDev)
 	hr = lpDDev->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	hr = lpDDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 		
-	hr = lpDDev->SetStreamSource( 0, m_pTexVB, sizeof(__VertexTransformed) );
-    hr = lpDDev->SetVertexShader( FVF_TRANSFORMED );
+	hr = lpDDev->SetStreamSource( 0, m_pTexVB, 0, sizeof(__VertexTransformed) );
+    hr = lpDDev->SetFVF( FVF_TRANSFORMED );
 /*
 	DWORD IsAlpha, Srcblend, Destblend;
 
@@ -256,7 +256,7 @@ void CDlgSetDTex::OnSelchangeComboFilelist()
 }
 
 
-void CDlgSetDTex::RenderGrid(LPDIRECT3DDEVICE8 lpDDev)
+void CDlgSetDTex::RenderGrid(LPDIRECT3DDEVICE9 lpDDev)
 {
 	HRESULT hr;
 	hr = lpDDev->SetTexture(0, NULL);
@@ -268,8 +268,8 @@ void CDlgSetDTex::RenderGrid(LPDIRECT3DDEVICE8 lpDDev)
 	hr = lpDDev->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	hr = lpDDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
 	
-	hr = lpDDev->SetStreamSource( 0, m_pGridVB, sizeof(__VertexTransformedColor) );
-    hr = lpDDev->SetVertexShader( FVF_TRANSFORMEDCOLOR );
+	hr = lpDDev->SetStreamSource( 0, m_pGridVB, 0, sizeof(__VertexTransformedColor) );
+    hr = lpDDev->SetFVF( FVF_TRANSFORMEDCOLOR );
 	hr = lpDDev->DrawPrimitive( D3DPT_LINELIST, 0, (NUM_DTEXTILE-1)<<1 );
 
 	hr = lpDDev->SetTextureStageState( 0, D3DTSS_COLOROP, ColorOp);

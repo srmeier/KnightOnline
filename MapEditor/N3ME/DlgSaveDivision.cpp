@@ -7,8 +7,8 @@
 
 #include "LyTerrain.h"
 #include "MapMng.h"
-#include "../N3Base/N3Texture.h"
-#include "../N3Base/N3EngTool.h"
+#include <N3Base/N3Texture.h>
+#include <N3Base/N3EngTool.h>
 #include "MainFrm.h"
 
 #ifdef _DEBUG

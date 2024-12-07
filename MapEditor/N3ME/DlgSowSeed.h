@@ -8,7 +8,7 @@
 //
 
 #include "LyTerrainDef.h"
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3Texture.h>
 //#include <list>
 
 class CMainFrame;

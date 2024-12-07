@@ -6,9 +6,9 @@
 #include "DlgMapView.h"
 #include "MainFrm.h"
 #include "MapMng.h"
-#include "../N3BASE/N3Texture.h"
-#include "../N3BASE/N3EngTool.h"
-#include "../n3base/n3scene.h"
+#include <N3Base/N3Texture.h>
+#include <N3Base/N3EngTool.h>
+#include <N3Base/N3Scene.h>
 #include "QTNode.h"
 
 #ifdef _DEBUG

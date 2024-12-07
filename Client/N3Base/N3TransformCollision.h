@@ -46,7 +46,7 @@ public:
 //	BOOL CheckClimb(int x, int y, __Vector3* pVCol = NULL, __Vector3* pVNormal = NULL, __Vector3* pVPolygon = NULL);
 //	BOOL CheckClimb(__Vector3 &vPos, __Vector3 &vDir, __Vector3* pVCol = NULL, __Vector3* pVNormal = NULL, __Vector3* pVPolygon = NULL);
 
-#ifdef _DEBUG
+#if defined(_DEBUG) || defined(_N3TOOL)
 	void			RenderCollisionMesh();
 	void			RenderClimbMesh();
 #endif

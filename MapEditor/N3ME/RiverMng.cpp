@@ -11,9 +11,9 @@
 #include "MapMng.h"
 #include "LyTerrain.h"
 
-#include "../N3Base/N3EngTool.h"
-#include "../N3Base/N3Camera.h"
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3EngTool.h>
+#include <N3Base/N3Camera.h>
+#include <N3Base/N3Texture.h>
 
 
 #ifdef _DEBUG
@@ -130,7 +130,7 @@ void CRiverMng::Render()
 			hr = s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
 
 			// Render
-			s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
+			s_lpD3DDev->SetFVF(FVF_XYZCOLOR);
 			s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 1, m_CreateLine, sizeof(__VertexXyzColor));
 		}
 
@@ -169,7 +169,7 @@ void CRiverMng::Render()
 
 				// render
 				__VertexXyzT2* pVtx = m_pSelRiver->GetVertex(iVC-4);
-				s_lpD3DDev->SetVertexShader(FVF_XYZT2);
+				s_lpD3DDev->SetFVF(FVF_XYZT2);
 				s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINESTRIP, 3, pVtx, sizeof(__VertexXyzT2));
 				//s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 2, pVtx, sizeof(__VertexXyzT2));
 
@@ -187,11 +187,11 @@ void CRiverMng::Render()
 			s_lpD3DDev->GetTransform(D3DTS_VIEW, &matView);
 			s_lpD3DDev->GetTransform(D3DTS_PROJECTION, &matProj);
 			D3DXMatrixMultiply(&matVP, &matView, &matProj);
-			D3DVIEWPORT8 vp = s_CameraData.vp;
+			D3DVIEWPORT9 vp = s_CameraData.vp;
 
 			__VertexTransformedColor Vertices[4];
 			D3DCOLOR clr = D3DCOLOR_ARGB(0xff, 0x00, 0xff, 0x00);
-			s_lpD3DDev->SetVertexShader(FVF_TRANSFORMEDCOLOR);
+			s_lpD3DDev->SetFVF(FVF_TRANSFORMEDCOLOR);
 
 			for (int i=0; i<iSize; ++i)
 			{
@@ -469,14 +469,14 @@ void CRiverMng::SelectVtxByDragRect(RECT* pRect, BOOL bAdd)
 	}
 
 	CN3EngTool* pEng = m_pMainFrm->m_pEng;
-	LPDIRECT3DDEVICE8 pD3DDev = pEng->s_lpD3DDev;
+	LPDIRECT3DDEVICE9 pD3DDev = pEng->s_lpD3DDev;
 
 	__Matrix44 matView, matProj, matVP;
 	pD3DDev->GetTransform(D3DTS_VIEW, &matView);
 	pD3DDev->GetTransform(D3DTS_PROJECTION, &matProj);
 	D3DXMatrixMultiply(&matVP, &matView, &matProj);
 
-	D3DVIEWPORT8 vp = pEng->s_CameraData.vp;
+	D3DVIEWPORT9 vp = pEng->s_CameraData.vp;
 
 	int i;
 	if (m_pSelRiver)	// 이미 선택된 강이 있다면..

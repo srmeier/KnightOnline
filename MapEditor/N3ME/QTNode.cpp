@@ -11,7 +11,7 @@ static char THIS_FILE[]=__FILE__;
 
 #include "QTNode.h"
 #include "LyTerrain.h"
-#include "..\N3Base\N3Texture.h"
+#include <N3Base/N3Texture.h>
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -410,7 +410,7 @@ void CQTNode::RenderMaxLevel()
 	int tmpTIdx;
 
 	__VertexT2* pVertices;
-	m_pRefTerrain->m_TileVB->Lock( 0, 0, (BYTE**)&pVertices, 0 );
+	m_pRefTerrain->m_TileVB->Lock( 0, 0, (void**)&pVertices, 0 );
 
 	cx = m_CenterX - 1;
 	cz = m_CenterZ - 1;
@@ -436,7 +436,7 @@ void CQTNode::RenderMaxLevel()
 			float lsuv = 1.0f / (float)LIGHTMAP_TEX_SIZE;
 			float leuv = ((float)LIGHTMAP_TEX_SIZE - 1.0f) / (float)LIGHTMAP_TEX_SIZE;
 
-			if(!pLightMapVertices) m_pRefTerrain->m_LightMapVB->Lock( 0, 0, (BYTE**)&pLightMapVertices, 0 );
+			if(!pLightMapVertices) m_pRefTerrain->m_LightMapVB->Lock( 0, 0, (void**)&pLightMapVertices, 0 );
 			int VBIndx = NumLightMapUse * 4;
 			pLightMapVertices[VBIndx].Set((float)(cx*TERRAIN_CELL_SIZE), m_pRefTerrain->m_ppMapData[cx][cz].fHeight,
 						(float)(cz*TERRAIN_CELL_SIZE), 0.0f, 1.0f, 0.0f,
@@ -565,7 +565,7 @@ void CQTNode::RenderMaxLevel()
 		{
 			pRefLightMapTex[NumLightMapUse] = m_pRefTerrain->m_ppLightMapTexture[cx][cz];
 
-			if(!pLightMapVertices) m_pRefTerrain->m_LightMapVB->Lock( 0, 0, (BYTE**)&pLightMapVertices, 0 );
+			if(!pLightMapVertices) m_pRefTerrain->m_LightMapVB->Lock( 0, 0, (void**)&pLightMapVertices, 0 );
 			int VBIndx = NumLightMapUse * 4;
 
 			float lsuv = 1.0f / (float)LIGHTMAP_TEX_SIZE;
@@ -688,8 +688,8 @@ void CQTNode::RenderMaxLevel()
 	m_pRefTerrain->m_TileVB->Unlock();
 	if(pLightMapVertices) m_pRefTerrain->m_LightMapVB->Unlock();
 
-	m_pRefTerrain->s_lpD3DDev->SetStreamSource( 0, m_pRefTerrain->m_TileVB, sizeof(__VertexT2) );
-	m_pRefTerrain->s_lpD3DDev->SetVertexShader( FVF_VNT2 );
+	m_pRefTerrain->s_lpD3DDev->SetStreamSource( 0, m_pRefTerrain->m_TileVB, 0, sizeof(__VertexT2) );
+	m_pRefTerrain->s_lpD3DDev->SetFVF( FVF_VNT2 );
 /*
 	hr = m_pRefTerrain->s_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	hr = m_pRefTerrain->s_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
@@ -801,8 +801,8 @@ void CQTNode::RenderMaxLevel()
 	}
 
 	// Render Light Map...
-	m_pRefTerrain->s_lpD3DDev->SetStreamSource( 0, m_pRefTerrain->m_LightMapVB, sizeof(__VertexT1) );
-	m_pRefTerrain->s_lpD3DDev->SetVertexShader( FVF_VNT1 );
+	m_pRefTerrain->s_lpD3DDev->SetStreamSource( 0, m_pRefTerrain->m_LightMapVB, 0, sizeof(__VertexT1) );
+	m_pRefTerrain->s_lpD3DDev->SetFVF( FVF_VNT1 );
 
 	hr = m_pRefTerrain->s_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	hr = m_pRefTerrain->s_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
@@ -1004,7 +1004,7 @@ void CQTNode::RenderNormalLevel()
 	int VC = 0;
 	int half = 1 << (m_pRefTerrain->m_iMaxLevel - m_Level);
 	__VertexT1* pVertices;
-	m_pRefTerrain->m_ColorMapVB->Lock( 0, 0, (BYTE**)&pVertices, 0 );
+	m_pRefTerrain->m_ColorMapVB->Lock( 0, 0, (void**)&pVertices, 0 );
 
 	//점만들기..
 	int NumTileInColorTex = m_pRefTerrain->m_iColorMapTexSize / m_pRefTerrain->m_iColorMapPixelPerUnitDistance;
@@ -1128,8 +1128,8 @@ void CQTNode::RenderNormalLevel()
 	
 	m_pRefTerrain->m_ColorMapVB->Unlock();
 
-	m_pRefTerrain->s_lpD3DDev->SetStreamSource( 0, m_pRefTerrain->m_ColorMapVB, sizeof(__VertexT1) );
-	m_pRefTerrain->s_lpD3DDev->SetVertexShader( FVF_VNT1 );
+	m_pRefTerrain->s_lpD3DDev->SetStreamSource( 0, m_pRefTerrain->m_ColorMapVB, 0, sizeof(__VertexT1) );
+	m_pRefTerrain->s_lpD3DDev->SetFVF( FVF_VNT1 );
 	
 	HRESULT hr;
 	int tx, tz;

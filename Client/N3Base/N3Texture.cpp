@@ -17,6 +17,16 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+static inline uint32_t GetTextureSize(
+	const D3DSURFACE_DESC& sd)
+{
+	uint32_t nTexSize = sd.Width * sd.Height;
+	if (sd.Format == D3DFMT_DXT1)
+		return nTexSize / 2;
+
+	return nTexSize & ~0xF;
+}
+
 CN3Texture::CN3Texture()
 {
 	m_dwType |= OBJ_TEXTURE;
@@ -91,7 +101,7 @@ bool CN3Texture::Create(int nWidth, int nHeight, D3DFORMAT Format, BOOL bGenerat
 		for(int nW = nWidth, nH = nHeight; nW >=4 && nH >= 4; nW /=2, nH /= 2) nMMC++;
 	}
 
-	HRESULT rval = s_lpD3DDev->CreateTexture(nWidth, nHeight, nMMC, 0, Format, D3DPOOL_MANAGED, &m_lpTexture, NULL);
+	HRESULT rval = s_lpD3DDev->CreateTexture(nWidth, nHeight, nMMC, 0, Format, D3DPOOL_MANAGED, &m_lpTexture, nullptr);
 
 #ifdef _N3GAME
 	if(rval == D3DERR_INVALIDCALL)
@@ -176,27 +186,9 @@ bool CN3Texture::LoadFromFile(const std::string& szFileName, uint32_t iVer)
 		if(hFile == INVALID_HANDLE_VALUE)
 		{
 #ifdef _N3GAME
-			// NOTE: temp correction for fukd up uifs
-			//       - 63 is used to jump past the old texture locations
-			//       - also note that the #ifdef is messed up here now...
-			if (nFNL > 63) {
-				OutputDebugString("WR: this is a temp fix for file -> ");
-				OutputDebugString(&szFullPath[63]);
-				OutputDebugString("\n");
-				hFile = ::CreateFile(&szFullPath[63], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-			}
-
-			if (hFile == INVALID_HANDLE_VALUE) {
-				// NOTE: another temp fix
-				szFullPath = "ui/ui_ka_statebar.dxt";
-				hFile = ::CreateFile(szFullPath.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-				if (hFile == INVALID_HANDLE_VALUE) {
-					CLogWriter::Write("invalid file handle(%d) - Can't open texture file(%s)", (int)hFile, szFullPath.c_str());
-					return false;
-				}
-			}
+			CLogWriter::Write("invalid file handle(%d) - Can't open texture file(%s)", (int)hFile, szFullPath.c_str());
 #endif
+			return false;
 		}
 		this->Load(hFile);
 		CloseHandle(hFile);
@@ -230,8 +222,6 @@ bool CN3Texture::LoadFromFile(const std::string& szFileName, uint32_t iVer)
 		else
 		{
 #ifdef _N3GAME
-			// NOTE: strange error with "ka_hotkey.uif" containing image references to other UIFs...
-			//       but loading them like textures...
 			CLogWriter::Write("N3Texture - Failed to load texture(%s)", szFullPath.c_str());
 #endif
 		}
@@ -350,35 +340,11 @@ bool CN3Texture::Load(HANDLE hFile)
 				for(int i = 0; i < iMMC; i++)
 				{
 					m_lpTexture->GetLevelDesc(i, &sd);
+
+					uint32_t nTexSize = GetTextureSize(sd);
+
 					m_lpTexture->LockRect(i, &LR, NULL, NULL);
-
-					int iTexSize = 0;
-					switch(HeaderOrg.Format) {
-						case D3DFMT_DXT1: {
-							iTexSize = (sd.Width*sd.Height/2);
-						} break;
-						case D3DFMT_DXT2: {
-							printf("ERROR: D3DFMT_DXT2\n");
-							system("pause");
-							exit(-1);
-						} break;
-						case D3DFMT_DXT3: {
-							iTexSize = (sd.Width*sd.Height);
-						} break;
-						case D3DFMT_DXT4: {
-							printf("ERROR: D3DFMT_DXT4\n");
-							system("pause");
-							exit(-1);
-						} break;
-						case D3DFMT_DXT5: {
-							iTexSize = (sd.Width*sd.Height*2);
-							printf("ERROR: D3DFMT_DXT5\n");
-							system("pause");
-							exit(-1);
-						} break;
-					}
-
-					ReadFile(hFile, (uint8_t*)LR.pBits, iTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+					ReadFile(hFile, (uint8_t*)LR.pBits, nTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
 					m_lpTexture->UnlockRect(i);
 				}
 
@@ -390,35 +356,11 @@ bool CN3Texture::Load(HANDLE hFile)
 			else // pair of if(iMMC > 1)
 			{
 				m_lpTexture->GetLevelDesc(0, &sd);
+
+				uint32_t nTexSize = GetTextureSize(sd);
+
 				m_lpTexture->LockRect(0, &LR, NULL, NULL);
-
-				int iTexSize = 0;
-				switch(HeaderOrg.Format) {
-					case D3DFMT_DXT1: {
-						iTexSize = (sd.Width*sd.Height/2);
-					} break;
-					case D3DFMT_DXT2: {
-						printf("ERROR: D3DFMT_DXT2\n");
-						system("pause");
-						exit(-1);
-					} break;
-					case D3DFMT_DXT3: {
-						iTexSize = (sd.Width*sd.Height);
-					} break;
-					case D3DFMT_DXT4: {
-						printf("ERROR: D3DFMT_DXT4\n");
-						system("pause");
-						exit(-1);
-					} break;
-					case D3DFMT_DXT5: {
-						iTexSize = (sd.Width*sd.Height*2);
-						printf("ERROR: D3DFMT_DXT5\n");
-						system("pause");
-						exit(-1);
-					} break;
-				}
-
-				ReadFile(hFile, (uint8_t*)LR.pBits, iTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+				ReadFile(hFile, (uint8_t*)LR.pBits, nTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
 				m_lpTexture->UnlockRect(0);
 
 				// 텍스처 압축안되는 비디오 카드를 위한 여분의 데이터 건너뛰기.. 
@@ -629,10 +571,6 @@ bool CN3Texture::SaveToFile(const std::string& szFileName)
 #ifdef _N3TOOL
 bool CN3Texture::Save(HANDLE hFile)
 {
-	// TODO(srmeier): implement this
-	return false;
-
-	/*
 	if(NULL == m_lpTexture) return false;
 
 	CN3BaseFileAccess::Save(hFile);
@@ -686,26 +624,28 @@ bool CN3Texture::Save(HANDLE hFile)
 		{
 			m_lpTexture->GetLevelDesc(i, &sd);
 
+			uint32_t nTexSize = GetTextureSize(sd);
+
 			m_lpTexture->LockRect(i, &LR, NULL, NULL);
-			WriteFile(hFile, (uint8_t*)LR.pBits, sd.Size, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+			WriteFile(hFile, (uint8_t*)LR.pBits, nTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
 			m_lpTexture->UnlockRect(i);
 		}
 
 		// 추가로 압축되지 않은 형식을 써준다.. 절반 크기이다.
 		// 압축되지 않은 형식을 해상도를 한단계 낮추어서 저장.
-		LPDIRECT3DSURFACE8 lpSurfSrc = NULL, lpSurfDest = NULL;
+		LPDIRECT3DSURFACE9 lpSurfSrc = NULL, lpSurfDest = NULL;
 		D3DFORMAT fmtExtra = D3DFMT_UNKNOWN;
 		if(D3DFMT_DXT1 == sd.Format) fmtExtra = D3DFMT_A1R5G5B5;
 		else fmtExtra = D3DFMT_A4R4G4B4;
 		
 		int nMMC2 = nMMC - 1;
 		if(nMMC == 1) nMMC2 = nMMC;
-		for(i = 0; i < nMMC2; i++)
+		for(int i = 0; i < nMMC2; i++)
 		{
 			m_lpTexture->GetLevelDesc(i, &sd);
 			m_lpTexture->GetSurfaceLevel(i, &lpSurfSrc);
 			int nW = sd.Width / 2, nH = sd.Height / 2;
-			s_lpD3DDev->CreateImageSurface(nW, nH, fmtExtra, &lpSurfDest);
+			s_lpD3DDev->CreateOffscreenPlainSurface(nW, nH, fmtExtra, D3DPOOL_MANAGED, &lpSurfDest, nullptr);
 			D3DXLoadSurfaceFromSurface(lpSurfDest, NULL, NULL, lpSurfSrc, NULL, NULL, D3DX_FILTER_TRIANGLE, 0); // 서피스 복사.
 			int nPixelSize = 2;
 			lpSurfDest->LockRect(&LR, NULL, NULL);
@@ -723,7 +663,7 @@ bool CN3Texture::Save(HANDLE hFile)
 			m_lpTexture->GetLevelDesc(0, &sd);
 			m_lpTexture->GetSurfaceLevel(0, &lpSurfSrc);
 			int nW = 256, nH = 256;
-			s_lpD3DDev->CreateImageSurface(nW, nH, fmtExtra, &lpSurfDest);
+			s_lpD3DDev->CreateOffscreenPlainSurface(nW, nH, fmtExtra, D3DPOOL_MANAGED, &lpSurfDest, nullptr);
 			D3DXLoadSurfaceFromSurface(lpSurfDest, NULL, NULL, lpSurfSrc, NULL, NULL, D3DX_FILTER_TRIANGLE, 0); // 서피스 복사.
 			int nPixelSize = 2;
 			lpSurfDest->LockRect(&LR, NULL, NULL);
@@ -761,12 +701,12 @@ bool CN3Texture::Save(HANDLE hFile)
 
 		if(nMMC == 1 && m_Header.nWidth >= 512) // 부두를 위해 256 * 256 짜리 하나 더 저장해준다..
 		{
-			LPDIRECT3DSURFACE8 lpSurfSrc = NULL, lpSurfDest = NULL;
+			LPDIRECT3DSURFACE9 lpSurfSrc = NULL, lpSurfDest = NULL;
 
 			m_lpTexture->GetLevelDesc(0, &sd);
 			m_lpTexture->GetSurfaceLevel(0, &lpSurfSrc);
 			int nW = 256, nH = 256;
-			s_lpD3DDev->CreateImageSurface(nW, nH, sd.Format, &lpSurfDest);
+			s_lpD3DDev->CreateOffscreenPlainSurface(nW, nH, sd.Format, D3DPOOL_MANAGED, &lpSurfDest, nullptr);
 			HRESULT rval = D3DXLoadSurfaceFromSurface(lpSurfDest, NULL, NULL, lpSurfSrc, NULL, NULL, D3DX_FILTER_TRIANGLE, 0); // 서피스 복사.
 			lpSurfDest->LockRect(&LR, NULL, NULL);
 			for(int y = 0; y < nH; y++)
@@ -780,7 +720,6 @@ bool CN3Texture::Save(HANDLE hFile)
 	}
 
 	return true;
-	*/
 }
 #endif // end of _N3TOOL
 
@@ -906,10 +845,6 @@ void CN3Texture::UpdateRenderInfo()
 #ifdef _N3TOOL
 bool CN3Texture::SaveToBitmapFile(const std::string& szFN)
 {
-	// TODO(srmeier): implement this
-	return false;
-
-	/*
 	if(szFN.empty()) return false;
 	if(NULL == m_lpTexture) return false;
 
@@ -919,7 +854,7 @@ bool CN3Texture::SaveToBitmapFile(const std::string& szFN)
 	if(NULL == lpSurfSrc) return false;
 
 	LPDIRECT3DSURFACE9 lpSurfDest = NULL;
-	s_lpD3DDev->CreateImageSurface(m_Header.nWidth, m_Header.nHeight, D3DFMT_A8R8G8B8, &lpSurfDest);
+	s_lpD3DDev->CreateOffscreenPlainSurface(m_Header.nWidth, m_Header.nHeight, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &lpSurfDest, nullptr);
 
 	if(NULL == lpSurfDest) return false;
 	if(D3D_OK != D3DXLoadSurfaceFromSurface(lpSurfDest, NULL, NULL, lpSurfSrc, NULL, NULL, D3DX_FILTER_TRIANGLE, 0)) // 서피스 복사.
@@ -953,6 +888,5 @@ bool CN3Texture::SaveToBitmapFile(const std::string& szFN)
 	lpSurfSrc->Release(); lpSurfSrc = NULL;
 
 	return bmpf.SaveToFile(szFN.c_str());
-	*/
 }
 #endif // end of _N3TOOL

@@ -15,8 +15,6 @@
 // PropertyList.h : header file
 //
 
-#include "D3D8.h"
-
 #define PIT_COMBO	0  //PIT = property item type
 #define PIT_EDIT	1
 #define PIT_COLOR	2

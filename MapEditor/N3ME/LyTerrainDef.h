@@ -13,7 +13,7 @@
 
 
 // common include header...
-#include "..\N3BASE\N3Base.h"
+#include <N3Base/N3Base.h>
 
 
 // Constant Definitions..

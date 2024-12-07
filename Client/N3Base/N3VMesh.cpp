@@ -170,7 +170,6 @@ void CN3VMesh::CreateCube(const __Vector3 &vMin, const __Vector3 &vMax)
 }
 
 
-#ifdef _DEBUG
 void CN3VMesh::Render(D3DCOLOR crLine)
 {
 	if(m_nVC <= 0) return;
@@ -215,7 +214,6 @@ void CN3VMesh::Render(D3DCOLOR crLine)
 	if(dwLight) s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, dwLight);
 	if(D3DFILL_WIREFRAME != dwShade) s_lpD3DDev->SetRenderState(D3DRS_FILLMODE, dwShade);
 }
-#endif // end of _DEBUG
 
 void CN3VMesh::FindMinMax()
 {

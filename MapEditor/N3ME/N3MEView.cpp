@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "N3ME.h"
-#include "../N3Base/N3EngTool.h"
+#include <N3Base/N3EngTool.h>
 #include "N3MEDoc.h"
 #include "N3MEView.h"
 #include "MainFrm.h"

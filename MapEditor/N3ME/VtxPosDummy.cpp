@@ -78,11 +78,11 @@ void CVtxPosDummy::Render()
 	hr = s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	// 이어지 선 그리기
-	hr = s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
+	hr = s_lpD3DDev->SetFVF(FVF_XYZCOLOR);
 	hr = s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 3, m_LineVertices, sizeof(__VertexXyzColor));
 
 	// Cube 그리기
-	hr = s_lpD3DDev->SetVertexShader(FVF_XYZNORMALCOLOR);
+	hr = s_lpD3DDev->SetFVF(FVF_XYZNORMALCOLOR);
 	int i;
 	for (i=0; i<NUM_DUMMY; ++i)
 	{

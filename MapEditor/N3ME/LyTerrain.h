@@ -14,7 +14,7 @@
 #include <list>
 
 #include "LyTerrainDef.h"
-#include "../N3BASE/N3BaseFileAccess.h"
+#include <N3Base/N3BaseFileAccess.h>
 
 class CN3Texture;
 class CQTNode;
@@ -71,7 +71,7 @@ public:
 
 	//LightMap관련...
 	CDlgSetLightMap*			m_pDlgSetLightMap;
-	LPDIRECT3DVERTEXBUFFER8		m_LightMapVB;	
+	LPDIRECT3DVERTEXBUFFER9		m_LightMapVB;	
 	CN3Texture***				m_ppLightMapTexture;
 	bool**						m_ppIsLightMap;
 	int							m_iNumLightMap;
@@ -84,8 +84,8 @@ public:
 
 	std::list<CQTNode*>			m_RenderNodes;
 
-	LPDIRECT3DVERTEXBUFFER8		m_ColorMapVB;	//	컬러맵쓸때..
-	LPDIRECT3DVERTEXBUFFER8		m_TileVB;	//	하나의 타일과 하나의 라이트맵
+	LPDIRECT3DVERTEXBUFFER9		m_ColorMapVB;	//	컬러맵쓸때..
+	LPDIRECT3DVERTEXBUFFER9		m_TileVB;	//	하나의 타일과 하나의 라이트맵
 	
 	//common..
 	MAPDATA**		m_ppMapData;
@@ -113,7 +113,7 @@ public:
 	float			m_fTileDirVforColorMap[8][4];
 
 	// DTex관련...
-	LPDIRECT3DVERTEXBUFFER8		m_pDTexVB;
+	LPDIRECT3DVERTEXBUFFER9		m_pDTexVB;
 	__VertexT1*					m_pDTexVertices;
 	int							m_DTexFaceCnt;
 	int							m_DTexBuff[5000];
@@ -121,7 +121,7 @@ public:
 	int							m_DTexDirTable[9][14];
 
 	// ColorMap 관련...
-	LPDIRECT3DVERTEXBUFFER8		m_pColorMapTmpVB;
+	LPDIRECT3DVERTEXBUFFER9		m_pColorMapTmpVB;
 	__VertexTransformedT2*		m_pColorMapTmpVertices;
 
 	//Brush 관련..

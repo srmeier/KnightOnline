@@ -7,7 +7,7 @@
 #include "MapMng.h"
 #include "LyTerrain.h"
 #include "DlgBar.h"
-#include "../N3Base/N3TransformCollision.h"
+#include <N3Base/N3TransformCollision.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

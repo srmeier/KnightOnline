@@ -8,7 +8,7 @@
 
 #include "PondMng.h"
 #include "PondMesh.h"
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3Texture.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE

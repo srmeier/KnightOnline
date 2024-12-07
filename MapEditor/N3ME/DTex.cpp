@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "n3me.h"
 #include "LyTerrainDef.h"
-#include "..\N3Base\N3Texture.h"
+#include <N3Base/N3Texture.h>
 
 #include "DTex.h"
 

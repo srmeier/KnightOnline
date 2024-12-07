@@ -15,7 +15,7 @@
 #define MAX_RIVERMESH_INDEX		199*18
 #define INDEXBUFFER_PERLINE		18
 
-#include "../N3Base/N3BaseFileAccess.h"
+#include <N3Base/N3BaseFileAccess.h>
 
 class CRiverMesh : public CN3BaseFileAccess
 {

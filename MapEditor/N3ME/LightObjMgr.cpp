@@ -10,7 +10,7 @@
 #include "LyTerrain.h"
 #include "MapMng.h"
 #include "MainFrm.h"
-#include "../N3Base/N3Scene.h"
+#include <N3Base/N3Scene.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -251,7 +251,7 @@ void CLightObjMgr::Render()
 	hr = s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 
-	hr = s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
+	hr = s_lpD3DDev->SetFVF(FVF_XYZCOLOR);
 
 	//이미 만들어진 라이트오브젝트 그리기...
 	std::list<LIGHTOBJ*>::iterator it;

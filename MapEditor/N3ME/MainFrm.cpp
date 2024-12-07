@@ -16,9 +16,9 @@
 #include "DlgSowSeed.h"
 #include "DlgSaveDivision.h"
 
-#include "../N3Base/N3EngTool.h"
-#include "../N3Base/N3Shape.h"
-#include "../N3Base/N3Camera.h"
+#include <N3Base/N3EngTool.h>
+#include <N3Base/N3Shape.h>
+#include <N3Base/N3Camera.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -338,7 +338,7 @@ void CMainFrame::OnCursorDtex()
 {
 	ASSERT(m_pMapMng);
 /*
-	LPDIRECT3DSURFACE8 pBackBuff;
+	LPDIRECT3DSURFACE9 pBackBuff;
 	HRESULT hr;
 	hr = m_pEng->s_lpD3DDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &pBackBuff);
 	D3DSURFACE_DESC desc;

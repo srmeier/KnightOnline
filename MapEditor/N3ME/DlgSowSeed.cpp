@@ -9,9 +9,9 @@
 #include "DTexGroupMng.h"
 #include "DTexGroup.h"
 #include "MapMng.h"
-#include "../N3Base/N3Texture.h"
-#include "../N3Base/N3EngTool.h"
-#include "../N3Base/N3Shape.h"
+#include <N3Base/N3Texture.h>
+#include <N3Base/N3EngTool.h>
+#include <N3Base/N3Shape.h>
 #include "DTex.h"
 #include "DTexMng.h"
 

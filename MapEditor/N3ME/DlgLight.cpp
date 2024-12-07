@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "n3me.h"
 #include "DlgLight.h"
-#include "../N3Base/N3Light.h"
+#include <N3Base/N3Light.h>
 #include "MainFrm.h"
 
 

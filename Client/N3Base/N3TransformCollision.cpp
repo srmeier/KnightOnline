@@ -139,7 +139,7 @@ int CN3TransformCollision::CheckCollisionPrecisely(bool bIgnoreBoxCheck, int ixS
 	else return 0;
 }
 
-#ifdef _DEBUG
+#if defined(_DEBUG) || defined(_N3TOOL)
 void CN3TransformCollision::RenderCollisionMesh()
 {
 	if(NULL == m_pMeshCollision) return;
