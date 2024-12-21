@@ -189,20 +189,30 @@ public:
 	//void	MsgSend_DutyAppoint(e_KnightsDuty eDuty);
 };
 
-struct __FriendsInfo : public std::binary_function<__FriendsInfo, __FriendsInfo, bool>// 기사 단원 정보..
+struct __FriendsInfo // 기사 단원 정보..
 {
-	std::string		szName;
-	int				iID; // ID
-	bool			bOnLine; // 접속했나?
-	bool			bIsParty; // 파티 플레이중인가?
+	std::string	szName;
+	int			iID; // ID
+	bool		bOnLine; // 접속했나?
+	bool		bIsParty; // 파티 플레이중인가?
 
-	void Init() { szName = ""; iID = -1; bOnLine = false; bIsParty = false; }
-	bool operator () (const __FriendsInfo& x, const __FriendsInfo& y) const 
+	void Init()
+	{
+		szName = "";
+		iID = -1;
+		bOnLine = false;
+		bIsParty = false;
+	}
+
+	bool operator () (const __FriendsInfo& x, const __FriendsInfo& y) const
 	{
 		return (x.szName >= y.szName);
 	}
 
-	__FriendsInfo() { this->Init(); }
+	__FriendsInfo()
+	{
+		Init();
+	}
 };
 
 typedef std::map<std::string, __FriendsInfo>::iterator it_FI;
