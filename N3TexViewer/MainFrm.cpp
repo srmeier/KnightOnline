@@ -8,7 +8,7 @@
 #include "N3TexViewerDoc.h"
 #include "DlgFormat.h"
 #include "ProgressBar.h"
-#include "../N3Base/BitMapFile.h"
+#include <N3Base/BitMapFile.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

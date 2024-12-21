@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../N3Base/N3EngTool.h"
+#include <N3Base/N3EngTool.h>
 
 class CMainFrame : public CFrameWnd
 {

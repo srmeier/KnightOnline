@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3Texture.h>
 
 class CN3TexViewerDoc : public CDocument
 {

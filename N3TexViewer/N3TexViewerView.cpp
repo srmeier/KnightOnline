@@ -8,7 +8,7 @@
 #include "N3TexViewerDoc.h"
 #include "N3TexViewerView.h"
 
-#include "../N3Base/N3EngTool.h"
+#include <N3Base/N3EngTool.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

@@ -5,7 +5,7 @@
 #include "N3TexViewer.h"
 #include "N3TexViewerDoc.h"
 
-#include "../N3Base/BitmapFile.h"
+#include <N3Base/BitmapFile.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -103,7 +103,7 @@ BOOL CN3TexViewerDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	////////////////////////////////////////////////////////////////////////////////
 	// Alpha Texture 생성...
 	m_pTexAlpha->Create(m_pTex->Width(), m_pTex->Height(), D3DFMT_A8R8G8B8, FALSE);
-	LPDIRECT3DSURFACE8 lpSurf, lpSurf2;
+	LPDIRECT3DSURFACE9 lpSurf, lpSurf2;
 	if(m_pTexAlpha->Get())
 	{
 		m_pTexAlpha->Get()->GetSurfaceLevel(0, &lpSurf);
