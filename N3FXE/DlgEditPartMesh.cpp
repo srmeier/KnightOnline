@@ -5,8 +5,8 @@
 #include "N3FXE.h"
 #include "MainFrm.h"
 #include "DlgEditPartMesh.h"
-#include "../N3Base/N3FXPartMesh.h"
-#include "../N3Base/N3FXShape.h"
+#include <N3Base/N3FXPartMesh.h>
+#include <N3Base/N3FXShape.h>
 #include "DlgNewFileName.h"
 
 #ifdef _DEBUG

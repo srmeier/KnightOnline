@@ -5,6 +5,8 @@
     <RootDir>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..'))\</RootDir>
     <PropsDir>$(RootDir)props\</PropsDir>
     <DependencyDir>$(RootDir)deps\</DependencyDir>
+    <ToolBuild>false</ToolBuild>
+    <ToolBuild Condition="$(Configuration.StartsWith('Tool_'))">true</ToolBuild>	 
   </PropertyGroup>
   <ImportGroup Label="PropertySheets" />
 </Project>

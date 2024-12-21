@@ -62,10 +62,14 @@
     <ClInclude Include="N3Cloud.h" />
     <ClInclude Include="N3ColorChange.h" />
     <ClInclude Include="N3Eng.h" />
-    <ClInclude Include="N3EngTool.h" />
+    <ClInclude Include="N3EngTool.h">
+      <ExcludedFromBuild Condition="'$(ToolBuild)'!='true'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="N3FXBundle.h" />
     <ClInclude Include="N3FXDef.h" />
-    <ClInclude Include="N3FXGroup.h" />
+    <ClInclude Include="N3FXGroup.h">
+      <ExcludedFromBuild Condition="'$(ToolBuild)'!='true'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="N3FXPartBase.h" />
     <ClInclude Include="N3FXPartBillBoard.h" />
     <ClInclude Include="N3FXPartBottomBoard.h" />
@@ -134,7 +138,9 @@
     <ClInclude Include="N3UITrackBar.h" />
     <ClInclude Include="N3VMesh.h" />
     <ClInclude Include="N3WorldTerrain.h" />
-    <ClInclude Include="Pick.h" />
+    <ClInclude Include="Pick.h">
+      <ExcludedFromBuild Condition="'$(ToolBuild)'!='true'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="StdAfxBase.h" />
     <ClInclude Include="StreamSoundObj.h" />
     <ClInclude Include="WaveFile.h" />
@@ -155,9 +161,14 @@
     <ClCompile Include="N3Cloud.cpp" />
     <ClCompile Include="N3ColorChange.cpp" />
     <ClCompile Include="N3Eng.cpp" />
-    <ClCompile Include="N3EngTool.cpp" />
+    <ClCompile Include="N3EngTool.cpp">
+      <ExcludedFromBuild Condition="'$(ToolBuild)'!='true'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="N3FXBundle.cpp" />
     <ClCompile Include="N3FXBundleGame.cpp" />
+    <ClCompile Include="N3FXGroup.cpp">
+      <ExcludedFromBuild Condition="'$(ToolBuild)'!='true'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="N3FXMgr.cpp" />
     <ClCompile Include="N3FXPartBase.cpp" />
     <ClCompile Include="N3FXPartBillBoard.cpp" />
@@ -223,7 +234,9 @@
     <ClCompile Include="N3VMesh.cpp" />
     <ClCompile Include="N3WorldBase.cpp" />
     <ClCompile Include="N3WorldManager.cpp" />
-    <ClCompile Include="Pick.cpp" />
+    <ClCompile Include="Pick.cpp">
+      <ExcludedFromBuild Condition="'$(ToolBuild)'!='true'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="StdAfxBase.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

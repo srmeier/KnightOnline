@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{3095a605-d74d-446f-b8e0-ab354a83abe3}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{13156552-f5c7-4773-8a6f-60917f6cace0}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{369aa45e-25bf-4f14-920c-30b62f5436cd}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="FX">
+      <UniqueIdentifier>{22d94da0-dbbc-45b2-8469-16994010e0fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{a26d63d5-04a5-4ebc-8e48-6c13dfe0628c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="N3FXE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEditFxg.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEditPartBillBoard.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEditPartGround.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEditPartMesh.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEditPartParticle.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEditScript.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgNewFileName.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgNewPart.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPercent.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPutColor.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="N3FXEDoc.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="N3FXEView.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="N3FXE.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="N3FXE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEditFxg.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEditPartBillBoard.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEditPartGround.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEditPartMesh.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEditPartParticle.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEditScript.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgNewFileName.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgNewPart.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPercent.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPutColor.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="N3FXEDoc.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="N3FXEView.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\N3FXE.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\N3FXEDoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\N3FXE.rc2">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

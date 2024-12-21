@@ -5,7 +5,7 @@
 #include "N3FXE.h"
 #include "MainFrm.h"
 #include "DlgEditPartBillBoard.h"
-#include "../N3Base/N3FXPartBillBoard.h"
+#include <N3Base/N3FXPartBillBoard.h>
 #include "DlgNewFileName.h"
 
 #ifdef _DEBUG

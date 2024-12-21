@@ -5,7 +5,7 @@
 #include "n3fxe.h"
 #include "MainFrm.h"
 #include "DlgEditPartGround.h"
-#include "../N3Base/N3FXPartBottomBoard.h"
+#include <N3Base/N3FXPartBottomBoard.h>
 #include "DlgNewFileName.h"
 
 

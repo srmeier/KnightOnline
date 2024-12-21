@@ -6,7 +6,7 @@
 #include "MainFrm.h"
 #include "DlgEditScript.h"
 #include "DlgNewFileName.h"
-#include "../N3Base/N3FXBundle.h"
+#include <N3Base/N3FXBundle.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -568,7 +568,7 @@ void CDlgEditScript::OnBtnSaveAs()
 		char szDrive[_MAX_DRIVE];
 		sprintf(szGameFileName, m_pFXBundle->FileName().c_str());
 		_splitpath(szGameFileName, szDrive, szDir, NULL, szExt);
-		sprintf(szGameFileName,"%s%s%s%s",szDrive, szDir, dlg.m_strNewFileName,szExt);		
+		sprintf(szGameFileName,"%s%s%s%s",szDrive, szDir, dlg.m_strNewFileName.GetString(),szExt);		
 		m_pFXBundle->FileNameSet(szGameFileName);
 
 		OnBtnSave();

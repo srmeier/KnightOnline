@@ -5,7 +5,7 @@
 #ifndef __GROUND_H__
 #define __GROUND_H__
 
-#include "../N3Base/N3Base.h"
+#include <N3Base/N3Base.h>
 
 class CN3Texture;
 

@@ -7,7 +7,7 @@
 // DlgEditPartParticle.h : header file
 //
 
-#include "../N3Base/N3FXDef.h"
+#include <N3Base/N3FXDef.h>
 
 class CMainFrame;
 

@@ -2,8 +2,9 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#include "StdAfx.h"
 #include "Ground.h"
-#include "../N3Base/N3Texture.h"
+#include <N3Base/N3Texture.h>
 
 CGround::CGround()
 {
@@ -43,7 +44,7 @@ CGround::~CGround()
 
 void CGround::Render()
 {
-	CN3Base::s_lpD3DDev->SetVertexShader(FVF_VNT1);
+	CN3Base::s_lpD3DDev->SetFVF(FVF_VNT1);
 
 	DWORD dwAlpha, dwZEnable;
 	

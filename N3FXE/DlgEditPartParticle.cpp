@@ -4,8 +4,8 @@
 #include "stdafx.h"
 #include "N3FXE.h"
 #include "MainFrm.h"
-#include "../N3Base/N3FXPartParticles.h"
-#include "../N3Base/N3FXShape.h"
+#include <N3Base/N3FXPartParticles.h>
+#include <N3Base/N3FXShape.h>
 #include "DlgNewFileName.h"
 #include "DlgEditPartParticle.h"
 #include "DlgPutColor.h"
@@ -289,7 +289,7 @@ void CDlgEditPartParticle::OnPartParticleBtnSave()
 	}
 	else if(EmitType==FX_PART_PARTICLE_EMIT_TYPE_GATHER)
 	{
-		fprintf(file,"<emit_type> gather %5.4f %5.4f %5.4f %d\n", m_fEmitArg1, m_fEmitArg2, m_fEmitArg3);
+		fprintf(file,"<emit_type> gather %5.4f %5.4f %5.4f\n", m_fEmitArg1, m_fEmitArg2, m_fEmitArg3);
 	}
 	
 	fprintf(file,"<particle_direction> %5.4f %5.4f %5.4f\n", m_EmitDirX, m_EmitDirY, m_EmitDirZ);
@@ -432,8 +432,8 @@ bool CDlgEditPartParticle::LoadPartScript(const char* szPath)
 
 	m_bChangeColor = (BOOL)pPart->m_bChangeColor;
 
-	DWORD color;
-	for(i=0;i<NUM_KEY_COLOR;i++)
+	uint32_t color;
+	for(int i=0;i<NUM_KEY_COLOR;i++)
 	{
 		if(pPart->GetColor(i, color)) m_Color[i] = color;
 		if(pPart->m_bChangeColorKey[i]) m_bColorKey[i] = true;

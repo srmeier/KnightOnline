@@ -5,7 +5,7 @@
 #include "n3fxe.h"
 #include "MainFrm.h"
 #include "DlgEditFxg.h"
-#include "../N3Base/N3FXGroup.h"
+#include <N3Base/N3FXGroup.h>
 #include "DlgNewFileName.h"
 
 #ifdef _DEBUG

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N3CE", "N3CE.vcxproj", "{1AD3FFCD-745F-4E6D-8698-F750EBB8DBCD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N3FXE", "N3FXE.vcxproj", "{3756BA94-53B6-4AA6-9F21-036449B6A2C5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E45D92A-702B-4128-A1AF-504A17271D94} = {5E45D92A-702B-4128-A1AF-504A17271D94}
 	EndProjectSection
@@ -16,10 +16,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1AD3FFCD-745F-4E6D-8698-F750EBB8DBCD}.Debug|x86.ActiveCfg = Tool_Debug|Win32
-		{1AD3FFCD-745F-4E6D-8698-F750EBB8DBCD}.Debug|x86.Build.0 = Tool_Debug|Win32
-		{1AD3FFCD-745F-4E6D-8698-F750EBB8DBCD}.Release|x86.ActiveCfg = Tool_Release|Win32
-		{1AD3FFCD-745F-4E6D-8698-F750EBB8DBCD}.Release|x86.Build.0 = Tool_Release|Win32
+		{3756BA94-53B6-4AA6-9F21-036449B6A2C5}.Debug|x86.ActiveCfg = Tool_Debug|Win32
+		{3756BA94-53B6-4AA6-9F21-036449B6A2C5}.Debug|x86.Build.0 = Tool_Debug|Win32
+		{3756BA94-53B6-4AA6-9F21-036449B6A2C5}.Release|x86.ActiveCfg = Tool_Release|Win32
+		{3756BA94-53B6-4AA6-9F21-036449B6A2C5}.Release|x86.Build.0 = Tool_Release|Win32
 		{5E45D92A-702B-4128-A1AF-504A17271D94}.Debug|x86.ActiveCfg = Tool_Debug|Win32
 		{5E45D92A-702B-4128-A1AF-504A17271D94}.Debug|x86.Build.0 = Tool_Debug|Win32
 		{5E45D92A-702B-4128-A1AF-504A17271D94}.Release|x86.ActiveCfg = Tool_Release|Win32
@@ -29,6 +29,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C4A9667A-9424-4164-AF6E-45F805D82FEF}
+		SolutionGuid = {C8F8E46F-51BB-4291-A129-F5749CBAA15E}
 	EndGlobalSection
 EndGlobal
