@@ -1172,7 +1172,7 @@ bool CZipArchive::SetPassword(LPCTSTR lpszPassword)
 
 DWORD CZipArchive::CryptCRC32(DWORD l, char c)
 {
-	const DWORD *CRC_TABLE = get_crc_table();
+	const DWORD* CRC_TABLE = (const DWORD*) get_crc_table();
 	return CRC_TABLE[(l ^ c) & 0xff] ^ (l >> 8);
 }
 
@@ -1339,7 +1339,7 @@ int CZipArchive::SingleToWide(CZipAutoBuffer &szSingle, CString& szWide)
 
 const DWORD* CZipArchive::GetCRCTable()
 {
-	return get_crc_table();
+	return (const DWORD*) get_crc_table();
 }
 
 void CZipArchive::CryptDecodeBuffer(DWORD uCount)

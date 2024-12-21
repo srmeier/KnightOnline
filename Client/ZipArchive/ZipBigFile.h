@@ -13,7 +13,7 @@ class CZipBigFile : public CFile
 {
 	DECLARE_DYNAMIC(CZipBigFile)
 public:
-	_int64 Seek(_int64 dOff, UINT nFrom);
+	ULONGLONG Seek(LONGLONG dOff, UINT nFrom);
 	CZipBigFile();
 	virtual ~CZipBigFile();
 

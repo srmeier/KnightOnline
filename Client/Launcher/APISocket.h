@@ -11,6 +11,8 @@
 #include <winsock.h>
 
 #include <queue>
+#include <string>
+
 #include "BB_CircularBuffer.h"
 
 #define WM_SOCKETMSG	(WM_USER+1)

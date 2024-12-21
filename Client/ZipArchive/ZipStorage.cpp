@@ -205,13 +205,13 @@ void CZipStorage::Close(bool bAfterException)
 		}
 		else
 #ifdef _DEBUG // to prevent assertion if the file is already closed
- 		if (m_pFile->m_hFile != (UINT)CFile::hFileNull)
+ 		if (m_pFile->m_hFile != CFile::hFileNull)
 #endif
 				m_pFile->Close();
 	}
 	else
 #ifdef _DEBUG // to prevent assertion if the file is already closed
- 		if (m_pFile->m_hFile != (UINT)CFile::hFileNull)
+ 		if (m_pFile->m_hFile != CFile::hFileNull)
 #endif
 				m_pFile->Close();
 
@@ -254,7 +254,7 @@ void CZipStorage::NextDisk(int iNeeded, LPCTSTR lpszFileName)
 		szFileName =  GetTdVolumeName(false, lpszFileName);
 
 #ifdef _DEBUG // to prevent assertion if the file is already closed
-	if (m_pFile->m_hFile != (UINT)CFile::hFileNull)
+	if (m_pFile->m_hFile != CFile::hFileNull)
 #endif
 		m_pFile->Close(); // if it is closed, so it will not close
 

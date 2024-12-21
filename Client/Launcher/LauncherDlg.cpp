@@ -659,7 +659,7 @@ bool CLauncherDlg::ArchiveOpen( CString OpenFileName )
 			
 		}
 		// thrown in the STL version
-		catch (CZipException e)
+		catch (const CZipException& e)
 		{
 			if (e.m_iCause == CZipException::cdirNotFound)
 				berr = -1;

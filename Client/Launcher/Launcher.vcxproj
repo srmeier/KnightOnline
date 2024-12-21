@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <Keyword>MFCProj</Keyword>
-    <ProjectGuid>{3FEFBF4A-B12C-4E32-BE93-4EA51FD09F63}</ProjectGuid>
+    <ProjectGuid>{03AF3BCF-B1A8-49F3-840E-10642257873A}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -32,7 +32,6 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -51,8 +50,10 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>..\Client;..\Server;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>..\ZipArchive\$(Configuration)\ZipArchive.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -64,7 +65,8 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Midl>
@@ -84,6 +86,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,7 +95,7 @@
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <StringPooling>true</StringPooling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>MinSpace</Optimization>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -113,29 +116,48 @@
     <Link>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Option.cpp" />
-    <ClCompile Include="OptionDlg.cpp" />
+    <ClCompile Include="APISocket.cpp" />
+    <ClCompile Include="BackgroundUtil.cpp" />
+    <ClCompile Include="BB_CircularBuffer.cpp" />
+    <ClCompile Include="Launcher.cpp" />
+    <ClCompile Include="LauncherDlg.cpp" />
+    <ClCompile Include="MacProgressCtrl.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Option.rc" />
+    <ResourceCompile Include="Launcher.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Option.h" />
-    <ClInclude Include="OptionDlg.h" />
+    <ClInclude Include="APISocket.h" />
+    <ClInclude Include="BackgroundUtil.h" />
+    <ClInclude Include="BB_CircularBuffer.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="Launcher.h" />
+    <ClInclude Include="LauncherDlg.h" />
+    <ClInclude Include="MacProgressCtrl.h" />
+    <ClInclude Include="PacketDef.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\Option.ico" />
+    <Image Include="res\Bkg.bmp" />
+    <Image Include="res\Btn_cancel.bmp" />
+    <Image Include="res\Btn_Connect.bmp" />
+    <Image Include="res\Btn_exit.bmp" />
+    <Image Include="res\Btn_join.bmp" />
+    <Image Include="res\Edit_id.bmp" />
+    <Image Include="res\Edit_PW.bmp" />
+    <Image Include="res\icon1.ico" />
+    <Image Include="res\Launcher.ico" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="res\Option.rc2" />
+    <CustomBuild Include="res\Launcher.rc2" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
