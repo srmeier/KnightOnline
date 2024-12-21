@@ -171,7 +171,7 @@ BOOL CN3CEDoc::OnSaveDocument(LPCTSTR lpszPathName)
 
 	CN3CPlugBase* pPlug = NULL;
 	int nCPC = pChr->PlugCount();
-	for(i = 0; i < nCPC; i++)
+	for(int i = 0; i < nCPC; i++)
 	{
 		pPlug = pChr->Plug(i);
 		pPlug->SaveToFile();
@@ -223,7 +223,7 @@ void CN3CEDoc::OnFileSaveAsOneFolder()
 
 	CN3CPlugBase* pPlug = NULL;
 	int nCPC = pChr->PlugCount();
-	for(i = 0; i < nCPC; i++)
+	for(int i = 0; i < nCPC; i++)
 	{
 		pPlug = pChr->Plug(i);
 		if(NULL == pPlug) continue;
@@ -246,7 +246,7 @@ void CN3CEDoc::OnFileSaveAsOneFolder()
 
 	CN3CPart* pPart = NULL;
 	nCPC = pChr->PartCount();
-	for(i = 0; i < nCPC; i++)
+	for(int i = 0; i < nCPC; i++)
 	{
 		pPart = pChr->Part(i);
 		if(NULL == pPart) continue;
@@ -360,7 +360,7 @@ void CN3CEDoc::OnToolOptimizeAnimationData()
 	}
 
 	float fOffsetCur = fSamplingRate;
-	for(i = 0; i < iAniCount; i++) // Animation Key Frame 다시 계산..
+	for(int i = 0; i < iAniCount; i++) // Animation Key Frame 다시 계산..
 	{
 		__AnimData* pAD = pAniCtrl->DataGet(i);
 

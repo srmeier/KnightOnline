@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../N3Base/N3Scene.h"
+#include <N3Base/N3Scene.h>
 
 class CN3CEDoc : public CDocument
 {

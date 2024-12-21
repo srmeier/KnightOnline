@@ -12,8 +12,8 @@
 #include "mmsystem.h"
 #include "PosDummy.h"
 
-#include "../N3Base/N3SndObj.h"
-#include "../N3Base/N3FXPlug.h"
+#include <N3Base/N3SndObj.h>
+#include <N3Base/N3FXPlug.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE

@@ -6,7 +6,7 @@
 //#include "n3me.h"
 #include "TransDummy.h"
 
-#include "../N3Base/Pick.h"
+#include <N3Base/Pick.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -142,11 +142,11 @@ void CTransDummy::Render()
 	hr = s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	// 이어지 선 그리기
-	hr = s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
+	hr = s_lpD3DDev->SetFVF(FVF_XYZCOLOR);
 	hr = s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 3, m_LineVertices, sizeof(__VertexXyzColor));
 
 	// Cube 그리기
-	hr = s_lpD3DDev->SetVertexShader(FVF_XYZNORMALCOLOR);
+	hr = s_lpD3DDev->SetFVF(FVF_XYZNORMALCOLOR);
 	int i;
 	for (i=0; i<NUM_DUMMY; ++i)
 	{
@@ -276,7 +276,7 @@ BOOL CTransDummy::MouseMsgFilter(LPMSG pMsg)
 
 void CTransDummy::GetPickRay(POINT point, __Vector3& vDir, __Vector3& vOrig)
 {
-	LPDIRECT3DDEVICE8 lpD3DDev = s_lpD3DDev;
+	LPDIRECT3DDEVICE9 lpD3DDev = s_lpD3DDev;
 
     // Get the pick ray from the mouse position
     D3DXMATRIX matProj;

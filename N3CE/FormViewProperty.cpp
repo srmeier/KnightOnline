@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "Resource.h"
-#include "../N3Base/N3Chr.h"
+#include <N3Base/N3Chr.h>
 
 #include "MainFrm.h"
 #include "N3CEDoc.h"
@@ -11,8 +11,8 @@
 #include "FormViewAnimation.h"
 
 #include "FormViewProperty.h"
-#include "../N3Base/N3FXPlug.h"
-#include "../N3Base/N3FXBundle.h"
+#include <N3Base/N3FXPlug.h>
+#include <N3Base/N3FXBundle.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -112,7 +112,7 @@ void CFormViewProperty::OnInitialUpdate()
 		m_LPPlug.AddPropItem("FX Board Offset", "", PIT_EDIT, "", 0);
 		m_LPPlug.AddPropItem("FX Line Count", "", PIT_EDIT, "", 0);
 		strTmp = "";
-		for(int i = 0; i < MAX_PLUG_FX_POSITION; i++) { strTmp += ('0' + i); strTmp += "|"; }
+		for(int i = 0; i < MAX_PLUG_FX_POSITION; i++) { strTmp += (char) ('0' + i); strTmp += "|"; }
 		m_LPPlug.AddPropItem("FX Pos", "", PIT_COMBO, strTmp);
 		
 		m_LPPlug.SetDividerWidth(100); // 중간 분할선 조정
@@ -558,7 +558,7 @@ void CFormViewProperty::UpdateAllInfo()
 	m_TreeChr.Expand(m_hTI_Parts, TVE_EXPAND);
 
 	nPC = pChr->PlugCount();
-	for(i = 0; i < nPC; i++)
+	for(int i = 0; i < nPC; i++)
 	{
 		if(NULL == pChr->Plug(i)) 
 		{

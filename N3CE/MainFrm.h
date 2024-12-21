@@ -15,8 +15,8 @@ class CFormViewTool;
 class CFormViewAnimation;
 
 //#include "DlgChrProperty.h"
-#include "../N3Base/N3EngTool.h"
-#include "../N3Base/N3SndMgr.h"
+#include <N3Base/N3EngTool.h>
+#include <N3Base/N3SndMgr.h>
 
 class CMainFrame : public CFrameWnd
 {

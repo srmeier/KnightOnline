@@ -9,7 +9,7 @@
 #include "N3CEView.h"
 #include "FormViewAnimation.h"
 #include "MainFrm.h"
-#include "../N3Base/N3Chr.h"
+#include <N3Base/N3Chr.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE

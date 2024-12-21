@@ -6,7 +6,7 @@
 #endif // _MSC_VER > 1000
 // FormViewAnimation.h : header file
 //
-#include "../N3Base/N3Chr.h"
+#include <N3Base/N3Chr.h>
 #include "MacSliderCtrl.h"
 /////////////////////////////////////////////////////////////////////////////
 // CFormViewAnimation form view

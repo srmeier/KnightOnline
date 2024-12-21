@@ -24,7 +24,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CMacSliderCtrl window
 const float FRM_PRECISION = 0.2f;
-#include "../N3Base/N3AnimControl.h" // tigger
+#include <N3Base/N3AnimControl.h> // tigger
 
 class CMacSliderCtrl : public CSliderCtrl
 {
