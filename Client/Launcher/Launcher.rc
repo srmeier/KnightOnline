@@ -1,0 +1,333 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Launcher.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Launcher.ico"
+IDI_ICON1               ICON    DISCARDABLE     "res\\icon1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_LAUNCHER_DIALOG DIALOGEX 0, 0, 279, 60
+STYLE WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW | WS_EX_APPWINDOW
+CAPTION "Knight Online"
+FONT 9, "±¼¸²", 0, 0, 0x1
+BEGIN
+    CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH,
+                    15,39,246,7
+    LTEXT           "",IDC_STATUS,15,27,246,9
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Launcher MFC ÀÀ¿ë ÇÁ·Î±×·¥\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Launcher\0"
+            VALUE "LegalCopyright", "Copyright (C) 2002\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Launcher.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "Launcher ÀÀ¿ë ÇÁ·Î±×·¥\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_LAUNCHER_DIALOG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 277
+        VERTGUIDE, 15
+        VERTGUIDE, 101
+        VERTGUIDE, 140
+        VERTGUIDE, 151
+        VERTGUIDE, 178
+        VERTGUIDE, 233
+        BOTTOMMARGIN, 50
+        HORZGUIDE, 20
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDP_SOCKETS_INIT_FAILED "Windows ¼ÒÄÏ ÃÊ±âÈ­¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù."
+    IDS_IP                  "192.203.143.108"
+    IDS_PRODUCT             "KnightOnLine"
+    IDS_DNS                 "upgrade.nohystem.co.kr"
+    IDS_JOIN_URL            "http://www.knight-online.net/register/join.htm"
+    IDS_INFO_VERSION_CHECK  "¹öÀüÀ» Ã¼Å©ÇÏ°í °ÔÀÓ ½ÇÇàÀ» ÁØºñÇÕ´Ï´Ù."
+    IDS_INFO_EXTRACTING     "¾ÐÃàÀ» Ç®°í ÀÖ½À´Ï´Ù..."
+    IDS_ERR_REGISTRY_OPEN   "·¹Áö½ºÆ®¸® ¿­±â¿¡ ½ÇÆÐ Çß½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À."
+    IDS_ERR_REGISTRY_READ_VERSION 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ¹öÀüÁ¤º¸¸¦ Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERR_REGISTRY_READ_PATH 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ÇÁ·Î±×·¥ °æ·Î¸¦ Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À"
+    IDS_ERR_REGISTRY_READ_EXE 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ½ÇÇàÆÄÀÏ ÀÌ¸§À» Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À."
+    IDS_ERR_REGISTRY_READ_SERVICE 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ¼­ºñ½º ÀÌ¸§À» Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À."
+    IDS_FMT_FAILED_CONNECT_LOGIN_SERVER 
+                            "LogIn Server Á¢¼Ó½ÇÆÐ - %d\n´Ù½Ã Á¢¼ÓÀ» ½ÃµµÇÏ½Ã°Ú½À´Ï±î?"
+    IDS_ERR_INVALID_SERVER_COUNT "Á¢¼Ó °¡´ÉÇÑ ¼­¹ö¸®½ºÆ®°¡ ¾ø½À´Ï´Ù."
+    IDS_ERR_INVALID_VERSION "¹öÀüÀÌ ¸ÂÁö ¾Ê½À´Ï´Ù."
+    IDS_ERR_INVALID_DOWNLOAD_FILE_COUNT 
+                            "ÆÄÀÏ ´Ù¿î·Îµå °¹¼ö°¡ Á¤»óÀÌ ¾Æ´Õ´Ï´Ù."
+    IDS_ERR_INIT_INTERNET   "ÀÎÅÍ³Ý ÃÊ±âÈ­¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù."
+    IDS_ERR_CONNECT_FTP     "FTP ¼­¹ö¿¡ Á¢¼ÓÇÒ ¼ö ¾ø½À´Ï´Ù."
+    IDS_ERR_PATCH           "ÀÚµ¿ ÆÐÄ¡¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù. ÇÁ·Î±×·¥À» ´Ù½Ã ½ÇÇàÇØ ÁÖ½Ê½Ã¿À."
+    IDS_ERR_DOWNLOAD_PATCH_FILE_AND_RETRY 
+                            "ÆÄÀÏÀ» ´Ù¿î·Îµå ¹ÞÁö ¸øÇÏ¿´½À´Ï´Ù. ´Ù½Ã ½ÃµµÇÏ½Ã°Ú½À´Ï±î?"
+    IDS_ERR_DOWNLOAD_PATCH_FILE "ÆÄÀÏÀ» ´Ù¿î·Îµå ¹ÞÁö ¸øÇÏ¿´½À´Ï´Ù."
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Taiwan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
+#pragma code_page(950)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+IDP_SOCKETS_INIT_FAILED "Windows SOCKETªì©l¤Æ¥¢±Ñ."
+    IDS_IP                  "192.203.143.108"
+    IDS_PRODUCT             "KnightOnLine"
+    IDS_DNS                 "upgrade.nohystem.co.kr"
+    IDS_JOIN_URL            "http://www.knight-online.net/register/join.htm"
+    IDS_INFO_VERSION_CHECK  "½T»{ª©¥»«á·Ç³Æ°õ¦æ¹CÀ¸."
+    IDS_INFO_EXTRACTING     "¥¿¦b¸ÑÀ£ÁY..."
+    IDS_ERR_REGISTRY_OPEN   " REGISTRY¶}±Ò¥¢±Ñ. ½Ð­«·s¦w¸Ë."
+    IDS_ERR_REGISTRY_READ_VERSION 
+                            "µLªk¦bREGISTRY¸Ì§ä¨ìª©¥»±¡³ø. ½Ð­«·s¦w¸Ë"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERR_REGISTRY_READ_PATH 
+                            "µLªk¦bREGISTRY§ä¨ìµ{¦¡ªº¸ô®|. ½Ð­«·s¦w¸Ë"
+    IDS_ERR_REGISTRY_READ_EXE 
+                            "µLªk¦bREGISTRY¸Ì§ä¨ì°õ¦æÀÉ®×ªº¦WºÙ. ½Ð­«·s¦w¸Ë."
+    IDS_ERR_REGISTRY_READ_SERVICE 
+                            "µLªk¦bREGISTRY¸Ì§ä¨ì¦øªA¾¹¦WºÙ. ½Ð­«·s¦w¸Ë."
+    IDS_FMT_FAILED_CONNECT_LOGIN_SERVER 
+                            "LogIn Server ³s±µ¥¢±Ñ - %d\n­n­«·s³s±µ¶Ü?"
+    IDS_ERR_INVALID_SERVER_COUNT "¨S¦³¥i³s±µªº¦øªA¾¹¦W³æ."
+    IDS_ERR_INVALID_VERSION "ª©¥»¤£²Å¦X."
+    IDS_ERR_INVALID_DOWNLOAD_FILE_COUNT 
+                            "¤U¸üªºÀÉ®×¼Æ¶q¤£¥¿±`."
+    IDS_ERR_INIT_INTERNET   "ºô¸ôªì©l¤Æ¥¢±Ñ."
+    IDS_ERR_CONNECT_FTP     "µLªk³s±µFTP¦øªA¾¹."
+    IDS_ERR_PATCH           "¦Û°Ê§ó·sÀÉ®×¥¢±Ñ. ½Ð­«·s°õ¦æµ{¦¡."
+    IDS_ERR_DOWNLOAD_PATCH_FILE_AND_RETRY 
+                            "ÀÉ®×¥¼¯à¤U¸ü.­n­«·s¹Á¸Õ¶Ü?"
+    IDS_ERR_DOWNLOAD_PATCH_FILE "¥¼¯à¤U¸üÀÉ®×."
+END
+
+#endif    // Chinese (Taiwan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDP_SOCKETS_INIT_FAILED "Failed to initialize Windows socket."
+    IDS_IP                  "192.203.143.108"
+    IDS_PRODUCT             "KnightOnLine"
+    IDS_DNS                 "upgrade.nohystem.co.kr"
+    IDS_JOIN_URL            "http://www.knight-online.net/register/join.htm"
+    IDS_INFO_VERSION_CHECK  "Check version and prepare to execute game."
+    IDS_INFO_EXTRACTING     "Decompress files..."
+    IDS_ERR_REGISTRY_OPEN   "Failed to open registry key. Reinstall again please."
+    IDS_ERR_REGISTRY_READ_VERSION 
+                            "Faile to find version info. Reinstall again please."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERR_REGISTRY_READ_PATH 
+                            "Faile to find program path. Reinstall again please."
+    IDS_ERR_REGISTRY_READ_EXE 
+                            "Faile to find executable file name. Reinstall again please."
+    IDS_ERR_REGISTRY_READ_SERVICE 
+                            "Faile to find service name. Reinstall again please."
+    IDS_FMT_FAILED_CONNECT_LOGIN_SERVER 
+                            "Can't connect to LogIn Server  - %d\nRetry?"
+    IDS_ERR_INVALID_SERVER_COUNT "no available server list."
+    IDS_ERR_INVALID_VERSION "Invalid version."
+    IDS_ERR_INVALID_DOWNLOAD_FILE_COUNT "Invalid downloaded file count."
+    IDS_ERR_INIT_INTERNET   "Failed to initialize internet."
+    IDS_ERR_CONNECT_FTP     "Failed to connect FTP."
+    IDS_ERR_PATCH           "Faile to auto upgrading. Reinstall again please."
+    IDS_ERR_DOWNLOAD_PATCH_FILE_AND_RETRY 
+                            "Failed to download patch file. Retry?"
+    IDS_ERR_DOWNLOAD_PATCH_FILE "Failed to download patch file."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\Launcher.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

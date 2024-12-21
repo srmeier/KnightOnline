@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[Option.dsp]
+SCC_Aux_Path = "\\Fileserver\VSS\Knight Online"
+SCC_Project_Name = "$/Option", SUEAAAAA

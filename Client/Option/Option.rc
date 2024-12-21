@@ -1,0 +1,409 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Option.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Option.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Option Á¤º¸"
+FONT 9, "±¼¸²"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Option ¹öÀü 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2002",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "È®ÀÎ",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_OPTION_DIALOG DIALOGEX 0, 0, 239, 272
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "³ªÀÌÆ® ¿Â¶óÀÎ °ÔÀÓ ¿É¼Ç ¼³Á¤"
+FONT 9, "±¼¸²", 0, 0, 0x1
+BEGIN
+    CONTROL         "³ôÀ½",IDC_R_TEX_CHR_HIGH,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,24,37,27,12
+    CONTROL         "³·À½",IDC_R_TEX_CHR_LOW,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,24,49,27,12
+    CONTROL         "±×¸²ÀÚ »ç¿ë",IDC_C_SHADOW,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,72,48,9
+    CONTROL         "Slider1",IDC_SLD_VIEWING_DISTANCE,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,15,108,141,18
+    COMBOBOX        IDC_CB_RESOLUTION,39,162,60,156,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_COLORDEPTH,126,162,36,156,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "È®ÀÎ",IDOK,177,123,50,14
+    PUSHBUTTON      "Ãë¼Ò",IDCANCEL,177,141,50,14
+    PUSHBUTTON      "¼³Á¤ ÀúÀå\nÈÄ ½ÇÇà",IDC_B_APPLY_AND_EXECUTE,177,159,51,
+                    23,BS_MULTILINE
+    LTEXT           "ÃÖ¼Ò",IDC_STATIC,18,126,18,9,NOT WS_GROUP
+    LTEXT           "ÃÖ´ë",IDC_STATIC,141,126,18,9,NOT WS_GROUP
+    GROUPBOX        "½Ã¾ß (°¡½Ã°Å¸®) ¼³Á¤",IDC_STATIC,6,96,162,45
+    GROUPBOX        "°ÔÀÓ ±×·¡ÇÈ Ç°Áú",IDC_STATIC,6,9,162,75
+    GROUPBOX        "È­¸é ÇØ»óµµ ¹× »ö»ó",IDC_STATIC,6,144,162,39
+    RTEXT           "ÇØ»óµµ",IDC_STATIC,12,162,24,12,SS_CENTERIMAGE
+    RTEXT           "»ö»ó",IDC_STATIC,105,162,15,12,SS_CENTERIMAGE
+    CONTROL         "³ôÀ½",IDC_R_TEX_SHAPE_HIGH,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,75,37,27,12
+    CONTROL         "³·À½",IDC_R_TEX_SHAPE_LOW,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,75,49,27,12
+    CONTROL         "³ôÀ½",IDC_R_TEX_TERRAIN_HIGH,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,123,37,27,12
+    CONTROL         "³·À½",IDC_R_TEX_TERRAIN_LOW,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,123,49,27,12
+    GROUPBOX        "Ä³¸¯ÅÍ",IDC_STATIC,15,25,45,42
+    GROUPBOX        "¿ÀºêÁ§Æ®",IDC_STATIC,66,25,45,42
+    GROUPBOX        "ÁöÇü",IDC_STATIC,117,25,39,42
+    GROUPBOX        "°ÔÀÓ ¹öÀü",IDC_STATIC,174,9,54,75
+    EDITTEXT        IDC_E_VERSION,180,27,42,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "¾÷µ¥ÀÌÆ®¿¡ Àû¿ë",IDC_B_VERSION,180,45,42,30,
+                    BS_MULTILINE
+    CONTROL         "¼Ò¸® »ç¿ë",IDC_C_SOUND_ENABLE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,18,205,48,9
+    GROUPBOX        "¼Ò¸® ¼³Á¤",IDC_STATIC,6,190,162,74
+    CONTROL         "¼Ò¸® Áßº¹",IDC_C_SOUND_DUPLICATE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,69,205,48,9
+    CONTROL         "Slider1",IDC_SLD_SOUND_DISTANCE,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,15,231,141,18
+    LTEXT           "ÃÖ¼Ò",IDC_STATIC,18,249,18,9,NOT WS_GROUP
+    LTEXT           "ÃÖ´ë",IDC_STATIC,141,249,18,9,NOT WS_GROUP
+    GROUPBOX        "È¿°ú À½Çâ °Å¸® ¼³Á¤",IDC_STATIC,13,218,149,42
+    GROUPBOX        "Ä¿¼­ ¼³Á¤",IDC_STATIC,174,190,54,74
+    CONTROL         "À©µµ¿ì Ä¿¼­",IDC_C_CURSOR_WINDOW,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,177,205,48,9
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Option MFC ÀÀ¿ë ÇÁ·Î±×·¥\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Option\0"
+            VALUE "LegalCopyright", "Copyright (C) 2002\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Option.EXE\0"
+            VALUE "ProductName", "Option ÀÀ¿ë ÇÁ·Î±×·¥\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_OPTION_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 232
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 265
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "Option Á¤º¸(&A)..."
+    IDS_PRODUCT             "KnightOnLine"
+    IDS_ERR_REGISTRY_OPEN   "·¹Áö½ºÆ®¸® ¿­±â¿¡ ½ÇÆÐ Çß½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À."
+    IDS_ERR_REGISTRY_READ_VERSION 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ¹öÀüÁ¤º¸¸¦ Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERR_REGISTRY_READ_PATH 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ÇÁ·Î±×·¥ °æ·Î¸¦ Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À"
+    IDS_ERR_REGISTRY_READ_EXE 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ½ÇÇàÆÄÀÏ ÀÌ¸§À» Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À."
+    IDS_ERR_REGISTRY_READ_SERVICE 
+                            "·¹Áö½ºÆ®¸®¿¡¼­ ¼­ºñ½º ÀÌ¸§À» Ã£À»¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À."
+    IDS_ERR_REGISTRY_WRITE_VERSION 
+                            "·¹Áö½ºÆ®¸®¿¡ ¹öÀüÁ¤º¸¸¦ ¾µ ¼ö ¾ø½À´Ï´Ù. ´Ù½Ã ¼³Ä¡ÇØ ÁÖ½Ê½Ã¿À."
+    IDS_CONFIRM_WRITE_REGISRY "·¹Áö½ºÆ®¸®¿¡ °ªÀ» Àû¿ë½ÃÅ°½Ã°Ú½À´Ï±î?"
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (Taiwan) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHT)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
+#pragma code_page(950)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Option ±¡³ø"
+FONT 9, "²Ó©úÅé"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Option Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2002",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_OPTION_DIALOG DIALOGEX 0, 0, 239, 272
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION " knight online game option ³]©w"
+FONT 9, "²Ó©úÅé"
+BEGIN
+    CONTROL         "°ª",IDC_R_TEX_CHR_HIGH,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,24,37,27,12
+    CONTROL         "§C",IDC_R_TEX_CHR_LOW,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,24,49,27,12
+    CONTROL         "¨Ï¥Î¼v¤l",IDC_C_SHADOW,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,72,48,9
+    CONTROL         "Slider1",IDC_SLD_VIEWING_DISTANCE,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,15,108,141,18
+    COMBOBOX        IDC_CB_RESOLUTION,39,162,60,156,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_COLORDEPTH,126,162,36,156,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "½T»{",IDOK,177,123,50,14
+    PUSHBUTTON      "¨ú®ø",IDCANCEL,177,141,50,14
+    PUSHBUTTON      "Àx¦s³]©w\n«á°õ¦æ",IDC_B_APPLY_AND_EXECUTE,177,159,51,23,
+                    BS_MULTILINE
+    LTEXT           "³Ì¤p",IDC_STATIC,18,126,18,9,NOT WS_GROUP
+    LTEXT           "³Ì¤j",IDC_STATIC,141,126,18,9,NOT WS_GROUP
+    GROUPBOX        "µø³¥ (¥iµø¶ZÂ÷) ³]©w",IDC_STATIC,6,96,162,45
+    GROUPBOX        "¹CÀ¸µe­±«~½è",IDC_STATIC,6,9,162,75
+    GROUPBOX        "µe­±¸ÑªR«×¤Î¦â¬Û",IDC_STATIC,6,144,162,39
+    RTEXT           "¸ÑªR«×",IDC_STATIC,12,162,24,12,SS_CENTERIMAGE
+    RTEXT           "¦â±m",IDC_STATIC,105,162,15,12,SS_CENTERIMAGE
+    CONTROL         "°ª",IDC_R_TEX_SHAPE_HIGH,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,75,37,27,12
+    CONTROL         "§C",IDC_R_TEX_SHAPE_LOW,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,75,49,27,12
+    CONTROL         "°ª",IDC_R_TEX_TERRAIN_HIGH,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,123,37,27,12
+    CONTROL         "§C",IDC_R_TEX_TERRAIN_LOW,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,123,49,27,12
+    GROUPBOX        "¨¤¦â",IDC_STATIC,15,25,45,42
+    GROUPBOX        "object",IDC_STATIC,66,25,45,42
+    GROUPBOX        "¦a§Î",IDC_STATIC,117,25,39,42
+    GROUPBOX        "¹CÀ¸ª©¥»",IDC_STATIC,174,9,54,75
+    EDITTEXT        IDC_E_VERSION,180,27,42,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "¾A¥Îupdata",IDC_B_VERSION,180,45,42,30,BS_MULTILINE
+    CONTROL         "¨Ï¥ÎÁn­µ",IDC_C_SOUND_ENABLE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,18,205,48,9
+    GROUPBOX        "³]©wÁn­µ",IDC_STATIC,6,190,162,74
+    CONTROL         "­«½ÆÁn­µ",IDC_C_SOUND_DUPLICATE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,69,205,48,9
+    CONTROL         "Slider1",IDC_SLD_SOUND_DISTANCE,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,15,231,141,18
+    LTEXT           "³Ì¤p",IDC_STATIC,18,249,18,9,NOT WS_GROUP
+    LTEXT           "³Ì¤j",IDC_STATIC,141,249,18,9,NOT WS_GROUP
+    GROUPBOX        "³]©w®ÄªG­µÅT¶ZÂ÷",IDC_STATIC,13,218,149,42
+    GROUPBOX        "Cursor ³]©w",IDC_STATIC,174,190,54,74
+    CONTROL         "Windows\nCursor",IDC_C_CURSOR_WINDOW,"Button",
+                    BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,177,202,48,
+                    18
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_OPTION_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 232
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 265
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "Option ±¡³ø(&A)..."
+    IDS_PRODUCT             "KnightOnLine"
+    IDS_ERR_REGISTRY_OPEN   "REGISTRY¶}±Ò¥¢±Ñ. ½Ð­«·s¦w¸Ë."
+    IDS_ERR_REGISTRY_READ_VERSION "µLªk¦bREGISTRY¸Ì§ä¨ìª©¥»±¡³ø. ½Ð­«·s¦w¸Ë"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ERR_REGISTRY_READ_PATH "µLªk¦bREGISTRY¸Ì§ä¨ìµ{¦¡ªº¸ô®|. ½Ð­«·s¦w¸Ë"
+    IDS_ERR_REGISTRY_READ_EXE "µLªk¦bREGISTRY§ä¨ì°õ¦æÀÉ®×ªº¦WºÙ. ½Ð­«·s¦w¸Ë."
+    IDS_ERR_REGISTRY_READ_SERVICE 
+                            "µLªk¦bREGISTRY¸Ì§ä¨ì¦øªA¾¹ªº¦WºÙ. ½Ð­«·s¦w¸Ë."
+    IDS_ERR_REGISTRY_WRITE_VERSION "µLªk¨Ï¥ÎREGISTRY¸Ìªºª©¥»±¡³ø. ½Ð­«·s¦w¸Ë."
+    IDS_CONFIRM_WRITE_REGISRY "REGISTRY §A­n°í©wREGISTRYªº­È¶Ü?"
+END
+
+#endif    // Chinese (Taiwan) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\Option.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
