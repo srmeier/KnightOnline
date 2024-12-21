@@ -554,5 +554,11 @@
     <ClCompile Include="StdAfxBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="N3FXGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="N3GlobalEffectMng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

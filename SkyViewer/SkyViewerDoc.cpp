@@ -1,4 +1,4 @@
-// SkyViewerDoc.cpp : implementation of the CSkyViewerDoc class
+﻿// SkyViewerDoc.cpp : implementation of the CSkyViewerDoc class
 //
 
 #include "stdafx.h"

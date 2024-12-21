@@ -9,8 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../N3Base/N3SkyMng.h"
-#include "../N3Base/N3GlobalEffectMng.h"
+#include <N3Base/N3SkyMng.h>
+#include <N3Base/N3GlobalEffectMng.h>
 
 class CSkyViewerDoc : public CDocument
 {
