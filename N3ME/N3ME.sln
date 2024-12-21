@@ -8,7 +8,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N3ME", "N3ME.vcxproj", "{1A
 		{5E45D92A-702B-4128-A1AF-504A17271D94} = {5E45D92A-702B-4128-A1AF-504A17271D94}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N3Base", "..\..\Client\N3Base\N3Base.vcxproj", "{5E45D92A-702B-4128-A1AF-504A17271D94}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "N3Base", "..\Client\N3Base\N3Base.vcxproj", "{5E45D92A-702B-4128-A1AF-504A17271D94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
