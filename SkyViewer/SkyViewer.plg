@@ -1,0 +1,143 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: SkyViewer - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x412 /fo"Debug/SkyViewer.res" /d "_DEBUG" /d "_AFXDLL" "E:\Knight_c\Knight_c\Client Code\SkyViewer\SkyViewer.rc"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP18.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /D "_N3TOOL" /FR"Debug/" /Fp"Debug/SkyViewer.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\Knight_c\Knight_c\Client Code\SkyViewer\FormViewProperty.cpp"
+"E:\Knight_c\Knight_c\Client Code\SkyViewer\MainFrm.cpp"
+"E:\Knight_c\Knight_c\Client Code\Common Control\PropertyList.cpp"
+"E:\Knight_c\Knight_c\Client Code\SkyViewer\SkyViewer.cpp"
+"E:\Knight_c\Knight_c\Client Code\SkyViewer\SkyViewerDoc.cpp"
+"E:\Knight_c\Knight_c\Client Code\SkyViewer\SkyViewerView.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3Base\BitMapFile.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3AlphaPrimitiveManager.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3AnimKey.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Base.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3BaseFileAccess.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Camera.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Cloud.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3ColorChange.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Eng.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3EngTool.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3GERain.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3GESnow.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3GlobalEffect.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3GlobalEffectMng.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3IMesh.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Light.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Moon.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3PMesh.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3PMeshInstance.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Shape.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Sky.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3SkyMng.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Star.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Sun.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Texture.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3Transform.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3TransformCollision.cpp"
+"E:\Knight_c\Knight_c\Client Code\N3BASE\N3VMesh.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP18.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP19.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /D "_N3TOOL" /FR"Debug/" /Fp"Debug/SkyViewer.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\Knight_c\Knight_c\Client Code\SkyViewer\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP19.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1A.tmp" with contents
+[
+d3d8.lib d3dx8.lib dxguid.lib dxerr8.lib winmm.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/SkyViewer_Debug.pdb" /debug /machine:I386 /out:"SkyViewer_Debug.exe" /pdbtype:sept 
+".\Debug\FormViewProperty.obj"
+".\Debug\MainFrm.obj"
+".\Debug\PropertyList.obj"
+".\Debug\SkyViewer.obj"
+".\Debug\SkyViewerDoc.obj"
+".\Debug\SkyViewerView.obj"
+".\Debug\StdAfx.obj"
+".\Debug\BitMapFile.obj"
+".\Debug\N3AlphaPrimitiveManager.obj"
+".\Debug\N3AnimKey.obj"
+".\Debug\N3Base.obj"
+".\Debug\N3BaseFileAccess.obj"
+".\Debug\N3Camera.obj"
+".\Debug\N3Cloud.obj"
+".\Debug\N3ColorChange.obj"
+".\Debug\N3Eng.obj"
+".\Debug\N3EngTool.obj"
+".\Debug\N3GERain.obj"
+".\Debug\N3GESnow.obj"
+".\Debug\N3GlobalEffect.obj"
+".\Debug\N3GlobalEffectMng.obj"
+".\Debug\N3IMesh.obj"
+".\Debug\N3Light.obj"
+".\Debug\N3Moon.obj"
+".\Debug\N3PMesh.obj"
+".\Debug\N3PMeshInstance.obj"
+".\Debug\N3Shape.obj"
+".\Debug\N3Sky.obj"
+".\Debug\N3SkyMng.obj"
+".\Debug\N3Star.obj"
+".\Debug\N3Sun.obj"
+".\Debug\N3Texture.obj"
+".\Debug\N3Transform.obj"
+".\Debug\N3TransformCollision.obj"
+".\Debug\N3VMesh.obj"
+".\Debug\SkyViewer.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1A.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+FormViewProperty.cpp
+MainFrm.cpp
+PropertyList.cpp
+SkyViewer.cpp
+SkyViewerDoc.cpp
+SkyViewerView.cpp
+BitMapFile.cpp
+N3AlphaPrimitiveManager.cpp
+N3AnimKey.cpp
+N3Base.cpp
+N3BaseFileAccess.cpp
+N3Camera.cpp
+N3Cloud.cpp
+N3ColorChange.cpp
+N3Eng.cpp
+N3EngTool.cpp
+N3GERain.cpp
+N3GESnow.cpp
+N3GlobalEffect.cpp
+N3GlobalEffectMng.cpp
+N3IMesh.cpp
+N3Light.cpp
+N3Moon.cpp
+N3PMesh.cpp
+N3PMeshInstance.cpp
+N3Shape.cpp
+N3Sky.cpp
+N3SkyMng.cpp
+N3Star.cpp
+N3Sun.cpp
+N3Texture.cpp
+N3Transform.cpp
+N3TransformCollision.cpp
+N3VMesh.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+SkyViewer_Debug.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

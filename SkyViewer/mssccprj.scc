@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[SkyViewer.dsp]
+SCC_Aux_Path = "\\Fileserver\VSS\Knight Online"
+SCC_Project_Name = "$/SkyViewer", WXDAAAAA

@@ -1,0 +1,77 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: N3TexViewer - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x412 /fo"Debug/N3TexViewer.res" /d "_DEBUG" /d "_AFXDLL" "D:\source\Knight_c\骑士cilent code\N3TexViewer\N3TexViewer.rc"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP50.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /D "_N3TOOL" /FR"Debug/" /Fp"Debug/N3TexViewer.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\source\Knight_c\骑士cilent code\N3Base\BitMapFile.cpp"
+"D:\source\Knight_c\骑士cilent code\N3TexViewer\DlgFormat.cpp"
+"D:\source\Knight_c\骑士cilent code\N3BASE\LogWriter.cpp"
+"D:\source\Knight_c\骑士cilent code\N3TexViewer\MainFrm.cpp"
+"D:\source\Knight_c\骑士cilent code\N3Base\N3AlphaPrimitiveManager.cpp"
+"D:\source\Knight_c\骑士cilent code\N3Base\N3Base.cpp"
+"D:\source\Knight_c\骑士cilent code\N3Base\N3BaseFileAccess.cpp"
+"D:\source\Knight_c\骑士cilent code\N3Base\N3Eng.cpp"
+"D:\source\Knight_c\骑士cilent code\N3Base\N3EngTool.cpp"
+"D:\source\Knight_c\骑士cilent code\N3Base\N3Texture.cpp"
+"D:\source\Knight_c\骑士cilent code\N3TexViewer\N3TexViewer.cpp"
+"D:\source\Knight_c\骑士cilent code\N3TexViewer\N3TexViewerDoc.cpp"
+"D:\source\Knight_c\骑士cilent code\N3TexViewer\N3TexViewerView.cpp"
+"D:\source\Knight_c\骑士cilent code\N3TexViewer\ProgressBar.cpp"
+"D:\source\Knight_c\骑士cilent code\N3TexViewer\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP50.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP51.tmp" with contents
+[
+d3d8.lib d3dx8.lib dxerr8.lib dxguid.lib dsound.lib winmm.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/N3TexViewer_Debug.pdb" /debug /machine:I386 /out:"N3TexViewer_Debug.exe" /pdbtype:sept 
+".\Debug\BitMapFile.obj"
+".\Debug\DlgFormat.obj"
+".\Debug\LogWriter.obj"
+".\Debug\MainFrm.obj"
+".\Debug\N3AlphaPrimitiveManager.obj"
+".\Debug\N3Base.obj"
+".\Debug\N3BaseFileAccess.obj"
+".\Debug\N3Eng.obj"
+".\Debug\N3EngTool.obj"
+".\Debug\N3Texture.obj"
+".\Debug\N3TexViewer.obj"
+".\Debug\N3TexViewerDoc.obj"
+".\Debug\N3TexViewerView.obj"
+".\Debug\ProgressBar.obj"
+".\Debug\StdAfx.obj"
+".\Debug\N3TexViewer.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP51.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+BitMapFile.cpp
+DlgFormat.cpp
+LogWriter.cpp
+MainFrm.cpp
+N3AlphaPrimitiveManager.cpp
+N3Base.cpp
+N3BaseFileAccess.cpp
+N3Eng.cpp
+N3EngTool.cpp
+N3Texture.cpp
+N3TexViewer.cpp
+N3TexViewerDoc.cpp
+N3TexViewerView.cpp
+ProgressBar.cpp
+StdAfx.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+N3TexViewer_Debug.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

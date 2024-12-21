@@ -1,0 +1,698 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Korean resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
+#pragma code_page(949)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 18, 1\r\n"
+    "#pragma code_page(949)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\N3Viewer.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.kor\\afxres.rc""          // Standard components\r\n"
+    "#include ""l.kor\\afxprint.rc""        // printing/print preview resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\N3Viewer.ico"
+IDR_N3SCENTYPE          ICON    DISCARDABLE     "res\\N3ViewerDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+IDB_N3BASE_NODES        BITMAP  DISCARDABLE     "res\\NodeIcons.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  32, 32
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_PMESH
+    BUTTON      ID_VIEW_WIREFRAME_SELECTED_MESH
+    BUTTON      ID_VIEW_DISABLE_DEFAULT_LIGHT
+    BUTTON      ID_PLAY
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "파일(&F)"
+    BEGIN
+        MENUITEM "Project 경로 지정(&P)...\tCtrl+P", ID_PROJECT_SET
+        MENUITEM "새 파일(&N)\tCtrl+N",         ID_FILE_NEW
+        MENUITEM "열기(&O)...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "저장(&S)\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM "다른 이름으로 저장(&A)...",   ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Import(&I)",                  ID_FILE_IMPORT
+        MENUITEM "Export(&E)",                  ID_FILE_EXPORT
+        MENUITEM "한폴더에 저장하기(&E)",       ID_FILE_SAVE_TO_SAME_FOLDER
+        MENUITEM "내부엔진용으로 저장하기(&B)...", ID_FILE_SAVE_TO_INDOOR
+        MENUITEM SEPARATOR
+        MENUITEM "인쇄(&P)...\tCtrl+P",         ID_FILE_PRINT
+        MENUITEM "인쇄 미리 보기(&V)",          ID_FILE_PRINT_PREVIEW
+        MENUITEM "인쇄 설정(&R)...",            ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "최근 파일",                   ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "종료(&X)",                    ID_APP_EXIT
+    END
+    POPUP "편집(&E)"
+    BEGIN
+        MENUITEM "취소(&U)\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "잘라내기(&T)\tCtrl+X",        ID_EDIT_CUT
+        MENUITEM "복사(&C)\tCtrl+C",            ID_EDIT_COPY
+        MENUITEM "붙여넣기(&P)\tCtrl+V",        ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        POPUP "Add Object\t(&A)"
+        BEGIN
+            MENUITEM "Camera\t(&C)",                ID_EDIT_INSERT_CAMERA
+            MENUITEM "Light\t(&L)",                 ID_EDIT_INSERT_LIGHT
+            MENUITEM "Shape\t(&S)",                 ID_EDIT_INSERT_SHAPE
+            MENUITEM "Character\t(&H)",             ID_EDIT_INSERT_CHARACTER
+        END
+        MENUITEM "Delete Object\tDel",          ID_EDIT_DELETE_FROM_SCENE
+        MENUITEM "Edit Progressive Mesh\t(&E)", ID_EDIT_PMESH
+    END
+    POPUP "보기(&V)"
+    BEGIN
+        MENUITEM "도구 모음\t(&T)",             ID_VIEW_TOOLBAR
+        MENUITEM "상태 표시줄\t(&S)",           ID_VIEW_STATUS_BAR
+        MENUITEM "배경색 설정\t(&B)",           ID_SET_BACKGROUND_COLOR
+        MENUITEM SEPARATOR
+        MENUITEM "Grid\t(&G)",                  ID_VIEW_GRID, CHECKED
+        MENUITEM "Axis\t(&A)",                  ID_VIEW_AXIS, CHECKED
+        MENUITEM "Object Axis\t(&O)",           ID_VIEW_OBJECT_AXIS, CHECKED
+        MENUITEM "Collision Mesh\t(&C)",        ID_VIEW_COLLISION_MESH
+        , CHECKED
+        MENUITEM "Climb Mesh\t(&L)",            ID_VIEW_CLIMB_MESH, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "View selected mesh wireframe\t(&S)", 
+                                                ID_VIEW_WIREFRAME_SELECTED_MESH
+        , CHECKED
+        MENUITEM "기본 라이트 끄기\t(&D)",      ID_VIEW_DISABLE_DEFAULT_LIGHT
+
+        POPUP "FillMode\t(&F)"
+        BEGIN
+            MENUITEM "Wireframe mode\t(&W)",        ID_VIEW_WIREFRAME
+            MENUITEM "Solid mode\t(&S)",            ID_VIEW_SOLID, CHECKED
+        END
+        MENUITEM "Focus Object (F)\tF",         ID_VIEW_FOCUS
+        MENUITEM "Ambient Light Color 설정하기", ID_VIEW_AMBIENT_LIGHT
+    END
+    POPUP "도움말(&H)"
+    BEGIN
+        MENUITEM "N3Viewer 정보(&A)...",        ID_APP_ABOUT
+    END
+    POPUP "도구(T)"
+    BEGIN
+        MENUITEM "Progressive Mesh 검사 및 Fix", 
+                                                ID_TOOL_FIX_PROGRESSIVE_MESH
+    END
+END
+
+IDR_POPUP_SCENE MENU DISCARDABLE 
+BEGIN
+    POPUP "편집(&E)"
+    BEGIN
+        MENUITEM "Import(&I)",                  ID_FILE_IMPORT
+        MENUITEM "Export(&E)",                  ID_FILE_EXPORT
+        MENUITEM SEPARATOR
+        POPUP "Add Object\t(&A)"
+        BEGIN
+            MENUITEM "Camera\t(&C)",                ID_EDIT_INSERT_CAMERA
+            MENUITEM "Light\t(&L)",                 ID_EDIT_INSERT_LIGHT
+            MENUITEM "Shape\t(&S)",                 ID_EDIT_INSERT_SHAPE
+            MENUITEM "Character\t(&H)",             ID_EDIT_INSERT_CHARACTER
+        END
+        MENUITEM "Delete Object\tDel",          ID_EDIT_DELETE_FROM_SCENE
+        MENUITEM "Edit Progressive Mesh\t(&E)", ID_EDIT_PMESH
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "F",            ID_VIEW_FOCUS,          VIRTKEY, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_PROJECT_SET,         VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_ADD_LOD,             VIRTKEY, ALT, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 177
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "N3Viewer 정보"
+FONT 9, "굴림"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "N3Viewer 버전 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2001",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "확인",IDOK,178,7,50,14,WS_GROUP
+    LTEXT           "간단한 도움말",IDC_STATIC,18,51,51,8
+    LTEXT           "Render Flag - 아래의 속성들을 각각 더해서 쓰면 된다.",
+                    IDC_STATIC,15,72,180,8
+    LTEXT           "1 - 알파블렌딩",IDC_STATIC,23,84,180,8
+    LTEXT           "2 - 안개무시",IDC_STATIC,23,96,180,8
+    LTEXT           "4 - 양면",IDC_STATIC,23,108,180,8
+    LTEXT           "8 - Y축으로 카메라를 향함",IDC_STATIC,23,120,180,8
+    LTEXT           "16 - 윤곽 보전",IDC_STATIC,23,132,180,8
+    LTEXT           "32 - 바람에 날림",IDC_STATIC,23,144,180,8
+    LTEXT           "64 - 밤낮에 관계없이 밝음",IDC_STATIC,23,156,180,8
+END
+
+IDD_BASE DIALOGEX 0, 0, 132, 362
+STYLE WS_CHILD
+EXSTYLE WS_EX_TOOLWINDOW
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_E_NAME,3,12,126,12,ES_AUTOHSCROLL
+    LTEXT           "등록정보",IDC_STATIC_NAME,3,3,30,8
+    LISTBOX         IDC_LP_TRANSFORM,3,25,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_SHAPE,3,150,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CHR,3,198,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_PART_SHAPE,3,135,126,165,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_LOD,69,186,60,165,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_CB_PART_CHARACTER,3,186,48,165,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CAMERA,3,63,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_LIGHT,3,99,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_MATERIAL,3,321,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CB_PLUG_CHARACTER,3,270,126,165,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CHR_PART,3,234,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LP_CHR_PLUG,3,285,126,36,LBS_OWNERDRAWVARIABLE | 
+                    LBS_HASSTRINGS | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP
+END
+
+IDD_PMESH_CREATE_OPTION DIALOG DISCARDABLE  0, 0, 187, 225
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "PMesh 만들기 옵션"
+FONT 9, "굴림"
+BEGIN
+    GROUPBOX        "Loss 계산..",IDC_STATIC,5,10,175,60
+    CONTROL         "Most Loss",IDC_RADIO_MOST_LOSS,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,10,25,50,10
+    CONTROL         "Loss Sum",IDC_RADIO_LOSS_SUM,"Button",
+                    BS_AUTORADIOBUTTON,10,45,50,10
+    LTEXT           "삼각형 병합 가중치 계산할때 Loss중에서 가장 큰 값을 선택",
+                    IDC_STATIC,70,20,105,20
+    LTEXT           "삼각형 병합 가중치 계산할때 모든 Loss들의 합을 고려 (권장)",
+                    IDC_STATIC,70,45,105,20
+    CONTROL         "사라질 삼각형 가중치 고려",IDC_CHECK_TRIANGLE_LOSS,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,5,85,95,10
+    LTEXT           "전체적인 모양이 덩어리가 아니고 뼈대같은 것이 많을때 사용을 권장",
+                    IDC_STATIC,105,75,75,30
+    GROUPBOX        "사라질 삼각형 가중치 계산 방법",IDC_STATIC,5,110,175,75
+    CONTROL         "넓이 계산",IDC_RADIO_AREA,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,10,125,50,10
+    CONTROL         "세변의 합",IDC_RADIO_SIDE,"Button",BS_AUTORADIOBUTTON,
+                    10,145,50,10
+    LTEXT           "길고 가는 삼각형이 많이 있을때 사용을 권장합니다.",
+                    IDC_STATIC,65,140,110,20
+    CTEXT           "가중치",IDC_STATIC,10,165,40,10
+    EDITTEXT        IDC_EDIT_WEIGHT,60,165,45,13,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,7,204,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,130,204,50,14
+END
+
+IDD_PMESH_EDIT DIALOGEX 0, 0, 243, 195
+STYLE WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Progressive Mesh Editor"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_NUMVERTICES,57,99,36,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    RTEXT           "Vertices Count",IDC_STATIC,6,99,48,12,SS_CENTERIMAGE
+    CONTROL         "Setting Mode",IDC_CHECK_PREVIEW,"Button",
+                    BS_AUTOCHECKBOX | BS_PUSHLIKE | BS_MULTILINE | 
+                    WS_TABSTOP,3,165,27,24
+    SCROLLBAR       IDC_SCROLLBAR_VERTEX,6,36,231,12
+    PUSHBUTTON      "Add LOD(Alt+S)",IDC_BUTTON_ADD,3,129,90,15,BS_MULTILINE
+    PUSHBUTTON      "Delete LOD",IDC_BUTTON_DELETE,3,147,90,15,BS_MULTILINE
+    PUSHBUTTON      "Remake PMesh",IDC_BUTTON_MAKE_PMESH,30,165,33,24,
+                    BS_MULTILINE
+    PUSHBUTTON      "Save PMesh",IDC_BUTTON_SAVE,63,165,30,24,BS_MULTILINE
+    COMBOBOX        IDC_CB_PART,6,21,234,279,CBS_DROPDOWNLIST | 
+                    CBS_AUTOHSCROLL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Mesh 선택",IDC_STATIC,6,6,36,9
+    LISTBOX         IDC_LB_LOD,96,54,141,135,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "LOD 처리됨",IDC_STATIC_LOD,48,6,48,9,SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_NUMFACES,57,114,36,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    RTEXT           "Face Count",IDC_STATIC,6,114,48,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_E_LOD_FOV,57,54,36,12,ES_AUTOHSCROLL | ES_READONLY
+    RTEXT           "FOV",IDC_STATIC,18,54,36,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_E_LOD_DISTANCE,57,69,36,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    RTEXT           "Distance",IDC_STATIC,24,69,30,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_E_LOD_VAL,57,84,36,12,ES_AUTOHSCROLL | ES_READONLY
+    RTEXT           "LOD Value",IDC_STATIC,18,84,36,12,SS_CENTERIMAGE
+    PUSHBUTTON      "모두 Progressive Mesh 만들기",IDC_B_MAKE_PMESH_ALL,99,3,
+                    141,15
+END
+
+IDD_BROWSE_PATH DIALOGEX 0, 0, 167, 272
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Browse Path"
+FONT 9, "굴림", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,6,249,72,14
+    PUSHBUTTON      "Cancel",IDCANCEL,90,249,68,14
+    CONTROL         "Tree1",IDC_BROWSE_TREE,"SysTreeView32",TVS_HASBUTTONS | 
+                    TVS_HASLINES | TVS_LINESATROOT | WS_BORDER | WS_TABSTOP,
+                    6,24,153,219
+    COMBOBOX        IDC_FILELIST,5,5,133,80,CBS_DROPDOWN | CBS_AUTOHSCROLL | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "->",IDC_SYNCH_FOLDERS,144,6,15,14
+END
+
+IDD_ANIMTED_TEXTURE DIALOG DISCARDABLE  0, 0, 189, 195
+STYLE DS_3DLOOK | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Animated Texture"
+FONT 9, "굴림"
+BEGIN
+    EDITTEXT        IDC_E_NAME,27,24,63,12,ES_AUTOHSCROLL
+    LISTBOX         IDC_LIST_ANIMATED_TEXTURE,6,39,174,147,
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_HSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_CB_ANIMATED_DATA,27,9,153,165,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Browse",IDC_B_BROWSE,150,24,30,12
+    LTEXT           "Speed",IDC_STATIC,93,24,21,12,SS_CENTERIMAGE
+    EDITTEXT        IDC_E_SPEED,117,24,30,12,ES_AUTOHSCROLL
+    LTEXT           "이름",IDC_STATIC,6,24,15,12,SS_CENTERIMAGE
+    LTEXT           "구분",IDC_STATIC,6,9,15,12,SS_CENTERIMAGE
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,4,2,1440
+ PRODUCTVERSION 2,4,2,1440
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041204b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "N3Scene File\0"
+            VALUE "FileVersion", "2, 4, 2, 1440\0"
+            VALUE "InternalName", "N3Viewer\0"
+            VALUE "LegalCopyright", "Copyright (C) 2001\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "N3Viewer.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "Noah System Scene Viewer\0"
+            VALUE "ProductVersion", "2, 4, 2, 1440\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x412, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
+    END
+
+    IDD_BASE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 125
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 355
+    END
+
+    IDD_PMESH_CREATE_OPTION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_PMESH_EDIT, DIALOG
+    BEGIN
+        RIGHTMARGIN, 240
+        BOTTOMMARGIN, 177
+    END
+
+    IDD_BROWSE_PATH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 160
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 265
+    END
+
+    IDD_ANIMTED_TEXTURE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 182
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 188
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_BASE DLGINIT
+BEGIN
+    IDC_CB_LOD, 0x403, 4, 0
+0x4f4c, 0x0044, 
+    IDC_CB_PART_CHARACTER, 0x403, 5, 0
+0x6150, 0x7472, "\000" 
+    IDC_CB_PLUG_CHARACTER, 0x403, 5, 0
+0x6c50, 0x6775, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "N3Viewer\n\nUntitled\nN3Scene 파일 (*.N3Scene)\n.n3scene\nN3Scene\nN3Scene"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "N3Viewer"
+    AFX_IDS_IDLEMESSAGE     "준비"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "새 문서를 작성합니다\n새 파일"
+    ID_FILE_OPEN            "기존 문서를 엽니다\n열기"
+    ID_FILE_CLOSE           "현재 열린 문서를 닫습니다\n닫기"
+    ID_FILE_SAVE            "현재 열린 문서를 저장합니다\n저장"
+    ID_FILE_SAVE_AS         "현재 열린 문서를 다른 이름으로 저장합니다\n다른 이름으로 저장"
+    ID_FILE_PAGE_SETUP      "인쇄 옵션을 변경합니다\n쪽 설정"
+    ID_FILE_PRINT_SETUP     "프린터와 인쇄 옵션을 변경합니다\n인쇄 설정"
+    ID_FILE_PRINT           "현재 열린 문서를 인쇄합니다\n인쇄"
+    ID_FILE_PRINT_PREVIEW   "쪽 전체를 표시합니다\n인쇄 미리 보기"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "프로그램 정보와 버전 정보, 저작권 정보를 표시합니다\n정보"
+    ID_APP_EXIT             "응용 프로그램을 종료하기 위해 문서를 저장할 것인지 묻습니다\n종료"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE2       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE3       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE4       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE5       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE6       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE7       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE8       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE9       "이 문서를 엽니다"
+    ID_FILE_MRU_FILE10      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE11      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE12      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE13      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE14      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE15      "이 문서를 엽니다"
+    ID_FILE_MRU_FILE16      "이 문서를 엽니다"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "다음 창으로 전환합니다\n다음 창"
+    ID_PREV_PANE            "이전 창으로 전환합니다\n이전 창"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "선택 부분을 지웁니다\n지우기"
+    ID_EDIT_CLEAR_ALL       "모든 것을 지웁니다\n모두 지우기"
+    ID_EDIT_COPY            "선택 부분을 복사하여 클립보드에 넣습니다\n복사"
+    ID_EDIT_CUT             "선택 부분을 잘라내어 클립보드에 넣습니다\n잘라내기"
+    ID_EDIT_FIND            "지정한 문자열을 찾습니다\n찾기"
+    ID_EDIT_PASTE           "클립보드의 내용을 붙여 넣습니다\n붙여넣기"
+    ID_EDIT_REPEAT          "마지막으로 실행한 동작을 반복합니다\n반복"
+    ID_EDIT_REPLACE         "지정한 문자열을 다른 문자열로 바꿉니다\n바꾸기"
+    ID_EDIT_SELECT_ALL      "문서 전체를 선택합니다\n전체 선택"
+    ID_EDIT_UNDO            "마지막으로 한 동작을 취소합니다\n실행 취소"
+    ID_EDIT_REDO            "이전에 취소한 동작을 다시 수행합니다\n다시 실행"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "도구 모음을 보이거나 감춥니다\n도구 모음 전환"
+    ID_VIEW_STATUS_BAR      "상태 표시줄을 표시하거나 감춥니다\n상태 표시줄 전환"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "창의 크기를 변경합니다"
+    AFX_IDS_SCMOVE          "창의 위치를 변경합니다"
+    AFX_IDS_SCMINIMIZE      "창을 아이콘으로 줄여서 표시합니다"
+    AFX_IDS_SCMAXIMIZE      "창을 최대 크기로 확장합니다"
+    AFX_IDS_SCNEXTWINDOW    "다음 문서 창으로 전환합니다"
+    AFX_IDS_SCPREVWINDOW    "이전 문서 창으로 전환합니다"
+    AFX_IDS_SCCLOSE         "현재 열린 창을 닫고 문서를 저장할 것인지를 묻습니다"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "창을 원래 크기로 복원합니다"
+    AFX_IDS_SCTASKLIST      "작업 목록을 활성화합니다"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "인쇄 미리 보기 모드를 닫습니다\n미리 보기 취소"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_SELECTED_MESH   "view wireframe Selected mesh.\nView selected mesh"
+    ID_EDIT_INSERT_CAMERA   "Scene에 Camera를 추가합니다.\nInsert Camera"
+    ID_EDIT_INSERT_LIGHT    "Scene에 Light를 추가합니다.\nInsert Light"
+    ID_EDIT_INSERT_SHAPE    "Scene에 Shape를 추가합니다.\nInsert Shape"
+    ID_EDIT_INSERT_CHARACTER 
+                            "Scene에 Character를 추가합니다.\nInsert Character"
+    ID_EDIT_COPY_SHAPE      "현재 선택된 Mesh 를 WireFrame 으로 보여줍니다.\nView selected mesh to wireframe"
+    ID_VIEW_DISABLE_DEFAULT_LIGHT 
+                            "기본 방향 라이트를 켜고 끕니다.\n기본 라이트 끄기"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_IMPORT          "파일에서 객체를 Import 합니다.\n객체 Import"
+    ID_FILE_EXPORT          "파일에서 객체를 Import 합니다.\n객체 Export"
+    ID_EDIT_PMESH           "Progressive Mesh 를 편집합니다.\nProgressive Mesh 편집"
+    ID_EDIT_DELETE_FROM_SCENE "선택된 객체를 Scene 에서 삭제합니다.\n삭제"
+    ID_EDIT_IMPORT          "View world grid line.\nView grid"
+    ID_EDIT_EXPORT          "View world axis line.\nView axis"
+    ID_VIEW_OBJECT_AXIS     "View object's local axis line.\nView local axis"
+    ID_VIEW_WIREFRAME       "View object with wireframe mode.\nWireframe fill mode"
+    ID_VIEW_SOLID           "View object with solid mode.\nSolid fill mode"
+    ID_VIEW_COLLISION_MESH  "View Collision Mesh.\nView Collision"
+    ID_EDIT_ANIMATION       "View Climb Mesh.\nView Climb"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_PMESH_EDIT           "Progressive Mesh 를 편집합니다.\nProgressive Mesh 편집"
+    ID_EDIT_PROPERTY        "선택된 객체의 설정을 편집합니다.\n객체편집"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_PROJECT_SET          "Project 경로를 지정합니다.\\Project 경로 지정"
+END
+
+#endif    // Korean resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
+#ifdef _WIN32
+LANGUAGE 18, 1
+#pragma code_page(949)
+#endif //_WIN32
+#include "res\N3Viewer.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.kor\afxres.rc"          // Standard components
+#include "l.kor\afxprint.rc"        // printing/print preview resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
