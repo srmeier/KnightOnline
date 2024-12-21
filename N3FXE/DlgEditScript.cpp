@@ -1,4 +1,4 @@
-// DlgEditScript.cpp : implementation file
+Ôªø// DlgEditScript.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -268,7 +268,7 @@ void CDlgEditScript::OnBtnStop()
 	m_pFXBundle->Stop();
 }
 
-//strPathName¿∫ FullPath...
+//strPathNameÏùÄ FullPath...
 bool CDlgEditScript::LoadBundle(CString &strPathName)
 {
 	if(m_pFXBundle)
@@ -278,7 +278,7 @@ bool CDlgEditScript::LoadBundle(CString &strPathName)
 	}
 
 	///////////////////////////////////////////////////
-	// Dialog√ ±‚»≠..
+	// DialogÏ¥àÍ∏∞Ìôî..
 	for(int i=0;i<MAX_FX_PART;i++)
 	{
 		(*m_pPartStartTime[i]) = 0.0f;		
@@ -293,7 +293,7 @@ bool CDlgEditScript::LoadBundle(CString &strPathName)
 
 	m_pFXBundle = new CN3FXBundle;
 	m_pRefFrm->m_pCurrFX = m_pFXBundle;
-	if(m_pFXBundle->DecodeScriptFile((LPCTSTR)strPathName))	//π¯µÈ Ω∫≈©∏≥∆Æ ¿–±‚ º∫∞¯«ﬂ¿∏∏È...
+	if(m_pFXBundle->DecodeScriptFile((LPCTSTR)strPathName))	//Î≤àÎì§ Ïä§ÌÅ¨Î¶ΩÌä∏ ÏùΩÍ∏∞ ÏÑ±Í≥µÌñàÏúºÎ©¥...
 	{
 		//
 		//	set part editor 
@@ -311,7 +311,7 @@ bool CDlgEditScript::LoadBundle(CString &strPathName)
 				_splitpath(szPartFullPath.c_str(), szDrive, szDir, szFName, szExt);
 				_makepath(szScriptFullPath, szDrive, szDir, szFName, "n3fxpart");
 
-				//ƒﬁ∫∏π⁄Ω∫ º¬∆√..
+				//ÏΩ§Î≥¥Î∞ïÏä§ ÏÖãÌåÖ..
 				char szComboName[_MAX_PATH];
 				_splitpath(szScriptFullPath, szDrive, szDir, szFName, szExt);
 				_makepath(szComboName, NULL, NULL, szFName, szExt);
@@ -326,7 +326,7 @@ bool CDlgEditScript::LoadBundle(CString &strPathName)
 						m_pPartName[i]->SetCurSel(j);
 					}
 				}
-				//ø∑¿« Ω√∞£ ø°µ∆Æπ⁄Ω∫µµ º¬∆√..^^
+				//ÏòÜÏùò ÏãúÍ∞Ñ ÏóêÎîîÌä∏Î∞ïÏä§ÎèÑ ÏÖãÌåÖ..^^
 				(*m_pPartStartTime[i]) = m_pFXBundle->GetPartSTime(i);				
 			}
 		}
@@ -353,7 +353,7 @@ bool CDlgEditScript::NewBundle()
 	}
 
 	///////////////////////////////////////////////////
-	// Dialog√ ±‚»≠..
+	// DialogÏ¥àÍ∏∞Ìôî..
 	OnInitDialog();
 	/*
 	for(int i=0;i<MAX_FX_PART;i++)
@@ -392,7 +392,7 @@ BOOL CDlgEditScript::OnInitDialog()
 		m_pPartName[i]->InsertString(0,"NONE");
 		m_pPartName[i]->SetCurSel(0);
 
-		//	m_CBPartNameµÈ √§øÏ±‚..
+		//	m_CBPartNameÎì§ Ï±ÑÏö∞Í∏∞..
 
 		CString strPath;
 		CN3BaseFileAccess* pBaseFileAccess = new CN3BaseFileAccess;
@@ -467,7 +467,7 @@ void CDlgEditScript::ReloadCombo()
 		m_pPartName[i]->InsertString(0,"NONE");
 		m_pPartName[i]->SetCurSel(0);
 
-		//	m_CBPartNameµÈ √§øÏ±‚..
+		//	m_CBPartNameÎì§ Ï±ÑÏö∞Í∏∞..
 		CString strPath;
 		CN3BaseFileAccess* pBaseFileAccess = new CN3BaseFileAccess;
 		strPath = pBaseFileAccess->PathGet().c_str();

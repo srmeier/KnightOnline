@@ -1,4 +1,4 @@
-// MainFrm.cpp : implementation of the CMainFrame class
+ï»¿// MainFrm.cpp : implementation of the CMainFrame class
 //
 
 #include "stdafx.h"
@@ -87,10 +87,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
-	// Engine »ı¼º
+	// Engine ìƒì„±
 //	m_Eng.InitEnv();
 	if(!m_Eng.Init(TRUE, m_hWnd, 64, 64, 0, TRUE)) return -1;
-	m_Eng.GridCreate(1000, 1000); // ±×¸®µå ¸¸µé±â..
+	m_Eng.GridCreate(1000, 1000); // ê·¸ë¦¬ë“œ ë§Œë“¤ê¸°..
 
 	return 0;
 }
@@ -252,7 +252,7 @@ void CMainFrame::OnToolFixProgressiveMesh()
 	}
 
 	CFile file;
-	file.Open("ÇÁ·Î±×·¹½Ãºê ¸Ş½¬ Ã³¸® ¾ÈµÈ ¸®½ºÆ®.txt", CFile::modeWrite | CFile::modeCreate);
+	file.Open("í”„ë¡œê·¸ë ˆì‹œë¸Œ ë©”ì‰¬ ì²˜ë¦¬ ì•ˆëœ ë¦¬ìŠ¤íŠ¸.txt", CFile::modeWrite | CFile::modeCreate);
 
 	CN3PMesh PM;
 	POSITION pos = dlg.GetStartPosition();
@@ -267,12 +267,12 @@ void CMainFrame::OnToolFixProgressiveMesh()
 		if(PM.LODCtrlCount() <= 0 || PM.CollapsesCount() <= 0)
 		{
 			CString szWarning;
-			szWarning.Format("LOD Ã³¸® ¾ÈµÊ : %s\r\n", PM.FileName().c_str());
+			szWarning.Format("LOD ì²˜ë¦¬ ì•ˆë¨ : %s\r\n", PM.FileName().c_str());
 			file.Write(szWarning, szWarning.GetLength());
 		}
 	}
 
-	MessageBox("ÇÁ·Î±×·¹½Ãºê Ã³¸®°¡ ¾ÈµÈ ÆÄÀÏ¸®½ºÆ®´Â \"ÇÁ·Î±×·¹½Ãºê ¸Ş½¬ Ã³¸® ¾ÈµÈ ¸®½ºÆ®.txt\" ÆÄÀÏ¿¡ ±â·ÏµÇ¾ú½À´Ï´Ù.");
+	MessageBox("í”„ë¡œê·¸ë ˆì‹œë¸Œ ì²˜ë¦¬ê°€ ì•ˆëœ íŒŒì¼ë¦¬ìŠ¤íŠ¸ëŠ” \"í”„ë¡œê·¸ë ˆì‹œë¸Œ ë©”ì‰¬ ì²˜ë¦¬ ì•ˆëœ ë¦¬ìŠ¤íŠ¸.txt\" íŒŒì¼ì— ê¸°ë¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
 	file.Close();
 
 	delete [] pBuff;

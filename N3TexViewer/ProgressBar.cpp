@@ -1,4 +1,4 @@
-// ProgressBar.cpp : implementation file
+ï»¿// ProgressBar.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -37,21 +37,21 @@ END_MESSAGE_MAP()
 
 BOOL CProgressBar::Create(LPCTSTR strMessage, int nSize, int MaxValue)
 {
-	// »óÅÂ¹Ù¸¦ ¾òÀ½
+	// ìƒíƒœë°”ë¥¼ ì–»ìŒ
 	CStatusBar * pStatusBar = GetStatusBar();
 	if (pStatusBar == NULL) return FALSE;
 
-	// »óÅÂ¹Ù À§¿¡ ÇÁ·Î±×·¹½º ÄÁÆ®·Ñ»ý¼º
+	// ìƒíƒœë°” ìœ„ì— í”„ë¡œê·¸ë ˆìŠ¤ ì»¨íŠ¸ë¡¤ìƒì„±
 	if(!CProgressCtrl::Create(WS_CHILD|WS_VISIBLE, CRect(0,0,0,0), pStatusBar, 1)) return FALSE;
 
-	// ÇÁ·Î±×·¹½º ÄÁÆ®·ÑÀÇ ¹üÀ§¿Í ½ºÅÜ ¼³Á¤
+	// í”„ë¡œê·¸ë ˆìŠ¤ ì»¨íŠ¸ë¡¤ì˜ ë²”ìœ„ì™€ ìŠ¤í… ì„¤ì •
 	SetRange(0, MaxValue);
 	SetStep(1);
 
 	m_strMessage = strMessage;
 	m_nSize = nSize;
 
-	// À§Ä¡¿Í Å©±â Á¶Á¤
+	// ìœ„ì¹˜ì™€ í¬ê¸° ì¡°ì •
 	Resize();
 	return TRUE;
 }
@@ -72,33 +72,33 @@ void CProgressBar::Resize()
 	CStatusBar* pStatusBar = GetStatusBar();
 	if (pStatusBar == NULL) return;
 
-	// ÅØ½ºÆ® Ãâ·Â
+	// í…ìŠ¤íŠ¸ ì¶œë ¥
 	if (::IsWindow(m_hWnd) && IsWindowVisible())
 	{
 		pStatusBar->SetWindowText(m_strMessage);
 		pStatusBar->UpdateWindow();
 	}
 
-	// ÅØ½ºÆ®°¡ Â÷ÁöÇÏ´Â ¿µ¿ª °è»ê
+	// í…ìŠ¤íŠ¸ê°€ ì°¨ì§€í•˜ëŠ” ì˜ì—­ ê³„ì‚°
 	CClientDC dc(pStatusBar);
 	CFont* pOldFont = dc.SelectObject(pStatusBar->GetFont());
 	CSize size = dc.GetTextExtent(m_strMessage);
 	int margin = dc.GetTextExtent(_T(" ")).cx*2;
 	dc.SelectObject(pOldFont);
 
-	// ÇÁ·Î±×·¹½º ÄÁÆ®·ÑÀÌ ±×·ÁÁú ¿µ¿ª °è»ê
+	// í”„ë¡œê·¸ë ˆìŠ¤ ì»¨íŠ¸ë¡¤ì´ ê·¸ë ¤ì§ˆ ì˜ì—­ ê³„ì‚°
 	CRect rc;
 	pStatusBar->GetItemRect(0, rc);
 	rc.left = size.cx + 2*margin;
 	rc.right = rc.left + (rc.right-rc.left)*m_nSize/100;
 	if (rc.right < rc.left) rc.right = rc.left;
 
-	// »óÅÂ¹Ù »óÇÏ·Î 10%ÀÇ ¿©¹éÀ» µÒ
+	// ìƒíƒœë°” ìƒí•˜ë¡œ 10%ì˜ ì—¬ë°±ì„ ë‘ 
 	int Height = rc.bottom - rc.top;
 	rc.bottom -= Height/10;
 	rc.top += Height/10;
 
-	// ÇÁ·Î±×·¹½º ÄÁÆ®·ÑÀÇ À§Ä¡¿Í Å©±â¸¦ ÀçÁ¶Á¤
+	// í”„ë¡œê·¸ë ˆìŠ¤ ì»¨íŠ¸ë¡¤ì˜ ìœ„ì¹˜ì™€ í¬ê¸°ë¥¼ ìž¬ì¡°ì •
 	if (::IsWindow(m_hWnd) && (rc != m_Rect)) MoveWindow(&rc);
 	m_Rect = rc;
 }

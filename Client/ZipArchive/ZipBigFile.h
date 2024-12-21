@@ -1,4 +1,4 @@
-// ZipBigFile.h: interface for the CZipBigFile class.
+﻿// ZipBigFile.h: interface for the CZipBigFile class.
 //
 //////////////////////////////////////////////////////////////////////
 

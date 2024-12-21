@@ -1,4 +1,4 @@
-// ZipArchive.cpp: implementation of the CZipArchive class.
+﻿// ZipArchive.cpp: implementation of the CZipArchive class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.
@@ -948,7 +948,7 @@ void CZipArchive::DeleteInternal(WORD uIndex)
 	
 	m_centralDir.RemoveFile(uIndex);
 	
-	// teraz uaktualnij offsety w pozosta�ych pozycjach central dir 
+	// teraz uaktualnij offsety w pozostałych pozycjach central dir 
 	// (update offsets in file headers in the central dir)
 	if (uOtherOffsetChanged)
 		for (int i = uIndex; i < GetNoEntries(); i++)

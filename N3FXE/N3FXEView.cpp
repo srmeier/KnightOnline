@@ -1,4 +1,4 @@
-// N3FXEView.cpp : implementation of the CN3FXEView class
+﻿// N3FXEView.cpp : implementation of the CN3FXEView class
 //
 
 #include "stdafx.h"

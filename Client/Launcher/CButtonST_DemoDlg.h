@@ -1,4 +1,4 @@
-#ifndef _CBUTTONST_DEMODLG_H_
+﻿#ifndef _CBUTTONST_DEMODLG_H_
 #define _CBUTTONST_DEMODLG_H_
 
 #include "BtnST.h"

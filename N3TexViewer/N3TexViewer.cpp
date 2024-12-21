@@ -1,4 +1,4 @@
-// N3TexViewer.cpp : Defines the class behaviors for the application.
+﻿// N3TexViewer.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"

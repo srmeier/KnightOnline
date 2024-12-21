@@ -1,4 +1,4 @@
-// Launcher.h : main header file for the LAUNCHER application
+﻿// Launcher.h : main header file for the LAUNCHER application
 //
 
 #if !defined(AFX_LAUNCHER_H__E8289BE5_E48B_4B72_AA38_5C6AFAA024EC__INCLUDED_)

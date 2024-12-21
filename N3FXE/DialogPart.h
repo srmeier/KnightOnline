@@ -1,4 +1,4 @@
-// DialogPart.h: interface for the CDialogPart class.
+﻿// DialogPart.h: interface for the CDialogPart class.
 //
 //////////////////////////////////////////////////////////////////////
 

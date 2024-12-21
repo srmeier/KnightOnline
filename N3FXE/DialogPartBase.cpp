@@ -1,4 +1,4 @@
-// DialogPartBase.cpp : implementation file
+﻿// DialogPartBase.cpp : implementation file
 //
 
 #include "stdafx.h"

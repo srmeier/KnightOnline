@@ -1,4 +1,4 @@
-// ZipInternalInfo.h: interface for the CZipInternalInfo class.
+﻿// ZipInternalInfo.h: interface for the CZipInternalInfo class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

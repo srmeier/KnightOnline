@@ -1,4 +1,4 @@
-// FormViewProperty.cpp : implementation file
+Ôªø// FormViewProperty.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -67,7 +67,7 @@ void CFormViewProperty::OnInitialUpdate()
 		CRect rc;
 		this->GetClientRect(&rc);
 		/////////////////////////////////////
-		// Material µÓ∑œ ¡§∫∏
+		// Material Îì±Î°ù Ï†ïÎ≥¥
 		CString strTmp;
 
 		m_LPMtl.AddPropItem("Render Flags", "0", PIT_EDIT, "", 0);
@@ -92,12 +92,12 @@ void CFormViewProperty::OnInitialUpdate()
 		m_LPMtl.AddPropItem("Emissive Color", "", PIT_COLOR, "");
 		m_LPMtl.AddPropItem("Texture", "", PIT_FILE, "");
 
-		m_LPMtl.SetDividerWidth(100); // ¡ﬂ∞£ ∫–«“º± ¡∂¡§
-		// Material µÓ∑œ ¡§∫∏
+		m_LPMtl.SetDividerWidth(100); // Ï§ëÍ∞Ñ Î∂ÑÌï†ÏÑ† Ï°∞Ï†ï
+		// Material Îì±Î°ù Ï†ïÎ≥¥
 		/////////////////////////////////////
 
 		/////////////////////////////////////
-		// Plug µÓ∑œ ¡§∫∏
+		// Plug Îì±Î°ù Ï†ïÎ≥¥
 		m_LPPlug.AddPropItem("Joint", "", PIT_BUTTON, "", 0);
 		m_LPPlug.AddPropItem("Position", "", PIT_BUTTON, "", 0);
 		m_LPPlug.AddPropItem("Scale", "", PIT_BUTTON, "", 0);
@@ -115,23 +115,23 @@ void CFormViewProperty::OnInitialUpdate()
 		for(int i = 0; i < MAX_PLUG_FX_POSITION; i++) { strTmp += ('0' + i); strTmp += "|"; }
 		m_LPPlug.AddPropItem("FX Pos", "", PIT_COMBO, strTmp);
 		
-		m_LPPlug.SetDividerWidth(100); // ¡ﬂ∞£ ∫–«“º± ¡∂¡§
-		// Plug µÓ∑œ ¡§∫∏
+		m_LPPlug.SetDividerWidth(100); // Ï§ëÍ∞Ñ Î∂ÑÌï†ÏÑ† Ï°∞Ï†ï
+		// Plug Îì±Î°ù Ï†ïÎ≥¥
 		/////////////////////////////////////
 
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-11 ø¿¿¸ 9:53:37 )
-//	FX Plug µÓ∑œ ¡§∫∏
+//	Coded (By Dino On 2002-10-11 Ïò§Ï†Ñ 9:53:37 )
+//	FX Plug Îì±Î°ù Ï†ïÎ≥¥
 		m_LPFXPlugPart.AddPropItem("FXB", "", PIT_FILE, "FX Bundle(*.FXB)|*.FXB||", 0);
 		m_LPFXPlugPart.AddPropItem("Referance Index", "", PIT_EDIT, "", 0);
 		m_LPFXPlugPart.AddPropItem("Offset Pos", "", PIT_EDIT, "", 0);
 		m_LPFXPlugPart.AddPropItem("Offset Dir", "", PIT_EDIT, "", 0);
 
 		m_LPFXPlugPart.SetDividerWidth(100);
-//	End Of Code (By Dino On 2002-10-11 ø¿¿¸ 9:53:37 )
+//	End Of Code (By Dino On 2002-10-11 Ïò§Ï†Ñ 9:53:37 )
 //////////////////////////////////////////////////
 
-		// Tree Control ø° ¿ÃπÃ¡ˆ ∏ÆΩ∫∆Æ ø¨∞·
+		// Tree Control Ïóê Ïù¥ÎØ∏ÏßÄ Î¶¨Ïä§Ìä∏ Ïó∞Í≤∞
 		m_ImgList.Create(IDB_N3BASE_NODES, 20, 16, RGB(255,0,255));
 		m_TreeChr.SetImageList(&m_ImgList, TVSIL_NORMAL);
 
@@ -185,7 +185,7 @@ END_MESSAGE_MAP()
 // CFormViewProperty message handlers
 void CFormViewProperty::UpdateWindowPos()
 {
-	// ¿œ¥‹ º˚±‚∞Ì..
+	// ÏùºÎã® Ïà®Í∏∞Í≥†..
 	m_LPPlug.ShowWindow(SW_HIDE);
 	m_LPMtl.ShowWindow(SW_HIDE);
 	m_LPFXPlugPart.ShowWindow(SW_HIDE);
@@ -229,7 +229,7 @@ void CFormViewProperty::UpdateWindowPos()
 	}
 
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-11 ø¿¿¸ 10:24:21 )
+//	Coded (By Dino On 2002-10-11 Ïò§Ï†Ñ 10:24:21 )
 //	FXPlugPart
 	if (pBase && pBase->Type() & OBJ_FX_PLUG_PART)
 	{
@@ -239,7 +239,7 @@ void CFormViewProperty::UpdateWindowPos()
 		m_LPFXPlugPart.ShowWindow(SW_SHOW);
 		y -= 5;
 	}
-//	End Of Code (By Dino On 2002-10-11 ø¿¿¸ 10:24:21 )
+//	End Of Code (By Dino On 2002-10-11 Ïò§Ï†Ñ 10:24:21 )
 //////////////////////////////////////////////////
 
 	m_TreeChr.SetWindowPos(NULL, x, 5, cx, y, SWP_NOZORDER);
@@ -296,7 +296,7 @@ void CFormViewProperty::UpdateInfo()
 		if(pItem) pItem->m_curValue.Format("%d", 0);		
 	}
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-11 ø¿¿¸ 10:31:36 )
+//	Coded (By Dino On 2002-10-11 Ïò§Ï†Ñ 10:31:36 )
 //	FXPlugPart
 	else if(pBase->Type() & OBJ_FX_PLUG_PART)
 	{
@@ -317,10 +317,10 @@ void CFormViewProperty::UpdateInfo()
 
 		m_LPFXPlugPart.Invalidate();
 	}
-//	End Of Code (By Dino On 2002-10-11 ø¿¿¸ 10:31:36 )
+//	End Of Code (By Dino On 2002-10-11 Ïò§Ï†Ñ 10:31:36 )
 //////////////////////////////////////////////////
 
-	// ¿Á¡˙
+	// Ïû¨Ïßà
 	if(pMtl)
 	{
 		pItem = m_LPMtl.GetPropItem("Render Flags");
@@ -406,7 +406,7 @@ BOOL CFormViewProperty::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 		CPropertyItem* pItem = (CPropertyItem*)lParam;
 
 		CN3CPlug* pPlug = (CN3CPlug*)pBase;
-		pFrm->GetPaneRender()->m_eCursorMode = eCM_Nothing; // ƒøº≠∏µÂ∏¶ ∫∏≈Î¿∏∑Œ «ÿ≥ı∞Ì..
+		pFrm->GetPaneRender()->m_eCursorMode = eCM_Nothing; // Ïª§ÏÑúÎ™®ÎìúÎ•º Î≥¥ÌÜµÏúºÎ°ú Ìï¥ÎÜìÍ≥†..
 		if(pItem->m_propName == "Joint") pFrm->GetPaneRender()->m_eCursorMode = eCM_PickJoint;
 		else if(pItem->m_propName == "Position") pFrm->GetPaneRender()->m_eCursorMode = eCM_PlugPosition;
 		else if(pItem->m_propName == "Scale") pFrm->GetPaneRender()->m_eCursorMode = eCM_PlugScale;
@@ -442,7 +442,7 @@ BOOL CFormViewProperty::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 		pFrm->GetPaneRender()->InvalidateRect(NULL, FALSE);
 	}
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-11 ø¿¿¸ 10:37:54 )
+//	Coded (By Dino On 2002-10-11 Ïò§Ï†Ñ 10:37:54 )
 //	FXPlugPart
 	else if ((void*)wParam == &m_LPFXPlugPart)
 	{
@@ -474,7 +474,7 @@ BOOL CFormViewProperty::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 			pItem->VectorSet(pFXPPart->m_vOffsetDir);
 		}
 	}
-//	End Of Code (By Dino On 2002-10-11 ø¿¿¸ 10:37:54 )
+//	End Of Code (By Dino On 2002-10-11 Ïò§Ï†Ñ 10:37:54 )
 //////////////////////////////////////////////////
 	else
 	{
@@ -496,14 +496,14 @@ void CFormViewProperty::UpdateAllInfo()
 {
 	if(m_TreeChr.GetSafeHwnd() == NULL) return;
 
-	int nNodeCur = this->GetSelectedNode(); // «ˆ¿Á º±≈√µ«æÓ ¿÷¥¬ ≥ÎµÂ π¯»£..
+	int nNodeCur = this->GetSelectedNode(); // ÌòÑÏû¨ ÏÑ†ÌÉùÎêòÏñ¥ ÏûàÎäî ÎÖ∏Îìú Î≤àÌò∏..
 
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	CN3CEDoc* pDoc = (CN3CEDoc*)pFrm->GetActiveDocument();
 	CN3Chr* pChr = pDoc->m_Scene.ChrGet(0);
 
-	// Character Tree ø° ≥ÎµÂ ª¿‘..
-	m_TreeChr.DeleteAllItems(); // ∏µŒ ¡ˆøÏ∞Ì..
+	// Character Tree Ïóê ÎÖ∏Îìú ÏÇΩÏûÖ..
+	m_TreeChr.DeleteAllItems(); // Î™®Îëê ÏßÄÏö∞Í≥†..
 	m_hTI_Joint = m_TreeChr.InsertItem("Joints", 9, 9);
 	m_hTI_Parts = m_TreeChr.InsertItem("Parts", 10, 10);
 	m_hTI_Plugs = m_TreeChr.InsertItem("Plugs", 11, 11);
@@ -513,7 +513,7 @@ void CFormViewProperty::UpdateAllInfo()
 	if(NULL == pChr) return;
 	HTREEITEM hInsert = NULL;
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-10 ø¿»ƒ 4:44:49 )
+//	Coded (By Dino On 2002-10-10 Ïò§ÌõÑ 4:44:49 )
 //	FXPlug
 	CN3FXPlug* pFXP = pChr->FXPlugGet();
 	if (pFXP)
@@ -527,13 +527,13 @@ void CFormViewProperty::UpdateAllInfo()
 			m_TreeChr.SetItemData(hInsert, (DWORD)pFXP->m_FXPParts[i]);
 		}
 	}
-//	End Of Code (By Dino On 2002-10-10 ø¿»ƒ 4:44:49 )
+//	End Of Code (By Dino On 2002-10-10 Ïò§ÌõÑ 4:44:49 )
 //////////////////////////////////////////////////
 		
 	CN3Joint* pJoint = pChr->Joint();
 	if(pJoint)
 	{
-		CString szJN; szJN.Format(	"Joints - ªÛ√º(%d ~ %d), «œ√º(%d ~ %d), ∏”∏Æƒ´∂Ù(%d ~ %d), ∏¡≈‰(%d ~ %d)", 
+		CString szJN; szJN.Format(	"Joints - ÏÉÅÏ≤¥(%d ~ %d), ÌïòÏ≤¥(%d ~ %d), Î®∏Î¶¨Ïπ¥ÎùΩ(%d ~ %d), ÎßùÌÜ†(%d ~ %d)", 
 									pChr->JointPartStart(0), pChr->JointPartEnd(0), 
 									pChr->JointPartStart(1), pChr->JointPartEnd(1), 
 									pChr->JointPartStart(2), pChr->JointPartEnd(2), 
@@ -576,7 +576,7 @@ void CFormViewProperty::UpdateAllInfo()
 	}
 	m_TreeChr.Expand(m_hTI_Plugs, TVE_EXPAND);
 
-	this->SelectNode(nNodeCur); // ¿¸¿« º±≈√µ» ≥ÎµÂ π¯»£¥Î∑Œ º±≈√«—¥Ÿ..
+	this->SelectNode(nNodeCur); // Ï†ÑÏùò ÏÑ†ÌÉùÎêú ÎÖ∏Îìú Î≤àÌò∏ÎåÄÎ°ú ÏÑ†ÌÉùÌïúÎã§..
 	this->UpdateWindowPos();
 }
 
@@ -598,7 +598,7 @@ void CFormViewProperty::OnTreeChrEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 		{
 			int nS0 = -1, nS1 = -1, nS2 = -1, nS3 = -10;
 			int nE0 = -1, nE1 = -1, nE2 = -1, nE3 = -1;
-			sscanf(pTDI->item.pszText, "Joints - ªÛ√º(%d ~ %d), «œ√º(%d ~ %d), ∏”∏Æƒ´∂Ù(%d ~ %d), ∏¡≈‰(%d ~ %d)",
+			sscanf(pTDI->item.pszText, "Joints - ÏÉÅÏ≤¥(%d ~ %d), ÌïòÏ≤¥(%d ~ %d), Î®∏Î¶¨Ïπ¥ÎùΩ(%d ~ %d), ÎßùÌÜ†(%d ~ %d)",
 				&nS0, &nE0, &nS1, &nE1, &nS2, &nE2, &nS3, &nE3);
 			pChr->JointPartSet(0, nS0, nE0);
 			pChr->JointPartSet(1, nS1, nE1);
@@ -622,7 +622,7 @@ void CFormViewProperty::OnTreeChrEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 		if(pTDI->item.pszText)
 		{
 			if(pBase->Type() & OBJ_BASE_FILEACCESS)
-				((CN3BaseFileAccess*)pBase)->FileNameSet(pTDI->item.pszText); // ∆ƒ¿œ ¿Ã∏ß¿ª πŸ≤ŸæÓ ¡ÿ¥Ÿ..
+				((CN3BaseFileAccess*)pBase)->FileNameSet(pTDI->item.pszText); // ÌååÏùº Ïù¥Î¶ÑÏùÑ Î∞îÍæ∏Ïñ¥ Ï§ÄÎã§..
 			else
 				pBase->m_szName = pTDI->item.pszText;
 			*pResult = 1;
@@ -636,7 +636,7 @@ void CFormViewProperty::OnTreeChrRclick(NMHDR* pNMHDR, LRESULT* pResult)
 	::GetCursorPos(&pt);
 	CPoint pt2 = pt;
 	m_TreeChr.ScreenToClient(&pt2);
-	HTREEITEM hI = m_TreeChr.HitTest(pt2); // «ˆ¿Á ¿ßƒ°ø°º≠ ¬Ô»˘
+	HTREEITEM hI = m_TreeChr.HitTest(pt2); // ÌòÑÏû¨ ÏúÑÏπòÏóêÏÑú Ï∞çÌûå
 	if(NULL == hI) return;
 
 	m_TreeChr.SelectItem(hI);
@@ -645,29 +645,29 @@ void CFormViewProperty::OnTreeChrRclick(NMHDR* pNMHDR, LRESULT* pResult)
 
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	CMenu* pMenu = pFrm->GetMenu();
-	CMenu* pSM = pMenu->GetSubMenu(1); // ∆Ì¡˝ ∏ﬁ¥∫
+	CMenu* pSM = pMenu->GetSubMenu(1); // Ìé∏Ïßë Î©îÎâ¥
 
 	if(m_hTI_Joint == hI || m_hTI_Joint == hPI)
 	{
-		pSM = pSM->GetSubMenu(0); // Joint ∆Ì¡˝ ∏ﬁ¥∫
+		pSM = pSM->GetSubMenu(0); // Joint Ìé∏Ïßë Î©îÎâ¥
 		pSM->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, pt.x, pt.y, this);
 	}
 
 	if(m_hTI_Parts == hI || m_hTI_Parts == hPI)
 	{
-		pSM = pSM->GetSubMenu(1); // Part ∆Ì¡˝ ∏ﬁ¥∫
+		pSM = pSM->GetSubMenu(1); // Part Ìé∏Ïßë Î©îÎâ¥
 		pSM->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, pt.x, pt.y, this);
 	}
 
 	if(m_hTI_Plugs == hI || m_hTI_Plugs == hPI)
 	{
-		pSM = pSM->GetSubMenu(2); // Plug ∆Ì¡˝ ∏ﬁ¥∫
+		pSM = pSM->GetSubMenu(2); // Plug Ìé∏Ïßë Î©îÎâ¥
 		pSM->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, pt.x, pt.y, this);
 	}
 
 	if(m_hTI_FXPlug == hI || m_hTI_FXPlug == hPI)
 	{
-		pSM = pSM->GetSubMenu(4); // FXPlug ∆Ì¡˝ ∏ﬁ¥∫
+		pSM = pSM->GetSubMenu(4); // FXPlug Ìé∏Ïßë Î©îÎâ¥
 		pSM->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, pt.x, pt.y, this);
 	}
 	*pResult = 0;
@@ -683,11 +683,11 @@ void CFormViewProperty::OnTreeChrDblclk(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		this->OnEditChrJointSet();
 	}
-	else if(pBase && (pBase->Type() & OBJ_CHARACTER_PART)) // Part¿œ ∞ÊøÏ.
+	else if(pBase && (pBase->Type() & OBJ_CHARACTER_PART)) // PartÏùº Í≤ΩÏö∞.
 	{
 		this->OnEditChrPartSet();
 	}
-	else if(pBase && (pBase->Type() & OBJ_CHARACTER_PLUG)) // «√∑Ø±◊¿œ ∞ÊøÏ.
+	else if(pBase && (pBase->Type() & OBJ_CHARACTER_PLUG)) // ÌîåÎü¨Í∑∏Ïùº Í≤ΩÏö∞.
 	{
 		this->OnEditChrPlugSet();
 	}
@@ -766,7 +766,7 @@ void CFormViewProperty::OnEditChrPartSet()
 
 	FileName = dlg.GetPathName();
 	pPart->Release();
-	pPart->LoadFromFile(std::string(FileName)); // ∆ƒ¿œø°º≠ ¿–±‚.
+	pPart->LoadFromFile(std::string(FileName)); // ÌååÏùºÏóêÏÑú ÏùΩÍ∏∞.
 
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	GetDocument()->UpdateAllViews(NULL);;
@@ -963,7 +963,7 @@ void CFormViewProperty::OnEditChrPlugRotationReset()
 		CN3CPlug* pPlug = (CN3CPlug*)pBase;
 		__Matrix44 mtxRot;
 		mtxRot.Identity();
-		pPlug->RotationSet(mtxRot); // »∏¿¸∞™ √ ±‚»≠..
+		pPlug->RotationSet(mtxRot); // ÌöåÏ†ÑÍ∞í Ï¥àÍ∏∞Ìôî..
 
 		CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 		pFrm->GetPaneRender()->InvalidateRect(NULL, FALSE);
@@ -987,7 +987,7 @@ void CFormViewProperty::SelectJointNode(HTREEITEM hItemParent, CN3Joint *pJoint)
 			return;
 		}
 
-		this->SelectJointNode(hNext, pJoint); // ¿Á±Õ »£√‚..
+		this->SelectJointNode(hNext, pJoint); // Ïû¨Í∑Ä Ìò∏Ï∂ú..
 	}
 }
 
@@ -1022,8 +1022,8 @@ void CFormViewProperty::OnUpdateEditSetVisible(CCmdUI* pCmdUI)
 	else if(pBase->Type() & OBJ_CHARACTER_PLUG) bVisible = ((CN3CPlug*)pBase)->m_bVisible;
 	else return;
 
-	if(bVisible) pCmdUI->SetText("º˚±‚±‚\t(&V)");
-	else pCmdUI->SetText("∫∏¿Ã±‚\t(&V)");
+	if(bVisible) pCmdUI->SetText("Ïà®Í∏∞Í∏∞\t(&V)");
+	else pCmdUI->SetText("Î≥¥Ïù¥Í∏∞\t(&V)");
 }
 
 void CFormViewProperty::OnEditChrPlugImportPMesh() 

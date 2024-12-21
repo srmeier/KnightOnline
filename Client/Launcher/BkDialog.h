@@ -1,4 +1,4 @@
-#ifndef _BKDIALOG_H_
+﻿#ifndef _BKDIALOG_H_
 #define _BKDIALOG_H_
 
 #include "BackgroundUtil.h"

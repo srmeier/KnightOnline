@@ -1,4 +1,4 @@
-// N3FXEDoc.cpp : implementation of the CN3FXEDoc class
+﻿// N3FXEDoc.cpp : implementation of the CN3FXEDoc class
 //
 
 #include "stdafx.h"

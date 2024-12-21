@@ -1,4 +1,4 @@
-// N3CEDoc.cpp : implementation of the CN3CEDoc class
+ï»¿// N3CEDoc.cpp : implementation of the CN3CEDoc class
 //
 
 #include "stdafx.h"
@@ -33,7 +33,7 @@ CN3CEDoc::CN3CEDoc()
 
 	m_bLoadingNow = FALSE;
 
-	// Character ÃÊ±âÈ­..
+	// Character ì´ˆê¸°í™”..
 	CN3Chr* pChr = new CN3Chr();
 	m_Scene.ChrAdd(pChr);
 }
@@ -50,7 +50,7 @@ BOOL CN3CEDoc::OnNewDocument()
 	if(m_Scene.ChrGet(0))
 	{
 		m_Scene.ChrGet(0)->Release();
-		m_Scene.ChrGet(0)->AniDefaultSet(); // ±âº» ¿¡´Ï¸ÞÀÌ¼Ç ¼¼ÆÃ..
+		m_Scene.ChrGet(0)->AniDefaultSet(); // ê¸°ë³¸ ì—ë‹ˆë©”ì´ì…˜ ì„¸íŒ…..
 	}
 	this->UpdateAllViews(NULL);
 
@@ -98,7 +98,7 @@ BOOL CN3CEDoc::OnOpenDocument(LPCTSTR lpszPathName)
 		return FALSE;
 	
 	// TODO: Add your specialized creation code here
-	char szPath[512]; // °æ·Î¸¦ Àß °¡·Á¾ß ÇÑ´Ù..
+	char szPath[512]; // ê²½ë¡œë¥¼ ìž˜ ê°€ë ¤ì•¼ í•œë‹¤..
 	lstrcpy(szPath, lpszPathName);
 	int nFind = 0;
 	for(int i = lstrlen(szPath) - 1; i >= 0; i--)
@@ -113,7 +113,7 @@ BOOL CN3CEDoc::OnOpenDocument(LPCTSTR lpszPathName)
 	
 	m_bLoadingNow = TRUE;
 
-	m_Scene.PathSet(szPath); // °æ·Î¸¦ Á¤ÇØÁÖ°í..
+	m_Scene.PathSet(szPath); // ê²½ë¡œë¥¼ ì •í•´ì£¼ê³ ..
 	m_Scene.ChrGet(0)->Release();
 	m_Scene.ChrGet(0)->LoadFromFile(lpszPathName);
 	CN3Joint* pJoint = m_Scene.ChrGet(0)->Joint();
@@ -128,7 +128,7 @@ BOOL CN3CEDoc::OnOpenDocument(LPCTSTR lpszPathName)
 
 	if(m_Scene.ChrGet(0)->AniCtrl() == NULL)
 	{
-		m_Scene.ChrGet(0)->AniDefaultSet(); // ±âº» ¿¡´Ï¸ÞÀÌ¼Ç ¼¼ÆÃ..
+		m_Scene.ChrGet(0)->AniDefaultSet(); // ê¸°ë³¸ ì—ë‹ˆë©”ì´ì…˜ ì„¸íŒ…..
 	}
 
 	m_bLoadingNow = FALSE;
@@ -143,7 +143,7 @@ BOOL CN3CEDoc::OnSaveDocument(LPCTSTR lpszPathName)
 	CDocument::OnSaveDocument(lpszPathName);
 	
 	// TODO: Add your specialized creation code here
-	char szPath[512]; // °æ·Î¸¦ Àß °¡·Á¾ß ÇÑ´Ù..
+	char szPath[512]; // ê²½ë¡œë¥¼ ìž˜ ê°€ë ¤ì•¼ í•œë‹¤..
 	lstrcpy(szPath, lpszPathName);
 	int nFind = 0;
 	for(int i = lstrlen(szPath) - 1; i >= 0; i--)
@@ -159,14 +159,14 @@ BOOL CN3CEDoc::OnSaveDocument(LPCTSTR lpszPathName)
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR], szFName[_MAX_FNAME];
 	_splitpath(lpszPathName, szDrive, szDir, szFName, NULL);
 
-	m_Scene.PathSet(szPath); // °æ·Î¸¦ Á¤ÇØÁÖ°í..
+	m_Scene.PathSet(szPath); // ê²½ë¡œë¥¼ ì •í•´ì£¼ê³ ..
 	CN3Chr* pChr = m_Scene.ChrGet(0);
-	pChr->m_szName = szFName; // ÀÌ¸§À» Á¤ÇÏ°í..
+	pChr->m_szName = szFName; // ì´ë¦„ì„ ì •í•˜ê³ ..
 
 //	CN3Joint* pJoint = pChr->Joint();
 //	if(pJoint)
 //	{
-//		pJoint->SaveToFile(); // °üÀýµµ ÀúÀåÇØÁØ´Ù..
+//		pJoint->SaveToFile(); // ê´€ì ˆë„ ì €ìž¥í•´ì¤€ë‹¤..
 //	}
 
 	CN3CPlugBase* pPlug = NULL;
@@ -183,7 +183,7 @@ BOOL CN3CEDoc::OnSaveDocument(LPCTSTR lpszPathName)
 	m_Scene.ChrGet(0)->SaveToFile(lpszPathName);
 	m_Scene.SaveResrc();
 
-	return TRUE; // ±×³É ÀúÀåÇÏ¸é ¾ÈµÈ´Ù.. 0 Byte °¡ µÈ´Ù.
+	return TRUE; // ê·¸ëƒ¥ ì €ìž¥í•˜ë©´ ì•ˆëœë‹¤.. 0 Byte ê°€ ëœë‹¤.
 }
 
 void CN3CEDoc::OnFileSaveAsOneFolder() 
@@ -194,7 +194,7 @@ void CN3CEDoc::OnFileSaveAsOneFolder()
 	if(dlg.DoModal() == IDCANCEL) return;
 	CString szFullFileName = dlg.GetPathName();
 
-	char szPath[512]; // °æ·Î¸¦ Àß °¡·Á¾ß ÇÑ´Ù..
+	char szPath[512]; // ê²½ë¡œë¥¼ ìž˜ ê°€ë ¤ì•¼ í•œë‹¤..
 	lstrcpy(szPath, szFullFileName);
 	int nFind = 0;
 	for(int i = lstrlen(szPath) - 1; i >= 0; i--)
@@ -210,7 +210,7 @@ void CN3CEDoc::OnFileSaveAsOneFolder()
 	char szDrive[_MAX_DRIVE], szDir[_MAX_DIR];
 	_splitpath(szFullFileName, szDrive, szDir, NULL, NULL);
 
-	m_Scene.PathSet(szPath); // °æ·Î¸¦ Á¤ÇØÁÖ°í..
+	m_Scene.PathSet(szPath); // ê²½ë¡œë¥¼ ì •í•´ì£¼ê³ ..
 	CN3Chr* pChr = m_Scene.ChrGet(0);
 
 	CN3Joint* pJoint = pChr->Joint();
@@ -218,7 +218,7 @@ void CN3CEDoc::OnFileSaveAsOneFolder()
 	{
 		char szFN[256];
 		_makepath(szFN, szDrive, szDir, pChr->m_szName.c_str(), ".N3Joint");
-		pJoint->SaveToFile(szFN); // °üÀýµµ ÀúÀåÇØÁØ´Ù..
+		pJoint->SaveToFile(szFN); // ê´€ì ˆë„ ì €ìž¥í•´ì¤€ë‹¤..
 	}
 
 	CN3CPlugBase* pPlug = NULL;
@@ -270,7 +270,7 @@ void CN3CEDoc::OnFileSaveAsOneFolder()
 	}
 
 	CN3AnimControl* pAni = pChr->AniCtrl();
-	if(pAni && pAni->Count() > 0) // ¿¡´Ï¸ÞÀÌ¼ÇÀº °°Àº ÀÌ¸§À¸·Î ÀúÀåÇØÁØ´Ù..
+	if(pAni && pAni->Count() > 0) // ì—ë‹ˆë©”ì´ì…˜ì€ ê°™ì€ ì´ë¦„ìœ¼ë¡œ ì €ìž¥í•´ì¤€ë‹¤..
 	{
 		pAni->m_szName = pChr->m_szName;
 
@@ -282,12 +282,12 @@ void CN3CEDoc::OnFileSaveAsOneFolder()
 	
 	m_Scene.ChrGet(0)->SaveToFile(std::string(szFullFileName));
 	this->SetPathName(szFullFileName);
-	this->UpdateAllViews(NULL); // ¸ðµÎ ¾÷µ¥ÀÌÆ®..
+	this->UpdateAllViews(NULL); // ëª¨ë‘ ì—…ë°ì´íŠ¸..
 }
 
 void CN3CEDoc::OnCloseDocument() 
 {
-	if(m_Scene.ChrGet(0)) m_Scene.ChrGet(0)->Release(); // ÀÌ·¸°Ô ÇØ¾ß.. ¿£ÁøÀÌ ¾ø¾îÁö±â Àü¿¡ ±ò²ûÇÏ°Ô ¾ø¾îÁø´Ù..
+	if(m_Scene.ChrGet(0)) m_Scene.ChrGet(0)->Release(); // ì´ë ‡ê²Œ í•´ì•¼.. ì—”ì§„ì´ ì—†ì–´ì§€ê¸° ì „ì— ê¹”ë”í•˜ê²Œ ì—†ì–´ì§„ë‹¤..
 
 	CDocument::OnCloseDocument();
 }
@@ -307,11 +307,11 @@ void CN3CEDoc::OnToolOptimizeAnimationData()
 		fSamplingRate != 2.0f &&
 		fSamplingRate != 1.0f )
 	{
-		MessageBox(AfxGetMainWnd()->m_hWnd, "SamplingRate ´Â 5, 10, 15, 30 ¸¸ Áö¿øµË´Ï´Ù.", "SamplingRate ¿À·ù", MB_OK);
+		MessageBox(AfxGetMainWnd()->m_hWnd, "SamplingRate ëŠ” 5, 10, 15, 30 ë§Œ ì§€ì›ë©ë‹ˆë‹¤.", "SamplingRate ì˜¤ë¥˜", MB_OK);
 		return;
 	}
 
-	MessageBox(AfxGetMainWnd()->m_hWnd, "¿øº» Joint ¿Í Animation File À» ´Ù¸¥ ÀÌ¸§À¸·Î ÀúÀåÇØ µÓ´Ï´Ù. ÀÌ ÆÄÀÏÀº ³ªÁß¿¡ ´Ù½Ã ÆíÁýÇÒ¶§ ÇÊ¿äÇÕ´Ï´Ù.", "Joint ¹× Animation ÆÄÀÏ ´Ù¸¥ÀÌ¸§À¸·Î ÀúÀå", MB_OK);
+	MessageBox(AfxGetMainWnd()->m_hWnd, "ì›ë³¸ Joint ì™€ Animation File ì„ ë‹¤ë¥¸ ì´ë¦„ìœ¼ë¡œ ì €ìž¥í•´ ë‘¡ë‹ˆë‹¤. ì´ íŒŒì¼ì€ ë‚˜ì¤‘ì— ë‹¤ì‹œ íŽ¸ì§‘í• ë•Œ í•„ìš”í•©ë‹ˆë‹¤.", "Joint ë° Animation íŒŒì¼ ë‹¤ë¥¸ì´ë¦„ìœ¼ë¡œ ì €ìž¥", MB_OK);
 
 	CString FileName;
 	DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT;
@@ -321,7 +321,7 @@ void CN3CEDoc::OnToolOptimizeAnimationData()
 	
 	std::string szFN(FileName);
 	std::string szFNPrev = pAniCtrl->FileName();
-	pAniCtrl->SaveToFile(szFN); // ÀúÀå..
+	pAniCtrl->SaveToFile(szFN); // ì €ìž¥..
 	pAniCtrl->FileNameSet(szFNPrev);
 
 	CFileDialog dlg2(FALSE, "N3Joint", NULL, dwFlags, "Joint File(*.N3Joint)|*.N3Joint||", NULL);
@@ -329,42 +329,42 @@ void CN3CEDoc::OnToolOptimizeAnimationData()
 	FileName = dlg2.GetPathName();
 
 	szFNPrev = pJointSrc->FileName();
-	pChr->Tick(0.0f); // ÃÊ±âÀ§Ä¡·Î Tick
+	pChr->Tick(0.0f); // ì´ˆê¸°ìœ„ì¹˜ë¡œ Tick
 	szFN = FileName;
-	pJointSrc->SaveToFile(szFN); // ¿ø·¡°É ´Ù¸¥ ÀÌ¸§À¸·Î ÀúÀå..
+	pJointSrc->SaveToFile(szFN); // ì›ëž˜ê±¸ ë‹¤ë¥¸ ì´ë¦„ìœ¼ë¡œ ì €ìž¥..
 	pJointSrc->FileNameSet(szFNPrev);
 
 	int nK = pAniCtrl->Count();
 	CN3Joint JointDest;
 	
-	pChr->Tick(0.0f); // ÃÊ±âÀ§Ä¡·Î Tick
-	JointDest.CopyExceptAnimationKey(pJointSrc); // »À´ë ±¸Á¶ ¹× °ªµé¸¸ º¹»çÇÑ´ÙÀ½..
-	JointDest.AddKey(pJointSrc, 0, 0); // ¹ÙÀÎµù Æ÷Áî Å°¸¦ Ãß°¡ÇÏ°í º¹»çÇÑ´Ù..
+	pChr->Tick(0.0f); // ì´ˆê¸°ìœ„ì¹˜ë¡œ Tick
+	JointDest.CopyExceptAnimationKey(pJointSrc); // ë¼ˆëŒ€ êµ¬ì¡° ë° ê°’ë“¤ë§Œ ë³µì‚¬í•œë‹¤ìŒ..
+	JointDest.AddKey(pJointSrc, 0, 0); // ë°”ì¸ë”© í¬ì¦ˆ í‚¤ë¥¼ ì¶”ê°€í•˜ê³  ë³µì‚¬í•œë‹¤..
 	
 	int iAniCount = pAniCtrl->Count();
 	std::vector<float> fFrmOffsets(iAniCount, 0);
 	std::vector<float> fFrmStarts(iAniCount, 0);
-	for(int i = 0; i < iAniCount; i++) // Animation Key Ãß°¡.
+	for(int i = 0; i < iAniCount; i++) // Animation Key ì¶”ê°€.
 	{
 		__AnimData* pAD = pAniCtrl->DataGet(i);
-		if(pAD->fFrmEnd < pAD->fFrmStart) pAD->fFrmEnd = pAD->fFrmStart; // °°Àº ÇÁ·¹ÀÓÀ¸·Î ¸¸µç´Ù..
+		if(pAD->fFrmEnd < pAD->fFrmStart) pAD->fFrmEnd = pAD->fFrmStart; // ê°™ì€ í”„ë ˆìž„ìœ¼ë¡œ ë§Œë“ ë‹¤..
 		
 		int iS = (int)(pAD->fFrmStart / fSamplingRate);
-		int iE = (int)(pAD->fFrmEnd / fSamplingRate); // ¹Ý¿Ã¸²ÇÏ·Á°í 0.5f ³Ö¾ú´Ù..
+		int iE = (int)(pAD->fFrmEnd / fSamplingRate); // ë°˜ì˜¬ë¦¼í•˜ë ¤ê³  0.5f ë„£ì—ˆë‹¤..
 
 		if(iE < iS) continue;
 
-		JointDest.AddKey(pJointSrc, iS, iE); // Å°¸¦ Ãß°¡ÇÏ°í º¹»çÇÑ´Ù..
-		fFrmOffsets[i] = (iE - iS + 1) * fSamplingRate; // °¢ µ¥ÀÌÅÍÀÇ Offset °è»ê..
+		JointDest.AddKey(pJointSrc, iS, iE); // í‚¤ë¥¼ ì¶”ê°€í•˜ê³  ë³µì‚¬í•œë‹¤..
+		fFrmOffsets[i] = (iE - iS + 1) * fSamplingRate; // ê° ë°ì´í„°ì˜ Offset ê³„ì‚°..
 		fFrmStarts[i] = pAD->fFrmStart - (iS * fSamplingRate);
 	}
 
 	float fOffsetCur = fSamplingRate;
-	for(i = 0; i < iAniCount; i++) // Animation Key Frame ´Ù½Ã °è»ê..
+	for(i = 0; i < iAniCount; i++) // Animation Key Frame ë‹¤ì‹œ ê³„ì‚°..
 	{
 		__AnimData* pAD = pAniCtrl->DataGet(i);
 
-		pAD->Offset(fOffsetCur - pAD->fFrmStart + fFrmStarts[i]); // ¸ðµç µ¥ÀÌÅÍ¸¦ Offset¸¸Å­ °ªÀ» Àû¿ë..
+		pAD->Offset(fOffsetCur - pAD->fFrmStart + fFrmStarts[i]); // ëª¨ë“  ë°ì´í„°ë¥¼ Offsetë§Œí¼ ê°’ì„ ì ìš©..
 
 		fOffsetCur += fFrmOffsets[i];
 	}
@@ -372,9 +372,9 @@ void CN3CEDoc::OnToolOptimizeAnimationData()
 	pAniCtrl->SaveToFile();
 	JointDest.SaveToFile();
 
-	pChr->Tick(0.0f); // ÃÊ±âÀ§Ä¡·Î Tick
+	pChr->Tick(0.0f); // ì´ˆê¸°ìœ„ì¹˜ë¡œ Tick
 	pChr->JointSet("");
 	pChr->JointSet(JointDest.FileName());
 
-	UpdateAllViews(NULL); // ¸ðµç ºä ÃÊ±âÈ­..
+	UpdateAllViews(NULL); // ëª¨ë“  ë·° ì´ˆê¸°í™”..
 }

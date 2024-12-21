@@ -1,4 +1,4 @@
-// BB_CircularBuffer.cpp: implementation of the BB_CircularBuffer class.
+﻿// BB_CircularBuffer.cpp: implementation of the BB_CircularBuffer class.
 //
 //////////////////////////////////////////////////////////////////////
 

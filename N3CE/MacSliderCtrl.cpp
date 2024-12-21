@@ -1,4 +1,4 @@
-// MacSliderCtrl.cpp : implementation file
+﻿// MacSliderCtrl.cpp : implementation file
 //
 //	CMacSliderCtrl class, version 1.0
 //

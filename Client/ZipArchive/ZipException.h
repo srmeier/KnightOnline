@@ -1,4 +1,4 @@
-// ZipException.h: interface for the CZipException class.
+﻿// ZipException.h: interface for the CZipException class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

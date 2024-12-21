@@ -1,4 +1,4 @@
-#if !defined(AFX_FORMVIEWANIMATION_H__35364EF4_04E3_427C_8B17_6D4D88DF823B__INCLUDED_)
+ï»¿#if !defined(AFX_FORMVIEWANIMATION_H__35364EF4_04E3_427C_8B17_6D4D88DF823B__INCLUDED_)
 #define AFX_FORMVIEWANIMATION_H__35364EF4_04E3_427C_8B17_6D4D88DF823B__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -21,7 +21,7 @@ class CFormViewAnimation : public CFormView
 {
 public:
 	BOOL		m_bUpdatingNow;
-	__AnimData	m_AnimDataTemp; // ÀÓ½Ã º¹»ç ¹× ºÙÀÌ±â¿ë..
+	__AnimData	m_AnimDataTemp; // ì„ì‹œ ë³µì‚¬ ë° ë¶™ì´ê¸°ìš©..
 
 public:
 	static int SortByName(const void *pArg1, const void *pArg2);

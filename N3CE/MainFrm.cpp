@@ -1,4 +1,4 @@
-// MainFrm.cpp : implementation of the CMainFrame class
+ï»¿// MainFrm.cpp : implementation of the CMainFrame class
 //
 
 #include "stdafx.h"
@@ -78,10 +78,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
-	// Engine »ı¼º
+	// Engine ìƒì„±
 //	m_Eng.InitEnv();
 	if(m_Eng.Init(TRUE, m_hWnd, 64, 64, 0, TRUE) == false) return -1;
-	m_Eng.GridCreate(20, 20); // ±×¸®µå ¸¸µé±â..
+	m_Eng.GridCreate(20, 20); // ê·¸ë¦¬ë“œ ë§Œë“¤ê¸°..
 	m_SndMgr.Init(m_hWnd);
 
 	return 0;

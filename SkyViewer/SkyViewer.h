@@ -1,4 +1,4 @@
-// SkyViewer.h : main header file for the SKYVIEWER application
+﻿// SkyViewer.h : main header file for the SKYVIEWER application
 //
 
 #if !defined(AFX_SKYVIEWER_H__836D22A7_96E6_46B7_A0D7_CF10AD65C812__INCLUDED_)

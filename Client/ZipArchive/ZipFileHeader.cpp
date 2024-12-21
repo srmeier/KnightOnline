@@ -1,4 +1,4 @@
-// ZipFileHeader.cpp: implementation of the CZipFileHeader class.
+ï»¿// ZipFileHeader.cpp: implementation of the CZipFileHeader class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.
@@ -141,7 +141,7 @@ bool CZipFileHeader::ReadLocal(CZipStorage *pStorage, WORD& iLocExtrFieldSize)
 		|| (memcmp(buf + 26, &uFileNameSize, 2) != 0))
 		return false;
 
-// jeszcze mo¿naby porównaæ nazwy plików
+// jeszcze moÅ¼naby porÃ³wnaÄ‡ nazwy plikÃ³w
 
 	if (!bIsDataDescr/* || !pStorage->IsSpanMode()*/)
 		if (!CheckCrcAndSizes(buf + 14))

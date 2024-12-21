@@ -1,4 +1,4 @@
-// FormViewAnimation.cpp : implementation file
+ï»¿// FormViewAnimation.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -14,7 +14,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-const float FRAME_PRECISION = 10.0f; // ÇÁ·¹ÀÓ Ç¥½Ã Á¤¹Ğµµ
+const float FRAME_PRECISION = 10.0f; // í”„ë ˆì„ í‘œì‹œ ì •ë°€ë„
 
 /////////////////////////////////////////////////////////////////////////////
 // CFormViewAnimation
@@ -173,7 +173,7 @@ void CFormViewAnimation::UpdateFrameSliderAndOther()
 	CN3Chr* pChr = GetDocument()->m_Scene.ChrGet(0);
 	int iAni = pChr->AniIndexCur();
 	__AnimData* pAniData = pChr->AniDataCur();
-	if(pAniData) // ÇÁ·¹ÀÓ ½½¶óÀÌ´õ ¾÷µ¥ÀÌÆ®..
+	if(pAniData) // í”„ë ˆì„ ìŠ¬ë¼ì´ë” ì—…ë°ì´íŠ¸..
 	{
 		float fFrmOld = m_SldFrm.GetCurrentFrame();
 		m_SldFrm.SetAnimationData(*pAniData);
@@ -183,17 +183,17 @@ void CFormViewAnimation::UpdateFrameSliderAndOther()
 		{
 			float fTime = (pAniData->fFrmEnd - pAniData->fFrmStart) / pAniData->fFrmPerSec;
 //			if(1 == pAniData->iBlendFlags) fTime += pAniData->fTimeBlend;
-			CString szTime; szTime.Format("½Ã°£ : %.2fÃÊ", fTime);
+			CString szTime; szTime.Format("ì‹œê°„ : %.2fì´ˆ", fTime);
 			SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, szTime);
 		}
 		else
 		{
-			SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, "½Ã°£ : ??ÃÊ");
+			SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, "ì‹œê°„ : ??ì´ˆ");
 		}
 	}
 	else
 	{
-		SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, "½Ã°£ : ??ÃÊ");
+		SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, "ì‹œê°„ : ??ì´ˆ");
 	}
 }
 
@@ -238,7 +238,7 @@ void CFormViewAnimation::UpdateInfo()
 		szTmp.Format("%.2f", pAniData->fTimeBlend);
 		SetDlgItemText(IDC_E_FRAME_BLEND0, szTmp);
 
-		CheckDlgButton(IDC_C_DELAYED_LOOPING, pAniData->iBlendFlags);  // ·çÇÎÇÒ¶§ ºí·»µù ½Ã°£¸¸Å­ Áö¿¬½ÃÅ°¸é¼­ ·çÇÎÇÑ´Ù..
+		CheckDlgButton(IDC_C_DELAYED_LOOPING, pAniData->iBlendFlags);  // ë£¨í•‘í• ë•Œ ë¸”ë Œë”© ì‹œê°„ë§Œí¼ ì§€ì—°ì‹œí‚¤ë©´ì„œ ë£¨í•‘í•œë‹¤..
 
 		szTmp.Format("%.2f", pAniData->fFrmStrike0);
 		SetDlgItemText(IDC_E_FRAME_STRIKE0, szTmp);
@@ -254,7 +254,7 @@ void CFormViewAnimation::UpdateInfo()
 		{
 			float fTime = (pAniData->fFrmEnd - pAniData->fFrmStart) / pAniData->fFrmPerSec;
 //			if(1 == pAniData->iBlendFlags) fTime += pAniData->fTimeBlend;
-			CString szTime; szTime.Format("½Ã°£ : %.2fÃÊ", fTime);
+			CString szTime; szTime.Format("ì‹œê°„ : %.2fì´ˆ", fTime);
 			SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, szTime);
 		}
 	}
@@ -265,7 +265,7 @@ void CFormViewAnimation::UpdateInfo()
 		SetDlgItemText(IDC_E_FRAME_END, szTmp);
 		SetDlgItemText(IDC_E_FRAME_PER_SEC, szTmp);
 
-		SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, "½Ã°£ : ??ÃÊ");
+		SetDlgItemText(IDC_STATIC_ANIMATION_TIME_SUM, "ì‹œê°„ : ??ì´ˆ");
 	}
 	
 	m_bUpdatingNow = FALSE;
@@ -338,7 +338,7 @@ void CFormViewAnimation::GetData()
 	GetDlgItemText(IDC_E_FRAME_STRIKE0, szTmp); pAniData->fFrmStrike0 = (float)atof(szTmp);
 	GetDlgItemText(IDC_E_FRAME_STRIKE1, szTmp); pAniData->fFrmStrike1 = (float)atof(szTmp);
 
-	if(IsDlgButtonChecked(IDC_C_DELAYED_LOOPING)) pAniData->iBlendFlags = 1; // ·çÇÎÇÒ¶§ ºí·»µù ½Ã°£¸¸Å­ Áö¿¬½ÃÅ°¸é¼­ ·çÇÎÇÑ´Ù..
+	if(IsDlgButtonChecked(IDC_C_DELAYED_LOOPING)) pAniData->iBlendFlags = 1; // ë£¨í•‘í• ë•Œ ë¸”ë Œë”© ì‹œê°„ë§Œí¼ ì§€ì—°ì‹œí‚¤ë©´ì„œ ë£¨í•‘í•œë‹¤..
 	else pAniData->iBlendFlags = 0;
 }
 
@@ -383,7 +383,7 @@ void CFormViewAnimation::OnTimer(UINT nIDEvent)
 		SetDlgItemText(IDC_E_FRAME_CUR, szFrm);
 
 		CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
-		pFrm->GetPaneRender()->InvalidateRect(NULL, FALSE); // ·»´õ¸µ..
+		pFrm->GetPaneRender()->InvalidateRect(NULL, FALSE); // ë Œë”ë§..
 	}
 	
 	CFormView::OnTimer(nIDEvent);
@@ -428,7 +428,7 @@ void CFormViewAnimation::OnSelchangeListAnimation0()
 	__AnimData* pAniData = pAniCtrl->DataGet(iAni);
 	if(NULL == pAniData) return;
 
-	// Playe Áß¿¡´Â Å¥¿¡ ½×ÀÎ´Ù..
+	// Playe ì¤‘ì—ëŠ” íì— ìŒ“ì¸ë‹¤..
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	CN3CEView* pView = pFrm->GetPaneRender();
 	if(pView->m_bPlayingNow)
@@ -437,12 +437,12 @@ void CFormViewAnimation::OnSelchangeListAnimation0()
 	}
 	else
 	{
-		pChr->AniCurSet(iAni); // ¿¡´Ï¸ŞÀÌ¼Ç ¼¼ÆÃ..
+		pChr->AniCurSet(iAni); // ì—ë‹ˆë©”ì´ì…˜ ì„¸íŒ…..
 	}
 
 	::SetFocus(GetDlgItem(IDC_E_ANI_NAME)->m_hWnd);
 
-	GetDocument()->m_Scene.m_fFrmCur = pAniData->fFrmStart; // ÇÁ·¹ÀÓ ¸ÂÃß°í..
+	GetDocument()->m_Scene.m_fFrmCur = pAniData->fFrmStart; // í”„ë ˆì„ ë§ì¶”ê³ ..
 	pView->InvalidateRect(NULL, FALSE);
 }
 
@@ -484,7 +484,7 @@ void CFormViewAnimation::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollB
 	if((void*)pScrollBar == (void*)&m_SldFrm)
 	{
 		fFrm = m_SldFrm.GetCurrentFrame();
-		m_SldSceneFrm.SetPos(fFrm * FRAME_PRECISION); // Scene ½½¶óÀÌ´õµµ ¿òÁ÷¿©ÁØ´Ù.
+		m_SldSceneFrm.SetPos(fFrm * FRAME_PRECISION); // Scene ìŠ¬ë¼ì´ë”ë„ ì›€ì§ì—¬ì¤€ë‹¤.
 	}
 	else if((void*)pScrollBar == (void*)&m_SldSceneFrm)
 	{
@@ -509,9 +509,9 @@ void CFormViewAnimation::OnSize(UINT nType, int cx, int cy)
 	if(m_SldSceneFrm.GetSafeHwnd() != NULL)
 	{
 		CRect rcOrg, rcClient;
-		m_SldSceneFrm.GetWindowRect(rcOrg); // ±×·¡ÇÁ ÄÁÆ®·ÑÀÇ ¿ø·¡ È­¸é ÁÂÇ¥¸¦ 
+		m_SldSceneFrm.GetWindowRect(rcOrg); // ê·¸ë˜í”„ ì»¨íŠ¸ë¡¤ì˜ ì›ë˜ í™”ë©´ ì¢Œí‘œë¥¼ 
 		this->GetClientRect(rcClient); // 
-		this->ClientToScreen(rcClient); // È­¸é ÁÂÇ¥·Î ¹Ù²Ù°í..
+		this->ClientToScreen(rcClient); // í™”ë©´ ì¢Œí‘œë¡œ ë°”ê¾¸ê³ ..
 
 		int cx2 = rcClient.right - rcOrg.left - 5;
 		int cy2 = rcOrg.Height();
@@ -522,9 +522,9 @@ void CFormViewAnimation::OnSize(UINT nType, int cx, int cy)
 //	if(m_SldFrm.GetSafeHwnd() != NULL)
 //	{
 //		CRect rcOrg, rcClient;
-//		m_SldFrm.GetWindowRect(rcOrg); // ±×·¡ÇÁ ÄÁÆ®·ÑÀÇ ¿ø·¡ È­¸é ÁÂÇ¥¸¦ 
+//		m_SldFrm.GetWindowRect(rcOrg); // ê·¸ë˜í”„ ì»¨íŠ¸ë¡¤ì˜ ì›ë˜ í™”ë©´ ì¢Œí‘œë¥¼ 
 //		this->GetClientRect(rcClient); // 
-//		this->ClientToScreen(rcClient); // È­¸é ÁÂÇ¥·Î ¹Ù²Ù°í..
+//		this->ClientToScreen(rcClient); // í™”ë©´ ì¢Œí‘œë¡œ ë°”ê¾¸ê³ ..
 //
 //		int cx2 = rcClient.right - rcOrg.left - 5;
 //		int cy2 = rcOrg.Height();
@@ -535,9 +535,9 @@ void CFormViewAnimation::OnSize(UINT nType, int cx, int cy)
 	if(m_ListAnim0.GetSafeHwnd() != NULL)
 	{
 		CRect rcOrg, rcClient;
-		m_ListAnim0.GetWindowRect(rcOrg); // ±×·¡ÇÁ ÄÁÆ®·ÑÀÇ ¿ø·¡ È­¸é ÁÂÇ¥¸¦ 
+		m_ListAnim0.GetWindowRect(rcOrg); // ê·¸ë˜í”„ ì»¨íŠ¸ë¡¤ì˜ ì›ë˜ í™”ë©´ ì¢Œí‘œë¥¼ 
 		this->GetClientRect(rcClient); // 
-		this->ClientToScreen(rcClient); // È­¸é ÁÂÇ¥·Î ¹Ù²Ù°í..
+		this->ClientToScreen(rcClient); // í™”ë©´ ì¢Œí‘œë¡œ ë°”ê¾¸ê³ ..
 
 		int cx2 = rcOrg.Width();
 		int cy2 = rcClient.bottom - rcOrg.top - 5;
@@ -548,9 +548,9 @@ void CFormViewAnimation::OnSize(UINT nType, int cx, int cy)
 	if(m_ListAnim1.GetSafeHwnd() != NULL)
 	{
 		CRect rcOrg, rcClient;
-		m_ListAnim1.GetWindowRect(rcOrg); // ±×·¡ÇÁ ÄÁÆ®·ÑÀÇ ¿ø·¡ È­¸é ÁÂÇ¥¸¦ 
+		m_ListAnim1.GetWindowRect(rcOrg); // ê·¸ë˜í”„ ì»¨íŠ¸ë¡¤ì˜ ì›ë˜ í™”ë©´ ì¢Œí‘œë¥¼ 
 		this->GetClientRect(rcClient); // 
-		this->ClientToScreen(rcClient); // È­¸é ÁÂÇ¥·Î ¹Ù²Ù°í..
+		this->ClientToScreen(rcClient); // í™”ë©´ ì¢Œí‘œë¡œ ë°”ê¾¸ê³ ..
 
 		int cx2 = rcOrg.Width();
 		int cy2 = rcClient.bottom - rcOrg.top - 5;
@@ -646,7 +646,7 @@ void CFormViewAnimation::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	if(pChr && m_ListAnim0.GetSafeHwnd())
 	{
 		int iAni = m_ListAnim0.GetCurSel();
-		pChr->AniCurSet(iAni); // ¿¡´Ï¸ŞÀÌ¼Ç ¼¼ÆÃ..
+		pChr->AniCurSet(iAni); // ì—ë‹ˆë©”ì´ì…˜ ì„¸íŒ…..
 	}
 }
 
@@ -859,7 +859,7 @@ void CFormViewAnimation::OnEditAnimationDataMoveUp()
 	if(NULL == pAniCtrl || pAniCtrl->Count() <= 0) return;
 	int iAni = m_ListAnim0.GetCurSel();
 	int iAniToChange = iAni - 1;
-	pAniCtrl->Swap(iAni, iAniToChange); // À§°Å¶û ¾Æ·¡²¨¶û ¹Ù²Û´Ù.
+	pAniCtrl->Swap(iAni, iAniToChange); // ìœ„ê±°ë‘ ì•„ë˜êº¼ë‘ ë°”ê¾¼ë‹¤.
 
 	m_ListAnim0.SetCurSel(iAniToChange);
 	this->UpdateAllInfo();
@@ -873,7 +873,7 @@ void CFormViewAnimation::OnEditAnimationDataMoveDown()
 	if(NULL == pAniCtrl || pAniCtrl->Count() <= 0) return;
 	int iAni = m_ListAnim0.GetCurSel();
 	int iAniToChange = iAni + 1;
-	pAniCtrl->Swap(iAni, iAniToChange); // À§°Å¶û ¾Æ·¡²¨¶û ¹Ù²Û´Ù.
+	pAniCtrl->Swap(iAni, iAniToChange); // ìœ„ê±°ë‘ ì•„ë˜êº¼ë‘ ë°”ê¾¼ë‹¤.
 
 	m_ListAnim0.SetCurSel(iAniToChange);
 	this->UpdateAllInfo();
@@ -883,8 +883,8 @@ void CFormViewAnimation::OnDblclkListAnimation0()
 {
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 	CMenu* pMenu = pFrm->GetMenu();
-	CMenu* pSM = pMenu->GetSubMenu(1); // ÆíÁı ¸Ş´º
-	pSM = pSM->GetSubMenu(3); // ¿¡´Ï¸ŞÀÌ¼Ç ÆíÁı ¸Ş´º..
+	CMenu* pSM = pMenu->GetSubMenu(1); // í¸ì§‘ ë©”ë‰´
+	pSM = pSM->GetSubMenu(3); // ì—ë‹ˆë©”ì´ì…˜ í¸ì§‘ ë©”ë‰´..
 }
 
 void CFormViewAnimation::OnBCalculateDelayTimeWithUpperAnimation() 
@@ -930,11 +930,11 @@ void CFormViewAnimation::CalculateDelayTimeAndUpdate(int iAnimationIndexOffset)
 		}
 		else
 		{
-			MessageBox("µÎ ¿¡´Ï¸ŞÀÌ¼ÇÀÇ °ª Â÷ÀÌ°¡ À½¼ö°¡ µË´Ï´Ù.");
+			MessageBox("ë‘ ì—ë‹ˆë©”ì´ì…˜ì˜ ê°’ ì°¨ì´ê°€ ìŒìˆ˜ê°€ ë©ë‹ˆë‹¤.");
 		}
 	}
 	else
 	{
-		MessageBox("Animation Data ÀÇ Àç»ı ¼Óµµ°¡ 0 ÀÔ´Ï´Ù.");
+		MessageBox("Animation Data ì˜ ì¬ìƒ ì†ë„ê°€ 0 ì…ë‹ˆë‹¤.");
 	}
 }

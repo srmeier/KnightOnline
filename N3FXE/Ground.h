@@ -1,4 +1,4 @@
-// Ground.h: interface for the CN3FXPartParticles class.
+ï»¿// Ground.h: interface for the CN3FXPartParticles class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -12,8 +12,8 @@ class CN3Texture;
 class CGround : public CN3Base  
 {
 public:
-	int			m_iSize;	//ÇÑº¯ÀÇ ±æÀÌ..
-	int			m_iTileSize;	//Å¸ÀÏÀÇ ±æÀÌ..
+	int			m_iSize;	//í•œë³€ì˜ ê¸¸ì´..
+	int			m_iTileSize;	//íƒ€ì¼ì˜ ê¸¸ì´..
 	__VertexT1* m_pVB;
 	CN3Texture* m_pTile;
 	

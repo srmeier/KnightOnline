@@ -1,4 +1,4 @@
-// DlgFormat.cpp : implementation file
+ï»¿// DlgFormat.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -108,6 +108,6 @@ void CDlgFormat::OnOK()
 	}
 	else
 	{
-		MessageBox("Àß¸øµÈ Æ÷¸ËÀÌ°Å³ª ÅØ½ºÃ³ÀÇ Å©±â°¡ 2ÀÇ ½Â¼ö°¡ ¾Æ´Õ´Ï´Ù.");
+		MessageBox("ì˜ëª»ëœ í¬ë§·ì´ê±°ë‚˜ í…ìŠ¤ì²˜ì˜ í¬ê¸°ê°€ 2ì˜ ìŠ¹ìˆ˜ê°€ ì•„ë‹™ë‹ˆë‹¤.");
 	}
 }

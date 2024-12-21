@@ -1,4 +1,4 @@
-// Option.cpp : Defines the class behaviors for the application.
+﻿// Option.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"

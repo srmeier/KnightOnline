@@ -1,4 +1,4 @@
-// ZipBigFile.cpp: implementation of the CZipBigFile class.
+﻿// ZipBigFile.cpp: implementation of the CZipBigFile class.
 //
 //////////////////////////////////////////////////////////////////////
 

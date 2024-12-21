@@ -1,4 +1,4 @@
-// PosDummy.h: interface for the CPosDummy class.
+﻿// PosDummy.h: interface for the CPosDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 

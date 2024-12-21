@@ -1,4 +1,4 @@
-// DialogPart.cpp: implementation of the CDialogPart class.
+﻿// DialogPart.cpp: implementation of the CDialogPart class.
 //
 //////////////////////////////////////////////////////////////////////
 

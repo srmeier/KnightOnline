@@ -1,4 +1,4 @@
-// DlgChrProperty.cpp : implementation file
+ï»¿// DlgChrProperty.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -61,38 +61,38 @@ BOOL CDlgChrProperty::OnInitDialog()
 	CString str, strTmp;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Ä³¸¯ÅÍ
+	// ìºë¦­í„°
 	m_LPChr.AddPropItem("Joint File", "", PIT_FILE, "N3 Joint File(*.N3Joint)|*.N3Joint||");
 	m_LPChr.AddPropItem("Collision Mesh File", "", PIT_FILE, "N3 Vector Mesh(*.N3VMesh)|*.N3VMesh||");
-	m_LPChr.AddPropItem("Collision Mesh Delete", "Collision Mesh »èÁ¦", PIT_BUTTON, "");
+	m_LPChr.AddPropItem("Collision Mesh Delete", "Collision Mesh ì‚­ì œ", PIT_BUTTON, "");
 //	m_LPChr.AddPropItem("Collision Skin File", "", PIT_FILE, "N3 Skin File(*.N3Skin)|*.N3Skin||");
-//	m_LPChr.AddPropItem("Collision Skin Delete", "Collision Skin »èÁ¦", PIT_BUTTON, "");
+//	m_LPChr.AddPropItem("Collision Skin Delete", "Collision Skin ì‚­ì œ", PIT_BUTTON, "");
 
-	m_LPChr.AddPropItem("Part Add", "Part Ãß°¡", PIT_BUTTON, "");
-	m_LPChr.AddPropItem("Part Delete", "Part »èÁ¦", PIT_BUTTON, "");
-	m_LPChr.AddPropItem("Plug Add", "Plug Ãß°¡", PIT_BUTTON, "");
-	m_LPChr.AddPropItem("Plug Delete", "Plug »èÁ¦", PIT_BUTTON, "");
+	m_LPChr.AddPropItem("Part Add", "Part ì¶”ê°€", PIT_BUTTON, "");
+	m_LPChr.AddPropItem("Part Delete", "Part ì‚­ì œ", PIT_BUTTON, "");
+	m_LPChr.AddPropItem("Plug Add", "Plug ì¶”ê°€", PIT_BUTTON, "");
+	m_LPChr.AddPropItem("Plug Delete", "Plug ì‚­ì œ", PIT_BUTTON, "");
 
 	m_CBChrPart.ResetContent();
 	m_CBChrPart.SetCurSel(0);
 
 	m_LPCPart.AddPropItem("Part File", "", PIT_FILE, "N3 Character part file(*.N3CPart)|*.N3CPart||");
-	m_LPCPart.AddPropItem("Part Type", "", PIT_COMBO, "¸Ó¸®Ä«¶ô|¾ó±¼|»óÃ¼|ÇÏÃ¼|¼Õ|¹ß|??|");
-	m_LPCPart.AddPropItem("Texture File", "", PIT_FILE, "Texture ·Î ¾µ¼ö ÀÖ´Â ±×¸² ÆÄÀÏ(*.DXT; *.BMP; *.TGA)|*.DXT; *.BMP; *.TGA|");
+	m_LPCPart.AddPropItem("Part Type", "", PIT_COMBO, "ë¨¸ë¦¬ì¹´ë½|ì–¼êµ´|ìƒì²´|í•˜ì²´|ì†|ë°œ|??|");
+	m_LPCPart.AddPropItem("Texture File", "", PIT_FILE, "Texture ë¡œ ì“¸ìˆ˜ ìžˆëŠ” ê·¸ë¦¼ íŒŒì¼(*.DXT; *.BMP; *.TGA)|*.DXT; *.BMP; *.TGA|");
 
 	m_LPCPlug.AddPropItem("Plug Name", "", PIT_EDIT, "");
-	m_LPCPlug.AddPropItem("Plug Type", "", PIT_COMBO, "¿À¸¥¼ÕÀåÂø|¿Þ¼ÕÀåÂø|¾ç¼ÕÀåÂø");
+	m_LPCPlug.AddPropItem("Plug Type", "", PIT_COMBO, "ì˜¤ë¥¸ì†ìž¥ì°©|ì™¼ì†ìž¥ì°©|ì–‘ì†ìž¥ì°©");
 	m_LPCPlug.AddPropItem("Plug Joint", "", PIT_EDIT, "");
 	m_LPCPlug.AddPropItem("Plug Mesh File", "", PIT_FILE, "N3 Progressive Mesh File(*.N3PMesh)|*.N3PMesh||");
-	m_LPCPlug.AddPropItem("Plug Texture File", "", PIT_FILE, "Texture ·Î ¾µ¼ö ÀÖ´Â ±×¸² ÆÄÀÏ(*.DXT; *.BMP; *.TGA)|*.DXT; *.BMP; *.TGA|");
+	m_LPCPlug.AddPropItem("Plug Texture File", "", PIT_FILE, "Texture ë¡œ ì“¸ìˆ˜ ìžˆëŠ” ê·¸ë¦¼ íŒŒì¼(*.DXT; *.BMP; *.TGA)|*.DXT; *.BMP; *.TGA|");
 	m_LPCPlug.AddPropItem("Plug Offset", "", PIT_EDIT, "");
 	m_LPCPlug.AddPropItem("Plug Rotation", "Reset", PIT_BUTTON, "");
 	m_LPCPlug.AddPropItem("Plug Scale", "", PIT_EDIT, "");
-	// Ä³¸¯ÅÍ
+	// ìºë¦­í„°
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////
-	// Material µî·Ï Á¤º¸
+	// Material ë“±ë¡ ì •ë³´
 	m_LPMaterial.AddPropItem("Render Flags", "0", PIT_EDIT, "", 0);
 	strTmp = "Null|D3DBLEND_ZERO|D3DBLEND_ONE|D3DBLEND_SRCCOLOR|D3DBLEND_INVSRCCOLOR|D3DBLEND_SRCALPHA|D3DBLEND_INVSRCALPHA|D3DBLEND_DESTALPHA|\
 D3DBLEND_INVDESTALPHA|D3DBLEND_DESTCOLOR|D3DBLEND_INVDESTCOLOR|D3DBLEND_SRCALPHASAT|D3DBLEND_BOTHSRCALPHA|D3DBLEND_BOTHINVSRCALPHA|";
@@ -113,10 +113,10 @@ D3DTOP_BUMPENVMAP|D3DTOP_BUMPENVMAPLUMINANCE|D3DTOP_DOTPRODUCT|D3DTOP_MULTIPLYAD
 	m_LPMaterial.AddPropItem("Diffuse Color", "", PIT_COLOR, "");
 	m_LPMaterial.AddPropItem("Specular Color", "", PIT_COLOR, "");
 	m_LPMaterial.AddPropItem("Emissive Color", "", PIT_COLOR, "");
-	// Material µî·Ï Á¤º¸
+	// Material ë“±ë¡ ì •ë³´
 	/////////////////////////////////////
 
-	// Ã¢Å©±â ¹× À§Ä¡ Á¶Á¤ÇÏ±â.
+	// ì°½í¬ê¸° ë° ìœ„ì¹˜ ì¡°ì •í•˜ê¸°.
 	m_LPChr.GetWindowRect(&rc); 
 	nH = m_LPChr.GetItemHeight(0) * m_LPChr.GetCount() + 4;
 	m_LPChr.SetWindowPos(NULL, rc.left, y, rc.Width(), nH, SWP_NOZORDER);
@@ -148,11 +148,11 @@ D3DTOP_BUMPENVMAP|D3DTOP_BUMPENVMAPLUMINANCE|D3DTOP_DOTPRODUCT|D3DTOP_MULTIPLYAD
 	m_LPMaterial.SetWindowPos(NULL, rc.left, y, rc.Width(), nH, SWP_NOZORDER);
 	y += nH + 4;
 
-	// ´ëÈ­»óÀÚ ÀüÃ¼ Å©±â..
+	// ëŒ€í™”ìƒìž ì „ì²´ í¬ê¸°..
 	this->GetWindowRect(&rc);
 	this->SetWindowPos(NULL, 0, 0, rc.Width(), y + GetSystemMetrics(SM_CYCAPTION) + 5, SWP_NOZORDER | SWP_NOMOVE);
 
-	// Áß°£ ºÐÇÒ¼± Á¶Á¤
+	// ì¤‘ê°„ ë¶„í• ì„  ì¡°ì •
 	int nW = 100;
 	m_LPChr.SetDividerWidth(nW);
 	m_LPCPart.SetDividerWidth(nW);
@@ -234,7 +234,7 @@ void CDlgChrProperty::UpdateInfo()
 		}
 	}
 
-	// ºÙÀÌ´Â ¿ÀºêÁ§Æ®(¹«±â, Àå½Å±¸ µî...) Á¤º¸ Ç¥½Ã
+	// ë¶™ì´ëŠ” ì˜¤ë¸Œì íŠ¸(ë¬´ê¸°, ìž¥ì‹ êµ¬ ë“±...) ì •ë³´ í‘œì‹œ
 	int nPlug = m_CBChrPlug.GetCurSel();
 	int nPlugCount = pChr->PlugCount();
 	m_CBChrPlug.ResetContent();
@@ -286,7 +286,7 @@ void CDlgChrProperty::UpdateInfo()
 	m_LPCPart.Invalidate(); // Property List Update
 	m_LPCPlug.Invalidate(); // Property List Update
 
-	// ÀçÁú
+	// ìž¬ì§ˆ
 	if(pMtl)
 	{
 		pItem = m_LPMaterial.GetPropItem("Render Flags");
@@ -405,12 +405,12 @@ BOOL CDlgChrProperty::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 				CN3CPart* pPD = pChr->Part(nPart);
 				if(pPD)
 				{
-					if(pItem->m_curValue == "¸Ó¸®Ä«¶ô") pPD->m_Type = PART_HAIR;
-					else if(pItem->m_curValue == "¾ó±¼") pPD->m_Type = PART_FACE;
-					else if(pItem->m_curValue == "»óÃ¼") pPD->m_Type = PART_UPPER;
-					else if(pItem->m_curValue == "ÇÏÃ¼") pPD->m_Type = PART_LOWER;
-					else if(pItem->m_curValue == "¼Õ") pPD->m_Type = PART_HAND;
-					else if(pItem->m_curValue == "¹ß") pPD->m_Type = PART_FOOT;
+					if(pItem->m_curValue == "ë¨¸ë¦¬ì¹´ë½") pPD->m_Type = PART_HAIR;
+					else if(pItem->m_curValue == "ì–¼êµ´") pPD->m_Type = PART_FACE;
+					else if(pItem->m_curValue == "ìƒì²´") pPD->m_Type = PART_UPPER;
+					else if(pItem->m_curValue == "í•˜ì²´") pPD->m_Type = PART_LOWER;
+					else if(pItem->m_curValue == "ì†") pPD->m_Type = PART_HAND;
+					else if(pItem->m_curValue == "ë°œ") pPD->m_Type = PART_FOOT;
 					else if(pItem->m_curValue == "??") pPD->m_Type = PART_UNKNOWN;
 				}
 				this->UpdateInfo();
@@ -439,7 +439,7 @@ BOOL CDlgChrProperty::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 			else if(pItem->m_propName == "Plug Type") pPlug->m_Type = (e_PlugType)pItem->m_crColor;
 			else if(pItem->m_propName == "Plug Joint")
 			{
-				int nJI = atoi(pItem->m_curValue); // Joint Index °¡ ¿µ¿ªÀ» ¹þ¾î³ªÁö ¸øÇÏµµ·Ï...
+				int nJI = atoi(pItem->m_curValue); // Joint Index ê°€ ì˜ì—­ì„ ë²—ì–´ë‚˜ì§€ ëª»í•˜ë„ë¡...
 				int nJC = 0;
 				CN3Joint* pJ = pChr->Joint();
 				if(pJ) pJ->NodeCount(nJC); // Joint Node Count;

@@ -1,4 +1,4 @@
-// N3ViewerDoc.cpp : implementation of the CN3ViewerDoc class
+ï»¿// N3ViewerDoc.cpp : implementation of the CN3ViewerDoc class
 //
 
 #include "stdafx.h"
@@ -137,9 +137,9 @@ BOOL CN3ViewerDoc::OnSaveDocument(LPCTSTR lpszPathName)
 void CN3ViewerDoc::OnFileImport() 
 {
 	CString szExt = "";
-//	CString szFilter = "N3D Object File|*.*|Ä«¸Ş¶ó Data(*.N3Camera)|*.N3Camera|Light Data(*.N3Light)|*.N3Light|Shape Data(*.N3Shape)|*.N3Shape|\
+//	CString szFilter = "N3D Object File|*.*|ì¹´ë©”ë¼ Data(*.N3Camera)|*.N3Camera|Light Data(*.N3Light)|*.N3Light|Shape Data(*.N3Shape)|*.N3Shape|\
 // Progressive Mesh Data(*.N3PMesh)|*.N3Mesh|Indexed Mesh Data(*.N3IMesh)|*.N3IMesh|Joint Data(*.N3Joint)|*.N3Joint|Skinning Data(*.N3Skin)|*.N3Skin|Character Data(*.N3Chr)|*.N3Chr||";
-	CString szFilter = "N3D Object File|*.*|Ä«¸Ş¶ó(*.N3Camera)|*.N3Camera|Light(*.N3Light)|*.N3Light|Progressive Mesh(*.N3PMesh)|*.N3PMesh|Shape(*.N3Shape)|*.N3Shape|Character(*.N3Chr)|*.N3Chr|Plug(*.N3CPlug)|*.N3CPlug||";
+	CString szFilter = "N3D Object File|*.*|ì¹´ë©”ë¼(*.N3Camera)|*.N3Camera|Light(*.N3Light)|*.N3Light|Progressive Mesh(*.N3PMesh)|*.N3PMesh|Shape(*.N3Shape)|*.N3Shape|Character(*.N3Chr)|*.N3Chr|Plug(*.N3CPlug)|*.N3CPlug||";
 
 	CString FileName;
 	char szBuff[512000] = "";
@@ -215,13 +215,13 @@ void CN3ViewerDoc::OnFileImport()
 			pPart->TexAlloc(1);
 			pPart->TexSet(0, pTex->FileName());
 
-			pShape->FindMinMax(); // Å«°ª, ÀÛÀº°ª Ã£±â..
+			pShape->FindMinMax(); // í°ê°’, ì‘ì€ê°’ ì°¾ê¸°..
 
 			continue;
 		}
 		else continue;
 
-		pBase->LoadFromFile(std::string(FileName)); // ÆÄÀÏ¿¡¼­ ÀĞ´Â´Ù..
+		pBase->LoadFromFile(std::string(FileName)); // íŒŒì¼ì—ì„œ ì½ëŠ”ë‹¤..
 		m_pSelectedObj = pBase;
 
 		if(lstrcmpi(szExt, "N3PMesh") == 0)
@@ -249,7 +249,7 @@ void CN3ViewerDoc::OnFileExport()
 
 	CString szExt, szFilter;
 	
-	if(dwType & OBJ_CAMERA) { szExt = "Camera"; szFilter = "Ä«¸Ş¶ó Data(*.N3Camera)|*.N3Camera||"; }
+	if(dwType & OBJ_CAMERA) { szExt = "Camera"; szFilter = "ì¹´ë©”ë¼ Data(*.N3Camera)|*.N3Camera||"; }
 	else if(dwType & OBJ_LIGHT) { szExt = "N3Light"; szFilter = "Light Data(*.N3Light)|*.N3Light||"; }
 	else if(dwType & OBJ_MESH) { szExt = "N3Mesh"; szFilter = "Mesh Data(*.N3Mesh)|*.N3Mesh||"; }
 	else if(dwType & OBJ_MESH_PROGRESSIVE) { szExt = "N3PMesh"; szFilter = "Progressive Mesh Data(*.N3PMesh)|*.N3PMesh||"; }

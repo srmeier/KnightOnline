@@ -1,4 +1,4 @@
-// ShellTree.cpp : implementation file
+﻿// ShellTree.cpp : implementation file
 //
 
 #include "stdafx.h"

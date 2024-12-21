@@ -1,4 +1,4 @@
-// N3Viewer.h : main header file for the N3VIEWER application
+﻿// N3Viewer.h : main header file for the N3VIEWER application
 //
 
 #if !defined(AFX_N3VIEWER_H__6AE8CCFC_D85F_4339_A6ED_9E2CD70ACBBE__INCLUDED_)

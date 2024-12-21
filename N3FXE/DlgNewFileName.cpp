@@ -1,4 +1,4 @@
-// DlgNewFileName.cpp : implementation file
+﻿// DlgNewFileName.cpp : implementation file
 //
 
 #include "stdafx.h"

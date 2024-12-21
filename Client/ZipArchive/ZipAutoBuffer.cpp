@@ -1,4 +1,4 @@
-// ZipAutoBuffer.cpp: implementation of the CZipAutoBuffer class.
+﻿// ZipAutoBuffer.cpp: implementation of the CZipAutoBuffer class.
 // Part of the ZipArchive library
 // 
 // Copyright (C) 2000 - 2001 Tadeusz Dracz.

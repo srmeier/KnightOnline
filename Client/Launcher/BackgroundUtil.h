@@ -1,4 +1,4 @@
-#ifndef _BACKGROUNDUTIL_H_
+﻿#ifndef _BACKGROUNDUTIL_H_
 #define _BACKGROUNDUTIL_H_
 
 #if _MSC_VER >= 1000

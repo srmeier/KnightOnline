@@ -1,4 +1,4 @@
-// DlgPercent.cpp : implementation file
+﻿// DlgPercent.cpp : implementation file
 //
 
 #include "stdafx.h"

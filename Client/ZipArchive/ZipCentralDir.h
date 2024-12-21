@@ -1,4 +1,4 @@
-// ZipCentralDir.h: interface for the CZipCentralDir class.
+﻿// ZipCentralDir.h: interface for the CZipCentralDir class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

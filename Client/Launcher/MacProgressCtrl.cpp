@@ -1,4 +1,4 @@
-// MacProgressCtrl.cpp : implementation file
+﻿// MacProgressCtrl.cpp : implementation file
 //
 //	CMacProgressCtrl class, version 1.0
 //
@@ -141,7 +141,7 @@ void CMacProgressCtrl::OnPaint()
 //
 // Remarks		:	The framework calls this member function when Windows 
 //						or an application makes a request to repaint a portion 
-//						of an application�s window.
+//						of an application뭩 window.
 //
 {
 	CPaintDC dcPaint(this); // device context for painting

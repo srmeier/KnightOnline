@@ -1,4 +1,4 @@
-// DlgPutColor.cpp : implementation file
+﻿// DlgPutColor.cpp : implementation file
 //
 
 #include "stdafx.h"

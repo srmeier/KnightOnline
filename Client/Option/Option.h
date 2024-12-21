@@ -1,4 +1,4 @@
-// Option.h : main header file for the OPTION application
+﻿// Option.h : main header file for the OPTION application
 //
 
 #if !defined(AFX_OPTION_H__73522433_A06B_4006_9AA4_C9F554EF8231__INCLUDED_)

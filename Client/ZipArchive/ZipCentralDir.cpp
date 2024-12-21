@@ -1,4 +1,4 @@
-// ZipCentralDir.cpp: implementation of the CZipCentralDir class.
+ï»¿// ZipCentralDir.cpp: implementation of the CZipCentralDir class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.
@@ -184,7 +184,7 @@ void CZipCentralDir::ReadHeaders()
 	for (int i = 0; i < m_uEntriesNumber; i++)
 	{
 		CZipFileHeader* pHeader = new CZipFileHeader;
-		m_headers.Add(pHeader); // bezpoœrednio nastêpuje w razie wyj¹tku
+		m_headers.Add(pHeader); // bezpoÅ›rednio nastÄ™puje w razie wyjÄ…tku
 
 		if (!pHeader->Read(m_pStorage))
 			ThrowError(ZIP_BADZIPFILE);

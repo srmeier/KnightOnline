@@ -1,4 +1,4 @@
-/**
+﻿/**
 * \file ZipAutoBuffer.h
 * Interface for the CZipAutoBuffer class.
 *

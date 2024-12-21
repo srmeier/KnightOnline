@@ -1,4 +1,4 @@
-// ZipException.cpp: implementation of the CZipException class.
+﻿// ZipException.cpp: implementation of the CZipException class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

@@ -1,4 +1,4 @@
-// N3CEView.cpp : implementation of the CN3CEView class
+ï»¿// N3CEView.cpp : implementation of the CN3CEView class
 //
 
 #include "stdafx.h"
@@ -60,7 +60,7 @@ CN3CEView::CN3CEView()
 	m_pJointSelected = NULL;
 	m_fTickPrev = CN3Base::TimeGet();
 
-	m_eCursorMode = eCM_Nothing; // Ä¿¼­ ¸ðµå º¸Åë..
+	m_eCursorMode = eCM_Nothing; // ì»¤ì„œ ëª¨ë“œ ë³´í†µ..
 
 	m_pFXPosTransform = new CN3Transform;
 	m_pPosDummy = new CPosDummy;
@@ -88,11 +88,11 @@ void CN3CEView::OnDraw(CDC* pDC)
 { 
 	CN3CEDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
-	if(TRUE == pDoc->m_bLoadingNow) return; // ÀÐ´Â µµÁß¿¡´Â ·»´õ¸µÇÏÁö ¾Ê´Â´Ù...
+	if(TRUE == pDoc->m_bLoadingNow) return; // ì½ëŠ” ë„ì¤‘ì—ëŠ” ë Œë”ë§í•˜ì§€ ì•ŠëŠ”ë‹¤...
 
 
-	float fFrm = pDoc->m_Scene.m_fFrmCur; // ÀÏºÎ·¯ ÇÁ·¹ÀÓÀ» ÄÁÆ®·Ñ ÇÏ·Á°í ÀÌ·¸°Ô ÇØ³õ¾Ò´Ù..
-	pDoc->m_Scene.TickCameras(fFrm); // Ä«¸Þ¶ó¸¸ Tick
+	float fFrm = pDoc->m_Scene.m_fFrmCur; // ì¼ë¶€ëŸ¬ í”„ë ˆìž„ì„ ì»¨íŠ¸ë¡¤ í•˜ë ¤ê³  ì´ë ‡ê²Œ í•´ë†“ì•˜ë‹¤..
+	pDoc->m_Scene.TickCameras(fFrm); // ì¹´ë©”ë¼ë§Œ Tick
 	pDoc->m_Scene.TickLights(fFrm);
 	
 	CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
@@ -113,20 +113,20 @@ void CN3CEView::OnDraw(CDC* pDC)
 	}
 	
 	DWORD dwAlphaBlend, dwAlphaOP, dwAlphaArg1;
-	if(m_bRenderOptionXRay) // ¹ÝÅõ¸í ¿É¼ÇÀÌ ÄÑÁ® ÀÖÀ¸¸é..
+	if(m_bRenderOptionXRay) // ë°˜íˆ¬ëª… ì˜µì…˜ì´ ì¼œì ¸ ìžˆìœ¼ë©´..
 	{
 		// backup state
 		pFrm->m_Eng.s_lpD3DDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlphaBlend);
 		pFrm->m_Eng.s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAOP, &dwAlphaOP);
 		pFrm->m_Eng.s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAARG1, &dwAlphaArg1);
 
-		// render state ¼¼ÆÃ
+		// render state ì„¸íŒ…
 		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_TEXTUREFACTOR, 0x80000000);	// alpha factor ¼³Á¤
+		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_TEXTUREFACTOR, 0x80000000);	// alpha factor ì„¤ì •
 		
-		// texture state ¼¼ÆÃ(alpha)
+		// texture state ì„¸íŒ…(alpha)
 		pFrm->m_Eng.s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
 		pFrm->m_Eng.s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TFACTOR);
 	}
@@ -135,13 +135,13 @@ void CN3CEView::OnDraw(CDC* pDC)
 		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	}
 	
-	if(m_pJointSelected) // °üÀýÀÌ ¼±ÅÃµÇ¾î ÀÖÀ¸¸é..
+	if(m_pJointSelected) // ê´€ì ˆì´ ì„ íƒë˜ì–´ ìžˆìœ¼ë©´..
 	{
 		DWORD dwZ = 0;
 		pFrm->m_Eng.s_lpD3DDev->GetRenderState(D3DRS_ZENABLE, &dwZ);
 		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, FALSE);
 		m_pJointSelected->Render(&(pChr->m_Matrix), 0.02f);
-//		m_pJointSelected->CN3Transform::Render(&(pChr->m_Matrix), 0.3f); // Ãà ±×¸®±â..
+//		m_pJointSelected->CN3Transform::Render(&(pChr->m_Matrix), 0.3f); // ì¶• ê·¸ë¦¬ê¸°..
 		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, dwZ);
 	}
 	
@@ -153,7 +153,7 @@ void CN3CEView::OnDraw(CDC* pDC)
 		if(pChr->IsAnimEnd())
 		{
 			pChr->PosSet(0,0,0);
-			if(!m_DequeAnimation.empty()) // ¿¡´Ï¸ÞÀÌ¼Ç Å¥°¡ ÀÖÀ¸¸é..
+			if(!m_DequeAnimation.empty()) // ì—ë‹ˆë©”ì´ì…˜ íê°€ ìžˆìœ¼ë©´..
 			{
 				int iAni = m_DequeAnimation[0];
 				pChr->AniCurSet(iAni);
@@ -180,7 +180,7 @@ void CN3CEView::OnDraw(CDC* pDC)
 	int nLOD = pFrm->GetPaneTool()->m_CBLOD.GetCurSel();
 	if(nLOD < 0) nLOD = 0;
 	if(nLOD >= MAX_CHR_LOD) nLOD = MAX_CHR_LOD - 1;
-	pChr->m_nLOD = nLOD; // LOD °­Á¦ ¼³Á¤..
+	pChr->m_nLOD = nLOD; // LOD ê°•ì œ ì„¤ì •..
 
 	pChr->Render();
 
@@ -205,7 +205,7 @@ void CN3CEView::OnDraw(CDC* pDC)
 			if(pChr->MatrixGet(pPlug->m_nJointIndex))
 			{
 				__Matrix44 mtxJ = *(pChr->MatrixGet(pPlug->m_nJointIndex));
-				pPlug->RenderFXLines(pChr->m_Matrix, mtxJ); // FX µé¾î°¥ °÷¿¡ ¼±À» ±×·ÁÁØ´Ù.
+				pPlug->RenderFXLines(pChr->m_Matrix, mtxJ); // FX ë“¤ì–´ê°ˆ ê³³ì— ì„ ì„ ê·¸ë ¤ì¤€ë‹¤.
 			}
 		}
 	}
@@ -219,7 +219,7 @@ void CN3CEView::OnDraw(CDC* pDC)
 		eCM_PlugFXPosition4 == m_eCursorMode ||
 		eCM_PlugFXPosition5 == m_eCursorMode ||
 		eCM_PlugFXPosition6 == m_eCursorMode ||
-		eCM_PlugFXPosition7 == m_eCursorMode ) // ÇÃ·¯±× È¿°ú À§Ä¡ 0
+		eCM_PlugFXPosition7 == m_eCursorMode ) // í”ŒëŸ¬ê·¸ íš¨ê³¼ ìœ„ì¹˜ 0
 	{
 		m_pPosDummy->Tick();
 		m_pPosDummy->Render();
@@ -250,7 +250,7 @@ void CN3CEView::OnDraw(CDC* pDC)
 		if(pMtxJ) pPlug->Render(pChr->m_Matrix, *pMtxJ);
 	}
 */
-	if(m_bRenderOptionXRay) // ¹ÝÅõ¸í ¿É¼ÇÀÌ ÄÑÁ® ÀÖÀ¸¸é..
+	if(m_bRenderOptionXRay) // ë°˜íˆ¬ëª… ì˜µì…˜ì´ ì¼œì ¸ ìžˆìœ¼ë©´..
 	{
 		// Restore state
 		pFrm->m_Eng.s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, dwAlphaBlend);
@@ -258,7 +258,7 @@ void CN3CEView::OnDraw(CDC* pDC)
 		pFrm->m_Eng.s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, dwAlphaArg1);
 	}
 
-	// Sound Àç»ý Å×½ºÆ®...
+	// Sound ìž¬ìƒ í…ŒìŠ¤íŠ¸...
 	if(pFrm->m_pSndObj0 && pChr->NeedPlaySound0())
 	{
 		pFrm->m_pSndObj0->Play();
@@ -273,7 +273,7 @@ void CN3CEView::OnDraw(CDC* pDC)
 	pFrm->m_Eng.s_lpD3DDev->EndScene();
 	pFrm->m_Eng.Present(m_hWnd);
 
-	// ÇÁ·¹ÀÓ Ç¥½Ã
+	// í”„ë ˆìž„ í‘œì‹œ
 	float fTick = CN3Base::TimeGet();
 	if(fTick > m_fTickPrev + 0.3f)
 	{
@@ -303,7 +303,7 @@ void CN3CEView::OnInitialUpdate()
 	// TODO: You may populate your ListView with items by directly accessing
 	//  its list control through a call to GetListCtrl().
 
-	DragAcceptFiles(); // Drag File À» ¹Þ´Â´Ù..
+	DragAcceptFiles(); // Drag File ì„ ë°›ëŠ”ë‹¤..
 
 	m_pJointSelected = NULL;
 
@@ -311,7 +311,7 @@ void CN3CEView::OnInitialUpdate()
 	CRect rc; GetClientRect(rc);
 	pFrm->m_Eng.Reset(TRUE, rc.Width(), rc.Height(), 0);
 
-	this->SetCameraToDefault(); // Ä«¸Þ¶ó¸¦ ±âº»°ªÀ¸·Î ÇÏ°í..
+	this->SetCameraToDefault(); // ì¹´ë©”ë¼ë¥¼ ê¸°ë³¸ê°’ìœ¼ë¡œ í•˜ê³ ..
 	this->InvalidateRect(NULL, FALSE);
 }
 
@@ -434,8 +434,8 @@ void CN3CEView::OnLButtonDown(UINT nFlags, CPoint point)
 				pJoint->FindPointerByID(nJI, m_pJointSelected);
 			}
 
-			CN3Base* pBase = pFrm->GetPaneProperty()->GetSelectedObject(); // Plug ¿¡ Joint Index ¸¦ ³Ö´Â´Ù..
-			if(	eCM_PickJoint == this->m_eCursorMode && // Á¶ÀÎÆ® ¼±ÅÃ ¸ðµå..
+			CN3Base* pBase = pFrm->GetPaneProperty()->GetSelectedObject(); // Plug ì— Joint Index ë¥¼ ë„£ëŠ”ë‹¤..
+			if(	eCM_PickJoint == this->m_eCursorMode && // ì¡°ì¸íŠ¸ ì„ íƒ ëª¨ë“œ..
 				pBase && (pBase->Type() & OBJ_CHARACTER_PLUG))
 			{
 				CN3CPlug* pPlug = (CN3CPlug*)pBase;
@@ -444,9 +444,9 @@ void CN3CEView::OnLButtonDown(UINT nFlags, CPoint point)
 				pFrm->GetPaneProperty()->UpdateInfo();
 			}
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-11 ¿ÀÈÄ 1:50:47 )
+//	Coded (By Dino On 2002-10-11 ì˜¤í›„ 1:50:47 )
 //	FXPlug
-			else if (pBase && (pBase->Type() & OBJ_FX_PLUG_PART)	// FXPlugPart°¡ ¼±ÅÃµÇ¾î ÀÖÀ»°æ¿ì ÂüÁ¶ÇÏ´Â Á¶ÀÎÆ®¸¦ ¼³Á¤ÇÑ´Ù.
+			else if (pBase && (pBase->Type() & OBJ_FX_PLUG_PART)	// FXPlugPartê°€ ì„ íƒë˜ì–´ ìžˆì„ê²½ìš° ì°¸ì¡°í•˜ëŠ” ì¡°ì¸íŠ¸ë¥¼ ì„¤ì •í•œë‹¤.
 				&&( nJI >= 0 && nJI < n))
 			{
 				CN3FXPlugPart* pFXPPart = (CN3FXPlugPart*)pBase;
@@ -454,7 +454,7 @@ void CN3CEView::OnLButtonDown(UINT nFlags, CPoint point)
 
 				pFrm->GetPaneProperty()->UpdateInfo();
 			}
-//	End Of Code (By Dino On 2002-10-11 ¿ÀÈÄ 1:50:47 )
+//	End Of Code (By Dino On 2002-10-11 ì˜¤í›„ 1:50:47 )
 //////////////////////////////////////////////////
 			else if(m_pJointSelected && m_bRenderOptionJoint)
 			{
@@ -492,7 +492,7 @@ void CN3CEView::OnUpdateViewJoint(CCmdUI* pCmdUI)
 
 void CN3CEView::UpdateAllInfo()
 {
-	SetCameraToDefault(); // Ä«¸Þ¶ó¸¦ ±âº»°ªÀ¸·Î ¸¸µé°í...
+	SetCameraToDefault(); // ì¹´ë©”ë¼ë¥¼ ê¸°ë³¸ê°’ìœ¼ë¡œ ë§Œë“¤ê³ ...
 	m_pJointSelected = NULL;
 	this->InvalidateRect(NULL, FALSE);
 }
@@ -594,7 +594,7 @@ LRESULT CN3CEView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 					eCM_PlugFXPosition4 == m_eCursorMode ||
 					eCM_PlugFXPosition5 == m_eCursorMode ||
 					eCM_PlugFXPosition6 == m_eCursorMode ||
-					eCM_PlugFXPosition7 == m_eCursorMode ) // ÇÃ·¯±× È¿°ú À§Ä¡ 0
+					eCM_PlugFXPosition7 == m_eCursorMode ) // í”ŒëŸ¬ê·¸ íš¨ê³¼ ìœ„ì¹˜ 0
 				{
 					int iIndex = m_eCursorMode - eCM_PlugFXPosition0;
 					if(iIndex >= 0 && iIndex < MAX_PLUG_FX_POSITION)
@@ -632,13 +632,13 @@ LRESULT CN3CEView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 void CN3CEView::OnMouseMove(UINT nFlags, CPoint point) 
 {
 	if(	!::_IsKeyDown(VK_MENU) && 
-		((nFlags & MK_LBUTTON) || (nFlags & MK_MBUTTON) || (nFlags & MK_RBUTTON)) ) // Ä¿¼­ ¸ðµå¿¡ µû¶ó Á¶Á¤..
+		((nFlags & MK_LBUTTON) || (nFlags & MK_MBUTTON) || (nFlags & MK_RBUTTON)) ) // ì»¤ì„œ ëª¨ë“œì— ë”°ë¼ ì¡°ì •..
 	{
-		// ÀÏ´Ü ÇÃ·¯±×°¡ ¼±ÅÃµÇ¾ú´ÂÁö º»´Ù.
+		// ì¼ë‹¨ í”ŒëŸ¬ê·¸ê°€ ì„ íƒë˜ì—ˆëŠ”ì§€ ë³¸ë‹¤.
 		CMainFrame* pFrm = (CMainFrame*)AfxGetMainWnd();
 		CN3Base* pBase = pFrm->GetPaneProperty()->GetSelectedObject();
 		CN3Chr* pChr = GetDocument()->m_Scene.ChrGet(0);
-		if(	eCM_Nothing != m_eCursorMode && // Ä¿¼­ ¸ðµå°¡ º¸Åë°Ô ¾Æ´Ï°í..
+		if(	eCM_Nothing != m_eCursorMode && // ì»¤ì„œ ëª¨ë“œê°€ ë³´í†µê²Œ ì•„ë‹ˆê³ ..
 			pChr && pBase && (pBase->Type() & OBJ_CHARACTER_PLUG))
 		{
 			CN3CPlug* pPlug = (CN3CPlug*)pBase;
@@ -648,7 +648,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 			else if(nFlags & MK_MBUTTON) vAxis.Set(0,1,0);
 			else if(nFlags & MK_RBUTTON) vAxis.Set(0,0,1);
 
-			if(eCM_PlugPosition == m_eCursorMode) // ÇÃ·¯±× À§Ä¡
+			if(eCM_PlugPosition == m_eCursorMode) // í”ŒëŸ¬ê·¸ ìœ„ì¹˜
 			{
 				const __Matrix44* pMtxTmp = pChr->MatrixGet(pPlug->m_nJointIndex);
 				if(pMtxTmp)
@@ -667,7 +667,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 					pPlug->PositionSet(pPlug->Position() + vDelta);
 				}
 			}
-			else if(eCM_PlugScale == m_eCursorMode) // ÇÃ·¯±× ½ºÄÉÀÏ
+			else if(eCM_PlugScale == m_eCursorMode) // í”ŒëŸ¬ê·¸ ìŠ¤ì¼€ì¼
 			{
 				CPoint ptDelta = point - m_ptPrev;
 				if(_IsKeyDown(VK_CONTROL))
@@ -677,7 +677,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 				
 				pPlug->ScaleSet(vScale);
 			}
-			else if(eCM_PlugRotation == m_eCursorMode) // ÇÃ·¯±× ½ºÄÉÀÏ
+			else if(eCM_PlugRotation == m_eCursorMode) // í”ŒëŸ¬ê·¸ ìŠ¤ì¼€ì¼
 			{
 				const __Matrix44* pMtxTmp = pChr->MatrixGet(pPlug->m_nJointIndex);
 				if(pMtxTmp)
@@ -710,7 +710,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 					eCM_PlugFXPosition4 == m_eCursorMode ||
 					eCM_PlugFXPosition5 == m_eCursorMode ||
 					eCM_PlugFXPosition6 == m_eCursorMode ||
-					eCM_PlugFXPosition7 == m_eCursorMode ) // ÇÃ·¯±× È¿°ú À§Ä¡ 0
+					eCM_PlugFXPosition7 == m_eCursorMode ) // í”ŒëŸ¬ê·¸ íš¨ê³¼ ìœ„ì¹˜ 0
 			{
 				int iIndex = m_eCursorMode - eCM_PlugFXPosition0;
 				if(iIndex >= 0 && iIndex < MAX_PLUG_FX_POSITION)
@@ -729,7 +729,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 			this->InvalidateRect(NULL, FALSE);
 		}
 //////////////////////////////////////////////////
-//	Coded (By Dino On 2002-10-11 ¿ÀÈÄ 2:04:29 )
+//	Coded (By Dino On 2002-10-11 ì˜¤í›„ 2:04:29 )
 //	FXPlug
 		else if(pChr && pBase && (pBase->Type() & OBJ_FX_PLUG_PART))
 		{
@@ -740,7 +740,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 			else if(nFlags & MK_MBUTTON) vAxis.Set(0,1,0);
 			else if(nFlags & MK_RBUTTON) vAxis.Set(0,0,1);
 
-			if (nFlags & MK_SHIFT)	// À§Ä¡
+			if (nFlags & MK_SHIFT)	// ìœ„ì¹˜
 			{
 				const __Matrix44* pMtxTmp = pChr->MatrixGet(pFXPPart->GetRefIndex());
 				if(pMtxTmp)
@@ -759,7 +759,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 					pFXPPart->m_vOffsetPos += vDelta;
 				}
 			}
-			else if (nFlags & MK_CONTROL)	// È¸Àü
+			else if (nFlags & MK_CONTROL)	// íšŒì „
 			{
 				const __Matrix44* pMtxTmp = pChr->MatrixGet(pFXPPart->GetRefIndex());
 				if(pMtxTmp)
@@ -788,7 +788,7 @@ void CN3CEView::OnMouseMove(UINT nFlags, CPoint point)
 			pFrm->GetPaneProperty()->UpdateInfo();
 			this->InvalidateRect(NULL, FALSE);
 		}
-//	End Of Code (By Dino On 2002-10-11 ¿ÀÈÄ 2:04:29 )
+//	End Of Code (By Dino On 2002-10-11 ì˜¤í›„ 2:04:29 )
 //////////////////////////////////////////////////
 	}
 
@@ -816,7 +816,7 @@ void CN3CEView::InitFXPos()
 		eCM_PlugFXPosition4 == m_eCursorMode ||
 		eCM_PlugFXPosition5 == m_eCursorMode ||
 		eCM_PlugFXPosition6 == m_eCursorMode ||
-		eCM_PlugFXPosition7 == m_eCursorMode ) // ÇÃ·¯±× È¿°ú À§Ä¡ 0
+		eCM_PlugFXPosition7 == m_eCursorMode ) // í”ŒëŸ¬ê·¸ íš¨ê³¼ ìœ„ì¹˜ 0
 	{
 		int iIndex = m_eCursorMode - eCM_PlugFXPosition0;
 		if(iIndex >= 0 && iIndex < MAX_PLUG_FX_POSITION)

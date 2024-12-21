@@ -1,4 +1,4 @@
-// ZipFileHeader.h: interface for the CZipFileHeader class.
+﻿// ZipFileHeader.h: interface for the CZipFileHeader class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

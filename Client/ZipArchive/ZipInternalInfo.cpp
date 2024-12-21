@@ -1,4 +1,4 @@
-// ZipInternalInfo.cpp: implementation of the CZipInternalInfo class.
+﻿// ZipInternalInfo.cpp: implementation of the CZipInternalInfo class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

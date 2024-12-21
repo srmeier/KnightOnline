@@ -1,4 +1,4 @@
-// ZipStorage.cpp: implementation of the CZipStorage class.
+﻿// ZipStorage.cpp: implementation of the CZipStorage class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

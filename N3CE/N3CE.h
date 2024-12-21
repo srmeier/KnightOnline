@@ -1,4 +1,4 @@
-// N3CE.h : main header file for the N3CE application
+﻿// N3CE.h : main header file for the N3CE application
 //
 
 #if !defined(AFX_N3CE_H__1E0C5C82_CAFE_44FC_AD84_DDCDED50FA12__INCLUDED_)

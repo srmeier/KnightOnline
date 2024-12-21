@@ -1,4 +1,4 @@
-// N3FXE.h : main header file for the N3FXE application
+﻿// N3FXE.h : main header file for the N3FXE application
 //
 
 #if !defined(AFX_N3FXE_H__9D64675E_A5BC_43E2_A97D_B9266331170F__INCLUDED_)

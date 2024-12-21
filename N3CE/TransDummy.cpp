@@ -1,4 +1,4 @@
-// TransDummy.cpp: implementation of the CTransDummy class.
+Ôªø// TransDummy.cpp: implementation of the CTransDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -89,7 +89,7 @@ void CTransDummy::InitDummyCube(int iType, __DUMMYCUBE* pDummyCube, __Vector3& v
 void CTransDummy::Tick()
 {
 	if (m_SelObjArray.GetSize()==0) return;
-	// Scale ¡∂¡§
+	// Scale Ï°∞Ï†ï
 	__Vector3 vL = s_CameraData.vEye - m_vPos;
 	float fL = vL.Magnitude()*0.01f;
 	m_vScale.Set(fL, fL, fL);
@@ -97,7 +97,7 @@ void CTransDummy::Tick()
 	CN3Transform::Tick(-1000.0f);
 	ReCalcMatrix();
 
-	// ∞≈∏Æø° µ˚∂Û ¡§∑ƒ
+	// Í±∞Î¶¨Ïóê Îî∞Îùº Ï†ïÎ†¨
 	int i;
 	for (i=0; i<NUM_DUMMY; ++i)
 	{
@@ -125,7 +125,7 @@ void CTransDummy::Render()
 	HRESULT hr;
 
 	// set transform
-	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix); // ø˘µÂ «‡∑ƒ ¿˚øÎ..
+	hr = s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix); // ÏõîÎìú ÌñâÎ†¨ Ï†ÅÏö©..
 
 	// set texture
 	hr = s_lpD3DDev->SetTexture(0, NULL);
@@ -141,11 +141,11 @@ void CTransDummy::Render()
 	hr = s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 	hr = s_lpD3DDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	// ¿ÃæÓ¡ˆ º± ±◊∏Æ±‚
+	// Ïù¥Ïñ¥ÏßÄ ÏÑ† Í∑∏Î¶¨Í∏∞
 	hr = s_lpD3DDev->SetVertexShader(FVF_XYZCOLOR);
 	hr = s_lpD3DDev->DrawPrimitiveUP(D3DPT_LINELIST, 3, m_LineVertices, sizeof(__VertexXyzColor));
 
-	// Cube ±◊∏Æ±‚
+	// Cube Í∑∏Î¶¨Í∏∞
 	hr = s_lpD3DDev->SetVertexShader(FVF_XYZNORMALCOLOR);
 	int i;
 	for (i=0; i<NUM_DUMMY; ++i)
@@ -226,7 +226,7 @@ BOOL CTransDummy::MouseMsgFilter(LPMSG pMsg)
 				m_qPrevRot = pSelObj0->Rot();
 				if (m_vPrevScaleArray) {delete [] m_vPrevScaleArray; m_vPrevScaleArray = NULL;}
 				m_vPrevScaleArray = new __Vector3[iSize];
-				for (int i=0; i<iSize; ++i)	// ∏µÁ º±≈√µ» ∞¥√º¿« Ω∫ƒ…¿œ ¿˙¿Â
+				for (int i=0; i<iSize; ++i)	// Î™®Îì† ÏÑ†ÌÉùÎêú Í∞ùÏ≤¥Ïùò Ïä§ÏºÄÏùº Ï†ÄÏû•
 				{
 					CN3Transform* pSelObj = m_SelObjArray.GetAt(i);
 					_ASSERT(pSelObj);
@@ -248,7 +248,7 @@ BOOL CTransDummy::MouseMsgFilter(LPMSG pMsg)
 			}
 		}
 		break;
-	case WM_RBUTTONUP:	// ≈•∫Í º±≈√ √Îº“ π◊ ¿Ãπ¯ µÂ∑°±◊∑Œ øÚ¡˜¿Œ∞Õ µ«µπ∑¡ ≥ı±‚
+	case WM_RBUTTONUP:	// ÌÅêÎ∏å ÏÑ†ÌÉù Ï∑®ÏÜå Î∞è Ïù¥Î≤à ÎìúÎûòÍ∑∏Î°ú ÏõÄÏßÅÏù∏Í≤É ÎêòÎèåÎ†§ ÎÜìÍ∏∞
 		{
 			if (m_pSelectedCube)
 			{

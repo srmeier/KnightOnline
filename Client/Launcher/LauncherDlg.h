@@ -1,4 +1,4 @@
-// LauncherDlg.h : header file
+ï»¿// LauncherDlg.h : header file
 //
 
 #if !defined(AFX_LAUNCHERDLG_H__325A6320_D329_4918_8850_89A24809D8CD__INCLUDED_)
@@ -54,7 +54,7 @@ public:
 	std::string	m_szGetFileNames[MAX_DOWNLOAD_FILE];
 	int			m_nVersionNum[MAX_DOWNLOAD_FILE];
 
-	HKEY		m_hRegistryKey; // ·¹Áö½ºÆ®¸® Å° ÇÚµé..
+	HKEY		m_hRegistryKey; // ë ˆì§€ìŠ¤íŠ¸ë¦¬ í‚¤ í•¸ë“¤..
 
 // Construction
 public:

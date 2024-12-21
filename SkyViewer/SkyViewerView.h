@@ -1,4 +1,4 @@
-// SkyViewerView.h : interface of the CSkyViewerView class
+﻿// SkyViewerView.h : interface of the CSkyViewerView class
 //
 /////////////////////////////////////////////////////////////////////////////
 

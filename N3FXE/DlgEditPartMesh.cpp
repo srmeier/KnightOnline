@@ -1,4 +1,4 @@
-// DlgEditPartMesh.cpp : implementation file
+ï»¿// DlgEditPartMesh.cpp : implementation file
 //
 
 #include "stdafx.h"
@@ -161,7 +161,7 @@ void CDlgEditPartMesh::OnPartMeshBtnSave()
 	FILE* file = fopen((LPCTSTR)m_strPathName, "w");
 	if(!file)
 	{
-		MessageBox("n3fxpartÆÄÀÏ »ı¼º ½ÇÆĞ..-.-;;","ERR02",MB_OK);
+		MessageBox("n3fxpartíŒŒì¼ ìƒì„± ì‹¤íŒ¨..-.-;;","ERR02",MB_OK);
 		return;
 	}
 
@@ -256,7 +256,7 @@ bool CDlgEditPartMesh::LoadPartScript(const char* szPath)
 	}
 
 	//////////////////////////////////////////////////
-	//°¢ ÄÁÆ®·Ñ ¼ÂÆÃ...
+	//ê° ì»¨íŠ¸ë¡¤ ì…‹íŒ…...
 	m_bOnGround = pPart->m_bOnGround;
 	m_bAlphaBlend = pPart->m_bAlpha;
 
@@ -392,7 +392,7 @@ void CDlgEditPartMesh::OnPartMeshBtnLoadShape()
 	}
 	else
 	{
-		MessageBox("N3ShapeÆÄÀÏÀº fxÆú´õ ¾Æ·¡, È¤Àº fxÆú´õ ¾Æ·¡¿¡ ÀÖ´Â Æú´õ¿¡ À§Ä¡ÇØ¾ß ÇÕ´Ï´Ù..-.-;;","ERR03",MB_OK);
+		MessageBox("N3ShapeíŒŒì¼ì€ fxí´ë” ì•„ë˜, í˜¹ì€ fxí´ë” ì•„ë˜ì— ìˆëŠ” í´ë”ì— ìœ„ì¹˜í•´ì•¼ í•©ë‹ˆë‹¤..-.-;;","ERR03",MB_OK);
 	}
 
 	delete pBaseFileAccess;			

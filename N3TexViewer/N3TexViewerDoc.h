@@ -1,4 +1,4 @@
-// N3TexViewerDoc.h : interface of the CN3TexViewerDoc class
+﻿// N3TexViewerDoc.h : interface of the CN3TexViewerDoc class
 //
 /////////////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// APISocket.h: interface for the CAPISocket class.
+ï»¿// APISocket.h: interface for the CAPISocket class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -64,7 +64,7 @@ public:
 	void	Send(BYTE* pData, int nSize);
 
 
-	//ÆÐÅ¶ ¸¸µé±â ÇÔ¼ö
+	//íŒ¨í‚· ë§Œë“¤ê¸° í•¨ìˆ˜
 	static	void	MP_AddByte(BYTE *dest, int& iOffset, BYTE byte) { CopyMemory(dest+iOffset, &byte, 1); iOffset ++; }
 	static	void	MP_AddShort(BYTE *dest, int& iOffset, short value) { CopyMemory(dest+iOffset, &value, 2); iOffset += 2; }
 	static	void	MP_AddWord(BYTE *dest, int& offset, WORD value) { CopyMemory(dest+offset, &value, 2); offset += 2; }
@@ -79,7 +79,7 @@ public:
 		}
 	}
 
-	//ÆÐÅ¶ Parsing ÇÔ¼ö
+	//íŒ¨í‚· Parsing í•¨ìˆ˜
 	static	BYTE&	Parse_GetByte(const BYTE* buf, int &iOffset) { iOffset ++; return *(BYTE*)(buf+iOffset-1); }
 	static	short&	Parse_GetShort(const BYTE* buf, int& iOffset) { iOffset += 2; return *(short*)(buf+iOffset-2); }
 	static  WORD&	Parse_GetWord(const BYTE* buf, int &iOffset) { iOffset += 2; return *(PWORD)(buf+iOffset-2); }

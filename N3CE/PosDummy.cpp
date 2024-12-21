@@ -1,4 +1,4 @@
-// PosDummy.cpp: implementation of the CPosDummy class.
+ï»¿// PosDummy.cpp: implementation of the CPosDummy class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -53,9 +53,9 @@ BOOL CPosDummy::MouseMsgFilter(LPMSG pMsg)
 			DWORD nFlags = pMsg->wParam;
 			if (m_pSelectedCube && (nFlags & MK_LBUTTON))
 			{
-				__Vector3 vRayDir, vRayOrig;	// È­¸é Áß¾Ó(½ÃÁ¡)°ú ¸¶¿ì½º Æ÷ÀÎÅÍ¸¦ ÀÌÀº Á÷¼±ÀÇ ¹æÇâ°ú ¿øÁ¡
-				__Vector3 vPN, vPV;	// Æò¸éÀÇ ¹ı¼±°ú Æ÷ÇÔµÈ Á¡
-				__Vector3 vPos;	// À§ÀÇ Æò¸é°ú Á÷¼±ÀÇ ¸¸³ª´Â Á¡(±¸ÇÒ Á¡)
+				__Vector3 vRayDir, vRayOrig;	// í™”ë©´ ì¤‘ì•™(ì‹œì )ê³¼ ë§ˆìš°ìŠ¤ í¬ì¸í„°ë¥¼ ì´ì€ ì§ì„ ì˜ ë°©í–¥ê³¼ ì›ì 
+				__Vector3 vPN, vPV;	// í‰ë©´ì˜ ë²•ì„ ê³¼ í¬í•¨ëœ ì 
+				__Vector3 vPos;	// ìœ„ì˜ í‰ë©´ê³¼ ì§ì„ ì˜ ë§Œë‚˜ëŠ” ì (êµ¬í•  ì )
 				__Vector3 vCameraDir = s_CameraData.vAt - s_CameraData.vEye;	vCameraDir.Normalize();
 				GetPickRay(point, vRayDir, vRayOrig);
 				vPV = m_vPrevPos;

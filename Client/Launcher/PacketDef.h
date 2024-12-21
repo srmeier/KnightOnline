@@ -1,14 +1,14 @@
-#ifndef __PACKET_DEF_H_
+ï»¿#ifndef __PACKET_DEF_H_
 #define __PACKET_DEF_H_
 
 ///////////////////////////////////////////////////////////////
 // Packet Define 
 ///////////////////////////////////////////////////////////////
 #define VERSION_REQ				0x01	// Send 
-#define DOWNLOAD_INFO_REQ		0x02	// Send - s1(ÇöÀç¹öÀü) | Recv FTP
-#define LOGIN_REQ				0x03	// Send - s1(ID±æÀÌ) str1(ID¹®ÀÚ¿­:20¹ÙÀÌÆ®ÀÌÇÏ) s1(PW±æÀÌ) str1(PW¹®ÀÚ¿­:12¹ÙÀÌÆ®ÀÌÇÏ) | Recv - b1(0:½ÇÆĞ 1:¼º°ø 2:ID¾øÀ½ 3:PWÆ²¸² 4:¼­¹öÁ¡°ËÁß)
-#define MGAME_LOGIN_REQ			0x04	// !!! LOGIN_REQ !!! ¿Í µ¿ÀÏ
-#define SERVER_LIST				0x05	// Recv - b1(ServerCount) loop(	s1(IP±æÀÌ), str1(IP¹®ÀÚ¿­), s1(¼­¹öÀÌ¸§±æÀÌ), str1(¼­¹öÀÌ¸§¹®ÀÚ¿­), s1(¼­¹öÁ¢¼ÓÀÎ¿ø) )
+#define DOWNLOAD_INFO_REQ		0x02	// Send - s1(í˜„ì¬ë²„ì „) | Recv FTP
+#define LOGIN_REQ				0x03	// Send - s1(IDê¸¸ì´) str1(IDë¬¸ìì—´:20ë°”ì´íŠ¸ì´í•˜) s1(PWê¸¸ì´) str1(PWë¬¸ìì—´:12ë°”ì´íŠ¸ì´í•˜) | Recv - b1(0:ì‹¤íŒ¨ 1:ì„±ê³µ 2:IDì—†ìŒ 3:PWí‹€ë¦¼ 4:ì„œë²„ì ê²€ì¤‘)
+#define MGAME_LOGIN_REQ			0x04	// !!! LOGIN_REQ !!! ì™€ ë™ì¼
+#define SERVER_LIST				0x05	// Recv - b1(ServerCount) loop(	s1(IPê¸¸ì´), str1(IPë¬¸ìì—´), s1(ì„œë²„ì´ë¦„ê¸¸ì´), str1(ì„œë²„ì´ë¦„ë¬¸ìì—´), s1(ì„œë²„ì ‘ì†ì¸ì›) )
 ///////////////////////////////////////////////////////////////
 
 #endif // end of #ifndef __PACKET_DEF_H_

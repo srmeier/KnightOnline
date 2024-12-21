@@ -1,4 +1,4 @@
-// ZipStorage.h: interface for the CZipStorage class.
+﻿// ZipStorage.h: interface for the CZipStorage class.
 //
 ////////////////////////////////////////////////////////////////////////////////
 //  Copyright (C) 2000 Tadeusz Dracz.

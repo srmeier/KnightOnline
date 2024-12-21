@@ -1,4 +1,4 @@
-#ifndef _DEFINE_H
+﻿#ifndef _DEFINE_H
 #define _DEFINE_H
 
 #define SM_EVENTS_RECEIVE			0

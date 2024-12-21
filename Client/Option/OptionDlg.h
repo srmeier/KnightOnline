@@ -1,4 +1,4 @@
-// OptionDlg.h : header file
+ï»¿// OptionDlg.h : header file
 //
 
 #if !defined(AFX_OPTIONDLG_H__4A33FB17_F101_4D7A_ABAB_CC542891E12D__INCLUDED_)
@@ -15,15 +15,15 @@ struct __GameOption
 	int		iTexLOD_Chr;		// Texture LOD
 	int		iTexLOD_Shape;		// Texture LOD
 	int		iTexLOD_Terrain;	// Texture LOD
-	int		iUseShadow;			// ±×¸²ÀÚ »ç¿ë 0 »ç¿ë¾ÈÇÔ 1 »ç¿ë
-	int		iViewDist;			// °¡½Ã°Å¸®..
-	int		iViewWidth;			// È­¸é ±æÀÌ
-	int		iViewHeight;		// È­¸é ³Êºñ
-	int		iViewColorDepth;	// »ö»ó¼ö..
-	int		iEffectSndDist;		// ÀÌÆåÆ® »ç¿îµå °Å¸®
-	bool	bSndDuplicated;		// Áßº¹µÈ À½¿ø »ç¿ë
-	bool	bSoundEnable;		// »ç¿îµå »ç¿ë
-	bool	bWindowCursor;		// À©µµ¿ì Ä¿¼­ »ç¿ë
+	int		iUseShadow;			// ê·¸ë¦¼ì ì‚¬ìš© 0 ì‚¬ìš©ì•ˆí•¨ 1 ì‚¬ìš©
+	int		iViewDist;			// ê°€ì‹œê±°ë¦¬..
+	int		iViewWidth;			// í™”ë©´ ê¸¸ì´
+	int		iViewHeight;		// í™”ë©´ ë„ˆë¹„
+	int		iViewColorDepth;	// ìƒ‰ìƒìˆ˜..
+	int		iEffectSndDist;		// ì´í™íŠ¸ ì‚¬ìš´ë“œ ê±°ë¦¬
+	bool	bSndDuplicated;		// ì¤‘ë³µëœ ìŒì› ì‚¬ìš©
+	bool	bSoundEnable;		// ì‚¬ìš´ë“œ ì‚¬ìš©
+	bool	bWindowCursor;		// ìœˆë„ìš° ì»¤ì„œ ì‚¬ìš©
 
 	void InitDefault()
 	{

@@ -1,4 +1,4 @@
-// N3FXEView.h : interface of the CN3FXEView class
+﻿// N3FXEView.h : interface of the CN3FXEView class
 //
 /////////////////////////////////////////////////////////////////////////////
 

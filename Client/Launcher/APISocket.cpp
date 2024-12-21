@@ -1,4 +1,4 @@
-// APISocket.cpp: implementation of the CAPISocket class.
+ï»¿// APISocket.cpp: implementation of the CAPISocket class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -182,11 +182,11 @@ BOOL CAPISocket::ReceiveProcess()
 			short siCore = *((short*)(pData+2));
 			if ( siCore <= iCount )
 			{
-				if ( PACKET_TAIL == ntohs(*((WORD*)(pData+iCount-2))) ) // ÆÐÅ¶ ²¿¸® ºÎºÐ °Ë»ç..
+				if ( PACKET_TAIL == ntohs(*((WORD*)(pData+iCount-2))) ) // íŒ¨í‚· ê¼¬ë¦¬ ë¶€ë¶„ ê²€ì‚¬..
 				{
 					DataPack *pDP = new DataPack(siCore, pData+4);
 					m_qRecvPkt.push(pDP);
-					m_CB.HeadIncrease(siCore + 6); // È¯Çü ¹öÆÛ ÀÎµ¦½º Áõ°¡ ½ÃÅ°±â..
+					m_CB.HeadIncrease(siCore + 6); // í™˜í˜• ë²„í¼ ì¸ë±ìŠ¤ ì¦ê°€ ì‹œí‚¤ê¸°..
 
 					bFoundTail = TRUE;
 				}
@@ -203,8 +203,8 @@ void CAPISocket::Send(BYTE* pData, int nSize)
 {
 	if (m_hSocket == INVALID_SOCKET)	return;
 
-	// UZDream ÆÐÅ¶ Çü½Ä¿¡ ¸ÂÃçÁÖ´Â ºÎºÐ. STX, ETX, size¸¸ ºÙ¿©ÁØ´Ù. µû¶ó¼­ ³ª¸ÓÁö ºÎºÐÀº ÆÐÅ¶¸¸µé¶§ ºÙ¿©¼­ ³Ö¾îÁà¾ß ÇÔ. 
-	// ºÒÇÕ¸®ÇÏÁö¸¸ ÀÌÀüÀÇ ÆÐÅ¶ Çü½Ä¿¡ ¸ÂÃß±â À§ÇØ¼±... 
+	// UZDream íŒ¨í‚· í˜•ì‹ì— ë§žì¶°ì£¼ëŠ” ë¶€ë¶„. STX, ETX, sizeë§Œ ë¶™ì—¬ì¤€ë‹¤. ë”°ë¼ì„œ ë‚˜ë¨¸ì§€ ë¶€ë¶„ì€ íŒ¨í‚·ë§Œë“¤ë•Œ ë¶™ì—¬ì„œ ë„£ì–´ì¤˜ì•¼ í•¨. 
+	// ë¶ˆí•©ë¦¬í•˜ì§€ë§Œ ì´ì „ì˜ íŒ¨í‚· í˜•ì‹ì— ë§žì¶”ê¸° ìœ„í•´ì„ ... 
 //	int nTotalSize = nSize+10;
 //	BYTE *pSndData = m_RecvBuf;
 //	*((WORD*)pSndData) = STX;			pSndData+=2;

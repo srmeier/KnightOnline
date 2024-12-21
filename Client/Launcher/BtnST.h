@@ -1,4 +1,4 @@
-//
+﻿//
 //	Class:		CButtonST
 //
 //	Compiler:	Visual C++

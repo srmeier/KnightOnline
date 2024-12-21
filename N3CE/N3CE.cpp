@@ -1,4 +1,4 @@
-// N3CE.cpp : Defines the class behaviors for the application.
+﻿// N3CE.cpp : Defines the class behaviors for the application.
 //
 #include "stdafx.h"
 #include "N3CE.h"

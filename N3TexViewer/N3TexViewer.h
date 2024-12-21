@@ -1,4 +1,4 @@
-// N3TexViewer.h : main header file for the N3TEXVIEWER application
+﻿// N3TexViewer.h : main header file for the N3TEXVIEWER application
 //
 
 #if !defined(AFX_N3TEXVIEWER_H__BD91BC46_CB3C_4E31_96A6_6A3A22E1730B__INCLUDED_)

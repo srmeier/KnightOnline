@@ -1,4 +1,4 @@
-// N3ViewerDoc.h : interface of the CN3ViewerDoc class
+﻿// N3ViewerDoc.h : interface of the CN3ViewerDoc class
 //
 /////////////////////////////////////////////////////////////////////////////
 
