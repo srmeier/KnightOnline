@@ -8,7 +8,7 @@
 #include "MainFrm.h"
 #include "N3ViewerDoc.h"
 
-#include "../N3Base/N3Scene.h"
+#include <N3Base/N3Scene.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -438,7 +438,7 @@ void CViewProperty::UpdateInfo()
 		int nPlug = m_CBChrPlug.GetCurSel();
 		int nPlugCount = pC->PlugCount();
 		m_CBChrPlug.ResetContent();
-		for(i = 0; i < nPlugCount; i++)
+		for(int i = 0; i < nPlugCount; i++)
 		{
 			CString szTmp;
 			szTmp.Format("Plug : %d", i);

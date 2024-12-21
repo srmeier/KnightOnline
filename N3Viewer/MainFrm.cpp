@@ -5,7 +5,7 @@
 #include "N3Viewer.h"
 
 #include "N3ViewerDoc.h"
-#include "../N3Base/N3Scene.h"
+#include <N3Base/N3Scene.h>
 
 #include "MainFrm.h"
 #include "DlgBrowsePath.h"

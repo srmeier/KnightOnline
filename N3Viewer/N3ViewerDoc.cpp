@@ -6,10 +6,10 @@
 #include "MainFrm.h"
 #include "N3ViewerDoc.h"
 
-#include "../N3Base/N3Camera.h"
-#include "../N3Base/N3Light.h"
-#include "../N3Base/N3Chr.h"
-#include "../N3Base/N3Shape.h"
+#include <N3Base/N3Camera.h>
+#include <N3Base/N3Light.h>
+#include <N3Base/N3Chr.h>
+#include <N3Base/N3Shape.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

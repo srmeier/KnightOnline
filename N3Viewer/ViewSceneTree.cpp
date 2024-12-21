@@ -8,10 +8,10 @@
 #include "MainFrm.h"
 #include "N3ViewerDoc.h"
 
-#include "../N3Base/N3Scene.h"
-#include "../N3Base/N3IMesh.h"
-#include "../N3Base/N3PMesh.h"
-#include "../N3Base/N3PMeshInstance.h"
+#include <N3Base/N3Scene.h>
+#include <N3Base/N3IMesh.h>
+#include <N3Base/N3PMesh.h>
+#include <N3Base/N3PMeshInstance.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

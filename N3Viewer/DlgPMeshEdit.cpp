@@ -7,9 +7,9 @@
 #include "DlgPMeshCreateOption.h"
 #include "DlgPMeshEdit.h"
 
-#include "../N3Base/N3Texture.h"
-#include "../N3Base/N3PMeshCreate.h"
-#include "../N3Base/N3PMeshInstance.h"
+#include <N3Base/N3Texture.h>
+#include <N3Base/N3PMeshCreate.h>
+#include <N3Base/N3PMeshInstance.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -391,7 +391,7 @@ void CDlgPMeshEdit::LOD_Delete()
 	CN3PMesh::__LODCtrlValue LODs[32]; // LOD Control Value 복사..
 	int nLOD = 0;
 	for(int i = 0; i < nSel; i++) LODs[nLOD++] = *(pPMesh->LODCtrlGet(i));
-	for(i = nSel + 1; i < nLODCount; i++) LODs[nLOD++] = *(pPMesh->LODCtrlGet(i));
+	for(int i = nSel + 1; i < nLODCount; i++) LODs[nLOD++] = *(pPMesh->LODCtrlGet(i));
 	pPMesh->LODCtrlSet(LODs, nLOD);
 	pPMesh->SaveToFile(); // 저장..
 

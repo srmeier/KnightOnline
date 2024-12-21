@@ -3,10 +3,10 @@
 
 #include "stdafx.h"
 
-#include "../N3Base/N3Camera.h"
-#include "../N3Base/N3Light.h"
-#include "../N3Base/N3Shape.h"
-#include "../N3Base/N3Chr.h"
+#include <N3Base/N3Camera.h>
+#include <N3Base/N3Light.h>
+#include <N3Base/N3Shape.h>
+#include <N3Base/N3Chr.h>
 
 #include "N3Viewer.h"
 #include "MainFrm.h"
@@ -308,7 +308,7 @@ CN3Base* CN3ViewerView::Pick(POINT point, int* pnPart)
 
 	CN3Chr* pChr;
 	int nCC = pScene->ChrCount();
-	for(i = 0; i < nCC; i++)
+	for(int i = 0; i < nCC; i++)
 	{
 		pChr = pScene->ChrGet(i);
 		_ASSERT(pChr);
@@ -324,7 +324,7 @@ CN3Base* CN3ViewerView::Pick(POINT point, int* pnPart)
 
 	int nPart = -1;
 	__Vector3 vI;
-	for(i = 0; i < nSortCount; i++)
+	for(int i = 0; i < nSortCount; i++)
 	{
 		nPart = sort[i].pObj->CheckCollisionPrecisely(true, point.x, point.y);
 		if(nPart >= 0)

@@ -9,7 +9,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CDlgPMeshEdit dialog
-#include "../N3Base/N3Shape.h"
+#include <N3Base/N3Shape.h>
 
 class CDlgPMeshEdit : public CDialog
 {
