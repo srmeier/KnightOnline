@@ -219,9 +219,6 @@ public:
 	bool	OnMouseRBtnPress(POINT ptCur, POINT ptPrev);
 	bool	OnMouseRDBtnPress(POINT ptCur, POINT ptPrev);
 	
-	// added by d5dl2
-	bool	OnMouseMBtnPress(POINT ptCur, POINT ptPrev);
-	
 	void	ControlViewVDegree(int16_t sValue);
 	void	PlayBGM_Town();
 	void	PlayBGM_Battle();
