@@ -29,22 +29,24 @@ public:
 	bool Initialise();
 
 	// Compiles script to bytecode
-	bool CompileScript(const char * filename, BytecodeBuffer & buffer);
+	bool CompileScript(const char* filename, BytecodeBuffer& buffer);
 
 	// Loads bytecode one chunk at a time.
-	static int LoadBytecodeChunk(lua_State * L, uint8_t * bytes, size_t len, BytecodeBuffer * buffer);
+	static int LoadBytecodeChunk(lua_State* L, uint8_t* bytes, size_t len, BytecodeBuffer* buffer);
 
 	// Executes script from bytecode
-	bool ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int8_t bSelectedReward, const char * filename, BytecodeBuffer & bytecode);
+	bool ExecuteScript(CUser* pUser, CNpc* pNpc, int32_t iEventID, const char* filename, BytecodeBuffer& bytecode);
+
+	void LogError(const char* message, CUser* pUser, CNpc* pNpc, const char* filename);
 
 	// Handles the retrieval of error messages (same error codes used in both the compilation & execution stages)
-	void RetrieveLoadError(int err, const char * filename);
+	void RetrieveLoadError(int err, const char* filename);
 
 	void Shutdown();
 	~CLuaScript();
 
 private:
-	lua_State * m_luaState;
+	lua_State* m_luaState;
 	std::recursive_mutex m_lock;
 };
 
@@ -54,8 +56,8 @@ class CLuaEngine
 public:
 	CLuaEngine();
 	bool Initialise();
-	CLuaScript * SelectAvailableScript();
-	bool ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int8_t bSelectedReward, const char * filename);
+	CLuaScript* SelectAvailableScript();
+	bool ExecuteScript(CUser* pUser, CNpc* pNpc, int32_t nEventID, const char* filename);
 	void Shutdown();
 	~CLuaEngine();
 
@@ -64,7 +66,7 @@ private:
 	// In the future, however, it would be wise to spread the load across 
 	// multiple script instances (which have been completely thread-safe since Lua 5.1)
 	CLuaScript m_luaScript;
-	RWLock * m_lock;
+	RWLock* m_lock;
 
 	ScriptBytecodeMap m_scriptMap;
 };

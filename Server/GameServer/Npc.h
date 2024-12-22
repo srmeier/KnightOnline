@@ -70,7 +70,7 @@ public:
 	bool isDead() { return m_NpcState == NPC_DEAD || m_iHP <= 0; };
 
 	INLINE bool isMonster() { return m_bMonster; }
-	INLINE bool isGate() { return GetType() == NPC_GATE || GetType() == NPC_PHOENIX_GATE || GetType() == NPC_SPECIAL_GATE || GetType() == NPC_VICTORY_GATE || GetType() == NPC_GATE2;};
+	INLINE bool isGate() { return GetType() == NPC_GATE || GetType() == NPC_PHOENIX_GATE || GetType() == NPC_SPECIAL_GATE || GetType() == NPC_VICTORY_GATE || GetType() == NPC_BIFROST_GATE;};
 	INLINE bool isGateOpen() { return m_byGateOpen; };
 	INLINE bool isGateClosed() { return !isGateOpen(); };
 

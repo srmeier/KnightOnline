@@ -508,8 +508,8 @@ struct _USER_RANKING
 struct _EVENT_TRIGGER
 {
 	uint32_t nIndex;
-	uint16_t bNpcType;
-	uint32_t sNpcID;
+	uint16_t byNpcType;
+	uint32_t sTrapNum;
 	uint32_t nTriggerNum;
 };
 

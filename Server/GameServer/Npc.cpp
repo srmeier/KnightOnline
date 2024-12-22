@@ -377,9 +377,7 @@ void CNpc::OnDeathProcess(Unit *pKiller)
 		case NPC_BATTLE_MONUMENT:
 			BattleMonumentProcess(pUser);
 			break;
-		case NPC_HUMAN_MONUMENT:
-			NationMonumentProcess(pUser);
-			break;
+		case NPC_ELMORAD_MONUMENT:
 		case NPC_KARUS_MONUMENT:
 			NationMonumentProcess(pUser);
 			break;

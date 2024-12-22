@@ -1316,8 +1316,8 @@ bool CNpc::isShowBox()
 	if (bType == NPC_CHAOS_STONE
 		|| bType == NPC_PVP_MONUMENT
 		|| bType == NPC_BIFROST_MONUMENT
-		|| bType == NPC_GUARD_TOWER1
-		|| bType == NPC_GUARD_TOWER2
+		|| bType == NPC_GUARD_TOWER_NEW
+		|| bType == NPC_GUARD_TOWER
 		|| bType == NPC_SCARECROW
 		|| bType == NPC_KARUS_WARDER1
 		|| bType == NPC_KARUS_WARDER2
@@ -1327,7 +1327,7 @@ bool CNpc::isShowBox()
 		|| bType == NPC_ELMORAD_GATEKEEPER
 		|| bType == NPC_BATTLE_MONUMENT
 		|| bType == NPC_KARUS_MONUMENT
-		|| bType == NPC_HUMAN_MONUMENT
+		|| bType == NPC_ELMORAD_MONUMENT
 		|| GetZoneID() == ZONE_FORGOTTEN_TEMPLE
 		|| GetZoneID() == ZONE_PRISON)
 		return false;

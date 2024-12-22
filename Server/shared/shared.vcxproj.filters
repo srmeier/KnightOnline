@@ -236,9 +236,6 @@
     <ClInclude Include="database\ItemExchangeSet.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
-    <ClInclude Include="database\ItemOpSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
     <ClInclude Include="database\ItemTableSet.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
@@ -326,16 +323,7 @@
     <ClInclude Include="database\MonsterChallengeSummonList.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
-    <ClInclude Include="database\MonsterRespawnListInformationSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\MonsterRespawnListSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
     <ClInclude Include="database\MonsterSummonListSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\MonsterSummonListZoneSet.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
     <ClInclude Include="database\NpcItemSet.h">
@@ -345,9 +333,6 @@
       <Filter>Header Files\database</Filter>
     </ClInclude>
     <ClInclude Include="database\NpcTableSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\ObjectPosSet.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
     <ClInclude Include="database\OdbcCommand.h">
@@ -362,28 +347,10 @@
     <ClInclude Include="database\OdbcRecordset.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
-    <ClInclude Include="database\PremiumItemExpSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\PremiumItemSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\QuestHelperSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\QuestMonsterSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
     <ClInclude Include="database\RentalItemSet.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
     <ClInclude Include="database\ServerResourceSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\SetItemTableSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\StartPositionRandomSet.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
     <ClInclude Include="database\StartPositionSet.h">
@@ -393,12 +360,6 @@
       <Filter>Header Files\database</Filter>
     </ClInclude>
     <ClInclude Include="database\structs.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\UserDailyOpSet.h">
-      <Filter>Header Files\database</Filter>
-    </ClInclude>
-    <ClInclude Include="database\UserItemSet.h">
       <Filter>Header Files\database</Filter>
     </ClInclude>
     <ClInclude Include="database\UserKnightsRankSet.h">

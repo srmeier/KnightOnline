@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "SocketMgr.h"
 #include "Packet.h"
@@ -16,10 +16,10 @@ public:
 	KOSocket(uint16_t socketID, SocketMgr * mgr, SOCKET fd, uint32_t sendBufferSize, uint32_t recvBufferSize);
 	~KOSocket();
 
-	INLINE bool isCryptoEnabled() { return m_usingCrypto; };
-	INLINE uint16_t GetSocketID() { return m_socketID; };
-	INLINE uint16_t GetTargetID() { return m_targetID; };
-	INLINE time_t GetLastResponseTime() { return m_lastResponse; }
+	INLINE bool isCryptoEnabled() const { return m_usingCrypto; };
+	INLINE uint16_t GetSocketID() const { return m_socketID; };
+	INLINE uint16_t GetTargetID() const { return m_targetID; };
+	INLINE time_t GetLastResponseTime() const { return m_lastResponse; }
 
 	virtual void OnConnect();
 	virtual void OnRead();

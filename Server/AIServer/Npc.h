@@ -129,7 +129,7 @@ public:
 	INLINE bool isGate() 
 	{
 		return GetType() == NPC_GATE 
-			|| GetType() == NPC_GATE2
+			|| GetType() == NPC_BIFROST_GATE
 			|| GetType() == NPC_PHOENIX_GATE 
 			|| GetType() == NPC_SPECIAL_GATE 
 			|| GetType() == NPC_VICTORY_GATE

@@ -1,4 +1,4 @@
- #pragma once
+﻿ #pragma once
 
 class CEventTriggerSet : public OdbcRecordset
 {
@@ -14,8 +14,8 @@ public:
 		_EVENT_TRIGGER * pData = new _EVENT_TRIGGER;
 
 		_dbCommand->FetchUInt32(1, pData->nIndex);
-		_dbCommand->FetchUInt16(2, pData->bNpcType);
-		_dbCommand->FetchUInt32(3, pData->sNpcID);
+		_dbCommand->FetchUInt16(2, pData->byNpcType);
+		_dbCommand->FetchUInt32(3, pData->sTrapNum);	// This is named as sNpcID in the DB but it's the NPC's trap number.
 		_dbCommand->FetchUInt32(4, pData->nTriggerNum);
 
 		if (!m_pMap->PutData(pData->nIndex, pData))

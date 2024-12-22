@@ -841,9 +841,9 @@ bool Unit::isAttackable(Unit * pTarget)
 					if ((GetNation() == KARUS && pNpc->m_sPid == MONUMENT_KARUS_SPID) || (GetNation() == ELMORAD && pNpc->m_sPid == MONUMENT_ELMORAD_SPID))
 						return false;
 				}
-				else if (pNpc->GetType() == NPC_GUARD_TOWER1 
-					|| pNpc->GetType() == NPC_GUARD_TOWER2 
-					|| pNpc->GetType() == NPC_GATE2 
+				else if (pNpc->GetType() == NPC_GUARD_TOWER_NEW
+					|| pNpc->GetType() == NPC_GUARD_TOWER
+					|| pNpc->GetType() == NPC_BIFROST_GATE
 					|| pNpc->GetType() == NPC_VICTORY_GATE
 					|| pNpc->GetType() == NPC_PHOENIX_GATE 
 					|| pNpc->GetType() == NPC_SPECIAL_GATE 

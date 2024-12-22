@@ -12,7 +12,6 @@
 #include "../shared/database/MagicType1Set.h"
 #include "../shared/database/MagicType2Set.h"
 #include "../shared/database/MagicType4Set.h"
-#include "../shared/database/ObjectPosSet.h"
 #include "../shared/database/NpcPosSet.h"
 #include "../shared/database/ZoneInfoSet.h"
 #include "../shared/database/NpcItemSet.h"

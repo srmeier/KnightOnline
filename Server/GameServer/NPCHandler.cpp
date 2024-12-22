@@ -69,14 +69,14 @@ fail_return:
 	Send(&result);
 }
 
-void CUser::ClientEvent(uint16_t sNpcID)
+void CUser::ClientEvent(
+	uint16_t sNpcID)
 {
 	// Ensure AI's loaded
 	if (!g_pMain->m_bPointCheckFlag
 		|| isDead())
 		return;
 
-	int32_t iEventID = 0;
 	CNpc* pNpc = g_pMain->GetNpcPtr(sNpcID);
 	if (pNpc == nullptr
 		|| !isInRange(pNpc, MAX_NPC_RANGE))
@@ -91,8 +91,12 @@ void CUser::ClientEvent(uint16_t sNpcID)
 		return;
 	}
 
-	Guard lock(g_pMain->m_questNpcLock);
-	// TODO: Handle quest scripts without QUEST_HELPER
+	int32_t iEventID = g_pMain->GetInitialEventIDForNpc(pNpc);
+
+	// NOTE: GetInitialEventIDForNpc() can expectedly return -1.
+	// In this case, as per official behaviour, the script won't run at all.
+	if (iEventID >= 0)
+		RunZoneQuestScript(iEventID);
 }
 
 void CUser::KissUser()
@@ -160,33 +164,23 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 void CUser::RecvSelectMsg(Packet & pkt)	// Receive menu reply from client.
 {
 	uint8_t bMenuID = pkt.read<uint8_t>();
-	int8_t bySelectedReward = -1;
-
-	if (!AttemptSelectMsg(bMenuID, bySelectedReward))
+	if (!AttemptSelectMsg(bMenuID))
 		memset(&m_iSelMsgEvent, -1, sizeof(m_iSelMsgEvent));
 }
 
 bool CUser::AttemptSelectMsg(
-	uint8_t byMenuID,
-	int8_t bySelectedReward)
+	uint8_t byMenuID)
 {
 	if (byMenuID >= MAX_MESSAGE_EVENT
 		|| isDead())
 		return false;
 
 	// Get the event number that needs to be processed next.
-	int32_t selectedEvent = m_iSelMsgEvent[byMenuID];
-	if (selectedEvent < 0)
+	int32_t iEventID = m_iSelMsgEvent[byMenuID];
+	if (iEventID < 0)
 		return false;
 
-	// TODO: Handle quest script without quest_helper
-	return false;
-#if 0
-	if (!QuestV2RunEvent(pHelper, selectedEvent, bySelectedReward))
-		return false;
-
-	return true;
-#endif
+	return RunZoneQuestScript(iEventID);
 }
 
 void CUser::SendSay(int32_t nTextID[10])
@@ -244,13 +238,6 @@ void CUser::NpcEvent(Packet & pkt)
 		Send(&result);
 		break;
 
-		/*case NPC_MENU:
-		result.SetOpcode(WIZ_QUEST);
-		result	<< uint8_t(7) << uint16_t(SendNPCMenu(pNpc->m_sSid))
-		<< uint16_t(0) << uint16_t(pNpc->m_sSid);
-		Send(&result);
-		break; */
-
 	case NPC_MARK:
 		result.Initialize(WIZ_KNIGHTS_PROCESS);
 		result << uint8_t(KNIGHTS_CAPE_NPC);
@@ -298,7 +285,7 @@ void CUser::NpcEvent(Packet & pkt)
 		}
 		break;
 
-	case NPC_SIEGE_1:
+	case NPC_SIEGE_MAINTAIN:
 		{
 		_KNIGHTS_SIEGE_WARFARE *pKnightSiegeWarFare = g_pMain->GetSiegeMasterKnightsPtr(1);
 		if (pKnightSiegeWarFare->sMasterKnights == GetClanID())
@@ -334,7 +321,6 @@ void CUser::NpcEvent(Packet & pkt)
 		break;
 
 	case NPC_CHAOTIC_GENERATOR:
-	case NPC_CHAOTIC_GENERATOR2:
 		SendAnvilRequest(sNpcID, ITEM_BIFROST_REQ);
 		break;
 

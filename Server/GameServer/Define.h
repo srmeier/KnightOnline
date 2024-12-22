@@ -22,8 +22,18 @@
 #define MAX_PLAYER_HP		14000
 #define MAX_DAMAGE			32000 // Game uses a signed 2 byte integer, so the limit is technically 32,767. The game, however, caps it at 32,000.
 
-#define MAX_MESSAGE_EVENT		10//5//12
-#define MAX_TEMPLE_EVENT_ROOM	50
+#define MAX_MESSAGE_EVENT		10
+
+// EVENT 시작 번호들 :)
+#define EVENT_POTION				1
+#define EVENT_FT_1					20
+#define EVENT_FT_3					36
+#define EVENT_FT_2					50
+
+#define EVENT_LOGOS_ELMORAD			1001
+#define EVENT_LOGOS_KARUS			2001
+#define EVENT_COUPON				4001
+////////////////////////////////////////////////////////////
 
 // BBS Related
 #define MAX_BBS_PAGE			22

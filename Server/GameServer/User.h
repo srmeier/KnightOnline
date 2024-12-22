@@ -646,7 +646,7 @@ public:
 
 	bool ProcessChatCommand(std::string & message);
 
-	uint32_t GetEventTrigger();
+	int32_t GetEventTrigger() const;
 
 	void RemoveStealth();
 
@@ -787,7 +787,7 @@ public:
 	void KissUser();
 
 	void RecvSelectMsg(Packet & pkt);
-	bool AttemptSelectMsg(uint8_t byMenuID, int8_t bySelectedReward);
+	bool AttemptSelectMsg(uint8_t byMenuID);
 
 	// from the client
 	void ItemUpgradeProcess(Packet & pkt);
@@ -901,6 +901,7 @@ public:
 
 	void QuestDataRequest(Packet& pkt);
 	void SendQuestStateUpdate(uint16_t sQuestID, uint8_t byQuestState, bool bIsUpdate = true);
+	bool RunZoneQuestScript(int32_t iEventID);
 
 	bool PromoteUserNovice();
 	bool PromoteUser();

@@ -55,6 +55,8 @@ CGameServerDlg::CGameServerDlg()
 	m_bFirstServerFlag = false;
 	m_bPointCheckFlag = true;
 
+	m_iEventNumber = 0;
+
 	m_nServerNo = 0;
 	m_nServerGroupNo = 0;
 	m_nServerGroup = 0;
@@ -116,7 +118,6 @@ bool CGameServerDlg::Startup()
 		|| !LoadMagicType7()
 		|| !LoadMagicType8()
 		|| !LoadMagicType9()
-		|| !LoadObjectPosTable()
 		|| !LoadRentalList()
 		|| !LoadCoefficientTable()
 		|| !LoadLevelUpTable()
@@ -134,8 +135,7 @@ bool CGameServerDlg::Startup()
 		|| !LoadEventTriggerTable()
 		|| !LoadMonsterChallengeTable()
 		|| !LoadMonsterChallengeSummonListTable()
-		|| !LoadMonsterSummonListTable()
-		|| !LoadUserItemTable())
+		|| !LoadMonsterSummonListTable())
 		return false;
 
 	// Clear any remaining users in the currently logged in list
@@ -272,6 +272,8 @@ void CGameServerDlg::GetTimeFromIni()
 			m_ServerGroupArray.PutData(pInfo->sServerNo, pInfo);
 		}
 	}
+
+	m_iEventNumber = ini.GetInt("EVENT", "EVENT_NUMBER", 0);
 
 	ini.GetString("AI_SERVER", "IP", "127.0.0.1", m_AIServerIP);
 	m_AIServerPort = ini.GetInt("AI_SERVER","PORT", 10020);

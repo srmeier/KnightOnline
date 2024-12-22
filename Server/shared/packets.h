@@ -130,7 +130,7 @@
 
 #define WIZ_TEST_PACKET			0xFF	// Test packet
 
-enum CoinChangeOpcodes
+enum e_CoinChangeOpcode
 {
 	CoinGain = 1,
 	CoinLoss = 2,
@@ -174,6 +174,12 @@ enum e_ZoneChangeOpcode
 	ZONE_CHANGE_LOADING		= 1,
 	ZONE_CHANGE_LOADED		= 2,
 	ZONE_CHANGE_TELEPORT	= 3
+};
+
+enum e_QuestOpcode
+{
+	QUEST_LIST		= 1,
+	QUEST_UPDATE	= 2
 };
 
 enum e_PremiumPropertyType

@@ -169,7 +169,7 @@ bool CLuaScript::Initialise()
 *
 * @return	null if it fails, else.
 */
-CLuaScript * CLuaEngine::SelectAvailableScript()
+CLuaScript* CLuaEngine::SelectAvailableScript()
 {
 	return &m_luaScript;
 }
@@ -181,13 +181,16 @@ CLuaScript * CLuaEngine::SelectAvailableScript()
 *
 * @param	pUser		   	The user running the script.
 * @param	pNpc		   	The NPC attached to the script.
-* @param	nEventID	   	Identifier for the event.
-* @param	bSelectedReward	The reward selected, if applicable.
+* @param	iEventID	   	Identifier for the event.
 * @param	filename	   	The script's filename.
 *
 * @return	true if it succeeds, false if it fails.
 */
-bool CLuaEngine::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int8_t bSelectedReward, const char * filename)
+bool CLuaEngine::ExecuteScript(
+	CUser* pUser,
+	CNpc* pNpc,
+	int32_t iEventID,
+	const char* filename)
 {
 	ScriptBytecodeMap::iterator itr;
 	bool result = false;
@@ -206,14 +209,22 @@ bool CLuaEngine::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int
 		// Attempt to compile 
 		BytecodeBuffer bytecode;
 		bytecode.reserve(LUA_SCRIPT_BUFFER_SIZE);
-		if (!SelectAvailableScript()->CompileScript(szPath.c_str(), bytecode))
+
+		CLuaScript* pScript = SelectAvailableScript();
+		if (pScript == nullptr)
 		{
-			printf("ERROR: Could not compile Lua script.\n");
-			printf("FILE: %s\n", szPath.c_str());
-			printf("USER: %s\n", pUser->GetName().c_str());
-			printf("ZONE: %d\n", pUser->GetZoneID());
-			printf("NPC ID: %d\n", pNpc->m_sSid);
-			printf("-\n");
+			// No available script
+			// NOTE: Not technically possible in the current state, but we intend to pool them.
+			return false;
+		}
+
+		if (!pScript->CompileScript(szPath.c_str(), bytecode))
+		{
+			pScript->LogError(
+				"Could not compile Lua script.",
+				pUser,
+				pNpc,
+				szPath.c_str());
 			return false;
 		}
 
@@ -226,8 +237,12 @@ bool CLuaEngine::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int
 #endif
 
 		// Now that we have the bytecode, we can use it.
-		result = SelectAvailableScript()->ExecuteScript(pUser, pNpc, nEventID, bSelectedReward, 
-			filename, bytecode);
+		result = pScript->ExecuteScript(
+			pUser,
+			pNpc,
+			iEventID,
+			filename,
+			bytecode);
 
 		// Done using the lock.
 		m_lock->ReleaseWriteLock();
@@ -235,8 +250,12 @@ bool CLuaEngine::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int
 	else
 	{
 		// Already have the bytecode, so now we need to use it.
-		result = SelectAvailableScript()->ExecuteScript(pUser, pNpc, nEventID, bSelectedReward, 
-			filename, itr->second);
+		result = SelectAvailableScript()->ExecuteScript(
+			pUser,
+			pNpc,
+			iEventID,
+			filename,
+			itr->second);
 
 		// Done using the lock.
 		m_lock->ReleaseReadLock();
@@ -291,7 +310,11 @@ bool CLuaScript::CompileScript(const char * filename, BytecodeBuffer & buffer)
 *
 * @return	The bytecode chunk.
 */
-int CLuaScript::LoadBytecodeChunk(lua_State * L, uint8_t * bytes, size_t len, BytecodeBuffer * buffer)
+int CLuaScript::LoadBytecodeChunk(
+	lua_State* L,
+	uint8_t* bytes,
+	size_t len,
+	BytecodeBuffer* buffer)
 {
 	for (size_t i = 0; i < len; i++)
 		buffer->push_back(bytes[i]);
@@ -304,14 +327,18 @@ int CLuaScript::LoadBytecodeChunk(lua_State * L, uint8_t * bytes, size_t len, By
 *
 * @param	pUser		   	The user running the script.
 * @param	pNpc		   	The NPC attached to the script.
-* @param	nEventID	   	Identifier for the event.
-* @param	bSelectedReward	The reward selected, if applicable.
+* @param	iEventID	   	Identifier for the event.
 * @param	filename	   	The script's filename for debugging purposes.
 * @param	bytecode	   	The script's compiled bytecode.
 *
 * @return	true if it succeeds, false if it fails.
 */
-bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int8_t bSelectedReward, const char * filename, BytecodeBuffer & bytecode)
+bool CLuaScript::ExecuteScript(
+	CUser* pUser,
+	CNpc* pNpc,
+	int32_t iEventID,
+	const char* filename,
+	BytecodeBuffer& bytecode)
 {
 	// Ensure that we wait until the last user's done executing their script.
 	Guard lock(m_lock);
@@ -326,11 +353,15 @@ bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int
 		return false;
 	}
 
-	printf("TEMP: EVENT ID = %d. NPC ID = %d.\n", nEventID, pNpc->GetProtoID());
+#if defined(_DEBUG)
+	printf(
+		"TEMP: EVENT ID = %d. NPC ID = %d.\n",
+		iEventID,
+		pNpc->GetProtoID());
+#endif
 
-	lua_tsetglobal(m_luaState, "nEventID", nEventID);
+	lua_tsetglobal(m_luaState, "nEventID", iEventID);
 	lua_tsetglobal(m_luaState, "sUID", pUser->GetID());
-	lua_tsetglobal(m_luaState, "bSelectedReward", bSelectedReward);
 
 	lua_tsetglobal(m_luaState, "pNpc", pNpc);
 	lua_tsetglobal(m_luaState, "pUser", pUser);
@@ -352,39 +383,35 @@ bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int
 	switch (err)
 	{
 	case LUA_ERRRUN:
-		printf("ERROR: A runtime error occurred within Lua script.\n");
-		printf("FILE: %s\n", filename);
-		printf("USER: %s\n", pUser->GetName().c_str());
-		printf("ZONE: %d\n", pUser->GetZoneID());
-		printf("NPC ID: %d\n", pNpc->m_sSid);
-		printf("-\n");
+		LogError(
+			"A runtime error occurred within Lua script.",
+			pUser,
+			pNpc,
+			filename);
 		break;
 
 	case LUA_ERRMEM:
-		printf("ERROR: Unable to allocate memory during execution of Lua script.\n");
-		printf("FILE: %s\n", filename);
-		printf("USER: %s\n", pUser->GetName().c_str());
-		printf("ZONE: %d\n", pUser->GetZoneID());
-		printf("NPC ID: %d\n", pNpc->m_sSid);
-		printf("-\n");
+		LogError(
+			"Unable to allocate memory during execution of Lua script.",
+			pUser,
+			pNpc,
+			filename);
 		break;
 
 	case LUA_ERRERR:
-		printf("ERROR: An error occurred during Lua script, Error handler failed.\n");
-		printf("FILE: %s\n", filename);
-		printf("USER: %s\n", pUser->GetName().c_str());
-		printf("ZONE: %d\n", pUser->GetZoneID());
-		printf("NPC ID: %d\n", pNpc->m_sSid);
-		printf("-\n");
+		LogError(
+			"An error occurred during Lua script, Error handler failed.",
+			pUser,
+			pNpc,
+			filename);
 		break;
 
 	default:
-		printf("ERROR: An unknown error occurred in Lua script.\n");
-		printf("FILE: %s\n", filename);
-		printf("USER: %s\n", pUser->GetName().c_str());
-		printf("ZONE: %d\n", pUser->GetZoneID());
-		printf("NPC ID: %d\n", pNpc->m_sSid);
-		printf("-\n");
+		LogError(
+			"An unknown error occurred in Lua script.",
+			pUser,
+			pNpc,
+			filename);
 		break;
 	}
 
@@ -394,12 +421,26 @@ bool CLuaScript::ExecuteScript(CUser * pUser, CNpc * pNpc, int32_t nEventID, int
 		printf("ERROR: [%s] The following error was provided.\n",filename);
 		printf("MESSAGE: %s\n", lua_to<const char *>(m_luaState, -1));
 		printf("-\n");
-
 	}
 
 	lua_settop(m_luaState, 0);
 
 	return false;
+}
+
+void CLuaScript::LogError(
+	const char* message,
+	CUser* pUser,
+	CNpc* pNpc,
+	const char* filename)
+{
+	// TODO: Log (this just condenses the temp errors that exist already)
+	printf("ERROR: %s\n", message);
+	printf("FILE: %s\n", filename);
+	printf("USER: %s\n", pUser->GetName().c_str());
+	printf("ZONE: %d\n", pUser->GetZoneID());
+	printf("NPC ID: %d (proto: %d)\n", pNpc->GetID(), pNpc->GetProtoID());
+	printf("-\n");
 }
 
 /**

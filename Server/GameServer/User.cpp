@@ -4621,7 +4621,7 @@ void CUser::OnDeath(Unit *pKiller)
 			else
 				nExpLost = m_iMaxExp / 20;
 
-			if ((pNpc->GetType() == NPC_GUARD_TOWER1 || pNpc->GetType() == NPC_GUARD_TOWER2) && isInPKZone())
+			if ((pNpc->GetType() == NPC_GUARD_TOWER_NEW || pNpc->GetType() == NPC_GUARD_TOWER) && isInPKZone())
 				noticeType = DEATH_NOTICE_GUARD_TOWER;
 
 			if (GetPremiumProperty(PremiumExpRestorePercent) > 0)
@@ -5172,26 +5172,15 @@ void CUser::SendMannerChange(int32_t iMannerPoints)
 	Send(&pkt);
 }
 
-uint32_t CUser::GetEventTrigger()
+int32_t CUser::GetEventTrigger() const
 {
-	CNpc *pNpc = g_pMain->GetNpcPtr(GetTargetID());
+	CNpc* pNpc = g_pMain->GetNpcPtr(GetTargetID());
 	if (pNpc == nullptr)
 		return 0;
 
-	foreach_stlmap (itr, g_pMain->m_EventTriggerArray) {
-		_EVENT_TRIGGER *pEventTrigger = g_pMain->m_EventTriggerArray.GetData(itr->first);
-
-		if (pEventTrigger == nullptr)
-			continue;
-
-		if (pNpc->m_tNpcType != pEventTrigger->bNpcType)
-			continue;
-
-		if (pNpc->m_byTrapNumber == pEventTrigger->sNpcID)
-			return pEventTrigger->nTriggerNum;
-	}
-
-	return 0;
+	return g_pMain->GetEventTrigger(
+		pNpc->GetType(),
+		pNpc->m_byTrapNumber);
 }
 
 void CUser::RemoveStealth()

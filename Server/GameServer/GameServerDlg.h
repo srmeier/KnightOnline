@@ -60,8 +60,6 @@ public:
 	bool LoadEventTriggerTable();
 	bool LoadMonsterChallengeTable();
 	bool LoadMonsterChallengeSummonListTable();
-	bool LoadUserItemTable();
-	bool LoadObjectPosTable();
 
 	bool MapFileLoad();
 	bool LoadNoticeData();
@@ -305,14 +303,17 @@ public:
 	// Send to Zone NPC Effect
 	void ShowNpcEffect(uint16_t sNpcID, uint32_t nEffectID, uint8_t ZoneID);
 
-	_PARTY_GROUP * GetPartyPtr(uint16_t sPartyID);
-	CKnights * GetClanPtr(uint16_t sClanID);
-	_KNIGHTS_ALLIANCE * GetAlliancePtr(uint16_t sAllianceID);
-	_ITEM_TABLE * GetItemPtr(uint32_t nItemID);
-	_KNIGHTS_SIEGE_WARFARE * GetSiegeMasterKnightsPtr(uint16_t sMasterKnights);
+	_PARTY_GROUP* GetPartyPtr(uint16_t sPartyID);
+	CKnights* GetClanPtr(uint16_t sClanID);
+	_KNIGHTS_ALLIANCE* GetAlliancePtr(uint16_t sAllianceID);
+	_ITEM_TABLE* GetItemPtr(uint32_t nItemID);
+	_KNIGHTS_SIEGE_WARFARE* GetSiegeMasterKnightsPtr(uint16_t sMasterKnights);
 
-	_PARTY_GROUP * CreateParty(CUser *pLeader);
+	_PARTY_GROUP* CreateParty(CUser* pLeader);
 	void DeleteParty(uint16_t sIndex);
+
+	int32_t GetInitialEventIDForNpc(CNpc* pNpc) const;
+	int32_t GetEventTrigger(uint8_t byNpcType, uint16_t sTrapNum) const;
 
 	~CGameServerDlg();
 
@@ -466,6 +467,8 @@ public:
 	uint32_t							m_nForgettenTempleLastSummonTime;
 	bool							m_nForgettenTempleBanishFlag;
 	uint8_t							m_nForgettenTempleBanishTime;
+
+	int32_t				m_iEventNumber;
 
 	// zone server info
 	int					m_nServerNo, m_nServerGroupNo;
