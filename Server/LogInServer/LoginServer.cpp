@@ -6,7 +6,9 @@
 extern bool g_bRunning;
 std::vector<Thread *> g_timerThreads;
 
-LoginServer::LoginServer() : m_sLastVersion(__VERSION), m_fpLoginServer(nullptr)
+LoginServer::LoginServer()
+	: m_sLastVersion(__VERSION),
+	m_fpLoginServer(nullptr)
 {
 }
 
@@ -16,7 +18,7 @@ bool LoginServer::Startup()
 
 	DateTime time;
 
-	CreateDirectory("Logs",NULL);
+	CreateDirectory("Logs", NULL);
 
 	m_fpLoginServer = fopen("./Logs/LoginServer.log", "a");
 	if (m_fpLoginServer == nullptr)
@@ -25,27 +27,39 @@ bool LoginServer::Startup()
 		return false;
 	}
 
-	m_fpUser = fopen(string_format("./Logs/Login_%d_%d_%d.log",time.GetDay(),time.GetMonth(),time.GetYear()).c_str(), "a");
+	m_fpUser = fopen(string_format("./Logs/Login_%d_%d_%d.log", time.GetDay(), time.GetMonth(), time.GetYear()).c_str(), "a");
 	if (m_fpUser == nullptr)
 	{
 		printf("ERROR: Unable to open user log file.\n");
 		return false;
 	}
 
-	if (!m_DBProcess.Connect(m_ODBCName, m_ODBCLogin, m_ODBCPwd)) 
+	if (!m_DBProcess.Connect(m_ODBCName, m_ODBCLogin, m_ODBCPwd))
 	{
 		printf("ERROR: Unable to connect to the database using the details configured.\n");
 		return false;
 	}
 
 	printf("Connected to database server.\n");
+
+	if (!m_DBProcess.LoadAccountMap())
+	{
+		printf("ERROR: Unable to load the account table (TB_USER).\n");
+		return false;
+	}
+
+	printf(
+		"Accounts loaded: %u\n",
+		(uint32_t) m_DBProcess.GetRegisteredUserCount());
+
 	if (!m_DBProcess.LoadVersionList())
 	{
-		printf("ERROR: Unable to load the version list.\n");
+		printf("ERROR: Unable to load the version list (VERSION).\n");
 		return false;
 	}
 
 	printf("Latest version in database: %d\n", GetVersion());
+
 	InitPacketHandlers();
 
 	if (!m_socketMgr.Listen(m_LoginServerPort, MAX_USER))
@@ -56,10 +70,12 @@ bool LoginServer::Startup()
 
 	m_socketMgr.RunServer();
 	g_timerThreads.push_back(new Thread(Timer_UpdateUserCount));
+	g_timerThreads.push_back(new Thread(Timer_UpdateAccountMap));
 	return true;
 }
 
-uint32_t LoginServer::Timer_UpdateUserCount(void * lpParam)
+uint32_t LoginServer::Timer_UpdateUserCount(
+	void* lpParam)
 {
 	while (g_bRunning)
 	{
@@ -69,10 +85,25 @@ uint32_t LoginServer::Timer_UpdateUserCount(void * lpParam)
 	return 0;
 }
 
-void LoginServer::GetServerList(Packet & result)
+uint32_t LoginServer::Timer_UpdateAccountMap(
+	void* lpParam)
+{
+	while (g_bRunning)
+	{
+		g_pMain->UpdateAccountMap();
+		sleep(60 * SECOND);
+	}
+
+	return 0;
+}
+
+void LoginServer::GetServerList(
+	Packet& result)
 {
 	Guard lock(m_serverListLock);
-	result.append(m_serverListPacket.contents(), m_serverListPacket.size());
+	result.append(
+		m_serverListPacket.contents(),
+		m_serverListPacket.size());
 }
 
 void LoginServer::UpdateServerList()
@@ -81,14 +112,12 @@ void LoginServer::UpdateServerList()
 	m_DBProcess.LoadUserCountList();
 
 	Guard lock(m_serverListLock);
-	Packet & result = m_serverListPacket;
+	Packet& result = m_serverListPacket;
 
 	result.clear();
 	result << uint8_t(m_ServerList.size());
-	foreach (itr, m_ServerList) 
-	{		
-		_SERVER_INFO* pServer = *itr;
-
+	for (const _SERVER_INFO* pServer : m_ServerList)
+	{
 		result << pServer->strServerIP;
 		result << pServer->strServerName;
 
@@ -97,6 +126,11 @@ void LoginServer::UpdateServerList()
 		else
 			result << int16_t(-1);
 	}
+}
+
+void LoginServer::UpdateAccountMap()
+{
+	m_DBProcess.LoadAccountMap();
 }
 
 void LoginServer::GetInfoFromIni()

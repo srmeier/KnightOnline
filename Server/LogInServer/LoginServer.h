@@ -23,6 +23,7 @@ public:
 	bool Startup();
 
 	static uint32_t THREADCALL Timer_UpdateUserCount(void* lpParam);
+	static uint32_t THREADCALL Timer_UpdateAccountMap(void* lpParam);
 	void GetServerList(Packet& result);
 
 	~LoginServer();
@@ -31,6 +32,7 @@ public:
 
 private:
 	void UpdateServerList();
+	void UpdateAccountMap();
 	void GetInfoFromIni();
 	void WriteLogFile(const std::string& logMessage);
 	void ReportSQLError(OdbcError* pError);

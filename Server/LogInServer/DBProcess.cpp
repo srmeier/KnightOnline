@@ -20,6 +20,8 @@ bool CDBProcess::LoadVersionList()
 	if (dbCommand.get() == nullptr)
 		return false;
 
+	// NOTE: This could be defined one of 2 ways, depending on the DB.
+	// if (!dbCommand->Execute(_T("SELECT version, hisversion, filename FROM VERSION")))
 	if (!dbCommand->Execute(_T("SELECT sVersion, sHistoryVersion, strFilename FROM VERSION")))
 	{
 		g_pMain->ReportSQLError(m_dbConnection.GetError());
@@ -31,7 +33,7 @@ bool CDBProcess::LoadVersionList()
 		g_pMain->m_sLastVersion = 0;
 		do
 		{
-			_VERSION_INFO *pVersion = new _VERSION_INFO;
+			_VERSION_INFO* pVersion = new _VERSION_INFO;
 
 			dbCommand->FetchUInt16(1, pVersion->sVersion);
 			dbCommand->FetchUInt16(2, pVersion->sHistoryVersion);
@@ -42,7 +44,8 @@ bool CDBProcess::LoadVersionList()
 			if (g_pMain->m_sLastVersion < pVersion->sVersion)
 				g_pMain->m_sLastVersion = pVersion->sVersion;
 
-		} while (dbCommand->MoveNext());
+		}
+		while (dbCommand->MoveNext());
 	}
 
 	return true;
@@ -64,15 +67,67 @@ bool CDBProcess::LoadUserCountList()
 	{
 		do
 		{
-			uint16_t zone_1 = 0, zone_2 = 0, zone_3 = 0; uint8_t serverID;
+			uint16_t zone_1 = 0, zone_2 = 0, zone_3 = 0;
+			uint8_t serverID;
+
 			dbCommand->FetchByte(1, serverID);
 			dbCommand->FetchUInt16(2, zone_1);
 			dbCommand->FetchUInt16(3, zone_2);
 			dbCommand->FetchUInt16(4, zone_3);
 
-			if ((uint8_t)(serverID - 1) < g_pMain->m_ServerList.size())
+			if ((uint8_t) (serverID - 1) < g_pMain->m_ServerList.size())
 				g_pMain->m_ServerList[serverID - 1]->sUserCount = zone_1 + zone_2 + zone_3;
-		} while (dbCommand->MoveNext());
+		}
+		while (dbCommand->MoveNext());
+	}
+
+	return true;
+}
+
+bool CDBProcess::LoadAccountMap()
+{
+	std::map<std::string, _TB_USER> accountMap;
+
+	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
+	if (dbCommand.get() == nullptr)
+		return false;
+
+	if (!dbCommand->Execute(_T("SELECT strAccountID, strPasswd, strAuthority FROM TB_USER")))
+	{
+		g_pMain->ReportSQLError(m_dbConnection.GetError());
+		return false;
+	}
+
+	if (dbCommand->hasData())
+	{
+		std::string key;
+		do
+		{
+			char strAccountID[MAX_ID_SIZE + 1] = {}, strPasswd[MAX_PW_SIZE + 1] = {};
+			_TB_USER user = {};
+
+			dbCommand->FetchString(1, strAccountID, sizeof(strAccountID) - 1);
+			dbCommand->FetchString(2, strPasswd, sizeof(strPasswd) - 1);
+			dbCommand->FetchByte(3, user.byAuthority);
+
+			user.strAccountID = strAccountID;
+			user.strPasswd = strPasswd;
+
+			key = user.strAccountID;
+
+			// NOTE: By default we use case-insensitive matching for account names.
+			// As such, we'll transform this to uppercase for the key.
+			STRTOUPPER(key);
+
+			accountMap.insert(
+				std::make_pair(key, std::move(user)));
+		}
+		while (dbCommand->MoveNext());
+	}
+
+	{
+		std::lock_guard<std::recursive_mutex> lock(m_accountMapLock);
+		m_accountMap.swap(accountMap);
 	}
 
 	return true;
@@ -81,41 +136,30 @@ bool CDBProcess::LoadUserCountList()
 uint16_t CDBProcess::AccountLogin(
 	const std::string& strAccountID,
 	const std::string& strPasswd)
+	const
 {
-	uint16_t result = AUTH_NOT_FOUND;
-	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return AUTH_ERROR;
+	std::string key = strAccountID;
 
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strPasswd.c_str(), strPasswd.length());
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &result);
+	// NOTE: By default we use case-insensitive matching for account names.
+	// As such, we'll transform this to uppercase for the key.
+	STRTOUPPER(key);
 
-	if (!dbCommand->Execute(_T("{CALL ACCOUNT_LOGIN(?, ?, ?)}")))
-		g_pMain->ReportSQLError(m_dbConnection.GetError());
+	std::lock_guard<std::recursive_mutex> lock(m_accountMapLock);
+	auto itr = m_accountMap.find(key);
+	if (itr == m_accountMap.end())
+		return AUTH_NOT_FOUND;
 
-	// NOTE: for 1298 I'm adding back the code to check if the user is online
-	// will also need to convert from @nRet nation return to the flag that the client is
-	// expecting. I am pertty sure it is like this because the login server and game server
-	// share the same SQL Procedure for logging in users
-	if (result == 1
-		|| result == 2
-		|| result == 3)
-	{
-		// NOTE: 1298 returns 1 for "no nation selected" or "no characters on a nation"
-		// returns 2 if the user have characters on Karus and returns 3 if use has
-		// characters on elmorad. But we will ignore this bit and just access the fact
-		// that they are able to login.
-		result = AUTH_SUCCESS;
-	}
-	else
-	{
-	 // NOTE: else the user doesn't have an account or they are banned or they have
-	 // a nation other than the ones we are looking for
-		result = AUTH_NOT_FOUND;
-	}
+	const auto& account = itr->second;
 
-	return result;
+	// NOTE: Ideally this should be vague and just return a generic
+	// "account not found or invalid password" error.
+	if (account.strPasswd != strPasswd)
+		return AUTH_INVALID_PW;
+
+	if (account.byAuthority == AUTHORITY_BANNED)
+		return AUTH_BANNED;
+
+	return AUTH_SUCCESS;
 }
 
 bool CDBProcess::IsAccountLoggedIn(

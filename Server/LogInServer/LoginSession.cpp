@@ -93,7 +93,10 @@ void LoginSession::HandleLogin(
 	DateTime time;
 	uint16_t serverPortNo = 0;
 
-	pkt >> account >> password;
+	pkt
+		>> account
+		>> password;
+
 	if (account.empty()
 		|| account.size() > MAX_ID_SIZE
 		|| password.empty()
@@ -178,8 +181,8 @@ std::string LoginSession::GetAuthResultName(
 		case AUTH_NOT_FOUND:
 			return "NOT FOUND";
 
-		case AUTH_INVALID:
-			return "INVALID";
+		case AUTH_INVALID_PW:
+			return "INVALID PW";
 
 		case AUTH_BANNED:
 			return "BANNED";
