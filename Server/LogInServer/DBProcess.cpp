@@ -1,5 +1,10 @@
 ﻿#include "stdafx.h"
 
+CDBProcess::CDBProcess()
+	: m_bUseShortFormVersionTable(false)
+{
+}
+
 bool CDBProcess::Connect(
 	const std::string& szDSN,
 	const std::string& szUser,
@@ -14,17 +19,25 @@ bool CDBProcess::Connect(
 	return true;
 }
 
-bool CDBProcess::LoadVersionList()
+bool CDBProcess::LoadVersionList(
+	bool bSuppressErrors /*= false*/)
 {
 	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return false;
 
-	// NOTE: This could be defined one of 2 ways, depending on the DB.
-	// if (!dbCommand->Execute(_T("SELECT version, hisversion, filename FROM VERSION")))
-	if (!dbCommand->Execute(_T("SELECT sVersion, sHistoryVersion, strFilename FROM VERSION")))
+	std::string szSQL;
+
+	if (m_bUseShortFormVersionTable)
+		szSQL = _T("SELECT version, hisversion, filename FROM VERSION");
+	else
+		szSQL = _T("SELECT sVersion, sHistoryVersion, strFilename FROM VERSION");
+
+	if (!dbCommand->Execute(szSQL))
 	{
-		g_pMain->ReportSQLError(m_dbConnection.GetError());
+		if (!bSuppressErrors)
+			g_pMain->ReportSQLError(m_dbConnection.GetError());
+
 		return false;
 	}
 

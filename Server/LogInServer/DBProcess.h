@@ -5,9 +5,14 @@
 class CDBProcess  
 {
 public:
+	void UseShortFormVersionTable() {
+		m_bUseShortFormVersionTable = true;
+	}
+
+	CDBProcess();
 	bool Connect(const std::string& szDSN, const std::string& szUser, const std::string& szPass);
 
-	bool LoadVersionList();
+	bool LoadVersionList(bool bSuppressErrors = false);
 	bool LoadUserCountList();
 	bool LoadAccountMap();
 
@@ -20,7 +25,8 @@ public:
 	}
 
 private:
-	OdbcConnection m_dbConnection;
+	OdbcConnection	m_dbConnection;
+	bool			m_bUseShortFormVersionTable;
 
 	struct _TB_USER
 	{

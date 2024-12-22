@@ -52,10 +52,19 @@ bool LoginServer::Startup()
 		"Accounts loaded: %u\n",
 		(uint32_t) m_DBProcess.GetRegisteredUserCount());
 
-	if (!m_DBProcess.LoadVersionList())
+	// NOTE: This table could be defined one of 2 ways, depending on the DB.
+	// We'll try long-form names first, then the short-form names.
+	// Future lookups will remember and continue to use the same names.
+	if (!m_DBProcess.LoadVersionList(
+		true)) // bSuppressErrors
 	{
-		printf("ERROR: Unable to load the version list (VERSION).\n");
-		return false;
+		m_DBProcess.UseShortFormVersionTable();
+
+		if (!m_DBProcess.LoadVersionList())
+		{
+			printf("ERROR: Unable to load the version list (VERSION).\n");
+			return false;
+		}
 	}
 
 	printf("Latest version in database: %d\n", GetVersion());
