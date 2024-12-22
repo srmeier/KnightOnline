@@ -108,6 +108,7 @@ public:
 	void	MsgSend_CharacterSelect(); // virtual
 
 	int		MsgRecv_VersionCheck(Packet& pkt); // virtual
+	int		MsgRecv_GameServerLogIn(Packet& pDataPack) override;
 	bool	MsgRecv_CharacterSelect(Packet& pkt); // virtual
 	void	MsgRecv_AllCharacterInfo(Packet& pkt);
 	void	MsgRecv_DeleteChr(Packet& pkt);

@@ -323,6 +323,12 @@ LRESULT CALLBACK WndProcMain(
 		case WM_DESTROY:
 		case WM_QUIT:
 		{
+			if (!GetAsyncKeyState(VK_MENU))
+			{
+				CGameProcedure::s_pProcMain->RequestExit();
+				return 1;
+			}
+
 			CGameProcedure::s_pSocket->Disconnect();
 			CGameProcedure::s_pSocketSub->Disconnect();
 

@@ -55,7 +55,7 @@ public:
 	class CUIWareHouseDlg*		m_pUIWareHouseDlg;
 	class CUIInn*				m_pUIInn;
 	class CUICreateClanName*	m_pUICreateClanName;
-	
+	class CUIExitMenu*			m_pUIExitMenu;
 
 
 	class CUIKnightsOperation*	m_pUIKnightsOp;					// 기사단 리스트 보기, 가입, 등...
@@ -91,12 +91,15 @@ public:
 	__Vector3	m_vMouseLBClickedPos;
 	__Vector3	m_vMouseSkillPos;
 
+	float		m_fExitTimer;
 	float		m_fLBClickTime;
 
 	int			m_iJoinReqClan;
 	int			m_iJoinReqClanRequierID;
 
 	int			KM_COUNT;
+
+	e_ExitType	m_eExitType;
 
 protected:
 	virtual bool ProcessPacket(Packet& pkt);
@@ -294,6 +297,8 @@ public:
 
 	void	ProcessPlayerInclination();				// 경사 처리..(가만히 있어도 경사가 급하면 미끄러짐..).
 	void	ProcessLocalInput(uint32_t dwMouseFlags);	// 키보드 눌린것을 처리한다..
+
+	void	RequestExit();
 	void	ParseChattingCommand(const std::string& szCmd);
 	
 

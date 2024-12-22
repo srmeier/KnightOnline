@@ -28,6 +28,13 @@ const float PACKET_INTERVAL_REQUEST_TARGET_HP = 2.0f;
 #define N3_FORMAT_VER_1068 0x00000001
 #define N3_FORMAT_VER_1298 0x00000002
 
+enum e_ExitType
+{
+	EXIT_TYPE_NONE			= 0,
+	EXIT_TYPE_CHR_SELECT	= 1,
+	EXIT_TYPE_QUIT			= 2,
+};
+
 enum ZoneFlags
 {
 	ZF_TRADE_OTHER_NATION = (1 << 0),
@@ -1300,6 +1307,7 @@ const int	FXID_CLAN_RANK_1				= 10041;
 const int	FXID_WARP_KARUS					= 10046;
 const int	FXID_WARP_ELMORAD				= 10047;
 const int	FXID_REGION_POISON				= 10100;
+const int	FXID_TARGET_POINTER				= 30001;
 
 //define skillmagic_type4_bufftype
 enum e_SkillMagicType4	{	BUFFTYPE_MAXHP = 1,				//MaxHP변화..

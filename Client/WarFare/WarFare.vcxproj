@@ -145,6 +145,7 @@
     <ClCompile Include="UIDead.cpp" />
     <ClCompile Include="UIDroppedItemDlg.cpp" />
     <ClCompile Include="UIEndingDisplay.cpp" />
+    <ClCompile Include="UIExitMenu.cpp" />
     <ClCompile Include="UIHelp.cpp" />
     <ClCompile Include="UIHotKeyDlg.cpp" />
     <ClCompile Include="UIImageTooltipDlg.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="UIDead.h" />
     <ClInclude Include="UIDroppedItemDlg.h" />
     <ClInclude Include="UIEndingDisplay.h" />
+    <ClInclude Include="UIExitMenu.h" />
     <ClInclude Include="UIHelp.h" />
     <ClInclude Include="UIHotKeyDlg.h" />
     <ClInclude Include="UIImageTooltipDlg.h" />

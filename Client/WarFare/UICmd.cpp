@@ -133,9 +133,8 @@ bool CUICmd::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 		else if(pSender == m_pBtn_Exit) 
 		{
-			std::string szMsg = "Are you sure you want to exit?"; //Once again lack of descrpiton(IDS_EXIT, szMsg);
-//			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_RESTART_GAME); 
-			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXIT); 
+			//m_bSuppressNextMouseFocus = true;
+			CGameProcedure::s_pProcMain->RequestExit();
 		}
 
 		else if(pSender == m_pBtn_Camera)
