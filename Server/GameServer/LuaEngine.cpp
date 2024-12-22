@@ -92,7 +92,6 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(RequestReward)
 						  MAKE_LUA_FUNCTION(RunCountExchange)
 						  MAKE_LUA_FUNCTION(GetMaxExchange)
-						  MAKE_LUA_FUNCTION(GetUserDailyOp)
 						  MAKE_LUA_FUNCTION(GetEventTrigger)
 						  MAKE_LUA_FUNCTION(GetPremium)
 						  MAKE_LUA_FUNCTION(CheckWarVictory)
@@ -104,10 +103,6 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(CheckMonsterChallengeTime)
 						  MAKE_LUA_FUNCTION(CheckMonsterChallengeUserCount)
 						  MAKE_LUA_FUNCTION(GetPVPMonumentNation)
-						  MAKE_LUA_FUNCTION(NationChange)
-						  MAKE_LUA_FUNCTION(GetRace)
-						  MAKE_LUA_FUNCTION(GenderChange)
-						  MAKE_LUA_FUNCTION(JobChange)
 						  );
 
 CLuaEngine::CLuaEngine() : m_lock(new RWLock())

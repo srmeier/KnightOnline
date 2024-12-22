@@ -727,8 +727,12 @@ uint8_t CUser::GetRankReward(bool isMonthly)
 
 		if (nGoldAmount > 0) 
 		{
+			// TODO: Restore official behaviour here.
+			// This is intended to use the table.
+#if 0
 			if (GetUserDailyOp(isMonthly ? DAILY_USER_PERSONAL_RANK_REWARD : DAILY_USER_RANK_REWARD) == 0)
 				return RewardAlreadyTaken;
+#endif
 
 			GoldGain(nGoldAmount);
 			return RewardSuccessfull;
@@ -1389,106 +1393,12 @@ void CUser::SetSlotItemValue()
 		// If we have bonuses to apply, store them.
 		if (!bonusMap.empty())
 			m_equippedItemBonuses[i] = bonusMap;
-
-		// Apply cospre item stats
-		if (pTable->GetKind() == ITEM_KIND_COSPRE)
-		{
-			/*
-			// If this item exists in the set table, it has bonuses to be applied.
-			_SET_ITEM * pSetItem = g_pMain->m_SetItemArray.GetData(pTable->m_iNum);
-			if (pSetItem != nullptr)
-				ApplySetItemBonuses(pSetItem);
-			*/
-		}
-
-		// All set items start with race over 100
-		if (pTable->m_bRace < 100)
-			continue;
-
-		// Each set is uniquely identified by item's race
-		auto itr = setItems.find(pTable->m_bRace);
-
-		// If the item doesn't exist in our map yet...
-		if (itr == setItems.end())
-		{
-			// Generate the base set ID and insert it into our map
-			setItems.insert(make_pair(pTable->m_bRace, pTable->m_bRace * 10000));
-			itr = setItems.find(pTable->m_bRace);
-		}
-
-		// Update the final set ID depending on the equipped set item 
-		switch (pTable->m_bSlot)
-		{
-		case ItemSlotHelmet:
-			itr->second += 2;
-			break;
-		case ItemSlotPauldron:
-			itr->second += 16;
-			break;
-		case ItemSlotPads:
-			itr->second += 512;
-			break;
-		case ItemSlotGloves:
-			itr->second += 2048;
-			break;
-		case ItemSlotBoots:
-			itr->second += 4096;
-			break;
-		}
 	}
-	/*
-	// Now we can add up all the set bonuses, if any.
-	foreach (itr, setItems)
-	{
-		// Test if this set item exists (if we're not using at least 2 items from the set, this will fail)
-		_SET_ITEM * pItem = g_pMain->m_SetItemArray.GetData(itr->second);
-		if (pItem == nullptr)
-			continue;
 
-		ApplySetItemBonuses(pItem);
-	}
-	*/
 	if (m_sAddArmourAc > 0)
 		m_sItemAc += m_sAddArmourAc;
 	else
 		m_sItemAc = m_sItemAc * m_bPctArmourAc / 100;
-}
-
-void CUser::ApplySetItemBonuses(_SET_ITEM * pItem)
-{
-	return;
-
-	m_sItemAc += pItem->ACBonus;
-	m_sItemMaxHp += pItem->HPBonus;
-	m_sItemMaxMp += pItem->MPBonus;
-
-	m_sStatItemBonuses[STAT_STR] += pItem->StrengthBonus;
-	m_sStatItemBonuses[STAT_STA] += pItem->StaminaBonus;
-	m_sStatItemBonuses[STAT_DEX] += pItem->DexterityBonus;
-	m_sStatItemBonuses[STAT_INT] += pItem->IntelBonus;
-	m_sStatItemBonuses[STAT_CHA] += pItem->CharismaBonus;
-
-	m_sFireR += pItem->FlameResistance;
-	m_sColdR += pItem->GlacierResistance;
-	m_sLightningR += pItem->LightningResistance;
-	m_sMagicR += pItem->MagicResistance;
-	m_sDiseaseR += pItem->CurseResistance;
-	m_sPoisonR += pItem->PoisonResistance;
-
-	m_bItemExpGainAmount += pItem->XPBonusPercent;
-	m_bItemNoahGainAmount += pItem->CoinBonusPercent;
-	m_bItemNPBonus += pItem->NPBonus;
-
-	m_sMaxWeightBonus += pItem->MaxWeightBonus;
-
-	// NOTE: The following percentages use values such as 3 to indicate +3% (not the typical 103%).
-	// Also note that at this time, there are no negative values used, so we can assume it's always a bonus.
-	m_byAPBonusAmount += pItem->APBonusPercent; 
-	if (pItem->APBonusClassType >= 1 && pItem->APBonusClassType <= 4)
-		m_byAPClassBonusAmount[pItem->APBonusClassType - 1] += pItem->APBonusClassPercent;
-
-	if (pItem->ACBonusClassType >= 1 && pItem->ACBonusClassType <= 4)
-		m_byAcClassBonusAmount[pItem->ACBonusClassType - 1] += pItem->ACBonusClassPercent;
 }
 
 void CUser::RecvUserExp(Packet & pkt)
@@ -1723,42 +1633,6 @@ void CUser::ExpChange(int64_t iExp, bool bIsBonusReward)
 */
 uint16_t CUser::GetPremiumProperty(e_PremiumPropertyType type)
 {
-	if (m_bPremiumType <= 0)
-		return 0;
-
-	_PREMIUM_ITEM * pPremiumItem = g_pMain->m_PremiumItemArray.GetData(m_bPremiumType);
-	if (pPremiumItem == nullptr)
-		return 0;
-
-	switch (type)
-	{
-	case PremiumExpRestorePercent:
-		return pPremiumItem->ExpRestorePercent;
-	case PremiumNoahPercent:
-		return pPremiumItem->NoahPercent;
-	case PremiumDropPercent:
-		return pPremiumItem->DropPercent;
-	case PremiumBonusLoyalty:
-		return pPremiumItem->BonusLoyalty;
-	case PremiumRepairDiscountPercent:
-		return pPremiumItem->RepairDiscountPercent;
-	case PremiumItemSellPercent:
-		return pPremiumItem->ItemSellPercent;
-	case PremiumExpPercent:
-		{
-			foreach_stlmap (itr, g_pMain->m_PremiumItemExpArray)
-			{
-				_PREMIUM_ITEM_EXP *pPremiumItemExp = g_pMain->m_PremiumItemExpArray.GetData(itr->first);
-
-				if (pPremiumItemExp == nullptr)
-					continue;
-
-				if (m_bPremiumType == pPremiumItemExp->Type && GetLevel() >= pPremiumItemExp->MinLevel && GetLevel() <= pPremiumItemExp->MaxLevel)
-					return pPremiumItemExp->sPercent;
-			}
-		}
-	}
-
 	return 0;
 }
 
@@ -3755,27 +3629,6 @@ bool CUser::GetStartPosition(int16_t & x, int16_t & z, uint8_t bZone /*= 0 */)
 	return true;
 }
 
-bool CUser::GetStartPositionRandom(int16_t & x, int16_t & z, uint8_t bZone)
-{
-	int nRandom = myrand(0, g_pMain->m_StartPositionRandomArray.GetSize() - 1);
-	goto GetPosition;
-
-GetPosition:
-	{
-		if (g_pMain->m_StartPositionRandomArray.GetData(nRandom)->ZoneID == (bZone == 0 ? GetZoneID() : bZone))
-		{
-			x = g_pMain->m_StartPositionRandomArray.GetData(nRandom)->PosX + myrand(0, g_pMain->m_StartPositionRandomArray.GetData(nRandom)->Radius);
-			z = g_pMain->m_StartPositionRandomArray.GetData(nRandom)->PosZ + myrand(0, g_pMain->m_StartPositionRandomArray.GetData(nRandom)->Radius);
-			return true;
-		}
-
-		nRandom = myrand(0, g_pMain->m_StartPositionRandomArray.GetSize() - 1);
-		goto GetPosition;
-	}
-
-	return GetStartPosition(x, z);
-}
-
 void CUser::ResetWindows()
 {
 	if (isTrading())
@@ -5319,118 +5172,6 @@ void CUser::SendMannerChange(int32_t iMannerPoints)
 	Packet pkt(WIZ_LOYALTY_CHANGE);
 	pkt << uint8_t(LOYALTY_MANNER_POINTS) << m_iMannerPoint;
 	Send(&pkt);
-}
-
-uint8_t CUser::GetUserDailyOp(uint8_t type)
-{
-	if (type == 0)
-		return 0;
-
-	int32_t nUnixTime = -1;
-
-	UserDailyOpMap::iterator itr = g_pMain->m_UserDailyOpMap.find(GetName());
-
-	if (itr != g_pMain->m_UserDailyOpMap.end())
-	{
-		if (type == DAILY_CHAOS_MAP)
-			nUnixTime = int(itr->second->ChaosMapTime);
-		else if (type == DAILY_USER_RANK_REWARD)
-			nUnixTime = int(itr->second->UserRankRewardTime);
-		else if (type == DAILY_USER_PERSONAL_RANK_REWARD)
-			nUnixTime = int(itr->second->PersonalRankRewardTime);
-		else if (type == DAILY_KING_WING)
-			nUnixTime = int(itr->second->KingWingTime);
-		else if (type == DAILY_WARDER_KILLER_WING1)
-			nUnixTime = int(itr->second->WarderKillerTime1);
-		else if (type == DAILY_WARDER_KILLER_WING2)
-			nUnixTime = int(itr->second->WarderKillerTime2);
-		else if (type == DAILY_KEEPER_KILLER_WING)
-			nUnixTime = int(itr->second->KeeperKillerTime);
-		else if (type == DAILY_USER_LOYALTY_WING_REWARD)
-			nUnixTime = int(itr->second->UserLoyaltyWingRewardTime);
-
-		if (nUnixTime == -1)
-			SetUserDailyOp(type);
-		else
-		{
-			if (((int32_t(UNIXTIME) - nUnixTime) / 60) > DAILY_OPERATIONS_MINUTE)
-				SetUserDailyOp(type);
-			else
-				return 0;
-		}
-	}
-	else
-		SetUserDailyOp(type, true);
-
-	return 1;
-}
-
-void CUser::SetUserDailyOp(uint8_t type, bool isInsert)
-{
-	if (type == 0)
-		return;
-
-	int32_t nUnixTime = int32_t(UNIXTIME);
-
-	if (isInsert)
-	{
-		_USER_DAILY_OP * pData = new _USER_DAILY_OP;
-
-		pData->strUserId = GetName();
-		pData->ChaosMapTime = -1;
-		pData->UserRankRewardTime = -1;
-		pData->PersonalRankRewardTime = -1;
-		pData->KingWingTime = -1;
-		pData->WarderKillerTime1 = -1;
-		pData->WarderKillerTime2 = -1;
-		pData->KeeperKillerTime = -1;
-		pData->UserLoyaltyWingRewardTime = -1;
-
-		if (type ==  DAILY_CHAOS_MAP)
-			pData->ChaosMapTime = nUnixTime;
-		else if (type == DAILY_USER_RANK_REWARD)
-			pData->UserRankRewardTime = nUnixTime;
-		else if (type == DAILY_USER_PERSONAL_RANK_REWARD)
-			pData->PersonalRankRewardTime = nUnixTime;
-		else if (type == DAILY_KING_WING)
-			pData->KingWingTime = nUnixTime;
-		else if (type == DAILY_WARDER_KILLER_WING1)
-			pData->WarderKillerTime1 = nUnixTime;
-		else if (type == DAILY_WARDER_KILLER_WING2)
-			pData->WarderKillerTime2 = nUnixTime;
-		else if (type == DAILY_KEEPER_KILLER_WING)
-			pData->KeeperKillerTime = nUnixTime;
-		else if (type == DAILY_USER_LOYALTY_WING_REWARD)
-			pData->UserLoyaltyWingRewardTime = nUnixTime;
-
-		g_pMain->m_UserDailyOpMap.insert(make_pair(pData->strUserId, pData));
-		g_DBAgent.InsertUserDailyOp(pData);
-	}
-	else
-	{
-		UserDailyOpMap::iterator itr = g_pMain->m_UserDailyOpMap.find(GetName());
-		if (itr != g_pMain->m_UserDailyOpMap.end())
-		{
-			if (type == DAILY_CHAOS_MAP)
-				itr->second->ChaosMapTime = nUnixTime;
-			else if (type == DAILY_USER_RANK_REWARD)
-				itr->second->UserRankRewardTime = nUnixTime;
-			else if (type == DAILY_USER_PERSONAL_RANK_REWARD)
-				itr->second->PersonalRankRewardTime = nUnixTime;
-			else if (type == DAILY_KING_WING)
-				itr->second->KingWingTime = nUnixTime;
-			else if (type == DAILY_WARDER_KILLER_WING1)
-				itr->second->WarderKillerTime1 = nUnixTime;
-			else if (type == DAILY_WARDER_KILLER_WING2)
-				itr->second->WarderKillerTime2 = nUnixTime;
-			else if (type == DAILY_KEEPER_KILLER_WING)
-				itr->second->KeeperKillerTime = nUnixTime;
-			else if (type == DAILY_USER_LOYALTY_WING_REWARD)
-				itr->second->UserLoyaltyWingRewardTime = nUnixTime;
-
-			g_DBAgent.UpdateUserDailyOp(GetName(), type, nUnixTime);
-		}
-	}
 }
 
 uint32_t CUser::GetEventTrigger()

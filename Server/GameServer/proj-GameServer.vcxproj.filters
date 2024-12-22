@@ -147,9 +147,6 @@
     <ClCompile Include="EventHandler.cpp">
       <Filter>Source Files\Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterHandler.cpp">
-      <Filter>Source Files\Handlers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
@@ -287,12 +284,6 @@
     <ClInclude Include="..\shared\database\KnightsCapeSet.h">
       <Filter>Database</Filter>
     </ClInclude>
-    <ClInclude Include="..\shared\database\QuestMonsterSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\QuestHelperSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
     <ClInclude Include="..\shared\database\RentalItemSet.h">
       <Filter>Database</Filter>
     </ClInclude>
@@ -332,43 +323,16 @@
     <ClInclude Include="..\shared\database\ItemUpgradeSet.h">
       <Filter>Database</Filter>
     </ClInclude>
-    <ClInclude Include="..\shared\database\SetItemTableSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\ItemOpSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
     <ClInclude Include="..\shared\database\MonsterSummonListSet.h">
       <Filter>Database</Filter>
     </ClInclude>
-    <ClInclude Include="..\shared\database\PremiumItemExpSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\PremiumItemSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\MonsterSummonListZoneSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\MonsterRespawnListSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\UserDailyOpSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
     <ClInclude Include="..\shared\database\EventTriggerSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\MonsterRespawnListInformationSet.h">
       <Filter>Database</Filter>
     </ClInclude>
     <ClInclude Include="..\shared\database\MonsterChallenge.h">
       <Filter>Database</Filter>
     </ClInclude>
     <ClInclude Include="..\shared\database\MonsterChallengeSummonList.h">
-      <Filter>Database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\shared\database\StartPositionRandomSet.h">
       <Filter>Database</Filter>
     </ClInclude>
     <ClInclude Include="..\shared\database\ObjectPosSet.h">

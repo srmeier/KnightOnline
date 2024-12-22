@@ -9,10 +9,8 @@
 
 #include "../shared/database/OdbcRecordset.h"
 #include "../shared/database/ItemTableSet.h"
-#include "../shared/database/SetItemTableSet.h"
 #include "../shared/database/ItemExchangeSet.h"
 #include "../shared/database/ItemUpgradeSet.h"
-#include "../shared/database/ItemOpSet.h"
 #include "../shared/database/MagicTableSet.h"
 #include "../shared/database/MagicType1Set.h"
 #include "../shared/database/MagicType2Set.h"
@@ -29,8 +27,6 @@
 #include "../shared/database/CoefficientSet.h"
 #include "../shared/database/LevelUpTableSet.h"
 #include "../shared/database/ServerResourceSet.h"
-#include "../shared/database/QuestHelperSet.h"
-#include "../shared/database/QuestMonsterSet.h"
 #include "../shared/database/KnightsSet.h"
 #include "../shared/database/KnightsUserSet.h"
 #include "../shared/database/KnightsAllianceSet.h"
@@ -39,7 +35,6 @@
 #include "../shared/database/UserPersonalRankSet.h"
 #include "../shared/database/UserKnightsRankSet.h"
 #include "../shared/database/StartPositionSet.h"
-#include "../shared/database/StartPositionRandomSet.h"
 #include "../shared/database/BattleSet.h"
 #include "../shared/database/RentalItemSet.h"
 #include "../shared/database/KingSystemSet.h"
@@ -49,24 +44,12 @@
 #include "../shared/database/MonsterChallenge.h"
 #include "../shared/database/MonsterChallengeSummonList.h"
 #include "../shared/database/MonsterSummonListSet.h"
-#include "../shared/database/MonsterSummonListZoneSet.h"
-#include "../shared/database/MonsterRespawnListSet.h"
-#include "../shared/database/MonsterRespawnListInformationSet.h"
-#include "../shared/database/PremiumItemSet.h"
-#include "../shared/database/PremiumItemExpSet.h"
-#include "../shared/database/UserDailyOpSet.h"
 #include "../shared/database/UserItemSet.h"
 #include "../shared/database/KnightsSiegeWar.h"
 
 bool CGameServerDlg::LoadItemTable()
 {
 	LOAD_TABLE(CItemTableSet, g_DBAgent.m_GameDB, &m_ItemtableArray, false, false);
-	return true;
-}
-
-bool CGameServerDlg::LoadSetItemTable()
-{
-	//LOAD_TABLE(CSetItemTableSet, g_DBAgent.m_GameDB, &m_SetItemArray,true, false);
 	return true;
 }
 
@@ -80,31 +63,9 @@ bool CGameServerDlg::LoadItemUpgradeTable()
 	LOAD_TABLE(CItemUpgradeSet, g_DBAgent.m_GameDB, &m_ItemUpgradeArray, false, false);
 }
 
-bool CGameServerDlg::LoadItemOpTable()
-{
-	//LOAD_TABLE(CItemOpSet, g_DBAgent.m_GameDB, &m_ItemOpArray,true, false);
-	return true;
-}
-
 bool CGameServerDlg::LoadServerResourceTable()
 {
 	LOAD_TABLE(CServerResourceSet, g_DBAgent.m_GameDB, &m_ServerResourceArray, false, false);
-}
-
-bool CGameServerDlg::LoadQuestHelperTable()
-{
-	Guard lock(m_questNpcLock);
-	m_QuestNpcList.clear();
-
-	LOAD_TABLE(CQuestHelperSet, g_DBAgent.m_GameDB, &m_QuestHelperArray,true, false);
-	//_LOAD_TABLE(QuestHelperList, g_DBAgent.m_GameDB, &m_QuestEventIndex, true , false);
-	return true;
-}
-
-bool CGameServerDlg::LoadQuestMonsterTable()
-{
-	//LOAD_TABLE(CQuestMonsterSet, g_DBAgent.m_GameDB, &m_QuestMonsterArray,true, false);
-	return true;
 }
 
 bool CGameServerDlg::LoadMagicTable()
@@ -332,51 +293,9 @@ bool CGameServerDlg::LoadMonsterSummonListTable()
 	LOAD_TABLE(CMonsterSummonListSet, g_DBAgent.m_GameDB, &m_MonsterSummonList,true, false);
 }
 
-bool CGameServerDlg::LoadMonsterSummonListZoneTable()
-{
-	//LOAD_TABLE(CMonsterSummonListZoneSet, g_DBAgent.m_GameDB, &m_MonsterSummonListZoneArray,true, false);
-	return true;
-}
-
-bool CGameServerDlg::LoadMonsterRespawnListTable()
-{
-	//LOAD_TABLE(CMonsterRespawnListSet, g_DBAgent.m_GameDB, &m_MonsterRespawnListArray,true, false);
-	return true;
-}
-
-bool CGameServerDlg::LoadMonsterRespawnListInformationTable()
-{
-	//LOAD_TABLE(CMonsterRespawnListInformationSet, g_DBAgent.m_GameDB, &m_MonsterRespawnListInformationArray,true, false);
-	return true;
-}
-
-bool CGameServerDlg::LoadPremiumItemTable()
-{
-	//LOAD_TABLE(CPremiumItemSet, g_DBAgent.m_GameDB, &m_PremiumItemArray,true, false);
-	return true;
-}
-
-bool CGameServerDlg::LoadPremiumItemExpTable()
-{
-	//LOAD_TABLE(CPremiumItemExpSet, g_DBAgent.m_GameDB, &m_PremiumItemExpArray,true, false);
-	return true;
-}
-
-bool CGameServerDlg::LoadUserDailyOpTable()
-{
-	//LOAD_TABLE(CUserDailyOpSet, g_DBAgent.m_GameDB, &m_UserDailyOpMap,true, false);
-	return true;
-}
-
 bool CGameServerDlg::LoadEventTriggerTable()
 {
 	LOAD_TABLE(CEventTriggerSet, g_DBAgent.m_GameDB, &m_EventTriggerArray,true, false);
-}
-
-bool CGameServerDlg::LoadStartPositionRandomTable()
-{
-	//LOAD_TABLE(CStartPositionRandomSet, g_DBAgent.m_GameDB, &m_StartPositionRandomArray,true, false);
-	return true;
 }
 
 bool CGameServerDlg::LoadUserItemTable()

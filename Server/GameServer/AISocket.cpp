@@ -133,14 +133,6 @@ void CAISocket::RecvServerInfo(Packet & pkt)
 		g_pMain->m_bPointCheckFlag = true;
 		g_pMain->m_NationMonumentInformationArray.DeleteAllData();		
 
-		// Load Matryoshka Monsters...
-		if (g_pMain->m_MonsterRespawnListInformationArray.GetSize() > 0)
-		{
-			foreach_stlmap_nolock (itr, g_pMain->m_MonsterRespawnListInformationArray)
-				if (itr->second->ZoneID != ZONE_CHAOS_DUNGEON)
-					g_pMain->SpawnEventNpc(itr->second->sSid,true,itr->second->ZoneID,itr->second->X,itr->second->Y,itr->second->Z,itr->second->sCount,itr->second->bRadius);
-		}
-
 		printf("All spawn data loaded.\n");
 	}
 }

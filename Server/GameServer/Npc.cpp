@@ -403,16 +403,6 @@ void CNpc::OnDeathProcess(Unit *pKiller)
 				pUser->QuestV2RunEvent(pQuestHelper,pQuestHelper->nEventTriggerIndex);
 			}
 		}
-		else if (g_pMain->m_MonsterRespawnListArray.GetData(GetProtoID()) != nullptr)
-		{
-			if (pUser->isInPKZone() || GetZoneID() == ZONE_JURAD_MOUNTAIN)
-				g_pMain->SpawnEventNpc(g_pMain->m_MonsterRespawnListArray.GetData(GetProtoID())->sSid, true, GetZoneID(), GetX(), GetY(), GetZ(), g_pMain->m_MonsterRespawnListArray.GetData(GetProtoID())->sCount);
-
-		}
-		else if (m_tNpcType == NPC_CHAOS_STONE && pUser->isInPKZone()) 
-		{
-			ChaosStoneProcess(pUser,5);
-		}
 
 		if (g_pMain->m_bForgettenTempleIsActive && GetZoneID() == ZONE_FORGOTTEN_TEMPLE)
 			g_pMain->m_ForgettenTempleMonsterList.erase(m_sNid);
@@ -496,54 +486,6 @@ void CNpc::OnRespawn()
 	}
 	else if (g_pMain->m_bForgettenTempleIsActive && GetZoneID() == ZONE_FORGOTTEN_TEMPLE)
 		g_pMain->m_ForgettenTempleMonsterList.insert(std::make_pair(m_sNid, GetProtoID()));
-}
-
-/**
-* @brief	Executes the death process.
-*
-* @param	pUser	The User.
-* @param	MonsterCount The Respawn boss count.
-*/
-void CNpc::ChaosStoneProcess(CUser *pUser, uint16_t MonsterCount)
-{
-	if (pUser == nullptr)
-		return;
-
-#if 0
-	g_pMain->SendNotice<CHAOS_STONE_ENEMY_NOTICE>("",GetZoneID(), Nation::ALL);
-#endif
-
-	std::vector<uint32_t> MonsterSpawned;
-	std::vector<uint32_t> MonsterSpawnedFamily;
-	bool bLoopBack = true;
-
-	for (uint8_t i = 0; i < MonsterCount;i++)
-	{
-		uint32_t nMonsterNum = myrand(0, g_pMain->m_MonsterSummonListZoneArray.GetSize());
-		_MONSTER_SUMMON_LIST_ZONE * pMonsterSummonListZone = g_pMain->m_MonsterSummonListZoneArray.GetData(nMonsterNum);
-
-		if (pMonsterSummonListZone != nullptr)
-		{
-			if (pMonsterSummonListZone->ZoneID == GetZoneID())
-			{
-				if (std::find(MonsterSpawned.begin(),MonsterSpawned.end(),nMonsterNum) == MonsterSpawned.end())
-				{
-					if (std::find(MonsterSpawnedFamily.begin(),MonsterSpawnedFamily.end(),pMonsterSummonListZone->byFamily) == MonsterSpawnedFamily.end())
-					{
-						g_pMain->SpawnEventNpc(pMonsterSummonListZone->sSid, true,GetZoneID(), GetX(), GetY(), GetZ(), 1, CHAOS_STONE_MONSTER_RESPAWN_RADIUS, CHAOS_STONE_MONSTER_LIVE_TIME);
-						MonsterSpawned.push_back(nMonsterNum);
-						MonsterSpawnedFamily.push_back(pMonsterSummonListZone->byFamily);
-						bLoopBack = false;
-					}
-				}
-			}
-		}
-
-		if (bLoopBack)
-			i--;
-		else
-			bLoopBack = true;
-	}
 }
 
 /*

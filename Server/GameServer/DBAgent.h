@@ -102,7 +102,6 @@ public:
 	NameChangeOpcode UpdateCharacterName(std::string & strAccountID, std::string & strUserID, std::string & strNewUserID);
 	void UpdateCape(uint16_t sClanID, uint16_t sCapeID, uint8_t r, uint8_t g, uint8_t b);
 	void UpdateClanGrade(uint16_t sClanID, uint8_t byFlag, uint16_t sCapeID);
-	void UpdateAccountKnightCash(std::string & strAccountID, uint32_t KnightCash = 0);
 
 	void UpdateBattleEvent(std::string & strCharID, uint8_t bNation);
 	void AccountLogout(std::string & strAccountID);
@@ -131,13 +130,9 @@ public:
 	
 	void ResetLoyaltyMonthly();
 	void ClearRemainUsers();
-	void InsertUserDailyOp(_USER_DAILY_OP * pUserDailyOp);
-	void UpdateUserDailyOp(std::string strUserId, uint8_t type, int32_t sUnixTime);
 	void UpdateRanks();
 	void UpdateSiege(int16_t m_sCastleIndex, int16_t m_sMasterKnights, int16_t m_bySiegeType, int16_t m_byWarDay, int16_t m_byWarTime, int16_t m_byWarMinute);
 	void UpdateSiegeTax(uint8_t Zone, int16_t ZoneTarrif);
-
-	int8_t NationTransfer(std::string strAccountID);
 
 	~CDBAgent();
 

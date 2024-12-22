@@ -346,15 +346,6 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	m_bWarp = true;
 	m_bZoneChangeFlag = true;
 
-	// Random respawn position...
-	if (sNewZone == ZONE_CHAOS_DUNGEON)
-	{
-		int16_t sx, sz;
-		GetStartPositionRandom(sx,sz,(uint8_t)sNewZone);
-		x = (float)sx;
-		z = (float)sz;
-	}
-	
 	if (sNewZone == ZONE_DELOS)
 	{
 		if (pKnightSiege && (pKnightSiege->sMasterKnights==GetClanID()) && (GetClanID()!=0))

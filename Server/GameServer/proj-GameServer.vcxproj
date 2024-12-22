@@ -163,7 +163,6 @@
     <ClCompile Include="MerchantHandler.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="NPCHandler.cpp" />
-    <ClCompile Include="CharacterHandler.cpp" />
     <ClCompile Include="PartyHandler.cpp" />
     <ClCompile Include="QuestHandler.cpp" />
     <ClCompile Include="Region.cpp" />
@@ -187,7 +186,6 @@
     <ClInclude Include="..\shared\database\EventSet.h" />
     <ClInclude Include="..\shared\database\EventTriggerSet.h" />
     <ClInclude Include="..\shared\database\ItemExchangeSet.h" />
-    <ClInclude Include="..\shared\database\ItemOpSet.h" />
     <ClInclude Include="..\shared\database\ItemTableSet.h" />
     <ClInclude Include="..\shared\database\ItemUpgradeSet.h" />
     <ClInclude Include="..\shared\database\KingCandidacyNoticeBoardSet.h" />
@@ -211,21 +209,11 @@
     <ClInclude Include="..\shared\database\MagicType9Set.h" />
     <ClInclude Include="..\shared\database\MonsterChallenge.h" />
     <ClInclude Include="..\shared\database\MonsterChallengeSummonList.h" />
-    <ClInclude Include="..\shared\database\MonsterRespawnListInformationSet.h" />
-    <ClInclude Include="..\shared\database\MonsterRespawnListSet.h" />
-    <ClInclude Include="..\shared\database\MonsterSummonListZoneSet.h" />
     <ClInclude Include="..\shared\database\MonsterSummonListSet.h" />
     <ClInclude Include="..\shared\database\ObjectPosSet.h" />
-    <ClInclude Include="..\shared\database\PremiumItemExpSet.h" />
-    <ClInclude Include="..\shared\database\PremiumItemSet.h" />
-    <ClInclude Include="..\shared\database\QuestHelperSet.h" />
-    <ClInclude Include="..\shared\database\QuestMonsterSet.h" />
     <ClInclude Include="..\shared\database\RentalItemSet.h" />
     <ClInclude Include="..\shared\database\ServerResourceSet.h" />
-    <ClInclude Include="..\shared\database\SetItemTableSet.h" />
-    <ClInclude Include="..\shared\database\StartPositionRandomSet.h" />
     <ClInclude Include="..\shared\database\StartPositionSet.h" />
-    <ClInclude Include="..\shared\database\UserDailyOpSet.h" />
     <ClInclude Include="..\shared\database\UserKnightsRankSet.h" />
     <ClInclude Include="..\shared\database\UserPersonalRankSet.h" />
     <ClInclude Include="..\shared\database\ZoneInfoSet.h" />

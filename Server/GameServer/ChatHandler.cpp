@@ -37,7 +37,6 @@ void CGameServerDlg::InitServerCommands()
 		{ "reload_notice",		&CGameServerDlg::HandleReloadNoticeCommand,		"Reloads the in-game notice list." },
 		{ "reload_tables",		&CGameServerDlg::HandleReloadTablesCommand,		"Reloads the in-game tables." },
 		{ "reload_magics",		&CGameServerDlg::HandleReloadMagicsCommand,		"Reloads the in-game magic tables." },
-		{ "reload_quests",		&CGameServerDlg::HandleReloadQuestCommand,		"Reloads the in-game quest tables." },
 		{ "reload_ranks",		&CGameServerDlg::HandleReloadRanksCommand,		"Reloads the in-game rank tables." },
 		{ "count",				&CGameServerDlg::HandleCountCommand,			"Get online user count." },
 		{ "permitconnect",		&CGameServerDlg::HandlePermitConnectCommand,	"Player unban" },
@@ -1130,9 +1129,6 @@ COMMAND_HANDLER(CGameServerDlg::HandleReloadTablesCommand)
 	m_StartPositionArray.DeleteAllData();
 	LoadStartPositionTable();
 
-	m_StartPositionRandomArray.DeleteAllData();
-	LoadStartPositionRandomTable();
-
 	m_ItemExchangeArray.DeleteAllData();
 	LoadItemExchangeTable();
 
@@ -1150,12 +1146,6 @@ COMMAND_HANDLER(CGameServerDlg::HandleReloadTablesCommand)
 
 	m_MonsterChallengeSummonListArray.DeleteAllData();
 	LoadMonsterChallengeSummonListTable();
-
-	m_MonsterRespawnListArray.DeleteAllData();
-	LoadMonsterRespawnListTable();
-
-	m_MonsterRespawnListInformationArray.DeleteAllData();
-	LoadMonsterRespawnListInformationTable();
 
 	ReloadKnightAndUserRanks();
 
@@ -1186,16 +1176,6 @@ COMMAND_HANDLER(CGameServerDlg::HandleReloadMagicsCommand)
 	LoadMagicType9();
 	m_IsMagicTableInUpdateProcess = false;
 
-	return true;
-}
-
-
-COMMAND_HANDLER(CGameServerDlg::HandleReloadQuestCommand)
-{
-	m_QuestHelperArray.DeleteAllData();
-	LoadQuestHelperTable();
-	m_QuestMonsterArray.DeleteAllData();
-	LoadQuestMonsterTable();
 	return true;
 }
 

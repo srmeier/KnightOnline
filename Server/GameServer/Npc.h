@@ -62,7 +62,6 @@ public:
 
 	void OnDeath(Unit *pKiller);
 	void OnDeathProcess(Unit *pKiller);
-	void ChaosStoneProcess(CUser *pUser, uint16_t MonsterCount);
 	void PVPMonumentProcess(CUser *pUser);
 	void BattleMonumentProcess(CUser *pUser);
 	void NationMonumentProcess(CUser *pUser);

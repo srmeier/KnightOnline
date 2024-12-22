@@ -151,12 +151,6 @@ void CUser::Regene(uint8_t regene_type, uint32_t magicid /*= 0*/)
 				x = (float)(MINI_ARENA_RESPAWN_X + myrand(-MINI_ARENA_RESPAWN_RADIUS, MINI_ARENA_RESPAWN_RADIUS));
 				z = (float)(MINI_ARENA_RESPAWN_Z + myrand(-MINI_ARENA_RESPAWN_RADIUS, MINI_ARENA_RESPAWN_RADIUS));
 			}
-			else if (GetZoneID() == ZONE_CHAOS_DUNGEON)
-			{
-				GetStartPositionRandom(sx, sz);
-				x = sx;
-				z = sz;
-			}
 			// For all else, just grab the start position (/town coordinates) from the START_POSITION table.
 			else
 			{

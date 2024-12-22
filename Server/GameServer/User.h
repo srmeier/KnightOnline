@@ -596,7 +596,6 @@ public:
 	void GoldChange(int16_t tid, int gold);
 	CUser * GetItemRoutingUser(uint32_t nItemID, uint32_t sCount);
 	bool GetStartPosition(int16_t & x, int16_t & y, uint8_t bZone = 0);
-	bool GetStartPositionRandom(int16_t & x, int16_t & z, uint8_t bZone = 0);
 	int FindSlotForItem(uint32_t nItemID, uint16_t sCount = 1);
 	int GetEmptySlot();
 	void SendAllKnightsID();
@@ -609,7 +608,6 @@ public:
 	int16_t GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill = nullptr, bool bPreviewOnly = false);
 	void OnAttack(Unit * pTarget, AttackType attackType);
 	void OnDefend(Unit * pAttacker, AttackType attackType);
-	bool TriggerProcItem(uint8_t bSlot, Unit * pTarget, ItemTriggerType triggerType);
 
 	void SendDurability(uint8_t slot, uint16_t durability);
 	void SendItemMove(uint8_t subcommand);
@@ -664,21 +662,12 @@ public:
 
 	bool ProcessChatCommand(std::string & message);
 
-	uint8_t GetUserDailyOp(uint8_t type = 0);
-	void SetUserDailyOp(uint8_t type = 0, bool isInsert = false);
-
 	uint32_t GetEventTrigger();
 
 	void RemoveStealth();
 
 	void GivePremium(uint8_t bPremiumType, uint16_t sPremiumTime);
 	void RobChaosSkillItems();
-
-	// Nation Transfer, Gender Change and Job Change (in game)
-	uint8_t NationChange();
-	uint8_t GetNewRace();
-	bool GenderChange(uint8_t nRace = 0);
-	uint8_t JobChange(uint8_t NewJob = 0);
 
 	COMMAND_HANDLER(HandleTestCommand);
 	COMMAND_HANDLER(HandleGiveItemCommand);
@@ -882,7 +871,6 @@ public:
 	void SetUserAbility(bool bSendPacket = true);
 	void LevelChange(uint8_t level, bool bLevelUp = true);
 	void SetSlotItemValue();
-	void ApplySetItemBonuses(_SET_ITEM * pItem);
 	void SendTime();
 	void SendWeather();
 	void SendPremiumInfo();
@@ -1072,7 +1060,6 @@ public:
 	DECLARE_LUA_GETTER(GetWarVictory)
 	DECLARE_LUA_GETTER(GetMonsterChallengeTime)
 	DECLARE_LUA_GETTER(GetMonsterChallengeUserCount)
-	DECLARE_LUA_GETTER(GetRace)
 
 	// Shortcuts for lazy people
 	DECLARE_LUA_FUNCTION(hasCoins)  {
@@ -1377,10 +1364,6 @@ public:
 		LUA_RETURN(LUA_GET_INSTANCE()->GetMaxExchange((LUA_ARG(int, 2))));
 	}
 
-	DECLARE_LUA_FUNCTION(GetUserDailyOp) {
-		LUA_RETURN(LUA_GET_INSTANCE()->GetUserDailyOp((LUA_ARG(uint8_t, 2))));
-	}
-
 	DECLARE_LUA_FUNCTION(GetEventTrigger) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetEventTrigger());
 	}
@@ -1403,17 +1386,5 @@ public:
 
 	DECLARE_LUA_FUNCTION(GetPVPMonumentNation) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetPVPMonumentNation());
-	}
-
-	DECLARE_LUA_FUNCTION(NationChange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->NationChange());
-	}
-
-	DECLARE_LUA_FUNCTION(GenderChange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->GenderChange((LUA_ARG(uint8_t, 2))));
-	}
-
-	DECLARE_LUA_FUNCTION(JobChange) {
-		LUA_RETURN(LUA_GET_INSTANCE()->JobChange((LUA_ARG(uint8_t, 2))));
 	}
 };

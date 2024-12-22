@@ -393,83 +393,13 @@ int16_t CUser::GetDamage(Unit *pTarget, _MAGIC_TABLE *pSkill /*= nullptr*/, bool
 	return damage;
 }
 
-#if GAMESERVER
+#ifdef GAMESERVER
 void CUser::OnAttack(Unit * pTarget, AttackType attackType)
 {
-	if (!pTarget->isPlayer()
-		|| attackType == AttackTypeMagic)
-		return;
-
-	// Trigger weapon procs for the attacker on attack
-	static const uint8_t itemSlots[] = { RIGHTHAND, LEFTHAND };
-	foreach_array (i, itemSlots)
-	{
-		// If we hit an applicable weapon, don't try proc'ing the other weapon. 
-		// It is only ever meant to proc on the dominant weapon.
-		if (TriggerProcItem(itemSlots[i], pTarget, TriggerTypeAttack))
-			break;
-	}
 }
 
 void CUser::OnDefend(Unit * pAttacker, AttackType attackType)
 {
-	if (!pAttacker->isPlayer())
-		return;
-
-	// Trigger defensive procs for the defender when being attacked
-	static const uint8_t itemSlots[] = { LEFTHAND };
-	foreach_array (i, itemSlots)
-		TriggerProcItem(itemSlots[i], pAttacker, TriggerTypeDefend);
-}
-
-/**
-* @brief	Trigger item procs.
-*
-* @param	bSlot	   	Slot of item to attempt to proc.
-* @param	pTarget	   	Target of the skill (attacker/defender depending on the proc type).
-* @param	triggerType	Which type of item to proc (offensive/defensive).
-*
-* @return	true if there's an applicable item to proc, false if not.
-*/
-bool CUser::TriggerProcItem(uint8_t bSlot, Unit * pTarget, ItemTriggerType triggerType)
-{
-	// Don't proc weapon skills if our weapon is disabled.
-	if (triggerType == TriggerTypeAttack && isWeaponsDisabled()) 
-		return false;
-
-	// Ensure there's an item in this slot, 
-	_ITEM_DATA * pItem = GetItem(bSlot);
-	if (pItem == nullptr
-		// and that it doesn't need to be repaired.
-			|| pItem->sDuration == 0)
-			return false; // not an applicable item
-
-	return true; // NOTE: 1298 doesn't have the ITEM_OP table
-
-	// Ensure that this item has an attached proc skill in the table
-	_ITEM_OP * pData = g_pMain->m_ItemOpArray.GetData(pItem->nNum);
-	if (pData == nullptr // no skill to proc
-		|| pData->bTriggerType != triggerType) // don't use an offensive proc when we're defending (or vice versa)
-		return false; // not an applicable item
-
-	// At this point, we have determined there is an applicable item in the slot.
-	// Should it proc now? (note: CheckPercent() checks out of 1000)
-	if (!CheckPercent(pData->bTriggerRate * 10))
-		return true; // it is an applicable item, it just didn't proc. No need to proc subsequent items.
-
-	MagicInstance instance;
-
-	instance.bIsItemProc = true;
-	instance.sCasterID = GetID();
-	instance.sTargetID = pTarget->GetID();
-	instance.nSkillID = pData->nSkillID;
-
-	// For AOE skills such as "Splash", the AOE should be focus on the target.
-	instance.sData[0] = (uint16_t) pTarget->GetX();
-	instance.sData[2] = (uint16_t) pTarget->GetZ();
-
-	instance.Run();
-	return true; // it is an applicable item, and it proc'd. No need to proc subsequent items.
 }
 #endif
 

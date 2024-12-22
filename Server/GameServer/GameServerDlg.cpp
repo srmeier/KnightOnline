@@ -92,17 +92,20 @@ bool CGameServerDlg::Startup()
 	m_aiSocketMgr.SetCompletionPort(g_pMain->m_socketMgr.GetCompletionPort());
 	m_aiSocketMgr.InitSessions(1);
 
-	if (!g_DBAgent.Startup(m_bMarsEnabled,
-		m_strAccountDSN, m_strAccountUID, m_strAccountPWD,
-		m_strGameDSN, m_strGameUID, m_strGamePWD)
-		|| !LoadItemTable()
-		|| !LoadSetItemTable()
+	if (!g_DBAgent.Startup(
+		m_bMarsEnabled,
+		m_strAccountDSN,
+		m_strAccountUID,
+		m_strAccountPWD,
+		m_strGameDSN,
+		m_strGameUID,
+		m_strGamePWD))
+		return false;
+
+	if (!LoadItemTable()
 		|| !LoadItemExchangeTable()
 		|| !LoadItemUpgradeTable()
-		|| !LoadItemOpTable()
 		|| !LoadServerResourceTable()
-		|| !LoadQuestHelperTable()
-		|| !LoadQuestMonsterTable()
 		|| !LoadMagicTable()
 		|| !LoadMagicType1()
 		|| !LoadMagicType2()
@@ -125,7 +128,6 @@ bool CGameServerDlg::Startup()
 		|| !LoadKnightsCapeTable()
 		|| !LoadKnightsRankTable()
 		|| !LoadStartPositionTable()
-		|| !LoadStartPositionRandomTable()
 		|| !LoadBattleTable()
 		|| !MapFileLoad()
 		|| !LoadKingSystem()
@@ -133,12 +135,6 @@ bool CGameServerDlg::Startup()
 		|| !LoadMonsterChallengeTable()
 		|| !LoadMonsterChallengeSummonListTable()
 		|| !LoadMonsterSummonListTable()
-		|| !LoadMonsterSummonListZoneTable()
-		|| !LoadMonsterRespawnListTable()
-		|| !LoadMonsterRespawnListInformationTable()
-		|| !LoadPremiumItemTable()
-		|| !LoadPremiumItemExpTable()
-		|| !LoadUserDailyOpTable()
 		|| !LoadUserItemTable())
 		return false;
 
@@ -2533,6 +2529,7 @@ uint8_t CGameServerDlg::TempleEventGetRoomUsers(uint16_t nEventRoom)
 
 void CGameServerDlg::TempleEventSummonChaosCubes()
 {
+#if 0
 	for (int i = 0; i < g_pMain->pTempleEvent.LastEventRoom; i++)
 	{
 		foreach_stlmap_nolock (itr, m_MonsterRespawnListInformationArray)
@@ -2541,6 +2538,7 @@ void CGameServerDlg::TempleEventSummonChaosCubes()
 				SpawnEventNpc(itr->second->sSid,false,itr->second->ZoneID,itr->second->X,itr->second->Y,itr->second->Z,itr->second->sCount,itr->second->bRadius,0,0,-1,i+1/* EventRoom */);
 		}
 	}
+#endif
 }
 
 void CGameServerDlg::TempleEventFinish()

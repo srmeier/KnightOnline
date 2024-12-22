@@ -1885,29 +1885,6 @@ void CDBAgent::ClearRemainUsers()
 		ReportSQLError(m_AccountDB->GetError());
 }
 
-void CDBAgent::InsertUserDailyOp(_USER_DAILY_OP * pUserDailyOp)
-{
-	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return;
-
-	dbCommand->AddParameter(SQL_PARAM_INPUT, pUserDailyOp->strUserId.c_str(), pUserDailyOp->strUserId.length());
-	if (!dbCommand->Execute(string_format(_T("{CALL INSERT_USER_DAILY_OP(?, %d, %d, %d, %d, %d, %d, %d, %d)}"), 
-		pUserDailyOp->ChaosMapTime, pUserDailyOp->UserRankRewardTime, pUserDailyOp->PersonalRankRewardTime, pUserDailyOp->KingWingTime)))
-		ReportSQLError(m_GameDB->GetError());	
-}
-
-void CDBAgent::UpdateUserDailyOp(std::string strUserId, uint8_t type, int32_t sUnixTime)
-{
-	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return;
-
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strUserId.c_str(), strUserId.length());
-	if (!dbCommand->Execute(string_format(_T("{CALL UPDATE_USER_DAILY_OP(?, %d, %d)}"), type, sUnixTime)))
-		ReportSQLError(m_GameDB->GetError());	
-}
-
 void CDBAgent::UpdateRanks()
 {
 	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
@@ -1916,39 +1893,6 @@ void CDBAgent::UpdateRanks()
 
 	if (!dbCommand->Execute(_T("{CALL UPDATE_PERSONAL_RANK}")))
 		ReportSQLError(m_GameDB->GetError());
-}
-
-int8_t CDBAgent::NationTransfer(std::string strAccountID)
-{
-	int8_t bRet = 3;
-	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return false;
-
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-
-	if (!dbCommand->Execute(_T("{? = CALL ACCOUNT_NATION_TRANSFER(?)}")))
-		ReportSQLError(m_GameDB->GetError());
-
-	return bRet;
-}
-
-/**
-* @brief	Change knight cash is account.
-*
-* @param	strAccountID	Character's Account name.
-* @param	KnightCash		Added knight cash amount
-*/
-void CDBAgent::UpdateAccountKnightCash(string & strAccountID, uint32_t KnightCash)
-{
-	unique_ptr<OdbcCommand> dbCommand(m_AccountDB->CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return;
-
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-	if (!dbCommand->Execute(string_format(_T("{CALL UPDATE_KNIGHT_CASH (?, %d)}"), KnightCash)))
-		ReportSQLError(m_AccountDB->GetError());	
 }
 
 void CDBAgent::UpdateSiege(int16_t m_sCastleIndex, int16_t m_sMasterKnights, int16_t m_bySiegeType, int16_t m_byWarDay, int16_t m_byWarTime, int16_t m_byWarMinute)

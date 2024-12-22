@@ -464,53 +464,6 @@ struct _ITEM_UPGRADE
 	int32_t	nGiveItem;
 };
 
-enum ItemTriggerType
-{
-	TriggerTypeAttack = 3,
-	TriggerTypeDefend = 13
-};
-
-struct _ITEM_OP
-{
-	uint32_t	nItemID;
-	uint8_t	bTriggerType;
-	uint32_t	nSkillID;
-	uint8_t	bTriggerRate;
-};
-
-struct _SET_ITEM
-{
-	uint32_t SetIndex;
-
-	uint16_t HPBonus;
-	uint16_t MPBonus;
-	uint16_t StrengthBonus;
-	uint16_t StaminaBonus;
-	uint16_t DexterityBonus;
-	uint16_t IntelBonus;
-	uint16_t CharismaBonus;
-	uint16_t FlameResistance;
-	uint16_t GlacierResistance;
-	uint16_t LightningResistance;
-	uint16_t PoisonResistance;
-	uint16_t MagicResistance;
-	uint16_t CurseResistance;
-
-	uint16_t XPBonusPercent;
-	uint16_t CoinBonusPercent;
-
-	uint16_t APBonusPercent;		// +AP% for all classes
-	uint16_t APBonusClassType;	// defines a specific class for +APBonusClassPercent% to be used against
-	uint16_t APBonusClassPercent;	// +AP% for APBonusClassType only
-
-	uint16_t ACBonus;				// +AC amount for all classes
-	uint16_t ACBonusClassType;	// defines a specific class for +ACBonusClassPercent% to be used against
-	uint16_t ACBonusClassPercent;	// +AC% for ACBonusClassType only
-
-	uint16_t MaxWeightBonus;
-	uint8_t NPBonus;
-};
-
 struct _QUEST_HELPER
 {
 	uint32_t	nIndex;
@@ -529,13 +482,6 @@ struct _QUEST_HELPER
 	uint32_t	nExchangeIndex;
 	uint32_t	nEventTalkIndex;
 	std::string strLuaFilename;
-};
-
-struct _USER_SEAL_ITEM
-{
-	uint64_t nSerialNum;
-	uint32_t nItemID;
-	uint8_t bSealType;
 };
 
 #define QUEST_MOB_GROUPS		4
@@ -633,19 +579,6 @@ struct _EVENT_TRIGGER
 	uint16_t bNpcType;
 	uint32_t sNpcID;
 	uint32_t nTriggerNum;
-};
-
-struct _USER_DAILY_OP
-{
-	std::string strUserId;
-	int32_t ChaosMapTime;
-	int32_t UserRankRewardTime;
-	int32_t PersonalRankRewardTime;
-	int32_t KingWingTime;
-	int32_t WarderKillerTime1;
-	int32_t WarderKillerTime2;
-	int32_t KeeperKillerTime;
-	int32_t UserLoyaltyWingRewardTime;
 };
 
 struct _MONUMENT_INFORMATION

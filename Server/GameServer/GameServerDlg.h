@@ -29,13 +29,9 @@ public:
 	void GetTimeFromIni();
 
 	bool LoadItemTable();
-	bool LoadSetItemTable();
 	bool LoadItemExchangeTable();
 	bool LoadItemUpgradeTable();
-	bool LoadItemOpTable();
 	bool LoadServerResourceTable();
-	bool LoadQuestHelperTable();
-	bool LoadQuestMonsterTable();
 	bool LoadMagicTable();
 	bool LoadMagicType1();
 	bool LoadMagicType2();
@@ -58,16 +54,9 @@ public:
 	bool LoadKnightsCapeTable();
 	bool LoadKnightsRankTable(bool bWarTime = false, bool bIsslient = false);
 	bool LoadStartPositionTable();
-	bool LoadStartPositionRandomTable();
 	bool LoadBattleTable();
 	bool LoadKingSystem();
 	bool LoadMonsterSummonListTable();
-	bool LoadMonsterSummonListZoneTable();
-	bool LoadMonsterRespawnListTable();
-	bool LoadMonsterRespawnListInformationTable();
-	bool LoadPremiumItemTable();
-	bool LoadPremiumItemExpTable();
-	bool LoadUserDailyOpTable();
 	bool LoadEventTriggerTable();
 	bool LoadMonsterChallengeTable();
 	bool LoadMonsterChallengeSummonListTable();
@@ -351,7 +340,6 @@ public:
 	NpcArray							m_arNpcArray;
 	ZoneArray							m_ZoneArray;
 	ItemtableArray						m_ItemtableArray;
-	SetItemArray						m_SetItemArray;
 	MagictableArray						m_MagictableArray;
 	Magictype1Array						m_Magictype1Array;
 	Magictype2Array						m_Magictype2Array;
@@ -383,22 +371,14 @@ public:
 	RentalItemArray						m_RentalItemArray;
 	ItemExchangeArray					m_ItemExchangeArray;
 	ItemUpgradeArray					m_ItemUpgradeArray;
-	ItemOpArray							m_ItemOpArray;
 	KingSystemArray						m_KingSystemArray;
 	EventTriggerArray					m_EventTriggerArray;
 	MonsterChallengeArray				m_MonsterChallengeArray;
 	MonsterChallengeSummonListArray		m_MonsterChallengeSummonListArray;
 	MonsterSummonListArray				m_MonsterSummonList;
-	MonsterSummonListZoneArray			m_MonsterSummonListZoneArray;
-	MonsterRespawnListArray				m_MonsterRespawnListArray;
-	MonsterRespawnListInformationArray	m_MonsterRespawnListInformationArray;
-	PremiumItemArray					m_PremiumItemArray;
-	PremiumItemExpArray					m_PremiumItemExpArray;
 	UserRankingArray					m_UserRankingArray[2];
-	UserDailyOpMap						m_UserDailyOpMap;
 	TempleEventUserArray				m_TempleEventUserArray;
 	NationMonumentInformationArray		m_NationMonumentInformationArray;
-	StartPositionRandomArray			m_StartPositionRandomArray;
 	UserItemArray						m_UserItemArray;
 	ObjectEventArray					m_ObjectEventArray;
 
@@ -586,7 +566,6 @@ public:
 	COMMAND_HANDLER(HandleReloadNoticeCommand);
 	COMMAND_HANDLER(HandleReloadTablesCommand);
 	COMMAND_HANDLER(HandleReloadMagicsCommand);
-	COMMAND_HANDLER(HandleReloadQuestCommand);
 	COMMAND_HANDLER(HandleReloadRanksCommand);
 	COMMAND_HANDLER(HandleCountCommand);
 	COMMAND_HANDLER(HandlePermitConnectCommand);
