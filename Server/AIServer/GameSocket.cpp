@@ -7,7 +7,21 @@
 #include "../GameServer/MagicProcess.h"
 #include "Npc.h"
 
-CGameSocket::~CGameSocket() {}
+CGameSocket::CGameSocket(
+	uint16_t socketID,
+	SocketMgr* mgr)
+	: KOSocket(
+	socketID,
+	mgr,
+	-1,
+	5242880,	// sendBufferSize - 5MB (allow for AI to initially send all its data)
+	262144)		// recvBufferSize
+{
+}
+
+CGameSocket::~CGameSocket()
+{
+}
 
 void CGameSocket::OnConnect()
 {

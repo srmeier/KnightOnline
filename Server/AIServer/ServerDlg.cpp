@@ -375,7 +375,7 @@ bool CServerDlg::LoadSpawnCallback(OdbcCommand *dbCommand)
 		pNpc->m_pMap = GetZoneByID(pNpc->GetZoneID());
 		if (pNpc->GetMap() == nullptr)
 		{
-			printf(_T("ERROR: NPC %d in zone %d that does not exist."), sSid, bZoneID);
+			printf(_T("ERROR: NPC %d in zone %d that does not exist.\n"), sSid, bZoneID);
 			delete pNpc;
 			return false;
 		}

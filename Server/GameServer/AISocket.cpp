@@ -4,6 +4,19 @@
 #include "MagicProcess.h"
 #include "../shared/Compression.h"
 
+CAISocket::CAISocket(
+	uint16_t socketID,
+	SocketMgr * mgr)
+	: KOSocket(
+	socketID,
+	mgr,
+	0,
+	262144,		// sendBufferSize
+	262144),	// recvBufferSize - 5MB (allow for AI to initially send all its data)
+	m_bHasConnected(false)
+{
+}
+
 bool CAISocket::HandlePacket(Packet & pkt)
 {
 	uint8_t opcode;
@@ -142,27 +155,48 @@ void CAISocket::RecvNpcInfoAll(Packet & pkt)
 	pkt.SByte();
 	for (int i = 0; i < bCount; i++)
 	{
-		uint8_t bDirection;
-		std::string strName;
-
 		CNpc* pNpc = new CNpc();
 		pNpc->Initialize();
 
-		pkt >> pNpc->m_NpcState >> pNpc->m_sNid >> pNpc->m_sSid >> pNpc->m_sPid >> pNpc->m_sSize >> pNpc->m_iWeapon_1 >> pNpc->m_iWeapon_2
-			>> pNpc->m_bZone >> strName >> pNpc->m_bNation >> pNpc->m_bLevel
-			>> pNpc->m_curx >> pNpc->m_curz >> pNpc->m_cury >> bDirection
-			>> pNpc->m_tNpcType >> pNpc->m_iSellingGroup >> pNpc->m_iMaxHP >> pNpc->m_iHP >> pNpc->m_byGateOpen
-			>> pNpc->m_fTotalHitrate >> pNpc->m_fTotalEvasionrate 
-			>> pNpc->m_sTotalAc >> pNpc->m_sTotalHit 
-			>> pNpc->m_byObjectType
-			>> pNpc->m_byTrapNumber >> pNpc->m_bMonster >> pNpc->m_oSocketID >> pNpc->m_bEventRoom
-			>> pNpc->m_sFireR >> pNpc->m_sColdR >> pNpc->m_sLightningR
-			>> pNpc->m_sMagicR >> pNpc->m_sDiseaseR >> pNpc->m_sPoisonR;
+		pNpc->m_NpcState			= pkt.read<uint8_t>();
+		pNpc->m_sNid				= pkt.read<uint16_t>();
+		pNpc->m_sSid				= pkt.read<uint16_t>();
+		pNpc->m_sPid				= pkt.read<uint16_t>();
+		pNpc->m_sSize				= pkt.read<uint16_t>();
+		pNpc->m_iWeapon_1			= pkt.read<uint32_t>();
+		pNpc->m_iWeapon_2			= pkt.read<uint32_t>();
+		pNpc->m_bZone				= pkt.read<uint8_t>();
+		pNpc->m_strName				= pkt.read<std::string>();
+		pNpc->m_bNation				= pkt.read<uint8_t>();
+		pNpc->m_bLevel				= pkt.read<uint8_t>();
+		pNpc->m_curx				= pkt.read<float>();
+		pNpc->m_curz				= pkt.read<float>();
+		pNpc->m_cury				= pkt.read<float>();
+		pNpc->m_byDirection			= pkt.read<uint8_t>();
+		pNpc->m_tNpcType			= pkt.read<uint8_t>();
+		pNpc->m_iSellingGroup		= pkt.read<uint32_t>();
+		pNpc->m_iMaxHP				= pkt.read<uint32_t>();
+		pNpc->m_iHP					= pkt.read<uint32_t>();
+		pNpc->m_byGateOpen			= pkt.read<uint8_t>();
+		pNpc->m_fTotalHitrate		= pkt.read<float>();
+		pNpc->m_fTotalEvasionrate	= pkt.read<float>();
+		pNpc->m_sTotalAc			= pkt.read<uint16_t>();
+		pNpc->m_sTotalHit			= pkt.read<uint16_t>();
+		pNpc->m_byObjectType		= pkt.read<uint8_t>();
+		pNpc->m_byTrapNumber		= pkt.read<uint8_t>();
+		pNpc->m_bMonster			= pkt.read<bool>();
+		pNpc->m_oSocketID			= pkt.read<uint16_t>();
+		pNpc->m_sFireR				= pkt.read<uint16_t>();
+		pNpc->m_sColdR				= pkt.read<uint16_t>();
+		pNpc->m_sLightningR			= pkt.read<uint16_t>();
+		pNpc->m_sMagicR				= pkt.read<uint16_t>();
+		pNpc->m_sDiseaseR			= pkt.read<uint16_t>();
+		pNpc->m_sPoisonR			= pkt.read<uint16_t>();
 
-		if (strName.empty())
-			strName = "<the spawn with no name>";
+		if (pNpc->m_strName.empty())
+			pNpc->m_strName = "<the spawn with no name>";
 
-		if (strName.length() > MAX_NPC_SIZE)
+		if (pNpc->m_strName.length() > MAX_NPC_SIZE)
 		{
 			pNpc->DecRef();
 			continue;
@@ -176,9 +210,7 @@ void CAISocket::RecvNpcInfoAll(Packet & pkt)
 		}
 
 		//TRACE("Recv --> NpcUserInfo : uid = %d, x=%f, z=%f.. \n", nid, fPosX, fPosZ);
-		pNpc->m_strName = strName;
 
-		pNpc->m_byDirection = bDirection;
 		pNpc->SetRegion(pNpc->GetNewRegionX(), pNpc->GetNewRegionZ());
 
 		if (pNpc->m_byObjectType == SPECIAL_OBJECT)
@@ -199,7 +231,7 @@ void CAISocket::RecvNpcInfoAll(Packet & pkt)
 
 		if (pNpc->m_NpcState == NPC_DEAD)
 		{
-			TRACE("Recv --> NpcUserInfoAll : nid=%d, sid=%d, name=%s\n", pNpc->GetID(), pNpc->m_sSid, strName.c_str());
+			TRACE("Recv --> NpcUserInfoAll : nid=%d, sid=%d, name=%s\n", pNpc->GetID(), pNpc->m_sSid, pNpc->m_strName.c_str());
 			continue;
 		}
 
@@ -268,17 +300,19 @@ void CAISocket::RecvNpcAttack(Packet & pkt)
 	pAttacker->SendToRegion(&result);
 }
 
-void CAISocket::RecvNpcInfo(Packet & pkt)
+void CAISocket::RecvNpcInfo(
+	Packet& pkt)
 {
-	std::string strName;
-	uint8_t Mode, byDirection;
+	uint8_t Mode;
 	uint16_t sNid;
 	bool bCreated = false;
 
 	pkt.SByte();
-	pkt >> Mode >> sNid;
+	
+	Mode					= pkt.read<uint8_t>();
+	sNid					= pkt.read<uint16_t>();
 
-	CNpc *pNpc = g_pMain->GetNpcPtr(sNid);
+	CNpc* pNpc = g_pMain->GetNpcPtr(sNid);
 	if (pNpc == nullptr)
 	{
 		pNpc = new CNpc();
@@ -286,26 +320,47 @@ void CAISocket::RecvNpcInfo(Packet & pkt)
 		bCreated = true;
 	}
 
-	pkt >> pNpc->m_sSid >> pNpc->m_sPid >> pNpc->m_sSize >> pNpc->m_iWeapon_1 >> pNpc->m_iWeapon_2
-		>> pNpc->m_bZone >> strName >> pNpc->m_bNation >> pNpc->m_bLevel
-		>> pNpc->m_curx >> pNpc->m_curz >> pNpc->m_cury >> byDirection
-		>> pNpc->m_tNpcType >> pNpc->m_iSellingGroup >> pNpc->m_iMaxHP >> pNpc->m_iHP >> pNpc->m_byGateOpen
-		>> pNpc->m_fTotalHitrate >> pNpc->m_fTotalEvasionrate 
-		>> pNpc->m_sTotalAc >> pNpc->m_sTotalHit 
-		>> pNpc->m_byObjectType
-		>> pNpc->m_byTrapNumber >> pNpc->m_bMonster >> pNpc->m_oSocketID >> pNpc->m_bEventRoom
-		>> pNpc->m_sFireR >> pNpc->m_sColdR >> pNpc->m_sLightningR
-		>> pNpc->m_sMagicR >> pNpc->m_sDiseaseR >> pNpc->m_sPoisonR;
+	pNpc->m_sSid				= pkt.read<uint16_t>();
+	pNpc->m_sPid				= pkt.read<uint16_t>();
+	pNpc->m_sSize				= pkt.read<uint16_t>();
+	pNpc->m_iWeapon_1			= pkt.read<uint32_t>();
+	pNpc->m_iWeapon_2			= pkt.read<uint32_t>();
+	pNpc->m_bZone				= pkt.read<uint8_t>();
+	pNpc->m_strName				= pkt.read<std::string>();
+	pNpc->m_bNation				= pkt.read<uint8_t>();
+	pNpc->m_bLevel				= pkt.read<uint8_t>();
+	pNpc->m_curx				= pkt.read<float>();
+	pNpc->m_curz				= pkt.read<float>();
+	pNpc->m_cury				= pkt.read<float>();
+	pNpc->m_byDirection			= pkt.read<uint8_t>();
+	pNpc->m_tNpcType			= pkt.read<uint8_t>();
+	pNpc->m_iSellingGroup		= pkt.read<uint32_t>();
+	pNpc->m_iMaxHP				= pkt.read<uint32_t>();
+	pNpc->m_iHP					= pkt.read<uint32_t>();
+	pNpc->m_byGateOpen			= pkt.read<uint8_t>();
+	pNpc->m_fTotalHitrate		= pkt.read<float>();
+	pNpc->m_fTotalEvasionrate	= pkt.read<float>();
+	pNpc->m_sTotalAc			= pkt.read<uint16_t>();
+	pNpc->m_sTotalHit			= pkt.read<uint16_t>();
+	pNpc->m_byObjectType		= pkt.read<uint8_t>();
+	pNpc->m_byTrapNumber		= pkt.read<uint8_t>();
+	pNpc->m_bMonster			= pkt.read<bool>();
+	pNpc->m_oSocketID			= pkt.read<uint16_t>();
+	pNpc->m_sFireR				= pkt.read<uint16_t>();
+	pNpc->m_sColdR				= pkt.read<uint16_t>();
+	pNpc->m_sLightningR			= pkt.read<uint16_t>();
+	pNpc->m_sMagicR				= pkt.read<uint16_t>();
+	pNpc->m_sDiseaseR			= pkt.read<uint16_t>();
+	pNpc->m_sPoisonR			= pkt.read<uint16_t>();
 
-	if (strName.empty() || strName.length() > MAX_NPC_SIZE)
+	if (pNpc->m_strName.empty()
+		|| pNpc->m_strName.length() > MAX_NPC_SIZE)
 	{
 		pNpc->DecRef();
 		return;
 	}
 
 	pNpc->m_NpcState = Mode;
-	pNpc->m_byDirection = byDirection;
-	pNpc->m_strName = strName;
 
 	pNpc->m_pMap = g_pMain->GetZoneByID(pNpc->GetZoneID());
 	if (pNpc->GetMap() == nullptr)

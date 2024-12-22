@@ -329,7 +329,6 @@ public:
 	bool	m_bDelete; // when set, will remove the NPC from the server after execution.
 
 	int16_t	m_oSocketID; // owner user
-	uint16_t	m_bEventRoom;
 	int UnixGateOpen, UnixGateClose;
 public:
 	CNpc();

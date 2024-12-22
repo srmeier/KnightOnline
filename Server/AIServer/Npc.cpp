@@ -3029,26 +3029,47 @@ void CNpc::NpcStrategy(uint8_t type)
 	}
 }
 
-void CNpc::FillNpcInfo(Packet & result)
+void CNpc::FillNpcInfo(
+	Packet& result)
 {
-	result	<< uint8_t(1) 
-		<< GetID() << GetProtoID() << m_proto->m_sPid
-		<< m_sSize << m_iWeapon_1 << m_iWeapon_2
-		<< GetZoneID() << GetName()
-		<< (m_proto->m_byGroupSpecial > 0 ? m_proto->m_byGroupSpecial : GetNation()) << GetLevel()
-		<< GetX() << GetZ() << GetY() << m_byDirection
-		<< GetType()
-		<< m_iSellingGroup << m_iMaxHP << m_iHP
-		<< m_byGateOpen 
-		<< m_fTotalHitrate << m_fTotalEvasionrate 
-		<< m_sTotalAc << m_sTotalHit
-		<< m_byObjectType << m_byTrapNumber 
-		<< m_bMonster << m_oSocketID << m_bEventRoom
+	result
+		<< uint8_t(1)
+		<< uint16_t(GetID())
+		<< uint16_t(GetProtoID())
+		<< uint16_t(m_proto->m_sPid)
+		<< uint16_t(m_sSize)
+		<< uint32_t(m_iWeapon_1)
+		<< uint32_t(m_iWeapon_2)
+		<< uint8_t(GetZoneID())
+		<< GetName()
+		<< uint8_t(m_proto->m_byGroupSpecial > 0 ? m_proto->m_byGroupSpecial : GetNation())
+		<< uint8_t(GetLevel())
+		<< float(GetX())
+		<< float(GetZ())
+		<< float(GetY())
+		<< uint8_t(m_byDirection)
+		<< uint8_t(GetType())
+		<< uint32_t(m_iSellingGroup)
+		<< uint32_t(m_iMaxHP)
+		<< uint32_t(m_iHP)
+		<< uint8_t(m_byGateOpen)
+		<< float(m_fTotalHitrate)
+		<< float(m_fTotalEvasionrate)
+		<< uint16_t(m_sTotalAc)
+		<< uint16_t(m_sTotalHit)
+		<< uint8_t(m_byObjectType)
+		<< uint8_t(m_byTrapNumber)
+		<< bool(m_bMonster)
+		<< uint16_t(m_oSocketID)
 		// Include resistance data, note that we don't need to send modified amounts as 
 		// there's no skill handling here - it happens in GameServer.
 		// We will probably need to update the AI server (from GameServer) with this data.
-		<< m_sFireR << m_sColdR << m_sLightningR 
-		<< m_sMagicR << m_sDiseaseR << m_sPoisonR;
+		<< uint16_t(m_sFireR)
+		<< uint16_t(m_sColdR)
+		<< uint16_t(m_sLightningR)
+		<< uint16_t(m_sMagicR)
+		<< uint16_t(m_sDiseaseR)
+		<< uint16_t(m_sPoisonR);
 }
 
 int CNpc::GetDir(float x1, float z1, float x2, float z2)

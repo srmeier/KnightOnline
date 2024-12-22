@@ -38,7 +38,6 @@ public:
 	bool	m_bMonster; // are we a monster or an NPC?
 
 	int16_t	m_oSocketID; // owner user
-	uint16_t	m_bEventRoom;
 
 public:
 	CNpc();

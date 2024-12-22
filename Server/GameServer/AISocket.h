@@ -6,7 +6,7 @@
 class CAISocket : public KOSocket 
 {
 public:
-	CAISocket(uint16_t socketID, SocketMgr * mgr) : KOSocket(socketID, mgr, 0, 262144, 262144), m_bHasConnected(false) {}
+	CAISocket(uint16_t socketID, SocketMgr* mgr);
 
 	INLINE bool IsReconnecting() { return m_bHasConnected; }
 
