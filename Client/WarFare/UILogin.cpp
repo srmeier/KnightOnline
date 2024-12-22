@@ -121,9 +121,6 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	}
 	else if (dwMsg == UIMSG_EDIT_TAB)
 	{
-		// TEMP(srmeier): there is a weird issue where the key inputs aren't going
-		// through CGameProcedure::ProcessUIKeyInput() so CUILogIn::OnKeyPress() isn't
-		// being called...
 		FocusCircular();
 		return true;
 	}

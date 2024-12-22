@@ -306,9 +306,19 @@ LRESULT CALLBACK WndProcMain(
 			{
 				case WA_CLICKACTIVE:
 				case WA_ACTIVE:
+				{
 					SetFocus(hWnd);
+
+					CN3UIEdit* pUIFocused = CN3UIBase::GetFocusedEdit();
+					if (pUIFocused != nullptr)
+					{
+						pUIFocused->KillFocus();
+						pUIFocused->SetFocus();
+					}
+
 					CGameProcedure::s_bIsWindowInFocus = true;
-					return 1;
+				}
+				return 1;
 
 				case WA_INACTIVE:
 					CGameProcedure::s_bIsWindowInFocus = false;
