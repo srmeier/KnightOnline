@@ -78,7 +78,8 @@ void CN3UIImage::SetVB()
 		if(m_pVB)
 		{
 			__VertexTransformed* pVertices;
-			m_pVB->Lock( 0, 0, (void**)&pVertices, 0 );
+			if (FAILED(m_pVB->Lock(0, 0, (void**) &pVertices, 0)))
+				return;
 
 			uint32_t dwColor = 0xffffffff;
 			float fRHW = 1.0f;

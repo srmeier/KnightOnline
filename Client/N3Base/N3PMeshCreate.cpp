@@ -636,18 +636,6 @@ CN3PMesh *CN3PMeshCreate::CreateRendererMesh()
 //	pPMesh->m_pVertices = new __VertexT1[pPMesh->m_iMaxNumVertices];
 //	__ASSERT(pPMesh->m_pVertices);
 
-#ifdef _USE_VERTEXBUFFER
-	HRESULT hr;
-	uint8_t* pByte;
-	hr = pPMesh->m_pVB->Lock(0, 0, &pByte, 0);
-	CopyMemory(pByte, m_pVertices, pPMesh->m_iMaxNumVertices*sizeof(__VertexT1));
-	pPMesh->m_pVB->Unlock();
-
-	hr = pPMesh->m_pIB->Lock(0, 0, &pByte, 0);
-	CopyMemory(pByte, m_pIndices, pPMesh->m_iMaxNumIndices*sizeof(uint16_t));
-	pPMesh->m_pIB->Unlock();
-
-#else
 	// The indices can be a straight copy.
 	memcpy(pPMesh->m_pIndices, m_pIndices, pPMesh->m_iMaxNumIndices * sizeof(uint16_t));
 
@@ -657,7 +645,6 @@ CN3PMesh *CN3PMeshCreate::CreateRendererMesh()
 	{
 		pPMesh->m_pVertices[j] = m_pVertices[j];
 	}
-#endif
 
 	return pPMesh;
 }
@@ -715,18 +702,6 @@ int CN3PMeshCreate::ReGenerate(CN3PMesh *pPMesh)
 
 	pPMesh->Create(m_iOriginalNumVertices, m_iOriginalNumIndices);
 
-#ifdef _USE_VERTEXBUFFER
-	HRESULT hr;
-	uint8_t* pByte;
-	hr = pPMesh->m_pVB->Lock(0, 0, &pByte, 0);
-	CopyMemory(pByte, m_pVertices, pPMesh->m_iMaxNumVertices*sizeof(__VertexT1));
-	pPMesh->m_pVB->Unlock();
-
-	hr = pPMesh->m_pIB->Lock(0, 0, &pByte, 0);
-	CopyMemory(pByte, m_pIndices, pPMesh->m_iMaxNumIndices*sizeof(uint16_t));
-	pPMesh->m_pIB->Unlock();
-
-#else
 	// The indices can be a straight copy.
 	memcpy(pPMesh->m_pIndices, m_pIndices, pPMesh->m_iMaxNumIndices * sizeof(uint16_t));
 
@@ -736,7 +711,6 @@ int CN3PMeshCreate::ReGenerate(CN3PMesh *pPMesh)
 	{
 		pPMesh->m_pVertices[j] = m_pVertices[j];
 	}
-#endif
 
 	return 0;
 }
@@ -858,34 +832,6 @@ bool CN3PMeshCreate::ConvertFromN3PMesh(CN3PMesh* pN3PMesh)
 	m_iNumIndices = PMeshInst.GetNumIndices();
 	if (m_iNumVertices<=0 || m_iNumIndices<=0) return false;
 
-#ifdef _USE_VERTEXBUFFER
-	// copy vertices
-	LPDIRECT3DVERTEXBUFFER8 pVB = PMeshInst.GetVertexBuffer();
-	if (pVB)
-	{
-		m_pVertices = new __VertexT1[m_iNumVertices];
-
-		uint8_t* pByte;
-		HRESULT hr = pVB->Lock(0, 0, &pByte, D3DLOCK_READONLY);
-		if (FAILED(hr)) return false;
-
-		CopyMemory(m_pVertices, pByte, m_iNumVertices*sizeof(__VertexT1));
-		pVB->Unlock();
-	}
-	// copy indices
-	LPDIRECT3DINDEXBUFFER8 pIB = PMeshInst.GetIndexBuffer();
-	if (pIB)
-	{
-		m_pIndices = new uint16_t[m_iNumIndices];
-
-		uint8_t* pByte;
-		HRESULT hr = pIB->Lock(0, 0, &pByte, D3DLOCK_READONLY);
-		if (FAILED(hr)) return false;
-
-		CopyMemory(m_pIndices, pByte, m_iNumIndices*sizeof(uint16_t));
-		pIB->Unlock();
-	}
-#else
 	// copy vertices	
 	if (PMeshInst.GetVertices())
 	{
@@ -901,7 +847,6 @@ bool CN3PMeshCreate::ConvertFromN3PMesh(CN3PMesh* pN3PMesh)
 		CopyMemory(m_pIndices, PMeshInst.GetIndices(), sizeof(uint16_t)*m_iNumIndices);
 	}
 	else return false;
-#endif
 
 	m_iOriginalNumVertices = m_iNumVertices;
 	m_iOriginalNumIndices  = m_iNumIndices ;

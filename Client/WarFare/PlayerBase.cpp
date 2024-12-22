@@ -2496,16 +2496,8 @@ void CPlayerBase::CalcPlug(CN3CPlugBase* pPlug, const __Matrix44* pmtxJoint, __M
 	__Vector3 vec, A, B, C, vPick;
 	float t, u, v, fx, fz;
 
-#ifdef _USE_VERTEXBUFFER
-	LPDIRECT3DVERTEXBUFFER8	pBuf = NULL;
-	__VertexT1*	pVerT1 = NULL;
-	pBuf = pPlug->PMeshInst()->GetVertexBuffer();
-	if (pBuf)
-		pBuf->Lock(0, 0, (uint8_t**)(&pVerT1), 0);
-#else 
 	__VertexT1*	pVerT1 = NULL;
 	pVerT1 = pPlug->PMeshInst()->GetVertices();
-#endif
 
 	for ( int i = 0; i < iTotalCount; i++ )
 	{
@@ -2539,11 +2531,6 @@ void CPlayerBase::CalcPlug(CN3CPlugBase* pPlug, const __Matrix44* pmtxJoint, __M
 			}
 		}
 	}
-
-#ifdef _USE_VERTEXBUFFER
-	if (pBuf)
-		pBuf->Unlock();
-#endif
 }
 
 __Vector3	CPlayerBase::Max()

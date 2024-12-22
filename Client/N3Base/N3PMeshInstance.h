@@ -25,11 +25,7 @@ public:
 	virtual ~CN3PMeshInstance();
 
 protected:
-#ifdef _USE_VERTEXBUFFER
-	LPDIRECT3DINDEXBUFFER8	m_pIB;
-#else
 	uint16_t* m_pIndices;
-#endif
 
 	int m_iNumIndices, m_iNumVertices; // number of triangles/vertices to use at this moment.
 
@@ -59,21 +55,12 @@ public:
 	int			GetNumIndices() const {return m_iNumIndices;};
 	CN3PMesh*	GetMesh() {return m_pPMesh;};
 
-#ifdef _USE_VERTEXBUFFER
-	LPDIRECT3DVERTEXBUFFER8	GetVertexBuffer() const;
-	LPDIRECT3DINDEXBUFFER8 GetIndexBuffer() const {return m_pIB;}
-#else
 	__VertexT1*	GetVertices() const;
 	uint16_t*		GetIndices() const { return m_pIndices;};
-#endif
 
 //	By : Ecli666 ( On 2002-08-06 오후 4:33:04 )
 //
-#ifdef _USE_VERTEXBUFFER
-	void			PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
-#else
 	void			PartialRender(int iCount, uint16_t* pIndices);
-#endif
 	int				 GetIndexByiOrder(int iOrder);
 __Vector3		GetVertexByIndex(size_t iIndex);
 //	~(By Ecli666 On 2002-08-06 오후 4:33:04 )

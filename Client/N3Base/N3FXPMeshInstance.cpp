@@ -314,21 +314,10 @@ void CN3FXPMeshInstance::RenderTwoUV()
 	}
 }
 
-#ifdef _USE_VERTEXBUFFER
-LPDIRECT3DVERTEXBUFFER8	CN3FXPMeshInstance::GetVertexBuffer() const
-{
-	if (m_pFXPMesh == NULL) return NULL;
-	return m_pFXPMesh->GetVertexBuffer();
-}
-
-#else
 __VertexXyzColorT1*	CN3FXPMeshInstance::GetVertices() const
 {
 	return m_pColorVertices;
 }
-#endif
-
-
 
 void CN3FXPMeshInstance::SetColor(uint32_t dwColor)
 {

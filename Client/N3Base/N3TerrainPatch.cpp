@@ -223,7 +223,8 @@ void CN3TerrainPatch::Tick()
 		__VertexT1* pLightMapVertices = NULL;
 
 		__VertexT2* pVertices;
-		m_pVB->Lock( 0, 0, (void**)&pVertices, 0 );
+		if (FAILED(m_pVB->Lock(0, 0, (void**) &pVertices, 0)))
+			return;
 
 		int dir1, dir2;
 		int TileCount = 0;
@@ -320,7 +321,14 @@ void CN3TerrainPatch::Tick()
 					if(m_pRefTerrain->GetLightMap(tx, tz))
 					{
 						m_pRefLightMapTex[m_NumLightMapTex] = m_pRefTerrain->GetLightMap(tx, tz);
-						if(!pLightMapVertices) m_pLightMapVB->Lock( 0, 0, (void**)&pLightMapVertices, 0 );
+
+						if (pLightMapVertices == nullptr
+							&& FAILED(m_pLightMapVB->Lock(0, 0, (void**) &pLightMapVertices, 0)))
+						{
+							m_pVB->Unlock();
+							return;
+						}
+
 						int VBIndx = m_NumLightMapTex * 4;
 						float suv = 1.0f/(float)LIGHTMAP_TEX_SIZE;
 						float euv = (float)(LIGHTMAP_TEX_SIZE - 1.0f)/(float)LIGHTMAP_TEX_SIZE;
@@ -370,7 +378,14 @@ void CN3TerrainPatch::Tick()
 					if(m_pRefTerrain->GetLightMap(tx, tz))
 					{
 						m_pRefLightMapTex[m_NumLightMapTex] = m_pRefTerrain->GetLightMap(tx, tz);
-						if(!pLightMapVertices) m_pLightMapVB->Lock( 0, 0, (void**)&pLightMapVertices, 0 );
+
+						if (pLightMapVertices == nullptr
+							&& FAILED(m_pLightMapVB->Lock(0, 0, (void**) &pLightMapVertices, 0)))
+						{
+							m_pVB->Unlock();
+							return;
+						}
+
 						int VBIndx = m_NumLightMapTex * 4;
 						float suv = 1.0f/(float)LIGHTMAP_TEX_SIZE;
 						float euv = (float)(LIGHTMAP_TEX_SIZE - 1.0f)/(float)LIGHTMAP_TEX_SIZE;
@@ -404,7 +419,8 @@ void CN3TerrainPatch::Tick()
 	{
 		m_FanInfoList.clear();
 		__VertexT1* pVertices;
-		m_pVB->Lock( 0, 0, (void**)&pVertices, 0 );
+		if (FAILED(m_pVB->Lock(0, 0, (void**) &pVertices, 0)))
+			return;
 
 		float HalfUV = (float)HalfCell/(float)UNITUV;
 
@@ -582,6 +598,8 @@ void CN3TerrainPatch::Tick()
 		m_FanInfoList.clear();
 		__VertexT1* pVertices;
 		HRESULT hr = m_pVB->Lock( 0, 0, (void**)&pVertices, 0 );
+		if (FAILED(hr))
+			return;
 
 		float HalfUV = (float)HalfCell/(float)UNITUV;
 

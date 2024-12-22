@@ -418,87 +418,6 @@ bool CN3SPart::Save(HANDLE hFile)
 }
 #endif // end of _N3TOOL
 
-#ifdef _USE_VERTEXBUFFER
-void CN3SPart::PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
-{
-	if(m_bOutOfCameraRange || m_PMInst.GetNumVertices() <= 0) return;
-
-#ifdef _DEBUG
-	CN3Base::s_RenderInfo.nShape_Part++; // Rendering Information Update...
-#endif
-
-	LPDIRECT3DTEXTURE8 lpTex = NULL;
-	int iTC = m_TexRefs.size();
-	if(iTC > 0)
-	{
-		int iTexIndex = (int)m_fTexIndex;
-		if(iTexIndex >= 0 && iTexIndex < iTC && m_TexRefs[iTexIndex]) lpTex = m_TexRefs[iTexIndex]->Get();
-	}
-
-	if(m_Mtl.nRenderFlags & RF_ALPHABLENDING) // Alpha 사용
-	{
-		__AlphaPrimitive* pAP = s_AlphaMgr.Add();
-		if(pAP)
-		{
-			pAP->bUseVB				= FALSE;
-			pAP->dwBlendDest		= m_Mtl.dwDestBlend;
-			pAP->dwBlendSrc			= m_Mtl.dwSrcBlend;
-			pAP->dwFVF				= FVF_VNT1;
-			pAP->dwPrimitiveSize	= sizeof(__VertexT1);
-			pAP->fCameraDistance	= (s_CameraData.vEye - m_Matrix.Pos()).Magnitude();
-			pAP->lpTex				= lpTex;
-			pAP->ePrimitiveType		= D3DPT_TRIANGLELIST;
-			pAP->nPrimitiveCount	= m_PMInst.GetNumIndices() / 3;
-			pAP->nRenderFlags		= m_Mtl.nRenderFlags;
-			pAP->nVertexCount		= m_PMInst.GetNumVertices();
-			pAP->MtxWorld			= m_Matrix;
-			pAP->pVertices			= m_PMInst.GetVertices();
-			pAP->pwIndices			= m_PMInst.GetIndices();
-		}
-
-		return; // 렌더링 안하지롱.
-	}
-
-	static uint32_t dwFog, dwCull;
-
-#ifdef _DEBUG
-	CN3Base::s_RenderInfo.nShape_Polygon += m_PMInst.GetNumIndices() / 3; // Rendering Information Update...
-#endif
-
-	if(m_Mtl.nRenderFlags & RF_NOTUSEFOG) // Fog 무시..
-	{
-		s_lpD3DDev->GetRenderState(D3DRS_FOGENABLE, &dwFog);
-		if(TRUE == dwFog) s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
-	}
-	if(m_Mtl.nRenderFlags & RF_DOUBLESIDED) // Render Flags - 
-	{
-		s_lpD3DDev->GetRenderState(D3DRS_CULLMODE, &dwCull);
-		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	}
-
-	s_lpD3DDev->SetMaterial(&m_Mtl); // 재질 설정..
-	s_lpD3DDev->SetTexture(0, lpTex);
-	if(NULL != lpTex)
-	{
-		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP,   m_Mtl.dwColorOp);
-		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, m_Mtl.dwColorArg1);
-		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG2, m_Mtl.dwColorArg2);
-	}
-	else
-	{
-		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-		s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
-	}
-
-	// 로딩할때 미리 계산해 놓은 월드 행렬 적용..
-	s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix);
-
-	m_PMInst.PartialRender(iCount, pIB);
-
-	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // 안개 사용하지 않는다..
-	if((m_Mtl.nRenderFlags & RF_DOUBLESIDED) && D3DCULL_NONE != dwCull) 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, dwCull);
-}
-#else
 void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 {
 	if(m_bOutOfCameraRange || m_PMInst.GetNumVertices() <= 0) return;
@@ -578,8 +497,6 @@ void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 	if((m_Mtl.nRenderFlags & RF_NOTUSEFOG) && TRUE == dwFog) 		s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, TRUE); // 안개 사용하지 않는다..
 	if((m_Mtl.nRenderFlags & RF_DOUBLESIDED) && D3DCULL_NONE != dwCull) 		s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, dwCull);
 }
-#endif
-
 
 
 // CN3Shape Part ....
@@ -1272,15 +1189,6 @@ __Matrix44	CN3Shape::GetPartMatrix(size_t iPartIndex)
 	return m_Parts[iPartIndex]->m_Matrix;
 }
 
-#ifdef _USE_VERTEXBUFFER
-void CN3Shape::PartialRender(size_t iPartIndex, int iCount, LPDIRECT3DINDEXBUFFER8 pIB)
-{
-	if (iPartIndex >= m_Parts.size())
-		return;
-
-	m_Parts[iPartIndex]->PartialRender(iCount, pIB);
-}
-#else
 void CN3Shape::PartialRender(size_t iPartIndex, int iCount, uint16_t* pIndices)
 {
 	if (iPartIndex >= m_Parts.size())
@@ -1288,7 +1196,6 @@ void CN3Shape::PartialRender(size_t iPartIndex, int iCount, uint16_t* pIndices)
 
 	m_Parts[iPartIndex]->PartialRender(iCount, pIndices);
 }
-#endif
 
 int	CN3Shape::GetIndexbufferCount(size_t iPartIndex)
 {

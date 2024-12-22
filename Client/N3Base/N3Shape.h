@@ -92,11 +92,7 @@ public:
 	CN3SPart();
 	virtual ~CN3SPart();
 
-#ifdef _USE_VERTEXBUFFER
-	void			PartialRender(int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
-#else
 	void			PartialRender(int iCount, uint16_t* pIndices);
-#endif
 };
 
 typedef std::vector<CN3SPart*>::iterator it_SPart;
@@ -154,11 +150,7 @@ public:
 //
 	void			SetMaxLOD();
 	__Matrix44	GetPartMatrix(size_t iPartIndex);
-#ifdef _USE_VERTEXBUFFER
-	void			PartialRender(size_t iPartIndex, int iCount, LPDIRECT3DINDEXBUFFER8 pIB);
-#else
 	void			PartialRender(size_t iPartIndex, int iCount, uint16_t* pIndices);
-#endif
 	int				GetIndexbufferCount(size_t iPartIndex);
 	int				GetIndexByiOrder(size_t iPartIndex, int iOrder);
 __Vector3		GetVertexByIndex(size_t iPartIndex, int iIndex);

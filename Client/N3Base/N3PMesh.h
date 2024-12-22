@@ -9,8 +9,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-//#define _USE_VERTEXBUFFER			// 선언하면 VertexBuffer와 IndexBuffer를 사용한다.
-
 #include "N3BaseFileAccess.h"
 
 class CN3PMesh : public CN3BaseFileAccess
@@ -51,14 +49,10 @@ protected:
 	__EdgeCollapse	*m_pCollapses;
 
 	// Mesh 정보
-#ifdef _USE_VERTEXBUFFER
-	LPDIRECT3DVERTEXBUFFER8 m_pVB;
-	LPDIRECT3DINDEXBUFFER8	m_pIB;
-#else
 	__VertexT1*		m_pVertices;
 	__VertexT2*		m_pVertices2;
 	uint16_t*			m_pIndices;
-#endif
+
 	int m_iMaxNumVertices, m_iMaxNumIndices;
 	int m_iMinNumVertices, m_iMinNumIndices;
 
@@ -107,15 +101,10 @@ public:
 	int GetMaxNumIndices() const {return m_iMaxNumIndices;};
 	int GetMinNumIndices() const {return m_iMinNumIndices;};
 
-#ifdef _USE_VERTEXBUFFER
-	LPDIRECT3DVERTEXBUFFER8	GetVertexBuffer() const {return m_pVB;}
-	LPDIRECT3DINDEXBUFFER8	GetIndexBuffer() const {return m_pIB;}
-#else
 	__VertexT1*		GetVertices() const { return m_pVertices; };
 	__VertexT2*		GetVertices2() const { return m_pVertices2; };
 	uint16_t*			GetIndices() const { return m_pIndices;};		// 제대로된 Index가 아님 
 	// (제대로 된 인덱스를 얻으려면 N3PMeshInstance로 만든후 LOD조정후 인덱스값을 얻으면 된다.)
-#endif
 
 #ifdef _N3TOOL
 	void CopyMesh(CN3PMesh* pSrcPMesh);

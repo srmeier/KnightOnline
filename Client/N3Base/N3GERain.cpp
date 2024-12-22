@@ -64,6 +64,8 @@ void CN3GERain::Tick()
 
 	__VertexXyzColor* pVertices;
 	HRESULT hr = m_pVB->Lock(0, 0, (void**)&pVertices, D3DLOCK_NOSYSLOCK);
+	if (FAILED(hr))
+		return;
 
 	__Vector3 vN = m_vVelocity;	vN.Normalize();
 	__Vector3 vAdd = m_vVelocity*s_fSecPerFrm;

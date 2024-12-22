@@ -200,34 +200,6 @@ void CPortalVolume::RenderShape()
 			vpi = *vit++;
 			int iSize = vpi.m_ivVector.size();
 		
-	#ifdef _USE_VERTEXBUFFER
-			LPDIRECT3DINDEXBUFFER8	pIB;
-			HRESULT hr = CN3Base::s_lpD3DDev->CreateIndexBuffer(iSize*sizeof(uint16_t),
-											D3DUSAGE_DYNAMIC, D3DFMT_INDEX16, D3DPOOL_MANAGED, &pIB);
-			if (FAILED(hr)) return hr;
-
-			uint8_t* pByte;
-			hr = pIB->Lock(0, 0, &pByte, 0);
-			uint16_t* pIndices = (uint16_t*)pByte;
-			
-			Iit = vpi.m_ivVector.begin();
-			while(Iit != vpi.m_ivVector.end())
-			{
-				int iOrder = *Iit++;
-				*pIndices++ = iOrder;
-			}
-
-			pIB->Unlock();
-			
-			// Rendering..
-			pSI = CPvsMgr::GetShapeInfoByManager(pSP->m_iID);
-			pSI->m_pShape->PosSet(pSI->Pos());
-			pSI->m_pShape->RotSet(pSI->Rot());
-			pSI->m_pShape->ScaleSet(pSI->Scale());
-			pSI->m_pShape->Part(vpi.m_iPartIndex)->m_bOutOfCameraRange = FALSE;
-			pSI->m_pShape->PartialRender(vpi.m_iPartIndex, iSize, pIB);
-			pIB->Release();
-	#else
 			LPWORD pIndices;
 			pIndices = new uint16_t[iSize]; memset(pIndices, 0, sizeof(uint16_t)*iSize);
 			int iSizes = vpi.m_ivVector.size();
@@ -242,7 +214,6 @@ void CPortalVolume::RenderShape()
 			pSI->m_pShape->Part(vpi.m_iPartIndex)->m_bOutOfCameraRange = FALSE;
 			pSI->m_pShape->PartialRender(vpi.m_iPartIndex, iSize, pIndices);
 			delete pIndices;
-	#endif
 		}
 	}
 }

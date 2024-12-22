@@ -18,14 +18,9 @@ CN3PMesh::CN3PMesh()
 {
 	m_dwType |= OBJ_MESH_PROGRESSIVE;
 
-#ifdef _USE_VERTEXBUFFER
-	m_pVB = NULL;
-	m_pIB = NULL;
-#else
 	m_pVertices = NULL;
 	m_pVertices2 = NULL;
 	m_pIndices = NULL;
-#endif
 	m_pCollapses = NULL;
 	m_pAllIndexChanges = NULL;
 	m_pLODCtrlValues = NULL;
@@ -43,14 +38,9 @@ CN3PMesh::CN3PMesh()
 
 CN3PMesh::~CN3PMesh()
 {
-#ifdef _USE_VERTEXBUFFER
-	if (m_pVB && m_pVB->Release() == 0) m_pVB = NULL;
-	if (m_pIB && m_pIB->Release() == 0) m_pIB = NULL;
-#else
 	delete [] m_pVertices; m_pVertices = NULL;
 	delete [] m_pVertices2; m_pVertices2 = NULL;
 	delete [] m_pIndices; m_pIndices = NULL;
-#endif
 	delete [] m_pCollapses; m_pCollapses = NULL;
 	delete [] m_pAllIndexChanges; m_pAllIndexChanges = NULL;
 	delete [] m_pLODCtrlValues;	m_pLODCtrlValues = NULL;
@@ -58,14 +48,9 @@ CN3PMesh::~CN3PMesh()
 
 void CN3PMesh::Release()
 {
-#ifdef _USE_VERTEXBUFFER
-	if (m_pVB) { m_pVB->Release(); m_pVB = NULL;}
-	if (m_pIB) { m_pIB->Release(); m_pIB = NULL;}
-#else
 	if (m_pVertices) { delete[] m_pVertices; m_pVertices = NULL;}
 	if (m_pVertices2) { delete[] m_pVertices2; m_pVertices2 = NULL;}
 	if (m_pIndices) { delete[] m_pIndices; m_pIndices = NULL;}
-#endif
 	if (m_pCollapses) {	delete[] m_pCollapses; m_pCollapses = NULL;}
 	if (m_pAllIndexChanges)	{ delete[] m_pAllIndexChanges; m_pAllIndexChanges = NULL;}
 	if (m_pLODCtrlValues) {	delete [] m_pLODCtrlValues;	m_pLODCtrlValues = NULL;}
@@ -98,30 +83,7 @@ bool CN3PMesh::Load(HANDLE hFile)
 
 	HRESULT hr = Create(m_iMaxNumVertices, m_iMaxNumIndices);
 	__ASSERT(SUCCEEDED(hr), "Failed to create progressive mesh");
-#ifdef _USE_VERTEXBUFFER
-	if (m_iMaxNumVertices>0)
-	{
-//		HRESULT hr = m_lpD3DDev->CreateVertexBuffer(m_iMaxNumVertices*sizeof(__VertexT1),
-//										D3DUSAGE_DYNAMIC, FVF_VNT1, D3DPOOL_MANAGED, &m_pVB);
-//		if (FAILED(hr)) return hr;
-		uint8_t* pByte;
-		hr = m_pVB->Lock(0, 0, &pByte, 0);
-		if (FAILED(hr)) return false;
-		ReadFile(hFile, pByte, m_iMaxNumVertices*sizeof(__VertexT1), &dwNum, NULL);
-		m_pVB->Unlock();
-	}
-	if (m_iMaxNumIndices>0)
-	{
-//		HRESULT hr = m_lpD3DDev->CreateIndexBuffer(m_iMaxNumIndices*sizeof(uint16_t),
-//										D3DUSAGE_DYNAMIC, D3DFMT_INDEX16, D3DPOOL_MANAGED, &m_pIB);
-//		if (FAILED(hr)) return hr;
-		uint8_t* pByte;
-		hr = m_pIB->Lock(0, 0, &pByte, 0);
-		if (FAILED(hr)) return false;
-		ReadFile(hFile, pByte, m_iMaxNumIndices*sizeof(uint16_t), &dwNum, NULL);
-		m_pIB->Unlock();
-	}
-#else
+
 	if (m_iMaxNumVertices>0)
 	{
 //		m_pVertices = new __VertexT1[m_iMaxNumVertices];
@@ -133,7 +95,6 @@ bool CN3PMesh::Load(HANDLE hFile)
 //		m_pIndices = new uint16_t[m_iMaxNumIndices];
 		ReadFile(hFile, m_pIndices, m_iMaxNumIndices*sizeof(uint16_t), &dwNum, NULL);
 	}
-#endif
 
 	if (m_iNumCollapses>0)
 	{
@@ -188,29 +149,8 @@ bool CN3PMesh::Save(HANDLE hFile)
 	WriteFile(hFile, &(m_iMinNumVertices), sizeof(int), &dwNum, NULL);
 	WriteFile(hFile, &(m_iMinNumIndices), sizeof(int), &dwNum, NULL);
 
-#ifdef _USE_VERTEXBUFFER
-	if (m_iMaxNumVertices>0)
-	{
-		HRESULT hr;
-		uint8_t* pByte;
-		hr = m_pVB->Lock(0, 0, &pByte, D3DLOCK_READONLY);
-		if (FAILED(hr)) return false;
-		WriteFile(hFile, pByte, m_iMaxNumVertices*sizeof(__VertexT1), &dwNum, NULL);
-		m_pVB->Unlock();
-	}
-	if (m_iMaxNumIndices>0)
-	{
-		HRESULT hr;
-		uint8_t* pByte;
-		hr = m_pIB->Lock(0, 0, &pByte, D3DLOCK_READONLY);
-		if (FAILED(hr)) return false;
-		WriteFile(hFile, pByte, m_iMaxNumIndices*sizeof(uint16_t), &dwNum, NULL);
-		m_pIB->Unlock();
-	}
-#else
 	if (m_iMaxNumVertices>0) WriteFile(hFile, m_pVertices, m_iMaxNumVertices*sizeof(__VertexT1), &dwNum, NULL);
 	if (m_iMaxNumIndices>0) WriteFile(hFile, m_pIndices, m_iMaxNumIndices*sizeof(uint16_t), &dwNum, NULL);
-#endif
 
 	if (m_iNumCollapses>0)
 	{
@@ -241,23 +181,6 @@ void CN3PMesh::FindMinMax()
 	m_vMin.Set(FLT_MAX, FLT_MAX, FLT_MAX);
 	m_vMax.Set(-FLT_MAX, -FLT_MAX, -FLT_MAX);
 
-#ifdef _USE_VERTEXBUFFER
-	__ASSERT(m_pVB && m_pIB, "Vertex buffer is NULL or Index buffer is NULL!");
-	HRESULT hr;
-	uint8_t* pByte;
-	hr = m_pVB->Lock(0, 0, &pByte, D3DLOCK_READONLY);
-	__VertexT1* pVertices = (__VertexT1*)pByte;
-	for(int i = 0; i < m_iMaxNumVertices; i++)
-	{
-		if(pVertices[i].x < m_vMin.x) m_vMin.x = pVertices[i].x;
-		if(pVertices[i].y < m_vMin.y) m_vMin.y = pVertices[i].y;
-		if(pVertices[i].z < m_vMin.z) m_vMin.z = pVertices[i].z;
-		if(pVertices[i].x > m_vMax.x) m_vMax.x = pVertices[i].x;
-		if(pVertices[i].y > m_vMax.y) m_vMax.y = pVertices[i].y;
-		if(pVertices[i].z > m_vMax.z) m_vMax.z = pVertices[i].z;
-	}
-	m_pVB->Unlock();
-#else
 	for(int i = 0; i < m_iMaxNumVertices; i++)
 	{
 		if(m_pVertices[i].x < m_vMin.x) m_vMin.x = m_pVertices[i].x;
@@ -268,7 +191,6 @@ void CN3PMesh::FindMinMax()
 		if(m_pVertices[i].y > m_vMax.y) m_vMax.y = m_pVertices[i].y;
 		if(m_pVertices[i].z > m_vMax.z) m_vMax.z = m_pVertices[i].z;
 	}
-#endif
 
 	// 최대 최소값을 갖고 반지름 계산한다..
 	m_fRadius  = (m_vMax - m_vMin).Magnitude() * 0.5f;
@@ -310,26 +232,7 @@ void CN3PMesh::CopyMesh(CN3PMesh* pSrcPMesh)
 
 	hr = Create(m_iMaxNumVertices, m_iMaxNumIndices);
 	__ASSERT(SUCCEEDED(hr), "Failed to create progressive mesh");
-#ifdef _USE_VERTEXBUFFER
-	if (m_iMaxNumVertices>0)
-	{
-		uint8_t* pDestByte, *pSrcByte;
-		hr = m_pVB->Lock(0, 0, &pDestByte, 0);
-		hr = pSrcPMesh->m_pVB->Lock(0, 0, &pSrcByte, D3DLOCK_READONLY);
-		CopyMemory(pDestByte, pSrcByte, m_iMaxNumVertices*sizeof(__VertexT1));
-		hr = pSrcPMesh->m_pVB->Unlock();
-		m_pVB->Unlock();
-	}
-	if (m_iMaxNumIndices>0)
-	{
-		uint8_t* pDestByte, *pSrcByte;
-		hr = m_pIB->Lock(0, 0, &pDestByte, 0);
-		hr = pSrcPMesh->m_pIB->Lock(0, 0, &pSrcByte, D3DLOCK_READONLY);
-		CopyMemory(pDestByte, pSrcByte, m_iMaxNumIndices*sizeof(uint16_t));
-		pSrcPMesh->m_pIB->Unlock();
-		m_pIB->Unlock();
-	}
-#else
+
 	if (m_iMaxNumVertices>0)
 	{
 //		m_pVertices = new __VertexT1[m_iMaxNumVertices];
@@ -341,7 +244,7 @@ void CN3PMesh::CopyMesh(CN3PMesh* pSrcPMesh)
 //		m_pIndices = new uint16_t[m_iMaxNumIndices];
 		CopyMemory(m_pIndices, pSrcPMesh->m_pIndices, sizeof(uint16_t)*m_iMaxNumIndices);
 	}
-#endif
+
 	if (m_iLODCtrlValueCount>0)
 	{
 		m_pLODCtrlValues = new __LODCtrlValue[m_iLODCtrlValueCount];
@@ -357,25 +260,6 @@ HRESULT CN3PMesh::Create(int iNumVertices, int iNumIndices)
 	m_iMaxNumVertices = iNumVertices;
 	m_iMaxNumIndices = iNumIndices;
 
-#ifdef _USE_VERTEXBUFFER
-	HRESULT hr;
-	if (m_pVB){ m_pVB->Release(); m_pVB = NULL;}
-	if (m_pIB){ m_pIB->Release(); m_pIB = NULL;}
-
-	if (m_iMaxNumVertices>0)
-	{
-		hr = m_lpD3DDev->CreateVertexBuffer(m_iMaxNumVertices*sizeof(__VertexT1),
-										D3DUSAGE_DYNAMIC, FVF_VNT1, D3DPOOL_MANAGED, &m_pVB);
-		if (FAILED(hr)) return hr;
-	}
-
-	if (m_iMaxNumIndices>0)
-	{
-		hr = m_lpD3DDev->CreateIndexBuffer(m_iMaxNumIndices*sizeof(uint16_t),
-										D3DUSAGE_DYNAMIC, D3DFMT_INDEX16, D3DPOOL_MANAGED, &m_pIB);
-		if (FAILED(hr)) return hr;
-	}
-#else
 	if (m_pVertices) {delete m_pVertices; m_pVertices = NULL;}
 	if (m_pIndices) {delete m_pIndices; m_pIndices = NULL;}
 
@@ -387,36 +271,12 @@ HRESULT CN3PMesh::Create(int iNumVertices, int iNumIndices)
 	{
 		m_pIndices = new uint16_t[m_iMaxNumIndices];
 	}
-#endif
+
 	return S_OK;
 }
 
 HRESULT CN3PMesh::GenerateSecondUV()
 {
-#ifdef _USE_VERTEXBUFFER
-	HRESULT hr;
-	if (m_pVB2){ m_pVB2->Release(); m_pVB2 = NULL;}
-
-	if (m_iMaxNumVertices>0)
-	{
-		hr = m_lpD3DDev->CreateVertexBuffer(m_iMaxNumVertices*sizeof(__VertexT2),
-										D3DUSAGE_DYNAMIC, FVF_VNT2, D3DPOOL_MANAGED, &m_pVB2);
-		if (FAILED(hr)) return hr;
-
-		__VertexT1* pVSrc = NULL; __VertexT2* pVDest = NULL;
-		m_pVB->Lock(0, 0, (uint8_t**)(&pVSrc), 0);
-		m_pVB2->Lock(0, 0, (uint8_t**)(&pVDest), 0);
-		for(int i = 0; i < m_iMaxNumVertices; i++)
-		{
-			pVDest[i] = pVSrc[i];
-			pVDest[i].tu2 = pVDest[i].tu;
-			pVDest[i].tv2 = pVDest[i].tv;
-		}
-		m_pVB->Unlock();
-		m_pVB2->Unlock();
-	}
-
-#else
 	if (m_pVertices2) {delete m_pVertices2; m_pVertices2 = NULL;}
 
 	if (m_iMaxNumVertices>0)
@@ -435,7 +295,7 @@ HRESULT CN3PMesh::GenerateSecondUV()
 			m_pVertices2[i].tv2 = m_pVertices[i].tv;
 		}
 	}
-#endif
+
 	return S_OK;
 }
 
