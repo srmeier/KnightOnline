@@ -4168,37 +4168,74 @@ bool CUser::BindObjectEvent(_OBJECT_EVENT *pEvent)
 	return true;
 }
 
-bool CUser::GateLeverObjectEvent(_OBJECT_EVENT *pEvent, int nid)
+bool CUser::GateLeverObjectEvent(
+	_OBJECT_EVENT* pEvent,
+	int nid)
 {
-	_OBJECT_EVENT *pGateEvent;
-	CNpc* pNpc, *pGateNpc;
-	_KNIGHTS_SIEGE_WARFARE *pKnightSiegewars = g_pMain->GetSiegeMasterKnightsPtr(1);
-	CKnights *pKnight = g_pMain->GetClanPtr(GetClanID());
+	C3DMap* pMap = GetMap();
+	if (pMap == nullptr)
+		return false;
 
 	// Does the lever (object) NPC exist?
-	if ((pNpc = g_pMain->GetNpcPtr(nid)) == nullptr
-		// Does the corresponding gate object event exist?
-			|| (pGateEvent = GetMap()->GetObjectEvent(pEvent->sControlNpcID)) == nullptr
-			// Does the corresponding gate (object) NPC exist?
-			|| (pGateNpc = g_pMain->FindNpcInZone(pEvent->sControlNpcID,GetZoneID())) == nullptr
-			// Is it even a gate?
-			|| !pGateNpc->isGate()
-			// If the gate's closed (i.e. the lever is down), we can't open it unless the lever isn't nation-specific
-			// or we're the correct nation. Seems the other nation cannot close them.
-			|| (pNpc->isGateClosed() && pNpc->GetNation() != 0 && pNpc->GetNation() != GetNation()))
-			return false;
-	if ((GetZoneID() == ZONE_DELOS && pKnightSiegewars->sMasterKnights != 0 && pKnight->m_sIndex == pKnightSiegewars->sMasterKnights && isClanLeader())
-		|| ((GetFame() == COMMAND_CAPTAIN || isKing()) &&  GetZoneID() != ZONE_DELOS) && pNpc->GetNation() == GetNation())
+	CNpc* pNpc = g_pMain->GetNpcPtr(nid);
+	if (pNpc == nullptr)
+		return false;
+
+	// Does the corresponding gate object event exist?
+	_OBJECT_EVENT* pGateEvent = pMap->GetObjectEvent(pEvent->sControlNpcID);
+	if (pGateEvent == nullptr)
+		return false;
+
+	// Does the corresponding gate (object) NPC exist?
+	CNpc* pGateNpc = g_pMain->FindNpcInZone(pEvent->sControlNpcID, GetZoneID());
+	if (pGateNpc == nullptr)
+		return false;
+
+	// Is it even a gate?
+	if (!pGateNpc->isGate())
+		return false;
+
+	// If the gate's closed (i.e. the lever is down), we can't open it unless the lever isn't nation-specific
+	// or we're the correct nation. Seems the other nation cannot close them.
+	if (pNpc->isGateClosed()
+		&& pNpc->GetNation() != 0
+		&& pNpc->GetNation() != GetNation())
+		return false;
+
+	// NOTE: This logic is most likely egregiously custom...
+	// In Delos...
+	if (GetZoneID() == ZONE_DELOS)
 	{
+		// If a clan currently holds the castle...
+		_KNIGHTS_SIEGE_WARFARE* pKnightSiegeWarfare = g_pMain->GetSiegeMasterKnightsPtr(1);
+		if (pKnightSiegeWarfare != nullptr
+			&& pKnightSiegeWarfare->sMasterKnights != 0)
+		{
+			CKnights* pKnight = g_pMain->GetClanPtr(GetClanID());
+			if (pKnight != nullptr)
+			{
+				// Only allow that clan's leader to be able to open/close the gate.
+				if (pKnight->m_sIndex != pKnightSiegeWarfare->sMasterKnights
+					|| !isClanLeader())
+					return false;
+			}
+		}
+	}
+	// In all other zones (presumably we're assuming war zones here),
+	// only Kings and war captains/commanders can open/close gates.
+	else
+	{
+		if (GetFame() != COMMAND_CAPTAIN
+			&& !isKing())
+			return false;
+	}
+
 	// Move the lever (up/down).
 	pNpc->SendGateFlag(!pNpc->m_byGateOpen);
-	
+
 	// Open/close the gate.
 	pGateNpc->SendGateFlag(!pGateNpc->m_byGateOpen);
 	return true;
-	}
-	else
-	return false;
 }
 
 /***
