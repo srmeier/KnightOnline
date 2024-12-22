@@ -101,7 +101,6 @@ bool CGameProcedure::s_bKeyPress = false;	//키가 눌려졌을때 ui에서 해�
 bool CGameProcedure::s_bKeyPressed = false;	//키가 올라갔을때 ui에서 해당하는 조작된적이 있다면
 
 bool CGameProcedure::s_bIsRestarting = false;
-bool CGameProcedure::s_bProcPendingInit = false;
 
 // NOTE: adding boolean to check if window has focus or not
 bool CGameProcedure::s_bIsWindowInFocus = true;
@@ -123,7 +122,6 @@ void CGameProcedure::Release()
 
 void CGameProcedure::Init()
 {
-	s_bProcPendingInit = false;
 	s_pUIMgr->SetFocusedUI(NULL);
 }
 
@@ -394,9 +392,6 @@ void CGameProcedure::Tick()
 
 		delete pkt;
 		s_pSocket->m_qRecvPkt.pop();
-
-		if (s_bProcPendingInit)
-			break;
 	}
 
 	while (!s_pSocketSub->m_qRecvPkt.empty())
@@ -547,7 +542,6 @@ void CGameProcedure::ProcActiveSet(CGameProcedure* pProc)
 
 	CGameProcedure::MessageBoxClose(-1); // MessageBox 가 떠 있으면 감춘다.
 
-	s_bProcPendingInit = true;
 	s_pProcPrev = s_pProcActive; // 전의 것 포인터 기억..
 	s_pProcActive = pProc;
 }

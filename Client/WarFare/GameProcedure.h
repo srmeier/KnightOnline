@@ -98,7 +98,6 @@ public:
 	static bool		s_bKeyPressed;	//키가 올라갔을때 ui에서 해당하는 조작된적이 있다면
 
 	static bool		s_bIsRestarting;
-	static bool		s_bProcPendingInit;
 
 	// NOTE: adding boolean to check if window has focus or not
 	static bool		s_bIsWindowInFocus;
