@@ -87,21 +87,11 @@ void LoginSession::HandlePatches(
 void LoginSession::HandleLogin(
 	Packet& pkt)
 {
-	enum LoginErrorCode
-	{
-		AUTH_SUCCESS		= 0x01,
-		AUTH_NOT_FOUND		= 0x02,
-		AUTH_INVALID		= 0x03,
-		AUTH_BANNED			= 0x04,
-		AUTH_IN_GAME		= 0x05,
-		AUTH_ERROR			= 0x06,
-		AUTH_FAILED			= 0xFF
-	};
-
 	Packet result(pkt.GetOpcode());
-	uint16_t resultCode = 0;
-	std::string account, password;
+	e_AuthResult resultCode = AUTH_FAILED;
+	std::string account, password, serverIP;
 	DateTime time;
+	uint16_t serverPortNo = 0;
 
 	pkt >> account >> password;
 	if (account.empty()
@@ -110,52 +100,44 @@ void LoginSession::HandleLogin(
 		|| password.size() > MAX_PW_SIZE)
 		resultCode = AUTH_NOT_FOUND;
 	else
-		resultCode = g_pMain->m_DBProcess.AccountLogin(account, password);
+		resultCode = (e_AuthResult) g_pMain->m_DBProcess.AccountLogin(account, password);
 
-	std::string sAuthMessage;
-
-	switch (resultCode)
-	{
-		case AUTH_SUCCESS:
-			sAuthMessage = "SUCCESS";
-			break;
-		case AUTH_NOT_FOUND:
-			sAuthMessage = "NOT FOUND";
-			break;
-		case AUTH_INVALID:
-			sAuthMessage = "INVALID";
-			break;
-		case AUTH_BANNED:
-			sAuthMessage = "BANNED";
-			break;
-		case AUTH_IN_GAME:
-			sAuthMessage = "IN GAME";
-			break;
-		case AUTH_ERROR:
-			sAuthMessage = "ERROR";
-			break;
-		case AUTH_FAILED:
-			sAuthMessage = "FAILED";
-			break;
-		default:
-			sAuthMessage = string_format("UNKNOWN (%d)", resultCode);
-			break;
-	}
-
-	printf("[ LOGIN - %d:%d:%d ] ID=%s Authentication=%s\n",
-		time.GetHour(), time.GetMinute(), time.GetSecond(),
-		account.c_str(), sAuthMessage.c_str());
+	if (resultCode == AUTH_SUCCESS
+		&& g_pMain->m_DBProcess.IsAccountLoggedIn(
+		account,
+		&serverPortNo,
+		&serverIP))
+		resultCode = AUTH_IN_GAME;
 
 	result << uint8_t(resultCode);
+
 	if (resultCode == AUTH_SUCCESS)
 	{
-		result << g_pMain->m_DBProcess.AccountPremium(account);
-		result << account;
+		result
+			<< int16_t(g_pMain->m_DBProcess.AccountPremium(account))
+			<< account;
+	}
+	// User is in-game, we must supply this information back to then.
+	else if (resultCode == AUTH_IN_GAME)
+	{
+		result
+			<< serverIP
+			<< uint16_t(serverPortNo);
 	}
 
-	g_pMain->WriteUserLogFile(string_format("[ LOGIN - %d:%d:%d ] ID=%s Authentication=%s\n", time.GetHour(), time.GetMinute(), time.GetSecond(), account.c_str(), password.c_str(), sAuthMessage.c_str()));
-
 	Send(&result);
+
+	std::string resultName = GetAuthResultName(resultCode);
+	std::string szLogMessage = string_format(
+		"[ LOGIN - %d:%d:%d ] ID=%s Authentication=%s\n",
+		time.GetHour(),
+		time.GetMinute(),
+		time.GetSecond(),
+		account.c_str(),
+		password.c_str(),
+		resultName.c_str());
+	printf("%s", szLogMessage.c_str());
+	g_pMain->WriteUserLogFile(szLogMessage);
 }
 
 void LoginSession::HandleServerlist(
@@ -183,4 +165,37 @@ void LoginSession::HandleNews(
 	}
 
 	Send(&result);
+}
+
+std::string LoginSession::GetAuthResultName(
+	e_AuthResult eAuthResult)
+{
+	switch (eAuthResult)
+	{
+		case AUTH_SUCCESS:
+			return "SUCCESS";
+
+		case AUTH_NOT_FOUND:
+			return "NOT FOUND";
+
+		case AUTH_INVALID:
+			return "INVALID";
+
+		case AUTH_BANNED:
+			return "BANNED";
+
+		case AUTH_IN_GAME:
+			return "IN GAME";
+
+		case AUTH_ERROR:
+			return "ERROR";
+
+		case AUTH_FAILED:
+			return "FAILED";
+
+		default:
+			return string_format(
+				"UNKNOWN (%d)",
+				eAuthResult);
+	}
 }

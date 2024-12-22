@@ -11,6 +11,7 @@ public:
 	bool LoadUserCountList();
 
 	uint16_t AccountLogin(const std::string& strAccountID, const std::string& strPasswd);
+	bool IsAccountLoggedIn(const std::string& strAccountID, uint16_t* sServerPortNo, std::string* szServerIP);
 	int16_t AccountPremium(const std::string& strAccountID);
 
 private:

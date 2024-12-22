@@ -12,9 +12,10 @@
 
 #define MAX_USER			3000
 
-#define MIN_ID_SIZE			6
-#define MAX_ID_SIZE			20
-#define MAX_PW_SIZE			28
+constexpr int MIN_ID_SIZE	= 6;
+constexpr int MAX_ID_SIZE	= 20;
+constexpr int MAX_PW_SIZE	= 28;
+constexpr int MAX_IP_SIZE	= 15; // IPv4 addresses are max ###.###.###.### (3*4 + 3), or 15 bytes
 
 #define MAX_ITEM_COUNT		9999
 

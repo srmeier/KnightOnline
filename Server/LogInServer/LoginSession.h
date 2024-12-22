@@ -11,6 +11,8 @@ public:
 	void HandleLogin(Packet& pkt);
 	void HandleServerlist(Packet& pkt);
 	void HandleNews(Packet& pkt);
+
+	static std::string GetAuthResultName(e_AuthResult eAuthResult);
 };
 
 void InitPacketHandlers();

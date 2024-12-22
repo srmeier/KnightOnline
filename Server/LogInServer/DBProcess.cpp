@@ -82,10 +82,10 @@ uint16_t CDBProcess::AccountLogin(
 	const std::string& strAccountID,
 	const std::string& strPasswd)
 {
-	uint16_t result = 2;
+	uint16_t result = AUTH_NOT_FOUND;
 	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
-		return 6;
+		return AUTH_ERROR;
 
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strPasswd.c_str(), strPasswd.length());
@@ -98,26 +98,51 @@ uint16_t CDBProcess::AccountLogin(
 	// will also need to convert from @nRet nation return to the flag that the client is
 	// expecting. I am pertty sure it is like this because the login server and game server
 	// share the same SQL Procedure for logging in users
-	if(result==1 || result==2 || result==3) {
+	if (result == 1
+		|| result == 2
+		|| result == 3)
+	{
 		// NOTE: 1298 returns 1 for "no nation selected" or "no characters on a nation"
 		// returns 2 if the user have characters on Karus and returns 3 if use has
 		// characters on elmorad. But we will ignore this bit and just access the fact
 		// that they are able to login.
-
-		// NOTE: check if player is online
-		if (!dbCommand->Execute(string_format(_T(
-				"SELECT nServerNo, strServerIP FROM CURRENTUSER WHERE strAccountID = \'%s\'"), strAccountID.c_str()))
-		) g_pMain->ReportSQLError(m_dbConnection.GetError());
-		if (dbCommand->hasData()) result = 0x05; // in game
-
-		result = 0x01; // seccussful login
-	} else {
-		// NOTE: else the user doesn't have an account or they are banned or they have
-		// a nation other than the ones we are looking for
-		result = 0x02; // non found
+		result = AUTH_SUCCESS;
+	}
+	else
+	{
+	 // NOTE: else the user doesn't have an account or they are banned or they have
+	 // a nation other than the ones we are looking for
+		result = AUTH_NOT_FOUND;
 	}
 
 	return result;
+}
+
+bool CDBProcess::IsAccountLoggedIn(
+	const std::string& strAccountID,
+	uint16_t* sServerPortNo,
+	std::string* szServerIP)
+{
+	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
+	if (dbCommand.get() == nullptr)
+		return false;
+
+	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
+	if (!dbCommand->Execute(_T("SELECT nServerNo, strServerIP FROM CURRENTUSER WHERE strAccountID=?")))
+	{
+		g_pMain->ReportSQLError(m_dbConnection.GetError());
+		return false;
+	}
+
+	if (!dbCommand->hasData())
+		return false;
+
+	char strServerIP[MAX_IP_SIZE + 1] = {};
+	dbCommand->FetchUInt16(1, *sServerPortNo);
+	dbCommand->FetchString(2, strServerIP, sizeof(strServerIP) - 1);
+
+	*szServerIP = strServerIP;
+	return true;
 }
 
 int16_t CDBProcess::AccountPremium(
