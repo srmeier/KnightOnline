@@ -13,8 +13,8 @@ namespace OpenKO_WEB.Models
         {
             Account_DBEntities AccountDB = new Account_DBEntities();
             OpenKO_WebEntities WebDB = new OpenKO_WebEntities();
-            cQuestionList = WebDB.tblSecretQuestion.ToList();
-            cCountryList = WebDB.tblCountry.ToList();
-        }
-    }
+			cQuestionList = WebDB.tblSecretQuestion.ToList();
+			cCountryList = WebDB.tblCountry.ToList();
+		}
+	}
 }
