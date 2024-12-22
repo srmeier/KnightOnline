@@ -99,7 +99,9 @@ public:
 
 	int			KM_COUNT;
 
+	BOOL		m_bIsExitCanceled;
 	e_ExitType	m_eExitType;
+	int			m_iExitTimeRemaining; // seconds remaining until exit
 
 protected:
 	virtual bool ProcessPacket(Packet& pkt);

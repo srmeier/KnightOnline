@@ -456,6 +456,9 @@
 #define IDS_SETTING_KARUS_SCREEN        6124
 #define IDS_SETTING_ELMORAD_SCREEN      6125
 
+#define IDS_EXITING_GAME_IN_X_SECONDS	7632 // Exiting game in %d seconds.
+#define IDS_EXITING_GAME_CANCELED		7633 // Exiting game canceled.
+
 #define IDS_PRIVATE_CMD_CAT				7800
 #define IDS_TRADE_CMD_CAT				7801
 #define IDS_PARTY_CMD_CAT				7802	

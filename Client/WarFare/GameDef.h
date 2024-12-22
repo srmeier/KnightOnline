@@ -18,12 +18,11 @@
 #endif
 #include "shared/Packet.h"
 
-const int CURRENT_VERSION = 1298;//1068; // 현재 버전
+constexpr int CURRENT_VERSION = 1298;//1068; // 현재 버전
 
-const float PACKET_INTERVAL_MOVE = 1.5f;				// 정기적으로 보내는 패킷 시간 간격..
-const float PACKET_INTERVAL_ROTATE = 4.0f;
-const float PACKET_INTERVAL_REQUEST_TARGET_HP = 2.0f;
-
+constexpr float PACKET_INTERVAL_MOVE = 1.5f;				// 정기적으로 보내는 패킷 시간 간격..
+constexpr float PACKET_INTERVAL_ROTATE = 4.0f;
+constexpr float PACKET_INTERVAL_REQUEST_TARGET_HP = 2.0f;
 
 #define N3_FORMAT_VER_1068 0x00000001
 #define N3_FORMAT_VER_1298 0x00000002
@@ -34,6 +33,8 @@ enum e_ExitType
 	EXIT_TYPE_CHR_SELECT	= 1,
 	EXIT_TYPE_QUIT			= 2,
 };
+
+constexpr int EXIT_TIME_AFTER_BATTLE	= 10;
 
 enum ZoneFlags
 {

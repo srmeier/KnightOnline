@@ -24,7 +24,8 @@ CUIExitMenu::~CUIExitMenu()
 {
 }
 
-void CUIExitMenu::SetVisible(bool bVisible)
+void CUIExitMenu::SetVisible(
+	bool bVisible)
 {
 	CN3UIBase::SetVisible(bVisible);
 
@@ -50,7 +51,9 @@ void CUIExitMenu::SetVisible(bool bVisible)
 	}
 }
 
-bool CUIExitMenu::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
+bool CUIExitMenu::ReceiveMessage(
+	CN3UIBase* pSender,
+	uint32_t dwMsg)
 {
 	if (pSender == nullptr)
 		return false;
@@ -80,11 +83,8 @@ bool CUIExitMenu::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK);
 			ReturnToCharacterSelection();
 		}
-		else
+		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
 		{
-			if (CGameProcedure::s_pProcMain->m_pUIChatDlg == nullptr)
-				return true;
-
 			std::string szMsg;
 			::_LoadStringFromResource(IDS_CANNOT_EXIT_DURING_A_BATTLE, szMsg);
 			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
@@ -110,22 +110,16 @@ bool CUIExitMenu::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			::ShellExecute(nullptr, "open", "Option.exe", nullptr, nullptr, SW_SHOWNORMAL);
 			PostQuitMessage(0);
 		}
-		else
+		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
 		{
-			if (CGameProcedure::s_pProcMain->m_pUIChatDlg == nullptr)
-				return true;
-
 			std::string szMsg;
 			::_LoadStringFromResource(IDS_CANNOT_EXIT_DURING_A_BATTLE, szMsg);
 			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
 			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
 			SetVisible(false);
 		}
-
-		return true;
 	}
-
-	if (pSender == m_pBtn_Exit)
+	else if (pSender == m_pBtn_Exit)
 	{
 		if (CGameProcedure::s_pProcMain == nullptr)
 			return true;
@@ -138,35 +132,27 @@ bool CUIExitMenu::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			*/
 
 			PostQuitMessage(0);
-			return true;
 		}
-		else
+		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
 		{
-			if (CGameProcedure::s_pProcMain->m_pUIChatDlg == nullptr)
-				return true;
-
 			std::string szMsg;
 			::_LoadStringFromResource(IDS_CANNOT_EXIT_DURING_A_BATTLE, szMsg);
 			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
 			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
+
 			SetVisible(false);
 		}
-
-		return true;
 	}
-
-	if (pSender == m_pBtn_Cancel)
+	else if (pSender == m_pBtn_Cancel)
 	{
 		SetVisible(false);
-		return true;
 	}
 
 	return true;
 }
 
 void CUIExitMenu::ReturnToCharacterSelection()
-{
-	
+{	
 	if (CGameBase::s_pPlayer != nullptr)
 	{
 		if (CGameProcedure::s_pFX != nullptr)
@@ -210,10 +196,10 @@ bool CUIExitMenu::Load(HANDLE hFile)
 	if (!CN3UIBase::Load(hFile))
 		return false;
 
-	m_pBtn_Chr		= (CN3UIButton*) GetChildByID("btn_chr");
-	m_pBtn_Option	= (CN3UIButton*) GetChildByID("btn_option");
-	m_pBtn_Exit		= (CN3UIButton*) GetChildByID("btn_exit");
-	m_pBtn_Cancel	= (CN3UIButton*) GetChildByID("btn_cancel");
+	m_pBtn_Chr		= (CN3UIButton*) GetChildByID("btn_chr");		__ASSERT(m_pBtn_Chr, "NULL UI Component!!");
+	m_pBtn_Option	= (CN3UIButton*) GetChildByID("btn_option");	__ASSERT(m_pBtn_Option, "NULL UI Component!!");
+	m_pBtn_Exit		= (CN3UIButton*) GetChildByID("btn_exit");		__ASSERT(m_pBtn_Exit, "NULL UI Component!!");
+	m_pBtn_Cancel	= (CN3UIButton*) GetChildByID("btn_cancel");	__ASSERT(m_pBtn_Cancel, "NULL UI Component!!");
 
 	return true;
 }

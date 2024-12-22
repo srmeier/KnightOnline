@@ -336,10 +336,27 @@ LRESULT CALLBACK WndProcMain(
 		case WM_DESTROY:
 		case WM_QUIT:
 		{
-			if (!_IsKeyDown(VK_MENU))
+			if (CGameProcedure::s_pProcActive != nullptr
+				&& CGameProcedure::s_pProcActive == CGameProcedure::s_pProcMain)
 			{
-				CGameProcedure::s_pProcMain->RequestExit();
-				return 1;
+				if (!_IsKeyDown(VK_MENU))
+				{
+					CGameProcedure::s_pProcMain->RequestExit();
+					return 1;
+				}
+
+				if (CGameProcedure::s_pProcMain->m_fExitTimer != -1.0f)
+				{
+					if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
+					{
+						std::string szMsg;
+						_LoadStringFromResource(IDS_CANNOT_EXIT_DURING_A_BATTLE, szMsg);
+						CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
+						CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
+					}
+
+					return 1;
+				}
 			}
 
 			CGameProcedure::s_pSocket->Disconnect();

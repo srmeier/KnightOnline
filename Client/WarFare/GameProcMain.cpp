@@ -126,6 +126,10 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은
 	m_iJoinReqClan = 0;
 	m_iJoinReqClanRequierID = 0;
 
+	m_bIsExitCanceled = FALSE;
+	m_eExitType = EXIT_TYPE_NONE;
+	m_iExitTimeRemaining = EXIT_TIME_AFTER_BATTLE;
+
 	//UI
 	m_pUIMsgDlg = new CUIMessageWnd();
 	m_pUIMsgDlg2 = new CUIMessageWnd2();
@@ -556,6 +560,59 @@ void CGameProcMain::Tick()
 	static float fTimePrev = fTime;
 	
 	static float fTimeInterval1 = 0;
+
+	if (m_bIsExitCanceled
+		&& m_fExitTimer != -1.0f)
+	{
+		if (m_fExitTimer < (float) EXIT_TIME_AFTER_BATTLE)
+		{
+			m_fExitTimer += fTime - fTimePrev;
+		}
+		else
+		{
+			m_fExitTimer = -1.0f;
+			m_bIsExitCanceled = FALSE;
+		}
+	}
+
+	if (m_eExitType != EXIT_TYPE_NONE)
+	{
+		int secondsRemaining = (int) (EXIT_TIME_AFTER_BATTLE - m_fExitTimer);
+		if (m_iExitTimeRemaining > secondsRemaining)
+		{
+			m_iExitTimeRemaining = secondsRemaining;
+
+			std::string szFmt;
+			_LoadStringFromResource(IDS_EXITING_GAME_IN_X_SECONDS, szFmt);
+
+			char szMsg[256] = {};
+			snprintf(szMsg, sizeof(szMsg) - 1, szFmt.c_str(), m_iExitTimeRemaining);
+
+			if (m_pUIChatDlg != nullptr)
+				m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
+
+			if (secondsRemaining <= 0)
+			{
+				if (m_eExitType == EXIT_TYPE_QUIT)
+				{
+					PostQuitMessage(0);
+				}
+				else if (m_eExitType == EXIT_TYPE_CHR_SELECT
+					&& m_pUIExitMenu != nullptr)
+				{
+					m_eExitType = EXIT_TYPE_NONE;
+					m_iExitTimeRemaining = EXIT_TIME_AFTER_BATTLE;
+					m_bIsExitCanceled = FALSE;
+					m_fExitTimer = -1.0f;
+#if 0
+					m_bSeekingPartyChatEnabled = false;
+#endif
+					m_pUIExitMenu->ReturnToCharacterSelection();
+				}
+			}
+		}
+	}
+
 	if(0 == s_pSocket->m_iSendByteCount)
 	{
 		fTimeInterval1 += fTime - fTimePrev;
@@ -3143,6 +3200,26 @@ bool CGameProcMain::MsgRecv_Attack(Packet& pkt)
 		if(0x01 == iType) pAttacker->Action(PSA_ATTACK, false, pTarget); // 물리적인 직접 공격..
 		else if(0x02 == iType) pAttacker->Action(PSA_SPELLMAGIC, false, pTarget); // 마법 공격..
 //		else if(0x03 == iType) pAttacker->Action(PSA_SPELLMAGIC, false, pTarget); // 지속 마법 공격..
+	}
+
+	if (bIAmTarget
+		|| bIAmAttacker)
+	{
+		if (s_pPlayer != nullptr)
+		{
+			m_bIsExitCanceled = TRUE;
+			m_fExitTimer = 0.0f;
+			if (m_eExitType != EXIT_TYPE_NONE)
+			{
+				m_eExitType = EXIT_TYPE_NONE;
+				m_iExitTimeRemaining = EXIT_TIME_AFTER_BATTLE;
+
+				std::string szMsg;
+				_LoadStringFromResource(IDS_EXITING_GAME_CANCELED, szMsg);
+				if (m_pUIChatDlg != nullptr)
+					m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
+			}
+		}
 	}
 
 	pTarget->m_bGuardSuccess = false; // 방어에 성공했는지에 대한 플래그..
