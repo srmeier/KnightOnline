@@ -555,13 +555,9 @@ void CGameProcMain::Tick()
 	if(m_pWarMessage) m_pWarMessage->Tick();
 	if(m_pLightMgr) m_pLightMgr->Tick();
 	
-	////////////////////////////////////////////////////////////////////////////////////
-	// 아무 패킷도 안보냈으면 2초에 한번 WIZ_TIME_NOTIFY 보낸다..
 	float fTime = CN3Base::TimeGet();
 	static float fTimePrev = fTime;
 	
-	static float fTimeInterval1 = 0;
-
 	if (m_bIsExitCanceled
 		&& m_fExitTimer != -1.0f)
 	{
@@ -613,25 +609,6 @@ void CGameProcMain::Tick()
 			}
 		}
 	}
-
-	if(0 == s_pSocket->m_iSendByteCount)
-	{
-		fTimeInterval1 += fTime - fTimePrev;
-		if(fTimeInterval1 >= 2.0f)
-		{
-			uint8_t byCmd = WIZ_TIMENOTIFY;
-			s_pSocket->Send(&byCmd, 1);
-			s_pSocket->m_iSendByteCount = 0;
-			fTimeInterval1 = 0;
-		}
-	}
-	else
-	{
-		s_pSocket->m_iSendByteCount = 0;
-		fTimeInterval1 = 0;
-	}
-	// 아무 패킷도 안보냈으면 2초에 한번 WIZ_TIME_NOTIFY 보낸다..
-	////////////////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////////////////////////////////////////////////////////
 	// 타이머 비슷한 루틴..
