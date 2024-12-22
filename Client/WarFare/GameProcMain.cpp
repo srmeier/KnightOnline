@@ -4766,7 +4766,7 @@ void CGameProcMain::MsgRecv_ZoneChange(Packet& pkt)
 
 	switch (ZoneChangeFlag) {
 
-		case ZoneChangeTeleport: {
+		case ZONE_CHANGE_TELEPORT: {
 			int iZone = -1;
 			if(N3FORMAT_VER_DEFAULT & N3FORMAT_VER_1264) {
 				iZone = 10 * pkt.read<int16_t>();
@@ -4808,15 +4808,15 @@ void CGameProcMain::MsgRecv_ZoneChange(Packet& pkt)
 			uint8_t byBuff[4];
 			int iOffset_send = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t)ZoneChangeLoading);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t) ZONE_CHANGE_LOADING);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
 
-		case ZoneChangeLoaded: {
+		case ZONE_CHANGE_LOADED: {
 			uint8_t byBuff[4];
 			int iOffset_send = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t)ZoneChangeLoaded);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t) ZONE_CHANGE_LOADED);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
 
