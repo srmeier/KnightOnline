@@ -81,9 +81,6 @@
     <ClCompile Include="ShoppingMallHandler.cpp">
       <Filter>Source Files\Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="LetterHandler.cpp">
-      <Filter>Source Files\Handlers</Filter>
-    </ClCompile>
     <ClCompile Include="RentalHandler.cpp">
       <Filter>Source Files\Handlers</Filter>
     </ClCompile>

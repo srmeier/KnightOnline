@@ -527,36 +527,23 @@ enum
 ////////////////////////////////////////////////////////////////
 #define COMMAND_AUTHORITY			0x01
 
-enum ShoppingMallOpcodes
+enum e_StoreOpcode
 {
 	STORE_OPEN		= 1,
 	STORE_CLOSE		= 2,
 	STORE_BUY		= 3,
 	STORE_MINI		= 4,
-	STORE_PROCESS	= 5,
-	STORE_LETTER	= 6
+	STORE_PROCESS	= 5
 };
 
-enum LetterOpcodes
-{
-	LETTER_UNREAD		= 1,
-	LETTER_LIST			= 2,
-	LETTER_HISTORY		= 3,
-	LETTER_GET_ITEM		= 4,
-	LETTER_READ			= 5,
-	LETTER_SEND			= 6,
-	LETTER_DELETE		= 7,
-	LETTER_ITEM_CHECK	= 8 // ???
-};
-
-enum RentalOpcodes
+enum e_RentalOpcode
 {
 	RENTAL_PREMIUM	= 1,
 	RENTAL_PVP		= 2,
 	RENTAL_NPC		= 3
 };
 
-enum RentalPvPOpcodes
+enum e_RentalPvPOpcode
 {
 	RENTAL_OPEN			= 0,
 	RENTAL_REGISTER		= 1,
@@ -567,7 +554,7 @@ enum RentalPvPOpcodes
 };
 
 // Skillbar
-enum SkillBarOpcodes
+enum e_SkillBarOpcode
 {
 	SKILL_DATA_SAVE = 1,
 	SKILL_DATA_LOAD = 2

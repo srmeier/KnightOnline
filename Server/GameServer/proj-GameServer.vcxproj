@@ -152,7 +152,6 @@
     <ClCompile Include="KingSystem.cpp" />
     <ClCompile Include="Knights.cpp" />
     <ClCompile Include="KnightsManager.cpp" />
-    <ClCompile Include="LetterHandler.cpp" />
     <ClCompile Include="LoginHandler.cpp" />
     <ClCompile Include="LuaEngine.cpp" />
     <ClCompile Include="lua_bindings.cpp" />

@@ -251,9 +251,6 @@ void CUser::ReqShoppingMall(Packet & pkt)
 	case STORE_CLOSE:
 		ReqLoadWebItemMall();
 		break;
-	case STORE_LETTER:
-		ReqLetterSystem(pkt);
-		break;
 	}
 }
 

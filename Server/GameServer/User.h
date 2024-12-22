@@ -793,8 +793,7 @@ public:
 	void PartyBBSWanted(Packet & pkt);
 	uint8_t GetPartyMemberAmount(_PARTY_GROUP *pParty = nullptr);
 
-	void SendPartyBBSNeeded(uint16_t page_index, uint8_t bType);
-	
+	void SendPartyBBSNeeded(uint16_t page_index, uint8_t bType);	
 
 	void ClientEvent(uint16_t sNpcID);
 	void KissUser();
@@ -812,15 +811,6 @@ public:
 	void ShoppingMall(Packet & pkt);
 	void HandleStoreOpen(Packet & pkt);
 	void HandleStoreClose();
-	void LetterSystem(Packet & pkt);
-
-	void ReqLetterSystem(Packet & pkt);
-	void ReqLetterUnread();
-	void ReqLetterList(bool bNewLettersOnly = true);
-	void ReqLetterRead(Packet & pkt);
-	void ReqLetterSend(Packet & pkt);
-	void ReqLetterGetItem(Packet & pkt);
-	void ReqLetterDelete(Packet & pkt);
 
 	void HandleNameChange(Packet & pkt);
 	void HandlePlayerNameChange(Packet & pkt);

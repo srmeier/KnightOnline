@@ -21,10 +21,6 @@ void CUser::ShoppingMall(Packet & pkt)
 		/* fairly certain there's no need to emulate these as they're unused */
 		break;
 
-	case STORE_LETTER:
-		LetterSystem(pkt);
-		break;
-
 	default:
 		TRACE("Unknown shoppingmall packet: %X\n", opcode);
 	}
