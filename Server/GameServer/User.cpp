@@ -270,8 +270,6 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_GAMESTART:
 		GameStart(pkt);
 		break;
-	case WIZ_TIMENOTIFY: // @Demircivi: added this case in order to fix disconnecting because of ping packets which are sent by the Client.
-		break;
 	case WIZ_SERVER_INDEX:
 		SendServerIndex();
 		break;
