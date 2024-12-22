@@ -114,6 +114,7 @@ static std::string s_szCmdMsg[CMD_COUNT]; // 게임상 명령어
 
 CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 {	
+	m_fMBRotateTime = -1.0f;
 	m_fExitTimer = -1.0f;
 	m_fLBClickTime = 0.0f;
 	m_bLoadComplete	= FALSE;
@@ -674,6 +675,29 @@ void CGameProcMain::Tick()
 	fTimePrev = fTime;
 	// 타이머 비슷한 루틴..
 	////////////////////////////////////////////////////////////////////////////////////
+
+	if (m_fMBRotateTime >= 0.0f
+		&& !s_pUIMgr->m_bDoneSomething)
+	{
+		float fRadian = s_fSecPerFrm * __PI2;
+		m_fMBRotateTime += fRadian;
+
+		if (m_fMBRotateTime > __PI)
+		{
+			fRadian -= (m_fMBRotateTime - __PI);
+			m_fMBRotateTime = -1.0f;
+		}
+
+		if (fRadian != 0.0f
+			&& s_pPlayer->IsAlive())
+		{
+			float fRot = fRadian / s_fSecPerFrm;
+			if (s_pEng->ViewPoint() == VP_THIRD_PERSON)
+				s_pEng->CameraYawAdd(fRot);
+			else if (!s_pPlayer->m_bStun)
+				s_pPlayer->RotAdd(fRot);
+		}
+	}
 }
 
 void CGameProcMain::Render()
@@ -1151,46 +1175,39 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 
 	//static POINT ptPrev_RB ={};
 
+	// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
 	if (dwMouseFlags & MOUSE_RBCLICK)
-	{
-		// NOTE: right click on NPCs, interactable shapes, item boxes, etc.
 		OnMouseRBtnPress(ptCur, ptPrev);
-	}
+
+	// NOTE: this is where the right click rotation and zoom out occur
 	if (dwMouseFlags & MOUSE_RBDOWN)
-	{
-		// NOTE: this is where the right click rotation and zoom out occur
 		OnMouseRbtnDown(ptCur, ptPrev);
-	}
+
 	if (dwMouseFlags & MOUSE_RBCLICK)
-	{
 		OnMouseRBtnPressd(ptCur, ptPrev);
-	}
 	if (dwMouseFlags & MOUSE_RBDBLCLK)
-	{
+
 		OnMouseRDBtnPress(ptCur, ptPrev);
-	}
+
+	// NOTE: move on click
 	if (dwMouseFlags & MOUSE_LBCLICK)
-	{
-		// NOTE: move on click
 		OnMouseLBtnPress(ptCur, ptPrev);
-	}
+
+	// NOTE: move on held down click
 	if (dwMouseFlags & MOUSE_LBDOWN)
-	{
-		// NOTE: move on held down click
 		OnMouseLbtnDown(ptCur, ptPrev);
-	}
+
 	if (dwMouseFlags & MOUSE_LBCLICKED)
-	{
 		OnMouseLBtnPressd(ptCur, ptPrev);
-	}
+
 	if (dwMouseFlags & MOUSE_LBDBLCLK)
-	{
 		OnMouseLDBtnPress(ptCur, ptPrev);
-	}
+
 	if (dwMouseFlags & MOUSE_MBCLICK)
-	{
 		OnMouseMBtnPress(ptCur, ptPrev);
-	}
+
+	if (dwMouseFlags & MOUSE_MBCLICKED)
+		m_fMBRotateTime = 0.0f;
 
 	// Moves camera when mouse is on the borders of the screen. For both X & Y
 	if (!(dwMouseFlags & MOUSE_RBDOWN))

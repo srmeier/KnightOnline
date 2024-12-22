@@ -103,6 +103,8 @@ public:
 	e_ExitType	m_eExitType;
 	int			m_iExitTimeRemaining; // seconds remaining until exit
 
+	float		m_fMBRotateTime;
+
 protected:
 	virtual bool ProcessPacket(Packet& pkt);
 
