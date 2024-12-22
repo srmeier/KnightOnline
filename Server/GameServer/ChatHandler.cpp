@@ -2,8 +2,6 @@
 #include "DBAgent.h"
 #include "../shared/DateTime.h"
 
-using std::string;
-
 ServerCommandTable CGameServerDlg::s_commandTable;
 ChatCommandTable CUser::s_commandTable;
 
@@ -100,7 +98,7 @@ void CUser::Chat(Packet & pkt)
 	Packet result;
 	uint16_t sessID;
 	uint8_t type = pkt.read<uint8_t>(), bOutType = type, seekingPartyOptions, bNation;
-	string chatstr, finalstr, strSender, * strMessage, chattype;
+	std::string chatstr, finalstr, strSender, * strMessage, chattype;
 	CUser *pUser;
 	CKnights * pKnights;
 	DateTime time;
@@ -1205,7 +1203,7 @@ void CGameServerDlg::SendFormattedResource(uint32_t nResourceID, uint8_t byNatio
 	if (pResource == nullptr)
 		return;
 
-	string buffer;
+	std::string buffer;
 	va_list ap;
 	va_start(ap, bIsNotice);
 	_string_format(pResource->strResource, &buffer, ap);

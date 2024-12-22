@@ -1,9 +1,6 @@
 ﻿#include "stdafx.h"
 #include "DBAgent.h"
 
-using std::string;
-using std::vector;
-
 void CGameServerDlg::SendEventRemainingTime(bool bSendAll, CUser *pUser, uint8_t ZoneID)
 {
 	Packet result(WIZ_BIFROST);

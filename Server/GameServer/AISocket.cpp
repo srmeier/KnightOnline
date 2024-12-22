@@ -4,8 +4,6 @@
 #include "MagicProcess.h"
 #include "../shared/Compression.h"
 
-using std::string;
-
 bool CAISocket::HandlePacket(Packet & pkt)
 {
 	uint8_t opcode;
@@ -518,7 +516,7 @@ void CAISocket::RecvNpcInOut(Packet & pkt)
 
 void CAISocket::RecvBattleEvent(Packet & pkt)
 {
-	string chatstr, strMaxUserName, strKnightsName;
+	std::string chatstr, strMaxUserName, strKnightsName;
 	CUser* pUser = nullptr;
 	CKnights* pKnights = nullptr;
 
@@ -632,7 +630,7 @@ void CAISocket::RecvBattleEvent(Packet & pkt)
 		g_pMain->GetServerResource(nResourceID, &chatstr, strKnightsName.c_str(), strMaxUserName.c_str());
 
 		Packet result;
-		string finalstr;
+		std::string finalstr;
 
 		g_pMain->GetServerResource(IDP_ANNOUNCEMENT, &finalstr, chatstr.c_str());
 		ChatPacket::Construct(&result, WAR_SYSTEM_CHAT, &finalstr);

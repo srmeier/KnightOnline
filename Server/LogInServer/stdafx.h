@@ -6,5 +6,3 @@
 #include "DBProcess.h"
 #include "LoginServer.h"
 #include "LoginSession.h"
-
-using namespace std;

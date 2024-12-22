@@ -3,8 +3,6 @@
 #include "MagicInstance.h"
 #include "../shared/DateTime.h"
 
-using namespace std;
-
 CNpc::CNpc() : Unit(UnitNPC)
 {
 	Initialize();
@@ -393,7 +391,7 @@ void CNpc::OnDeathProcess(Unit *pKiller)
 	}
 
 	DateTime time;
-	string pKillerPartyUsers;
+	std::string szKillerPartyUsers;
 
 	if (pUser->isInParty())
 	{
@@ -405,18 +403,18 @@ void CNpc::OnDeathProcess(Unit *pKiller)
 			{
 				pPartyUser = g_pMain->GetUserPtr(pParty->uid[i]);
 				if (pPartyUser)
-					pKillerPartyUsers += string_format("%s,",pPartyUser->GetName().c_str());
+					szKillerPartyUsers += string_format("%s,",pPartyUser->GetName().c_str());
 			}
 		}
 
-		if (!pKillerPartyUsers.empty())
-			pKillerPartyUsers = pKillerPartyUsers.substr(0,pKillerPartyUsers.length() - 1);
+		if (!szKillerPartyUsers.empty())
+			szKillerPartyUsers = szKillerPartyUsers.substr(0,szKillerPartyUsers.length() - 1);
 	}
 
-	if (pKillerPartyUsers.empty())
+	if (szKillerPartyUsers.empty())
 		g_pMain->WriteDeathNpcLogFile(string_format("[ %s - %d:%d:%d ] Killer=%s,SID=%d,Target=%s,Zone=%d,X=%d,Z=%d\n",m_bMonster ? "MONSTER" : "NPC",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),GetProtoID(),GetName().c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 	else
-		g_pMain->WriteDeathNpcLogFile(string_format("[ %s - %d:%d:%d ] Killer=%s,KillerParty=%s,SID=%d,Target=%s,Zone=%d,X=%d,Z=%d\n",m_bMonster ? "MONSTER" : "NPC",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),pKillerPartyUsers.c_str(),GetProtoID(),GetName().c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
+		g_pMain->WriteDeathNpcLogFile(string_format("[ %s - %d:%d:%d ] Killer=%s,KillerParty=%s,SID=%d,Target=%s,Zone=%d,X=%d,Z=%d\n",m_bMonster ? "MONSTER" : "NPC",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),szKillerPartyUsers.c_str(),GetProtoID(),GetName().c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
 }
 
 /**

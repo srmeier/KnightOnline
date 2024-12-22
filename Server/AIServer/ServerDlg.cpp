@@ -27,8 +27,6 @@
 #include "../shared/packets.h"
 #include "../shared/DateTime.h"
 
-using namespace std;
-
 bool g_bNpcExit	= false;
 ZoneArray			g_arZone;
 
@@ -190,8 +188,8 @@ bool CServerDlg::CreateNpcThread()
 	foreach_stlmap (itr, g_arZone)
 	{
 		CNpcThread * pNpcThread = new CNpcThread();
-		m_arNpcThread.insert(make_pair(itr->first, pNpcThread));
-		m_arEventNpcThread.insert(make_pair(itr->first, new CNpcThread()));
+		m_arNpcThread.insert(std::make_pair(itr->first, pNpcThread));
+		m_arEventNpcThread.insert(std::make_pair(itr->first, new CNpcThread()));
 
 		foreach_stlmap (npcItr, m_arNpc)
 		{
@@ -463,9 +461,12 @@ bool CServerDlg::MapFileLoad()
 * @param	nResourceID	Identifier for the resource.
 * @param	result	   	The string to store the formatted result in.
 */
-void CServerDlg::GetServerResource(int nResourceID, string * result, ...)
+void CServerDlg::GetServerResource(
+	int nResourceID,
+	std::string* result,
+	...)
 {
-	_SERVER_RESOURCE *pResource = m_ServerResourceArray.GetData(nResourceID);
+	_SERVER_RESOURCE* pResource = m_ServerResourceArray.GetData(nResourceID);
 	if (pResource == nullptr)
 	{
 		*result = nResourceID;

@@ -1,7 +1,5 @@
 ﻿#include "stdafx.h"
 
-using std::vector;
-
 void CUser::WarehouseProcess(Packet & pkt)
 {
 	Packet result(WIZ_WAREHOUSE);
@@ -255,8 +253,8 @@ bool CUser::CheckWeight(_ITEM_TABLE * pTable, uint32_t nItemID, uint32_t sCount)
 
 bool CUser::CheckExistItem(int itemid, int16_t count /*= 1*/)
 {
-	// Search for the existance of all items in the player's inventory storage and onwards (includes magic bags)
-	for (int i = 0; i < INVENTORY_COSP+2; i++)
+	// Search for the existance of all items in the player's inventory storage and onwards
+	for (int i = 0; i < INVENTORY_TOTAL; i++)
 	{
 		// This implementation fixes a bug where it ignored the possibility for multiple stacks.
 		if (m_sItemArray[i].nNum == itemid
@@ -270,8 +268,8 @@ bool CUser::CheckExistItem(int itemid, int16_t count /*= 1*/)
 uint32_t CUser::GetItemCount(uint32_t nItemID)
 {
 	uint32_t result = 0;
-	// Search for the existance of all items in the player's inventory storage and onwards (includes magic bags)
-	for (int i = 0; i < INVENTORY_COSP+2; i++)
+	// Search for the existance of all items in the player's inventory storage and onwards
+	for (int i = 0; i < INVENTORY_TOTAL; i++)
 	{
 		// This implementation fixes a bug where it ignored the possibility for multiple stacks.
 		if (m_sItemArray[i].nNum == nItemID)
@@ -417,7 +415,7 @@ bool CUser::RobAllItemParty(uint32_t nItemID, uint16_t sCount /*= 1*/)
 		return RobItem(nItemID, sCount);
 
 	// First check to see if all users in the party have enough of the specified item.
-	vector<CUser *> partyUsers;
+	std::vector<CUser *> partyUsers;
 	for (int i = 0; i < MAX_PARTY_USERS; i++)
 	{
 		CUser * pUser = g_pMain->GetUserPtr(pParty->uid[i]);
@@ -548,79 +546,6 @@ void CUser::ItemMove(Packet & pkt)
 
 	switch (dir)
 	{
-	case ITEM_MBAG_TO_MBAG:
-		if (bDstPos >= MBAG_TOTAL || bSrcPos >= MBAG_TOTAL
-			// We also need to make sure that if we're setting an item in a magic bag, we need to actually
-				// have a magic back to put the item in!
-					|| (INVENTORY_MBAG+bDstPos <  INVENTORY_MBAG2 && m_sItemArray[BAG1].nNum == 0)
-					|| (INVENTORY_MBAG+bDstPos >= INVENTORY_MBAG2 && m_sItemArray[BAG2].nNum == 0)
-					// Make sure that the item actually exists there.
-					|| nItemID != m_sItemArray[INVENTORY_MBAG + bSrcPos].nNum)
-					goto fail_return;
-
-		pSrcItem = &m_sItemArray[INVENTORY_MBAG + bSrcPos];
-		pDstItem = &m_sItemArray[INVENTORY_MBAG + bDstPos];
-		break;
-
-	case ITEM_MBAG_TO_INVEN:
-		if (bDstPos >= HAVE_MAX || bSrcPos >= MBAG_TOTAL
-			// We also need to make sure that if we're taking an item from a magic bag, we need to actually
-				// have a magic back to take it from!
-					|| (INVENTORY_MBAG+bSrcPos <  INVENTORY_MBAG2 && m_sItemArray[BAG1].nNum == 0)
-					|| (INVENTORY_MBAG+bSrcPos >= INVENTORY_MBAG2 && m_sItemArray[BAG2].nNum == 0)
-					// Make sure that the item actually exists there.
-					|| nItemID != m_sItemArray[INVENTORY_MBAG + bSrcPos].nNum)
-					goto fail_return;
-
-		pSrcItem = &m_sItemArray[INVENTORY_MBAG + bSrcPos];
-		pDstItem = &m_sItemArray[INVENTORY_INVENT + bDstPos];
-		break;
-
-	case ITEM_INVEN_TO_MBAG:
-		if (bDstPos >= MBAG_TOTAL || bSrcPos >= HAVE_MAX
-			// We also need to make sure that if we're adding an item to a magic bag, we need to actually
-				// have a magic back to put the item in!
-					|| (INVENTORY_MBAG + bDstPos < INVENTORY_MBAG2 && m_sItemArray[BAG1].nNum == 0)
-					|| (INVENTORY_MBAG + bDstPos >= INVENTORY_MBAG2 && m_sItemArray[BAG2].nNum == 0)
-					// Make sure that the item actually exists there.
-					|| nItemID != m_sItemArray[INVENTORY_INVENT + bSrcPos].nNum)
-					goto fail_return;
-
-		pSrcItem = &m_sItemArray[INVENTORY_INVENT + bSrcPos];
-		pDstItem = &m_sItemArray[INVENTORY_MBAG + bDstPos];
-		break;
-
-	case ITEM_COSP_TO_INVEN:
-		if (bDstPos >= HAVE_MAX || bSrcPos >= COSP_MAX
-			// Make sure that the item actually exists there.
-				|| nItemID != m_sItemArray[INVENTORY_COSP + bSrcPos].nNum)
-				goto fail_return;
-
-		pSrcItem = &m_sItemArray[INVENTORY_COSP + bSrcPos];
-		pDstItem = &m_sItemArray[SLOT_MAX + bDstPos];
-		break;
-
-	case ITEM_INVEN_TO_COSP:
-		if (bDstPos >= COSP_MAX+MBAG_COUNT || bSrcPos >= HAVE_MAX
-			// Make sure that the item actually exists there.
-				|| nItemID != m_sItemArray[SLOT_MAX + bSrcPos].nNum
-				|| !IsValidSlotPos(pTable, bDstPos))
-				goto fail_return;
-
-		pSrcItem = &m_sItemArray[SLOT_MAX + bSrcPos];
-		pDstItem = &m_sItemArray[INVENTORY_COSP + bDstPos];
-
-		// If we're setting a magic bag...
-		if (bDstPos == COSP_BAG1 || bDstPos == COSP_BAG2)
-		{
-			// Can't replace existing magic bag.
-			if (pDstItem->nNum != 0
-				// Can't set any old item in the bag slot, it must be a bag.
-					|| pTable->m_bSlot != ItemSlotBag)
-					goto fail_return;
-		}
-		break;
-
 	case ITEM_INVEN_SLOT:
 		if (bDstPos >= SLOT_MAX || bSrcPos >= HAVE_MAX
 			// Make sure that the item actually exists there.
@@ -687,10 +612,9 @@ void CUser::ItemMove(Packet & pkt)
 	}
 
 	// If equipping/de-equipping an item
-	if (dir == ITEM_INVEN_SLOT || dir == ITEM_SLOT_INVEN
-		// or moving an item to/from our cospre item slots
-			|| dir == ITEM_INVEN_TO_COSP || dir == ITEM_COSP_TO_INVEN
-			|| dir == ITEM_SLOT_SLOT)
+	if (dir == ITEM_INVEN_SLOT
+		|| dir == ITEM_SLOT_INVEN
+		|| dir == ITEM_SLOT_SLOT)
 	{
 		// Re-update item stats
 		SetUserAbility(false);
@@ -703,12 +627,10 @@ void CUser::ItemMove(Packet & pkt)
 	switch (dir)
 	{
 	case ITEM_INVEN_SLOT:
-	case ITEM_INVEN_TO_COSP:
 		UserLookChange(bDstPos, nItemID, pDstItem->sDuration);	
 		break;
 
 	case ITEM_SLOT_INVEN:
-	case ITEM_COSP_TO_INVEN:
 		UserLookChange(bSrcPos, 0, 0);
 		break;
 
@@ -1122,31 +1044,6 @@ bool CUser::IsValidSlotPos(_ITEM_TABLE* pTable, int destpos)
 			return false;
 		break;
 
-	case ItemSlotCospreGloves:
-		if (destpos != COSP_GLOVE && destpos != COSP_GLOVE2)
-			return false;
-		break;
-
-	case ItemSlotCosprePauldron:
-		if (destpos != COSP_BREAST)
-			return false;
-		break;
-
-	case ItemSlotCospreHelmet:
-		if (destpos != COSP_HELMET)
-			return false;
-		break;
-
-	case ItemSlotCospreWings:
-		if (destpos != COSP_WINGS)
-			return false;
-		break;
-
-	case ItemSlotBag:
-		if (destpos != COSP_BAG1 && destpos != COSP_BAG2)
-			return false;
-		break;
-
 	default:
 		return false;
 	}
@@ -1154,15 +1051,17 @@ bool CUser::IsValidSlotPos(_ITEM_TABLE* pTable, int destpos)
 	// 1H items can only be equipped when a 2H item isn't equipped.
 	if (bOneHandedItem)
 	{
-		_ITEM_DATA * pItem;
-		_ITEM_TABLE * pTable2 = GetItemPrototype(destpos == LEFTHAND ? RIGHTHAND : LEFTHAND, pItem);
+		_ITEM_DATA* pItem;
+		_ITEM_TABLE* pTable2 = GetItemPrototype(destpos == LEFTHAND ? RIGHTHAND : LEFTHAND, pItem);
 		if (pTable2 != nullptr && pTable2->is2Handed())
-	{
-	_ITEM_DATA *pSrcItem = GetItem(RIGHTHAND), *pDstItem = GetItem(LEFTHAND), tmpItem ;
-		memcpy(&tmpItem, pDstItem, sizeof(_ITEM_DATA)); // Temporarily store the target item
-		memcpy(pDstItem, pSrcItem, sizeof(_ITEM_DATA)); // Replace the target item with the source
-		memcpy(pSrcItem, &tmpItem, sizeof(_ITEM_DATA)); // Now replace the source with the old target (swapping them)
-	}
+		{
+			_ITEM_DATA* pSrcItem = GetItem(RIGHTHAND);
+			_ITEM_DATA* pDstItem = GetItem(LEFTHAND);
+			_ITEM_DATA tmpItem;
+			memcpy(&tmpItem, pDstItem, sizeof(_ITEM_DATA)); // Temporarily store the target item
+			memcpy(pDstItem, pSrcItem, sizeof(_ITEM_DATA)); // Replace the target item with the source
+			memcpy(pSrcItem, &tmpItem, sizeof(_ITEM_DATA)); // Now replace the source with the old target (swapping them)
+		}
 	}
 
 	return true;

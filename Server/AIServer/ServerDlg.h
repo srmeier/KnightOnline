@@ -63,7 +63,7 @@ public:
 
 	bool LoadSpawnCallback(OdbcCommand *dbCommand);
 	void GameServerAcceptThread();
-	void GetServerResource(int nResourceID, std::string * result, ...);
+	void GetServerResource(int nResourceID, std::string* result, ...);
 	bool AddObjectEventNpc(_OBJECT_EVENT* pEvent, MAP * pMap);
 	CNpc * SpawnEventNpc(uint16_t sSid, bool bIsMonster, uint8_t byZone, float fX, float fY, float fZ, uint16_t sDuration = 0, uint8_t nation = 0, int16_t socketID = -1,uint16_t nEventRoom = 0);
 	void NpcUpdate(uint16_t sSid, bool bIsMonster, uint8_t byGroup = 0, uint16_t sPid = 0);

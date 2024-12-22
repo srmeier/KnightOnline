@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <cstdarg>
 #include "OdbcConnection.h"
 
@@ -19,7 +19,11 @@ bool OdbcConnection::isError()
 	return (!m_odbcErrors.empty());
 }
 
-bool OdbcConnection::Connect(tstring & szDSN, tstring & szUser, tstring & szPass, bool bMarsEnabled)
+bool OdbcConnection::Connect(
+	const tstring& szDSN,
+	const tstring& szUser,
+	const tstring& szPass,
+	bool bMarsEnabled)
 {
 	m_szDSN = szDSN;
 	m_szUser = szUser;

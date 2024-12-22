@@ -109,9 +109,9 @@ public:
 	std::string	m_strAccountID, m_strUserID;
 
 	uint8_t	m_bRace;
-	uint16_t	m_sClass;
+	uint16_t m_sClass;
 
-	uint8_t	m_nHair;
+	uint8_t	m_byHair;
 
 	uint8_t	m_bRank;
 	uint8_t	m_bTitle;
@@ -417,8 +417,6 @@ public:
 
 	uint8_t GetClanGrade();
 	uint8_t GetClanRank();
-	uint32_t GetClanPoint();
-	void SendClanPointChange(int32_t nChangeAmount = 0);
 
 	uint8_t GetBeefRoastVictory();
 	uint8_t GetRankReward(bool isMonthly);
@@ -979,7 +977,6 @@ public:
 	DECLARE_LUA_GETTER(GetManner)
 	DECLARE_LUA_GETTER(GetActiveQuestID)
 	DECLARE_LUA_GETTER(GetClanGrade)
-	DECLARE_LUA_GETTER(GetClanPoint)
 	DECLARE_LUA_GETTER(GetClanRank)
 	DECLARE_LUA_GETTER(isWarrior)
 	DECLARE_LUA_GETTER(isRogue)
@@ -1260,10 +1257,6 @@ public:
 
 	DECLARE_LUA_FUNCTION(GetStat) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetStat((StatType)(LUA_ARG(uint8_t, 2) + 1)));	
-	}
-
-	DECLARE_LUA_FUNCTION(RobClanPoint) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendClanPointChange(-(LUA_ARG(int32_t, 2))));	
 	}
 
 	DECLARE_LUA_FUNCTION(RequestPersonalRankReward) {

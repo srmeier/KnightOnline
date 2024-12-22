@@ -64,12 +64,7 @@ enum ItemMovementType
 	ITEM_INVEN_INVEN		= 3,
 	ITEM_SLOT_SLOT			= 4,
 	ITEM_INVEN_ZONE			= 5,
-	ITEM_ZONE_INVEN			= 6,
-	ITEM_INVEN_TO_COSP		= 7,  // Inventory -> Cospre bag
-	ITEM_COSP_TO_INVEN		= 8,  // Cospre bag -> Inventory
-	ITEM_INVEN_TO_MBAG		= 9,  // Inventory -> Magic bag
-	ITEM_MBAG_TO_INVEN		= 10, // Magic bag -> Inventory
-	ITEM_MBAG_TO_MBAG		= 11  // Magic bag -> Magic bag
+	ITEM_ZONE_INVEN			= 6
 };
 
 enum ItemSlotType
@@ -404,9 +399,7 @@ struct _KNIGHTS_CAPE
 {
 	uint16_t	sCapeIndex;
 	uint32_t	nReqCoins;
-	uint32_t	nReqClanPoints;	// clan point requirement
-	uint8_t	byGrade;		// clan grade requirement
-	uint8_t	byRanking;		// clan rank requirement (e.g. royal, accredited, etc)
+	uint8_t		byGrade;		// clan grade requirement
 };
 
 struct _KNIGHTS_ALLIANCE

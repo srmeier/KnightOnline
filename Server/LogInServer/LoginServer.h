@@ -22,8 +22,8 @@ public:
 
 	bool Startup();
 
-	static uint32_t THREADCALL Timer_UpdateUserCount(void * lpParam);
-	void GetServerList(Packet & result);
+	static uint32_t THREADCALL Timer_UpdateUserCount(void* lpParam);
+	void GetServerList(Packet& result);
 
 	~LoginServer();
 
@@ -32,8 +32,8 @@ public:
 private:
 	void UpdateServerList();
 	void GetInfoFromIni();
-	void WriteLogFile(std::string & logMessage);
-	void ReportSQLError(OdbcError *pError);
+	void WriteLogFile(const std::string& logMessage);
+	void ReportSQLError(OdbcError* pError);
 
 	std::string m_strFtpUrl, m_strFilePath;
 	std::string m_ODBCName, m_ODBCLogin, m_ODBCPwd;
@@ -54,9 +54,9 @@ private:
 	FILE *m_fpLoginServer;
 public:
 	CDBProcess	m_DBProcess;
-	void WriteUserLogFile(std::string & logMessage);
+	void WriteUserLogFile(const std::string& logMessage);
 
-	FILE *m_fpUser;
+	FILE* m_fpUser;
 };
 
-extern LoginServer * g_pMain;
+extern LoginServer* g_pMain;

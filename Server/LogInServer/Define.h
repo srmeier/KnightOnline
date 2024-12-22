@@ -7,21 +7,14 @@
 struct _SERVER_INFO
 {
 	std::string strServerIP;
-	std::string strLanIP;
 	std::string strServerName;
 	int16_t sUserCount;
 	int16_t sServerID;
-	int16_t sGroupID;
 	int16_t sPlayerCap;
-	int16_t sFreePlayerCap;
-	std::string strKarusKingName;
-	std::string strKarusNotice;
-	std::string strElMoradKingName;
-	std::string strElMoradNotice;
 
 	_SERVER_INFO()
 	{
-		sUserCount = sServerID = sGroupID = sPlayerCap = sFreePlayerCap = 0;
+		sUserCount = sServerID = sPlayerCap = 0;
 	}
 };
 

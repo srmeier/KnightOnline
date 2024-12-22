@@ -87,32 +87,15 @@ void LoginServer::UpdateServerList()
 	result << uint8_t(m_ServerList.size());
 	foreach (itr, m_ServerList) 
 	{		
-		_SERVER_INFO *pServer = *itr;
+		_SERVER_INFO* pServer = *itr;
 
 		result << pServer->strServerIP;
-#if __VERSION >= 1888
-		result << pServer->strLanIP;
-#endif
 		result << pServer->strServerName;
 
 		if (pServer->sUserCount <= pServer->sPlayerCap)
 			result << pServer->sUserCount;
 		else
 			result << int16_t(-1);
-#if __VERSION >= 1453
-		result << pServer->sServerID << pServer->sGroupID;
-		result << pServer->sPlayerCap << pServer->sFreePlayerCap;
-
-#if __VERSION < 1600
-		result << uint8_t(1); // unknown, 1 in 15XX samples, 0 in 18XX+
-#else
-		result << uint8_t(0); 
-#endif
-
-		// we read all this stuff from ini, TODO: make this more versatile.
-		result	<< pServer->strKarusKingName << pServer->strKarusNotice 
-			<< pServer->strElMoradKingName << pServer->strElMoradNotice;
-#endif
 	}
 }
 
@@ -146,35 +129,22 @@ void LoginServer::GetInfoFromIni()
 		_snprintf(key, sizeof(key), "SERVER_%02d", i);
 		ini.GetString("SERVER_LIST", key, "127.0.0.1", pInfo->strServerIP, false);
 
-		_snprintf(key, sizeof(key), "LANIP_%02d", i);
-		ini.GetString("SERVER_LIST", key, "127.0.0.1", pInfo->strLanIP, false);
-
 		_snprintf(key, sizeof(key), "NAME_%02d", i);
 		ini.GetString("SERVER_LIST", key, "TEST|Server 1", pInfo->strServerName, false);
 
 		_snprintf(key, sizeof(key), "ID_%02d", i);
 		pInfo->sServerID = ini.GetInt("SERVER_LIST", key, 1);
 
-		_snprintf(key, sizeof(key), "GROUPID_%02d", i);
-		pInfo->sGroupID = ini.GetInt("SERVER_LIST", key, 1);
+		// TODO: Remove this entirely. There's only one limit in 1.298.
+		int16_t sPremiumLimit = 0, sFreeLimit = 0;
 
 		_snprintf(key, sizeof(key), "PREMLIMIT_%02d", i);
-		pInfo->sPlayerCap = ini.GetInt("SERVER_LIST", key, MAX_USER);
+		sPremiumLimit = ini.GetInt("SERVER_LIST", key, MAX_USER);
 
 		_snprintf(key, sizeof(key), "FREELIMIT_%02d", i);
-		pInfo->sFreePlayerCap = ini.GetInt("SERVER_LIST", key, MAX_USER);
+		sFreeLimit = ini.GetInt("SERVER_LIST", key, MAX_USER);
 
-		_snprintf(key, sizeof(key), "KING1_%02d", i);
-		ini.GetString("SERVER_LIST", key, "", pInfo->strKarusKingName);
-
-		_snprintf(key, sizeof(key), "KING2_%02d", i);
-		ini.GetString("SERVER_LIST", key, "", pInfo->strElMoradKingName);
-
-		_snprintf(key, sizeof(key), "KINGMSG1_%02d", i);
-		ini.GetString("SERVER_LIST", key, "", pInfo->strKarusNotice);
-
-		_snprintf(key, sizeof(key), "KINGMSG2_%02d", i);
-		ini.GetString("SERVER_LIST", key, "", pInfo->strElMoradNotice);
+		pInfo->sPlayerCap = std::max(sFreeLimit, sPremiumLimit);
 
 		m_ServerList.push_back(pInfo);
 	}
@@ -188,7 +158,7 @@ void LoginServer::GetInfoFromIni()
 	std::stringstream ss;
 	for (int i = 0; i < 3; i++)
 	{
-		string title, message;
+		std::string title, message;
 
 		_snprintf(key, sizeof(key), "TITLE_%02d", i);
 		ini.GetString("NEWS", key, "", title);
@@ -219,28 +189,34 @@ void LoginServer::GetInfoFromIni()
 		memcpy(&m_news.Content, ss.str().c_str(), m_news.Size);
 }
 
-void LoginServer::WriteLogFile(string & logMessage)
+void LoginServer::WriteLogFile(
+	const std::string& logMessage)
 {
 	Guard lock(m_lock);
 	fwrite(logMessage.c_str(), logMessage.length(), 1, m_fpLoginServer);
 	fflush(m_fpLoginServer);
 }
 
-void LoginServer::WriteUserLogFile(string & logMessage)
+void LoginServer::WriteUserLogFile(
+	const std::string& logMessage)
 {
 	Guard lock(m_lock);
 	fwrite(logMessage.c_str(), logMessage.length(), 1, m_fpUser);
 	fflush(m_fpUser);
 }
 
-void LoginServer::ReportSQLError(OdbcError *pError)
+void LoginServer::ReportSQLError(
+	OdbcError* pError)
 {
 	if (pError == nullptr)
 		return;
 
 	// This is *very* temporary.
-	string errorMessage = string_format(_T("ODBC error occurred.\r\nSource: %s\r\nError: %s\r\nDescription: %s\n"),
-		pError->Source.c_str(), pError->ExtendedErrorMessage.c_str(), pError->ErrorMessage.c_str());
+	std:: string errorMessage = string_format(
+		_T("ODBC error occurred.\r\nSource: %s\r\nError: %s\r\nDescription: %s\n"),
+		pError->Source.c_str(),
+		pError->ExtendedErrorMessage.c_str(),
+		pError->ErrorMessage.c_str());
 
 	TRACE("%s", errorMessage.c_str());
 	WriteLogFile(errorMessage);

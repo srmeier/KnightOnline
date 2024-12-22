@@ -1,8 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Map.h"
 
-using std::string;
-
 enum
 {
 	CHALLENGE_PVP_REQUEST	= 1,
@@ -62,7 +60,7 @@ void CUser::HandleChallengeRequestPVP(Packet & pkt)
 {
 	Packet result(WIZ_CHALLENGE);
 	CUser *pUser;
-	string strUserID;
+	std::string strUserID;
 	uint8_t bErrorCode = CHALLENGE_GENERIC_ERROR;
 
 	if (m_bRequestingChallenge 
@@ -123,7 +121,7 @@ void CUser::HandleChallengeRequestCVC(Packet & pkt)
 {
 	Packet result(WIZ_CHALLENGE);
 	CUser *pUser;
-	string strUserID;
+	std::string strUserID;
 	uint8_t bErrorCode = CHALLENGE_GENERIC_ERROR;
 
 	if (m_bRequestingChallenge 

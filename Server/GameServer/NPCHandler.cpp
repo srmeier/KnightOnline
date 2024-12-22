@@ -3,8 +3,6 @@
 #include "KnightsManager.h"
 #include "KingSystem.h"
 
-using std::string;
-
 void CUser::ItemRepair(Packet & pkt)
 {
 	if (isDead())
@@ -260,7 +258,7 @@ void CUser::NpcEvent(Packet & pkt)
 			if (pNpc->GetType() == NPC_ELECTION)
 			{
 				// Ensure this still works as per official without a row in the table.
-				string strKingName = (pKingSystem == nullptr ? "" : pKingSystem->m_strKingName);
+				std::string strKingName = (pKingSystem == nullptr ? "" : pKingSystem->m_strKingName);
 				result.SByte();
 				result	<< uint8_t(KING_NPC) << strKingName;
 			}
@@ -615,7 +613,7 @@ void CUser::HandleNameChange(Packet & pkt)
 void CUser::HandlePlayerNameChange(Packet & pkt)
 {
 	NameChangeOpcode response = NameChangeSuccess;
-	string strUserID;
+	std::string strUserID;
 	pkt >> strUserID;
 
 	if (strUserID.empty() || strUserID.length() > MAX_ID_SIZE)
@@ -660,14 +658,12 @@ void CUser::SendNameChange(NameChangeOpcode opcode /*= NameChangeShowDialog*/)
 void CUser::HandleCapeChange(Packet & pkt)
 {
 	Packet result(WIZ_CAPE);
-	CKnights *pKnights = nullptr;
-	_KNIGHTS_CAPE *pCape = nullptr;
-	uint32_t nReqClanPoints = 0, nReqCoins = 0;
+	CKnights* pKnights = nullptr;
+	_KNIGHTS_CAPE* pCape = nullptr;
+	uint32_t nReqCoins = 0;
 	int16_t sErrorCode = 0, sCapeID;
-	//uint8_t r, g, b;
-	//bool bApplyingPaint = false;
 
-	pkt >> sCapeID /*>> r >> g >> b*/;
+	pkt >> sCapeID;
 
 	// If we're not a clan leader, what are we doing changing the cape?
 	if (!isClanLeader()
@@ -703,9 +699,8 @@ void CUser::HandleCapeChange(Packet & pkt)
 		}
 
 		// Is our clan allowed to use this cape?
-		if ((pCape->byGrade && pKnights->m_byGrade > pCape->byGrade)
-			// not sure if this should use another error, need to confirm
-				|| pKnights->m_byFlag < pCape->byRanking )
+		if (pCape->byGrade != 0
+			&& pKnights->m_byGrade > pCape->byGrade)
 		{
 			sErrorCode = -6;
 			goto fail_return;
@@ -723,55 +718,17 @@ void CUser::HandleCapeChange(Packet & pkt)
 		}
 
 		nReqCoins = pCape->nReqCoins;
-		nReqClanPoints = pCape->nReqClanPoints;
-	}
-
-	// These are 0 when not used
-	//if (r != 0 || g != 0 || b != 0)
-	//{
-	//	// To use paint, the clan needs to be accredited
-	//	if (pKnights->m_byFlag < ClanTypeAccredited5)
-	//	{
-	//		sErrorCode = -1; // need to find the error code for this
-	//		goto fail_return;
-	//	}
-
-	//	bApplyingPaint = true;
-	//	nReqClanPoints += 1000; // does this need tweaking per clan rank?
-	//}
-
-	// If this requires clan points, does our clan have enough?
-	if (pKnights->m_nClanPointFund < nReqClanPoints)
-	{
-		// this error may not be correct
-		sErrorCode = -7;
-		goto fail_return;
 	}
 
 	if (nReqCoins > 0)
 		GoldLose(nReqCoins);
 
-	if (nReqClanPoints)
-	{
-		pKnights->m_nClanPointFund -= nReqClanPoints;
-		pKnights->UpdateClanFund();
-	}
-
 	// Are we changing the cape?
 	if (sCapeID >= 0)
 		pKnights->m_sCape = sCapeID;
 
-	// Are we applying paint?
-	//if (bApplyingPaint)
-	//{
-	//	pKnights->m_bCapeR = r;
-	//	pKnights->m_bCapeG = g;
-	//	pKnights->m_bCapeB = b;
-	//}
-	
-	CKnights *aKnights = g_pMain->GetClanPtr(pKnights->GetAllianceID());
-
-	result	<< uint16_t(1) // success
+	result
+		<< uint16_t(1) // success
 		<< pKnights->GetAllianceID()
 		<< pKnights->GetID()
 		<< pKnights->m_sCape;

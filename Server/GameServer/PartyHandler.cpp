@@ -1,12 +1,10 @@
 ﻿#include "stdafx.h"
 #include "../shared/KOSocketMgr.h"
 
-using namespace std;
-
 void CUser::PartyProcess(Packet & pkt)
 {
 	// TODO: Clean this entire system up.
-	string strUserID;
+	std::string strUserID;
 	CUser *pUser;
 	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
@@ -549,7 +547,7 @@ void CUser::SendPartyBBSNeeded(uint16_t page_index, uint8_t bType)
 	{
 		CUser *pUser = TO_USER(itr->second);
 		_PARTY_GROUP *pParty = nullptr;
-		string WantedMessage = "Seeking Party";
+		std::string WantedMessage = "Seeking Party";
 		uint8_t PartyMembers = 0;
 		uint16_t sClass = pUser->m_sClass;
 		i++;

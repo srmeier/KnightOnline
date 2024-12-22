@@ -231,14 +231,6 @@ void CUser::PromoteClan(ClanTypeFlag byFlag)
 	CKnightsManager::UpdateKnightsGrade(GetClanID(), byFlag);
 }
 
-void CUser::SendClanPointChange(int32_t nChangeAmount)
-{
-	if (!isInClan())
-		return;
-
-	CKnightsManager::UpdateClanPoint(GetClanID(), nChangeAmount);
-}
-
 uint8_t CUser::GetClanGrade()
 {
 	if (!isInClan())
@@ -249,18 +241,6 @@ uint8_t CUser::GetClanGrade()
 		return 0;
 
 	return pClan->m_byGrade;
-}
-
-uint32_t CUser::GetClanPoint()
-{
-	if (!isInClan())
-		return 0;
-
-	CKnights * pClan = g_pMain->GetClanPtr(GetClanID());
-	if (pClan == nullptr)
-		return 0;
-
-	return pClan->m_nClanPointFund;
 }
 
 uint8_t CUser::GetClanRank()

@@ -6,8 +6,6 @@
 
 extern CDBAgent g_DBAgent;
 
-using std::string;
-
 static std::queue<Packet *> _queue;
 static bool _running = true;
 static std::recursive_mutex _lock;
@@ -147,7 +145,7 @@ uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 
 void CUser::ReqAccountLogIn(Packet & pkt)
 {
-	string strPasswd;
+	std::string strPasswd;
 	pkt >> strPasswd;
 
 	int8_t nation = (g_DBAgent.AccountLogin(m_strAccountID, strPasswd)-1);
@@ -175,7 +173,7 @@ void CUser::ReqSelectNation(Packet & pkt)
 void CUser::ReqAllCharInfo(Packet & pkt)
 {
 	Packet result(WIZ_ALLCHAR_INFO_REQ);
-	string strCharID1, strCharID2, strCharID3;
+	std::string strCharID1, strCharID2, strCharID3;
 
 	result << uint8_t(1);
 #if __VERSION >= 1920
@@ -191,7 +189,7 @@ void CUser::ReqAllCharInfo(Packet & pkt)
 
 void CUser::ReqCreateNewChar(Packet & pkt)
 {
-	string strCharID;
+	std::string strCharID;
 	uint8_t nHair;
 	uint16_t sClass;
 	uint8_t bCharIndex, bRace, bFace, bStr, bSta, bDex, bInt, bCha;
@@ -205,7 +203,7 @@ void CUser::ReqCreateNewChar(Packet & pkt)
 
 void CUser::ReqDeleteChar(Packet & pkt)
 {
-	string strCharID, strSocNo;
+	std::string strCharID, strSocNo;
 	uint8_t bCharIndex;
 	pkt >> bCharIndex >> strCharID >> strSocNo;
 
@@ -227,7 +225,7 @@ void CUser::ReqSelectCharacter(Packet & pkt)
 {
 	Packet result(WIZ_SEL_CHAR);
 	uint8_t bInit;
-	string strCharID;
+	std::string strCharID;
 
 	pkt >> strCharID >> bInit;
 	if (m_strAccountID.empty() || strCharID.empty()
@@ -314,7 +312,7 @@ void CUser::ReqFriendProcess(Packet & pkt)
 void CUser::ReqRequestFriendList(Packet & pkt)
 {
 	Packet result(WIZ_FRIEND_PROCESS);
-	std::vector<string> friendList;
+	std::vector<std::string> friendList;
 
 	g_DBAgent.RequestFriendList(friendList, this);
 
@@ -328,7 +326,7 @@ void CUser::ReqRequestFriendList(Packet & pkt)
 void CUser::ReqAddFriend(Packet & pkt)
 {
 	Packet result(WIZ_FRIEND_PROCESS);
-	string strCharID;
+	std::string strCharID;
 	int16_t tid;
 
 	pkt.SByte();
@@ -344,7 +342,7 @@ void CUser::ReqAddFriend(Packet & pkt)
 void CUser::ReqRemoveFriend(Packet & pkt)
 {
 	Packet result(WIZ_FRIEND_PROCESS);
-	string strCharID;
+	std::string strCharID;
 
 	pkt.SByte();
 	pkt >> strCharID;
@@ -365,7 +363,7 @@ void CUser::ReqChangeName(Packet & pkt)
 {
 	NameChangeOpcode response;
 	uint8_t opcode;
-	string strName;
+	std::string strName;
 
 	pkt >> opcode >> strName;
 
@@ -403,10 +401,9 @@ void CUser::ReqChangeName(Packet & pkt)
 void CUser::ReqChangeCape(Packet & pkt)
 {
 	uint16_t sClanID, sCapeID;
-	uint8_t r, g, b;
-	pkt >> sClanID >> sCapeID >> r >> g >> b;
+	pkt >> sClanID >> sCapeID;
 
-	g_DBAgent.UpdateCape(sClanID, sCapeID, r, g, b);
+	g_DBAgent.UpdateCape(sClanID, sCapeID);
 }
 
 void CUser::ReqUserLogOut()
@@ -489,15 +486,6 @@ void CKnightsManager::ReqKnightsPacket(CUser* pUser, Packet & pkt)
 		break;
 	case KNIGHTS_UPDATE_GRADE:
 		ReqUpdateGrade(pkt);
-		break;
-	case KNIGHTS_DONATE_POINTS:
-		ReqDonateNP(pUser, pkt);
-		break;
-	case KNIGHTS_REFUND_POINTS:
-		ReqRefundNP(pkt);
-		break;
-	case KNIGHTS_UPDATE_FUND:
-		ReqUpdateNP(pkt);
 		break;
 	}
 }
@@ -723,7 +711,7 @@ void CKnightsManager::ReqCreateKnights(CUser *pUser, Packet & pkt)
 		return;
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
-	string strKnightsName, strChief;
+	std::string strKnightsName, strChief;
 	uint16_t sClanID;
 	uint8_t bFlag, bNation;
 	int8_t bResult;
@@ -773,7 +761,7 @@ void CKnightsManager::ReqUpdateKnights(CUser *pUser, Packet & pkt, uint8_t opcod
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
 	uint16_t sClanID = pkt.read<uint16_t>();
-	string strCharID = pUser->GetName();
+	std::string strCharID = pUser->GetName();
 	int8_t bResult = int8_t(g_DBAgent.UpdateKnights(opcode, strCharID, sClanID, 0));
 	if (bResult < 0)
 	{
@@ -792,7 +780,7 @@ void CKnightsManager::ReqModifyKnightsMember(CUser *pUser, Packet & pkt, uint8_t
 		return;
 
 	Packet result(WIZ_KNIGHTS_PROCESS);
-	string strCharID;
+	std::string strCharID;
 	uint16_t sClanID;
 	int8_t bRemoveFlag, bResult;
 
@@ -854,7 +842,7 @@ void CKnightsManager::ReqKnightsList(Packet & pkt)
 	if (g_pMain->m_nServerNo != BATTLE)
 		return;
 
-	string strKnightsName; 
+	std::string strKnightsName; 
 	uint32_t nPoints; 
 	uint16_t sClanID = pkt.read<uint16_t>(), sMembers;
 	uint8_t bNation, bRank;
@@ -948,7 +936,7 @@ void CKnightsManager::ReqUpdateGrade(Packet & pkt)
 
 void CUser::ReqSetLogInInfo(Packet & pkt)
 {
-	string strCharID, strServerIP, strClientIP;
+	std::string strCharID, strServerIP, strClientIP;
 	uint16_t sServerNo;
 	uint8_t bInit;
 
@@ -960,7 +948,7 @@ void CUser::ReqSetLogInInfo(Packet & pkt)
 
 void CUser::BattleEventResult(Packet & pkt)
 {
-	string strMaxUserName;
+	std::string strMaxUserName;
 	uint8_t bType, bNation;
 
 	pkt >> bType >> bNation >> strMaxUserName;
@@ -1034,7 +1022,7 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 					bool bDelete;
 					uint16_t sKnights;
 					uint32_t nVotes = 0;
-					string strNominee;
+					std::string strNominee;
 
 					pkt >> bDelete >> sKnights >> strNominee;
 					g_DBAgent.UpdateElectionList(bDelete ? 2 : 1, byType, byNation, sKnights, nVotes, strNominee, pUser);
@@ -1075,7 +1063,7 @@ void CKingSystem::HandleDatabaseRequest_Election(CUser * pUser, Packet & pkt)
 
 			if (opcode == KING_CANDIDACY_BOARD_WRITE)
 			{
-				string strNotice;
+				std::string strNotice;
 				pkt >> strNotice;
 				g_DBAgent.UpdateCandidacyNoticeBoard(pUser->m_strUserID, pUser->GetNation(), strNotice);
 			}
@@ -1110,7 +1098,7 @@ void CKingSystem::HandleDatabaseRequest_Event(CUser * pUser, Packet & pkt)
 	case KING_EVENT_PRIZE:
 		{
 			uint32_t nCoins;
-			string strUserID;
+			std::string strUserID;
 			pkt >> nCoins >> strUserID;
 
 			g_DBAgent.InsertPrizeEvent(opcode, byNation, nCoins, strUserID);

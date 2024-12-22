@@ -1,8 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Map.h"
 
-using namespace std;
-
 void CUser::ExchangeProcess(Packet & pkt)
 {
 	uint8_t opcode = pkt.read<uint8_t>();
@@ -106,7 +104,7 @@ void CUser::ExchangeAdd(Packet & pkt)
 	uint32_t nItemID, count = 0;
 	uint16_t duration = 0;
 	_ITEM_DATA * pSrcItem = nullptr;
-	list<_EXCHANGE_ITEM*>::iterator	Iter;
+	std::list<_EXCHANGE_ITEM*>::iterator	Iter;
 	uint8_t pos;
 	bool bAdd = true, bGold = false;
 	result << uint8_t(EXCHANGE_ADD);

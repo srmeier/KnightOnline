@@ -15,8 +15,6 @@
 
 #include "DBAgent.h"
 
-using namespace std;
-
 #define NUM_FLAG_VICTORY    4
 #define AWARD_GOLD          100000
 #define AWARD_EXP			5000
@@ -362,9 +360,12 @@ void CGameServerDlg::GetTimeFromIni()
 * @param	nResourceID	Identifier for the resource.
 * @param	result	   	The string to store the formatted result in.
 */
-void CGameServerDlg::GetServerResource(int nResourceID, string * result, ...)
+void CGameServerDlg::GetServerResource(
+	int nResourceID,
+	std::string* result,
+	...)
 {
-	_SERVER_RESOURCE *pResource = m_ServerResourceArray.GetData(nResourceID);
+	_SERVER_RESOURCE* pResource = m_ServerResourceArray.GetData(nResourceID);
 	if (pResource == nullptr)
 	{
 		*result = nResourceID;
@@ -426,7 +427,9 @@ C3DMap * CGameServerDlg::GetZoneByID(int zoneID)
 *
 * @return	null if it fails, else the user pointer.
 */
-CUser* CGameServerDlg::GetUserPtr(string findName, NameType type)
+CUser* CGameServerDlg::GetUserPtr(
+	std::string findName,
+	NameType type)
 {
 	// As findName is a copy of the string passed in, we can change it
 	// without worry of affecting anything.
@@ -454,10 +457,11 @@ CUser* CGameServerDlg::GetUserPtr(string findName, NameType type)
 *
 * @param	pSession	The session.
 */
-void CGameServerDlg::AddAccountName(CUser *pSession)
+void CGameServerDlg::AddAccountName(
+	CUser* pSession)
 {
 	Guard lock(m_accountNameLock);
-	string upperName = pSession->m_strAccountID;
+	std::string upperName = pSession->m_strAccountID;
 	STRTOUPPER(upperName);
 	m_accountNameMap[upperName] = pSession;
 }
@@ -467,10 +471,11 @@ void CGameServerDlg::AddAccountName(CUser *pSession)
 *
 * @param	pSession	The session.
 */
-void CGameServerDlg::AddCharacterName(CUser *pSession)
+void CGameServerDlg::AddCharacterName(
+	CUser* pSession)
 {
 	Guard lock(m_characterNameLock);
-	string upperName = pSession->GetName();
+	std::string upperName = pSession->GetName();
 	STRTOUPPER(upperName);
 	m_characterNameMap[upperName] = pSession;
 }
@@ -483,12 +488,14 @@ void CGameServerDlg::AddCharacterName(CUser *pSession)
 * @param	pSession		The session.
 * @param	strNewUserID	Character's new name.
 */
-void CGameServerDlg::ReplaceCharacterName(CUser *pSession, std::string & strNewUserID)
+void CGameServerDlg::ReplaceCharacterName(
+	CUser* pSession,
+	std::string& strNewUserID)
 {
 	Guard lock(m_characterNameLock);
 
 	// Remove the old name from the map
-	string upperName = pSession->GetName();
+	std::string upperName = pSession->GetName();
 	STRTOUPPER(upperName);
 	m_characterNameMap.erase(upperName);
 
@@ -502,9 +509,10 @@ void CGameServerDlg::ReplaceCharacterName(CUser *pSession, std::string & strNewU
 *
 * @param	pSession	The session.
 */
-void CGameServerDlg::RemoveSessionNames(CUser *pSession)
+void CGameServerDlg::RemoveSessionNames(
+	CUser* pSession)
 {
-	string upperName = pSession->m_strAccountID;
+	std::string upperName = pSession->m_strAccountID;
 	STRTOUPPER(upperName);
 
 	{ // remove account name from map (limit scope)
@@ -1628,9 +1636,10 @@ void CGameServerDlg::GetRegionNpcList(
 	}
 }
 
-void CGameServerDlg::HandleConsoleCommand(const char * msg) 
+void CGameServerDlg::HandleConsoleCommand(
+	const char* msg)
 {
-	string message = msg;
+	std::string message = msg;
 	if (message.empty())
 		return;
 
@@ -1645,8 +1654,8 @@ void CGameServerDlg::HandleConsoleCommand(const char * msg)
 
 bool CGameServerDlg::LoadNoticeData()
 {
-	ifstream file("./Notice.txt");
-	string line;
+	std::ifstream file("./Notice.txt");
+	std::string line;
 	int count = 0;
 
 	// Clear out the notices first
@@ -2421,7 +2430,7 @@ void CGameServerDlg::ForgettenTempleEventTimer()
 
 void CGameServerDlg::Announcement(uint16_t type, int nation, int chat_type, CUser* pExceptUser, CNpc* pExpectNpc)
 {
-	string chatstr; 
+	std::string chatstr; 
 	uint8_t ZoneID = 0;
 
 	switch (type)
@@ -2561,7 +2570,7 @@ void CGameServerDlg::Announcement(uint16_t type, int nation, int chat_type, CUse
 	}
 
 	Packet result;
-	string finalstr;
+	std::string finalstr;
 	GetServerResource(IDP_ANNOUNCEMENT, &finalstr, chatstr.c_str());
 	ChatPacket::Construct(&result, (uint8_t) chat_type, &finalstr);
 	Send_All(&result, nullptr, nation, ZoneID);
@@ -2579,7 +2588,7 @@ void CGameServerDlg::GetUserRank(CUser *pUser)
 	Guard lock(m_userRankingsLock);
 
 	// Get character's name & convert it to upper case for case insensitivity
-	string strUserID = pUser->GetName();
+	std::string strUserID = pUser->GetName();
 	STRTOUPPER(strUserID);
 
 	// Grab the personal rank from the map, if applicable.
@@ -2956,25 +2965,29 @@ void CGameServerDlg::ShowNpcEffect(uint16_t sNpcID, uint32_t nEffectID, uint8_t 
 	g_pMain->Send_Zone(&result, ZoneID);
 }
 
-void CGameServerDlg::WriteDeathUserLogFile(string & logMessage)
+void CGameServerDlg::WriteDeathUserLogFile(
+	const std::string& logMessage)
 {
 	fwrite(logMessage.c_str(), logMessage.length(), 1, m_fpDeathUser);
 	fflush(m_fpDeathUser);
 }
 
-void CGameServerDlg::WriteDeathNpcLogFile(string & logMessage)
+void CGameServerDlg::WriteDeathNpcLogFile(
+	const std::string& logMessage)
 {
 	fwrite(logMessage.c_str(), logMessage.length(), 1, m_fpDeathNpc);
 	fflush(m_fpDeathNpc);
 }
 
-void CGameServerDlg::WriteChatLogFile(string & logMessage)
+void CGameServerDlg::WriteChatLogFile(
+	const std::string& logMessage)
 {
 	fwrite(logMessage.c_str(), logMessage.length(), 1, m_fpChat);
 	fflush(m_fpChat);
 }
 
-void CGameServerDlg::WriteCheatLogFile(string & logMessage)
+void CGameServerDlg::WriteCheatLogFile(
+	const std::string& logMessage)
 {
 	fwrite(logMessage.c_str(), logMessage.length(), 1, m_fpCheat);
 	fflush(m_fpCheat);

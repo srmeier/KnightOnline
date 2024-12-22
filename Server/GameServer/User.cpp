@@ -7,8 +7,6 @@
 #include <algorithm>
 #include "../shared/DateTime.h"
 
-using namespace std;
-
 CUser::CUser(uint16_t socketID, SocketMgr *mgr) : KOSocket(socketID, mgr, -1, 16384, 3172), Unit(UnitPlayer)
 {
 	m_bHasCheckedClientVersion = false;
@@ -522,8 +520,6 @@ void CUser::Update()
 void CUser::SendLoyaltyChange(int32_t nChangeAmount /*= 0*/, bool bIsKillReward /* false */, bool bIsBonusReward /* false */, bool bIsAddLoyaltyMonthly /* true */)
 {
 	Packet result(WIZ_LOYALTY_CHANGE);
-	uint32_t nClanLoyaltyAmount = 0;
-
 	int32_t nChangeAmountLoyaltyMonthly = nChangeAmount;
 
 	// If we're taking NP, we need to prevent us from hitting values below 0.
@@ -622,43 +618,18 @@ void CUser::SendLoyaltyChange(int32_t nChangeAmount /*= 0*/, bool bIsKillReward 
 				m_iLoyaltyPremiumBonus += GetPremiumProperty(PremiumBonusLoyalty);
 			}
 		}
-
-		CKnights * pKnights = g_pMain->GetClanPtr(GetClanID());
-
-		if (pKnights && pKnights->m_byFlag >= ClanTypeAccredited5 && pKnights->GetClanPointMethod() == 0 && !bIsBonusReward)
-		{
-			if (pKnights->m_sMembers > 0 && pKnights->m_sMembers <= MAX_CLAN_USERS)
-			{
-				if (pKnights->m_sMembers <= 5)
-					nClanLoyaltyAmount = 1;
-				else if (pKnights->m_sMembers <= 10)
-					nClanLoyaltyAmount = 2;
-				else if (pKnights->m_sMembers <= 15)
-					nClanLoyaltyAmount = 3;
-				else if (pKnights->m_sMembers <= 20)
-					nClanLoyaltyAmount = 4;
-				else if (pKnights->m_sMembers <= 25)
-					nClanLoyaltyAmount = 5;
-				else if (pKnights->m_sMembers <= 30)
-					nClanLoyaltyAmount = 6;
-				else if (pKnights->m_sMembers > 30)
-					nClanLoyaltyAmount = 7;
-
-				m_iLoyalty -= nClanLoyaltyAmount;
-				CKnightsManager::AddUserDonatedNP(GetClanID(), m_strUserID, nClanLoyaltyAmount, true);
-			}
-		}
 	}
 
-	result << uint8_t(LOYALTY_NATIONAL_POINTS)
-		<< m_iLoyalty << m_iLoyaltyMonthly
-		<< uint32_t(0) // Clan donations(? Donations made by this user? For the clan overall?)
-		<< nClanLoyaltyAmount; // Premium NP(? Additional NP gained?)
+	result
+		<< uint8_t(LOYALTY_NATIONAL_POINTS)
+		<< uint32_t(m_iLoyalty)
+		<< uint32_t(m_iLoyaltyMonthly);
 
 	Send(&result);
 
 	// Player is give first np, second exp and third meat dumpling etc.
-	if (bIsKillReward && nChangeAmount > 0)
+	if (bIsKillReward
+		&& nChangeAmount > 0)
 	{
 		if (isInPKZone() || GetMap()->isWarZone())
 			ExpChange(PVP_BONUS_EXP, true);
@@ -688,7 +659,7 @@ uint8_t CUser::GetRankReward(bool isMonthly)
 
 	Guard lock(g_pMain->m_userRankingsLock);
 
-	string strUserID = GetName();
+	std::string strUserID = GetName();
 	STRTOUPPER(strUserID);
 
 	UserNameRankMap::iterator itr;
@@ -884,138 +855,135 @@ void CUser::SendMyInfo()
 		m_bRank = 0; // totally not da King.
 
 	result.SByte();
-	result	<< GetSocketID()
+	result
+		<< uint16_t(GetSocketID())
 		<< GetName()
-		<< GetSPosX() << GetSPosZ() << GetSPosY()
-		<< GetNation() 
-		<< m_bRace << m_sClass << m_bFace
-		<< m_nHair
-		<< m_bRank << m_bTitle
-		<< GetLevel()
-		<< int8_t(m_sPoints) // NOTE: int16_t to int8_t
-		<< uint32_t(m_iMaxExp) << uint32_t(m_iExp)
-		<< GetLoyalty() << GetMonthlyLoyalty()
-		<< m_bCity << GetClanID() ;
+		<< uint16_t(GetSPosX())
+		<< uint16_t(GetSPosZ())
+		<< int16_t(GetSPosY())
+		<< uint8_t(GetNation())
+		<< uint8_t(m_bRace)
+		<< uint16_t(m_sClass)
+		<< uint8_t(m_bFace)
+		<< uint8_t(m_byHair)
+		<< uint8_t(m_bRank)
+		<< uint8_t(m_bTitle)
+		<< uint8_t(GetLevel())
+		<< uint8_t(m_sPoints) // NOTE: int16_t to uint8_t
+		<< uint32_t(m_iMaxExp)
+		<< uint32_t(m_iExp)
+		<< uint32_t(GetLoyalty())
+		<< uint32_t(GetMonthlyLoyalty())
+		<< uint8_t(m_bCity)
+		<< uint16_t(GetClanID());
 
 	if (isInClan())
 		pKnights = g_pMain->GetClanPtr(GetClanID());
 
 	if (pKnights == nullptr)
 	{
-		//result << uint8_t(0) << uint16_t(0) << uint8_t(0) << uint8_t(0);
-		result << uint64_t(0) << uint8_t(0) << uint16_t(-1);
+		result
+			<< uint8_t(0)	// Fame
+			<< uint16_t(0)	// Alliance ID
+			<< uint8_t(0)	// Clan type ('Flag')
+			<< uint8_t(0)	// Name length
+			<< uint8_t(0)	// Grade
+			<< uint8_t(0)	// Rank
+			<< uint16_t(0)	// Mark version
+			<< int16_t(-1);	// Cape ID
 	}
 	else 
 	{
 		if (pKnights->m_sAlliance != 0)
-		{
-		pKnights->OnLoginAlliance(this);
-		}
+			pKnights->OnLoginAlliance(this);
 		else
-		pKnights->OnLogin(this);
+			pKnights->OnLogin(this);
 
-		CKnights *aKnights = g_pMain->GetClanPtr(pKnights->GetAllianceID());
+		CKnights* aKnights = g_pMain->GetClanPtr(pKnights->GetAllianceID());
 
 		result
-			<< GetFame()
-			<< pKnights->GetAllianceID()
-			<< pKnights->m_byFlag
+			<< uint8_t(GetFame())
+			<< uint16_t(pKnights->GetAllianceID())
+			<< uint8_t(pKnights->m_byFlag)
 			<< pKnights->m_strName
-			<< pKnights->m_byGrade << pKnights->m_byRanking
+			<< uint8_t(pKnights->m_byGrade)
+			<< uint8_t(pKnights->m_byRanking)
 			<< uint16_t(pKnights->m_sMarkVersion)
-			<< pKnights->GetCapeID(aKnights);
-
-		/* NOTE(srmeier): 1068 packet
-		result
-			<< GetFame()
-			//<< pKnights->GetAllianceID()
-			//<< pKnights->m_byFlag
-			<< pKnights->m_strName
-			<< pKnights->m_byGrade << pKnights->m_byRanking ;
-			//<< uint16_t(pKnights->m_sMarkVersion)
-			//<< pKnights->GetCapeID(aKnights);
-		*/
+			<< int16_t(pKnights->GetCapeID(aKnights));
 	}
 
 	result
-		<< m_iMaxHp << m_sHp
-		<< m_iMaxMp << m_sMp
-		<< uint16_t(m_sMaxWeight) << m_sItemWeight
-		<< GetStat(STAT_STR) << uint8_t(GetStatItemBonus(STAT_STR))
-		<< GetStat(STAT_STA) << uint8_t(GetStatItemBonus(STAT_STA))
-		<< GetStat(STAT_DEX) << uint8_t(GetStatItemBonus(STAT_DEX))
-		<< GetStat(STAT_INT) << uint8_t(GetStatItemBonus(STAT_INT))
-		<< GetStat(STAT_CHA) << uint8_t(GetStatItemBonus(STAT_CHA))
-		<< m_sTotalHit << m_sTotalAc
-		<< uint8_t(m_sFireR) << uint8_t(m_sColdR) << uint8_t(m_sLightningR)
-		<< uint8_t(m_sMagicR) << uint8_t(m_sDiseaseR) << uint8_t(m_sPoisonR)
-		<< m_iGold
+		<< uint16_t(m_iMaxHp)
+		<< uint16_t(m_sHp)
+		<< uint16_t(m_iMaxMp)
+		<< uint16_t(m_sMp)
+		<< uint16_t(m_sMaxWeight)
+		<< uint16_t(m_sItemWeight)
+		<< uint8_t(GetStat(STAT_STR))
+		<< uint8_t(GetStatItemBonus(STAT_STR))
+		<< uint8_t(GetStat(STAT_STA))
+		<< uint8_t(GetStatItemBonus(STAT_STA))
+		<< uint8_t(GetStat(STAT_DEX))
+		<< uint8_t(GetStatItemBonus(STAT_DEX))
+		<< uint8_t(GetStat(STAT_INT))
+		<< uint8_t(GetStatItemBonus(STAT_INT))
+		<< uint8_t(GetStat(STAT_CHA))
+		<< uint8_t(GetStatItemBonus(STAT_CHA))
+		<< uint16_t(m_sTotalHit)
+		<< uint16_t(m_sTotalAc)
+		<< uint8_t(m_sFireR)
+		<< uint8_t(m_sColdR)
+		<< uint8_t(m_sLightningR)
+		<< uint8_t(m_sMagicR)
+		<< uint8_t(m_sDiseaseR)
+		<< uint8_t(m_sPoisonR)
+		<< uint32_t(m_iGold)
+		<< uint8_t(m_bAuthority)
 #if __VERSION > 1264
-		<< m_bAuthority
-		<< m_bKnightsRank << m_bPersonalRank; // national rank, leader rank
-#else
-		<< m_bAuthority;
+		<< int8_t(m_bKnightsRank)	 // national rank, leader rank
+		<< int8_t(m_bPersonalRank)
 #endif
+	;
 
 	result.append(m_bstrSkill, 9);
 
 	for (int i = 0; i < SLOT_MAX; i++)
 	{
-		_ITEM_DATA *pItem = GetItem(i); 
-		result << pItem->nNum
-			<< pItem->sDuration << pItem->sCount
-			<< pItem->bFlag	// item type flag (e.g. rented)
-			<< pItem->sRemainingRentalTime;	// remaining time
+		_ITEM_DATA* pItem = GetItem(i);
+		result
+			<< uint32_t(pItem->nNum)
+			<< uint16_t(pItem->sDuration)
+			<< uint16_t(pItem->sCount)
+			<< uint8_t(pItem->bFlag)	// item type flag (e.g. rented)
+			<< uint16_t(pItem->sRemainingRentalTime);
+	}
 
-			// NOTE: gone from 1298
-			//<< uint32_t(0) // unknown
-			//<< pItem->nExpirationTime; // expiration date in unix time
-	}
-	
-	/*
-	for (int i = 43; i <= 46; i+=3)
-	{
-		_ITEM_DATA * pItem = GetItem(i);
-		result	
-		<< pItem->nNum
-		<< pItem->sDuration
-		<< pItem->sCount
-		<< pItem->bFlag // item type flag (e.g. rented)
-		<< pItem->sRemainingRentalTime // remaining time
-		<< pItem->nExpirationTime; // expiration date in unix time
-	}
-	*/
-	
 	for (int i = 0; i < HAVE_MAX; i++)
 	{
-		_ITEM_DATA *pItem = GetItem(i+SLOT_MAX); 
-		result << pItem->nNum
-			<< pItem->sDuration << pItem->sCount
-			<< pItem->bFlag	// item type flag (e.g. rented)
-			<< pItem->sRemainingRentalTime;	// remaining time
-
-			// NOTE: gone from 1298
-			//<< uint32_t(0) // unknown
-			//<< pItem->nExpirationTime; // expiration date in unix time
+		_ITEM_DATA* pItem = GetItem(i + SLOT_MAX);
+		result
+			<< uint32_t(pItem->nNum)
+			<< uint16_t(pItem->sDuration)
+			<< uint16_t(pItem->sCount)
+			<< uint8_t(pItem->bFlag)	// item type flag (e.g. rented)
+			<< uint16_t(pItem->sRemainingRentalTime);
 	}
 
 	m_bIsChicken = CheckExistEvent(50, 1);
-	result
-		//<< m_bAccountStatus	// account status (0 = none, 1 = normal prem with expiry in hours, 2 = pc room)
-		//<< m_bPremiumType		// premium type (7 = platinum premium)
-		//<< m_sPremiumTime		// premium time
 
-		<< uint8_t(0x00) << uint8_t(0x00) << uint16_t(0x00)
-		<< m_bIsChicken						// chicken/beginner flag
-		<< m_iMannerPoint;
-		//<< uint8_t(0x00); // extra byte?
+	result
+		<< uint8_t(m_bAccountStatus)	// account status (0 = none, 1 = normal prem with expiry in hours, 2 = pc room)
+		<< uint8_t(m_bPremiumType)		// premium type (7 = platinum premium)
+		<< uint16_t(m_sPremiumTime)		// premium time
+		<< bool(m_bIsChicken)				// chicken/beginner flag
+		<< uint32_t(m_iMannerPoint);
 
 	Send(&result);
 
 	g_pMain->AddCharacterName(this);
 
 	SetZoneAbilityChange(GetZoneID());
-	//SendPremiumInfo(); // NOTE: 1298 thing - seen with packet sniff. and may not be within WIZ_MYINFO
+	SendPremiumInfo();
 	Send2AI_UserUpdateInfo(true); 
 }
 
@@ -1197,7 +1165,10 @@ void CUser::SetZoneAbilityChange(uint16_t sNewZone)
 void CUser::SendPremiumInfo()
 {
 	Packet result(WIZ_PREMIUM);
-	result << m_bAccountStatus << m_bPremiumType << uint32_t(m_sPremiumTime);
+	result
+		<< uint8_t(m_bAccountStatus)
+		<< uint8_t(m_bPremiumType)
+		<< uint32_t(m_sPremiumTime);
 	Send(&result);
 }
 
@@ -1304,40 +1275,26 @@ void CUser::SetSlotItemValue()
 	Guard lock(m_equippedItemBonusLock);
 	m_equippedItemBonuses.clear();
 
-	map<uint16_t, uint32_t> setItems;
+	std::map<uint16_t, uint32_t> setItems;
 
-	// Apply stat bonuses from all equipped & cospre items.
+	// Apply stat bonuses from all equipped items.
 	// Total up the weight of all items.
-
-	// NOTE(srmeier): changing max items to ignore the magic bag stuff
-	for (int i = 0; i < INVENTORY_COSP/*INVENTORY_TOTAL*/; i++)
+	for (int i = 0; i < INVENTORY_TOTAL; i++)
 	{
 		_ITEM_DATA * pItem = nullptr;
 		pTable = GetItemPrototype(i, pItem);
 		if (pTable == nullptr)
 			continue;
 
-		// Bags increase max weight, they do not weigh anything.
-		if (i == INVENTORY_COSP + COSP_BAG1
-			|| i == INVENTORY_COSP + COSP_BAG2)
-		{
-			m_sMaxWeightBonus += pTable->m_sDuration;
-		}
-		// All other items are attributed to the total weight of items in our inventory.
-		else
-		{
-			// Non-stackable items should have a count of 1. If not, something's broken.
-			m_sItemWeight += pTable->m_sWeight * pItem->sCount;
-		}
+		// Non-stackable items should have a count of 1. If not, something's broken.
+		m_sItemWeight += pTable->m_sWeight * pItem->sCount;
 
 		// Do not apply stats to unequipped items
-		if ((i >= SLOT_MAX && i < INVENTORY_COSP)
+		if ((i >= SLOT_MAX && i < INVENTORY_TOTAL)
 			// or disabled weapons.
 				|| (isWeaponsDisabled() 
 				&& (i == RIGHTHAND || i == LEFTHAND) 
 				&& !pTable->isShield())
-				// or items in magic bags.
-				|| i >= INVENTORY_MBAG
 				|| pItem->isDuplicate())
 				continue;
 
@@ -2357,7 +2314,7 @@ void CUser::ItemGet(Packet & pkt)
 		else
 		{
 			uint16_t sumOfLevels = 0;
-			vector<CUser *> partyUsers;
+			std::vector<CUser *> partyUsers;
 			for (int i = 0; i < MAX_PARTY_USERS; i++)
 			{
 				CUser * pUser = g_pMain->GetUserPtr(pParty->uid[i]);
@@ -2811,7 +2768,7 @@ void CUser::AppendNoticeEntry(Packet & pkt, uint8_t & elementCount, const char *
 
 void CUser::AppendExtraNoticeData(Packet & pkt, uint8_t & elementCount)
 {
-	string message;
+	std::string message;
 	if (g_pMain->m_byExpEventAmount > 0)
 	{
 		g_pMain->GetServerResource(IDS_EXP_REPAY_EVENT, &message, g_pMain->m_byExpEventAmount);
@@ -4161,7 +4118,7 @@ void CUser::ServerChangeOk(Packet & pkt)
 bool CUser::GetWarpList(int warp_group)
 {
 	C3DMap* pMap = GetMap();
-	set<_WARP_INFO*> warpList;
+	std::set<_WARP_INFO*> warpList;
 
 	if(pMap == nullptr)
 		return false; 
@@ -4725,8 +4682,8 @@ void CUser::OnDeath(Unit *pKiller)
 				m_sWhoKilledMe = pUser->GetID();
 			}
 
-			string pKillerPartyUsers;
-			string pTargetPartyUsers;
+			std::string pKillerPartyUsers;
+			std::string pTargetPartyUsers;
 
 			if (GetZoneID() != ZONE_CHAOS_DUNGEON && (pUser->isInParty() || isInParty()))
 			{
@@ -4948,7 +4905,7 @@ void CUser::CheckSavedMagic()
 	if (m_savedMagicMap.empty())
 		return;
 
-	set<uint32_t> deleteSet;
+	std::set<uint32_t> deleteSet;
 	foreach (itr, m_savedMagicMap)
 	{
 		if (itr->second <= UNIXTIME)
@@ -4968,13 +4925,13 @@ void CUser::CheckSavedMagic()
 void CUser::InsertSavedMagic(uint32_t nSkillID, uint16_t sDuration)
 {
 	Guard lock(m_savedMagicLock);
-	UserSavedMagicMap::iterator itr = m_savedMagicMap.find(nSkillID);
+	auto itr = m_savedMagicMap.find(nSkillID);
 
 	// If the buff is already in the savedBuffMap there's no need to add it again!
 	if (itr != m_savedMagicMap.end())
 		return;
 
-	m_savedMagicMap.insert(make_pair(nSkillID, UNIXTIME + sDuration));
+	m_savedMagicMap.insert(std::make_pair(nSkillID, UNIXTIME + sDuration));
 }
 
 /**
@@ -5030,7 +4987,7 @@ void CUser::RecastSavedMagic(uint8_t buffType /* = 0*/)
 	foreach (itr, m_savedMagicMap)
 	{
 		if (itr->first != 0 || itr->second != 0) 
-			castSet.insert(make_pair(itr->first, itr->second));
+			castSet.insert(std::make_pair(itr->first, itr->second));
 	}
 
 	if (castSet.empty())

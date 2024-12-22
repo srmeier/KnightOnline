@@ -4,9 +4,6 @@
 #include "MagicProcess.h"
 #include "MagicInstance.h"
 
-using std::string;
-using std::vector;
-
 void MagicInstance::Run()
 {
 	SkillUseResult result;
@@ -1274,7 +1271,7 @@ bool MagicInstance::ExecuteType3()
 		return false;
 
 	int damage = 0, duration_damage = 0;
-	vector<Unit *> casted_member;
+	std::vector<Unit *> casted_member;
 
 	// If the target's a group of people...
 	if (sTargetID == -1)
@@ -1616,7 +1613,7 @@ bool MagicInstance::ExecuteType4()
 		return false;
 
 	int damage = 0;
-	vector<Unit *> casted_member;
+	std::vector<Unit *> casted_member;
 
 	if (!bIsRecastingSavedMagic 
 		&& sTargetID >= 0 
@@ -1897,7 +1894,7 @@ bool MagicInstance::ExecuteType5()
 	if (pType == nullptr)
 		return false;
 
-	vector<CUser *> casted_member;
+	std::vector<CUser *> casted_member;
 
 	// Targeting a group of people (e.g. party)
 	if (sTargetID == -1)
@@ -2158,7 +2155,7 @@ bool MagicInstance::ExecuteType7()
 	if (pType == nullptr)
 		return false;
 
-	vector<Unit *> casted_member;
+	std::vector<Unit *> casted_member;
 
 	int damage = pType->sDamage;
 
@@ -2232,7 +2229,7 @@ bool MagicInstance::ExecuteType8()
 	if (pType == nullptr)
 		return false;
 
-	vector<CUser *> casted_member;
+	std::vector<CUser *> casted_member;
 
 	if (sTargetID == -1)
 	{

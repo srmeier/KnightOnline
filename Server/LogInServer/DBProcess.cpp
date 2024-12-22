@@ -1,6 +1,9 @@
 ﻿#include "stdafx.h"
 
-bool CDBProcess::Connect(string & szDSN, string & szUser, string & szPass)
+bool CDBProcess::Connect(
+	const std::string& szDSN,
+	const std::string& szUser,
+	const std::string& szPass)
 {
 	if (!m_dbConnection.Connect(szDSN, szUser, szPass))
 	{
@@ -13,7 +16,7 @@ bool CDBProcess::Connect(string & szDSN, string & szUser, string & szPass)
 
 bool CDBProcess::LoadVersionList()
 {
-	unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
+	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return false;
 
@@ -47,7 +50,7 @@ bool CDBProcess::LoadVersionList()
 
 bool CDBProcess::LoadUserCountList()
 {
-	unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
+	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return false;
 
@@ -75,10 +78,12 @@ bool CDBProcess::LoadUserCountList()
 	return true;
 }
 
-uint16_t CDBProcess::AccountLogin(string & strAccountID, string & strPasswd)
+uint16_t CDBProcess::AccountLogin(
+	const std::string& strAccountID,
+	const std::string& strPasswd)
 {
 	uint16_t result = 2;
-	unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
+	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return 6;
 
@@ -115,13 +120,14 @@ uint16_t CDBProcess::AccountLogin(string & strAccountID, string & strPasswd)
 	return result;
 }
 
-int16_t CDBProcess::AccountPremium(string & strAccountID)
+int16_t CDBProcess::AccountPremium(
+	const std::string& strAccountID)
 {
 	int16_t sHours = -1;
 	return sHours;
 
 	// NOTE: not sure what this would correspond to on 1298 server
-	unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
+	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return sHours;
 	

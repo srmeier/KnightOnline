@@ -31,8 +31,6 @@ INLINE int ParseSpace( char* tBuf, char* sBuf)
 	return !flag ? 0 : index;
 };
 
-using namespace std;
-
 /* passthru methods */
 int MAP::GetMapSize() { return m_smdFile->GetMapSize(); }
 float MAP::GetUnitDistance() { return m_smdFile->GetUnitDistance(); }
@@ -216,8 +214,8 @@ CRegion * MAP::GetRegion(uint16_t regionX, uint16_t regionZ)
 
 bool MAP::LoadRoomEvent()
 {
-	uint32_t		length, count;
-	string		filename = string_format(MAP_DIR "%d.evt", m_byRoomEvent);
+	uint32_t	length, count;
+	std::string	filename = string_format(MAP_DIR "%d.evt", m_byRoomEvent);
 	char		byte;
 	char		buf[4096];
 	char		first[1024];
@@ -227,7 +225,7 @@ bool MAP::LoadRoomEvent()
 	int			event_num = 0, nation = 0;
 
 	CRoomEvent*	pEvent = nullptr;
-	ifstream is(filename);
+	std::ifstream is(filename);
 	if (!is)
 	{
 		printf("ERROR: %s does not exist or no permission to access.\n", filename.c_str());

@@ -96,26 +96,34 @@ void CUser::UserInOut(uint8_t bType)
 	}
 }
 
-void CUser::GetUserInfo(Packet & pkt)
+void CUser::GetUserInfo(
+	Packet& pkt)
 {
 	pkt.SByte();
 	pkt
 		<< GetName()
-		<< GetNation()
-		<< GetClanID()
-		<< GetFame();
+		<< uint8_t(GetNation())
+		<< uint16_t(GetClanID())
+		<< uint8_t(GetFame());
 
-	CKnights * pKnights = g_pMain->GetClanPtr(GetClanID());
+	CKnights* pKnights = g_pMain->GetClanPtr(GetClanID());
 	if (pKnights == nullptr)
 	{
-		//pkt /*<< uint8_t(0)*/ << uint16_t(0) << uint8_t(0) << uint8_t(0);
-		pkt << uint32_t(0) << uint16_t(0) << uint8_t(0) << uint16_t(-1);
+		pkt
+			<< uint16_t(0)		// Alliance ID
+			<< uint16_t(0)		// Name (length)
+			<< uint8_t(0)		// Grade
+			<< uint8_t(0)		// Ranking
+			<< uint16_t(0)		// Mark version
+			<< int16_t(-1);		// Cape ID
 	}
 	else
 	{
-		pkt << pKnights->GetAllianceID()
+		pkt
+			<< pKnights->GetAllianceID()
 			<< pKnights->m_strName
-			<< pKnights->m_byGrade << pKnights->m_byRanking
+			<< pKnights->m_byGrade
+			<< pKnights->m_byRanking
 			<< uint16_t(pKnights->m_sMarkVersion) // symbol/mark version
 			<< pKnights->GetCapeID(pKnights); // cape ID 
 	}
@@ -128,38 +136,43 @@ void CUser::GetUserInfo(Packet & pkt)
 	if (bInvisibilityType != INVIS_NONE)
 		bInvisibilityType = INVIS_DISPEL_ON_MOVE;
 
-	pkt << GetLevel() << m_bRace << m_sClass
-		<< GetSPosX() << GetSPosZ() << GetSPosY()
-		<< m_bFace << m_nHair
-		<< m_bResHpType << uint32_t(m_bAbnormalType)//uint8_t(m_bAbnormalType)
-		<< m_bNeedParty
-		<< m_bAuthority
-		<< m_bPartyLeader // is party leader (bool)
-		<< bInvisibilityType // visibility state
-		//<< uint8_t(m_teamColour) // team colour (i.e. in soccer, 0=none, 1=blue, 2=red)
-		//<< m_bIsHidingHelmet // either this is correct and items are super buggy, or it causes baldness. You choose.
-		<< m_sDirection // direction
-		<< m_bIsChicken // chicken/beginner flag
-		<< m_bRank // king flag
-		<< m_bKnightsRank << m_bPersonalRank; // NP ranks (total, monthly)
+	pkt
+		<< uint8_t(GetLevel())
+		<< uint8_t(m_bRace)
+		<< uint16_t(m_sClass)
+		<< uint16_t(GetSPosX())
+		<< uint16_t(GetSPosZ())
+		<< int16_t(GetSPosY())
+		<< uint8_t(m_bFace)
+		<< uint8_t(m_byHair)
+		<< uint8_t(m_bResHpType)
+		<< uint32_t(m_bAbnormalType)
+		<< uint8_t(m_bNeedParty)
+		<< uint8_t(m_bAuthority)
+		<< bool(m_bPartyLeader)			// is party leader (bool)
+		<< uint8_t(bInvisibilityType)	// visibility state
+		<< int16_t(m_sDirection)
+		<< bool(m_bIsChicken)			// chicken/beginner flag
+		<< uint8_t(m_bRank)				// king flag
+		<< int8_t(m_bKnightsRank)		// NP ranks (total, monthly)
+		<< int8_t(m_bPersonalRank);
 
 	uint8_t equippedItems[] =
 	{
-		BREAST, LEG, HEAD, GLOVE, FOOT, SHOULDER, RIGHTHAND, LEFTHAND, CTOP, CHELMET
+		BREAST, LEG, HEAD, GLOVE, FOOT, SHOULDER, RIGHTHAND, LEFTHAND
 	};
 
 	foreach_array(i, equippedItems)
 	{
-		_ITEM_DATA * pItem = GetItem(equippedItems[i]);
-
+		_ITEM_DATA* pItem = GetItem(equippedItems[i]);
 		if (pItem == nullptr)
 			continue;
 
-		pkt << pItem->nNum << pItem->sDuration << pItem->bFlag;
+		pkt
+			<< uint32_t(pItem->nNum)
+			<< uint16_t(pItem->sDuration)
+			<< uint8_t(pItem->bFlag);
 	}
-
-	// NOTE: not sure about the rest of this
-	pkt << GetZoneID(); //<< uint8_t(-1) << uint8_t(-1) << uint16_t(0) << uint16_t(0) << uint16_t(0);
 }
 
 void CUser::Rotate(Packet & pkt)

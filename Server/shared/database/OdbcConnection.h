@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #pragma comment(lib, "odbc32.lib")
 
@@ -36,25 +36,32 @@ public:
 	bool isConnected();
 	bool isError();
 
-	INLINE HDBC GetConnectionHandle() { return m_connHandle; }
-	INLINE bool isMarsEnabled() { return m_bMarsEnabled; }
+	INLINE HDBC GetConnectionHandle()
+	{
+		return m_connHandle;
+	}
 
-	bool Connect(tstring & szDSN, tstring & szUser, tstring & szPass, bool bMarsEnabled = false);
+	INLINE bool isMarsEnabled()
+	{
+		return m_bMarsEnabled;
+	}
+
+	bool Connect(const tstring& szDSN, const tstring& szUser, const tstring& szPass, bool bMarsEnabled = false);
 	bool Connect();
 
-	OdbcCommand *CreateCommand();
+	OdbcCommand* CreateCommand();
 	static tstring GetSQLError(SQLSMALLINT handleType, SQLHANDLE handle);
 
-	OdbcError *GetError();
+	OdbcError* GetError();
 	void ResetErrors();
 
 	void Disconnect();
 	~OdbcConnection();
 
 private:
-	void AddCommand(OdbcCommand *dbCommand);
-	void RemoveCommand(OdbcCommand *dbCommand);
-	tstring ReportSQLError(SQLSMALLINT handleType, SQLHANDLE handle, const TCHAR *szSource, const TCHAR *szError, ...);
+	void AddCommand(OdbcCommand* dbCommand);
+	void RemoveCommand(OdbcCommand* dbCommand);
+	tstring ReportSQLError(SQLSMALLINT handleType, SQLHANDLE handle, const TCHAR* szSource, const TCHAR* szError, ...);
 
 	void Close();
 	void ResetHandles();
@@ -65,10 +72,10 @@ private:
 	HENV m_envHandle;
 	HDBC m_connHandle;
 
-	std::recursive_mutex * m_lock;
+	std::recursive_mutex* m_lock;
 
-	std::vector<OdbcError   *> m_odbcErrors;
-	std::set   <OdbcCommand *> m_commandSet;
+	std::vector<OdbcError*> m_odbcErrors;
+	std::set<OdbcCommand*> m_commandSet;
 
-	 bool m_bMarsEnabled;
+	bool m_bMarsEnabled;
 };

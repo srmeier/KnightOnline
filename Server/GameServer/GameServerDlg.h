@@ -492,20 +492,20 @@ public:
 	// XP/coin/NP events
 	uint8_t m_byNPEventAmount, m_byExpEventAmount, m_byCoinEventAmount;
 
-	INLINE CLuaEngine * GetLuaEngine() { return &m_luaEngine; }
+	INLINE CLuaEngine* GetLuaEngine() { return &m_luaEngine; }
 
 	KOSocketMgr<CUser> m_socketMgr;
 	ClientSocketMgr<CAISocket> m_aiSocketMgr;
 
-	FILE *m_fpDeathUser;
-	FILE *m_fpDeathNpc;
-	FILE *m_fpChat;
-	FILE *m_fpCheat;
+	FILE* m_fpDeathUser;
+	FILE* m_fpDeathNpc;
+	FILE* m_fpChat;
+	FILE* m_fpCheat;
 
-	void WriteDeathUserLogFile(std::string & logMessage);
-	void WriteDeathNpcLogFile(std::string & logMessage);
-	void WriteChatLogFile(std::string & logMessage);
-	void WriteCheatLogFile(std::string & logMessage);
+	void WriteDeathUserLogFile(const std::string& logMessage);
+	void WriteDeathNpcLogFile(const std::string& logMessage);
+	void WriteChatLogFile(const std::string& logMessage);
+	void WriteCheatLogFile(const std::string& logMessage);
 
 private:
 	CLuaEngine	m_luaEngine;

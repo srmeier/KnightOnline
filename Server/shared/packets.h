@@ -130,6 +130,20 @@
 
 #define WIZ_TEST_PACKET			0xFF	// Test packet
 
+enum e_LoginOpcode
+{
+	LS_VERSION_REQ				= 0x01,
+	LS_DOWNLOADINFO_REQ			= 0x02,
+	LS_CRYPTION					= 0xF2,
+	LS_LOGIN_REQ				= 0xF3,
+	LS_MGAME_LOGIN				= 0xF4,
+	LS_SERVERLIST				= 0xF5,
+	LS_NEWS						= 0xF6,
+
+	NUM_LS_OPCODES
+};
+
+
 enum e_CoinChangeOpcode
 {
 	CoinGain = 1,
@@ -379,20 +393,6 @@ enum
 	KNIGHTS_MARK_REGION_REQ	= 0x25,
 
 	KNIGHTS_UPDATE_GRADE	= 0x30,
-	KNIGHTS_POINT_REQ		= 0x3B,
-	KNIGHTS_POINT_METHOD	= 0x3C,
-	KNIGHTS_DONATE_POINTS	= 0x3D,
-	KNIGHTS_HANDOVER_VICECHIEF_LIST	= 0x3E,
-	KNIGHTS_HANDOVER_REQ	= 0x3F,
-
-	KNIGHTS_DONATION_LIST	= 0x40,
-	KNIGHTS_TOP10			= 0x41,
-	KNIGHTS_HANDOVER		= 0x4F,
-
-	// These are NOT official client opcodes.
-	// They are opcodes for the database thread only.
-	KNIGHTS_REFUND_POINTS	= 0xF0,
-	KNIGHTS_UPDATE_FUND		= 0xF1
 };
 
 enum OperatorCommands
