@@ -25,6 +25,7 @@
 #include "UIStateBar.h"
 #include "UITargetBar.h"
 #include "UITransactionDlg.h"
+#include "UIExitMenu.h"
 #include "UIHelp.h"
 #include "UIMessageWnd.h"
 #include "UINotice.h"
@@ -113,6 +114,7 @@ static std::string s_szCmdMsg[CMD_COUNT]; // 게임상 명령어
 
 CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은 헤더 참조..
 {	
+	m_fExitTimer = -1.0f;
 	m_fLBClickTime = 0.0f;
 	m_bLoadComplete	= FALSE;
 	m_fRequestGameSave = 300.0f;
@@ -133,6 +135,7 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은
 	m_pUIVar = new CUIVarious();
 	m_pUICmd = new CUICmd();
 	m_pUITargetBar = new CUITargetBar();
+	m_pUIExitMenu = new CUIExitMenu();
 	m_pUIHelp = new CUIHelp();
 	m_pUINotice = new CUINotice();
 	m_pUIClassChange = new CUIClassChange();
@@ -183,6 +186,7 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIVar;
 	delete m_pUICmd;
 	delete m_pUITargetBar;
+	delete m_pUIExitMenu;
 	delete m_pUIHelp;
 	delete m_pUINotice;
 	delete m_pUIClassChange;
@@ -244,6 +248,7 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIVar->Release();
 	m_pUIStateBarAndMiniMap->Release();
 	m_pUITargetBar->Release();
+	m_pUIExitMenu->Release();
 	m_pUIHelp->Release();
 	m_pUINotice->Release();
 	m_pUIClassChange->Release();
@@ -3796,6 +3801,14 @@ void CGameProcMain::InitUI()
 	m_pUITargetBar->SetPos((iW - (rc.right - rc.left))/2, 0);
 	m_pUITargetBar->SetVisibleWithNoSound(false);
 
+	m_pUIExitMenu->Init(s_pUIMgr);
+	m_pUIExitMenu->LoadFromFile(pTbl->szExitMenu);
+	m_pUIExitMenu->SetVisibleWithNoSound(false);
+	rc = m_pUIExitMenu->GetRegion();
+	m_pUIExitMenu->SetPos((iW - (rc.right - rc.left)) / 2, (iH - (rc.bottom - rc.top)) / 2);
+	m_pUIExitMenu->SetState(UI_STATE_COMMON_NONE);
+	m_pUIExitMenu->SetStyle(m_pUIExitMenu->GetStyle() | UISTYLE_SHOW_ME_ALONE);
+
 	m_pUIHelp->Init(s_pUIMgr);
 	m_pUIHelp->LoadFromFile(pTbl->szHelp);
 	CGameProcedure::UIPostData_Read(UI_POST_WND_HELP, m_pUIHelp, 0, 0);
@@ -5513,6 +5526,12 @@ void CGameProcMain::MsgRecv_ObjectEvent(Packet& pkt)
 	}
 }
 
+void CGameProcMain::RequestExit()
+{
+	if (m_pUIExitMenu != nullptr)
+		m_pUIExitMenu->SetVisible(true);
+}
+
 void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 {
 	static char szCmds[4][1024] = { "", "", "", "" };
@@ -5599,7 +5618,7 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 
 		case CMD_EXIT:
 		{
-			PostQuitMessage(0);
+			RequestExit();
 		}
 		break;
 

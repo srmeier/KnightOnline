@@ -100,6 +100,8 @@ bool CGameProcedure::s_bWindowed = false; // 창모드 실행??
 bool CGameProcedure::s_bKeyPress = false;	//키가 눌려졌을때 ui에서 해당하는 조작된적이 있다면
 bool CGameProcedure::s_bKeyPressed = false;	//키가 올라갔을때 ui에서 해당하는 조작된적이 있다면
 
+bool CGameProcedure::s_bIsRestarting = false;
+
 // NOTE: adding boolean to check if window has focus or not
 bool CGameProcedure::s_bIsWindowInFocus = true;
 
@@ -529,11 +531,15 @@ bool CGameProcedure::CaptureScreenAndSaveToFile(const std::string& szFN)
 */
 }
 
-void CGameProcedure::ProcActiveSet(CGameProcedure *pProc)
+void CGameProcedure::ProcActiveSet(CGameProcedure* pProc)
 {
-	if(NULL == pProc || s_pProcActive == pProc) return;
+	if (pProc == nullptr
+		|| s_pProcActive == pProc)
+		return;
 
-	if(s_pUIMgr) s_pUIMgr->EnableOperationSet(true); // UI를 조작할수 있게 한다..
+	if (s_pUIMgr != nullptr)
+		s_pUIMgr->EnableOperationSet(true); // UI를 조작할수 있게 한다..
+
 	CGameProcedure::MessageBoxClose(-1); // MessageBox 가 떠 있으면 감춘다.
 
 	s_pProcPrev = s_pProcActive; // 전의 것 포인터 기억..

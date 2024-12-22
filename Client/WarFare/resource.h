@@ -1,4 +1,4 @@
-//{{NO_DEPENDENCIES}}
+﻿//{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
 // Used by Resource.rc
 //
@@ -601,6 +601,8 @@
 #define IDS_DEAD_REVIVAL_MESSAGE        6603
 #define IDS_DEAD_LOW_LEVEL              6604
 #define IDS_INVEN_WEIGHT                6605
+#define IDS_CONNECTING_PLEASE_WAIT		6609
+#define IDS_CANNOT_EXIT_DURING_A_BATTLE	7634
 
 // Next default values for new objects
 // 

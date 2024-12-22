@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "GameProcCharacterSelect.h"
-
+#include "GameProcedure.h"
 #include "resource.h"
 #include "PacketDef.h"
 #include "GameEng.h"
@@ -215,7 +215,10 @@ void CGameProcCharacterSelect::Init()
 			break;
 	}
 
-	this->MsgSend_RequestAllCharacterInfo(); // 캐릭터 정보 요청..
+	if (s_bIsRestarting)
+		MsgSend_VersionCheck();
+	else
+		MsgSend_RequestAllCharacterInfo(); // 캐릭터 정보 요청..
 }
 
 void CGameProcCharacterSelect::Tick()
@@ -653,16 +656,39 @@ int	CGameProcCharacterSelect::MsgRecv_VersionCheck(Packet& pkt) // virtual
 	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pkt);
 	if(iVersion == CURRENT_VERSION)
 	{
-		this->MsgSend_CharacterSelect(); // 게임 서버에 로그인..
+		if (s_bIsRestarting)
+			MsgSend_GameServerLogIn();
+		else
+			MsgSend_CharacterSelect(); // 게임 서버에 로그인..
 	}
 
 	return iVersion;
 }
 
+int CGameProcCharacterSelect::MsgRecv_GameServerLogIn(Packet& pDataPack)
+{
+	int iNation = CGameProcedure::MsgRecv_GameServerLogIn(pDataPack);
+	if (0xff == iNation)
+	{
+		std::string szMsg;
+		::_LoadStringFromResource(IDS_FMT_GAME_SERVER_LOGIN_ERROR, szMsg);
+		char szBuffer[256];
+		sprintf(szBuffer, szMsg.c_str(), "Current", iNation);
+		MessageBoxPost(szBuffer, "", MB_OK, BEHAVIOR_EXIT);
+	}
+	else
+	{
+		MsgSend_RequestAllCharacterInfo();
+		s_bIsRestarting = false;
+	}
+
+	return iNation;
+}
 
 bool CGameProcCharacterSelect::MsgRecv_CharacterSelect(Packet& pkt) // virtual
 {
 	bool bSuccess = CGameProcedure::MsgRecv_CharacterSelect(pkt);
+	s_bIsRestarting = false;
 
 	if(bSuccess) this->CharacterSelect(); // 캐릭터를 일으킨다..
 	else this->CharacterSelectFailed();
