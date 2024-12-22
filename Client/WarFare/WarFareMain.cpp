@@ -78,8 +78,11 @@ int APIENTRY WinMain(
 	*/
 
 	// NOTE: what is the viewport's color depth?
-	CN3Base::s_Options.iViewColorDepth = ini.GetInt("ViewPort", "ColorDepth", 16);
-	if(CN3Base::s_Options.iViewColorDepth != 16 && CN3Base::s_Options.iViewColorDepth != 32)
+	// Officially this defaults to 16-bit, but this isn't as supported these days so we should
+	// just default to 32-bit to ensure compatibility with ChangeDisplaySettings().
+	CN3Base::s_Options.iViewColorDepth = ini.GetInt("ViewPort", "ColorDepth", 32);
+	if (CN3Base::s_Options.iViewColorDepth != 16
+		&& CN3Base::s_Options.iViewColorDepth != 32)
 		CN3Base::s_Options.iViewColorDepth = 32;
 
 	// NOTE: what is the viewport's draw distance?

@@ -260,7 +260,12 @@ bool CN3Eng::Init(
 	s_hWndBase = hWnd;
 
 	// FIX (srmeier): I really have no idea what the second arguement here should be
-	int nAMC = m_lpD3D->GetAdapterModeCount(0, D3DFMT_X8R8G8B8); // 디스플레이 모드 카운트
+	int nModesX8R8G8B8 = m_lpD3D->GetAdapterModeCount(0, D3DFMT_X8R8G8B8);
+	int nModesR8G8B8 = m_lpD3D->GetAdapterModeCount(0, D3DFMT_R8G8B8);
+	int nModesR5G6B5 = m_lpD3D->GetAdapterModeCount(0, D3DFMT_R5G6B5);
+
+	// 디스플레이 모드 카운트
+	int nAMC = nModesX8R8G8B8 + nModesR8G8B8 + nModesR5G6B5;
 	if(nAMC <= 0)
 	{
 		//MessageBox(hWnd, "Can't create D3D - Invalid display mode property.", "initialization", MB_OK);
@@ -276,13 +281,20 @@ bool CN3Eng::Init(
 	m_DeviceInfo.DevType = D3DDEVTYPE_HAL;
 	m_DeviceInfo.nDevice = 0;
 	m_DeviceInfo.nModeCount = nAMC;
+
 	delete [] m_DeviceInfo.pModes;
 	m_DeviceInfo.pModes = new D3DDISPLAYMODE[nAMC];
-	for(int i = 0; i < nAMC; i++)
-	{
-		// FIX (srmeier): I really have no idea what the second arguement here should be
-		m_lpD3D->EnumAdapterModes(0, D3DFMT_X8R8G8B8, i, &m_DeviceInfo.pModes[i]); // 디스플레이 모드 가져오기..
-	}
+
+	// 디스플레이 모드 가져오기..
+	int nModeOffset = 0;
+	for (int i = 0; i < nModesX8R8G8B8; i++)
+		m_lpD3D->EnumAdapterModes(0, D3DFMT_X8R8G8B8, i, &m_DeviceInfo.pModes[nModeOffset++]);
+
+	for (int i = 0; i < nModesR8G8B8; i++)
+		m_lpD3D->EnumAdapterModes(0, D3DFMT_R8G8B8, i, &m_DeviceInfo.pModes[nModeOffset++]);
+
+	for (int i = 0; i < nModesR5G6B5; i++)
+		m_lpD3D->EnumAdapterModes(0, D3DFMT_R5G6B5, i, &m_DeviceInfo.pModes[nModeOffset++]);
 
 	D3DDEVTYPE DevType = D3DDEVTYPE_REF;
 	if(TRUE == bUseHW) DevType = D3DDEVTYPE_HAL;
@@ -292,16 +304,21 @@ bool CN3Eng::Init(
 	s_DevParam.EnableAutoDepthStencil = TRUE;
 	s_DevParam.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	s_DevParam.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-	s_DevParam.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
+	s_DevParam.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	D3DFORMAT BBFormat = D3DFMT_UNKNOWN;
-	if(TRUE == bWindowed) // 윈도우 모드일 경우
+	if (TRUE == bWindowed) // 윈도우 모드일 경우
 	{
 		D3DDISPLAYMODE dm;
 		m_lpD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &dm);
 		s_DevParam.BackBufferCount = 1;
-		if(dwWidth <= 0) dwWidth = dm.Width;
-		if(dwHeight <= 0) dwHeight = dm.Height;
+
+		if (dwWidth <= 0)
+			dwWidth = dm.Width;
+
+		if (dwHeight <= 0)
+			dwHeight = dm.Height;
+
 		BBFormat = dm.Format;
 		s_DevParam.hDeviceWindow = s_hWndBase;
 	}
@@ -309,9 +326,14 @@ bool CN3Eng::Init(
 	{
 		s_DevParam.BackBufferCount = 1;
 		s_DevParam.AutoDepthStencilFormat = D3DFMT_D16; // 자동 생성이면 무시된다.
-		if(16 == dwBPP) BBFormat = D3DFMT_R5G6B5;
-		else if(24 == dwBPP) BBFormat = D3DFMT_R8G8B8;
-		else if(32 == dwBPP) BBFormat = D3DFMT_X8R8G8B8;
+
+		if (16 == dwBPP)
+			BBFormat = D3DFMT_R5G6B5;
+		else if (24 == dwBPP)
+			BBFormat = D3DFMT_R8G8B8;
+		else if (32 == dwBPP)
+			BBFormat = D3DFMT_X8R8G8B8;
+
 		s_DevParam.hDeviceWindow = s_hWndBase;
 	}
 
