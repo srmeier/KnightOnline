@@ -54,15 +54,6 @@ public:
 
 	virtual uint16_t GetID() = 0;
 	INLINE uint8_t GetZoneID() { return m_bZone; }
-	INLINE uint16_t GetEventRoom() { return m_bEventRoom > (uint16_t)MAX_TEMPLE_EVENT_ROOM ? 0 : m_bEventRoom; }
-
-	INLINE bool isInTempleEventZone(uint8_t nZoneID = 0) 
-	{
-		if (nZoneID == 0)
-			nZoneID = GetZoneID();
-
-		return nZoneID == ZONE_BORDER_DEFENSE_WAR || nZoneID == ZONE_CHAOS_DUNGEON || nZoneID == ZONE_JURAD_MOUNTAIN; 
-	}
 
 	INLINE float GetX() { return m_curx; }
 	INLINE float GetY() { return m_cury; }
@@ -208,7 +199,6 @@ public:
 	virtual bool CanAttack(Unit * pTarget);
 	virtual bool isAttackable(Unit * pTarget = nullptr);
 	virtual bool CanCastRHit(uint16_t m_SocketID);
-	virtual bool isSameEventRoom(Unit * pTarget);
 
 	void OnDeath(Unit *pKiller);
 	void SendDeathAnimation(Unit *pKiller = nullptr);

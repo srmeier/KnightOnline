@@ -49,21 +49,13 @@ typedef std::map<uint16_t, QuestHelperList>			QuestEventIndex;
 
 typedef std::vector<_MONSTER_SUMMON_LIST>			MonsterSummonList;
 typedef CSTLMap <MonsterSummonList>					MonsterSummonListArray;
-typedef CSTLMap <_MONSTER_RESPAWN_LIST>				MonsterRespawnListArray;
-typedef CSTLMap <_MONSTER_RESPAWN_LIST_INFORMATION>	MonsterRespawnListInformationArray;
-
-typedef CSTLMap <_PREMIUM_ITEM>						PremiumItemArray;
-typedef CSTLMap <_PREMIUM_ITEM_EXP>					PremiumItemExpArray;
 
 typedef CSTLMap <_USER_RANKING>						UserRankingArray;
-
-typedef CSTLMap <_TEMPLE_EVENT_USER>				TempleEventUserArray;
 
 typedef CSTLMap <_EVENT_TRIGGER>					EventTriggerArray;
 typedef CSTLMap <_MONUMENT_INFORMATION>				NationMonumentInformationArray;
 typedef CSTLMap <_MONSTER_CHALLENGE>				MonsterChallengeArray;
 typedef CSTLMap <_MONSTER_CHALLENGE_SUMMON_LIST>	MonsterChallengeSummonListArray;
-typedef CSTLMap <_START_POSITION_RANDOM>			StartPositionRandomArray;
 typedef CSTLMap <_USER_ITEM>						UserItemArray;
 typedef CSTLMap <_OBJECT_EVENT>						ObjectEventArray;
 typedef CSTLMap <_KNIGHTS_SIEGE_WARFARE>			KnightsSiegeWarfareArray;

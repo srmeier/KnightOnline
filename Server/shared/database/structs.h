@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 struct _MAGIC_TABLE
 {
@@ -259,33 +259,6 @@ struct _MONSTER_SUMMON_LIST
 	uint16_t	sLevel;
 	uint16_t	sProbability;
 	uint8_t	bType;
-};
-
-struct _MONSTER_SUMMON_LIST_ZONE
-{
-	uint32_t	nIndex;
-	uint16_t	ZoneID;
-	uint16_t	sSid;
-	uint8_t	byFamily;
-};
-
-struct _MONSTER_RESPAWN_LIST
-{
-	uint16_t	sIndex;
-	uint16_t	sSid;
-	uint16_t	sCount;
-};
-
-struct _MONSTER_RESPAWN_LIST_INFORMATION
-{
-	uint16_t sIndex;
-	uint16_t sSid;
-	uint8_t ZoneID;
-	uint16_t X;
-	uint16_t Y;
-	uint16_t Z;
-	uint16_t	sCount;
-	uint8_t bRadius;
 };
 
 #define MAX_PARTY_USERS		8

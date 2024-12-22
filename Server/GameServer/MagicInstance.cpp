@@ -201,9 +201,6 @@ SkillUseResult MagicInstance::UserCanCast()
 			return SkillUseFail;
 		*/
 
-		if (pSkillCaster->GetZoneID() == ZONE_CHAOS_DUNGEON && !g_pMain->pTempleEvent.isAttackable)
-			return SkillUseFail;
-
 		if ((pSkillCaster->GetMana() - pSkill->sMsp) < 0)
 			return SkillUseFail;
 
@@ -369,8 +366,7 @@ SkillUseResult MagicInstance::CheckSkillPrerequisites()
 				if ((pSkill->sRange > 0 
 					//&& pSkill->sUseStanding == 0 
 					&& (pSkillCaster->GetDistanceSqrt(pSkillTarget) >= (float)pSkill->sRange))  // Skill Range Check
-					|| (pCaster->isInSafetyArea() && nSkillID < 400000) // Disable Skill in Safety Area 
-					|| (pCaster->isInTempleEventZone() &&  !pCaster->isSameEventRoom(pSkillTarget))) // If EventRoom is not same disable Skill.
+					|| (pCaster->isInSafetyArea() && nSkillID < 400000)) // Disable Skill in Safety Area 
 					return SkillUseFail;
 			}
 
@@ -813,11 +809,6 @@ bool MagicInstance::IsAvailable()
 {
 	CUser* pParty = nullptr;
 	int modulator = 0, Class = 0, skill_mod = 0;
-
-	if (pSkill == nullptr
-		|| (pSkillCaster->GetZoneID() == ZONE_CHAOS_DUNGEON 
-		&& !g_pMain->pTempleEvent.isAttackable))
-		goto fail_return;
 
 	switch (pSkill->bMoral)
 	{

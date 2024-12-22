@@ -423,9 +423,6 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_ITEM_UPGRADE:
 		ItemUpgradeProcess(pkt);
 		break;
-	case WIZ_EVENT:
-		TempleProcess(pkt);
-		break;
 	case WIZ_SHOPPING_MALL: // letter system's used in here too
 		ShoppingMall(pkt);
 		break;
@@ -2770,7 +2767,7 @@ void CUser::UserLookChange(int pos, int itemid, int durability)
 
 	Packet result(WIZ_USERLOOK_CHANGE);
 	result << GetSocketID() << uint8_t(pos) << itemid << uint16_t(durability);
-	SendToRegion(&result, this, GetEventRoom());
+	SendToRegion(&result, this);
 }
 
 void CUser::SendNotice()
@@ -4561,9 +4558,9 @@ void CUser::NativeZoneReturn()
 * @param	pkt		   	The packet.
 * @param	pExceptUser	User to except. If specified, will ignore this user.
 */
-void CUser::SendToRegion(Packet *pkt, CUser *pExceptUser /*= nullptr*/, uint16_t nEventRoom /*-1*/)
+void CUser::SendToRegion(Packet* pkt, CUser* pExceptUser /*= nullptr*/)
 {
-	g_pMain->Send_Region(pkt, GetMap(), GetRegionX(), GetRegionZ(), pExceptUser, nEventRoom);
+	g_pMain->Send_Region(pkt, GetMap(), GetRegionX(), GetRegionZ(), pExceptUser);
 }
 
 /**
@@ -4573,9 +4570,9 @@ void CUser::SendToRegion(Packet *pkt, CUser *pExceptUser /*= nullptr*/, uint16_t
 * @param	pkt		   	The packet.
 * @param	pExceptUser	User to except. If specified, will ignore this user.
 */
-void CUser::SendToZone(Packet *pkt, CUser *pExceptUser /*= nullptr*/, uint16_t nEventRoom /*-1*/, float fRange)
+void CUser::SendToZone(Packet* pkt, CUser* pExceptUser /*= nullptr*/, float fRange)
 {
-	g_pMain->Send_Zone(pkt, GetZoneID(), pExceptUser, 0, nEventRoom, fRange);
+	g_pMain->Send_Zone(pkt, GetZoneID(), pExceptUser, 0, fRange);
 }
 
 void CUser::OnDeath(Unit *pKiller)
@@ -5101,10 +5098,8 @@ uint16_t CUser::GetPlayerRank(uint8_t nRankType)
 
 		if (pRankInfo)
 		{
-			if  (GetZoneID() == pRankInfo->m_bZone
-				&& GetEventRoom() == pRankInfo->m_bEventRoom)
+			if (GetZoneID() == pRankInfo->m_bZone)
 			{
-
 				nMyRank++;
 
 				if (GetSocketID() == pRankInfo->m_socketID)

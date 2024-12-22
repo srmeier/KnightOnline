@@ -736,13 +736,17 @@ uint8_t Unit::GetHitRate(float rate)
 }
 
 #ifdef GAMESERVER
-void Unit::SendToRegion(Packet *result)
+void Unit::SendToRegion(Packet* result)
 {
-	g_pMain->Send_Region(result, GetMap(), GetRegionX(), GetRegionZ(), nullptr, GetEventRoom());
+	g_pMain->Send_Region(
+		result,
+		GetMap(),
+		GetRegionX(),
+		GetRegionZ());
 }
 
 // Handle it here so that we don't need to ref the class everywhere
-void Unit::Send_AIServer(Packet *result)
+void Unit::Send_AIServer(Packet* result)
 {
 	g_pMain->Send_AIServer(result);
 }
@@ -1073,6 +1077,7 @@ void KOMap::SetZoneAttributes(int zoneNumber)
 	case ZONE_ISILOON_ARENA:
 		m_zoneType = ZoneAbilityPVPNeutralNPCs;
 		m_zoneFlags = ZF_TALK_OTHER_NATION | ZF_ATTACK_OTHER_NATION | ZF_FRIENDLY_NPCS | ZF_WAR_ZONE;
+		break;
 	case ZONE_FELANKOR_ARENA:
 		m_zoneType = ZoneAbilityPVPNeutralNPCs;
 		m_zoneFlags = ZF_TALK_OTHER_NATION | ZF_ATTACK_OTHER_NATION | ZF_FRIENDLY_NPCS | ZF_WAR_ZONE;
@@ -1176,9 +1181,6 @@ bool CUser::isHostileTo(Unit * pTarget)
 	if (GetNation() != pTarget->GetNation() 
 		&& isInPVPZone())
 		return true;
-
-	if (isInTempleEventZone())
-		return true;
 	
 #if GAMESERVER
 	if (g_pMain->m_byBattleSiegeWarOpen)
@@ -1277,17 +1279,6 @@ bool CUser::isInSafetyArea()
 			return ((GetX() > 411.0f && GetX() < 597.0f) && ((GetZ() < 296.0f && GetZ() > 113.0f)));
 	}
 
-
-	return false;
-}
-
-bool Unit::isSameEventRoom(Unit *pTarget)
-{
-	if (pTarget == nullptr)
-		return false;
-
-	if (GetEventRoom() == pTarget->GetEventRoom())
-		return true;
 
 	return false;
 }

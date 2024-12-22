@@ -82,7 +82,6 @@ public:
 	void Send_CommandChat(Packet *pkt, int nation, CUser* pExceptUser = nullptr);
 	void KickOutZoneUsers(uint8_t ZoneID, uint8_t TargetZoneID = 0, uint8_t bNation = 0);
 	void SendItemZoneUsers(uint8_t ZoneID, uint32_t nItemID, uint16_t sCount = 1);
-	void SendItemEventRoom(uint16_t nEventRoom,uint32_t nItemID, uint16_t sCount = 1);
 	uint64_t GenerateItemSerial();
 	int KickOutAllUsers();
 	void CheckAliveUser();
@@ -114,20 +113,6 @@ public:
 	CNpc*  FindNpcInZone(uint16_t sPid, uint8_t byZone);
 	void ForgettenTempleEventTimer();
 	uint8_t GetMonsterChallengeTime();
-	void TempleEventTimer();
-	void TempleEventStart();
-	void TempleEventTeleportUsers();
-	uint8_t TempleEventGetRoomUsers(uint16_t nEventRoom = 0);
-	void TempleEventSummonChaosCubes();
-	void TempleEventFinish();
-	void TempleEventGetActiveEventTime(CUser *pUser);
-	void TempleEventSendActiveEventTime(CUser *pUser);
-	void TempleEventKickOutUser(CUser *pUser);
-	void TempleEventReset();
-	void AddEventUser(CUser * pUser);
-	void RemoveEventUser(CUser * pUser);
-	void UpdateEventUser(CUser * pUser, uint16_t nEventRoom = 0);
-	void SetEventUser(CUser *pUser);
 	std::string GetBattleAndNationMonumentName(int16_t TrapNumber = -1, uint8_t ZoneID = 0);
 	void CheckNationMonumentRewards();
 
@@ -146,25 +131,25 @@ public:
 	void NpcInOutForMe(CUser* pSendUser);
 
 	// Get info for NPCs in region
-	void GetRegionNpcIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom, CUser* pSendUser);
+	void GetRegionNpcIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet& pkt, uint16_t& t_count, CUser* pSendUser);
 
 	// Get list of NPC IDs in region
-	void GetRegionNpcList(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
+	void GetRegionNpcList(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet& pkt, uint16_t& t_count);
 
 	// Get list of NPCs for regions around user (WIZ_NPC_REGION)
-	void RegionNpcInfoForMe(CUser* pSendUser);	
+	void RegionNpcInfoForMe(CUser* pSendUser);
 
 	// Get raw list of all units in regions surrounding pOwner.
-	void GetUnitListFromSurroundingRegions(Unit * pOwner, std::vector<uint16_t> * pList);
+	void GetUnitListFromSurroundingRegions(Unit* pOwner, std::vector<uint16_t>* pList);
 
 	// Get info for users in regions around user (WIZ_REQ_USERIN)
 	void UserInOutForMe(CUser* pSendUser);
 
 	// Get info for users in region
-	void GetRegionUserIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
+	void GetRegionUserIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet& pkt, uint16_t& t_count);
 
 	// Get list of user IDs in region
-	void GetRegionUserList(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
+	void GetRegionUserList(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet& pkt, uint16_t& t_count);
 
 	// Get list of users for regions around user (WIZ_REGIONCHANGE)
 	void RegionUserInOutForMe(CUser* pSendUser);
@@ -176,7 +161,7 @@ public:
 	INLINE bool isWarOpen() { return m_byBattleOpen != NO_BATTLE;} 
 
 	// Get list of merchants in region
-	void GetRegionMerchantUserIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count, uint16_t nEventRoom = 0);
+	void GetRegionMerchantUserIn(C3DMap* pMap, uint16_t region_x, uint16_t region_z, Packet & pkt, uint16_t & t_count);
 
 	void SendHelpDescription(CUser *pUser, std::string sHelpMessage);
 
@@ -269,18 +254,18 @@ public:
 
 	void SendFormattedResource(uint32_t nResourceID, uint8_t byNation = Nation::ALL, bool bIsNotice = true, ...);
 
-	void Send_Region(Packet *pkt, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
-	void Send_UnitRegion(Packet *pkt, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
-	void Send_OldRegions(Packet *pkt, int old_x, int old_z, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
-	void Send_NewRegions(Packet *pkt, int new_x, int new_z, C3DMap *pMap, int x, int z, CUser* pExceptUser = nullptr, uint16_t nEventRoom = 0);
+	void Send_Region(Packet* pkt, C3DMap* pMap, int x, int z, CUser* pExceptUser = nullptr);
+	void Send_UnitRegion(Packet* pkt, C3DMap* pMap, int x, int z, CUser* pExceptUser = nullptr);
+	void Send_OldRegions(Packet* pkt, int old_x, int old_z, C3DMap* pMap, int x, int z, CUser* pExceptUser = nullptr);
+	void Send_NewRegions(Packet* pkt, int new_x, int new_z, C3DMap* pMap, int x, int z, CUser* pExceptUser = nullptr);
 
-	void Send_NearRegion(Packet *pkt, C3DMap *pMap, int region_x, int region_z, float curx, float curz, CUser* pExceptUser=nullptr, uint16_t nEventRoom = 0);
-	void Send_FilterUnitRegion(Packet *pkt, C3DMap *pMap, int x, int z, float ref_x, float ref_z, CUser* pExceptUser=nullptr, uint16_t nEventRoom = 0);
+	void Send_NearRegion(Packet* pkt, C3DMap* pMap, int region_x, int region_z, float curx, float curz, CUser* pExceptUser = nullptr);
+	void Send_FilterUnitRegion(Packet* pkt, C3DMap* pMap, int x, int z, float ref_x, float ref_z, CUser* pExceptUser = nullptr);
 
-	void Send_Zone_Matched_Class(Packet *pkt, uint8_t bZoneID, CUser* pExceptUser, uint8_t nation, uint8_t seekingPartyOptions, uint16_t nEventRoom = 0);
-	void Send_Zone(Packet *pkt, uint8_t bZoneID, CUser* pExceptUser = nullptr, uint8_t nation = 0, uint16_t nEventRoom = 0, float fRange = 0.0f);
+	void Send_Zone_Matched_Class(Packet* pkt, uint8_t bZoneID, CUser* pExceptUser, uint8_t nation, uint8_t seekingPartyOptions);
+	void Send_Zone(Packet* pkt, uint8_t bZoneID, CUser* pExceptUser = nullptr, uint8_t nation = 0, float fRange = 0.0f);
 
-	void Send_All(Packet *pkt, CUser* pExceptUser = nullptr, uint8_t nation = 0, uint8_t ZoneID = 0, bool isSendEventUsers = false, uint16_t nEventRoom = 0);
+	void Send_All(Packet* pkt, CUser* pExceptUser = nullptr, uint8_t nation = 0, uint8_t ZoneID = 0);
 	void Send_AIServer(Packet *pkt);
 
 	void GetServerResource(int nResourceID, std::string * result, ...);
@@ -329,8 +314,6 @@ public:
 	_PARTY_GROUP * CreateParty(CUser *pLeader);
 	void DeleteParty(uint16_t sIndex);
 
-	_EVENT_STATUS pTempleEvent;
-
 	~CGameServerDlg();
 
 	char	m_ppNotice[20][128];
@@ -377,7 +360,6 @@ public:
 	MonsterChallengeSummonListArray		m_MonsterChallengeSummonListArray;
 	MonsterSummonListArray				m_MonsterSummonList;
 	UserRankingArray					m_UserRankingArray[2];
-	TempleEventUserArray				m_TempleEventUserArray;
 	NationMonumentInformationArray		m_NationMonumentInformationArray;
 	UserItemArray						m_UserItemArray;
 	ObjectEventArray					m_ObjectEventArray;

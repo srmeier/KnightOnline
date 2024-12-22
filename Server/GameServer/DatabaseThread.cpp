@@ -417,16 +417,8 @@ void CUser::ReqUserLogOut()
 	PlayerRankingProcess(GetZoneID(), true);
 	g_pMain->KillNpc(GetSocketID());
 
-	if (g_pMain->pTempleEvent.ActiveEvent != -1)
-	{
-		TempleOperations(TEMPLE_EVENT_DISBAND);
-
-		if (!g_pMain->pTempleEvent.isActive)
-			TempleOperations(TEMPLE_EVENT_COUNTER);
-	}
-
 	if (m_bLevel == 0)
-		TRACE("### ReqUserLogOut - Level is Zero : bRoom=%d, bNation=%d, bZone=%d ####\n", GetEventRoom(), GetNation(), GetZoneID());
+		TRACE("### ReqUserLogOut - Level is Zero : bNation=%d, bZone=%d ####\n", GetNation(), GetZoneID());
 
 	g_DBAgent.UpdateUser(GetName(), UPDATE_LOGOUT, this);
 	g_DBAgent.UpdateWarehouseData(GetAccountName(), UPDATE_LOGOUT, this);
@@ -442,7 +434,7 @@ void CUser::ReqUserLogOut()
 void CUser::ReqSaveCharacter()
 {
 	if (m_bLevel == 0 || m_bNation)
-		TRACE("### ReqSaveCharacter - Level is Zero : bRoom=%d, bNation=%d, bZone=%d ####\n", GetEventRoom(), GetNation(), GetZoneID());
+		TRACE("### ReqSaveCharacter - Level is Zero : bNation=%d, bZone=%d ####\n", GetNation(), GetZoneID());
 
 	g_DBAgent.UpdateUser(GetName(), UPDATE_PACKET_SAVE, this);
 	g_DBAgent.UpdateWarehouseData(GetAccountName(), UPDATE_PACKET_SAVE, this);

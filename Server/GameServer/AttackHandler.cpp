@@ -42,11 +42,6 @@ void CUser::Attack(Packet & pkt)
 	{
 		if (isAttackable(pTarget) && CanCastRHit(GetSocketID()))
 		{
-			if (isInTempleEventZone() && 
-				(!isSameEventRoom(pTarget) 
-				|| !g_pMain->pTempleEvent.isAttackable))
-				return;
-
 			if (pTarget->hasBuff(BUFF_TYPE_FREEZE))
 				return;
 
@@ -59,8 +54,6 @@ void CUser::Attack(Packet & pkt)
 			// Can't use R attacks in the Snow War.
 			if (GetZoneID() == ZONE_SNOW_BATTLE && g_pMain->m_byBattleOpen == SNOW_BATTLE)
 				damage = 0;
-			else if (GetZoneID() == ZONE_CHAOS_DUNGEON && g_pMain->pTempleEvent.isAttackable)
-				damage = 500 / 10;
 			else if (GetZoneID() == ZONE_PRISON)
 			{
 				if (GetMana() < (m_iMaxMp / 5))

@@ -85,7 +85,7 @@ void CUser::UserInOut(uint8_t bType)
 	else
 		GetRegion()->Add(this);
 
-	SendToRegion(&result, this, GetEventRoom());
+	SendToRegion(&result, this);
 
 	if (bType == INOUT_OUT || !isBlinking())
 	{
@@ -170,7 +170,7 @@ void CUser::Rotate(Packet & pkt)
 	Packet result(WIZ_ROTATE);
 	pkt >> m_sDirection;
 	result << GetSocketID() << m_sDirection;
-	SendToRegion(&result, this, GetEventRoom());
+	SendToRegion(&result, this);
 }
 
 bool CUser::CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason)
@@ -367,14 +367,6 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	m_LastX = x;
 	m_LastZ = z;
 
-	if (isInTempleEventZone((uint8_t)sNewZone) && !isGM())
-	{
-		if (!isEventUser())
-			g_pMain->AddEventUser(this);
-
-		g_pMain->SetEventUser(this);
-	}
-
 	if (GetZoneID() != sNewZone)
 	{
 		UserInOut(INOUT_OUT);
@@ -428,7 +420,6 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	{
 		SetMaxHp(1);
 		RobChaosSkillItems();
-		g_pMain->UpdateEventUser(this, 0);
 	}
 	else if (sNewZone == ZONE_FORGOTTEN_TEMPLE)
 		g_pMain->m_nForgettenTempleUsers.push_back(GetSocketID());
@@ -475,8 +466,6 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	result << GetSocketID() << GetZoneID();
 	Send_AIServer(&result);
 
-	g_pMain->TempleEventSendActiveEventTime(this);
-
 	m_bZoneChangeFlag = false;
 
 	if (pKnightsMaster != nullptr && GetZoneID() == ZONE_DELOS)
@@ -520,7 +509,6 @@ void CUser::AddPlayerRank(uint16_t ZoneID)
 	_USER_RANKING * pData = new _USER_RANKING;
 
 	pData->m_socketID = GetSocketID();
-	pData->m_bEventRoom = GetEventRoom();
 	pData->m_bZone = ZoneID;
 	pData->m_bNation = GetNation();
 	pData->m_iLoyaltyDaily = m_iLoyaltyDaily;

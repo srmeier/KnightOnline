@@ -639,10 +639,6 @@ public:
 	void RecvLoginInfo(Packet & pkt); // from the database
 
 	void SpeedHackTime(Packet & pkt);
-	void TempleProcess(Packet & pkt );
-	void TempleOperations(uint8_t bType = 0);
-
-	void MonsterStoneProcess(); 
 
 	void GameStart(Packet & pkt);
 	void RentalSystem(Packet & pkt);
@@ -864,8 +860,6 @@ public:
 	void RemovePlayerRank();
 	void UpdatePlayerRank();
 
-	bool isEventUser();
-
 	void SendTargetHP( uint8_t echo, int tid, int damage = 0 );
 	bool IsValidSlotPos( _ITEM_TABLE* pTable, int destpos );
 	void SetUserAbility(bool bSendPacket = true);
@@ -898,8 +892,8 @@ public:
 	void ChangeFame(uint8_t bFame);
 	void SendServerIndex();
 
-	void SendToRegion(Packet *pkt, CUser *pExceptUser = nullptr, uint16_t nEventRoom = 0);
-	void SendToZone(Packet *pkt, CUser *pExceptUser = nullptr, uint16_t nEventRoom = 0, float fRange = 0.0f);
+	void SendToRegion(Packet *pkt, CUser *pExceptUser = nullptr);
+	void SendToZone(Packet *pkt, CUser *pExceptUser = nullptr, float fRange = 0.0f);
 
 	virtual void OnDeath(Unit *pKiller);
 	void InitializeStealth();

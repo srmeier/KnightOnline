@@ -158,9 +158,7 @@ bool CMagicProcess::UserRegionCheck(Unit * pSkillCaster, Unit * pSkillTarget, _M
 		if ((TO_USER(pSkillCaster)->isInArena() 
 			&& TO_USER(pSkillTarget)->isInArena())
 			|| (TO_USER(pSkillCaster)->isInPVPZone() 
-			&& TO_USER(pSkillTarget)->isInPVPZone())
-			|| (TO_USER(pSkillCaster)->isInTempleEventZone()
-			&& TO_USER(pSkillTarget)->isInTempleEventZone()))
+			&& TO_USER(pSkillTarget)->isInPVPZone()))
 		goto final_test;
 		
 		// Players cant attack other players in the safety area.

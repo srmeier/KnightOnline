@@ -522,55 +522,15 @@ struct _RENTAL_ITEM
 	std::string strBorrowerCharID;
 };
 
-struct _PREMIUM_ITEM
-{
-	uint8_t	Type;
-	uint16_t	ExpRestorePercent;
-	uint16_t	NoahPercent;
-	uint16_t	DropPercent;
-	uint32_t	BonusLoyalty;
-	uint16_t	RepairDiscountPercent;
-	uint16_t	ItemSellPercent;
-};
-
-struct _PREMIUM_ITEM_EXP
-{
-	uint16_t	nIndex;
-	uint8_t	Type;
-	uint8_t	MinLevel;
-	uint8_t	MaxLevel;
-	uint16_t	sPercent;
-};
-
 struct _USER_RANKING 
 {
 	uint16_t m_socketID;
-	int16_t m_bEventRoom;
 	uint16_t m_bZone;
 	uint8_t m_bNation;
 	uint32_t m_iLoyaltyDaily;
 	uint16_t m_iLoyaltyPremiumBonus;
 	uint16_t m_KillCount; // Chaos Dungeon
 	uint16_t m_DeathCount; // Chaos Dungeon
-};
-
-struct _EVENT_STATUS
-{
-	int16_t ActiveEvent;
-	int8_t ZoneID;
-	uint8_t LastEventRoom;
-	uint32_t StartTime;
-	uint16_t AllUserCount;
-	uint16_t ElMoradUserCount;
-	uint16_t KarusUserCount;
-	bool isAttackable;
-	bool isActive;
-};
-
-struct _TEMPLE_EVENT_USER
-{
-	uint16_t m_socketID;
-	uint16_t m_bEventRoom;
 };
 
 struct _EVENT_TRIGGER
@@ -610,15 +570,6 @@ struct _MONSTER_CHALLENGE_SUMMON_LIST
 	uint16_t sPosX;
 	uint16_t sPosZ;
 	uint8_t bRange;
-};
-
-struct _START_POSITION_RANDOM
-{
-	uint16_t sIndex;
-	uint8_t ZoneID;
-	uint16_t PosX;
-	uint16_t PosZ;
-	uint8_t Radius;
 };
 
 struct _USER_ITEM

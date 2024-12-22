@@ -85,35 +85,7 @@ void CUser::ClientEvent(uint16_t sNpcID)
 	m_sEventNid = sNpcID;
 	m_sEventSid = pNpc->GetProtoID(); // For convenience purposes with Lua scripts.
 
-	if (pNpc->GetProtoID() == SAW_BLADE_SSID)
-	{
-		HpChange(-5000 / 10);
-		return;
-	}
-	else if (pNpc->GetProtoID() == CHAOS_CUBE_SSID && !pNpc->isDead())
-	{ 
-		uint8_t nEventRoomUserCount = g_pMain->TempleEventGetRoomUsers(GetEventRoom());
-		uint8_t nItemRewardRankFirst = nEventRoomUserCount / 3;
-		uint8_t nItemRewardRankSecond = (nEventRoomUserCount  - 1) * 2;
-
-		int32_t nUserRank = GetPlayerRank(RANK_TYPE_CHAOS_DUNGEON);
-		uint32_t nItemID = 0;
-
-		if (nUserRank == 0)
-			nItemID = ITEM_KILLING_BLADE;
-		else if (nUserRank < nItemRewardRankFirst)
-			nItemID = ITEM_LIGHT_PIT;
-		else if (nUserRank >= nItemRewardRankFirst && nUserRank <= nItemRewardRankSecond)
-			nItemID = ITEM_DRAIN_RESTORE;
-		else if (nUserRank > nItemRewardRankSecond)
-			nItemID = ITEM_KILLING_BLADE;
-
-		GiveItem(nItemID);
-		g_pMain->ShowNpcEffect(GetSocketID(),251,GetZoneID());
-		g_pMain->KillNpc(sNpcID);
-		return;
-	}
-	else if (pNpc->GetType() == NPC_KISS)
+	if (pNpc->GetType() == NPC_KISS)
 	{
 		KissUser();
 		return;

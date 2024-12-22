@@ -402,13 +402,6 @@ enum OperatorCommands
 	OPERATOR_ENABLE_ATTACK	=	9
 };
 
-enum EventOpCode
-{
-	TEMPLE_EVENT_BORDER_DEFENCE_WAR	= 4,
-	TEMPLE_EVENT_CHAOS				= 24,
-	TEMPLE_EVENT_JURAD_MOUNTAIN		= 100
-};
-
 enum RankTypes
 {
 	RANK_TYPE_PK_ZONE = 1,
@@ -452,17 +445,6 @@ enum FriendOpcodes
 	FRIEND_REPORT	= 2,
 	FRIEND_ADD		= 3,
 	FRIEND_REMOVE	= 4
-};
-
-enum TempleOpCodes
-{
-	BIFROST_EVENT = 2,
-	MONSTER_SQUARD = 5,
-	MONSTER_STONE = 6,
-	TEMPLE_EVENT = 7,
-	TEMPLE_EVENT_JOIN = 8,
-	TEMPLE_EVENT_DISBAND = 9,
-	TEMPLE_EVENT_COUNTER = 16
 };
 
 enum FriendAddResult

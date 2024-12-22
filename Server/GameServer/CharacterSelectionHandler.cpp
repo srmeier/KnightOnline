@@ -145,9 +145,6 @@ void CUser::SelectCharacter(uint8_t bResult, uint8_t bInit)
 	if (((GetZoneID() != GetNation() && GetZoneID() <= ZONE_ELMORAD && !g_pMain->m_byBattleOpen)
 		// also disallow players from logging back into war zones that aren't currently active...
 			|| (GetMap()->isWarZone() && !g_pMain->m_byBattleOpen)
-			// Chaos, bdw and juraid montuain
-			|| isInTempleEventZone()
-			// forgetten temple
 			|| GetZoneID() == ZONE_FORGOTTEN_TEMPLE
 			// Ardream, Ronark Land Base, Ronark Land, Bifrost, Krowaz Dominion.
 			|| (g_pMain->m_byBattleOpen && (GetZoneID() == ZONE_ARDREAM 
@@ -290,8 +287,6 @@ void CUser::GameStart(Packet & pkt)
 		// is still given the option to revive.
 		if (isDead())
 			SendDeathAnimation();
-
-		g_pMain->TempleEventGetActiveEventTime(this);
 
 		m_tGameStartTimeSavedMagic = UNIXTIME;
 
