@@ -77,14 +77,6 @@ enum TransformationType
 	TransformationSiege
 };
 
-
-enum TeamColour
-{
-	TeamColourNone = 0,
-	TeamColourBlue,
-	TeamColourRed
-};
-
 #define ARROW_EXPIRATION_TIME (5) // seconds
 
 struct Arrow
@@ -148,7 +140,6 @@ public:
 	uint8_t	m_bAccountStatus;
 	uint8_t	m_bPremiumType;
 	uint16_t	m_sPremiumTime;
-	uint32_t  m_nKnightCash;
 
 	bool	m_bSelectedCharacter;
 	bool	m_bStoreOpen;
@@ -274,7 +265,6 @@ public:
 
 	bool	m_bWeaponsDisabled;
 
-	TeamColour	m_teamColour;
 	uint32_t		m_iLoyaltyDaily;
 	uint16_t		m_iLoyaltyPremiumBonus;
 	uint16_t		m_KillCount;

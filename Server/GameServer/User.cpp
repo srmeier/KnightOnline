@@ -149,7 +149,6 @@ void CUser::Initialize()
 
 	m_bWeaponsDisabled = false;
 
-	m_teamColour = TeamColourNone;
 	m_iLoyaltyDaily = 0;
 	m_iLoyaltyPremiumBonus = 0;
 	m_KillCount = 0;
