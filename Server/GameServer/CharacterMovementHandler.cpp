@@ -459,7 +459,14 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	SetRegion(GetNewRegionX(), GetNewRegionZ());
 
 	Packet result(WIZ_ZONE_CHANGE);
-	result << uint8_t(ZONE_CHANGE_TELEPORT) << uint16_t(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
+	result
+		<< uint8_t(ZONE_CHANGE_TELEPORT)
+		<< uint8_t(GetZoneID())
+		<< uint8_t(0) // subzone ID
+		<< uint16_t(GetSPosX())
+		<< uint16_t(GetSPosZ())
+		<< int16_t(GetSPosY())
+		<< uint8_t(g_pMain->m_byOldVictory);
 	Send(&result);
 
 	if (!m_bZoneChangeSameZone)

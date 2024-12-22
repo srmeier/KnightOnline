@@ -4760,32 +4760,29 @@ bool CGameProcMain::MsgRecv_ItemDroppedGetResult(Packet& pkt)	// 땅에 떨어�
 	return true;
 }
 
-void CGameProcMain::MsgRecv_ZoneChange(Packet& pkt)
+void CGameProcMain::MsgRecv_ZoneChange(
+	Packet& pkt)
 {
-	uint8_t ZoneChangeFlag = pkt.read<uint8_t>();
-
-	switch (ZoneChangeFlag) {
-
-		case ZoneChangeTeleport: {
-			int iZone = -1;
-			if(N3FORMAT_VER_DEFAULT & N3FORMAT_VER_1264) {
-				iZone = 10 * pkt.read<int16_t>();
-			} else {
-				iZone = pkt.read<int16_t>();
-			}
-
-			float fX = (pkt.read<uint16_t>()) / 10.0f;
-			float fZ = (pkt.read<uint16_t>()) / 10.0f;
-			float fY = (pkt.read<int16_t>()) / 10.0f;
+	uint8_t opcode = pkt.read<uint8_t>();
+	switch (opcode)
+	{
+		case ZONE_CHANGE_TELEPORT:
+		{
+			int iZone		= 10 * pkt.read<uint8_t>();
+			int iZoneSub	= pkt.read<uint8_t>();
+			float fX = pkt.read<uint16_t>() / 10.0f;
+			float fZ = pkt.read<uint16_t>() / 10.0f;
+			float fY = pkt.read<int16_t>() / 10.0f;
 			int iVictoryNation = pkt.read<uint8_t>();
-			CGameProcedure::LoadingUIChange(iVictoryNation);
 
+			LoadingUIChange(iVictoryNation);
 
 			__Vector3 vPosPlayer;
 			vPosPlayer.x = fX;
 			vPosPlayer.y = fY;
 			vPosPlayer.z = fZ;
-			this->InitPlayerPosition(vPosPlayer); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
+			InitPlayerPosition(vPosPlayer); // 플레이어 위치 초기화.. 일으켜 세우고, 기본동작을 취하게 한다.
+
 			s_pPlayer->RegenerateCollisionMesh(); // 충돌 메시를 다시 만든다..
 			s_pPlayer->m_iSendRegeneration = 0; // 한번 보내면 다시 죽을때까지 안보내는 플래그
 			s_pPlayer->m_fTimeAfterDeath = 0; // 한번 보내면 다시 죽을때까지 안보내는 플래그
@@ -4795,28 +4792,36 @@ void CGameProcMain::MsgRecv_ZoneChange(Packet& pkt)
 				//TRACE("ZoneChange - 다시 살아나기(%.1f, %.1f)\n", fX, fZ);
 
 				//마법 & 효과 초기화..
-				if (m_pUIStateBarAndMiniMap) m_pUIStateBarAndMiniMap->ClearMagic();
-				if (m_pMagicSkillMng) m_pMagicSkillMng->ClearDurationalMagic();
-				if (CGameProcedure::s_pFX) s_pFX->StopMine();
+				if (m_pUIStateBarAndMiniMap != nullptr)
+					m_pUIStateBarAndMiniMap->ClearMagic();
 
-				if (s_pPlayer->Nation() == NATION_KARUS) CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_KARUS, s_pPlayer->IDNumber(), -1);
-				else if (s_pPlayer->Nation() == NATION_ELMORAD) CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_ELMORAD, s_pPlayer->IDNumber(), -1);
+				if (m_pMagicSkillMng != nullptr)
+					m_pMagicSkillMng->ClearDurationalMagic();
+
+				if (s_pFX != nullptr)
+					s_pFX->StopMine();
+
+				if (s_pPlayer->Nation() == NATION_KARUS)
+					s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_KARUS, s_pPlayer->IDNumber(), -1);
+				else if (s_pPlayer->Nation() == NATION_ELMORAD)
+					s_pFX->TriggerBundle(s_pPlayer->IDNumber(), -1, FXID_REGEN_ELMORAD, s_pPlayer->IDNumber(), -1);
 			}
 
-			this->InitZone(iZone, __Vector3(fX, fY, fZ)); // Zone Update
+			InitZone(iZone, __Vector3(fX, fY, fZ)); // Zone Update
 
 			uint8_t byBuff[4];
 			int iOffset_send = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t)ZoneChangeLoading);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t) ZONE_CHANGE_LOADING);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
 
-		case ZoneChangeLoaded: {
+		case ZONE_CHANGE_LOADED:
+		{
 			uint8_t byBuff[4];
 			int iOffset_send = 0;
 			CAPISocket::MP_AddByte(byBuff, iOffset_send, WIZ_ZONE_CHANGE);
-			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t)ZoneChangeLoaded);
+			CAPISocket::MP_AddByte(byBuff, iOffset_send, (uint8_t) ZONE_CHANGE_LOADED);
 			s_pSocket->Send(byBuff, iOffset_send);
 		} break;
 
