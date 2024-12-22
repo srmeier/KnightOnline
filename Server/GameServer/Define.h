@@ -220,9 +220,6 @@ enum InOutType
 #define ITEM_DRAIN_RESTORE		700040000
 #define ITEM_KILLING_BLADE		700037000
 
-// ID of the Seed quest, to be automatically started on first load.
-#define STARTER_SEED_QUEST 500
-
 #define MONUMENT_KARUS_SPID		14003
 #define MONUMENT_ELMORAD_SPID	14004
 #define MONUMENT_ENEMY_SPID		14005

@@ -42,6 +42,21 @@
 #define NORMAL					0X03		// ����
 #define	FAIL					0X04		// ���� 
 
+enum e_QuestState
+{
+	QUEST_STATE_NOT_STARTED	= 0,
+	QUEST_STATE_IN_PROGRESS	= 1,
+	QUEST_STATE_COMPLETED	= 2
+};
+
+enum e_QuestID
+{
+	QUEST_ID_MASTERY_WARRIOR	= 51,
+	QUEST_ID_MASTERY_ROGUE		= 52,
+	QUEST_ID_MASTERY_MAGE		= 53,
+	QUEST_ID_MASTERY_PRIEST		= 54
+};
+
 enum ItemMovementType
 {
 	ITEM_INVEN_SLOT			= 1,
@@ -462,49 +477,6 @@ struct _ITEM_UPGRADE
 	uint8_t	bRateType;
 	uint16_t	sGenRate;
 	int32_t	nGiveItem;
-};
-
-struct _QUEST_HELPER
-{
-	uint32_t	nIndex;
-	uint8_t	bMessageType;
-	uint8_t	bLevel;
-	uint32_t	nExp;
-	uint8_t	bClass;
-	uint8_t	bNation;
-	uint8_t	bQuestType;
-	uint8_t	bZone;
-	uint16_t	sNpcId;
-	uint16_t	sEventDataIndex;
-	int8_t	bEventStatus;
-	uint32_t	nEventTriggerIndex;
-	uint32_t	nEventCompleteIndex;
-	uint32_t	nExchangeIndex;
-	uint32_t	nEventTalkIndex;
-	std::string strLuaFilename;
-};
-
-#define QUEST_MOB_GROUPS		4
-#define QUEST_MOBS_PER_GROUP	4
-struct _QUEST_MONSTER
-{
-	uint16_t	sQuestNum;
-	uint16_t	sNum[QUEST_MOB_GROUPS][QUEST_MOBS_PER_GROUP]; 
-	uint16_t	sCount[QUEST_MOB_GROUPS];
-
-	_QUEST_MONSTER()
-	{
-		memset(&sCount, 0, sizeof(sCount));
-		memset(&sNum, 0, sizeof(sNum));
-	}
-};
-
-enum SpecialQuestIDs
-{
-	QUEST_KILL_GROUP1	= 32001,
-	QUEST_KILL_GROUP2	= 32002,
-	QUEST_KILL_GROUP3	= 32003,
-	QUEST_KILL_GROUP4	= 32004,
 };
 
 struct _RENTAL_ITEM

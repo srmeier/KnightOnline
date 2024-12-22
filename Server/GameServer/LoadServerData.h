@@ -33,8 +33,6 @@ typedef CSTLMap <_ZONE_SERVERINFO>			ServerArray;
 typedef CSTLMap <_KNIGHTS_CAPE>				KnightsCapeArray;
 typedef CSTLMap <_START_POSITION>			StartPositionArray;
 typedef	CSTLMap	<_SERVER_RESOURCE>			ServerResourceArray;
-typedef	CSTLMap	<_QUEST_HELPER>				QuestHelperArray;
-typedef	CSTLMap	<_QUEST_MONSTER>			QuestMonsterArray;
 typedef	CSTLMap	<_RENTAL_ITEM>				RentalItemArray;
 typedef CSTLMap <_ITEM_EXCHANGE>			ItemExchangeArray;
 typedef CSTLMap <_ITEM_UPGRADE>				ItemUpgradeArray;
@@ -42,10 +40,6 @@ typedef CSTLMap <CKingSystem>				KingSystemArray;
 
 typedef std::map<std::string, _USER_RANK *>			UserNameRankMap; 
 typedef std::map<uint8_t, _USER_RANK *>				UserRankMap;
-
-typedef std::vector<_QUEST_HELPER *>				QuestHelperList;
-typedef std::map<uint16_t, QuestHelperList>			QuestNpcList;
-typedef std::map<uint16_t, QuestHelperList>			QuestEventIndex;
 
 typedef std::vector<_MONSTER_SUMMON_LIST>			MonsterSummonList;
 typedef CSTLMap <MonsterSummonList>					MonsterSummonListArray;

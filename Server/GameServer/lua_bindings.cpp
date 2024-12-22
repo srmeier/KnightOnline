@@ -106,16 +106,11 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(GiveLoyalty)
 	MAKE_LUA_METHOD(RobLoyalty)
 	MAKE_LUA_METHOD(SaveEvent)
-	MAKE_LUA_METHOD(SearchQuest)
-	MAKE_LUA_METHOD(ShowMap)
 	MAKE_LUA_METHOD(SelectMsg) // menu
 	MAKE_LUA_METHOD(NpcSay) // dialog
-	MAKE_LUA_METHOD(NpcMsg) // new automated quest prompt (does whatever's needed, menu, quest prompt, etc)
 	MAKE_LUA_METHOD(CheckWeight)
 	MAKE_LUA_METHOD(CheckSkillPoint)
 	MAKE_LUA_METHOD(isRoomForItem) // FindSlotForItem()
-	MAKE_LUA_METHOD(CountMonsterQuestSub)
-	MAKE_LUA_METHOD(CountMonsterQuestMain)
 	MAKE_LUA_METHOD(CheckExchange)
 	MAKE_LUA_METHOD(RunExchange)
 	MAKE_LUA_METHOD(RunSelectExchange)
@@ -259,13 +254,10 @@ LUA_FUNCTION(CheckSkillPoint)
 	_LUA_WRAPPER_USER_FUNCTION(name, name)
 
 /* 1:1 mappings */
-LUA_WRAPPER_USER_FUNCTION(ShowMap);
 LUA_WRAPPER_USER_FUNCTION(SaveEvent);
 LUA_WRAPPER_USER_FUNCTION(CheckExchange);
 LUA_WRAPPER_USER_FUNCTION(RunExchange);
 LUA_WRAPPER_USER_FUNCTION(RunSelectExchange);
-LUA_WRAPPER_USER_FUNCTION(SearchQuest);
-LUA_WRAPPER_USER_FUNCTION(NpcMsg);
 LUA_WRAPPER_USER_FUNCTION(ShowEffect);
 LUA_WRAPPER_USER_FUNCTION(ShowNpcEffect);
 LUA_WRAPPER_USER_FUNCTION(GetName);
@@ -326,8 +318,6 @@ LUA_WRAPPER_USER_FUNCTION(RequestPersonalRankReward);
 LUA_WRAPPER_USER_FUNCTION(RequestReward);
 LUA_WRAPPER_USER_FUNCTION(RunCountExchange);
 LUA_WRAPPER_USER_FUNCTION(GetMaxExchange);
-LUA_WRAPPER_USER_FUNCTION(CountMonsterQuestSub);
-LUA_WRAPPER_USER_FUNCTION(CountMonsterQuestMain);
 LUA_WRAPPER_USER_FUNCTION(GetEventTrigger);
 LUA_WRAPPER_USER_FUNCTION(GetPremium);
 LUA_WRAPPER_USER_FUNCTION(CheckMiddleStatueCapture);
@@ -360,8 +350,6 @@ LUA_FUNCTION(SelectMsg)
 	uint32_t arg = 2; // start from after the user instance.
 	int32_t menuButtonText[MAX_MESSAGE_EVENT], 
 		menuButtonEvents[MAX_MESSAGE_EVENT];
-	uint8_t bFlag = LUA_ARG(uint8_t, arg++);
-	int32_t nQuestID = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
 	int32_t menuHeaderText = LUA_ARG(int32_t, arg++);
 	arg++; // skip the NPC ID
 	foreach_array(i, menuButtonText)
@@ -370,7 +358,7 @@ LUA_FUNCTION(SelectMsg)
 		menuButtonEvents[i] = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
 	}
 
-	LUA_NO_RETURN(pUser->SelectMsg(bFlag, nQuestID, menuHeaderText, menuButtonText, menuButtonEvents));
+	LUA_NO_RETURN(pUser->SelectMsg(menuHeaderText, menuButtonText, menuButtonEvents));
 }
 
 LUA_FUNCTION(CastSkill)

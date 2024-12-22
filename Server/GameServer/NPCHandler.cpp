@@ -77,7 +77,7 @@ void CUser::ClientEvent(uint16_t sNpcID)
 		return;
 
 	int32_t iEventID = 0;
-	CNpc *pNpc = g_pMain->GetNpcPtr(sNpcID);
+	CNpc* pNpc = g_pMain->GetNpcPtr(sNpcID);
 	if (pNpc == nullptr
 		|| !isInRange(pNpc, MAX_NPC_RANGE))
 		return;
@@ -92,29 +92,7 @@ void CUser::ClientEvent(uint16_t sNpcID)
 	}
 
 	Guard lock(g_pMain->m_questNpcLock);
-	QuestNpcList::iterator itr = g_pMain->m_QuestNpcList.find(pNpc->GetProtoID());
-	if (itr == g_pMain->m_QuestNpcList.end())
-		return;
-
-	QuestHelperList & pList = itr->second;
-	_QUEST_HELPER * pHelper = nullptr;
-	foreach (itr, pList)
-	{
-		if ((*itr) == nullptr
-			|| (*itr)->sEventDataIndex
-			|| (*itr)->bEventStatus
-			|| ((*itr)->bNation != 3 && (*itr)->bNation != GetNation())
-			|| ((*itr)->bClass != 5 && !JobGroupCheck((*itr)->bClass)))
-			continue;
-
-		pHelper = (*itr);
-		break;
-	}
-
-	if (pHelper == nullptr)
-		return;
-
-	QuestV2RunEvent(pHelper, pHelper->nEventTriggerIndex);
+	// TODO: Handle quest scripts without QUEST_HELPER
 }
 
 void CUser::KissUser()
@@ -182,31 +160,33 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 void CUser::RecvSelectMsg(Packet & pkt)	// Receive menu reply from client.
 {
 	uint8_t bMenuID = pkt.read<uint8_t>();
-	//string szLuaFilename;
 	int8_t bySelectedReward = -1;
-	//pkt.SByte();
-	//pkt >> szLuaFilename >> bySelectedReward;
 
 	if (!AttemptSelectMsg(bMenuID, bySelectedReward))
 		memset(&m_iSelMsgEvent, -1, sizeof(m_iSelMsgEvent));
 }
 
-bool CUser::AttemptSelectMsg(uint8_t bMenuID, int8_t bySelectedReward)
+bool CUser::AttemptSelectMsg(
+	uint8_t byMenuID,
+	int8_t bySelectedReward)
 {
-	_QUEST_HELPER * pHelper = nullptr;
-	if (bMenuID >= MAX_MESSAGE_EVENT
-		|| isDead()
-		|| m_nQuestHelperID == 0)
+	if (byMenuID >= MAX_MESSAGE_EVENT
+		|| isDead())
 		return false;
 
 	// Get the event number that needs to be processed next.
-	int32_t selectedEvent = m_iSelMsgEvent[bMenuID];
-	if (selectedEvent < 0
-		|| (pHelper = g_pMain->m_QuestHelperArray.GetData(m_nQuestHelperID)) == nullptr
-		|| !QuestV2RunEvent(pHelper, selectedEvent, bySelectedReward))
+	int32_t selectedEvent = m_iSelMsgEvent[byMenuID];
+	if (selectedEvent < 0)
+		return false;
+
+	// TODO: Handle quest script without quest_helper
+	return false;
+#if 0
+	if (!QuestV2RunEvent(pHelper, selectedEvent, bySelectedReward))
 		return false;
 
 	return true;
+#endif
 }
 
 void CUser::SendSay(int32_t nTextID[10])
@@ -214,30 +194,26 @@ void CUser::SendSay(int32_t nTextID[10])
 	Packet result(WIZ_NPC_SAY);
 
 	result << int32_t(-1) << int32_t(-1);
-	foreach_array_n(i, nTextID, 10)
-		result << nTextID[i];
+	for (int i = 0; i < 10; i++)
+		result << int32_t(nTextID[i]);
 
 	Send(&result);
 }
 
-void CUser::SelectMsg(uint8_t bFlag, int32_t nQuestID, int32_t menuHeaderText, 
-					  int32_t menuButtonText[MAX_MESSAGE_EVENT], int32_t menuButtonEvents[MAX_MESSAGE_EVENT])
+void CUser::SelectMsg(
+	int32_t menuHeaderText, 
+	int32_t menuButtonText[MAX_MESSAGE_EVENT],
+	int32_t menuButtonEvents[MAX_MESSAGE_EVENT])
 {
-	_QUEST_HELPER * pHelper = g_pMain->m_QuestHelperArray.GetData(m_nQuestHelperID);
-	if (pHelper == nullptr)
-		return;
-
 	// Send the menu to the client
 	Packet result(WIZ_SELECT_MSG);
-	//result.SByte();
+	result
+		<< uint16_t(m_sEventNid)
+		<< menuHeaderText;
 
-	result << m_sEventNid/*m_sEventSid*/ /*<< bFlag << nQuestID*/ << menuHeaderText;
-
-	foreach_array_n(i, menuButtonText, MAX_MESSAGE_EVENT) {
+	for (int i = 0; i < MAX_MESSAGE_EVENT; i++)
 		result << menuButtonText[i];
-	}
 
-	/*result << pHelper->strLuaFilename;*/
 	Send(&result);
 
 	// and store the corresponding event IDs.
@@ -253,10 +229,8 @@ void CUser::NpcEvent(Packet & pkt)
 
 	Packet result;
 	uint16_t sNpcID = pkt.read<uint16_t>();
-	//uint8_t bUnknown = pkt.read<uint8_t>();
-	//int32_t nQuestID = pkt.read<int32_t>();
 
-	CNpc *pNpc = g_pMain->GetNpcPtr(sNpcID);
+	CNpc* pNpc = g_pMain->GetNpcPtr(sNpcID);
 	if (pNpc == nullptr
 		|| !isInRange(pNpc, MAX_NPC_RANGE))
 		return;

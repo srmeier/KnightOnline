@@ -131,7 +131,6 @@ void CUser::Initialize()
 	memset(m_iSelMsgEvent, -1,  MAX_MESSAGE_EVENT);
 
 	m_sEventNid = m_sEventSid = -1;
-	m_nQuestHelperID = 0;
 	m_bZoneChangeFlag = false;
 	m_bRegeneType = 0;
 	m_tLastRegeneTime = 0;
@@ -142,7 +141,6 @@ void CUser::Initialize()
 	m_tTransformationStartTime = 0;
 	m_sTransformationDuration = 0;
 
-	memset(&m_bKillCounts, 0, sizeof(m_bKillCounts));
 	m_sEventDataIndex = 0;
 
 	m_pKnightsUser = nullptr;
@@ -351,7 +349,7 @@ bool CUser::HandlePacket(Packet & pkt)
 		ExchangeProcess(pkt);
 		break;
 	case WIZ_QUEST:
-		QuestV2PacketProcess(pkt);
+		QuestDataRequest(pkt);
 		break;
 	case WIZ_MERCHANT:
 		MerchantProcess(pkt);
@@ -859,7 +857,18 @@ void CUser::SendMyInfo()
 		m_curz = (float)z;
 	}
 
-	QuestDataRequest();
+	if (JobGroupCheck(ClassWarrior)
+		&& CheckExistEvent(QUEST_ID_MASTERY_WARRIOR, QUEST_STATE_COMPLETED))
+		SendQuestStateUpdate(QUEST_ID_MASTERY_WARRIOR, QUEST_STATE_COMPLETED, false);
+	else if (JobGroupCheck(ClassRogue)
+		&& CheckExistEvent(QUEST_ID_MASTERY_ROGUE, QUEST_STATE_COMPLETED))
+		SendQuestStateUpdate(QUEST_ID_MASTERY_ROGUE, QUEST_STATE_COMPLETED, false);
+	else if (JobGroupCheck(ClassMage)
+		&& CheckExistEvent(QUEST_ID_MASTERY_MAGE, QUEST_STATE_COMPLETED))
+		SendQuestStateUpdate(QUEST_ID_MASTERY_MAGE, QUEST_STATE_COMPLETED, false);
+	else if (JobGroupCheck(ClassPriest)
+		&& CheckExistEvent(QUEST_ID_MASTERY_PRIEST, QUEST_STATE_COMPLETED))
+		SendQuestStateUpdate(QUEST_ID_MASTERY_PRIEST, QUEST_STATE_COMPLETED, false);
 
 	Packet result(WIZ_MYINFO);
 
@@ -4709,11 +4718,6 @@ void CUser::OnDeath(Unit *pKiller)
 
 								ExpChange(-nExpLost);
 							}
-
-							if (GetNation() == KARUS)
-							pUser->QuestV2MonsterCountAdd(KARUS);
-							else if(GetNation() == ELMORAD)
-							pUser->QuestV2MonsterCountAdd(ELMORAD);
 						}
 					}
 				}

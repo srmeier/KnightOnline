@@ -930,11 +930,6 @@ bool CUser::RunExchange(int nExchangeID, uint32_t count)
 				}
 			else
 				GiveItem(pExchange->nExchangeItemNum[i], temp_sCount);
-
-				QuestV2ShowGiveItem(pExchange->nExchangeItemNum[0],pExchange->sExchangeItemCount[0],
-									pExchange->nExchangeItemNum[1],pExchange->sExchangeItemCount[1],
-									pExchange->nExchangeItemNum[2],pExchange->sExchangeItemCount[2],
-									pExchange->nExchangeItemNum[3],pExchange->sExchangeItemCount[3]);
 		}
 	}
 	// For these items the rate set by bRandomFlag.
@@ -988,8 +983,6 @@ bool CUser::RunExchange(int nExchangeID, uint32_t count)
 
 		// Finally, give our item.
 		GiveItem(nItemID, 1);
-
-			QuestV2ShowGiveItem(nItemID, 1, 0, 0, 0, 0, 0, 0);
 	}
 
 	return true;

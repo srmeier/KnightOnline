@@ -261,7 +261,6 @@ public:
 
 	int		m_iSelMsgEvent[MAX_MESSAGE_EVENT];
 	int16_t	m_sEventNid, m_sEventSid;
-	uint32_t	m_nQuestHelperID;
 
 	bool	m_bWeaponsDisabled;
 
@@ -553,8 +552,7 @@ public:
 	void TrapProcess();
 	bool JobGroupCheck(int16_t jobgroupid);
 	void SendSay(int32_t nTextID[10]);
-	void SelectMsg(uint8_t bFlag, int32_t nQuestID, int32_t menuHeaderText, 
-		int32_t menuButtonText[MAX_MESSAGE_EVENT], int32_t menuButtonEvents[MAX_MESSAGE_EVENT]);
+	void SelectMsg(int32_t menuHeaderText, int32_t menuButtonText[MAX_MESSAGE_EVENT], int32_t menuButtonEvents[MAX_MESSAGE_EVENT]);
 
 	// NOTE(srmeier): testing this debug string functionality
 	void SendDebugString(const char* pString);
@@ -789,7 +787,7 @@ public:
 	void KissUser();
 
 	void RecvSelectMsg(Packet & pkt);
-	bool AttemptSelectMsg(uint8_t bMenuID, int8_t bySelectedReward);
+	bool AttemptSelectMsg(uint8_t byMenuID, int8_t bySelectedReward);
 
 	// from the client
 	void ItemUpgradeProcess(Packet & pkt);
@@ -897,33 +895,12 @@ public:
 	virtual bool HasSavedMagic(uint32_t nSkillID);
 	virtual int16_t GetSavedMagicDuration(uint32_t nSkillID);
 
-	void SaveEvent(uint16_t sQuestID, uint8_t bQuestState);
+	void SaveEvent(uint16_t sQuestID, uint8_t byQuestState);
 	void DeleteEvent(uint16_t sQuestID);
-	bool CheckExistEvent(uint16_t sQuestID, uint8_t bQuestState);	
+	bool CheckExistEvent(uint16_t sQuestID, uint8_t byQuestState);	
 
-	void QuestV2MonsterCountAdd(uint16_t sNpcID);
-	uint8_t QuestV2CheckMonsterCount(uint16_t sQuestID);
-	void QuestV2MonsterDataDeleteAll();
-
-	// Sends the quest completion statuses
-	void QuestDataRequest();
-
-	// Handles new quest packets
-	void QuestV2PacketProcess(Packet & pkt);
-	void QuestV2MonsterDataRequest();
-	void QuestV2ExecuteHelper(_QUEST_HELPER * pQuestHelper);
-	void QuestV2CheckFulfill(_QUEST_HELPER * pQuestHelper);
-	bool QuestV2RunEvent(_QUEST_HELPER * pQuestHelper, uint32_t nEventID, int8_t bSelectedReward = 0);
-
-	void QuestV2SaveEvent(uint16_t sEventDataIndex, int8_t bEventStatus);//uint16_t sQuestID);
-	void QuestV2SendNpcMsg(uint32_t nQuestID, uint16_t sNpcID);
-	void QuestV2ShowGiveItem(uint32_t nUnk1, uint32_t sUnk1, 
-		uint32_t nUnk2, uint32_t sUnk2,
-		uint32_t nUnk3, uint32_t sUnk3,
-		uint32_t nUnk4, uint32_t sUnk4);
-	uint16_t QuestV2SearchEligibleQuest(uint16_t sEventDataIndex);//, uint16_t sNpcID);
-	void QuestV2ShowMap(uint32_t nQuestHelperID);
-	uint8_t CheckMonsterCount(uint8_t bGroup);
+	void QuestDataRequest(Packet& pkt);
+	void SendQuestStateUpdate(uint16_t sQuestID, uint8_t byQuestState, bool bIsUpdate = true);
 
 	bool PromoteUserNovice();
 	bool PromoteUser();
@@ -974,7 +951,6 @@ public:
 	typedef std::map<uint16_t, uint8_t> QuestMap;
 	QuestMap m_questMap;
 
-	uint8_t m_bKillCounts[QUEST_MOB_GROUPS];
 	uint16_t m_sEventDataIndex;
 
 	UserSavedMagicMap m_savedMagicMap;
@@ -1142,33 +1118,11 @@ public:
 	}
 
 	DECLARE_LUA_FUNCTION(SaveEvent) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->QuestV2SaveEvent(
-			//LUA_ARG(uint16_t, 2)));  // quest ID
-			LUA_ARG(uint16_t, 2), // sEventDataIndex
-			LUA_ARG(char, 3) // bEventStatus
-		));  // quest ID
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SaveEvent(
+			LUA_ARG(uint16_t, 2),	// quest ID
+			LUA_ARG(char, 3)		// quest status
+		));
 	}
-
-	DECLARE_LUA_FUNCTION(SearchQuest) {
-		CUser * pUser = LUA_GET_INSTANCE();
-		LUA_RETURN(pUser->QuestV2SearchEligibleQuest(
-			LUA_ARG(uint16_t, 2)
-			//LUA_ARG_OPTIONAL(uint16_t, pUser->m_sEventSid, 3)
-		)); // NPC ID
-	}
-
-	DECLARE_LUA_FUNCTION(ShowMap) {
-		CUser * pUser = LUA_GET_INSTANCE();
-		LUA_NO_RETURN(pUser->QuestV2ShowMap(LUA_ARG_OPTIONAL(uint32_t, pUser->m_nQuestHelperID, 2))); // quest helper ID
-	}
-
-	DECLARE_LUA_FUNCTION(CountMonsterQuestSub) {
-		LUA_RETURN(LUA_GET_INSTANCE()->QuestV2CheckMonsterCount((LUA_ARG(uint16_t, 2))));
-	}
-
-	DECLARE_LUA_FUNCTION(CountMonsterQuestMain) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->QuestV2MonsterCountAdd((LUA_ARG(uint16_t, 2))));
-	} 
 
 	DECLARE_LUA_FUNCTION(NpcSay) {
 		CUser * pUser = LUA_GET_INSTANCE();
@@ -1188,8 +1142,6 @@ public:
 		uint32_t arg = 2; // start from after the user instance.
 		int32_t menuButtonText[MAX_MESSAGE_EVENT], 
 			menuButtonEvents[MAX_MESSAGE_EVENT];
-		uint8_t bFlag = 0;//LUA_ARG(uint8_t, arg++);
-		int32_t nQuestID = 0;//LUA_ARG_OPTIONAL(int32_t, -1, arg++);
 		int32_t menuHeaderText = LUA_ARG(int32_t, arg++);
 
 		foreach_array(i, menuButtonText)
@@ -1198,14 +1150,7 @@ public:
 			menuButtonEvents[i] = LUA_ARG_OPTIONAL(int32_t, -1, arg++);
 		}
 
-		LUA_NO_RETURN(pUser->SelectMsg(bFlag, nQuestID, menuHeaderText, menuButtonText, menuButtonEvents));
-	}
-
-	DECLARE_LUA_FUNCTION(NpcMsg) {
-		CUser * pUser = LUA_GET_INSTANCE();
-		LUA_NO_RETURN(pUser->QuestV2SendNpcMsg(
-			LUA_ARG(uint32_t, 2),
-			LUA_ARG_OPTIONAL(uint16_t, pUser->m_sEventSid, 3)));
+		LUA_NO_RETURN(pUser->SelectMsg(menuHeaderText, menuButtonText, menuButtonEvents));
 	}
 
 	DECLARE_LUA_FUNCTION(CheckWeight) {

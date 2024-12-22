@@ -390,45 +390,8 @@ void CNpc::OnDeathProcess(Unit *pKiller)
 	}
 	else if (m_bMonster)
 	{
-		if (GetProtoID() == 700 || GetProtoID() == 750 || GetProtoID() == 701 || GetProtoID() == 751)
-		{
-			if (pUser->CheckExistEvent(STARTER_SEED_QUEST, 1))
-			{
-				_QUEST_HELPER * pQuestHelper ;
-				if (pUser->GetNation() == ELMORAD)
-					pQuestHelper = g_pMain->m_QuestHelperArray.GetData(5005);
-				else
-					pQuestHelper = g_pMain->m_QuestHelperArray.GetData(5002);
-
-				pUser->QuestV2RunEvent(pQuestHelper,pQuestHelper->nEventTriggerIndex);
-			}
-		}
-
 		if (g_pMain->m_bForgettenTempleIsActive && GetZoneID() == ZONE_FORGOTTEN_TEMPLE)
 			g_pMain->m_ForgettenTempleMonsterList.erase(m_sNid);
-
-
-		if (pUser->isInParty())
-		{
-			_PARTY_GROUP *pParty = g_pMain->GetPartyPtr(pUser->GetPartyID());
-			if (pParty != nullptr)
-			{
-				for (int i = 0; i < 8; i++)
-				{
-					if (pParty->uid[i] >= 0)
-					{
-						CUser * pUserRange = g_pMain->GetUserPtr(pParty->uid[i]);
-						if (!isInRangeSlow(pUserRange, 50.0f) || pUserRange == nullptr)
-							continue;
-
-						CUser * pUserParty = g_pMain->GetUserPtr(pParty->uid[i]);
-						pUserParty->QuestV2MonsterCountAdd(GetProtoID());
-					}
-				}
-			}
-		}
-		else
-		pUser->QuestV2MonsterCountAdd(GetProtoID());
 	}
 
 	DateTime time;
