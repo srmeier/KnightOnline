@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 
@@ -100,14 +100,24 @@ public:
 	INLINE size_t wpos() const { return _wpos; };
 	INLINE size_t wpos(size_t wpos) { return _wpos = wpos; };
 
-	template <typename T> T read() 
+	template <typename T>
+	T read() 
 	{
 		T r = read<T>(_rpos);
 		_rpos += sizeof(T);
 		return r;
 	}
 
-	template <typename T> T read(size_t pos) const 
+	template <>
+	std::string read() 
+	{
+		std::string r;
+		readString(r);
+		return r;
+	}
+
+	template <typename T>
+	T read(size_t pos) const 
 	{
 		//ASSERT(pos + sizeof(T) <= size());
 		if (pos + sizeof(T) > size())
@@ -126,7 +136,13 @@ public:
 
 	void readString(std::string& dest)
 	{
-		readString(dest, m_doubleByte);
+		size_t len = 0;
+		if (m_doubleByte)
+			len = read<uint16_t>();
+		else
+			len = read<uint8_t>();
+
+		readString(dest, len);
 	}
 
 	void readString(std::string& dest, size_t len)
