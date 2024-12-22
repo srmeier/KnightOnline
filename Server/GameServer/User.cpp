@@ -167,21 +167,22 @@ void CUser::OnDisconnect()
 	{
 		UserInOut(INOUT_OUT);
 
-		if (isInParty())
-			if (isPartyLeader())
-			{
-			_PARTY_GROUP * pParty = g_pMain->GetPartyPtr(GetPartyID());
-			PartyPromote(pParty->uid[1]);
-			}
-			PartyRemove(GetSocketID());
-
-		if (isInClan())
+		_PARTY_GROUP* pParty = g_pMain->GetPartyPtr(GetPartyID());
+		if (pParty != nullptr)
 		{
-			CKnights *pKnights = g_pMain->GetClanPtr(GetClanID());
-			_KNIGHTS_ALLIANCE *pAllianceKnights = g_pMain->GetAlliancePtr(pKnights->GetAllianceID());
+			if (isPartyLeader())
+				PartyPromote(pParty->uid[1]);
+
+			PartyRemove(GetSocketID());
+		}
+
+		CKnights* pKnights = g_pMain->GetClanPtr(GetClanID());
+		if (pKnights != nullptr)
+		{
+			_KNIGHTS_ALLIANCE* pAllianceKnights = g_pMain->GetAlliancePtr(pKnights->GetAllianceID());
 			if (pAllianceKnights != nullptr)
 				pKnights->OnLogoutAlliance(this);
-			else if (pKnights != nullptr)
+			else
 				pKnights->OnLogout(this);
 		}
 
