@@ -8,9 +8,7 @@
 
 struct _KNIGHTS_USER;
 struct _EXCHANGE_ITEM;
-struct _USER_SEAL_ITEM;
 
-typedef std::map<uint64_t, _USER_SEAL_ITEM*>	UserItemSealMap;
 typedef	std::list<_EXCHANGE_ITEM*>			ItemList;
 typedef	std::map<uint32_t, time_t>			SkillCooldownList;
 typedef	std::map<uint8_t, time_t>				MagicTypeCooldownList;
@@ -38,7 +36,6 @@ enum MerchantState
 {
 	MERCHANT_STATE_NONE		= -1,
 	MERCHANT_STATE_SELLING	= 0,
-	MERCHANT_STATE_BUYING	= 1
 };
 
 enum ClassType
@@ -160,19 +157,10 @@ public:
 	int16_t	m_sMerchantsSocketID;
 	std::list<uint16_t>	m_arMerchantLookers;
 	_MERCH_DATA	m_arMerchantItems[MAX_MERCH_ITEMS]; //What is this person selling? Stored in "_MERCH_DATA" structure.
-	bool	m_bPremiumMerchant;
-	UserItemSealMap m_sealedItemMap;
 
 	uint8_t	m_bRequestingChallenge, // opcode of challenge request being sent by challenger
 		m_bChallengeRequested;  // opcode of challenge request received by challengee
 	int16_t	m_sChallengeUser;
-
-	// Rival system
-	int16_t	m_sRivalID;			// rival's session ID
-	time_t	m_tRivalExpiryTime;	// time when the rivalry ends
-
-	// Anger gauge system 
-	uint8_t	m_byAngerGauge; // values range from 0-5
 
 	// Magic System Cooldown checks
 	SkillCooldownList	m_CoolDownList;
@@ -192,10 +180,6 @@ public:
 	uint16_t	m_sTransformationDuration;
 
 	bool	m_bIsChicken; // Is the character taking the beginner/chicken quest?
-	bool	m_bIsHidingHelmet;
-
-	bool	m_bMining;
-	time_t	m_tLastMiningAttempt;
 
 	int8_t	m_bPersonalRank;
 	int8_t	m_bKnightsRank;
@@ -207,7 +191,6 @@ public:
 
 	uint16_t	m_sMaxWeight;
 	uint16_t	m_sMaxWeightBonus;
-	uint16_t CUser::MaxWeight (uint16_t MaxWeight);
 	int16_t   m_sSpeed;
 
 	uint8_t	m_bPlayerAttackAmount;
@@ -363,8 +346,6 @@ public:
 	INLINE bool isStoreOpen() { return m_bStoreOpen; }
 	INLINE bool isMerchanting() { return GetMerchantState() != MERCHANT_STATE_NONE; }
 	INLINE bool isSellingMerchant() { return GetMerchantState() == MERCHANT_STATE_SELLING; }
-	INLINE bool isBuyingMerchant() { return GetMerchantState() == MERCHANT_STATE_BUYING; }
-	INLINE bool isMining() { return m_bMining; }
 
 	INLINE bool isBlockingPrivateChat() { return m_bBlockPrivateChat; }
 
@@ -440,13 +421,6 @@ public:
 	INLINE bool hasLoyalty(uint32_t amount) { return (GetLoyalty() >= amount); }
 	INLINE bool hasMonthlyLoyalty(uint32_t amount) { return (GetMonthlyLoyalty() >= amount); }
 	INLINE bool hasManner(uint32_t amount) { return (GetManner() >= amount); }
-
-	INLINE uint8_t GetAngerGauge() { return m_byAngerGauge; }
-	INLINE bool hasFullAngerGauge() { return GetAngerGauge() >= MAX_ANGER_GAUGE; }
-
-	INLINE bool hasRival() { return GetRivalID() >= 0; }
-	INLINE bool hasRivalryExpired() { return UNIXTIME >= m_tRivalExpiryTime; }
-	INLINE int16_t GetRivalID() { return m_sRivalID; }
 
 	INLINE GameState GetState() { return m_state; }
 
@@ -582,8 +556,6 @@ public:
 
 	virtual void AddToRegion(int16_t new_region_x, int16_t new_region_z);
 
-	void SetRival(CUser * pRival);
-	void RemoveRival();
 	void SendLoyaltyChange(int32_t nChangeAmount = 0, bool bIsKillReward = false, bool bIsBonusTime = false, bool bIsAddLoyaltyMonthly = true);
 
 	void NativeZoneReturn();
@@ -604,10 +576,12 @@ public:
 	bool RobItem(uint8_t bPos, _ITEM_TABLE * pTable, uint32_t sCount = 1);
 	bool RobAllItemParty(uint32_t nItemID, uint16_t sCount = 1);
 	bool CheckExistItem(int itemid, int16_t count = 1);
-	bool CheckExistItemAnd(int32_t nItemID1, int32_t sCount1, int32_t nItemID2, int32_t sCount2,
-		int32_t nItemID3, int32_t sCount3, int32_t nItemID4, int32_t sCount4, int32_t nItemID5, int32_t sCount5,
-		int32_t nItemID6, int32_t sCount6, int32_t nItemID7, int32_t sCount7, int32_t nItemID8, int32_t sCount8,
-		int32_t nItemID9, int32_t sCount9, int32_t nItemID10, int32_t sCount10, int32_t nItemID11, int32_t sCount11);
+	bool CheckExistItemAnd(
+		int32_t nItemID1, int32_t sCount1,
+		int32_t nItemID2 = 0, int32_t sCount2 = 0,
+		int32_t nItemID3 = 0, int32_t sCount3 = 0,
+		int32_t nItemID4 = 0, int32_t sCount4 = 0,
+		int32_t nItemID5 = 0, int32_t sCount5 = 0);
 	uint32_t GetItemCount(uint32_t nItemID);
 	bool CheckWeight(uint32_t nItemID, uint32_t sCount);
 	bool CheckWeight(_ITEM_TABLE * pTable, uint32_t nItemID, uint32_t sCount);
@@ -659,7 +633,6 @@ public:
 
 	void SelNationToAgent(Packet & pkt);
 	void AllCharInfoToAgent();
-	void ChangeHair(Packet & pkt);
 	void NewCharToAgent(Packet & pkt);
 	void DelCharToAgent(Packet & pkt);
 	void SelCharToAgent(Packet & pkt);
@@ -687,7 +660,7 @@ public:
 
 	void Chat(Packet & pkt);
 	void ChatTargetSelect(Packet & pkt);
-	void SendDeathNotice(Unit * pKiller, DeathNoticeType noticeType); 
+	void SendDeathNotice(Unit * pKiller, e_DeathNoticeType noticeType); 
 
 	bool ProcessChatCommand(std::string & message);
 
@@ -789,14 +762,6 @@ public:
 	void MerchantInsert(Packet & pkt);
 	void CancelMerchant();
 
-	// buying merchants
-	void BuyingMerchantOpen(Packet & pkt);
-	void BuyingMerchantClose();
-	void BuyingMerchantInsert(Packet & pkt);
-	void BuyingMerchantInsertRegion();
-	void BuyingMerchantList(Packet & pkt);
-	void BuyingMerchantBuy(Packet & pkt);
-
 	void RemoveFromMerchantLookers();
 
 	void SkillPointChange(Packet & pkt);
@@ -858,11 +823,6 @@ public:
 	void ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8_t UpgradeResult);
 	void ItemUpgradeAccessories(Packet & pkt);
 	void BifrostPieceProcess(Packet & pkt); // originally named BeefRoastPieceProcess() -- that's not happening.
-	void SpecialItemExchange(Packet & pkt);
-	void ItemUpgradeRebirth(Packet & pkt);
-	void ItemSealProcess(Packet & pkt);
-	void SealItem(uint8_t bSealType, uint8_t bSrcPos);
-	void CharacterSealProcess(Packet & pkt);
 
 	void ShoppingMall(Packet & pkt);
 	void HandleStoreOpen(Packet & pkt);
@@ -881,7 +841,6 @@ public:
 	void HandlePlayerNameChange(Packet & pkt);
 	void SendNameChange(NameChangeOpcode opcode = NameChangeShowDialog);
 
-	void HandleHelmet(Packet & pkt);
 	void HandleCapeChange(Packet & pkt);
 
 	void HandleChallenge(Packet & pkt);
@@ -892,15 +851,7 @@ public:
 	void HandleChallengeCancelled(uint8_t opcode);
 	void HandleChallengeRejected(uint8_t opcode);
 
-	void HandlePlayerRankings(Packet & pkt);
 	uint16_t GetPlayerRank(uint8_t nRankType);
-
-	void HandleMiningSystem(Packet & pkt);
-	void HandleMiningStart(Packet & pkt);
-	void HandleMiningAttempt(Packet & pkt);
-	void HandleMiningStop(Packet & pkt);
-
-	void HandleSoccer(Packet & pkt);
 
 	void SendNotice();
 	void AppendNoticeEntry(Packet & pkt, uint8_t & elementCount, const char * message, const char * title);
@@ -916,7 +867,6 @@ public:
 
 	bool CanLevelQualify(uint8_t sLevel);
 	bool CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason);
-	void CheckWaiting(uint8_t sNewZone, uint16_t Time);
 	void ZoneChange(uint16_t sNewZone, float x, float z);
 	void ZoneChangeParty(uint16_t sNewZone, float x, float z);
 	void ZoneChangeClan(uint16_t sNewZone, float x, float z);
@@ -945,11 +895,10 @@ public:
 	void SendMyInfo();
 	void SendServerChange(std::string & ip, uint8_t bInit);
 	void Send2AI_UserUpdateInfo(bool initialInfo = false);
-	uint16_t GetPremiumProperty(PremiumPropertyOpCodes type);
+	uint16_t GetPremiumProperty(e_PremiumPropertyType type);
 	void BifrostProcess(CUser * pUser);
 	void CastleSiegeWarProcess(CUser * pUser);
 	void SiegeWarFareNpc(Packet & pkt);
-	void LogosShout(Packet & pkt);
 
 	virtual void GetInOut(Packet & result, uint8_t bType);
 	void UserInOut(uint8_t bType);
@@ -965,7 +914,6 @@ public:
 	void SendToZone(Packet *pkt, CUser *pExceptUser = nullptr, uint16_t nEventRoom = 0, float fRange = 0.0f);
 
 	virtual void OnDeath(Unit *pKiller);
-	void UpdateAngerGauge(uint8_t byAngerGauge);
 	void InitializeStealth();
 
 	// Exchange system
@@ -1034,7 +982,6 @@ public:
 	void ReqAccountLogIn(Packet & pkt);
 	void ReqSelectNation(Packet & pkt);
 	void ReqAllCharInfo(Packet & pkt);
-	void ReqChangeHair(Packet & pkt);
 	void ReqCreateNewChar(Packet & pkt);
 	void ReqDeleteChar(Packet & pkt);
 	void ReqSelectCharacter(Packet & pkt);
@@ -1055,7 +1002,6 @@ public:
 	void ReqRemoveFriend(Packet & pkt);
 	void ReqChangeName(Packet & pkt);
 	void ReqChangeCape(Packet & pkt);
-	void ReqSealItem(Packet & pkt);
 	void InsertTaxUpEvent(uint8_t Nation, uint32_t TerritoryTax);
 
 	//private:
@@ -1350,12 +1296,6 @@ public:
 
 	DECLARE_LUA_FUNCTION(ShowNpcEffect) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->ShowNpcEffect(LUA_ARG(uint32_t, 2))); // effect ID
-	}
-
-	DECLARE_LUA_FUNCTION(CheckWaiting) {
-		LUA_NO_RETURN(LUA_GET_INSTANCE()->CheckWaiting(
-			LUA_ARG(uint8_t, 2),		// zone ID
-			LUA_ARG(uint16_t, 3)));	// Time
 	}
 
 	DECLARE_LUA_FUNCTION(ZoneChange) {

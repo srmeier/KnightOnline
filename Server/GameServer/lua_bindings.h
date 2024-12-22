@@ -71,7 +71,6 @@ LUA_FUNCTION(ResetStatPoints);
 LUA_FUNCTION(PromoteUserNovice);
 LUA_FUNCTION(PromoteUser);
 LUA_FUNCTION(RobAllItemParty);
-LUA_FUNCTION(CheckWaiting);
 LUA_FUNCTION(ZoneChange);
 LUA_FUNCTION(ZoneChangeParty);
 LUA_FUNCTION(ZoneChangeClan);

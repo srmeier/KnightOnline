@@ -90,7 +90,6 @@
 #define WIZ_AUTHORITY_CHANGE	0x58	// Authority change 
 #define WIZ_EDIT_BOX			0x59	// Activate/Receive info from Input_Box.
 #define WIZ_SANTA				0x5A	// Activate motherfucking Santa Claus!!! :(
-
 #define WIZ_ITEM_UPGRADE		0x5B
 #define WIZ_PACKET1				0x5C
 #define WIZ_PACKET2				0x5D
@@ -99,9 +98,9 @@
 #define WIZ_STEALTH				0x60 // stealth related.
 #define WIZ_ROOM_PACKETPROCESS	0x61 // room system
 #define WIZ_ROOM				0x62
-#define WIZ_PACKET3				0x63 // new clan
+#define WIZ_ROOM_MATCH			0x63
 #define WIZ_QUEST				0x64
-#define WIZ_PACKET4				0x65 // login
+#define WIZ_PP_CARD				0x65
 #define WIZ_KISS				0x66
 #define WIZ_RECOMMEND_USER		0x67
 #define WIZ_MERCHANT			0x68
@@ -116,7 +115,7 @@
 #define WIZ_PREMIUM				0x71
 #define WIZ_HACKTOOL			0x72
 #define WIZ_RENTAL				0x73
-#define WIZ_PACKET5				0x74 //s?eli item
+#define WIZ_REWARD_ITEMS		0x74
 #define WIZ_CHALLENGE			0x75
 #define WIZ_PET					0x76
 #define WIZ_CHINA				0x77 // we shouldn't need to worry about this
@@ -124,28 +123,7 @@
 #define WIZ_SKILLDATA			0x79
 #define WIZ_PROGRAMCHECK		0x7A
 #define WIZ_BIFROST				0x7B
-#define WIZ_REPORT				0x7C
-#define WIZ_LOGOSSHOUT			0x7D
-#define WIZ_PACKET6				0x7E
-#define WIZ_PACKET7				0x7F
-#define WIZ_RANK				0x80
-#define WIZ_STORY				0x81
-#define WIZ_PACKET8				0x82
-#define WIZ_PACKET9				0x83
-#define WIZ_PACKET10			0x84
-#define WIZ_PACKET11			0x85
-#define WIZ_MINING				0x86
-#define WIZ_HELMET				0x87
-#define WIZ_PVP					0x88
-#define WIZ_CHANGE_HAIR			0x89 // Changes hair colour/facial features at character selection
-#define WIZ_PACKET12			0x8A
-#define WIZ_PACKET13			0x8B
-#define WIZ_PACKET14			0x8C
-#define WIZ_PACKET15			0x8D
-#define WIZ_PACKET16			0x8E
-#define WIZ_PACKET17			0x8F
-#define WIZ_DEATH_LIST			0x90
-#define WIZ_CLANPOINTS_BATTLE	0x91 // not sure
+#define WIZ_SERVER_KILL			0x7F
 
 // NOTE(srmeier): testing this debug string functionality
 #define WIZ_DEBUG_STRING_PACKET 0xFE
@@ -181,40 +159,24 @@ enum ChatType
 	ALLIANCE_CHAT				= 15,
 	ANNOUNCEMENT_CHAT			= 17,
 	SEEKING_PARTY_CHAT			= 19,
-	GM_INFO_CHAT				= 21,	// info window : "Level: 0, UserCount:16649" (NOTE: Think this is the missing overhead info (probably in form of a command (with args))
-	COMMAND_PM_CHAT				= 22,	// Commander Chat PM??
-	CLAN_NOTICE					= 24,
-	KROWAZ_NOTICE				= 25,
-	DEATH_NOTICE				= 26,
-	CHAOS_STONE_ENEMY_NOTICE	= 27,	// The enemy has destroyed the Chaos stone something (Red text, middle of screen)
-	CHAOS_STONE_NOTICE			= 28,	
-	ANNOUNCEMENT_WHITE_CHAT		= 29	// what's it used for?
 };
 
-enum DeathNoticeType
+enum e_DeathNoticeType
 {
-	DeathNoticeCoordinates	= 0, // - %s defeat %s ( %d, %d ) -
-	DeathNotice				= 1, // - %s has been defeated by %s -
-	DeathNoticeRival		= 2, // - %s has avenged %s -
-	DeathNoticeNone			= 0xFF
+	DEATH_NOTICE_COORDINATES	= 0, // - %s defeat %s ( %d, %d ) -
+	DEATH_NOTICE_REGULAR		= 1, // - %s has been defeated by %s -
+	DEATH_NOTICE_GUARD_TOWER	= 2, // - Guard Tower defeat %s -
+	DEATH_NOTICE_NONE			= 0xFF
 };
 
-enum PVPOpcodes
+enum e_ZoneChangeOpcode
 {
-	PVPAssignRival	= 1,
-	PVPRemoveRival	= 2,
-	PVPUpdateHelmet	= 5, // the helmet icon indicates the level of the anger gauge
-	PVPResetHelmet	= 6
+	ZONE_CHANGE_LOADING		= 1,
+	ZONE_CHANGE_LOADED		= 2,
+	ZONE_CHANGE_TELEPORT	= 3
 };
 
-enum ZoneChangeOpcodes
-{
-	ZoneChangeLoading	= 1,
-	ZoneChangeLoaded	= 2,
-	ZoneChangeTeleport	= 3
-};
-
-enum PremiumPropertyOpCodes
+enum e_PremiumPropertyType
 {
 	PremiumExpRestorePercent = 0,
 	PremiumNoahPercent = 1,
@@ -275,16 +237,6 @@ enum MerchantOpcodes
 	MERCHANT_INSERT				= 7,
 	MERCHANT_TRADE_CANCEL		= 8,
 	MERCHANT_ITEM_PURCHASED		= 9,
-
-	MERCHANT_BUY_OPEN			= 0x21,
-	MERCHANT_BUY_INSERT			= 0x22,
-	MERCHANT_BUY_LIST			= 0x23,
-	MERCHANT_BUY_BUY			= 0x24,
-	MERCHANT_BUY_SOLD			= 0x25,
-	MERCHANT_BUY_BOUGHT			= 0x26,
-	MERCHANT_BUY_CLOSE			= 0x27,
-	MERCHANT_BUY_REGION_INSERT	= 0x28,
-	MERCHANT_BUY_UNK1			= 0x30
 };
 
 enum NameChangeOpcode
@@ -348,34 +300,6 @@ enum KingSystemImpeachmentOpcodes
 	KING_IMPEACHMENT_REQUEST_UI_OPEN	= 8,
 	KING_IMPEACHMENT_ELECTION_UI_OPEN	= 9
 };
-
-enum MiningSystemOpcodes
-{
-	// Starts the mining process
-	MiningStart		= 1,
-
-	// Every n seconds, calls this packet to see if they found anything.
-	MiningAttempt	= 2,
-
-	// Stops the mining process
-	MiningStop		= 3,
-
-	// Soccer handler is part of the mining handler (yuck).
-	MiningSoccer	= 16,
-};
-
-enum MiningErrors
-{
-	MiningResultError			= 0, // "Mining failed"
-	MiningResultSuccess			= 1, // nothing is displayed
-	MiningResultMiningAlready	= 2, // "Mining already"
-	MiningResultNotMiningArea	= 3, // "Not mining area"
-	MiningResultPreparing		= 4, // "Preparing mining"
-	MiningResultNotPickaxe		= 5, // "A pickaxe is not" (i.e. invalid equipped item, need a pickaxe)
-	MiningResultNothingFound	= 6, // "Nothing found"
-};
-
-#define MINING_DELAY			5 // seconds
 
 ////////////////////////////////////////////////////////////////
 // Magic Packet sub define 
@@ -578,12 +502,7 @@ enum
 	ITEM_ACCESSORIES		= 3,
 	ITEM_BIFROST_REQ		= 4,
 	ITEM_BIFROST_EXCHANGE	= 5,
-	ITEM_UPGRADE_REBIRTH	= 7,
-	ITEM_SEAL				= 8,
-	ITEM_CHARACTER_SEAL		= 9,
-	ITEM_SPECIAL_EXCHANGE	= 11,
 };
-
 
 ////////////////////////////////////////////////////////////////
 // Party BBS subpacket define

@@ -154,12 +154,6 @@ enum ItemSlotType
 #define ZONE_TRAP_DAMAGE	   400		// HP Damage is 10 for now :)
 
 ////////////////////////////////////////////////////////////
-
-#define RIVALRY_DURATION		(300)	// 5 minutes
-#define RIVALRY_NP_BONUS		(150)	// 150 additional NP on kill
-
-#define MAX_ANGER_GAUGE			(5)		// Maximum of 5 deaths in a PVP zone to fill your gauge.
-
 #define PVP_MONUMENT_NP_BONUS	(5)	// 5 additional NP on kill
 
 ////////////////////////////////////////////////////////////

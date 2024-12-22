@@ -281,10 +281,7 @@ enum ItemFlag
 {
 	ITEM_FLAG_NONE		= 0,
 	ITEM_FLAG_RENTED	= 1,
-	ITEM_FLAG_DUPLICATE = 3,
-	ITEM_FLAG_SEALED	= 4,
-	ITEM_FLAG_NOT_BOUND	= 7,
-	ITEM_FLAG_BOUND		= 8
+	ITEM_FLAG_DUPLICATE = 3
 };
 
 struct	_ITEM_DATA
@@ -298,8 +295,6 @@ struct	_ITEM_DATA
 	uint64_t		nSerialNum;
 	bool		IsSelling;
 
-	INLINE bool isSealed() { return bFlag == ITEM_FLAG_SEALED; }
-	INLINE bool isBound() { return bFlag == ITEM_FLAG_BOUND; }
 	INLINE bool isRented() { return bFlag == ITEM_FLAG_RENTED; }
 	INLINE bool isDuplicate() { return bFlag == ITEM_FLAG_DUPLICATE; }
 };

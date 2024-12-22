@@ -1112,20 +1112,6 @@ void CGameServerDlg::UpdateGameTime()
 			m_ReloadKnightAndUserRanksMinute = 0;
 			ReloadKnightAndUserRanks();
 		}
-
-		// Player Ranking Rewards
-		std::list<std::string> vargs = StrSplit(m_sPlayerRankingsRewardZones, ",");
-		uint8_t nZones = vargs.size();
-		if (nZones > 0)
-		{
-			uint8_t nZoneID = 0;
-			for (int i = 0; i < nZones; i++)
-			{
-				nZoneID = atoi(vargs.front().c_str());
-				SetPlayerRankingRewards(nZoneID);
-				vargs.pop_front();
-			}
-		}
 	}
 
 	// Every hour
@@ -1444,12 +1430,11 @@ void CGameServerDlg::GetRegionMerchantUserIn(C3DMap *pMap, uint16_t region_x, ui
 		if (nEventRoom > 0 && nEventRoom != pUser->GetEventRoom())
 			continue;
 
-		pkt << pUser->GetSocketID()
-			//<< pUser->GetMerchantState() // 0 is selling, 1 is buying
-			<< (pUser->GetMerchantState() == 1 ? false : pUser->m_bPremiumMerchant); // Type of merchant [normal - gold] // bool
+		pkt << uint16_t(pUser->GetSocketID());
 
-		for (int i = 0, listCount = (pUser->GetMerchantState() == 1 ? 4 : (pUser->m_bPremiumMerchant ? 8 : 4)); i < listCount; i++)
-			pkt << pUser->m_arMerchantItems[i].nNum;
+		constexpr int OVERHEAD_LIST_COUNT = 4;
+		for (int i = 0; i < OVERHEAD_LIST_COUNT; i++)
+			pkt << uint32_t(pUser->m_arMerchantItems[i].nNum);
 
 		t_count++;
 	}
@@ -3341,29 +3326,6 @@ void CGameServerDlg::ReloadKnightAndUserRanks()
 	// Update user rankings
 	CleanupUserRankings();
 	LoadUserRankings();
-}
-
-void CGameServerDlg::SetPlayerRankingRewards(uint16_t ZoneID)
-{
-	SessionMap sessMap = g_pMain->m_socketMgr.GetActiveSessionMap();
-	foreach (itr, sessMap)
-	{
-		CUser * pUser = TO_USER(itr->second);
-		if (pUser == nullptr 
-			|| !pUser->isInGame()
-			|| pUser->isGM()
-			|| pUser->GetZoneID() != ZoneID)
-			continue;
-
-		if (pUser->GetPlayerRank(RANK_TYPE_PK_ZONE) > 0
-			&& pUser->GetPlayerRank(RANK_TYPE_PK_ZONE) <= 10)
-		{
-			if (m_nPlayerRankingLoyaltyReward > 0)
-				pUser->SendLoyaltyChange(m_nPlayerRankingLoyaltyReward, false, true, false);
-			if (m_nPlayerRankingKnightCashReward > 0)
-				g_DBAgent.UpdateAccountKnightCash(pUser->GetAccountName(), m_nPlayerRankingKnightCashReward);
-		}
-	}
 }
 
 bool CGameServerDlg::CastleSiegeWarAttack(CUser *pUser, CUser *pTargetUser)

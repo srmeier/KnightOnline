@@ -612,7 +612,6 @@ void CUser::ItemTrade(Packet & pkt)
 	{
 		_ITEM_DATA *pItem = &m_sItemArray[SLOT_MAX+pos];
 		if (pItem->nNum != itemid
-			|| pItem->isSealed() // need to check the error codes for these
 			|| pItem->isRented())
 		{
 			errorCode = 2;

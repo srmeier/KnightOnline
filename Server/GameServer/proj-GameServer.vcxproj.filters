@@ -141,9 +141,6 @@
     <ClCompile Include="KingSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SealHandler.cpp">
-      <Filter>Source Files\Handlers</Filter>
-    </ClCompile>
     <ClCompile Include="UpgradeHandler.cpp">
       <Filter>Source Files\Handlers</Filter>
     </ClCompile>

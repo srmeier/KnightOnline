@@ -58,13 +58,10 @@ public:
 	bool GetAllCharID(std::string & strAccountID, std::string & strCharID1, std::string & strCharID2, std::string & strCharID3);
 	void LoadCharInfo(std::string & strCharID, ByteBuffer & result);
 
-	int8_t ChangeHair(std::string & strAccountID, std::string & strCharID, uint8_t bOpcode, uint8_t bFace, uint8_t nHair);
-
 	int8_t CreateNewChar(std::string & strAccountID, int index, std::string & strCharID, uint8_t bRace, uint16_t sClass, uint8_t nHair, uint8_t bFace, uint8_t bStr, uint8_t bSta, uint8_t bDex, uint8_t bInt, uint8_t bCha);
 	int8_t DeleteChar(std::string & strAccountID, int index, std::string & strCharID, std::string & strSocNo);
 
 	void LoadRentalData(std::string & strAccountID, std::string & strCharID, UserRentalMap & rentalData);
-	void LoadItemSealData(std::string & strAccountID, std::string & strCharID, UserItemSealMap & itemSealData);
 
 	bool LoadUserData(std::string & strAccountID, std::string & strCharID, CUser *pUser);
 	bool LoadWarehouseData(std::string & strAccountID, CUser *pUser);
@@ -102,7 +99,6 @@ public:
 	void RefundNP(std::string & strUserID, uint32_t nRefundNP);
 	void UpdateUserAuthority(std::string & strUserID, uint16_t nAuthority);
 	void UpdateClanFund(uint16_t sClanID, uint32_t nClanPointFund);
-	void UpdateClanNotice(uint16_t sClanID, std::string & strClanNotice);
 	NameChangeOpcode UpdateCharacterName(std::string & strAccountID, std::string & strUserID, std::string & strNewUserID);
 	void UpdateCape(uint16_t sClanID, uint16_t sCapeID, uint8_t r, uint8_t g, uint8_t b);
 	void UpdateClanGrade(uint16_t sClanID, uint8_t byFlag, uint16_t sCapeID);

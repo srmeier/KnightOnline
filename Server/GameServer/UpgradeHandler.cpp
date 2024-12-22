@@ -40,22 +40,6 @@ void CUser::ItemUpgradeProcess(Packet & pkt)
 	case ITEM_BIFROST_EXCHANGE:
 		BifrostPieceProcess(pkt);
 		break;
-
-	case ITEM_UPGRADE_REBIRTH:
-		ItemUpgradeRebirth(pkt);
-		break;
-
-	case ITEM_SEAL:
-		ItemSealProcess(pkt);
-		break;
-
-	case ITEM_CHARACTER_SEAL:
-		CharacterSealProcess(pkt);
-		break;
-
-	case ITEM_SPECIAL_EXCHANGE:
-		SpecialItemExchange(pkt);
-		break;
 	}
 }
 
@@ -88,7 +72,8 @@ void CUser::ItemUpgrade(Packet & pkt, uint8_t nUpgradeType)
 	bool trina=false,Accessories=false;
 	result << nUpgradeType;
 
-	if (isTrading() || isMerchanting() || isMining())
+	if (isTrading()
+		|| isMerchanting())
 	{
 		bResult = UpgradeTrading;
 		goto fail_return;
@@ -107,7 +92,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8_t nUpgradeType)
 	pOriginItem = GetItem(SLOT_MAX + bPos[0]);//The Upgrade Item's itself in the ITEM table
 	if (pOriginItem->nNum != nItemID[0] || (proto = g_pMain->GetItemPtr(nItemID[0])) == nullptr)
 		goto fail_return; // error with error code UpgradeNoMatch ("Items required for upgrade do not match")
-	else if (pOriginItem->isRented() || pOriginItem->isSealed()) // unsure if there's another error code for sealed items
+	else if (pOriginItem->isRented())
 	{
 		bResult = UpgradeRental;
 		goto fail_return;
@@ -432,7 +417,8 @@ void CUser::ItemUpgrade(Packet & pkt, uint8_t nUpgradeType)
 		else
 		{
 
-			if (isTrading() || isMerchanting() || isMining())
+			if (isTrading()
+				|| isMerchanting())
 			{
 				bResult = UpgradeTrading;
 				goto fail_return;
@@ -612,10 +598,11 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 		if (pExchange == nullptr
 			|| !CheckExchange(nExchangeID)
 			|| pExchange->bRandomFlag > 101
-			|| !CheckExistItemAnd(pExchange->nOriginItemNum[0], pExchange->sOriginItemCount[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) 
+			|| !CheckExistItemAnd(pExchange->nOriginItemNum[0], pExchange->sOriginItemCount[0])) 
 			resultOpCode = Failed;
 		
-		if (isTrading() || isMerchanting() || isMining())
+		if (isTrading()
+			|| isMerchanting())
 			resultOpCode = Failed;
 
 		if (pExchange->bRandomFlag == 101 && resultOpCode == Success)
@@ -675,247 +662,4 @@ void CUser::BifrostPieceProcess(Packet & pkt)
 
 	if (resultOpCode != Failed)
 		SendToRegion(&result);
-}
-
-/**
-* @brief	Packet handler for the Special exchange system
-* 			which is used to exchange Krowaz meterials.
-*
-* @param	pkt	The packet.
-*/
-void CUser::SpecialItemExchange(Packet & pkt)
-{
-	enum ResultOpCodes
-	{
-		WrongMaterial = 0,
-		Success = 1,
-		Failed = 2
-	};
-
-	ResultOpCodes resultOpCode = WrongMaterial;
-
-	uint16_t sNpcID;
-	uint32_t nShadowPiece;
-	uint8_t nShadowPieceSlot;
-	uint8_t nMaterialCount;
-	uint8_t nItemSlot[10];
-	uint8_t nDownFlag;
-	uint32_t nItemID[10]; 
-	uint8_t nItemCount[10];
-
-	uint32_t nItemNumber = 0;
-	uint8_t sItemSlot = 0;
-
-	pkt >> sNpcID >> nShadowPiece >> nShadowPieceSlot >> nMaterialCount;
-
-	for (int i = 0; i < 10; i++)
-	{
-		nItemID[i] = 0;
-		nItemCount[i] = 0;
-	}
-
-	for (int i = 0; i < nMaterialCount; i++)
-		pkt >> nItemSlot[i];
-
-	pkt >> nDownFlag;
-
-	for (int i = 0; i < nMaterialCount; i++)
-	{
-		uint8_t nReadByte;
-		int nDigit = 100000000;
-		nItemID[i] = 0;
-		for( int x = 0; x < 9; x++ ) 
-		{
-			pkt >> nReadByte;
-			nItemID[i] += (nReadByte - 48) * nDigit;
-			nDigit = nDigit / 10;
-		}
-
-		uint8_t nCount[3] = { 0, 0, 0};
-		pkt >> nCount[0];
-		pkt >> nCount[1];
-		pkt >> nCount[2];
-		int nCountFinish = 0;
-		nCountFinish += (nCount[0] - 48) * 100;
-		nCountFinish += (nCount[1] - 48) * 10;
-		nCountFinish += (nCount[2] - 48) * 1;
-		nItemCount[i] = nCountFinish;
-	}
-
-	std::vector<uint32_t> ExchangeIndexList;
-
-	if (nMaterialCount > 3) // Minimum Required : 4 Material
-	{
-		if (g_pMain->m_ItemExchangeArray.GetSize() > 0)
-		{
-			foreach_stlmap (itr, g_pMain->m_ItemExchangeArray)
-			{
-				if (itr->second->bRandomFlag == 102) // Special Item Exchange
-				{
-					if (nShadowPiece == 0 && itr->second->nOriginItemNum[0] == SHADOW_PIECE) // If Need Shadow Piece Please Set is nOriginItem1 Column... 
-						continue;
-					else
-					{
-						uint8_t nOriginItemCount = 0;
-						uint8_t nMatchCount = 0;
-						bool bAddArray = false;
-
-						if (nMaterialCount == 4)
-							nMatchCount = (nShadowPiece == 0 ? 4 : 5);
-						else if (nMaterialCount == 5)
-							nMatchCount = (nShadowPiece == 0 ? 5 : 6);
-
-						for (int i = 0; i < nMaterialCount; i++)
-						{
-							if (nItemID[i] != 0)
-							{
-								for (int x = 0; x < ITEMS_IN_ORIGIN_GROUP; x++)
-								{
-									if (itr->second->nOriginItemNum[x] != 0
-										&& nItemID[i] == itr->second->nOriginItemNum[x])
-									{
-										nOriginItemCount++;
-										break;
-									}
-								}
-							}
-						}
-
-						if (nOriginItemCount == nMatchCount)
-							bAddArray = true;
-						else if (nOriginItemCount == nMatchCount)
-							bAddArray = true;
-
-						if (bAddArray && std::find(ExchangeIndexList.begin(),ExchangeIndexList.end(),itr->second->nIndex) == ExchangeIndexList.end())
-							ExchangeIndexList.push_back(itr->second->nIndex);
-					}
-				}
-				else
-					continue;
-			}
-		}
-	}
-
-	if (ExchangeIndexList.size() > 0)
-	{
-		uint32_t randIndex = myrand(0, (ExchangeIndexList.size() - 1));
-		uint32_t nExchangeID = ExchangeIndexList[randIndex];
-
-		_ITEM_EXCHANGE * pExchange = g_pMain->m_ItemExchangeArray.GetData(nExchangeID);
-
-		if (pExchange == nullptr
-			|| !CheckExchange(nExchangeID)
-			|| pExchange->bRandomFlag > 102
-			|| !CheckExistItemAnd(pExchange->nOriginItemNum[0], pExchange->sOriginItemCount[0], 
-			pExchange->nOriginItemNum[1], pExchange->sOriginItemCount[1], 
-			pExchange->nOriginItemNum[2], pExchange->sOriginItemCount[2], 
-			pExchange->nOriginItemNum[3], pExchange->sOriginItemCount[3], 
-			pExchange->nOriginItemNum[4], pExchange->sOriginItemCount[4],
-			pExchange->nOriginItemNum[5], pExchange->sOriginItemCount[5],
-			pExchange->nOriginItemNum[6], pExchange->sOriginItemCount[6],
-			pExchange->nOriginItemNum[7], pExchange->sOriginItemCount[7],
-			pExchange->nOriginItemNum[8], pExchange->sOriginItemCount[8],
-			pExchange->nOriginItemNum[9], pExchange->sOriginItemCount[9],
-			pExchange->nOriginItemNum[10], pExchange->sOriginItemCount[10]))
-		{
-			resultOpCode = WrongMaterial;
-		}
-		else
-		{
-			bool bContinueExchange = true;
-
-			for (int i = 0; i < nMaterialCount; i++)
-			{
-				if (!bContinueExchange)
-					break;
-
-				if (nItemID[i] != 0)
-				{
-					for (int x = 0; x < ITEMS_IN_ORIGIN_GROUP; x++)
-					{
-						if (pExchange->nOriginItemNum[x] != 0
-							&& nItemID[i] == pExchange->nOriginItemNum[x]
-						&& nItemCount[i] != pExchange->sOriginItemCount[x])
-						{
-							bContinueExchange = false;
-							break;
-						}
-					}
-				}
-			}
-
-			if (!bContinueExchange)
-				resultOpCode = WrongMaterial;
-			else
-			{
-				uint32_t nTotalPercent = 0;
-				for (int i = 0; i < ITEMS_IN_EXCHANGE_GROUP; i++)
-					nTotalPercent += pExchange->sExchangeItemCount[i];
-
-				if (nTotalPercent > 10000)
-					resultOpCode = WrongMaterial;
-				else
-				{
-					uint8_t bRandArray[10000];
-					memset(&bRandArray, 0, sizeof(bRandArray)); 
-					uint16_t sExchangeCount[ITEMS_IN_EXCHANGE_GROUP];
-					memcpy(&sExchangeCount, &pExchange->sExchangeItemCount, sizeof(pExchange->sExchangeItemCount));
-
-					int offset = 0;
-					for (int n = 0, i = 0; n < ITEMS_IN_EXCHANGE_GROUP; n++)
-					{
-						if (sExchangeCount[n] > 0)
-						{
-							memset(&bRandArray[offset], n, sExchangeCount[n]);
-							offset += sExchangeCount[n];
-						}
-					}
-
-					uint8_t bRandSlot = bRandArray[myrand(0, 9999)];				
-					nItemNumber = pExchange->nExchangeItemNum[bRandSlot];
-					uint16_t nItemRate = pExchange->sExchangeItemCount[bRandSlot];
-					int rand = myrand(0, myrand(9000, 10000));
-
-					if (nItemRate <= rand)
-						resultOpCode = Failed;
-					else
-					{
-						sItemSlot = GetEmptySlot() - SLOT_MAX;
-						GiveItem(nItemNumber, 1);
-						resultOpCode = Success;
-					}
-
-					for (int i = 0; i < ITEMS_IN_ORIGIN_GROUP; i++)
-					{
-						if (pExchange->nOriginItemNum[i] != 0)
-							RobItem(pExchange->nOriginItemNum[i], pExchange->sOriginItemCount[i]);
-					}
-				}
-			}
-		}
-	}
-
-	Packet result(WIZ_ITEM_UPGRADE);
-	result << (uint8_t)ITEM_SPECIAL_EXCHANGE << (uint8_t)resultOpCode << sNpcID;
-
-	if (resultOpCode == Success)
-		result << nItemNumber << sItemSlot;
-
-	Send(&result);
-
-	if (resultOpCode == Success)
-		ShowNpcEffect(31033, true);
-	else if (resultOpCode == Failed)
-		ShowNpcEffect(31034, true);
-}
-
-
-/**
-* @brief	Packet handler for the upgrading of 'rebirthed' items.
-*
-* @param	pkt	The packet.
-*/
-void CUser::ItemUpgradeRebirth(Packet & pkt)
-{
-	ItemUpgrade(pkt, ITEM_UPGRADE_REBIRTH);
 }

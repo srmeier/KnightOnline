@@ -124,7 +124,7 @@ void CUser::TempleOperations(uint8_t bType)
 		{
 			if (CheckExistItem(CHAOS_MAP,1))
 				bResult = 1;
-			else if (m_sItemArray[RIGHTHAND].nNum == MATTOCK || m_sItemArray[RIGHTHAND].nNum == GOLDEN_MATTOCK || isMining())
+			else if (m_sItemArray[RIGHTHAND].nNum == MATTOCK || m_sItemArray[RIGHTHAND].nNum == GOLDEN_MATTOCK)
 				bResult = 4; 
 			else
 				bResult = 3;

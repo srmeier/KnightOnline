@@ -509,7 +509,9 @@ void CNpc::ChaosStoneProcess(CUser *pUser, uint16_t MonsterCount)
 	if (pUser == nullptr)
 		return;
 
+#if 0
 	g_pMain->SendNotice<CHAOS_STONE_ENEMY_NOTICE>("",GetZoneID(), Nation::ALL);
+#endif
 
 	std::vector<uint32_t> MonsterSpawned;
 	std::vector<uint32_t> MonsterSpawnedFamily;

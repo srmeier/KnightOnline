@@ -116,7 +116,8 @@ void CUser::Chat(Packet & pkt)
 		return;
 
 	// Process GM commands
-	if (isGM() && ProcessChatCommand(chatstr))
+	if (isGM()
+		&& ProcessChatCommand(chatstr))
 	{
 		chattype = "GAME MASTER";
 		g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
@@ -185,17 +186,6 @@ void CUser::Chat(Packet & pkt)
 		}
 		break;
 
-	case COMMAND_PM_CHAT:
-		{
-			if (type == COMMAND_PM_CHAT && GetFame() != COMMAND_CAPTAIN)
-				return;
-
-			pUser = g_pMain->GetUserPtr(m_sPrivateChatUser);
-			if (pUser != nullptr) 
-				pUser->Send(&result);
-		}
-		break;
-
 	case PARTY_CHAT:
 		if (isInParty())
 		{
@@ -227,22 +217,13 @@ void CUser::Chat(Packet & pkt)
 			chattype = "KNIGHTS_CHAT";
 		}
 		break;
-	case CLAN_NOTICE:
-		if (isInClan() 
-			&& isClanLeader())
-		{
-			pKnights = g_pMain->GetClanPtr(GetClanID());
-			if (pKnights == nullptr)
-				return;
 
-			pKnights->UpdateClanNotice(chatstr);
-		}
-		break;
 	case PUBLIC_CHAT:
 	case ANNOUNCEMENT_CHAT:
 		if (isGM())
 			g_pMain->Send_All(&result);
 		break;
+
 	case COMMAND_CHAT:
 		if (GetFame() == COMMAND_CAPTAIN)
 		{
@@ -250,10 +231,12 @@ void CUser::Chat(Packet & pkt)
 			chattype = "COMMAND_CHAT";
 		}
 		break;
+
 	case MERCHANT_CHAT:
 		if (isMerchanting())
 			SendToRegion(&result);
 		break;
+
 	case ALLIANCE_CHAT:
 		if (isInClan())
 		{
@@ -263,10 +246,12 @@ void CUser::Chat(Packet & pkt)
 			chattype = "ALLIANCE_CHAT";
 		}
 		break;
+
 	case WAR_SYSTEM_CHAT:
 		if (isGM())
 			g_pMain->Send_All(&result);
 		break;
+
 	case SEEKING_PARTY_CHAT:
 		if (m_bNeedParty == 2)
 		{
@@ -278,12 +263,14 @@ void CUser::Chat(Packet & pkt)
 
 	if (!chattype.empty())
 	{
-		if (pUser && type == 2)
-			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),pUser->GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
-		else if (pKnights && (type == 6 || type == 15))
-			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),pKnights->GetName().c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
+		if (pUser != nullptr
+			&& type == PRIVATE_CHAT)
+			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n", chattype.c_str(), time.GetHour(), time.GetMinute(), time.GetSecond(), strSender.c_str(), pUser->GetName().c_str(), chatstr.c_str(), GetZoneID(), uint16_t(GetX()), uint16_t(GetZ())));
+		else if (pKnights != nullptr
+			&& (type == KNIGHTS_CHAT || type == ALLIANCE_CHAT))
+			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s > %s : %s ( Zone=%d, X=%d, Z=%d )\n", chattype.c_str(), time.GetHour(), time.GetMinute(), time.GetSecond(), strSender.c_str(), pKnights->GetName().c_str(), chatstr.c_str(), GetZoneID(), uint16_t(GetX()), uint16_t(GetZ())));
 		else
-			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n",chattype.c_str(),time.GetHour(),time.GetMinute(),time.GetSecond(),strSender.c_str(),chatstr.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
+			g_pMain->WriteChatLogFile(string_format("[ %s - %d:%d:%d ] %s : %s ( Zone=%d, X=%d, Z=%d )\n", chattype.c_str(), time.GetHour(), time.GetMinute(), time.GetSecond(), strSender.c_str(), chatstr.c_str(), GetZoneID(), uint16_t(GetX()), uint16_t(GetZ())));
 	}
 }
 
@@ -335,36 +322,32 @@ void CUser::ChatTargetSelect(Packet & pkt)
 *
 * @param	pKiller	The killer.
 */
-void CUser::SendDeathNotice(Unit * pKiller, DeathNoticeType noticeType) 
+void CUser::SendDeathNotice(
+	Unit* pKiller,
+	e_DeathNoticeType noticeType)
 {
 	if (pKiller == nullptr)
 		return;
 
-	string buffer;
-	if(noticeType == 0 || noticeType == 2)
-		g_pMain->GetServerResource(IDS_DEATH_ANNOUNCEMENT, &buffer, pKiller->GetName().c_str(), GetName().c_str(), uint16_t(GetX()), uint16_t(GetZ()));
-			else
-				g_pMain->GetServerResource(IDS_GUARD_TOWER_DEATH_ANNOUNCEMENT, &buffer, pKiller->GetName().c_str(), GetName().c_str());
+	std::string buffer;
+	switch (noticeType)
+	{
+		case DEATH_NOTICE_COORDINATES:
+		case DEATH_NOTICE_REGULAR:
+			g_pMain->GetServerResource(IDS_DEATH_ANNOUNCEMENT, &buffer, pKiller->GetName().c_str(), GetName().c_str(), uint16_t(GetX()), uint16_t(GetZ()));
+			break;
 
-	string * strMessage = &buffer;
+		case DEATH_NOTICE_GUARD_TOWER:
+			g_pMain->GetServerResource(IDS_GUARD_TOWER_DEATH_ANNOUNCEMENT, &buffer, pKiller->GetName().c_str(), GetName().c_str());
+			break;
+
+		default:
+			return;
+	}
+
 	Packet result;
-
-	ChatPacket::Construct(&result, PUBLIC_CHAT, strMessage);
+	ChatPacket::Construct(&result, PUBLIC_CHAT, &buffer);
 	g_pMain->Send_Zone(&result, GetZoneID());
-
-	//Packet result(WIZ_CHAT);
-	// result << uint8_t(DEATH_NOTICE);
-
-	//result.SByte();
-	//result	<< GetNation()
-	//	<< uint8_t(noticeType)
-	//	<< pKiller->GetID() // session ID?
-	//	<< pKiller->GetName()
-	//	<< GetID() // session ID?
-	//	<< GetName()
-	//	<< uint16_t(GetX()) << uint16_t(GetZ());
-
-	//SendToZone(&result,this,pKiller->GetEventRoom(),(isInArena() ? RANGE_20M : 0.0f));
 }
 
 bool CUser::ProcessChatCommand(std::string & message)

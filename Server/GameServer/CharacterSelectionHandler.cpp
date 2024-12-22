@@ -22,27 +22,6 @@ void CUser::AllCharInfoToAgent()
 	g_pMain->AddDatabaseRequest(result, this);
 }
 
-void CUser::ChangeHair(Packet & pkt)
-{
-	std::string strUserID;
-	uint8_t nHair;
-	uint8_t bOpcode, bFace;
-
-	// The opcode:
-	// 0 seems to be an in-game implementation for converting from old -> new hair data
-	// 2 seems to be used with the hair change item(?).
-
-	// Another note: there's 4 bytes at the end of the packet data that I can't account for (maybe a[nother] checksum?)
-
-	pkt.SByte();
-	pkt >> bOpcode >> strUserID >> bFace >> nHair;
-
-	Packet result(WIZ_CHANGE_HAIR);
-	result.SByte();
-	result << bOpcode << strUserID << bFace << nHair;
-	g_pMain->AddDatabaseRequest(result, this);
-}
-
 void CUser::NewCharToAgent(Packet & pkt)
 {
 	Packet result(WIZ_NEW_CHAR);

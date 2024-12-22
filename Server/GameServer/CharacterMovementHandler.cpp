@@ -390,11 +390,6 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 
 		SetZoneAbilityChange(sNewZone);
 
-		// Reset the user's anger gauge when leaving the zone
-		// Unknown if this is official behaviour, but it's logical.
-		if (GetAngerGauge() > 0)
-			UpdateAngerGauge(0);
-
 		m_bZoneChangeSameZone = false;
 
 		/* 
@@ -426,9 +421,6 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 			PartyPromote(pParty->uid[1]);
 			}
 			PartyRemove(GetSocketID());
-
-		if (hasRival())
-			RemoveRival();
 
 		ResetWindows();
 	}
@@ -472,7 +464,7 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	SetRegion(GetNewRegionX(), GetNewRegionZ());
 
 	Packet result(WIZ_ZONE_CHANGE);
-	result << uint8_t(ZoneChangeTeleport) << uint16_t(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
+	result << uint8_t(ZONE_CHANGE_TELEPORT) << uint16_t(GetZoneID()) << GetSPosX() << GetSPosZ() << GetSPosY() << g_pMain->m_byOldVictory;
 	Send(&result);
 
 	if (!m_bZoneChangeSameZone)
@@ -567,13 +559,6 @@ void CUser::UpdatePlayerRank()
 	pRankInfo->m_iLoyaltyPremiumBonus = m_iLoyaltyPremiumBonus;
 	pRankInfo->m_KillCount = m_KillCount;
 	pRankInfo->m_DeathCount = m_DeathCount;
-}
-
-void CUser::CheckWaiting(uint8_t sNewZone, uint16_t Time)
-{
-	Packet result(WIZ_BIFROST);
-	result << uint8_t(MONSTER_SQUARD) << Time;
-	g_pMain->Send_All(&result, nullptr, 0, sNewZone);
 }
 
 /**
@@ -675,18 +660,17 @@ void CUser::RecvZoneChange(Packet & pkt)
 		return;
 
 	uint8_t opcode = pkt.read<uint8_t>();
-	if (opcode == ZoneChangeLoading)
+	if (opcode == ZONE_CHANGE_LOADING)
 	{
-
 		g_pMain->RegionUserInOutForMe(this);
 		g_pMain->NpcInOutForMe(this);
 		g_pMain->MerchantUserInOutForMe(this);
 
 		Packet result(WIZ_ZONE_CHANGE);
-		result << uint8_t(ZoneChangeLoaded); // finalise the zone change
+		result << uint8_t(ZONE_CHANGE_LOADED); // finalise the zone change
 		Send(&result);
 	}
-	else if (opcode == ZoneChangeLoaded)
+	else if (opcode == ZONE_CHANGE_LOADED)
 	{
 		UserInOut(INOUT_RESPAWN);
 

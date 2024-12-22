@@ -233,25 +233,6 @@ int8_t CDBAgent::CreateNewChar(string & strAccountID, int index, string & strCha
 	return bRet;
 }
 
-int8_t CDBAgent::ChangeHair(std::string & strAccountID, std::string & strCharID, uint8_t bOpcode, uint8_t bFace, uint8_t nHair)
-{
-	int8_t bRet = 1; // failed
-	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return bRet;
-
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strCharID.c_str(), strCharID.length());
-	//TODO(onurcanbektas): Add Hair type to the USERDATA and create CHANCE_HAIR procedure
-	//Also, add this function to another parameter called bHairColor so that we won't need another function for changing hair color.
-	if (!dbCommand->Execute(string_format(_T("{? = CALL CHANGE_HAIR(?, ?, %d, %d, %d)}"), 
-		bOpcode, bFace, nHair)))
-		ReportSQLError(m_GameDB->GetError());
-
-	return bRet;
-}
-
 int8_t CDBAgent::DeleteChar(string & strAccountID, int index, string & strCharID, string & strSocNo)
 {
 	int8_t bRet = -2; // generic error
@@ -315,40 +296,6 @@ void CDBAgent::LoadRentalData(string & strAccountID, string & strCharID, UserRen
 			delete pItem;
 		else
 			rentalData.insert(std::make_pair(pItem->nSerialNum, pItem));
-
-	} while (dbCommand->MoveNext());
-}
-
-void CDBAgent::LoadItemSealData(string & strAccountID, string & strCharID, UserItemSealMap & itemSealData)
-{
-	return; // NOTE: 1298
-
-	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return;
-
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-	if (!dbCommand->Execute(_T("SELECT nItemSerial, nItemID, bSealType FROM SEALED_ITEMS WHERE strAccountID = ?")))
-	{
-		ReportSQLError(m_GameDB->GetError());
-		return;
-	}
-
-	if (!dbCommand->hasData())
-		return;
-
-	do
-	{
-		_USER_SEAL_ITEM *pItem = new _USER_SEAL_ITEM;
-
-		dbCommand->FetchUInt64(1, pItem->nSerialNum);
-		dbCommand->FetchUInt32(2, pItem->nItemID);
-		dbCommand->FetchByte(3, pItem->bSealType);
-
-		if (pItem == nullptr)
-			delete pItem;
-		else
-			itemSealData.insert(std::make_pair(pItem->nSerialNum, pItem));
 
 	} while (dbCommand->MoveNext());
 }
@@ -424,9 +371,6 @@ bool CDBAgent::LoadUserData(string & strAccountID, string & strCharID, CUser *pU
 	dbCommand->FetchUInt32(field++, pUser->m_iMannerPoint);
 	dbCommand->FetchUInt32(field++, pUser->m_iLoyaltyMonthly);
 
-	// NOTE: not for 1298 (why the fuck wouldn't Fetch_ throw an error if there isn't any data to fetch?)
-	//dbCommand->FetchBinary(field++, strItemTime, sizeof(strItemTime));
-	
 	pUser->m_strUserID = strCharID;
 	pUser->m_lastSaveTime = UNIXTIME;
 
@@ -442,17 +386,9 @@ bool CDBAgent::LoadUserData(string & strAccountID, string & strCharID, CUser *pU
 		pUser->m_questMap.insert(std::make_pair(sQuestID, bQuestState));
 	}
 
-	// TODO: was this even a thing on 1298? NOPE
-	/*
-		// Start the Seed quest if it doesn't already exist.
-	if (pUser->CheckExistEvent(STARTER_SEED_QUEST, 0))
-		pUser->SaveEvent(STARTER_SEED_QUEST, 1);
-	*/
-
 	ByteBuffer itemBuffer, serialBuffer, itemTimeBuffer;
 	itemBuffer.append(strItem, sizeof(strItem));
 	serialBuffer.append(strSerial, sizeof(strSerial));
-	//itemTimeBuffer.append(strItemTime, sizeof(strItemTime));
 
 	memset(pUser->m_sItemArray, 0x00, sizeof(pUser->m_sItemArray));
 
@@ -463,7 +399,6 @@ bool CDBAgent::LoadUserData(string & strAccountID, string & strCharID, CUser *pU
 	delete dbCommand.release();
 
 	LoadRentalData(strAccountID, strCharID, rentalData);
-	//LoadItemSealData(strAccountID, strCharID, pUser->m_sealedItemMap);
 
 	for (int i = 0; i < INVENTORY_TOTAL; i++)
 	{ 
@@ -501,15 +436,6 @@ bool CDBAgent::LoadUserData(string & strAccountID, string & strCharID, CUser *pU
 		{
 			pItem->bFlag = ITEM_FLAG_RENTED;
 			pItem->sRemainingRentalTime = itr->second->sMinutesRemaining;
-		}
-
-		UserItemSealMap::iterator sealitr = pUser->m_sealedItemMap.find(nSerialNum);
-		if (sealitr != pUser->m_sealedItemMap.end())
-		{
-			if (sealitr->second->bSealType == 1)
-				pItem->bFlag = ITEM_FLAG_SEALED;
-			else if (sealitr->second->bSealType == 3)
-				pItem->bFlag = ITEM_FLAG_BOUND;
 		}
 
 		g_pMain->AddUserItem(nItemID, nSerialNum);
@@ -584,7 +510,7 @@ bool CDBAgent::LoadUserData(string & strAccountID, string & strCharID, CUser *pU
 
 bool CDBAgent::LoadWarehouseData(string & strAccountID, CUser *pUser)
 {
-	char strItem[WAREHOUSE_MAX * 8], strSerial[WAREHOUSE_MAX * 8], strItemTime[WAREHOUSE_MAX * 8];
+	char strItem[WAREHOUSE_MAX * 8], strSerial[WAREHOUSE_MAX * 8];
 
 	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
 	if (dbCommand.get() == nullptr)
@@ -596,7 +522,6 @@ bool CDBAgent::LoadWarehouseData(string & strAccountID, CUser *pUser)
 
 	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
 
-	// , WarehouseDataTime 1298
 	if (!dbCommand->Execute(_T("SELECT nMoney, WarehouseData, strSerial FROM WAREHOUSE WHERE strAccountID = ?")))
 		ReportSQLError(m_GameDB->GetError());
 
@@ -605,17 +530,14 @@ bool CDBAgent::LoadWarehouseData(string & strAccountID, CUser *pUser)
 
 	memset(strItem, 0x00, sizeof(strItem));
 	memset(strSerial, 0x00, sizeof(strSerial));
-	memset(strItemTime, 0x00, sizeof(strItemTime));
 
 	dbCommand->FetchUInt32(1, pUser->m_iBank);
 	dbCommand->FetchBinary(2, strItem, sizeof(strItem));
 	dbCommand->FetchBinary(3, strSerial, sizeof(strSerial));
-	//dbCommand->FetchBinary(4, strItemTime, sizeof(strItemTime));
 
-	ByteBuffer itemBuffer, serialBuffer, itemTimeBuffer;
+	ByteBuffer itemBuffer, serialBuffer;
 	itemBuffer.append(strItem, sizeof(strItem));
 	serialBuffer.append(strSerial, sizeof(strSerial));
-	itemTimeBuffer.append(strItemTime, sizeof(strItemTime));
 
 	memset(pUser->m_sWarehouseArray, 0x00, sizeof(pUser->m_sWarehouseArray));
 
@@ -624,11 +546,9 @@ bool CDBAgent::LoadWarehouseData(string & strAccountID, CUser *pUser)
 		uint64_t nSerialNum;
 		uint32_t nItemID;
 		int16_t sDurability, sCount;
-		uint32_t nItemTime;
 
 		itemBuffer >> nItemID >> sDurability >> sCount;
 		serialBuffer >> nSerialNum;
-		itemTimeBuffer >> nItemTime;
 
 		_ITEM_TABLE *pTable = g_pMain->GetItemPtr(nItemID);
 		if (pTable == nullptr || sCount <= 0)
@@ -643,16 +563,7 @@ bool CDBAgent::LoadWarehouseData(string & strAccountID, CUser *pUser)
 		pUser->m_sWarehouseArray[i].sDuration = sDurability;
 		pUser->m_sWarehouseArray[i].sCount = sCount;
 		pUser->m_sWarehouseArray[i].nSerialNum = nSerialNum;
-		pUser->m_sWarehouseArray[i].nExpirationTime = nItemTime;
-
-		UserItemSealMap::iterator sealitr = pUser->m_sealedItemMap.find(nSerialNum);
-		if (sealitr != pUser->m_sealedItemMap.end())
-		{
-			if (sealitr->second->bSealType == 1)
-				pUser->m_sWarehouseArray[i].bFlag = ITEM_FLAG_SEALED;
-			else if (sealitr->second->bSealType == 3)
-				pUser->m_sWarehouseArray[i].bFlag = ITEM_FLAG_BOUND;
-		}
+		pUser->m_sWarehouseArray[i].nExpirationTime = 0;
 
 		g_pMain->AddUserItem(nItemID, nSerialNum);
 
@@ -1469,23 +1380,6 @@ void CDBAgent::UpdateClanFund(uint16_t sClanID, uint32_t nClanPointFund)
 		return;
 
 	if (!dbCommand->Execute(string_format(_T("UPDATE KNIGHTS SET ClanPointFund = %d WHERE IDNum = %d"), nClanPointFund, sClanID)))
-		ReportSQLError(m_GameDB->GetError());
-}
-
-/**
-* @brief	Updates the clan notice.
-*
-* @param	sClanID		 	Identifier for the clan.
-* @param	strClanNotice	The clan notice.
-*/
-void CDBAgent::UpdateClanNotice(uint16_t sClanID, std::string & strClanNotice)
-{
-	unique_ptr<OdbcCommand> dbCommand(m_GameDB->CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return;
-
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strClanNotice.c_str(), strClanNotice.length());
-	if (!dbCommand->Execute(string_format(_T("UPDATE KNIGHTS SET strClanNotice = ? WHERE IDNum = %d"), sClanID)))
 		ReportSQLError(m_GameDB->GetError());
 }
 

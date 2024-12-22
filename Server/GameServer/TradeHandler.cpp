@@ -157,8 +157,6 @@ void CUser::ExchangeAdd(Packet & pkt)
 	{
 		if (pSrcItem->sCount < count
 			|| pSrcItem->isRented()
-			|| pSrcItem->isSealed()
-			|| pSrcItem->isBound()
 			|| pSrcItem->isDuplicate())
 			goto add_fail;
 

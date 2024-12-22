@@ -43,12 +43,7 @@ void CUser::Initialize()
 	m_bStoreOpen = false;
 	m_bPartyLeader = false;
 	m_bIsChicken = false;
-	m_bIsHidingHelmet = false;
-	m_bMining = false;
-	m_bPremiumMerchant = false;
 	m_bInParty = false;
-
-	m_tLastMiningAttempt = 0;
 
 	m_bMerchantState = MERCHANT_STATE_NONE;
 	m_bInvisibilityType = INVIS_NONE;
@@ -152,11 +147,6 @@ void CUser::Initialize()
 
 	m_pKnightsUser = nullptr;
 
-	m_sRivalID = -1;
-	m_tRivalExpiryTime = 0;
-
-	m_byAngerGauge = 0;
-
 	m_bWeaponsDisabled = false;
 
 	m_teamColour = TeamColourNone;
@@ -201,10 +191,8 @@ void CUser::OnDisconnect()
 		}
 
 		ResetWindows();
-
-		if (hasRival())
-			RemoveRival();
 	}
+
 	LogOut();
 }
 
@@ -260,9 +248,6 @@ bool CUser::HandlePacket(Packet & pkt)
 			break;
 		case WIZ_ALLCHAR_INFO_REQ:
 			AllCharInfoToAgent();
-			break;
-		case WIZ_CHANGE_HAIR:
-			ChangeHair(pkt);
 			break;
 		case WIZ_NEW_CHAR:
 			NewCharToAgent(pkt);
@@ -450,26 +435,15 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_KING:
 		CKingSystem::PacketProcess(this, pkt);
 		break;
-	case WIZ_HELMET:
-		HandleHelmet(pkt);
-		break;
 	case WIZ_CAPE:
 		HandleCapeChange(pkt);
 		break;
 	case WIZ_CHALLENGE:
 		HandleChallenge(pkt);
 		break;
-	case WIZ_RANK:
-		HandlePlayerRankings(pkt);
-		break;
-	case WIZ_MINING:
-		HandleMiningSystem(pkt);
-		break;
 	case WIZ_SIEGE:
 		SiegeWarFareNpc(pkt);
 		break;
-	case WIZ_LOGOSSHOUT:
-		LogosShout(pkt);
 
 	default:
 		TRACE("[SID=%d] Unknown packet %X\n", GetSocketID(), command);
@@ -515,9 +489,6 @@ void CUser::Update()
 	if (isBlinking())		// Should you stop blinking?
 		BlinkTimeCheck();
 
-	if (hasRival() && hasRivalryExpired())
-		RemoveRival();
-
 	if ((UNIXTIME - m_lastSaveTime) >= PLAYER_SAVE_INTERVAL)
 	{
 		m_lastSaveTime = UNIXTIME; // this is set by UpdateUser(), however it may result in multiple requests unless it's set first.
@@ -544,50 +515,6 @@ void CUser::Update()
 			if (pItem->nExpirationTime < (uint32_t)UNIXTIME && pItem->nExpirationTime != 0)
 				memset(pItem, 0, sizeof(_ITEM_DATA));
 		}
-}
-
-void CUser::SetRival(CUser * pRival)
-{
-	if (pRival == nullptr
-		|| hasRival())
-		return;
-
-	Packet result(WIZ_PVP, uint8_t(PVPAssignRival));
-	CKnights * pKnights = nullptr;
-
-	result	<< pRival->GetID()
-		<< GetCoins() << GetLoyalty();
-
-	if (pRival->isInClan() 
-		&& (pKnights = g_pMain->GetClanPtr(pRival->GetClanID())))
-		result << pKnights->GetName();
-	else
-		result << uint16_t(0); // 0 length clan name;
-
-	result << pRival->GetName();
-
-	m_sRivalID = pRival->GetID();
-	m_tRivalExpiryTime = UNIXTIME + RIVALRY_DURATION;
-
-	Send(&result);
-}
-
-/**
-* @brief	Removes our rivalry state.
-*/
-void CUser::RemoveRival()
-{
-	if (!hasRival())
-		return;
-
-	// Reset our rival data
-	m_tRivalExpiryTime = 0;
-	m_sRivalID = -1;
-
-	// Send the packet to let the client know that our rivalry has ended
-	Packet result(WIZ_PVP);
-	result << uint8_t(PVPRemoveRival);
-	Send(&result);
 }
 
 /**
@@ -1004,7 +931,7 @@ void CUser::SendMyInfo()
 	result
 		<< m_iMaxHp << m_sHp
 		<< m_iMaxMp << m_sMp
-		<< MaxWeight(m_sMaxWeight) << m_sItemWeight
+		<< uint16_t(m_sMaxWeight) << m_sItemWeight
 		<< GetStat(STAT_STR) << uint8_t(GetStatItemBonus(STAT_STR))
 		<< GetStat(STAT_STA) << uint8_t(GetStatItemBonus(STAT_STA))
 		<< GetStat(STAT_DEX) << uint8_t(GetStatItemBonus(STAT_DEX))
@@ -1082,14 +1009,6 @@ void CUser::SendMyInfo()
 	//SendPremiumInfo(); // NOTE: 1298 thing - seen with packet sniff. and may not be within WIZ_MYINFO
 	Send2AI_UserUpdateInfo(true); 
 }
-
-uint16_t CUser::MaxWeight (uint16_t MaxWeight)
-{
-	if(MaxWeight >= 32767)
-		return m_sMaxWeight = 32767;
-	else
-		return MaxWeight;
-} 
 
 /**
 * @brief	Calculates & sets a player's maximum HP.
@@ -1802,7 +1721,7 @@ void CUser::ExpChange(int64_t iExp, bool bIsBonusReward)
 /**
 * @brief	Get premium properties.
 */
-uint16_t CUser::GetPremiumProperty(PremiumPropertyOpCodes type)
+uint16_t CUser::GetPremiumProperty(e_PremiumPropertyType type)
 {
 	if (m_bPremiumType <= 0)
 		return 0;
@@ -1893,7 +1812,7 @@ void CUser::LevelChange(uint8_t level, bool bLevelUp /*= true*/)
 		<< uint32_t(m_iMaxExp) << uint32_t(m_iExp)
 		<< m_iMaxHp << m_sHp 
 		<< m_iMaxMp << m_sMp
-		<< MaxWeight(m_sMaxWeight) << m_sItemWeight;
+		<< uint16_t(m_sMaxWeight) << m_sItemWeight;
 
 	g_pMain->Send_Region(&result, GetMap(), GetRegionX(), GetRegionZ());
 	if (isInParty())
@@ -1933,7 +1852,7 @@ void CUser::PointChange(Packet & pkt)
 	m_sPoints--; // remove a free point
 	result << type << uint16_t(++m_bStats[statType]); // assign the free point to a stat
 	SetUserAbility();
-	result << m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight);
+	result << m_iMaxHp << m_iMaxMp << m_sTotalHit << uint16_t(m_sMaxWeight);
 	Send(&result);
 	SendItemMove(1);
 }
@@ -3204,15 +3123,6 @@ void CUser::LoyaltyDivide(int16_t tid, uint16_t bonusNP /*= 0*/)
 		CUser *pUser = g_pMain->GetUserPtr(pParty->uid[j]);
 		if (pUser == nullptr)
 			continue;
-		if (pUser->hasRival()
-			&& !pUser->hasRivalryExpired()
-			&& (pUser->GetRivalID() == pTUser->GetID())
-			|| (pUser->GetRivalID() == pTUser->GetID()
-			&& pUser->isPriest()))
-		{
-			bonusNP = RIVALRY_NP_BONUS;
-			pUser->RemoveRival();
-		}
 
 		if (pUser->isAlive())
 			pUser->SendLoyaltyChange(loyalty_source + bonusNP, true, false, pTUser->GetMonthlyLoyalty() > 0 ? true : false);
@@ -3375,7 +3285,7 @@ void CUser::SendItemMove(uint8_t subcommand)
 	{
 		result	<< uint16_t(m_sTotalHit * m_bAttackAmount / 100) 
 			<< uint16_t(m_sTotalAc + m_sACAmount)
-			<< MaxWeight(m_sMaxWeight)
+			<< uint16_t(m_sMaxWeight)
 			<< m_iMaxHp << m_iMaxMp
 			<< GetStatBonusTotal(STAT_STR) << GetStatBonusTotal(STAT_STA)
 			<< GetStatBonusTotal(STAT_DEX) << GetStatBonusTotal(STAT_INT)
@@ -3885,13 +3795,7 @@ void CUser::ResetWindows()
 	if (m_sMerchantsSocketID >= 0)
 		CancelMerchant();
 
-	if(isMining())
-		HandleMiningStop((Packet)(WIZ_MINING, MiningStop));
-
-	/*	if (isUsingBuyingMerchant())
-	BuyingMerchantClose();
-
-	if (isUsingStore())
+	/*if (isUsingStore())
 	m_bStoreOpen = false;*/
 }
 
@@ -4244,7 +4148,7 @@ void CUser::AllPointChange(bool bIsFree)
 	result << uint8_t(1) // result (success)
 		<< GetCoins()
 		<< byStr << bySta << byDex << byInt << byCha 
-		<< m_iMaxHp << m_iMaxMp << m_sTotalHit << MaxWeight(m_sMaxWeight) << m_sPoints;
+		<< m_iMaxHp << m_iMaxMp << m_sTotalHit << uint16_t(m_sMaxWeight) << m_sPoints;
 	Send(&result);
 	return;
 
@@ -4846,7 +4750,7 @@ void CUser::OnDeath(Unit *pKiller)
 
 	if (pKiller != nullptr)
 	{
-		DeathNoticeType noticeType = DeathNoticeNone;
+		e_DeathNoticeType noticeType = DEATH_NOTICE_NONE;
 
 		if (pKiller->isNPC())
 		{
@@ -4860,7 +4764,7 @@ void CUser::OnDeath(Unit *pKiller)
 				nExpLost = m_iMaxExp / 20;
 
 			if ((pNpc->GetType() == NPC_GUARD_TOWER1 || pNpc->GetType() == NPC_GUARD_TOWER2) && isInPKZone())
-				noticeType = DeathNotice;
+				noticeType = DEATH_NOTICE_GUARD_TOWER;
 
 			if (GetPremiumProperty(PremiumExpRestorePercent) > 0)
 				nExpLost = nExpLost * (GetPremiumProperty(PremiumExpRestorePercent)) / 100;
@@ -4890,7 +4794,7 @@ void CUser::OnDeath(Unit *pKiller)
 			{
 				if (GetZoneID() == ZONE_CHAOS_DUNGEON)
 				{
-					noticeType = DeathNoticeCoordinates;
+					noticeType = DEATH_NOTICE_COORDINATES;
 					RobChaosSkillItems();
 					m_DeathCount++;
 					UpdatePlayerRank();
@@ -4923,37 +4827,17 @@ void CUser::OnDeath(Unit *pKiller)
 						if (isInArena())
 						{
 							// Show death notices in the arena
-							noticeType = DeathNoticeCoordinates;
+							noticeType = DEATH_NOTICE_COORDINATES;
 						}
 						else
 						{
 							uint16_t bonusNP = 0;
-							bool bKilledByRival = false;
 
-							if (!GetMap()->isWarZone() && g_pMain->m_byBattleOpen != NATION_BATTLE)
+							if (!GetMap()->isWarZone()
+								&& g_pMain->m_byBattleOpen != NATION_BATTLE)
 							{
 								// Show death notices in PVP zones
-								noticeType = DeathNoticeCoordinates;
-
-								// If the killer has us set as their rival, reward them & remove the rivalry.
-								bKilledByRival = (!pUser->hasRivalryExpired() && pUser->GetRivalID() == GetID());
-								if (bKilledByRival)
-								{
-									// If we are our killer's rival, use the rival notice instead.
-									noticeType = DeathNoticeRival;
-
-									// Apply bonus NP for rival kills
-									bonusNP += RIVALRY_NP_BONUS;
-
-									// This player is no longer our rival
-									pUser->RemoveRival();
-								}
-
-								// The anger gauge is increased on each death.
-								// When your anger gauge is full (5 deaths), you can use the "Anger Explosion" skill.
-								if (!hasFullAngerGauge())
-									UpdateAngerGauge(++m_byAngerGauge);
-
+								noticeType = DEATH_NOTICE_COORDINATES;
 							}
 
 							// Loyalty should be awarded on kill.
@@ -4976,11 +4860,6 @@ void CUser::OnDeath(Unit *pKiller)
 
 								ExpChange(-nExpLost);
 							}
-
-							// If we don't have a rival, this player is now our rival for 3 minutes.
-							if (isInPKZone()
-								&& !hasRival())
-								SetRival(pUser);
 
 							if (GetNation() == KARUS)
 							pUser->QuestV2MonsterCountAdd(KARUS);
@@ -5038,34 +4917,11 @@ void CUser::OnDeath(Unit *pKiller)
 				g_pMain->WriteDeathUserLogFile(string_format("[ USER - %d:%d:%d ] Killer=%s,KillerParty=%s,Target=%s,TargetParty=%s,Zone=%d,X=%d,Z=%d,LoyaltyKiller=%d,LoyaltyMonthlyKiller=%d,LoyaltyTarget=%d,LoyaltyMonthlyTarget=%d\n",time.GetHour(),time.GetMinute(),time.GetSecond(),pKiller->GetName().c_str(),pKillerPartyUsers.c_str(),GetName().c_str(), pTargetPartyUsers.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ()),TO_USER(pKiller)->GetLoyalty(),TO_USER(pKiller)->GetMonthlyLoyalty(),GetLoyalty(),GetMonthlyLoyalty()));
 		}
 
-		if (noticeType != DeathNoticeNone)
-			SendDeathNotice(pKiller,noticeType); 
+		if (noticeType != DEATH_NOTICE_NONE)
+			SendDeathNotice(pKiller, noticeType);
 	}
 
 	Unit::OnDeath(pKiller);
-}
-
-/**
-* @brief	Updates the player's anger gauge level, setting it to
-* 			byAngerGauge.
-*
-* @param	byAngerGauge	The anger gauge level.
-*/
-void CUser::UpdateAngerGauge(uint8_t byAngerGauge)
-{
-	Packet result(WIZ_PVP);
-
-	if (byAngerGauge > MAX_ANGER_GAUGE)
-		byAngerGauge = MAX_ANGER_GAUGE;
-
-	m_byAngerGauge = byAngerGauge;
-
-	if (byAngerGauge > 0)
-		result << uint8_t(PVPUpdateHelmet) << byAngerGauge << hasFullAngerGauge();
-	else
-		result << uint8_t(PVPResetHelmet);
-
-	Send(&result);
 }
 
 // We have no clan handler, we probably won't need to implement it (but we'll see).
@@ -5090,24 +4946,6 @@ void CUser::SendPartyStatusUpdate(uint8_t bStatus, uint8_t bResult /*= 0*/)
 	Packet result(WIZ_PARTY);
 	result << uint8_t(PARTY_STATUSCHANGE) << GetSocketID() << bStatus << bResult;
 	g_pMain->Send_PartyMember(GetPartyID(), &result);
-}
-
-void CUser::HandleHelmet(Packet & pkt)
-{
-	if (isDead())
-		return;
-
-	Packet result(WIZ_HELMET);
-	pkt >> m_bIsHidingHelmet;
-#if __VERSION >= 1900
-	// pkt >> cospre flag
-#endif
-	result	<< m_bIsHidingHelmet 
-#if __VERSION >= 1900
-		//			<< cospre flag
-#endif
-		<< uint32_t(GetSocketID());
-	SendToRegion(&result);
 }
 
 bool Unit::isInAttackRange(Unit * pTarget, _MAGIC_TABLE * pSkill /*= nullptr*/)
@@ -5377,166 +5215,6 @@ void CUser::RecastLockableScrolls(uint8_t buffType)
 	RecastSavedMagic(buffType);
 }
 
-
-/**
-* @brief	Displays the player rankings board in PK zones, 
-* 			when left-ALT is held.
-*
-* @param	pkt	The packet.
-*/
-void CUser::HandlePlayerRankings(Packet & pkt)
-{
-	if (g_pMain->m_IsPlayerRankingUpdateProcess)
-		return;
-
-	uint8_t nRankType = 0;
-	pkt >> nRankType;
-
-	Packet result(WIZ_RANK);
-	result << nRankType;
-
-	uint16_t nMyRank = 0;
-	uint16_t sCount = 0;
-	size_t wpos = 0;
-
-	std::vector<_USER_RANKING> UserRankingSorted[NONE]; // 0 = Karus, 1 = Human and 2 = Both Nations
-
-	for (int nation = KARUS_ARRAY; nation <= ELMORAD_ARRAY; nation++)
-	{
-		foreach_stlmap (itr, g_pMain->m_UserRankingArray[nation])
-			UserRankingSorted[nRankType == RANK_TYPE_CHAOS_DUNGEON ? NONE - 1 : nation].push_back(*itr->second);
-
-		if (nRankType == RANK_TYPE_PK_ZONE
-			|| nRankType == RANK_TYPE_ZONE_BORDER_DEFENSE_WAR)
-		{
-			sCount = 0;
-			wpos = result.wpos();
-			result << sCount;
-
-			std::sort(UserRankingSorted[nation].begin(), UserRankingSorted[nation].end(),
-				[] (_USER_RANKING const &a, _USER_RANKING const &b ){ return a.m_iLoyaltyDaily > b.m_iLoyaltyDaily; });
-
-			if ((uint32_t)UserRankingSorted[nation].size() > 0)
-			{
-				// Get my rank...
-				if ((nation + 1) == GetNation())
-				{
-					for (int i = 0; i < (int32_t)UserRankingSorted[nation].size(); i++)
-					{
-						if (GetZoneID() != UserRankingSorted[nation][i].m_bZone)
-							continue;
-
-						nMyRank++;
-
-						if (UserRankingSorted[nation][i].m_socketID == GetSocketID())
-							break;
-					}
-				}
-
-				for (int i = 0; i < (int32_t)UserRankingSorted[nation].size(); i++)
-				{
-					if ((nRankType == RANK_TYPE_PK_ZONE && sCount > 9) 
-						|| (nRankType == RANK_TYPE_ZONE_BORDER_DEFENSE_WAR && sCount > 7))
-						break;
-
-					_USER_RANKING * pRankInfo = &UserRankingSorted[nation][i];
-
-					if (pRankInfo == nullptr)
-						continue;
-
-					if (GetZoneID() == pRankInfo->m_bZone 
-						&& GetEventRoom() == pRankInfo->m_bEventRoom)
-					{
-						CUser *pUser = g_pMain->GetUserPtr(pRankInfo->m_socketID);
-
-						if (pUser == nullptr)
-							continue;
-
-						if (!pUser->isInGame())
-							continue;
-
-						result << pUser->GetName() << true;
-
-						CKnights * pKnights = g_pMain->GetClanPtr(pUser->GetClanID());
-
-						if (pKnights == nullptr)
-							result	<< uint16_t(0) << uint16_t(0) << (std::string)"";
-						else
-							result	<< pKnights->GetID() << pKnights->m_sMarkVersion << pKnights->GetName();
-
-						result << pRankInfo->m_iLoyaltyDaily;
-
-						if(nRankType == RANK_TYPE_PK_ZONE)
-							result << pRankInfo->m_iLoyaltyPremiumBonus;
-
-						sCount++;
-					}
-				}
-			}
-
-			result.put(wpos, sCount);
-			wpos = result.wpos();
-		}
-	}
-
-	if (nRankType == RANK_TYPE_CHAOS_DUNGEON && (uint32_t)UserRankingSorted[NONE-1].size() > 0)
-	{
-		std::sort(UserRankingSorted[NONE-1].begin(), UserRankingSorted[NONE-1].end(),
-			[]( _USER_RANKING const &a, _USER_RANKING const &b ){ return a.m_KillCount > b.m_KillCount; });
-
-		// Get Event Room Users count
-		result << uint8_t(g_pMain->TempleEventGetRoomUsers(GetEventRoom()));
-
-		for (int i = 0; i < (int32_t)UserRankingSorted[NONE-1].size(); i++)
-		{
-			_USER_RANKING * pRankInfo = &UserRankingSorted[NONE-1][i];
-
-			if (pRankInfo == nullptr)
-				continue;
-
-			if (GetSocketID() == pRankInfo->m_socketID)
-				continue;
-
-			if (GetZoneID() == pRankInfo->m_bZone 
-				&& GetEventRoom() == pRankInfo->m_bEventRoom)
-			{
-				CUser *pUser = g_pMain->GetUserPtr(pRankInfo->m_socketID);
-
-				if (pUser == nullptr)
-					continue;
-
-				if (!pUser->isInGame())
-					continue;
-
-				result << pUser->GetName()
-					<< pRankInfo->m_KillCount << pRankInfo->m_DeathCount;
-			}
-		}
-	}
-
-	if (nRankType == RANK_TYPE_PK_ZONE)
-		result  << nMyRank << m_iLoyaltyDaily << m_iLoyaltyPremiumBonus;
-	else if (nRankType == RANK_TYPE_ZONE_BORDER_DEFENSE_WAR)
-		result << int32_t(100000) << int32_t(50000);
-	else if (nRankType == RANK_TYPE_CHAOS_DUNGEON)
-	{
-		int64_t nGainedExp = int64_t(pow(GetLevel(),3) * 0.15 * (5 * m_KillCount - m_DeathCount));
-		int64_t nPremiumGainedExp = nGainedExp * 2;
-
-		if (nGainedExp > 8000000)
-			nGainedExp = 8000000;
-
-		if (nPremiumGainedExp > 8000000)
-			nPremiumGainedExp = 8000000;
-
-		result << GetName()
-			<< m_KillCount << m_DeathCount
-			<< nGainedExp << nPremiumGainedExp;
-	}
-
-	Send(&result);
-}
-
 uint16_t CUser::GetPlayerRank(uint8_t nRankType)
 {
 	uint16_t nMyRank = 0;
@@ -5583,198 +5261,6 @@ uint16_t CUser::GetPlayerRank(uint8_t nRankType)
 	}
 
 	return nMyRank;
-}
-
-/**
-* @brief	Handles packets related to the mining system.
-* 			Also handles soccer-related packets (yuck).
-*
-* @param	pkt	The packet.
-*/
-void CUser::HandleMiningSystem(Packet & pkt)
-{
-	uint8_t opcode;
-	pkt >> opcode;
-
-	switch (opcode)
-	{
-	case MiningStart:
-		HandleMiningStart(pkt);
-		break;
-
-	case MiningAttempt:
-		HandleMiningAttempt(pkt);
-		break;
-
-	case MiningStop:
-		HandleMiningStop(pkt);
-		break;
-
-	case MiningSoccer:
-		HandleSoccer(pkt);
-		break;
-	}
-}
-
-/**
-* @brief	Handles users requesting to start mining.
-* 			NOTE: This is a mock-up, so be warned that it does not 
-* 			handle checks such as identifying if the user is allowed
-* 			to mine in this area.
-*
-* @param	pkt	The packet.
-*/
-void CUser::HandleMiningStart(Packet & pkt)
-{
-	Packet result(WIZ_MINING);
-	uint16_t resultCode = MiningResultSuccess;
-
-	// Are we mining already?
-	if (isMining())
-		resultCode = MiningResultMiningAlready;
-
-	// Do we have a pickaxe? Is it worn?
-	_ITEM_DATA * pItem;
-	_ITEM_TABLE * pTable = GetItemPrototype(RIGHTHAND, pItem);
-	if (pItem == nullptr || pTable == nullptr
-		|| pItem->sDuration <= 0
-		|| !pTable->isPickaxe())
-		resultCode = MiningResultNotPickaxe;
-
-	result << uint8_t(MiningStart) << resultCode;
-
-	// If nothing went wrong, allow the user to start mining.
-	// Be sure to let everyone know we're mining.
-	if (resultCode == MiningResultSuccess)
-	{
-		m_bMining = true;
-		result << GetID();
-		SendToRegion(&result);
-	}
-	else
-	{
-		Send(&result);
-	}
-}
-
-/**
-* @brief	Handles a user's mining attempt by finding a random reward (or none at all).
-* 			This is sent automatically by the client every MINING_DELAY (5) seconds.
-*
-* @param	pkt	The packet.
-*/
-void CUser::HandleMiningAttempt(Packet & pkt)
-{
-	if (!isMining())
-		return;
-
-	Packet result(WIZ_MINING);
-	uint16_t resultCode = MiningResultSuccess;
-
-	// Do we have a pickaxe? Is it worn?
-	_ITEM_DATA * pItem;
-	_ITEM_TABLE * pTable = GetItemPrototype(RIGHTHAND, pItem);
-	if (pItem == nullptr || pTable == nullptr
-		|| pItem->sDuration <= 0 // are we supposed to wear the pickaxe on use? Need to verify.
-		|| !pTable->isPickaxe())
-		resultCode = MiningResultNotPickaxe;
-
-	// Check to make sure we're not spamming the packet...
-	if ((UNIXTIME - m_tLastMiningAttempt) < MINING_DELAY)
-		resultCode = MiningResultMiningAlready; // as close an error as we're going to get...
-
-	// Effect to show to clients
-	uint16_t sEffect = 0;
-
-	// This is just a mock-up based on another codebase's implementation.
-	// Need to log official data to get a proper idea of how it behaves, rate-wise,
-	// so that we can then implement it more dynamically.
-	if (resultCode == MiningResultSuccess)
-	{
-		int rate = myrand(1, 100), random = myrand(1, 10000);
-
-		if (GetPremiumProperty(PremiumDropPercent) > 0)
-		{
-			rate += (rate / 100) * GetPremiumProperty(PremiumDropPercent);
-			random += (rate / 100) * GetPremiumProperty(PremiumDropPercent);
-		}
-
-		if (pTable->m_iNum == GOLDEN_MATTOCK)
-		{
-			rate += (rate / 100) * 10;
-			random += (random / 100) * 10;
-		}
-
-		if (rate > 100)
-			rate = 100;
-		if (random > 10000)
-			random = 10000;
-
-		if (rate <= 50 && random <= 5000)
-		{
-			ExpChange(1);
-			sEffect = 13082; // "XP" effect
-		}
-		else if (rate >= 50 && rate <= 75 && random <= 7500)
-		{
-			GiveItem(SLING);
-			sEffect = 13081; // "Item" effect
-		}
-		else if (rate >= 75 && rate <= 100 && random <= 10000)
-		{
-			if (pTable->m_iNum == MATTOCK)
-				GiveItem(MYSTERIOUS_ORE);
-			else if(pTable->m_iNum == GOLDEN_MATTOCK)
-				GiveItem(MYSTERIOUS_GOLD_ORE);
-
-			sEffect = 13081; // "Item" effect
-		}
-		else
-		{
-			resultCode = MiningResultNothingFound;
-		}
-		m_tLastMiningAttempt = UNIXTIME;
-	}
-
-	result << uint8_t(MiningAttempt) << resultCode << GetID() << sEffect;
-
-	ItemWoreOut(ATTACK,100); 
-
-	if (resultCode != MiningResultSuccess
-		&& resultCode != MiningResultNothingFound)
-	{
-		// Tell us the error first
-		Send(&result);
-
-		// and then tell the client to stop mining
-		HandleMiningStop(pkt);
-		return;
-	}
-
-	if(resultCode != MiningResultNothingFound)
-		SendToRegion(&result);
-	else if(resultCode == MiningResultNothingFound)
-		Send(&result);
-}
-
-/**
-* @brief	Handles when a user stops mining.
-*
-* @param	pkt	The packet.
-*/
-void CUser::HandleMiningStop(Packet & pkt)
-{
-	if (!isMining())
-		return;
-
-	Packet result(WIZ_MINING);
-	result << uint8_t(MiningStop) << uint16_t(1) << GetID();
-	m_bMining = false;
-	SendToRegion(&result);
-}
-
-void CUser::HandleSoccer(Packet & pkt)
-{
 }
 
 void CUser::InitializeStealth()
@@ -6101,16 +5587,4 @@ void CUser::SiegeWarFareNpc(Packet & pkt)
 		default:
 			break;
 		}
-}
-
-void CUser::LogosShout(Packet & pkt)
-{
-	uint8_t opcode;
-	string Notice;
-
-	pkt >> opcode >> Notice;
-
-	Packet result(WIZ_LOGOSSHOUT);
-	result << opcode << Notice;
-	Send(&result);
 }

@@ -399,8 +399,7 @@ bool CMagicProcess::GrantType4Buff(_MAGIC_TABLE * pSkill, _MAGIC_TYPE4 *pType, U
 		break;
 
 	case BUFF_TYPE_PREMIUM_MERCHANT:
-		if (pTarget->isPlayer())
-			TO_USER(pTarget)->m_bPremiumMerchant = true;
+		/* unsupported */
 		break;
 
 	case BUFF_TYPE_ATTACK_SPEED_ARMOR:
@@ -757,8 +756,7 @@ bool CMagicProcess::RemoveType4Buff(uint8_t byBuffType, Unit *pTarget, bool bRem
 		break;
 
 	case BUFF_TYPE_PREMIUM_MERCHANT:
-		if (pTarget->isPlayer())
-			TO_USER(pTarget)->m_bPremiumMerchant = false;
+		/* unsupported */
 		break;
 
 	case BUFF_TYPE_ATTACK_SPEED_ARMOR:

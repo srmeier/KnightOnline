@@ -143,7 +143,6 @@ public:
 	void CheckNationMonumentRewards();
 
 	void ReloadKnightAndUserRanks();
-	void SetPlayerRankingRewards(uint16_t ZoneID);
 	
 	bool CastleSiegeWarAttack(CUser *pUser, CUser *pTargetUser);
 	void UpdateSiege(int16_t m_sCastleIndex, int16_t m_sMasterKnights, int16_t m_bySiegeType, int16_t m_byWarDay, int16_t m_byWarTime, int16_t m_byWarMinute);

@@ -6,7 +6,7 @@ void CUser::WarehouseProcess(Packet & pkt)
 {
 	Packet result(WIZ_WAREHOUSE);
 	uint32_t nItemID, nCount;
-	uint16_t sNpcId, reference_pos;
+	uint16_t reference_pos;
 	uint8_t page, bSrcPos, bDstPos;
 	CNpc * pNpc = nullptr;
 	_ITEM_TABLE * pTable = nullptr;
@@ -282,10 +282,12 @@ uint32_t CUser::GetItemCount(uint32_t nItemID)
 }
 
 // Pretend you didn't see me. This really needs to go (just copying official)
-bool CUser::CheckExistItemAnd(int32_t nItemID1, int32_t sCount1, int32_t nItemID2, int32_t sCount2,
-						int32_t nItemID3, int32_t sCount3, int32_t nItemID4, int32_t sCount4, int32_t nItemID5, int32_t sCount5,
-						int32_t nItemID6, int32_t sCount6, int32_t nItemID7, int32_t sCount7, int32_t nItemID8, int32_t sCount8,
-						int32_t nItemID9, int32_t sCount9, int32_t nItemID10, int32_t sCount10, int32_t nItemID11, int32_t sCount11)
+bool CUser::CheckExistItemAnd(
+	int32_t nItemID1, int32_t sCount1,
+	int32_t nItemID2, int32_t sCount2,
+	int32_t nItemID3, int32_t sCount3,
+	int32_t nItemID4, int32_t sCount4,
+	int32_t nItemID5, int32_t sCount5)
 {
 	if (nItemID1
 		&& !CheckExistItem(nItemID1, sCount1))
@@ -310,36 +312,6 @@ bool CUser::CheckExistItemAnd(int32_t nItemID1, int32_t sCount1, int32_t nItemID
 	if (nItemID5
 		&& !CheckExistItem(nItemID5, sCount5))
 		if (nItemID5!=900000000 || nItemID5!=900001000 || nItemID5!=900002000 || nItemID5!=900003000 || nItemID5!=900004000 || nItemID5!=900005000 || nItemID5!=900006000 || nItemID5!=900007000 || nItemID5!=900008000 || nItemID5!=900009000 || nItemID5!=900010000 || nItemID5!=900011000)
-		return false;
-
-	if (nItemID6
-		&& !CheckExistItem(nItemID6, sCount6))
-		if (nItemID6!=900000000 || nItemID6!=900001000 || nItemID6!=900002000 || nItemID6!=900003000 || nItemID6!=900004000 || nItemID6!=900005000 || nItemID6!=900006000 || nItemID6!=900007000 || nItemID6!=900008000 || nItemID6!=900009000 || nItemID6!=900010000 || nItemID6!=900011000)
-		return false;
-
-	if (nItemID7
-		&& !CheckExistItem(nItemID7, sCount7))
-		if (nItemID7!=900000000 || nItemID7!=900001000 || nItemID7!=900002000 || nItemID7!=900003000 || nItemID7!=900004000 || nItemID7!=900005000 || nItemID7!=900006000 || nItemID7!=900007000 || nItemID7!=900008000 || nItemID7!=900009000 || nItemID7!=900010000 || nItemID7!=900011000)
-		return false;
-
-	if (nItemID8
-		&& !CheckExistItem(nItemID8, sCount8))
-		if (nItemID8!=900000000 || nItemID8!=900001000 || nItemID8!=900002000 || nItemID8!=900003000 || nItemID8!=900004000 || nItemID8!=900005000 || nItemID8!=900006000 || nItemID8!=900007000 || nItemID8!=900008000 || nItemID8!=900009000 || nItemID8!=900010000 || nItemID8!=900011000)
-		return false;
-
-	if (nItemID9
-		&& !CheckExistItem(nItemID9, sCount9))
-		if (nItemID9!=900000000 || nItemID9!=900001000 || nItemID9!=900002000 || nItemID9!=900003000 || nItemID9!=900004000 || nItemID9!=900005000 || nItemID9!=900006000 || nItemID9!=900007000 || nItemID9!=900008000 || nItemID9!=900009000 || nItemID9!=900010000 || nItemID9!=900011000)
-		return false;
-
-	if (nItemID10
-		&& !CheckExistItem(nItemID10, sCount10))
-		if (nItemID10!=900000000 || nItemID10!=900001000 || nItemID10!=900002000 || nItemID10!=900003000 || nItemID10!=900004000 || nItemID10!=900005000 || nItemID10!=900006000 || nItemID10!=900007000 || nItemID10!=900008000 || nItemID10!=900009000 || nItemID10!=900010000 || nItemID10!=900011000)
-		return false;
-
-	if (nItemID11
-		&& !CheckExistItem(nItemID11, sCount11))
-		if (nItemID11!=900000000 || nItemID11!=900001000 || nItemID11!=900002000 || nItemID11!=900003000 || nItemID11!=900004000 || nItemID11!=900005000 || nItemID11!=900006000 || nItemID11!=900007000 || nItemID11!=900008000 || nItemID11!=900009000 || nItemID11!=900010000 || nItemID11!=900011000)
 		return false;
 
 	return true;
@@ -560,9 +532,8 @@ void CUser::ItemMove(Packet & pkt)
 
 	pkt >> dir >> nItemID >> bSrcPos >> bDstPos;
 
-	if (isTrading() 
-		|| isMerchanting() 
-		|| isMining() 
+	if (isTrading()
+		|| isMerchanting()
 		|| GetZoneID() == ZONE_CHAOS_DUNGEON)
 		goto fail_return;
 
@@ -816,7 +787,8 @@ bool CUser::CheckExchange(int nExchangeID)
 	if (m_sItemWeight + nReqWeight > m_sMaxWeight)
 		return false;
 
-	if (isTrading() || isMerchanting() || isMining())
+	if (isTrading()
+		|| isMerchanting())
 		return false;
 
 	// Do we have enough slots?
@@ -870,15 +842,10 @@ bool CUser::RunExchange(int nExchangeID, uint32_t count)
 		temp_sOriginItemCount2 = pExchange->nOriginItemNum[2] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[2] : temp_sCount);
 		temp_sOriginItemCount3 = pExchange->nOriginItemNum[3] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[3] : temp_sCount);
 		temp_sOriginItemCount4 = pExchange->nOriginItemNum[4] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[4] : temp_sCount);
-		temp_sOriginItemCount4 = pExchange->nOriginItemNum[5] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[5] : temp_sCount);
-		temp_sOriginItemCount4 = pExchange->nOriginItemNum[6] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[6] : temp_sCount);
-		temp_sOriginItemCount4 = pExchange->nOriginItemNum[7] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[7] : temp_sCount);
-		temp_sOriginItemCount4 = pExchange->nOriginItemNum[8] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[8] : temp_sCount);
-		temp_sOriginItemCount4 = pExchange->nOriginItemNum[9] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[9] : temp_sCount);
-		temp_sOriginItemCount4 = pExchange->nOriginItemNum[10] == 0 ? 0 : (count == 0 ? pExchange->sOriginItemCount[10] : temp_sCount);
 	}
 	
-	if (isTrading() || isMerchanting() || isMining())
+	if (isTrading()
+		|| isMerchanting())
 		return false;
 
 	if (pExchange == nullptr
@@ -890,32 +857,23 @@ bool CUser::RunExchange(int nExchangeID, uint32_t count)
 
 			// Do we have all of the required items?
 			CheckExistItemAnd(
-			pExchange->nOriginItemNum[0], temp_sOriginItemCount0, 
-			pExchange->nOriginItemNum[1], temp_sOriginItemCount1, 
-			pExchange->nOriginItemNum[2], temp_sOriginItemCount2, 
-			pExchange->nOriginItemNum[3], temp_sOriginItemCount3, 
-			pExchange->nOriginItemNum[4], temp_sOriginItemCount4,
-			pExchange->nOriginItemNum[5], temp_sOriginItemCount5,
-			pExchange->nOriginItemNum[6], temp_sOriginItemCount6,
-			pExchange->nOriginItemNum[7], temp_sOriginItemCount7,
-			pExchange->nOriginItemNum[8], temp_sOriginItemCount8,
-			pExchange->nOriginItemNum[9], temp_sOriginItemCount9,
-			pExchange->nOriginItemNum[10], temp_sOriginItemCount10);
+				pExchange->nOriginItemNum[0], temp_sOriginItemCount0, 
+				pExchange->nOriginItemNum[1], temp_sOriginItemCount1, 
+				pExchange->nOriginItemNum[2], temp_sOriginItemCount2, 
+				pExchange->nOriginItemNum[3], temp_sOriginItemCount3, 
+				pExchange->nOriginItemNum[4], temp_sOriginItemCount4);
 			// These checks are a little pointless, but remove the required items as well.
 			RobItem(pExchange->nOriginItemNum[0], temp_sOriginItemCount0);
 			RobItem(pExchange->nOriginItemNum[1], temp_sOriginItemCount1);
 			RobItem(pExchange->nOriginItemNum[2], temp_sOriginItemCount2);
 			RobItem(pExchange->nOriginItemNum[3], temp_sOriginItemCount3);
 			RobItem(pExchange->nOriginItemNum[4], temp_sOriginItemCount4);
-			RobItem(pExchange->nOriginItemNum[5], temp_sOriginItemCount5);
-			RobItem(pExchange->nOriginItemNum[6], temp_sOriginItemCount6);
-			RobItem(pExchange->nOriginItemNum[7], temp_sOriginItemCount7);
-			RobItem(pExchange->nOriginItemNum[8], temp_sOriginItemCount8);
-			RobItem(pExchange->nOriginItemNum[9], temp_sOriginItemCount9);
-			RobItem(pExchange->nOriginItemNum[10], temp_sOriginItemCount10);
 
 	// No random element? We're just exchanging x items for y items.
-	if (!pExchange->bRandomFlag || pExchange->bRandomFlag == 10 || pExchange->bRandomFlag == 11 || pExchange->bRandomFlag == 12 || pExchange->bRandomFlag == 0)
+	if (pExchange->bRandomFlag == 0
+		|| pExchange->bRandomFlag == 10
+		|| pExchange->bRandomFlag == 11
+		|| pExchange->bRandomFlag == 12)
 	{
 		for (int i = 0; i < ITEMS_IN_EXCHANGE_GROUP; i++)
 		{
@@ -1271,10 +1229,9 @@ void CUser::ItemRemove(Packet & pkt)
 	pItem = GetItem(bPos);
 
 	// Make sure the item matches what the client says it is
-	if (pItem == nullptr || pItem->nNum != nItemID
-		|| pItem->isSealed() 
+	if (pItem == nullptr
+		|| pItem->nNum != nItemID
 		|| pItem->isRented()
-		|| isMining()
 		|| GetZoneID() == ZONE_CHAOS_DUNGEON) 
 		goto fail_return;
 
@@ -1285,8 +1242,8 @@ void CUser::ItemRemove(Packet & pkt)
 
 	result << uint8_t(1);
 	Send(&result);
-
 	return;
+
 fail_return:
 	result << uint8_t(0);
 	Send(&result);

@@ -57,7 +57,7 @@ uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 		// References are fun =p
 		Packet & pkt = *p;
 
-		uint8_t opcode, subOpcode;
+		uint8_t opcode;
 		pkt >> opcode;
 
 		// First 2 bytes are always going to be the socket ID
@@ -86,9 +86,6 @@ uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 		case WIZ_ALLCHAR_INFO_REQ:
 			if (pUser) pUser->ReqAllCharInfo(pkt);
 			break;
-		case WIZ_CHANGE_HAIR:
-			if (pUser) pUser->ReqChangeHair(pkt);
-			break;
 		case WIZ_NEW_CHAR:
 			if (pUser) pUser->ReqCreateNewChar(pkt);
 			break;
@@ -97,11 +94,6 @@ uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 			break;
 		case WIZ_SEL_CHAR:
 			if (pUser) pUser->ReqSelectCharacter(pkt);
-			break;
-		case WIZ_CHAT:
-			pkt >> subOpcode;
-			if (subOpcode == CLAN_NOTICE)
-				CKnightsManager::ReqUpdateClanNotice(pkt);
 			break;
 		case WIZ_DATASAVE:
 			if (pUser) pUser->ReqSaveCharacter();
@@ -135,9 +127,6 @@ uint32_t THREADCALL DatabaseThread::ThreadProc(void * lpParam)
 			break;
 		case WIZ_KING:
 			CKingSystem::HandleDatabaseRequest(pUser, pkt);
-			break;
-		case WIZ_ITEM_UPGRADE:
-			if (pUser) pUser->ReqSealItem(pkt);
 			break;
 		case WIZ_ZONE_CONCURRENT:
 			{
@@ -197,18 +186,6 @@ void CUser::ReqAllCharInfo(Packet & pkt)
 	g_DBAgent.LoadCharInfo(strCharID2, result);
 	g_DBAgent.LoadCharInfo(strCharID3, result);
 
-	Send(&result);
-}
-
-void CUser::ReqChangeHair(Packet & pkt)
-{
-	Packet result(WIZ_CHANGE_HAIR);
-	string strUserID;
-	uint8_t nHair;
-	uint8_t bOpcode, bFace;
-	pkt.SByte();
-	pkt >> bOpcode >> strUserID >> bFace >> nHair;
-	pkt.put(2, g_DBAgent.ChangeHair(m_strAccountID, strUserID, bOpcode, bFace, nHair));
 	Send(&result);
 }
 
@@ -980,20 +957,6 @@ void CKnightsManager::ReqUpdateGrade(Packet & pkt)
 	g_DBAgent.UpdateClanGrade(sClanID, byFlag, sCapeID);
 }
 
-/**
-* @brief	Requests a clan's notice be updated in the database.
-*
-* @param	pkt	The packet.
-*/
-void CKnightsManager::ReqUpdateClanNotice(Packet & pkt)
-{
-	uint16_t sClanID;
-	string strClanNotice;
-
-	pkt >> sClanID >> strClanNotice;
-	g_DBAgent.UpdateClanNotice(sClanID, strClanNotice);
-}
-
 void CUser::ReqSetLogInInfo(Packet & pkt)
 {
 	string strCharID, strServerIP, strClientIP;
@@ -1184,28 +1147,6 @@ void CKingSystem::HandleDatabaseRequest_Tax(uint8_t TerritoryTariff, uint8_t Nat
 void CUser::InsertTaxUpEvent(uint8_t Nation, uint32_t TerritoryTax)
 {
 	g_DBAgent.InsertTaxUpEvent(Nation, TerritoryTax);
-}
-
-void CUser::ReqSealItem(Packet & pkt)
-{
-	uint8_t bSrcPos, bSealType, opcode, bSealResult;
-	uint32_t nItemID;
-	uint64_t nItemSerial;
-	string strSealPasswd;
-
-	pkt >> opcode >> bSealType >> nItemID >> bSrcPos >> strSealPasswd >> bSealResult;
-
-	nItemSerial = GetItem(SLOT_MAX+bSrcPos)->nSerialNum;
-
-	if (!bSealResult)
-		bSealResult = g_DBAgent.SealItem(strSealPasswd, nItemSerial, nItemID, bSealType, this);
-
-	Packet result(WIZ_ITEM_UPGRADE);
-	result << uint8_t(ITEM_SEAL) << bSealType << bSealResult << nItemID << bSrcPos;
-	Send(&result);
-
-	if (bSealResult == 1)
-		SealItem(bSealType, bSrcPos);
 }
 
 void DatabaseThread::Shutdown()

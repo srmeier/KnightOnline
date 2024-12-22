@@ -1,7 +1,5 @@
 ﻿#include "stdafx.h"
 
-using std::string;
-
 enum MerchantOpenResponseCodes
 {
 	MERCHANT_OPEN_SUCCESS = 1,
@@ -19,7 +17,7 @@ void CUser::MerchantProcess(Packet & pkt)
 	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
-		// Regular merchants
+	// Regular merchants
 	case MERCHANT_OPEN: 
 		MerchantOpen(); 
 		break;
@@ -50,27 +48,6 @@ void CUser::MerchantProcess(Packet & pkt)
 
 	case MERCHANT_TRADE_CANCEL: 
 		CancelMerchant(); 
-		break;
-
-		// Buying merchants
-	case MERCHANT_BUY_OPEN: 
-		BuyingMerchantOpen(pkt); 
-		break;
-
-	case MERCHANT_BUY_CLOSE: 
-		BuyingMerchantClose(); 
-		break;
-
-	case MERCHANT_BUY_LIST: 
-		BuyingMerchantList(pkt); 
-		break;
-
-	case MERCHANT_BUY_INSERT: 
-		BuyingMerchantInsert(pkt); 
-		break;
-
-	case MERCHANT_BUY_BUY: // seeya!
-		BuyingMerchantBuy(pkt); 
 		break;
 	}
 }
@@ -149,8 +126,6 @@ void CUser::MerchantItemAdd(Packet & pkt)
 	if (pSrcItem == nullptr || pSrcItem->nNum != nItemID 
 		|| pSrcItem->sCount < sCount
 		|| pSrcItem->isRented()
-		|| pSrcItem->isSealed()
-		|| pSrcItem->isBound()
 		|| pSrcItem->isDuplicate())
 		goto fail_return;
 
@@ -356,7 +331,7 @@ void CUser::MerchantItemBuy(Packet & pkt)
 
 void CUser::MerchantInsert(Packet & pkt)
 {
-	string advertMessage; // check here maybe to make sure they're not using it otherwise?
+	std::string advertMessage; // check here maybe to make sure they're not using it otherwise?
 	pkt >> advertMessage;
 	if (advertMessage.size() > MAX_MERCH_MESSAGE)
 		return;
@@ -403,238 +378,6 @@ void CUser::CancelMerchant()
 	Packet result(WIZ_MERCHANT);
 	result << uint8_t(MERCHANT_TRADE_CANCEL) << uint16_t(1);
 	Send(&result);
-}
-
-void CUser::BuyingMerchantOpen(Packet & pkt)
-{
-	int16_t errorCode = 0;
-	if (isDead())
-		errorCode = MERCHANT_OPEN_DEAD;
-	else if (isStoreOpen())
-		errorCode = MERCHANT_OPEN_SHOPPING;
-	else if (isTrading())
-		errorCode = MERCHANT_OPEN_TRADING;
-	else if (GetZoneID() > ZONE_MORADON || GetZoneID() <= ELMORAD)
-		errorCode = MERCHANT_OPEN_INVALID_ZONE;
-	////else if (GetLevel() < 30)
-	//	errorCode = MERCHANT_OPEN_UNDERLEVELED;
-	else if (isMerchanting())
-		errorCode = MERCHANT_OPEN_MERCHANTING;
-	else 
-		errorCode = MERCHANT_OPEN_SUCCESS;
-
-	Packet result(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_OPEN) << errorCode;
-	Send(&result);
-
-	if (errorCode == MERCHANT_OPEN_MERCHANTING)
-		BuyingMerchantClose();
-
-	memset(&m_arMerchantItems, 0, sizeof(m_arMerchantItems));
-}
-
-void CUser::BuyingMerchantClose()
-{
-	if (isMerchanting())
-		m_bMerchantState = MERCHANT_STATE_NONE;
-	else if (m_sMerchantsSocketID >= 0)
-		RemoveFromMerchantLookers();
-	else
-		return;
-
-	Packet result(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_CLOSE) << GetSocketID();
-	SendToRegion(&result);
-}
-
-void CUser::BuyingMerchantInsert(Packet & pkt)
-{
-	uint8_t amount_of_items;
-	uint32_t itemid, buying_price;
-	uint32_t totalamount = 0;
-	uint16_t item_count;
-	_ITEM_TABLE *pItem = nullptr;
-
-	pkt >> amount_of_items;
-
-	for (int i = 0; i < amount_of_items; i++)
-	{
-		pkt >> itemid >> item_count >> buying_price;
-		pItem = g_pMain->m_ItemtableArray.GetData(itemid);
-		if (pItem == nullptr)
-			return;
-
-		m_arMerchantItems[i].nNum = itemid;
-		m_arMerchantItems[i].sCount = item_count;
-		m_arMerchantItems[i].nPrice = buying_price;
-		m_arMerchantItems[i].sDuration = pItem->m_sDuration;
-		totalamount += buying_price;
-	}
-
-	if (!hasCoins(totalamount))
-		return;
-
-	m_bMerchantState = MERCHANT_STATE_BUYING;
-	Packet result(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_INSERT) << uint8_t(1);
-	Send(&result);
-
-	BuyingMerchantInsertRegion();
-}
-
-void CUser::BuyingMerchantInsertRegion()
-{
-	Packet result(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_REGION_INSERT) << GetSocketID();
-
-	for (int i = 0; i < 4; i++)
-	{
-		result << m_arMerchantItems[i].nNum;
-	}
-
-	SendToRegion(&result);
-}
-
-void CUser::BuyingMerchantList(Packet & pkt)
-{
-	if (m_sMerchantsSocketID >= 0)
-		RemoveFromMerchantLookers(); //This check should never be hit...
-
-	uint16_t uid = pkt.read<uint16_t>();
-
-	CUser *pMerchant = g_pMain->GetUserPtr(uid);
-	if (pMerchant == nullptr
-		|| !pMerchant->isMerchanting())
-		return;
-
-	m_sMerchantsSocketID = uid;
-	pMerchant->m_arMerchantLookers.push_front(GetSocketID());
-
-	Packet result(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_LIST) << uint8_t(1) << uint16_t(uid);
-	for (int i = 0; i < MAX_MERCH_ITEMS; i++)
-	{
-		_MERCH_DATA *pMerch = &pMerchant->m_arMerchantItems[i];
-		result	<< pMerch->nNum << pMerch->sCount
-			<< pMerch->sDuration << pMerch->nPrice;
-	}
-	Send(&result);
-}
-
-void CUser::BuyingMerchantBuy(Packet & pkt)
-{
-	uint32_t nPrice;
-	uint16_t sStackSize, sRemainingStackSize;
-	uint8_t bSellerSrcSlot, bMerchantListSlot;
-
-	CUser *pMerchant = g_pMain->GetUserPtr(m_sMerchantsSocketID);
-	if (pMerchant == nullptr)
-		return;
-
-	pkt >> bSellerSrcSlot >> bMerchantListSlot >> sStackSize;
-
-	if (bSellerSrcSlot >= HAVE_MAX
-		|| bMerchantListSlot >= MAX_MERCH_ITEMS)
-		return;
-
-	_MERCH_DATA *pWantedItem = &pMerchant->m_arMerchantItems[bMerchantListSlot];
-	_ITEM_DATA *pSellerItem = GetItem(SLOT_MAX + bSellerSrcSlot);
-
-	// Make sure the merchant actually has that item in that slot
-	// and that they want enough, and the selling user has enough
-	if (pWantedItem == nullptr 
-		|| pSellerItem == nullptr
-		|| pWantedItem->nNum != pSellerItem->nNum
-		|| pWantedItem->sCount < sStackSize
-		|| pSellerItem->sCount < sStackSize
-		// For scrolls, this will ensure you can only sell a full stack of scrolls.
-		// For everything else, this will ensure you cannot sell items that need repair.
-		|| pSellerItem->sDuration != pWantedItem->sDuration
-		|| pSellerItem->isDuplicate())
-		return;
-
-	// If it's not stackable, and we're specifying something other than 1
-	// we really don't care to handle this request...
-	_ITEM_TABLE *proto = g_pMain->GetItemPtr(pWantedItem->nNum);
-	if (proto == nullptr
-		|| !proto->m_bCountable && sStackSize != 1)
-		return;
-
-	// Do they have enough coins?
-	nPrice = pWantedItem->nPrice * sStackSize;
-	if (!pMerchant->hasCoins(nPrice))
-		return;
-
-	// Now find the buyer a home for their item
-	int8_t bDstPos = pMerchant->FindSlotForItem(pWantedItem->nNum, sStackSize);
-	if (bDstPos < 0)
-		return;
-
-	_ITEM_DATA *pMerchantItem = pMerchant->GetItem(bDstPos);
-
-	// Take coins off the buying merchant
-	if (!pMerchant->GoldLose(nPrice))
-		return;
-
-	// and give them all to me, me, me!
-	GoldGain(nPrice);
-
-	// Get the remaining stack size after purchase.
-	sRemainingStackSize = pSellerItem->sCount - sStackSize;
-
-	// Now we give the buying merchant their wares.
-	pMerchantItem->nNum = pSellerItem->nNum;
-	pMerchantItem->sDuration = pSellerItem->sDuration;
-	pSellerItem->sCount -= sStackSize;
-	pMerchantItem->sCount += sStackSize;
-
-	// Update how many items the buyer still needs.
-	pWantedItem->sCount -= sStackSize;
-
-	// If the buyer needs no more, remove this item from the wanted list.
-	if (pWantedItem->sCount == 0)
-		memset(pWantedItem, 0, sizeof(_MERCH_DATA));
-
-	// If the seller's all out, remove their item.
-	if (pSellerItem->sCount == 0)
-		memset(pSellerItem, 0, sizeof(_ITEM_DATA));
-
-	// TODO : Proper checks for the removal of the items in the array, we're now assuming everything gets bought
-
-	// Update players
-	SendStackChange(pSellerItem->nNum, pSellerItem->sCount, pSellerItem->sDuration, bSellerSrcSlot);
-	pMerchant->SendStackChange(pMerchantItem->nNum, pMerchantItem->sCount, pMerchantItem->sDuration, bDstPos - SLOT_MAX,
-		pMerchantItem->sCount == sStackSize); 	// if the buying merchant only has what they wanted, it's a new item.
-	// (otherwise it was a stackable item that was merged into an existing slot)
-
-	Packet result(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_BOUGHT) << bMerchantListSlot << uint16_t(0) << GetName();
-	pMerchant->Send(&result);
-
-	result.Initialize(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_SOLD) << uint8_t(1) << bMerchantListSlot << pWantedItem->sCount << bSellerSrcSlot << pSellerItem->sCount;
-	Send(&result);
-
-	result.Initialize(WIZ_MERCHANT);
-	result << uint8_t(MERCHANT_BUY_BUY) << uint8_t(1);
-	Send(&result);
-
-	if (bMerchantListSlot < 4 && pWantedItem->sCount == 0)
-	{
-		result.Initialize(WIZ_MERCHANT_INOUT);
-		result << uint8_t(2) << m_sMerchantsSocketID << uint8_t(1) << uint8_t(0) << bMerchantListSlot;
-		pMerchant->SendToRegion(&result);
-	}		
-
-	int nItemsRemaining = 0;
-	for (int i = 0; i < MAX_MERCH_ITEMS; i++)
-	{
-		if (pMerchant->m_arMerchantItems[i].nNum != 0)
-			nItemsRemaining++;
-	}
-
-	if (nItemsRemaining == 0)
-		pMerchant->BuyingMerchantClose();
 }
 
 void CUser::RemoveFromMerchantLookers()

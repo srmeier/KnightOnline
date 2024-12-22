@@ -78,7 +78,6 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(PromoteUserNovice)
 						  MAKE_LUA_FUNCTION(PromoteUser)
 						  MAKE_LUA_FUNCTION(RobAllItemParty)
-						  MAKE_LUA_FUNCTION(CheckWaiting)
 						  MAKE_LUA_FUNCTION(ZoneChange)
 						  MAKE_LUA_FUNCTION(ZoneChangeParty)
 						  MAKE_LUA_FUNCTION(ZoneChangeClan)

@@ -1326,19 +1326,6 @@ bool MagicInstance::ExecuteType3()
 		casted_member.push_back(pSkillTarget);
 	}
 
-	// Anger explosion requires the caster be a player
-	// and a full anger gauge (which will be reset after use).
-	if (pType->bDirectType == 18)
-	{
-		// Only players can cast this skill.
-		if (!pSkillCaster->isPlayer()
-			|| !TO_USER(pSkillCaster)->hasFullAngerGauge())
-			return false;
-
-		// Reset the anger gauge
-		TO_USER(pSkillCaster)->UpdateAngerGauge(0);
-	}
-
 	sData[1] = 1;
 	foreach (itr, casted_member)
 	{

@@ -20,7 +20,6 @@ CKnights::CKnights()
 	m_sAlliance = 0;
 	m_sMarkLen = 0;
 	m_sMarkVersion = 0;
-	m_bCapeR = m_bCapeG = m_bCapeB = 0;
 	m_sClanPointMethod = 0;
 }
 
@@ -46,13 +45,6 @@ void CKnights::OnLogin(CUser *pUser)
 	std::string buffer = string_format("%s is online.", pUser->GetName().c_str()); 
 	ChatPacket::Construct(&result, KNIGHTS_CHAT, &buffer);
 	Send(&result);
-
-	// Construct the clan notice packet to send to the logged in player
-	if (!m_strClanNotice.empty())
-	{
-		ConstructClanNoticePacket(&result);
-		pUser->Send(&result);
-	}
 }
 
 void CKnights::OnLoginAlliance(CUser *pUser)
@@ -78,47 +70,6 @@ void CKnights::OnLoginAlliance(CUser *pUser)
 	ChatPacket::Construct(&result, ALLIANCE_CHAT, &buffer);
 	CKnights * pKnights = g_pMain->GetClanPtr(pUser->m_bKnights);
 	g_pMain->Send_KnightsAlliance(pKnights->GetAllianceID(), &result);
-}
-
-void CKnights::ConstructClanNoticePacket(Packet *result)
-{
-	result->Initialize(WIZ_NOTICE);
-	result->DByte();
-	*result	<< uint8_t(4)			// type
-		<< uint8_t(1)			// total blocks
-		<< m_strName	// header
-		<< m_strClanNotice;
-}
-
-/**
-* @brief	Updates this clan's notice with clanNotice
-* 			and informs logged in clan members.
-*
-* @param	clanNotice	The clan notice.
-*/
-void CKnights::UpdateClanNotice(std::string & clanNotice)
-{
-	if (clanNotice.length() > MAX_CLAN_NOTICE_LENGTH)
-		return;
-
-	Packet result;
-
-	// Update the stored clan notice
-	m_strClanNotice = clanNotice;
-
-	// Construct the update notice packet to inform players the clan notice has changed
-	std::string updateNotice = string_format("%s updated the clan notice.", m_strChief.c_str()); 
-	ChatPacket::Construct(&result, KNIGHTS_CHAT, &updateNotice);
-	Send(&result);
-
-	// Construct the new clan notice packet
-	ConstructClanNoticePacket(&result);
-	Send(&result);
-
-	// Tell the database to update the clan notice.
-	result.Initialize(WIZ_CHAT);
-	result << uint8_t(CLAN_NOTICE) << GetID() << clanNotice;
-	g_pMain->AddDatabaseRequest(result);
 }
 
 /**

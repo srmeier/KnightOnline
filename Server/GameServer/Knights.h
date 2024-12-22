@@ -60,13 +60,10 @@ public:
 	uint16_t	m_sMarkVersion, m_sMarkLen;
 	char	m_Image[MAX_KNIGHTS_MARK];
 	uint16_t	m_sCape;
-	uint8_t	m_bCapeR, m_bCapeG, m_bCapeB;
 	uint16_t	m_sAlliance;
 	uint8_t	m_sClanPointMethod;
-	std::string m_strClanNotice;
 	uint8_t	bySiegeFlag;
 	uint16_t	nLose,nVictory;
-
 
 	_KNIGHTS_USER m_arKnightsUser[MAX_CLAN_USERS];
 
@@ -79,6 +76,7 @@ public:
 		else
 			return m_sCape;
 	}
+
 	INLINE std::string & GetName() { return m_strName; }
 	INLINE uint8_t GetClanPointMethod() { return m_sClanPointMethod; }
 
@@ -91,9 +89,6 @@ public:
 	// Attach our session to the clan's list & tell clannies we logged in.
 	void OnLogin(CUser *pUser);
 	void OnLoginAlliance(CUser *pUser);
-
-	void ConstructClanNoticePacket(Packet *result);
-	void UpdateClanNotice(std::string & clanNotice);
 
 	void UpdateClanFund();
 
