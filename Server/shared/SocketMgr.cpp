@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SocketMgr.h"
 
 bool SocketMgr::s_bRunningCleanupThread = true;
@@ -27,7 +27,9 @@ uint32_t THREADCALL SocketCleanupThread(void * lpParam)
 	return 0;
 }
 
-SocketMgr::SocketMgr() : m_threadCount(0), 
+SocketMgr::SocketMgr()
+	: m_thread(nullptr),
+	m_threadCount(0), 
 	m_bWorkerThreadsActive(false),
 	m_bShutdown(false)
 {
@@ -155,8 +157,11 @@ void SocketMgr::ShutdownThreads()
 
 	m_bWorkerThreadsActive = false;
 
-	m_thread->waitForExit();
-	delete m_thread;
+	if (m_thread != nullptr)
+	{
+		m_thread->waitForExit();
+		delete m_thread;
+	}
 }
 
 void SocketMgr::Shutdown()
