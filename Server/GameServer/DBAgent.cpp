@@ -1489,7 +1489,7 @@ void CDBAgent::AccountLogout(
 	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
 
 	if (!dbCommand->Execute(string_format(
-		_T("{CALL ACCOUNT_LOGOUT(?, %d, ?)})"),
+		_T("{CALL ACCOUNT_LOGOUT(?, %d, ?)}"),
 		iCode)))
 		ReportSQLError(m_AccountDB->GetError());
 }
