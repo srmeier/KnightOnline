@@ -136,13 +136,7 @@ LRESULT APIENTRY CN3UIEdit::EditWndProc(HWND hWnd, uint16_t Message, WPARAM wPar
 			}
 			return 0;
 		}
-		if (wParam == VK_TAB) {
-			if (s_pFocusedEdit && s_pFocusedEdit->GetParent())
-			{
-				s_pFocusedEdit->GetParent()->ReceiveMessage(s_pFocusedEdit, UIMSG_EDIT_TAB);
-			}
-			return 0;
-		}
+
 		(CallWindowProc(s_lpfnEditProc, hWnd, Message, wParam, lParam));
 		if(s_pFocusedEdit) CN3UIEdit::UpdateCaretPosFromEditCtrl();
 		return 0;

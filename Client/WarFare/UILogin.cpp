@@ -119,11 +119,6 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			return ReceiveMessage(m_pBtn_Connect, UIMSG_BUTTON_CLICK);
 		}
 	}
-	else if (dwMsg == UIMSG_EDIT_TAB)
-	{
-		FocusCircular();
-		return true;
-	}
 
 	return false;
 }
