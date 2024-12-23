@@ -1162,8 +1162,8 @@ void CGameProcMain::ProcessLocalInput(uint32_t dwMouseFlags)
 
 	if (dwMouseFlags & MOUSE_RBCLICK)
 		OnMouseRBtnPressd(ptCur, ptPrev);
-	if (dwMouseFlags & MOUSE_RBDBLCLK)
 
+	if (dwMouseFlags & MOUSE_RBDBLCLK)
 		OnMouseRDBtnPress(ptCur, ptPrev);
 
 	// NOTE: move on click
@@ -7684,27 +7684,44 @@ bool CGameProcMain::OnMouseRBtnPressd(POINT ptCur, POINT ptPrev)
 }
 
 // 오른쪽 눌리고 있을때
-bool CGameProcMain::OnMouseRbtnDown(POINT ptCur, POINT ptPrev)
+bool CGameProcMain::OnMouseRbtnDown(
+	POINT ptCur,
+	POINT ptPrev)
 {
+	if (s_pUIMgr->m_bDoneSomething)
+		return false;
+
 	float fMouseSensivity = 0.02f;//0.05f;//
-	
+
 	float fRotY = D3DXToRadian(180.0f) * ((ptCur.x - ptPrev.x) * fMouseSensivity); // 회전할 양을 계산하고..
 	float fRotX = D3DXToRadian(180.0f) * ((ptCur.y - ptPrev.y) * fMouseSensivity);
-	if(fRotY && s_pPlayer->IsAlive())
+	if (fRotY != 0.0f
+		&& s_pPlayer->IsAlive())
 	{
-		if(VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraYawAdd(fRotY);
-		else if(false == s_pPlayer->m_bStun) s_pPlayer->RotAdd(fRotY); // 기절해 있지 않을때만..
+		if (VP_THIRD_PERSON == s_pEng->ViewPoint())
+			s_pEng->CameraYawAdd(fRotY);
+		// 기절해 있지 않을때만..
+		else if (!s_pPlayer->m_bStun)
+			s_pPlayer->RotAdd(fRotY);
 	}
-	if(fRotX)
+	if (fRotX)
 	{
-		if(VP_THIRD_PERSON == s_pEng->ViewPoint()) s_pEng->CameraZoom(-fRotX); // 카메라 확대
-		else s_pEng->CameraPitchAdd(fRotX); // 카메라 각도
+		// 카메라 확대
+		if (VP_THIRD_PERSON == s_pEng->ViewPoint())
+			s_pEng->CameraZoom(-fRotX);
+		// 카메라 각도
+		else
+			s_pEng->CameraPitchAdd(fRotX);
 	}
 
-	if(fRotY || fRotX)
+	if (fRotY != 0.0f
+		|| fRotX != 0.0f)
 	{
 		SetGameCursor(nullptr);
-		::SetCursorPos(ptPrev.x, ptPrev.y);
+
+		POINT ptScreen = ptPrev;
+		::ClientToScreen(s_hWndBase, &ptScreen);
+		::SetCursorPos(ptScreen.x, ptScreen.y);
 		s_pLocalInput->MouseSetPos(ptPrev.x, ptPrev.y);
 	}
 
