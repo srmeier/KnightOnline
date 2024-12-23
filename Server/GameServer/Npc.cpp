@@ -133,31 +133,29 @@ void CNpc::SendInOut(uint8_t bType, float fX, float fZ, float fY)
 *
 * @param	pkt	The packet the information will be stored in.
 */
-void CNpc::GetNpcInfo(Packet & pkt)
+void CNpc::GetNpcInfo(
+	Packet& pkt)
 {
 	pkt.SByte();
-	pkt /*<< GetProtoID()*/
-		<< m_sNid
-		<< m_sPid
-		<< m_sSid //
-		<< GetType();
-
-	if (GetType() == 15) {
-		return;
-	}
-
 	pkt
-		<< uint16_t(m_iSellingGroup)
-		<< m_sSize
-		<< m_iWeapon_1 << m_iWeapon_2
+		<< uint16_t(m_sNid)
+		<< uint16_t(m_sPid)
+		<< uint8_t(GetType())
+		<< uint32_t(m_iSellingGroup)
+		<< int16_t(m_sSize)
+		<< uint32_t(m_iWeapon_1)
+		<< uint32_t(m_iWeapon_2)
 		<< GetName()
 		<< uint8_t(isMonster() ? 0 : GetNation())
-		<< GetLevel()
-		<< GetSPosX() << GetSPosZ() << GetSPosY()
+		<< uint8_t(GetLevel())
+		<< uint16_t(GetSPosX())
+		<< uint16_t(GetSPosZ())
+		<< int16_t(GetSPosY())
 		<< uint32_t(isGateOpen())
-		<< m_byObjectType
-		<< uint16_t(0) << uint16_t(0) // unknown
-		<< int8_t(m_byDirection);
+		<< uint8_t(m_byObjectType)
+		<< uint16_t(0)	// unknown
+		<< uint16_t(0)	// unknown
+		<< uint8_t(m_byDirection);
 }
 
 /**
