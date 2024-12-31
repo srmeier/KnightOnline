@@ -101,11 +101,20 @@ int APIENTRY WinMain(
 	// NOTE: is sound duplicated?
 	CN3Base::s_Options.bSndDuplicated = ini.GetBool("Sound", "Duplicate", false);
 
-	// NOTE: should we show the window cursor?
+	// NOTE: should we use the Windows cursor? If false, will use the software cursor (CGameCursor) instead.
 	CN3Base::s_Options.bWindowCursor = ini.GetBool("Cursor", "WindowCursor", true);
 																	   
 	// NOTE: should we show window full screen?
-	CN3Base::s_Options.bWindowMode = ini.GetBool("Screen", "WindowMode", false);
+	CN3Base::s_Options.bWindowMode = ini.GetBool(
+		"Screen",
+		"WindowMode",
+		// In debug builds, if not otherwise configured, we should just prefer to use windowed mode.
+#if defined(_DEBUG)
+		true
+#else
+		false
+#endif
+	);
 
 	srand((uint32_t) time(nullptr));
 
