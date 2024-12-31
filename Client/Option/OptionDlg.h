@@ -1,12 +1,4 @@
-﻿// OptionDlg.h : header file
-//
-
-#if !defined(AFX_OPTIONDLG_H__4A33FB17_F101_4D7A_ABAB_CC542891E12D__INCLUDED_)
-#define AFX_OPTIONDLG_H__4A33FB17_F101_4D7A_ABAB_CC542891E12D__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+﻿#pragma once
 
 /////////////////////////////////////////////////////////////////////////////
 // COptionDlg dialog
@@ -21,13 +13,17 @@ struct __GameOption
 	int		iViewHeight;		// 화면 너비
 	int		iViewColorDepth;	// 색상수..
 	int		iEffectSndDist;		// 이펙트 사운드 거리
+	int		iEffectCount;
 	bool	bSndDuplicated;		// 중복된 음원 사용
-	bool	bSoundEnable;		// 사운드 사용
+	bool	bSoundBgm;
+	bool	bSoundEffect;
 	bool	bWindowCursor;		// 윈도우 커서 사용
+	bool	bWindowMode;
+	bool	bEffectVisible;
 
 	void InitDefault()
 	{
-		iUseShadow = true;
+		iUseShadow = 1;
 		iTexLOD_Chr = 0;
 		iTexLOD_Shape = 0;
 		iTexLOD_Terrain = 0;
@@ -37,8 +33,11 @@ struct __GameOption
 		iViewDist = 512;
 		iEffectSndDist = 48;
 		bSndDuplicated = false;
-		bSoundEnable = true;
+		bSoundBgm = true;
+		bSoundEffect = true;
 		bWindowCursor = true;
+		bWindowMode = false;
+		bEffectVisible = true;
 	}
 
 	__GameOption() { InitDefault(); }
@@ -48,7 +47,6 @@ class COptionDlg : public CDialog
 {
 protected:
 	CString m_szInstalledPath;
-	CString m_szExeName;
 	__GameOption m_Option;
 
 // Construction
@@ -61,6 +59,7 @@ public:
 // Dialog Data
 	//{{AFX_DATA(COptionDlg)
 	enum { IDD = IDD_OPTION_DIALOG };
+	CSliderCtrl	m_SldEffectCount;
 	CSliderCtrl	m_SldEffectSoundDist;
 	CComboBox	m_CB_ColorDepth;
 	CComboBox	m_CB_Resolution;
@@ -93,5 +92,3 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif // !defined(AFX_OPTIONDLG_H__4A33FB17_F101_4D7A_ABAB_CC542891E12D__INCLUDED_)

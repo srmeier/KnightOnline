@@ -73,6 +73,7 @@ void COptionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(COptionDlg)
+	DDX_Control(pDX, IDC_SLD_EFFECT_COUNT, m_SldEffectCount);
 	DDX_Control(pDX, IDC_SLD_SOUND_DISTANCE, m_SldEffectSoundDist);
 	DDX_Control(pDX, IDC_CB_COLORDEPTH, m_CB_ColorDepth);
 	DDX_Control(pDX, IDC_CB_RESOLUTION, m_CB_Resolution);
@@ -122,56 +123,31 @@ BOOL COptionDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 	
 	// 각종 컨트롤 초기화..
+	m_SldEffectCount.SetRange(1000, 2000);
 	m_SldViewDist.SetRange(256, 512);
 	m_SldEffectSoundDist.SetRange(20, 48);
 
 	int iAdd = 0;
-	iAdd = m_CB_Resolution.AddString("1024 X 768");		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768,1024));
-	iAdd = m_CB_Resolution.AddString("1280 X 1024");	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1024,1280));
-	iAdd = m_CB_Resolution.AddString("1600 X 1200");	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1200,1600));
+	iAdd = m_CB_Resolution.AddString(_T("1024 X 768"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768,1024));
+	iAdd = m_CB_Resolution.AddString(_T("1280 X 1024"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1024,1280));
+	iAdd = m_CB_Resolution.AddString(_T("1600 X 1200"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1200,1600));
 
-	iAdd = m_CB_ColorDepth.AddString("16 Bit");		m_CB_ColorDepth.SetItemData(iAdd, 16);
-	iAdd = m_CB_ColorDepth.AddString("32 Bit");		m_CB_ColorDepth.SetItemData(iAdd, 32);
+	iAdd = m_CB_ColorDepth.AddString(_T("16 Bit"));			m_CB_ColorDepth.SetItemData(iAdd, 16);
+	iAdd = m_CB_ColorDepth.AddString(_T("32 Bit"));			m_CB_ColorDepth.SetItemData(iAdd, 32);
 
-
-	// 레지스트리에서 설치된 폴더를 읽어온다..
-	CString szProduct, szKey = "SOFTWARE\\";
-	szProduct.LoadString(IDS_PRODUCT);
-	szKey += szProduct;
-
-	HKEY hRegKey = NULL;
-	long lStatus = RegOpenKey(HKEY_CURRENT_USER, szKey, &hRegKey);
-	if(ERROR_SUCCESS != lStatus) { CString szErr; szErr.LoadString(IDS_ERR_REGISTRY_OPEN); MessageBox(szErr); exit(-1); }
-
-	DWORD dwType = REG_SZ; DWORD dwBytes = 0;
 	char szBuff[256] = "";
+	GetCurrentDirectoryA(sizeof(szBuff), szBuff);
 
-	// 실행 파일 경로
-	dwType = REG_SZ; dwBytes = 256;
-	lStatus = RegQueryValueEx(hRegKey, "PATH", NULL, &dwType, (BYTE*)szBuff, &dwBytes); // 인스톨 경로
-	if(ERROR_SUCCESS != lStatus) { CString szErr; szErr.LoadString(IDS_ERR_REGISTRY_READ_PATH); MessageBox(szErr); exit(-1); }
 	m_szInstalledPath = szBuff;
 
-	// 실행 파일 이름
-//	dwType = REG_SZ; dwBytes = 256;
-//	lStatus = RegQueryValueEx(hRegKey, "EXE", NULL, &dwType, (BYTE*)szBuff, &dwBytes); // 실행파일 이름
-//	if(ERROR_SUCCESS != lStatus) { CString szErr; szErr.LoadString(IDS_ERR_REGISTRY_READ_EXE); MessageBox(szErr); exit(-1); }
-//	m_szExeName = szBuff;
-	m_szExeName = "Launcher.exe";
-
 	// Version 표시
-	DWORD dwVersion = 0;
-	dwType = REG_DWORD; dwBytes = 4;
-	lStatus = RegQueryValueEx(hRegKey, "VERSION", NULL, &dwType, (BYTE*)(&dwVersion), &dwBytes); // 버전
-	if(ERROR_SUCCESS != lStatus) { CString szErr; szErr.LoadString(IDS_ERR_REGISTRY_READ_VERSION); MessageBox(szErr); exit(-1); }
+	CString szServerIniPath = m_szInstalledPath + "\\Server.Ini";
+	DWORD dwVersion = GetPrivateProfileInt(_T("Version"), _T("Files"), 0, szServerIniPath);
 	SetDlgItemInt(IDC_E_VERSION, dwVersion);
 
-	RegCloseKey(hRegKey);
-	hRegKey = NULL;
-
 	// 세팅을 읽어온다..
-	this->SettingLoad(m_szInstalledPath + "\\Option.ini");
-	this->SettingUpdate();
+	SettingLoad(m_szInstalledPath + "\\Option.ini");
+	SettingUpdate();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -227,195 +203,254 @@ HCURSOR COptionDlg::OnQueryDragIcon()
 
 void COptionDlg::OnOK() 
 {
-	this->SettingSave(m_szInstalledPath + "\\Option.ini");
+	SettingSave(m_szInstalledPath + "\\Option.ini");
 
 	CDialog::OnOK();
 }
 
 void COptionDlg::OnBApplyAndExecute() 
 {
-	CString szExeFN = m_szInstalledPath + "\\" + m_szExeName; // 실행 파일 이름 만들고..
-	ShellExecute(NULL, "open", szExeFN, "", m_szInstalledPath, SW_SHOWNORMAL); // 게임 실행..
+	CString szExeFN = m_szInstalledPath + _T("\\"); // 실행 파일 이름 만들고..
+	szExeFN += _T("Launcher.exe");
 
-	this->OnOK();
+	ShellExecute(nullptr, _T("open"), szExeFN, _T(""), m_szInstalledPath, SW_SHOWNORMAL); // 게임 실행..
+
+	OnOK();
 }
 
 void COptionDlg::SettingSave(CString szIniFile)
 {
-	if(szIniFile.GetLength() <= 0) return;
+	if (szIniFile.GetLength() <= 0)
+		return;
 
-	char szIniPath[_MAX_PATH] = "";
-	
-	if(szIniFile.Find(":")) lstrcpy(szIniPath, szIniFile);
-	else
-	{
-		::GetCurrentDirectory(_MAX_PATH, szIniPath);
-		lstrcat(szIniPath, szIniFile);
-	}
-	
 	CString szBuff;
 
-	if(IsDlgButtonChecked(IDC_R_TEX_CHR_HIGH)) m_Option.iTexLOD_Chr = 0;
-	else if(IsDlgButtonChecked(IDC_R_TEX_CHR_LOW)) m_Option.iTexLOD_Chr = 1;
-	else m_Option.iTexLOD_Chr = 1;
+	if (IsDlgButtonChecked(IDC_R_TEX_CHR_HIGH))
+		m_Option.iTexLOD_Chr = 0;
+	else if (IsDlgButtonChecked(IDC_R_TEX_CHR_LOW))
+		m_Option.iTexLOD_Chr = 1;
+	else
+		m_Option.iTexLOD_Chr = 1;
 
-	if(IsDlgButtonChecked(IDC_R_TEX_SHAPE_HIGH)) m_Option.iTexLOD_Shape = 0;
-	else if(IsDlgButtonChecked(IDC_R_TEX_SHAPE_LOW)) m_Option.iTexLOD_Shape = 1;
-	else m_Option.iTexLOD_Shape = 0;
+	if (IsDlgButtonChecked(IDC_R_TEX_SHAPE_HIGH))
+		m_Option.iTexLOD_Shape = 0;
+	else if (IsDlgButtonChecked(IDC_R_TEX_SHAPE_LOW))
+		m_Option.iTexLOD_Shape = 1;
+	else
+		m_Option.iTexLOD_Shape = 0;
 
-	if(IsDlgButtonChecked(IDC_R_TEX_TERRAIN_HIGH)) m_Option.iTexLOD_Terrain = 0;
-	else if(IsDlgButtonChecked(IDC_R_TEX_TERRAIN_LOW)) m_Option.iTexLOD_Terrain = 1;
-	else m_Option.iTexLOD_Terrain = 1;
+	if (IsDlgButtonChecked(IDC_R_TEX_TERRAIN_HIGH))
+		m_Option.iTexLOD_Terrain = 0;
+	else if (IsDlgButtonChecked(IDC_R_TEX_TERRAIN_LOW))
+		m_Option.iTexLOD_Terrain = 1;
+	else
+		m_Option.iTexLOD_Terrain = 1;
 
-	if(IsDlgButtonChecked(IDC_C_SHADOW)) m_Option.iUseShadow = 1;
-	else m_Option.iUseShadow = 0;
+	if (IsDlgButtonChecked(IDC_C_SHADOW))
+		m_Option.iUseShadow = 1;
+	else
+		m_Option.iUseShadow = 0;
+
+	if (IsDlgButtonChecked(IDC_C_WINDOW_MODE))
+		m_Option.bWindowMode = true;
+	else
+		m_Option.bWindowMode = false;
+
+	if (IsDlgButtonChecked(IDC_C_SHOW_WEAPON_EFFECT))
+		m_Option.bEffectVisible = true;
+	else
+		m_Option.bEffectVisible = false;
 
 	int iSel = m_CB_Resolution.GetCurSel();
 
-	m_Option.iViewWidth = 1024; m_Option.iViewHeight = 768;
-	if(0 == iSel) { m_Option.iViewWidth = 1024; m_Option.iViewHeight = 768; }
-	else if(1 == iSel) { m_Option.iViewWidth = 1280; m_Option.iViewHeight = 1024; }
-	else if(2 == iSel) { m_Option.iViewWidth = 1600; m_Option.iViewHeight = 1200; }
+	m_Option.iViewWidth = 1024;
+	m_Option.iViewHeight = 768;
+
+	if (0 == iSel)
+	{
+		m_Option.iViewWidth = 1024;
+		m_Option.iViewHeight = 768;
+	}
+	else if (1 == iSel)
+	{
+		m_Option.iViewWidth = 1280;
+		m_Option.iViewHeight = 1024;
+	}
+	else if (2 == iSel)
+	{
+		m_Option.iViewWidth = 1600;
+		m_Option.iViewHeight = 1200;
+	}
 
 	iSel = m_CB_ColorDepth.GetCurSel();
-	if(CB_ERR != iSel)
+	if (CB_ERR != iSel)
 	{
 		m_Option.iViewColorDepth = m_CB_ColorDepth.GetItemData(iSel);
-		if(m_Option.iViewColorDepth != 16 && m_Option.iViewColorDepth != 32)
+		if (m_Option.iViewColorDepth != 16
+			&& m_Option.iViewColorDepth != 32)
 			m_Option.iViewColorDepth = 16;
 	}
-	else 
+	else
+	{
 		m_Option.iViewColorDepth = 16;
+	}
+
+	m_Option.iEffectCount = m_SldEffectCount.GetPos();
+	if (m_Option.iEffectCount < 1000)
+		m_Option.iEffectCount = 1000;
+	else if (m_Option.iEffectCount > 2000)
+		m_Option.iEffectCount = 2000;
 
 	m_Option.iViewDist = m_SldViewDist.GetPos();
-	if(m_Option.iViewDist < 256) m_Option.iViewDist = 256;
-	else if(m_Option.iViewDist > 512) m_Option.iViewDist = 512;
+	if (m_Option.iViewDist < 256)
+		m_Option.iViewDist = 256;
+	else if (m_Option.iViewDist > 512)
+		m_Option.iViewDist = 512;
 
 	m_Option.iEffectSndDist = m_SldEffectSoundDist.GetPos();
-	if(m_Option.iEffectSndDist < 20) m_Option.iEffectSndDist = 20;
-	else if(m_Option.iEffectSndDist > 48) m_Option.iEffectSndDist = 48;
+	if (m_Option.iEffectSndDist < 20)
+		m_Option.iEffectSndDist = 20;
+	else if (m_Option.iEffectSndDist > 48)
+		m_Option.iEffectSndDist = 48;
 
-	szBuff.Format("%d", m_Option.iTexLOD_Chr);		WritePrivateProfileString("Texture", "LOD_Chr", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iTexLOD_Shape);	WritePrivateProfileString("Texture", "LOD_Shape", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iTexLOD_Terrain);	WritePrivateProfileString("Texture", "LOD_Terrain", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iUseShadow);		WritePrivateProfileString("Shadow", "Use", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iViewWidth);		WritePrivateProfileString("ViewPort", "Width", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iViewHeight);		WritePrivateProfileString("ViewPort", "Height", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iViewColorDepth);  WritePrivateProfileString("ViewPort", "ColorDepth", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iViewDist);		WritePrivateProfileString("ViewPort", "Distance", szBuff, szIniPath);
-	szBuff.Format("%d", m_Option.iEffectSndDist);	WritePrivateProfileString("Sound", "Distance", szBuff, szIniPath);
+	szBuff.Format(_T("%d"), m_Option.iTexLOD_Chr);		WritePrivateProfileString(_T("Texture"),	_T("LOD_Chr"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iTexLOD_Shape);	WritePrivateProfileString(_T("Texture"),	_T("LOD_Shape"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iTexLOD_Terrain);	WritePrivateProfileString(_T("Texture"),	_T("LOD_Terrain"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iUseShadow);		WritePrivateProfileString(_T("Shadow"),		_T("Use"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iViewWidth);		WritePrivateProfileString(_T("ViewPort"),	_T("Width"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iViewHeight);		WritePrivateProfileString(_T("ViewPort"),	_T("Height"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iViewColorDepth);  WritePrivateProfileString(_T("ViewPort"),	_T("ColorDepth"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iViewDist);		WritePrivateProfileString(_T("ViewPort"),	_T("Distance"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iEffectSndDist);	WritePrivateProfileString(_T("Sound"),		_T("Distance"), szBuff, szIniFile);
+	szBuff.Format(_T("%d"), m_Option.iEffectCount);		WritePrivateProfileString(_T("Effect"),		_T("Count"), szBuff, szIniFile);
 
-	m_Option.bSoundEnable = (IsDlgButtonChecked(IDC_C_SOUND_ENABLE)) ? true : false;
-	m_Option.bSoundEnable ? szBuff = "1" : szBuff = "0";
-	WritePrivateProfileString("Sound", "Enable", szBuff, szIniPath);
+	m_Option.bSoundBgm = (IsDlgButtonChecked(IDC_C_SOUND_BGM)) ? true : false;
+	m_Option.bSoundBgm ? szBuff = "1" : szBuff = "0";
+	WritePrivateProfileString(_T("Sound"), _T("Bgm"), szBuff, szIniFile);
+
+	m_Option.bSoundEffect = (IsDlgButtonChecked(IDC_C_SOUND_EFFECT)) ? true : false;
+	m_Option.bSoundEffect ? szBuff = "1" : szBuff = "0";
+	WritePrivateProfileString(_T("Sound"), _T("Effect"), szBuff, szIniFile);
 
 	m_Option.bSndDuplicated = (IsDlgButtonChecked(IDC_C_SOUND_DUPLICATE)) ? true : false;
 	m_Option.bSndDuplicated ? szBuff = "1" : szBuff = "0";
-	WritePrivateProfileString("Sound", "Duplicate", szBuff, szIniPath);
+	WritePrivateProfileString(_T("Sound"), _T("Duplicate"), szBuff, szIniFile);
 
 	m_Option.bWindowCursor = (IsDlgButtonChecked(IDC_C_CURSOR_WINDOW)) ? true : false;
 	m_Option.bWindowCursor ? szBuff = "1" : szBuff = "0";
-	WritePrivateProfileString("Cursor", "WindowCursor", szBuff, szIniPath);
+	WritePrivateProfileString(_T("Cursor"), _T("WindowCursor"), szBuff, szIniFile);
+
+	m_Option.bWindowMode = (IsDlgButtonChecked(IDC_C_WINDOW_MODE)) ? true : false;
+	m_Option.bWindowMode ? szBuff = "1" : szBuff = "0";
+	WritePrivateProfileString(_T("Screen"), _T("WindowMode"), szBuff, szIniFile);
+
+	m_Option.bEffectVisible = (IsDlgButtonChecked(IDC_C_SHOW_WEAPON_EFFECT)) ? true : false;
+	m_Option.bEffectVisible ? szBuff = "1" : szBuff = "0";
+	WritePrivateProfileString(_T("WeaponEffect"), _T("EffectVisible"), szBuff, szIniFile);
 }
 
 void COptionDlg::SettingLoad(CString szIniFile)
 {
-	if(szIniFile.GetLength() <= 0) return;
+	if (szIniFile.GetLength() <= 0)
+		return;
 
-	char szIniPath[_MAX_PATH] = "";
-	
-	if(szIniFile.Find(":")) lstrcpy(szIniPath, szIniFile);
-	else
-	{
-		::GetCurrentDirectory(_MAX_PATH, szIniPath);
-		lstrcat(szIniPath, "\\");
-		lstrcat(szIniPath, szIniFile);
-	}
-	
-	
-	m_Option.iTexLOD_Chr = GetPrivateProfileInt("Texture", "LOD_Chr", 0, szIniPath);
-	m_Option.iTexLOD_Shape = GetPrivateProfileInt("Texture", "LOD_Shape", 0, szIniPath);
-	m_Option.iTexLOD_Terrain = GetPrivateProfileInt("Texture", "LOD_Terrain", 0, szIniPath);
-	m_Option.iUseShadow = GetPrivateProfileInt("Shadow", "Use", 1, szIniPath);
-	m_Option.iViewWidth = GetPrivateProfileInt("ViewPort", "Width", 1024, szIniPath);
-	m_Option.iViewHeight = GetPrivateProfileInt("ViewPort", "Height", 768, szIniPath);
-	m_Option.iViewColorDepth = GetPrivateProfileInt("ViewPort", "ColorDepth", 16, szIniPath);
-	m_Option.iViewDist = GetPrivateProfileInt("ViewPort", "Distance", 512, szIniPath);
-	m_Option.iEffectSndDist = GetPrivateProfileInt("Sound", "Distance", 48, szIniPath);
+	m_Option.iTexLOD_Chr		= GetPrivateProfileInt(_T("Texture"),		_T("LOD_Chr"), 0, szIniFile);
+	m_Option.iTexLOD_Shape		= GetPrivateProfileInt(_T("Texture"),		_T("LOD_Shape"), 0, szIniFile);
+	m_Option.iTexLOD_Terrain	= GetPrivateProfileInt(_T("Texture"),		_T("LOD_Terrain"), 0, szIniFile);
+	m_Option.iUseShadow			= GetPrivateProfileInt(_T("Shadow"),		_T("Use"), 1, szIniFile);
+	m_Option.iViewWidth			= GetPrivateProfileInt(_T("ViewPort"),		_T("Width"), 1024, szIniFile);
+	m_Option.iViewHeight		= GetPrivateProfileInt(_T("ViewPort"),		_T("Height"), 768, szIniFile);
+	m_Option.iViewColorDepth	= GetPrivateProfileInt(_T("ViewPort"),		_T("ColorDepth"), 16, szIniFile);
+	m_Option.iViewDist			= GetPrivateProfileInt(_T("ViewPort"),		_T("Distance"), 512, szIniFile);
+	m_Option.iEffectSndDist		= GetPrivateProfileInt(_T("Sound"),			_T("Distance"), 48, szIniFile);
+	m_Option.iEffectCount		= GetPrivateProfileInt(_T("Effect"),		_T("Count"), 2000, szIniFile);
 
-	int iSndEnable = GetPrivateProfileInt("Sound", "Enable", 1, szIniPath);
-	m_Option.bSoundEnable = (iSndEnable) ? true : false;
-	int iSndDuplicate = GetPrivateProfileInt("Sound", "Duplicate", 0, szIniPath);
-	m_Option.bSndDuplicated = (iSndDuplicate) ? true : false;
-	int iWindowCursor = GetPrivateProfileInt("Cursor", "WindowCursor", 1, szIniPath);
-	m_Option.bWindowCursor = (iWindowCursor) ? true : false;
+	m_Option.bSoundBgm			= GetPrivateProfileInt(_T("Sound"),			_T("Bgm"), 1, szIniFile) != 0;
+	m_Option.bSoundEffect		= GetPrivateProfileInt(_T("Sound"),			_T("Effect"), 1, szIniFile) != 0;
+	m_Option.bSndDuplicated		= GetPrivateProfileInt(_T("Sound"),			_T("Duplicate"), 0, szIniFile) != 0;
+	m_Option.bWindowCursor		= GetPrivateProfileInt(_T("Cursor"),		_T("WindowCursor"), 1, szIniFile) != 0;
+	m_Option.bWindowMode		= GetPrivateProfileInt(_T("Screen"),		_T("WindowMode"), 0, szIniFile) != 0;
+	m_Option.bEffectVisible		= GetPrivateProfileInt(_T("WeaponEffect"),	_T("EffectVisible"), 1, szIniFile) != 0;
 }
 
 void COptionDlg::SettingUpdate()
 {
-	if(m_Option.iTexLOD_Chr) CheckRadioButton(IDC_R_TEX_CHR_HIGH, IDC_R_TEX_CHR_LOW, IDC_R_TEX_CHR_LOW);
-	else CheckRadioButton(IDC_R_TEX_CHR_HIGH, IDC_R_TEX_CHR_LOW, IDC_R_TEX_CHR_HIGH);
+	if (m_Option.iTexLOD_Chr != 0)
+		CheckRadioButton(IDC_R_TEX_CHR_HIGH, IDC_R_TEX_CHR_LOW, IDC_R_TEX_CHR_LOW);
+	else
+		CheckRadioButton(IDC_R_TEX_CHR_HIGH, IDC_R_TEX_CHR_LOW, IDC_R_TEX_CHR_HIGH);
 
-	if(m_Option.iTexLOD_Shape) CheckRadioButton(IDC_R_TEX_SHAPE_HIGH, IDC_R_TEX_SHAPE_LOW, IDC_R_TEX_SHAPE_LOW);
-	else CheckRadioButton(IDC_R_TEX_SHAPE_HIGH, IDC_R_TEX_SHAPE_LOW, IDC_R_TEX_SHAPE_HIGH);
+	if (m_Option.iTexLOD_Shape != 0)
+		CheckRadioButton(IDC_R_TEX_SHAPE_HIGH, IDC_R_TEX_SHAPE_LOW, IDC_R_TEX_SHAPE_LOW);
+	else
+		CheckRadioButton(IDC_R_TEX_SHAPE_HIGH, IDC_R_TEX_SHAPE_LOW, IDC_R_TEX_SHAPE_HIGH);
 
-	if(m_Option.iTexLOD_Terrain) CheckRadioButton(IDC_R_TEX_TERRAIN_HIGH, IDC_R_TEX_TERRAIN_LOW, IDC_R_TEX_TERRAIN_LOW);
-	else CheckRadioButton(IDC_R_TEX_TERRAIN_HIGH, IDC_R_TEX_TERRAIN_LOW, IDC_R_TEX_TERRAIN_HIGH);
+	if (m_Option.iTexLOD_Terrain != 0)
+		CheckRadioButton(IDC_R_TEX_TERRAIN_HIGH, IDC_R_TEX_TERRAIN_LOW, IDC_R_TEX_TERRAIN_LOW);
+	else
+		CheckRadioButton(IDC_R_TEX_TERRAIN_HIGH, IDC_R_TEX_TERRAIN_LOW, IDC_R_TEX_TERRAIN_HIGH);
 
 	CheckDlgButton(IDC_C_SHADOW, m_Option.iUseShadow);
-	
+
 	int iSel = 0;
-	if(1024 == m_Option.iViewWidth) iSel = 0;
-	else if(1280 == m_Option.iViewWidth) iSel = 1;
-	else if(1600 == m_Option.iViewWidth) iSel = 2;
+	if (1024 == m_Option.iViewWidth)
+		iSel = 0;
+	else if (1280 == m_Option.iViewWidth)
+		iSel = 1;
+	else if (1600 == m_Option.iViewWidth)
+		iSel = 2;
 	m_CB_Resolution.SetCurSel(iSel);
 
-	if(16 == m_Option.iViewColorDepth) iSel = 0;
-	if(32 == m_Option.iViewColorDepth) iSel = 1;
+	if (16 == m_Option.iViewColorDepth)
+		iSel = 0;
+	if (32 == m_Option.iViewColorDepth)
+		iSel = 1;
 	m_CB_ColorDepth.SetCurSel(iSel);
 
+	m_SldEffectCount.SetPos(m_Option.iEffectCount);
 	m_SldViewDist.SetPos(m_Option.iViewDist);
 	m_SldEffectSoundDist.SetPos(m_Option.iEffectSndDist);
 
-	CheckDlgButton(IDC_C_SOUND_ENABLE, m_Option.bSoundEnable);
+	CheckDlgButton(IDC_C_SOUND_BGM, m_Option.bSoundBgm);
+	CheckDlgButton(IDC_C_SOUND_EFFECT, m_Option.bSoundEffect);
 	CheckDlgButton(IDC_C_SOUND_DUPLICATE, m_Option.bSndDuplicated);
 	CheckDlgButton(IDC_C_CURSOR_WINDOW, m_Option.bWindowCursor);
+	CheckDlgButton(IDC_C_WINDOW_MODE, m_Option.bWindowMode);
+	CheckDlgButton(IDC_C_SHOW_WEAPON_EFFECT, m_Option.bEffectVisible);
 }
 
 void COptionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) 
 {
-	if((void*)pScrollBar == (void*)(&m_SldViewDist))
-	{
+	if ((void*)pScrollBar == (void*)(&m_SldEffectCount))
+		m_Option.iEffectCount = m_SldEffectCount.GetPos();
+	else if ((void*)pScrollBar == (void*)(&m_SldViewDist))
 		m_Option.iViewDist = m_SldViewDist.GetPos();
-	}
-	else if((void*)pScrollBar == (void*)(&m_SldEffectSoundDist))
-	{
+	else if ((void*)pScrollBar == (void*)(&m_SldEffectSoundDist))
 		m_Option.iEffectSndDist = m_SldEffectSoundDist.GetPos();
-	}
-	
+
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
 void COptionDlg::OnBVersion() 
 {
-	CString szMsg; szMsg.LoadString(IDS_CONFIRM_WRITE_REGISRY);
-	if(IDNO == MessageBox(szMsg, "", MB_YESNO)) return; // 한번 물어본다..
+	CString szMsg;
+	szMsg.LoadString(IDS_CONFIRM_WRITE_REGISRY);
+
+	// 한번 물어본다..
+	if (IDNO == MessageBox(szMsg, _T(""), MB_YESNO))
+		return;
 
 	// 레지스트리에서 설치된 폴더를 읽어온다..
-	CString szProduct, szKey = "SOFTWARE\\";
+#if 0 // NOTE: officially this is still a thing, it's just useless:
+	CString szProduct, szKey = _T("SOFTWARE\\");
 	szProduct.LoadString(IDS_PRODUCT);
 	szKey += szProduct;
+#endif
 
-	HKEY hRegKey = NULL;
-	long lStatus = RegOpenKey(HKEY_CURRENT_USER, szKey, &hRegKey);
+	DWORD dwVersion = GetDlgItemInt(IDC_E_VERSION);
 
-	if(ERROR_SUCCESS == lStatus)
-	{
-		DWORD dwVersion = GetDlgItemInt(IDC_E_VERSION);
-		DWORD dwType = REG_DWORD, dwBytes = 4;
-		lStatus = RegSetValueEx(hRegKey, "VERSION", NULL, dwType, (BYTE*)(&dwVersion), 4); // 버전
-		if(ERROR_SUCCESS != lStatus) { CString szErr; szErr.LoadString(IDS_ERR_REGISTRY_WRITE_VERSION); MessageBox(szErr); }
-
-		RegCloseKey(hRegKey);
-	}
+	CString szVersion, szServerIniPath;
+	szVersion.Format(_T("%d"), dwVersion);
+	szServerIniPath = m_szInstalledPath + "\\Server.ini";
+	WritePrivateProfileString(_T("Version"), _T("Files"), szVersion, szServerIniPath);
 }
