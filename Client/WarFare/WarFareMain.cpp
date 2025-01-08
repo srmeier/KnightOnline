@@ -151,11 +151,7 @@ int APIENTRY WinMain(
 	{
 		// Use PeekMessage() if the app is active, so we can use idle time to
 		// render the scene. Else, use GetMessage() to avoid eating CPU time.
-		if (CGameProcedure::s_bIsWindowInFocus)
-			bGotMsg = PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE);
-		else
-			bGotMsg = GetMessage(&msg, nullptr, 0U, 0U);
-
+		bGotMsg = PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE);
 		if (bGotMsg)
 		{
 #if _DEBUG
