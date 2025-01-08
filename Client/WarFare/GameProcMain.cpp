@@ -55,6 +55,7 @@
 #include "UIQuestMenu.h"
 #include "UIQuestTalk.h"
 #include "UIDead.h"
+#include "UIUpgradeSelect.h"
 
 #include "SubProcPerTrade.h"
 #include "CountableItemEditDlg.h"
@@ -169,6 +170,7 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은
 	m_pUIQuestMenu = new CUIQuestMenu();
 	m_pUIQuestTalk = new CUIQuestTalk();
 	m_pUIDead = new CUIDead();
+	m_pUIUpgradeSelect = new CUIUpgradeSelect();
 
 	m_pSubProcPerTrade = new CSubProcPerTrade();
 	m_pMagicSkillMng = new CMagicSkillMng(this);
@@ -220,6 +222,7 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIQuestMenu;
 	delete m_pUIQuestTalk;
 	delete m_pUIDead;
+	delete m_pUIUpgradeSelect;
 
 	delete m_pSubProcPerTrade;
 	delete m_pMagicSkillMng;
@@ -274,6 +277,7 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIWarp->Release();
 	m_pUIInn->Release();
 	m_pUICreateClanName->Release();
+	m_pUIUpgradeSelect->Release();
 
 	CN3UIBase::DestroyTooltip();
 }
@@ -1106,6 +1110,7 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 //			this->MsgRecv_Clan(pkt);
 //			return true;
 		case WIZ_QUEST:
+		{
 			uint8_t start = pkt.read<uint8_t>();
 			uint16_t questId = pkt.read<uint16_t>();
 			uint8_t state = pkt.read<uint8_t>();
@@ -1117,7 +1122,10 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 				this->MsgOutput(buff, D3DCOLOR_ARGB(255, 255, 255, 255));
 				return true;
 			}
-			break;
+		} break;
+		case WIZ_ITEM_UPGRADE:
+			MsgRecv_ItemUpgrade(pkt);
+			return true;
 	}
 
 #ifdef _DEBUG
@@ -4150,6 +4158,15 @@ void CGameProcMain::InitUI()
 	iX = (iW - (rc.right - rc.left))/2;
 	iY = (iH - (rc.bottom - rc.top))/2;
 	m_pUITradeBBSEdit->SetPos(iX, iY);
+
+	m_pUIUpgradeSelect->Init(s_pUIMgr);
+	m_pUIUpgradeSelect->LoadFromFile(pTbl->szUpgradeSelect);
+	m_pUIUpgradeSelect->SetVisibleWithNoSound(false);
+	m_pUIUpgradeSelect->SetPos(
+		(iW - m_pUIUpgradeSelect->GetWidth()) / 2,
+		(iH - m_pUIUpgradeSelect->GetHeight()) / 2);
+	m_pUIUpgradeSelect->SetState(UI_STATE_COMMON_NONE);
+	m_pUIUpgradeSelect->SetStyle(m_pUIUpgradeSelect->GetStyle() | UISTYLE_USER_MOVE_HIDE | UISTYLE_SHOW_ME_ALONE);
 }
 
 void CGameProcMain::MsgSend_RequestTargetHP(int16_t siIDTarget, uint8_t byUpdateImmediately)
@@ -7633,20 +7650,17 @@ bool CGameProcMain::OnMouseRBtnPress(POINT ptCur, POINT ptPrev)
 	{
 		if(	pNPC->m_pShapeExtraRef ) // 오브젝트 형태의 NPC 이면.. 컨트롤 할 NPC의 ID 가 있으면..
 		{
-			if(pNPC->m_pShapeExtraRef->m_iNPC_ID > 0)
+			float fD = (s_pPlayer->Position() - pNPC->m_pShapeExtraRef->Pos()).Magnitude();
+			float fDLimit = (s_pPlayer->Radius() + pNPC->m_pShapeExtraRef->Radius()) * 2.0f;
+			if(fD > fDLimit) // 거리가 멀면
 			{
-				float fD = (s_pPlayer->Position() - pNPC->m_pShapeExtraRef->Pos()).Magnitude();
-				float fDLimit = (s_pPlayer->Radius() + pNPC->m_pShapeExtraRef->Radius()) * 2.0f;
-				if(fD > fDLimit) // 거리가 멀면
-				{
-					std::string szMsg;
-					::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
-					this->MsgOutput(szMsg, 0xffff8080);
-				}
-				else
-				{
-					this->MsgSend_ObjectEvent(pNPC->m_pShapeExtraRef->m_iEventID, pNPC->IDNumber());
-				}
+				std::string szMsg;
+				::_LoadStringFromResource(IDS_ERR_REQUEST_OBJECT_EVENT_SO_FAR, szMsg);
+				this->MsgOutput(szMsg, 0xffff8080);
+			}
+			else
+			{
+				this->MsgSend_ObjectEvent(pNPC->m_pShapeExtraRef->m_iEventID, pNPC->IDNumber());
 			}
 		}
 		else // 보통 NPC 이면..
@@ -7824,4 +7838,37 @@ void CGameProcMain::NoahTrade(uint8_t bType, uint32_t dwGoldOffset, uint32_t dwG
 		m_pUITransactionDlg->GoldUpdate();
 	if (m_pSubProcPerTrade && m_pSubProcPerTrade->m_pUIPerTradeDlg->IsVisible())
 		m_pSubProcPerTrade->m_pUIPerTradeDlg->GoldUpdate();
+}
+
+void CGameProcMain::MsgRecv_ItemUpgrade(
+	Packet& pkt)
+{
+	// NOTE: This method may not officially exist; it's inlined into CGameProcMain::PacketProcess()
+	auto opcode = (e_ItemUpgradeOpcode) pkt.read<uint8_t>();
+	switch (opcode)
+	{
+		case ITEM_UPGRADE_REQ:
+			if (m_pUIUpgradeSelect != nullptr)
+			{
+				m_pUIUpgradeSelect->SetVisible(true);
+
+				int iNpcID = pkt.read<int16_t>();
+				m_pUIUpgradeSelect->SetNpcID(iNpcID);
+			}
+			break;
+
+		case ITEM_UPGRADE_PROCESS:
+#if 0 // TODO
+			if (m_pUIItemUpgrade != nullptr)
+				m_pUIItemUpgrade->MsgRecv_ItemUpgrade(pkt);
+#endif
+			break;
+
+		case ITEM_UPGRADE_ACCESSORIES:
+#if 0 // TODO
+			if (m_pUIRingUpgrade != nullptr)
+				m_pUIRingUpgrade->MsgRecv_RingUpgrade(pkt);
+#endif
+			break;
+	}
 }

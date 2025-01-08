@@ -481,13 +481,13 @@ enum FriendRemoveResult
 	FRIEND_REMOVE_MAX
 };
 
-enum
+enum e_ItemUpgradeOpcode
 {
-	ITEM_UPGRADE_REQ		= 1,
-	ITEM_UPGRADE			= 2,
-	ITEM_ACCESSORIES		= 3,
-	ITEM_BIFROST_REQ		= 4,
-	ITEM_BIFROST_EXCHANGE	= 5,
+	ITEM_UPGRADE_REQ			= 1,
+	ITEM_UPGRADE_PROCESS		= 2,
+	ITEM_UPGRADE_ACCESSORIES	= 3,
+	ITEM_BIFROST_REQ			= 4,
+	ITEM_BIFROST_EXCHANGE		= 5,
 };
 
 ////////////////////////////////////////////////////////////////

@@ -67,6 +67,8 @@ public:
 	class CUITradeBBSSelector*	m_pUITradeBBSSelector;			// 상거래 게시판 종류 선택
 	class CUITradeBBSEditDlg*	m_pUITradeBBSEdit;				// 상거래 게시물 설명
 
+	class CUIUpgradeSelect*		m_pUIUpgradeSelect;
+
 	class CN3Shape*				m_pTargetSymbol;				// 플레이어가 타겟으로 잡은 캐릭터의 위치위에 그리면 된다..
 
 	class CN3SndObjStream*		m_pSnd_Town, *m_pSnd_Battle;	//마을음악, 전투음악 포인터..
@@ -206,6 +208,7 @@ protected:
 	void	MsgRecv_Knights_GradeChangeAll(Packet& pkt);
 	void	MsgRecv_Knights_Duty_Change(Packet& pkt);
 	void	MsgRecv_Knigts_Join_Req(Packet& pkt);
+	void	MsgRecv_ItemUpgrade(Packet& pkt);
 
 public:
 	void	ProcessUIKeyInput(bool bEnable = true);
