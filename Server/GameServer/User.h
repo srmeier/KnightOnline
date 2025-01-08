@@ -789,7 +789,7 @@ public:
 
 	// from the client
 	void ItemUpgradeProcess(Packet & pkt);
-	void ItemUpgrade(Packet & pkt, uint8_t nUpgradeType = ITEM_UPGRADE);
+	void ItemUpgrade(Packet & pkt, uint8_t nUpgradeType = ITEM_UPGRADE_PROCESS);
 	void ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8_t UpgradeResult);
 	void ItemUpgradeAccessories(Packet & pkt);
 	void BifrostPieceProcess(Packet & pkt); // originally named BeefRoastPieceProcess() -- that's not happening.

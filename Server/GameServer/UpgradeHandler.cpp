@@ -29,11 +29,11 @@ void CUser::ItemUpgradeProcess(Packet & pkt)
 	uint8_t opcode = pkt.read<uint8_t>();
 	switch (opcode)
 	{
-	case ITEM_UPGRADE:
+	case ITEM_UPGRADE_PROCESS:
 		ItemUpgrade(pkt);
 		break;
 
-	case ITEM_ACCESSORIES:
+	case ITEM_UPGRADE_ACCESSORIES:
 		ItemUpgradeAccessories(pkt);
 		break;
 
@@ -368,7 +368,7 @@ void CUser::ItemUpgrade(Packet & pkt, uint8_t nUpgradeType)
 
 				if (pItem == nullptr
 					|| nItemID[x] != pItem->nNum 
-					|| (nUpgradeType != ITEM_ACCESSORIES && nItemID[x] != pUpgrade->nReqItem[x-1]))
+					|| (nUpgradeType != ITEM_UPGRADE_ACCESSORIES && nItemID[x] != pUpgrade->nReqItem[x-1]))
 				{
 					IsValidMatch = true;
 					break;
@@ -535,7 +535,7 @@ void CUser::ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8_t UpgradeResult)
 */
 void CUser::ItemUpgradeAccessories(Packet & pkt)
 {
-	ItemUpgrade(pkt, ITEM_ACCESSORIES);
+	ItemUpgrade(pkt, ITEM_UPGRADE_ACCESSORIES);
 }
 
 /**

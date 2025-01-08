@@ -332,9 +332,6 @@
     <ClInclude Include="..\shared\database\MonsterChallengeSummonList.h">
       <Filter>Database</Filter>
     </ClInclude>
-    <ClInclude Include="..\shared\database\ObjectPosSet.h">
-      <Filter>Database</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\GameServer.ico">

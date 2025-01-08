@@ -209,7 +209,6 @@
     <ClInclude Include="..\shared\database\MonsterChallenge.h" />
     <ClInclude Include="..\shared\database\MonsterChallengeSummonList.h" />
     <ClInclude Include="..\shared\database\MonsterSummonListSet.h" />
-    <ClInclude Include="..\shared\database\ObjectPosSet.h" />
     <ClInclude Include="..\shared\database\RentalItemSet.h" />
     <ClInclude Include="..\shared\database\ServerResourceSet.h" />
     <ClInclude Include="..\shared\database\StartPositionSet.h" />
