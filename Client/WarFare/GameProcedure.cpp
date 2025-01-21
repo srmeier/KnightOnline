@@ -156,14 +156,6 @@ void CGameProcedure::StaticMemberInit(
 		dm.dmPelsHeight = s_Options.iViewHeight;
 		dm.dmBitsPerPel = s_Options.iViewColorDepth;
 		dm.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
-
-		if (s_Options.iViewColorDepth == 16
-			&& ::ChangeDisplaySettings(&dm, CDS_TEST) != DISP_CHANGE_SUCCESSFUL)
-		{
-			s_Options.iViewColorDepth = 32;
-			dm.dmBitsPerPel = s_Options.iViewColorDepth;
-		}
-
 		::ChangeDisplaySettings(&dm, CDS_FULLSCREEN);
 	}
 
