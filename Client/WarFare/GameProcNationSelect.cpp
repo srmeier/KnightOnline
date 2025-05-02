@@ -44,13 +44,15 @@ void CGameProcNationSelect::Init()
 {
 	CGameProcedure::Init();
 
-	std::string szTemp = "UI_us\\Co_Nation_Select_us.uif"; 
+	std::string szTemp = "UI_us\\co_nation_Select_us.uif"; 
 	
+	/* for 1064 DB, not working
 	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.Find(NATION_KARUS);
 	if(pTbl)
 	{
 		szTemp = pTbl->szNationSelect;
 	}
+	*/
 	
 	m_pUINationSelectDlg = new CUINationSelectDlg();
 	m_pUINationSelectDlg->Init(s_pUIMgr);
