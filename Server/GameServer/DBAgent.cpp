@@ -1482,16 +1482,19 @@ void CDBAgent::AccountLogout(
 	if (dbCommand.get() == nullptr)
 		return;
 
+
 	int iCode = 0;
-	uint8_t bRet = 0;
+	uint8_t bRet1 = 0;
+	uint8_t bRet2 = 0;
 
-	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length());
-	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet);
+	dbCommand->AddParameter(SQL_PARAM_INPUT, strAccountID.c_str(), strAccountID.length()); // @AccountID
+	dbCommand->AddParameter(SQL_PARAM_INPUT, &iCode);                                      // @LogoutCode
+	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet1);                                     // @nRet
+	dbCommand->AddParameter(SQL_PARAM_OUTPUT, &bRet2);                                     // @nRet2
 
-	if (!dbCommand->Execute(string_format(
-		_T("{CALL ACCOUNT_LOGOUT(?, %d, ?)}"),
-		iCode)))
+	if (!dbCommand->Execute(_T("{CALL ACCOUNT_LOGOUT(?, ?, ?, ?)}")))
 		ReportSQLError(m_AccountDB->GetError());
+
 }
 
 void CDBAgent::UpdateConCurrentUserCount(
