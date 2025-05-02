@@ -128,9 +128,16 @@ BOOL COptionDlg::OnInitDialog()
 	m_SldEffectSoundDist.SetRange(20, 48);
 
 	int iAdd = 0;
-	iAdd = m_CB_Resolution.AddString(_T("1024 X 768"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768,1024));
-	iAdd = m_CB_Resolution.AddString(_T("1280 X 1024"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1024,1280));
-	iAdd = m_CB_Resolution.AddString(_T("1600 X 1200"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1200,1600));
+	iAdd = m_CB_Resolution.AddString(_T("800 X 600"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(600, 800));
+	iAdd = m_CB_Resolution.AddString(_T("1024 X 768"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768, 1024));
+	iAdd = m_CB_Resolution.AddString(_T("1152 X 864"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(864, 1152));
+	iAdd = m_CB_Resolution.AddString(_T("1280 X 768"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768, 1280));
+	iAdd = m_CB_Resolution.AddString(_T("1280 X 800"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(800, 1280));
+	iAdd = m_CB_Resolution.AddString(_T("1280 X 960"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(960, 1280));
+	iAdd = m_CB_Resolution.AddString(_T("1280 X 1024"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1024, 1280));
+	iAdd = m_CB_Resolution.AddString(_T("1360 X 768"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768, 1360));
+	iAdd = m_CB_Resolution.AddString(_T("1366 X 768"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768, 1366));
+	iAdd = m_CB_Resolution.AddString(_T("1600 X 1200"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1200, 1600));
 
 	iAdd = m_CB_ColorDepth.AddString(_T("16 Bit"));			m_CB_ColorDepth.SetItemData(iAdd, 16);
 	iAdd = m_CB_ColorDepth.AddString(_T("32 Bit"));			m_CB_ColorDepth.SetItemData(iAdd, 32);
@@ -268,16 +275,44 @@ void COptionDlg::SettingSave(CString szIniFile)
 
 	if (0 == iSel)
 	{
-		m_Option.iViewWidth = 1024;
-		m_Option.iViewHeight = 768;
+		m_Option.iViewWidth = 800;
+		m_Option.iViewHeight = 600;
 	}
 	else if (1 == iSel)
 	{
-		m_Option.iViewWidth = 1280;
-		m_Option.iViewHeight = 1024;
+		m_Option.iViewWidth = 1024;
+		m_Option.iViewHeight = 768;
 	}
 	else if (2 == iSel)
 	{
+		m_Option.iViewWidth = 1152;
+		m_Option.iViewHeight = 864;
+	}
+	else if (3 == iSel) {
+		m_Option.iViewWidth = 1280;
+		m_Option.iViewHeight = 768;
+	}
+	else if (4 == iSel) {
+		m_Option.iViewWidth = 1280;
+		m_Option.iViewHeight = 800;
+	}
+	else if (5 == iSel) {
+		m_Option.iViewWidth = 1280;
+		m_Option.iViewHeight = 960;
+	}
+	else if (6 == iSel) {
+		m_Option.iViewWidth = 1280;
+		m_Option.iViewHeight = 1024;
+	}
+	else if (7 == iSel) {
+		m_Option.iViewWidth = 1360;
+		m_Option.iViewHeight = 768;
+	}
+	else if (8 == iSel) {
+		m_Option.iViewWidth = 1366;
+		m_Option.iViewHeight = 768;
+	}
+	else if (9 == iSel) {
 		m_Option.iViewWidth = 1600;
 		m_Option.iViewHeight = 1200;
 	}
@@ -393,12 +428,26 @@ void COptionDlg::SettingUpdate()
 	CheckDlgButton(IDC_C_SHADOW, m_Option.iUseShadow);
 
 	int iSel = 0;
-	if (1024 == m_Option.iViewWidth)
+	if (m_Option.iViewWidth == 800 && m_Option.iViewHeight == 600)
 		iSel = 0;
-	else if (1280 == m_Option.iViewWidth)
+	else if (m_Option.iViewWidth == 1024 && m_Option.iViewHeight == 768)
 		iSel = 1;
-	else if (1600 == m_Option.iViewWidth)
+	else if (m_Option.iViewWidth == 1152 && m_Option.iViewHeight == 864)
 		iSel = 2;
+	else if (m_Option.iViewWidth == 1280 && m_Option.iViewHeight == 768)
+		iSel = 3;
+	else if (m_Option.iViewWidth == 1280 && m_Option.iViewHeight == 800)
+		iSel = 4;
+	else if (m_Option.iViewWidth == 1280 && m_Option.iViewHeight == 960)
+		iSel = 5;
+	else if (m_Option.iViewWidth == 1280 && m_Option.iViewHeight == 1024)
+		iSel = 6;
+	else if (m_Option.iViewWidth == 1360 && m_Option.iViewHeight == 768)
+		iSel = 7;
+	else if (m_Option.iViewWidth == 1366 && m_Option.iViewHeight == 768)
+		iSel = 8;
+	else if (m_Option.iViewWidth == 1600 && m_Option.iViewHeight == 1200)
+		iSel = 9;
 	m_CB_Resolution.SetCurSel(iSel);
 
 	if (16 == m_Option.iViewColorDepth)
