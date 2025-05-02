@@ -36,6 +36,9 @@ const uint32_t TEX_CAPS_POW2 =			0x00000080;
 const float CAMERA_RADIUS_UNIT = 2.0f;
 const int MAX_CAMERA_RADIUS = 512; // 2미터 단위로 128 개의 도트 프로덕트 미리 계산해 놓는다..
 
+const bool VSYNC_ACTIVE = true;
+
+
 enum TIMER_COMMAND { TIMER_RESET, TIMER_START, TIMER_STOP, TIMER_ADVANCE,
                      TIMER_GETABSOLUTETIME, TIMER_GETAPPTIME, TIMER_GETELAPSEDTIME };
 
