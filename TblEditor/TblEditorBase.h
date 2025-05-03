@@ -27,7 +27,7 @@ public:
 	bool SaveFile(const CString& path, const std::map<int, std::vector<CString>>& newData);
 
 protected:
-	void LoadRowData(HANDLE hFile);
+	bool LoadRowData(HANDLE hFile);
 
 public: // TODO: fix me
 	std::map<int, std::vector<CString>> m_Rows;
