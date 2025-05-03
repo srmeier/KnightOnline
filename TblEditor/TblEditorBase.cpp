@@ -550,3 +550,46 @@ CString CTblEditorBase::GetColumnDefault(
 
 	return szDefault;
 }
+
+CString CTblEditorBase::GetColumnName(
+	int iColNo)
+	const
+{
+	DATA_TYPE dataType = m_DataTypes[iColNo];
+	switch (dataType)
+	{
+		case DT_CHAR:
+			return _T("SByte");
+
+		case DT_BYTE:
+			return _T("Byte");
+
+		case DT_SHORT:
+			return _T("Int16");
+
+		case DT_WORD:
+			return _T("UInt16");
+
+		case DT_INT:
+			return _T("Int32");
+
+		case DT_DWORD:
+			return _T("UInt32");
+
+		case DT_STRING:
+			return _T("String");
+
+		case DT_FLOAT:
+			return _T("Float");
+
+		case DT_DOUBLE:
+			return _T("Double");
+
+		default:
+		{
+			CString szName;
+			szName.Format(_T("%d"), dataType);
+			return szName;
+		}
+	}
+}
