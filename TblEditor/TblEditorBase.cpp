@@ -35,34 +35,34 @@ bool CTblEditorBase::SaveFile(
 	const CString& path,
 	const std::map<int, std::vector<CString>>& newData)
 {
-    WriteBuffer writeBuffer;
+	WriteBuffer writeBuffer;
 
 	// 1. iDataTypeCount (4 bytes)
 	int32_t iDataTypeCount = static_cast<int32_t>(m_DataTypes.size());
 
-    TRACE("iDataTypeCount = %d", iDataTypeCount);
+	TRACE("iDataTypeCount = %d", iDataTypeCount);
 	writeBuffer.append<int32_t>(&iDataTypeCount);
 
-    // 2. stored datatypes (4 bytes each)
+	// 2. stored datatypes (4 bytes each)
 	for (int32_t dataType : m_DataTypes)
 		writeBuffer.append<int32_t>(&dataType);
 
 	// 3. row count
-    int32_t iRowCount = static_cast<int32_t>(newData.size());
+	int32_t iRowCount = static_cast<int32_t>(newData.size());
 	writeBuffer.append<int32_t>(&iRowCount);
 
 	// 4. row data
 	for (const auto& rowItr : newData)
-    {
+	{
 		const auto& row = rowItr.second;
 
 		for (int colNo = 0; colNo < iDataTypeCount; colNo++)
-        {
-            DATA_TYPE dataType = m_DataTypes[colNo];
-            const CString& value = row[colNo];
+		{
+			DATA_TYPE dataType = m_DataTypes[colNo];
+			const CString& value = row[colNo];
 
-            switch (dataType)
-            {
+			switch (dataType)
+			{
 				case DT_CHAR:
 				{
 					char val = static_cast<char>(_ttoi(value));
@@ -130,48 +130,48 @@ bool CTblEditorBase::SaveFile(
 				}
 			}
 		}
-    }
+	}
 
-    if (path.IsEmpty())
-        return false;
+	if (path.IsEmpty())
+		return false;
 
-    // Create or open the file for writing
-    HANDLE hFile = ::CreateFile(path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
-    if (hFile == INVALID_HANDLE_VALUE)
-        return false;
+	// Create or open the file for writing
+	HANDLE hFile = ::CreateFile(path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+	if (hFile == INVALID_HANDLE_VALUE)
+		return false;
 
-    // Encryption key as defined earlier
-    uint16_t key_r = 0x0816;
-    uint16_t key_c1 = 0x6081;
-    uint16_t key_c2 = 0x1608;
+	// Encryption key as defined earlier
+	uint16_t key_r = 0x0816;
+	uint16_t key_c1 = 0x6081;
+	uint16_t key_c2 = 0x1608;
 
-    DWORD dwRWC = 0;
+	DWORD dwRWC = 0;
 
-    // Encrypt the data before writing it to the file
-    size_t dataSize = writeBuffer.size();
-    uint8_t* encryptedData = new uint8_t[dataSize];
+	// Encrypt the data before writing it to the file
+	size_t dataSize = writeBuffer.size();
+	uint8_t* encryptedData = new uint8_t[dataSize];
 
-    for (size_t i = 0; i < dataSize; i++)
-    {
-        uint8_t cipher = (writeBuffer[i] ^ (key_r >> 8));
-        key_r = (cipher + key_r) * key_c1 + key_c2;
-        encryptedData[i] = cipher;
-    }
+	for (size_t i = 0; i < dataSize; i++)
+	{
+		uint8_t cipher = (writeBuffer[i] ^ (key_r >> 8));
+		key_r = (cipher + key_r) * key_c1 + key_c2;
+		encryptedData[i] = cipher;
+	}
 
 	TRACE("First encrypted byte: %02X\n", encryptedData[0]);
-    TRACE("Data size to be written: %zu\n", dataSize);
+	TRACE("Data size to be written: %zu\n", dataSize);
 
-    // Write encrypted data to the file
-    BOOL bResult = ::WriteFile(hFile, encryptedData, (DWORD)dataSize, &dwRWC, nullptr);
+	// Write encrypted data to the file
+	BOOL bResult = ::WriteFile(hFile, encryptedData, (DWORD) dataSize, &dwRWC, nullptr);
 
 
-    TRACE("Actual number of bytes written: %u\n", dwRWC);
+	TRACE("Actual number of bytes written: %u\n", dwRWC);
 
 	// Clean up
-    delete[] encryptedData;
-    CloseHandle(hFile);
+	delete[] encryptedData;
+	CloseHandle(hFile);
 
-    return (bResult && dwRWC == dataSize);
+	return (bResult && dwRWC == dataSize);
 }
 
 bool CTblEditorBase::LoadFile(
@@ -306,19 +306,19 @@ void CTblEditorBase::LoadRowData(
 	m_Rows.clear();
 
 	CString szValue;
-    for (int iRowNo = 0; iRowNo < iRowCount; iRowNo++)
-    {
-        std::vector<CString> row;
+	for (int iRowNo = 0; iRowNo < iRowCount; iRowNo++)
+	{
+		std::vector<CString> row;
 		row.reserve(iDataTypeCount);
 
-        // Read each column's data for this row
-        for (int iColNo = 0; iColNo < iDataTypeCount; iColNo++)
-        {
-            DATA_TYPE dataType = static_cast<DATA_TYPE>(m_DataTypes[iColNo]);
+		// Read each column's data for this row
+		for (int iColNo = 0; iColNo < iDataTypeCount; iColNo++)
+		{
+			DATA_TYPE dataType = static_cast<DATA_TYPE>(m_DataTypes[iColNo]);
 
 			szValue.Empty();
 			switch (dataType)
-            {
+			{
 				case DT_NONE:
 					// No data
 					TRACE("Row %d, Column %d: DT_NONE (no data)\n", iRowNo, iColNo);
@@ -404,7 +404,7 @@ void CTblEditorBase::LoadRowData(
 
 					szValue.Format(_T("%d"), val);
 					row.push_back(szValue);
-				
+
 					TRACE("Row %d, Column %d: DT_INT = %d\n", iRowNo, iColNo, val);
 					break;
 				}
@@ -487,7 +487,7 @@ void CTblEditorBase::LoadRowData(
 
 					szValue.Format(_T("%f"), val);
 					row.push_back(szValue);
-				
+
 					TRACE("Row %d, Column %d: DT_FLOAT = %f\n", iRowNo, iColNo, val);
 					break;
 				}
@@ -517,5 +517,5 @@ void CTblEditorBase::LoadRowData(
 		}
 
 		m_Rows.insert(std::make_pair(iRowNo, row));
-    }
+	}
 }

@@ -18,7 +18,7 @@ enum DATA_TYPE : int32_t
 	DT_DOUBLE
 };
 
-class CTblEditorBase 
+class CTblEditorBase
 {
 public:
 	CTblEditorBase();

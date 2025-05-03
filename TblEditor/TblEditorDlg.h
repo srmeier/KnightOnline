@@ -11,7 +11,7 @@ class CTblEditorDlg : public CDialogEx
 public:
 	CTblEditorDlg(CWnd* pParent = nullptr);	// standard constructor
 	~CTblEditorDlg() override;
-	
+
 	CStatic m_staticText; //bilgi mesajı
 	CListCtrl m_ListCtrl; //list
 	CEdit m_editCell;
@@ -21,24 +21,24 @@ public:
 	CTblEditorBase* m_pTblBase;
 
 	afx_msg void OnFileOpen();
-	
+
 	//for editting
 	int m_iEditItem;
 	int m_iEditSubItem;
-	
+
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_TBLEDITOR_DIALOG };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 	std::vector<std::vector<CString>> m_OriginalData;
 	void SetupColumns(const std::vector<CString>& columnNames);
 	void InsertRows(const std::map<int, std::vector<CString>>& datas);
 	void LoadTable(const CString& path);
-	
+
 	CEdit m_Edit;
 
 // Implementation
