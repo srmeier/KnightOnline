@@ -140,6 +140,8 @@ struct __Options
 	bool bWindowCursor;		// 0 - 게임에서 그려주는 커서 1 - 윈도우 커서 사용
 	bool bWindowMode;
 
+	bool bVSyncEnabled;
+
 	void InitDefault()        // Default options for client window
 	{
 		iUseShadow = true;
@@ -151,12 +153,17 @@ struct __Options
 		iViewHeight = 768;
 		iViewDist = 512;
 		iEffectSndDist = 48;
-		bSndEnable = 0;
+		bSndEnable = false;
 		bSndDuplicated = false;
 		bWindowCursor = true;
 		bWindowMode = false;
+		bVSyncEnabled = true;
 	}
-	__Options() { InitDefault(); }
+
+	__Options()
+	{
+		InitDefault();
+	}
 };
 
 class CN3Base

@@ -116,6 +116,8 @@ int APIENTRY WinMain(
 #endif
 	);
 
+	CN3Base::s_Options.bVSyncEnabled = ini.GetBool("Screen", "VSyncEnabled", true);
+
 	srand((uint32_t) time(nullptr));
 
 	// 메인 윈도우를 만들고..
