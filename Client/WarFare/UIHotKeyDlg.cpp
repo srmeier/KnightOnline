@@ -557,24 +557,26 @@ int	CUIHotKeyDlg::GetAreaiOrder()
 
 bool CUIHotKeyDlg::IsSelectedSkillInRealIconArea()
 {
-	// 먼저 Area를 검색한다..
+	// search for area first.
 	CN3UIArea* pArea;
 	bool bFound = false;
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
-
+	int index = 1;
 	for( int i = 0; i < MAX_SKILL_IN_HOTKEY; i++ )
 	{
 		pArea = CN3UIWndBase::GetChildAreaByiOrder(UI_AREA_TYPE_SKILL_HOTKEY, i);
 		if (pArea && pArea->IsIn(ptCur.x, ptCur.y))
 		{
 			bFound = true;
+			index = i;
 			break;
 		}
 	}
 
 	if (!bFound) return false;
 	if (!CN3UIWndBase::m_sSkillSelectInfo.pSkillDoneInfo) return false;
-	//SetReceiveSelectedSkill(i);
+	
+	SetReceiveSelectedSkill(index);
 
 	return bFound;
 }
