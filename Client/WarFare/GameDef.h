@@ -734,7 +734,7 @@ typedef struct __TABLE_UI_RESRC
 	std::string szPPCardMsg;			// 126
 	std::string szPPCardBuyList;		// 127
 	std::string szPPCardMyInfo;			// 128
-	std::string szNationSelect2;		// 129
+	std::string szNationSelectNew;		// 129
 	std::string szUSALogo;				// 130
 #if __VERSION > 1264  
 	std::string szMonster;				// 131
