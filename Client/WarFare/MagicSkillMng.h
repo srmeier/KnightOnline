@@ -65,12 +65,6 @@ public:
 	int						m_iDeseaseR;
 	int						m_iPoisonR;
 
-	//combo...
-	int						m_iComboSkillID;
-	int						m_iCurrStep;
-	int						m_iNumStep;
-	float					m_fComboTime;
-		
 	//recast time...
 	float					m_fRecastTime;
 	float					m_fDelay;
@@ -101,7 +95,6 @@ protected:
 	void	StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vector3 vPos);
 	
 	void	ProcessCasting();
-	void	ProcessCombo();
 
 	void	MobCasting(__TABLE_UPC_SKILL* pSkill, int iSourceID);
 

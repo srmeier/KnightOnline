@@ -91,7 +91,9 @@ void CPlayerNPC::Tick()
 		this->PositionSet(vPos, false); // 위치 최종 적용..
 	}
 
-	if(PSA_ATTACK == m_eState || m_iSkillStep != 0) // 공격 중이거나 스킬 사용중이면..
+	// 공격 중이거나 스킬 사용중이면..
+	if (PSA_ATTACK == m_eState
+		|| PSA_SPELLMAGIC == m_eState)
 	{
 		CPlayerBase* pTarget = this->TargetPointerCheck(false);
 		CPlayerBase::ProcessAttack(pTarget); // 공격에 관한 루틴 처리.. 에니메이션 세팅과 충돌만 처리할뿐 패킷은 처리 안한다..

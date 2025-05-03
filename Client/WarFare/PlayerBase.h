@@ -133,7 +133,6 @@ public:
 
 	float				m_fTimeAfterDeath;		// 죽은지 지난시간 - 5초정도면 적당한가?? 그전에 공격을 받으면 바로 죽는다.
 
-	int					m_iSkillStep;			// 현재 스킬을 쓰고 있다면 0 이 아닌값이다...
 	float				m_fAttackDelta;			// 스킬이나 마법에 의해 변하는 공격 속도.. 1.0 이 기본이고 클수록 더 빨리 공격한다.
 	float				m_fMoveDelta;			// 스킬이나 마법에 의해 변하는 이동 속도 1.0 이 기본이고 클수록 더 빨리 움직인다.
 	__Vector3			m_vDirDying;			// 죽을때 밀리는 방향..

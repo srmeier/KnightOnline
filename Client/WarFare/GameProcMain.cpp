@@ -3224,7 +3224,9 @@ bool CGameProcMain::MsgRecv_Attack(Packet& pkt)
 	pTarget->m_bGuardSuccess = false; // 방어에 성공했는지에 대한 플래그..
 	if(0x0 == iResult) // 공격 실패
 	{
-		if(pTarget->IsAlive() && 0 == pTarget->m_iSkillStep) // 죽은 넘이 아니고 스킬을 쓰즌 중이 아니면 막는 동작을 한다..
+		// 죽은 넘이 아니고 스킬을 쓰즌 중이 아니면 막는 동작을 한다..
+		if (pTarget->IsAlive()
+			&& pTarget->State() == PSA_SPELLMAGIC)
 		{
 			pTarget->m_bGuardSuccess = true;
 			pTarget->Action(PSA_GUARD, false);

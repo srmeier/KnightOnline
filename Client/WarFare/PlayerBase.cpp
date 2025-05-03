@@ -93,7 +93,6 @@ CPlayerBase::CPlayerBase()
 	m_pShapeExtraRef = NULL;					// 이 NPC 가 성문이나 집등 오브젝트의 형태이면 이 포인터를 세팅해서 쓴,다..
 
 	m_fCastFreezeTime = 0.0f;
-	m_iSkillStep = 0;			// 현재 스킬을 쓰고 있다면 0 이 아닌값이다...
 	m_fAttackDelta = 1.0f;			// 스킬이나 마법에 의해 변하는 공격 속도.. 1.0 이 기본이고 클수록 더 빨리 공격한다.
 	m_fMoveDelta = 1.0f;			// 스킬이나 마법에 의해 변하는 이동 속도 1.0 이 기본이고 클수록 더 빨리 움직인다.
 
@@ -217,7 +216,6 @@ void CPlayerBase::Release()
 	m_pShapeExtraRef = NULL;					// 이 NPC 가 성문이나 집등 오브젝트의 형태이면 이 포인터를 세팅해서 쓴,다..
 
 	m_fCastFreezeTime = 0.0f;
-	m_iSkillStep = 0;			// 현재 스킬을 쓰고 있다면 0 이 아닌값이다...
 	m_fAttackDelta = 1.0f;		// 스킬이나 마법에 의해 변하는 공격 속도.. 1.0 이 기본이고 클수록 더 빨리 공격한다.
 	m_fMoveDelta = 1.0f;			// 스킬이나 마법에 의해 변하는 이동 속도 1.0 이 기본이고 클수록 더 빨리 움직인다.
 	m_vDirDying.Set(0,0,1); // 죽을때 밀리는 방향..
@@ -1341,8 +1339,12 @@ void CPlayerBase::ActionDying(e_StateDying eSD, const __Vector3& vDir)
 
 bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 {
-	if(PSA_ATTACK != m_eState && m_iSkillStep == 0) return false; // 공격상태가 아니고 스킬 쓰는 중도 아니면..돌아간다.
-	if(NULL == pTarget) 
+	if (pTarget == nullptr) 
+		return false;
+
+	// 공격상태가 아니고 스킬 쓰는 중도 아니면..돌아간다.
+	if (PSA_ATTACK != m_eState
+		&& PSA_SPELLMAGIC != m_eState)
 		return false;
 
 	bool bAttackSuccess = false;
@@ -1542,13 +1544,14 @@ bool CPlayerBase::ProcessAttack(CPlayerBase* pTarget)
 //				else if(iRand == 1) { if(pTarget->m_pSnd_Struck_1) pTarget->m_pSnd_Struck_1->Play(&vTarget); }
 				if(pTarget->m_pSnd_Struck_0) pTarget->m_pSnd_Struck_0->Play(&vTarget);
 
-				if(0 == pTarget->m_iSkillStep) // 스킬을 사용중이 아니다..
-					pTarget->Action(PSA_STRUCK, false); // 죽은 넘이 아니면 얻어 맞는 동작을 한다..
+				// TODO: Update this (and all of its outer logic)
+				// 스킬을 사용중이 아니다..
+				pTarget->Action(PSA_STRUCK, false); // 죽은 넘이 아니면 얻어 맞는 동작을 한다..
 			}
 			else // 방어 성공..
 			{
-//				if(0 == pTarget->m_iSkillStep) // 스킬을 사용중이 아니다..
-//					pTarget->Action(PSA_GUARD, false);
+				// 스킬을 사용중이 아니다..
+				// pTarget->Action(PSA_GUARD, false);
 			}
 		}
 	}

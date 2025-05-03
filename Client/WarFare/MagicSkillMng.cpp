@@ -100,10 +100,6 @@ void CMagicSkillMng::Init()
 	m_iTarget = -1;
 	m_vTargetPos.Set(0,0,0);
 
-	m_iComboSkillID = 0;
-	m_iCurrStep = 0;
-	m_iNumStep = 0;
-	
 	m_fRecastTime = 0.0f;
 	m_fDelay = 0.0f;
 
@@ -175,7 +171,6 @@ CMagicSkillMng::~CMagicSkillMng()
 bool CMagicSkillMng::IsCasting()
 {
 	if(s_pPlayer->State() == PSA_SPELLMAGIC ||
-		m_iCurrStep != 0 ||
 		s_pPlayer->m_dwMagicID != 0xffffffff ||
 		s_pPlayer->m_bStun == true ||
 		m_fDelay > 0.0f ) return true;	
@@ -1389,8 +1384,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 	CGameProcedure::s_pFX->TriggerBundle(SourceID, spart1, pSkill->iSelfFX1, SourceID, spart1, -1);
 	if(spart2!=0) CGameProcedure::s_pFX->TriggerBundle(SourceID, spart2, pSkill->iSelfFX1, SourceID, spart2, -2);
 
-	s_pPlayer->m_iIDTarget = -1;			
-	s_pPlayer->m_iSkillStep = 1;
+	s_pPlayer->m_iIDTarget = -1;
 	//s_pPlayer->ActionMove(PSM_STOP);
 	m_pGameProcMain->CommandMove(MD_STOP, true);
 
@@ -1472,13 +1466,8 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 //		s_pPlayer->PlugTraceColorRemake(crTrace); // 검기 색 적용..
 
 		s_pPlayer->RotateTo(pTarget);
-		s_pPlayer->m_iSkillStep = 1;
-		m_iCurrStep = 1;
 
-		m_iNumStep = pType1->iNumCombo;
-		m_fComboTime = 0.0f;
 		m_iTarget = TargetID;
-		m_iComboSkillID = pSkill->dwID;
 
 		for(int i=0;i<pType1->iNumCombo;i++)
 		{
@@ -1556,7 +1545,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 	if(spart2!=0) CGameProcedure::s_pFX->TriggerBundle(SourceID, spart2, pSkill->iSelfFX1, SourceID, spart2, -2);
 
 	s_pPlayer->m_iIDTarget = TargetID;			
-	s_pPlayer->m_iSkillStep = 1;
+
 	//s_pPlayer->ActionMove(PSM_STOP);
 	m_pGameProcMain->CommandMove(MD_STOP, true);
 
@@ -1607,19 +1596,12 @@ void CMagicSkillMng::Tick()
 	m_fDelay -= CN3Base::s_fSecPerFrm;
 	if(m_fDelay < 0.0f) m_fDelay = 0.0f;
 
-	if(m_fRecastTimeNonAction < -30.0f) m_fRecastTimeNonAction = 0.0f;
-	if(m_fRecastTime < -30.0f)
-	{
-		s_pPlayer->m_iSkillStep = 0;
-		m_iCurrStep = 0;
-		m_fRecastTime = 0.0f;
-	}
+	if(m_fRecastTimeNonAction < -30.0f)
+		m_fRecastTimeNonAction = 0.0f;
 
-	if(	m_iCurrStep!=0 )
-	{
-		m_fComboTime += CN3Base::s_fSecPerFrm;
-		ProcessCombo();
-	}
+	if(m_fRecastTime < -30.0f)
+		m_fRecastTime = 0.0f;
+
 	ProcessCasting();
 	//TRACE("skillmagic tick state : %d time %.2f\n", s_pPlayer->State(), CN3Base::TimeGet());
 
@@ -1720,10 +1702,6 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 		if(!pType1) return;
 
 		s_pPlayer->RotateTo(pTarget);
-		s_pPlayer->m_iSkillStep = 1;
-		m_iCurrStep = 1;
-
-		m_iNumStep = pType1->iNumCombo;
 
 		for(int i=0;i<pType1->iNumCombo;i++)
 		{
@@ -1764,7 +1742,6 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
 		m_fRecastTime = (float)pSkill->iReCastTime / 10.0f;
 		m_fDelay = 0.3f;
-		s_pPlayer->m_iSkillStep = 0;
 
 		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
 		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
@@ -1800,7 +1777,6 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 			s_pPlayer->m_fCastFreezeTime = 0.0f;
 			s_pPlayer->Action(PSA_SPELLMAGIC, false);
 			//s_pPlayer->Action(PSA_BASIC, false);
-			s_pPlayer->m_iSkillStep = 0;
 
 			CGameProcedure::s_pFX->Stop(SourceID, SourceID, pSkill->iSelfFX1, -1, true);
 			CGameProcedure::s_pFX->Stop(SourceID, SourceID, pSkill->iSelfFX1, -2, true);
@@ -1837,7 +1813,6 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 				s_pPlayer->Action(PSA_SPELLMAGIC, false);
 				//s_pPlayer->Action(PSA_BASIC, false);				
 			}
-			s_pPlayer->m_iSkillStep = 0;
 		}
 
 		if(pSkill->iSelfFX2>0)
@@ -1849,7 +1824,6 @@ void CMagicSkillMng::FailCast(__TABLE_UPC_SKILL* pSkill)
 {
 	s_pPlayer->m_dwMagicID = 0xffffffff;
 	s_pPlayer->m_fCastingTime = 0.0f;
-	s_pPlayer->m_iSkillStep = 0;
 
 	uint8_t byBuff[32];
 	int iOffset=0;
@@ -1900,25 +1874,6 @@ void CMagicSkillMng::ProcessCasting()
 		}
 		else s_pPlayer->m_dwMagicID = 0xffffffff;
 	}	
-}
-
-void CMagicSkillMng::ProcessCombo()
-{
-	//만약 콤보동작중 하나의 동작이 끝났다면...=^^=
-	if(m_fComboTime > (s_pPlayer->m_fAttackDelta * 1.2f)) //s_pPlayer->IsAnimationChange())
-	{
-		if(m_iCurrStep==m_iNumStep)//콤보공격 끝났다..
-		{
-			__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(m_iComboSkillID);
-			if(pSkill) m_fRecastTime = (float)pSkill->iReCastTime / 10.0f;
-			m_iCurrStep = -1;
-			s_pPlayer->m_iSkillStep = -1;
-			m_iNumStep = 0;			
-		}	
-		m_iCurrStep++;
-		s_pPlayer->m_iSkillStep++;
-		m_fComboTime = 0.0f;
-	}
 }
 
 void CMagicSkillMng::MobCasting(__TABLE_UPC_SKILL* pSkill, int iSourceID)
@@ -2026,7 +1981,7 @@ void CMagicSkillMng::MsgRecv_Casting(Packet& pkt)
 	if(spart2!=0) CGameProcedure::s_pFX->TriggerBundle(iSourceID, spart2, pSkill->iSelfFX1, iSourceID, spart2, -2);
 
 	pPlayer->m_iIDTarget = iTargetID;			
-	pPlayer->m_iSkillStep = 1;
+
 	pPlayer->ActionMove(PSM_STOP);
 	pPlayer->m_iMagicAni = pSkill->iSelfAnimID1;
 	if(pSkill->dw1stTableType==2 || pSkill->dw2ndTableType==2)
@@ -2088,7 +2043,6 @@ void CMagicSkillMng::MsgRecv_Flying(Packet& pkt)
 		}
 		pPlayer->m_fCastFreezeTime = 0.0f;
 		pPlayer->Action(PSA_SPELLMAGIC, false);
-		pPlayer->m_iSkillStep = 0;
 	}
 
 	CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -1, true);
@@ -2147,7 +2101,6 @@ void CMagicSkillMng::MsgRecv_Effecting(Packet& pkt)
 		pPlayer->m_iMagicAni = pSkill->iSelfAnimID2;	//화살놓는 동작...
 		pPlayer->m_fCastFreezeTime = 0.0f;
 		pPlayer->Action(PSA_SPELLMAGIC, false);
-		pPlayer->m_iSkillStep = 0;
 	}
 
 	CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -1, true);
@@ -2206,7 +2159,6 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 		pPlayer->m_iMagicAni = pSkill->iSelfAnimID2;
 		pPlayer->m_fCastFreezeTime = 0.0f;
 		pPlayer->Action(PSA_SPELLMAGIC, false);
-		pPlayer->m_iSkillStep = 0;
 
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -1, true);
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -2, true);
@@ -2217,8 +2169,6 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -1, true);
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -2, true);
 		
-		if(pPlayer) pPlayer->m_iSkillStep = 0;
-
 		if(iSourceID == s_pPlayer->IDNumber())
 		{
 			s_pPlayer->m_dwMagicID = 0xffffffff;
@@ -2239,11 +2189,8 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -1, true);
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -2, true);
 		
-		if(pPlayer)
-		{
-			pPlayer->m_iSkillStep = 0;
+		if (pPlayer != nullptr)
 			pPlayer->Action(PSA_BASIC, true);
-		}
 
 		if(iSourceID == s_pPlayer->IDNumber())
 		{
@@ -2264,11 +2211,8 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -1, true);
 		CGameProcedure::s_pFX->Stop(iSourceID, iSourceID, pSkill->iSelfFX1, -2, true);
 		
-		if(pPlayer)
-		{
-			pPlayer->m_iSkillStep = 0;
+		if (pPlayer != nullptr)
 			pPlayer->Action(PSA_BASIC, true);
-		}
 
 		if(iSourceID == s_pPlayer->IDNumber())
 		{
@@ -2320,12 +2264,6 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 			__Vector3 TargetPos(Data[0], Data[1], Data[2]);
 			CGameProcedure::s_pFX->TriggerBundle(iSourceID, 0, pSkill->iTargetFX, TargetPos);
 		}		
-		return;
-	}
-
-	if(Data[3]==SKILLMAGIC_FAIL_ENDCOMBO)//combo끝났다.
-	{
-		if(pPlayer) pPlayer->m_iSkillStep = 0;
 		return;
 	}
 
@@ -2565,91 +2503,18 @@ bool CMagicSkillMng::EffectingType1(uint32_t dwMagicID, int iSourceID, int iTarg
 //					pPlayer->PlugTraceColorRemake(crTrace); // 검기 색 적용..
 
 					pPlayer->RotateTo(pTarget);
-					pPlayer->m_iSkillStep = 1;
 
-					for(int i=0;i<pType1->iNumCombo;i++)
-					{
-						bool bImmediately = ((0 == i) ? true : false); // 처음건 바로 넣는다..
-						pPlayer->AnimationAdd((const e_Ani)pType1->iAct[i], bImmediately);
-					}
+					// TODO: Update this. It's intended to apply based on the equipped weapon type,
+					// and rather than manually queue, this behaviour will be passed through Action().
+					e_Ani eAni = (e_Ani) pType1->iAct[0];
+					pPlayer->Action(PSA_SPELLMAGIC, false, pTarget, false);
+					pPlayer->AnimationAdd(eAni, true);
 				}
 			}
 		}
 	}
 	return true;
 }
-/*
-bool CMagicSkillMng::EffectingType1(uint32_t dwMagicID, int iSourceID, int iTargetID, int16_t* pData)
-{
-	CPlayerBase* pTarget = m_pGameProcMain->CharacterGetByID(iTargetID, false);
-	if(pTarget)
-	{
-		if(iSourceID == s_pPlayer->IDNumber()) // 내가 스킬을 쓸때..
-		{
-			__TABLE_UPC_SKILL_TYPE_1* pType1 = m_pTbl_Type_1->Find(dwMagicID);
-
-			if(pType1 && pData[0] <= pType1->iNumCombo)
-			{
-				m_iTarget = iTargetID;
-				m_iComboSkillID = dwMagicID;
-
-				if(m_iActionState[pData[0]-1] != -1)
-				{
-					if(pData[0]!=pType1->iNumCombo)	
-					{
-						uint8_t byBuff[32];
-						int iOffset=0;
-						CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
-						CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
-						CAPISocket::MP_AddDword(byBuff, iOffset, (int)m_iComboSkillID);
-						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)iSourceID);
-						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iTarget);
-
-						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)pData[0]);
-						CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)pData[1]);
-						CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-						
-						CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-						CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-						CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-						
-						CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
-						//m_iActionState[pData[0]-1] = -1;
-					}					
-				}
-				m_iResult[pData[0]-1] = pData[1];
-			}// end of if(pType1 && pData[0] <= pType1->iNumCombo)
-		}
-		else if(pData[0]==1) // 다른 유저가 스킬을 쓸때
-		{
-			__TABLE_UPC_SKILL_TYPE_1* pType1 = m_pTbl_Type_1->Find(dwMagicID);
-			if(pType1)
-			{
-				CPlayerBase* pPlayer = m_pGameProcMain->CharacterGetByID(iSourceID, true);
-				__ASSERT(pPlayer, "NULL Player Pointer!!");
-				if(pPlayer)
-				{
-					// 검기 색을 바꾸어 준다..
-//					__TABLE_UPC_SKILL* pSkill = s_pTbl_Skill.Find(dwMagicID);
-//					D3DCOLOR crTrace = TraceColorGet(pSkill); // 스킬의 종류에 따라 검기의 색을 정한다..
-//					pPlayer->PlugTraceColorRemake(crTrace); // 검기 색 적용..
-
-					pPlayer->RotateTo(pTarget);
-					pPlayer->m_iSkillStep = 1;
-
-					for(int i=0;i<pType1->iNumCombo;i++)
-					{
-						bool bImmediately = ((0 == i) ? true : false); // 처음건 바로 넣는다..
-						pPlayer->AnimationAdd((const e_Ani)pType1->iAct[i], bImmediately);
-					}
-				}
-			}
-		}
-	}
-	if(pData[0]==1) return true;
-	return false;	
-}
-*/
 
 void CMagicSkillMng::EffectingType3(uint32_t dwMagicID)
 {

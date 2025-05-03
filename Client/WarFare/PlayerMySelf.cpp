@@ -181,8 +181,8 @@ void CPlayerMySelf::Tick()
 	////////////////////////////////////////////////////////////////////////////////
 
 	CPlayerBase* pTarget = NULL;
-//	if(true == m_bAttackContinous || m_iSkillStep > 0)
-	if(true == m_bAttackContinous && m_iSkillStep <= 0)
+	if (m_bAttackContinous
+		&& (PSA_ATTACK == m_eState || PSA_SPELLMAGIC == m_eState))
 	{
 		pTarget = TargetPointerCheck(false);
 		if(NULL == pTarget)
@@ -252,7 +252,11 @@ void CPlayerMySelf::Tick()
 							float fDistance = s_pPlayer->DistanceExceptRadius(pTarget); // 공격거리
 							
 							CGameProcedure::s_pProcMain->MsgSend_Attack(pTarget->IDNumber(), fIntervalTable, fDistance);
-							if(m_iSkillStep == 0 && PSA_ATTACK != m_eState && m_fFlickeringFactor == 1.0f) // 스킬을 쓰는게 아닌데 공격하지 않으면..
+
+							// 스킬을 쓰는게 아닌데 공격하지 않으면..
+							if (PSA_SPELLMAGIC != m_eState
+								&& PSA_ATTACK != m_eState
+								&& m_fFlickeringFactor == 1.0f)
 								this->Action(PSA_ATTACK, true, pTarget); // 공격 중이아니면 공격한다..
 							
 							m_fAttackTimeRecent = fTime;	// 최근에 공격한 시간..
@@ -272,7 +276,10 @@ void CPlayerMySelf::Tick()
 									s_pPlayer->SetMoveTargetID(pTarget->IDNumber());
 								}
 							}
-							if(m_iSkillStep == 0 && PSA_SITDOWN != m_eState) // 스킬을 쓰는게 아닌데 앉아있는 상태가 아니면..
+
+							// 스킬을 쓰는게 아닌데 앉아있는 상태가 아니면..
+							if (PSA_SPELLMAGIC != m_eState
+								&& PSA_SITDOWN != m_eState)
 								this->Action(PSA_BASIC, true); // 기본자세..
 						}
 					}
@@ -291,8 +298,9 @@ void CPlayerMySelf::Tick()
 		if(m_fStunTime < 0) this->StunRelease(); // 기절 풀어주기..
 	}
 
-
-	if(PSA_ATTACK == m_eState || m_iSkillStep != 0) // 공격 중이거나 스킬 사용중이면..
+	// 공격 중이거나 스킬 사용중이면..
+	if (PSA_ATTACK == m_eState
+		|| PSA_SPELLMAGIC == m_eState)
 	{
 		if(!pTarget) pTarget = TargetPointerCheck(false); // 타겟 포인터를 얻어온다..
 		CPlayerBase::ProcessAttack(pTarget); // 공격에 관한 루틴 처리.. 에니메이션 세팅과 충돌만 처리할뿐 패킷은 처리 안한다..
