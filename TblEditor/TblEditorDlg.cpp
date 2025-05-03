@@ -130,13 +130,18 @@ void CTblEditorDlg::InsertRows(
 	// Add column headers and measure initial width
 	for (size_t i = 0; i < columnCount; i++)
 	{
+		const int iColNo = static_cast<int>(i);
+
 		CString headerText;
-		headerText.Format(_T("Column %d"), static_cast<int>(i + 1));
+		headerText.Format(
+			_T("%d (%s)"),
+			iColNo + 1,
+			m_pTblBase->GetColumnName(iColNo));
 
 		CSize size = dc.GetTextExtent(headerText);
 		columnWidths[i] = size.cx + 20;  // +20 padding
 
-		m_ListCtrl.InsertColumn(static_cast<int>(i), headerText, LVCFMT_LEFT, 100); // use a width of 100 for now
+		m_ListCtrl.InsertColumn(iColNo, headerText, LVCFMT_LEFT, 100); // use a width of 100 for now
 	}
 
 	// Add rows and measure contents

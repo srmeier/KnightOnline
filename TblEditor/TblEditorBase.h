@@ -26,6 +26,7 @@ public:
 	bool LoadFile(const CString& path);
 	bool SaveFile(const CString& path, const std::map<int, std::vector<CString>>& newData);
 	CString GetColumnDefault(int iColNo) const;
+	CString GetColumnName(int iColNo) const;
 
 protected:
 	bool LoadRowData(HANDLE hFile);
