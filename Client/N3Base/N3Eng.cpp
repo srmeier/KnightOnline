@@ -305,14 +305,12 @@ bool CN3Eng::Init(
 	s_DevParam.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	s_DevParam.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 
-	// VSYNC should be added as user option but for now it makes testing a lot easier in release
-	s_DevParam.PresentationInterval = VSYNC_ACTIVE
+	s_DevParam.PresentationInterval = s_Options.bVSyncEnabled
 		? D3DPRESENT_INTERVAL_ONE
 		: D3DPRESENT_INTERVAL_IMMEDIATE;
 
-
 	D3DFORMAT BBFormat = D3DFMT_UNKNOWN;
-	if (TRUE == bWindowed) // 윈도우 모드일 경우
+	if (bWindowed) // 윈도우 모드일 경우
 	{
 		D3DDISPLAYMODE dm;
 		m_lpD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &dm);

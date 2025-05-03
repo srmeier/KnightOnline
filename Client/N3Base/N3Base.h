@@ -36,9 +36,6 @@ const uint32_t TEX_CAPS_POW2 =			0x00000080;
 const float CAMERA_RADIUS_UNIT = 2.0f;
 const int MAX_CAMERA_RADIUS = 512; // 2미터 단위로 128 개의 도트 프로덕트 미리 계산해 놓는다..
 
-const bool VSYNC_ACTIVE = true;
-
-
 enum TIMER_COMMAND { TIMER_RESET, TIMER_START, TIMER_STOP, TIMER_ADVANCE,
                      TIMER_GETABSOLUTETIME, TIMER_GETAPPTIME, TIMER_GETELAPSEDTIME };
 
@@ -143,6 +140,8 @@ struct __Options
 	bool bWindowCursor;		// 0 - 게임에서 그려주는 커서 1 - 윈도우 커서 사용
 	bool bWindowMode;
 
+	bool bVSyncEnabled;
+
 	void InitDefault()        // Default options for client window
 	{
 		iUseShadow = true;
@@ -154,12 +153,17 @@ struct __Options
 		iViewHeight = 768;
 		iViewDist = 512;
 		iEffectSndDist = 48;
-		bSndEnable = 0;
+		bSndEnable = false;
 		bSndDuplicated = false;
 		bWindowCursor = true;
 		bWindowMode = false;
+		bVSyncEnabled = true;
 	}
-	__Options() { InitDefault(); }
+
+	__Options()
+	{
+		InitDefault();
+	}
 };
 
 class CN3Base
