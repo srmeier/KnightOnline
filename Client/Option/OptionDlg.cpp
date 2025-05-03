@@ -92,6 +92,27 @@ BEGIN_MESSAGE_MAP(COptionDlg, CDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
+struct Resolution
+{
+	int Width;
+	int Height;
+};
+
+// TODO: This should ideally be a list of the user's supported display resolutions.
+static Resolution s_supportedResolutions[] =
+{
+	{ 800, 600 },
+	{ 1024, 768 },
+	{ 1152, 864 },
+	{ 1280, 768 },
+	{ 1280, 800 },
+	{ 1280, 960 },
+	{ 1280, 1024 },
+	{ 1360, 768 },
+	{ 1366, 768 },
+	{ 1600, 1200 }
+};
+
 /////////////////////////////////////////////////////////////////////////////
 // COptionDlg message handlers
 
@@ -128,12 +149,26 @@ BOOL COptionDlg::OnInitDialog()
 	m_SldEffectSoundDist.SetRange(20, 48);
 
 	int iAdd = 0;
-	iAdd = m_CB_Resolution.AddString(_T("1024 X 768"));		m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(768,1024));
-	iAdd = m_CB_Resolution.AddString(_T("1280 X 1024"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1024,1280));
-	iAdd = m_CB_Resolution.AddString(_T("1600 X 1200"));	m_CB_Resolution.SetItemData(iAdd, MAKELPARAM(1200,1600));
 
-	iAdd = m_CB_ColorDepth.AddString(_T("16 Bit"));			m_CB_ColorDepth.SetItemData(iAdd, 16);
-	iAdd = m_CB_ColorDepth.AddString(_T("32 Bit"));			m_CB_ColorDepth.SetItemData(iAdd, 32);
+	CString szResolution;
+	for (const auto& resolution : s_supportedResolutions)
+	{
+		szResolution.Format(
+			_T("%d X %d"),
+			resolution.Width,
+			resolution.Height);
+		iAdd = m_CB_Resolution.AddString(szResolution);
+
+		m_CB_Resolution.SetItemData(
+			iAdd,
+			MAKELPARAM(resolution.Height, resolution.Width));
+	}
+
+	iAdd = m_CB_ColorDepth.AddString(_T("16 Bit"));
+	m_CB_ColorDepth.SetItemData(iAdd, 16);
+
+	iAdd = m_CB_ColorDepth.AddString(_T("32 Bit"));
+	m_CB_ColorDepth.SetItemData(iAdd, 32);
 
 	char szBuff[256] = "";
 	GetCurrentDirectoryA(sizeof(szBuff), szBuff);
@@ -266,20 +301,12 @@ void COptionDlg::SettingSave(CString szIniFile)
 	m_Option.iViewWidth = 1024;
 	m_Option.iViewHeight = 768;
 
-	if (0 == iSel)
+	if (iSel >= 0
+		&& iSel < _countof(s_supportedResolutions))
 	{
-		m_Option.iViewWidth = 1024;
-		m_Option.iViewHeight = 768;
-	}
-	else if (1 == iSel)
-	{
-		m_Option.iViewWidth = 1280;
-		m_Option.iViewHeight = 1024;
-	}
-	else if (2 == iSel)
-	{
-		m_Option.iViewWidth = 1600;
-		m_Option.iViewHeight = 1200;
+		const auto& resolution = s_supportedResolutions[iSel];
+		m_Option.iViewWidth = resolution.Width;
+		m_Option.iViewHeight = resolution.Height;
 	}
 
 	iSel = m_CB_ColorDepth.GetCurSel();
@@ -393,12 +420,17 @@ void COptionDlg::SettingUpdate()
 	CheckDlgButton(IDC_C_SHADOW, m_Option.iUseShadow);
 
 	int iSel = 0;
-	if (1024 == m_Option.iViewWidth)
-		iSel = 0;
-	else if (1280 == m_Option.iViewWidth)
-		iSel = 1;
-	else if (1600 == m_Option.iViewWidth)
-		iSel = 2;
+	for (int i = 0; i < _countof(s_supportedResolutions); i++)
+	{
+		const auto& resolution = s_supportedResolutions[i];
+		if (m_Option.iViewWidth == resolution.Width
+			&& m_Option.iViewHeight == resolution.Height)
+		{
+			iSel = i;
+			break;
+		}
+	}
+
 	m_CB_Resolution.SetCurSel(iSel);
 
 	if (16 == m_Option.iViewColorDepth)
