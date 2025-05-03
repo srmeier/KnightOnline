@@ -298,7 +298,6 @@ void CTblEditorDlg::OnBnClickedSaveButton()
 		for (int iColNo = 0; iColNo < nColCount; iColNo++)
 		{
 			CString strText = m_ListCtrl.GetItemText(iRowNo, iColNo);
-			strText.Trim(); // Trim text
 
 			// Default to an empty string
 			CString value;
