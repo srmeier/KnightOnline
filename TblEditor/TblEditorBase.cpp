@@ -519,3 +519,34 @@ bool CTblEditorBase::LoadRowData(
 
 	return true;
 }
+
+CString CTblEditorBase::GetColumnDefault(
+	int iColNo)
+	const
+{
+	DATA_TYPE dataType = m_DataTypes[iColNo];
+
+	CString szDefault;
+	switch (dataType)
+	{
+		case DT_CHAR:
+		case DT_BYTE:
+		case DT_SHORT:
+		case DT_WORD:
+		case DT_INT:
+		case DT_DWORD:
+			szDefault = _T("0");
+			break;
+
+		case DT_STRING:
+			/* leave empty */
+			break;
+
+		case DT_FLOAT:
+		case DT_DOUBLE:
+			szDefault = _T("0.0");
+			break;
+	}
+
+	return szDefault;
+}

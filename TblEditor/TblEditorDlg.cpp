@@ -63,14 +63,13 @@ BOOL CTblEditorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// ListCtrl stil ayarları
+	// ListCtrl style settings
 	m_ListCtrl.SetExtendedStyle(
 		m_ListCtrl.GetExtendedStyle() |
 		LVS_EX_FULLROWSELECT |
 		LVS_EX_GRIDLINES |
 		LVS_EX_SUBITEMIMAGES |
 		LVS_EX_ONECLICKACTIVATE);
-
 
 	CMenu* pMenu = new CMenu();
 	if (pMenu->LoadMenu(IDR_MENU1)) // IDR_MENU1
@@ -187,7 +186,7 @@ void CTblEditorDlg::LoadTable(const CString& path)
 
 	InsertRows(m_pTblBase->m_Rows);
 
-	//fill list than save data to compare later.
+	// Fill list than save data to compare later.
 	int nItemCount = m_ListCtrl.GetItemCount();
 	int nSubItemCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
 
@@ -297,51 +296,14 @@ void CTblEditorDlg::OnBnClickedSaveButton()
 
 		for (int iColNo = 0; iColNo < nColCount; iColNo++)
 		{
-			CString strText = m_ListCtrl.GetItemText(iRowNo, iColNo);
-
-			// Default to an empty string
-			CString value;
-
-			DATA_TYPE dataType = m_pTblBase->m_DataTypes[iColNo];
-			switch (dataType)
-			{
-				case DT_STRING:
-					value = CT2A(strText);
-					break;
-
-				case DT_CHAR:
-				case DT_BYTE:
-				case DT_SHORT:
-				case DT_WORD:
-				case DT_INT:
-				case DT_DWORD:
-				{
-					if (strText.IsEmpty())
-						value = _T("0");
-					else
-						value = CT2A(strText);
-					break;
-				}
-
-				case DT_FLOAT:
-				case DT_DOUBLE:
-				{
-					if (strText.IsEmpty())
-						value = _T("0.0");
-					else
-						value = CT2A(strText);
-					break;
-				}
-
-				default:
-					value = _T("0");
-					break;
-			}
+			CString value = m_ListCtrl.GetItemText(iRowNo, iColNo);
+			if (value.IsEmpty())
+				value = m_pTblBase->GetColumnDefault(iColNo);
 
 			rowData.push_back(value);
 		}
 
-		newData[iRowNo] = rowData;
+		newData.insert(std::make_pair(iRowNo, rowData));
 	}
 
 	if (!m_pTblBase->SaveFile(savePath, newData))
@@ -355,21 +317,24 @@ void CTblEditorDlg::OnBnClickedSaveButton()
 
 void CTblEditorDlg::OnBnClickedBtnAddRow()
 {
-	int colCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
-	int selectedIndex = m_ListCtrl.GetSelectionMark();
-	int insertIndex = (selectedIndex >= 0) ? selectedIndex + 1 : m_ListCtrl.GetItemCount();
+	int iColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
+	int iSelectedIndex = m_ListCtrl.GetSelectionMark();
+	int iInsertIndex = (iSelectedIndex >= 0) ? iSelectedIndex + 1 : m_ListCtrl.GetItemCount();
 
 	// Need to insert a row; the first column will be initialised by this.
-	m_ListCtrl.InsertItem(insertIndex, _T(""));
+	CString szDefault = m_pTblBase->GetColumnDefault(0);
+	m_ListCtrl.InsertItem(iInsertIndex, szDefault);
 
-	// Set remaining columns as empty
-	// TODO: This should use the column-specific default
-	for (int col = 1; col < colCount; col++)
-		m_ListCtrl.SetItemText(insertIndex, col, _T(""));
+	// Set remaining columns to their defaults.
+	for (int iColNo = 1; iColNo < iColCount; iColNo++)
+	{
+		szDefault = m_pTblBase->GetColumnDefault(iColNo);
+		m_ListCtrl.SetItemText(iInsertIndex, iColNo, szDefault);
+	}
 
-	// Yeni eklenen satırı seçili hale getir
-	m_ListCtrl.SetItemState(insertIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
-	m_ListCtrl.EnsureVisible(insertIndex, FALSE);
+	// Select the newly added row
+	m_ListCtrl.SetItemState(iInsertIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+	m_ListCtrl.EnsureVisible(iInsertIndex, FALSE);
 }
 
 BOOL CTblEditorDlg::PreTranslateMessage(MSG* pMsg)
