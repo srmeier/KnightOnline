@@ -56,10 +56,10 @@ bool CTblEditorBase::SaveFile(
 	{
 		const auto& row = rowItr.second;
 
-		for (int colNo = 0; colNo < iDataTypeCount; colNo++)
+		for (int iColNo = 0; iColNo < iDataTypeCount; iColNo++)
 		{
-			DATA_TYPE dataType = m_DataTypes[colNo];
-			const CString& value = row[colNo];
+			DATA_TYPE dataType = m_DataTypes[iColNo];
+			const CString& value = row[iColNo];
 
 			switch (dataType)
 			{
@@ -164,7 +164,6 @@ bool CTblEditorBase::SaveFile(
 	// Write encrypted data to the file
 	BOOL bResult = ::WriteFile(hFile, encryptedData, (DWORD) dataSize, &dwRWC, nullptr);
 
-
 	TRACE("Actual number of bytes written: %u\n", dwRWC);
 
 	// Clean up
@@ -190,7 +189,7 @@ bool CTblEditorBase::LoadFile(
 		return false;
 	}
 
-	CString TemporaryPath = path + ".tmp";
+	CString TemporaryPath = path + _T(".tmp");
 	TRACE("Temporary Path: '%s'\n", TemporaryPath);
 
 	DWORD dwSizeLow = ::GetFileSize(hFile, nullptr);
@@ -235,19 +234,23 @@ bool CTblEditorBase::LoadFile(
 	delete[] pDatas;
 	pDatas = nullptr;
 
-	// Open temporary file 
-	// try loading file after cryption
+	bool ret = false;
+
+	// Open temporary file again for reading, so we can read the decrypted data back.
 	hFile = ::CreateFile(TemporaryPath, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
-	LoadRowData(hFile);
-	CloseHandle(hFile);
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		ret = LoadRowData(hFile);
+		CloseHandle(hFile);
+	}
 
 	// delete temporary file
 	::_tremove(TemporaryPath);
 
-	return true;
+	return ret;
 }
 
-void CTblEditorBase::LoadRowData(
+bool CTblEditorBase::LoadRowData(
 	HANDLE hFile)
 {
 	// Reading how the structure of the data (column) is organized.
@@ -259,7 +262,7 @@ void CTblEditorBase::LoadRowData(
 		|| dwNum != sizeof(int))
 	{
 		TRACE("Failed to read datatype count.\n");
-		//return false;
+		return false;
 	}
 
 	TRACE("Columns: %d\n", iDataTypeCount);
@@ -267,7 +270,7 @@ void CTblEditorBase::LoadRowData(
 	if (iDataTypeCount <= 0)
 	{
 		TRACE("Invalid column count.\n");
-		//return false;
+		return false;
 	}
 
 	// Read the data types
@@ -281,8 +284,7 @@ void CTblEditorBase::LoadRowData(
 			|| dwNum != sizeof(int))
 		{
 			TRACE("Failed to read data types.\n");
-			//return false;
-			continue;
+			return false;
 		}
 
 		m_DataTypes[i] = static_cast<DATA_TYPE>(iDataType);
@@ -297,7 +299,7 @@ void CTblEditorBase::LoadRowData(
 		|| dwNum != sizeof(int))
 	{
 		TRACE("Failed to read row count.\n");
-		//return false;
+		return false;
 	}
 
 	TRACE("Row count: %d\n", iRowCount);
@@ -331,7 +333,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(char))
 					{
 						TRACE("Failed to read DT_CHAR data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%c"), val);
@@ -348,7 +350,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(uint8_t))
 					{
 						TRACE("Failed to read DT_BYTE data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%u"), val);
@@ -365,7 +367,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(int16_t))
 					{
 						TRACE("Failed to read DT_SHORT data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%d"), val);
@@ -382,7 +384,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(uint16_t))
 					{
 						TRACE("Failed to read DT_WORD data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%u"), val);
@@ -399,7 +401,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(int32_t))
 					{
 						TRACE("Failed to read DT_INT data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%d"), val);
@@ -416,7 +418,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(uint32_t))
 					{
 						TRACE("Failed to read DT_DWORD data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%u"), val);
@@ -434,7 +436,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(int32_t))
 					{
 						TRACE("Failed to read string length at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					TRACE("Row %d, Column %d: String length = %d\n", iRowNo, iColNo, iStrLen);
@@ -443,35 +445,32 @@ void CTblEditorBase::LoadRowData(
 					if (iStrLen < 0)
 					{
 						TRACE("Row %d, Column %d: DT_STRING = (invalid string)\n", iRowNo, iColNo);
-						//return false;
+						return false;
+					}
+
+					// Empty string (but still valid)
+					if (iStrLen == 0)
+					{
+						TRACE("Row %d, Column %d: DT_STRING = (empty string)\n", iRowNo, iColNo);
 					}
 					else
 					{
-						// Empty string (but still valid)
-						if (iStrLen == 0)
+						CStringA szString;
+						if (!ReadFile(hFile, szString.GetBuffer(iStrLen), iStrLen, &dwNum, nullptr)
+							|| dwNum != iStrLen)
 						{
-							// Eğer string uzunluğu sıfırsa boş string
-							TRACE("Row %d, Column %d: DT_STRING = (empty string)\n", iRowNo, iColNo);
-						}
-						else
-						{
-							CStringA szString;
-							if (!ReadFile(hFile, szString.GetBuffer(iStrLen), iStrLen, &dwNum, nullptr)
-								|| dwNum != iStrLen)
-							{
-								// szString.ReleaseBuffer();
-								TRACE("Failed to read string data at row %d, column %d\n", iRowNo, iColNo);
-								//return false;
-							}
-
 							szString.ReleaseBuffer();
-							szValue = CA2T(szString, CP_ACP); // TODO: better localisation support
-
-							TRACE("Row %d, Column %d: DT_STRING = %s\n", iRowNo, iColNo, szString);
+							TRACE("Failed to read string data at row %d, column %d\n", iRowNo, iColNo);
+							return false;
 						}
 
-						row.push_back(szValue);
+						szString.ReleaseBuffer();
+						szValue = CA2T(szString, CP_ACP); // TODO: better localisation support
+
+						TRACE("Row %d, Column %d: DT_STRING = %s\n", iRowNo, iColNo, szString);
 					}
+
+					row.push_back(szValue);
 					break;
 				}
 
@@ -482,7 +481,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(float))
 					{
 						TRACE("Failed to read DT_FLOAT data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%f"), val);
@@ -499,7 +498,7 @@ void CTblEditorBase::LoadRowData(
 						|| dwNum != sizeof(double))
 					{
 						TRACE("Failed to read DT_DOUBLE data at row %d, column %d\n", iRowNo, iColNo);
-						//return false;
+						return false;
 					}
 
 					szValue.Format(_T("%f"), val);
@@ -510,12 +509,13 @@ void CTblEditorBase::LoadRowData(
 				}
 
 				default:
-					row.push_back("N/A"); // Unknown data type
 					TRACE("Unknown data type at row %d, column %d\n", iRowNo, iColNo);
-					break;
+					return false;
 			}
 		}
 
 		m_Rows.insert(std::make_pair(iRowNo, row));
 	}
+
+	return true;
 }
