@@ -3,126 +3,142 @@
 #include <vector>
 #include <map>
 
-std::map<int, std::vector<std::string>> CTblEditorBase::Data;
-int CTblEditorBase::memory_iDataTypeCount = 0;
-enum DATA_TYPE { DT_NONE, DT_CHAR, DT_BYTE, DT_SHORT, DT_WORD, DT_INT, DT_DWORD, DT_STRING, DT_FLOAT, DT_DOUBLE };
-std::vector<int> CTblEditorBase::memory_DataTypes;
-int CTblEditorBase::memory_iRowCount;
+struct WriteBuffer : std::vector<uint8_t>
+{
+	template <typename T>
+	void append(
+		const T* value)
+	{
+		append(value, sizeof(T));
+	}
 
-bool CTblEditorBase::SaveFile(const CString& path, std::map<int, std::vector<std::string>> newData) {
+	void append(
+		const void* value,
+		size_t length)
+	{
+		insert(
+			end(),
+			reinterpret_cast<const uint8_t*>(value),
+			reinterpret_cast<const uint8_t*>(value) + length);
+	}
+};
 
-    std::string ConvertedSavePath = std::string(path);
-    std::vector<uint8_t> byteData;
+CTblEditorBase::CTblEditorBase()
+{
+}
 
-    // 1. get saved iDataTypeCount (4 byte)
-    TRACE("memory_iDataTypeCount = %d", CTblEditorBase::memory_iDataTypeCount);
-    DWORD iDataTypeCount = CTblEditorBase::memory_iDataTypeCount;
-    byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&iDataTypeCount), reinterpret_cast<uint8_t*>(&iDataTypeCount) + sizeof(iDataTypeCount));
+CTblEditorBase::~CTblEditorBase()
+{
+}
 
-    // 2. get saved DataTypes
+bool CTblEditorBase::SaveFile(
+	const CString& path,
+	const std::map<int, std::vector<CString>>& newData)
+{
+    WriteBuffer writeBuffer;
 
-    byteData.insert(
-        byteData.end(),
-        reinterpret_cast<uint8_t*>(CTblEditorBase::memory_DataTypes.data()),
-        reinterpret_cast<uint8_t*>(CTblEditorBase::memory_DataTypes.data()) + CTblEditorBase::memory_DataTypes.size() * sizeof(int)
-    );
+	// 1. iDataTypeCount (4 bytes)
+	int32_t iDataTypeCount = static_cast<int32_t>(m_DataTypes.size());
 
-    
-    // 3. get saved Row numbers
+    TRACE("iDataTypeCount = %d", iDataTypeCount);
+	writeBuffer.append<int32_t>(&iDataTypeCount);
 
-    // 3. iRC (row count)
-    //int iRC = memory_iRowCount;
-    int iRC = static_cast<int>(newData.size());
-    byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&iRC), reinterpret_cast<uint8_t*>(&iRC) + sizeof(iRC));
+    // 2. stored datatypes (4 bytes each)
+	for (int32_t dataType : m_DataTypes)
+		writeBuffer.append<int32_t>(&dataType);
 
+	// 3. row count
+    int32_t iRowCount = static_cast<int32_t>(newData.size());
+	writeBuffer.append<int32_t>(&iRowCount);
 
-    //add data
-    
-    for (int i = 0; i < iRC; ++i)
+	// 4. row data
+	for (const auto& rowItr : newData)
     {
-        const std::vector<std::string>& row = newData[i];
+		const auto& row = rowItr.second;
 
-        for (int j = 0; j < memory_iDataTypeCount; ++j)
+		for (int colNo = 0; colNo < iDataTypeCount; colNo++)
         {
-            DATA_TYPE dataType = static_cast<DATA_TYPE>(CTblEditorBase::memory_DataTypes[j]);
-            const std::string& value = row[j];
+            DATA_TYPE dataType = m_DataTypes[colNo];
+            const CString& value = row[colNo];
 
             switch (dataType)
             {
-            case DT_CHAR:
-            {
-                char val = static_cast<char>(std::stoi(value));
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(char));
-                break;
-            }
-            case DT_BYTE:
-            {
-                uint8_t val = static_cast<uint8_t>(std::stoi(value));
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(uint8_t));
-                break;
-            }
-            case DT_SHORT:
-            {
-                short val = static_cast<short>(std::stoi(value));
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(short));
-                break;
-            }
-            case DT_WORD:
-            {
-                uint16_t val = static_cast<uint16_t>(std::stoi(value));
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(uint16_t));
-                break;
-            }
-            case DT_INT:
-            {
-                int val = std::stoi(value);
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(int));
-                break;
-            }
-            case DT_DWORD:
-            {
-                uint32_t val = static_cast<uint32_t>(std::stoul(value));
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(uint32_t));
-                break;
-            }
-            case DT_STRING:
-            {
-                int len = static_cast<int>(value.length());
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&len), reinterpret_cast<uint8_t*>(&len) + sizeof(int));
-                byteData.insert(byteData.end(), value.begin(), value.end());
-                break;
-            }
-            case DT_FLOAT:
-            {
-                float val = std::stof(value);
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(float));
-                break;
-            }
-            case DT_DOUBLE:
-            {
-                double val = std::stod(value);
-                byteData.insert(byteData.end(), reinterpret_cast<uint8_t*>(&val), reinterpret_cast<uint8_t*>(&val) + sizeof(double));
-                break;
-            }
-            case DT_NONE:
-            default:
-                // Veri yok, hiçbir şey yazma
-                break;
-            }
-        }
+				case DT_CHAR:
+				{
+					char val = static_cast<char>(_ttoi(value));
+					writeBuffer.append<char>(&val);
+					break;
+				}
+
+				case DT_BYTE:
+				{
+					uint8_t val = static_cast<uint8_t>(_ttoi(value));
+					writeBuffer.append<uint8_t>(&val);
+					break;
+				}
+
+				case DT_SHORT:
+				{
+					int16_t val = static_cast<int16_t>(_ttoi(value));
+					writeBuffer.append<int16_t>(&val);
+					break;
+				}
+
+				case DT_WORD:
+				{
+					uint16_t val = static_cast<uint16_t>(_ttoi(value));
+					writeBuffer.append<uint16_t>(&val);
+					break;
+				}
+
+				case DT_INT:
+				{
+					int32_t val = _ttoi(value);
+					writeBuffer.append<int32_t>(&val);
+					break;
+				}
+
+				case DT_DWORD:
+				{
+					uint32_t val = static_cast<uint32_t>(_tcstoul(value, nullptr, 0));
+					writeBuffer.append<uint32_t>(&val);
+					break;
+				}
+
+				case DT_STRING:
+				{
+					std::string valueA = CT2A(value, CP_ACP); // TODO: better localisation support
+
+					int32_t len = static_cast<int32_t>(valueA.length());
+					writeBuffer.append<int32_t>(&len);
+					writeBuffer.append(valueA.c_str(), len);
+					break;
+				}
+
+				case DT_FLOAT:
+				{
+					float val = _tcstof(value, nullptr);
+					writeBuffer.append<float>(&val);
+					break;
+				}
+
+				case DT_DOUBLE:
+				{
+					double val = _tcstod(value, nullptr);
+					writeBuffer.append<double>(&val);
+					break;
+				}
+			}
+		}
     }
 
-
-    if (ConvertedSavePath.empty())
+    if (path.IsEmpty())
         return false;
 
     // Create or open the file for writing
-    HANDLE hFile = ::CreateFile(ConvertedSavePath.c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-    if (INVALID_HANDLE_VALUE == hFile)
-    {
+    HANDLE hFile = ::CreateFile(path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (hFile == INVALID_HANDLE_VALUE)
         return false;
-    }
 
     // Encryption key as defined earlier
     uint16_t key_r = 0x0816;
@@ -132,82 +148,65 @@ bool CTblEditorBase::SaveFile(const CString& path, std::map<int, std::vector<std
     DWORD dwRWC = 0;
 
     // Encrypt the data before writing it to the file
-    size_t dataSize = byteData.size();
+    size_t dataSize = writeBuffer.size();
     uint8_t* encryptedData = new uint8_t[dataSize];
 
     for (size_t i = 0; i < dataSize; i++)
     {
-
-        uint8_t cipher;
-        cipher = (byteData[i] ^ (key_r >> 8));
+        uint8_t cipher = (writeBuffer[i] ^ (key_r >> 8));
         key_r = (cipher + key_r) * key_c1 + key_c2;
         encryptedData[i] = cipher;
-        /*
-        uint8_t byData = (pDataToWrite[i] ^ (key_r >> 8));
-        key_r = (pDataToWrite[i] + key_r) * key_c1 + key_c2;
-        encryptedData[i] = byData;
-        */
     }
-    TRACE("İlk şifreli byte: %02X\n", encryptedData[0]);
 
-    TRACE("Kaydedilecek veri boyutu: %zu\n", dataSize);
+	TRACE("First encrypted byte: %02X\n", encryptedData[0]);
+    TRACE("Data size to be written: %zu\n", dataSize);
 
     // Write encrypted data to the file
-    BOOL bResult = ::WriteFile(hFile, encryptedData, (DWORD)dataSize, &dwRWC, NULL);
+    BOOL bResult = ::WriteFile(hFile, encryptedData, (DWORD)dataSize, &dwRWC, nullptr);
 
 
-    TRACE("Gerçek yazılan byte sayısı: %lu\n", dwRWC);
-    // Clean up
+    TRACE("Actual number of bytes written: %u\n", dwRWC);
+
+	// Clean up
     delete[] encryptedData;
     CloseHandle(hFile);
 
     return (bResult && dwRWC == dataSize);
-
 }
 
-bool CTblEditorBase::LoadFile(const CString& path) {
-
-	//convert CString to std::string
-
-	std::string ConvertedPath = std::string(path);
-
-	//check if path is empty or not 
-
-	if (ConvertedPath.empty())
+bool CTblEditorBase::LoadFile(
+	const CString& path)
+{
+	if (path.IsEmpty())
 	{
-		TRACE("Path is empty !");
+		TRACE("Path is empty");
 		return false;
 	}
 
-	HANDLE hFile = ::CreateFile(ConvertedPath.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	if (INVALID_HANDLE_VALUE == hFile)
+	HANDLE hFile = ::CreateFile(path, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	if (hFile == INVALID_HANDLE_VALUE)
 	{
-
-		TRACE("\nerror:INVALID HANDLE VALUE\n");
-
+		TRACE("Failed to open file: '%s'\n", path);
 		return false;
 	}
 
-	//set temporary path
-	std::string TemporaryPath = ConvertedPath + ".tmp";
-	TRACE("\nTemporary Path:'%s'\n", TemporaryPath.c_str());
+	CString TemporaryPath = path + ".tmp";
+	TRACE("Temporary Path: '%s'\n", TemporaryPath);
 
-	DWORD dwSizeHigh = 0;
-	DWORD dwSizeLow = ::GetFileSize(hFile, &dwSizeHigh);
-	if (dwSizeLow <= 0)
+	DWORD dwSizeLow = ::GetFileSize(hFile, nullptr);
+	if (dwSizeLow == 0)
 	{
-		TRACE("\nerror:dwSizeLow\n");
+		TRACE("Error: Filesize is empty\n");
 
 		CloseHandle(hFile);
-		::remove(TemporaryPath.c_str());
+		::_tremove(TemporaryPath);
 		return false;
 	}
 
 	// define pDatas with respect to dwSizeLow ( max size of document in bytes )
 	uint8_t* pDatas = new uint8_t[dwSizeLow];
 	DWORD dwRWC = 0;
-	::ReadFile(hFile, pDatas, dwSizeLow, &dwRWC, NULL);
+	::ReadFile(hFile, pDatas, dwSizeLow, &dwRWC, nullptr);
 	CloseHandle(hFile); // close original file
 
 	// same key with the one used in table creator 
@@ -223,36 +222,41 @@ bool CTblEditorBase::LoadFile(const CString& path) {
 		pDatas[i] = byData;
 	}
 
-	// Open temporary file szFNTmp in writing mode.
-	hFile = ::CreateFile(TemporaryPath.c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	::WriteFile(hFile, pDatas, dwSizeLow, &dwRWC, NULL); // write encrypted data into temporary file
+	// Open temporary file for writing the decrypted data to.
+	hFile = ::CreateFile(TemporaryPath, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+	if (hFile == INVALID_HANDLE_VALUE)
+	{
+		delete[] pDatas;
+		return false;
+	}
+
+	::WriteFile(hFile, pDatas, dwSizeLow, &dwRWC, nullptr); // write encrypted data into temporary file
 	CloseHandle(hFile); // 임시 파일 닫기
-	delete[] pDatas; pDatas = NULL;
+	delete[] pDatas;
+	pDatas = nullptr;
 
-	// open temporary file in reading mode
-	hFile = ::CreateFile(TemporaryPath.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	//try loading file after cryption
-    std::map<int, std::vector<std::string>> Data;
-
-	SetRowData(hFile);
-
+	// Open temporary file 
+	// try loading file after cryption
+	hFile = ::CreateFile(TemporaryPath, GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+	LoadRowData(hFile);
 	CloseHandle(hFile);
 
 	// delete temporary file
-	::remove(TemporaryPath.c_str());
+	::_tremove(TemporaryPath);
 
 	return true;
 }
 
-void CTblEditorBase::SetRowData(HANDLE hFile) {
-	
+void CTblEditorBase::LoadRowData(
+	HANDLE hFile)
+{
 	// Reading how the structure of the data (column) is organized.
 	DWORD dwNum;
-	int i, j, iDataTypeCount = 0;
+	int iDataTypeCount = 0;
 
 	// Read first 4 bytes = number of columns in the table (datatype count)
-	if (!ReadFile(hFile, &iDataTypeCount, sizeof(int), &dwNum, NULL) || dwNum != sizeof(int))
+	if (!ReadFile(hFile, &iDataTypeCount, sizeof(int), &dwNum, nullptr)
+		|| dwNum != sizeof(int))
 	{
 		TRACE("Failed to read datatype count.\n");
 		//return false;
@@ -266,226 +270,252 @@ void CTblEditorBase::SetRowData(HANDLE hFile) {
 		//return false;
 	}
 
-    //save this for later use
-    CTblEditorBase::memory_iDataTypeCount = iDataTypeCount;
+	// Read the data types
+	m_DataTypes.clear();
+	m_DataTypes.resize(iDataTypeCount);
 
-	// Read the data types, starting at byte 4 and reading (4 * iDataTypeCount) bytes
-	std::vector<int> dataTypes(iDataTypeCount);
-
-	if (!ReadFile(hFile, dataTypes.data(), iDataTypeCount * sizeof(int), &dwNum, NULL) || dwNum != iDataTypeCount * sizeof(int))
+	for (int i = 0; i < iDataTypeCount; i++)
 	{
-		TRACE("Failed to read data types.\n");
-		//return false;
-	}
+		int iDataType = 0;
+		if (!ReadFile(hFile, &iDataType, sizeof(int), &dwNum, nullptr)
+			|| dwNum != sizeof(int))
+		{
+			TRACE("Failed to read data types.\n");
+			//return false;
+			continue;
+		}
 
-	// Optional: Print data types for debug
-	for (int i = 0; i < iDataTypeCount; ++i)
-	{
-		TRACE("DataType[%d] = %d\n", i, dataTypes[i]);
-	}
+		m_DataTypes[i] = static_cast<DATA_TYPE>(iDataType);
 
-    CTblEditorBase::memory_DataTypes = dataTypes;
+		// Optional: Print data types for debug
+		TRACE("DataType[%d] = %d\n", i, iDataType);
+	}
 
 	// Now read the row count (4 bytes after the dataTypes array)
 	int iRowCount = 0;
-	if (!ReadFile(hFile, &iRowCount, sizeof(int), &dwNum, NULL) || dwNum != sizeof(int))
+	if (!ReadFile(hFile, &iRowCount, sizeof(int), &dwNum, nullptr)
+		|| dwNum != sizeof(int))
 	{
 		TRACE("Failed to read row count.\n");
 		//return false;
 	}
 
-	TRACE("Row Count: %d\n", iRowCount);
-    CTblEditorBase::memory_iRowCount = iRowCount;
+	TRACE("Row count: %d\n", iRowCount);
 
-    // Continue from where the rowCount has been read
-// dataTypes ve rowCount başarıyla okundu, şimdi satır verisini çözebiliriz.
+	// Now that we've read the datatypes and the row count, we can read the row data.
+	m_Rows.clear();
 
-    // Satırları saklayacak bir vektör tanımlıyoruz.
-    std::map<int, std::vector<std::string>> rowData;
-
-    for (int i = 0; i < iRowCount; ++i)
+	CString szValue;
+    for (int iRowNo = 0; iRowNo < iRowCount; iRowNo++)
     {
-        std::vector<std::string> row;
+        std::vector<CString> row;
+		row.reserve(iDataTypeCount);
 
-        // Her bir satır verisi için veri okuma
-        for (int j = 0; j < iDataTypeCount; ++j)
+        // Read each column's data for this row
+        for (int iColNo = 0; iColNo < iDataTypeCount; iColNo++)
         {
-            DATA_TYPE dataType = static_cast<DATA_TYPE>(dataTypes[j]); // Veri tipi enum
+            DATA_TYPE dataType = static_cast<DATA_TYPE>(m_DataTypes[iColNo]);
 
-            switch (dataType)
+			szValue.Empty();
+			switch (dataType)
             {
-            case DT_NONE:
-                // No data
-                TRACE("Row %d, Column %d: DT_NONE (no data)\n", i, j);
-                break;
+				case DT_NONE:
+					// No data
+					TRACE("Row %d, Column %d: DT_NONE (no data)\n", iRowNo, iColNo);
+					break;
 
-            case DT_CHAR:
-            {
-                char charValue;
-                if (!ReadFile(hFile, &charValue, sizeof(char), &dwNum, NULL) || dwNum != sizeof(char))
-                {
-                    TRACE("Failed to read DT_CHAR data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+				case DT_CHAR:
+				{
+					char val = '\0';
+					if (!ReadFile(hFile, &val, sizeof(char), &dwNum, nullptr)
+						|| dwNum != sizeof(char))
+					{
+						TRACE("Failed to read DT_CHAR data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-                row.push_back(std::to_string(charValue));
-                TRACE("Row %d, Column %d: DT_CHAR = %c\n", i, j, charValue);
-                break;
-            }
+					szValue.Format(_T("%c"), val);
+					row.push_back(szValue);
 
-            case DT_BYTE:
-            {
-                uint8_t byteValue;
-                if (!ReadFile(hFile, &byteValue, sizeof(uint8_t), &dwNum, NULL) || dwNum != sizeof(uint8_t))
-                {
-                    TRACE("Failed to read DT_BYTE data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+					TRACE("Row %d, Column %d: DT_CHAR = %c\n", iRowNo, iColNo, val);
+					break;
+				}
 
-                row.push_back(std::to_string(byteValue));
-                TRACE("Row %d, Column %d: DT_BYTE = %u\n", i, j, byteValue);
-                break;
-            }
+				case DT_BYTE:
+				{
+					uint8_t val = 0;
+					if (!ReadFile(hFile, &val, sizeof(uint8_t), &dwNum, nullptr)
+						|| dwNum != sizeof(uint8_t))
+					{
+						TRACE("Failed to read DT_BYTE data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-            case DT_SHORT:
-            {
-                short shortValue;
-                if (!ReadFile(hFile, &shortValue, sizeof(short), &dwNum, NULL) || dwNum != sizeof(short))
-                {
-                    TRACE("Failed to read DT_SHORT data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+					szValue.Format(_T("%u"), val);
+					row.push_back(szValue);
 
-                row.push_back(std::to_string(shortValue));
+					TRACE("Row %d, Column %d: DT_BYTE = %u\n", iRowNo, iColNo, val);
+					break;
+				}
 
-                TRACE("Row %d, Column %d: DT_SHORT = %d\n", i, j, shortValue);
-                break;
-            }
+				case DT_SHORT:
+				{
+					int16_t val = 0;
+					if (!ReadFile(hFile, &val, sizeof(int16_t), &dwNum, nullptr)
+						|| dwNum != sizeof(int16_t))
+					{
+						TRACE("Failed to read DT_SHORT data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-            case DT_WORD:
-            {
-                uint16_t wordValue;
-                if (!ReadFile(hFile, &wordValue, sizeof(uint16_t), &dwNum, NULL) || dwNum != sizeof(uint16_t))
-                {
-                    TRACE("Failed to read DT_WORD data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+					szValue.Format(_T("%d"), val);
+					row.push_back(szValue);
 
-                row.push_back(std::to_string(wordValue));
+					TRACE("Row %d, Column %d: DT_SHORT = %d\n", iRowNo, iColNo, val);
+					break;
+				}
 
-                TRACE("Row %d, Column %d: DT_WORD = %u\n", i, j, wordValue);
-                break;
-            }
+				case DT_WORD:
+				{
+					uint16_t val = 0;
+					if (!ReadFile(hFile, &val, sizeof(uint16_t), &dwNum, nullptr)
+						|| dwNum != sizeof(uint16_t))
+					{
+						TRACE("Failed to read DT_WORD data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-            case DT_INT:
-            {
-                int intValue;
-                if (!ReadFile(hFile, &intValue, sizeof(int), &dwNum, NULL) || dwNum != sizeof(int))
-                {
-                    TRACE("Failed to read DT_INT data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+					szValue.Format(_T("%u"), val);
+					row.push_back(szValue);
 
-                row.push_back(std::to_string(intValue));
-                TRACE("Row %d, Column %d: DT_INT = %d\n", i, j, intValue);
-                break;
-            }
+					TRACE("Row %d, Column %d: DT_WORD = %u\n", iRowNo, iColNo, val);
+					break;
+				}
 
-            case DT_DWORD:
-            {
-                uint32_t dwordValue;
-                if (!ReadFile(hFile, &dwordValue, sizeof(uint32_t), &dwNum, NULL) || dwNum != sizeof(uint32_t))
-                {
-                    TRACE("Failed to read DT_DWORD data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+				case DT_INT:
+				{
+					int32_t val = 0;
+					if (!ReadFile(hFile, &val, sizeof(int32_t), &dwNum, nullptr)
+						|| dwNum != sizeof(int32_t))
+					{
+						TRACE("Failed to read DT_INT data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-                row.push_back(std::to_string(dwordValue));
+					szValue.Format(_T("%d"), val);
+					row.push_back(szValue);
+				
+					TRACE("Row %d, Column %d: DT_INT = %d\n", iRowNo, iColNo, val);
+					break;
+				}
 
-                TRACE("Row %d, Column %d: DT_DWORD = %u\n", i, j, dwordValue);
-                break;
-            }
+				case DT_DWORD:
+				{
+					uint32_t val = 0;
+					if (!ReadFile(hFile, &val, sizeof(uint32_t), &dwNum, nullptr)
+						|| dwNum != sizeof(uint32_t))
+					{
+						TRACE("Failed to read DT_DWORD data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-            case DT_STRING:
-            {
-                // Okunacak string'in uzunluğunu oku
-                int iStrLen = 0;
-                if (!ReadFile(hFile, &iStrLen, sizeof(iStrLen), &dwNum, NULL) || dwNum != sizeof(iStrLen))
-                {
-                    TRACE("Failed to read string length at row %d, column %d\n", i, j);
-                    //return false;
-                }
+					szValue.Format(_T("%u"), val);
+					row.push_back(szValue);
 
-                TRACE("Row %d, Column %d: String length = %d\n", i, j, iStrLen);
+					TRACE("Row %d, Column %d: DT_DWORD = %u\n", iRowNo, iColNo, val);
+					break;
+				}
 
-                // Eğer string uzunluğu sıfırdan büyükse veriyi oku
+				case DT_STRING:
+				{
+					// Read 32-bit string length
+					int32_t iStrLen = 0;
+					if (!ReadFile(hFile, &iStrLen, sizeof(int32_t), &dwNum, nullptr)
+						|| dwNum != sizeof(int32_t))
+					{
+						TRACE("Failed to read string length at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-                if (iStrLen > 0)
-                {
-                    std::string szString;
-                    szString.assign(iStrLen, ' '); // Belirtilen uzunluk kadar boşlukla başlat
+					TRACE("Row %d, Column %d: String length = %d\n", iRowNo, iColNo, iStrLen);
 
-                    // Veriyi oku ve string'e yerleştir
-                    if (!ReadFile(hFile, &(szString[0]), iStrLen, &dwNum, NULL) || dwNum != iStrLen)
-                    {
-                        TRACE("Failed to read string data at row %d, column %d\n", i, j);
-                        //return false;
-                    }
+					// Invalid string length
+					if (iStrLen < 0)
+					{
+						TRACE("Row %d, Column %d: DT_STRING = (invalid string)\n", iRowNo, iColNo);
+						//return false;
+					}
+					else
+					{
+						// Empty string (but still valid)
+						if (iStrLen == 0)
+						{
+							// Eğer string uzunluğu sıfırsa boş string
+							TRACE("Row %d, Column %d: DT_STRING = (empty string)\n", iRowNo, iColNo);
+						}
+						else
+						{
+							CStringA szString;
+							if (!ReadFile(hFile, szString.GetBuffer(iStrLen), iStrLen, &dwNum, nullptr)
+								|| dwNum != iStrLen)
+							{
+								// szString.ReleaseBuffer();
+								TRACE("Failed to read string data at row %d, column %d\n", iRowNo, iColNo);
+								//return false;
+							}
 
-                    // String'i başarıyla okuduk
-                    row.push_back(szString);
-                    TRACE("Row %d, Column %d: DT_STRING = %s\n", i, j, szString.c_str());
-                }
-                else
-                {
-                    // Eğer string uzunluğu sıfırsa boş string
-                    TRACE("Row %d, Column %d: DT_STRING = (empty string)\n", i, j);
-                }
+							szString.ReleaseBuffer();
+							szValue = CA2T(szString, CP_ACP); // TODO: better localisation support
 
-                break;
-            }
+							TRACE("Row %d, Column %d: DT_STRING = %s\n", iRowNo, iColNo, szString);
+						}
 
-            case DT_FLOAT:
-            {
-                float floatValue;
-                if (!ReadFile(hFile, &floatValue, sizeof(float), &dwNum, NULL) || dwNum != sizeof(float))
-                {
-                    TRACE("Failed to read DT_FLOAT data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+						row.push_back(szValue);
+					}
+					break;
+				}
 
+				case DT_FLOAT:
+				{
+					float val = 0.0f;
+					if (!ReadFile(hFile, &val, sizeof(float), &dwNum, nullptr)
+						|| dwNum != sizeof(float))
+					{
+						TRACE("Failed to read DT_FLOAT data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-                row.push_back(std::to_string(floatValue));
-                TRACE("Row %d, Column %d: DT_FLOAT = %f\n", i, j, floatValue);
-                break;
-            }
+					szValue.Format(_T("%f"), val);
+					row.push_back(szValue);
+				
+					TRACE("Row %d, Column %d: DT_FLOAT = %f\n", iRowNo, iColNo, val);
+					break;
+				}
 
-            case DT_DOUBLE:
-            {
-                double doubleValue;
-                if (!ReadFile(hFile, &doubleValue, sizeof(double), &dwNum, NULL) || dwNum != sizeof(double))
-                {
-                    TRACE("Failed to read DT_DOUBLE data at row %d, column %d\n", i, j);
-                    //return false;
-                }
+				case DT_DOUBLE:
+				{
+					double val = 0.0;
+					if (!ReadFile(hFile, &val, sizeof(double), &dwNum, nullptr)
+						|| dwNum != sizeof(double))
+					{
+						TRACE("Failed to read DT_DOUBLE data at row %d, column %d\n", iRowNo, iColNo);
+						//return false;
+					}
 
-                row.push_back(std::to_string(doubleValue));
+					szValue.Format(_T("%f"), val);
+					row.push_back(szValue);
 
-                TRACE("Row %d, Column %d: DT_DOUBLE = %f\n", i, j, doubleValue);
-                break;
-            }
+					TRACE("Row %d, Column %d: DT_DOUBLE = %f\n", iRowNo, iColNo, val);
+					break;
+				}
 
-            default:
+				default:
+					row.push_back("N/A"); // Unknown data type
+					TRACE("Unknown data type at row %d, column %d\n", iRowNo, iColNo);
+					break;
+			}
+		}
 
-                row.push_back("N/A"); // Tanımsız veri tipi için
-                TRACE("Unknown data type at row %d, column %d\n", i, j);
-                break;
-            }
-
-            rowData[i] = row;
-
-        }
+		m_Rows.insert(std::make_pair(iRowNo, row));
     }
-
-	CTblEditorBase::Data = rowData;
 }
