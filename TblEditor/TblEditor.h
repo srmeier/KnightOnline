@@ -23,6 +23,7 @@ public:
 // Implementation
 
 	DECLARE_MESSAGE_MAP()
+	afx_msg void OnAppAbout();
 };
 
 extern CTblEditorApp theApp;

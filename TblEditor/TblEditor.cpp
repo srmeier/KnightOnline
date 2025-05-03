@@ -1,7 +1,4 @@
-﻿
-#pragma once
-
-#include "stdafx.h"
+﻿#include "stdafx.h"
 
 #include "framework.h"
 #include "TblEditor.h"
@@ -13,16 +10,44 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-
 // CTblEditorApp
-
 BEGIN_MESSAGE_MAP(CTblEditorApp, CWinApp)
-	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
+	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 END_MESSAGE_MAP()
 
+// CAboutDlg dialog used for App About
+class CAboutDlg : public CDialogEx
+{
+public:
+	CAboutDlg();
+
+	// Dialog Data
+#ifdef AFX_DESIGN_TIME
+	enum { IDD = IDD_ABOUTBOX };
+#endif
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+
+	// Implementation
+protected:
+	DECLARE_MESSAGE_MAP()
+};
+
+CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
+{
+}
+
+void CAboutDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+
+}
+
+BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+END_MESSAGE_MAP()
 
 // CTblEditorApp construction
-
 CTblEditorApp::CTblEditorApp()
 {
 	// support Restart Manager
@@ -32,19 +57,12 @@ CTblEditorApp::CTblEditorApp()
 	// Place all significant initialization in InitInstance
 }
 
-
 // The one and only CTblEditorApp object
-
 CTblEditorApp theApp;
 
-
 // CTblEditorApp initialization
-
 BOOL CTblEditorApp::InitInstance()
 {
-
-
-	
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
 	// visual styles.  Otherwise, any window creation will fail.
@@ -105,13 +123,14 @@ BOOL CTblEditorApp::InitInstance()
 	ControlBarCleanUp();
 #endif
 
-
-	
-
-
-
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
 	return FALSE;
 }
 
+// App command to run the dialog
+void CTblEditorApp::OnAppAbout()
+{
+	CAboutDlg aboutDlg;
+	aboutDlg.DoModal();
+}

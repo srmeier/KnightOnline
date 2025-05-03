@@ -19,7 +19,6 @@
 #define IDC_BUTTON1                     1003
 #define IDC_BUTTON2                     1004
 #define IDC_BUTTON3                     1005
-#define ID_FILE_NEW32771                32771
 
 // Next default values for new objects
 // 
