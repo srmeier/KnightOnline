@@ -10,10 +10,6 @@
 #include "Resource.h"
 #include "TblEditorBase.h"
 
-#ifdef min
-#undef min
-#endif
-
 #include <algorithm>
 
 #ifdef _DEBUG
@@ -29,6 +25,9 @@ CTblEditorDlg::CTblEditorDlg(CWnd* pParent /*=nullptr*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	m_pTblBase = new CTblEditorBase();
+
+	m_iEditItem = 0;
+	m_iEditSubItem = 0;
 }
 
 CTblEditorDlg::~CTblEditorDlg()
@@ -96,10 +95,10 @@ void CTblEditorDlg::OnFileOpen()
 	if (dlg.DoModal() != IDOK)
 		return;
 
-	//get file full path
+	// get file full path
 	CString path = dlg.GetPathName();
 
-	//get file extension
+	// get file extension
 	CString extension = dlg.GetFileExt();
 	extension.MakeLower();
 
@@ -206,8 +205,6 @@ void CTblEditorDlg::LoadTable(const CString& path)
 			m_OriginalData[i][j] = m_ListCtrl.GetItemText(i, j);
 		}
 	}
-
-	m_ListCtrl.ModifyStyle(0, LVS_EDITLABELS);
 }
 
 void CTblEditorDlg::OnNMDblclkListCtrl(NMHDR* pNMHDR, LRESULT* pResult)
