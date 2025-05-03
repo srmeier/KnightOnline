@@ -208,7 +208,7 @@ void CTblEditorDlg::LoadTable(const CString& path)
 
 void CTblEditorDlg::OnNMDblclkListCtrl(NMHDR* pNMHDR, LRESULT* pResult)
 {
-	LPNMITEMACTIVATE pNMItemActivate = (LPNMITEMACTIVATE)pNMHDR;
+	LPNMITEMACTIVATE pNMItemActivate = (LPNMITEMACTIVATE) pNMHDR;
 	if (pNMItemActivate->iItem != -1)
 	{
 		// Load text from cell to edit controll
@@ -306,37 +306,37 @@ void CTblEditorDlg::OnBnClickedSaveButton()
 			DATA_TYPE dataType = m_pTblBase->m_DataTypes[iColNo];
 			switch (dataType)
 			{
-			case DT_STRING:
-				value = CT2A(strText);
-				break;
+				case DT_STRING:
+					value = CT2A(strText);
+					break;
 
-			case DT_CHAR:
-			case DT_BYTE:
-			case DT_SHORT:
-			case DT_WORD:
-			case DT_INT:
-			case DT_DWORD:
-			{
-				if (strText.IsEmpty())
+				case DT_CHAR:
+				case DT_BYTE:
+				case DT_SHORT:
+				case DT_WORD:
+				case DT_INT:
+				case DT_DWORD:
+				{
+					if (strText.IsEmpty())
+						value = _T("0");
+					else
+						value = CT2A(strText);
+					break;
+				}
+
+				case DT_FLOAT:
+				case DT_DOUBLE:
+				{
+					if (strText.IsEmpty())
+						value = _T("0.0");
+					else
+						value = CT2A(strText);
+					break;
+				}
+
+				default:
 					value = _T("0");
-				else
-					value = CT2A(strText);
-				break;
-			}
-
-			case DT_FLOAT:
-			case DT_DOUBLE:
-			{
-				if (strText.IsEmpty())
-					value = _T("0.0");
-				else
-					value = CT2A(strText);
-				break;
-			}
-
-			default:
-				value = _T("0");
-				break;
+					break;
 			}
 
 			rowData.push_back(value);
