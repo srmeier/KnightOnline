@@ -6612,17 +6612,57 @@ void CGameProcMain::MsgRecv_NoahChange(Packet& pkt)		// 노아 변경..
 
 void CGameProcMain::MsgRecv_WarpList(Packet& pkt)		// 워프 리스트 - 존 체인지가 될 수도 있다..
 {
-	int iByte = pkt.read<uint8_t>();
-
 	m_pUIWarp->Reset();
 
-	int iStrLen = 0;
+	int result = pkt.read<uint8_t>();
+
+
+	if (result == 0)
+	{
+		
+		int errorReason = pkt.read<uint8_t>();
+		std::string szFmt; char szBuff[128] = "";
+
+		if (errorReason == 2) //level requirement is not met
+		{
+			int requiredLevel = pkt.read<uint8_t>();
+
+			::_LoadStringFromResource(6610, szFmt);
+			sprintf(szBuff, szFmt.c_str(), requiredLevel);
+			this->MsgOutput(szBuff, 0xffff0000);
+		}
+		else if (errorReason == 3) //user cannot enter during CSW
+		{
+			::_LoadStringFromResource(6612, szFmt);
+			this->MsgOutput(szFmt, 0xffff0000);
+		}
+		else if (errorReason == 4) //cannot enter during war
+		{
+			::_LoadStringFromResource(6611, szFmt);
+			this->MsgOutput(szFmt, 0xffff0000);
+		}
+		else if (errorReason == 5) //cannot enter with zero National Points
+		{
+			::_LoadStringFromResource(6613, szFmt);
+			this->MsgOutput(szFmt, 0xffff0000);
+		}
+		//this is not present in Texts_us.tbl, 60+ tries to enter Ardream
+		else if (errorReason == 7) //user do not qualify to enter zone, level is higher
+		{
+
+		}
+		
+
+		return;
+	}
 
 	int iListCount = pkt.read<int16_t>();
 
 	// if there are no warp info (if m_bZoneChangeSameZone is true) - No need to show empty list. 
 	if (iListCount == 0)
 		return;
+
+	int iStrLen = 0;
 
 	for(int i = 0; i < iListCount; i++)
 	{
