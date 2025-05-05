@@ -335,13 +335,16 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	WarpListResponse errorReason;
 	if (!CanChangeZone(pMap, errorReason))
 	{
-		Packet result(WIZ_WARP_LIST);
+		Packet result;
 
-		result << uint8_t(2) << uint8_t(errorReason);
+		result << uint8_t(WIZ_WARP_LIST); //packet header
+		result << uint8_t(false);   //packet result is false
+		result << uint8_t(errorReason);   //errorReason
 
-		if (errorReason == WarpListMinLevel)
-			result << pMap->GetMinLevelReq();
-
+		//additional required level info
+		if (errorReason == WarpListMinLevel) 
+			result << pMap->GetMinLevelReq(); 
+	
 		Send(&result);
 		return;
 	}
