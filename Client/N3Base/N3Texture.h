@@ -16,6 +16,8 @@
 class CN3Texture : public CN3BaseFileAccess
 {
 public:
+	constexpr const static char Cipher[]	= "owsd9012%$1as!wpow1033b%!@%12";
+
 	typedef struct __DXT_HEADER
 	{
 		char szID[4]; // "NTF"숫자 - Noah Texture File Ver. ?.0
@@ -28,12 +30,7 @@ public:
 protected:
 	__DXT_HEADER m_Header;
 	LPDIRECT3DTEXTURE9 m_lpTexture;
-	BYTE m_KeyMaterial[29];  // Matches assembly's 29-byte requirement
-	HCRYPTPROV m_hCryptProv = NULL;
-	HCRYPTHASH m_hHash = NULL;
-	HCRYPTKEY m_hKey = NULL;
-	const char* szProvider = MS_ENH_RSA_AES_PROV_A;
-	bool m_bEncrypted = false;
+
 public:
 	void				UpdateRenderInfo();
 	bool				LoadFromFile(const std::string& szFileName, uint32_t iVer = N3FORMAT_VER_DEFAULT);
