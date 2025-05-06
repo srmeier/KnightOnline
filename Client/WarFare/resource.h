@@ -461,6 +461,8 @@
 #define IDS_WARP_NOT_DURING_CSW         6612 // You cannot enter during the Castle Siege War. 
 #define IDS_WARP_NEED_LOYALTY           6613 // You cannot enter when you have 0 national points. 
 
+#define IDS_TELEPORT_TO_X_NEED_Y_COINS  7612 // To teleport to %s, you need %d coins
+
 #define IDS_EXITING_GAME_IN_X_SECONDS	7632 // Exiting game in %d seconds.
 #define IDS_EXITING_GAME_CANCELED		7633 // Exiting game canceled.
 #define IDS_WARP_LEVEL_30_TO_50         7657 // Only characters with level 30~50 can enter.

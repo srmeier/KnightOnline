@@ -4279,19 +4279,23 @@ void CGameProcMain::MsgSend_Warp() // 워프 - 존이동이 될수도 있다..
 
 	uint8_t byBuff[8];
 	int iOffset = 0;
-	
+
+	m_szWarpDestination = WI.szName;
+
+	if (s_pPlayer->m_InfoExt.iGold < WI.iGold)
+	{
+		std::string szFmt;
+		char szMsg[256] = {};
+
+		_LoadStringFromResource(IDS_TELEPORT_TO_X_NEED_Y_COINS, szFmt);
+		snprintf(szMsg, sizeof(szMsg), szFmt.c_str(), WI.szName.c_str(), WI.iGold);
+		MsgOutput(szMsg, 0xFFFF3B3B);
+		return;
+	}
+
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WARP_LIST);
-	CAPISocket::MP_AddShort(byBuff, iOffset, WI.iID); // 워프 아이디 보내기...
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) WI.iID); // 워프 아이디 보내기...
 	s_pSocket->Send(byBuff, iOffset);
-
-	/*
-	__Vector3 vec3;
-	vec3.x = 361.278503f;
-	vec3.y = 2.822370f;
-	vec3.z = 137.339859f;
-
-	InitZone(WI.iZone, vec3);
-	*/
 }
 
 void CGameProcMain::DoCommercialTransaction(int iTradeID)
@@ -6667,7 +6671,7 @@ void CGameProcMain::MsgRecv_WarpList_Error(Packet& pkt)
 	{
 		case WARP_LIST_ERROR_SUCCESS:
 			::_LoadStringFromResource(IDS_WARP_ARRIVED_AT, szFmt);
-			snprintf(szMsg, sizeof(szMsg), szFmt.c_str(), "<warp name here>");
+			snprintf(szMsg, sizeof(szMsg), szFmt.c_str(), m_szWarpDestination.c_str());
 			MsgOutput(szMsg, 0xFFFFFF00);
 			break;
 
