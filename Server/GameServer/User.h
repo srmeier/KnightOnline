@@ -54,21 +54,6 @@ enum ClassType
 	ClassPriestMaster	= 12
 };
 
-enum WarpListResponse
-{
-	WarpListGenericError		= 0,
-	WarpListSuccess				= 1,  // "You've arrived at."
-	WarpListMinLevel			= 2,  // "You need to be at least level <level>."
-	WarpListNotDuringCSW		= 3,  // "You cannot enter during the Castle Siege War."
-	WarpListNotDuringWar		= 4,  // "You cannot enter during the Lunar War."
-	WarpListNeedNP				= 5,  // "You cannot enter when you have 0 national points."
-	WarpListWrongLevelDLW		= 6,  // "Only characters with level 30~50 can enter." (dialog) 
-	WarpListDoNotQualify		= 7,  // "You can not enter because you do not qualify." (dialog) 
-	WarpListRecentlyTraded		= 8,  // "You can't teleport for 2 minutes after trading." (dialog) 
-	WarpListArenaFull			= 9,  // "Arena Server is full to capacity. Please try again later." (dialog) 
-	WarpListFinished7KeysQuest	= 10, // "You can't enter because you completed Guardian of 7 Keys quest." (dialog) 
-};
-
 enum TransformationType
 {
 	TransformationNone,
@@ -827,7 +812,7 @@ public:
 	void SendMannerChange(int32_t iMannerPoints);
 
 	bool CanLevelQualify(uint8_t sLevel);
-	bool CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason);
+	bool CanChangeZone(C3DMap* pTargetMap, e_WarpListError& errorReason);
 	void ZoneChange(uint16_t sNewZone, float x, float z);
 	void ZoneChangeParty(uint16_t sNewZone, float x, float z);
 	void ZoneChangeClan(uint16_t sNewZone, float x, float z);

@@ -195,7 +195,9 @@ protected:
 
 	void	MsgRecv_NoahChange(Packet& pkt);			// 노아 변경..
 	void	MsgRecv_WarpList(Packet& pkt);				// 워프 리스트..
-//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt);			// 서버 IP 와 포트를 받아 동접자를 체크해 본다..
+	void	MsgRecv_WarpList_Error(Packet& pkt);		// 워프 리스트..
+
+	//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt);			// 서버 IP 와 포트를 받아 동접자를 체크해 본다..
 //	void	MsgRecv_ConcurrentUserCountAndSendServerCheck(Packet& pkt);
 	
 	//knights...

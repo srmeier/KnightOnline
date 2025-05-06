@@ -425,6 +425,23 @@ enum RankTypes
 	RANK_TYPE_CHAOS_DUNGEON = 3,
 };
 
+enum e_WarpListError : uint8_t
+{
+	WARP_LIST_ERROR_GENERIC					= 0,
+	WARP_LIST_ERROR_SUCCESS					= 1,  // "You've arrived at <destination>."
+	WARP_LIST_ERROR_MIN_LEVEL				= 2,  // "You need to be at least level <level>."
+	WARP_LIST_ERROR_NOT_DURING_CSW			= 3,  // "You cannot enter during the Castle Siege War."
+	WARP_LIST_ERROR_NOT_DURING_WAR			= 4,  // "You cannot enter during the Lunar War."
+	WARP_LIST_ERROR_NEED_LOYALTY			= 5,  // "You cannot enter when you have 0 national points."
+	WARP_LIST_ERROR_WRONG_LEVEL_DLW			= 6,  // "Only characters with level 30~50 can enter." (dialog) 
+	WARP_LIST_ERROR_DO_NOT_QUALIFY			= 7,  // "You can not enter because you do not qualify." (dialog) 
+
+	// Available only in newer client versions:
+	WARP_LIST_ERROR_RECENTLY_TRADED			= 8,  // "You can't teleport for 2 minutes after trading." (dialog) 
+	WARP_LIST_ERROR_ARENA_FULL				= 9,  // "Arena Server is full to capacity. Please try again later." (dialog) 
+	WARP_LIST_ERROR_FINISHED_7_KEYS_QUEST	= 10, // "You can't enter because you completed Guardian of 7 Keys quest." (dialog)
+};
+
 ////////////////////////////////////////////////////////////////
 // WareHouse Packet sub define
 ////////////////////////////////////////////////////////////////
