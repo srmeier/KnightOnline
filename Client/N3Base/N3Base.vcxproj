@@ -144,6 +144,7 @@
     <ClInclude Include="StdAfxBase.h" />
     <ClInclude Include="StreamSoundObj.h" />
     <ClInclude Include="WaveFile.h" />
+    <ClInclude Include="WinCrypt.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitMapFile.cpp" />
@@ -244,6 +245,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="WaveFile.cpp" />
+    <ClCompile Include="WinCrypt.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5E45D92A-702B-4128-A1AF-504A17271D94}</ProjectGuid>

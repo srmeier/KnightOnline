@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "StdAfxBase.h"
 #include "N3Texture.h"
+#include "WinCrypt.h"
 
 #ifdef _N3TOOL
 #include "BitmapFile.h"
@@ -248,15 +249,24 @@ bool CN3Texture::Load(HANDLE hFile)
 	CN3BaseFileAccess::Load(hFile);
 
 	DWORD dwRWC = 0;
+	CWinCrypt crypt;
 
 	__DXT_HEADER HeaderOrg; // 헤더를 저장해 놓고..
-	ReadFile(hFile, &HeaderOrg, sizeof(HeaderOrg), &dwRWC, NULL); // 헤더를 읽는다..
-	if(	'N' != HeaderOrg.szID[0] || 'T' != HeaderOrg.szID[1] || 'F' != HeaderOrg.szID[2] || 3 != HeaderOrg.szID[3] ) // "NTF"3 - Noah Texture File Ver. 3.0
+	ReadFile(hFile, &HeaderOrg, sizeof(HeaderOrg), &dwRWC, nullptr); // 헤더를 읽는다..
+	if ('N' != HeaderOrg.szID[0]
+		|| 'T' != HeaderOrg.szID[1]
+		|| 'F' != HeaderOrg.szID[2]
+		// "NTF"3 - Noah Texture File Ver. 3.0
+		|| HeaderOrg.szID[3] < 3)
 	{
 #ifdef _N3GAME
 		CLogWriter::Write("N3Texture Warning - Old format DXT file (%s)", m_szFileName.c_str());
 #endif
 	}
+
+	if (HeaderOrg.szID[3] == 7
+		&& !crypt.Load())
+		return false;
 
 	// DXT Format 을 읽어야 하는데 지원이 되는지 안되는지 보고 지원안되면 대체 포맷을 정한다.
 	bool bDXTSupport = FALSE;
@@ -303,7 +313,7 @@ bool CN3Texture::Load(HANDLE hFile)
 	this->Create(iWCreate, iHCreate, fmtNew, HeaderOrg.bMipMap); // 서피스 만들고..
 	m_iLOD = iLODPrev;
 
-	if(m_lpTexture == NULL)
+	if (m_lpTexture == nullptr)
 	{
 #ifdef _N3GAME
 		CLogWriter::Write("N3Texture error - Can't create texture (%s)", m_szFileName.c_str());
@@ -337,14 +347,17 @@ bool CN3Texture::Load(HANDLE hFile)
 					::SetFilePointer(hFile, iSkipSize, 0, FILE_CURRENT); // 건너뛰고.
 				}
 
-				for(int i = 0; i < iMMC; i++)
+				for (int i = 0; i < iMMC; i++)
 				{
 					m_lpTexture->GetLevelDesc(i, &sd);
 
 					uint32_t nTexSize = GetTextureSize(sd);
 
-					m_lpTexture->LockRect(i, &LR, NULL, NULL);
-					ReadFile(hFile, (uint8_t*)LR.pBits, nTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+					m_lpTexture->LockRect(i, &LR, nullptr, 0);
+
+					// 일렬로 된 데이터를 쓰고..
+					crypt.ReadFile(hFile, LR.pBits, nTexSize, &dwRWC, nullptr);
+
 					m_lpTexture->UnlockRect(i);
 				}
 
@@ -359,8 +372,11 @@ bool CN3Texture::Load(HANDLE hFile)
 
 				uint32_t nTexSize = GetTextureSize(sd);
 
-				m_lpTexture->LockRect(0, &LR, NULL, NULL);
-				ReadFile(hFile, (uint8_t*)LR.pBits, nTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+				m_lpTexture->LockRect(0, &LR, nullptr, 0);
+
+				// 일렬로 된 데이터를 쓰고..
+				crypt.ReadFile(hFile, LR.pBits, nTexSize, &dwRWC, nullptr);
+
 				m_lpTexture->UnlockRect(0);
 
 				// 텍스처 압축안되는 비디오 카드를 위한 여분의 데이터 건너뛰기.. 
@@ -394,13 +410,17 @@ bool CN3Texture::Load(HANDLE hFile)
 					iSkipSize += iWTmp * iHTmp * 2;
 				if(iSkipSize) ::SetFilePointer(hFile, iSkipSize, 0, FILE_CURRENT); // 건너뛰고.
 
-				for(int i = 0; i < iMMC; i++)
+				for (int i = 0; i < iMMC; i++)
 				{
 					m_lpTexture->GetLevelDesc(i, &sd);
-					m_lpTexture->LockRect(i, &LR, NULL, NULL);
+					m_lpTexture->LockRect(i, &LR, nullptr, 0);
 					int nH = sd.Height;
-					for(int y = 0; y < nH; y++)
-						ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, 2 * sd.Width, &dwRWC, NULL);
+					for (int y = 0; y < nH; y++)
+					{
+						uint8_t* pBits = (uint8_t*) LR.pBits + y * LR.Pitch;
+						if (!crypt.ReadFile(hFile, pBits, 2 * sd.Width, &dwRWC, nullptr))
+							break;
+					}
 					m_lpTexture->UnlockRect(i);
 				}
 			}
@@ -410,7 +430,6 @@ bool CN3Texture::Load(HANDLE hFile)
 				int iWTmp = HeaderOrg.nWidth, iHTmp = HeaderOrg.nHeight, iSkipSize = 0;
 				if(D3DFMT_DXT1 == HeaderOrg.Format) iSkipSize = iWTmp * iHTmp / 2; // DXT1 형식은 16비트 포맷에 비해 1/4 로 압축..
 				else iSkipSize = iWTmp * iHTmp; // DXT2 ~ DXT5 형식은 16비트 포맷에 비해 1/2 로 압축..
-
 			}
 		}
 	}
@@ -441,12 +460,16 @@ bool CN3Texture::Load(HANDLE hFile)
 			if(iSkipSize) ::SetFilePointer(hFile, iSkipSize, 0, FILE_CURRENT); // 건너뛰고.
 
 			// 데이터 읽기..
-			for(int i = 0; i < iMMC; i++)
+			for (int i = 0; i < iMMC; i++)
 			{
 				m_lpTexture->GetLevelDesc(i, &sd);
-				m_lpTexture->LockRect(i, &LR, NULL, NULL);
-				for(int y = 0; y < (int)sd.Height; y++)
-					ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
+				m_lpTexture->LockRect(i, &LR, nullptr, 0);
+				for (int y = 0; y < (int) sd.Height; y++)
+				{
+					uint8_t* pBits = (uint8_t*) LR.pBits + y * LR.Pitch;
+					if (!crypt.ReadFile(hFile, pBits, iPixelSize * sd.Width, &dwRWC, nullptr))
+						break;
+				}
 				m_lpTexture->UnlockRect(i);
 			}
 		}
@@ -456,17 +479,23 @@ bool CN3Texture::Load(HANDLE hFile)
 			if(HeaderOrg.nWidth >= 512 && m_Header.nWidth <= 256)
 				::SetFilePointer(hFile, HeaderOrg.nWidth * HeaderOrg.nHeight * iPixelSize, 0, FILE_CURRENT); // 건너뛰고.
 
+			m_lpTexture->LockRect(0, &LR, nullptr, 0);
+			D3DSURFACE_DESC sd;
 			m_lpTexture->GetLevelDesc(0, &sd);
-			m_lpTexture->LockRect(0, &LR, NULL, NULL);
-			for(int y = 0; y < (int)sd.Height; y++)
-				ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
+			for (int y = 0; y < (int) sd.Height; y++)
+			{
+				uint8_t* pBits = (uint8_t*) LR.pBits + y * LR.Pitch;
+				if (!crypt.ReadFile(hFile, pBits, iPixelSize * sd.Width, &dwRWC, nullptr))
+					break;
+			}
 			m_lpTexture->UnlockRect(0);
 
-			if(m_Header.nWidth >= 512 && m_Header.nHeight >= 512)
+			if (m_Header.nWidth >= 512 && m_Header.nHeight >= 512)
 				SetFilePointer(hFile, 256 * 256 * 2, 0, FILE_CURRENT); // 사이즈가 512 보다 클경우 부두용 데이터 건너뛰기..
 		}
 	}
-//	this->GenerateMipMap(); // Mip Map 을 만든다..
+
+	//	this->GenerateMipMap(); // Mip Map 을 만든다..
 	return true;
 }
 
