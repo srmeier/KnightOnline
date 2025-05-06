@@ -4279,19 +4279,23 @@ void CGameProcMain::MsgSend_Warp() // 워프 - 존이동이 될수도 있다..
 
 	uint8_t byBuff[8];
 	int iOffset = 0;
-	
+
+	m_szWarpDestination = WI.szName;
+
+	if (s_pPlayer->m_InfoExt.iGold < WI.iGold)
+	{
+		std::string szFmt;
+		char szMsg[256] = {};
+
+		_LoadStringFromResource(IDS_TELEPORT_TO_X_NEED_Y_COINS, szFmt);
+		snprintf(szMsg, sizeof(szMsg), szFmt.c_str(), WI.szName.c_str(), WI.iGold);
+		MsgOutput(szMsg, 0xFFFF3B3B);
+		return;
+	}
+
 	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_WARP_LIST);
-	CAPISocket::MP_AddShort(byBuff, iOffset, WI.iID); // 워프 아이디 보내기...
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) WI.iID); // 워프 아이디 보내기...
 	s_pSocket->Send(byBuff, iOffset);
-
-	/*
-	__Vector3 vec3;
-	vec3.x = 361.278503f;
-	vec3.y = 2.822370f;
-	vec3.z = 137.339859f;
-
-	InitZone(WI.iZone, vec3);
-	*/
 }
 
 void CGameProcMain::DoCommercialTransaction(int iTradeID)
@@ -6614,11 +6618,17 @@ void CGameProcMain::MsgRecv_NoahChange(Packet& pkt)		// 노아 변경..
 
 void CGameProcMain::MsgRecv_WarpList(Packet& pkt)		// 워프 리스트 - 존 체인지가 될 수도 있다..
 {
-	int iByte = pkt.read<uint8_t>();
+	uint8_t opcode = pkt.read<uint8_t>();
+	if (opcode == 2)
+	{
+		MsgRecv_WarpList_Error(pkt);
+		return;
+	}
+
+	if (opcode != 1)
+		return;
 
 	m_pUIWarp->Reset();
-
-	int iStrLen = 0;
 
 	int iListCount = pkt.read<int16_t>();
 
@@ -6626,18 +6636,20 @@ void CGameProcMain::MsgRecv_WarpList(Packet& pkt)		// 워프 리스트 - 존 체
 	if (iListCount == 0)
 		return;
 
+	int iStrLen = 0;
+
 	for(int i = 0; i < iListCount; i++)
 	{
 		__WarpInfo WI;
 		
-		WI.iID = pkt.read<int16_t>(); // 워프 ID
-		iStrLen = pkt.read<int16_t>(); // 이름 길이
-		pkt.readString(WI.szName, iStrLen); // 이름
-		iStrLen = pkt.read<int16_t>(); // 동의문 길이
-		pkt.readString(WI.szAgreement, iStrLen); // 동의문
+		WI.iID = pkt.read<int16_t>();				// 워프 ID
+		iStrLen = pkt.read<int16_t>();				// 이름 길이
+		pkt.readString(WI.szName, iStrLen);			// 이름
+		iStrLen = pkt.read<int16_t>();				// 동의문 길이
+		pkt.readString(WI.szAgreement, iStrLen);	// 동의문
 		WI.iZone = pkt.read<int16_t>();				// 존번호
 		WI.iMaxUser = pkt.read<int16_t>();			// 최대 유저 카운트.
-		WI.iGold = pkt.read<uint32_t>();				// 돈
+		WI.iGold = pkt.read<uint32_t>();			// 돈
 		WI.vPos.x = (pkt.read<int16_t>())/10.0f;	// 좌표 
 		WI.vPos.z = (pkt.read<int16_t>())/10.0f;	//
 		WI.vPos.y = (pkt.read<int16_t>())/10.0f;	// 
@@ -6649,67 +6661,56 @@ void CGameProcMain::MsgRecv_WarpList(Packet& pkt)		// 워프 리스트 - 존 체
 	m_pUIWarp->SetVisible(true);
 }
 
-/*
-void CGameProcMain::MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt)	// 서버 IP 와 포트를 받아 동접자를 체크해 본다..
+void CGameProcMain::MsgRecv_WarpList_Error(Packet& pkt)
 {
-	std::string szIP;
-	int iStrLen = pkt.read<int16_t>(); // IP..
-	pkt.readString(szIP, iStrLen);
-	uint32_t dwPort = pkt.read<int16_t>(); // Port
+	uint8_t errorCode = pkt.read<uint8_t>();
+	std::string szFmt;
+	char szMsg[128] = {};
 
-	__WarpInfo WI;
-	if(m_pUIWarp->InfoGetCur(WI) < 0) return;
-
-	bool bNeedConnectSubSocket = (szIP != s_pSocket->GetCurrentIP() || dwPort != s_pSocket->GetCurrentPort()); // 접속해야 할 IP 와 포트가 똑같은지
-
-	if(bNeedConnectSubSocket) // 서브 소켓으로 접속해야 하면..
+	switch (errorCode)
 	{
-		int iErr = s_pSocketSub->Connect(s_hWndSubSocket, szIP.c_str(), dwPort); // 서브 소켓으로 접속해서..
-		if(iErr)
+		case WARP_LIST_ERROR_SUCCESS:
+			::_LoadStringFromResource(IDS_WARP_ARRIVED_AT, szFmt);
+			snprintf(szMsg, sizeof(szMsg), szFmt.c_str(), m_szWarpDestination.c_str());
+			MsgOutput(szMsg, 0xFFFFFF00);
+			break;
+
+		case WARP_LIST_ERROR_MIN_LEVEL:
 		{
-			this->ReportServerConnectionFailed(WI.szName, iErr, false);
-			return;
+			int requiredLevel = pkt.read<uint8_t>();
+
+			::_LoadStringFromResource(IDS_WARP_MIN_LEVEL, szFmt);
+			snprintf(szMsg, sizeof(szMsg), szFmt.c_str(), requiredLevel);
+			MsgOutput(szMsg, 0xFFFFFF00);
 		}
-	}
+		break;
 
-	// 동접자 체크..
-	int iOffsetSend = 0;
-	uint8_t byBuff[8];
-	
-	CAPISocket::MP_AddByte(byBuff, iOffsetSend, WIZ_ZONE_CONCURRENT);
-	CAPISocket::MP_AddShort(byBuff, iOffsetSend, WI.iZone);
-	CAPISocket::MP_AddByte(byBuff, iOffsetSend, s_pPlayer->m_InfoBase.eNation); // 국가별 동접수..
+		case WARP_LIST_ERROR_NOT_DURING_CSW:
+			::_LoadStringFromResource(IDS_WARP_NOT_DURING_CSW, szFmt);
+			MsgOutput(szFmt, 0xFFFFFF00);
+			break;
 
-	if(bNeedConnectSubSocket) s_pSocketSub->Send(byBuff, iOffsetSend); // 서브 소켓으로 보내기.
-	else s_pSocket->Send(byBuff, iOffsetSend); // 본 소켓으로 보내기..
-}
+		case WARP_LIST_ERROR_NOT_DURING_WAR:
+			::_LoadStringFromResource(IDS_WARP_NOT_DURING_WAR, szFmt);
+			MsgOutput(szFmt, 0xFFFFFF00);
+			break;
 
+		case WARP_LIST_ERROR_NEED_LOYALTY:
+			::_LoadStringFromResource(IDS_WARP_NEED_LOYALTY, szFmt);
+			MsgOutput(szFmt, 0xFFFFFF00);
+			break;
 
-void CGameProcMain::MsgRecv_ConcurrentUserCountAndSendServerCheck(Packet& pkt)			// 동접자를 받고 서버에 접속하겠다는 패킷을 보낸다.
-{
-	int iConcurrentUser = pkt.read<int16_t>(); // IP..
-	if(s_pSocketSub->IsConnected()) s_pSocketSub->Disconnect();
+		case WARP_LIST_ERROR_WRONG_LEVEL_DLW:
+			::_LoadStringFromResource(IDS_WARP_LEVEL_30_TO_50, szFmt);
+			MessageBoxPost(szFmt, "", MB_OK);
+			break;
 
-	__WarpInfo WI;
-	if(m_pUIWarp->InfoGetCur(WI) < 0) return;
-
-	if(iConcurrentUser < WI.iMaxUser) // 동접 제한보다 적으면..
-	{
-		int iOffsetSend = 0;
-		uint8_t byBuff[8];
-		
-		CAPISocket::MP_AddByte(byBuff, iOffsetSend, WIZ_VIRTUAL_SERVER);
-		CAPISocket::MP_AddShort(byBuff, iOffsetSend, WI.iID);
-
-		s_pSocket->Send(byBuff, iOffsetSend);
-	}
-	else
-	{
-		std::string szMsg; ::_LoadStringFromResource(IDS_MSG_CONCURRENT_USER_OVERFLOW, szMsg); // 동시 접속 제한 초과..
-		this->MsgOutput(szMsg, 0xffff0000);
+		case WARP_LIST_ERROR_DO_NOT_QUALIFY:
+			::_LoadStringFromResource(IDS_WARP_DO_NOT_QUALIFY, szFmt);
+			MessageBoxPost(szFmt, "", MB_OK);
+			break;
 	}
 }
-*/
 
 void CGameProcMain::MsgRecv_Knights_Create(Packet& pkt)
 {

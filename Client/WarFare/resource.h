@@ -455,9 +455,18 @@
 #define IDS_WANT_PARTY_MEMBER           6123
 #define IDS_SETTING_KARUS_SCREEN        6124
 #define IDS_SETTING_ELMORAD_SCREEN      6125
+#define IDS_WARP_ARRIVED_AT             6606 // You've arrived at %s.
+#define IDS_WARP_MIN_LEVEL              6610 // You need to be at least level %d.
+#define IDS_WARP_NOT_DURING_WAR         6611 // You cannot enter during the Lunar War. 
+#define IDS_WARP_NOT_DURING_CSW         6612 // You cannot enter during the Castle Siege War. 
+#define IDS_WARP_NEED_LOYALTY           6613 // You cannot enter when you have 0 national points. 
+
+#define IDS_TELEPORT_TO_X_NEED_Y_COINS  7612 // To teleport to %s, you need %d coins
 
 #define IDS_EXITING_GAME_IN_X_SECONDS	7632 // Exiting game in %d seconds.
 #define IDS_EXITING_GAME_CANCELED		7633 // Exiting game canceled.
+#define IDS_WARP_LEVEL_30_TO_50         7657 // Only characters with level 30~50 can enter.
+#define IDS_WARP_DO_NOT_QUALIFY         7659 // You cannot enter because you do not qualify. 
 
 #define IDS_PRIVATE_CMD_CAT				7800
 #define IDS_TRADE_CMD_CAT				7801

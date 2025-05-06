@@ -186,25 +186,25 @@ void CUser::Rotate(Packet & pkt)
 	SendToRegion(&result, this);
 }
 
-bool CUser::CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason)
+bool CUser::CanChangeZone(C3DMap* pTargetMap, e_WarpListError& errorReason)
 {
 	// While unofficial, game masters should be allowed to teleport anywhere.
 	if (isGM())
 		return true;
 
 	// Generic error reason; this should only be checked when the method returns false.
-	errorReason = WarpListGenericError;
+	errorReason = WARP_LIST_ERROR_GENERIC;
 
 	if (GetLevel() < pTargetMap->GetMinLevelReq())
 	{
-		errorReason = WarpListMinLevel;
+		errorReason = WARP_LIST_ERROR_MIN_LEVEL;
 		return false;
 	}
 
 	if (GetLevel() > pTargetMap->GetMaxLevelReq()
 		/*|| !CanLevelQualify(pTargetMap->GetMaxLevelReq())*/)
 	{
-		errorReason = WarpListDoNotQualify;
+		errorReason = WARP_LIST_ERROR_DO_NOT_QUALIFY;
 		return false;
 	}
 
@@ -220,6 +220,7 @@ bool CUser::CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason)
 			return g_pMain->m_byKarusOpenFlag;
 		else
 			return g_pMain->m_byElmoradOpenFlag;
+
 	case ZONE_ELMORAD:
 		// Users may enter Luferson (1)/El Morad (2) if they are that nation, 
 		if (GetNation() == pTargetMap->GetID()) 
@@ -230,58 +231,68 @@ bool CUser::CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason)
 			return g_pMain->m_byElmoradOpenFlag;
 		else
 			return g_pMain->m_byKarusOpenFlag;
+
 	case ZONE_KARUS_ESLANT:
 		return GetNation() == pTargetMap->GetID() - 10;
+
 	case ZONE_ELMORAD_ESLANT:
 		return GetNation() == pTargetMap->GetID() - 10;
+
 	case ZONE_DELOS: // TODO: implement CSW logic.
-		if (g_pMain->m_byBattleOpen == CLAN_BATTLE && !g_pMain->m_byBattleSiegeWarTeleport)
+		if (g_pMain->m_byBattleOpen == CLAN_BATTLE
+			&& !g_pMain->m_byBattleSiegeWarTeleport)
 		{
-			errorReason = WarpListNotDuringCSW;
+			errorReason = WARP_LIST_ERROR_NOT_DURING_CSW;
 			return false;
 		}
-		else
+
 		return true;
+
 	case ZONE_BIFROST:
 		return true;
+
 	case ZONE_ARDREAM:
 		if (g_pMain->isWarOpen())
 		{
-			errorReason = WarpListNotDuringWar;
+			errorReason = WARP_LIST_ERROR_NOT_DURING_WAR;
 			return false;
 		}
 
 		if (GetLoyalty() <= 0)
 		{
-			errorReason = WarpListNeedNP;
+			errorReason = WARP_LIST_ERROR_NEED_LOYALTY;
 			return false;
 		}
 
 		return true;
+
 	case ZONE_RONARK_LAND_BASE:
-		if (g_pMain->isWarOpen() && g_pMain->m_byBattleZoneType != ZONE_ARDREAM)
+		if (g_pMain->isWarOpen()
+			&& g_pMain->m_byBattleZoneType != ZONE_ARDREAM)
 		{
-			errorReason = WarpListNotDuringWar;
+			errorReason = WARP_LIST_ERROR_NOT_DURING_WAR;
 			return false;
 		}
 
 		if (GetLoyalty() <= 0)
 		{
-			errorReason = WarpListNeedNP;
+			errorReason = WARP_LIST_ERROR_NEED_LOYALTY;
 			return false;
 		}
 
 		return false;
+
 	case ZONE_RONARK_LAND:
-		if (g_pMain->isWarOpen() && g_pMain->m_byBattleZoneType != ZONE_ARDREAM)
+		if (g_pMain->isWarOpen()
+			&& g_pMain->m_byBattleZoneType != ZONE_ARDREAM)
 		{
-			errorReason = WarpListNotDuringWar;
+			errorReason = WARP_LIST_ERROR_NOT_DURING_WAR;
 			return false;
 		}
 
 		if (GetLoyalty() <= 0)
 		{
-			errorReason = WarpListNeedNP;
+			errorReason = WARP_LIST_ERROR_NEED_LOYALTY;
 			return false;
 		}
 
@@ -291,16 +302,20 @@ bool CUser::CanChangeZone(C3DMap * pTargetMap, WarpListResponse & errorReason)
 		// War zones may only be entered if that war zone is active.
 		if (pTargetMap->isWarZone())
 		{
-			if(pTargetMap->GetID() == ZONE_SNOW_BATTLE)
+			if (pTargetMap->GetID() == ZONE_SNOW_BATTLE)
 			{
-			if ((pTargetMap->GetID() - ZONE_SNOW_BATTLE) != g_pMain->m_byBattleZone)
-				return false;
+				if ((pTargetMap->GetID() - ZONE_SNOW_BATTLE) != g_pMain->m_byBattleZone)
+					return false;
 			}
 			else if ((pTargetMap->GetID() - ZONE_BATTLE_BASE) != g_pMain->m_byBattleZone)
+			{
 				return false;
+			}
 			else if ((GetNation() == ELMORAD && g_pMain->m_byElmoradOpenFlag)
 				|| (GetNation() == KARUS && g_pMain->m_byKarusOpenFlag))
+			{
 				return false;
+			}
 		}
 	}
 
@@ -332,14 +347,14 @@ void CUser::ZoneChange(uint16_t sNewZone, float x, float z)
 	if (pMap == nullptr) 
 		return;
 
-	WarpListResponse errorReason;
+	e_WarpListError errorReason;
 	if (!CanChangeZone(pMap, errorReason))
 	{
 		Packet result(WIZ_WARP_LIST);
 
 		result << uint8_t(2) << uint8_t(errorReason);
 
-		if (errorReason == WarpListMinLevel)
+		if (errorReason == WARP_LIST_ERROR_MIN_LEVEL)
 			result << pMap->GetMinLevelReq();
 
 		Send(&result);

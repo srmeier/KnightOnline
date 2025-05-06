@@ -1,13 +1,4 @@
-﻿// GameProcMain.h: interface for the CGameProcMain class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_GAMEPROCMAIN_H__E1C4F2CC_5AF3_4417_8917_A52CD5523DB3__INCLUDED_)
-#define AFX_GAMEPROCMAIN_H__E1C4F2CC_5AF3_4417_8917_A52CD5523DB3__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+﻿#pragma once
 
 #include "GameProcedure.h"
 #include <set>
@@ -107,6 +98,8 @@ public:
 
 	float		m_fMBRotateTime;
 
+	std::string	m_szWarpDestination;
+
 protected:
 	virtual bool ProcessPacket(Packet& pkt);
 
@@ -195,7 +188,9 @@ protected:
 
 	void	MsgRecv_NoahChange(Packet& pkt);			// 노아 변경..
 	void	MsgRecv_WarpList(Packet& pkt);				// 워프 리스트..
-//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt);			// 서버 IP 와 포트를 받아 동접자를 체크해 본다..
+	void	MsgRecv_WarpList_Error(Packet& pkt);		// 워프 리스트..
+
+	//	void	MsgRecv_ServerCheckAndRequestConcurrentUserCount(Packet& pkt);			// 서버 IP 와 포트를 받아 동접자를 체크해 본다..
 //	void	MsgRecv_ConcurrentUserCountAndSendServerCheck(Packet& pkt);
 	
 	//knights...
@@ -325,5 +320,3 @@ public:
 	CGameProcMain();									// 생성자.
 	virtual ~CGameProcMain();							// 소멸자.
 };
-
-#endif // !defined(AFX_GAMEPROCMAIN_H__E1C4F2CC_5AF3_4417_8917_A52CD5523DB3__INCLUDED_)
