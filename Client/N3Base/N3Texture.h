@@ -1,23 +1,11 @@
-﻿// N3Texture7.h: interface for the CN3Texture class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_N3Texture_h__INCLUDED_)
-#define AFX_N3Texture_h__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+﻿#pragma once
 
 #include "N3BaseFileAccess.h"
 #include <string>
-#include <wincrypt.h>
 
 class CN3Texture : public CN3BaseFileAccess
 {
 public:
-	constexpr const static char Cipher[]	= "owsd9012%$1as!wpow1033b%!@%12";
-
 	typedef struct __DXT_HEADER
 	{
 		char szID[4]; // "NTF"숫자 - Noah Texture File Ver. ?.0
@@ -61,5 +49,3 @@ public:
 	CN3Texture();
 	virtual ~CN3Texture();
 };
-
-#endif // !defined(AFX_N3Texture_h__INCLUDED_)
