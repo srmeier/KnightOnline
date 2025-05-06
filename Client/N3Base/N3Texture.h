@@ -11,6 +11,7 @@
 
 #include "N3BaseFileAccess.h"
 #include <string>
+#include <wincrypt.h>
 
 class CN3Texture : public CN3BaseFileAccess
 {
@@ -27,7 +28,12 @@ public:
 protected:
 	__DXT_HEADER m_Header;
 	LPDIRECT3DTEXTURE9 m_lpTexture;
-
+	BYTE m_KeyMaterial[29];  // Matches assembly's 29-byte requirement
+	HCRYPTPROV m_hCryptProv = NULL;
+	HCRYPTHASH m_hHash = NULL;
+	HCRYPTKEY m_hKey = NULL;
+	const char* szProvider = MS_ENH_RSA_AES_PROV_A;
+	bool m_bEncrypted = false;
 public:
 	void				UpdateRenderInfo();
 	bool				LoadFromFile(const std::string& szFileName, uint32_t iVer = N3FORMAT_VER_DEFAULT);

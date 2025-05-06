@@ -258,6 +258,20 @@ bool CN3Texture::Load(HANDLE hFile)
 #endif
 	}
 
+	if (HeaderOrg.szID[3] == 7) {
+		const char   szHardcodedKey[] = "owsd9012%$1as!wpow1033b%!@%12";
+		static_assert(sizeof(szHardcodedKey) - 1 == 29, "Key size mismatch"); // Verify key size at compile time
+		memcpy(m_KeyMaterial, szHardcodedKey, 29);
+		m_bEncrypted = true;
+		if (!CryptAcquireContextA(&m_hCryptProv, NULL, szProvider, PROV_RSA_AES, CRYPT_VERIFYCONTEXT) &&
+			!CryptAcquireContextA(&m_hCryptProv, NULL, szProvider, PROV_RSA_AES, CRYPT_NEWKEYSET)) {
+			return false;
+		}
+		CryptCreateHash(m_hCryptProv, CALG_SHA1, 0, 0, &m_hHash);
+		CryptHashData(m_hHash, m_KeyMaterial, 29, 0);
+		CryptDeriveKey(m_hCryptProv, CALG_RC4, m_hHash, 0x800000u, &m_hKey);
+		SecureZeroMemory(m_KeyMaterial, sizeof(m_KeyMaterial));
+	}
 	// DXT Format 을 읽어야 하는데 지원이 되는지 안되는지 보고 지원안되면 대체 포맷을 정한다.
 	bool bDXTSupport = FALSE;
 	D3DFORMAT fmtNew = HeaderOrg.Format;
@@ -345,6 +359,10 @@ bool CN3Texture::Load(HANDLE hFile)
 
 					m_lpTexture->LockRect(i, &LR, NULL, NULL);
 					ReadFile(hFile, (uint8_t*)LR.pBits, nTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+					// NEW DECRYPTION CALL
+					if (m_bEncrypted) {
+						CryptDecrypt(m_hKey, 0, TRUE, 0, (BYTE*)LR.pBits, &dwRWC);
+					}
 					m_lpTexture->UnlockRect(i);
 				}
 
@@ -361,6 +379,10 @@ bool CN3Texture::Load(HANDLE hFile)
 
 				m_lpTexture->LockRect(0, &LR, NULL, NULL);
 				ReadFile(hFile, (uint8_t*)LR.pBits, nTexSize, &dwRWC, NULL); // 일렬로 된 데이터를 쓰고..
+				// NEW DECRYPTION CALL
+				if (m_bEncrypted) {
+					CryptDecrypt(m_hKey, 0, TRUE, 0, (BYTE*)LR.pBits, &dwRWC);
+				}
 				m_lpTexture->UnlockRect(0);
 
 				// 텍스처 압축안되는 비디오 카드를 위한 여분의 데이터 건너뛰기.. 
@@ -446,7 +468,14 @@ bool CN3Texture::Load(HANDLE hFile)
 				m_lpTexture->GetLevelDesc(i, &sd);
 				m_lpTexture->LockRect(i, &LR, NULL, NULL);
 				for(int y = 0; y < (int)sd.Height; y++)
-					ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
+				{
+					BYTE* pRow = (BYTE*)LR.pBits + y * LR.Pitch;
+					ReadFile(hFile, pRow, iPixelSize * sd.Width, &dwRWC, NULL);
+					// NEW DECRYPTION CALL
+					if (m_bEncrypted) {
+						CryptDecrypt(m_hKey, 0, TRUE, 0, pRow, &dwRWC);
+					}
+				}
 				m_lpTexture->UnlockRect(i);
 			}
 		}
@@ -456,15 +485,35 @@ bool CN3Texture::Load(HANDLE hFile)
 			if(HeaderOrg.nWidth >= 512 && m_Header.nWidth <= 256)
 				::SetFilePointer(hFile, HeaderOrg.nWidth * HeaderOrg.nHeight * iPixelSize, 0, FILE_CURRENT); // 건너뛰고.
 
-			m_lpTexture->GetLevelDesc(0, &sd);
 			m_lpTexture->LockRect(0, &LR, NULL, NULL);
-			for(int y = 0; y < (int)sd.Height; y++)
-				ReadFile(hFile, (uint8_t*)LR.pBits + y * LR.Pitch, iPixelSize * sd.Width, &dwRWC, NULL);
+			D3DSURFACE_DESC sd;
+			m_lpTexture->GetLevelDesc(0, &sd);
+			for (int y = 0; y < (int)sd.Height; y++) {
+				BYTE* pRow = (BYTE*)LR.pBits + y * LR.Pitch;
+				ReadFile(hFile, pRow, iPixelSize * sd.Width, &dwRWC, NULL);
+				// NEW DECRYPTION CALL
+				if (m_bEncrypted) {
+					CryptDecrypt(m_hKey, 0, TRUE, 0, pRow, &dwRWC);
+				}
+			}
 			m_lpTexture->UnlockRect(0);
 
 			if(m_Header.nWidth >= 512 && m_Header.nHeight >= 512)
 				SetFilePointer(hFile, 256 * 256 * 2, 0, FILE_CURRENT); // 사이즈가 512 보다 클경우 부두용 데이터 건너뛰기..
 		}
+	}
+	// NEW CLEANUP CODE (from assembly analysis)
+	if (m_bEncrypted) {
+		if (m_hKey) {
+			CryptDestroyKey(m_hKey);
+		}
+		if (m_hHash) {
+			CryptDestroyHash(m_hHash);
+		}
+		if (m_hCryptProv) {
+			CryptReleaseContext(m_hCryptProv, 0);
+		}
+		m_bEncrypted = false;
 	}
 //	this->GenerateMipMap(); // Mip Map 을 만든다..
 	return true;
