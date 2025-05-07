@@ -45,8 +45,8 @@ CMagicSkillMng::CMagicSkillMng()
 	m_fRecastTimeNonAction = 0.0f;
 
 	m_iMyRegionTargetFXID = 0;
-	m_bZonePointerActive = false;
 	m_fZonePointerRadius = -1.0f;
+	m_fZonePointerRadiusEffective = 0.0f;
 	m_fZonePointerRotRad = 0.0f;
 
 	Init();
@@ -63,8 +63,8 @@ CMagicSkillMng::CMagicSkillMng(CGameProcMain* pGameProcMain)
 	m_fRecastTimeNonAction = 0.0f;
 
 	m_iMyRegionTargetFXID = 0;
-	m_bZonePointerActive = false;
 	m_fZonePointerRadius = -1.0f;
+	m_fZonePointerRadiusEffective = 0.0f;
 	m_fZonePointerRotRad = 0.0f;
 
 	Init();
@@ -1301,8 +1301,8 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 					return true;
 			}
 
-			m_bZonePointerActive = true;
 			m_fZonePointerRotRad = 0.0f;
+			m_fZonePointerRadiusEffective = 0.0f;
 
 			// Start FX elements
 			for (int j = 0; j < 8; j++)
@@ -1376,7 +1376,6 @@ bool CMagicSkillMng::CheckValidDistance(__TABLE_UPC_SKILL* pSkill, __Vector3 vTa
 
 	return false;
 }
-
 
 void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vector3 vPos)
 {
@@ -1658,8 +1657,12 @@ void CMagicSkillMng::Tick()
 	ProcessCasting();
 	//TRACE("skillmagic tick state : %d time %.2f\n", s_pPlayer->State(), CN3Base::TimeGet());
 
-	if (m_bZonePointerActive) // Update rotation angle
+	if (m_fZonePointerRadius > 0.0f)
 	{
+		// Initially grow radius per tick as per official.
+		if (m_fZonePointerRadiusEffective <= m_fZonePointerRadius)
+			m_fZonePointerRadiusEffective += 1.0f;
+
 		// Get REAL-TIME mouse position
 		m_fZonePointerRotRad += CN3Base::s_fSecPerFrm * D3DXToRadian(50.0f);
 
@@ -1735,8 +1738,8 @@ void CMagicSkillMng::UpdateZonePointerPositions()
 		__Vector3 vNewPos = m_pGameProcMain->m_vMouseSkillPos;
 		vNewPos.y = CGameBase::ACT_WORLD->GetHeightWithTerrain(vNewPos.x, vNewPos.z);
 
-		vNewPos.x += cosf(fRadians) * m_fZonePointerRadius;
-		vNewPos.z += sinf(fRadians) * m_fZonePointerRadius;
+		vNewPos.x += cosf(fRadians) * m_fZonePointerRadiusEffective;
+		vNewPos.z += sinf(fRadians) * m_fZonePointerRadiusEffective;
 
 		// Update FX position using the index
 		CGameProcedure::s_pFX->SetBundlePos(
@@ -1749,22 +1752,19 @@ void CMagicSkillMng::UpdateZonePointerPositions()
 // When cancelling the skill or changing modes
 void CMagicSkillMng::CancelZonePointer()
 {
-	if (m_bZonePointerActive)
+	for (int j = 0; j < 8; j++)
 	{
-		for (int j = 0; j < 8; j++)
-		{
-			CGameProcedure::s_pFX->Stop(
-				s_pPlayer->IDNumber(),
-				0,
-				FXID_ZONE_POINTER,
-				FXID_ZONE_POINTER + j,
-				true);
-		}
-
-		m_bZonePointerActive = false;
-		m_fZonePointerRadius = -1.0f;
-		m_fZonePointerRotRad = 0.0f;
+		CGameProcedure::s_pFX->Stop(
+			s_pPlayer->IDNumber(),
+			0,
+			FXID_ZONE_POINTER,
+			FXID_ZONE_POINTER + j,
+			true);
 	}
+
+	m_fZonePointerRadius = -1.0f;
+	m_fZonePointerRadiusEffective = 0.0f;
+	m_fZonePointerRotRad = 0.0f;
 }
 
 void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget)

@@ -75,9 +75,9 @@ public:
 	int						m_iMyRegionTargetFXID;
 
 private:
-	bool m_bZonePointerActive;
 	float m_fZonePointerRotRad;
 	float m_fZonePointerRadius;
+	float m_fZonePointerRadiusEffective;
 
 protected:
 	bool	CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkill);
@@ -124,9 +124,8 @@ public:
 	
 	void	Init();
 	void	Tick();
-	void	CancelZonePointer();
 	void	UpdateZonePointerPositions();
-
+	void	CancelZonePointer();
 
 	CMagicSkillMng();
 	CMagicSkillMng(CGameProcMain* pGameProcMain);
