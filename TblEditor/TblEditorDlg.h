@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-#include "ListCtrlEx.h"
+#include "TblListCtrl.h"
 
 class CTblEditorBase;
 class CTblEditorDlg : public CDialogEx
@@ -15,7 +15,7 @@ public:
 	~CTblEditorDlg() override;
 
 	CStatic			m_staticText; // status message
-	CListCtrlEx		m_ListCtrl;
+	CTblListCtrl	m_ListCtrl;
 	CEdit			m_editCell;
 	CEdit			m_Edit;
 
@@ -44,7 +44,6 @@ protected:
 // Implementation
 protected:
 	HICON m_hIcon;
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();

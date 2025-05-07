@@ -2,16 +2,16 @@
 
 #include <afxcmn.h>
 
-class CListCtrlEx : public CListCtrl
+class CTblListCtrl : public CListCtrl
 {
 	DECLARE_MESSAGE_MAP()
 
-	class CEditEx : public CEdit
+	class CInPlaceEdit : public CEdit
 	{
 		DECLARE_MESSAGE_MAP()
 
 	public:
-		CEditEx()
+		CInPlaceEdit()
 		{
 			m_iLeft = 0;
 		}
@@ -31,7 +31,7 @@ class CListCtrlEx : public CListCtrl
 	};
 
 public:
-	CListCtrlEx();
+	CTblListCtrl();
 
 protected:
 	afx_msg void OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult);
@@ -41,7 +41,7 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 
 protected:
-	CEditEx	m_edit;
+	CInPlaceEdit	m_edit;
 
 	int		m_iItem;
 	int		m_iSubItem;

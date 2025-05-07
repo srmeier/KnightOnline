@@ -334,23 +334,6 @@ void CTblEditorDlg::OnBnClickedBtnAddRow()
 	m_ListCtrl.EnsureVisible(iInsertIndex, FALSE);
 }
 
-BOOL CTblEditorDlg::PreTranslateMessage(MSG* pMsg)
-{
-	if (pMsg->message == WM_KEYDOWN)
-	{
-		// Ignore SHIFT+ENTER (may not really be necessary, but we're mostly just replacing the old logic)
-		// TODO: Support multiline edit controls to begin with.
-		if (pMsg->wParam == VK_RETURN)
-		{
-			if ((GetAsyncKeyState(VK_LSHIFT) & 0x8000)
-				|| (GetAsyncKeyState(VK_RSHIFT) & 0x8000))
-				return TRUE;
-		}
-	}
-
-	return CDialogEx::PreTranslateMessage(pMsg);
-}
-
 // If you add a minimize button to your dialog, you will need the code below
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
