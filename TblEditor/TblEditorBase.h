@@ -23,7 +23,7 @@ class CTblEditorBase
 public:
 	CTblEditorBase();
 	virtual ~CTblEditorBase();
-	bool LoadFile(const CString& path);
+	bool LoadFile(const CString& path, CString& errorMsg);
 	bool SaveFile(const CString& path, const std::map<int, std::vector<CString>>& newData);
 	CString GetColumnDefault(int iColNo) const;
 	CString GetColumnName(int iColNo) const;

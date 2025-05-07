@@ -151,9 +151,10 @@ void CTblEditorDlg::InsertRows(
 
 void CTblEditorDlg::LoadTable(const CString& path)
 {
-	if (!m_pTblBase->LoadFile(path))
+	CString errorMsg;
+	if (!m_pTblBase->LoadFile(path, errorMsg))
 	{
-		AfxMessageBox(IDS_ERROR_FILE_NOT_OPENED, MB_ICONERROR);
+		AfxMessageBox(errorMsg, MB_ICONERROR);
 		return;
 	}
 

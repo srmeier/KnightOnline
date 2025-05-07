@@ -1,7 +1,13 @@
 ﻿#include "StdAfx.h"
 #include "TblEditorBase.h"
+#include "resource.h"
+
 #include <vector>
 #include <map>
+
+static constexpr int MAX_COLUMN_COUNT	= 10'000;
+static constexpr int MAX_ROW_COUNT		= 100'000;
+static constexpr int MAX_STRING_LENGTH	= 50'000;
 
 struct WriteBuffer : std::vector<uint8_t>
 {
@@ -174,11 +180,13 @@ bool CTblEditorBase::SaveFile(
 }
 
 bool CTblEditorBase::LoadFile(
-	const CString& path)
+	const CString& path,
+	CString& errorMsg)
 {
 	if (path.IsEmpty())
 	{
 		TRACE("Path is empty");
+		errorMsg.LoadString(IDS_ERROR_INVALID_FILE_PATH);
 		return false;
 	}
 
@@ -186,6 +194,7 @@ bool CTblEditorBase::LoadFile(
 	if (hFile == INVALID_HANDLE_VALUE)
 	{
 		TRACE("Failed to open file: '%s'\n", path);
+		errorMsg.Format(IDS_ERROR_FAILED_TO_OPEN_FILE, path);
 		return false;
 	}
 
@@ -199,6 +208,8 @@ bool CTblEditorBase::LoadFile(
 
 		CloseHandle(hFile);
 		::_tremove(TemporaryPath);
+
+		errorMsg.LoadString(IDS_ERROR_INVALID_FILE_SIZE);
 		return false;
 	}
 
@@ -226,6 +237,7 @@ bool CTblEditorBase::LoadFile(
 	if (hFile == INVALID_HANDLE_VALUE)
 	{
 		delete[] pDatas;
+		errorMsg.Format(IDS_ERROR_FAILED_TO_OPEN_TEMP_FILE_FOR_WRITING, path);
 		return false;
 	}
 
@@ -241,6 +253,10 @@ bool CTblEditorBase::LoadFile(
 	if (hFile != INVALID_HANDLE_VALUE)
 	{
 		ret = LoadRowData(hFile);
+
+		if (!ret)
+			errorMsg.LoadString(IDS_ERROR_UNSUPPORTED_TABLE);
+
 		CloseHandle(hFile);
 	}
 
@@ -267,7 +283,8 @@ bool CTblEditorBase::LoadRowData(
 
 	TRACE("Columns: %d\n", iDataTypeCount);
 
-	if (iDataTypeCount <= 0)
+	if (iDataTypeCount <= 0
+		|| iDataTypeCount > MAX_COLUMN_COUNT)
 	{
 		TRACE("Invalid column count.\n");
 		return false;
@@ -304,6 +321,12 @@ bool CTblEditorBase::LoadRowData(
 
 	TRACE("Row count: %d\n", iRowCount);
 
+	if (iRowCount < 0
+		|| iRowCount > MAX_ROW_COUNT)
+	{
+		TRACE("Invalid row count.\n");
+		return false;
+	}
 	// Now that we've read the datatypes and the row count, we can read the row data.
 	m_Rows.clear();
 
@@ -442,7 +465,8 @@ bool CTblEditorBase::LoadRowData(
 					TRACE("Row %d, Column %d: String length = %d\n", iRowNo, iColNo, iStrLen);
 
 					// Invalid string length
-					if (iStrLen < 0)
+					if (iStrLen < 0
+						|| iStrLen > MAX_STRING_LENGTH)
 					{
 						TRACE("Row %d, Column %d: DT_STRING = (invalid string)\n", iRowNo, iColNo);
 						return false;
