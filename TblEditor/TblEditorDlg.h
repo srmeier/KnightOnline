@@ -12,17 +12,14 @@ public:
 	CTblEditorDlg(CWnd* pParent = nullptr);	// standard constructor
 	~CTblEditorDlg() override;
 
-	CStatic m_staticText; //bilgi mesajı
-	CListCtrl m_ListCtrl; //list
-	CEdit m_editCell;
-	CButton m_btnOk;
-	CButton m_btnSave;
+	CStatic		m_staticText; // status message
+	CListCtrl	m_ListCtrl;
+	CEdit		m_editCell;
+	CEdit		m_Edit;
 
 	CTblEditorBase* m_pTblBase;
 
-	afx_msg void OnFileOpen();
-
-	//for editting
+	// for editing
 	int m_iEditItem;
 	int m_iEditSubItem;
 
@@ -39,8 +36,6 @@ protected:
 	void InsertRows(const std::map<int, std::vector<CString>>& datas);
 	void LoadTable(const CString& path);
 
-	CEdit m_Edit;
-
 // Implementation
 protected:
 	HICON m_hIcon;
@@ -54,8 +49,11 @@ protected:
 	afx_msg void OnEnKillfocusEditCell();
 	afx_msg void OnBnClickedOkButton();
 
-	afx_msg void OnBnClickedSaveButton();
 	afx_msg void OnBnClickedBtnAddRow();
+
+	afx_msg void OnFileOpen();
+	afx_msg void OnFileSave();
+	afx_msg void OnExit();
 
 	DECLARE_MESSAGE_MAP()
 public:

@@ -40,19 +40,19 @@ void CTblEditorDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_ListCtrl);
 	DDX_Control(pDX, IDC_EDIT1, m_editCell);
-	DDX_Control(pDX, IDC_BUTTON1, m_btnOk);
-	DDX_Control(pDX, IDC_BUTTON2, m_btnSave);
 }
 
 BEGIN_MESSAGE_MAP(CTblEditorDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_COMMAND(ID_FILE_OPEN, &CTblEditorDlg::OnFileOpen)
-	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CTblEditorDlg::OnNMDblclkListCtrl)  // Double click to select list item for editing
-	ON_EN_KILLFOCUS(IDC_EDIT1, &CTblEditorDlg::OnEnKillfocusEditCell)
-	ON_BN_CLICKED(IDC_BUTTON1, &CTblEditorDlg::OnBnClickedOkButton)
-	ON_BN_CLICKED(IDC_BUTTON2, &CTblEditorDlg::OnBnClickedSaveButton)
-	ON_BN_CLICKED(IDC_BUTTON3, &CTblEditorDlg::OnBnClickedBtnAddRow)
+	ON_COMMAND(ID_FILE_OPEN, &OnFileOpen)
+	ON_COMMAND(ID_FILE_SAVE, &OnFileSave)
+	ON_COMMAND(ID_ACCELERATOR_SAVE, &OnFileSave)
+	ON_COMMAND(ID_EXIT, &OnExit)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &OnNMDblclkListCtrl)  // Double click to select list item for editing
+	ON_EN_KILLFOCUS(IDC_EDIT1, &OnEnKillfocusEditCell)
+	ON_BN_CLICKED(IDC_BUTTON1, &OnBnClickedOkButton)
+	ON_BN_CLICKED(IDC_BUTTON3, &OnBnClickedBtnAddRow)
 	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
@@ -82,33 +82,6 @@ BOOL CTblEditorDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
-}
-
-void CTblEditorDlg::OnFileOpen()
-{
-	CFileDialog dlg(
-		TRUE,
-		nullptr,
-		nullptr,
-		OFN_FILEMUSTEXIST,
-		_T("Tbl Files (*.tbl)|*.tbl|All Files (*.*)|*.*||"));
-	if (dlg.DoModal() != IDOK)
-		return;
-
-	// get file full path
-	CString path = dlg.GetPathName();
-
-	// get file extension
-	CString extension = dlg.GetFileExt();
-	extension.MakeLower();
-
-	if (extension != _T("tbl"))
-	{
-		AfxMessageBox(IDS_ERROR_WRONG_FILE_FORMAT, MB_ICONERROR);
-		return;
-	}
-
-	CTblEditorDlg::LoadTable(path);
 }
 
 void CTblEditorDlg::InsertRows(
@@ -197,13 +170,12 @@ void CTblEditorDlg::LoadTable(const CString& path)
 	m_OriginalData.clear();
 	m_OriginalData.resize(nItemCount);
 
-	for (int i = 0; i < nItemCount; ++i)
+	for (int i = 0; i < nItemCount; i++)
 	{
 		m_OriginalData[i].resize(nSubItemCount);
-		for (int j = 0; j < nSubItemCount; ++j)
-		{
+
+		for (int j = 0; j < nSubItemCount; j++)
 			m_OriginalData[i][j] = m_ListCtrl.GetItemText(i, j);
-		}
 	}
 }
 
@@ -247,7 +219,34 @@ void CTblEditorDlg::OnBnClickedOkButton()
 	m_ListCtrl.UpdateWindow();
 }
 
-void CTblEditorDlg::OnBnClickedSaveButton()
+void CTblEditorDlg::OnFileOpen()
+{
+	CFileDialog dlg(
+		TRUE,
+		nullptr,
+		nullptr,
+		OFN_FILEMUSTEXIST,
+		_T("Tbl Files (*.tbl)|*.tbl|All Files (*.*)|*.*||"));
+	if (dlg.DoModal() != IDOK)
+		return;
+
+	// get file full path
+	CString path = dlg.GetPathName();
+
+	// get file extension
+	CString extension = dlg.GetFileExt();
+	extension.MakeLower();
+
+	if (extension != _T("tbl"))
+	{
+		AfxMessageBox(IDS_ERROR_WRONG_FILE_FORMAT, MB_ICONERROR);
+		return;
+	}
+
+	CTblEditorDlg::LoadTable(path);
+}
+
+void CTblEditorDlg::OnFileSave()
 {
 	if (m_ListCtrl.GetItemCount() == 0)
 	{
@@ -317,6 +316,12 @@ void CTblEditorDlg::OnBnClickedSaveButton()
 	AfxMessageBox(IDS_SAVE_SUCCESS, MB_ICONINFORMATION);
 }
 
+void CTblEditorDlg::OnExit()
+{
+	// TODO: Determine if a save is warranted and prompt
+	PostQuitMessage(0);
+}
+
 void CTblEditorDlg::OnBnClickedBtnAddRow()
 {
 	int iColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
@@ -344,7 +349,8 @@ BOOL CTblEditorDlg::PreTranslateMessage(MSG* pMsg)
 	if (pMsg->message == WM_KEYDOWN)
 	{
 		// Avoid closing program with enter and ESC keys
-		if (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE)
+		if (pMsg->wParam == VK_RETURN
+			|| pMsg->wParam == VK_ESCAPE)
 			return TRUE;
 	}
 

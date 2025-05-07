@@ -55,6 +55,7 @@ CTblEditorApp::CTblEditorApp()
 
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
+	m_hAccelTable = nullptr;
 }
 
 // The one and only CTblEditorApp object
@@ -75,7 +76,6 @@ BOOL CTblEditorApp::InitInstance()
 
 	CWinApp::InitInstance();
 
-
 	AfxEnableControlContainer();
 
 	// Create the shell manager, in case the dialog contains
@@ -93,6 +93,10 @@ BOOL CTblEditorApp::InitInstance()
 	// TODO: You should modify this string to be something appropriate
 	// such as the name of your company or organization
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
+
+	m_hAccelTable = LoadAccelerators(
+		AfxGetInstanceHandle(),
+		MAKEINTRESOURCE(IDR_ACCELERATOR));
 
 	CTblEditorDlg dlg;
 	m_pMainWnd = &dlg;
@@ -114,10 +118,7 @@ BOOL CTblEditorApp::InitInstance()
 	}
 
 	// Delete the shell manager created above.
-	if (pShellManager != nullptr)
-	{
-		delete pShellManager;
-	}
+	delete pShellManager;
 
 #if !defined(_AFXDLL) && !defined(_AFX_NO_MFC_CONTROLS_IN_DIALOGS)
 	ControlBarCleanUp();
@@ -133,4 +134,19 @@ void CTblEditorApp::OnAppAbout()
 {
 	CAboutDlg aboutDlg;
 	aboutDlg.DoModal();
+}
+
+BOOL CTblEditorApp::ProcessMessageFilter(
+	int code,
+	LPMSG lpMsg) 
+{
+	if (code >= 0
+		&& m_pMainWnd != nullptr
+		&& m_hAccelTable != nullptr)
+	{
+		if (TranslateAccelerator(m_pMainWnd->m_hWnd, m_hAccelTable, lpMsg)) 
+			return(TRUE);
+	}
+
+	return CWinApp::ProcessMessageFilter(code, lpMsg);
 }
