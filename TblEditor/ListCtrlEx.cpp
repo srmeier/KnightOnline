@@ -36,6 +36,11 @@ void CListCtrlEx::OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 		CRect itemRect;
 		GetSubItemRect(pDispInfo->item.iItem, 0, LVIR_LABEL, itemRect);
 
+		// TODO: Handle this properly; but we're just trying to align this back to its original
+		// intended position (where it gets drawn by Windows).
+		itemRect.left += 2;
+		itemRect.top += 2;
+
 		CString originalText = GetItemText(m_iItem, 0);
 		m_static.Create(originalText, WS_VISIBLE | SS_LEFT, itemRect, this);
 		m_static.SetFont(GetFont());
