@@ -9,8 +9,9 @@
 #define IDS_ERROR_WRONG_FILE_FORMAT     102
 #define IDS_ERROR_FILE_NOT_OPENED       103
 #define IDS_ERROR_NO_DATA_FOUND         104
-#define IDS_SAVE_SUCCESS                105
-#define IDS_SAVE_FAILED                 106
+#define IDS_SAVE_SUCCESS                104
+#define IDS_SAVE_FAILED                 105
+#define IDS_CONFIRM_EXIT                106
 #define IDR_MAINFRAME                   128
 #define IDR_MENU1                       130
 #define IDR_ACCELERATOR                 132
