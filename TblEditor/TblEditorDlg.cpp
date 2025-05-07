@@ -338,10 +338,14 @@ BOOL CTblEditorDlg::PreTranslateMessage(MSG* pMsg)
 {
 	if (pMsg->message == WM_KEYDOWN)
 	{
-		// Avoid closing program with enter and ESC keys
-		if (pMsg->wParam == VK_RETURN
-			|| pMsg->wParam == VK_ESCAPE)
-			return TRUE;
+		// Ignore SHIFT+ENTER (may not really be necessary, but we're mostly just replacing the old logic)
+		// TODO: Support multiline edit controls to begin with.
+		if (pMsg->wParam == VK_RETURN)
+		{
+			if ((GetAsyncKeyState(VK_LSHIFT) & 0x8000)
+				|| (GetAsyncKeyState(VK_RSHIFT) & 0x8000))
+				return TRUE;
+		}
 	}
 
 	return CDialogEx::PreTranslateMessage(pMsg);
