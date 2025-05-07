@@ -49,6 +49,7 @@ BEGIN_MESSAGE_MAP(CTblEditorDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
+	ON_COMMAND(ID_FILE_SAVE_AS, OnFileSaveAs)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, OnFileSave)
 	ON_COMMAND(ID_EXIT, OnMenuExit)
 	ON_COMMAND(ID_ENCODING_KOREAN, OnSetEncoding_Korean)
@@ -321,6 +322,14 @@ void CTblEditorDlg::OnFileOpen()
 }
 
 void CTblEditorDlg::OnFileSave()
+{
+	if (!m_bIsFileLoaded)
+		return;
+
+	SaveTable(m_strLoadedPath, true);
+}
+
+void CTblEditorDlg::OnFileSaveAs()
 {
 	if (!m_bIsFileLoaded)
 		return;

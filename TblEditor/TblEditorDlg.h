@@ -56,6 +56,7 @@ protected:
 	afx_msg void OnBnClickedBtnAddRow();
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
+	afx_msg void OnFileSaveAs();
 	afx_msg void OnSetEncoding_Korean();
 	afx_msg void OnSetEncoding_EnglishUS();
 	afx_msg void OnSetEncoding_Turkish();
