@@ -18,12 +18,16 @@ public:
 
 // Overrides
 public:
-	virtual BOOL InitInstance();
+	BOOL InitInstance() override;
+	BOOL ProcessMessageFilter(int code, LPMSG lpMsg) override;
 
 // Implementation
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnAppAbout();
+
+protected:
+	HACCEL m_hAccelTable;
 };
 
 extern CTblEditorApp theApp;
