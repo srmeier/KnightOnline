@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 
+#include "ListCtrlEx.h"
+
 class CTblEditorBase;
 class CTblEditorDlg : public CDialogEx
 {
@@ -13,7 +15,7 @@ public:
 	~CTblEditorDlg() override;
 
 	CStatic			m_staticText; // status message
-	CListCtrl		m_ListCtrl;
+	CListCtrlEx		m_ListCtrl;
 	CEdit			m_editCell;
 	CEdit			m_Edit;
 
@@ -45,13 +47,7 @@ protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
-
-	afx_msg void OnNMDblclkListCtrl(NMHDR* pNMHDR, LRESULT* pResult);
-	afx_msg void OnEnKillfocusEditCell();
-	afx_msg void OnBnClickedOkButton();
-
 	afx_msg void OnBnClickedBtnAddRow();
-
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
 	afx_msg void OnExit();

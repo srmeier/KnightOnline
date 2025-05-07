@@ -35,7 +35,6 @@ void CTblEditorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_ListCtrl);
-	DDX_Control(pDX, IDC_EDIT1, m_editCell);
 }
 
 BEGIN_MESSAGE_MAP(CTblEditorDlg, CDialogEx)
@@ -45,10 +44,7 @@ BEGIN_MESSAGE_MAP(CTblEditorDlg, CDialogEx)
 	ON_COMMAND(ID_FILE_SAVE, &OnFileSave)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &OnFileSave)
 	ON_COMMAND(ID_EXIT, &OnExit)
-	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &OnNMDblclkListCtrl)  // Double click to select list item for editing
-	ON_EN_KILLFOCUS(IDC_EDIT1, &OnEnKillfocusEditCell)
-	ON_BN_CLICKED(IDC_BUTTON1, &OnBnClickedOkButton)
-	ON_BN_CLICKED(IDC_BUTTON3, &OnBnClickedBtnAddRow)
+	ON_BN_CLICKED(IDC_BTN_ADD_ROW, &OnBnClickedBtnAddRow)
 	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
@@ -65,6 +61,8 @@ BOOL CTblEditorDlg::OnInitDialog()
 		LVS_EX_GRIDLINES |
 		LVS_EX_SUBITEMIMAGES |
 		LVS_EX_ONECLICKACTIVATE);
+
+	m_ListCtrl.ModifyStyle(0, LVS_EDITLABELS);
 
 	CMenu* pMenu = new CMenu();
 	if (pMenu->LoadMenu(IDR_MENU1)) // IDR_MENU1
@@ -175,52 +173,6 @@ void CTblEditorDlg::LoadTable(const CString& path)
 	}
 
 	m_bIsFileLoaded = true;
-}
-
-void CTblEditorDlg::OnNMDblclkListCtrl(NMHDR* pNMHDR, LRESULT* pResult)
-{
-	LPNMITEMACTIVATE pNMItemActivate = (LPNMITEMACTIVATE) pNMHDR;
-	if (pNMItemActivate->iItem != -1)
-	{
-		// Load text from cell to edit control
-		CString strText = m_ListCtrl.GetItemText(pNMItemActivate->iItem, pNMItemActivate->iSubItem);
-		m_editCell.SetWindowText(strText);
-		m_editCell.SetFocus();
-
-		m_iEditItem = pNMItemActivate->iItem;
-		m_iEditSubItem = pNMItemActivate->iSubItem;
-	}
-
-	*pResult = 0;
-}
-
-void CTblEditorDlg::OnEnKillfocusEditCell()
-{
-	if (!m_bIsFileLoaded)
-		return;
-
-	CString strText;
-	m_editCell.GetWindowText(strText); // Get text from edit box
-
-	// Update cell in list control with text
-	m_ListCtrl.SetItemText(m_iEditItem, m_iEditSubItem, strText);
-}
-
-void CTblEditorDlg::OnBnClickedOkButton()
-{
-	if (!m_bIsFileLoaded)
-		return;
-
-	// Get text from edit controll
-	CString strText;
-	m_editCell.GetWindowText(strText);
-
-	// Update Clist with new text
-	m_ListCtrl.SetItemText(m_iEditItem, m_iEditSubItem, strText);
-
-	// Forcefully update the list
-	m_ListCtrl.RedrawItems(m_iEditItem, m_iEditItem);
-	m_ListCtrl.UpdateWindow();
 }
 
 void CTblEditorDlg::OnFileOpen()
