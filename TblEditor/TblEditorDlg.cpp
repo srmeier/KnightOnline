@@ -23,11 +23,12 @@ constexpr int MAX_COLUMN_WIDTH = 300; // Allow maximum width of 300px
 CTblEditorDlg::CTblEditorDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TBLEDITOR_DIALOG, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	m_pTblBase = new CTblEditorBase();
+	m_hIcon			= AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_pTblBase		= new CTblEditorBase();
 
-	m_iEditItem = 0;
-	m_iEditSubItem = 0;
+	m_bIsFileLoaded	= false;
+	m_iEditItem		= 0;
+	m_iEditSubItem	= 0;
 }
 
 CTblEditorDlg::~CTblEditorDlg()
@@ -177,6 +178,8 @@ void CTblEditorDlg::LoadTable(const CString& path)
 		for (int j = 0; j < nSubItemCount; j++)
 			m_OriginalData[i][j] = m_ListCtrl.GetItemText(i, j);
 	}
+
+	m_bIsFileLoaded = true;
 }
 
 void CTblEditorDlg::OnNMDblclkListCtrl(NMHDR* pNMHDR, LRESULT* pResult)
@@ -184,7 +187,7 @@ void CTblEditorDlg::OnNMDblclkListCtrl(NMHDR* pNMHDR, LRESULT* pResult)
 	LPNMITEMACTIVATE pNMItemActivate = (LPNMITEMACTIVATE) pNMHDR;
 	if (pNMItemActivate->iItem != -1)
 	{
-		// Load text from cell to edit controll
+		// Load text from cell to edit control
 		CString strText = m_ListCtrl.GetItemText(pNMItemActivate->iItem, pNMItemActivate->iSubItem);
 		m_editCell.SetWindowText(strText);
 		m_editCell.SetFocus();
@@ -198,6 +201,9 @@ void CTblEditorDlg::OnNMDblclkListCtrl(NMHDR* pNMHDR, LRESULT* pResult)
 
 void CTblEditorDlg::OnEnKillfocusEditCell()
 {
+	if (!m_bIsFileLoaded)
+		return;
+
 	CString strText;
 	m_editCell.GetWindowText(strText); // Get text from edit box
 
@@ -207,6 +213,9 @@ void CTblEditorDlg::OnEnKillfocusEditCell()
 
 void CTblEditorDlg::OnBnClickedOkButton()
 {
+	if (!m_bIsFileLoaded)
+		return;
+
 	// Get text from edit controll
 	CString strText;
 	m_editCell.GetWindowText(strText);
@@ -243,11 +252,14 @@ void CTblEditorDlg::OnFileOpen()
 		return;
 	}
 
-	CTblEditorDlg::LoadTable(path);
+	LoadTable(path);
 }
 
 void CTblEditorDlg::OnFileSave()
 {
+	if (!m_bIsFileLoaded)
+		return;
+
 	if (m_ListCtrl.GetItemCount() == 0)
 	{
 		AfxMessageBox(IDS_ERROR_NO_DATA_FOUND, MB_ICONERROR);
@@ -318,12 +330,19 @@ void CTblEditorDlg::OnFileSave()
 
 void CTblEditorDlg::OnExit()
 {
-	// TODO: Determine if a save is warranted and prompt
+	if (m_bIsFileLoaded)
+	{
+		// TODO: Determine if a save is warranted and prompt
+	}
+
 	PostQuitMessage(0);
 }
 
 void CTblEditorDlg::OnBnClickedBtnAddRow()
 {
+	if (!m_bIsFileLoaded)
+		return;
+
 	int iColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
 	int iSelectedIndex = m_ListCtrl.GetSelectionMark();
 	int iInsertIndex = (iSelectedIndex >= 0) ? iSelectedIndex + 1 : m_ListCtrl.GetItemCount();
