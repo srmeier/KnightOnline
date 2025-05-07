@@ -18,12 +18,13 @@ constexpr int MAX_COLUMN_WIDTH = 300; // Allow maximum width of 300px
 CTblEditorDlg::CTblEditorDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TBLEDITOR_DIALOG, pParent)
 {
-	m_hIcon			= AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	m_pTblBase		= new CTblEditorBase();
+	m_hIcon				= AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_pTblBase			= new CTblEditorBase();
 
-	m_bIsFileLoaded	= false;
-	m_iEditItem		= 0;
-	m_iEditSubItem	= 0;
+	m_bIsFileLoaded		= false;
+	m_bIsFileModified	= false;
+	m_iEditItem			= 0;
+	m_iEditSubItem		= 0;
 }
 
 CTblEditorDlg::~CTblEditorDlg()
@@ -43,9 +44,10 @@ BEGIN_MESSAGE_MAP(CTblEditorDlg, CDialogEx)
 	ON_COMMAND(ID_FILE_OPEN, &OnFileOpen)
 	ON_COMMAND(ID_FILE_SAVE, &OnFileSave)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &OnFileSave)
-	ON_COMMAND(ID_EXIT, &OnExit)
+	ON_COMMAND(ID_EXIT, &OnMenuExit)
 	ON_BN_CLICKED(IDC_BTN_ADD_ROW, &OnBnClickedBtnAddRow)
 	ON_WM_SIZE()
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 // CTblEditorDlg message handlers
@@ -155,24 +157,77 @@ void CTblEditorDlg::LoadTable(const CString& path)
 		return;
 	}
 
+	m_strLoadedPath = path;
+
 	InsertRows(m_pTblBase->m_Rows);
 
-	// Fill list than save data to compare later.
-	int nItemCount = m_ListCtrl.GetItemCount();
-	int nSubItemCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
+	m_bIsFileLoaded		= true;
+	m_bIsFileModified	= false;
+}
 
-	m_OriginalData.clear();
-	m_OriginalData.resize(nItemCount);
+bool CTblEditorDlg::SaveTable(
+	const CString& savePath,
+	bool bShowConfirmation)
+{
+	if (!m_bIsFileLoaded)
+		return true;
 
-	for (int i = 0; i < nItemCount; i++)
+	std::map<int, std::vector<CString>> newData;
+
+	int nRowCount = m_ListCtrl.GetItemCount();
+	int nColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
+
+	TRACE("ROW COUNT: %d", nRowCount);
+
+	for (int row = 0; row < nRowCount; ++row)
 	{
-		m_OriginalData[i].resize(nSubItemCount);
-
-		for (int j = 0; j < nSubItemCount; j++)
-			m_OriginalData[i][j] = m_ListCtrl.GetItemText(i, j);
+		// Don't save wrongly edited lines, for example ID = empty
+		CString strID = m_ListCtrl.GetItemText(row, 0);
+		strID.Trim();
+		if (strID.IsEmpty())
+		{
+			AfxMessageBox(_T("Controll the list, one or more item has no ID"));
+			return false;
+		}
 	}
 
-	m_bIsFileLoaded = true;
+	// Trace m_DataTypes if needed
+	TRACE("m_DataTypes:\n");
+	for (size_t i = 0; i < m_pTblBase->m_DataTypes.size(); i++)
+		TRACE("  [%zu] = %d\n", i, m_pTblBase->m_DataTypes[i]);
+
+	for (int iRowNo = 0; iRowNo < nRowCount; iRowNo++)
+	{
+		std::vector<CString> rowData;
+		rowData.reserve(m_pTblBase->m_DataTypes.size());
+
+		for (int iColNo = 0; iColNo < nColCount; iColNo++)
+		{
+			CString value = m_ListCtrl.GetItemText(iRowNo, iColNo);
+			if (value.IsEmpty())
+				value = m_pTblBase->GetColumnDefault(iColNo);
+
+			rowData.push_back(value);
+		}
+
+		newData.insert(std::make_pair(iRowNo, rowData));
+	}
+
+	if (!m_pTblBase->SaveFile(savePath, newData))
+	{
+		AfxMessageBox(IDS_SAVE_FAILED, MB_ICONERROR);
+		return false;
+	}
+
+	if (bShowConfirmation)
+		AfxMessageBox(IDS_SAVE_SUCCESS, MB_ICONINFORMATION);
+
+	// Only consider the file as no longer being modifeid if we saved over
+	// the same file we loaded.
+	if (savePath.CompareNoCase(m_strLoadedPath) == 0)
+		m_bIsFileModified = false;
+
+	return true;
 }
 
 void CTblEditorDlg::OnFileOpen()
@@ -207,12 +262,6 @@ void CTblEditorDlg::OnFileSave()
 	if (!m_bIsFileLoaded)
 		return;
 
-	if (m_ListCtrl.GetItemCount() == 0)
-	{
-		AfxMessageBox(IDS_ERROR_NO_DATA_FOUND, MB_ICONERROR);
-		return;
-	}
-
 	CFileDialog saveDlg(
 		FALSE,
 		_T("tbl"),
@@ -224,65 +273,41 @@ void CTblEditorDlg::OnFileSave()
 		return;
 
 	CString savePath = saveDlg.GetPathName();
-
-	std::map<int, std::vector<CString>> newData;
-
-	int nRowCount = m_ListCtrl.GetItemCount();
-	int nColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
-
-	TRACE("ROW COUNT: %d", nRowCount);
-
-	for (int row = 0; row < nRowCount; ++row)
-	{
-		// Don't save wrongly edited lines, for example ID = empty
-		CString strID = m_ListCtrl.GetItemText(row, 0);
-		strID.Trim();
-		if (strID.IsEmpty())
-		{
-			AfxMessageBox(_T("Controll the list, one or more item has no ID"));
-			return;
-		}
-	}
-
-	// Trace m_DataTypes if needed
-	TRACE("m_DataTypes:\n");
-	for (size_t i = 0; i < m_pTblBase->m_DataTypes.size(); i++)
-		TRACE("  [%zu] = %d\n", i, m_pTblBase->m_DataTypes[i]);
-
-	for (int iRowNo = 0; iRowNo < nRowCount; iRowNo++)
-	{
-		std::vector<CString> rowData;
-		rowData.reserve(m_pTblBase->m_DataTypes.size());
-
-		for (int iColNo = 0; iColNo < nColCount; iColNo++)
-		{
-			CString value = m_ListCtrl.GetItemText(iRowNo, iColNo);
-			if (value.IsEmpty())
-				value = m_pTblBase->GetColumnDefault(iColNo);
-
-			rowData.push_back(value);
-		}
-
-		newData.insert(std::make_pair(iRowNo, rowData));
-	}
-
-	if (!m_pTblBase->SaveFile(savePath, newData))
-	{
-		AfxMessageBox(IDS_SAVE_FAILED, MB_ICONERROR);
-		return;
-	}
-
-	AfxMessageBox(IDS_SAVE_SUCCESS, MB_ICONINFORMATION);
+	SaveTable(savePath, true);
 }
 
-void CTblEditorDlg::OnExit()
+void CTblEditorDlg::OnMenuExit()
 {
-	if (m_bIsFileLoaded)
+	PostQuitMessage(0);
+}
+
+void CTblEditorDlg::OnClose()
+{
+	if (m_bIsFileLoaded
+		&& m_bIsFileModified)
 	{
-		// TODO: Determine if a save is warranted and prompt
+		// Do you wish to save before exiting?
+		int iResult = AfxMessageBox(IDS_CONFIRM_EXIT, MB_YESNOCANCEL);
+		switch (iResult)
+		{
+			// Cancel: just abort the exit process.
+			case IDCANCEL:
+				return;
+
+			// Yes: Invoke a save; exit if successful.
+			case IDYES:
+				// Attempt to save. If it fails, abort the exit process.
+				if (!SaveTable(m_strLoadedPath, false))
+					return;
+				break;
+
+			// No: Don't bother saving, but continue to exit.
+			case IDNO:
+				break;
+		}
 	}
 
-	PostQuitMessage(0);
+	CDialogEx::OnClose();
 }
 
 void CTblEditorDlg::OnBnClickedBtnAddRow()

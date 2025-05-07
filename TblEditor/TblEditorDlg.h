@@ -21,7 +21,10 @@ public:
 
 	CTblEditorBase*	m_pTblBase;
 
+	CString			m_strLoadedPath;
+
 	bool			m_bIsFileLoaded;
+	bool			m_bIsFileModified;
 
 	// for editing
 	int				m_iEditItem;
@@ -34,10 +37,9 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
-	std::vector<std::vector<CString>> m_OriginalData;
-	void SetupColumns(const std::vector<CString>& columnNames);
 	void InsertRows(const std::map<int, std::vector<CString>>& datas);
 	void LoadTable(const CString& path);
+	bool SaveTable(const CString& savePath, bool bShowConfirmation);
 
 // Implementation
 protected:
@@ -50,7 +52,8 @@ protected:
 	afx_msg void OnBnClickedBtnAddRow();
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
-	afx_msg void OnExit();
+	afx_msg void OnMenuExit();
+	afx_msg void OnClose();
 
 	DECLARE_MESSAGE_MAP()
 public:
