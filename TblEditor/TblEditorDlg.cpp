@@ -13,7 +13,11 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-constexpr int MAX_COLUMN_WIDTH = 300; // Allow maximum width of 300px
+static constexpr int MAX_COLUMN_WIDTH		= 300; // Allow maximum width of 300px
+
+static constexpr int CODEPAGE_KOREAN		= 949;
+static constexpr int CODEPAGE_ENGLISH_US	= 1252;
+static constexpr int CODEPAGE_TURKISH		= 1254;
 
 CTblEditorDlg::CTblEditorDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TBLEDITOR_DIALOG, pParent)
@@ -25,6 +29,8 @@ CTblEditorDlg::CTblEditorDlg(CWnd* pParent /*=nullptr*/)
 	m_bIsFileModified	= false;
 	m_iEditItem			= 0;
 	m_iEditSubItem		= 0;
+
+	m_iStringCodePage	= CODEPAGE_KOREAN;
 }
 
 CTblEditorDlg::~CTblEditorDlg()
@@ -41,11 +47,14 @@ void CTblEditorDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CTblEditorDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_COMMAND(ID_FILE_OPEN, &OnFileOpen)
-	ON_COMMAND(ID_FILE_SAVE, &OnFileSave)
-	ON_COMMAND(ID_ACCELERATOR_SAVE, &OnFileSave)
-	ON_COMMAND(ID_EXIT, &OnMenuExit)
-	ON_BN_CLICKED(IDC_BTN_ADD_ROW, &OnBnClickedBtnAddRow)
+	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
+	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
+	ON_COMMAND(ID_ACCELERATOR_SAVE, OnFileSave)
+	ON_COMMAND(ID_EXIT, OnMenuExit)
+	ON_COMMAND(ID_ENCODING_KOREAN, OnSetEncoding_Korean)
+	ON_COMMAND(ID_ENCODING_ENGLISH_US, OnSetEncoding_EnglishUS)
+	ON_COMMAND(ID_ENCODING_TURKISH, OnSetEncoding_Turkish)
+	ON_BN_CLICKED(IDC_BTN_ADD_ROW, OnBnClickedBtnAddRow)
 	ON_WM_SIZE()
 	ON_WM_CLOSE()
 END_MESSAGE_MAP()
@@ -78,9 +87,11 @@ BOOL CTblEditorDlg::OnInitDialog()
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
-void CTblEditorDlg::InsertRows(
-	const std::map<int, std::vector<CString>>& rows)
+void CTblEditorDlg::RefreshTable()
 {
+	const std::map<int, std::vector<CStringA>>& rows
+		= m_pTblBase->m_Rows;
+
 	m_ListCtrl.DeleteAllItems();
 
 	int nColumnCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
@@ -113,14 +124,16 @@ void CTblEditorDlg::InsertRows(
 	// Add rows and measure contents
 	for (const auto& it : rows)
 	{
-		int rowIndex = it.first;
-		const std::vector<CString>& fields = it.second;
-
-		CString firstField;
-		if (!fields.empty())
-			firstField = fields[0];
-
 		constexpr int Padding = 10;
+
+		int rowIndex = it.first;
+		const std::vector<CStringA>& fields = it.second;
+
+		CStringA firstFieldA;
+		if (!fields.empty())
+			firstFieldA = fields[0];
+
+		CString firstField = DecodeField(firstFieldA, 0);
 
 		int nItem = m_ListCtrl.InsertItem(rowIndex, firstField);
 
@@ -130,7 +143,7 @@ void CTblEditorDlg::InsertRows(
 
 		for (size_t i = 1; i < fields.size() && i < columnCount; i++)
 		{
-			const CString& text = fields[i];
+			const CString& text = DecodeField(fields[i], i);
 			m_ListCtrl.SetItemText(nItem, static_cast<int>(i), text);
 
 			CSize size = dc.GetTextExtent(text);
@@ -147,6 +160,21 @@ void CTblEditorDlg::InsertRows(
 		m_ListCtrl.SetColumnWidth(static_cast<int>(i), columnWidths[i]);
 }
 
+CString CTblEditorDlg::DecodeField(
+	const CStringA& fieldA,
+	int iColNo)
+{
+	CString field;
+
+	DATA_TYPE columnType = m_pTblBase->GetColumnType(iColNo);
+	if (columnType == DT_STRING)
+		field = CA2T(fieldA, m_iStringCodePage);
+	else
+		field = fieldA;
+
+	return field;
+}
+
 void CTblEditorDlg::LoadTable(const CString& path)
 {
 	CString errorMsg;
@@ -158,10 +186,42 @@ void CTblEditorDlg::LoadTable(const CString& path)
 
 	m_strLoadedPath = path;
 
-	InsertRows(m_pTblBase->m_Rows);
+	RefreshTable();
 
 	m_bIsFileLoaded		= true;
 	m_bIsFileModified	= false;
+}
+
+void CTblEditorDlg::BuildTableForSave(
+	std::map<int, std::vector<CStringA>>& newRows)
+{
+	const int nRowCount = m_ListCtrl.GetItemCount();
+	const int nColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
+
+	for (int iRowNo = 0; iRowNo < nRowCount; iRowNo++)
+	{
+		std::vector<CStringA> rowData;
+		rowData.reserve(m_pTblBase->m_DataTypes.size());
+
+		for (int iColNo = 0; iColNo < nColCount; iColNo++)
+		{
+			CString value = m_ListCtrl.GetItemText(iRowNo, iColNo);
+			if (value.IsEmpty())
+				value = m_pTblBase->GetColumnDefault(iColNo);
+
+			CStringA valueA;
+
+			DATA_TYPE columnType = m_pTblBase->GetColumnType(iColNo);
+			if (columnType == DT_STRING)
+				valueA = CT2A(value, m_iStringCodePage);
+			else
+				valueA = value;
+
+			rowData.push_back(valueA);
+		}
+
+		newRows.insert(std::make_pair(iRowNo, rowData));
+	}
 }
 
 bool CTblEditorDlg::SaveTable(
@@ -171,10 +231,7 @@ bool CTblEditorDlg::SaveTable(
 	if (!m_bIsFileLoaded)
 		return true;
 
-	std::map<int, std::vector<CString>> newData;
-
-	int nRowCount = m_ListCtrl.GetItemCount();
-	int nColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
+	const int nRowCount = m_ListCtrl.GetItemCount();
 
 	TRACE("ROW COUNT: %d", nRowCount);
 
@@ -195,24 +252,10 @@ bool CTblEditorDlg::SaveTable(
 	for (size_t i = 0; i < m_pTblBase->m_DataTypes.size(); i++)
 		TRACE("  [%zu] = %d\n", i, m_pTblBase->m_DataTypes[i]);
 
-	for (int iRowNo = 0; iRowNo < nRowCount; iRowNo++)
-	{
-		std::vector<CString> rowData;
-		rowData.reserve(m_pTblBase->m_DataTypes.size());
+	std::map<int, std::vector<CStringA>> newRows;
+	BuildTableForSave(newRows);
 
-		for (int iColNo = 0; iColNo < nColCount; iColNo++)
-		{
-			CString value = m_ListCtrl.GetItemText(iRowNo, iColNo);
-			if (value.IsEmpty())
-				value = m_pTblBase->GetColumnDefault(iColNo);
-
-			rowData.push_back(value);
-		}
-
-		newData.insert(std::make_pair(iRowNo, rowData));
-	}
-
-	if (!m_pTblBase->SaveFile(savePath, newData))
+	if (!m_pTblBase->SaveFile(savePath, newRows))
 	{
 		AfxMessageBox(IDS_SAVE_FAILED, MB_ICONERROR);
 		return false;
@@ -227,6 +270,27 @@ bool CTblEditorDlg::SaveTable(
 		m_bIsFileModified = false;
 
 	return true;
+}
+
+void CTblEditorDlg::SetCodePage(
+	int codepage)
+{
+	CMenu* pMenu = GetMenu();
+	if (pMenu != nullptr)
+	{
+		pMenu->CheckMenuItem(ID_ENCODING_KOREAN,		codepage == CODEPAGE_KOREAN		? MF_CHECKED : MF_UNCHECKED);
+		pMenu->CheckMenuItem(ID_ENCODING_ENGLISH_US,	codepage == CODEPAGE_ENGLISH_US	? MF_CHECKED : MF_UNCHECKED);
+		pMenu->CheckMenuItem(ID_ENCODING_TURKISH,		codepage == CODEPAGE_TURKISH	? MF_CHECKED : MF_UNCHECKED);
+	}
+
+	// TODO: List should be backed by this row data to avoid all of this unnecessary work.
+	m_pTblBase->m_Rows.clear();
+	BuildTableForSave(m_pTblBase->m_Rows);
+
+	m_iStringCodePage = codepage;
+	RefreshTable();
+
+	UpdateData(TRUE);
 }
 
 void CTblEditorDlg::OnFileOpen()
@@ -273,6 +337,21 @@ void CTblEditorDlg::OnFileSave()
 
 	CString savePath = saveDlg.GetPathName();
 	SaveTable(savePath, true);
+}
+
+void CTblEditorDlg::OnSetEncoding_Korean()
+{
+	SetCodePage(CODEPAGE_KOREAN);
+}
+
+void CTblEditorDlg::OnSetEncoding_EnglishUS()
+{
+	SetCodePage(CODEPAGE_ENGLISH_US);
+}
+
+void CTblEditorDlg::OnSetEncoding_Turkish()
+{
+	SetCodePage(CODEPAGE_TURKISH);
 }
 
 void CTblEditorDlg::OnMenuExit()
