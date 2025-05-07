@@ -1112,6 +1112,7 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 {
 	//if(m_fRecastTime > 0.0f) return;//recast time이 아직 안되었네..^^
 	if(s_pPlayer->IsDead()) return false; // 죽어 있네.. ^^
+	CancelZonePointer();
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// 스킬 쓸 조건이 되는지 검사...
@@ -1263,6 +1264,44 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 			m_dwRegionSkill = (*pSkill);
 //			CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), 0, m_iMyRegionTargetFXID, m_pGameProcMain->m_vMouseLBClickedPos, m_iMyRegionTargetFXID);	//전격무기...
 			CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), 0, m_iMyRegionTargetFXID, m_pGameProcMain->m_vMouseSkillPos, m_iMyRegionTargetFXID);	//전격무기...
+			if (m_bZonePointerActive)
+			{
+				CancelZonePointer();
+			}
+			// Zone pointer circle FX 30002 with scaling
+			__TABLE_UPC_SKILL_TYPE_3* pType3 = m_pTbl_Type_3->Find(pSkill->dwID);
+			__TABLE_UPC_SKILL_TYPE_4* pType4 = m_pTbl_Type_4->Find(pSkill->dwID);
+			m_fZoneRadius = 5.0f;
+			if (pType3)
+			{
+				m_fZoneRadius = static_cast<float>(pType3->iRadius);
+			}
+			if (pType4)
+			{
+				m_fZoneRadius = static_cast<float>(pType4->iRadius);
+			}
+			// Start FX elements
+			for (int j = 0; j < 8; j++)
+			{
+				const float fAngle = D3DXToRadian(45.0f * j);
+				m_vZoneCenter = m_pGameProcMain->m_vMouseSkillPos;
+				m_vZoneCenter.y = CGameBase::ACT_WORLD->GetHeightWithTerrain(m_vZoneCenter.x, m_vZoneCenter.z) + 0.2f;
+				const __Vector3 vPos(
+					m_vZoneCenter.x + cosf(fAngle) * m_fZoneRadius,
+					m_vZoneCenter.y,
+					m_vZoneCenter.z + sinf(fAngle) * m_fZoneRadius
+				);
+
+				CGameProcedure::s_pFX->TriggerBundle(
+					s_pPlayer->IDNumber(),
+					0,
+					30002,       // Fixed FX ID
+					vPos,        // Initial position can't pass a 0 here and update it later...
+					30002 + j    // Unique index
+				);
+			}
+			m_bZonePointerActive = true;
+			m_fRotationSpeed = 60.0f; // Degrees per second
 			return true;
 		}
 	case SKILLMAGIC_TARGET_DEAD_FRIEND_ONLY:
@@ -1606,10 +1645,38 @@ void CMagicSkillMng::Tick()
 	ProcessCasting();
 	//TRACE("skillmagic tick state : %d time %.2f\n", s_pPlayer->State(), CN3Base::TimeGet());
 
+	if (m_bZonePointerActive) // Update rotation angle
+	{
+		// Get REAL-TIME mouse position
+		m_fRotationAngle += m_fRotationSpeed * CN3Base::s_fSecPerFrm;
+		m_fRotationAngle = fmod(m_fRotationAngle, 360.0f);
+
+		// Update all FX positions
+		for (int j = 0; j < 8; j++)
+		{
+			m_vZoneCenter = m_pGameProcMain->m_vMouseSkillPos;
+			const float fElementAngle = m_fRotationAngle + (45.0f * j);
+			const float fRadians = D3DXToRadian(fElementAngle);
+			m_vZoneCenter.y = CGameBase::ACT_WORLD->GetHeightWithTerrain(m_vZoneCenter.x, m_vZoneCenter.z) + 0.2f;
+			__Vector3 vNewPos(
+				m_vZoneCenter.x + cosf(fRadians) * m_fZoneRadius,
+				m_vZoneCenter.y,
+				m_vZoneCenter.z + sinf(fRadians) * m_fZoneRadius
+			);
+
+			// Update FX position using the index
+			CGameProcedure::s_pFX->SetBundlePos(
+				30002,          // FX ID
+				30002 + j,      // Index
+				vNewPos         // New position
+			);
+		}
+	}
 	if(m_dwRegionMagicState==2)
 	{
 		m_dwRegionMagicState = 0;
 		CGameProcedure::s_pFX->Stop(s_pPlayer->IDNumber(), s_pPlayer->IDNumber(), m_iMyRegionTargetFXID, m_iMyRegionTargetFXID, true);
+		CancelZonePointer();
 //		if( !CheckValidDistance(&m_dwRegionSkill, m_pGameProcMain->m_vMouseLBClickedPos, 0) ) return;
 //		StartSkillMagicAtPosPacket(&m_dwRegionSkill, m_pGameProcMain->m_vMouseLBClickedPos);		
 		if( !CheckValidDistance(&m_dwRegionSkill, m_pGameProcMain->m_vMouseSkillPos, 0) ) return;
@@ -1662,6 +1729,19 @@ void CMagicSkillMng::Tick()
 		}
 	}
 //	if(s_pPlayer->State()==PSA_SPELLMAGIC) 
+}
+
+// When cancelling the skill or changing modes
+void CMagicSkillMng::CancelZonePointer()
+{
+	if (m_bZonePointerActive)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			CGameProcedure::s_pFX->Stop(s_pPlayer->IDNumber(), 0, 30002, 30002 + j, true);
+		}
+		m_bZonePointerActive = false;
+	}
 }
 
 void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget)
@@ -1858,6 +1938,7 @@ void CMagicSkillMng::ProcessCasting()
 			if( s_pPlayer->m_fCastingTime >= fCastingTime && s_pPlayer->State()==PSA_SPELLMAGIC && s_pPlayer->StateMove()==PSM_STOP)
 			{
 				SuccessCast(pSkill, pTarget);
+				CancelZonePointer();
 				bSuccess = true;
 			}
 			
@@ -1865,6 +1946,7 @@ void CMagicSkillMng::ProcessCasting()
 			if(bSuccess == false && (s_pPlayer->State()!=PSA_SPELLMAGIC || s_pPlayer->StateMove()!=PSM_STOP))
 			{
 				FailCast(pSkill);
+				CancelZonePointer();
 			}
 		}
 		else s_pPlayer->m_dwMagicID = 0xffffffff;

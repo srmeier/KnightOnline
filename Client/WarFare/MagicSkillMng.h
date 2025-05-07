@@ -83,7 +83,12 @@ public:
 	//지역마법..
 	int						m_iMyRegionTargetFXID;
 
-
+private:
+	bool m_bZonePointerActive;
+	float m_fRotationAngle;
+	float m_fRotationSpeed;
+	__Vector3 m_vZoneCenter;
+	float m_fZoneRadius;
 
 protected:
 	bool	CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkill);
@@ -129,7 +134,9 @@ public:
 	void	MsgRecv_BuffType(Packet& pkt);
 	
 	void	Init();
-	void	Tick();	
+	void	Tick();
+	void	CancelZonePointer();
+
 
 	CMagicSkillMng();
 	CMagicSkillMng(CGameProcMain* pGameProcMain);
