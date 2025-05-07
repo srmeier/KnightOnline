@@ -1,9 +1,4 @@
-﻿
-// TblEditorDlg.cpp : implementation file
-//
-
-#include "stdafx.h"
-#include "framework.h"
+﻿#include "stdafx.h"
 #include "TblEditor.h"
 #include "TblEditorDlg.h"
 #include "afxdialogex.h"
