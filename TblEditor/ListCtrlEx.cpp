@@ -33,18 +33,6 @@ void CListCtrlEx::OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 
 		VERIFY(m_edit.SubclassWindow(hWnd));
 
-		CRect itemRect;
-		GetSubItemRect(pDispInfo->item.iItem, 0, LVIR_LABEL, itemRect);
-
-		// TODO: Handle this properly; but we're just trying to align this back to its original
-		// intended position (where it gets drawn by Windows).
-		itemRect.left += 2;
-		itemRect.top += 2;
-
-		CString originalText = GetItemText(m_iItem, 0);
-		m_static.Create(originalText, WS_VISIBLE | SS_LEFT, itemRect, this);
-		m_static.SetFont(GetFont());
-
 		CRect subItemRect;
 		GetSubItemRect(pDispInfo->item.iItem, m_iSubItem, LVIR_BOUNDS, subItemRect);
 
@@ -79,8 +67,6 @@ void CListCtrlEx::OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 			SetItemText(plvItem->iItem, m_iSubItem, plvItem->pszText);
 
 		VERIFY(m_edit.UnsubclassWindow() != nullptr);
-
-		m_static.DestroyWindow();
 
 		m_iSubItem = 0;
 
@@ -120,26 +106,51 @@ void CListCtrlEx::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 void CListCtrlEx::OnPaint()
 {
-	if (m_iSubItem != 0
-		&& m_edit.GetSafeHwnd() != nullptr)
+	if (m_iSubItem == 0
+		|| m_edit.GetSafeHwnd() == nullptr)
 	{
-		CRect rc, rcEdit;
+		CListCtrl::OnPaint();
+		return;
+	}
 
-		GetSubItemRect(m_iItem, m_iSubItem, LVIR_LABEL, rc);
-		m_edit.GetWindowRect(rcEdit);
-		ScreenToClient(rcEdit);
+	CRect rc, rcEdit;
 
-		// block text redraw of the subitems text (underneath the editcontrol)
-		// if we don't  do this and deleted some text in the edit control,
-		// the subitem's original label would show
-		if (rcEdit.right < rc.right)
-		{
-			rc.left = rcEdit.right;
-			ValidateRect(rc);
-		}
+	GetSubItemRect(m_iItem, m_iSubItem, LVIR_LABEL, rc);
+	m_edit.GetWindowRect(rcEdit);
+	ScreenToClient(rcEdit);
+
+	// block text redraw of the subitems text (underneath the editcontrol)
+	// if we don't  do this and deleted some text in the edit control,
+	// the subitem's original label would show
+	if (rcEdit.right < rc.right)
+	{
+		rc.left = rcEdit.right;
+		ValidateRect(rc);
 	}
 
 	CListCtrl::OnPaint();
+
+	CDC* pDC = GetDC();
+
+	CRect itemRect;
+	GetSubItemRect(m_iItem, 0, LVIR_LABEL, itemRect);
+
+	// TODO: Handle this properly; but we're just trying to align this back to its original
+	// intended position (where it gets drawn by Windows).
+	itemRect.left += 2;
+	itemRect.top += 2;
+
+	CString originalText = GetItemText(m_iItem, 0);
+	CFont* pFontPrev = pDC->SelectObject(GetFont());
+
+	pDC->SetBkColor(GetSysColor(COLOR_HIGHLIGHT));
+	pDC->SetTextColor(GetSysColor(COLOR_HIGHLIGHTTEXT));
+	
+	pDC->DrawText(originalText, &itemRect, DT_LEFT | DT_VCENTER);
+
+	pDC->SelectObject(pFontPrev);
+
+	ReleaseDC(pDC);
 }
 
 void CListCtrlEx::OnSize(UINT nType, int cx, int cy)
