@@ -1,6 +1,4 @@
 ﻿#include "stdafx.h"
-
-#include "framework.h"
 #include "TblEditor.h"
 #include "TblEditorDlg.h"
 
