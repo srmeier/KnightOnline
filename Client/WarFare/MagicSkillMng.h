@@ -1,13 +1,4 @@
-﻿// MagicSkillMng.h: interface for the CMagicSkillMng class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_MAGICSKILLMNG_H__2C75CDA2_45CC_495F_BCE9_ED2E7CB1B60E__INCLUDED_)
-#define AFX_MAGICSKILLMNG_H__2C75CDA2_45CC_495F_BCE9_ED2E7CB1B60E__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+﻿#pragma once
 
 #include "GameDef.h"
 #include "GameBase.h"
@@ -28,7 +19,7 @@ public:
 	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_4>*	m_pTbl_Type_4;
 //	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_5>*	m_pTbl_Type_5;
 //	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_6>*	m_pTbl_Type_6;
-//	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_7>*	m_pTbl_Type_7;
+	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_7>*	m_pTbl_Type_7;
 //	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_8>*	m_pTbl_Type_8;
 //	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_9>*	m_pTbl_Type_9;
 //	CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_10>*	m_pTbl_Type_10;
@@ -85,10 +76,8 @@ public:
 
 private:
 	bool m_bZonePointerActive;
-	float m_fRotationAngle;
-	float m_fRotationSpeed;
-	__Vector3 m_vZoneCenter;
-	float m_fZoneRadius;
+	float m_fZonePointerRotRad;
+	float m_fZonePointerRadius;
 
 protected:
 	bool	CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkill);
@@ -136,11 +125,10 @@ public:
 	void	Init();
 	void	Tick();
 	void	CancelZonePointer();
+	void	UpdateZonePointerPositions();
 
 
 	CMagicSkillMng();
 	CMagicSkillMng(CGameProcMain* pGameProcMain);
 	virtual ~CMagicSkillMng();
 };
-
-#endif // !defined(AFX_MAGICSKILLMNG_H__2C75CDA2_45CC_495F_BCE9_ED2E7CB1B60E__INCLUDED_)
