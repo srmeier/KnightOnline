@@ -14,16 +14,18 @@
 
 #include "My_3DStruct.h" // _ASSERT
 
+enum TBL_DATA_TYPE {DT_NONE, DT_CHAR, DT_BYTE, DT_SHORT, DT_WORD, DT_INT, DT_DWORD, DT_STRING, DT_FLOAT, DT_DOUBLE};
+
 template <typename Type> class CN3TableBase
 {
 public:
+	using DATA_TYPE = TBL_DATA_TYPE;
+
 	CN3TableBase();
 	virtual ~CN3TableBase();
 
 // Attributes
 protected:
-	enum DATA_TYPE {DT_NONE, DT_CHAR, DT_BYTE, DT_SHORT, DT_WORD, DT_INT, DT_DWORD, DT_STRING, DT_FLOAT, DT_DOUBLE};
-
 	typename std::vector<DATA_TYPE> m_DataTypes;	// 실제 사용되는 정보의 데이타 타입
 	typename std::map<uint32_t, Type> m_Datas; // 실제 사용되는 정보
 
