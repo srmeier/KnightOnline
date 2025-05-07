@@ -42,7 +42,6 @@ protected:
 
 protected:
 	CEditEx	m_edit;
-	CStatic	m_static;
 
 	int		m_iItem;
 	int		m_iSubItem;

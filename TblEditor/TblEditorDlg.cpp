@@ -64,10 +64,8 @@ BOOL CTblEditorDlg::OnInitDialog()
 		LVS_EX_SUBITEMIMAGES |
 		LVS_EX_ONECLICKACTIVATE);
 
-	m_ListCtrl.ModifyStyle(0, LVS_EDITLABELS);
-
 	CMenu* pMenu = new CMenu();
-	if (pMenu->LoadMenu(IDR_MENU1)) // IDR_MENU1
+	if (pMenu->LoadMenu(IDR_MENU1))
 		SetMenu(pMenu);
 
 	m_staticText.SubclassDlgItem(IDC_STATIC, this);
@@ -81,7 +79,7 @@ BOOL CTblEditorDlg::OnInitDialog()
 }
 
 void CTblEditorDlg::InsertRows(
-	const std::map<int, std::vector<CString>>& datas)
+	const std::map<int, std::vector<CString>>& rows)
 {
 	m_ListCtrl.DeleteAllItems();
 
@@ -113,26 +111,26 @@ void CTblEditorDlg::InsertRows(
 	}
 
 	// Add rows and measure contents
-	for (const auto& it : datas)
+	for (const auto& it : rows)
 	{
 		int rowIndex = it.first;
-		const std::vector<CString>& columns = it.second;
+		const std::vector<CString>& fields = it.second;
 
-		CString firstCol;
-		if (!columns.empty())
-			firstCol = columns[0];
+		CString firstField;
+		if (!fields.empty())
+			firstField = fields[0];
 
 		constexpr int Padding = 10;
 
-		int nItem = m_ListCtrl.InsertItem(rowIndex, firstCol);
+		int nItem = m_ListCtrl.InsertItem(rowIndex, firstField);
 
-		CSize size = dc.GetTextExtent(firstCol);
+		CSize size = dc.GetTextExtent(firstField);
 		if (size.cx + Padding > columnWidths[0])
 			columnWidths[0] = std::min<int>(size.cx + Padding, static_cast<int>(MAX_COLUMN_WIDTH));
 
-		for (size_t i = 1; i < columns.size() && i < columnCount; i++)
+		for (size_t i = 1; i < fields.size() && i < columnCount; i++)
 		{
-			const CString& text = columns[i];
+			const CString& text = fields[i];
 			m_ListCtrl.SetItemText(nItem, static_cast<int>(i), text);
 
 			CSize size = dc.GetTextExtent(text);
