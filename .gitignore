@@ -27,6 +27,7 @@ Client/data/
 *.sbr
 *.lib
 *.rej
+*.aps
 .vs/
 enc_temp_folder/
 ItemEditor/Item/
