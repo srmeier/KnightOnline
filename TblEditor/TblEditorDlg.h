@@ -12,17 +12,18 @@ public:
 	CTblEditorDlg(CWnd* pParent = nullptr);	// standard constructor
 	~CTblEditorDlg() override;
 
-	CStatic		m_staticText; // status message
-	CListCtrl	m_ListCtrl;
-	CEdit		m_editCell;
-	CEdit		m_Edit;
+	CStatic			m_staticText; // status message
+	CListCtrl		m_ListCtrl;
+	CEdit			m_editCell;
+	CEdit			m_Edit;
 
-	CTblEditorBase* m_pTblBase;
+	CTblEditorBase*	m_pTblBase;
+
+	bool			m_bIsFileLoaded;
 
 	// for editing
-	int m_iEditItem;
-	int m_iEditSubItem;
-
+	int				m_iEditItem;
+	int				m_iEditSubItem;
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
