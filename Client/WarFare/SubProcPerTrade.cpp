@@ -143,15 +143,20 @@ void CSubProcPerTrade::InitPerTradeDlg(CUIManager* pUIManager)
 void CSubProcPerTrade::EnterWaitMsgFromServerStatePerTradeReq()
 {
 	CPlayerOther* pTarget = s_pOPMgr->UPCGetByID(s_pPlayer->m_iIDTarget, false);
-	if(NULL == pTarget) return;
+	if (pTarget == nullptr)
+		return;
 
 	m_ePerTradeState = PER_TRADE_STATE_WAIT_FOR_REQ;
 
 	// 메시지 박스 텍스트 표시..
-	char szBuff[128] = ""; std::string szFmt;
-	::_LoadStringFromResource(IDS_PERSONAL_TRADE_FMT_WAIT, szFmt);
-	sprintf(szBuff, szFmt.c_str(), s_pPlayer->IDString().c_str(), pTarget->IDString().c_str());
-	m_szMsg = CGameProcedure::MessageBoxPost(szBuff, "", MB_CANCEL, BEHAVIOR_PERSONAL_TRADE_FMT_WAIT);
+	std::string szMsg;
+	GetTextF(
+		IDS_PERSONAL_TRADE_FMT_WAIT,
+		&szMsg,
+		s_pPlayer->IDString().c_str(),
+		pTarget->IDString().c_str());
+
+	m_szMsg = CGameProcedure::MessageBoxPost(szMsg, "", MB_CANCEL, BEHAVIOR_PERSONAL_TRADE_FMT_WAIT);
 
 	SecureCodeBegin();
 }
@@ -161,10 +166,14 @@ void CSubProcPerTrade::EnterWaitMsgFromServerStatePerTradeReq(std::string szName
 	m_ePerTradeState = PER_TRADE_STATE_WAIT_FOR_REQ;
 
 	// 메시지 박스 텍스트 표시..
-	char szBuff[128] = ""; std::string szFmt;
-	::_LoadStringFromResource(IDS_PERSONAL_TRADE_FMT_WAIT, szFmt);
-	sprintf(szBuff, szFmt.c_str(), s_pPlayer->IDString().c_str(), szName.c_str());
-	m_szMsg = CGameProcedure::MessageBoxPost(szBuff, "", MB_CANCEL, BEHAVIOR_PERSONAL_TRADE_FMT_WAIT);
+	std::string szMsg;
+	GetTextF(
+		IDS_PERSONAL_TRADE_FMT_WAIT,
+		&szMsg,
+		s_pPlayer->IDString().c_str(),
+		szName.c_str());
+
+	m_szMsg = CGameProcedure::MessageBoxPost(szMsg, "", MB_CANCEL, BEHAVIOR_PERSONAL_TRADE_FMT_WAIT);
 
 	SecureCodeBegin();
 }
@@ -172,16 +181,21 @@ void CSubProcPerTrade::EnterWaitMsgFromServerStatePerTradeReq(std::string szName
 void CSubProcPerTrade::EnterWaitMyDecisionToPerTrade(int iOtherID)			// 내가 타인에게서 아이템 거래를 신청 받은 상태..
 {
 	CPlayerOther* pTarget = s_pOPMgr->UPCGetByID(iOtherID, false);
-	if(NULL == pTarget) return;
+	if (pTarget == nullptr)
+		return;
 
 	m_iOtherID = iOtherID;
 	m_ePerTradeState = PER_TRADE_STATE_WAIT_FOR_MY_DECISION_AGREE_OR_DISAGREE;
 
 	// 메시지 박스 텍스트 표시..
-	char szBuff[128] = ""; std::string szFmt;
-	::_LoadStringFromResource(IDS_PERSONAL_TRADE_PERMIT, szFmt);
-	sprintf(szBuff, szFmt.c_str(), s_pPlayer->IDString().c_str(), pTarget->IDString().c_str());
-	m_szMsg = CGameProcedure::MessageBoxPost(szBuff, "", MB_YESNO, BEHAVIOR_PERSONAL_TRADE_PERMIT);
+	std::string szMsg;
+	GetTextF(
+		IDS_PERSONAL_TRADE_PERMIT,
+		&szMsg,
+		s_pPlayer->IDString().c_str(),
+		pTarget->IDString().c_str());
+
+	m_szMsg = CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_PERSONAL_TRADE_PERMIT);
 
 	SecureCodeBegin();
 }
@@ -449,12 +463,8 @@ void CSubProcPerTrade::LeavePerTradeState(e_PerTradeResultCode ePTRC)	// 아이�
 			//TRACE("상대방이 거래를 거절.. \n");
 			//this_ui
 			// 메시지 박스 텍스트 표시..
-			::_LoadStringFromResource(IDS_OTHER_PER_TRADE_ID_NO, szMsg);
+			GetText(IDS_OTHER_PER_TRADE_ID_NO, &szMsg);
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
-//			::_LoadStringFromResource(IDS_OTHER_PER_TRADE_NO, szMsg);
-//			sprintf(szBuf, szMsg.c_str(), 
-//				(s_pOPMgr->UPCGetByID(s_pPlayer->m_iIDTarget, false))->IDString().c_str());
-//			CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
 			// 뒷 마무리..
 			FinalizePerTrade();
 			break;
@@ -1117,16 +1127,13 @@ void CSubProcPerTrade::ReceiveMsgPerTradeDoneSuccessEnd()
 
 void CSubProcPerTrade::ReceiveMsgPerTradeDoneFail()
 {
-	char szBuf[256] = "";
-	std::string szMsg; 
-
-	if (s_pOPMgr->UPCGetByID(m_iOtherID, false) != NULL )
+	if (s_pOPMgr->UPCGetByID(m_iOtherID, false) != nullptr)
 	{
-		::_LoadStringFromResource(IDS_PER_TRADE_FAIL, szMsg);
-		sprintf(szBuf, szMsg.c_str());			
-		CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffffff);
+		std::string szMsg;
+		GetText(IDS_PER_TRADE_FAIL, &szMsg);
+		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffffffff);
 
-		::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		GetText(IDS_ITEM_TOOMANY_OR_HEAVY, &szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
@@ -1136,16 +1143,16 @@ void CSubProcPerTrade::ReceiveMsgPerTradeDoneFail()
 
 void CSubProcPerTrade::ReceiveMsgPerTradeCancel()
 {
-	char szBuf[256] = "";
-	std::string szMsg; 
-
 	// 메시지 박스 텍스트 표시..
-	if (s_pOPMgr->UPCGetByID(m_iOtherID, false) != NULL )
+	CPlayerOther* pUPC = s_pOPMgr->UPCGetByID(m_iOtherID, false);
+	if (pUPC != nullptr)
 	{
-		::_LoadStringFromResource(IDS_OTHER_PER_TRADE_CANCEL, szMsg);
-		sprintf(szBuf, szMsg.c_str(), 
-			(s_pOPMgr->UPCGetByID(m_iOtherID, false))->IDString().c_str());
-		CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+		std::string szMsg; 
+		GetTextF(
+			IDS_OTHER_PER_TRADE_CANCEL,
+			&szMsg,
+			pUPC->IDString().c_str());
+		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
 	// 뒷 마무리..

@@ -121,13 +121,14 @@ void CPlayerMySelf::SetMoveTargetPos(__Vector3 vPos)
 
 void CPlayerMySelf::Tick()
 {
-	BOOL	bAnim = TRUE;
+	BOOL bAnim = TRUE;
 
-	if(	PSA_DEATH == m_eState)  // 죽는 상태이고... 죽는 에니메이션이 끝나면.. // 한번 보내면 다시 죽을때까지 안보내는 플래그
+	if (PSA_DEATH == m_eState)  // 죽는 상태이고... 죽는 에니메이션이 끝나면.. // 한번 보내면 다시 죽을때까지 안보내는 플래그
 	{
-		if(0 == m_iSendRegeneration) 
+		if (0 == m_iSendRegeneration)
 		{
-//			std::string szMsg; ::_LoadStringFromResource(IDS_REGENERATION, szMsg);
+//			std::string szMsg;
+//			GetText(IDS_REGENERATION, &szMsg);
 //			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_REGENERATION);
 //			CLogWriter::Write("Dead!!!");
 			m_iSendRegeneration = 1;
@@ -1016,40 +1017,50 @@ void CPlayerMySelf::KnightsInfoSet(int iID, const std::string& szName, int iGrad
 	m_InfoExt.iKnightsGrade = iGrade;
 	m_InfoExt.iKnightsRank = iRank;
 
-	if(m_InfoExt.szKnights.empty()) { if(m_pClanFont) delete m_pClanFont; m_pClanFont = NULL; }
-	else
+	if (m_InfoExt.szKnights.empty())
 	{
-		if(!m_pClanFont)
-		{
-			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
-			m_pClanFont = new CDFont(szFontID, 12);
-			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
-			m_pClanFont->RestoreDeviceObjects();
-		}
-
-		m_pClanFont->SetText(m_InfoExt.szKnights.c_str(), D3DFONT_BOLD); // 폰트에 텍스트 지정.
-		m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
+		delete m_pClanFont;
+		m_pClanFont = nullptr;
+		return;
 	}
+
+	if (m_pClanFont == nullptr)
+	{
+		std::string szFontID;
+		GetText(IDS_FONT_ID, &szFontID);
+
+		m_pClanFont = new CDFont(szFontID, 12);
+		m_pClanFont->InitDeviceObjects(s_lpD3DDev);
+		m_pClanFont->RestoreDeviceObjects();
+	}
+
+	m_pClanFont->SetText(m_InfoExt.szKnights.c_str(), D3DFONT_BOLD); // 폰트에 텍스트 지정.
+	m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
 }
 
 void CPlayerMySelf::SetSoundAndInitFont(uint32_t dwFontFlag)
 {
 	CPlayerBase::SetSoundAndInitFont();
-	
-	if(m_InfoExt.szKnights.empty()) { delete m_pClanFont; m_pClanFont = NULL; }
-	else
-	{
-		if(!m_pClanFont)
-		{
-			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
-			m_pClanFont = new CDFont(szFontID, 12, D3DFONT_BOLD);
-			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
-			m_pClanFont->RestoreDeviceObjects();
-		}
 
-		m_pClanFont->SetText(m_InfoExt.szKnights.c_str()); // 폰트에 텍스트 지정.
-		m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
+	if (m_InfoExt.szKnights.empty())
+	{
+		delete m_pClanFont;
+		m_pClanFont = nullptr;
+		return;
 	}
+
+	if (m_pClanFont == nullptr)
+	{
+		std::string szFontID;
+		GetText(IDS_FONT_ID, &szFontID);
+
+		m_pClanFont = new CDFont(szFontID, 12, D3DFONT_BOLD);
+		m_pClanFont->InitDeviceObjects(s_lpD3DDev);
+		m_pClanFont->RestoreDeviceObjects();
+	}
+
+	m_pClanFont->SetText(m_InfoExt.szKnights.c_str()); // 폰트에 텍스트 지정.
+	m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
 }
 
 float CPlayerMySelf::MoveSpeedCalculationAndCheckCollision() // 속도를 구하고 그 속도로 충돌 체크를 한다. 리턴값이 0 이면 충돌이다..

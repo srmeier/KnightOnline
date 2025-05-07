@@ -79,14 +79,14 @@ bool CUIExitMenu::ReceiveMessage(
 			//CGameProcedure::s_pProcMain->m_bPendingPremiumCafeData = true;
 
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_CONNECTING_PLEASE_WAIT, szMsg);
+			CGameBase::GetText(IDS_CONNECTING_PLEASE_WAIT, &szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK);
 			ReturnToCharacterSelection();
 		}
 		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
 		{
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_CANNOT_EXIT_DURING_A_BATTLE, szMsg);
+			CGameBase::GetText(IDS_CANNOT_EXIT_DURING_A_BATTLE, &szMsg);
 			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
 			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_CHR_SELECT;
 			SetVisible(false);
@@ -113,7 +113,7 @@ bool CUIExitMenu::ReceiveMessage(
 		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
 		{
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_CANNOT_EXIT_DURING_A_BATTLE, szMsg);
+			CGameBase::GetText(IDS_CANNOT_EXIT_DURING_A_BATTLE, &szMsg);
 			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
 			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
 			SetVisible(false);
@@ -136,7 +136,7 @@ bool CUIExitMenu::ReceiveMessage(
 		else if (CGameProcedure::s_pProcMain->m_pUIChatDlg != nullptr)
 		{
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_CANNOT_EXIT_DURING_A_BATTLE, szMsg);
+			CGameBase::GetText(IDS_CANNOT_EXIT_DURING_A_BATTLE, &szMsg);
 			CGameProcedure::s_pProcMain->m_pUIChatDlg->AddChatMsg(N3_CHAT_NORMAL, szMsg, 0xFFFF0000);
 			CGameProcedure::s_pProcMain->m_eExitType = EXIT_TYPE_QUIT;
 

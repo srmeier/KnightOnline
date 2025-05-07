@@ -497,9 +497,8 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 		if ( iOrderInv == -1 )
 		{
 			// 인벤토리가 꽉 차있으면.. break.. ^^
-			char szBuff[128] = "";
 			std::string stdMsg;
-			::_LoadStringFromResource(IDS_INV_ITEM_FULL, stdMsg);
+			CGameBase::GetText(IDS_INV_ITEM_FULL, &stdMsg);
 			CGameProcedure::s_pProcMain->MsgOutput(stdMsg, 0xff9b9bff);
 		}
 
@@ -513,11 +512,13 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 	{
 		// 돈 갱신..
 		pStatic = NULL;
-		pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
+		pInfoExt = &CGameBase::s_pPlayer->m_InfoExt;
 
 		// 돈 업데이트..
-		::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
-		sprintf(szMsg, stdMsg.c_str(), iGold - pInfoExt->iGold);
+		CGameBase::GetTextF(
+			IDS_DROPPED_NOAH_GET,
+			&stdMsg,
+			iGold - pInfoExt->iGold);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
 		pInfoExt->iGold = iGold;
@@ -572,10 +573,13 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 			return;
 		}
 
-		char szBuff[128] = "";
-		std::string szMsg; ::_LoadStringFromResource(IDS_PARTY_ITEM_GET, szMsg);
-		sprintf(szBuff, szMsg.c_str(), strString.c_str(), pItem->szName.c_str());
-		CGameProcedure::s_pProcMain->MsgOutput(szBuff, 0xff9b9bff);
+		std::string szMsg;
+		CGameBase::GetTextF(
+			IDS_PARTY_ITEM_GET,
+			&szMsg,
+			strString.c_str(),
+			pItem->szName.c_str());
+		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
 		if (!IsVisible()) 
 			return;
@@ -697,8 +701,10 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 			return;
 		}
 
-		::_LoadStringFromResource(IDS_ITEM_GET_BY_RULE, stdMsg);
-		sprintf(szMsg, stdMsg.c_str(), pItem->szName.c_str());
+		CGameBase::GetTextF(
+			IDS_ITEM_GET_BY_RULE,
+			&stdMsg,
+			pItem->szName.c_str());
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
 		if (CGameProcedure::s_pProcMain->m_pUISkillTreeDlg) CGameProcedure::s_pProcMain->m_pUISkillTreeDlg->UpdateDisableCheck();
@@ -708,14 +714,16 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 	if (bResult == 0x06)
 	{
 		// 메시지 박스 텍스트 표시..
-		std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		std::string szMsg;
+		CGameBase::GetText(IDS_ITEM_TOOMANY_OR_HEAVY, &szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
 	if (bResult == 0x07)
 	{
 		// 메시지 박스 텍스트 표시..
-		std::string szMsg; ::_LoadStringFromResource(IDS_INV_ITEM_FULL, szMsg);
+		std::string szMsg;
+		CGameBase::GetText(IDS_INV_ITEM_FULL, &szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
@@ -774,10 +782,12 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 				AddToItemTableToInventory(iItemID, iItemCount, iPos);
 			}
 
-			char szBuff[128] = "";
-			std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_GET_BY_RULE, szMsg);
-			sprintf(szBuff, szMsg.c_str(), pItem->szName.c_str());
-			CGameProcedure::s_pProcMain->MsgOutput(szBuff, 0xff9b9bff);
+			std::string szMsg;
+			CGameBase::GetTextF(
+				IDS_ITEM_GET_BY_RULE,
+				&szMsg,
+				pItem->szName.c_str());
+			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
 			spItem = m_pMyDroppedItem[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceStart.iOrder];
 			if (spItem)
@@ -800,8 +810,10 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 			pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
 			// 돈 업데이트..
-			::_LoadStringFromResource(IDS_DROPPED_NOAH_GET, stdMsg);
-			sprintf(szMsg, stdMsg.c_str(), iGold - pInfoExt->iGold);
+			CGameBase::GetTextF(
+				IDS_DROPPED_NOAH_GET,
+				&stdMsg,
+				iGold - pInfoExt->iGold);
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
 
 			pInfoExt->iGold = iGold;

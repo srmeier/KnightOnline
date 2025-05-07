@@ -793,7 +793,8 @@ bool CUIWareHouseDlg::ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur)
 					__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 					if ( (pInfoExt->iWeight + CN3UIWndBase::m_sRecoveryJobInfo.pItemSource->pItemBasic->siWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg;
+						CGameBase::GetText(IDS_ITEM_WEIGHT_OVERFLOW, &szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						CN3UIWndBase::m_sRecoveryJobInfo.m_bWaitFromServer  = false;
 						CN3UIWndBase::m_sRecoveryJobInfo.pItemSource		= NULL;
@@ -1302,7 +1303,8 @@ void CUIWareHouseDlg::ReceiveResultFromWareMsg(uint8_t bResult)	// 빼는 경우
 			m_pMyWareInv[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder] = NULL;
 		}
 
-		std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_TOOMANY_OR_HEAVY, szMsg);
+		std::string szMsg;
+		CGameBase::GetText(IDS_ITEM_TOOMANY_OR_HEAVY, &szMsg);
 		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 	}
 
@@ -1452,7 +1454,8 @@ void CUIWareHouseDlg::ItemCountOK()
 					// 무게 체크..
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg;
+						CGameBase::GetText(IDS_ITEM_WEIGHT_OVERFLOW, &szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -1463,7 +1466,8 @@ void CUIWareHouseDlg::ItemCountOK()
 					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
-						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg;
+						CGameBase::GetText(IDS_MANY_COUNTABLE_ITEM_GET_MANY, &szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1473,7 +1477,8 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWareInv[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_MANY)
 						{
-							std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg;
+							CGameBase::GetText(IDS_MANY_COUNTABLE_ITEM_GET_MANY, &szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}
@@ -1483,7 +1488,8 @@ void CUIWareHouseDlg::ItemCountOK()
 					iWeight = iGold * spItem->pItemBasic->siWeight;
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg;
+						CGameBase::GetText(IDS_ITEM_WEIGHT_OVERFLOW, &szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -1494,7 +1500,8 @@ void CUIWareHouseDlg::ItemCountOK()
 					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
-						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg;
+						CGameBase::GetText(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, &szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1504,7 +1511,8 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWareInv[CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_FEW)
 						{
-							std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg;
+							CGameBase::GetText(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, &szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}
@@ -1514,7 +1522,8 @@ void CUIWareHouseDlg::ItemCountOK()
 					iWeight = iGold * spItem->pItemBasic->siWeight;
 					if ( (pInfoExt->iWeight + iWeight) > pInfoExt->iWeightMax)
 					{	 
-						std::string szMsg; ::_LoadStringFromResource(IDS_ITEM_WEIGHT_OVERFLOW, szMsg);	
+						std::string szMsg;
+						CGameBase::GetText(IDS_ITEM_WEIGHT_OVERFLOW, &szMsg);	
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);	
 						return;
 					}
@@ -1589,7 +1598,8 @@ void CUIWareHouseDlg::ItemCountOK()
 					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_MANY ) 
 					{
-						std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg;
+						CGameBase::GetText(IDS_MANY_COUNTABLE_ITEM_GET_MANY, &szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1599,7 +1609,8 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWare[CN3UIWndBase::m_sRecoveryJobInfo.m_iPage][CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_MANY)
 						{
-							std::string szMsg; ::_LoadStringFromResource(IDS_MANY_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg;
+							CGameBase::GetText(IDS_MANY_COUNTABLE_ITEM_GET_MANY, &szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}
@@ -1611,7 +1622,8 @@ void CUIWareHouseDlg::ItemCountOK()
 					// int16_t 범위이상은 살수 없다..
 					if ( iGold > UIITEM_COUNT_FEW ) 
 					{
-						std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+						std::string szMsg;
+						CGameBase::GetText(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, &szMsg);
 						CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 						return;
 					}
@@ -1621,7 +1633,8 @@ void CUIWareHouseDlg::ItemCountOK()
 						spItem = m_pMyWare[CN3UIWndBase::m_sRecoveryJobInfo.m_iPage][CN3UIWndBase::m_sRecoveryJobInfo.UIWndSourceEnd.iOrder];
 						if (spItem->iCount + iGold > UIITEM_COUNT_FEW)
 						{
-							std::string szMsg; ::_LoadStringFromResource(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, szMsg);
+							std::string szMsg;
+							CGameBase::GetText(IDS_SMALL_COUNTABLE_ITEM_GET_MANY, &szMsg);
 							CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);				
 							return;
 						}

@@ -828,24 +828,23 @@ bool CGameProcedure::ProcessPacket(Packet& pkt)
 
 void CGameProcedure::ReportServerConnectionFailed(const std::string& szServerName, int iErrCode, bool bNeedQuitGame)
 {
-	char szErr[256];
-	std::string szFmt;
-	::_LoadStringFromResource(IDS_FMT_CONNECT_ERROR, szFmt);
-	sprintf(szErr, szFmt.c_str(), szServerName.c_str(), iErrCode);
+	std::string szMsg;
+	GetTextF(IDS_FMT_CONNECT_ERROR, &szMsg, szServerName.c_str(), iErrCode);
 	
 	e_Behavior eBehavior = ((bNeedQuitGame) ? BEHAVIOR_EXIT : BEHAVIOR_NOTHING);
-	CGameProcedure::MessageBoxPost(szErr, "", MB_OK, eBehavior);
+	MessageBoxPost(szMsg, "", MB_OK, eBehavior);
 	return;
 }
 
 void CGameProcedure::ReportServerConnectionClosed(bool bNeedQuitGame)
 {
-	if(!s_bNeedReportConnectionClosed) return;
+	if (!s_bNeedReportConnectionClosed)
+		return;
 
 	std::string szMsg;
-	::_LoadStringFromResource(IDS_CONNECTION_CLOSED, szMsg);
+	GetText(IDS_CONNECTION_CLOSED, &szMsg);
 	e_Behavior eBehavior = ((bNeedQuitGame) ? BEHAVIOR_EXIT : BEHAVIOR_NOTHING);
-	CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, eBehavior);
+	MessageBoxPost(szMsg, "", MB_OK, eBehavior);
 
 	if(s_pPlayer)
 	{
@@ -950,25 +949,27 @@ int CGameProcedure::MsgRecv_VersionCheck(Packet& pkt) // virtual
 	s_pSocket->m_bEnableSend = TRUE; // 보내기 가능..?
 #endif // #ifdef _CRYPTION
 
-	if(iVersion != CURRENT_VERSION)
+	if (iVersion != CURRENT_VERSION)
 	{
-		char szErr[256];
+		std::string szMsg;
 
 		int iLangID = ::GetUserDefaultLangID();
-		if(0x0404 == iLangID)// Taiwan Language
+
+		// Taiwan Language
+		if (0x0404 == iLangID)
 		{
-			std::string szFmt;
-			::_LoadStringFromResource(IDS_VERSION_CONFIRM_TW, szFmt);
-			CGameProcedure::MessageBoxPost(szFmt, "", MB_OK, BEHAVIOR_EXIT);
+			GetText(IDS_VERSION_CONFIRM_TW, &szMsg);
 		}
 		else
 		{
-			std::string szFmt;
-			::_LoadStringFromResource(IDS_VERSION_CONFIRM, szFmt);
-			sprintf(szErr, szFmt.c_str(), CURRENT_VERSION / 1000.0f, iVersion / 1000.0f);
-			CGameProcedure::MessageBoxPost(szErr, "", MB_OK, BEHAVIOR_EXIT);
+			GetTextF(
+				IDS_VERSION_CONFIRM,
+				&szMsg,
+				CURRENT_VERSION / 1000.0f,
+				iVersion / 1000.0f);
 		}
 
+		MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_EXIT);
 	}
 
 	return iVersion;

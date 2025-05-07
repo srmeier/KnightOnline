@@ -105,13 +105,15 @@ bool CUICharacterSelect::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		if ( pSender->m_szID == "bt_exit" )	// Elmorad
 		{
 //			CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn); // 로그인으로 돌아간다..
-			std::string szMsg; ::_LoadStringFromResource(IDS_CONFIRM_EXIT_GAME, szMsg);
+			std::string szMsg;
+			CGameBase::GetText(IDS_CONFIRM_EXIT_GAME, &szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXIT);
 		}
 		else
 		if ( pSender->m_szID == "bt_delete" )	// Elmorad
 		{
-			std::string szMsg; ::_LoadStringFromResource(IDS_CONFIRM_DELETE_CHR, szMsg);
+			std::string szMsg;
+			CGameBase::GetText(IDS_CONFIRM_DELETE_CHR, &szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_DELETE_CHR);
 		}
 	}
@@ -128,22 +130,26 @@ void CUICharacterSelect::DisplayChrInfo(__CharacterSelectInfo* pCSInfo)
 
 	if ( !pCSInfo->szID.empty() )
 	{
-		std::string szFmt, szClass;
-		CGameProcedure::GetTextByClass(pCSInfo->eClass, szClass);
-		/*
-		Level: %d\nSpecialty: %s\nID: %s
-		*/
-		::_LoadStringFromResource(IDS_CHR_SELECT_FMT_INFO, szFmt);
-		char szBuffer[256];
-		sprintf(szBuffer, szFmt.c_str(), pCSInfo->iLevel, szClass.c_str(), pCSInfo->szID.c_str());
-		szTotal = szBuffer;
-	}
-	else ::_LoadStringFromResource(IDS_CHR_SELECT_HINT, szTotal);
+		std::string szClass;
+		CGameBase::GetTextByClass(pCSInfo->eClass, szClass);
 
-	if ( m_pUserInfoStr )
+		// Level: %d\nSpecialty: %s\nID: %s
+		CGameBase::GetTextF(
+			IDS_CHR_SELECT_FMT_INFO,
+			&szTotal,
+			pCSInfo->iLevel,
+			szClass.c_str(),
+			pCSInfo->szID.c_str());
+	}
+	else
+	{
+		CGameBase::GetText(IDS_CHR_SELECT_HINT, &szTotal);
+	}
+
+	if (m_pUserInfoStr != nullptr)
 	{
 		m_pUserInfoStr->SetVisible(true);
-		((CN3UIString*)m_pUserInfoStr)->SetString(szTotal);
+		((CN3UIString*) m_pUserInfoStr)->SetString(szTotal);
 	}
 }
 

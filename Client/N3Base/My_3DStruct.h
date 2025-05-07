@@ -1147,8 +1147,6 @@ bool			_CheckCollisionByBox(const __Vector3& vOrig, const __Vector3& vDir, const
 POINT			_Convert3D_To_2DCoordinate(const __Vector3 &vPos, const __Matrix44& mtxView, const __Matrix44& mtxProjection, int nVPW, int nVPH);
 void			_Convert2D_To_3DCoordinate(	int ixScreen, int iyScreen, const __Matrix44& mtxView, const __Matrix44& mtxPrj, const D3DVIEWPORT9& vp, __Vector3& vPosResult, __Vector3& vDirResult);
 float			_Yaw2D(float fDirX, float fDirZ);
-void			_LoadStringFromResource(uint32_t dwID, std::string& szText);
-
 
 inline D3DCOLOR _RGB_To_D3DCOLOR(COLORREF cr, uint32_t dwAlpha)
 {

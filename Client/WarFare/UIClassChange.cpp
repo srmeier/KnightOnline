@@ -81,10 +81,11 @@ void CUIClassChange::Open(int iCode)
 	__InfoPlayerBase*	pInfoBase = &(CGameBase::s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
-	std::string szSuccess; ::_LoadStringFromResource(IDS_CLASS_CHANGE_SUCCESS, szSuccess);
-	std::string szNotYet; ::_LoadStringFromResource(IDS_CLASS_CHANGE_NOT_YET, szNotYet);
-	std::string szAlready; ::_LoadStringFromResource(IDS_CLASS_CHANGE_ALREADY, szAlready);
-	std::string	szItemInSlot; ::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szItemInSlot);
+	std::string szSuccess, szNotYet, szAlready, szItemInSlot;
+	CGameBase::GetText(IDS_CLASS_CHANGE_SUCCESS, &szSuccess);
+	CGameBase::GetText(IDS_CLASS_CHANGE_NOT_YET, &szNotYet);
+	CGameBase::GetText(IDS_CLASS_CHANGE_ALREADY, &szAlready);
+	CGameBase::GetText(IDS_MSG_HASITEMINSLOT, &szItemInSlot);
 
 	m_pBtn_Ok->SetVisible(false);
 	m_pBtn_Cancel->SetVisible(false);

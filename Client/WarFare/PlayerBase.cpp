@@ -231,27 +231,39 @@ void CPlayerBase::Release()
 
 void CPlayerBase::SetSoundAndInitFont(uint32_t dwFontFlag)
 {
-	if(!m_pLooksRef) return;
-	if(true == m_bSoundAllSet) return;
+	if (m_pLooksRef == nullptr)
+		return;
+
+	if (m_bSoundAllSet)
+		return;
 
 	m_bSoundAllSet = true;
 	
-	if(!m_pSnd_Move) m_pSnd_Move = CN3Base::s_SndMgr.CreateObj(m_pLooksRef->iSndID_Move);
-	if(!m_pSnd_Struck_0) m_pSnd_Struck_0 = CN3Base::s_SndMgr.CreateObj(m_pLooksRef->iSndID_Struck0);
-//	if(!m_pSnd_Struck_1) m_pSnd_Struck_1 = CN3Base::s_SndMgr.CreateObj(m_pLooksRef->iSndID_Struck1);
-	if(!m_pSnd_Breathe_0) m_pSnd_Breathe_0 = CN3Base::s_SndMgr.CreateObj(m_pLooksRef->iSndID_Breathe0);
-//	if(!m_pSnd_Breathe_1) m_pSnd_Breathe_1 = CN3Base::s_SndMgr.CreateObj(m_pLooksRef->iSndID_Breathe1);
-	if(!m_pSnd_Blow) m_pSnd_Blow = CN3Base::s_SndMgr.CreateObj(100);
+	if (m_pSnd_Move == nullptr)
+		m_pSnd_Move = s_SndMgr.CreateObj(m_pLooksRef->iSndID_Move);
+
+	if (m_pSnd_Struck_0 == nullptr)
+		m_pSnd_Struck_0 = s_SndMgr.CreateObj(m_pLooksRef->iSndID_Struck0);
+
+	if (m_pSnd_Breathe_0 == nullptr)
+		m_pSnd_Breathe_0 = s_SndMgr.CreateObj(m_pLooksRef->iSndID_Breathe0);
+
+	if (m_pSnd_Blow == nullptr)
+		m_pSnd_Blow = s_SndMgr.CreateObj(100);
 
 	// 무기에 해당되는 사운드...
 	__TABLE_ITEM_BASIC* pItemBasic = m_pItemPlugBasics[PLUG_POS_RIGHTHAND];
-	if(!pItemBasic) pItemBasic = m_pItemPlugBasics[PLUG_POS_LEFTHAND];
-	this->SetSoundPlug(pItemBasic);
+	if (pItemBasic == nullptr)
+		pItemBasic = m_pItemPlugBasics[PLUG_POS_LEFTHAND];
+
+	SetSoundPlug(pItemBasic);
 
 	// Font 초기화..
-	if(!m_pIDFont) 
+	if (m_pIDFont == nullptr) 
 	{
-		std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+		std::string szFontID;
+		GetText(IDS_FONT_ID, &szFontID);
+
 		m_pIDFont = new CDFont(szFontID, 12, dwFontFlag);//D3DFONT_BOLD);
 		m_pIDFont->InitDeviceObjects( s_lpD3DDev );
 		m_pIDFont->RestoreDeviceObjects();
@@ -306,46 +318,47 @@ void CPlayerBase::ReleaseSoundAndFont()
 
 void CPlayerBase::InfoStringSet(const std::string& szInfo, D3DCOLOR crFont)
 {
-	if(szInfo.empty())
+	if (szInfo.empty())
 	{
-		delete m_pInfoFont; m_pInfoFont = NULL;
+		delete m_pInfoFont;
+		m_pInfoFont = nullptr;
 		return;
 	}
-	else
-	{
-		if(NULL == m_pInfoFont)
-		{
 
-			std::string szFontInfo; ::_LoadStringFromResource(IDS_FONT_INFO, szFontInfo);
-			m_pInfoFont = new CDFont(szFontInfo, 12);
-			m_pInfoFont->InitDeviceObjects( s_lpD3DDev );
-			m_pInfoFont->RestoreDeviceObjects();
-		}
-		m_pInfoFont->SetText(szInfo.c_str(), D3DFONT_BOLD); // 폰트에 텍스트 지정.
-		m_pInfoFont->SetFontColor(crFont);
+	if (m_pInfoFont == nullptr)
+	{
+		std::string szFontInfo;
+		GetText(IDS_FONT_INFO, &szFontInfo);
+
+		m_pInfoFont = new CDFont(szFontInfo, 12);
+		m_pInfoFont->InitDeviceObjects( s_lpD3DDev );
+		m_pInfoFont->RestoreDeviceObjects();
 	}
+	m_pInfoFont->SetText(szInfo.c_str(), D3DFONT_BOLD); // 폰트에 텍스트 지정.
+	m_pInfoFont->SetFontColor(crFont);
 }
 
 void CPlayerBase::BalloonStringSet(const std::string& szBalloon, D3DCOLOR crFont)
 {
-	if(szBalloon.empty())
+	if (szBalloon.empty())
 	{
-		delete m_pBalloonFont; m_pBalloonFont = NULL;
+		delete m_pBalloonFont;
+		m_pBalloonFont = nullptr;
 		m_fTimeBalloon = 0; // 풍선말 표시시간..
 		return;
 	}
-	else
-	{
-		if(NULL == m_pBalloonFont)
-		{
-			std::string szFontBalloon; ::_LoadStringFromResource(IDS_FONT_BALLOON, szFontBalloon);
-			m_pBalloonFont = new CDFont(szFontBalloon, 12);
-			m_pBalloonFont->InitDeviceObjects( s_lpD3DDev );
-			m_pBalloonFont->RestoreDeviceObjects();
-		}
 
-		m_fTimeBalloon = szBalloon.size() * 0.2f;
+	if (m_pBalloonFont == nullptr)
+	{
+		std::string szFontBalloon;
+		GetText(IDS_FONT_BALLOON, &szFontBalloon);
+
+		m_pBalloonFont = new CDFont(szFontBalloon, 12);
+		m_pBalloonFont->InitDeviceObjects(s_lpD3DDev);
+		m_pBalloonFont->RestoreDeviceObjects();
 	}
+
+	m_fTimeBalloon = szBalloon.size() * 0.2f;
 
 	m_pBalloonFont->SetText(szBalloon.c_str(), 0); // 폰트에 텍스트 지정.
 	m_pBalloonFont->SetFontColor(crFont);

@@ -352,8 +352,8 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 		{
 			std::string szMsg;
 			std::string szTmp;
-			::_LoadStringFromResource(IDS_NOACCOUNT_RETRY_MGAMEID, szMsg);
-			::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
+			GetText(IDS_NOACCOUNT_RETRY_MGAMEID, &szMsg);
+			GetText(IDS_CONNECT_FAIL, &szTmp);
 
 			this->MessageBoxPost(szMsg, szTmp, MB_YESNO, BEHAVIOR_MGAME_LOGIN); // MGame ID 로 접속할거냐고 물어본다.
 		}
@@ -361,8 +361,8 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 		{
 			std::string szMsg;
 			std::string szTmp;
-			::_LoadStringFromResource(IDS_NO_MGAME_ACCOUNT, szMsg);
-			::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
+			GetText(IDS_NO_MGAME_ACCOUNT, &szMsg);
+			GetText(IDS_CONNECT_FAIL, &szTmp);
 
 			this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID 로 접속할거냐고 물어본다.
 		}
@@ -371,16 +371,16 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 	{
 		std::string szMsg;
 		std::string szTmp;
-		::_LoadStringFromResource(IDS_WRONG_PASSWORD, szMsg);
-		::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
+		GetText(IDS_WRONG_PASSWORD, &szMsg);
+		GetText(IDS_CONNECT_FAIL, &szTmp);
 		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID 로 접속할거냐고 물어본다.
 	}
 	else if(4 == iResult) // 서버 점검 중??
 	{
 		std::string szMsg;
 		std::string szTmp;
-		::_LoadStringFromResource(IDS_SERVER_CONNECT_FAIL, szMsg);
-		::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
+		GetText(IDS_SERVER_CONNECT_FAIL, &szMsg);
+		GetText(IDS_CONNECT_FAIL, &szTmp);
 		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID 로 접속할거냐고 물어본다.
 	}
 	else if(5 == iResult) // 어떤 넘이 접속해 있다. 서버에게 끊어버리라고 하자..
@@ -410,8 +410,8 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 
 			std::string szMsg;
 			std::string szTmp;
-			::_LoadStringFromResource(IDS_LOGIN_ERR_ALREADY_CONNECTED_ACCOUNT, szMsg);
-			::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
+			GetText(IDS_LOGIN_ERR_ALREADY_CONNECTED_ACCOUNT, &szMsg);
+			GetText(IDS_CONNECT_FAIL, &szTmp);
 			this->MessageBoxPost(szMsg, szTmp, MB_OK); // 다시 접속 할거냐고 물어본다.
 		}
 	}
@@ -419,8 +419,8 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 	{
 		std::string szMsg;
 		std::string szTmp;
-		::_LoadStringFromResource(IDS_CURRENT_SERVER_ERROR, szMsg);
-		::_LoadStringFromResource(IDS_CONNECT_FAIL, szTmp);
+		GetText(IDS_CURRENT_SERVER_ERROR, &szMsg);
+		GetText(IDS_CONNECT_FAIL, &szTmp);
 		this->MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID 로 접속할거냐고 물어본다.
 	}
 
@@ -451,12 +451,16 @@ int CGameProcLogIn::MsgRecv_GameServerLogIn(Packet& pkt) // virtual - 국가번�
 	if( 0xff == iNation )
 	{
 		__GameServerInfo GSI;
-		std::string szFmt;
-		::_LoadStringFromResource(IDS_FMT_GAME_SERVER_LOGIN_ERROR, szFmt);
+		std::string szMsg;
+
 		m_pUILogIn->ServerInfoGetCur(GSI);
-		char szErr[256];
-		sprintf(szErr, szFmt.c_str(), GSI.szName.c_str(), iNation);
-		this->MessageBoxPost(szErr, "", MB_OK);
+
+		GetTextF(
+			IDS_FMT_GAME_SERVER_LOGIN_ERROR,
+			&szMsg,
+			GSI.szName.c_str(),
+			iNation);
+		MessageBoxPost(szMsg, "", MB_OK);
 		m_pUILogIn->ConnectButtonSetEnable(true); // 실패
 	}
 	else

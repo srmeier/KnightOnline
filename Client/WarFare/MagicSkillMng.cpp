@@ -519,7 +519,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 				NeedSkill != CLASS_EL_WARRIOR && NeedSkill != CLASS_EL_BLADE && NeedSkill != CLASS_EL_PROTECTOR)
 			{
 				std::string buff;
-				::_LoadStringFromResource(IDS_SKILL_FAIL_DIFFURENTCLASS, buff);
+				GetText(IDS_SKILL_FAIL_DIFFURENTCLASS, &buff);
 				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
@@ -531,7 +531,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 				NeedSkill != CLASS_EL_ROGUE && NeedSkill != CLASS_EL_RANGER && NeedSkill != CLASS_EL_ASSASIN)
 			{
 				std::string buff;
-				::_LoadStringFromResource(IDS_SKILL_FAIL_DIFFURENTCLASS, buff);
+				GetText(IDS_SKILL_FAIL_DIFFURENTCLASS, &buff);
 				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
@@ -543,7 +543,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 				NeedSkill != CLASS_EL_WIZARD && NeedSkill != CLASS_EL_MAGE && NeedSkill != CLASS_EL_ENCHANTER)
 			{
 				std::string buff;
-				::_LoadStringFromResource(IDS_SKILL_FAIL_DIFFURENTCLASS, buff);
+				GetText(IDS_SKILL_FAIL_DIFFURENTCLASS, &buff);
 				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
@@ -555,7 +555,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 				NeedSkill != CLASS_EL_PRIEST && NeedSkill != CLASS_EL_CLERIC && NeedSkill != CLASS_EL_DRUID)
 			{
 				std::string buff;
-				::_LoadStringFromResource(IDS_SKILL_FAIL_DIFFURENTCLASS, buff);
+				GetText(IDS_SKILL_FAIL_DIFFURENTCLASS, &buff);
 				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
@@ -567,7 +567,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		if(Class==CLASS_REPRESENT_PRIEST || Class==CLASS_REPRESENT_WIZARD)
 		{
 			std::string buff;
-			::_LoadStringFromResource(IDS_MSG_CASTING_FAIL_LACK_MP, buff);
+			GetText(IDS_MSG_CASTING_FAIL_LACK_MP, &buff);
 			m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 			return false;
 		}
@@ -581,7 +581,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			if(pInfoExt->iMSP < ExhaustSP)
 			{
 				std::string buff;
-				::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_SP, buff);
+				GetText(IDS_SKILL_FAIL_LACK_SP, &buff);
 				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
@@ -592,7 +592,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		if(Class==CLASS_REPRESENT_WARRIOR || Class==CLASS_REPRESENT_ROGUE)
 		{
 			std::string buff;
-			::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_SP, buff);
+			GetText(IDS_SKILL_FAIL_LACK_SP, &buff);
 			m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 			return false;
 		}
@@ -607,7 +607,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			(RightItem != ITEM_CLASS_SWORD && RightItem != ITEM_CLASS_AXE && RightItem != ITEM_CLASS_MACE) )
 		{
 			std::string buff;
-			::_LoadStringFromResource(IDS_SKILL_FAIL_INVALID_ITEM, buff);
+			GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
 			m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 			return false;
 		}
@@ -618,7 +618,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			RightItem != ITEM_CLASS_MACE_2H && RightItem != ITEM_CLASS_POLEARM )
 		{
 			std::string buff;
-			::_LoadStringFromResource(IDS_SKILL_FAIL_INVALID_ITEM, buff);
+			GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
 			m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 			return false;
 		}
@@ -627,7 +627,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 	if(pInfoBase->iHP < pSkill->iExhaustHP)
 	{
 		std::string buff;
-		::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_HP, buff);
+		GetText(IDS_SKILL_FAIL_LACK_HP, &buff);
 		m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 		return false;
 	}
@@ -643,7 +643,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		if (pSkill->dwNeedItem != 0 && pSkill->dwNeedItem != LeftItem1 && pSkill->dwNeedItem != RightItem1)
 		{
 			std::string buff;
-			::_LoadStringFromResource(IDS_SKILL_FAIL_INVALID_ITEM, buff);
+			GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
 			m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 			return false;
 		}
@@ -652,7 +652,7 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			if (LeftItem != 11 && (LeftItem1<1 || LeftItem1>5) && RightItem1 != 11 && (RightItem1<1 || RightItem1>5))
 			{
 				std::string buff;
-				::_LoadStringFromResource(IDS_SKILL_FAIL_INVALID_ITEM, buff);
+				GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
 				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
@@ -668,7 +668,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			__TABLE_UPC_SKILL_TYPE_2* pType2 = m_pTbl_Type_2->Find(pSkill->dwID);
 			if(NumItem < pType2->iNumArrow)
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_ITEM, szMsg);
+				std::string szMsg;
+				GetText(IDS_SKILL_FAIL_LACK_ITEM, &szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -677,7 +678,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		{
 			if(NumItem < 1)
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_LACK_ITEM, szMsg);
+				std::string szMsg;
+				GetText(IDS_SKILL_FAIL_LACK_ITEM, &szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -990,7 +992,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 //			{
 //				if(bColShape)
 //				{
-//					std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+//					std::string szMsg;
+//					GetText(IDS_SKILL_FAIL_OBJECT_BLOCK, &szMsg);
 //					m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 //					return false;
 //				}
@@ -1003,7 +1006,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 //			{
 //				if(bColShape)
 //				{
-//					std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+//					std::string szMsg;
+//					GetText(IDS_SKILL_FAIL_OBJECT_BLOCK, &szMsg);
 //					m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 //					return false;
 //				}
@@ -1021,7 +1025,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 //			{
 //				if(bColShape)
 //				{
-//					std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+//					std::string szMsg;
+//					GetText(IDS_SKILL_FAIL_OBJECT_BLOCK, &szMsg);
 //					m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 //					return false;
 //				}
@@ -1032,7 +1037,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		{
 			if(bColShape)
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+				std::string szMsg;
+				GetText(IDS_SKILL_FAIL_OBJECT_BLOCK, &szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -1048,7 +1054,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			{
 				if(bColShape)
 				{
-					std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+					std::string szMsg;
+					GetText(IDS_SKILL_FAIL_OBJECT_BLOCK, &szMsg);
 					m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 					return false;
 				}
@@ -1059,7 +1066,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 		{
 			if(bColShape)
 			{
-				std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+				std::string szMsg;
+				GetText(IDS_SKILL_FAIL_OBJECT_BLOCK, &szMsg);
 				m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 				return false;
 			}
@@ -1078,7 +1086,8 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			{
 				if(bColShape)
 				{
-					std::string szMsg; ::_LoadStringFromResource(IDS_SKILL_FAIL_OBJECT_BLOCK, szMsg);
+					std::string szMsg;
+					GetText(IDS_SKILL_FAIL_OBJECT_BLOCK, &szMsg);
 					m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 					return false;
 				}
@@ -1309,11 +1318,9 @@ bool CMagicSkillMng::CheckValidDistance(__TABLE_UPC_SKILL* pSkill, __Vector3 vTa
 		if(fValidDist >= fDist) return true;
 	}
 
-	char szBuff[80];
-	std::string szFmt;
-	::_LoadStringFromResource(IDS_SKILL_FAIL_SOFAR, szFmt);
-	sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-	m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
+	std::string szMsg;
+	GetTextF(IDS_SKILL_FAIL_SOFAR, &szMsg, pSkill->szName.c_str());
+	m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 
 	return false;
 }
@@ -1342,30 +1349,28 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 	}
 	m_pGameProcMain->CommandSitDown(false, false); // 혹시라도 앉아있음 일으켜 세운다..
 
-	if(pSkill->iCastTime==0)
+	if (pSkill->iCastTime == 0)
 	{
-		char szBuff[80];
-		std::string szFmt;
-		::_LoadStringFromResource(IDS_SKILL_USE, szFmt);
-		sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
+		std::string szMsg;
+		GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
+		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 
 		uint8_t byBuff[32];
-		int iOffset=0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
-		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
-		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)-1);
+		int iOffset = 0;
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) WIZ_MAGIC_PROCESS);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddDword(byBuff, iOffset, (int) pSkill->dwID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) SourceID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) -1);
 
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.x);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.y);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)vPos.z);
-		
-		CAPISocket::MP_AddShort(byBuff, iOffset, 0); 
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) vPos.x);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) vPos.y);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) vPos.z);
+
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-		
+		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
+
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..	
 		return;
 	}
@@ -1475,24 +1480,22 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 			s_pPlayer->AnimationAdd((e_Ani)pType1->iAct[i], bImmediately);
 		}			
 		
-		char szBuff[80];
-		std::string szFmt;
-		::_LoadStringFromResource(IDS_SKILL_USE, szFmt);
-		sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
+		std::string szMsg;
+		GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
+		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 		
 		uint8_t byBuff[32];
-		int iOffset=0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
-		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
-		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)TargetID);
+		int iOffset = 0;
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) WIZ_MAGIC_PROCESS);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddDword(byBuff, iOffset, (int) pSkill->dwID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) SourceID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) TargetID);
 
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-		
+
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1501,21 +1504,19 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 		return;
 	}
 
-	if(pSkill->iCastTime==0)
+	if (pSkill->iCastTime == 0)
 	{
-		char szBuff[80];
-		std::string szFmt;
-		::_LoadStringFromResource(IDS_SKILL_USE, szFmt);
-		sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
+		std::string szMsg;
+		GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
+		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 
 		uint8_t byBuff[32];
-		int iOffset=0;
-		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
-		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
-		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)SourceID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)TargetID);
+		int iOffset = 0;
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) WIZ_MAGIC_PROCESS);
+		CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) N3_SP_MAGIC_EFFECTING);
+		CAPISocket::MP_AddDword(byBuff, iOffset, (int) pSkill->dwID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) SourceID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) TargetID);
 
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1631,17 +1632,17 @@ void CMagicSkillMng::Tick()
 			}
 
 			uint8_t byBuff[32];
-			int iOffset=0;
-			CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
-			CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
-			CAPISocket::MP_AddDword(byBuff, iOffset, (int)m_dwNonActionMagicID);
-			CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
-			CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iNonActionMagicTarget);
+			int iOffset = 0;
+			CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) WIZ_MAGIC_PROCESS);
+			CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t) N3_SP_MAGIC_EFFECTING);
+			CAPISocket::MP_AddDword(byBuff, iOffset, (int) m_dwNonActionMagicID);
+			CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) s_pPlayer->IDNumber());
+			CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) m_iNonActionMagicTarget);
 
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);	//targetpos...
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-			
+
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 			CAPISocket::MP_AddShort(byBuff, iOffset, 0);
@@ -1655,11 +1656,9 @@ void CMagicSkillMng::Tick()
 
 			m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
 
-			char szBuff[80];
-			std::string szFmt;
-			::_LoadStringFromResource(IDS_SKILL_USE, szFmt);
-			sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-			m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
+			std::string szMsg;
+			GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
+			m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 		}
 	}
 //	if(s_pPlayer->State()==PSA_SPELLMAGIC) 
@@ -1709,67 +1708,63 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 			s_pPlayer->AnimationAdd((const e_Ani)pType1->iAct[i], bImmediately);				
 		}			
 		
-		char szBuff[80];
-		std::string szFmt;
-		::_LoadStringFromResource(IDS_SKILL_USE, szFmt);
-		sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
-		
+		std::string szMsg;
+		GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
+		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
+
 		uint8_t byBuff[32];
-		int iOffset=0;
+		int iOffset = 0;
 		//CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)WIZ_MAGIC_PROCESS);
 		//CAPISocket::MP_AddByte(byBuff, iOffset, (uint8_t)N3_SP_MAGIC_EFFECTING);
-		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iTarget);
+		CAPISocket::MP_AddDword(byBuff, iOffset, (int) pSkill->dwID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) s_pPlayer->IDNumber());
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) m_iTarget);
 
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 1);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-		
+
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
-		
+
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..				
 	}
 	else
 	{
-		char szBuff[80];
-		std::string szFmt;
-		::_LoadStringFromResource(IDS_SKILL_USE, szFmt);
-		sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-		m_pGameProcMain->MsgOutput(szBuff, 0xffffff00);
-		m_fRecastTime = (float)pSkill->iReCastTime / 10.0f;
+		std::string szMsg;
+		GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
+		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
+		m_fRecastTime = (float) pSkill->iReCastTime / 10.0f;
 		m_fDelay = 0.3f;
 
-		CAPISocket::MP_AddDword(byBuff, iOffset, (int)pSkill->dwID);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)s_pPlayer->IDNumber());
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_iTarget);
+		CAPISocket::MP_AddDword(byBuff, iOffset, (int) pSkill->dwID);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) s_pPlayer->IDNumber());
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) m_iTarget);
 
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.x);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.y);
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)m_vTargetPos.z);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) m_vTargetPos.x);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) m_vTargetPos.y);
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) m_vTargetPos.z);
 
-		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)idx);//flying이라면 idx...
+		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) idx);//flying이라면 idx...
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
 
-		if(pSkill->iFlyingFX!=0)
+		if (pSkill->iFlyingFX != 0)
 		{
 			////////////////////////////////////////////////////
 			//flying처리하기..	
 			int SourceID = s_pPlayer->IDNumber();
-			
+
 			s_pPlayer->m_iMagicAni = pSkill->iSelfAnimID2;
-			if(pSkill->dw1stTableType==2 || pSkill->dw2ndTableType==2)
+			if (pSkill->dw1stTableType == 2 || pSkill->dw2ndTableType == 2)
 			{
 				m_fDelay = 0.1f;
 				int LeftItem = s_pPlayer->ItemClass_LeftHand();
 				int RightItem = s_pPlayer->ItemClass_RightHand();
-				if(RightItem == ITEM_CLASS_BOW_CROSS || LeftItem==ITEM_CLASS_BOW_CROSS)
+				if (RightItem == ITEM_CLASS_BOW_CROSS || LeftItem == ITEM_CLASS_BOW_CROSS)
 				{
 					s_pPlayer->m_iMagicAni = ANI_SHOOT_QUARREL_B;
 				}
@@ -2174,12 +2169,12 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 			s_pPlayer->m_dwMagicID = 0xffffffff;
 			m_pGameProcMain->CommandSitDown(false, false); 
 
-			std::string szFmt;
-			::_LoadStringFromResource(IDS_MSG_FMT_TARGET_ATTACK_FAILED, szFmt);
-
-			char szBuff[256] = "";
-			sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-			m_pGameProcMain->MsgOutput(szBuff, 0xffff3b3b);			
+			std::string szMsg;
+			GetTextF(
+				IDS_MSG_FMT_TARGET_ATTACK_FAILED,
+				&szMsg,
+				pSkill->szName.c_str());
+			m_pGameProcMain->MsgOutput(szMsg, 0xffff3b3b);			
 		}
 		return;
 	}
@@ -2197,11 +2192,12 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 			s_pPlayer->m_dwMagicID = 0xffffffff;
 			m_pGameProcMain->CommandSitDown(false, false); // 혹시라도 앉아있음 일으켜 세운다..
 
-			std::string szFmt;
-			::_LoadStringFromResource(IDS_SKILL_FAIL_EFFECTING, szFmt);
-			char szBuff[256] = "";
-			sprintf(szBuff, szFmt.c_str(), pSkill->szName.c_str());
-			m_pGameProcMain->MsgOutput(szBuff, 0xffff3b3b);			
+			std::string szMsg;
+			GetTextF(
+				IDS_SKILL_FAIL_EFFECTING,
+				&szMsg,
+				pSkill->szName.c_str());
+			m_pGameProcMain->MsgOutput(szMsg, 0xffff3b3b);			
 		}
 		return;
 	}	
@@ -2219,9 +2215,9 @@ void CMagicSkillMng::MsgRecv_Fail(Packet& pkt)
 			s_pPlayer->m_dwMagicID = 0xffffffff;
 			m_pGameProcMain->CommandSitDown(false, false); // 혹시라도 앉아있음 일으켜 세운다..
 	
-			std::string buff = "IDS_SKILL_FAIL_CASTING";
-			//::_LoadStringFromResource(IDS_SKILL_FAIL_CASTING, buff);
-			m_pGameProcMain->MsgOutput(buff, 0xffff3b3b);
+			std::string szMsg;
+			GetTextF(IDS_SKILL_FAIL_CASTING, &szMsg);
+			m_pGameProcMain->MsgOutput(szMsg, 0xffff3b3b);
 		}
 		return;
 	}

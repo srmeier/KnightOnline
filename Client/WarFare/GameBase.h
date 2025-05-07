@@ -1,13 +1,4 @@
-﻿// N3GameBase.h: interface for the CN3GameBase class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_N3GAMEBASE_H__5F0720A7_AFF6_4AB5_B469_701AA2935158__INCLUDED_)
-#define AFX_N3GAMEBASE_H__5F0720A7_AFF6_4AB5_B469_701AA2935158__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+﻿#pragma once
 
 #include "N3Base.h"
 #include "GameDef.h"
@@ -31,7 +22,7 @@ public:
 	static CN3TableBase<__TABLE_QUEST_MENU>			s_pTbl_QuestMenu;		// 퀘스트 선택 메뉴
 	static CN3TableBase<__TABLE_QUEST_TALK>			s_pTbl_QuestTalk;		// 퀘스트 지문
 
-	static class CN3WorldManager*	s_pWorldMgr;								// 월드 매니져 클래스..
+	static class CN3WorldManager*		s_pWorldMgr;								// 월드 매니져 클래스..
 	static class CPlayerOtherMgr*		s_pOPMgr;									// Other Player Manager - 다른 유저 관리 클래스..
 	static class CPlayerMySelf*			s_pPlayer;			// 유저 클래스..
 	
@@ -40,6 +31,8 @@ protected:
 	static void StaticMemberRelease(); // 테이블 및 기본 지형, 오브젝트, 캐리터등 초기화..
 
 public:
+	static bool GetText(uint32_t nResourceID, std::string* szText);
+	static bool GetTextF(uint32_t nResourceID, std::string* szText, ...);
 	static bool	GetTextByAttrib(e_ItemAttrib eAttrib, std::string& szAttrib);
 	static bool GetTextByClass(e_Class eClass, std::string& szText);
 	static bool GetTextByItemClass(e_ItemClass eItemClass, std::string& szText);
@@ -61,5 +54,3 @@ public:
 	CGameBase();
 	virtual ~CGameBase();
 };
-
-#endif // !defined(AFX_N3GAMEBASE_H__5F0720A7_AFF6_4AB5_B469_701AA2935158__INCLUDED_)

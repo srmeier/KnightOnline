@@ -671,10 +671,8 @@ int CGameProcCharacterSelect::MsgRecv_GameServerLogIn(Packet& pDataPack)
 	if (0xff == iNation)
 	{
 		std::string szMsg;
-		::_LoadStringFromResource(IDS_FMT_GAME_SERVER_LOGIN_ERROR, szMsg);
-		char szBuffer[256];
-		sprintf(szBuffer, szMsg.c_str(), "Current", iNation);
-		MessageBoxPost(szBuffer, "", MB_OK, BEHAVIOR_EXIT);
+		GetTextF(IDS_FMT_GAME_SERVER_LOGIN_ERROR, &szMsg, "Current", iNation);
+		MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_EXIT);
 	}
 	else
 	{
@@ -1065,8 +1063,9 @@ void CGameProcCharacterSelect::CharacterSelect()
 void CGameProcCharacterSelect::CharacterSelectFailed()
 {
 	m_bReceivedCharacterSelect = false; // 캐릭터 고르기 실패..
-	std::string szErr; ::_LoadStringFromResource(IDS_ERR_CHARACTER_SELECT, szErr);
-	CGameProcedure::MessageBoxPost(szErr, "", MB_OK, BEHAVIOR_EXIT);
+	std::string szErr;
+	GetText(IDS_ERR_CHARACTER_SELECT, &szErr);
+	MessageBoxPost(szErr, "", MB_OK, BEHAVIOR_EXIT);
 	s_pUIMgr->EnableOperationSet(true);
 }
 

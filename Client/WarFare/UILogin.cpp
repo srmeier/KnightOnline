@@ -84,7 +84,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		else if (pSender == m_pBtn_Option) // 옵션..
 		{
 			std::string szMsg;
-			::_LoadStringFromResource(IDS_CONFIRM_EXECUTE_OPTION, szMsg);
+			CGameBase::GetText(IDS_CONFIRM_EXECUTE_OPTION, &szMsg);
 			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_EXECUTE_OPTION);
 			return true;
 		}

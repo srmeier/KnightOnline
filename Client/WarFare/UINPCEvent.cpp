@@ -118,7 +118,7 @@ void CUINPCEvent::Open(e_NpcEvent eNpcEvent, int iTradeId, int iIDTarget)
 	switch(eNpcEvent)
 	{
 		case NPC_EVENT_ITEM_TRADE:
-			::_LoadStringFromResource(IDS_NPC_EVENT_TITLE_TRADE, szStr);
+			CGameBase::GetText(IDS_NPC_EVENT_TITLE_TRADE, &szStr);
 			m_pText_Title->SetString(szStr);
 			if (m_pBtn_Repair)
 			{
@@ -131,7 +131,7 @@ void CUINPCEvent::Open(e_NpcEvent eNpcEvent, int iTradeId, int iIDTarget)
 			break;
 
 		case NPC_EVENT_TRADE_REPAIR:
-			::_LoadStringFromResource(IDS_NPCEVENT_TITLE_REPAIR, szStr);
+			CGameBase::GetText(IDS_NPCEVENT_TITLE_REPAIR, &szStr);
 			m_pText_Title->SetString(szStr);
 			if (m_pBtn_Repair)
 			{

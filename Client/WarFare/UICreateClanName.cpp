@@ -64,38 +64,35 @@ bool CUICreateClanName::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 bool CUICreateClanName::MakeClan()
 {
-	if(m_szClanName.empty()) return false;
-	if(m_szClanName.size()>20) m_szClanName.resize(20);
+	if (m_szClanName.empty()) return false;
+	if (m_szClanName.size() > 20)
+		m_szClanName.resize(20);
 
-	std::string szTmp;
-	::_LoadStringFromResource(IDS_CLAN_WARNING_COST, szTmp);
-	char szMsg[80];
-	sprintf(szMsg, szTmp.c_str(), CLAN_COST);
+	std::string szMsg;
+	CGameBase::GetTextF(IDS_CLAN_WARNING_COST, &szMsg, CLAN_COST);
 	CGameProcedure::s_pProcMain->MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_KNIGHTS_CREATE);
 	return true;
 }
 
 void CUICreateClanName::MsgSend_MakeClan()
 {
-	int iLn = 20;
-	iLn = m_szClanName.size();
+	int iLn = (int) m_szClanName.size();
 	uint8_t byBuff[40];									// 패킷 버퍼..
-	int iOffset=0;										// 패킷 오프셋..
-	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);		
+	int iOffset = 0;									// 패킷 오프셋..
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_KNIGHTS_PROCESS);
 	CAPISocket::MP_AddByte(byBuff, iOffset, N3_SP_KNIGHTS_CREATE);
-	CAPISocket::MP_AddShort(byBuff, iOffset, (uint8_t)iLn);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (uint8_t) iLn);
 	CAPISocket::MP_AddString(byBuff, iOffset, m_szClanName);
-	
+
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset);
-	return;
 }
 
 void CUICreateClanName::Open(int msg)
 {
-	if(msg!=0)
+	if (msg != 0)
 	{
 		std::string szMsg;
-		::_LoadStringFromResource(msg, szMsg);
+		CGameBase::GetText(msg, &szMsg);
 		m_pText_Title->SetString(szMsg);
 	}
 	m_pEdit_ClanName->SetString("");

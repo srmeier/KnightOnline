@@ -57,10 +57,10 @@ bool CUIDead::Load(HANDLE hFile)
 
 
 	std::string szMsg;
-	::_LoadStringFromResource(IDS_DEAD_REVIVAL, szMsg);
+	CGameBase::GetText(IDS_DEAD_REVIVAL, &szMsg);
 	if(m_pTextAlive) m_pTextAlive->SetString(szMsg);
 
-	::_LoadStringFromResource(IDS_DEAD_RETURN_TOWN, szMsg);
+	CGameBase::GetText(IDS_DEAD_RETURN_TOWN, &szMsg);
 	if(m_pTextTown) m_pTextTown->SetString(szMsg);
 
 	__TABLE_UI_RESRC*	pTblUI	= NULL;
@@ -89,43 +89,46 @@ bool CUIDead::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 
 			iLevel = CGameProcedure::s_pPlayer->m_InfoBase.iLevel;
 			iNeedItemCnt = iLevel * TIMES_LIFE_STONE;
-			char szBuf[256] = "";
 			std::string szMsg;
 
-			if(iLevel < 6)
+			if (iLevel < 6)
 			{
-				::_LoadStringFromResource(IDS_DEAD_LOW_LEVEL, szMsg);
-				sprintf(szBuf, szMsg.c_str(), iNeedItemCnt);
-
-				m_MsgBox.SetBoxStyle(MB_OK);
-				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
-				m_MsgBox.SetTitle("");
-				m_MsgBox.SetText(szBuf);
-				m_MsgBox.ShowWindow(CHILD_UI_LOW_LEVEL,this);
-			}
-			else if(iItemCnt >= iNeedItemCnt)
-			{
-				::_LoadStringFromResource(IDS_DEAD_REVIVAL_MESSAGE, szMsg);
-				sprintf(szBuf, szMsg.c_str(), iNeedItemCnt);
-
-				m_MsgBox.SetBoxStyle(MB_YESNO);
-				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
-				m_MsgBox.SetTitle("");
-				m_MsgBox.SetText(szBuf);
-				m_MsgBox.ShowWindow(CHILD_UI_REVIVE_MSG,this);
-			}
-			else
-			{
-				::_LoadStringFromResource(IDS_DEAD_LACK_LIFE_STONE, szMsg);
+				CGameBase::GetTextF(
+					IDS_DEAD_LOW_LEVEL,
+					&szMsg,
+					iNeedItemCnt);
 
 				m_MsgBox.SetBoxStyle(MB_OK);
 				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
 				m_MsgBox.SetTitle("");
 				m_MsgBox.SetText(szMsg);
-				m_MsgBox.ShowWindow(CHILD_UI_LACK_LIVE_STONE_MSG,this);
+				m_MsgBox.ShowWindow(CHILD_UI_LOW_LEVEL, this);
+			}
+			else if (iItemCnt >= iNeedItemCnt)
+			{
+				CGameBase::GetTextF(
+					IDS_DEAD_REVIVAL_MESSAGE,
+					&szMsg,
+					iNeedItemCnt);
+
+				m_MsgBox.SetBoxStyle(MB_YESNO);
+				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
+				m_MsgBox.SetTitle("");
+				m_MsgBox.SetText(szMsg);
+				m_MsgBox.ShowWindow(CHILD_UI_REVIVE_MSG, this);
+			}
+			else
+			{
+				CGameBase::GetText(IDS_DEAD_LACK_LIFE_STONE, &szMsg);
+
+				m_MsgBox.SetBoxStyle(MB_OK);
+				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
+				m_MsgBox.SetTitle("");
+				m_MsgBox.SetText(szMsg);
+				m_MsgBox.ShowWindow(CHILD_UI_LACK_LIVE_STONE_MSG, this);
 			}
 		}
-		else if(pSender == m_pTextTown)
+		else if (pSender == m_pTextTown)
 		{
 			MsgSend_Revival(REVIVAL_TYPE_RETURN_TOWN);
 		}

@@ -112,12 +112,10 @@ bool CUINPCChangeEvent::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			else
 			{
 				Close();
-				char szBuf[256] = "";
-				std::string szMsg; 
 
-				::_LoadStringFromResource(IDS_MSG_HASITEMINSLOT, szMsg);
-				sprintf(szBuf, szMsg.c_str()); 
-				CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffff3b3b);
+				std::string szMsg; 
+				CGameBase::GetText(IDS_MSG_HASITEMINSLOT, &szMsg);
+				CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff3b3b);
 			}
 		}
 

@@ -42,13 +42,6 @@ CGameBase::~CGameBase()
 {
 }
 
-void _LoadStringFromResource(uint32_t dwID, std::string& szText)
-{
-	auto pText = CGameBase::s_pTbl_Texts.Find(dwID);
-	if (pText != nullptr)
-		szText = pText->szText;
-}
-
 void CGameBase::StaticMemberInit()
 {
 	std::string szLangTail = "_us.tbl";
@@ -90,112 +83,143 @@ void CGameBase::StaticMemberRelease()
 	delete s_pWorldMgr;	s_pWorldMgr = NULL;
 }
 
+bool CGameBase::GetText(uint32_t dwResourceID, std::string* szText)
+{
+	__TABLE_TEXTS* pText = s_pTbl_Texts.Find(dwResourceID);
+	if (pText == nullptr)
+	{
+		szText->clear();
+		return false;
+	}
+
+	*szText = pText->szText;
+	return true;
+}
+
+bool CGameBase::GetTextF(uint32_t nResourceID, std::string* szText, ...)
+{
+	if (!GetText(nResourceID, szText))
+	{
+		szText->clear();
+		return false;
+	}
+
+	char buffer[1024] = {};
+	va_list args;
+	va_start(args, szText);
+	vsnprintf(buffer, sizeof(buffer), szText->c_str(), args);
+	*szText = buffer;
+	va_end(args);
+
+	return true;
+}
+
 bool CGameBase::GetTextByClass(e_Class eClass, std::string& szText)
 {
 	switch(eClass)
 	{
 		case CLASS_KINDOF_WARRIOR:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_WARRIOR, szText);
+			GetText(IDS_CLASS_KINDOF_WARRIOR, &szText);
 			break;
 		case CLASS_KINDOF_ROGUE:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_ROGUE, szText);
+			GetText(IDS_CLASS_KINDOF_ROGUE, &szText);
 			break;
 		case CLASS_KINDOF_WIZARD:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_WIZARD, szText);
+			GetText(IDS_CLASS_KINDOF_WIZARD, &szText);
 			break;
 		case CLASS_KINDOF_PRIEST:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_PRIEST, szText);
+			GetText(IDS_CLASS_KINDOF_PRIEST, &szText);
 			break;
 		case CLASS_KINDOF_ATTACK_WARRIOR:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_ATTACK_WARRIOR, szText);
+			GetText(IDS_CLASS_KINDOF_ATTACK_WARRIOR, &szText);
 			break;
 		case CLASS_KINDOF_DEFEND_WARRIOR:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_DEFEND_WARRIOR, szText);
+			GetText(IDS_CLASS_KINDOF_DEFEND_WARRIOR, &szText);
 			break;
 		case CLASS_KINDOF_ARCHER:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_ARCHER, szText);
+			GetText(IDS_CLASS_KINDOF_ARCHER, &szText);
 			break;
 		case CLASS_KINDOF_ASSASSIN:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_ASSASSIN, szText);
+			GetText(IDS_CLASS_KINDOF_ASSASSIN, &szText);
 			break;
 		case CLASS_KINDOF_ATTACK_WIZARD:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_ATTACK_WIZARD, szText);
+			GetText(IDS_CLASS_KINDOF_ATTACK_WIZARD, &szText);
 			break;
 		case CLASS_KINDOF_PET_WIZARD:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_PET_WIZARD, szText);
+			GetText(IDS_CLASS_KINDOF_PET_WIZARD, &szText);
 			break;
 		case CLASS_KINDOF_HEAL_PRIEST:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_HEAL_PRIEST, szText);
+			GetText(IDS_CLASS_KINDOF_HEAL_PRIEST, &szText);
 			break;
 		case CLASS_KINDOF_CURSE_PRIEST:
-			::_LoadStringFromResource(IDS_CLASS_KINDOF_CURSE_PRIEST, szText);
+			GetText(IDS_CLASS_KINDOF_CURSE_PRIEST, &szText);
 			break;
 
 		case CLASS_EL_WARRIOR:
 		case CLASS_KA_WARRIOR:
-			::_LoadStringFromResource(IDS_CLASS_WARRIOR, szText);
+			GetText(IDS_CLASS_WARRIOR, &szText);
 			break;
 		case CLASS_EL_ROGUE:
 		case CLASS_KA_ROGUE:
-			::_LoadStringFromResource(IDS_CLASS_ROGUE, szText);
+			GetText(IDS_CLASS_ROGUE, &szText);
 			break;
 		case CLASS_EL_WIZARD:
 		case CLASS_KA_WIZARD:
-			::_LoadStringFromResource(IDS_CLASS_WIZARD, szText);
+			GetText(IDS_CLASS_WIZARD, &szText);
 			break;
 		case CLASS_EL_PRIEST:
 		case CLASS_KA_PRIEST:
-			::_LoadStringFromResource(IDS_CLASS_PRIEST, szText);
+			GetText(IDS_CLASS_PRIEST, &szText);
 			break;
 		
 		case CLASS_KA_BERSERKER:
-			::_LoadStringFromResource(IDS_CLASS_KA_BERSERKER, szText);
+			GetText(IDS_CLASS_KA_BERSERKER, &szText);
 			break;
 		case CLASS_KA_GUARDIAN:
-			::_LoadStringFromResource(IDS_CLASS_KA_GUARDIAN, szText);
+			GetText(IDS_CLASS_KA_GUARDIAN, &szText);
 			break;
 		case CLASS_KA_HUNTER:
-			::_LoadStringFromResource(IDS_CLASS_KA_HUNTER, szText);
+			GetText(IDS_CLASS_KA_HUNTER, &szText);
 			break;
 		case CLASS_KA_PENETRATOR:
-			::_LoadStringFromResource(IDS_CLASS_KA_PENETRATOR, szText);
+			GetText(IDS_CLASS_KA_PENETRATOR, &szText);
 			break;
 		case CLASS_KA_SORCERER:
-			::_LoadStringFromResource(IDS_CLASS_KA_SORCERER, szText);
+			GetText(IDS_CLASS_KA_SORCERER, &szText);
 			break;
 		case CLASS_KA_NECROMANCER:
-			::_LoadStringFromResource(IDS_CLASS_KA_NECROMANCER, szText);
+			GetText(IDS_CLASS_KA_NECROMANCER, &szText);
 			break;
 		case CLASS_KA_SHAMAN:
-			::_LoadStringFromResource(IDS_CLASS_KA_SHAMAN, szText);
+			GetText(IDS_CLASS_KA_SHAMAN, &szText);
 			break;
 		case CLASS_KA_DARKPRIEST:
-			::_LoadStringFromResource(IDS_CLASS_KA_DARKPRIEST, szText);
+			GetText(IDS_CLASS_KA_DARKPRIEST, &szText);
 			break;
 		
 		case CLASS_EL_BLADE:
-			::_LoadStringFromResource(IDS_CLASS_EL_BLADE, szText);
+			GetText(IDS_CLASS_EL_BLADE, &szText);
 			break;
 		case CLASS_EL_PROTECTOR:
-			::_LoadStringFromResource(IDS_CLASS_EL_PROTECTOR, szText);
+			GetText(IDS_CLASS_EL_PROTECTOR, &szText);
 			break;
 		case CLASS_EL_RANGER:
-			::_LoadStringFromResource(IDS_CLASS_EL_RANGER, szText);
+			GetText(IDS_CLASS_EL_RANGER, &szText);
 			break;
 		case CLASS_EL_ASSASIN:
-			::_LoadStringFromResource(IDS_CLASS_EL_ASSASIN, szText);
+			GetText(IDS_CLASS_EL_ASSASIN, &szText);
 			break;
 		case CLASS_EL_MAGE:
-			::_LoadStringFromResource(IDS_CLASS_EL_MAGE, szText);
+			GetText(IDS_CLASS_EL_MAGE, &szText);
 			break;
 		case CLASS_EL_ENCHANTER:
-			::_LoadStringFromResource(IDS_CLASS_EL_ENCHANTER, szText);
+			GetText(IDS_CLASS_EL_ENCHANTER, &szText);
 			break;
 		case CLASS_EL_CLERIC:
-			::_LoadStringFromResource(IDS_CLASS_EL_CLERIC, szText);
+			GetText(IDS_CLASS_EL_CLERIC, &szText);
 			break;
 		case CLASS_EL_DRUID:
-			::_LoadStringFromResource(IDS_CLASS_EL_DRUID, szText);
+			GetText(IDS_CLASS_EL_DRUID, &szText);
 			break;
 		
 		default:
@@ -211,13 +235,13 @@ bool CGameBase::GetTextByKnightsDuty(e_KnightsDuty eDuty, std::string& szText)
 {
 	switch(eDuty)
 	{
-		case KNIGHTS_DUTY_UNKNOWN:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_UNKNOWN, szText); break; // ????? 쫓겨남??
-		case KNIGHTS_DUTY_PUNISH:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_PUNISH, szText); break; // 징계중.
-		case KNIGHTS_DUTY_TRAINEE:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_TRAINEE, szText); break; // 견습기사
-		case KNIGHTS_DUTY_KNIGHT:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_KNIGHT, szText); break; // 일반기사
-		case KNIGHTS_DUTY_OFFICER:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_OFFICER, szText); break; // 장교
-		case KNIGHTS_DUTY_VICECHIEF:	::_LoadStringFromResource(IDS_KNIGHTS_DUTY_VICECHIEF, szText); break; // 부단장.
-		case KNIGHTS_DUTY_CHIEF:		::_LoadStringFromResource(IDS_KNIGHTS_DUTY_CHIEF, szText); break; // 기사단장 직위..
+		case KNIGHTS_DUTY_UNKNOWN:		GetText(IDS_KNIGHTS_DUTY_UNKNOWN, &szText); break; // ????? 쫓겨남??
+		case KNIGHTS_DUTY_PUNISH:		GetText(IDS_KNIGHTS_DUTY_PUNISH, &szText); break; // 징계중.
+		case KNIGHTS_DUTY_TRAINEE:		GetText(IDS_KNIGHTS_DUTY_TRAINEE, &szText); break; // 견습기사
+		case KNIGHTS_DUTY_KNIGHT:		GetText(IDS_KNIGHTS_DUTY_KNIGHT, &szText); break; // 일반기사
+		case KNIGHTS_DUTY_OFFICER:		GetText(IDS_KNIGHTS_DUTY_OFFICER, &szText); break; // 장교
+		case KNIGHTS_DUTY_VICECHIEF:	GetText(IDS_KNIGHTS_DUTY_VICECHIEF, &szText); break; // 부단장.
+		case KNIGHTS_DUTY_CHIEF:		GetText(IDS_KNIGHTS_DUTY_CHIEF, &szText); break; // 기사단장 직위..
 		default: __ASSERT(0, "Invalid Knights Duty"); szText = "Unknown Duty"; return false;
 	}
 
@@ -229,99 +253,99 @@ bool CGameBase::GetTextByItemClass(e_ItemClass eItemClass, std::string& szText)
 	switch(eItemClass)
 	{
 		case ITEM_CLASS_DAGGER:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_DAGGER, szText);
+			GetText(IDS_ITEM_CLASS_DAGGER, &szText);
 			break; // 단검(dagger)
 		case ITEM_CLASS_SWORD:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD, szText);
+			GetText(IDS_ITEM_CLASS_SWORD, &szText);
 			break; // 한손검(onehandsword)
 		case ITEM_CLASS_SWORD_2H:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_SWORD_2H, szText);
+			GetText(IDS_ITEM_CLASS_SWORD_2H, &szText);
 			break; // 3 : 양손검(twohandsword)
 		case ITEM_CLASS_AXE:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_AXE, szText);
+			GetText(IDS_ITEM_CLASS_AXE, &szText);
 			break; // 한손도끼(onehandaxe)
 		case ITEM_CLASS_AXE_2H:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_AXE_2H, szText);
+			GetText(IDS_ITEM_CLASS_AXE_2H, &szText);
 			break; // 두손도끼(twohandaxe)
 		case ITEM_CLASS_MACE:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_MACE, szText);
+			GetText(IDS_ITEM_CLASS_MACE, &szText);
 			break; // 한손타격무기(mace)
 		case ITEM_CLASS_MACE_2H:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_MACE_2H, szText);
+			GetText(IDS_ITEM_CLASS_MACE_2H, &szText);
 			break; // 두손타격무기(twohandmace)
 		case ITEM_CLASS_SPEAR:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_SPEAR, szText);
+			GetText(IDS_ITEM_CLASS_SPEAR, &szText);
 			break; // 창(spear)
 		case ITEM_CLASS_POLEARM:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_POLEARM, szText);
+			GetText(IDS_ITEM_CLASS_POLEARM, &szText);
 			break; // 폴암(polearm)
 
 		case ITEM_CLASS_SHIELD:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_SHIELD, szText);
+			GetText(IDS_ITEM_CLASS_SHIELD, &szText);
 			break; // 쉴드(shield)
 
 		case ITEM_CLASS_BOW:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW, szText);
+			GetText(IDS_ITEM_CLASS_BOW, &szText);
 			break; //  쇼트보우(Shortbow)
 		case ITEM_CLASS_BOW_CROSS:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_CROSS, szText);
+			GetText(IDS_ITEM_CLASS_BOW_CROSS, &szText);
 			break; // 크로스보우(crossbow)
 		case ITEM_CLASS_BOW_LONG:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_BOW_LONG, szText);
+			GetText(IDS_ITEM_CLASS_BOW_LONG, &szText);
 			break; // 롱보우(longbow)
 
 		case ITEM_CLASS_EARRING:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_EARRING, szText);
+			GetText(IDS_ITEM_CLASS_EARRING, &szText);
 			break; // 귀걸이
 		case ITEM_CLASS_AMULET:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_AMULET, szText);
+			GetText(IDS_ITEM_CLASS_AMULET, &szText);
 			break; // 목걸이
 		case ITEM_CLASS_RING:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_RING, szText);
+			GetText(IDS_ITEM_CLASS_RING, &szText);
 			break; // 반지
 		case ITEM_CLASS_BELT:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_BELT, szText);
+			GetText(IDS_ITEM_CLASS_BELT, &szText);
 			break; // 허리띠
 		case ITEM_CLASS_CHARM:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_CHARM, szText);
+			GetText(IDS_ITEM_CLASS_CHARM, &szText);
 			break; //인벤토리에 지니고 있는 아이템
 		case ITEM_CLASS_JEWEL:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_JEWEL, szText);
+			GetText(IDS_ITEM_CLASS_JEWEL, &szText);
 			break; //보석종류
 		case ITEM_CLASS_POTION:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_POTION, szText);
+			GetText(IDS_ITEM_CLASS_POTION, &szText);
 			break; // 물약
 		case ITEM_CLASS_SCROLL:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_SCROLL, szText);
+			GetText(IDS_ITEM_CLASS_SCROLL, &szText);
 			break; // 스크롤
 
 
 
 		case ITEM_CLASS_LAUNCHER:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_LAUNCHER, szText);
+			GetText(IDS_ITEM_CLASS_LAUNCHER, &szText);
 			break; 
 						
 		case ITEM_CLASS_STAFF:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_STAFF, szText);
+			GetText(IDS_ITEM_CLASS_STAFF, &szText);
 			break; // 지팡이(staff)
 		case ITEM_CLASS_ARROW:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_ARROW, szText);
+			GetText(IDS_ITEM_CLASS_ARROW, &szText);
 			break; // 화살(Arrow)
 		case ITEM_CLASS_JAVELIN:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_JAVELIN, szText);
+			GetText(IDS_ITEM_CLASS_JAVELIN, &szText);
 			break; // 투창
 		
 		case ITEM_CLASS_ARMOR_WARRIOR:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_WARRIOR, szText);
+			GetText(IDS_ITEM_CLASS_ARMOR_WARRIOR, &szText);
 			break; // 전사 방어구
 		case ITEM_CLASS_ARMOR_ROGUE:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_ROGUE, szText);
+			GetText(IDS_ITEM_CLASS_ARMOR_ROGUE, &szText);
 			break; // 로그 방어구
 		case ITEM_CLASS_ARMOR_MAGE:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_MAGE, szText);
+			GetText(IDS_ITEM_CLASS_ARMOR_MAGE, &szText);
 			break; // 마법사 방어구
 		case ITEM_CLASS_ARMOR_PRIEST:
-			::_LoadStringFromResource(IDS_ITEM_CLASS_ARMOR_PRIEST, szText); 
+			GetText(IDS_ITEM_CLASS_ARMOR_PRIEST, &szText); 
 			break; // 사제 방어구
 		default:
 //			__ASSERT(0, "Invalid Item Class"); szText = "Unknonw Item Class";
@@ -335,12 +359,12 @@ bool CGameBase::GetTextByAttrib(e_ItemAttrib eAttrib, std::string& szAttrib)
 {
 	switch(eAttrib)
 	{
-		case ITEM_ATTRIB_GENERAL:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_GENERAL, szAttrib); break; // 단검(dagger)
-		case ITEM_ATTRIB_MAGIC:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_MAGIC, szAttrib); break; // 한손검(onehandsword)
-		case ITEM_ATTRIB_LAIR:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_LAIR, szAttrib); break; // 3 : 양손검(twohandsword)
-		case ITEM_ATTRIB_CRAFT:			::_LoadStringFromResource(IDS_ITEM_ATTRIB_CRAFT, szAttrib); break; // 한손도끼(onehandaxe)
-		case ITEM_ATTRIB_UNIQUE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UNIQUE, szAttrib); break; // 두손도끼(twohandaxe)
-		case ITEM_ATTRIB_UPGRADE:		::_LoadStringFromResource(IDS_ITEM_ATTRIB_UPGRADE, szAttrib); break; // 한손타격무기(mace)
+		case ITEM_ATTRIB_GENERAL:		GetText(IDS_ITEM_ATTRIB_GENERAL, &szAttrib); break; // 단검(dagger)
+		case ITEM_ATTRIB_MAGIC:			GetText(IDS_ITEM_ATTRIB_MAGIC, &szAttrib); break; // 한손검(onehandsword)
+		case ITEM_ATTRIB_LAIR:			GetText(IDS_ITEM_ATTRIB_LAIR, &szAttrib); break; // 3 : 양손검(twohandsword)
+		case ITEM_ATTRIB_CRAFT:			GetText(IDS_ITEM_ATTRIB_CRAFT, &szAttrib); break; // 한손도끼(onehandaxe)
+		case ITEM_ATTRIB_UNIQUE:		GetText(IDS_ITEM_ATTRIB_UNIQUE, &szAttrib); break; // 두손도끼(twohandaxe)
+		case ITEM_ATTRIB_UPGRADE:		GetText(IDS_ITEM_ATTRIB_UPGRADE, &szAttrib); break; // 한손타격무기(mace)
 		default:
 			return false;
 	}
@@ -393,9 +417,9 @@ bool CGameBase::GetTextByNation(e_Nation eNation, std::string& szText)
 {
 	switch(eNation)
 	{
-		case NATION_ELMORAD:	::_LoadStringFromResource(IDS_NATION_ELMORAD, szText); break;
-		case NATION_KARUS:		::_LoadStringFromResource(IDS_NATION_KARUS, szText); break;
-		default: ::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText); return false;
+		case NATION_ELMORAD:	GetText(IDS_NATION_ELMORAD, &szText); break;
+		case NATION_KARUS:		GetText(IDS_NATION_KARUS, &szText); break;
+		default: GetText(IDS_NATION_UNKNOWN, &szText); return false;
 	}
 
 	return true;
@@ -406,30 +430,30 @@ bool CGameBase::GetTextByRace(e_Race eRace, std::string& szText)
 	switch(eRace)
 	{
 		case RACE_EL_BABARIAN:
-			::_LoadStringFromResource(IDS_RACE_EL_BABARIAN, szText);
+			GetText(IDS_RACE_EL_BABARIAN, &szText);
 			break;
 		case RACE_EL_MAN:
-			::_LoadStringFromResource(IDS_RACE_EL_MAN, szText);
+			GetText(IDS_RACE_EL_MAN, &szText);
 			break;
 		case RACE_EL_WOMEN:
-			::_LoadStringFromResource(IDS_RACE_EL_WOMEN, szText);
+			GetText(IDS_RACE_EL_WOMEN, &szText);
 			break;
 
 		case RACE_KA_ARKTUAREK:
-			::_LoadStringFromResource(IDS_RACE_KA_ARKTUAREK, szText);
+			GetText(IDS_RACE_KA_ARKTUAREK, &szText);
 			break;
 		case RACE_KA_TUAREK:
-			::_LoadStringFromResource(IDS_RACE_KA_TUAREK, szText);
+			GetText(IDS_RACE_KA_TUAREK, &szText);
 			break;
 		case RACE_KA_WRINKLETUAREK:
-			::_LoadStringFromResource(IDS_RACE_KA_WRINKLETUAREK, szText);
+			GetText(IDS_RACE_KA_WRINKLETUAREK, &szText);
 			break;
 		case RACE_KA_PURITUAREK:
-			::_LoadStringFromResource(IDS_RACE_KA_PURITUAREK, szText);
+			GetText(IDS_RACE_KA_PURITUAREK, &szText);
 			break;
 			
 		default:
-			::_LoadStringFromResource(IDS_NATION_UNKNOWN, szText); 
+			GetText(IDS_NATION_UNKNOWN, &szText); 
 			return false;
 	}
 

@@ -89,16 +89,11 @@ bool CUIInn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 void CUIInn::Message(int iMessageID)
 {
 	std::string szMsg;
-	::_LoadStringFromResource(iMessageID, szMsg);
 
-	if(iMessageID == /*IDS_CLAN_DENY_LOWGOLD*/6501)
-	{
-		char szTmp[256];
-		sprintf(szTmp, szMsg.c_str(), CLAN_COST);
-		szMsg = szTmp;
-	}
+	if (iMessageID == IDS_CLAN_DENY_LOWGOLD)
+		CGameBase::GetTextF(iMessageID, &szMsg, CLAN_COST);
 
-	CGameProcedure::s_pProcMain->MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_NOTHING);	
+	CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_NOTHING);	
 }
 
 void CUIInn::MsgSend_OpenWareHouse()

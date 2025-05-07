@@ -197,66 +197,60 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(Packet& pkt)
 	uint8_t byBBSKind	= pkt.read<uint8_t>();
 	uint8_t byResult	= pkt.read<uint8_t>();
 
-	if(byResult != 0x01)
+	if (byResult != 0x01)
 	{
 		uint8_t bySubResult = pkt.read<uint8_t>();
-		if(bySubType == N3_SP_TYPE_BBS_OPEN)
+		if (bySubType == N3_SP_TYPE_BBS_OPEN)
 		{
-			char szBuf[256] = "";
 			std::string szMsg;
-
-			::_LoadStringFromResource(IDS_TRADE_BBS_FAIL6, szMsg);
-
+			CGameBase::GetText(IDS_TRADE_BBS_FAIL6, &szMsg);
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff0000);
 		}
-		else if(bySubType == N3_SP_TYPE_REGISTER)
+		else if (bySubType == N3_SP_TYPE_REGISTER)
 		{
-			char szBuf[256] = "";
 			std::string szMsg;
 
-			switch(bySubResult)
+			switch (bySubResult)
 			{
-			case 1://1: 일반적인 실패
-				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL1, szMsg);
-				break;
-			case 2://2: 돈이 없어서 실패
-				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
-				break;
-			case 3://3: 항목이 없어서 실패
-				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
-				break;
+				case 1://1: 일반적인 실패
+					CGameBase::GetText(IDS_TRADE_BBS_FAIL1, &szMsg);
+					break;
+
+				case 2://2: 돈이 없어서 실패
+					CGameBase::GetText(IDS_TRADE_BBS_FAIL2, &szMsg);
+					break;
+
+				case 3://3: 항목이 없어서 실패
+					CGameBase::GetText(IDS_TRADE_BBS_FAIL4, &szMsg);
+					break;
 			}
 
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff0000);
 		}
-		else if(bySubType == N3_SP_TYPE_REGISTER_CANCEL)
+		else if (bySubType == N3_SP_TYPE_REGISTER_CANCEL)
 		{
-			char szBuf[256] = "";
 			std::string szMsg;
-
-			::_LoadStringFromResource(IDS_TRADE_BBS_FAIL3, szMsg);
-
+			CGameBase::GetText(IDS_TRADE_BBS_FAIL3, &szMsg);
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff0000);
 		}
-		else if(bySubType == N3_SP_TYPE_BBS_DATA)
+		else if (bySubType == N3_SP_TYPE_BBS_DATA)
 		{
 		}
-		else if(bySubType == N3_SP_TYPE_BBS_TRADE)
+		else if (bySubType == N3_SP_TYPE_BBS_TRADE)
 		{
-			char szBuf[256] = "";
 			std::string szMsg;
 
-			switch(bySubResult)
+			switch (bySubResult)
 			{
-			case 1://1: 일반적인 실패
-				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL5, szMsg);
-				break;
-			case 2://2: 돈이 없어서 실패
-				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL2, szMsg);
-				break;
-			case 3://3: 항목이 없어서 실패
-				::_LoadStringFromResource(IDS_TRADE_BBS_FAIL4, szMsg);
-				break;
+				case 1://1: 일반적인 실패
+					CGameBase::GetText(IDS_TRADE_BBS_FAIL5, &szMsg);
+					break;
+				case 2://2: 돈이 없어서 실패
+					CGameBase::GetText(IDS_TRADE_BBS_FAIL2, &szMsg);
+					break;
+				case 3://3: 항목이 없어서 실패
+					CGameBase::GetText(IDS_TRADE_BBS_FAIL4, &szMsg);
+					break;
 			}
 
 			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xffff0000);
@@ -264,33 +258,50 @@ void CUITradeSellBBS::MsgRecv_TradeBBS(Packet& pkt)
 		return; //실패했다면
 	}
 
-	if(bySubType == N3_SP_TYPE_BBS_OPEN)
+	if (bySubType == N3_SP_TYPE_BBS_OPEN)
 	{
-		if(!IsVisible()) SetVisible(true);
+		if (!IsVisible()) SetVisible(true);
 
-		if(byBBSKind == N3_SP_TRADE_BBS_BUY)
+		if (byBBSKind == N3_SP_TRADE_BBS_BUY)
 		{
 			m_byBBSKind = N3_SP_TRADE_BBS_BUY;
-			if(m_pImage_Sell)		m_pImage_Sell->SetVisible(false);
-			if(m_pImage_Buy)		m_pImage_Buy->SetVisible(true);
-			if(m_pImage_Sell_Title)	m_pImage_Sell_Title->SetVisible(false);
-			if(m_pImage_Buy_Title)	m_pImage_Buy_Title->SetVisible(true);
+
+			if (m_pImage_Sell != nullptr)
+				m_pImage_Sell->SetVisible(false);
+
+			if (m_pImage_Buy != nullptr)
+				m_pImage_Buy->SetVisible(true);
+
+			if (m_pImage_Sell_Title != nullptr)
+				m_pImage_Sell_Title->SetVisible(false);
+
+			if (m_pImage_Buy_Title != nullptr)
+				m_pImage_Buy_Title->SetVisible(true);
 		}
 		else
 		{
 			m_byBBSKind = N3_SP_TRADE_BBS_SELL;
-			if(m_pImage_Sell)		m_pImage_Sell->SetVisible(true);
-			if(m_pImage_Buy)		m_pImage_Buy->SetVisible(false);
-			if(m_pImage_Sell_Title)	m_pImage_Sell_Title->SetVisible(true);
-			if(m_pImage_Buy_Title)	m_pImage_Buy_Title->SetVisible(false);
+
+			if (m_pImage_Sell != nullptr)
+				m_pImage_Sell->SetVisible(true);
+
+			if (m_pImage_Buy != nullptr)
+				m_pImage_Buy->SetVisible(false);
+
+			if (m_pImage_Sell_Title != nullptr)
+				m_pImage_Sell_Title->SetVisible(true);
+
+			if (m_pImage_Buy_Title != nullptr)
+				m_pImage_Buy_Title->SetVisible(false);
 		}
 	}
-	else if(bySubType == N3_SP_TYPE_BBS_TRADE)
+	else if (bySubType == N3_SP_TYPE_BBS_TRADE)
 	{
 		CGameProcedure::s_pProcMain->MsgSend_PerTradeBBSReq(m_ITSB.szID, m_ITSB.sID);
 		SetVisible(false);
 		return;
 	}
+
 	MsgRecv_RefreshData(pkt);
 }
 
@@ -458,33 +469,37 @@ void CUITradeSellBBS::CallBackProc(int iID, uint32_t dwFlag)
 
 void CUITradeSellBBS::OnButtonRegister()
 {
-	if(m_bProcessing) return; //전에 보낸 패킷 응답이 없으면
+	// 전에 보낸 패킷 응답이 없으면
+	if (m_bProcessing)
+		return;
 
-	if(m_byBBSKind == N3_SP_TRADE_BBS_BUY)
+	if (m_byBBSKind == N3_SP_TRADE_BBS_BUY)
 	{
-		char szBuf[256] = "";
 		std::string szMsg;
-		::_LoadStringFromResource(IDS_TRADE_BBS_BUY_REGISTER, szMsg);
-		sprintf(szBuf, szMsg.c_str(), 500);
+		CGameBase::GetTextF(
+			IDS_TRADE_BBS_BUY_REGISTER,
+			&szMsg,
+			500);
 
 		m_MsgBox.SetBoxStyle(MB_YESNO);
 		m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
 		m_MsgBox.SetTitle("");
-		m_MsgBox.SetText(szBuf);
-		m_MsgBox.ShowWindow(CHILD_UI_SELL_MSG,this);
+		m_MsgBox.SetText(szMsg);
+		m_MsgBox.ShowWindow(CHILD_UI_SELL_MSG, this);
 	}
 	else
 	{
-		char szBuf[256] = "";
 		std::string szMsg;
-		::_LoadStringFromResource(IDS_TRADE_BBS_SELL_REGISTER, szMsg);
-		sprintf(szBuf, szMsg.c_str(), 1000);
+		CGameBase::GetTextF(
+			IDS_TRADE_BBS_SELL_REGISTER,
+			&szMsg,
+			1000);
 
 		m_MsgBox.SetBoxStyle(MB_YESNO);
 		m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
 		m_MsgBox.SetTitle("");
-		m_MsgBox.SetText(szBuf);
-		m_MsgBox.ShowWindow(CHILD_UI_SELL_MSG,this);
+		m_MsgBox.SetText(szMsg);
+		m_MsgBox.ShowWindow(CHILD_UI_SELL_MSG, this);
 	}
 }
 
@@ -561,19 +576,20 @@ void CUITradeSellBBS::OnButtonTrade()
 		{
 			__InfoTradeSellBBS ITSB = (*it);
 
-			if(0 != lstrcmpi(ITSB.szID.c_str(), CGameProcedure::s_pPlayer->m_InfoBase.szID.c_str()))
+			if (0 != lstrcmpi(ITSB.szID.c_str(), CGameProcedure::s_pPlayer->m_InfoBase.szID.c_str()))
 			{
-				char szBuf[256] = "";
 				std::string szMsg;
-				::_LoadStringFromResource(IDS_TRADE_BBS_PER_TRADE, szMsg);
-				sprintf(szBuf, szMsg.c_str(), 5000);
+				CGameBase::GetTextF(
+					IDS_TRADE_BBS_PER_TRADE,
+					&szMsg,
+					5000);
 
 				m_ITSB = ITSB;
 				m_MsgBox.SetBoxStyle(MB_YESNO);
 				m_MsgBox.m_eBehavior = BEHAVIOR_NOTHING;
 				m_MsgBox.SetTitle("");
-				m_MsgBox.SetText(szBuf);
-				m_MsgBox.ShowWindow(CHILD_UI_TRADE_MSG,this);
+				m_MsgBox.SetText(szMsg);
+				m_MsgBox.ShowWindow(CHILD_UI_TRADE_MSG, this);
 				break;
 			}
 		}
@@ -772,7 +788,7 @@ void CUITradeSellBBS::ResetContent()
 void CUITradeSellBBS::SetContentString(int iIndex, std::string szID, int iPrice, std::string szTitle)
 {
 	std::string szGold;
-	::_LoadStringFromResource(IDS_TOOLTIP_GOLD, szGold);
+	CGameBase::GetText(IDS_TOOLTIP_GOLD, &szGold);
 
 	if(m_pText[iIndex])
 		m_pText[iIndex]->SetString(szID);

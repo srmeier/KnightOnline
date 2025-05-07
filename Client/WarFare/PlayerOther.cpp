@@ -167,19 +167,22 @@ void CPlayerOther::KnightsInfoSet(int iID, const std::string& szName, int iGrade
 	m_InfoExt.iKnightsGrade = iGrade;
 	m_InfoExt.iKnightsRank = iRank;
 
-	if(m_InfoExt.szKnights.empty())
+	if (m_InfoExt.szKnights.empty())
 	{
-		if(m_pClanFont) delete m_pClanFont; m_pClanFont = NULL; 
+		delete m_pClanFont;
+		m_pClanFont = nullptr;
 	}
 
-	float fDist = Distance(CGameProcedure::s_pPlayer->Position());
-	if(fDist < SOUND_RANGE_TO_SET)
+	float fDist = Distance(CGameBase::s_pPlayer->Position());
+	if (fDist < SOUND_RANGE_TO_SET)
 	{
-		if(!m_pClanFont)
+		if (m_pClanFont == nullptr)
 		{
-			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+			std::string szFontID;
+			GetText(IDS_FONT_ID, &szFontID);
+
 			m_pClanFont = new CDFont(szFontID, 12);
-			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
+			m_pClanFont->InitDeviceObjects(s_lpD3DDev);
 			m_pClanFont->RestoreDeviceObjects();
 		}
 
@@ -192,19 +195,23 @@ void CPlayerOther::SetSoundAndInitFont(uint32_t dwFontFlag)
 {
 	CPlayerBase::SetSoundAndInitFont();
 
-	if(m_InfoExt.szKnights.empty()) { delete m_pClanFont; m_pClanFont = NULL; }
-	else
+	if (m_InfoExt.szKnights.empty())
 	{
-		if(!m_pClanFont)
-		{
-			std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
-			m_pClanFont = new CDFont(szFontID, 12, D3DFONT_BOLD); // 좀 작게 만든다..
-			m_pClanFont->InitDeviceObjects( s_lpD3DDev );
-			m_pClanFont->RestoreDeviceObjects();
-		}
-
-		m_pClanFont->SetText(m_InfoExt.szKnights.c_str()); // 폰트에 텍스트 지정.
-		m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
+		delete m_pClanFont;
+		m_pClanFont = nullptr;
+		return;
 	}
-}
 
+	if (m_pClanFont == nullptr)
+	{
+		std::string szFontID;
+		GetText(IDS_FONT_ID, &szFontID);
+
+		m_pClanFont = new CDFont(szFontID, 12, D3DFONT_BOLD); // 좀 작게 만든다..
+		m_pClanFont->InitDeviceObjects(s_lpD3DDev);
+		m_pClanFont->RestoreDeviceObjects();
+	}
+
+	m_pClanFont->SetText(m_InfoExt.szKnights.c_str()); // 폰트에 텍스트 지정.
+	m_pClanFont->SetFontColor(KNIGHTS_FONT_COLOR);
+}

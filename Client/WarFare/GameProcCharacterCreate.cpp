@@ -279,32 +279,30 @@ void CGameProcCharacterCreate::ReportErrorCharacterCreate(e_ErrorCharacterCreate
 	std::string szErr;
 
 	if (ERROR_CHARACTER_CREATE_NO_MORE_CHARACTER == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_NO_MORE_CHARACTER, szErr);
+		GetText(IDS_ERR_NO_MORE_CHARACTER, &szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NATION_AND_INVALID_RACE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_NATION_RACE, szErr);
+		GetText(IDS_ERR_INVALID_NATION_RACE, &szErr);
 	else if(ERROR_CHARACTER_CREATE_OVERLAPPED_ID == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_OVERLAPPED_ID, szErr);
+		GetText(IDS_ERR_OVERLAPPED_ID, &szErr);
 	else if(ERROR_CHARACTER_CREATE_DB_CREATE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_DB_CREATE, szErr);
+		GetText(IDS_ERR_DB_CREATE, &szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NAME == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_NAME, szErr);
+		GetText(IDS_ERR_INVALID_NAME, &szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_NAME_HAS_SPECIAL_LETTER == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_NAME_HAS_SPECIAL_LETTER, szErr);
+		GetText(IDS_ERR_INVALID_NAME_HAS_SPECIAL_LETTER, &szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_RACE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_RACE, szErr);
+		GetText(IDS_ERR_INVALID_RACE, &szErr);
 	else if(ERROR_CHARACTER_CREATE_NOT_SUPPORTED_RACE == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_NOT_SUPPORTED_RACE, szErr);
+		GetText(IDS_ERR_NOT_SUPPORTED_RACE, &szErr);
 	else if(ERROR_CHARACTER_CREATE_INVALID_CLASS == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_INVALID_CLASS, szErr);
+		GetText(IDS_ERR_INVALID_CLASS, &szErr);
 	else if(ERROR_CHARACTER_CREATE_REMAIN_BONUS_POINT == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_REMAIN_BONUS_POINT, szErr);
-	else if(ERROR_CHARACTER_CREATE_INVALID_STAT_POINT == eErrCode)
-		::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
-	else
-		::_LoadStringFromResource(IDS_ERR_UNKNOWN, szErr);
-
+		GetText(IDS_ERR_REMAIN_BONUS_POINT, &szErr);
+	else // if (ERROR_CHARACTER_CREATE_INVALID_STAT_POINT == eErrCode)
+		GetText(IDS_ERR_UNKNOWN, &szErr);
 	
-	std::string szTitle; ::_LoadStringFromResource(IDS_ERR_CHARACTER_CREATE, szTitle);
+	std::string szTitle;
+	GetText(IDS_ERR_CHARACTER_CREATE, &szTitle);
 	MessageBoxPost(szErr, szTitle, MB_OK);
 }
 

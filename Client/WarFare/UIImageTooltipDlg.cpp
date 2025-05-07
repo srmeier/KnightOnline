@@ -174,7 +174,6 @@ void CUIImageTooltipDlg::SetPosSomething(int xpos, int ypos, int iNum)
 int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bool bPrice, bool bBuy)
 {
 	int iIndex = 0;
-	std::string szStr;
 
 	__InfoPlayerMySelf*	pInfoExt = &(CGameBase::s_pPlayer->m_InfoExt);
 
@@ -190,15 +189,14 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 }
 		m_spItemBack = spItem;
 
-		std::string szString;
-		char szBuff[64] = "";
-
-		if (m_pStr[iIndex])
+		if (m_pStr[iIndex] != nullptr)
 		{
+			std::string szStr;
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNCENTER);
-			::_LoadStringFromResource(IDS_TOOLTIP_GOLD, szStr);
+			CGameBase::GetText(IDS_TOOLTIP_GOLD, &szStr);
 			if ( spItem->pItemBasic->szName == szStr )
 			{
+				char szBuff[64] = {};
 				sprintf(szBuff, "%d  %s", spItem->iCount, spItem->pItemBasic->szName.c_str());
 				// 돈이면 흰색..
 				m_pStr[iIndex]->SetColor(m_CWhite);
@@ -237,18 +235,18 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 						m_pStr[iIndex]->SetColor(m_CWhite);
 						break;
 				}
-				std::string strtemp = "";
 
-				if ((e_ItemAttrib)(spItem->pItemExt->byMagicOrRare) != ITEM_ATTRIB_UNIQUE)
+				if ((e_ItemAttrib) (spItem->pItemExt->byMagicOrRare) != ITEM_ATTRIB_UNIQUE)
 				{
-					if(spItem->pItemExt->dwID%10 != 0)
+					std::string strtemp;
+					if (spItem->pItemExt->dwID % 10 != 0)
 					{
-						char szExtID[20];
-						sprintf(szExtID,"(+%d)",spItem->pItemExt->dwID%10);
+						char szExtID[20] = {};
+						sprintf(szExtID, "(+%d)", spItem->pItemExt->dwID % 10);
 						strtemp = szExtID;
 					}
 
-					m_pstdstr[iIndex] = spItem->pItemBasic->szName + strtemp ;
+					m_pstdstr[iIndex] = spItem->pItemBasic->szName + strtemp;
 				}
 				else
 				{
@@ -261,10 +259,9 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 		if ( (spItem->pItemBasic->byContable != UIITEM_TYPE_COUNTABLE) && (spItem->pItemBasic->byContable != UIITEM_TYPE_COUNTABLE_SMALL) )
 		{
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNCENTER);
-			e_ItemClass eIC = (e_ItemClass)(spItem->pItemBasic->byClass);
-			CGameProcedure::GetTextByItemClass(eIC, szString); // 아이템 종류에 따라 문자열 만들기..
+			e_ItemClass eIC = (e_ItemClass) (spItem->pItemBasic->byClass);
+			CGameBase::GetTextByItemClass(eIC, m_pstdstr[iIndex]); // 아이템 종류에 따라 문자열 만들기..
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szString;
 			iIndex++;
 		}
 
@@ -272,12 +269,11 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 		if (eRace != RACE_ALL)
 		{
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNCENTER);
-			CGameProcedure::GetTextByRace(eRace, szString); // 아이템을 찰수 있는 종족에 따른 문자열 만들기.
+			CGameBase::GetTextByRace(eRace, m_pstdstr[iIndex]); // 아이템을 찰수 있는 종족에 따른 문자열 만들기.
 			if (SetTooltipTextColor(CGameBase::s_pPlayer->m_InfoBase.eRace, eRace))
 				m_pStr[iIndex]->SetColor(m_CWhite);
 			else
 				m_pStr[iIndex]->SetColor(m_CRed);
-			m_pstdstr[iIndex] = szString;	
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -285,8 +281,8 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 		if ((int)spItem->pItemBasic->byNeedClass != 0)
 		{
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNCENTER);
-			e_Class eClass = (e_Class)spItem->pItemBasic->byNeedClass;
-			CGameProcedure::GetTextByClass(eClass, szString); // 아이템을 찰수 있는 종족에 따른 문자열 만들기.
+			e_Class eClass = (e_Class) spItem->pItemBasic->byNeedClass;
+			CGameBase::GetTextByClass(eClass, m_pstdstr[iIndex]); // 아이템을 찰수 있는 종족에 따른 문자열 만들기.
 
 			switch (eClass)
 			{
@@ -469,40 +465,41 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 						m_pStr[iIndex]->SetColor(m_CRed);
 					break;
 			}					
-			m_pstdstr[iIndex] = szString;
+
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if (spItem->pItemBasic->siDamage+spItem->pItemExt->siDamage != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DAMAGE,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->siDamage + spItem->pItemExt->siDamage);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DAMAGE, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->siDamage+spItem->pItemExt->siDamage);
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
-		if(spItem->pItemBasic->siAttackInterval*(float)((float)spItem->pItemExt->siAttackIntervalPercentage/100.0f) != 0)
+		if (spItem->pItemBasic->siAttackInterval * (float) ((float) spItem->pItemExt->siAttackIntervalPercentage / 100.0f) != 0)
 		{
-			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			float fValue = spItem->pItemBasic->siAttackInterval*(float)((float)spItem->pItemExt->siAttackIntervalPercentage/100.0f);
+			float fValue = spItem->pItemBasic->siAttackInterval * (float) ((float) spItem->pItemExt->siAttackIntervalPercentage / 100.0f);
 
 			if ((0 <= fValue) && (fValue <= 89))
-				::_LoadStringFromResource(IDS_TOOLTIP_ATTACKINT_VERYFAST, szStr);
+				CGameBase::GetText(IDS_TOOLTIP_ATTACKINT_VERYFAST, &m_pstdstr[iIndex]);
 			else if ((90 <= fValue) && (fValue <= 110))
-				::_LoadStringFromResource(IDS_TOOLTIP_ATTACKINT_FAST, szStr);
+				CGameBase::GetText(IDS_TOOLTIP_ATTACKINT_FAST, &m_pstdstr[iIndex]);
 			else if ((111 <= fValue) && (fValue <= 130))
-				::_LoadStringFromResource(IDS_TOOLTIP_ATTACKINT_NORMAL, szStr);
+				CGameBase::GetText(IDS_TOOLTIP_ATTACKINT_NORMAL, &m_pstdstr[iIndex]);
 			else if ((131 <= fValue) && (fValue <= 150))
-				::_LoadStringFromResource(IDS_TOOLTIP_ATTACKINT_SLOW, szStr);
+				CGameBase::GetText(IDS_TOOLTIP_ATTACKINT_SLOW, &m_pstdstr[iIndex]);
 			else
-				::_LoadStringFromResource(IDS_TOOLTIP_ATTACKINT_VERYSLOW, szStr);
-			sprintf(szBuff, szStr.c_str());
+				CGameBase::GetText(IDS_TOOLTIP_ATTACKINT_VERYSLOW, &m_pstdstr[iIndex]);
+
+			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -511,400 +508,476 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 
 		if (spItem->pItemBasic->siAttackRange != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTACKRANGE,
+				&m_pstdstr[iIndex],
+				(float) spItem->pItemBasic->siAttackRange / 10.0f);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTACKRANGE, szStr);
-			sprintf(szBuff, szStr.c_str(), (float)spItem->pItemBasic->siAttackRange/10.0f);
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siHitRate != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_HITRATE_OVER,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siHitRate);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_HITRATE_OVER, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siHitRate);
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siEvationRate != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_AVOIDRATE_OVER,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siEvationRate);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_AVOIDRATE_OVER, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siEvationRate);
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemBasic->siWeight != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_WEIGHT,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->siWeight * 0.1f);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_WEIGHT, szStr);
-			sprintf(szBuff, szStr.c_str(), (spItem->pItemBasic->siWeight * 0.1f));
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemBasic->siMaxDurability+spItem->pItemExt->siMaxDurability != 1)
 		{
-			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_MAX_DURABILITY, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->siMaxDurability+spItem->pItemExt->siMaxDurability);
-			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
-			iIndex++;
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_MAX_DURABILITY,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->siMaxDurability + spItem->pItemExt->siMaxDurability);
 
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_CUR_DURABILITY, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->iDurability);
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
+			iIndex++;
+
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_CUR_DURABILITY,
+				&m_pstdstr[iIndex],
+				spItem->iDurability);
+
+			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
+			m_pStr[iIndex]->SetColor(m_CWhite);
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemBasic->siDefense+spItem->pItemExt->siDefense != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DEFENSE,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->siDefense + spItem->pItemExt->siDefense);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DEFENSE, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->siDefense+spItem->pItemExt->siDefense);
 			m_pStr[iIndex]->SetColor(m_CWhite);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siDefenseRateDagger != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DEFENSE_RATE_DAGGER,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siDefenseRateDagger);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DEFENSE_RATE_DAGGER, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siDefenseRateDagger);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siDefenseRateSword != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DEFENSE_RATE_SWORD,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siDefenseRateSword);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DEFENSE_RATE_SWORD, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siDefenseRateSword);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siDefenseRateBlow != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DEFENSE_RATE_BLOW,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siDefenseRateBlow);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DEFENSE_RATE_BLOW, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siDefenseRateBlow);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siDefenseRateAxe != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DEFENSE_RATE_AXE,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siDefenseRateAxe);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DEFENSE_RATE_AXE, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siDefenseRateAxe);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siDefenseRateSpear != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DEFENSE_RATE_SPEAR,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siDefenseRateSpear);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DEFENSE_RATE_SPEAR, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siDefenseRateSpear);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siDefenseRateArrow != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_DEFENSE_RATE_ARROW,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siDefenseRateArrow);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_DEFENSE_RATE_ARROW, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siDefenseRateArrow);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->byDamageFire != 0)	// 화염속성
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTRMAGIC1,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->byDamageFire);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTRMAGIC1, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->byDamageFire);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->byDamageIce != 0)	
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTRMAGIC2,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->byDamageIce);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTRMAGIC2, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->byDamageIce);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->byDamageThuner != 0)	
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTRMAGIC3,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->byDamageThuner);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTRMAGIC3, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->byDamageThuner);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->byDamagePoison != 0)	
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTRMAGIC4,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->byDamagePoison);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTRMAGIC4, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->byDamagePoison);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->byStillHP != 0)	
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTRMAGIC5,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->byStillHP);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTRMAGIC5, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->byStillHP);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->byDamageMP != 0)	
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTRMAGIC6,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->byDamageMP);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTRMAGIC6, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->byDamageMP);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->byStillMP != 0)	
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_ATTRMAGIC7,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->byStillMP);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_ATTRMAGIC7, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->byStillMP);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siBonusStr != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_BONUSSTR,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siBonusStr);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_BONUSSTR, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siBonusStr);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siBonusSta != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_BONUSSTA,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siBonusSta);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_BONUSSTA, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siBonusSta);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siBonusHP != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_BONUSHP,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siBonusHP);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_BONUSHP, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siBonusHP);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siBonusDex != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_BONUSDEX,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siBonusDex);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_BONUSDEX, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siBonusDex);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siBonusMSP != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_BONUSWIZ,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siBonusMSP);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_BONUSWIZ, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siBonusMSP);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siBonusInt != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_BONUSINT,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siBonusInt);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_BONUSINT, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siBonusInt);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siBonusMagicAttak != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_BONUSMAGICATTACK,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siBonusMagicAttak);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_BONUSMAGICATTACK, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siBonusMagicAttak);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siRegistFire != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_REGISTFIRE,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siRegistFire);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_REGISTFIRE, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siRegistFire);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siRegistIce != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_REGISTICE,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siRegistIce);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_REGISTICE, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siRegistIce);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siRegistElec != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_REGISTELEC,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siRegistElec);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_REGISTELEC, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siRegistElec);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siRegistMagic != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_REGISTMAGIC,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siRegistMagic);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_REGISTMAGIC, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siRegistMagic);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siRegistPoison != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_REGISTPOISON,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siRegistPoison);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_REGISTPOISON, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siRegistPoison);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( spItem->pItemExt->siRegistCurse != 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_REGISTCURSE,
+				&m_pstdstr[iIndex],
+				spItem->pItemExt->siRegistCurse);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_REGISTCURSE, szStr);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemExt->siRegistCurse);
 			m_pStr[iIndex]->SetColor(m_CGreen);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
 		if( /*(spItem->pItemBasic->byAttachPoint == ITEM_LIMITED_EXHAUST) &&*/ spItem->pItemBasic->cNeedLevel+spItem->pItemExt->siNeedLevel > 1)
 		{
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDLEVEL, szStr);
-			if (SetTooltipTextColor(CGameBase::s_pPlayer->m_InfoBase.iLevel, spItem->pItemBasic->cNeedLevel+spItem->pItemExt->siNeedLevel))
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDLEVEL,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->cNeedLevel + spItem->pItemExt->siNeedLevel);
+
+			if (SetTooltipTextColor(CGameBase::s_pPlayer->m_InfoBase.iLevel, spItem->pItemBasic->cNeedLevel + spItem->pItemExt->siNeedLevel))
 				m_pStr[iIndex]->SetColor(m_CWhite);
 			else
 				m_pStr[iIndex]->SetColor(m_CRed);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->cNeedLevel+spItem->pItemExt->siNeedLevel);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
-		if( spItem->pItemBasic->byNeedRank+spItem->pItemExt->siNeedRank > 0)
+		if ((spItem->pItemBasic->byNeedRank + spItem->pItemExt->siNeedRank) > 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDRANK,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->byNeedRank + spItem->pItemExt->siNeedRank);
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDRANK, szStr);
+
 			if (SetTooltipTextColor(pInfoExt->iRank, spItem->pItemBasic->byNeedRank+spItem->pItemExt->siNeedRank))
 				m_pStr[iIndex]->SetColor(m_CWhite);
 			else
 				m_pStr[iIndex]->SetColor(m_CRed);
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->byNeedRank+spItem->pItemExt->siNeedRank);
-			m_pstdstr[iIndex] = szBuff;
 			iIndex++;
 		}
 		ERROR_EXCEPTION
 
-		if( spItem->pItemBasic->byNeedTitle+spItem->pItemExt->siNeedTitle > 0)
+		if ((spItem->pItemBasic->byNeedTitle + spItem->pItemExt->siNeedTitle) > 0)
 		{
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDTITLE,
+				&m_pstdstr[iIndex],
+				// TODO: Use title name here.
+				std::to_string(spItem->pItemBasic->byNeedTitle + spItem->pItemExt->siNeedTitle).c_str());
+
 			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDTITLE, szStr);
+
 			if (SetTooltipTextColor(pInfoExt->iTitle, spItem->pItemBasic->byNeedTitle+spItem->pItemExt->siNeedTitle))
 				m_pStr[iIndex]->SetColor(m_CWhite);
 			else
 				m_pStr[iIndex]->SetColor(m_CRed);
-			sprintf(szBuff, szStr.c_str(), std::to_string(spItem->pItemBasic->byNeedTitle+spItem->pItemExt->siNeedTitle).c_str());
-			m_pstdstr[iIndex] = szBuff;
+
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -915,13 +988,6 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 			iNeedValue += spItem->pItemExt->siNeedStrength;
 		if( iNeedValue > 0)
 		{
-			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDSTRENGTH, szStr);
-			if (SetTooltipTextColor(pInfoExt->iStrength, spItem->pItemBasic->byNeedStrength+spItem->pItemExt->siNeedStrength))
-				m_pStr[iIndex]->SetColor(m_CWhite);
-			else
-				m_pStr[iIndex]->SetColor(m_CRed);
-
 			std::string szReduce;
 			if (spItem->pItemExt->siNeedStrength < 0)
 			{
@@ -929,11 +995,22 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UNIQUE_REVERSE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE_REVERSE)
-					::_LoadStringFromResource(IDS_TOOLTIP_REDUCE, szReduce);
+					CGameBase::GetText(IDS_TOOLTIP_REDUCE, &szReduce);
 			}
 
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->byNeedStrength + spItem->pItemExt->siNeedStrength, szReduce.c_str());
-			m_pstdstr[iIndex] = szBuff;
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDSTRENGTH,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->byNeedStrength + spItem->pItemExt->siNeedStrength,
+				szReduce.c_str());
+
+			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
+
+			if (SetTooltipTextColor(pInfoExt->iStrength, spItem->pItemBasic->byNeedStrength+spItem->pItemExt->siNeedStrength))
+				m_pStr[iIndex]->SetColor(m_CWhite);
+			else
+				m_pStr[iIndex]->SetColor(m_CRed);
+
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -943,13 +1020,6 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 			iNeedValue += spItem->pItemExt->siNeedStamina;
 		if( iNeedValue > 0)		
 		{
-			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDSTAMINA, szStr);
-			if (SetTooltipTextColor(pInfoExt->iStamina, spItem->pItemBasic->byNeedStamina+spItem->pItemExt->siNeedStamina)) 
-				m_pStr[iIndex]->SetColor(m_CWhite);
-			else
-				m_pStr[iIndex]->SetColor(m_CRed);
-
 			std::string szReduce;
 			if (spItem->pItemExt->siNeedStamina < 0)
 			{
@@ -957,12 +1027,22 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UNIQUE_REVERSE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE_REVERSE)
-					::_LoadStringFromResource(IDS_TOOLTIP_REDUCE, szReduce);
+					CGameBase::GetText(IDS_TOOLTIP_REDUCE, &szReduce);
 			}
 
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->byNeedStamina + spItem->pItemExt->siNeedStamina, szReduce.c_str());
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDSTAMINA,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->byNeedStamina + spItem->pItemExt->siNeedStamina,
+				szReduce.c_str());
 
-			m_pstdstr[iIndex] = szBuff;
+			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
+
+			if (SetTooltipTextColor(pInfoExt->iStamina, spItem->pItemBasic->byNeedStamina+spItem->pItemExt->siNeedStamina)) 
+				m_pStr[iIndex]->SetColor(m_CWhite);
+			else
+				m_pStr[iIndex]->SetColor(m_CRed);
+
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -972,13 +1052,6 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 			iNeedValue += spItem->pItemExt->siNeedDexterity;
 		if( iNeedValue > 0)		
 		{
-			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDDEXTERITY, szStr);
-			if (SetTooltipTextColor(pInfoExt->iDexterity, spItem->pItemBasic->byNeedDexterity+spItem->pItemExt->siNeedDexterity))
-				m_pStr[iIndex]->SetColor(m_CWhite);
-			else
-				m_pStr[iIndex]->SetColor(m_CRed);
-
 			std::string szReduce;
 			if (spItem->pItemExt->siNeedDexterity < 0)
 			{
@@ -986,12 +1059,22 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UNIQUE_REVERSE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE_REVERSE)
-					::_LoadStringFromResource(IDS_TOOLTIP_REDUCE, szReduce);
+					CGameBase::GetText(IDS_TOOLTIP_REDUCE, &szReduce);
 			}
 
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->byNeedDexterity + spItem->pItemExt->siNeedDexterity, szReduce.c_str());
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDDEXTERITY,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->byNeedDexterity + spItem->pItemExt->siNeedDexterity,
+				szReduce.c_str());
 
-			m_pstdstr[iIndex] = szBuff;
+			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
+
+			if (SetTooltipTextColor(pInfoExt->iDexterity, spItem->pItemBasic->byNeedDexterity+spItem->pItemExt->siNeedDexterity))
+				m_pStr[iIndex]->SetColor(m_CWhite);
+			else
+				m_pStr[iIndex]->SetColor(m_CRed);
+
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -1001,13 +1084,6 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 			iNeedValue += spItem->pItemExt->siNeedInteli;
 		if( iNeedValue > 0)			
 		{
-			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDINTELLI, szStr);
-			if (SetTooltipTextColor(pInfoExt->iIntelligence, spItem->pItemBasic->byNeedInteli+spItem->pItemExt->siNeedInteli))
-				m_pStr[iIndex]->SetColor(m_CWhite);
-			else
-				m_pStr[iIndex]->SetColor(m_CRed);
-
 			std::string szReduce;
 			if (spItem->pItemExt->siNeedInteli < 0)
 			{
@@ -1015,11 +1091,22 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UNIQUE_REVERSE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE_REVERSE)
-					::_LoadStringFromResource(IDS_TOOLTIP_REDUCE, szReduce);
+					CGameBase::GetText(IDS_TOOLTIP_REDUCE, &szReduce);
 			}
 
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->byNeedInteli + spItem->pItemExt->siNeedInteli, szReduce.c_str());
-			m_pstdstr[iIndex] = szBuff;
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDINTELLI,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->byNeedInteli + spItem->pItemExt->siNeedInteli,
+				szReduce.c_str());
+
+			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
+
+			if (SetTooltipTextColor(pInfoExt->iIntelligence, spItem->pItemBasic->byNeedInteli+spItem->pItemExt->siNeedInteli))
+				m_pStr[iIndex]->SetColor(m_CWhite);
+			else
+				m_pStr[iIndex]->SetColor(m_CRed);
+
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -1029,13 +1116,6 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 			iNeedValue += spItem->pItemExt->siNeedMagicAttack;
 		if( iNeedValue > 0)			
 		{
-			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-			::_LoadStringFromResource(IDS_TOOLTIP_NEEDMAGICATTACK, szStr);
-			if (SetTooltipTextColor(pInfoExt->iMagicAttak, spItem->pItemBasic->byNeedMagicAttack+spItem->pItemExt->siNeedMagicAttack))
-				m_pStr[iIndex]->SetColor(m_CWhite);
-			else
-				m_pStr[iIndex]->SetColor(m_CRed);
-
 			std::string szReduce;
 			if (spItem->pItemExt->siNeedMagicAttack < 0)
 			{
@@ -1043,11 +1123,22 @@ int	CUIImageTooltipDlg::CalcTooltipStringNumAndWrite(__IconItemSkill* spItem, bo
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UNIQUE_REVERSE
 					|| spItem->pItemExt->byMagicOrRare == ITEM_ATTRIB_UPGRADE_REVERSE)
-					::_LoadStringFromResource(IDS_TOOLTIP_REDUCE, szReduce);
+					CGameBase::GetText(IDS_TOOLTIP_REDUCE, &szReduce);
 			}
 
-			sprintf(szBuff, szStr.c_str(), spItem->pItemBasic->byNeedMagicAttack+spItem->pItemExt->siNeedMagicAttack, szReduce.c_str()); //(Reduce)
-			m_pstdstr[iIndex] = szBuff;
+			CGameBase::GetTextF(
+				IDS_TOOLTIP_NEEDMAGICATTACK,
+				&m_pstdstr[iIndex],
+				spItem->pItemBasic->byNeedMagicAttack + spItem->pItemExt->siNeedMagicAttack,
+				szReduce.c_str());
+
+			m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
+
+			if (SetTooltipTextColor(pInfoExt->iMagicAttak, spItem->pItemBasic->byNeedMagicAttack+spItem->pItemExt->siNeedMagicAttack))
+				m_pStr[iIndex]->SetColor(m_CWhite);
+			else
+				m_pStr[iIndex]->SetColor(m_CRed);
+
 			iIndex++;
 		}
 		ERROR_EXCEPTION
@@ -1057,32 +1148,39 @@ exceptions:;
 		if (bPrice)
 		{
 			if (bBuy)	
-			{	
+			{
+				CGameBase::GetTextF(
+					IDS_TOOLTIP_BUY_PRICE,
+					&m_pstdstr[iIndex],
+					std::to_string(spItem->pItemBasic->iPrice* spItem->pItemExt->siPriceMultiply).c_str());
+
 				m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-				::_LoadStringFromResource(IDS_TOOLTIP_BUY_PRICE, szStr);
+
 				if (SetTooltipTextColor(pInfoExt->iGold, spItem->pItemBasic->iPrice*spItem->pItemExt->siPriceMultiply))
 					m_pStr[iIndex]->SetColor(m_CWhite);
 				else
 					m_pStr[iIndex]->SetColor(m_CRed);
-				sprintf(szBuff, szStr.c_str(), std::to_string(spItem->pItemBasic->iPrice*spItem->pItemExt->siPriceMultiply).c_str());
-				m_pstdstr[iIndex] = szBuff;
 			}
 			else
 			{	
-				m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
-				::_LoadStringFromResource(IDS_TOOLTIP_SELL_PRICE, szStr);
-				m_pStr[iIndex]->SetColor(m_CWhite);
 				int iSellPrice = (spItem->pItemBasic->iPrice*spItem->pItemExt->siPriceMultiply/6);
 				if (iSellPrice < 1)
 					iSellPrice = 1;
-				sprintf(szBuff, szStr.c_str(), std::to_string(iSellPrice).c_str());
-				m_pstdstr[iIndex] = szBuff;
+
+				CGameBase::GetTextF(
+					IDS_TOOLTIP_SELL_PRICE,
+					&m_pstdstr[iIndex],
+					std::to_string(iSellPrice).c_str());
+
+				m_pStr[iIndex]->SetStyle(UI_STR_TYPE_HALIGN, UISTYLE_STRING_ALIGNLEFT);
+				m_pStr[iIndex]->SetColor(m_CWhite);
 			}
+
 			iIndex++;			
 		}
 
-		for( int i = iIndex; i < MAX_TOOLTIP_COUNT; i++ )
-			m_pstdstr[iIndex] = "";
+		for (int i = iIndex; i < MAX_TOOLTIP_COUNT; i++)
+			m_pstdstr[iIndex].clear();
 	}
 
 	return iIndex;	// 임시..	반드시 1보다 크다..

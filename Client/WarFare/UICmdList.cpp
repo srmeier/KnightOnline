@@ -255,11 +255,12 @@ bool CUICmdList::CreateCategoryList() {
 	std::string szCategory;
 	int idStart = IDS_PRIVATE_CMD_CAT;
 
-	for(int i = 0; i < 8; i++) {
-		::_LoadStringFromResource(i + 7800, szCategory); //load command categories
+	for (int i = 0; i < 8; i++)
+	{
+		CGameBase::GetText(i + 7800, &szCategory); //load command categories
 		m_pList_CmdCat->AddString(szCategory);
 		idStart ++;
-	} 
+	}
 
 	m_pList_CmdCat->SetFontColor(0xffffff00); //green
 
@@ -276,7 +277,7 @@ bool CUICmdList::CreateCategoryList() {
 			idCur = 9200;
 		}
 		szCommand.clear();
-		::_LoadStringFromResource(idCur, szCommand);
+		CGameBase::GetText(idCur, &szCommand);
 		if (!szCommand.empty() && (i/100) % 2 == 0 ) m_mapCmds[i] = szCommand;
 	}
 
@@ -301,7 +302,7 @@ bool CUICmdList::UpdateCommandList(uint8_t cmdCat ) {
 				 
 				 CN3UIString* pChild = m_pList_Cmds->GetChildStrFromList(itr->second);
 				 std::string cmdTip;
-				 ::_LoadStringFromResource(itr->first + 100, cmdTip);
+				 CGameBase::GetText(itr->first + 100, &cmdTip);
 				 if(pChild != NULL) pChild->SetTooltipText(cmdTip.c_str());
 				 //SavvyNik tooltip is being loaded in but the rectangle 
 				 //that it shows on is too small. Need to figure out where

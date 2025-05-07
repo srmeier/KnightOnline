@@ -153,9 +153,9 @@ void CCountableItemEditDlg::Open(e_UIWND eUW, e_UIWND_DISTRICT eUD, bool bCountG
 {
 	std::string szMsg;
 	if (bCountGold)
-		::_LoadStringFromResource(IDS_EDIT_BOX_GOLD, szMsg);
+		CGameBase::GetText(IDS_EDIT_BOX_GOLD, &szMsg);
 	else
-		::_LoadStringFromResource(IDS_EDIT_BOX_COUNT, szMsg);
+		CGameBase::GetText(IDS_EDIT_BOX_COUNT, &szMsg);
 
 	CN3UIString* pString = NULL;
 	pString = (CN3UIString*)this->GetChildByID("String_PersonTradeEdit_Msg");

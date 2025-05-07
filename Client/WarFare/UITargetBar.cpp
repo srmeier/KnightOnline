@@ -1,5 +1,6 @@
 ﻿#include "StdAfx.h"
 #include "UITargetBar.h"
+#include "GameBase.h"
 
 #include "N3UIProgress.h"
 #include "N3UIString.h"
@@ -58,7 +59,8 @@ bool CUITargetBar::Load(HANDLE hFile)
 	if(m_pProgressHP) m_pProgressHP->SetRange(0, 100);
 	if(m_pStringID) // 폰트를 바꾼다.
 	{
-		std::string szFontID; ::_LoadStringFromResource(IDS_FONT_ID, szFontID);
+		std::string szFontID;
+		CGameBase::GetText(IDS_FONT_ID, &szFontID);
 		
 		uint32_t dwH = m_pStringID->GetFontHeight();
 		m_pStringID->SetFont(szFontID, dwH, FALSE, FALSE);
