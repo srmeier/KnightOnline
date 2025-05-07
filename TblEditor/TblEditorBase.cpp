@@ -37,148 +37,6 @@ CTblEditorBase::~CTblEditorBase()
 {
 }
 
-bool CTblEditorBase::SaveFile(
-	const CString& path,
-	const std::map<int, std::vector<CString>>& newData)
-{
-	WriteBuffer writeBuffer;
-
-	// 1. iDataTypeCount (4 bytes)
-	int32_t iDataTypeCount = static_cast<int32_t>(m_DataTypes.size());
-
-	TRACE("iDataTypeCount = %d", iDataTypeCount);
-	writeBuffer.append<int32_t>(&iDataTypeCount);
-
-	// 2. stored datatypes (4 bytes each)
-	for (int32_t dataType : m_DataTypes)
-		writeBuffer.append<int32_t>(&dataType);
-
-	// 3. row count
-	int32_t iRowCount = static_cast<int32_t>(newData.size());
-	writeBuffer.append<int32_t>(&iRowCount);
-
-	// 4. row data
-	for (const auto& rowItr : newData)
-	{
-		const auto& row = rowItr.second;
-
-		for (int iColNo = 0; iColNo < iDataTypeCount; iColNo++)
-		{
-			DATA_TYPE dataType = m_DataTypes[iColNo];
-			const CString& value = row[iColNo];
-
-			switch (dataType)
-			{
-				case DT_CHAR:
-				{
-					char val = static_cast<char>(_ttoi(value));
-					writeBuffer.append<char>(&val);
-					break;
-				}
-
-				case DT_BYTE:
-				{
-					uint8_t val = static_cast<uint8_t>(_ttoi(value));
-					writeBuffer.append<uint8_t>(&val);
-					break;
-				}
-
-				case DT_SHORT:
-				{
-					int16_t val = static_cast<int16_t>(_ttoi(value));
-					writeBuffer.append<int16_t>(&val);
-					break;
-				}
-
-				case DT_WORD:
-				{
-					uint16_t val = static_cast<uint16_t>(_ttoi(value));
-					writeBuffer.append<uint16_t>(&val);
-					break;
-				}
-
-				case DT_INT:
-				{
-					int32_t val = _ttoi(value);
-					writeBuffer.append<int32_t>(&val);
-					break;
-				}
-
-				case DT_DWORD:
-				{
-					uint32_t val = static_cast<uint32_t>(_tcstoul(value, nullptr, 0));
-					writeBuffer.append<uint32_t>(&val);
-					break;
-				}
-
-				case DT_STRING:
-				{
-					std::string valueA = CT2A(value, CP_ACP); // TODO: better localisation support
-
-					int32_t len = static_cast<int32_t>(valueA.length());
-					writeBuffer.append<int32_t>(&len);
-					writeBuffer.append(valueA.c_str(), len);
-					break;
-				}
-
-				case DT_FLOAT:
-				{
-					float val = _tcstof(value, nullptr);
-					writeBuffer.append<float>(&val);
-					break;
-				}
-
-				case DT_DOUBLE:
-				{
-					double val = _tcstod(value, nullptr);
-					writeBuffer.append<double>(&val);
-					break;
-				}
-			}
-		}
-	}
-
-	if (path.IsEmpty())
-		return false;
-
-	// Create or open the file for writing
-	HANDLE hFile = ::CreateFile(path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
-	if (hFile == INVALID_HANDLE_VALUE)
-		return false;
-
-	// Encryption key as defined earlier
-	uint16_t key_r = 0x0816;
-	uint16_t key_c1 = 0x6081;
-	uint16_t key_c2 = 0x1608;
-
-	DWORD dwRWC = 0;
-
-	// Encrypt the data before writing it to the file
-	size_t dataSize = writeBuffer.size();
-	uint8_t* encryptedData = new uint8_t[dataSize];
-
-	for (size_t i = 0; i < dataSize; i++)
-	{
-		uint8_t cipher = (writeBuffer[i] ^ (key_r >> 8));
-		key_r = (cipher + key_r) * key_c1 + key_c2;
-		encryptedData[i] = cipher;
-	}
-
-	TRACE("First encrypted byte: %02X\n", encryptedData[0]);
-	TRACE("Data size to be written: %zu\n", dataSize);
-
-	// Write encrypted data to the file
-	BOOL bResult = ::WriteFile(hFile, encryptedData, (DWORD) dataSize, &dwRWC, nullptr);
-
-	TRACE("Actual number of bytes written: %u\n", dwRWC);
-
-	// Clean up
-	delete[] encryptedData;
-	CloseHandle(hFile);
-
-	return (bResult && dwRWC == dataSize);
-}
-
 bool CTblEditorBase::LoadFile(
 	const CString& path,
 	CString& errorMsg)
@@ -542,6 +400,148 @@ bool CTblEditorBase::LoadRowData(
 	}
 
 	return true;
+}
+
+bool CTblEditorBase::SaveFile(
+	const CString& path,
+	const std::map<int, std::vector<CString>>& newData)
+{
+	WriteBuffer writeBuffer;
+
+	// 1. iDataTypeCount (4 bytes)
+	int32_t iDataTypeCount = static_cast<int32_t>(m_DataTypes.size());
+
+	TRACE("iDataTypeCount = %d", iDataTypeCount);
+	writeBuffer.append<int32_t>(&iDataTypeCount);
+
+	// 2. stored datatypes (4 bytes each)
+	for (int32_t dataType : m_DataTypes)
+		writeBuffer.append<int32_t>(&dataType);
+
+	// 3. row count
+	int32_t iRowCount = static_cast<int32_t>(newData.size());
+	writeBuffer.append<int32_t>(&iRowCount);
+
+	// 4. row data
+	for (const auto& rowItr : newData)
+	{
+		const auto& row = rowItr.second;
+
+		for (int iColNo = 0; iColNo < iDataTypeCount; iColNo++)
+		{
+			DATA_TYPE dataType = m_DataTypes[iColNo];
+			const CString& value = row[iColNo];
+
+			switch (dataType)
+			{
+				case DT_CHAR:
+				{
+					char val = static_cast<char>(_ttoi(value));
+					writeBuffer.append<char>(&val);
+					break;
+				}
+
+				case DT_BYTE:
+				{
+					uint8_t val = static_cast<uint8_t>(_ttoi(value));
+					writeBuffer.append<uint8_t>(&val);
+					break;
+				}
+
+				case DT_SHORT:
+				{
+					int16_t val = static_cast<int16_t>(_ttoi(value));
+					writeBuffer.append<int16_t>(&val);
+					break;
+				}
+
+				case DT_WORD:
+				{
+					uint16_t val = static_cast<uint16_t>(_ttoi(value));
+					writeBuffer.append<uint16_t>(&val);
+					break;
+				}
+
+				case DT_INT:
+				{
+					int32_t val = _ttoi(value);
+					writeBuffer.append<int32_t>(&val);
+					break;
+				}
+
+				case DT_DWORD:
+				{
+					uint32_t val = static_cast<uint32_t>(_tcstoul(value, nullptr, 0));
+					writeBuffer.append<uint32_t>(&val);
+					break;
+				}
+
+				case DT_STRING:
+				{
+					std::string valueA = CT2A(value, CP_ACP); // TODO: better localisation support
+
+					int32_t len = static_cast<int32_t>(valueA.length());
+					writeBuffer.append<int32_t>(&len);
+					writeBuffer.append(valueA.c_str(), len);
+					break;
+				}
+
+				case DT_FLOAT:
+				{
+					float val = _tcstof(value, nullptr);
+					writeBuffer.append<float>(&val);
+					break;
+				}
+
+				case DT_DOUBLE:
+				{
+					double val = _tcstod(value, nullptr);
+					writeBuffer.append<double>(&val);
+					break;
+				}
+			}
+		}
+	}
+
+	if (path.IsEmpty())
+		return false;
+
+	// Create or open the file for writing
+	HANDLE hFile = ::CreateFile(path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+	if (hFile == INVALID_HANDLE_VALUE)
+		return false;
+
+	// Encryption key as defined earlier
+	uint16_t key_r = 0x0816;
+	uint16_t key_c1 = 0x6081;
+	uint16_t key_c2 = 0x1608;
+
+	DWORD dwRWC = 0;
+
+	// Encrypt the data before writing it to the file
+	size_t dataSize = writeBuffer.size();
+	uint8_t* encryptedData = new uint8_t[dataSize];
+
+	for (size_t i = 0; i < dataSize; i++)
+	{
+		uint8_t cipher = (writeBuffer[i] ^ (key_r >> 8));
+		key_r = (cipher + key_r) * key_c1 + key_c2;
+		encryptedData[i] = cipher;
+	}
+
+	TRACE("First encrypted byte: %02X\n", encryptedData[0]);
+	TRACE("Data size to be written: %zu\n", dataSize);
+
+	// Write encrypted data to the file
+	BOOL bResult = ::WriteFile(hFile, encryptedData, (DWORD) dataSize, &dwRWC, nullptr);
+
+	TRACE("Actual number of bytes written: %u\n", dwRWC);
+
+	// Clean up
+	delete[] encryptedData;
+	CloseHandle(hFile);
+
+	return (bResult && dwRWC == dataSize);
 }
 
 CString CTblEditorBase::GetColumnDefault(
