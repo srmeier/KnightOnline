@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
-#include "ListCtrlEx.h"
+#include "TblListCtrl.h"
 
-BEGIN_MESSAGE_MAP(CListCtrlEx, CListCtrl)
+BEGIN_MESSAGE_MAP(CTblListCtrl, CListCtrl)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
 	ON_WM_LBUTTONDBLCLK()
@@ -9,17 +9,17 @@ BEGIN_MESSAGE_MAP(CListCtrlEx, CListCtrl)
 	ON_NOTIFY_REFLECT(LVN_ENDLABELEDIT, OnEndLabelEdit)
 END_MESSAGE_MAP()
 
-BEGIN_MESSAGE_MAP(CListCtrlEx::CEditEx, CEdit)
+BEGIN_MESSAGE_MAP(CTblListCtrl::CInPlaceEdit, CEdit)
 	ON_WM_WINDOWPOSCHANGING()
 END_MESSAGE_MAP()
 
-CListCtrlEx::CListCtrlEx()
+CTblListCtrl::CTblListCtrl()
 {
 	m_iItem		= 0;
 	m_iSubItem	= 0;
 }
 
-void CListCtrlEx::OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
+void CTblListCtrl::OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LV_DISPINFO* pDispInfo = (LV_DISPINFO*) pNMHDR;
 
@@ -56,7 +56,7 @@ void CListCtrlEx::OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 }
 
-void CListCtrlEx::OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
+void CTblListCtrl::OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	LV_DISPINFO* plvDispInfo = (LV_DISPINFO*) pNMHDR;
 	LV_ITEM* plvItem = &plvDispInfo->item;
@@ -80,7 +80,7 @@ void CListCtrlEx::OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 }
 
-void CListCtrlEx::OnLButtonDblClk(UINT nFlags, CPoint point)
+void CTblListCtrl::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
 	LVHITTESTINFO  lvhit;
 	lvhit.pt = point;
@@ -104,7 +104,7 @@ void CListCtrlEx::OnLButtonDblClk(UINT nFlags, CPoint point)
 	}
 }
 
-void CListCtrlEx::OnPaint()
+void CTblListCtrl::OnPaint()
 {
 	if (m_iSubItem == 0
 		|| m_edit.GetSafeHwnd() == nullptr)
@@ -153,7 +153,7 @@ void CListCtrlEx::OnPaint()
 	ReleaseDC(pDC);
 }
 
-void CListCtrlEx::OnSize(UINT nType, int cx, int cy)
+void CTblListCtrl::OnSize(UINT nType, int cx, int cy)
 {
 	// stop editing if resizing
 	if (GetFocus() != this)

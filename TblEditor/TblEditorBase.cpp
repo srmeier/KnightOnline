@@ -185,6 +185,7 @@ bool CTblEditorBase::LoadRowData(
 		TRACE("Invalid row count.\n");
 		return false;
 	}
+
 	// Now that we've read the datatypes and the row count, we can read the row data.
 	m_Rows.clear();
 
