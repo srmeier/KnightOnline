@@ -26,6 +26,8 @@ public:
 	bool			m_bIsFileLoaded;
 	bool			m_bIsFileModified;
 
+	int				m_iStringCodePage;
+
 	// for editing
 	int				m_iEditItem;
 	int				m_iEditSubItem;
@@ -37,9 +39,12 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
-	void InsertRows(const std::map<int, std::vector<CString>>& datas);
+	void RefreshTable();
+	CString DecodeField(const CStringA& fieldA, int iColNo);
 	void LoadTable(const CString& path);
+	void BuildTableForSave(std::map<int, std::vector<CStringA>>& newRows);
 	bool SaveTable(const CString& savePath, bool bShowConfirmation);
+	void SetCodePage(int codepage);
 
 // Implementation
 protected:
@@ -51,9 +56,11 @@ protected:
 	afx_msg void OnBnClickedBtnAddRow();
 	afx_msg void OnFileOpen();
 	afx_msg void OnFileSave();
+	afx_msg void OnSetEncoding_Korean();
+	afx_msg void OnSetEncoding_EnglishUS();
+	afx_msg void OnSetEncoding_Turkish();
 	afx_msg void OnMenuExit();
 	afx_msg void OnClose();
 
 	DECLARE_MESSAGE_MAP()
-public:
 };

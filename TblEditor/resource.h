@@ -24,13 +24,17 @@
 #define ID_FILE_EXIT                    32771
 #define ID_EXIT                         32772
 #define ID_ACCELERATOR_SAVE             32773
+#define ID_VIEW_ENCODING                32774
+#define ID_ENCODING_KOREAN              32775
+#define ID_ENCODING_ENGLISH_US          32776
+#define ID_ENCODING_TURKISH             32777
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        133
-#define _APS_NEXT_COMMAND_VALUE         32774
+#define _APS_NEXT_COMMAND_VALUE         32778
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

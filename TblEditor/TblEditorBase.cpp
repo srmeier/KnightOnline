@@ -189,10 +189,10 @@ bool CTblEditorBase::LoadRowData(
 	// Now that we've read the datatypes and the row count, we can read the row data.
 	m_Rows.clear();
 
-	CString szValue;
+	CStringA szValue;
 	for (int iRowNo = 0; iRowNo < iRowCount; iRowNo++)
 	{
-		std::vector<CString> row;
+		std::vector<CStringA> row;
 		row.reserve(iDataTypeCount);
 
 		// Read each column's data for this row
@@ -218,7 +218,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%c"), val);
+					szValue.Format("%c", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_CHAR = %c\n", iRowNo, iColNo, val);
@@ -235,7 +235,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%u"), val);
+					szValue.Format("%u", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_BYTE = %u\n", iRowNo, iColNo, val);
@@ -252,7 +252,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%d"), val);
+					szValue.Format("%d", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_SHORT = %d\n", iRowNo, iColNo, val);
@@ -269,7 +269,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%u"), val);
+					szValue.Format("%u", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_WORD = %u\n", iRowNo, iColNo, val);
@@ -286,7 +286,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%d"), val);
+					szValue.Format("%d", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_INT = %d\n", iRowNo, iColNo, val);
@@ -303,7 +303,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%u"), val);
+					szValue.Format("%u", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_DWORD = %u\n", iRowNo, iColNo, val);
@@ -338,19 +338,17 @@ bool CTblEditorBase::LoadRowData(
 					}
 					else
 					{
-						CStringA szString;
-						if (!ReadFile(hFile, szString.GetBuffer(iStrLen), iStrLen, &dwNum, nullptr)
+						if (!ReadFile(hFile, szValue.GetBuffer(iStrLen), iStrLen, &dwNum, nullptr)
 							|| dwNum != iStrLen)
 						{
-							szString.ReleaseBuffer();
+							szValue.ReleaseBuffer();
 							TRACE("Failed to read string data at row %d, column %d\n", iRowNo, iColNo);
 							return false;
 						}
 
-						szString.ReleaseBuffer();
-						szValue = CA2T(szString, CP_ACP); // TODO: better localisation support
+						szValue.ReleaseBuffer();
 
-						TRACE("Row %d, Column %d: DT_STRING = %s\n", iRowNo, iColNo, szString);
+						TRACE("Row %d, Column %d: DT_STRING = %s\n", iRowNo, iColNo, szValue);
 					}
 
 					row.push_back(szValue);
@@ -367,7 +365,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%f"), val);
+					szValue.Format("%f", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_FLOAT = %f\n", iRowNo, iColNo, val);
@@ -384,7 +382,7 @@ bool CTblEditorBase::LoadRowData(
 						return false;
 					}
 
-					szValue.Format(_T("%f"), val);
+					szValue.Format("%f", val);
 					row.push_back(szValue);
 
 					TRACE("Row %d, Column %d: DT_DOUBLE = %f\n", iRowNo, iColNo, val);
@@ -405,7 +403,7 @@ bool CTblEditorBase::LoadRowData(
 
 bool CTblEditorBase::SaveFile(
 	const CString& path,
-	const std::map<int, std::vector<CString>>& newData)
+	const std::map<int, std::vector<CStringA>>& newData)
 {
 	WriteBuffer writeBuffer;
 
@@ -431,72 +429,70 @@ bool CTblEditorBase::SaveFile(
 		for (int iColNo = 0; iColNo < iDataTypeCount; iColNo++)
 		{
 			DATA_TYPE dataType = m_DataTypes[iColNo];
-			const CString& value = row[iColNo];
+			const CStringA& value = row[iColNo];
 
 			switch (dataType)
 			{
 				case DT_CHAR:
 				{
-					char val = static_cast<char>(_ttoi(value));
+					char val = static_cast<char>(atoi(value));
 					writeBuffer.append<char>(&val);
 					break;
 				}
 
 				case DT_BYTE:
 				{
-					uint8_t val = static_cast<uint8_t>(_ttoi(value));
+					uint8_t val = static_cast<uint8_t>(atoi(value));
 					writeBuffer.append<uint8_t>(&val);
 					break;
 				}
 
 				case DT_SHORT:
 				{
-					int16_t val = static_cast<int16_t>(_ttoi(value));
+					int16_t val = static_cast<int16_t>(atoi(value));
 					writeBuffer.append<int16_t>(&val);
 					break;
 				}
 
 				case DT_WORD:
 				{
-					uint16_t val = static_cast<uint16_t>(_ttoi(value));
+					uint16_t val = static_cast<uint16_t>(atoi(value));
 					writeBuffer.append<uint16_t>(&val);
 					break;
 				}
 
 				case DT_INT:
 				{
-					int32_t val = _ttoi(value);
+					int32_t val = atoi(value);
 					writeBuffer.append<int32_t>(&val);
 					break;
 				}
 
 				case DT_DWORD:
 				{
-					uint32_t val = static_cast<uint32_t>(_tcstoul(value, nullptr, 0));
+					uint32_t val = static_cast<uint32_t>(strtoul(value, nullptr, 0));
 					writeBuffer.append<uint32_t>(&val);
 					break;
 				}
 
 				case DT_STRING:
 				{
-					std::string valueA = CT2A(value, CP_ACP); // TODO: better localisation support
-
-					int32_t len = static_cast<int32_t>(valueA.length());
+					int32_t len = value.GetLength();
 					writeBuffer.append<int32_t>(&len);
-					writeBuffer.append(valueA.c_str(), len);
+					writeBuffer.append(value.GetString(), len);
 					break;
 				}
 
 				case DT_FLOAT:
 				{
-					float val = _tcstof(value, nullptr);
+					float val = strtof(value, nullptr);
 					writeBuffer.append<float>(&val);
 					break;
 				}
 
 				case DT_DOUBLE:
 				{
-					double val = _tcstod(value, nullptr);
+					double val = strtod(value, nullptr);
 					writeBuffer.append<double>(&val);
 					break;
 				}
@@ -617,4 +613,11 @@ CString CTblEditorBase::GetColumnName(
 			return szName;
 		}
 	}
+}
+
+DATA_TYPE CTblEditorBase::GetColumnType(
+	int iColNo)
+	const
+{
+	return m_DataTypes[iColNo];
 }

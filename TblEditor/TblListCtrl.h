@@ -12,8 +12,8 @@ class CTblListCtrl : public CListCtrl
 
 	public:
 		CInPlaceEdit()
+			: m_iLeft(0)
 		{
-			m_iLeft = 0;
 		}
 
 		afx_msg void OnWindowPosChanging(WINDOWPOS* lpwndpos)
