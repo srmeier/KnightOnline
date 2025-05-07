@@ -12,6 +12,7 @@
 #include "PlayerOtherMgr.h"
 
 #include "N3FXMgr.h"
+#include "N3WorldManager.h"
 
 #include "UIStateBar.h"
 #include "UIInventory.h"
@@ -44,6 +45,9 @@ CMagicSkillMng::CMagicSkillMng()
 	m_fRecastTimeNonAction = 0.0f;
 
 	m_iMyRegionTargetFXID = 0;
+	m_fZonePointerRadius = -1.0f;
+	m_fZonePointerRadiusEffective = 0.0f;
+	m_fZonePointerRotRad = 0.0f;
 
 	Init();
 }
@@ -59,6 +63,9 @@ CMagicSkillMng::CMagicSkillMng(CGameProcMain* pGameProcMain)
 	m_fRecastTimeNonAction = 0.0f;
 
 	m_iMyRegionTargetFXID = 0;
+	m_fZonePointerRadius = -1.0f;
+	m_fZonePointerRadiusEffective = 0.0f;
+	m_fZonePointerRotRad = 0.0f;
 
 	Init();
 }
@@ -83,8 +90,8 @@ void CMagicSkillMng::Init()
 //	m_pTbl_Type_6 = new CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_6>;
 //	m_pTbl_Type_6->LoadFromFile("Data\\Skill_Magic_6.tbl");
 
-//	m_pTbl_Type_7 = new CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_7>;
-//	m_pTbl_Type_7->LoadFromFile("Data\\Skill_Magic_7.tbl");
+	m_pTbl_Type_7 = new CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_7>;
+	m_pTbl_Type_7->LoadFromFile("Data\\Skill_Magic_7.tbl");
 
 //	m_pTbl_Type_8 = new CN3TableBase<struct __TABLE_UPC_SKILL_TYPE_8>;
 //	m_pTbl_Type_8->LoadFromFile("Data\\Skill_Magic_8.tbl");
@@ -158,7 +165,7 @@ CMagicSkillMng::~CMagicSkillMng()
 	if(m_pTbl_Type_4) { delete m_pTbl_Type_4; m_pTbl_Type_4 = NULL; }
 //	if(m_pTbl_Type_5) { delete m_pTbl_Type_5; m_pTbl_Type_5 = NULL; }
 //	if(m_pTbl_Type_6) { delete m_pTbl_Type_6; m_pTbl_Type_6 = NULL; }
-//	if(m_pTbl_Type_7) { delete m_pTbl_Type_7; m_pTbl_Type_7 = NULL; }
+	if(m_pTbl_Type_7) { delete m_pTbl_Type_7; m_pTbl_Type_7 = NULL; }
 //	if(m_pTbl_Type_8) { delete m_pTbl_Type_8; m_pTbl_Type_8 = NULL; }
 //	if(m_pTbl_Type_9) { delete m_pTbl_Type_9; m_pTbl_Type_9 = NULL; }
 //	if(m_pTbl_Type_10) { delete m_pTbl_Type_10; m_pTbl_Type_10 = NULL; }
@@ -499,8 +506,6 @@ bool CMagicSkillMng::CheckValidSkillMagic(__TABLE_UPC_SKILL* pSkill)
 
 	return true;
 }
-
-#include "N3WorldManager.h"
 
 bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkill)
 {
@@ -1141,6 +1146,9 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 
 	//지역마법타겟 초기화..
 	CGameProcedure::s_pFX->Stop(s_pPlayer->IDNumber(), s_pPlayer->IDNumber(), m_iMyRegionTargetFXID, m_iMyRegionTargetFXID, true);
+
+	CancelZonePointer();
+
 	m_dwRegionMagicState = 0;	
 	if(m_iMyRegionTargetFXID == 0)
 	{
@@ -1263,6 +1271,50 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 			m_dwRegionSkill = (*pSkill);
 //			CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), 0, m_iMyRegionTargetFXID, m_pGameProcMain->m_vMouseLBClickedPos, m_iMyRegionTargetFXID);	//전격무기...
 			CGameProcedure::s_pFX->TriggerBundle(s_pPlayer->IDNumber(), 0, m_iMyRegionTargetFXID, m_pGameProcMain->m_vMouseSkillPos, m_iMyRegionTargetFXID);	//전격무기...
+
+			// Zone pointer circle FX with scaling
+
+			switch (pSkill->dw1stTableType)
+			{
+				case 3:
+				{
+					__TABLE_UPC_SKILL_TYPE_3* pType3 = m_pTbl_Type_3->Find(pSkill->dwID);
+					if (pType3 != nullptr)
+						m_fZonePointerRadius = pType3->iRadius - 1.0f;
+				} break;
+
+				case 4:
+				{
+					__TABLE_UPC_SKILL_TYPE_4* pType4 = m_pTbl_Type_4->Find(pSkill->dwID);
+					if (pType4 != nullptr)
+						m_fZonePointerRadius = pType4->iRadius - 1.0f;
+				} break;
+
+				case 7:
+				{
+					__TABLE_UPC_SKILL_TYPE_7* pType7 = m_pTbl_Type_7->Find(pSkill->dwID);
+					if (pType7 != nullptr)
+						m_fZonePointerRadius = pType7->iRadius - 1.0f;
+				} break;
+
+				default:
+					return true;
+			}
+
+			m_fZonePointerRotRad = 0.0f;
+			m_fZonePointerRadiusEffective = 0.0f;
+
+			// Start FX elements
+			for (int j = 0; j < 8; j++)
+			{
+				CGameProcedure::s_pFX->TriggerBundle(
+					s_pPlayer->IDNumber(),
+					0,
+					FXID_ZONE_POINTER,
+					m_pGameProcMain->m_vMouseSkillPos,
+					FXID_ZONE_POINTER + j);	// Unique index
+			}
+
 			return true;
 		}
 	case SKILLMAGIC_TARGET_DEAD_FRIEND_ONLY:
@@ -1324,7 +1376,6 @@ bool CMagicSkillMng::CheckValidDistance(__TABLE_UPC_SKILL* pSkill, __Vector3 vTa
 
 	return false;
 }
-
 
 void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vector3 vPos)
 {
@@ -1606,10 +1657,23 @@ void CMagicSkillMng::Tick()
 	ProcessCasting();
 	//TRACE("skillmagic tick state : %d time %.2f\n", s_pPlayer->State(), CN3Base::TimeGet());
 
+	if (m_fZonePointerRadius > 0.0f)
+	{
+		// Initially grow radius per tick as per official.
+		if (m_fZonePointerRadiusEffective <= m_fZonePointerRadius)
+			m_fZonePointerRadiusEffective += 1.0f;
+
+		// Get REAL-TIME mouse position
+		m_fZonePointerRotRad += CN3Base::s_fSecPerFrm * D3DXToRadian(50.0f);
+
+		UpdateZonePointerPositions();
+	}
+
 	if(m_dwRegionMagicState==2)
 	{
 		m_dwRegionMagicState = 0;
 		CGameProcedure::s_pFX->Stop(s_pPlayer->IDNumber(), s_pPlayer->IDNumber(), m_iMyRegionTargetFXID, m_iMyRegionTargetFXID, true);
+		CancelZonePointer();
 //		if( !CheckValidDistance(&m_dwRegionSkill, m_pGameProcMain->m_vMouseLBClickedPos, 0) ) return;
 //		StartSkillMagicAtPosPacket(&m_dwRegionSkill, m_pGameProcMain->m_vMouseLBClickedPos);		
 		if( !CheckValidDistance(&m_dwRegionSkill, m_pGameProcMain->m_vMouseSkillPos, 0) ) return;
@@ -1662,6 +1726,45 @@ void CMagicSkillMng::Tick()
 		}
 	}
 //	if(s_pPlayer->State()==PSA_SPELLMAGIC) 
+}
+
+void CMagicSkillMng::UpdateZonePointerPositions()
+{
+	// Update all FX positions
+	for (int j = 0; j < 8; j++)
+	{
+		const float fRadians = m_fZonePointerRotRad + (D3DXToRadian(45.0f) * j);
+
+		__Vector3 vNewPos = m_pGameProcMain->m_vMouseSkillPos;
+		vNewPos.y = CGameBase::ACT_WORLD->GetHeightWithTerrain(vNewPos.x, vNewPos.z);
+
+		vNewPos.x += cosf(fRadians) * m_fZonePointerRadiusEffective;
+		vNewPos.z += sinf(fRadians) * m_fZonePointerRadiusEffective;
+
+		// Update FX position using the index
+		CGameProcedure::s_pFX->SetBundlePos(
+			FXID_ZONE_POINTER,
+			FXID_ZONE_POINTER + j,	// Index
+			vNewPos);
+	}
+}
+
+// When cancelling the skill or changing modes
+void CMagicSkillMng::CancelZonePointer()
+{
+	for (int j = 0; j < 8; j++)
+	{
+		CGameProcedure::s_pFX->Stop(
+			s_pPlayer->IDNumber(),
+			0,
+			FXID_ZONE_POINTER,
+			FXID_ZONE_POINTER + j,
+			true);
+	}
+
+	m_fZonePointerRadius = -1.0f;
+	m_fZonePointerRadiusEffective = 0.0f;
+	m_fZonePointerRotRad = 0.0f;
 }
 
 void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget)
@@ -1863,9 +1966,7 @@ void CMagicSkillMng::ProcessCasting()
 			
 			//캐스팅 실패...
 			if(bSuccess == false && (s_pPlayer->State()!=PSA_SPELLMAGIC || s_pPlayer->StateMove()!=PSM_STOP))
-			{
 				FailCast(pSkill);
-			}
 		}
 		else s_pPlayer->m_dwMagicID = 0xffffffff;
 	}	

@@ -1277,38 +1277,39 @@ typedef struct __TABLE_FX	// FX Table
 #endif
 } TABLE_FX;
 
-const int	MAX_COMBO = 3;
+constexpr int	MAX_COMBO = 3;
 
-const int   FXID_CLASS_CHANGE			= 603;
-const int	FXID_BLOOD					= 10002;
-const int	FXID_LEVELUP_KARUS			= 10012;
-const int	FXID_LEVELUP_ELMORAD		= 10018;
-const int	FXID_REGEN_ELMORAD			= 10019;
-const int	FXID_REGEN_KARUS			= 10020;
-const int	FXID_SWORD_FIRE_MAIN		= 10021;
-const int	FXID_SWORD_FIRE_TAIL		= 10022;
-const int	FXID_SWORD_FIRE_TARGET		= 10031;
-const int	FXID_SWORD_ICE_MAIN			= 10023;
-const int	FXID_SWORD_ICE_TAIL			= 10024;
-const int	FXID_SWORD_ICE_TARGET		= 10032;
-const int	FXID_SWORD_LIGHTNING_MAIN	= 10025;
-const int	FXID_SWORD_LIGHTNING_TAIL	= 10026;
-const int	FXID_SWORD_LIGHTNING_TARGET = 10033;
-const int	FXID_SWORD_POISON_MAIN		= 10027;
-const int	FXID_SWORD_POISON_TAIL		= 10028;
-const int	FXID_SWORD_POISON_TARGET	= 10034;
-//const int	FXID_GROUND_TARGET = 10035;
-const int	FXID_REGION_TARGET_EL_ROGUE		= 10035;
-const int	FXID_REGION_TARGET_EL_WIZARD	= 10036;
-const int	FXID_REGION_TARGET_EL_PRIEST	= 10037;
-const int	FXID_REGION_TARGET_KA_ROGUE		= 10038;
-const int	FXID_REGION_TARGET_KA_WIZARD	= 10039;
-const int	FXID_REGION_TARGET_KA_PRIEST	= 10040;
-const int	FXID_CLAN_RANK_1				= 10041;
-const int	FXID_WARP_KARUS					= 10046;
-const int	FXID_WARP_ELMORAD				= 10047;
-const int	FXID_REGION_POISON				= 10100;
-const int	FXID_TARGET_POINTER				= 30001;
+constexpr int   FXID_CLASS_CHANGE				= 603;
+constexpr int	FXID_BLOOD						= 10002;
+constexpr int	FXID_LEVELUP_KARUS				= 10012;
+constexpr int	FXID_LEVELUP_ELMORAD			= 10018;
+constexpr int	FXID_REGEN_ELMORAD				= 10019;
+constexpr int	FXID_REGEN_KARUS				= 10020;
+constexpr int	FXID_SWORD_FIRE_MAIN			= 10021;
+constexpr int	FXID_SWORD_FIRE_TAIL			= 10022;
+constexpr int	FXID_SWORD_FIRE_TARGET			= 10031;
+constexpr int	FXID_SWORD_ICE_MAIN				= 10023;
+constexpr int	FXID_SWORD_ICE_TAIL				= 10024;
+constexpr int	FXID_SWORD_ICE_TARGET			= 10032;
+constexpr int	FXID_SWORD_LIGHTNING_MAIN		= 10025;
+constexpr int	FXID_SWORD_LIGHTNING_TAIL		= 10026;
+constexpr int	FXID_SWORD_LIGHTNING_TARGET		= 10033;
+constexpr int	FXID_SWORD_POISON_MAIN			= 10027;
+constexpr int	FXID_SWORD_POISON_TAIL			= 10028;
+constexpr int	FXID_SWORD_POISON_TARGET		= 10034;
+//constexpr int	FXID_GROUND_TARGET = 10035;
+constexpr int	FXID_REGION_TARGET_EL_ROGUE		= 10035;
+constexpr int	FXID_REGION_TARGET_EL_WIZARD	= 10036;
+constexpr int	FXID_REGION_TARGET_EL_PRIEST	= 10037;
+constexpr int	FXID_REGION_TARGET_KA_ROGUE		= 10038;
+constexpr int	FXID_REGION_TARGET_KA_WIZARD	= 10039;
+constexpr int	FXID_REGION_TARGET_KA_PRIEST	= 10040;
+constexpr int	FXID_CLAN_RANK_1				= 10041;
+constexpr int	FXID_WARP_KARUS					= 10046;
+constexpr int	FXID_WARP_ELMORAD				= 10047;
+constexpr int	FXID_REGION_POISON				= 10100;
+constexpr int	FXID_TARGET_POINTER				= 30001;
+constexpr int	FXID_ZONE_POINTER				= 30002;
 
 //define skillmagic_type4_bufftype
 enum e_SkillMagicType4	{	BUFFTYPE_MAXHP = 1,				//MaxHP변화..
