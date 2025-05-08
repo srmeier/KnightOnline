@@ -1664,7 +1664,7 @@ void CMagicSkillMng::Tick()
 		char szMsg[100];
 		std::snprintf(szMsg, sizeof(szMsg), "m_RecastTimes skill %.1f seconds", pair.second);
 		std::string strMsg(szMsg);
-		if(pair.second > 0)
+		if(pair.second > 0.1)
 		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 #endif
 		pair.second -= CN3Base::s_fSecPerFrm;
@@ -1676,7 +1676,7 @@ void CMagicSkillMng::Tick()
 		char szMsg[100];
 		std::snprintf(szMsg, sizeof(szMsg), "m_NonActionRecastTimes skill %.1f seconds", pair.second);
 		std::string strMsg(szMsg);
-		if(pair.second > 0)
+		if(pair.second > 0.1)
 		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
 #endif
 		pair.second -= CN3Base::s_fSecPerFrm;
