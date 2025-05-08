@@ -42,7 +42,7 @@ CMagicSkillMng::CMagicSkillMng()
 	m_fCastTimeNonAction = 0.0f;
 	m_dwNonActionMagicID = 0;
 	m_iNonActionMagicTarget = -1;
-	m_fRecastTimeNonAction = 0.0f;
+	//m_fRecastTimeNonAction = 0.0f;
 
 	m_iMyRegionTargetFXID = 0;
 	m_fZonePointerRadius = -1.0f;
@@ -60,7 +60,7 @@ CMagicSkillMng::CMagicSkillMng(CGameProcMain* pGameProcMain)
 	m_fCastTimeNonAction = 0.0f;
 	m_dwNonActionMagicID = 0;
 	m_iNonActionMagicTarget = -1;
-	m_fRecastTimeNonAction = 0.0f;
+	//m_fRecastTimeNonAction = 0.0f;
 
 	m_iMyRegionTargetFXID = 0;
 	m_fZonePointerRadius = -1.0f;
@@ -107,7 +107,7 @@ void CMagicSkillMng::Init()
 	m_iTarget = -1;
 	m_vTargetPos.Set(0,0,0);
 
-	m_fRecastTime = 0.0f;
+	//m_fRecastTime = 0.0f;
 	m_fDelay = 0.0f;
 
 	m_dwRegionMagicState = 0;
@@ -1120,21 +1120,22 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 
 	///////////////////////////////////////////////////////////////////////////////////
 	// 스킬 쓸 조건이 되는지 검사...
-	if(pSkill->iSelfAnimID1 >= 0)
-	{
-		if(IsCasting() || m_fRecastTime > 0.0f) return false;
-	}
-	else //캐스팅동작없는 마법..
-	{
-		if( m_dwCastingStateNonAction != 0 || m_fRecastTimeNonAction > 0.0f ) return false;
+	// Existing validity checks
+	if (!pSkill) return false;
+	// Check cooldowns first
+	auto itRecast = m_RecastTimes.find(pSkill->dwID);
+	auto itNonAction = m_NonActionRecastTimes.find(pSkill->dwID);
 
-		m_dwCastingStateNonAction = 0;
-		m_fCastTimeNonAction = 0.0f;
-		m_dwNonActionMagicID = 0;
-		m_iNonActionMagicTarget = -1;
+	if (pSkill->iSelfAnimID1 >= 0) // Casting skill with animation
+	{
+		if (IsCasting() || (itRecast != m_RecastTimes.end() && itRecast->second > 0))
+			return false;
 	}
-	
-	if(!pSkill) return false;
+	else // Instant/non-action skill
+	{
+		if (itNonAction != m_NonActionRecastTimes.end() && itNonAction->second > 0)
+			return false;
+	}
 	if(!CheckValidCondition(iTargetID, pSkill)) return false;
 
 	//TRACE("마법성공 state : %d time %.2f\n", s_pPlayer->State(), CN3Base::TimeGet());
@@ -1334,6 +1335,20 @@ bool CMagicSkillMng::MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSki
 	return false;
 }
 
+void CMagicSkillMng::SetSkillCooldown(__TABLE_UPC_SKILL* pSkill)
+{
+	// Convert iReCastTime (stored in tenths of seconds) to seconds
+	const float fCooldown = static_cast<float>(pSkill->iReCastTime) / 10.0f;
+
+	if (pSkill->iSelfAnimID1 >= 0)
+	{
+		m_RecastTimes[pSkill->dwID] = fCooldown;
+	}
+	else
+	{
+		m_NonActionRecastTimes[pSkill->dwID] = fCooldown;
+	}
+}
 
 bool CMagicSkillMng::CheckValidDistance(__TABLE_UPC_SKILL* pSkill, __Vector3 vTargetPos, float fTargetRadius)
 {
@@ -1388,7 +1403,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 		m_fCastTimeNonAction = (float)pSkill->iCastTime / 10.0f;
 		m_dwNonActionMagicID = pSkill->dwID;
 		m_iNonActionMagicTarget = -1;
-		m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
+		//m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
 
 		int spart1 = pSkill->iSelfPart1 % 1000;
 		int spart2 = pSkill->iSelfPart1 / 1000;
@@ -1491,7 +1506,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 		m_fCastTimeNonAction = (float)(pSkill->iCastTime) / 10.0f;
 		m_dwNonActionMagicID = pSkill->dwID;
 		m_iNonActionMagicTarget = TargetID;
-		m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
+		//m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
 
 		int spart1 = pSkill->iSelfPart1 % 1000;
 		int spart2 = pSkill->iSelfPart1 / 1000;
@@ -1643,17 +1658,33 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 //
 void CMagicSkillMng::Tick()
 {
-	m_fRecastTime -= CN3Base::s_fSecPerFrm;
-	m_fRecastTimeNonAction -= CN3Base::s_fSecPerFrm;
+	for (auto& pair : m_RecastTimes) // Process skill casting cooldowns
+	{
+#ifdef _DEBUG
+		char szMsg[100];
+		std::snprintf(szMsg, sizeof(szMsg), "m_RecastTimes skill %.1f seconds", pair.second);
+		std::string strMsg(szMsg);
+		if(pair.second > 0)
+		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
+#endif
+		pair.second -= CN3Base::s_fSecPerFrm;
+		if (pair.second < 0) pair.second = 0;
+	}
+	for (auto& pair : m_NonActionRecastTimes) // Process non-action cooldowns don't need them I assume we could just use 1 table but meh?
+	{
+#ifdef _DEBUG
+		char szMsg[100];
+		std::snprintf(szMsg, sizeof(szMsg), "m_NonActionRecastTimes skill %.1f seconds", pair.second);
+		std::string strMsg(szMsg);
+		if(pair.second > 0)
+		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
+#endif
+		pair.second -= CN3Base::s_fSecPerFrm;
+		if (pair.second < 0) pair.second = 0;
+	}
+	// Legacy Existing code for delay and casting
 	m_fDelay -= CN3Base::s_fSecPerFrm;
-	if(m_fDelay < 0.0f) m_fDelay = 0.0f;
-
-	if(m_fRecastTimeNonAction < -30.0f)
-		m_fRecastTimeNonAction = 0.0f;
-
-	if(m_fRecastTime < -30.0f)
-		m_fRecastTime = 0.0f;
-
+	if (m_fDelay < 0.0f) m_fDelay = 0.0f;
 	ProcessCasting();
 	//TRACE("skillmagic tick state : %d time %.2f\n", s_pPlayer->State(), CN3Base::TimeGet());
 
@@ -1718,7 +1749,7 @@ void CMagicSkillMng::Tick()
 			m_dwNonActionMagicID = 0;
 			m_iNonActionMagicTarget = -1;
 
-			m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
+			//m_fRecastTimeNonAction = (float)(pSkill->iReCastTime) / 10.0f;
 
 			std::string szMsg;
 			GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
@@ -1832,14 +1863,15 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..				
+		SetSkillCooldown(pSkill);
 	}
 	else
 	{
 		std::string szMsg;
 		GetTextF(IDS_SKILL_USE, &szMsg, pSkill->szName.c_str());
 		m_pGameProcMain->MsgOutput(szMsg, 0xffffff00);
-		m_fRecastTime = (float) pSkill->iReCastTime / 10.0f;
-		m_fDelay = 0.3f;
+		//m_fRecastTime = (float) pSkill->iReCastTime / 10.0f;
+		//m_fDelay = 0.3f;
 
 		CAPISocket::MP_AddDword(byBuff, iOffset, (int) pSkill->dwID);
 		CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) s_pPlayer->IDNumber());
@@ -1854,6 +1886,7 @@ void CMagicSkillMng::SuccessCast(__TABLE_UPC_SKILL* pSkill, CPlayerBase* pTarget
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
+		SetSkillCooldown(pSkill);
 
 		if (pSkill->iFlyingFX != 0)
 		{

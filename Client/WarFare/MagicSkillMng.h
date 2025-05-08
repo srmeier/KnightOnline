@@ -57,7 +57,7 @@ public:
 	int						m_iPoisonR;
 
 	//recast time...
-	float					m_fRecastTime;
+	//float					m_fRecastTime;
 	float					m_fDelay;
 		
 	//related region magic...
@@ -69,12 +69,14 @@ public:
 	float					m_fCastTimeNonAction;
 	uint32_t					m_dwNonActionMagicID;
 	int						m_iNonActionMagicTarget;
-	float					m_fRecastTimeNonAction;
+	//float					m_fRecastTimeNonAction;
 
 	//지역마법..
 	int						m_iMyRegionTargetFXID;
 
 private:
+	std::map<uint32_t, float> m_RecastTimes;          // Casting skills
+	std::map<uint32_t, float> m_NonActionRecastTimes; // Instant skills, don't think this is actually needed
 	float m_fZonePointerRotRad;
 	float m_fZonePointerRadius;
 	float m_fZonePointerRadiusEffective;
@@ -116,6 +118,7 @@ public:
 	uint32_t	GetMagicID(int idx);
 		
 	bool	MsgSend_MagicProcess(int iTargetID, __TABLE_UPC_SKILL* pSkill);
+	void	SetSkillCooldown(__TABLE_UPC_SKILL* pSkill);
 	void	MsgRecv_Casting(Packet& pkt);
 	void	MsgRecv_Flying(Packet& pkt);
 	void	MsgRecv_Effecting(Packet& pkt);
