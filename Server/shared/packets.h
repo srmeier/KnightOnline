@@ -123,6 +123,7 @@
 #define WIZ_SKILLDATA			0x79
 #define WIZ_PROGRAMCHECK		0x7A
 #define WIZ_BIFROST				0x7B
+#define WIZ_STAT_SKILL_RESET	0x7C //stat & skill reset 124
 #define WIZ_SERVER_KILL			0x7F
 
 // NOTE(srmeier): testing this debug string functionality
@@ -489,6 +490,23 @@ enum e_ItemUpgradeOpcode
 	ITEM_BIFROST_REQ			= 4,
 	ITEM_BIFROST_EXCHANGE		= 5,
 };
+
+enum e_StatSkillResetOpcode {
+	STAT_SKILL_RESET_REQ = 1,
+	STAT_RESET_REQ = 2,
+	SKILL_RESET_REQ = 3,
+	STAT_RESET_LEVEL_TOO_LOW = 4,
+	SKILL_RESET_LEVEL_TOO_LOW = 5,
+	STAT_RESET_NO_GOLD = 6,
+	SKILL_RESET_NO_GOLD = 7,
+	STAT_RESET_ITEMS_EQUIPED = 8,
+	STAT_RESET_SUCCESS = 9,
+	SKILL_RESET_SUCCESS = 10,
+	STAT_ALREADY_RESET = 11,
+	SKILL_ALREADY_RESET = 12,
+	STAT_SKILL_RESET_SUCCESS = 13,
+};
+
 
 ////////////////////////////////////////////////////////////////
 // Party BBS subpacket define

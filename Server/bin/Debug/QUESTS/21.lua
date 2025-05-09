@@ -2553,7 +2553,7 @@ elseif nEventID == 21126 then
 	pUser:SelectMsg(21128, 21130, 21130, 21135, 21135, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21129 then
 	pUser:NpcSay(21125, 21126, -1, -1, -1, -1, -1, -1);
-elseif nEventID == 21130 then	
+elseif nEventID == 21130 then
 	if not pUser:CheckExistEvent(11,2) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 10 and lvl <= 99 then
@@ -2683,7 +2683,7 @@ elseif nEventID == 21288 then
 	do return; end
 	end
 elseif nEventID == 21951 then
-	pUser:SendDebugString("Unknown EXEC command 'STAT_POINT_DISTRIBUTE'."); -- unknown execute command (STAT_POINT_DISTRIBUTE)
+	pUser:OpenStatSkillReset();
 	do return; end
 elseif nEventID == 21981 then
 	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_DISTRIBUTE'."); -- unknown execute command (SKILL_POINT_DISTRIBUTE)

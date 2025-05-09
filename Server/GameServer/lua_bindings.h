@@ -14,6 +14,7 @@ LUA_FUNCTION(ShowEffect);
 LUA_FUNCTION(ShowNpcEffect);
 LUA_FUNCTION(PromoteKnight);
 LUA_FUNCTION(SelectMsg);
+LUA_FUNCTION(OpenStatSkillReset);
 LUA_FUNCTION(CastSkill);
 LUA_FUNCTION(GetName);
 LUA_FUNCTION(GetAccountName);

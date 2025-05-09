@@ -162,6 +162,7 @@ void CUser::ClassChange(Packet & pkt, bool bFromClient /*= true */)
 void CUser::RecvSelectMsg(Packet & pkt)	// Receive menu reply from client.
 {
 	uint8_t bMenuID = pkt.read<uint8_t>();
+	TRACE("\nbMenuID = %d\n", bMenuID);
 	if (!AttemptSelectMsg(bMenuID))
 		memset(&m_iSelMsgEvent, -1, sizeof(m_iSelMsgEvent));
 }
@@ -175,6 +176,7 @@ bool CUser::AttemptSelectMsg(
 
 	// Get the event number that needs to be processed next.
 	int32_t iEventID = m_iSelMsgEvent[byMenuID];
+	TRACE("\niEventID %d\n", iEventID);
 	if (iEventID < 0)
 		return false;
 
@@ -211,6 +213,8 @@ void CUser::SelectMsg(
 	// and store the corresponding event IDs.
 	memcpy(&m_iSelMsgEvent, menuButtonEvents, sizeof(int32_t) * MAX_MESSAGE_EVENT);
 }
+
+
 
 void CUser::NpcEvent(Packet & pkt)
 {
@@ -325,6 +329,10 @@ void CUser::NpcEvent(Packet & pkt)
 	case NPC_CLAN: // this HAS to go.
 		result << uint16_t(0); // page 0
 		CKnightsManager::AllKnightsList(this, result);
+		break;
+	case NPC_CAPTAIN: // Stat & Skill Resetting npc
+		//statskillreset can be carried here in the future
+		break;
 
 	default:
 		ClientEvent(sNpcID);
@@ -584,6 +592,200 @@ fail_return:
 		result << m_iGold << transactionPrice <<  pTable->m_bSellingGroup ; // price bought or sold for
 	Send(&result);
 }
+
+
+//sends stat skill reset packet
+void CUser::OpenStatSkillReset()
+{
+	Packet result(WIZ_STAT_SKILL_RESET);
+
+	result
+		<< uint8_t(STAT_SKILL_RESET_REQ);
+
+	Send(&result);
+}
+
+//handles stat skill player request
+void CUser::HandleStatSkillReset(Packet& pkt)
+{
+	
+	uint8_t opcode = pkt.read<uint8_t>();
+
+	//Basic controls
+	if (isDead() || isTrading() || isStoreOpen() || 
+		isMerchanting() || isSellingMerchant())
+		return;
+
+	//check for 1,4,6,8,10,12,13,
+	int equipControllSlots[7] = { 1,4,6,8,10,12,13 };
+	int CurrentLevel = GetLevel();
+
+	//Calculate Required coins for stat reset
+
+	int RequiredCoinsStatReset = (int) pow((CurrentLevel * 2.0f), 3.4f);
+	if (CurrentLevel < 30)
+		RequiredCoinsStatReset = (int) (RequiredCoinsStatReset * 0.4f);
+	else if (CurrentLevel >= 60)
+		RequiredCoinsStatReset = (int) (RequiredCoinsStatReset * 1.5f);
+	
+	// discount
+	if ((g_pMain->m_sDiscount == 1 && g_pMain->m_byOldVictory == GetNation())
+		|| g_pMain->m_sDiscount == 2)
+		RequiredCoinsStatReset /= 2;
+
+	//calculate stat points user have at the moment.
+	int CurrentStatPoints; 
+	int StartingStatPoints = 10;
+	if (CurrentLevel < 60)
+	{
+		CurrentStatPoints = (CurrentLevel - 1) * 3;
+		CurrentStatPoints += StartingStatPoints;
+	}
+	else
+	{
+		CurrentStatPoints = (60 - 1) * 3;
+		CurrentStatPoints += StartingStatPoints;
+		CurrentStatPoints += (CurrentLevel - 60) * 5;
+	}
+
+	//calculate currentSkillPoints
+	int currentSkillPoints;
+	
+	if (CurrentLevel >= 10)
+		currentSkillPoints = (CurrentLevel - 9) * 2;
+	else
+		currentSkillPoints = 0;
+
+
+	//Required coins for skill reset
+	int RequiredCoinsSkillReset = (int) pow((CurrentLevel * 2.0f), 3.4f);
+	if (CurrentLevel < 30)
+		RequiredCoinsSkillReset = (int) (RequiredCoinsSkillReset * 0.4f);
+	else if (CurrentLevel >= 60)
+		RequiredCoinsSkillReset = (int) (RequiredCoinsSkillReset * 1.5f);
+
+	RequiredCoinsSkillReset = (int)(RequiredCoinsSkillReset * 1.5f);
+
+	// If global discounts are enabled 
+	if (g_pMain->m_sDiscount == 2 // or war discounts are enabled
+		|| (g_pMain->m_sDiscount == 1 && g_pMain->m_byOldVictory == m_bNation))
+		RequiredCoinsSkillReset /= 2;
+	
+	
+	e_StatSkillResetOpcode response = STAT_SKILL_RESET_SUCCESS;
+
+	switch (opcode)
+	{
+		case STAT_RESET_REQ:
+
+			//check level
+			if (CurrentLevel < 10)
+			{
+				response = STAT_RESET_LEVEL_TOO_LOW;
+			}
+
+			//check gold
+
+			
+			if (!hasCoins(RequiredCoinsStatReset))
+			{
+				response = STAT_RESET_NO_GOLD;
+			}
+
+			//check if user has equiped item, accessories not important.
+			//check for 1,4,6,8,10,12,13,
+
+			for (int slot : equipControllSlots)
+			{
+				if (m_sItemArray[slot].nSerialNum != 0)
+				{
+					response = STAT_RESET_ITEMS_EQUIPED;
+				}
+			}
+
+			//check if stats already reset 
+			
+
+			if (m_sPoints == CurrentStatPoints) 
+			{
+				response = STAT_ALREADY_RESET; 
+			}
+
+			break;
+		case SKILL_RESET_REQ:
+
+			if (CurrentLevel < 10)
+			{
+				response = SKILL_RESET_LEVEL_TOO_LOW;
+			}
+
+			//recalculate required Noah for skill reset
+
+			if (!hasCoins(RequiredCoinsStatReset))
+			{
+				response = SKILL_RESET_NO_GOLD;
+			}
+
+			//check if user already reset skills
+
+			if (m_bstrSkill[SkillPointFree] == currentSkillPoints)
+			{
+				response = SKILL_ALREADY_RESET;
+			}
+
+			break;
+	}
+
+
+	//if fails send back to client
+
+	if (response != STAT_SKILL_RESET_SUCCESS)
+	{
+		SendStatSkillResetFailed(response);
+		return;
+	}
+
+	//if successfull
+
+	switch (opcode)
+	{
+		case STAT_RESET_REQ:
+			if (StatReset(RequiredCoinsStatReset))
+			{
+				Packet result(WIZ_STAT_SKILL_RESET);
+				result << uint8_t(STAT_RESET_SUCCESS);
+				Send(&result);
+				//BUG: environment after SendMyInfo, or better way of updating is required
+				//all npc disappears after SendMyInfo();
+				CUser::SendMyInfo(); 
+			}
+			break;
+		case SKILL_RESET_REQ:
+			if (SkillReset(RequiredCoinsSkillReset))
+			{
+				Packet result(WIZ_STAT_SKILL_RESET);
+				result << uint8_t(SKILL_RESET_SUCCESS);
+				Send(&result);
+				
+				//BUG: environment after SendMyInfo, or better way of updating
+				CUser::SendMyInfo(); 
+			}
+			break;
+		default:
+			break;
+	}
+
+
+
+}
+
+void CUser::SendStatSkillResetFailed(e_StatSkillResetOpcode opcode)
+{
+	Packet result(WIZ_STAT_SKILL_RESET);
+	result << uint8_t(opcode);
+	Send(&result);
+}
+
 
 /**
 * @brief	Handles the name change response packet

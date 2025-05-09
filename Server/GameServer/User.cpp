@@ -414,6 +414,10 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_SELECT_MSG:
 		RecvSelectMsg(pkt);
 		break;
+	case WIZ_STAT_SKILL_RESET:
+		TRACE("\nUser.cpp | WIZ_STAT_SKILL_RESET\n");
+		HandleStatSkillReset(pkt);
+		break;
 	case WIZ_ITEM_UPGRADE:
 		ItemUpgradeProcess(pkt);
 		break;
@@ -444,6 +448,9 @@ bool CUser::HandlePacket(Packet & pkt)
 	Update();
 	return true;
 }
+
+
+
 
 /**
 * @brief	Updates timed player data, e.g. skills & save requests.
@@ -2629,6 +2636,8 @@ void CUser::StateChangeServerDirect(uint8_t bType, uint32_t nBuff)
 	SendToRegion(&result);
 }
 
+
+
 /**
 * @brief	Takes a target's loyalty points (NP)
 * 			and rewards some/all to the killer (current user).
@@ -3969,6 +3978,244 @@ void CUser::AllPointChange(bool bIsFree)
 fail_return:
 	result << bResult << temp_money;
 	Send(&result);
+}
+
+bool CUser::StatReset(int & coins)
+{
+	
+	uint16_t statTotal, byStr, bySta, byDex, byInt, byCha;
+
+	
+	// TODO: Pull this from the database.
+	switch (m_bRace)
+	{
+		case KARUS_BIG:
+			if (isWarrior())
+			{
+				SetStat(STAT_STR, 65);
+				SetStat(STAT_STA, 65);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			break;
+		case KARUS_MIDDLE:
+			if (isWarrior())
+			{
+				SetStat(STAT_STR, 65);
+				SetStat(STAT_STA, 65);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else
+			{
+				SetStat(STAT_STR, 60);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			break;
+		case KARUS_SMALL:
+			if (isWarrior())
+			{
+				SetStat(STAT_STR, 65);
+				SetStat(STAT_STA, 65);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isRogue())
+			{
+				SetStat(STAT_STR, 60);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isPriest())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 50);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			else  if (isMage())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			break;
+		case KARUS_WOMAN:
+			if (isWarrior())
+			{
+				SetStat(STAT_STR, 65);
+				SetStat(STAT_STA, 65);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isRogue())
+			{
+				SetStat(STAT_STR, 60);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isPriest())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 50);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			else  if (isMage())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			break;
+		case BABARIAN:
+			if (isWarrior())
+			{
+				SetStat(STAT_STR, 65);
+				SetStat(STAT_STA, 65);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			break;
+		case ELMORAD_MAN:
+			if (isWarrior())
+			{
+				SetStat(STAT_STR, 65);
+				SetStat(STAT_STA, 65);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isRogue())
+			{
+				SetStat(STAT_STR, 60);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isPriest())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 50);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			else  if (isMage())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			break;
+		case ELMORAD_WOMAN:
+			if (isWarrior())
+			{
+				SetStat(STAT_STR, 65);
+				SetStat(STAT_STA, 65);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isRogue())
+			{
+				SetStat(STAT_STR, 60);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 50);
+				SetStat(STAT_CHA, 50);
+			}
+			else if (isPriest())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 50);
+				SetStat(STAT_DEX, 70);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			else  if (isMage())
+			{
+				SetStat(STAT_STR, 50);
+				SetStat(STAT_STA, 60);
+				SetStat(STAT_DEX, 60);
+				SetStat(STAT_INT, 70);
+				SetStat(STAT_CHA, 50);
+			}
+			break;
+	}
+
+	// Players gain 3 stats points for each level up to and including 60.
+	// They also received 10 free stat points on creation. 
+	m_sPoints = 10 + (GetLevel() - 1) * 3;
+
+	// For every level after 60, we add an additional two points.
+	if (GetLevel() > 60)
+		m_sPoints += 2 * (GetLevel() - 60);
+
+	statTotal = GetStatTotal();
+	ASSERT(statTotal == 290);
+	m_iGold -= coins;
+
+	SetUserAbility();
+	Send2AI_UserUpdateInfo();
+	
+	byStr = GetStat(STAT_STR);
+	bySta = GetStat(STAT_STA),
+	byDex = GetStat(STAT_DEX);
+	byInt = GetStat(STAT_INT),
+	byCha = GetStat(STAT_CHA);
+
+	return true;
+	
+}
+
+bool CUser::SkillReset(int & coins)
+{
+	int index = 0, skill_point = 0, money = 0, temp_value = 0, old_money = 0;
+	uint8_t type = 0;
+
+	// Get total skill points
+	for (int i = 1; i < 9; i++)
+		skill_point += m_bstrSkill[i];
+
+	// If we don't have any skill points, there's no point resetting now is there.
+	if (skill_point <= 0)
+	{
+		type = 2;
+		return false;
+	}
+
+	// Reset skill points.
+	m_bstrSkill[0] = (GetLevel() - 9) * 2;
+	for (int i = 1; i < 9; i++)
+		m_bstrSkill[i] = 0;
+
+	m_iGold -= coins;
+	Send2AI_UserUpdateInfo();
+
+	return true;
+
 }
 
 void CUser::GoldChange(int16_t tid, int gold)

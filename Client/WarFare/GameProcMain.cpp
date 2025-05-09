@@ -56,6 +56,7 @@
 #include "UIQuestTalk.h"
 #include "UIDead.h"
 #include "UIUpgradeSelect.h"
+#include "UIStatSkillReset.h"
 
 #include "SubProcPerTrade.h"
 #include "CountableItemEditDlg.h"
@@ -75,6 +76,7 @@
 #include "N3SndMgr.h"
 
 #include <io.h>
+#include <afx.h>
 
 
 #ifdef _DEBUG
@@ -171,6 +173,8 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은
 	m_pUIQuestTalk = new CUIQuestTalk();
 	m_pUIDead = new CUIDead();
 	m_pUIUpgradeSelect = new CUIUpgradeSelect();
+	
+	m_pUIStatSkillReset = new CUIStatSkillReset();
 
 	m_pSubProcPerTrade = new CSubProcPerTrade();
 	m_pMagicSkillMng = new CMagicSkillMng(this);
@@ -223,6 +227,7 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIQuestTalk;
 	delete m_pUIDead;
 	delete m_pUIUpgradeSelect;
+	delete m_pUIStatSkillReset;
 
 	delete m_pSubProcPerTrade;
 	delete m_pMagicSkillMng;
@@ -278,6 +283,7 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIInn->Release();
 	m_pUICreateClanName->Release();
 	m_pUIUpgradeSelect->Release();
+	m_pUIStatSkillReset->Release();
 
 	CN3UIBase::DestroyTooltip();
 }
@@ -1125,6 +1131,9 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 		} break;
 		case WIZ_ITEM_UPGRADE:
 			MsgRecv_ItemUpgrade(pkt);
+			return true;
+		case WIZ_STAT_SKILL_RESET:
+			MsgRecv_ResetStatSkill(pkt);
 			return true;
 	}
 
@@ -3925,6 +3934,15 @@ void CGameProcMain::InitUI()
 	iX = (iW - (rc.right - rc.left))/2;
 	iY = (iH - (rc.bottom - rc.top))/2;
 	m_pUINpcEvent->SetPos(iX, iY);
+
+	m_pUIStatSkillReset->Init(s_pUIMgr);
+	m_pUIStatSkillReset->LoadFromFile(pTbl->szChangeClassInit);
+	m_pUIStatSkillReset->SetVisibleWithNoSound(false);
+	m_pUIStatSkillReset->SetStyle(UISTYLE_SHOW_ME_ALONE | UISTYLE_USER_MOVE_HIDE);
+	rc = m_pUIStatSkillReset->GetRegion();
+	iX = (iW - (rc.right - rc.left)) / 2;
+	iY = (iH - (rc.bottom - rc.top)) / 2;
+	m_pUIStatSkillReset->SetPos(iX, iY);
 
 	m_pUINpcTalk->Init(s_pUIMgr);
 	m_pUINpcTalk->LoadFromFile(pTbl->szNpcTalk);
@@ -7878,6 +7896,53 @@ void CGameProcMain::NoahTrade(uint8_t bType, uint32_t dwGoldOffset, uint32_t dwG
 		m_pUITransactionDlg->GoldUpdate();
 	if (m_pSubProcPerTrade && m_pSubProcPerTrade->m_pUIPerTradeDlg->IsVisible())
 		m_pSubProcPerTrade->m_pUIPerTradeDlg->GoldUpdate();
+}
+
+void CGameProcMain::MsgRecv_ResetStatSkill(Packet& pkt)
+{
+	uint8_t opcode = (e_StatSkillResetOpcode) pkt.read<uint8_t>();
+
+	if (m_pUIStatSkillReset == nullptr)
+	{
+		return;
+	}
+
+	switch (opcode)
+	{
+		case STAT_SKILL_RESET_REQ:
+			m_pUIStatSkillReset->Open();
+			break;
+		case STAT_RESET_LEVEL_TOO_LOW:
+			m_pUIStatSkillReset->ShowStatErrorLevel();
+			break;
+		case SKILL_RESET_LEVEL_TOO_LOW:
+			m_pUIStatSkillReset->ShowSkillErrorLevel();
+			break;
+		case STAT_RESET_NO_GOLD:
+			m_pUIStatSkillReset->ShowSkillErrorCoins();
+			break;
+		case SKILL_RESET_NO_GOLD:
+			m_pUIStatSkillReset->ShowStatErrorCoins();
+			break;
+		case STAT_RESET_ITEMS_EQUIPED:
+			m_pUIStatSkillReset->ShowStatErrorEquipedItem();
+			break;
+		case STAT_ALREADY_RESET:
+			m_pUIStatSkillReset->ShowStatErrorAlreadyReset();
+			break;
+		case SKILL_ALREADY_RESET:
+			m_pUIStatSkillReset->ShowSkillErrorAlreadyReset();
+			break;
+		case STAT_RESET_SUCCESS:
+			m_pUIStatSkillReset->ShowStatResetSuccess();
+			break;
+		case SKILL_RESET_SUCCESS:
+			m_pUIStatSkillReset->ShowSkillResetSuccess();
+			break;
+		default:
+			break;
+	}
+
 }
 
 void CGameProcMain::MsgRecv_ItemUpgrade(

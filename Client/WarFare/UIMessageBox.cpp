@@ -10,6 +10,7 @@
 #include "UIKnightsOperation.h"
 #include "UICreateClanName.h"
 #include "UIPartyBBS.h"
+#include "UIStatSkillReset.h"
 #include "GameEng.h"
 #include "GameProcedure.h"
 #include "GameProcLogin.h"
@@ -158,6 +159,15 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 						PostQuitMessage(0);	// 종료...
 					}
 					break;
+				case BEHAVIOR_STAT_RESET:			
+					if (pProcMain->m_pUIStatSkillReset)
+						pProcMain->m_pUIStatSkillReset->MsgSend_ResetStats();
+					break;
+				case BEHAVIOR_SKILL_RESET:			
+					if (pProcMain->m_pUIStatSkillReset)
+						pProcMain->m_pUIStatSkillReset->MsgSend_ResetSkills();
+					break;
+
 				default: break;
 			}
 		}

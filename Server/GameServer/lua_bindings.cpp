@@ -106,6 +106,7 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(RobLoyalty)
 	MAKE_LUA_METHOD(SaveEvent)
 	MAKE_LUA_METHOD(SelectMsg) // menu
+	MAKE_LUA_METHOD(OpenStatSkillReset) // send packet for stat/skill reset UI
 	MAKE_LUA_METHOD(NpcSay) // dialog
 	MAKE_LUA_METHOD(CheckWeight)
 	MAKE_LUA_METHOD(CheckSkillPoint)
@@ -355,6 +356,15 @@ LUA_FUNCTION(SelectMsg)
 	}
 
 	LUA_NO_RETURN(pUser->SelectMsg(menuHeaderText, menuButtonText, menuButtonEvents));
+}
+
+LUA_FUNCTION(OpenStatSkillReset)
+{
+	CUser * pUser = Lua_GetUser();
+	if (pUser == nullptr)
+		return LUA_NO_RESULTS;
+
+	LUA_NO_RETURN(pUser->OpenStatSkillReset());
 }
 
 LUA_FUNCTION(CastSkill)
