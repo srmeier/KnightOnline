@@ -259,7 +259,7 @@ bool CUICmdList::CreateCategoryList() {
 	if (m_pList_CmdCat == NULL || m_pList_Cmds == NULL) return false;
 
 	std::string szCategory;
-	int idStart = IDS_PRIVATE_CMD_CAT;
+
 
 	for (int i = CMD_LIST_PRIVATE; i <= CMD_LIST_GM; i++)
 	{
