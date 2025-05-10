@@ -77,6 +77,9 @@ public:
 private:
 	std::map<uint32_t, float> m_RecastTimes;          // Casting skills
 	std::map<uint32_t, float> m_NonActionRecastTimes; // Instant skills, don't think this is actually needed
+#ifdef _DEBUG
+	float m_fMsgUpdateTimer = 0.0f;
+#endif
 	float m_fZonePointerRotRad;
 	float m_fZonePointerRadius;
 	float m_fZonePointerRadiusEffective;
