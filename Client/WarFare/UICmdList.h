@@ -14,8 +14,10 @@
 #include "N3UIList.h"
 #include "N3UIEdit.h"
 
+
 class CUICmdList : public CN3UIBase
 {
+
 protected:
 
 	class CUICmdEdit*	m_pUICmdEdit;
@@ -32,7 +34,7 @@ protected:
 
 	enum iCmd
 	{
-		CMD_LIST_PRIVATE,	
+		CMD_LIST_PRIVATE = 0,	
 		CMD_LIST_TRADE,	
 		CMD_LIST_PARTY,
 		CMD_LIST_CLAN,

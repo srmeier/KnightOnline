@@ -4,22 +4,18 @@
 
 #include "stdafx.h"
 #include "resource.h"
-#include "GameDef.h"
 #include "UICmdList.h"
-#include "GameProcedure.h"
 #include "LocalInput.h"
-
 #include "N3UIProgress.h"
 #include "N3UIString.h"
 #include "N3UIImage.h"
-#include "GameProcMain.h"
 #include "APISocket.h"
 #include "PacketDef.h"
-#include "PlayerMySelf.h"
 #include "UIManager.h"
-
+#include "GameProcMain.h"
 #include "N3Texture.h"
 #include "N3UIDBCLButton.h"
+#include "PlayerMySelf.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -54,7 +50,7 @@ bool CUICmdList::Load(HANDLE hFile)
 	m_pList_CmdCat = (CN3UIList*)this->GetChildByID("list_curtailment");  __ASSERT(m_pList_CmdCat, "NULL UI Component!!!");
 	m_pList_Cmds = (CN3UIList*)this->GetChildByID("list_content");		__ASSERT(m_pList_Cmds, "NULL UI Component!!!");
 
-	CreateCategoryList();
+	
 	return true;
 }
 
@@ -216,7 +212,11 @@ bool CUICmdList::OnKeyPress(int iKey)
 
 void CUICmdList::Open()
 {
-	// 스르륵 열린다!!
+	
+	if (m_pList_CmdCat)
+		m_pList_CmdCat->ResetContent();
+	
+	CreateCategoryList();
 	SetVisible(true);
 	this->SetPos(CN3Base::s_CameraData.vp.Width, 10);
 	m_fMoveDelta = 0;
@@ -248,17 +248,22 @@ void CUICmdList::SetVisible(bool bVisible)
 		CGameProcedure::s_pUIMgr->ReFocusUI();//this_ui
 }
 
+//NOTE:iAuthority is owerwritten as 1 (for GM it should be 0)
+//if ----> CreateCategoryList() used in load,
 bool CUICmdList::CreateCategoryList() {
 
 	if (m_pList_CmdCat == NULL || m_pList_Cmds == NULL) return false;
 
 	std::string szCategory;
-	int idStart = IDS_PRIVATE_CMD_CAT;
 
-	for(int i = 0; i < 8; i++) {
+	for(int i = CMD_LIST_PRIVATE; i <= CMD_LIST_GM; i++) {
+
+		if (CGameProcMain::s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && i == CMD_LIST_GM)
+			continue;
+		
+
 		::_LoadStringFromResource(i + 7800, szCategory); //load command categories
 		m_pList_CmdCat->AddString(szCategory);
-		idStart ++;
 	} 
 
 	m_pList_CmdCat->SetFontColor(0xffffff00); //green
@@ -269,12 +274,19 @@ bool CUICmdList::CreateCategoryList() {
 	std::string szCommand;
 	//create map of commands
 	for (int i = idCur; idCur < idEnd; idCur++, i++) {
+
+		bool bSkipLoad = (CGameProcMain::s_pPlayer->m_InfoBase.iAuthority != AUTHORITY_MANAGER && idCur >= 9000 && idCur < 9100);
+
 		if (idCur == 9000) 
 			i += 400; // offset and put gm cmds at end of map
 		else if (idCur == 9100) {
 			i -= 500;
 			idCur = 9200;
 		}
+
+		if (bSkipLoad)
+			continue;
+
 		szCommand.clear();
 		::_LoadStringFromResource(idCur, szCommand);
 		if (!szCommand.empty() && (i/100) % 2 == 0 ) m_mapCmds[i] = szCommand;
