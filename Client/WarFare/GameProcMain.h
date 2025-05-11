@@ -284,7 +284,8 @@ public:
 	void	MsgSend_Weather(int iWeather, int iPercent);
 	void	MsgSend_Time(int iHour, int iMin);
 	void	MsgSend_Administrator(enum e_SubPacket_Administrator eSP, const std::string& szID);
-	
+	void	MsgSend_Administrator(enum e_SubPacket_Administrator eSP, const std::string& szID, const std::string& amount, const std::string& showNotice); //overload
+
 	void	MsgSend_KnightsJoin(int iTargetID);
 	void	MsgSend_KnightsLeave(std::string& szName);
 	void	MsgSend_KnightsWithdraw();
