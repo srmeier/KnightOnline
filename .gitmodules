@@ -4,3 +4,4 @@
 [submodule "Client/Data"]
 	path = Client/Data
 	url = https://github.com/twostars/ko-client-assets
+	branch = openko-1298
