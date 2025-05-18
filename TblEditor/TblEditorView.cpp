@@ -204,6 +204,9 @@ bool CTblEditorView::SaveTable(
 	for (size_t i = 0; i < columnTypes.size(); i++)
 		TRACE("  [%zu] = %d\n", i, columnTypes[i]);
 
+	if (columnTypes.empty())
+		return true;
+
 	std::map<int, std::vector<CStringA>> newRows;
 	BuildTableForSave(newRows);
 
@@ -217,7 +220,7 @@ bool CTblEditorView::SaveTable(
 
 	// Only consider the file as no longer being modified if we saved over
 	// the same file we loaded.
-	if (savePath.CompareNoCase(pDoc->GetLoadedPath()) == 0)
+	if (savePath.CompareNoCase(pDoc->GetPathName()) == 0)
 		pDoc->SetModifiedFlag(FALSE);
 
 	return true;

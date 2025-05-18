@@ -20,7 +20,7 @@ BOOL CTblEditorDoc::OnNewDocument()
 		return FALSE;
 
 	m_Tbl.Release();
-	m_strLoadedPath.Empty();
+	m_strPathName.Empty();
 
 	UpdateAllViews(nullptr, HINT_DOCUMENT_LOADED);
 	return TRUE;
@@ -29,11 +29,8 @@ BOOL CTblEditorDoc::OnNewDocument()
 BOOL CTblEditorDoc::OnOpenDocument(
 	LPCTSTR lpszPathName)
 {
-	if (!CDocument::OnOpenDocument(lpszPathName))
-		return FALSE;
-
 	m_Tbl.Release();
-	m_strLoadedPath.Empty();
+	ClearPathName();
 
 	CString errorMsg;
 	if (!m_Tbl.LoadFile(lpszPathName, errorMsg))
@@ -42,6 +39,9 @@ BOOL CTblEditorDoc::OnOpenDocument(
 		return FALSE;
 	}
 
+	SetPathName(lpszPathName);
+	SetModifiedFlag(FALSE);
+
 	UpdateAllViews(nullptr, HINT_DOCUMENT_LOADED);
 	return TRUE;
 }
@@ -49,8 +49,6 @@ BOOL CTblEditorDoc::OnOpenDocument(
 BOOL CTblEditorDoc::OnSaveDocument(
 	LPCTSTR lpszPathName)
 {
-	CDocument::OnSaveDocument(lpszPathName);
-
 	// TODO: Have the list memory backed, so we're not relying on fetching data
 	// from the list -- we're just modifying & saving the data directly.
 	// Then we don't need to awkwardly access the view here.
@@ -67,4 +65,17 @@ BOOL CTblEditorDoc::OnSaveDocument(
 		return FALSE;
 
 	return TRUE;
+}
+
+BOOL CTblEditorDoc::DoSave(
+	LPCTSTR lpszPathName,
+	BOOL bReplace /*= TRUE*/)
+{
+	if (!IsLoaded())
+		return FALSE;
+
+	if (m_Tbl.GetColumnTypes().empty())
+		return FALSE;
+
+	return CDocument::DoSave(lpszPathName, bReplace);
 }

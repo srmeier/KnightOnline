@@ -12,22 +12,18 @@ public:
 	static constexpr LPARAM HINT_DOCUMENT_LOADED = 0x100000;
 
 	inline bool IsLoaded() const {
-		return m_strLoadedPath.IsEmpty();
-	}
-
-	inline const CString& GetLoadedPath() const {
-		return m_strLoadedPath;
+		return !GetPathName().IsEmpty();
 	}
 
 	inline CTblEditorBase& GetTbl() {
 		return m_Tbl;
 	}
 
-	virtual BOOL OnNewDocument();
-	virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
-	virtual BOOL OnSaveDocument(LPCTSTR lpszPathName);
+	BOOL OnNewDocument() override;
+	BOOL OnOpenDocument(LPCTSTR lpszPathName) override;
+	BOOL OnSaveDocument(LPCTSTR lpszPathName) override;
+	BOOL DoSave(LPCTSTR lpszPathName, BOOL bReplace = TRUE) override;
 
 protected:
 	CTblEditorBase	m_Tbl;
-	CString			m_strLoadedPath;
 };
