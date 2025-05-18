@@ -22,7 +22,6 @@ BEGIN_MESSAGE_MAP(CTblEditorView, CFormView)
 	ON_WM_CREATE()
 	ON_WM_DROPFILES()
 	ON_MESSAGE(WM_USER_LIST_MODIFIED, OnListModified)
-	ON_BN_CLICKED(IDC_BTN_ADD_ROW, OnBnClickedBtnAddRow)
 	ON_COMMAND(ID_ENCODING_KOREAN, OnSetEncoding_Korean)
 	ON_COMMAND(ID_ENCODING_ENGLISH_US, OnSetEncoding_EnglishUS)
 	ON_COMMAND(ID_ENCODING_TURKISH, OnSetEncoding_Turkish)
@@ -337,36 +336,6 @@ LRESULT CTblEditorView::OnListModified(
 
 	pDoc->SetModifiedFlag(TRUE);
 	return 0;
-}
-
-void CTblEditorView::OnBnClickedBtnAddRow()
-{
-	CTblEditorDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-
-	if (!pDoc->IsLoaded())
-		return;
-
-	CTblEditorBase& tbl = pDoc->GetTbl();
-
-	int iColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
-	int iSelectedIndex = m_ListCtrl.GetSelectionMark();
-	int iInsertIndex = (iSelectedIndex >= 0) ? iSelectedIndex + 1 : m_ListCtrl.GetItemCount();
-
-	// Need to insert a row; the first column will be initialised by this.
-	CString szDefault = tbl.GetColumnDefault(0);
-	m_ListCtrl.InsertItem(iInsertIndex, szDefault);
-
-	// Set remaining columns to their defaults.
-	for (int iColNo = 1; iColNo < iColCount; iColNo++)
-	{
-		szDefault = tbl.GetColumnDefault(iColNo);
-		m_ListCtrl.SetItemText(iInsertIndex, iColNo, szDefault);
-	}
-
-	// Select the newly added row
-	m_ListCtrl.SetItemState(iInsertIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
-	m_ListCtrl.EnsureVisible(iInsertIndex, FALSE);
 }
 
 void CTblEditorView::OnSetEncoding_Korean()

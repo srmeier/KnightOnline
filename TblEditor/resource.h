@@ -17,26 +17,27 @@
 #define IDS_SAVE_FAILED                 109
 #define IDS_ERROR_ITEM_VALIDATION_FAILED 110
 #define IDS_ERROR_PRIMARY_KEY_ALREADY_IN_USE 111
+#define IDS_CONTEXTMENU_INSERTROW       112
+#define IDS_CONTEXTMENU_DELETESELECTEDROW 113
 #define IDR_MAINFRAME                   128
-#define IDR_MENU1                       130
-#define IDR_ACCELERATOR                 132
+#define IDR_ACCELERATOR                 129
 #define IDC_LIST1                       1001
-#define IDC_BTN_ADD_ROW                 1002
-#define ID_FILE_EXIT                    32771
-#define ID_EXIT                         32772
-#define ID_ACCELERATOR_SAVE             32773
-#define ID_VIEW_ENCODING                32774
-#define ID_ENCODING_KOREAN              32775
-#define ID_ENCODING_ENGLISH_US          32776
-#define ID_ENCODING_TURKISH             32777
+#define ID_EXIT                         32771
+#define ID_ACCELERATOR_SAVE             32772
+#define ID_VIEW_ENCODING                32773
+#define ID_ENCODING_KOREAN              32774
+#define ID_ENCODING_ENGLISH_US          32775
+#define ID_ENCODING_TURKISH             32776
+#define ID_CONTEXTMENU_INSERTROW        32777
+#define ID_CONTEXTMENU_DELETESELECTEDROW 32778
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        133
-#define _APS_NEXT_COMMAND_VALUE         32778
-#define _APS_NEXT_CONTROL_VALUE         1003
+#define _APS_NEXT_RESOURCE_VALUE        130
+#define _APS_NEXT_COMMAND_VALUE         32779
+#define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

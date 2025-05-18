@@ -25,7 +25,7 @@ class CTblListCtrl : public CListCtrl
 			CEdit::OnWindowPosChanging(lpwndpos);
 		}
 
-		void SetLeft(int left) {
+		inline void SetLeft(int left) {
 			m_iLeft = left;
 		}
 
@@ -46,14 +46,21 @@ public:
 	bool IsPrimaryKeyInUse(const CString& primaryKey) const;
 
 protected:
+	void Reset();
+
+protected:
 	afx_msg void OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnPaint();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnContextMenuInsertRow();
+	afx_msg void OnContextMenuDeleteSelectedRow();
 
 protected:
-	CInPlaceEdit			m_edit;
+	CInPlaceEdit			m_Edit;
 	const CTblEditorBase*	m_pTblBase;
 
 	int						m_iItem;

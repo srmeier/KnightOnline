@@ -23,7 +23,6 @@ protected: // create from serialization only
 
 public:
 	CTblEditorDoc* GetDocument();
-	// virtual BOOL OnInitDialog();
 	void DoDataExchange(CDataExchange* pDX) override;
 	void OnInitialUpdate() override;
 	void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint) override;
@@ -32,7 +31,6 @@ public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDropFiles(HDROP hDropInfo);
 	afx_msg LRESULT OnListModified(WPARAM wParam, LPARAM lParam);
-	afx_msg void OnBnClickedBtnAddRow();
 	afx_msg void OnSetEncoding_Korean();
 	afx_msg void OnSetEncoding_EnglishUS();
 	afx_msg void OnSetEncoding_Turkish();

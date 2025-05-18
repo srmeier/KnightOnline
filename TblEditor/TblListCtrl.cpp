@@ -4,6 +4,7 @@
 #include "resource.h"
 
 #include <limits>
+#include <set>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -17,6 +18,10 @@ BEGIN_MESSAGE_MAP(CTblListCtrl, CListCtrl)
 	ON_WM_LBUTTONDBLCLK()
 	ON_NOTIFY_REFLECT(LVN_BEGINLABELEDIT, OnBeginLabelEdit)
 	ON_NOTIFY_REFLECT(LVN_ENDLABELEDIT, OnEndLabelEdit)
+	ON_WM_KEYUP()
+	ON_WM_CONTEXTMENU()
+	ON_COMMAND(ID_CONTEXTMENU_INSERTROW, OnContextMenuInsertRow)
+	ON_COMMAND(ID_CONTEXTMENU_DELETESELECTEDROW, OnContextMenuDeleteSelectedRow)
 END_MESSAGE_MAP()
 
 BEGIN_MESSAGE_MAP(CTblListCtrl::CInPlaceEdit, CEdit)
@@ -25,8 +30,8 @@ END_MESSAGE_MAP()
 
 CTblListCtrl::CTblListCtrl()
 {
-	m_iItem		= 0;
-	m_iSubItem	= 0;
+	m_iItem		= -1;
+	m_iSubItem	= -1;
 	m_pTblBase	= nullptr;
 }
 
@@ -228,13 +233,19 @@ bool CTblListCtrl::IsPrimaryKeyInUse(
 	return false;
 }
 
+void CTblListCtrl::Reset()
+{
+	m_iItem		= -1;
+	m_iSubItem	= -1;
+}
+
 void CTblListCtrl::OnBeginLabelEdit(
 	NMHDR* pNMHDR,
 	LRESULT* pResult)
 {
 	LV_DISPINFO* pDispInfo = (LV_DISPINFO*) pNMHDR;
 
-	if (m_iSubItem != 0)
+	if (m_iSubItem >= 1)
 	{
 		ASSERT(m_iItem == pDispInfo->item.iItem);
 
@@ -242,15 +253,15 @@ void CTblListCtrl::OnBeginLabelEdit(
 		HWND hWnd = (HWND) SendMessage(LVM_GETEDITCONTROL);
 		ASSERT(hWnd != nullptr);
 
-		VERIFY(m_edit.SubclassWindow(hWnd));
+		VERIFY(m_Edit.SubclassWindow(hWnd));
 
 		CRect subItemRect;
 		GetSubItemRect(pDispInfo->item.iItem, m_iSubItem, LVIR_BOUNDS, subItemRect);
 
 		// move edit control text to the right of original label, as Windows does it
-		m_edit.SetLeft(subItemRect.left + 6);
+		m_Edit.SetLeft(subItemRect.left + 6);
 
-		m_edit.SetWindowText(GetItemText(pDispInfo->item.iItem, m_iSubItem));
+		m_Edit.SetWindowText(GetItemText(pDispInfo->item.iItem, m_iSubItem));
 
 		// hide subitem text so it doesn't show if we delete some text in the edit control
 		CRect rect;
@@ -275,7 +286,7 @@ void CTblListCtrl::OnEndLabelEdit(
 	LV_ITEM* plvItem = &plvDispInfo->item;
 
 	if (m_iItem == plvItem->iItem
-		&& m_iSubItem != 0)
+		&& m_iSubItem >= 1)
 	{
 		// NOTE: If pszText is nullptr, we cancelled this edit.
 		if (plvItem->pszText != nullptr
@@ -297,12 +308,11 @@ void CTblListCtrl::OnEndLabelEdit(
 			}
 		}
 
-		VERIFY(m_edit.UnsubclassWindow() != nullptr);
-
-		m_iSubItem = 0;
+		VERIFY(m_Edit.UnsubclassWindow() != nullptr);
 
 		// always revert to original label (Windows thinks we are editing the leftmost item)
 		*pResult = 0;
+		Reset();
 	}
 	else
 	{
@@ -319,6 +329,7 @@ void CTblListCtrl::OnEndLabelEdit(
 					ReportValidationFailed(plvItem->pszText);
 
 					*pResult = 0;
+					Reset();
 					return;
 				}
 
@@ -331,6 +342,7 @@ void CTblListCtrl::OnEndLabelEdit(
 					AfxMessageBox(errorMsg, MB_ICONERROR);
 
 					*pResult = 0;
+					Reset();
 					return;
 				}
 
@@ -340,6 +352,7 @@ void CTblListCtrl::OnEndLabelEdit(
 
 		// update label on leftmost item
 		*pResult = 1;
+		Reset();
 	}
 }
 
@@ -371,8 +384,8 @@ void CTblListCtrl::OnLButtonDblClk(
 
 void CTblListCtrl::OnPaint()
 {
-	if (m_iSubItem == 0
-		|| m_edit.GetSafeHwnd() == nullptr)
+	if (m_iSubItem <= 0
+		|| m_Edit.GetSafeHwnd() == nullptr)
 	{
 		CListCtrl::OnPaint();
 		return;
@@ -381,7 +394,7 @@ void CTblListCtrl::OnPaint()
 	CRect rc, rcEdit;
 
 	GetSubItemRect(m_iItem, m_iSubItem, LVIR_LABEL, rc);
-	m_edit.GetWindowRect(rcEdit);
+	m_Edit.GetWindowRect(rcEdit);
 	ScreenToClient(rcEdit);
 
 	// block text redraw of the subitems text (underneath the editcontrol)
@@ -427,4 +440,89 @@ void CTblListCtrl::OnSize(
 		SetFocus();
 
 	CListCtrl::OnSize(nType, cx, cy);
+}
+
+void CTblListCtrl::OnKeyUp(
+	UINT nChar,
+	UINT nRepCnt,
+	UINT nFlags)
+{
+	if (nChar == VK_DELETE)
+	{
+		OnContextMenuDeleteSelectedRow();
+		return;
+	}
+
+	CListCtrl::OnKeyUp(nChar, nRepCnt, nFlags);
+}
+
+void CTblListCtrl::OnContextMenu(
+	CWnd* pWnd,
+	CPoint point)
+{
+	CRect rc;
+	GetClientRect(&rc);
+	ClientToScreen(&rc);
+
+	if (!rc.PtInRect(point))
+		return;
+
+	CMenu menu;
+	CString szResource;
+
+	menu.CreatePopupMenu();
+
+	if (szResource.LoadString(IDS_CONTEXTMENU_INSERTROW))
+		menu.AppendMenu(MF_STRING, ID_CONTEXTMENU_INSERTROW, szResource);
+
+	if (szResource.LoadString(IDS_CONTEXTMENU_DELETESELECTEDROW))
+		menu.AppendMenu(MF_STRING, ID_CONTEXTMENU_DELETESELECTEDROW, szResource);
+
+	menu.TrackPopupMenu(TPM_LEFTALIGN, point.x, point.y, this);
+}
+
+void CTblListCtrl::OnContextMenuInsertRow()
+{
+	if (m_pTblBase == nullptr
+		|| m_pTblBase->GetColumnTypes().empty())
+		return;
+
+	const int iColCount = GetHeaderCtrl()->GetItemCount();
+	const int iSelectedIndex = GetSelectionMark();
+	const int iInsertIndex = (iSelectedIndex >= 0) ? iSelectedIndex + 1 : GetItemCount();
+
+	// Need to insert a row; the first column will be initialised by this.
+	CString szDefault = m_pTblBase->GetColumnDefault(0);
+	InsertItem(iInsertIndex, szDefault);
+
+	// Set remaining columns to their defaults.
+	for (int iColNo = 1; iColNo < iColCount; iColNo++)
+	{
+		szDefault = m_pTblBase->GetColumnDefault(iColNo);
+		SetItemText(iInsertIndex, iColNo, szDefault);
+	}
+
+	// Select the newly added row
+	SetItemState(iInsertIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
+	EnsureVisible(iInsertIndex, FALSE);
+}
+
+void CTblListCtrl::OnContextMenuDeleteSelectedRow()
+{
+	POSITION pos = GetFirstSelectedItemPosition();
+	if (pos == nullptr)
+		return;
+
+	std::set<int> itemsToDelete;
+	while (pos != nullptr)
+	{
+		int iSelectedIndex = GetNextSelectedItem(pos);
+		if (iSelectedIndex < 0)
+			break;
+
+		itemsToDelete.insert(iSelectedIndex);
+	}
+
+	for (auto itr = itemsToDelete.rbegin(); itr != itemsToDelete.rend(); ++itr)
+		DeleteItem(*itr);
 }
