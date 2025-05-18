@@ -19,7 +19,29 @@ CTblListCtrl::CTblListCtrl()
 	m_iSubItem	= 0;
 }
 
-void CTblListCtrl::OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
+void CTblListCtrl::EscapeForDisplay(
+	CString& text)
+{
+	text.Replace(_T("\\r"), _T("\\\r"));
+	text.Replace(_T("\\n"), _T("\\\n"));
+	text.Replace(_T("\r"), _T("\\r"));
+	text.Replace(_T("\n"), _T("\\n"));
+}
+
+void CTblListCtrl::UnescapeForSave(
+	CString& text)
+{
+	text.Replace(_T("\\\r"), _T("\\!!r"));
+	text.Replace(_T("\\\n"), _T("\\!!n"));
+	text.Replace(_T("\\r"), _T("\r"));
+	text.Replace(_T("\\n"), _T("\n"));
+	text.Replace(_T("\\!!r"), _T("\\r"));
+	text.Replace(_T("\\!!n"), _T("\\n"));
+}
+
+void CTblListCtrl::OnBeginLabelEdit(
+	NMHDR* pNMHDR,
+	LRESULT* pResult)
 {
 	LV_DISPINFO* pDispInfo = (LV_DISPINFO*) pNMHDR;
 
@@ -63,8 +85,12 @@ void CTblListCtrl::OnEndLabelEdit(NMHDR* pNMHDR, LRESULT* pResult)
 
 	if (m_iSubItem != 0)
 	{
+		// NOTE: If it's nullptr, we cancelled this.
 		if (plvItem->pszText != nullptr)
+		{
+			CString newText = plvItem->pszText;
 			SetItemText(plvItem->iItem, m_iSubItem, plvItem->pszText);
+		}
 
 		VERIFY(m_edit.UnsubclassWindow() != nullptr);
 
@@ -140,13 +166,12 @@ void CTblListCtrl::OnPaint()
 	itemRect.left += 2;
 	itemRect.top += 2;
 
-	CString originalText = GetItemText(m_iItem, 0);
+	CString text = GetItemText(m_iItem, 0);
 	CFont* pFontPrev = pDC->SelectObject(GetFont());
 
 	pDC->SetBkColor(GetSysColor(COLOR_HIGHLIGHT));
 	pDC->SetTextColor(GetSysColor(COLOR_HIGHLIGHTTEXT));
-	
-	pDC->DrawText(originalText, &itemRect, DT_LEFT | DT_VCENTER);
+	pDC->DrawText(text, &itemRect, DT_LEFT | DT_VCENTER);
 
 	pDC->SelectObject(pFontPrev);
 

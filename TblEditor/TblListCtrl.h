@@ -32,6 +32,8 @@ class CTblListCtrl : public CListCtrl
 
 public:
 	CTblListCtrl();
+	static void EscapeForDisplay(CString& text);
+	static void UnescapeForSave(CString& text);
 
 protected:
 	afx_msg void OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult);

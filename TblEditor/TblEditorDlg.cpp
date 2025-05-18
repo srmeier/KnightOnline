@@ -144,7 +144,7 @@ void CTblEditorDlg::RefreshTable()
 
 		for (size_t i = 1; i < fields.size() && i < columnCount; i++)
 		{
-			const CString& text = DecodeField(fields[i], i);
+			CString text = DecodeField(fields[i], i);
 			m_ListCtrl.SetItemText(nItem, static_cast<int>(i), text);
 
 			CSize size = dc.GetTextExtent(text);
@@ -169,9 +169,14 @@ CString CTblEditorDlg::DecodeField(
 
 	DATA_TYPE columnType = m_pTblBase->GetColumnType(iColNo);
 	if (columnType == DT_STRING)
+	{
 		field = CA2T(fieldA, m_iStringCodePage);
+		CTblListCtrl::EscapeForDisplay(field);
+	}
 	else
+	{
 		field = fieldA;
+	}
 
 	return field;
 }
@@ -214,9 +219,14 @@ void CTblEditorDlg::BuildTableForSave(
 
 			DATA_TYPE columnType = m_pTblBase->GetColumnType(iColNo);
 			if (columnType == DT_STRING)
+			{
+				CTblListCtrl::UnescapeForSave(value);
 				valueA = CT2A(value, m_iStringCodePage);
+			}
 			else
+			{
 				valueA = value;
+			}
 
 			rowData.push_back(valueA);
 		}
