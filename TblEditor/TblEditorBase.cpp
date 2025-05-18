@@ -203,11 +203,6 @@ bool CTblEditorBase::LoadRowData(
 			szValue.Empty();
 			switch (dataType)
 			{
-				case DT_NONE:
-					// No data
-					TRACE("Row %d, Column %d: DT_NONE (no data)\n", iRowNo, iColNo);
-					break;
-
 				case DT_CHAR:
 				{
 					char val = '\0';
@@ -470,7 +465,7 @@ bool CTblEditorBase::SaveFile(
 
 				case DT_DWORD:
 				{
-					uint32_t val = static_cast<uint32_t>(strtoul(value, nullptr, 0));
+					uint32_t val = static_cast<uint32_t>(strtoul(value, nullptr, 10));
 					writeBuffer.append<uint32_t>(&val);
 					break;
 				}
@@ -613,6 +608,18 @@ CString CTblEditorBase::GetColumnName(
 			return szName;
 		}
 	}
+}
+
+CString CTblEditorBase::GetFullColumnName(
+	int iColNo)
+	const
+{
+	CString szName;
+	szName.Format(
+		_T("%d (%s)"),
+		iColNo + 1,
+		GetColumnName(iColNo));
+	return szName;
 }
 
 DATA_TYPE CTblEditorBase::GetColumnType(

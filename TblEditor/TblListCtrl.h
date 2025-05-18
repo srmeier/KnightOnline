@@ -2,6 +2,7 @@
 
 #include <afxcmn.h>
 
+class CTblEditorBase;
 class CTblListCtrl : public CListCtrl
 {
 	DECLARE_MESSAGE_MAP()
@@ -32,8 +33,15 @@ class CTblListCtrl : public CListCtrl
 
 public:
 	CTblListCtrl();
+	void AttachTbl(const CTblEditorBase* pTblBase);
+	void DetachTbl();
+
 	static void EscapeForDisplay(CString& text);
 	static void UnescapeForSave(CString& text);
+
+	bool Validate(CString& szNewText) const;
+	void ReportValidationFailed(const TCHAR* szNewText) const;
+	bool IsPrimaryKeyInUse(const CString& primaryKey) const;
 
 protected:
 	afx_msg void OnBeginLabelEdit(NMHDR* pNMHDR, LRESULT* pResult);
@@ -43,9 +51,10 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 
 protected:
-	CInPlaceEdit	m_edit;
+	CInPlaceEdit			m_edit;
+	const CTblEditorBase*	m_pTblBase;
 
-	int		m_iItem;
-	int		m_iSubItem;
+	int						m_iItem;
+	int						m_iSubItem;
 };
 

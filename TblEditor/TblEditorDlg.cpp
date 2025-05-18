@@ -3,7 +3,6 @@
 #include "TblEditorDlg.h"
 #include "afxdialogex.h"
 #include "Resource.h"
-#include "TblEditorBase.h"
 
 #include <algorithm>
 
@@ -23,7 +22,7 @@ CTblEditorDlg::CTblEditorDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_TBLEDITOR_DIALOG, pParent)
 {
 	m_hIcon				= AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	m_pTblBase			= new CTblEditorBase();
+	m_ListCtrl.AttachTbl(&m_Tbl);
 
 	m_bIsFileLoaded		= false;
 	m_bIsFileModified	= false;
@@ -35,7 +34,6 @@ CTblEditorDlg::CTblEditorDlg(CWnd* pParent /*=nullptr*/)
 
 CTblEditorDlg::~CTblEditorDlg()
 {
-	delete m_pTblBase;
 }
 
 void CTblEditorDlg::DoDataExchange(CDataExchange* pDX)
@@ -91,7 +89,7 @@ BOOL CTblEditorDlg::OnInitDialog()
 void CTblEditorDlg::RefreshTable()
 {
 	const std::map<int, std::vector<CStringA>>& rows
-		= m_pTblBase->m_Rows;
+		= m_Tbl.GetRows();
 
 	m_ListCtrl.DeleteAllItems();
 
@@ -99,7 +97,7 @@ void CTblEditorDlg::RefreshTable()
 	for (int i = nColumnCount - 1; i >= 0; i--)
 		m_ListCtrl.DeleteColumn(i);
 
-	size_t columnCount = m_pTblBase->m_DataTypes.size();
+	size_t columnCount = m_Tbl.GetColumnTypes().size();
 	std::vector<int> columnWidths(columnCount, 0);
 
 	CClientDC dc(this);
@@ -110,11 +108,7 @@ void CTblEditorDlg::RefreshTable()
 	{
 		const int iColNo = static_cast<int>(i);
 
-		CString headerText;
-		headerText.Format(
-			_T("%d (%s)"),
-			iColNo + 1,
-			m_pTblBase->GetColumnName(iColNo));
+		CString headerText = m_Tbl.GetFullColumnName(iColNo);
 
 		CSize size = dc.GetTextExtent(headerText);
 		columnWidths[i] = size.cx + 20;  // +20 padding
@@ -167,7 +161,7 @@ CString CTblEditorDlg::DecodeField(
 {
 	CString field;
 
-	DATA_TYPE columnType = m_pTblBase->GetColumnType(iColNo);
+	DATA_TYPE columnType = m_Tbl.GetColumnType(iColNo);
 	if (columnType == DT_STRING)
 	{
 		field = CA2T(fieldA, m_iStringCodePage);
@@ -184,7 +178,7 @@ CString CTblEditorDlg::DecodeField(
 void CTblEditorDlg::LoadTable(const CString& path)
 {
 	CString errorMsg;
-	if (!m_pTblBase->LoadFile(path, errorMsg))
+	if (!m_Tbl.LoadFile(path, errorMsg))
 	{
 		AfxMessageBox(errorMsg, MB_ICONERROR);
 		return;
@@ -201,23 +195,23 @@ void CTblEditorDlg::LoadTable(const CString& path)
 void CTblEditorDlg::BuildTableForSave(
 	std::map<int, std::vector<CStringA>>& newRows)
 {
-	const int nRowCount = m_ListCtrl.GetItemCount();
-	const int nColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
+	const int iRowCount = m_ListCtrl.GetItemCount();
+	const int iColCount = m_ListCtrl.GetHeaderCtrl()->GetItemCount();
 
-	for (int iRowNo = 0; iRowNo < nRowCount; iRowNo++)
+	for (int iRowNo = 0; iRowNo < iRowCount; iRowNo++)
 	{
 		std::vector<CStringA> rowData;
-		rowData.reserve(m_pTblBase->m_DataTypes.size());
+		rowData.reserve(m_Tbl.GetColumnTypes().size());
 
-		for (int iColNo = 0; iColNo < nColCount; iColNo++)
+		for (int iColNo = 0; iColNo < iColCount; iColNo++)
 		{
 			CString value = m_ListCtrl.GetItemText(iRowNo, iColNo);
 			if (value.IsEmpty())
-				value = m_pTblBase->GetColumnDefault(iColNo);
+				value = m_Tbl.GetColumnDefault(iColNo);
 
 			CStringA valueA;
 
-			DATA_TYPE columnType = m_pTblBase->GetColumnType(iColNo);
+			DATA_TYPE columnType = m_Tbl.GetColumnType(iColNo);
 			if (columnType == DT_STRING)
 			{
 				CTblListCtrl::UnescapeForSave(value);
@@ -242,31 +236,21 @@ bool CTblEditorDlg::SaveTable(
 	if (!m_bIsFileLoaded)
 		return true;
 
-	const int nRowCount = m_ListCtrl.GetItemCount();
+	const int iRowCount = m_ListCtrl.GetItemCount();
 
-	TRACE("ROW COUNT: %d", nRowCount);
-
-	for (int row = 0; row < nRowCount; ++row)
-	{
-		// Don't save wrongly edited lines, for example ID = empty
-		CString strID = m_ListCtrl.GetItemText(row, 0);
-		strID.Trim();
-		if (strID.IsEmpty())
-		{
-			AfxMessageBox(_T("Controll the list, one or more item has no ID"));
-			return false;
-		}
-	}
+	TRACE("Saving %d rows", iRowCount);
 
 	// Trace m_DataTypes if needed
-	TRACE("m_DataTypes:\n");
-	for (size_t i = 0; i < m_pTblBase->m_DataTypes.size(); i++)
-		TRACE("  [%zu] = %d\n", i, m_pTblBase->m_DataTypes[i]);
+	const auto& columnTypes = m_Tbl.GetColumnTypes();
+
+	TRACE("Column types:\n");
+	for (size_t i = 0; i < columnTypes.size(); i++)
+		TRACE("  [%zu] = %d\n", i, columnTypes[i]);
 
 	std::map<int, std::vector<CStringA>> newRows;
 	BuildTableForSave(newRows);
 
-	if (!m_pTblBase->SaveFile(savePath, newRows))
+	if (!m_Tbl.SaveFile(savePath, newRows))
 	{
 		AfxMessageBox(IDS_SAVE_FAILED, MB_ICONERROR);
 		return false;
@@ -295,8 +279,8 @@ void CTblEditorDlg::SetCodePage(
 	}
 
 	// TODO: List should be backed by this row data to avoid all of this unnecessary work.
-	m_pTblBase->m_Rows.clear();
-	BuildTableForSave(m_pTblBase->m_Rows);
+	m_Tbl.GetRows().clear();
+	BuildTableForSave(m_Tbl.GetRows());
 
 	m_iStringCodePage = codepage;
 	RefreshTable();
@@ -417,13 +401,13 @@ void CTblEditorDlg::OnBnClickedBtnAddRow()
 	int iInsertIndex = (iSelectedIndex >= 0) ? iSelectedIndex + 1 : m_ListCtrl.GetItemCount();
 
 	// Need to insert a row; the first column will be initialised by this.
-	CString szDefault = m_pTblBase->GetColumnDefault(0);
+	CString szDefault = m_Tbl.GetColumnDefault(0);
 	m_ListCtrl.InsertItem(iInsertIndex, szDefault);
 
 	// Set remaining columns to their defaults.
 	for (int iColNo = 1; iColNo < iColCount; iColNo++)
 	{
-		szDefault = m_pTblBase->GetColumnDefault(iColNo);
+		szDefault = m_Tbl.GetColumnDefault(iColNo);
 		m_ListCtrl.SetItemText(iInsertIndex, iColNo, szDefault);
 	}
 

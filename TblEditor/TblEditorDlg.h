@@ -5,6 +5,7 @@
 #include <map>
 
 #include "TblListCtrl.h"
+#include "TblEditorBase.h"
 
 class CTblEditorBase;
 class CTblEditorDlg : public CDialogEx
@@ -19,7 +20,7 @@ public:
 	CEdit			m_editCell;
 	CEdit			m_Edit;
 
-	CTblEditorBase*	m_pTblBase;
+	CTblEditorBase	m_Tbl;
 
 	CString			m_strLoadedPath;
 
