@@ -15,12 +15,17 @@ public:
 		return m_Rows;
 	}
 
+	inline const std::map<int, std::vector<CStringA>>& GetRows() const {
+		return m_Rows;
+	}
+
 	inline const std::vector<DATA_TYPE>& GetColumnTypes() const {
 		return m_DataTypes;
 	}
 	
 	CTblEditorBase();
 	virtual ~CTblEditorBase();
+	void Release();
 	bool LoadFile(const CString& path, CString& errorMsg);
 	bool SaveFile(const CString& path, const std::map<int, std::vector<CStringA>>& newData);
 	CString GetColumnDefault(int iColNo) const;

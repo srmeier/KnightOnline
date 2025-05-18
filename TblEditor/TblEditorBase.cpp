@@ -5,6 +5,12 @@
 #include <vector>
 #include <map>
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
 static constexpr int MAX_COLUMN_COUNT	= 10'000;
 static constexpr int MAX_ROW_COUNT		= 100'000;
 static constexpr int MAX_STRING_LENGTH	= 50'000;
@@ -35,6 +41,12 @@ CTblEditorBase::CTblEditorBase()
 
 CTblEditorBase::~CTblEditorBase()
 {
+}
+
+void CTblEditorBase::Release()
+{
+	m_Rows.clear();
+	m_DataTypes.clear();
 }
 
 bool CTblEditorBase::LoadFile(

@@ -2,6 +2,8 @@
 
 #include <afxcmn.h>
 
+constexpr int WM_USER_LIST_MODIFIED = WM_USER + 1;
+
 class CTblEditorBase;
 class CTblListCtrl : public CListCtrl
 {

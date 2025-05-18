@@ -11,10 +11,12 @@
 // See TblEditor.cpp for the implementation of this class
 //
 
+class CShellManager;
 class CTblEditorApp : public CWinApp
 {
 public:
 	CTblEditorApp();
+	~CTblEditorApp() override;
 
 // Overrides
 public:
@@ -27,6 +29,7 @@ public:
 	afx_msg void OnAppAbout();
 
 protected:
+	CShellManager* m_pShellManager;
 	HACCEL m_hAccelTable;
 };
 

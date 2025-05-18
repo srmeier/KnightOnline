@@ -102,22 +102,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="TblEditorDoc.h" />
+    <ClInclude Include="TblEditorView.h" />
     <ClInclude Include="TblListCtrl.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TblEditor.h" />
     <ClInclude Include="TblEditorBase.h" />
-    <ClInclude Include="TblEditorDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="TblEditorDoc.cpp" />
+    <ClCompile Include="TblEditorView.cpp" />
     <ClCompile Include="TblListCtrl.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TblEditor.cpp" />
     <ClCompile Include="TblEditorBase.cpp" />
-    <ClCompile Include="TblEditorDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TblEditor.rc" />

@@ -15,9 +15,8 @@
 #define IDS_ERROR_UNSUPPORTED_TABLE     107
 #define IDS_SAVE_SUCCESS                108
 #define IDS_SAVE_FAILED                 109
-#define IDS_CONFIRM_EXIT                110
-#define IDS_ERROR_ITEM_VALIDATION_FAILED 111
-#define IDS_ERROR_PRIMARY_KEY_ALREADY_IN_USE 112
+#define IDS_ERROR_ITEM_VALIDATION_FAILED 110
+#define IDS_ERROR_PRIMARY_KEY_ALREADY_IN_USE 111
 #define IDR_MAINFRAME                   128
 #define IDR_MENU1                       130
 #define IDR_ACCELERATOR                 132

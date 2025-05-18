@@ -5,6 +5,12 @@
 
 #include <limits>
 
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+
 BEGIN_MESSAGE_MAP(CTblListCtrl, CListCtrl)
 	ON_WM_PAINT()
 	ON_WM_SIZE()
@@ -275,11 +281,20 @@ void CTblListCtrl::OnEndLabelEdit(
 		if (plvItem->pszText != nullptr
 			&& m_pTblBase != nullptr)
 		{
+			CString szOldText = GetItemText(m_iItem, m_iSubItem);
 			CString szNewText = plvItem->pszText;
-			if (Validate(szNewText))
-				SetItemText(m_iItem, m_iSubItem, szNewText);
-			else
-				ReportValidationFailed(plvItem->pszText);
+			if (szNewText != szOldText)
+			{
+				if (Validate(szNewText))
+				{
+					SetItemText(m_iItem, m_iSubItem, szNewText);
+					GetParent()->SendMessage(WM_USER_LIST_MODIFIED, m_iItem, m_iSubItem);
+				}
+				else
+				{
+					ReportValidationFailed(plvItem->pszText);
+				}
+			}
 		}
 
 		VERIFY(m_edit.UnsubclassWindow() != nullptr);
@@ -294,25 +309,32 @@ void CTblListCtrl::OnEndLabelEdit(
 		if (plvItem->pszText != nullptr
 			&& m_pTblBase != nullptr)
 		{
+			CString szOldText = GetItemText(m_iItem, m_iSubItem);
 			CString szNewText = plvItem->pszText;
-			if (!Validate(szNewText))
+
+			if (szNewText != szOldText)
 			{
-				ReportValidationFailed(plvItem->pszText);
+				if (!Validate(szNewText))
+				{
+					ReportValidationFailed(plvItem->pszText);
 
-				*pResult = 0;
-				return;
-			}
+					*pResult = 0;
+					return;
+				}
 
-			if (IsPrimaryKeyInUse(szNewText))
-			{
-				CString errorMsg;
-				errorMsg.Format(
-					IDS_ERROR_PRIMARY_KEY_ALREADY_IN_USE,
-					szNewText);
-				AfxMessageBox(errorMsg, MB_ICONERROR);
+				if (IsPrimaryKeyInUse(szNewText))
+				{
+					CString errorMsg;
+					errorMsg.Format(
+						IDS_ERROR_PRIMARY_KEY_ALREADY_IN_USE,
+						szNewText);
+					AfxMessageBox(errorMsg, MB_ICONERROR);
 
-				*pResult = 0;
-				return;
+					*pResult = 0;
+					return;
+				}
+
+				GetParent()->SendMessage(WM_USER_LIST_MODIFIED, m_iItem, m_iSubItem);
 			}
 		}
 

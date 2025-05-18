@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "TblEditor.h"
-#include "TblEditorDlg.h"
+#include "TblEditorDoc.h"
+#include "TblEditorView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -10,6 +11,8 @@ static char THIS_FILE[] = __FILE__;
 
 // CTblEditorApp
 BEGIN_MESSAGE_MAP(CTblEditorApp, CWinApp)
+	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
+	ON_COMMAND(ID_FILE_OPEN, CWinApp::OnFileOpen)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 END_MESSAGE_MAP()
 
@@ -53,10 +56,34 @@ CTblEditorApp::CTblEditorApp()
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
 	m_hAccelTable = nullptr;
+
+	// Create the shell manager, in case the dialog contains
+	// any shell tree view or shell list view controls.
+	m_pShellManager = new CShellManager();
+}
+
+CTblEditorApp::~CTblEditorApp()
+{
+	delete m_pShellManager;
+
+#if !defined(_AFXDLL) && !defined(_AFX_NO_MFC_CONTROLS_IN_DIALOGS)
+	ControlBarCleanUp();
+#endif
 }
 
 // The one and only CTblEditorApp object
 CTblEditorApp theApp;
+
+static BOOL NEAR PASCAL SetRegKey(LPCTSTR lpszKey, LPCTSTR lpszValue) 
+{ 
+	if (::RegSetValue(HKEY_CLASSES_ROOT, lpszKey, REG_SZ, lpszValue, lstrlen(lpszValue)) != ERROR_SUCCESS)
+	{
+		TRACE1("Warning: registration database update failed for key '%Fs'\n", lpszKey);
+		return FALSE;
+	}
+
+	return TRUE;
+} 
 
 // CTblEditorApp initialization
 BOOL CTblEditorApp::InitInstance()
@@ -75,10 +102,6 @@ BOOL CTblEditorApp::InitInstance()
 
 	AfxEnableControlContainer();
 
-	// Create the shell manager, in case the dialog contains
-	// any shell tree view or shell list view controls.
-	CShellManager* pShellManager = new CShellManager;
-
 	// Activate "Windows Native" visual manager for enabling themes in MFC controls
 	CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows));
 
@@ -89,41 +112,46 @@ BOOL CTblEditorApp::InitInstance()
 	// Change the registry key under which our settings are stored
 	// TODO: You should modify this string to be something appropriate
 	// such as the name of your company or organization
-	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
+	SetRegistryKey(_T("OpenKO TBL Editor"));
+
+	LoadStdProfileSettings();  // Load standard INI file options (including MRU)
 
 	m_hAccelTable = LoadAccelerators(
 		AfxGetInstanceHandle(),
 		MAKEINTRESOURCE(IDR_ACCELERATOR));
 
-	CTblEditorDlg dlg;
-	m_pMainWnd = &dlg;
-	INT_PTR nResponse = dlg.DoModal();
-	if (nResponse == IDOK)
-	{
-		// TODO: Place code here to handle when the dialog is
-		//  dismissed with OK
-	}
-	else if (nResponse == IDCANCEL)
-	{
-		// TODO: Place code here to handle when the dialog is
-		//  dismissed with Cancel
-	}
-	else if (nResponse == -1)
-	{
-		TRACE(traceAppMsg, 0, "Warning: dialog creation failed, so application is terminating unexpectedly.\n");
-		TRACE(traceAppMsg, 0, "Warning: if you are using MFC controls on the dialog, you cannot #define _AFX_NO_MFC_CONTROLS_IN_DIALOGS.\n");
-	}
+	// Register the application's document templates.  Document templates
+	//  serve as the connection between documents, frame windows and views.
 
-	// Delete the shell manager created above.
-	delete pShellManager;
+	CSingleDocTemplate* pDocTemplate;
+	pDocTemplate = new CSingleDocTemplate(
+		IDR_MAINFRAME,
+		RUNTIME_CLASS(CTblEditorDoc),
+		RUNTIME_CLASS(CFrameWnd),       // main SDI frame window
+		RUNTIME_CLASS(CTblEditorView));
+	AddDocTemplate(pDocTemplate);
 
-#if !defined(_AFXDLL) && !defined(_AFX_NO_MFC_CONTROLS_IN_DIALOGS)
-	ControlBarCleanUp();
-#endif
+	// Parse command line for standard shell commands, DDE, file open
+	CCommandLineInfo cmdInfo;
+	ParseCommandLine(cmdInfo);
 
-	// Since the dialog has been closed, return FALSE so that we exit the
-	//  application, rather than start the application's message pump.
-	return FALSE;
+	// Dispatch commands specified on the command line
+	if (!ProcessShellCommand(cmdInfo))
+		return FALSE;
+
+	EnableShellOpen();
+	RegisterShellFileTypes();
+
+	CString strFileTypeName;
+
+	pDocTemplate->GetDocString(strFileTypeName, CDocTemplate::regFileTypeId);
+	SetRegKey(_T(".tbl"), strFileTypeName);
+
+	// The one and only window has been initialized, so show and update it.
+	m_pMainWnd->ShowWindow(SW_SHOW);
+	m_pMainWnd->UpdateWindow();
+
+	return TRUE;
 }
 
 // App command to run the dialog
