@@ -283,7 +283,13 @@ void CTblEditorDlg::SetCodePage(
 	BuildTableForSave(m_Tbl.GetRows());
 
 	m_iStringCodePage = codepage;
+
+	int iTopIndex = m_ListCtrl.GetTopIndex();
+
 	RefreshTable();
+
+	m_ListCtrl.EnsureVisible(m_ListCtrl.GetItemCount() - 1, TRUE);
+	m_ListCtrl.EnsureVisible(iTopIndex, FALSE);
 
 	UpdateData(TRUE);
 }
