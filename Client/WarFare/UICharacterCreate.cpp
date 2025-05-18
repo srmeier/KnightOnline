@@ -378,7 +378,15 @@ bool CUICharacterCreate::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			}
 		}
 
-		__TABLE_NEW_CHR* pTbl = CGameProcedure::s_pProcCharacterCreate->m_Tbl_InitValue.Find(pInfoBase->eRace);
+		std::string strTblID =
+			std::to_string(pInfoBase->eRace) +
+			std::to_string(pInfoBase->crID) +
+			std::to_string(pInfoBase->eClass);
+
+		int iTblID = std::stoi(strTblID);
+
+		__TABLE_NEW_CHR* pTbl = CGameProcedure::s_pProcCharacterCreate->m_Tbl_InitValue.Find(iTblID);
+
 		if(pTbl)
 		{
 			//수치 내리기..
