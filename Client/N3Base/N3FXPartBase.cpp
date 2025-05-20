@@ -493,6 +493,10 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 		else m_bAlpha = FALSE;		
 	}
 	
+	//this is not required as long as file read correct
+	if (m_iNumTex >= 19)
+		m_iNumTex = 1;
+
 	m_ppRefTex = new CN3Texture* [m_iNumTex];
 
 	std::string FileName;

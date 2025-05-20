@@ -558,9 +558,19 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 		{
 			int iType;
 
+			if (i != 0)
+			{
+				//push right 2 bytes, need to read 2 bytes of data here -- 01 01 hex
+				SetFilePointer(hFile, 2, NULL, FILE_CURRENT);
+			}
+
 			ReadFile(hFile, &iType, sizeof(int), &dwRWC, NULL);
 
-			if(iType == FX_PART_TYPE_NONE) continue;
+			if (iType == FX_PART_TYPE_NONE)
+			{
+				SetFilePointer(hFile, -2, NULL, FILE_CURRENT);
+				continue;
+			} 
 
 			else if(iType == FX_PART_TYPE_PARTICLE)
 			{
