@@ -2509,19 +2509,16 @@ bool CGameProcMain::MsgRecv_UserIn(Packet& pkt, bool bWithFX)
 
 
 	uint32_t	dwItemIDs[MAX_ITEM_SLOT_OPC];  // 착용 아이템 - 다른 플레이어(NPC 포함) 0 ~ 4 상체,하체,헬멧,팔,발 5 망토 6 오른손 7 왼손
-	int		iItemDurabilities[MAX_ITEM_SLOT_OPC]; // 착용 아이템의 내구력..
+	int			iItemDurabilities[MAX_ITEM_SLOT_OPC]; // 착용 아이템의 내구력..
+	uint8_t		byItemFlags[MAX_ITEM_SLOT_OPC];
 	for(int i = 0; i < MAX_ITEM_SLOT_OPC; i++)
 	{
 		dwItemIDs[i] = pkt.read<uint32_t>();			// 착용하고 있는 아이템들의 ID
 		iItemDurabilities[i] = pkt.read<int16_t>();	// 착용하고 있는 아이템들의 현재 내구력
 
 		// NOTE(srmeier): adding bFlag, probably the rental thing
-		uint8_t bFlag = pkt.read<uint8_t>();
+		byItemFlags[i] = pkt.read<uint8_t>();
 	}
-
-	// NOTE(srmeier): adding the zone id
-	uint8_t bZoneID = pkt.read<uint8_t>();
-
 
 	if ( iID == s_pPlayer->IDNumber()) 
 		return false; 									// 내 패킷이면 .. // 무시한다..

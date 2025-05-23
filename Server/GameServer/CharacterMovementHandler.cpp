@@ -111,7 +111,7 @@ void CUser::GetUserInfo(
 	{
 		pkt
 			<< uint16_t(0)		// Alliance ID
-			<< uint16_t(0)		// Name (length)
+			<< uint8_t(0)		// Name (length)
 			<< uint8_t(0)		// Grade
 			<< uint8_t(0)		// Ranking
 			<< uint16_t(0)		// Mark version
@@ -120,12 +120,12 @@ void CUser::GetUserInfo(
 	else
 	{
 		pkt
-			<< pKnights->GetAllianceID()
+			<< uint16_t(pKnights->GetAllianceID())
 			<< pKnights->m_strName
-			<< pKnights->m_byGrade
-			<< pKnights->m_byRanking
-			<< uint16_t(pKnights->m_sMarkVersion) // symbol/mark version
-			<< pKnights->GetCapeID(pKnights); // cape ID 
+			<< uint8_t(pKnights->m_byGrade)
+			<< uint8_t(pKnights->m_byRanking)
+			<< uint16_t(pKnights->m_sMarkVersion)
+			<< int16_t(pKnights->GetCapeID(pKnights));
 	}
 
 	// There are two event-driven invisibility states; dispel on attack, and dispel on move.
