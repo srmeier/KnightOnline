@@ -90,3 +90,4 @@ LUA_FUNCTION(RollDice);
 LUA_FUNCTION(CheckMonsterChallengeTime);
 LUA_FUNCTION(CheckMonsterChallengeUserCount);
 LUA_FUNCTION(GetPVPMonumentNation);
+LUA_FUNCTION(OpenStatSkillReset);

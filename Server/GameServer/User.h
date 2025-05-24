@@ -536,6 +536,7 @@ public:
 	bool JobGroupCheck(int16_t jobgroupid);
 	void SendSay(int32_t nTextID[10]);
 	void SelectMsg(int32_t menuHeaderText, int32_t menuButtonText[MAX_MESSAGE_EVENT], int32_t menuButtonEvents[MAX_MESSAGE_EVENT]);
+	void OpenStatSkillReset();
 
 	// NOTE(srmeier): testing this debug string functionality
 	void SendDebugString(const char* pString);
@@ -735,6 +736,9 @@ public:
 	void SendStatSkillDistribute();
 	void AllPointChange(bool bIsFree = false);
 	void AllSkillPointChange(bool bIsFree = false);
+	//AllPointChange & AllSkillPointChange replaced with
+	void StatReset();
+	void SkillReset();
 
 	void CountConcurrentUser();
 	void UserDataSaveToAgent();
@@ -773,6 +777,8 @@ public:
 	bool AttemptSelectMsg(uint8_t byMenuID);
 
 	// from the client
+	void HandleStatSkillReset(Packet& pkt);
+	void SendStatSkillResetFailed(e_StatSkillResetOpcode opcode);
 	void ItemUpgradeProcess(Packet & pkt);
 	void ItemUpgrade(Packet & pkt, uint8_t nUpgradeType = ITEM_UPGRADE_PROCESS);
 	void ItemUpgradeNotice(_ITEM_TABLE * pItem, uint8_t UpgradeResult);
@@ -926,7 +932,7 @@ public:
 	void ReqChangeName(Packet & pkt);
 	void ReqChangeCape(Packet & pkt);
 	void InsertTaxUpEvent(uint8_t Nation, uint32_t TerritoryTax);
-
+	void ReqStatSkillReset(Packet& pkt);
 	//private:
 	static ChatCommandTable s_commandTable;
 	GameState m_state;
@@ -1134,6 +1140,11 @@ public:
 		}
 
 		LUA_NO_RETURN(pUser->SelectMsg(menuHeaderText, menuButtonText, menuButtonEvents));
+	}
+
+	DECLARE_LUA_FUNCTION(OpenStatSkillReset)
+	{
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->OpenStatSkillReset());
 	}
 
 	DECLARE_LUA_FUNCTION(CheckWeight) {

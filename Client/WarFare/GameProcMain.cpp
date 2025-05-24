@@ -56,6 +56,7 @@
 #include "UIQuestTalk.h"
 #include "UIDead.h"
 #include "UIUpgradeSelect.h"
+#include "UIStatSkillReset.h"
 
 #include "SubProcPerTrade.h"
 #include "CountableItemEditDlg.h"
@@ -75,7 +76,7 @@
 #include "N3SndMgr.h"
 
 #include <io.h>
-
+#include <afx.h>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -171,6 +172,7 @@ CGameProcMain::CGameProcMain()				// r기본 생성자.. 각 변수의 역활은
 	m_pUIQuestTalk = new CUIQuestTalk();
 	m_pUIDead = new CUIDead();
 	m_pUIUpgradeSelect = new CUIUpgradeSelect();
+	m_pUIStatSkillReset = new CUIStatSkillReset();
 
 	m_pSubProcPerTrade = new CSubProcPerTrade();
 	m_pMagicSkillMng = new CMagicSkillMng(this);
@@ -223,6 +225,7 @@ CGameProcMain::~CGameProcMain()
 	delete m_pUIQuestTalk;
 	delete m_pUIDead;
 	delete m_pUIUpgradeSelect;
+	delete m_pUIStatSkillReset;
 
 	delete m_pSubProcPerTrade;
 	delete m_pMagicSkillMng;
@@ -278,6 +281,7 @@ void CGameProcMain::ReleaseUIs()
 	m_pUIInn->Release();
 	m_pUICreateClanName->Release();
 	m_pUIUpgradeSelect->Release();
+	m_pUIStatSkillReset->Release();
 
 	CN3UIBase::DestroyTooltip();
 }
@@ -1122,6 +1126,9 @@ bool CGameProcMain::ProcessPacket(Packet& pkt)
 		} break;
 		case WIZ_ITEM_UPGRADE:
 			MsgRecv_ItemUpgrade(pkt);
+			return true;
+		case WIZ_STAT_SKILL_RESET:
+			MsgRecv_ResetStatSkill(pkt);
 			return true;
 	}
 
@@ -4169,6 +4176,16 @@ void CGameProcMain::InitUI()
 		(iH - m_pUIUpgradeSelect->GetHeight()) / 2);
 	m_pUIUpgradeSelect->SetState(UI_STATE_COMMON_NONE);
 	m_pUIUpgradeSelect->SetStyle(m_pUIUpgradeSelect->GetStyle() | UISTYLE_USER_MOVE_HIDE | UISTYLE_SHOW_ME_ALONE);
+
+	//stat skill reset
+	m_pUIStatSkillReset->Init(s_pUIMgr);
+	m_pUIStatSkillReset->LoadFromFile(pTbl->szChangeClassInit);
+	m_pUIStatSkillReset->SetVisibleWithNoSound(false);
+	m_pUIStatSkillReset->SetStyle(UISTYLE_SHOW_ME_ALONE | UISTYLE_USER_MOVE_HIDE);
+	rc = m_pUIStatSkillReset->GetRegion();
+	iX = (iW - (rc.right - rc.left)) / 2;
+	iY = (iH - (rc.bottom - rc.top)) / 2;
+	m_pUIStatSkillReset->SetPos(iX, iY);
 }
 
 void CGameProcMain::MsgSend_RequestTargetHP(int16_t siIDTarget, uint8_t byUpdateImmediately)
@@ -7886,4 +7903,121 @@ void CGameProcMain::MsgRecv_ItemUpgrade(
 #endif
 			break;
 	}
+}
+
+void CGameProcMain::MsgRecv_ResetStatSkill(Packet& pkt)
+{
+	uint8_t opcode = (e_StatSkillResetOpcode) pkt.read<uint8_t>();
+
+	if (m_pUIStatSkillReset == nullptr)
+	{
+		return;
+	}
+
+	switch (opcode)
+	{
+		case STAT_SKILL_RESET_REQ:
+			m_pUIStatSkillReset->Open();
+			break;
+		case STAT_RESET_LEVEL_TOO_LOW:
+			m_pUIStatSkillReset->ShowStatErrorLevel();
+			break;
+		case SKILL_RESET_LEVEL_TOO_LOW:
+			m_pUIStatSkillReset->ShowSkillErrorLevel();
+			break;
+		case STAT_RESET_NO_GOLD:
+			m_pUIStatSkillReset->ShowSkillErrorCoins();
+			break;
+		case SKILL_RESET_NO_GOLD:
+			m_pUIStatSkillReset->ShowStatErrorCoins();
+			break;
+		case STAT_RESET_ITEMS_EQUIPED:
+			m_pUIStatSkillReset->ShowStatErrorEquipedItem();
+			break;
+		case STAT_RESET_UNUSED_POINTS:
+			m_pUIStatSkillReset->ShowStatErrorUnusedPoints();
+			break;
+		case SKILL_RESET_UNUSED_POINTS:
+			m_pUIStatSkillReset->ShowSkillErrorUnusedPoints();
+			break;
+		case STAT_RESET_SUCCESS:
+		{
+			m_pUIStatSkillReset->ShowStatResetSuccess();
+			
+			uint32_t dwGoldOffset = pkt.read<uint32_t>();
+			uint32_t dwGold = pkt.read<uint32_t>();
+			uint16_t iNewStr = pkt.read<uint16_t>();
+			uint16_t iNewSta = pkt.read<uint16_t>();
+			uint16_t iNewDex = pkt.read<uint16_t>();
+			uint16_t iNewInt = pkt.read<uint16_t>();
+			uint16_t iNewMp = pkt.read<uint16_t>();
+			uint16_t iStatsTotal = pkt.read<uint16_t>();
+
+			//Update gold change
+			std::string strMsg;
+			GetTextF(IDS_NOAH_CHANGE_SPEND, &strMsg, dwGoldOffset);
+			MsgOutput(strMsg, 0xffff3b3b);
+
+			s_pPlayer->m_InfoExt.iGold = dwGold;
+
+			if (m_pUIInventory->IsVisible())
+				m_pUIInventory->GoldUpdate();
+
+			//update user stats
+			s_pPlayer->m_InfoExt.iStrength = iNewStr;
+			s_pPlayer->m_InfoExt.iStamina = iNewSta;
+			s_pPlayer->m_InfoExt.iDexterity = iNewDex;
+			s_pPlayer->m_InfoExt.iIntelligence = iNewInt;
+			s_pPlayer->m_InfoExt.iMagicAttak = iNewMp;
+			s_pPlayer->m_InfoExt.iBonusPointRemain = iStatsTotal;
+			m_pUIVar->UpdateAllStates(&(s_pPlayer->m_InfoBase), &(s_pPlayer->m_InfoExt));
+
+			//update UIVarious
+			//m_pUIVar->m_pPageState->UpdateStrength(s_pPlayer->m_InfoExt.iStrength, s_pPlayer->m_InfoExt.iStrength_Delta);
+			//m_pUIVar->m_pPageState->UpdateStamina(s_pPlayer->m_InfoExt.iStamina, s_pPlayer->m_InfoExt.iStamina_Delta);
+			//m_pUIVar->m_pPageState->UpdateDexterity(s_pPlayer->m_InfoExt.iDexterity, s_pPlayer->m_InfoExt.iDexterity_Delta);
+			//m_pUIVar->m_pPageState->UpdateIntelligence(s_pPlayer->m_InfoExt.iIntelligence, s_pPlayer->m_InfoExt.iIntelligence_Delta);
+			//m_pUIVar->m_pPageState->UpdateMagicAttak(s_pPlayer->m_InfoExt.iMagicAttak, s_pPlayer->m_InfoExt.iMagicAttak_Delta);
+
+			//update UIVarious resists ?
+			//update UIVarious Remaining stat value
+			//update UIVarious Attack
+
+			break;
+		}
+		case SKILL_RESET_SUCCESS:
+		{
+			m_pUIStatSkillReset->ShowSkillResetSuccess();
+
+			uint32_t dwGoldOffset = pkt.read<uint32_t>();
+			uint32_t dwGold = pkt.read<uint32_t>();
+			uint8_t iSkillPoints = pkt.read<uint8_t>();
+
+			//Update gold change
+			std::string strMsg;
+			GetTextF(IDS_NOAH_CHANGE_SPEND, &strMsg, dwGoldOffset);
+			MsgOutput(strMsg, 0xffff3b3b);
+			
+			s_pPlayer->m_InfoExt.iGold = dwGold;
+
+			if (m_pUIInventory->IsVisible())
+				m_pUIInventory->GoldUpdate();
+
+			//UI skill point change
+			for (int i = 1; i < 9; i++)
+				m_pUISkillTreeDlg->m_iSkillInfo[i] = 0;
+
+			//Update skill points
+			m_pUISkillTreeDlg->m_iSkillInfo[0] = iSkillPoints;
+			m_pUISkillTreeDlg->InitIconUpdate();
+			
+			//Remove icons from skill bar
+			m_pUIHotKeyDlg->ReleaseItem();
+
+			break;
+		}
+		default:
+			break;
+	}
+
 }

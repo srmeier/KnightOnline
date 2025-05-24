@@ -48,6 +48,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <TargetName>KnightOnLine</TargetName>
+    <IncludePath>$(IncludePath);$(DependencyDir)dx9sdk\Include;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include</IncludePath>
+    <LibraryPath>$(DependencyDir)dx9sdk\Lib\x86;$(LibraryPath);C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -175,6 +177,7 @@
     <ClCompile Include="UIRepairTooltipDlg.cpp" />
     <ClCompile Include="UISkillTreeDlg.cpp" />
     <ClCompile Include="UIStateBar.cpp" />
+    <ClCompile Include="UIStatSkillReset.cpp" />
     <ClCompile Include="UITargetBar.cpp" />
     <ClCompile Include="UITradeBBSEditDlg.cpp" />
     <ClCompile Include="UITradeBBSSelector.cpp" />
@@ -286,6 +289,7 @@
     <ClInclude Include="UIRepairTooltipDlg.h" />
     <ClInclude Include="UISkillTreeDlg.h" />
     <ClInclude Include="UIStateBar.h" />
+    <ClInclude Include="UIStatSkillReset.h" />
     <ClInclude Include="UITargetBar.h" />
     <ClInclude Include="UITradeBBSEditDlg.h" />
     <ClInclude Include="UITradeBBSSelector.h" />

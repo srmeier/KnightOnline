@@ -143,6 +143,7 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(GetMonsterChallengeTime)
 	MAKE_LUA_METHOD(GetMonsterChallengeUserCount)
 	MAKE_LUA_METHOD(GetPVPMonumentNation)
+	MAKE_LUA_METHOD(OpenStatSkillReset)
 	);
 #undef LUA_CLASS
 
@@ -378,4 +379,13 @@ LUA_FUNCTION(CastSkill)
 LUA_FUNCTION(RollDice) {
 	//LUA_RETURN(myrand(0, LUA_ARG(uint16_t, 2)));
 	LUA_RETURN(myrand(1, LUA_ARG(uint16_t, 2)));
+}
+
+LUA_FUNCTION(OpenStatSkillReset)
+{
+	CUser* pUser = Lua_GetUser();
+	if (pUser == nullptr)
+		return LUA_NO_RESULTS;
+
+	LUA_NO_RETURN(pUser->OpenStatSkillReset());
 }

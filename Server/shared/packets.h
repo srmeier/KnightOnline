@@ -123,6 +123,7 @@
 #define WIZ_SKILLDATA			0x79
 #define WIZ_PROGRAMCHECK		0x7A
 #define WIZ_BIFROST				0x7B
+#define WIZ_STAT_SKILL_RESET	0x7C //stat & skill reset
 #define WIZ_SERVER_KILL			0x7F
 
 // NOTE(srmeier): testing this debug string functionality
@@ -215,6 +216,22 @@ enum e_PremiumPropertyType
 	PremiumRepairDiscountPercent = 4,
 	PremiumItemSellPercent = 5,
 	PremiumExpPercent = 6
+};
+
+enum e_StatSkillResetOpcode {
+	STAT_SKILL_RESET_REQ = 1,
+	STAT_RESET_REQ = 2,
+	SKILL_RESET_REQ = 3,
+	STAT_RESET_LEVEL_TOO_LOW = 4,
+	SKILL_RESET_LEVEL_TOO_LOW = 5,
+	STAT_RESET_NO_GOLD = 6,
+	SKILL_RESET_NO_GOLD = 7,
+	STAT_RESET_ITEMS_EQUIPED = 8,
+	STAT_RESET_SUCCESS = 9,
+	SKILL_RESET_SUCCESS = 10,
+	STAT_RESET_UNUSED_POINTS = 11,
+	SKILL_RESET_UNUSED_POINTS = 12,
+	STAT_SKILL_RESET_SUCCESS = 13,
 };
 
 ////////////////////////////////////////////////////////////////
