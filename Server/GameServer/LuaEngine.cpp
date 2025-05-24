@@ -95,6 +95,7 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(CheckMonsterChallengeTime)
 						  MAKE_LUA_FUNCTION(CheckMonsterChallengeUserCount)
 						  MAKE_LUA_FUNCTION(GetPVPMonumentNation)
+						  MAKE_LUA_FUNCTION(OpenStatSkillReset)
 						  );
 
 CLuaEngine::CLuaEngine() : m_lock(new RWLock())

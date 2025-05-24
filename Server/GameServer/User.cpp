@@ -435,6 +435,9 @@ bool CUser::HandlePacket(Packet & pkt)
 	case WIZ_SIEGE:
 		SiegeWarFareNpc(pkt);
 		break;
+	case WIZ_STAT_SKILL_RESET:
+		HandleStatSkillReset(pkt);
+		break;
 
 	default:
 		TRACE("[SID=%d] Unknown packet %X\n", GetSocketID(), command);
@@ -3662,6 +3665,7 @@ void CUser::SendStatSkillDistribute()
 	result << uint8_t(CLASS_CHANGE_REQ);
 	Send(&result); 
 }
+
 
 void CUser::AllSkillPointChange(bool bIsFree)
 {

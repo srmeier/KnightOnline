@@ -1242,7 +1242,8 @@ enum e_Behavior {	BEHAVIOR_NOTHING = 0,
 					BEHAVIOR_PARTY_BBS_REGISTER_CANCEL, // 파티 게시판에 등록 해제
 
 					BEHAVIOR_EXECUTE_OPTION,			// 게임 종료하고 옵션 실행..
-				
+					BEHAVIOR_STAT_RESET,				//user clicked confirm on stat reset
+					BEHAVIOR_SKILL_RESET,				//user clicked confirm on skill reset
 					BEHAVIOR_UNKNOWN = 0xffffffff
 				};
 

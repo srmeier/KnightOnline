@@ -18,6 +18,7 @@
 #include "SubProcPerTrade.h"
 #include <shellapi.h>
 #include "APISocket.h"
+#include "UIStatSkillReset.h"
 
 #include "N3UIButton.h"
 #include "N3UIString.h"
@@ -157,6 +158,14 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 						::ShellExecute(NULL, "open", "Option.exe", NULL, NULL, SW_SHOWNORMAL); // 홈페이지로 이동..
 						PostQuitMessage(0);	// 종료...
 					}
+					break;
+				case BEHAVIOR_STAT_RESET:
+					if (pProcMain->m_pUIStatSkillReset)
+						pProcMain->m_pUIStatSkillReset->MsgSend_ResetStats();
+					break;
+				case BEHAVIOR_SKILL_RESET:
+					if (pProcMain->m_pUIStatSkillReset)
+						pProcMain->m_pUIStatSkillReset->MsgSend_ResetSkills();
 					break;
 				default: break;
 			}

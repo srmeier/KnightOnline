@@ -2684,7 +2684,7 @@ elseif nEventID == 21288 then
 	do return; end
 	end
 elseif nEventID == 21951 then
-	pUser:SendDebugString("Unknown EXEC command 'STAT_POINT_DISTRIBUTE'."); -- unknown execute command (STAT_POINT_DISTRIBUTE)
+	pUser:OpenStatSkillReset();
 	do return; end
 elseif nEventID == 21981 then
 	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_DISTRIBUTE'."); -- unknown execute command (SKILL_POINT_DISTRIBUTE)

@@ -168,6 +168,7 @@
     <ClCompile Include="RentalHandler.cpp" />
     <ClCompile Include="LoadServerData.cpp" />
     <ClCompile Include="ShoppingMallHandler.cpp" />
+    <ClCompile Include="StatSkillResetHandler.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
