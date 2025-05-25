@@ -805,7 +805,7 @@ typedef struct __TABLE_ITEM_BASIC // 장착 아이템에 관한 리소스 레코
 	uint8_t    byIDK3;
 } TABLE_ITEM_BASIC;
 
-const int MAX_ITEM_EXTENSION = 23; // 확장 아이템 테이블 갯수.
+const int MAX_ITEM_EXTENSION = 24; // [0-23] ex: Item_Ext_23.tbl
 const int LIMIT_FX_DAMAGE = 64;
 const int ITEM_LIMITED_EXHAUST = 17;
 
