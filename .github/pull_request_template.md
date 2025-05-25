@@ -28,5 +28,5 @@ Please check the type of change your PR introduces:
 <!-- Go over all the following points, and put an `x` in all the boxes that apply -->
 
 - [ ] I have performed a self-review of my own code.
-- [ ] I have checked to make sure that this doesn't introduce incompatible behaviour with the official 1.298 server (e.g. unofficial opcodes).
+- [ ] For client changes, I have checked to make sure that this doesn't introduce incompatible behaviour with the official 1.298 server (e.g. unofficial opcodes).
 - [ ] I have checked to make sure that this change does not already exist in the codebase in some fashion (e.g. UI already implemented under a different name).
