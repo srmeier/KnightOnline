@@ -19,7 +19,7 @@ elseif nEventID == 22 then
 	do return; end
 	end
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
 	do return; end
 	end
 	pUser:NpcSay(30, -1, -1, -1, -1, -1, -1, -1);
@@ -51,7 +51,7 @@ elseif nEventID == 38 then
 	do return; end
 	end
 	pUser:GoldLose(100000);
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
 	do return; end
 	end
 	pUser:NpcSay(44, -1, -1, -1, -1, -1, -1, -1);
@@ -100,7 +100,7 @@ elseif nEventID == 52 then
 	do return; end
 	end
 	pUser:GoldLose(300000);
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
 	do return; end
 	end
 	pUser:NpcSay(55, -1, -1, -1, -1, -1, -1, -1);
@@ -2615,7 +2615,7 @@ elseif nEventID == 21215 then
 elseif nEventID == 21225 then
 	pUser:NpcSay(21225, 21226, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21230 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
 	do return; end
 elseif nEventID == 21235 then
 	local lvl = pUser:GetLevel();
@@ -2659,7 +2659,7 @@ elseif nEventID == 21251 then
 elseif nEventID == 21275 then
 	pUser:NpcSay(21275, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21280 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
 	do return; end
 elseif nEventID == 21281 then
 	pUser:SelectMsg(21281, 21283, 21283, 21285, 21285, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
@@ -2683,11 +2683,9 @@ elseif nEventID == 21288 then
 	do return; end
 	end
 elseif nEventID == 21951 then
-	pUser:SendStatSkillDistribute();
-	do return; end
+	pUser:StatPointDistribute();
 elseif nEventID == 21981 then
-	pUser:SendDebugString("Unknown EXEC command 'SKILL_POINT_DISTRIBUTE'."); -- unknown execute command (SKILL_POINT_DISTRIBUTE)
-	do return; end
+	pUser:SkillPointDistribute();
 elseif nEventID == 22000 then
 	pUser:SelectMsg(22003, 22008, 22002, 22003, 22003, 22004, 22004, 22005, 22005, 30134, 35540, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 22002 then
@@ -4397,7 +4395,7 @@ elseif nEventID == 35570 then
 	end
 	local lvl = pUser:GetLevel();
 	if lvl >= 0 and lvl <= 5 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
 	do return; end
 	end
 elseif nEventID == 35572 then
@@ -4470,7 +4468,7 @@ elseif nEventID == 35631 then
 elseif nEventID == 35640 then
 	pUser:SelectMsg(35640, 35641, 35641, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35641 then
-	pUser:SendDebugString("Unknown EXEC command 'ZONE_CHANGE'."); -- unknown execute command (ZONE_CHANGE)
+	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
 	do return; end
 elseif nEventID == 35643 then
 	pUser:NpcSay(35643, -1, -1, -1, -1, -1, -1, -1);
