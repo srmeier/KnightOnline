@@ -16,8 +16,12 @@ Pull requests for such changes will be accepted on a case-by-case basis.
 This code is for academic purposes only! If you have questions, or would like help getting started, feel free visit the <a href="http://ko4life.net/topic/50-the-openko-project/" target="_blank">forums</a>.
 </p>
 
-#### Note:
+#### Build notes:
 * All projects currently require Visual Studio 2022
+* Make sure you initialise and fetch all dependencies after cloning:
+```
+git submodule update --init --recursive
+``` 
 
 #### Intentional design decisions:
 * _The project is currently focused around supporting the 1298/9 version of the game_. Version 1298/9 has most of the core functionality attributed to the game’s success. By ignoring later versions of the game we keep the system relatively simplistic. This allows us to strengthen the fundamental components of the game while minimizing the amount of reverse engineering necessary to make things work.
