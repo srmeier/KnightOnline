@@ -129,7 +129,6 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(KissUser)
 	MAKE_LUA_METHOD(ChangeManner)
 	MAKE_LUA_METHOD(PromoteClan)
-	MAKE_LUA_METHOD(GetBeefRoastVictory)
 	MAKE_LUA_METHOD(RequestPersonalRankReward)
 	MAKE_LUA_METHOD(RequestReward)
 	MAKE_LUA_METHOD(RunCountExchange)
@@ -137,13 +136,14 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(GetPartyMemberAmount)
 	MAKE_LUA_METHOD(GetEventTrigger)
 	MAKE_LUA_METHOD(GetPremium)
-	MAKE_LUA_METHOD(GetWarVictory)
 	MAKE_LUA_METHOD(CheckMiddleStatueCapture)
 	MAKE_LUA_METHOD(MoveMiddleStatue)
 	MAKE_LUA_METHOD(LevelChange)
 	MAKE_LUA_METHOD(GivePremium)
 	MAKE_LUA_METHOD(GetMonsterChallengeTime)
 	MAKE_LUA_METHOD(GetMonsterChallengeUserCount)
+	MAKE_LUA_METHOD(CheckMonsterChallengeTime)
+	MAKE_LUA_METHOD(CheckMonsterChallengeUserCount)
 	MAKE_LUA_METHOD(GetPVPMonumentNation)
 	);
 #undef LUA_CLASS
@@ -181,4 +181,19 @@ LUA_FUNCTION(RollDice)
 {
 	//LUA_RETURN(myrand(0, LUA_ARG(uint16_t, 1)));
 	LUA_RETURN(myrand(1, LUA_ARG(uint16_t, 1)));
+}
+
+LUA_FUNCTION(CheckBeefRoastVictory)
+{
+	uint8_t nation = Nation::NONE;
+	if (g_pMain->m_sBifrostTime <= 90 * MINUTE && g_pMain->m_BifrostVictory != Nation::ALL)
+		nation = g_pMain->m_sBifrostVictoryAll;
+	else
+		nation = g_pMain->m_BifrostVictory;
+	LUA_RETURN(nation);
+}
+
+LUA_FUNCTION(CheckWarVictory)
+{
+	LUA_RETURN(g_pMain->m_bVictory);
 }

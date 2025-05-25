@@ -5,11 +5,14 @@
 #include "User.h"
 #include "Npc.h"
 
-// define global functions to be called from Lua (e.g. myrand())
+// Define global functions to be called from Lua (e.g. myrand())
+// These should not be associated with an object instance; those are bound separately.
 DEFINE_LUA_FUNCTION_TABLE(
 	g_globalFunctions,
 	MAKE_LUA_FUNCTION(CheckPercent)
 	MAKE_LUA_FUNCTION(RollDice)
+	MAKE_LUA_FUNCTION(CheckBeefRoastVictory)
+	MAKE_LUA_FUNCTION(CheckWarVictory)
 );
 
 CLuaEngine::CLuaEngine() : m_lock(new RWLock())

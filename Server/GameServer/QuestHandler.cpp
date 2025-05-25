@@ -255,19 +255,6 @@ uint8_t CUser::GetClanRank()
 	return pClan->m_byFlag;
 }
 
-uint8_t CUser::GetBeefRoastVictory() 
-{
-	if( g_pMain->m_sBifrostTime <= 90 * MINUTE && g_pMain->m_BifrostVictory != ALL )
-		return g_pMain->m_sBifrostVictoryAll; 
-		else
-			return g_pMain->m_BifrostVictory; 
-}
-
-uint8_t CUser::GetWarVictory()
-{
-	return g_pMain->m_bVictory;
-}
-
 uint8_t CUser::CheckMiddleStatueCapture()
 {
 	return g_pMain->m_bMiddleStatueNation == GetNation() ? 1 : 0;
