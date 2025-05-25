@@ -403,9 +403,7 @@ public:
 	uint8_t GetClanGrade();
 	uint8_t GetClanRank();
 
-	uint8_t GetBeefRoastVictory();
 	uint8_t GetRankReward(bool isMonthly);
-	uint8_t GetWarVictory();
 
 	uint8_t CheckMiddleStatueCapture();
 	void MoveMiddleStatue();	
@@ -990,10 +988,8 @@ public:
 	DECLARE_LUA_GETTER(isInParty)
 	DECLARE_LUA_GETTER(isPartyLeader)
 	DECLARE_LUA_GETTER(isKing)
-	DECLARE_LUA_GETTER(GetBeefRoastVictory)
 	DECLARE_LUA_GETTER(GetPartyMemberAmount)
 	DECLARE_LUA_GETTER(GetPremium)
-	DECLARE_LUA_GETTER(GetWarVictory)
 	DECLARE_LUA_GETTER(GetMonsterChallengeTime)
 	DECLARE_LUA_GETTER(GetMonsterChallengeUserCount)
 
@@ -1295,5 +1291,13 @@ public:
 
 	DECLARE_LUA_FUNCTION(GetPVPMonumentNation) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetPVPMonumentNation());
+	}
+
+	DECLARE_LUA_FUNCTION(CheckMonsterChallengeTime) {
+		LUA_RETURN(LUA_GET_INSTANCE()->GetMonsterChallengeTime());
+	}
+
+	DECLARE_LUA_FUNCTION(CheckMonsterChallengeUserCount) {
+		LUA_RETURN(LUA_GET_INSTANCE()->GetMonsterChallengeUserCount());
 	}
 };

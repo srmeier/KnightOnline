@@ -299,7 +299,7 @@ void CUser::NpcEvent(Packet & pkt)
 		break;
 
 	case NPC_VICTORY_GATE:
-		switch(GetWarVictory())
+		switch (g_pMain->m_bVictory)
 		{
 		case KARUS:
 			if(GetNation() == KARUS)

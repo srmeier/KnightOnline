@@ -265,7 +265,7 @@ elseif nEventID == 8001 then
 	do return; end
 	end
 	if pUser:CheckExistItem(910014000, 5) then
-	RunCountExchange(sUID, 5, 0);
+	pUser:RunCountExchange(5, 0);
 	do return; end
 	end
 elseif nEventID == 9001 then
@@ -736,7 +736,7 @@ elseif nEventID == 11010 then
 	do return; end
 	end
 	pUser:GoldLose(5000000);
-	RunCountExchange(sUID, 11101, 0);
+	pUser:RunCountExchange(11101, 0);
 	pUser:NpcSay(11170, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	do return; end
@@ -786,7 +786,7 @@ elseif nEventID == 12010 then
 	do return; end
 	end
 	pUser:GoldLose(5000000);
-	RunCountExchange(sUID, 12101, 0);
+	pUser:RunCountExchange(12101, 0);
 	pUser:NpcSay(12170, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	do return; end
@@ -851,7 +851,7 @@ elseif nEventID == 13010 then
 	do return; end
 	end
 	pUser:GoldLose(5000000);
-	RunCountExchange(sUID, 13101, 0);
+	pUser:RunCountExchange(13101, 0);
 	pUser:NpcSay(13170, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	do return; end
@@ -903,7 +903,7 @@ elseif nEventID == 13805 then
 	do return; end
 	end
 	pUser:GoldLose(5000000);
-	RunCountExchange(sUID, 13801, 0);
+	pUser:RunCountExchange(13801, 0);
 	pUser:NpcSay(13830, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	do return; end
@@ -953,7 +953,7 @@ elseif nEventID == 13835 then
 	do return; end
 	end
 	pUser:GoldLose(5000000);
-	RunCountExchange(sUID, 13831, 0);
+	pUser:RunCountExchange(13831, 0);
 	pUser:NpcSay(13860, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	do return; end
@@ -998,7 +998,7 @@ elseif nEventID == 14010 then
 	do return; end
 	end
 	pUser:GoldLose(5000000);
-	RunCountExchange(sUID, 14101, 0);
+	pUser:RunCountExchange(14101, 0);
 	pUser:NpcSay(14170, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	do return; end
