@@ -114,6 +114,9 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(RunExchange)
 	MAKE_LUA_METHOD(RunSelectExchange)
 	MAKE_LUA_METHOD(SendNameChange)
+	MAKE_LUA_METHOD(SendStatSkillDistribute)
+	MAKE_LUA_METHOD(StatPointDistribute)
+	MAKE_LUA_METHOD(SkillPointDistribute)
 	MAKE_LUA_METHOD(ResetSkillPoints)
 	MAKE_LUA_METHOD(ResetStatPoints)
 	MAKE_LUA_METHOD(PromoteUserNovice)
@@ -143,8 +146,6 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(GetMonsterChallengeTime)
 	MAKE_LUA_METHOD(GetMonsterChallengeUserCount)
 	MAKE_LUA_METHOD(GetPVPMonumentNation)
-	MAKE_LUA_METHOD(SendStatSkillDistribute)
-
 	);
 #undef LUA_CLASS
 
@@ -232,11 +233,11 @@ LUA_FUNCTION(CheckLevel)
 
 LUA_FUNCTION(CheckSkillPoint)
 {
-	CUser * pUser = Lua_GetUser();
+	CUser* pUser = Lua_GetUser();
 	uint8_t bPoints = 0;
 
 	if (pUser != nullptr)
-		bPoints = pUser->GetSkillPoints((SkillPointCategory)LUA_ARG(uint32_t, 2));
+		bPoints = pUser->GetSkillPoints((e_SkillPointCategory)LUA_ARG(uint32_t, 2));
 
 	LUA_RETURN(bPoints);
 }
@@ -335,7 +336,9 @@ _LUA_WRAPPER_USER_FUNCTION(CheckBeefRoastVictory, GetBeefRoastVictory);
 _LUA_WRAPPER_USER_FUNCTION(PartyCountMembers, GetPartyMemberAmount);
 _LUA_WRAPPER_USER_FUNCTION(ExistMonsterQuestSub, GetActiveQuestID);
 _LUA_WRAPPER_USER_FUNCTION(PromoteKnight, PromoteClan);
-//_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
+_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
+_LUA_WRAPPER_USER_FUNCTION(StatPointDistribute, SendStatSkillDistribute);
+_LUA_WRAPPER_USER_FUNCTION(SkillPointDistribute, SendStatSkillDistribute);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeTime, GetMonsterChallengeTime);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeUserCount,GetMonsterChallengeUserCount);
 
@@ -357,15 +360,6 @@ LUA_FUNCTION(SelectMsg)
 	}
 
 	LUA_NO_RETURN(pUser->SelectMsg(menuHeaderText, menuButtonText, menuButtonEvents));
-}
-
-LUA_FUNCTION(SendStatSkillDistribute)
-{
-	CUser* pUser = Lua_GetUser();
-	if (pUser == nullptr)
-		return LUA_NO_RESULTS;
-
-	LUA_NO_RETURN(pUser->SendStatSkillDistribute());
 }
 
 LUA_FUNCTION(CastSkill)
