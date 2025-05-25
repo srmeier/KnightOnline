@@ -143,6 +143,8 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(GetMonsterChallengeTime)
 	MAKE_LUA_METHOD(GetMonsterChallengeUserCount)
 	MAKE_LUA_METHOD(GetPVPMonumentNation)
+	MAKE_LUA_METHOD(SendStatSkillDistribute)
+
 	);
 #undef LUA_CLASS
 
@@ -333,7 +335,7 @@ _LUA_WRAPPER_USER_FUNCTION(CheckBeefRoastVictory, GetBeefRoastVictory);
 _LUA_WRAPPER_USER_FUNCTION(PartyCountMembers, GetPartyMemberAmount);
 _LUA_WRAPPER_USER_FUNCTION(ExistMonsterQuestSub, GetActiveQuestID);
 _LUA_WRAPPER_USER_FUNCTION(PromoteKnight, PromoteClan);
-_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
+//_LUA_WRAPPER_USER_FUNCTION(SendStatSkillDistribute, SendStatSkillDistribute);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeTime, GetMonsterChallengeTime);
 _LUA_WRAPPER_USER_FUNCTION(CheckMonsterChallengeUserCount,GetMonsterChallengeUserCount);
 
@@ -355,6 +357,15 @@ LUA_FUNCTION(SelectMsg)
 	}
 
 	LUA_NO_RETURN(pUser->SelectMsg(menuHeaderText, menuButtonText, menuButtonEvents));
+}
+
+LUA_FUNCTION(SendStatSkillDistribute)
+{
+	CUser* pUser = Lua_GetUser();
+	if (pUser == nullptr)
+		return LUA_NO_RESULTS;
+
+	LUA_NO_RETURN(pUser->SendStatSkillDistribute());
 }
 
 LUA_FUNCTION(CastSkill)
