@@ -1,4 +1,4 @@
-/*
+﻿/*
 */
 
 #include <sstream>
@@ -8,7 +8,7 @@
 
 //-----------------------------------------------------------------------------
 void EVENT::DeleteAll(void) {
-	/*if(!m_arEvent.IsEmpty()) m_arEvent.DeleteAllData();*/
+	if(!m_arEvent.IsEmpty()) m_arEvent.DeleteAllData();
 }
 
 //-----------------------------------------------------------------------------
@@ -28,7 +28,7 @@ bool EVENT::LoadEvent(int zone) {
 	EVENT_DATA* eventData = NULL;
 
 	std::ostringstream stringStream;
-	stringStream << ".\\MAP\\" << zone << ".evt";
+	stringStream << ".\\QUESTS\\" << zone << ".evt";
 	filename = stringStream.str();
 
 	pFile = fopen(filename.c_str(), "rb");

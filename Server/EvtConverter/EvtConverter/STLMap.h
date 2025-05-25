@@ -1,4 +1,4 @@
-#ifndef __STLMAP_H_
+﻿#ifndef __STLMAP_H_
 #define __STLMAP_H_
 
 #include <map>

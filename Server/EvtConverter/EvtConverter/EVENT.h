@@ -1,4 +1,4 @@
-#ifndef __EVENT_H_
+﻿#ifndef __EVENT_H_
 #define __EVENT_H_
 
 #include "STLMap.h"
@@ -20,7 +20,7 @@ public:
 
 public:
 	EVENT(void) {}
-	virtual ~EVENT(void) { /*DeleteAll();*/ }
+	virtual ~EVENT(void) { DeleteAll(); }
 };
 
 #endif

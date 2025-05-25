@@ -1,8 +1,9 @@
-/*
+﻿/*
 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <filesystem>
 
 #include "EVENT.h"
 
@@ -10,6 +11,7 @@
 EVENT testEvent;
 FILE* outputFile;
 
+void ProcessZone(int iZone);
 void AddExecCode(EXEC* pExec);
 void FillEventID(EVENT_DATA* pEvent);
 
@@ -281,14 +283,49 @@ void FillEventID(EVENT_DATA* pEvent) {
 
 //-----------------------------------------------------------------------------
 int main(int argc, char** argv) {
-	int iZone = atoi(argv[1]);
+	int iZone;
 
+	if (argc <= 1) {
+		iZone = 0;
+	}
+	else {
+		iZone = atoi(argv[1]);
+	}
+
+	if (iZone != 0) {
+		ProcessZone(iZone);
+	}
+	else {
+		std::filesystem::path questsDir(".\\QUESTS");
+		for (const auto& dirEntry : std::filesystem::directory_iterator(questsDir))
+		{
+			if (!dirEntry.is_regular_file())
+				continue;
+
+			const std::filesystem::path& filePath = dirEntry.path();
+			if (!filePath.has_extension()
+				|| filePath.extension() != ".evt")
+				continue;
+
+			iZone = _wtoi(filePath.filename().c_str());
+			if (iZone != 0)
+				ProcessZone(iZone);
+		}
+	}
+
+	system("pause");
+	return 0;
+}
+
+void ProcessZone(int iZone)
+{
 	char buf[0xFF] = "";
-	sprintf(buf, "%d.lua", iZone);
+	sprintf(buf, ".\\QUESTS\\%d.lua", iZone);
 
 	outputFile = fopen(buf, "w"); //freopen("test.lua", "w", stdout);
 
-	if(testEvent.LoadEvent(iZone) == false) {
+	testEvent.DeleteAll();
+	if (!testEvent.LoadEvent(iZone)) {
 		printf("ERROR!\n");
 	}
 
@@ -337,8 +374,4 @@ int main(int argc, char** argv) {
 		}
 	}
 	*/
-
-	system("pause");
-
-	return 0;
 }
