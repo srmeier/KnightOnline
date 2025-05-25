@@ -1,4 +1,4 @@
-/*
+﻿/*
 */
 
 #include <stdio.h>
@@ -106,12 +106,12 @@ void LOGIC_ELSE::Parse_and(char* pBuf) {
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp);
 
 	} else if (!strcmp(temp, "CHECK_EXIST_EVENT")){
-		m_LogicElse = LOGIC_CHECK_EXITS_EVENT;
+		m_LogicElse = LOGIC_CHECK_EXIST_EVENT;
 
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //event id
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //state
 	} else if (!strcmp(temp, "CHECK_NOEXIST_EVENT")){
-		m_LogicElse = LOGIC_CHECK_NOEXITS_EVENT;
+		m_LogicElse = LOGIC_CHECK_NOEXIST_EVENT;
 
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //event id
 		index += ParseSpace(temp, pBuf + index); m_LogicElseInt[i++] = atoi(temp); //state

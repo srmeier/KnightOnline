@@ -133,6 +133,14 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:StateChange(%d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1]);
 		} break;
 
+		case EXEC_STAT_POINT_DISTRIBUTE: {
+			fprintf(outputFile, "\tpUser:StatPointDistribute();\n");
+		} break;
+
+		case EXEC_SKILL_POINT_DISTRIBUTE: {
+			fprintf(outputFile, "\tpUser:SkillPointDistribute();\n");
+		} break;
+
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");
@@ -244,13 +252,13 @@ void FillEventID(EVENT_DATA* pEvent) {
 				num_logic_to_close++;
 			} break;
 
-			case LOGIC_CHECK_EXITS_EVENT:
+			case LOGIC_CHECK_EXIST_EVENT:
 				{
 				fprintf(outputFile, "\tif pUser:CheckExistEvent(%d,%d) then", pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
 				num_logic_to_close++;
 			} break;
 
-			case LOGIC_CHECK_NOEXITS_EVENT:
+			case LOGIC_CHECK_NOEXIST_EVENT:
 			{
 				fprintf(outputFile, "\tif not pUser:CheckExistEvent(%d,%d) then", pLogicElse->m_LogicElseInt[0], pLogicElse->m_LogicElseInt[1]);
 				num_logic_to_close++;

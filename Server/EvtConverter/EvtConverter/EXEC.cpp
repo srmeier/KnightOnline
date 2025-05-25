@@ -1,4 +1,4 @@
-/*
+﻿/*
 */
 
 #include <stdio.h>
@@ -119,6 +119,13 @@ void EXEC::Parse(char* pBuf) {
 		m_Exec = EXEC_ROLL_DICE;
 
 		index += ParseSpace(temp, pBuf + index); m_ExecInt[i++] = atoi(temp);
+
+	} else if (!strcmp(temp, "STAT_POINT_DISTRIBUTE")) {
+		m_Exec = EXEC_STAT_POINT_DISTRIBUTE;
+	}
+
+	else if (!strcmp(temp, "SKILL_POINT_DISTRIBUTE")) {
+		m_Exec = EXEC_SKILL_POINT_DISTRIBUTE;
 
 	} else if(!strcmp(temp, "STATE_CHANGE")) {
 		m_Exec = EXEC_STATE_CHANGE;
