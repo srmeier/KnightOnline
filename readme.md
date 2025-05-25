@@ -17,7 +17,7 @@ This code is for academic purposes only! If you have questions, or would like he
 </p>
 
 #### Note:
-* The UIE project currently requires Visual Studio 2022
+* All projects currently require Visual Studio 2022
 
 #### Intentional design decisions:
 * _The project is currently focused around supporting the 1298/9 version of the game_. Version 1298/9 has most of the core functionality attributed to the game’s success. By ignoring later versions of the game we keep the system relatively simplistic. This allows us to strengthen the fundamental components of the game while minimizing the amount of reverse engineering necessary to make things work.
@@ -26,5 +26,5 @@ This code is for academic purposes only! If you have questions, or would like he
 <br>
 
 <p align="center">
-	<img src="https://stephenmeiernet.files.wordpress.com/2020/05/openko_ex_00.png" />
+	<img src="https://github.com/srmeier/KnightOnline/blob/master/openko_example.png?raw=true" />
 </p>
