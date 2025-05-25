@@ -121,125 +121,125 @@ elseif nEventID == 73 then
 	if pUser:CheckExistItem(379156000, 0) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 99 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 1 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 78, 0);
+	pUser:RunCountExchange(78, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 2 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 79, 0);
+	pUser:RunCountExchange(79, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 3 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 80, 0);
+	pUser:RunCountExchange(80, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 4 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 81, 0);
+	pUser:RunCountExchange(81, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 5 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 82, 0);
+	pUser:RunCountExchange(82, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 6 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 83, 0);
+	pUser:RunCountExchange(83, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 7 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 84, 0);
+	pUser:RunCountExchange(84, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 8 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 85, 0);
+	pUser:RunCountExchange(85, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 9 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 86, 0);
+	pUser:RunCountExchange(86, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 10 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 87, 0);
+	pUser:RunCountExchange(87, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 11 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 88, 0);
+	pUser:RunCountExchange(88, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 12 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 89, 0);
+	pUser:RunCountExchange(89, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 13 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 90, 0);
+	pUser:RunCountExchange(90, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 14 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 91, 0);
+	pUser:RunCountExchange(91, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 15 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 92, 0);
+	pUser:RunCountExchange(92, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 16 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 93, 0);
+	pUser:RunCountExchange(93, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 17 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 94, 0);
+	pUser:RunCountExchange(94, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 18 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 95, 0);
+	pUser:RunCountExchange(95, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 19 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 96, 0);
+	pUser:RunCountExchange(96, 0);
 	end
 	end
 	if pUser:CheckExistItem(379156000, 0) then
 	if rand_num == 20 then
 	pUser:NpcSay(78, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 97, 0);
+	pUser:RunCountExchange(97, 0);
 	end
 	end
 	end
@@ -260,125 +260,125 @@ elseif nEventID == 99 then
 	if pUser:CheckExistItem(379155000, 0) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 99 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 1 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 104, 0);
+	pUser:RunCountExchange(104, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 2 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 105, 0);
+	pUser:RunCountExchange(105, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 3 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 106, 0);
+	pUser:RunCountExchange(106, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 4 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 107, 0);
+	pUser:RunCountExchange(107, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 5 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 108, 0);
+	pUser:RunCountExchange(108, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 6 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 109, 0);
+	pUser:RunCountExchange(109, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 7 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 110, 0);
+	pUser:RunCountExchange(110, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 8 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 111, 0);
+	pUser:RunCountExchange(111, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 9 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 112, 0);
+	pUser:RunCountExchange(112, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 10 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 113, 0);
+	pUser:RunCountExchange(113, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 11 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 114, 0);
+	pUser:RunCountExchange(114, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 12 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 115, 0);
+	pUser:RunCountExchange(115, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 13 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 116, 0);
+	pUser:RunCountExchange(116, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 14 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 117, 0);
+	pUser:RunCountExchange(117, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 15 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 118, 0);
+	pUser:RunCountExchange(118, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 16 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 119, 0);
+	pUser:RunCountExchange(119, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 17 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 120, 0);
+	pUser:RunCountExchange(120, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 18 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 121, 0);
+	pUser:RunCountExchange(121, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 19 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 122, 0);
+	pUser:RunCountExchange(122, 0);
 	end
 	end
 	if pUser:CheckExistItem(379155000, 0) then
 	if rand_num == 20 then
 	pUser:NpcSay(81, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 123, 0);
+	pUser:RunCountExchange(123, 0);
 	end
 	end
 	end
@@ -460,7 +460,7 @@ elseif nEventID == 7005 then
 	if pUser:CheckExistItem(379048000, 0) then
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	RunCountExchange(sUID, 1, 0);
+	pUser:RunCountExchange(1, 0);
 	local state = pUser:SearchQuest(5);
 	if state == 1 then
 	pUser:NpcSay(10150, -1, -1, -1, -1, -1, -1, -1);
@@ -475,7 +475,7 @@ elseif nEventID == 7005 then
 	if pUser:CheckExistItem(379048000, 0) then
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	RunCountExchange(sUID, 2, 0);
+	pUser:RunCountExchange(2, 0);
 	local state = pUser:SearchQuest(5);
 	if state == 1 then
 	pUser:NpcSay(10150, -1, -1, -1, -1, -1, -1, -1);
@@ -490,7 +490,7 @@ elseif nEventID == 7005 then
 	if pUser:CheckExistItem(379048000, 0) then
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	RunCountExchange(sUID, 3, 0);
+	pUser:RunCountExchange(3, 0);
 	local state = pUser:SearchQuest(5);
 	if state == 1 then
 	pUser:NpcSay(10150, -1, -1, -1, -1, -1, -1, -1);
@@ -505,7 +505,7 @@ elseif nEventID == 7005 then
 	if pUser:CheckExistItem(379048000, 0) then
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:ExpChange(50);
-	RunCountExchange(sUID, 4, 0);
+	pUser:RunCountExchange(4, 0);
 	local state = pUser:SearchQuest(5);
 	if state == 1 then
 	pUser:NpcSay(10150, -1, -1, -1, -1, -1, -1, -1);
@@ -549,7 +549,7 @@ elseif nEventID == 7261 then
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379049000, 5) then
 	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7110, 0);
+	pUser:RunCountExchange(7110, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -580,7 +580,7 @@ elseif nEventID == 7261 then
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379049000, 5) then
 	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7120, 0);
+	pUser:RunCountExchange(7120, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -611,7 +611,7 @@ elseif nEventID == 7261 then
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379049000, 5) then
 	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7130, 0);
+	pUser:RunCountExchange(7130, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -642,7 +642,7 @@ elseif nEventID == 7261 then
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379049000, 5) then
 	pUser:GoldLose(100000);
-	RunCountExchange(sUID, 7140, 0);
+	pUser:RunCountExchange(7140, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -687,7 +687,7 @@ elseif nEventID == 7262 then
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379050000, 5) then
 	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7150, 0);
+	pUser:RunCountExchange(7150, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -718,7 +718,7 @@ elseif nEventID == 7262 then
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379050000, 5) then
 	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7160, 0);
+	pUser:RunCountExchange(7160, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -749,7 +749,7 @@ elseif nEventID == 7262 then
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379050000, 5) then
 	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7170, 0);
+	pUser:RunCountExchange(7170, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -780,7 +780,7 @@ elseif nEventID == 7262 then
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379050000, 5) then
 	pUser:GoldLose(80000);
-	RunCountExchange(sUID, 7180, 0);
+	pUser:RunCountExchange(7180, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -825,7 +825,7 @@ elseif nEventID == 7263 then
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379051000, 5) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7190, 0);
+	pUser:RunCountExchange(7190, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -856,7 +856,7 @@ elseif nEventID == 7263 then
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379051000, 5) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7200, 0);
+	pUser:RunCountExchange(7200, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -887,7 +887,7 @@ elseif nEventID == 7263 then
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379051000, 5) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7210, 0);
+	pUser:RunCountExchange(7210, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -918,7 +918,7 @@ elseif nEventID == 7263 then
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379051000, 5) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 7220, 0);
+	pUser:RunCountExchange(7220, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -963,7 +963,7 @@ elseif nEventID == 7264 then
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379052000, 5) then
 	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7230, 0);
+	pUser:RunCountExchange(7230, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -994,7 +994,7 @@ elseif nEventID == 7264 then
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379052000, 5) then
 	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7240, 0);
+	pUser:RunCountExchange(7240, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -1025,7 +1025,7 @@ elseif nEventID == 7264 then
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379052000, 5) then
 	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7250, 0);
+	pUser:RunCountExchange(7250, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -1056,7 +1056,7 @@ elseif nEventID == 7264 then
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379052000, 5) then
 	pUser:GoldLose(40000);
-	RunCountExchange(sUID, 7260, 0);
+	pUser:RunCountExchange(7260, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -1101,7 +1101,7 @@ elseif nEventID == 7265 then
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379053000, 5) then
 	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7270, 0);
+	pUser:RunCountExchange(7270, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -1132,7 +1132,7 @@ elseif nEventID == 7265 then
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379053000, 5) then
 	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7280, 0);
+	pUser:RunCountExchange(7280, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -1163,7 +1163,7 @@ elseif nEventID == 7265 then
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379053000, 5) then
 	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7290, 0);
+	pUser:RunCountExchange(7290, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -1194,7 +1194,7 @@ elseif nEventID == 7265 then
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	if pUser:CheckExistItem(379053000, 5) then
 	pUser:GoldLose(30000);
-	RunCountExchange(sUID, 7300, 0);
+	pUser:RunCountExchange(7300, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7310, -1, -1, -1, -1, -1, -1, -1);
@@ -1247,22 +1247,22 @@ elseif nEventID == 7561 then
 	do return; end
 	end
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7591, 0);
+	pUser:RunCountExchange(7591, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7596, 0);
+	pUser:RunCountExchange(7596, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7601, 0);
+	pUser:RunCountExchange(7601, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7606, 0);
+	pUser:RunCountExchange(7606, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -1283,22 +1283,22 @@ elseif nEventID == 7562 then
 	do return; end
 	end
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7592, 0);
+	pUser:RunCountExchange(7592, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7597, 0);
+	pUser:RunCountExchange(7597, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7602, 0);
+	pUser:RunCountExchange(7602, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7607, 0);
+	pUser:RunCountExchange(7607, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -1319,22 +1319,22 @@ elseif nEventID == 7563 then
 	do return; end
 	end
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7593, 0);
+	pUser:RunCountExchange(7593, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7598, 0);
+	pUser:RunCountExchange(7598, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7603, 0);
+	pUser:RunCountExchange(7603, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7608, 0);
+	pUser:RunCountExchange(7608, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -1355,22 +1355,22 @@ elseif nEventID == 7564 then
 	do return; end
 	end
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7594, 0);
+	pUser:RunCountExchange(7594, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7599, 0);
+	pUser:RunCountExchange(7599, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7604, 0);
+	pUser:RunCountExchange(7604, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7609, 0);
+	pUser:RunCountExchange(7609, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -1391,22 +1391,22 @@ elseif nEventID == 7565 then
 	do return; end
 	end
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7595, 0);
+	pUser:RunCountExchange(7595, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7600, 0);
+	pUser:RunCountExchange(7600, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7605, 0);
+	pUser:RunCountExchange(7605, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
-	RunCountExchange(sUID, 7610, 0);
+	pUser:RunCountExchange(7610, 0);
 	pUser:GoldLose(500000);
 	pUser:NpcSay(7591, -1, -1, -1, -1, -1, -1, -1);
 	end
@@ -1438,10 +1438,10 @@ elseif nEventID == 7641 then
 	pUser:NpcSay(7642, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	local rand_num = RollDice(sUID, 2);
+	local rand_num = RollDice(2);
 	if rand_num == 1 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7645, 0);
+	pUser:RunCountExchange(7645, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7681, -1, -1, -1, -1, -1, -1, -1);
@@ -1470,7 +1470,7 @@ elseif nEventID == 7641 then
 	end
 	if rand_num == 2 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7646, 0);
+	pUser:RunCountExchange(7646, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7686, -1, -1, -1, -1, -1, -1, -1);
@@ -1498,10 +1498,10 @@ elseif nEventID == 7651 then
 	pUser:NpcSay(7652, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	local rand_num = RollDice(sUID, 2);
+	local rand_num = RollDice(2);
 	if rand_num == 1 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7655, 0);
+	pUser:RunCountExchange(7655, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7681, -1, -1, -1, -1, -1, -1, -1);
@@ -1530,7 +1530,7 @@ elseif nEventID == 7651 then
 	end
 	if rand_num == 2 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7656, 0);
+	pUser:RunCountExchange(7656, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7686, -1, -1, -1, -1, -1, -1, -1);
@@ -1558,10 +1558,10 @@ elseif nEventID == 7661 then
 	pUser:NpcSay(7662, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	local rand_num = RollDice(sUID, 2);
+	local rand_num = RollDice(2);
 	if rand_num == 1 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7665, 0);
+	pUser:RunCountExchange(7665, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7681, -1, -1, -1, -1, -1, -1, -1);
@@ -1590,7 +1590,7 @@ elseif nEventID == 7661 then
 	end
 	if rand_num == 2 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7666, 0);
+	pUser:RunCountExchange(7666, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7686, -1, -1, -1, -1, -1, -1, -1);
@@ -1618,10 +1618,10 @@ elseif nEventID == 7671 then
 	pUser:NpcSay(7672, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
-	local rand_num = RollDice(sUID, 2);
+	local rand_num = RollDice(2);
 	if rand_num == 1 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7675, 0);
+	pUser:RunCountExchange(7675, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7681, -1, -1, -1, -1, -1, -1, -1);
@@ -1650,7 +1650,7 @@ elseif nEventID == 7671 then
 	end
 	if rand_num == 2 then
 	pUser:GoldLose(500000);
-	RunCountExchange(sUID, 7676, 0);
+	pUser:RunCountExchange(7676, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7686, -1, -1, -1, -1, -1, -1, -1);
@@ -1703,7 +1703,7 @@ elseif nEventID == 7730 then
 	end
 	if pUser:CheckClass(1, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 21301, 0);
+	pUser:RunCountExchange(21301, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7751, -1, -1, -1, -1, -1, -1, -1);
@@ -1732,7 +1732,7 @@ elseif nEventID == 7730 then
 	end
 	if pUser:CheckClass(2, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 21302, 0);
+	pUser:RunCountExchange(21302, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7751, -1, -1, -1, -1, -1, -1, -1);
@@ -1761,7 +1761,7 @@ elseif nEventID == 7730 then
 	end
 	if pUser:CheckClass(3, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 21303, 0);
+	pUser:RunCountExchange(21303, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7751, -1, -1, -1, -1, -1, -1, -1);
@@ -1790,7 +1790,7 @@ elseif nEventID == 7730 then
 	end
 	if pUser:CheckClass(4, -1, -1, -1, -1, -1) then
 	pUser:GoldLose(50000);
-	RunCountExchange(sUID, 21304, 0);
+	pUser:RunCountExchange(21304, 0);
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_ITEMCHANGE_NUM'.");
 	if false then -- unknown logic command (CHECK_ITEMCHANGE_NUM)
 	pUser:NpcSay(7751, -1, -1, -1, -1, -1, -1, -1);
@@ -1819,64 +1819,64 @@ elseif nEventID == 7730 then
 	end
 elseif nEventID == 7801 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7801, 0);
+	pUser:RunCountExchange(7801, 0);
 elseif nEventID == 7802 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7802, 0);
+	pUser:RunCountExchange(7802, 0);
 elseif nEventID == 7803 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7803, 0);
+	pUser:RunCountExchange(7803, 0);
 elseif nEventID == 7804 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7804, 0);
+	pUser:RunCountExchange(7804, 0);
 elseif nEventID == 7805 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7805, 0);
+	pUser:RunCountExchange(7805, 0);
 elseif nEventID == 7806 then
 	pUser:GoldLose(1005);
-	RunCountExchange(sUID, 7806, 0);
+	pUser:RunCountExchange(7806, 0);
 elseif nEventID == 7807 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7807, 0);
+	pUser:RunCountExchange(7807, 0);
 elseif nEventID == 7808 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7808, 0);
+	pUser:RunCountExchange(7808, 0);
 elseif nEventID == 7809 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7809, 0);
+	pUser:RunCountExchange(7809, 0);
 elseif nEventID == 7810 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7810, 0);
+	pUser:RunCountExchange(7810, 0);
 elseif nEventID == 7811 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7811, 0);
+	pUser:RunCountExchange(7811, 0);
 elseif nEventID == 7812 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7812, 0);
+	pUser:RunCountExchange(7812, 0);
 elseif nEventID == 7813 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7813, 0);
+	pUser:RunCountExchange(7813, 0);
 elseif nEventID == 7814 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7814, 0);
+	pUser:RunCountExchange(7814, 0);
 elseif nEventID == 7815 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7815, 0);
+	pUser:RunCountExchange(7815, 0);
 elseif nEventID == 7816 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7816, 0);
+	pUser:RunCountExchange(7816, 0);
 elseif nEventID == 7817 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7817, 0);
+	pUser:RunCountExchange(7817, 0);
 elseif nEventID == 7818 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7818, 0);
+	pUser:RunCountExchange(7818, 0);
 elseif nEventID == 7819 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7819, 0);
+	pUser:RunCountExchange(7819, 0);
 elseif nEventID == 7820 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7820, 0);
+	pUser:RunCountExchange(7820, 0);
 elseif nEventID == 7821 then
 	pUser:SelectMsg(7821, 7823, 7823, 7825, 7825, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 7823 then
@@ -1912,7 +1912,7 @@ elseif nEventID == 7841 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7801, 0);
+	pUser:RunCountExchange(7801, 0);
 elseif nEventID == 7842 then
 	local count = pUser:HowMuchItem(201002001);
 	if count >= 0 and count <= 0 then
@@ -1920,7 +1920,7 @@ elseif nEventID == 7842 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7802, 0);
+	pUser:RunCountExchange(7802, 0);
 elseif nEventID == 7843 then
 	local count = pUser:HowMuchItem(201003001);
 	if count >= 0 and count <= 0 then
@@ -1928,7 +1928,7 @@ elseif nEventID == 7843 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7803, 0);
+	pUser:RunCountExchange(7803, 0);
 elseif nEventID == 7844 then
 	local count = pUser:HowMuchItem(201004001);
 	if count >= 0 and count <= 0 then
@@ -1936,7 +1936,7 @@ elseif nEventID == 7844 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7804, 0);
+	pUser:RunCountExchange(7804, 0);
 elseif nEventID == 7845 then
 	local count = pUser:HowMuchItem(201005001);
 	if count >= 0 and count <= 0 then
@@ -1944,7 +1944,7 @@ elseif nEventID == 7845 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7805, 0);
+	pUser:RunCountExchange(7805, 0);
 elseif nEventID == 7851 then
 	local count = pUser:HowMuchItem(241001001);
 	if count >= 0 and count <= 0 then
@@ -1952,7 +1952,7 @@ elseif nEventID == 7851 then
 	do return; end
 	end
 	pUser:GoldLose(1005);
-	RunCountExchange(sUID, 7806, 0);
+	pUser:RunCountExchange(7806, 0);
 elseif nEventID == 7852 then
 	local count = pUser:HowMuchItem(241002001);
 	if count >= 0 and count <= 0 then
@@ -1960,7 +1960,7 @@ elseif nEventID == 7852 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7807, 0);
+	pUser:RunCountExchange(7807, 0);
 elseif nEventID == 7853 then
 	local count = pUser:HowMuchItem(241003001);
 	if count >= 0 and count <= 0 then
@@ -1968,7 +1968,7 @@ elseif nEventID == 7853 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7808, 0);
+	pUser:RunCountExchange(7808, 0);
 elseif nEventID == 7854 then
 	local count = pUser:HowMuchItem(241004001);
 	if count >= 0 and count <= 0 then
@@ -1976,7 +1976,7 @@ elseif nEventID == 7854 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7809, 0);
+	pUser:RunCountExchange(7809, 0);
 elseif nEventID == 7855 then
 	local count = pUser:HowMuchItem(241005001);
 	if count >= 0 and count <= 0 then
@@ -1984,7 +1984,7 @@ elseif nEventID == 7855 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7810, 0);
+	pUser:RunCountExchange(7810, 0);
 elseif nEventID == 7861 then
 	local count = pUser:HowMuchItem(261001001);
 	if count >= 0 and count <= 0 then
@@ -1992,7 +1992,7 @@ elseif nEventID == 7861 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7811, 0);
+	pUser:RunCountExchange(7811, 0);
 elseif nEventID == 7862 then
 	local count = pUser:HowMuchItem(261002001);
 	if count >= 0 and count <= 0 then
@@ -2000,7 +2000,7 @@ elseif nEventID == 7862 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7812, 0);
+	pUser:RunCountExchange(7812, 0);
 elseif nEventID == 7863 then
 	local count = pUser:HowMuchItem(261003001);
 	if count >= 0 and count <= 0 then
@@ -2008,7 +2008,7 @@ elseif nEventID == 7863 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7813, 0);
+	pUser:RunCountExchange(7813, 0);
 elseif nEventID == 7864 then
 	local count = pUser:HowMuchItem(261004001);
 	if count >= 0 and count <= 0 then
@@ -2016,7 +2016,7 @@ elseif nEventID == 7864 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7814, 0);
+	pUser:RunCountExchange(7814, 0);
 elseif nEventID == 7865 then
 	local count = pUser:HowMuchItem(261005001);
 	if count >= 0 and count <= 0 then
@@ -2024,7 +2024,7 @@ elseif nEventID == 7865 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7815, 0);
+	pUser:RunCountExchange(7815, 0);
 elseif nEventID == 7871 then
 	local count = pUser:HowMuchItem(281001001);
 	if count >= 0 and count <= 0 then
@@ -2032,7 +2032,7 @@ elseif nEventID == 7871 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7816, 0);
+	pUser:RunCountExchange(7816, 0);
 elseif nEventID == 7872 then
 	local count = pUser:HowMuchItem(281002001);
 	if count >= 0 and count <= 0 then
@@ -2040,7 +2040,7 @@ elseif nEventID == 7872 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7817, 0);
+	pUser:RunCountExchange(7817, 0);
 elseif nEventID == 7873 then
 	local count = pUser:HowMuchItem(281003001);
 	if count >= 0 and count <= 0 then
@@ -2048,7 +2048,7 @@ elseif nEventID == 7873 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7818, 0);
+	pUser:RunCountExchange(7818, 0);
 elseif nEventID == 7874 then
 	local count = pUser:HowMuchItem(281004001);
 	if count >= 0 and count <= 0 then
@@ -2056,10 +2056,10 @@ elseif nEventID == 7874 then
 	do return; end
 	end
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7819, 0);
+	pUser:RunCountExchange(7819, 0);
 elseif nEventID == 7875 then
 	pUser:GoldLose(1000);
-	RunCountExchange(sUID, 7820, 0);
+	pUser:RunCountExchange(7820, 0);
 elseif nEventID == 7900 then
 	local count = pUser:HowMuchItem(281005001);
 	if count >= 0 and count <= 0 then
@@ -2116,7 +2116,7 @@ elseif nEventID == 9105 then
 	end
 	local count = pUser:HowMuchItem(910015000);
 	if count >= 1 and count <= 10 then
-	RunCountExchange(sUID, 6, 0);
+	pUser:RunCountExchange(6, 0);
 	pUser:NpcSay(10242, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 	end
@@ -3330,374 +3330,374 @@ elseif nEventID == 35260 then
 	if pUser:CheckExistItem(379106000, 0) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 20 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 1 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35271, 0);
+	pUser:RunCountExchange(35271, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 2 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35272, 0);
+	pUser:RunCountExchange(35272, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 3 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35273, 0);
+	pUser:RunCountExchange(35273, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 4 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35274, 0);
+	pUser:RunCountExchange(35274, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 5 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35275, 0);
+	pUser:RunCountExchange(35275, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 6 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35276, 0);
+	pUser:RunCountExchange(35276, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 7 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35277, 0);
+	pUser:RunCountExchange(35277, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 8 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35278, 0);
+	pUser:RunCountExchange(35278, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 9 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35279, 0);
+	pUser:RunCountExchange(35279, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 10 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35280, 0);
+	pUser:RunCountExchange(35280, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 11 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35281, 0);
+	pUser:RunCountExchange(35281, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 12 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35282, 0);
+	pUser:RunCountExchange(35282, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 13 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35283, 0);
+	pUser:RunCountExchange(35283, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 14 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35284, 0);
+	pUser:RunCountExchange(35284, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 15 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35285, 0);
+	pUser:RunCountExchange(35285, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 16 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35286, 0);
+	pUser:RunCountExchange(35286, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 17 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35287, 0);
+	pUser:RunCountExchange(35287, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 18 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35288, 0);
+	pUser:RunCountExchange(35288, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 19 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35289, 0);
+	pUser:RunCountExchange(35289, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 20 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35290, 0);
+	pUser:RunCountExchange(35290, 0);
 	end
 	end
 	end
 	end
 	local lvl = pUser:GetLevel();
 	if lvl >= 21 and lvl <= 40 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 1 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35271, 0);
+	pUser:RunCountExchange(35271, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 2 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35272, 0);
+	pUser:RunCountExchange(35272, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 3 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35273, 0);
+	pUser:RunCountExchange(35273, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 4 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35274, 0);
+	pUser:RunCountExchange(35274, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 5 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35275, 0);
+	pUser:RunCountExchange(35275, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 6 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35276, 0);
+	pUser:RunCountExchange(35276, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 7 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35277, 0);
+	pUser:RunCountExchange(35277, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 8 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35278, 0);
+	pUser:RunCountExchange(35278, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 9 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35279, 0);
+	pUser:RunCountExchange(35279, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 10 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35280, 0);
+	pUser:RunCountExchange(35280, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 11 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35281, 0);
+	pUser:RunCountExchange(35281, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 12 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35282, 0);
+	pUser:RunCountExchange(35282, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 13 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35283, 0);
+	pUser:RunCountExchange(35283, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 14 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35284, 0);
+	pUser:RunCountExchange(35284, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 15 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35285, 0);
+	pUser:RunCountExchange(35285, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 16 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35286, 0);
+	pUser:RunCountExchange(35286, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 17 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35287, 0);
+	pUser:RunCountExchange(35287, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 18 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35288, 0);
+	pUser:RunCountExchange(35288, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 19 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35289, 0);
+	pUser:RunCountExchange(35289, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 20 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35290, 0);
+	pUser:RunCountExchange(35290, 0);
 	end
 	end
 	end
 	local lvl = pUser:GetLevel();
 	if lvl >= 41 and lvl <= 99 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 1 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35271, 0);
+	pUser:RunCountExchange(35271, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 2 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35272, 0);
+	pUser:RunCountExchange(35272, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 3 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35273, 0);
+	pUser:RunCountExchange(35273, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 4 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35274, 0);
+	pUser:RunCountExchange(35274, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 5 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35275, 0);
+	pUser:RunCountExchange(35275, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 6 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35276, 0);
+	pUser:RunCountExchange(35276, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 7 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35277, 0);
+	pUser:RunCountExchange(35277, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 8 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35278, 0);
+	pUser:RunCountExchange(35278, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 9 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35279, 0);
+	pUser:RunCountExchange(35279, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 10 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35280, 0);
+	pUser:RunCountExchange(35280, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 11 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35281, 0);
+	pUser:RunCountExchange(35281, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 12 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35282, 0);
+	pUser:RunCountExchange(35282, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 13 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35283, 0);
+	pUser:RunCountExchange(35283, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 14 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35284, 0);
+	pUser:RunCountExchange(35284, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 15 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35285, 0);
+	pUser:RunCountExchange(35285, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 16 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35286, 0);
+	pUser:RunCountExchange(35286, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 17 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35287, 0);
+	pUser:RunCountExchange(35287, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 18 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35288, 0);
+	pUser:RunCountExchange(35288, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 19 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35289, 0);
+	pUser:RunCountExchange(35289, 0);
 	end
 	end
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 20 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35290, 0);
+	pUser:RunCountExchange(35290, 0);
 	end
 	end
 	end
@@ -3707,280 +3707,280 @@ elseif nEventID == 35291 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 1 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35291, 0);
+	pUser:RunCountExchange(35291, 0);
 	end
 	end
 elseif nEventID == 35292 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 2 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35292, 0);
+	pUser:RunCountExchange(35292, 0);
 	end
 	end
 elseif nEventID == 35293 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 3 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35293, 0);
+	pUser:RunCountExchange(35293, 0);
 	end
 	end
 elseif nEventID == 35294 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 4 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35294, 0);
+	pUser:RunCountExchange(35294, 0);
 	end
 	end
 elseif nEventID == 35295 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 5 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35295, 0);
+	pUser:RunCountExchange(35295, 0);
 	end
 	end
 elseif nEventID == 35296 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 6 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35296, 0);
+	pUser:RunCountExchange(35296, 0);
 	end
 	end
 elseif nEventID == 35297 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 7 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35297, 0);
+	pUser:RunCountExchange(35297, 0);
 	end
 	end
 elseif nEventID == 35298 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 8 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35298, 0);
+	pUser:RunCountExchange(35298, 0);
 	end
 	end
 elseif nEventID == 35299 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 9 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35299, 0);
+	pUser:RunCountExchange(35299, 0);
 	end
 	end
 elseif nEventID == 35300 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 10 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35300, 0);
+	pUser:RunCountExchange(35300, 0);
 	end
 	end
 elseif nEventID == 35301 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 11 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35301, 0);
+	pUser:RunCountExchange(35301, 0);
 	end
 	end
 elseif nEventID == 35302 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 12 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35302, 0);
+	pUser:RunCountExchange(35302, 0);
 	end
 	end
 elseif nEventID == 35303 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 13 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35303, 0);
+	pUser:RunCountExchange(35303, 0);
 	end
 	end
 elseif nEventID == 35304 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 14 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35304, 0);
+	pUser:RunCountExchange(35304, 0);
 	end
 	end
 elseif nEventID == 35305 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 15 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35305, 0);
+	pUser:RunCountExchange(35305, 0);
 	end
 	end
 elseif nEventID == 35306 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 16 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35306, 0);
+	pUser:RunCountExchange(35306, 0);
 	end
 	end
 elseif nEventID == 35307 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 17 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35307, 0);
+	pUser:RunCountExchange(35307, 0);
 	end
 	end
 elseif nEventID == 35308 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 18 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35308, 0);
+	pUser:RunCountExchange(35308, 0);
 	end
 	end
 elseif nEventID == 35309 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 19 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35309, 0);
+	pUser:RunCountExchange(35309, 0);
 	end
 	end
 elseif nEventID == 35310 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 20 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35310, 0);
+	pUser:RunCountExchange(35310, 0);
 	end
 	end
 elseif nEventID == 35311 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 1 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35311, 0);
+	pUser:RunCountExchange(35311, 0);
 	end
 	end
 elseif nEventID == 35312 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 2 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35312, 0);
+	pUser:RunCountExchange(35312, 0);
 	end
 	end
 elseif nEventID == 35313 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 3 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35313, 0);
+	pUser:RunCountExchange(35313, 0);
 	end
 	end
 elseif nEventID == 35314 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 4 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35314, 0);
+	pUser:RunCountExchange(35314, 0);
 	end
 	end
 elseif nEventID == 35315 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 5 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35315, 0);
+	pUser:RunCountExchange(35315, 0);
 	end
 	end
 elseif nEventID == 35316 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 6 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35316, 0);
+	pUser:RunCountExchange(35316, 0);
 	end
 	end
 elseif nEventID == 35317 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 7 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35317, 0);
+	pUser:RunCountExchange(35317, 0);
 	end
 	end
 elseif nEventID == 35318 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 8 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35318, 0);
+	pUser:RunCountExchange(35318, 0);
 	end
 	end
 elseif nEventID == 35319 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 9 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35319, 0);
+	pUser:RunCountExchange(35319, 0);
 	end
 	end
 elseif nEventID == 35320 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 10 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35320, 0);
+	pUser:RunCountExchange(35320, 0);
 	end
 	end
 elseif nEventID == 35321 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 11 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35321, 0);
+	pUser:RunCountExchange(35321, 0);
 	end
 	end
 elseif nEventID == 35322 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 12 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35322, 0);
+	pUser:RunCountExchange(35322, 0);
 	end
 	end
 elseif nEventID == 35323 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 13 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35323, 0);
+	pUser:RunCountExchange(35323, 0);
 	end
 	end
 elseif nEventID == 35324 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 14 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35324, 0);
+	pUser:RunCountExchange(35324, 0);
 	end
 	end
 elseif nEventID == 35325 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 15 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35325, 0);
+	pUser:RunCountExchange(35325, 0);
 	end
 	end
 elseif nEventID == 35326 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 16 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35326, 0);
+	pUser:RunCountExchange(35326, 0);
 	end
 	end
 elseif nEventID == 35327 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 17 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35327, 0);
+	pUser:RunCountExchange(35327, 0);
 	end
 	end
 elseif nEventID == 35328 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 18 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35328, 0);
+	pUser:RunCountExchange(35328, 0);
 	end
 	end
 elseif nEventID == 35329 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 19 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35329, 0);
+	pUser:RunCountExchange(35329, 0);
 	end
 	end
 elseif nEventID == 35330 then
 	if pUser:CheckExistItem(379106000, 0) then
 	if rand_num == 20 then
 	pUser:NpcSay(35271, -1, -1, -1, -1, -1, -1, -1);
-	RunCountExchange(sUID, 35330, 0);
+	pUser:RunCountExchange(35330, 0);
 	end
 	end
 elseif nEventID == 35331 then
@@ -4042,7 +4042,7 @@ elseif nEventID == 35380 then
 elseif nEventID == 35390 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 99 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	do return; end
 	do return; end
 	do return; end
@@ -4121,7 +4121,7 @@ elseif nEventID == 35453 then
 elseif nEventID == 35456 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 20 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	do return; end
 	do return; end
 	do return; end
@@ -4145,7 +4145,7 @@ elseif nEventID == 35456 then
 	end
 	local lvl = pUser:GetLevel();
 	if lvl >= 21 and lvl <= 40 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	do return; end
 	do return; end
 	do return; end
@@ -4169,7 +4169,7 @@ elseif nEventID == 35456 then
 	end
 	local lvl = pUser:GetLevel();
 	if lvl >= 41 and lvl <= 99 then
-	local rand_num = RollDice(sUID, 20);
+	local rand_num = RollDice(20);
 	do return; end
 	do return; end
 	do return; end

@@ -80,7 +80,6 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(isPartyLeader)
 	MAKE_LUA_METHOD(isKing)
 
-
 	// Shortcuts for lazy people
 	MAKE_LUA_METHOD(hasCoins)
 	MAKE_LUA_METHOD(hasInnCoins)
@@ -180,24 +179,6 @@ LUA_FUNCTION(CheckPercent)
 
 LUA_FUNCTION(RollDice)
 {
-	//LUA_RETURN(myrand(0, LUA_ARG(uint16_t, 2)));
-	LUA_RETURN(myrand(1, LUA_ARG(uint16_t, 2)));
+	//LUA_RETURN(myrand(0, LUA_ARG(uint16_t, 1)));
+	LUA_RETURN(myrand(1, LUA_ARG(uint16_t, 1)));
 }
-
-// TODO: Remove
-#define Lua_GetUser() g_pMain->GetUserPtr(LUA_ARG(uint16_t, 1))
-
-#define _LUA_WRAPPER_USER_FUNCTION(name, methodName) \
-	LUA_FUNCTION(name) { \
-	CUser * pUser = Lua_GetUser(); /* get the user from the stack using the specified user ID */ \
-	lua_tpush(L, pUser); /* push the user pointer onto the stack, as our code expects */ \
-	lua_remove(L, 1); /* removes the user ID from the stack */ \
-	lua_insert(L, 1); /* moves the user pointer to the start of the bottom of the stack where it's expected */ \
-	return CUser::Lua_ ## methodName(L); \
-}
-
-#define LUA_WRAPPER_USER_FUNCTION(name) \
-	_LUA_WRAPPER_USER_FUNCTION(name, name)
-
-/* 1:1 mappings */
-LUA_WRAPPER_USER_FUNCTION(RunCountExchange);

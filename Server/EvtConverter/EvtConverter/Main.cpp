@@ -122,11 +122,11 @@ void AddExecCode(EXEC* pExec) {
 		} break;
 
 		case EXEC_RUN_EXCHANGE: {
-			fprintf(outputFile, "\tRunCountExchange(sUID, %d, 0);\n", pExec->m_ExecInt[0]);
+			fprintf(outputFile, "\tpUser:RunCountExchange(%d, 0);\n", pExec->m_ExecInt[0]);
 		} break;
 
 		case EXEC_ROLL_DICE: {
-			fprintf(outputFile, "\tlocal rand_num = RollDice(sUID, %d);\n", pExec->m_ExecInt[0]);
+			fprintf(outputFile, "\tlocal rand_num = RollDice(%d);\n", pExec->m_ExecInt[0]);
 		} break;
 
 		case EXEC_STATE_CHANGE: {

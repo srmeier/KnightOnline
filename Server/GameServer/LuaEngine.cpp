@@ -9,7 +9,6 @@
 DEFINE_LUA_FUNCTION_TABLE(
 	g_globalFunctions,
 	MAKE_LUA_FUNCTION(CheckPercent)
-	MAKE_LUA_FUNCTION(RunCountExchange)
 	MAKE_LUA_FUNCTION(RollDice)
 );
 
@@ -275,7 +274,6 @@ bool CLuaScript::ExecuteScript(
 #endif
 
 	lua_tsetglobal(m_luaState, "nEventID", iEventID);
-	lua_tsetglobal(m_luaState, "sUID", pUser->GetID());
 
 	lua_tsetglobal(m_luaState, "pNpc", pNpc);
 	lua_tsetglobal(m_luaState, "pUser", pUser);
