@@ -18,7 +18,7 @@ This code is for academic purposes only! If you have questions, or would like he
 
 #### Build notes:
 * All projects currently require Visual Studio 2022
-* Make sure you initialise and fetch all dependencies after cloning:
+* This should be done for you when building, but if you're experiencing errors building DirectX, make sure that you initialise and fetch all dependencies after cloning:
 ```
 git submodule update --init --recursive
 ``` 
