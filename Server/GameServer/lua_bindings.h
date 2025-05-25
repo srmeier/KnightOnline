@@ -59,6 +59,8 @@ LUA_FUNCTION(CheckWeight);
 LUA_FUNCTION(CheckSkillPoint);
 LUA_FUNCTION(isRoomForItem); // FindSlotForItem();
 LUA_FUNCTION(SendNameChange);
+LUA_FUNCTION(StatPointDistribute);
+LUA_FUNCTION(SkillPointDistribute);
 LUA_FUNCTION(SendStatSkillDistribute);
 LUA_FUNCTION(ResetSkillPoints);
 LUA_FUNCTION(ResetStatPoints);

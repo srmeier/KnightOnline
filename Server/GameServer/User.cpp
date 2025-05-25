@@ -1618,7 +1618,7 @@ void CUser::LevelChange(uint8_t level, bool bLevelUp /*= true*/)
 			nStatTotal += 2 * (level - 60);
 
 		m_sPoints += nStatTotal - GetStatTotal();
-		m_bstrSkill[SkillPointFree] += nSkillTotal - GetTotalSkillPoints();
+		m_bstrSkill[SKILL_POINT_CAT_FREE] += nSkillTotal - GetTotalSkillPoints();
 		m_bLevel = level;
 	}
 	else if (bLevelUp)
@@ -1630,7 +1630,7 @@ void CUser::LevelChange(uint8_t level, bool bLevelUp /*= true*/)
 			m_sPoints += (levelsAfter60 == 0 ? 3 : 5);
 
 		if (level >= 10 && GetTotalSkillPoints() < 2 * (level - 9))
-			m_bstrSkill[SkillPointFree] += 2;
+			m_bstrSkill[SKILL_POINT_CAT_FREE] += 2;
 	}
 
 	m_iMaxExp = g_pMain->GetExpByLevel(level);
@@ -1642,12 +1642,19 @@ void CUser::LevelChange(uint8_t level, bool bLevelUp /*= true*/)
 	Send2AI_UserUpdateInfo();
 
 	Packet result(WIZ_LEVEL_CHANGE);
-	result	<< GetSocketID()
-		<< GetLevel() << uint8_t(m_sPoints) << m_bstrSkill[SkillPointFree]
-		<< uint32_t(m_iMaxExp) << uint32_t(m_iExp)
-		<< m_iMaxHp << m_sHp 
-		<< m_iMaxMp << m_sMp
-		<< uint16_t(m_sMaxWeight) << m_sItemWeight;
+	result
+		<< GetSocketID()
+		<< GetLevel()
+		<< uint8_t(m_sPoints)
+		<< uint8_t(m_bstrSkill[SKILL_POINT_CAT_FREE])
+		<< uint32_t(m_iMaxExp)
+		<< uint32_t(m_iExp)
+		<< uint16_t(m_iMaxHp)
+		<< uint16_t(m_sHp)
+		<< uint16_t(m_iMaxMp)
+		<< uint16_t(m_sMp)
+		<< uint16_t(m_sMaxWeight)
+		<< uint16_t(m_sItemWeight);
 
 	g_pMain->Send_Region(&result, GetMap(), GetRegionX(), GetRegionZ());
 	if (isInParty())
@@ -1764,10 +1771,10 @@ void CUser::HpChange(int amount, Unit *pAttacker /*= nullptr*/, bool bSendToAI /
 		if (isMastered() && GetZoneID() != ZONE_CHAOS_DUNGEON)
 		{
 			// Matchless: [Passive]Decreases all damages received by 15%
-			if (CheckSkillPoint(SkillPointMaster, 10, MAX_LEVEL))
+			if (CheckSkillPoint(SKILL_POINT_CAT_MASTER, 10, MAX_LEVEL))
 				amount = (85 * amount) / 100;
 			// Absoluteness: [Passive]Decrease 10 % demage of all attacks
-			else if (CheckSkillPoint(SkillPointMaster, 5, 9))
+			else if (CheckSkillPoint(SKILL_POINT_CAT_MASTER, 5, 9))
 				amount = (90 * amount) / 100;
 		}
 	}
@@ -2792,8 +2799,10 @@ void CUser::SkillPointChange(Packet & pkt)
 	uint8_t type = pkt.read<uint8_t>();
 	Packet result(WIZ_SKILLPT_CHANGE);
 	result << type;
+
 	// invalid type
-	if (type < SkillPointCat1 || type > SkillPointMaster 
+	if (type < SKILL_POINT_CAT_1
+		|| type > SKILL_POINT_CAT_MASTER
 		// not enough free skill points to allocate
 			|| m_bstrSkill[0] < 1 
 			// restrict skill points per category to your level
@@ -2801,7 +2810,7 @@ void CUser::SkillPointChange(Packet & pkt)
 			// we need our first job change to assign skill points
 			|| (GetClass() % 100) <= 4
 			// to set points in the mastery category, we need to be mastered.
-			|| (type == SkillPointMaster
+			|| (type == SKILL_POINT_CAT_MASTER
 			&& ((GetClass() % 2) != 0 || (GetClass() % 100) < 6
 			// force a limit of MAX_LEVEL - 60 (the level you can do the mastery quest)
 			// on the master skill category, so the limit's 23 skill points with a level 83 cap.

@@ -177,13 +177,13 @@ enum ItemSlotType
 #define PRO_SKILL3			0x07
 #define PRO_SKILL4			0x08
 
-enum SkillPointCategory
+enum e_SkillPointCategory
 {
-	SkillPointFree		= 0,
-	SkillPointCat1		= 5,
-	SkillPointCat2		= 6,
-	SkillPointCat3		= 7,
-	SkillPointMaster	= 8
+	SKILL_POINT_CAT_FREE	= 0,
+	SKILL_POINT_CAT_1		= 5,
+	SKILL_POINT_CAT_2		= 6,
+	SKILL_POINT_CAT_3		= 7,
+	SKILL_POINT_CAT_MASTER	= 8
 };
 
 /////////////////////////////////////////////////////////////

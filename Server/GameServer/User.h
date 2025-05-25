@@ -486,16 +486,19 @@ public:
 		return GetStat(type) + GetStatItemBonus(type) + GetStatBuff(type);
 	}
 
-	INLINE uint16_t GetTotalSkillPoints()
+	INLINE uint16_t GetTotalSkillPoints() const
 	{
-		return m_bstrSkill[SkillPointFree] + m_bstrSkill[SkillPointCat1] 
-		+ m_bstrSkill[SkillPointCat2] + m_bstrSkill[SkillPointCat3] 
-		+ m_bstrSkill[SkillPointMaster];
+		return m_bstrSkill[SKILL_POINT_CAT_FREE]
+			+ m_bstrSkill[SKILL_POINT_CAT_1] 
+			+ m_bstrSkill[SKILL_POINT_CAT_2]
+			+ m_bstrSkill[SKILL_POINT_CAT_3]
+			+ m_bstrSkill[SKILL_POINT_CAT_MASTER];
 	}
 
-	INLINE uint8_t GetSkillPoints(SkillPointCategory category)
+	INLINE uint8_t GetSkillPoints(e_SkillPointCategory category) const
 	{
-		if (category < SkillPointFree || category > SkillPointMaster)
+		if (category < SKILL_POINT_CAT_FREE
+			|| category > SKILL_POINT_CAT_MASTER)
 			return 0;
 
 		return m_bstrSkill[category];
@@ -1213,6 +1216,14 @@ public:
 	}
 
 	DECLARE_LUA_FUNCTION(SendStatSkillDistribute) {
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendStatSkillDistribute());
+	}
+
+	DECLARE_LUA_FUNCTION(StatPointDistribute) {
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendStatSkillDistribute());
+	}
+
+	DECLARE_LUA_FUNCTION(SkillPointDistribute) {
 		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendStatSkillDistribute());
 	}
 

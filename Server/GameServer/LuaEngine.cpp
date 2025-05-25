@@ -66,6 +66,8 @@ DEFINE_LUA_FUNCTION_TABLE(g_globalFunctions,
 						  MAKE_LUA_FUNCTION(isRoomForItem) // FindSlotForItem()
 						  MAKE_LUA_FUNCTION(SendNameChange)
 						  MAKE_LUA_FUNCTION(SendStatSkillDistribute)
+						  MAKE_LUA_FUNCTION(StatPointDistribute)
+						  MAKE_LUA_FUNCTION(SkillPointDistribute)
 						  MAKE_LUA_FUNCTION(ResetSkillPoints)
 						  MAKE_LUA_FUNCTION(ResetStatPoints)
 						  MAKE_LUA_FUNCTION(PromoteUserNovice)
