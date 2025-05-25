@@ -2,7 +2,7 @@
 
 #include "../shared/types.h"
 
-#	define LUA_SCRIPT_DIRECTORY					"./Quests/"
+#	define LUA_SCRIPT_DIRECTORY					"../QUESTS/"
 #	define LUA_SCRIPT_BUFFER_SIZE				20000
 
 // If defined, scripts are not cached. This is for testing/development purposes only.
