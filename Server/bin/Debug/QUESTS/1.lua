@@ -2803,29 +2803,25 @@ elseif nEventID == 22010 then
 	if not pUser:CheckClass(106, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	if not pUser:CheckClass(108, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	if not pUser:CheckClass(110, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	if not pUser:CheckClass(112, -1, -1, -1, -1, -1) then
 	pUser:SendDebugString("Unknown LOGIC command 'CHECK_SKILL_TOTAL'.");
 	if false then -- unknown logic command (CHECK_SKILL_TOTAL)
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(201, 845, 140);
 	end
 	end
 	end

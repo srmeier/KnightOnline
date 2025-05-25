@@ -141,6 +141,10 @@ void AddExecCode(EXEC* pExec) {
 			fprintf(outputFile, "\tpUser:SkillPointDistribute();\n");
 		} break;
 
+		case EXEC_ZONE_CHANGE: {
+			fprintf(outputFile, "\tpUser:ZoneChange(%d, %d, %d);\n", pExec->m_ExecInt[0], pExec->m_ExecInt[1], pExec->m_ExecInt[2]);
+		} break;
+
 		default: {
 			printf("Missing EXEC code for command %d.\n", pExec->m_Exec);
 			//system("pause");

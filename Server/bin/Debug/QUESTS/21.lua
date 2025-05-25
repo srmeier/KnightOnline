@@ -19,8 +19,7 @@ elseif nEventID == 22 then
 	do return; end
 	end
 	pUser:GoldLose(500000);
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(55, 150, 150);
 	end
 	pUser:NpcSay(30, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -51,8 +50,7 @@ elseif nEventID == 38 then
 	do return; end
 	end
 	pUser:GoldLose(100000);
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(55, 150, 150);
 	end
 	pUser:NpcSay(44, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -100,8 +98,7 @@ elseif nEventID == 52 then
 	do return; end
 	end
 	pUser:GoldLose(300000);
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(55, 150, 150);
 	end
 	pUser:NpcSay(55, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
@@ -2554,11 +2551,10 @@ elseif nEventID == 21126 then
 elseif nEventID == 21129 then
 	pUser:NpcSay(21125, 21126, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21130 then
-	if not pUser:CheckExistEvent(11,2) then
+	if not pUser:CheckExistEvent(11,2) the
 	local lvl = pUser:GetLevel();
 	if lvl >= 10 and lvl <= 99 then
-	 pUser:ZoneChange(51, 150, 150);
-	do return; end
+	pUser:ZoneChange(51, 150, 150);
 	end
 	end
 elseif nEventID == 21135 then
@@ -2615,8 +2611,7 @@ elseif nEventID == 21215 then
 elseif nEventID == 21225 then
 	pUser:NpcSay(21225, 21226, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21230 then
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(52, 150, 150);
 elseif nEventID == 21235 then
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 19 then
@@ -2659,8 +2654,7 @@ elseif nEventID == 21251 then
 elseif nEventID == 21275 then
 	pUser:NpcSay(21275, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21280 then
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(53, 150, 150);
 elseif nEventID == 21281 then
 	pUser:SelectMsg(21281, 21283, 21283, 21285, 21285, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21283 then
@@ -4395,8 +4389,7 @@ elseif nEventID == 35570 then
 	end
 	local lvl = pUser:GetLevel();
 	if lvl >= 0 and lvl <= 5 then
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(21, 245, 287);
 	end
 elseif nEventID == 35572 then
 	pUser:NpcSay(35572, 35701, 35575, 35576, -1, -1, -1, -1);
@@ -4468,8 +4461,7 @@ elseif nEventID == 35631 then
 elseif nEventID == 35640 then
 	pUser:SelectMsg(35640, 35641, 35641, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35641 then
-	pUser:SendDebugString("Unhandled EXEC command 'ZONE_CHANGE'."); -- unhandled execute command (ZONE_CHANGE)
-	do return; end
+	pUser:ZoneChange(48, 120, 115);
 elseif nEventID == 35643 then
 	pUser:NpcSay(35643, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
