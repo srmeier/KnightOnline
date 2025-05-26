@@ -835,6 +835,7 @@ public:
 	void SetMaxHp(int iFlag = 0);
 	void RecvUserExp(Packet & pkt);
 	void ExpChange(int64_t iExp, bool bIsBonusReward = false);
+	void GiveExp(int64_t iExp);
 	void LogOut();
 	void SendMyInfo();
 	void SendServerChange(std::string & ip, uint8_t bInit);

@@ -3310,16 +3310,20 @@ void CUser::OperatorCommand(Packet & pkt)
 	if (!isGM())
 		return;
 
-	std::string strUserID;
+	std::string strUserID, amount, showNotice,
+		errorMessage, sNoticeMessage, sOperatorCommandType;
+
 	uint8_t opcode;
+
 	bool bIsOnline = false;
-	std::string sNoticeMessage, sOperatorCommandType;
-	pkt >> opcode >> strUserID;
+
+	pkt >> opcode >> strUserID >> amount >> showNotice;
 
 	if (strUserID.empty() || strUserID.size() > MAX_ID_SIZE)
 		return;
 
 	CUser *pUser = g_pMain->GetUserPtr(strUserID, TYPE_CHARACTER);
+	
 	if (pUser == nullptr)
 		bIsOnline = false;
 	else
@@ -3394,16 +3398,94 @@ void CUser::OperatorCommand(Packet & pkt)
 		sOperatorCommandType = "OPERATOR_UNMUTE";
 		sNoticeMessage = string_format("%s is currently unmuted.", strUserID.c_str());
 		break;
+	case OPERATOR_GIVE_EXP: //give experience
+
+		int32_t amountInt = 0;
+
+		try
+		{
+			int temp = std::stoi(amount);
+			amountInt = temp;
+		}
+		catch (...)
+		{
+			return; // wrong number including letters.
+		}
+
+
+		if (bIsOnline)
+		{
+			pUser->GiveExp(amountInt);
+			sNoticeMessage = string_format("Player: %s is awarded with %d experience.", strUserID.c_str(), amountInt);
+		}
+		else
+		{
+			errorMessage = "User is not online at the moment.";
+		}
+
+
+		break;
 	}
 
-	if (!sNoticeMessage.empty())
-		g_pMain->SendNotice(sNoticeMessage.c_str(),Nation::ALL);
+	if (!sNoticeMessage.empty() && showNotice == "1")
+		g_pMain->SendNotice(sNoticeMessage.c_str(), Nation::ALL);
+
+	if (!errorMessage.empty())
+		SendDebugString(errorMessage.c_str());
+
 
 	if (!sOperatorCommandType.empty())
 	{
 		DateTime time;
-		g_pMain->WriteChatLogFile(string_format("[ GAME MASTER - %d:%d:%d ] %s : %s %s ( Zone=%d, X=%d, Z=%d )\n",time.GetHour(),time.GetMinute(),time.GetSecond(),GetName().c_str(),sOperatorCommandType.c_str(),strUserID.c_str(),GetZoneID(),uint16_t(GetX()),uint16_t(GetZ())));
+		g_pMain->WriteChatLogFile(string_format("[ GAME MASTER - %d:%d:%d ] %s : %s %s ( Zone=%d, X=%d, Z=%d )\n", time.GetHour(), time.GetMinute(), time.GetSecond(), GetName().c_str(), sOperatorCommandType.c_str(), strUserID.c_str(), GetZoneID(), uint16_t(GetX()), uint16_t(GetZ())));
 	}
+}
+
+void CUser::GiveExp(int64_t iExp)
+{
+	ASSERT(m_iExp >= 0);
+
+	bool bLevel = true;
+	if (iExp < 0 && (m_iExp + iExp) < 0)
+		bLevel = false;
+	else
+		m_iExp += iExp;
+
+	// Same as in ExpChange
+	if (!bLevel)
+	{
+		m_bLevel--;
+
+		int64_t diffXP = m_iExp + iExp;
+
+		m_iExp = g_pMain->GetExpByLevel(GetLevel());
+
+		LevelChange(GetLevel(), false);
+
+		// Take the remainder of the XP off (and delevel again if necessary).
+		GiveExp(diffXP);
+		return;
+	}
+	// If we've exceeded our XP requirement, we've leveled.
+	else if (m_iExp >= m_iMaxExp)
+	{
+		if (GetLevel() < MAX_LEVEL)
+		{
+			// Reset our XP, level us up.
+			m_iExp -= m_iMaxExp;
+			LevelChange(++m_bLevel);
+			return;
+		}
+
+		// Hit the max level? Can't level any further. Cap the XP.
+		m_iExp = m_iMaxExp;
+	}
+
+	
+	Packet result(WIZ_EXP_CHANGE);
+	result << uint32_t(m_iExp); 
+	Send(&result);
+
 }
 
 void CUser::SpeedHackTime(Packet & pkt)

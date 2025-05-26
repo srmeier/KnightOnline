@@ -100,7 +100,7 @@ enum e_ChatCmd
 	CMD_VISIBLE, CMD_INVISIBLE, CMD_CLEAN, CMD_RAINING, CMD_SNOWING, CMD_TIME, CMD_CU_COUNT,
 	CMD_NOTICE, CMD_ARREST, CMD_FORBIDCONNECT, CMD_FORBIDCHAT, CMD_PERMITCHAT, CMD_NOTICEALL,
 	CMD_CUTOFF, CMD_VIEW, CMD_UNVIEW, CMD_FORBIDUSER, CMD_SUMMONUSER,
-	CMD_ATTACKDISABLE, CMD_ATTACKENABLE, CMD_PLC,
+	CMD_ATTACKDISABLE, CMD_ATTACKENABLE, CMD_PLC, CMD_GIVE_EXP,
 
 	CMD_COUNT,
 	CMD_UNKNOWN = 0xffffffff
@@ -306,6 +306,9 @@ void CGameProcMain::Init()
 
 	for (uint32_t resource = IDS_CMD_VISIBLE; resource <= IDS_CMD_PLC; resource++)
 		GetText(resource, &s_szCmdMsg[i++]);
+
+	//NOTE: this should be add into tbl
+	s_szCmdMsg[CMD_GIVE_EXP] = "give_exp";
 
 	s_SndMgr.ReleaseStreamObj(&s_pSnd_BGM);
 
@@ -1712,6 +1715,29 @@ void CGameProcMain::MsgSend_Administrator(e_SubPacket_Administrator eSP, const s
 	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t)szID.size());
 	CAPISocket::MP_AddString(byBuff, iOffset, szID);	
 
+	s_pSocket->Send(byBuff, iOffset);
+}
+
+void CGameProcMain::MsgSend_Administrator(e_SubPacket_Administrator eSP,
+	const std::string& szID,
+	const std::string& amount,
+	const std::string& showNotice)
+{
+	if (szID.empty() || szID.size() >= 20) return;
+	if (amount.size() > 10) return; // 10 for uint32_t
+	if (showNotice.size() > 1) return; // either 0 or 1
+
+	uint8_t byBuff[128];
+	int iOffset = 0;
+
+	CAPISocket::MP_AddByte(byBuff, iOffset, WIZ_OPERATOR); // 관리자 전용패킷..
+	CAPISocket::MP_AddByte(byBuff, iOffset, eSP);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int16_t) szID.size());
+	CAPISocket::MP_AddString(byBuff, iOffset, szID);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int32_t) amount.size());
+	CAPISocket::MP_AddString(byBuff, iOffset, amount);
+	CAPISocket::MP_AddShort(byBuff, iOffset, (int8_t) showNotice.size());
+	CAPISocket::MP_AddString(byBuff, iOffset, showNotice);
 	s_pSocket->Send(byBuff, iOffset);
 }
 
@@ -5945,6 +5971,12 @@ void CGameProcMain::ParseChattingCommand(const std::string& szCmd)
 				GetTextF(IDS_DELAY_GAME_SAVE, &szMsg, 5);
 				MsgOutput(szMsg, 0xffffff00);
 			}
+		}
+		break;
+		//usage ex: [give_exp username 5000000 1] (to announce) or [give_exp username 5000000]
+		case CMD_GIVE_EXP:
+		{
+			this->MsgSend_Administrator(N3_SP_ADMINISTRATOR_GIVE_EXP, szCmds[1], szCmds[2], szCmds[3]);
 		}
 		break;
 
