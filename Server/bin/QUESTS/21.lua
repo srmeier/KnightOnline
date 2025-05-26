@@ -2551,7 +2551,7 @@ elseif nEventID == 21126 then
 elseif nEventID == 21129 then
 	pUser:NpcSay(21125, 21126, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 21130 then
-	if not pUser:CheckExistEvent(11,2) the
+	if not pUser:CheckExistEvent(11,2) then
 	local lvl = pUser:GetLevel();
 	if lvl >= 10 and lvl <= 99 then
 	pUser:ZoneChange(51, 150, 150);
