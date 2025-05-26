@@ -486,7 +486,6 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 	__TABLE_ITEM_EXT*	pItemExt = NULL;
 	__IconItemSkill*	spItem = NULL;
 	int i;
-	char szMsg[32];
 	CN3UIString* pStatic = NULL;
 	__InfoPlayerMySelf*	pInfoExt = NULL;
 	std::string stdMsg;
@@ -519,7 +518,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 			IDS_DROPPED_NOAH_GET,
 			&stdMsg,
 			iGold - pInfoExt->iGold);
-		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
+		CGameProcedure::s_pProcMain->MsgOutput(stdMsg, 0xff9b9bff);
 
 		pInfoExt->iGold = iGold;
 		//TRACE("돈 업데이트 %d \n", iGold);
@@ -705,7 +704,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 			IDS_ITEM_GET_BY_RULE,
 			&stdMsg,
 			pItem->szName.c_str());
-		CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
+		CGameProcedure::s_pProcMain->MsgOutput(stdMsg, 0xff9b9bff);
 
 		if (CGameProcedure::s_pProcMain->m_pUISkillTreeDlg) CGameProcedure::s_pProcMain->m_pUISkillTreeDlg->UpdateDisableCheck();
 		if (CGameProcedure::s_pProcMain->m_pUIHotKeyDlg) CGameProcedure::s_pProcMain->m_pUIHotKeyDlg->UpdateDisableCheck();
@@ -814,7 +813,7 @@ void CUIDroppedItemDlg::GetItemByIDToInventory(uint8_t bResult, int iItemID, int
 				IDS_DROPPED_NOAH_GET,
 				&stdMsg,
 				iGold - pInfoExt->iGold);
-			CGameProcedure::s_pProcMain->MsgOutput(szMsg, 0xff9b9bff);
+			CGameProcedure::s_pProcMain->MsgOutput(stdMsg, 0xff9b9bff);
 
 			pInfoExt->iGold = iGold;
 			//TRACE("돈 업데이트 %d \n", iGold);
