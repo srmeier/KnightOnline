@@ -184,38 +184,18 @@ bool CMagicSkillMng::IsCasting()
 	return false;
 }
 
+//Used to inform Hotkey and skill tree UI
 bool CMagicSkillMng::CheckValidSkillMagic(__TABLE_UPC_SKILL* pSkill)
 {
 	__InfoPlayerBase* pInfoBase = &(s_pPlayer->m_InfoBase);
 	__InfoPlayerMySelf* pInfoExt = &(s_pPlayer->m_InfoExt);
 
 	e_Class_Represent Class = CGameProcedure::GetRepresentClass(pInfoBase->eClass);
+	
+	//mana check for all classes, no need to 
+	//separate because error message is not required
 	if(pInfoExt->iMSP < pSkill->iExhaustMSP)
-	{
-		if(Class==CLASS_REPRESENT_PRIEST || Class==CLASS_REPRESENT_WIZARD)
-		{
-			return false;
-		}
-	}
-
-	if(pSkill->dw1stTableType==1 || pSkill->dw1stTableType==2)
-	{
-		if(Class==CLASS_REPRESENT_WARRIOR || Class==CLASS_REPRESENT_ROGUE)
-		{
-			int ExhaustSP = pInfoExt->iAttack * pSkill->iExhaustMSP / 100;
-			if(pInfoExt->iMSP < ExhaustSP)
-			{
-				return false;
-			}
-		}
-	}
-	else if(pInfoExt->iMSP < pSkill->iExhaustMSP)
-	{
-		if(Class==CLASS_REPRESENT_WARRIOR || Class==CLASS_REPRESENT_ROGUE)
-		{
-			return false;
-		}
-	}
+		return false;
 
 	int LeftItem = s_pPlayer->ItemClass_LeftHand();
 	int RightItem = s_pPlayer->ItemClass_RightHand();
@@ -569,39 +549,21 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 
 	if(pInfoExt->iMSP < pSkill->iExhaustMSP)
 	{
+		std::string buff;
+
 		if(Class==CLASS_REPRESENT_PRIEST || Class==CLASS_REPRESENT_WIZARD)
 		{
-			std::string buff;
 			GetText(IDS_MSG_CASTING_FAIL_LACK_MP, &buff);
 			m_pGameProcMain->MsgOutput(buff, 0xffffff00);
-			return false;
 		}
-	}
-
-	if(pSkill->dw1stTableType==1 || pSkill->dw1stTableType==2)
-	{
-		if(Class==CLASS_REPRESENT_WARRIOR || Class==CLASS_REPRESENT_ROGUE)
+		else if (Class == CLASS_REPRESENT_WARRIOR || Class == CLASS_REPRESENT_ROGUE)
 		{
-			int ExhaustSP = pInfoExt->iAttack * pSkill->iExhaustMSP / 100;
-			if(pInfoExt->iMSP < ExhaustSP)
-			{
-				std::string buff;
-				GetText(IDS_SKILL_FAIL_LACK_SP, &buff);
-				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
-				return false;
-			}
-		}
-	}
-	else if(pInfoExt->iMSP < pSkill->iExhaustMSP)
-	{
-		if(Class==CLASS_REPRESENT_WARRIOR || Class==CLASS_REPRESENT_ROGUE)
-		{
-			std::string buff;
 			GetText(IDS_SKILL_FAIL_LACK_SP, &buff);
 			m_pGameProcMain->MsgOutput(buff, 0xffffff00);
-			return false;
 		}
-	}
+
+		return false;
+	}	
 
 	int LeftItem = s_pPlayer->ItemClass_LeftHand();
 	int RightItem = s_pPlayer->ItemClass_RightHand();
