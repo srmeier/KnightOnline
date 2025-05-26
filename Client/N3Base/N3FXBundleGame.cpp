@@ -451,7 +451,19 @@ bool CN3FXBundleGame::Load(HANDLE hFile)
 	DWORD dwRWC = 0;
 
 	ReadFile(hFile, &m_iVersion, sizeof(int), &dwRWC, NULL);
-	
+
+	// NOTE: This should ideally just be an assertion, but we'll continue to allow it to run
+	// and otherwise be broken for now.
+#if defined(_DEBUG)
+	if (m_iVersion > SUPPORTED_BUNDLE_VERSION)
+	{
+		TRACE(
+			"!!! WARNING: CN3FXBundleGame::Load(%s) encountered bundle version %d. Needs support!",
+			FileName().c_str(),
+			m_iVersion);
+	}
+#endif
+
 	ReadFile(hFile, &m_fLife0, sizeof(float), &dwRWC, NULL);
 	if(m_fLife0 > 10.0f) m_fLife0 = 10.0f; 
 	ReadFile(hFile, &m_fVelocity, sizeof(float), &dwRWC, NULL);

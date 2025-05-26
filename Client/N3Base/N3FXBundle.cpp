@@ -25,7 +25,7 @@ float CN3FXBundle::m_fEffectSndDist = 48.0f;
 
 CN3FXBundle::CN3FXBundle()
 {
-	m_iVersion = 2;
+	m_iVersion = SUPPORTED_BUNDLE_VERSION;
 	m_strName.erase();
 	for(int i=0;i<MAX_FX_PART;i++) m_pPart[i] = NULL;
 	m_fLife0 = 0.0f;
@@ -283,6 +283,18 @@ bool CN3FXBundle::Load(HANDLE hFile)
 
 	ReadFile(hFile, &m_iVersion, sizeof(int), &dwRWC, NULL);
 	
+	// NOTE: This should ideally just be an assertion, but we'll continue to allow it to run
+	// and otherwise be broken for now.
+#if defined(_DEBUG)
+	if (m_iVersion > SUPPORTED_BUNDLE_VERSION)
+	{
+		TRACE(
+			"!!! WARNING: CN3FXBundle::Load(%s) encountered bundle version %d. Needs support!",
+			FileName().c_str(),
+			m_iVersion);
+	}
+#endif
+
 	ReadFile(hFile, &m_fLife0, sizeof(float), &dwRWC, NULL);
 	if(m_fLife0 > 10.0f) m_fLife0 = 10.0f; 
 	ReadFile(hFile, &m_fVelocity, sizeof(float), &dwRWC, NULL);

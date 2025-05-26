@@ -5,7 +5,8 @@
 #include <d3dx9math.h>
 #include <string>
 
-#include "shared/types.h"
+#include <shared/types.h>
+#include <shared/DebugUtils.h>
 
 const float __PI = 3.141592654f;
 const float __PI2 = 6.283185308f;

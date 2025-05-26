@@ -18,7 +18,7 @@ static char THIS_FILE[]=__FILE__;
 CN3FXPartBase::CN3FXPartBase()
 {
 	m_iVersion = 0;
-	m_iBaseVersion = 2;
+	m_iBaseVersion = SUPPORTED_PART_BASE_VERSION;
 
 	m_pRefBundle = NULL;
 	m_pRefPrevPart = NULL;
@@ -427,7 +427,11 @@ void CN3FXPartBase::Render()
 //	load...
 //
 bool CN3FXPartBase::Load(HANDLE hFile)
-{	
+{
+#if defined(_DEBUG)
+	int iType = m_iType;
+#endif
+
 	uint8_t	cTmp;
 	DWORD			dwRWC = 0;
 	
@@ -492,7 +496,22 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 		if(m_dwRenderFlag & RF_ALPHABLENDING) m_bAlpha = TRUE;
 		else m_bAlpha = FALSE;		
 	}
-	
+
+	// NOTE: This should ideally just be an assertion, but we'll continue to allow it to run
+	// and otherwise be broken for now.
+#if defined(_DEBUG)
+	if (m_iBaseVersion > SUPPORTED_PART_BASE_VERSION)
+	{
+
+		TRACE(
+			"!!! WARNING: CN3FXPartBase::Load(%s [type=%d]) encountered base version %d (part version %d). Needs support!",
+			m_pRefBundle != nullptr ? m_pRefBundle->FileName().c_str() : "<unknown>",
+			iType,
+			m_iBaseVersion,
+			m_iVersion);
+	}
+#endif
+
 	m_ppRefTex = new CN3Texture* [m_iNumTex];
 
 	std::string FileName;

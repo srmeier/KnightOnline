@@ -14,14 +14,13 @@
 static char THIS_FILE[]=__FILE__;
 #endif
 
-
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
 CN3FXPartParticles::CN3FXPartParticles()
 {
-	m_iVersion = 5;	//3이하는 다 무시해버려..
+	m_iVersion = SUPPORTED_PART_VERSION;	//3이하는 다 무시해버려..
 
 	m_iNumParticle		= 0;
 	m_iNumLodParticle	= 0;
@@ -437,6 +436,19 @@ bool CN3FXPartParticles::Load(HANDLE hFile)
 		ReadFile(hFile, &m_fScaleVelX, sizeof(float), &dwRWC, NULL);
 		ReadFile(hFile, &m_fScaleVelY, sizeof(float), &dwRWC, NULL);
 	}
+
+	// NOTE: This should ideally just be an assertion, but we'll continue to allow it to run
+	// and otherwise be broken for now.
+#if defined(_DEBUG)
+	if (m_iVersion > SUPPORTED_PART_VERSION)
+	{
+		TRACE(
+			"!!! WARNING: CN3FXPartParticles::Load(%s) encountered version %d (base version %d). Needs support!",
+			m_pRefBundle != nullptr ? m_pRefBundle->FileName().c_str() : "<unknown>",
+			m_iVersion,
+			m_iBaseVersion);
+	}
+#endif
 
 	Init();
 
