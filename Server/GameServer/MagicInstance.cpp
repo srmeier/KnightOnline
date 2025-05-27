@@ -401,7 +401,13 @@ SkillUseResult MagicInstance::CheckSkillPrerequisites()
 			//implementation of pSkill->dwNeedItem
 			switch (pSkill->bItemGroup)
 			{
-				case 0: // all priest & warrior skills
+				case 0: // all priest & warrior skills, (mage bright dew + priest sleep)
+
+					//mage master passive + priest sleep don't require any conditions
+					if (pSkill->bType[0] == 0 || pSkill->bType[0] == 7)
+					{
+						break;
+					}
 
 					if (bNotEquipedItem || bHasDagger || bHasStaff || bHasBow)
 					{

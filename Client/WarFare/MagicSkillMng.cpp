@@ -223,6 +223,11 @@ bool CMagicSkillMng::CheckValidSkillMagic(__TABLE_UPC_SKILL* pSkill)
 
 		case 0: //dwNeedItem = 0 , all priest & warrior skills
 		{
+			//break if Bright Dew, Sleep Carpet, Sleep Wing (mage, priest) skills
+			if (pSkill->dw1stTableType == 0 || pSkill->dw1stTableType == 7)
+			{
+				break;
+			}
 
 			if (bNotEquipedItem || bHasDagger || bHasStaff || bHasBow)
 			{
@@ -710,8 +715,14 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 	switch (pSkill->dwNeedItem)
 	{
 
-		case 0: //dwNeedItem = 0 , all priest & warrior skills
+		case 0: //dwNeedItem = 0 , all priest & warrior attack skills
 		{
+
+			//break if Bright Dew, Sleep Carpet, Sleep Wing (mage, priest) skills
+			if (pSkill->dw1stTableType == 0 || pSkill->dw1stTableType == 7)
+			{
+				break;
+			}
 
 			if (bNotEquipedItem || bHasDagger || bHasStaff || bHasBow)
 			{
