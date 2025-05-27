@@ -6,6 +6,7 @@
 #include "DBAgent.h"
 #include <algorithm>
 #include "../shared/DateTime.h"
+#include <afx.h>
 
 CUser::CUser(uint16_t socketID, SocketMgr *mgr) : KOSocket(socketID, mgr, -1, 16384, 3172), Unit(UnitPlayer)
 {
