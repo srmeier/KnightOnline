@@ -466,7 +466,7 @@ void CUser::AdminGiveExpHandler(Packet& pkt)
 			for (size_t i = 0; i < iDownedLevel; i++)
 			{
 				pUser->m_bLevel--;
-				LevelChange(pUser->m_bLevel, false);
+				pUser->LevelChange(pUser->m_bLevel, false);
 			}
 
 			pUser->m_iExp = iRemainingExp;
@@ -552,7 +552,7 @@ void CUser::AdminGiveExpHandler(Packet& pkt)
 					break;
 
 				pUser->m_bLevel++;
-				LevelChange(pUser->m_bLevel, true);
+				pUser->LevelChange(pUser->m_bLevel, true);
 			}
 
 			pUser->m_iExp = iRemainingExp;
