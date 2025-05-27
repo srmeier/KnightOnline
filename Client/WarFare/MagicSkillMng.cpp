@@ -726,6 +726,9 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 
 			if (bNotEquipedItem || bHasDagger || bHasStaff || bHasBow)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
@@ -733,6 +736,9 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 				!bHasMace && !bHas2HMace &&
 				!bHasSpear && !bHasPolearm )
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_LACK_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
@@ -744,11 +750,17 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			if (bNotEquipedItem || bHasSword || bHas2HSword || bHasAxe || bHas2HAxe ||
 				bHasMace || bHas2HMace || bHasSpear || bHasPolearm || bHasBow || bHasStaff)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
 			if (!bHasDagger)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_LACK_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
@@ -760,11 +772,17 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			if (bNotEquipedItem || bHasSword || bHas2HSword || bHasAxe || bHas2HAxe ||
 				bHasMace || bHas2HMace || bHasSpear || bHasPolearm || bHasDagger || bHasStaff)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
 			if (!bHasBow)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_LACK_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
@@ -780,11 +798,17 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 			if (bNotEquipedItem || bHasSword || bHas2HSword || bHasAxe || bHas2HAxe ||
 				bHasMace || bHas2HMace || bHasSpear || bHasPolearm || bHasDagger || bHasBow)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_INVALID_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
 			if (!bHasStaff)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_LACK_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 			
@@ -799,6 +823,9 @@ bool CMagicSkillMng::CheckValidCondition(int iTargetID, __TABLE_UPC_SKILL* pSkil
 
 			if (iNum <= 0)
 			{
+				std::string buff;
+				GetText(IDS_SKILL_FAIL_LACK_ITEM, &buff);
+				m_pGameProcMain->MsgOutput(buff, 0xffffff00);
 				return false;
 			}
 
