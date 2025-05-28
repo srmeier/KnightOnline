@@ -114,7 +114,7 @@ bool CUICharacterSelect::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		{
 			std::string szMsg;
 			CGameBase::GetText(IDS_CONFIRM_DELETE_CHR, &szMsg);
-			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_DELETE_CHR);
+			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_CANCEL);
 		}
 	}
 	
