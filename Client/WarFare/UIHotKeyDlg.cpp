@@ -721,7 +721,7 @@ void CUIHotKeyDlg::DoOperate(__IconItemSkill*	pSkill)
 	//wsprintf(szBuf, "%s 스킬이 사용되었습니다.", pSkill->pSkill->szName.c_str() );
 	//CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffff00);
 
-	PlayRepairSound();					
+	//PlayRepairSound();					
 	
 	int iIDTarget = CGameBase::s_pPlayer->m_iIDTarget;
 	CGameProcedure::s_pProcMain->m_pMagicSkillMng->MsgSend_MagicProcess(iIDTarget, pSkill->pSkill);
