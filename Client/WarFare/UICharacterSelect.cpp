@@ -114,7 +114,14 @@ bool CUICharacterSelect::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		{
 			std::string szMsg;
 			CGameBase::GetText(IDS_CONFIRM_DELETE_CHR, &szMsg);
-			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_NOTHING);
+
+			// NOTE: Character deletion is disabled and this resource is changed appropriately.
+			// As such, rather than prompt to delete, we should simply show the new message.
+#if 0
+			CGameProcedure::MessageBoxPost(szMsg, "", MB_YESNO, BEHAVIOR_DELETE_CHR);
+#else
+			CGameProcedure::MessageBoxPost(szMsg, "", MB_OK);
+#endif
 		}
 	}
 	
