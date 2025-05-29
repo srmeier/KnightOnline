@@ -35,6 +35,8 @@ CN3SndObj* CN3UIWndBase::s_pSnd_Item_Weapon = NULL;
 CN3SndObj* CN3UIWndBase::s_pSnd_Item_Armor = NULL;
 CN3SndObj* CN3UIWndBase::s_pSnd_Gold = NULL;
 CN3SndObj* CN3UIWndBase::s_pSnd_Repair = NULL;
+CN3SndObj* CN3UIWndBase::s_pSnd_Cooldown_Reset = NULL;
+
 int CN3UIWndBase::s_iRefCount = 0;
 
 CN3UIWndBase::CN3UIWndBase()
@@ -51,6 +53,7 @@ CN3UIWndBase::CN3UIWndBase()
 		s_pSnd_Item_Armor	= CN3Base::s_SndMgr.CreateObj(ID_SOUND_ITEM_ARMOR_IN_INVENTORY);
 		s_pSnd_Gold		= CN3Base::s_SndMgr.CreateObj(ID_SOUND_GOLD_IN_INVENTORY);	
 		s_pSnd_Repair	= CN3Base::s_SndMgr.CreateObj(ID_SOUND_ITEM_IN_REPAIR);	
+		s_pSnd_Cooldown_Reset = CN3Base::s_SndMgr.CreateObj(ID_SOUND_SKILL_COOLDOWN_RESET);
 	}
 	s_iRefCount++; // 참조 카운트
 }
@@ -208,6 +211,11 @@ void CN3UIWndBase::PlayGoldSound()
 void CN3UIWndBase::PlayRepairSound()
 {
 	if (s_pSnd_Repair)	s_pSnd_Repair->Play();
+}
+
+void CN3UIWndBase::PlayCooldownResetSound()
+{
+	if (s_pSnd_Cooldown_Reset)	s_pSnd_Cooldown_Reset->Play();
 }
 
 void CN3UIWndBase::PlayItemSound(__TABLE_ITEM_BASIC* pBasic)

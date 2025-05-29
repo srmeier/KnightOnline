@@ -1661,6 +1661,7 @@ void CMagicSkillMng::Tick()
 					if (it->second < 0)
 					{
 						icon->fCurrentCooldDown = 0.0f;
+						m_pGameProcMain->m_pUIHotKeyDlg->PlayCooldownResetSound();
 					}
 				}
 			}			

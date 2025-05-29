@@ -153,6 +153,7 @@ protected:
 	static CN3SndObj*			s_pSnd_Item_Armor;
 	static CN3SndObj*			s_pSnd_Gold;
 	static CN3SndObj*			s_pSnd_Repair;
+	static CN3SndObj*			s_pSnd_Cooldown_Reset;
 
 protected:
 	virtual void				InitIconWnd(e_UIWND eWnd);
@@ -180,6 +181,7 @@ public:
 	virtual void				PlayItemSound(__TABLE_ITEM_BASIC* pBasic);
 	virtual void				PlayGoldSound();
 	virtual void				PlayRepairSound();
+	virtual void				PlayCooldownResetSound();
 };
 
 #endif // !defined(AFX_N3UIWNDBASE_H__A30E8AD0_2EB8_4F27_8E0D_3E0979560761__INCLUDED_)
