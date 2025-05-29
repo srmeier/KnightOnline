@@ -18,6 +18,7 @@
 #include "UIInventory.h"
 #include "UIVarious.h"
 #include "UIPartyOrForce.h"
+#include "UIHotKeyDlg.h"
 #include "MagicSkillMng.h"
 #include "N3SndObj.h"
 #include "N3SndObjStream.h"
@@ -1306,14 +1307,14 @@ void CMagicSkillMng::SetSkillCooldown(__TABLE_UPC_SKILL* pSkill)
 	// Convert iReCastTime (stored in tenths of seconds) to seconds
 	const float fCooldown = static_cast<float>(pSkill->iReCastTime) / 10.0f;
 
-	if (pSkill->iSelfAnimID1 > 0)
-	{
+	//if (pSkill->iSelfAnimID1 > 0)
+	//{
 		m_RecastTimes[pSkill->dwID] = fCooldown;
-	}
-	else
-	{
-		m_NonActionRecastTimes[pSkill->dwID] = fCooldown;
-	}
+	//}
+	//else
+	//{
+	//	m_NonActionRecastTimes[pSkill->dwID] = fCooldown;
+	//}
 }
 
 bool CMagicSkillMng::CheckValidDistance(__TABLE_UPC_SKILL* pSkill, __Vector3 vTargetPos, float fTargetRadius)
@@ -1377,6 +1378,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 
 		CGameProcedure::s_pFX->TriggerBundle(SourceID, spart1, pSkill->iSelfFX1, SourceID, spart1, -1);
 		if(spart2!=0) CGameProcedure::s_pFX->TriggerBundle(SourceID, spart2, pSkill->iSelfFX1, SourceID, spart2, -2);
+		SetSkillCooldown(pSkill);
 		return;
 	}
 	m_pGameProcMain->CommandSitDown(false, false); // 혹시라도 앉아있음 일으켜 세운다..
@@ -1457,7 +1459,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
-
+	SetSkillCooldown(pSkill);
 
 	if(pSkill->iTarget == SKILLMAGIC_TARGET_ENEMY_ONLY) m_pGameProcMain->PlayBGM_Battle();
 }
@@ -1480,6 +1482,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 
 		CGameProcedure::s_pFX->TriggerBundle(SourceID, spart1, pSkill->iSelfFX1, SourceID, spart1, -1);
 		if(spart2!=0) CGameProcedure::s_pFX->TriggerBundle(SourceID, spart2, pSkill->iSelfFX1, SourceID, spart2, -2);
+		SetSkillCooldown(pSkill);
 		return;
 	}
 
@@ -1533,6 +1536,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..	
+		SetSkillCooldown(pSkill);
 		return;
 	}
 
@@ -1559,6 +1563,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..	
+		SetSkillCooldown(pSkill);
 		return;
 	}
 
@@ -1639,12 +1644,36 @@ void CMagicSkillMng::Tick()
 		}
 #endif
 		it->second -= CN3Base::s_fSecPerFrm;
+		int k;
+		for (k = 0; k < MAX_SKILL_HOTKEY_PAGE; ++k)
+		{
+			int j;
+			for (j = 0; j < MAX_SKILL_IN_HOTKEY; ++j)
+			{
+				__IconItemSkill* icon = m_pGameProcMain->m_pUIHotKeyDlg->m_pMyHotkey[k][j];
+				if (!icon) continue;
+
+				if (icon->pSkill->dwID == it->first)
+				{
+					if (icon->fCurrentCooldDown < icon->pSkill->iReCastTime)
+						icon->fCurrentCooldDown += CN3Base::s_fSecPerFrm;
+
+					if (it->second < 0)
+					{
+						icon->fCurrentCooldDown = 0.0f;
+					}
+				}
+			}			
+		}
+
 		if (it->second < 0)
-			it = m_RecastTimes.erase(it);
+		{
+			it = m_RecastTimes.erase(it);			
+		}
 		else
 			++it;
 	}
-	for (auto it = m_NonActionRecastTimes.begin(); it != m_NonActionRecastTimes.end(); )
+	/*for (auto it = m_NonActionRecastTimes.begin(); it != m_NonActionRecastTimes.end(); )
 	{
 #ifdef _DEBUG
 		if (m_fMsgUpdateTimer >= 0.2f)
@@ -1660,7 +1689,7 @@ void CMagicSkillMng::Tick()
 			it = m_RecastTimes.erase(it);
 		else
 			++it;
-	}
+	}*/
 	// Legacy Existing code for delay and casting
 	m_fDelay -= CN3Base::s_fSecPerFrm;
 	if (m_fDelay < 0.0f) m_fDelay = 0.0f;
