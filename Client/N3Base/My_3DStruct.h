@@ -6,7 +6,9 @@
 #include <string>
 
 #include <shared/types.h>
+#if !defined(_AFX)
 #include <shared/DebugUtils.h>
+#endif
 
 const float __PI = 3.141592654f;
 const float __PI2 = 6.283185308f;
