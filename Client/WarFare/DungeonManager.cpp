@@ -114,7 +114,7 @@ float CDungeonManager::GetHeightNearstPosWithShape(const __Vector3 &vPos, float 
 }
 
 
-void CDungeonManager::RenderCollisionWithShape(__Vector3 &vPos)																			// No need..
+void CDungeonManager::RenderCollisionWithShape(const __Vector3& vPos)																			// No need..
 {
 }
 

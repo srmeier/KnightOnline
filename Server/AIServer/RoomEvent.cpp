@@ -231,7 +231,7 @@ bool  CRoomEvent::CheckMonsterCount( int sid, int count, int type )
 		if (sid != 11510 && sid != 21510)
 			TRACE("### RoomEvent-GetNpcPtr() : monster empty, sid=%d ###\n",sid);
 
-		return nullptr;
+		return false;
 	}
 
 	foreach_stlmap (itr, m_mapRoomNpcArray)

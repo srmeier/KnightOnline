@@ -50,6 +50,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>..\ZipArchive\$(Configuration)\ZipArchive.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>

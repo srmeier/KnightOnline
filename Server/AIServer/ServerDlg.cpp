@@ -763,7 +763,7 @@ CNpc * CServerDlg::SpawnEventNpc(uint16_t sSid, bool bIsMonster, uint8_t byZone,
 	Guard lock(m_eventThreadLock);
 	auto itr = m_arEventNpcThread.find(byZone);
 	if (itr == m_arEventNpcThread.end())
-		return false;
+		return nullptr;
 
 	CNpc * pNpc = new CNpc();
 

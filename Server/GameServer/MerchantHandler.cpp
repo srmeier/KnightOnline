@@ -100,6 +100,10 @@ void CUser::MerchantClose()
 
 void CUser::MerchantItemAdd(Packet & pkt)
 {
+	_ITEM_TABLE* pTable = nullptr;
+	_ITEM_DATA* pSrcItem = nullptr;
+	_MERCH_DATA* pMerch = nullptr;
+
 	Packet result(WIZ_MERCHANT);
 	uint32_t nGold, nItemID;
 	uint16_t sCount;
@@ -115,28 +119,26 @@ void CUser::MerchantItemAdd(Packet & pkt)
 		|| bDstPos >= MAX_MERCH_ITEMS)
 		return;
 
-	_ITEM_TABLE * pTable = g_pMain->GetItemPtr(nItemID);
+	pTable = g_pMain->GetItemPtr(nItemID);
 	if (pTable == nullptr
 		|| nItemID >= ITEM_NO_TRADE // Cannot be traded, sold or stored.
 		|| pTable->m_bRace == RACE_UNTRADEABLE) // Cannot be traded or sold.
 		goto fail_return;
 
 	bSrcPos += SLOT_MAX;
-	_ITEM_DATA *pSrcItem = GetItem(bSrcPos);
-	if (pSrcItem == nullptr || pSrcItem->nNum != nItemID 
+
+	pSrcItem = GetItem(bSrcPos);
+	if (pSrcItem == nullptr
+		|| pSrcItem->nNum != nItemID
 		|| pSrcItem->sCount < sCount
 		|| pSrcItem->isRented()
 		|| pSrcItem->isDuplicate())
 		goto fail_return;
 
-	_MERCH_DATA *pMerch = &m_arMerchantItems[bDstPos];
-
-	if(pMerch == nullptr)
-		return; 
-
 	if (pSrcItem->IsSelling)
 		goto fail_return;
 
+	pMerch = &m_arMerchantItems[bDstPos];
 	pMerch->nNum = nItemID;
 	pMerch->nPrice = nGold;
 	pMerch->sCount = sCount; // Selling Count

@@ -1,9 +1,11 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "tstring.h"
 #include <stdarg.h>
 #include <cctype>
 #include <functional>
 #include <algorithm>
+
+static constexpr char WhitespaceChars[] = " \t\n\r\f\v";
 
 void _string_format(const std::string fmt, std::string * result, va_list args)
 {
@@ -24,20 +26,17 @@ std::string string_format(const std::string fmt, ...)
 	return result;
 }
 
-template<int (&F)(int)> int safe_ctype(uint8_t c) { return F(c); } 
-static int safe_isspace(int c) { return safe_ctype<std::isspace>(c); }
-
 // trim from end
-std::string & rtrim(std::string &s) 
+std::string& rtrim(std::string& s)
 {
-	s.erase(std::find_if(s.rbegin(), s.rend(), std::not1(std::ptr_fun<int, int>(safe_isspace))).base(), s.end());
+	s.erase(s.find_last_not_of(WhitespaceChars) + 1);
 	return s;
 }
 
 // trim from start
-std::string & ltrim(std::string &s) 
+std::string& ltrim(std::string& s)
 {
-	s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(safe_isspace))));
+	s.erase(0, s.find_first_not_of(WhitespaceChars));
 	return s;
 }
 

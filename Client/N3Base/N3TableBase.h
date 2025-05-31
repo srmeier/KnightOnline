@@ -14,6 +14,10 @@
 
 #include "My_3DStruct.h" // _ASSERT
 
+#ifdef _N3GAME
+#include "LogWriter.h"
+#endif
+
 enum TBL_DATA_TYPE {DT_NONE, DT_CHAR, DT_BYTE, DT_SHORT, DT_WORD, DT_INT, DT_DWORD, DT_STRING, DT_FLOAT, DT_DOUBLE};
 
 template <typename Type> class CN3TableBase

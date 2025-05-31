@@ -366,6 +366,9 @@ if "%GitDir%"=="" (
 "%GitDir%git.exe" submodule update --init --recursive
       </Command>
     </PreBuildEvent>
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

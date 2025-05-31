@@ -83,7 +83,11 @@ bool CZipArchive::IsClosed(bool bArchive)
 
 void CZipArchive::ThrowError(int err)
 {
-	AfxThrowZipException(err, IsClosed() ? _T("") : m_storage.m_pFile->GetFilePath());
+	CString szZipName;
+	if (!IsClosed())
+		szZipName = m_storage.m_pFile->GetFilePath();
+
+	AfxThrowZipException(err, szZipName);
 }
 
 bool CZipArchive::DeleteFile(WORD uIndex)
@@ -682,7 +686,14 @@ bool CZipArchive::ExtractFile(WORD uIndex,
 	
 	CZipFileHeader header;
 	GetFileInfo(header, uIndex); // to ensure that slash and oem conversions take place
-	CString szFile = lpszPath, szFileName = lpszNewName ? lpszNewName : header.GetFileName();
+
+	CString szFile = lpszPath;
+	CString szFileName;
+	if (lpszNewName != nullptr)
+		szFileName = lpszNewName;
+	else
+		szFileName = header.GetFileName();
+
 	szFile.TrimRight(_T("\\"));
 	szFile += _T("\\") + (bFullPath ? GetFileDirAndName(szFileName)
 		: GetFileName(szFileName)); // just in case in the archive there are file names with drives

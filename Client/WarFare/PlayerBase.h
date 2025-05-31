@@ -224,14 +224,14 @@ public:
 
 	float			Yaw() { return m_fYawCur; } // 회전값..
 	float			MoveSpeed() { return m_fMoveSpeedPerSec; }
-	__Vector3		Position() const { return m_Chr.Pos(); }
+	const __Vector3&	Position() const { return m_Chr.Pos(); }
 	void			PositionSet(const __Vector3& vPos, bool bForcely) { m_Chr.PosSet(vPos); if(bForcely) m_fYNext = vPos.y; }
 	float			Distance(const __Vector3& vPos) { return (m_Chr.Pos() - vPos).Magnitude(); }
 	__Vector3		Scale() { return m_Chr.Scale(); }
 	void			ScaleSet(float fScale) { m_fScaleToSet = m_fScalePrev = fScale; m_Chr.ScaleSet(fScale, fScale, fScale); }
 	void			ScaleSetGradually(float fScale) { m_fScaleToSet = fScale; m_fScalePrev = m_Chr.Scale().y; } // 점차 스케일 변화..
 	__Vector3		Direction();
-	__Quaternion	Rotation() { return m_Chr.Rot(); }
+	const __Quaternion&	Rotation() const { return m_Chr.Rot(); }
 	void			RotateTo(float fYaw, bool bImmediately);
 	void			RotateTo(CPlayerBase* pOther); // 이넘을 바라본다.
 	float			Height();

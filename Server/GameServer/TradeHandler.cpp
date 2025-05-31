@@ -99,17 +99,21 @@ void CUser::ExchangeAdd(Packet & pkt)
 	if (!isTrading())
 		return;
 
+	CUser* pUser = nullptr;
+	_ITEM_TABLE* pTable = nullptr;
+
 	Packet result(WIZ_EXCHANGE);
 	uint64_t nSerialNum;
 	uint32_t nItemID, count = 0;
 	uint16_t duration = 0;
-	_ITEM_DATA * pSrcItem = nullptr;
+	_ITEM_DATA* pSrcItem = nullptr;
 	std::list<_EXCHANGE_ITEM*>::iterator	Iter;
 	uint8_t pos;
 	bool bAdd = true, bGold = false;
+
 	result << uint8_t(EXCHANGE_ADD);
 
-	CUser *pUser = g_pMain->GetUserPtr(m_sExchangeUser);
+	pUser = g_pMain->GetUserPtr(m_sExchangeUser);
 	if (pUser == nullptr
 		|| pUser->isDead()
 		|| isDead())
@@ -118,11 +122,14 @@ void CUser::ExchangeAdd(Packet & pkt)
 		return;
 	}
 	
-	if (pUser->isDead() || pUser->isStoreOpen() || pUser->isMerchanting())
+	if (pUser->isDead()
+		|| pUser->isStoreOpen()
+		|| pUser->isMerchanting())
 		goto add_fail;
 
 	pkt >> pos >> nItemID >> count;
-	_ITEM_TABLE *pTable = g_pMain->GetItemPtr(nItemID);
+
+	pTable = g_pMain->GetItemPtr(nItemID);
 	if (pTable == nullptr
 		|| (nItemID != ITEM_GOLD 
 		&& (pos >= HAVE_MAX // Invalid position

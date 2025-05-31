@@ -37,7 +37,7 @@ public:
 	void Release(void);
 	void SetViewPort(RECT& pRC);
 	void SetDefaultEnvironment(void);
-	void LookAt(__Vector3& vEye, __Vector3& vAt, __Vector3& vUp);
+	void LookAt(const __Vector3& vEye, const __Vector3& vAt, const __Vector3& vUp);
 	bool Reset(bool bWindowed, uint32_t dwWidth, uint32_t dwHeight, uint32_t dwBPP);
 	void SetProjection(float fNear, float fFar, float fLens, float fAspect);
 

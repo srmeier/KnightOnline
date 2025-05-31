@@ -207,7 +207,7 @@ bool CN3FXBundleGame::Tick()
 					fAng = __PI * (m_fDistance - (m_vDestPos - m_vPos).Magnitude()) / m_fDistance;
 				else fAng = 0.0f;
 								
-				m_vPos.y = sin(fAng) * m_fHeight;
+				m_vPos.y = sinf(fAng) * m_fHeight;
 				break;
 			}
 		case FX_BUNDLE_MOVE_DIR_SLOW:

@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Multiplatform Async Network Library
 * Copyright (c) 2007 Burlex
 *
@@ -9,15 +9,20 @@
 
 #pragma once
 
-template <class T>
-uint32_t THREADCALL ListenSocketThread(void * lpParam)
+class ListenSocketBase
 {
-	ListenSocket<T> * ls = (ListenSocket<T> *)lpParam;
+public:
+	virtual bool runnable() = 0;
+};
+
+static uint32_t THREADCALL ListenSocketThread(void* lpParam)
+{
+	ListenSocketBase* ls = reinterpret_cast<ListenSocketBase*>(lpParam);
 	return ls->runnable() ? 0 : 1;
 }
 
-template<class T>
-class ListenSocket
+template <class T>
+class ListenSocket : public ListenSocketBase
 {
 public:
 	ListenSocket(SocketMgr *socketMgr, const char * ListenAddress, uint32_t Port) : m_threadRunning(false)
@@ -66,11 +71,11 @@ public:
 		if (m_thread.isStarted())
 			return false;
 
-		m_thread.start(ListenSocketThread<T>, this);
+		m_thread.start(ListenSocketThread, this);
 		return true;
 	}
 
-	bool runnable()
+	bool runnable() override
 	{
 		struct sockaddr_in m_tempAddress;
 		uint32_t len = sizeof(sockaddr_in);

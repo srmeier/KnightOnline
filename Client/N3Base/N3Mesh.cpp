@@ -204,7 +204,7 @@ void CN3Mesh::FindMinMax()
 	}
 }
 
-void CN3Mesh::Create_Cube(__Vector3 &vMin, __Vector3 &vMax)
+void CN3Mesh::Create_Cube(const __Vector3& vMin, const __Vector3& vMax)
 {
 	this->Create(36, 0);
 

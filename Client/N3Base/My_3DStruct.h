@@ -6,7 +6,9 @@
 #include <string>
 
 #include <shared/types.h>
-#if !defined(_AFX)
+#if defined(_N3TOOL)
+#include <afx.h>
+#else
 #include <shared/DebugUtils.h>
 #endif
 

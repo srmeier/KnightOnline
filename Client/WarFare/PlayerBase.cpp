@@ -527,9 +527,23 @@ void CPlayerBase::RenderChrInRect(CN3Chr* pChr, const RECT& Rect)
 //								  &D3DXVECTOR3( 0.0f + fCameraMoveX, fVCenter + fCameraMoveY, 0.0f ),	// fVCenter: 캐릭터 키의 중간을 바라보기
 //								  &D3DXVECTOR3( 0.0f, 1.0f, 0.0f ) );
 	const __Vector3& vChrPos = pChr->Pos();
-	D3DXMatrixLookAtLH( &mtxView, &D3DXVECTOR3( vChrPos.x + fCameraMoveX, vChrPos.y + fVCenter+2.0f + fCameraMoveY, vChrPos.z + 10.0f ),	// 여기서 View matrix는 카메라 각도와 상관있다. 거리는 원근에 아무 영향을 미치지 않는다.
-								  &D3DXVECTOR3( vChrPos.x + fCameraMoveX, vChrPos.y + fVCenter + fCameraMoveY, vChrPos.z + 0.0f ),	// fVCenter: 캐릭터 키의 중간을 바라보기
-								  &D3DXVECTOR3( 0.0f, 1.0f, 0.0f ) );
+
+	// 여기서 View matrix는 카메라 각도와 상관있다. 거리는 원근에 아무 영향을 미치지 않는다.
+	// fVCenter: 캐릭터 키의 중간을 바라보기
+	const __Vector3 vEye(
+		vChrPos.x + fCameraMoveX,
+		vChrPos.y + fVCenter + 2.0f + fCameraMoveY,
+		vChrPos.z + 10.0f);
+
+	const __Vector3 vAt(
+		vChrPos.x + fCameraMoveX,
+		vChrPos.y + fVCenter + fCameraMoveY,
+		vChrPos.z + 0.0f);
+
+	const __Vector3 vUp(
+		0.0f, 1.0f, 0.0f);
+
+	D3DXMatrixLookAtLH(&mtxView, &vEye, &vAt, &vUp);
 	s_lpD3DDev->SetTransform( D3DTS_VIEW, &mtxView );
 	s_lpD3DDev->SetTransform( D3DTS_PROJECTION, &mtxProj);
 

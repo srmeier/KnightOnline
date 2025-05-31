@@ -224,7 +224,12 @@ void CZipStorage::Close(bool bAfterException)
 
 CString CZipStorage::GetTdVolumeName(bool bLast, LPCTSTR lpszZipName)
 {
-	CString szFilePath = lpszZipName ? lpszZipName : m_pFile->GetFilePath();
+	CString szFilePath;
+	if (lpszZipName != nullptr)
+		szFilePath = lpszZipName;
+	else
+		szFilePath = m_pFile->GetFilePath();
+
 	CString szPath = CZipArchive::GetFilePath(szFilePath);
 	CString szName = CZipArchive::GetFileTitle(szFilePath);
 	CString szExt;
@@ -249,9 +254,16 @@ void CZipStorage::NextDisk(int iNeeded, LPCTSTR lpszFileName)
 	CString szFileName;
 	bool bPkSpan = (m_iSpanMode == pkzipSpan);
 	if (bPkSpan)
-		szFileName  = lpszFileName ? lpszFileName : m_pFile->GetFilePath();
+	{
+		if (lpszFileName != nullptr)
+			szFileName = lpszFileName;
+		else
+			szFileName = m_pFile->GetFilePath();
+	}
 	else
-		szFileName =  GetTdVolumeName(false, lpszFileName);
+	{
+		szFileName = GetTdVolumeName(false, lpszFileName);
+	}
 
 #ifdef _DEBUG // to prevent assertion if the file is already closed
 	if (m_pFile->m_hFile != CFile::hFileNull)

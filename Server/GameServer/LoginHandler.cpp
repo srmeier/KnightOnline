@@ -31,20 +31,25 @@ void CUser::LoginProcess(Packet & pkt)
 	if (!m_strAccountID.empty())
 		return;
 
+	CUser* pUser = nullptr;
+
 	Packet result(WIZ_LOGIN);
 	std::string strAccountID, strPasswd;
 	pkt >> strAccountID >> strPasswd;
-	if (strAccountID.empty() || strAccountID.size() > MAX_ID_SIZE
-		|| strPasswd.empty() || strPasswd.size() > MAX_PW_SIZE)
+
+	if (strAccountID.empty()
+		|| strAccountID.size() > MAX_ID_SIZE
+		|| strPasswd.empty()
+		|| strPasswd.size() > MAX_PW_SIZE)
 		goto fail_return;
 
-	CUser * pUser = g_pMain->GetUserPtr(strAccountID, TYPE_ACCOUNT);
-	char *cstr = &strAccountID[0];
+	pUser = g_pMain->GetUserPtr(strAccountID, TYPE_ACCOUNT);
 
-	if (!WordGuardSystem(cstr, strlen(cstr)))
+	if (!WordGuardSystem(strAccountID, strAccountID.size()))
 		goto fail_return;
 
-	if (pUser && (pUser->GetSocketID() != GetSocketID()))
+	if (pUser != nullptr
+		&& pUser->GetSocketID() != GetSocketID())
 	{
 		pUser->Disconnect();
 		goto fail_return;
