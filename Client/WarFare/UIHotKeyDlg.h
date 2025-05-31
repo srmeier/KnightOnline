@@ -85,6 +85,7 @@ public:
 	void				UpdateDisableCheck();
 
 	bool				ReceiveIconDrop(__IconItemSkill* spItem, POINT ptCur);
+	void				CUIHotKeyDlg::RenderCooldown(__IconItemSkill* pSkill);
 };
 
 #endif // !defined(AFX_UIHOTKEYDLG_H__9B85201C_0294_4023_8658_923A6A2174BF__INCLUDED_)

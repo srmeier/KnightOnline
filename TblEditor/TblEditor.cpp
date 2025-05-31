@@ -78,7 +78,7 @@ static BOOL NEAR PASCAL SetRegKey(LPCTSTR lpszKey, LPCTSTR lpszValue)
 { 
 	if (::RegSetValue(HKEY_CLASSES_ROOT, lpszKey, REG_SZ, lpszValue, lstrlen(lpszValue)) != ERROR_SUCCESS)
 	{
-		TRACE1("Warning: registration database update failed for key '%Fs'\n", lpszKey);
+		TRACE("Warning: registration database update failed for key '%Fs'\n", lpszKey);
 		return FALSE;
 	}
 
