@@ -364,11 +364,10 @@ void COptionDlg::SettingSave(CString szIniFile)
 	m_Option.iViewWidth = 1024;
 	m_Option.iViewHeight = 768;
 
-	if (iSel >= 0 && iSel < (int)GetSupportedResolutions().size())
-	{
+	if (iSel >= 0 && iSel < (int) GetSupportedResolutions().size()) {
         m_Option.iViewWidth = GetSupportedResolutions()[iSel].Width;
         m_Option.iViewHeight = GetSupportedResolutions()[iSel].Height;
-	}
+    }
 
 	iSel = m_CB_ColorDepth.GetCurSel();
 	if (CB_ERR != iSel)
@@ -481,15 +480,13 @@ void COptionDlg::SettingUpdate()
 	CheckDlgButton(IDC_C_SHADOW, m_Option.iUseShadow);
 
 	int iSel = 0;
-    for (int i = 0; i < (int)GetSupportedResolutions().size(); i++)
-	{
+    for (int i = 0; i < (int) GetSupportedResolutions().size(); i++) {
         if (m_Option.iViewWidth == GetSupportedResolutions()[i].Width &&
-            m_Option.iViewHeight == GetSupportedResolutions()[i].Height)
-		{
-			iSel = i;
-			break;
-		}
-	}
+            m_Option.iViewHeight == GetSupportedResolutions()[i].Height) {
+            iSel = i;
+            break;
+        }
+    }
 
 	m_CB_Resolution.SetCurSel(iSel);
 
