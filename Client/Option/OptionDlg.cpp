@@ -97,83 +97,95 @@ BEGIN_MESSAGE_MAP(COptionDlg, CDialog)
 END_MESSAGE_MAP()
 
 struct Resolution {
-    int Width;
-    int Height;
+	int Width;
+	int Height;
 };
 
 static std::vector<Resolution> dynamicResolutions;
 
 static Resolution s_supportedResolutions[] =
 {
-    { 800, 600 },
-    { 1024, 768 },
-    { 1152, 864 },
-    { 1280, 768 },
-    { 1280, 800 },
-    { 1280, 960 },
-    { 1280, 1024 },
-    { 1360, 768 },
-    { 1366, 768 },
-    { 1600, 1200 }
+	{ 800, 600 },
+	{ 1024, 768 },
+	{ 1152, 864 },
+	{ 1280, 768 },
+	{ 1280, 800 },
+	{ 1280, 960 },
+	{ 1280, 1024 },
+	{ 1360, 768 },
+	{ 1366, 768 },
+	{ 1600, 1200 }
 };
 
-static std::vector<Resolution> GetSupportedResolutions() {
-    if (dynamicResolutions.empty()) {
-        // load dynamic resolutions
-        // Get the primary monitor
-        DISPLAY_DEVICE device;
-        device.cb = sizeof(DISPLAY_DEVICE);
-        // we point to the device name instead of copying it / using it directly
-        // that way if we don't find a primary monitor, we pass NULL as the first param into EnumDisplaySettings
-        char *primaryDeviceName = NULL;
-        int deviceNumber = 0;
-        while (EnumDisplayDevices(NULL, deviceNumber, &device, EDD_GET_DEVICE_INTERFACE_NAME)) {
-            if (device.StateFlags & DISPLAY_DEVICE_PRIMARY_DEVICE) {
-                // Primary monitor found; get a pointer to the name and break out of the loop
-                primaryDeviceName = &device.DeviceName[0];
-                break;
-            }
+/*
+ * GetSupportedResolutions will return a vector of valid landscape resolutions for the primary monitor.
+ * if no resolutions are detectable for the primary monitor, falls back to the hard-coded list
+ */
+static std::vector<Resolution> GetSupportedResolutions()
+{
+	if (dynamicResolutions.empty())
+	{
+		// load dynamic resolutions
+		// Get the primary monitor
+		DISPLAY_DEVICE device;
+		device.cb = sizeof(DISPLAY_DEVICE);
+		// we point to the device name instead of copying it / using it directly
+		// that way if we don't find a primary monitor, we pass NULL as the first param into EnumDisplaySettings
+		char* primaryDeviceName = NULL;
+		int deviceNumber = 0;
+		while (EnumDisplayDevices(NULL, deviceNumber, &device, EDD_GET_DEVICE_INTERFACE_NAME))
+		{
+			if (device.StateFlags & DISPLAY_DEVICE_PRIMARY_DEVICE)
+			{
+				// Primary monitor found; get a pointer to the name and break out of the loop
+				primaryDeviceName = &device.DeviceName[0];
+				break;
+			}
 
-            deviceNumber++;
-        }
+			deviceNumber++;
+		}
 
-        // The same resolution can be listed many times on a monitor depending on available refresh rates.
-        // We'll use a set on total pixels (HxW) to filter out duplicates.  Since we're filtering out portriat
-        // resolutions we shouldn't get any odd collisions (width is always greater than height)
-        std::set<unsigned int> totalPixelSet;
+		// The same resolution can be listed many times on a monitor depending on available refresh rates.
+		// We'll use a set on total pixels (HxW) to filter out duplicates.  Since we're filtering out portriat
+		// resolutions we shouldn't get any odd collisions (width is always greater than height)
+		std::set<unsigned int> totalPixelSet;
 
-        // Discover resolution settings
-        DEVMODEA resolution;
-        for (int iModeNum = 0; EnumDisplaySettings(primaryDeviceName, iModeNum, &resolution) != 0; iModeNum++) {
-            // Filter out Portrait resolutions and duplicate entries
-            unsigned int totalPixels = resolution.dmPelsHeight * resolution.dmPelsWidth;
-            if (resolution.dmPelsHeight > resolution.dmPelsWidth || totalPixelSet.contains(totalPixels)) {
-                continue;
-            }
-            dynamicResolutions.push_back(
-                    Resolution{.Width = (int) resolution.dmPelsWidth, .Height = (int) resolution.dmPelsHeight});
-            totalPixelSet.insert(totalPixels);
-        }
+		// Discover resolution settings
+		DEVMODEA resolution;
+		for (int iModeNum = 0; EnumDisplaySettings(primaryDeviceName, iModeNum, &resolution) != 0; iModeNum++)
+		{
+			// Filter out Portrait resolutions and duplicate entries
+			unsigned int totalPixels = resolution.dmPelsHeight * resolution.dmPelsWidth;
+			if (resolution.dmPelsHeight > resolution.dmPelsWidth || totalPixelSet.contains(totalPixels))
+			{
+				continue;
+			}
+			dynamicResolutions.push_back(
+					Resolution { .Width = (int) resolution.dmPelsWidth, .Height = (int) resolution.dmPelsHeight });
+			totalPixelSet.insert(totalPixels);
+		}
 
-        totalPixelSet.clear();
+		totalPixelSet.clear();
 
-        if (dynamicResolutions.empty()) {
-            // We failed to dynamically pull available resolutions, fall back to the hard-coded set
-            for (Resolution r: s_supportedResolutions) {
-                dynamicResolutions.push_back(r);
-            }
-        }
+		if (dynamicResolutions.empty())
+		{
+			// We failed to dynamically pull available resolutions, fall back to the hard-coded set
+			for (Resolution r : s_supportedResolutions)
+			{
+				dynamicResolutions.push_back(r);
+			}
+		}
 
-        // sort the vector such that higher resolutions appear at the top of the drop down list.
-        // With modern monitors, this list can get pretty long.  If we're going to send a user scrolling for a
-        // resolution, it should be one that most users aren't looking for (who would want to play on 640x480?)
-        std::sort(dynamicResolutions.begin(), dynamicResolutions.end(), [](const Resolution &a, const Resolution &b) {
-            return a.Width > b.Width || ((a.Width == b.Width) && a.Height > b.Height);
-        });
-    }
+		// sort the vector such that higher resolutions appear at the top of the drop down list.
+		// With modern monitors, this list can get pretty long.  If we're going to send a user scrolling for a
+		// resolution, it should be one that most users aren't looking for (who would want to play on 640x480?)
+		std::sort(dynamicResolutions.begin(), dynamicResolutions.end(), [](const Resolution& a, const Resolution& b)
+		{
+			return a.Width > b.Width || ((a.Width == b.Width) && a.Height > b.Height);
+		});
+	}
 
-    // If dynamic resolutions fail to load for whatever reason, fall back to the original hardcoded list
-    return dynamicResolutions;
+	return dynamicResolutions;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -214,7 +226,7 @@ BOOL COptionDlg::OnInitDialog()
 	int iAdd = 0;
 
 	CString szResolution;
-    for (const auto &resolution: GetSupportedResolutions())
+	for (const auto &resolution: GetSupportedResolutions())
 	{
 		szResolution.Format(
 			_T("%d X %d"),
@@ -364,10 +376,11 @@ void COptionDlg::SettingSave(CString szIniFile)
 	m_Option.iViewWidth = 1024;
 	m_Option.iViewHeight = 768;
 
-	if (iSel >= 0 && iSel < (int) GetSupportedResolutions().size()) {
-        m_Option.iViewWidth = GetSupportedResolutions()[iSel].Width;
-        m_Option.iViewHeight = GetSupportedResolutions()[iSel].Height;
-    }
+	if (iSel >= 0 && iSel < (int) GetSupportedResolutions().size()) 
+	{
+		m_Option.iViewWidth = GetSupportedResolutions()[iSel].Width;
+		m_Option.iViewHeight = GetSupportedResolutions()[iSel].Height;
+	}
 
 	iSel = m_CB_ColorDepth.GetCurSel();
 	if (CB_ERR != iSel)
@@ -480,13 +493,15 @@ void COptionDlg::SettingUpdate()
 	CheckDlgButton(IDC_C_SHADOW, m_Option.iUseShadow);
 
 	int iSel = 0;
-    for (int i = 0; i < (int) GetSupportedResolutions().size(); i++) {
-        if (m_Option.iViewWidth == GetSupportedResolutions()[i].Width &&
-            m_Option.iViewHeight == GetSupportedResolutions()[i].Height) {
-            iSel = i;
-            break;
-        }
-    }
+	for (int i = 0; i < (int) GetSupportedResolutions().size(); i++)
+	{
+		if (m_Option.iViewWidth == GetSupportedResolutions()[i].Width &&
+			m_Option.iViewHeight == GetSupportedResolutions()[i].Height)
+		{
+			iSel = i;
+			break;
+		}
+	}
 
 	m_CB_Resolution.SetCurSel(iSel);
 
