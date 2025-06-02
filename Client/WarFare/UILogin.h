@@ -56,29 +56,46 @@ protected:
 	CN3UIButton* m_pBtn_Cancel;
 	CN3UIButton* m_pBtn_Option;
 	CN3UIButton* m_pBtn_Join;
+	
+	CN3UIButton* m_pBtn_NoticeOK_1;
+	CN3UIButton* m_pBtn_NoticeOK_2;
+	CN3UIButton* m_pBtn_NoticeOK_3;
+
+	CN3UIString* m_pStr_Premium;
 
 	CN3UIBase*	m_pGroup_ServerList;
 	CN3UIBase*	m_pGroup_LogIn;
 	
+	CN3UIBase* m_pGroup_Notice_1;
+	CN3UIBase* m_pGroup_Notice_2;
+	CN3UIBase* m_pGroup_Notice_3;
+
+
 	CN3UIBase* m_pText_Rights;
 	CN3UIBase* m_pImg_MGameLogo;
 	CN3UIBase* m_pImg_DaumLogo;
 	CN3UIBase* m_pImg_GradeLogo;
 
-	CN3UIList*	m_pList_Server;
-	
+	CN3UIBase* m_pServer_Group[20];
+	CN3UIBase* m_pArrow_Group[20];
+
 	std::vector<__GameServerInfo> m_ListServerInfos;
 
 	bool	m_bOpenningNow; // 위에서 아래로 스르륵...열려야 한다면..
+	bool	m_bNoticeScreen;
 	float 	m_fMoveDelta;
 	bool	m_bLogIn; // 로그인 중복 방지..
-
+	int		m_iSelectedServerIndex;
+	std::string m_strNoticeText;
 public:
 	void SetRequestedLogIn(bool bLogIn) { m_bLogIn = bLogIn; }
 	bool OnKeyPress(int iKey);
 	void RecalcGradePos();
 	void SetVisibleLogInUIs(bool bEnable); // 계정 LogIn 에 필요한 UI 들을 숨긴다..
 	void OpenServerList();
+	void OpenNoticePage();
+	void AddNoticeText(std::string strNoticeText);
+
 	void Tick();
 
 	void InitEditControls();
