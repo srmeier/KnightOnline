@@ -261,18 +261,18 @@ BOOL COptionDlg::OnInitDialog()
 	iAdd = m_CB_ColorDepth.AddString(_T("32 Bit"));
 	m_CB_ColorDepth.SetItemData(iAdd, 32);
 
-	char szBuff[256] = "";
-	GetCurrentDirectoryA(sizeof(szBuff), szBuff);
+	TCHAR szBuff[_MAX_PATH] = {};
+	GetCurrentDirectory(sizeof(szBuff), szBuff);
 
 	m_szInstalledPath = szBuff;
 
 	// Version 표시
-	CString szServerIniPath = m_szInstalledPath + "\\Server.Ini";
+	CString szServerIniPath = m_szInstalledPath + _T("\\Server.Ini");
 	DWORD dwVersion = GetPrivateProfileInt(_T("Version"), _T("Files"), 0, szServerIniPath);
 	SetDlgItemInt(IDC_E_VERSION, dwVersion);
 
 	// 세팅을 읽어온다..
-	SettingLoad(m_szInstalledPath + "\\Option.ini");
+	SettingLoad(m_szInstalledPath + _T("\\Option.ini"));
 	SettingUpdate();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -329,7 +329,7 @@ HCURSOR COptionDlg::OnQueryDragIcon()
 
 void COptionDlg::OnOK()
 {
-	SettingSave(m_szInstalledPath + "\\Option.ini");
+	SettingSave(m_szInstalledPath + _T("\\Option.ini"));
 
 	CDialog::OnOK();
 }
@@ -563,17 +563,10 @@ void COptionDlg::OnBVersion()
 	if (IDNO == MessageBox(szMsg, _T(""), MB_YESNO))
 		return;
 
-	// 레지스트리에서 설치된 폴더를 읽어온다..
-#if 0 // NOTE: officially this is still a thing, it's just useless:
-	CString szProduct, szKey = _T("SOFTWARE\\");
-	szProduct.LoadString(IDS_PRODUCT);
-	szKey += szProduct;
-#endif
-
 	DWORD dwVersion = GetDlgItemInt(IDC_E_VERSION);
 
 	CString szVersion, szServerIniPath;
 	szVersion.Format(_T("%d"), dwVersion);
-	szServerIniPath = m_szInstalledPath + "\\Server.ini";
+	szServerIniPath = m_szInstalledPath + _T("\\Server.ini");
 	WritePrivateProfileString(_T("Version"), _T("Files"), szVersion, szServerIniPath);
 }
