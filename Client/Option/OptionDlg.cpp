@@ -126,7 +126,6 @@ constexpr Resolution MIN_RESOLUTION = { 1024, 768 };
  */
 void COptionDlg::LoadSupportedResolutions()
 {
-	// load dynamic resolutions
 	// Get the primary monitor
 	DISPLAY_DEVICE device = {};
 	device.cb = sizeof(DISPLAY_DEVICE);
@@ -147,44 +146,49 @@ void COptionDlg::LoadSupportedResolutions()
 		deviceNumber++;
 	}
 
+	// Order such that higher resolutions appear at the top of the drop down list.
+	// With modern monitors, this list can get pretty long.
+	// If we're going to send a user scrolling for a resolution, it should be one that most
+	// users aren't looking for.
+	auto cmp = [](const Resolution& a, const Resolution& b) -> bool
+	{
+		return a.Width > b.Width
+			|| (a.Width == b.Width && a.Height > b.Height);
+	};
+
 	// The same resolution can be listed many times on a monitor depending on available refresh rates.
-	// We'll use a set on total pixels (HxW) to filter out duplicates.  Since we're filtering out portriat
-	// resolutions we shouldn't get any odd collisions (width is always greater than height)
-	std::set<uint32_t> totalPixelSet;
+	// We should limit it to unique resolutions only.
+	std::set<Resolution, decltype(cmp)> loadedResolutions(cmp);
 
 	// Discover resolution settings
-	DEVMODE resolution = {};
-	resolution.dmSize = sizeof(DEVMODE);
-	for (int iModeNum = 0; EnumDisplaySettings(primaryDeviceName, iModeNum, &resolution); iModeNum++)
+	DEVMODE devmode = {};
+	devmode.dmSize = sizeof(DEVMODE);
+	for (int iModeNum = 0; EnumDisplaySettings(primaryDeviceName, iModeNum, &devmode); iModeNum++)
 	{
-		// Filter out resolutions with dimensions smaller than our minimum (1024x768)
-		if (resolution.dmPelsWidth < MIN_RESOLUTION.Width
-			|| resolution.dmPelsHeight < MIN_RESOLUTION.Height)
-			continue;
-
 		// Only support 32-bit resolutions.
 		// Officially the game supports 16-bit, but we only care about the resolutions themselves here.
 		// We also just don't really bother to go out of our way to support that anymore anyway.
-		if (resolution.dmBitsPerPel != 32)
+		if (devmode.dmBitsPerPel != 32)
 			continue;
 
-		// Filter out Portrait resolutions and duplicate entries
-		uint32_t totalPixels = resolution.dmPelsHeight * resolution.dmPelsWidth;
-		if (resolution.dmPelsHeight > resolution.dmPelsWidth
-			|| totalPixelSet.contains(totalPixels))
+		Resolution resolution = { devmode.dmPelsWidth, devmode.dmPelsHeight };
+
+		// Filter out resolutions with dimensions smaller than our minimum (1024x768)
+		if (resolution.Width < MIN_RESOLUTION.Width
+			|| resolution.Height < MIN_RESOLUTION.Height)
 			continue;
 
-		s_supportedResolutions.emplace_back(
-			resolution.dmPelsWidth,
-			resolution.dmPelsHeight);
-		totalPixelSet.insert(totalPixels);
+		auto itr = loadedResolutions.insert(resolution);
+		if (!itr.second)
+			continue;
+
+		s_supportedResolutions.push_back(
+			std::move(resolution));
 	}
 
-	totalPixelSet.clear();
-
+	// We failed to dynamically pull available resolutions, fall back to the hardcoded list
 	if (s_supportedResolutions.empty())
 	{
-		// We failed to dynamically pull available resolutions, fall back to the hardcoded list
 		s_supportedResolutions.insert(
 			s_supportedResolutions.begin(),
 			std::begin(DefaultResolutions),
@@ -192,17 +196,10 @@ void COptionDlg::LoadSupportedResolutions()
 	}
 
 	// Sort the vector such that higher resolutions appear at the top of the drop down list.
-	// With modern monitors, this list can get pretty long.
-	// If we're going to send a user scrolling for a resolution, it should be one that most
-	// users aren't looking for.
 	std::sort(
 		s_supportedResolutions.begin(),
 		s_supportedResolutions.end(),
-		[](const Resolution& a, const Resolution& b)
-	{
-		return a.Width > b.Width
-			|| ((a.Width == b.Width && a.Height > b.Height));
-	});
+		cmp);
 }
 
 /////////////////////////////////////////////////////////////////////////////
