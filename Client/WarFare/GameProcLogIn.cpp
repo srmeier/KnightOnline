@@ -227,7 +227,7 @@ bool CGameProcLogIn::MsgSend_NoticeText()
 	uint8_t byBuff[2];									
 	int iOffset = 0;										
 
-	uint8_t byCmd = N3_NOTICE_TEXT;
+	uint8_t byCmd = N3_NEWS;
 	
 	CAPISocket::MP_AddByte(byBuff, iOffset, byCmd);					
 
@@ -485,7 +485,7 @@ bool CGameProcLogIn::ProcessPacket(Packet & pkt)
 		case N3_ACCOUNT_LOGIN_MGAME: // MGame 계정 접속 성공..
 			MsgRecv_AccountLogIn(iCmd, pkt);
 			return true;
-		case N3_NOTICE_TEXT:
+		case N3_NEWS:
 			this->MsgRecv_NoticeText(pkt);
 			return true;
 	}
