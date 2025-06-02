@@ -113,7 +113,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		else if (pSender == m_pBtn_NoticeOK_1 || pSender == m_pBtn_NoticeOK_2 ||
 				 pSender == m_pBtn_NoticeOK_3)
 		{
-			this->OpenServerList();
+			OpenServerList();
 		}
 	}
 	else if (UIMSG_STRING_LDCLICK == dwMsg) // double click on string
@@ -724,7 +724,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 			CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[m_iSelectedServerIndex]->GetChildByID("List_Server");
 			__ASSERT(pStrServer, "NULL UI Component!!");
 
-			this->ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+			ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
 			
 		}
 		return true;
@@ -741,7 +741,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 			CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[m_iSelectedServerIndex]->GetChildByID("List_Server");
 			__ASSERT(pStrServer, "NULL UI Component!!");
 
-			this->ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+			ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
 		}
 		return true;
 		case DIK_NUMPADENTER:
@@ -757,7 +757,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 				CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[0]->GetChildByID("List_Server");
 				__ASSERT(pStrServer, "NULL UI Component!!");
 
-				this->ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+				ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
 
 				
 			}
