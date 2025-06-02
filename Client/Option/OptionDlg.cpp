@@ -96,7 +96,8 @@ BEGIN_MESSAGE_MAP(COptionDlg, CDialog)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-struct Resolution {
+struct Resolution
+{
 	int Width;
 	int Height;
 };
