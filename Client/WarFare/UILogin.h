@@ -78,6 +78,7 @@ protected:
 	bool	m_bLogIn; // 로그인 중복 방지..
 	int		m_iSelectedServerIndex;
 	std::string m_strNoticeText;
+	static constexpr int MAX_SERVERS = 20;
 public:
 	void SetRequestedLogIn(bool bLogIn) { m_bLogIn = bLogIn; }
 	bool OnKeyPress(int iKey);

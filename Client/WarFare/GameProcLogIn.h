@@ -9,7 +9,6 @@ public:
 	
 	bool			m_bLogIn; // 로그인 중복 방지..
 	std::string		m_szRegistrationSite;
-	const static uint8_t	m_iMaxServer = 20; //maximum number of servers in .uif file
 
 public:
 	void	MsgRecv_GameServerGroupList(Packet& pkt);
