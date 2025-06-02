@@ -110,6 +110,7 @@
     <ClCompile Include="GameProcCharacterSelect.cpp" />
     <ClCompile Include="GameProcedure.cpp" />
     <ClCompile Include="GameProcLogIn.cpp" />
+    <ClCompile Include="GameProcLogInOld.cpp" />
     <ClCompile Include="GameProcMain.cpp" />
     <ClCompile Include="GameProcNationSelect.cpp" />
     <ClCompile Include="GameProcOption.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="UILoading.cpp" />
     <ClCompile Include="UILoadingDlg.cpp" />
     <ClCompile Include="UILogin.cpp" />
+    <ClCompile Include="UILoginOld.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIMessageBox.cpp" />
     <ClCompile Include="UIMessageBoxManager.cpp" />
@@ -207,6 +209,7 @@
     <ClInclude Include="GameProcCharacterSelect.h" />
     <ClInclude Include="GameProcedure.h" />
     <ClInclude Include="GameProcLogIn.h" />
+    <ClInclude Include="GameProcLogInOld.h" />
     <ClInclude Include="GameProcMain.h" />
     <ClInclude Include="GameProcNationSelect.h" />
     <ClInclude Include="GameProcOption.h" />
@@ -267,6 +270,7 @@
     <ClInclude Include="UILoading.h" />
     <ClInclude Include="UILoadingDlg.h" />
     <ClInclude Include="UILogin.h" />
+    <ClInclude Include="UILoginOld.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIMessageBox.h" />
     <ClInclude Include="UIMessageBoxManager.h" />
