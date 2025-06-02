@@ -125,7 +125,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 		for (int i = 0; i < MAX_SERVERS; ++i)
 		{
-			if (!m_pServer_Group[i]) continue;
+			if (m_pServer_Group[i] == nullptr) continue;
 
 			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
 			if (pSender == pStr)
@@ -142,7 +142,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 		for (int i = 0; i < MAX_SERVERS; ++i)
 		{
-			if (!m_pServer_Group[i]) continue;
+			if (m_pServer_Group[i] == nullptr) continue;
 
 			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
 			if (pStr) pStr->SetColor(0xFFFFFFFF); //white
@@ -150,7 +150,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 		for (int i = 0; i < MAX_SERVERS; ++i)
 		{
-			if (!m_pServer_Group[i]) continue;
+			if (m_pServer_Group[i] == nullptr) continue;
 
 			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
 			if (pSender == pStr)
