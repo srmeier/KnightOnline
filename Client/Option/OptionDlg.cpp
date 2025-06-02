@@ -231,7 +231,7 @@ BOOL COptionDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
-	
+
 	// 각종 컨트롤 초기화..
 	m_SldEffectCount.SetRange(1000, 2000);
 	m_SldViewDist.SetRange(256, 512);
@@ -295,7 +295,7 @@ void COptionDlg::OnSysCommand(UINT nID, LPARAM lParam)
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void COptionDlg::OnPaint() 
+void COptionDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -327,14 +327,14 @@ HCURSOR COptionDlg::OnQueryDragIcon()
 	return (HCURSOR) m_hIcon;
 }
 
-void COptionDlg::OnOK() 
+void COptionDlg::OnOK()
 {
 	SettingSave(m_szInstalledPath + "\\Option.ini");
 
 	CDialog::OnOK();
 }
 
-void COptionDlg::OnBApplyAndExecute() 
+void COptionDlg::OnBApplyAndExecute()
 {
 	CString szExeFN = m_szInstalledPath + _T("\\"); // 실행 파일 이름 만들고..
 	szExeFN += _T("Launcher.exe");
@@ -393,7 +393,7 @@ void COptionDlg::SettingSave(CString szIniFile)
 	m_Option.iViewHeight = 768;
 
 	if (iSel >= 0
-		&& iSel < (int) s_supportedResolutions.size()) 
+		&& iSel < (int) s_supportedResolutions.size())
 	{
 		m_Option.iViewWidth = s_supportedResolutions[iSel].Width;
 		m_Option.iViewHeight = s_supportedResolutions[iSel].Height;
@@ -541,19 +541,19 @@ void COptionDlg::SettingUpdate()
 	CheckDlgButton(IDC_C_SHOW_WEAPON_EFFECT, m_Option.bEffectVisible);
 }
 
-void COptionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) 
+void COptionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
-	if ((void*)pScrollBar == (void*)(&m_SldEffectCount))
+	if ((void*) pScrollBar == (void*) (&m_SldEffectCount))
 		m_Option.iEffectCount = m_SldEffectCount.GetPos();
-	else if ((void*)pScrollBar == (void*)(&m_SldViewDist))
+	else if ((void*) pScrollBar == (void*) (&m_SldViewDist))
 		m_Option.iViewDist = m_SldViewDist.GetPos();
-	else if ((void*)pScrollBar == (void*)(&m_SldEffectSoundDist))
+	else if ((void*) pScrollBar == (void*) (&m_SldEffectSoundDist))
 		m_Option.iEffectSndDist = m_SldEffectSoundDist.GetPos();
 
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
-void COptionDlg::OnBVersion() 
+void COptionDlg::OnBVersion()
 {
 	CString szMsg;
 	szMsg.LoadString(IDS_CONFIRM_WRITE_REGISRY);
