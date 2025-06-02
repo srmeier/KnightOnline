@@ -51,9 +51,11 @@ CUILogIn::CUILogIn()
 
 	m_iSelectedServerIndex = -1;
 
-	for (size_t i = 1; i <= MAX_SERVERS; i++) m_pServer_Group[i - 1] = NULL;
-
-	for (size_t i = 1; i <= MAX_SERVERS; i++) m_pArrow_Group[i - 1] = NULL;
+	for (size_t i = 1; i <= MAX_SERVERS; i++)
+	{
+		m_pServer_Group[i - 1] = NULL;
+		m_pArrow_Group[i - 1] = NULL;
+	} 
 
 	m_bOpenningNow = false; // 위에서 아래로 스르륵...열려야 한다면..
 	m_bNoticeScreen = false; 
