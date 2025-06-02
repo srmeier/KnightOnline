@@ -39,6 +39,21 @@ CUILogIn::CUILogIn()
 	m_pGroup_Notice_2 = NULL;
 	m_pGroup_Notice_3 = NULL;
 
+	m_pText_Notice1_Name_1 = NULL; 
+	m_pText_Notice1_Text_1 = NULL;
+
+	m_pText_Notice2_Name_1 = NULL;
+	m_pText_Notice2_Text_1 = NULL;
+	m_pText_Notice2_Name_2 = NULL;
+	m_pText_Notice2_Text_2 = NULL;
+
+	m_pText_Notice3_Name_1 = NULL;
+	m_pText_Notice3_Text_1 = NULL;
+	m_pText_Notice3_Name_2 = NULL;
+	m_pText_Notice3_Text_2 = NULL;
+	m_pText_Notice3_Name_3 = NULL;
+	m_pText_Notice3_Text_3 = NULL;
+
 	m_pBtn_NoticeOK_1 = NULL;
 	m_pBtn_NoticeOK_2 = NULL;
 	m_pBtn_NoticeOK_3 = NULL;
@@ -227,6 +242,37 @@ bool CUILogIn::Load(HANDLE hFile)
 	__ASSERT(m_pBtn_NoticeOK_2, "NULL UI Component!!");
 	m_pBtn_NoticeOK_3 = (CN3UIButton*) m_pGroup_Notice_3->GetChildByID("btn_ok");
 	__ASSERT(m_pBtn_NoticeOK_3, "NULL UI Component!!");
+
+	
+	//notice titles and texts
+	m_pText_Notice1_Name_1 = (CN3UIString*) m_pGroup_Notice_1->GetChildByID("text_notice_name_01");
+	__ASSERT(m_pText_Notice1_Name_1, "NULL UI Component!!");
+	m_pText_Notice1_Text_1 = (CN3UIString*) m_pGroup_Notice_1->GetChildByID("text_notice_01");
+	__ASSERT(m_pText_Notice1_Text_1, "NULL UI Component!!");
+
+	//2nd notice group
+	m_pText_Notice2_Name_1 = (CN3UIString*) m_pGroup_Notice_2->GetChildByID("text_notice_name_01");
+	__ASSERT(m_pText_Notice2_Name_1, "NULL UI Component!!");
+	m_pText_Notice2_Text_1 = (CN3UIString*) m_pGroup_Notice_2->GetChildByID("text_notice_01");
+	__ASSERT(m_pText_Notice2_Text_1, "NULL UI Component!!");
+	m_pText_Notice2_Name_2 = (CN3UIString*) m_pGroup_Notice_2->GetChildByID("text_notice_name_02");
+	__ASSERT(m_pText_Notice2_Name_2, "NULL UI Component!!");
+	m_pText_Notice2_Text_2 = (CN3UIString*) m_pGroup_Notice_2->GetChildByID("text_notice_02");
+	__ASSERT(m_pText_Notice2_Text_2, "NULL UI Component!!");
+
+	//3rd notice group
+	m_pText_Notice3_Name_1 = (CN3UIString*) m_pGroup_Notice_3->GetChildByID("text_notice_name_01");
+	__ASSERT(m_pText_Notice3_Name_1, "NULL UI Component!!");
+	m_pText_Notice3_Text_1 = (CN3UIString*) m_pGroup_Notice_3->GetChildByID("text_notice_01");
+	__ASSERT(m_pText_Notice3_Text_1, "NULL UI Component!!");
+	m_pText_Notice3_Name_2 = (CN3UIString*) m_pGroup_Notice_3->GetChildByID("text_notice_name_02");
+	__ASSERT(m_pText_Notice3_Name_2, "NULL UI Component!!");
+	m_pText_Notice3_Text_2 = (CN3UIString*) m_pGroup_Notice_3->GetChildByID("text_notice_02");
+	__ASSERT(m_pText_Notice3_Text_2, "NULL UI Component!!");
+	m_pText_Notice3_Name_3 = (CN3UIString*) m_pGroup_Notice_3->GetChildByID("text_notice_name_03");
+	__ASSERT(m_pText_Notice3_Name_3, "NULL UI Component!!");
+	m_pText_Notice3_Text_3 = (CN3UIString*) m_pGroup_Notice_3->GetChildByID("text_notice_03");
+	__ASSERT(m_pText_Notice3_Text_3, "NULL UI Component!!");
 
 	//set notice boxes' visibility as false
 	m_pGroup_Notice_1->SetVisible(false);
@@ -474,84 +520,30 @@ void CUILogIn::AddNoticeText(std::string strNoticeText)
 
 	if (iReqNoticeBox <= 1)
 	{
-		CN3UIBase* pNoticeBox = GetChildByID("Group_Notice_1");
-		__ASSERT(pNoticeBox, "NULL UI Component!!");
-
-		CN3UIString* pNoticeTextTitle = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_01");
-		__ASSERT(pNoticeTextTitle, "NULL UI Component!!");
-
-		pNoticeTextTitle->SetString(pieces[0]);
-
-		CN3UIString* pNoticeTextContent = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_01");
-		__ASSERT(pNoticeTextContent, "NULL UI Component!!");
-
-		pNoticeTextContent->SetString(pieces[1]);
-
-		pNoticeBox->SetVisible(true);
+		m_pText_Notice1_Name_1->SetString(pieces[0]);
+		m_pText_Notice1_Text_1->SetString(pieces[1]);
+		m_pGroup_Notice_1->SetVisible(true);
 	}
 	else if (iReqNoticeBox == 2)
 	{
-		CN3UIBase* pNoticeBox = GetChildByID("Group_Notice_2");
-		__ASSERT(pNoticeBox, "NULL UI Component!!");
-
-		CN3UIString* pNoticeTextTitle1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_01");
-		__ASSERT(pNoticeTextTitle1, "NULL UI Component!!");
-
-		pNoticeTextTitle1->SetString(pieces[0]);
-
-		CN3UIString* pNoticeTextContent1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_01");
-		__ASSERT(pNoticeTextContent1, "NULL UI Component!!");
-
-		pNoticeTextContent1->SetString(pieces[1]);
-
-		CN3UIString* pNoticeTextTitle2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_02");
-		__ASSERT(pNoticeTextTitle2, "NULL UI Component!!");
-		
-		pNoticeTextTitle2->SetString(pieces[2]);
-
-		CN3UIString* pNoticeTextContent2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_02");
-		__ASSERT(pNoticeTextContent2, "NULL UI Component!!");
-
-		pNoticeTextContent2->SetString(pieces[3]);
-
-		pNoticeBox->SetVisible(true);
+		m_pText_Notice2_Name_1->SetString(pieces[0]);
+		m_pText_Notice2_Text_1->SetString(pieces[1]);
+		m_pText_Notice2_Name_2->SetString(pieces[2]);
+		m_pText_Notice2_Text_2->SetString(pieces[3]);
+		m_pGroup_Notice_2->SetVisible(true);
 	}
 	else if (iReqNoticeBox == 3)
 	{
-		CN3UIBase* pNoticeBox = GetChildByID("Group_Notice_3");
-		__ASSERT(pNoticeBox, "NULL UI Component!!");
+		m_pText_Notice3_Name_1->SetString(pieces[0]);
+		m_pText_Notice3_Text_1->SetString(pieces[1]);
 
-		CN3UIString* pNoticeTextTitle1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_01");
-		__ASSERT(pNoticeTextTitle1, "NULL UI Component!!");
+		m_pText_Notice3_Name_2->SetString(pieces[2]);
+		m_pText_Notice3_Text_2->SetString(pieces[3]);
 
-		pNoticeTextTitle1->SetString(pieces[0]);
+		m_pText_Notice3_Name_3->SetString(pieces[4]);
+		m_pText_Notice3_Text_3->SetString(pieces[5]);
 
-		CN3UIString* pNoticeTextContent1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_01");
-		__ASSERT(pNoticeTextContent1, "NULL UI Component!!");
-
-		pNoticeTextContent1->SetString(pieces[1]);
-
-		CN3UIString* pNoticeTextTitle2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_02");
-		__ASSERT(pNoticeTextTitle2, "NULL UI Component!!");
-
-		pNoticeTextTitle2->SetString(pieces[2]);
-
-		CN3UIString* pNoticeTextContent2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_02");
-		__ASSERT(pNoticeTextContent2, "NULL UI Component!!");
-
-		pNoticeTextContent2->SetString(pieces[3]);
-
-		CN3UIString* pNoticeTextTitle3 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_03");
-		__ASSERT(pNoticeTextTitle3, "NULL UI Component!!");
-
-		pNoticeTextTitle3->SetString(pieces[4]);
-
-		CN3UIString* pNoticeTextContent3 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_03");
-		__ASSERT(pNoticeTextContent3, "NULL UI Component!!");
-
-		pNoticeTextContent3->SetString(pieces[5]);
-
-		pNoticeBox->SetVisible(true);
+		m_pGroup_Notice_3->SetVisible(true);
 	}
 	else //skip notice page , notice = 0
 	{

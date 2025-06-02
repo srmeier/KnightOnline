@@ -69,10 +69,23 @@ protected:
 	CN3UIBase*	m_pGroup_ServerList;
 	CN3UIBase*	m_pGroup_LogIn;
 	
-	CN3UIBase* m_pGroup_Notice_1;
-	CN3UIBase* m_pGroup_Notice_2;
-	CN3UIBase* m_pGroup_Notice_3;
+	CN3UIBase* m_pGroup_Notice_1;		 //notice group
+	CN3UIString* m_pText_Notice1_Name_1; //notice title
+	CN3UIString* m_pText_Notice1_Text_1; //notice text
 
+	CN3UIBase* m_pGroup_Notice_2;
+	CN3UIString* m_pText_Notice2_Name_1; 
+	CN3UIString* m_pText_Notice2_Text_1; 
+	CN3UIString* m_pText_Notice2_Name_2;
+	CN3UIString* m_pText_Notice2_Text_2;
+
+	CN3UIBase* m_pGroup_Notice_3;
+	CN3UIString* m_pText_Notice3_Name_1;
+	CN3UIString* m_pText_Notice3_Text_1;
+	CN3UIString* m_pText_Notice3_Name_2;
+	CN3UIString* m_pText_Notice3_Text_2;
+	CN3UIString* m_pText_Notice3_Name_3;
+	CN3UIString* m_pText_Notice3_Text_3;
 
 	CN3UIBase* m_pText_Rights;
 	CN3UIBase* m_pImg_MGameLogo;
