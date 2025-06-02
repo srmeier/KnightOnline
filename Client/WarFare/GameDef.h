@@ -18,8 +18,8 @@
 #endif
 #include "shared/Packet.h"
 
-constexpr int CURRENT_VERSION = 1298;//1068; // 현재 버전
-
+constexpr int CURRENT_VERSION = 1298;	//1068; // 현재 버전
+constexpr int LOGIN_VERSION	  = 1068;	//1068;
 constexpr float PACKET_INTERVAL_MOVE = 1.5f;				// 정기적으로 보내는 패킷 시간 간격..
 constexpr float PACKET_INTERVAL_ROTATE = 4.0f;
 constexpr float PACKET_INTERVAL_REQUEST_TARGET_HP = 2.0f;

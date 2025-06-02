@@ -139,7 +139,11 @@ int APIENTRY WinMain(
 		hWndMain);
 
 	// set the game's current procedure to s_pProcLogIn
-	CGameProcedure::ProcActiveSet((CGameProcedure*)CGameProcedure::s_pProcLogIn);
+	(LOGIN_VERSION == 1298) ? 
+		CGameProcedure::ProcActiveSet((CGameProcedure*) CGameProcedure::s_pProcLogIn)
+		: 
+		CGameProcedure::ProcActiveSet((CGameProcedure*) CGameProcedure::s_pProcLogInOld);
+	
 
 #if _DEBUG
 	HACCEL hAccel = LoadAccelerators( NULL, MAKEINTRESOURCE(IDR_MAIN_ACCELATOR) );

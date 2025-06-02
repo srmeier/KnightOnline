@@ -63,6 +63,8 @@ public:
 	static class CUIMessageBoxManager*	s_pMsgBoxMgr;			// MessageBox Manager
 
 	static class CGameProcLogIn*			s_pProcLogIn;
+	static class CGameProcLogInOld*			s_pProcLogInOld;
+
 	static class CGameProcNationSelect*		s_pProcNationSelect;
 	static class CGameProcCharacterCreate*	s_pProcCharacterCreate;
 	static class CGameProcCharacterSelect*	s_pProcCharacterSelect;

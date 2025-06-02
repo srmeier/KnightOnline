@@ -18,6 +18,8 @@
 #include "PlayerMyself.h"
 #include "GameProcedure.h"
 #include "GameProcLogIn.h"
+#include "GameProcLogInOld.h"
+
 //#include "GameProcStart.h"
 #include "GameProcNationSelect.h"
 #include "GameProcCharacterCreate.h"
@@ -72,6 +74,7 @@ CGameProcedure*				CGameProcedure::s_pProcPrev = nullptr;
 CGameProcedure*				CGameProcedure::s_pProcActive = nullptr;
 
 CGameProcLogIn*				CGameProcedure::s_pProcLogIn = nullptr;
+CGameProcLogInOld*			CGameProcedure::s_pProcLogInOld = nullptr;
 CGameProcNationSelect*		CGameProcedure::s_pProcNationSelect = nullptr;
 CGameProcCharacterCreate*	CGameProcedure::s_pProcCharacterCreate = nullptr;
 CGameProcCharacterSelect*	CGameProcedure::s_pProcCharacterSelect = nullptr;
@@ -235,6 +238,7 @@ void CGameProcedure::StaticMemberInit(
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 각 프로시저들 생성
 	s_pProcLogIn			= new CGameProcLogIn();				// 로그인 프로시져
+	s_pProcLogInOld			= new CGameProcLogInOld();		
 	s_pProcNationSelect		= new CGameProcNationSelect();		// 나라 선택
 	s_pProcCharacterSelect	= new CGameProcCharacterSelect();	// 캐릭터 선택
 	s_pProcCharacterCreate	= new CGameProcCharacterCreate();	// 캐릭터 만들기
@@ -324,6 +328,7 @@ void CGameProcedure::StaticMemberRelease()
 
 	// 각 프로시저들
 	delete s_pProcLogIn; s_pProcLogIn = NULL; 						// 로그인 프로시져
+	delete s_pProcLogInOld; s_pProcLogInOld = NULL; 						// 로그인 프로시져
 	delete s_pProcNationSelect; s_pProcNationSelect = NULL; 		// 나라 선택
 	delete s_pProcCharacterSelect; s_pProcCharacterSelect = NULL; 	// 캐릭터 선택
 	delete s_pProcCharacterCreate; s_pProcCharacterCreate = NULL; 	// 캐릭터 만들기
