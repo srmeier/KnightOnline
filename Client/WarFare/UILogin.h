@@ -48,6 +48,9 @@ struct __GameServerInfo
 class CUILogIn : public CN3UIBase  
 {
 protected:
+
+	static constexpr int MAX_SERVERS = 20; //max number of servers in UIF file.
+
 	CN3UIEdit*	m_pEdit_id;
 	CN3UIEdit*	m_pEdit_pw;
 	
@@ -76,8 +79,8 @@ protected:
 	CN3UIBase* m_pImg_DaumLogo;
 	CN3UIBase* m_pImg_GradeLogo;
 
-	CN3UIBase* m_pServer_Group[20];
-	CN3UIBase* m_pArrow_Group[20];
+	CN3UIBase* m_pServer_Group[MAX_SERVERS];
+	CN3UIBase* m_pArrow_Group[MAX_SERVERS];
 
 	std::vector<__GameServerInfo> m_ListServerInfos;
 
@@ -87,7 +90,6 @@ protected:
 	bool	m_bLogIn; // 로그인 중복 방지..
 	int		m_iSelectedServerIndex;
 	std::string m_strNoticeText;
-	static constexpr int MAX_SERVERS = 20;
 public:
 	void SetRequestedLogIn(bool bLogIn) { m_bLogIn = bLogIn; }
 	bool OnKeyPress(int iKey);
