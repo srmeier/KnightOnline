@@ -55,9 +55,9 @@ CUILogIn::CUILogIn()
 
 	m_iSelectedServerIndex = -1;
 
-	for (size_t i = 1; i <= CGameProcLogIn::m_iMaxServer; i++) m_pServer_Group[i - 1] = NULL;
+	for (size_t i = 1; i <= MAX_SERVERS; i++) m_pServer_Group[i - 1] = NULL;
 
-	for (size_t i = 1; i <= CGameProcLogIn::m_iMaxServer; i++) m_pArrow_Group[i - 1] = NULL;
+	for (size_t i = 1; i <= MAX_SERVERS; i++) m_pArrow_Group[i - 1] = NULL;
 
 	m_bOpenningNow = false; // 위에서 아래로 스르륵...열려야 한다면..
 	m_bNoticeScreen = false; 
@@ -121,7 +121,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	else if (UIMSG_STRING_LDCLICK == dwMsg) // double click on string
 	{
 
-		for (int i = 0; i < CGameProcLogIn::m_iMaxServer; ++i)
+		for (int i = 0; i < MAX_SERVERS; ++i)
 		{
 			if (!m_pServer_Group[i]) continue;
 
@@ -138,7 +138,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	else if (UIMSG_STRING_LCLICK == dwMsg) //change color on left click
 	{
 
-		for (int i = 0; i < CGameProcLogIn::m_iMaxServer; ++i)
+		for (int i = 0; i < MAX_SERVERS; ++i)
 		{
 			if (!m_pServer_Group[i]) continue;
 
@@ -146,7 +146,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 			if (pStr) pStr->SetColor(0xFFFFFFFF); //white
 		}
 
-		for (int i = 0; i < CGameProcLogIn::m_iMaxServer; ++i)
+		for (int i = 0; i < MAX_SERVERS; ++i)
 		{
 			if (!m_pServer_Group[i]) continue;
 
@@ -242,7 +242,7 @@ bool CUILogIn::Load(HANDLE hFile)
 
 	
 	//get List_Server (structure : Group_ServerList_01 -> server_20 -> List_Server )
-	for (size_t i = 1; i <= CGameProcLogIn::m_iMaxServer; i++)
+	for (size_t i = 1; i <= MAX_SERVERS; i++)
 	{
 		std::string strPath = "server_" + std::to_string(i);
 		CN3UIBase* pChild = m_pGroup_ServerList->GetChildByID(strPath);
@@ -386,7 +386,7 @@ void CUILogIn::ServerInfoUpdate()
 		}
 
 		//hide ui of extra servers
-		for (size_t i = iSize; i < CGameProcLogIn::m_iMaxServer; i++)
+		for (size_t i = iSize; i < MAX_SERVERS; i++)
 		{
 			if (m_pServer_Group[i])
 			{
