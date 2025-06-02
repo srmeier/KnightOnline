@@ -5,23 +5,21 @@
 class CGameProcLogIn : public CGameProcedure
 {
 public:
-	class CN3Chr*		m_pChr;
-	class CN3Texture*	m_pTexBkg;
 	class CUILogIn*		m_pUILogIn;
-
-	class CN3Camera*	m_pCamera;
-	class CN3Light*		m_pLights[3];
-
+	
 	bool			m_bLogIn; // 로그인 중복 방지..
 	std::string		m_szRegistrationSite;
+	const static uint8_t	m_iMaxServer = 20; //maximum number of servers in .uif file
 
 public:
 	void	MsgRecv_GameServerGroupList(Packet& pkt);
 	void	MsgRecv_AccountLogIn(int iCmd, Packet& pkt);
 	int		MsgRecv_VersionCheck(Packet& pkt); // virtual
 	int		MsgRecv_GameServerLogIn(Packet& pkt); // virtual - 국가 번호를 리턴한다.
+	void	MsgRecv_NoticeText(Packet& pkt);
 
 	bool	MsgSend_AccountLogIn(enum e_LogInClassification eLIC);
+	bool	MsgSend_NoticeText();
 
 	void Release();
 	void Init();

@@ -5,7 +5,7 @@
 
 #include "N3UIEdit.h"
 #include "N3UIButton.h"
-#include "N3UIList.h"
+#include "N3UIString.h"
 #include "UIMessageBoxManager.h"
 #include <algorithm>
 #include <shellapi.h>
@@ -30,18 +30,33 @@ CUILogIn::CUILogIn()
 	m_pBtn_Cancel = nullptr;
 	m_pBtn_Option = nullptr;
 	m_pBtn_Join = nullptr;
+	
+	m_pGroup_Notice_1 = NULL;
+	m_pGroup_Notice_2 = NULL;
+	m_pGroup_Notice_3 = NULL;
 
-	m_pGroup_ServerList = nullptr;
-	m_pGroup_LogIn = nullptr;
+	m_pBtn_NoticeOK_1 = NULL;
+	m_pBtn_NoticeOK_2 = NULL;
+	m_pBtn_NoticeOK_3 = NULL;
 
-	m_pText_Rights = nullptr;
-	m_pImg_MGameLogo = nullptr;
-	m_pImg_DaumLogo = nullptr;
-	m_pImg_GradeLogo = nullptr;
+	m_pGroup_ServerList = NULL;
+	m_pGroup_LogIn = NULL;
 
-	m_pList_Server = nullptr;
+	m_pStr_Premium = NULL;
+
+	m_pText_Rights = NULL;
+	m_pImg_MGameLogo = NULL;
+	m_pImg_DaumLogo = NULL;
+	m_pImg_GradeLogo = NULL;
+
+	m_iSelectedServerIndex = -1;
+
+	for (size_t i = 1; i <= CGameProcLogIn::m_iMaxServer; i++) m_pServer_Group[i - 1] = NULL;
+
+	for (size_t i = 1; i <= CGameProcLogIn::m_iMaxServer; i++) m_pArrow_Group[i - 1] = NULL;
 
 	m_bOpenningNow = false; // 위에서 아래로 스르륵...열려야 한다면..
+	m_bNoticeScreen = false; 
 	m_fMoveDelta = 0;
 
 	m_bLogIn = false;
@@ -93,11 +108,52 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 			return true;
 		}
+		else if (pSender == m_pBtn_NoticeOK_1 || pSender == m_pBtn_NoticeOK_2 ||
+				 pSender == m_pBtn_NoticeOK_3)
+		{
+			this->OpenServerList();
+		}
 	}
-	else if (UIMSG_LIST_DBLCLK == dwMsg)
+	else if (UIMSG_STRING_LDCLICK == dwMsg) // double click on string
 	{
-		CGameProcedure::s_pProcLogIn->ConnectToGameServer(); // 고른 게임 서버에 접속
-		return true;
+
+		for (int i = 0; i < CGameProcLogIn::m_iMaxServer; ++i)
+		{
+			if (!m_pServer_Group[i]) continue;
+
+			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
+			if (pSender == pStr)
+			{
+				m_iSelectedServerIndex = i;
+				CGameProcedure::s_pProcLogIn->ConnectToGameServer();
+				return true;
+			}
+		}
+
+	}
+	else if (UIMSG_STRING_LCLICK == dwMsg) //change color on left click
+	{
+
+		for (int i = 0; i < CGameProcLogIn::m_iMaxServer; ++i)
+		{
+			if (!m_pServer_Group[i]) continue;
+
+			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
+			if (pStr) pStr->SetColor(0xFFFFFFFF); //white
+		}
+
+		for (int i = 0; i < CGameProcLogIn::m_iMaxServer; ++i)
+		{
+			if (!m_pServer_Group[i]) continue;
+
+			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
+			if (pSender == pStr)
+			{
+				pStr->SetColor(0xFFFFFF00); // A=255, R=255, G=255, B=0, yellow 
+				m_iSelectedServerIndex = i;
+				return true;
+			}
+		}
 	}
 	else if (dwMsg == UIMSG_EDIT_RETURN)
 	{
@@ -126,41 +182,83 @@ bool CUILogIn::Load(HANDLE hFile)
 
 	N3_VERIFY_UI_COMPONENT(m_pGroup_LogIn, GetChildByID("Group_LogIn"));
 
-	if (m_pGroup_LogIn != nullptr)
+	
+	RECT rc = m_pGroup_LogIn->GetRegion();
+	int iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
+	int iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
+	
+	//TODO: this is trivial, login group
+	//not centered so it has been pushed 180 more
+	m_pGroup_LogIn->SetPos(iX - 180, iY);
+	m_pGroup_LogIn->SetVisible(true);
+
+
+	m_pBtn_LogIn = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("btn_ok");		__ASSERT(m_pBtn_LogIn, "NULL UI Component!!");
+	m_pBtn_Cancel = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("btn_cancel");	__ASSERT(m_pBtn_Cancel, "NULL UI Component!!");
+	m_pBtn_Option = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("btn_option");	__ASSERT(m_pBtn_Option, "NULL UI Component!!");
+	m_pBtn_Join = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("btn_homepage");	__ASSERT(m_pBtn_Join, "NULL UI Component!!");
+
+	m_pEdit_id = (CN3UIEdit*)m_pGroup_LogIn->GetChildByID("Edit_ID");			__ASSERT(m_pEdit_id, "NULL UI Component!!");
+	m_pEdit_pw = (CN3UIEdit*)m_pGroup_LogIn->GetChildByID("Edit_PW");			__ASSERT(m_pEdit_pw, "NULL UI Component!!");
+
+	//m_pImg_GradeLogo = m_pGroup_LogIn->GetChildByID("Img_Grade");	__ASSERT(m_pImg_GradeLogo, "NULL UI Component!!");
+
+	//m_pText_Rights = GetChildByID("Text_Rights");	__ASSERT(m_pText_Rights, "NULL UI Component!!");
+	//m_pImg_MGameLogo = GetChildByID("Img_MGame");	__ASSERT(m_pImg_MGameLogo, "NULL UI Component!!");
+	//m_pImg_DaumLogo = GetChildByID("Img_Daum");	__ASSERT(m_pImg_DaumLogo, "NULL UI Component!!");
+
+	//if (m_pText_Rights) m_pText_Rights->SetVisible(false);
+	//if (m_pImg_MGameLogo) m_pImg_MGameLogo->SetVisible(false);
+	//if (m_pImg_DaumLogo) m_pImg_DaumLogo->SetVisible(false);
+
+	//get notice boxes
+	m_pGroup_Notice_1 = GetChildByID("Group_Notice_1");		__ASSERT(m_pGroup_Notice_1, "NULL UI Component!!");
+	m_pGroup_Notice_2 = GetChildByID("Group_Notice_2");		__ASSERT(m_pGroup_Notice_2, "NULL UI Component!!");
+	m_pGroup_Notice_3 = GetChildByID("Group_Notice_3");		__ASSERT(m_pGroup_Notice_3, "NULL UI Component!!");
+	
+	m_pBtn_NoticeOK_1 = (CN3UIButton*) m_pGroup_Notice_1->GetChildByID("btn_ok");
+	__ASSERT(m_pBtn_NoticeOK_1, "NULL UI Component!!");
+	m_pBtn_NoticeOK_2 = (CN3UIButton*) m_pGroup_Notice_2->GetChildByID("btn_ok");
+	__ASSERT(m_pBtn_NoticeOK_2, "NULL UI Component!!");
+	m_pBtn_NoticeOK_3 = (CN3UIButton*) m_pGroup_Notice_3->GetChildByID("btn_ok");
+	__ASSERT(m_pBtn_NoticeOK_3, "NULL UI Component!!");
+
+	//set notice boxes' visibility as false
+	m_pGroup_Notice_1->SetVisible(false);
+	m_pGroup_Notice_2->SetVisible(false);
+	m_pGroup_Notice_3->SetVisible(false);
+
+	m_pStr_Premium = (CN3UIString*) GetChildByID("premium");
+	__ASSERT(m_pStr_Premium, "NULL UI Component!!");
+	m_pStr_Premium->SetVisible(false);
+
+	m_pGroup_ServerList = GetChildByID("Group_ServerList_01");	
+	__ASSERT(m_pGroup_ServerList, "NULL UI Component!!");
+	
+	m_pGroup_ServerList->SetVisible(false);
+
+	
+	//get List_Server (structure : Group_ServerList_01 -> server_20 -> List_Server )
+	for (size_t i = 1; i <= CGameProcLogIn::m_iMaxServer; i++)
 	{
-		N3_VERIFY_UI_COMPONENT(m_pBtn_LogIn,	(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Login"));
-		N3_VERIFY_UI_COMPONENT(m_pBtn_Cancel,	(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Cancel"));
-		N3_VERIFY_UI_COMPONENT(m_pBtn_Option,	(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Option"));
-		N3_VERIFY_UI_COMPONENT(m_pBtn_Join,		(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Join"));
+		std::string strPath = "server_" + std::to_string(i);
+		CN3UIBase* pChild = m_pGroup_ServerList->GetChildByID(strPath);
 
-		N3_VERIFY_UI_COMPONENT(m_pEdit_id,		(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_ID"));
-		N3_VERIFY_UI_COMPONENT(m_pEdit_pw,		(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_PW"));
+		std::string strPathImage = "img_arrow" + std::to_string(i);
+		CN3UIBase* pChildImage = m_pGroup_ServerList->GetChildByID(strPathImage);
 
-		// N3_VERIFY_UI_COMPONENT(m_pImg_GradeLogo,	m_pGroup_LogIn->GetChildByID("Img_Grade"));
+			
+		if (!pChild || !pChildImage)
+			continue; 
+		
+		m_pServer_Group[i - 1] = pChild;
+		m_pArrow_Group[i - 1] = pChildImage;
+
 	}
 
-	N3_VERIFY_UI_COMPONENT(m_pText_Rights,		GetChildByID("Text_Rights"));
-	N3_VERIFY_UI_COMPONENT(m_pImg_MGameLogo,	GetChildByID("Img_MGame"));
-	N3_VERIFY_UI_COMPONENT(m_pImg_DaumLogo,		GetChildByID("Img_Daum"));
-
-	if (m_pText_Rights != nullptr)
-		m_pText_Rights->SetVisible(false);
-
-	if (m_pImg_MGameLogo != nullptr)
-		m_pImg_MGameLogo->SetVisible(false);
-
-	if (m_pImg_DaumLogo != nullptr)
-		m_pImg_DaumLogo->SetVisible(false);
-
-	N3_VERIFY_UI_COMPONENT(m_pGroup_ServerList, GetChildByID("Group_ServerList"));
-	if (m_pGroup_ServerList != nullptr)
-	{
-		N3_VERIFY_UI_COMPONENT(m_pList_Server,	(CN3UIList*) m_pGroup_ServerList->GetChildByID("List_Server"));
-		N3_VERIFY_UI_COMPONENT(m_pBtn_Connect,	(CN3UIButton*) m_pGroup_ServerList->GetChildByID("Btn_Connect"));
-
-		m_pGroup_ServerList->SetVisible(false);
-	}
-
+	m_pBtn_Connect = (CN3UIButton*)m_pGroup_ServerList->GetChildByID("Btn_Connect");	
+	__ASSERT(m_pBtn_Connect, "NULL UI Component!!");
+		
 	return true;
 }
 
@@ -182,14 +280,11 @@ void CUILogIn::AccountPWGet(std::string& szPW)
 
 void CUILogIn::ConnectButtonSetEnable(bool bEnable)
 {
+
 	eUI_STATE eState1 = (bEnable ? UI_STATE_BUTTON_NORMAL : UI_STATE_BUTTON_DISABLE);
-	eUI_STATE eState2 = (bEnable ? UI_STATE_LIST_ENABLE : UI_STATE_LIST_DISABLE);
 
 	if (m_pBtn_Connect != nullptr)
 		m_pBtn_Connect->SetState(eState1);
-
-	if (m_pList_Server != nullptr)
-		m_pList_Server->SetState(eState2);
 }
 
 void CUILogIn::FocusToID()
@@ -230,8 +325,7 @@ bool CUILogIn::ServerInfoAdd(const __GameServerInfo& GSI)
 
 bool CUILogIn::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
 {
-	if (m_pList_Server == nullptr
-		|| iIndex < 0
+	if (iIndex < 0
 		|| iIndex >= (int) m_ListServerInfos.size())
 		return false;
 
@@ -243,25 +337,65 @@ bool CUILogIn::ServerInfoGetCur(__GameServerInfo& GSI)
 {
 	GSI.Init();
 
-	if (m_pList_Server == nullptr)
-		return false;
-
-	int iIndex = m_pList_Server->GetCurSel();
-	return ServerInfoGet(iIndex, GSI);
+	return ServerInfoGet(m_iSelectedServerIndex, GSI);
 }
 
 void CUILogIn::ServerInfoUpdate()
 {
-	if (m_pList_Server == nullptr)
-		return;
-
-	m_pList_Server->ResetContent();
+	
 	if (!m_ListServerInfos.empty())
 	{
 		//sort(m_ListServerInfos.begin(), m_ListServerInfos.end(), not2(__GameServerInfo()));
-		for (const __GameServerInfo& GSI : m_ListServerInfos)
-			m_pList_Server->AddString(GSI.szName);
+		int iSize = m_ListServerInfos.size();
+
+		//show ui of existing servers
+		int iMaxPlayerCount = 3000;
+		int iNumUserForLine = 3000 / 12;
+		int iNumLines = 1;
+
+		for (size_t i = 0; i < iSize; i++)
+		{
+			if (m_pServer_Group[i])
+			{
+
+				CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
+				__ASSERT(pStr, "NULL UI Component!!");
+
+				pStr->SetString(m_ListServerInfos[i].szName);
+				m_pServer_Group[i]->SetVisible(true); 
+				m_pArrow_Group[i]->SetVisible(true);
+
+				//hide number of lines with respect to user number
+				iNumLines = m_ListServerInfos[i].iConcurrentUserCount / iNumUserForLine;
+
+				if (iNumLines < 1) //minimum 1 lines
+					iNumLines = 1;
+
+				if (iNumLines > 12) //uif file has max 12 lines 
+					iNumLines = 12;
+
+				//ids of lines set as 1,2,3 ... 12 in .uif file
+				for (size_t j = iNumLines + 1; j <= 12; j++)
+					m_pServer_Group[i]->GetChildByID(std::to_string(j))->SetVisible(false);
+
+			}
+		}
+
+		//hide ui of extra servers
+		for (size_t i = iSize; i < CGameProcLogIn::m_iMaxServer; i++)
+		{
+			if (m_pServer_Group[i])
+			{
+				m_pServer_Group[i]->SetVisible(false);
+				m_pArrow_Group[i]->SetVisible(false);
+			}
+		}
+	 
+		//TODO: Show Premium info if user have premium
+
 	}
+
+	
 }
 
 void CUILogIn::Tick()
@@ -270,9 +404,9 @@ void CUILogIn::Tick()
 
 	if (m_pGroup_ServerList != nullptr)
 	{
-		// 위에서 아래로 스르륵...열려야 한다면..
-		if (m_bOpenningNow)
+		if (m_bOpenningNow) // slide effect opening, from top to bottom
 		{
+			TRACE("TEST___");
 			POINT ptCur = m_pGroup_ServerList->GetPos();
 			RECT rc = m_pGroup_ServerList->GetRegion();
 			float fHeight = (float) (rc.bottom - rc.top);
@@ -296,19 +430,180 @@ void CUILogIn::Tick()
 	}
 }
 
+void CUILogIn::AddNoticeText(std::string strNoticeText)
+{
+	//TODO: needs improvement	
+
+	std::string input = strNoticeText;
+	std::string pieces[10];
+	int count = 0;
+
+	size_t BOX_START_LEN = 3; // '#', 0x00, '\n'
+	size_t BOX_END_LEN = 5;   // '#', 0x00, '\n', 0x00, '\n'
+
+	size_t searchPos = 0;
+	while (count + 1 < 10)
+	{
+		size_t boxStart = input.find("#\0\n", searchPos);
+		if (boxStart == std::string::npos)
+			break;
+
+		// title is inbetween searchPos and boxStart
+		std::string title = input.substr(searchPos, boxStart - searchPos);
+
+		size_t messageStart = boxStart + BOX_START_LEN;
+		size_t boxEnd = input.find("#\0\n\0\n", messageStart);
+		if (boxEnd == std::string::npos)
+			break;
+
+		std::string message = input.substr(messageStart, boxEnd - messageStart);
+
+		pieces[count++] = title;
+		pieces[count++] = message;
+
+		// jump to next block
+		searchPos = boxEnd + BOX_END_LEN;
+	}
+
+	int iReqNoticeBox = (count + 1) / 2;
+
+	if (iReqNoticeBox <= 1)
+	{
+		CN3UIBase* pNoticeBox = GetChildByID("Group_Notice_1");
+		__ASSERT(pNoticeBox, "NULL UI Component!!");
+
+		CN3UIString* pNoticeTextTitle = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_01");
+		__ASSERT(pNoticeTextTitle, "NULL UI Component!!");
+
+		pNoticeTextTitle->SetString(pieces[0]);
+
+		CN3UIString* pNoticeTextContent = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_01");
+		__ASSERT(pNoticeTextContent, "NULL UI Component!!");
+
+		pNoticeTextContent->SetString(pieces[1]);
+
+		pNoticeBox->SetVisible(true);
+	}
+	else if (iReqNoticeBox == 2)
+	{
+		CN3UIBase* pNoticeBox = GetChildByID("Group_Notice_2");
+		__ASSERT(pNoticeBox, "NULL UI Component!!");
+
+		CN3UIString* pNoticeTextTitle1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_01");
+		__ASSERT(pNoticeTextTitle1, "NULL UI Component!!");
+
+		pNoticeTextTitle1->SetString(pieces[0]);
+
+		CN3UIString* pNoticeTextContent1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_01");
+		__ASSERT(pNoticeTextContent1, "NULL UI Component!!");
+
+		pNoticeTextContent1->SetString(pieces[1]);
+
+		CN3UIString* pNoticeTextTitle2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_02");
+		__ASSERT(pNoticeTextTitle2, "NULL UI Component!!");
+		
+		pNoticeTextTitle2->SetString(pieces[2]);
+
+		CN3UIString* pNoticeTextContent2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_02");
+		__ASSERT(pNoticeTextContent2, "NULL UI Component!!");
+
+		pNoticeTextContent2->SetString(pieces[3]);
+
+		pNoticeBox->SetVisible(true);
+	}
+	else if (iReqNoticeBox == 3)
+	{
+		CN3UIBase* pNoticeBox = GetChildByID("Group_Notice_3");
+		__ASSERT(pNoticeBox, "NULL UI Component!!");
+
+		CN3UIString* pNoticeTextTitle1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_01");
+		__ASSERT(pNoticeTextTitle1, "NULL UI Component!!");
+
+		pNoticeTextTitle1->SetString(pieces[0]);
+
+		CN3UIString* pNoticeTextContent1 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_01");
+		__ASSERT(pNoticeTextContent1, "NULL UI Component!!");
+
+		pNoticeTextContent1->SetString(pieces[1]);
+
+		CN3UIString* pNoticeTextTitle2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_02");
+		__ASSERT(pNoticeTextTitle2, "NULL UI Component!!");
+
+		pNoticeTextTitle2->SetString(pieces[2]);
+
+		CN3UIString* pNoticeTextContent2 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_02");
+		__ASSERT(pNoticeTextContent2, "NULL UI Component!!");
+
+		pNoticeTextContent2->SetString(pieces[3]);
+
+		CN3UIString* pNoticeTextTitle3 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_name_03");
+		__ASSERT(pNoticeTextTitle3, "NULL UI Component!!");
+
+		pNoticeTextTitle3->SetString(pieces[4]);
+
+		CN3UIString* pNoticeTextContent3 = (CN3UIString*) pNoticeBox->GetChildByID("text_notice_03");
+		__ASSERT(pNoticeTextContent3, "NULL UI Component!!");
+
+		pNoticeTextContent3->SetString(pieces[5]);
+
+		pNoticeBox->SetVisible(true);
+	}
+	else //skip notice page , notice = 0
+	{
+		m_bNoticeScreen = false;
+		OpenServerList();
+	}
+
+}
+
+void CUILogIn::OpenNoticePage()
+{
+	if (m_bNoticeScreen) return;
+
+	//set position of notice boxes
+	//if it is done in Load function, they are not centered.
+	RECT rc = m_pGroup_Notice_1->GetRegion();
+	int iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
+	int iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
+	m_pGroup_Notice_1->SetPos(iX, iY);
+
+	rc = m_pGroup_Notice_2->GetRegion();
+	iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
+	iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
+	m_pGroup_Notice_2->SetPos(iX, iY);
+
+	rc = m_pGroup_Notice_3->GetRegion();
+	iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
+	iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
+	m_pGroup_Notice_3->SetPos(iX, iY);
+
+
+	m_bNoticeScreen = true;
+}
+
 void CUILogIn::OpenServerList()
 {
 	if (m_bOpenningNow
 		|| m_pGroup_ServerList == nullptr)
 		return;
 
-	// 스르륵 열린다!!
+	//close all notice boxes
+	m_pGroup_Notice_1->SetVisible(false);
+	m_pGroup_Notice_2->SetVisible(false);
+	m_pGroup_Notice_3->SetVisible(false);
+
+	// 스르륵 열린다!! = open without sound
 	m_pGroup_ServerList->SetVisible(true);
 	RECT rc = m_pGroup_ServerList->GetRegion();
-	m_pGroup_ServerList->SetPos(0, -(rc.bottom - rc.top));
+	int iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
+	int iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
+	m_pGroup_ServerList->SetPos(iX, iY);
+	
+	GetChildByID("premium")->SetVisible(true);
 
 	m_fMoveDelta = 0;
 	m_bOpenningNow = true;
+	m_bNoticeScreen = false;
 }
 
 void CUILogIn::SetVisibleLogInUIs(bool bEnable)
@@ -394,6 +689,7 @@ void CUILogIn::RecalcGradePos()
 
 bool CUILogIn::OnKeyPress(int iKey)
 {
+
 	if (!m_bLogIn)
 	{
 		switch (iKey)
@@ -407,39 +703,74 @@ bool CUILogIn::OnKeyPress(int iKey)
 		//	return true;
 		}
 	}
-	else if (!m_bOpenningNow
-		&& m_pGroup_ServerList != nullptr
+	else if (m_pGroup_ServerList != nullptr
 		&& m_pGroup_ServerList->IsVisible())
+	{
+
+		switch (iKey)
+		{
+		case DIK_UP:
+		{
+			m_iSelectedServerIndex--;
+			
+			uint8_t iServerCount = m_ListServerInfos.size();
+
+			if (m_iSelectedServerIndex < 0)
+				m_iSelectedServerIndex = iServerCount - 1;
+
+			//change its color 
+			CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[m_iSelectedServerIndex]->GetChildByID("List_Server");
+			__ASSERT(pStrServer, "NULL UI Component!!");
+
+			this->ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+			
+		}
+		return true;
+		case DIK_DOWN:
+		{
+			m_iSelectedServerIndex++;
+
+			uint8_t iServerCount = m_ListServerInfos.size();
+
+			if (m_iSelectedServerIndex >= iServerCount)
+				m_iSelectedServerIndex = 0;
+
+			//change its color 
+			CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[m_iSelectedServerIndex]->GetChildByID("List_Server");
+			__ASSERT(pStrServer, "NULL UI Component!!");
+
+			this->ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+		}
+		return true;
+		case DIK_NUMPADENTER:
+		case DIK_RETURN:
+		{
+		  
+			//select the first server if user presses enter at server select screen
+			if (m_iSelectedServerIndex == -1)
+			{
+				m_iSelectedServerIndex = 0;
+				
+				//change its color 
+				CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[0]->GetChildByID("List_Server");
+				__ASSERT(pStrServer, "NULL UI Component!!");
+
+				this->ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+
+				
+			}
+
+		}
+		return true;
+		}
+	}
+	else if (m_bNoticeScreen)
 	{
 		switch (iKey)
 		{
-			case DIK_UP:
-			{
-				if (m_pList_Server == nullptr)
-					return false;
-
-				int iIndex = m_pList_Server->GetCurSel();
-				if (iIndex > 0)
-					m_pList_Server->SetCurSel(iIndex - 1);
-			}
-			return true;
-
-			case DIK_DOWN:
-			{
-				if (m_pList_Server == nullptr)
-					return false;
-
-				int iIndex = m_pList_Server->GetCurSel();
-				int iCnt = m_pList_Server->GetCount();
-				if ((iCnt - iIndex) > 1)
-					m_pList_Server->SetCurSel(iIndex + 1);
-			}
-			return true;
-
-			case DIK_NUMPADENTER:
 			case DIK_RETURN:
-				ReceiveMessage(m_pBtn_Connect, UIMSG_BUTTON_CLICK);
-				return true;
+			  ReceiveMessage(m_pBtn_NoticeOK_1, UIMSG_BUTTON_CLICK);
+			return true;
 		}
 	}
 

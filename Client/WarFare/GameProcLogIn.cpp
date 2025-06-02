@@ -16,6 +16,9 @@
 #include "N3SndObjStream.h"
 #include "N3SndMgr.h"
 
+#include "N3UIList.h"
+#include <ctime>
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -28,25 +31,12 @@ static char THIS_FILE[]=__FILE__;
 CGameProcLogIn::CGameProcLogIn()
 {
 	m_pUILogIn	= nullptr;
-	m_pChr		= nullptr;
-	m_pTexBkg	= nullptr;
-
-	m_pCamera = nullptr;
-	for (int i = 0; i < 3; i++)
-		m_pLights[i] = nullptr;
-
 	m_bLogIn = false; // 로그인 중복 방지..
 }
 
 CGameProcLogIn::~CGameProcLogIn()
 {
 	delete m_pUILogIn;
-	delete m_pChr;
-	delete m_pTexBkg;
-
-	delete m_pCamera;
-	for (int i = 0; i < 3; i++)
-		delete m_pLights[i];
 }
 
 void CGameProcLogIn::Release()
@@ -55,55 +45,30 @@ void CGameProcLogIn::Release()
 
 	delete m_pUILogIn;
 	m_pUILogIn = nullptr;
-
-	delete m_pChr;
-	m_pChr = nullptr;
-
-	delete m_pTexBkg;
-	m_pTexBkg = nullptr;
-
-	delete m_pCamera;
-	m_pCamera = nullptr;
-
-	for (int i = 0; i < 3; i++)
-	{
-		delete m_pLights[i];
-		m_pLights[i] = nullptr;
-	}
 }
 
 void CGameProcLogIn::Init()
 {
 	CGameProcedure::Init();
-
-	m_pTexBkg = new CN3Texture();
-	m_pTexBkg->LoadFromFile("Intro\\Moon.dxt");
-
-	m_pChr = new CN3Chr();
-	m_pChr->LoadFromFile("Intro\\Intro.N3Chr");
-	m_pChr->AniCurSet(0); // 루핑 에니메이션..
 	
-	m_pCamera = new CN3Camera();
-	m_pCamera->EyePosSet(0.22f, 0.91f, -1.63f);
-	m_pCamera->AtPosSet(-0.19f, 1.1f, 0.09f);
-	m_pCamera->m_Data.fNP = 0.1f;
-	m_pCamera->m_Data.fFP = 32.0f;
-	m_pCamera->m_bFogUse = false;
-
-	for(int i = 0; i < 3; i++)
-		m_pLights[i] = new CN3Light();
-
-	m_pLights[0]->LoadFromFile("Intro\\0.N3Light");
-	m_pLights[1]->LoadFromFile("Intro\\1.N3Light");
-	m_pLights[2]->LoadFromFile("Intro\\2.N3Light");
-
-	s_pEng->s_SndMgr.ReleaseStreamObj(&s_pSnd_BGM);
-	s_pSnd_BGM = s_pEng->s_SndMgr.CreateStreamObj(35);	//몬스터 울부짖는 26초짜리 소리..
+	//random elmorad or karus background
+	std::string strNationPrefix = "el";
+	std::srand(std::time(nullptr));
+	int iRand = std::rand() % 101;
+	(iRand < 50) ? strNationPrefix = "el" : strNationPrefix = "ka";
 
 	m_pUILogIn = new CUILogIn();
 	m_pUILogIn->Init(s_pUIMgr);
-	
-	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.GetIndexedData(0); // 국가 기준이 없기 때문이다...
+	std::string szPath = "UI_us\\" + strNationPrefix + "_login_intro_us.uif";
+	m_pUILogIn->LoadFromFile(szPath);
+
+	s_pEng->s_SndMgr.ReleaseStreamObj(&s_pSnd_BGM);
+
+	//NOTE: mp3 files don't work
+	//this is used for testing. original sound is not in Snd folder.
+	//it exists as bgm_el_battle.mp3, convert it to .wav to make it work
+	std::string szFN = "Snd\\bgm_el_battle.wav";
+	CGameProcedure::s_pSnd_BGM = s_pEng->s_SndMgr.CreateStreamObj(szFN);
 	if (pTbl != nullptr)
 		m_pUILogIn->LoadFromFile(pTbl->szLogIn);
 
@@ -111,7 +76,9 @@ void CGameProcLogIn::Init()
 	int iX = (CN3Base::s_CameraData.vp.Width - (rc.right - rc.left))/2;
 	int iY = CN3Base::s_CameraData.vp.Height - (rc.bottom - rc.top);
 	m_pUILogIn->SetPos(iX, iY);
-	m_pUILogIn->RecalcGradePos();
+	
+	//m_pUILogIn->RecalcGradePos(); //sets position of grade logo
+
 	rc.left = 0; rc.top = 0; rc.right = CN3Base::s_CameraData.vp.Width; rc.bottom = CN3Base::s_CameraData.vp.Height;
 	m_pUILogIn->SetRegion(rc); // 이걸 꼭 해줘야 UI 처리가 제대로 된다..
 	s_pUIMgr->SetFocusedUI((CN3UIBase*)m_pUILogIn);
@@ -139,7 +106,7 @@ void CGameProcLogIn::Init()
 	int iServer = -1;
 	if (iServerCount > 0)
 		iServer = rand() % iServerCount;
-	
+
 	if (iServer >= 0
 		&& lstrlen(szIPs[iServer]) > 0)
 	{
@@ -176,11 +143,6 @@ void CGameProcLogIn::Tick() // 프로시져 인덱스를 리턴한다. 0 이면 
 {
 	CGameProcedure::Tick();	// 키, 마우스 입력 등등..
 
-	for (int i = 0; i < 3; i++)
-		m_pLights[i]->Tick();
-
-	m_pChr->Tick();
-
 	static float fTmp = 0;
 	if (fTmp == 0)
 	{
@@ -189,7 +151,7 @@ void CGameProcLogIn::Tick() // 프로시져 인덱스를 리턴한다. 0 이면 
 	}
 
 	fTmp += CN3Base::s_fSecPerFrm;
-	if (fTmp > 21.66f)
+	if(fTmp > 191.0f)
 	{
 		fTmp = 0;
 		if (s_pSnd_BGM != nullptr)
@@ -200,55 +162,23 @@ void CGameProcLogIn::Tick() // 프로시져 인덱스를 리턴한다. 0 이면 
 void CGameProcLogIn::Render()
 {
 	D3DCOLOR crEnv = 0x00000000;
-	s_pEng->Clear(crEnv); // 배경은 검은색
-	s_lpD3DDev->BeginScene();			// 씬 렌더 ㅅ작...
+	s_pEng->Clear(crEnv);						// background color black
+	s_lpD3DDev->BeginScene();			// scene render start
 
-	 // 카메라 잡기..
-	m_pCamera->Tick();
-	m_pCamera->Apply();
-
-	for (int i = 0; i < 8; i++)
-		s_lpD3DDev->LightEnable(i, FALSE);
-
-	for (int i = 0; i < 3; i++)
-		m_pLights[i]->Apply();
-
-	////////////////////////////////////////////
-	// 달그리기..
 	D3DVIEWPORT9 vp;
 	s_lpD3DDev->GetViewport(&vp);
-
-	float fMW = (m_pTexBkg->Width() * vp.Width / 1024.0f)*1.3f;
-	float fMH = (m_pTexBkg->Height() * vp.Height / 768.0f)*1.3f;
-	float fX = 100.0f * vp.Width / 1024.0f;
-	float fY = 50.0f * vp.Height / 768.0f;
-
-	float fRHW = 1.0f;
-	__VertexTransformed vMoon[4];
-	vMoon[0].Set(fX,     fY,     0, fRHW, 0xffffffff, 0.0f, 0.0f);
-	vMoon[1].Set(fX+fMW, fY,     0, fRHW, 0xffffffff, 1.0f, 0.0f);
-	vMoon[2].Set(fX+fMW, fY+fMH, 0, fRHW, 0xffffffff, 1.0f, 1.0f);
-	vMoon[3].Set(fX,     fY+fMH, 0, fRHW, 0xffffffff, 0.0f, 1.0f);
 	
 	DWORD dwZWrite;
 	s_lpD3DDev->GetRenderState(D3DRS_ZWRITEENABLE, &dwZWrite);
 	s_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-
 	s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	s_lpD3DDev->SetTexture(0, m_pTexBkg->Get());
 	s_lpD3DDev->SetFVF(FVF_TRANSFORMED);
-	s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vMoon, sizeof(__VertexTransformed));
-
 	s_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE, dwZWrite);
-	// 달그리기..
-	////////////////////////////////////////////
+	CGameProcedure::Render(); // Render UI and other basic elements.
 
-	m_pChr->Render(); // 캐릭터 그리기...
+	s_pEng->s_lpD3DDev->EndScene();	// Starting scene rendering...
 
-	CGameProcedure::Render(); // UI 나 그밖의 기본적인 것들 렌더링..
-
-	s_pEng->s_lpD3DDev->EndScene();			// 씬 렌더 시작...
 	s_pEng->Present(CN3Base::s_hWndBase);
 }
 
@@ -292,6 +222,58 @@ bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 	return true;
 }
 
+bool CGameProcLogIn::MsgSend_NoticeText()
+{
+	uint8_t byBuff[2];									
+	int iOffset = 0;										
+
+	uint8_t byCmd = N3_NOTICE_TEXT;
+	
+	CAPISocket::MP_AddByte(byBuff, iOffset, byCmd);					
+
+	s_pSocket->Send(byBuff, iOffset);								
+
+	return true;
+}
+
+void CGameProcLogIn::MsgRecv_NoticeText(Packet& pkt)
+{
+	//consider changing server side, packet starts with string "Login Notice"
+	//see LoginSession::HandleNews
+
+	uint16_t strLen = pkt.read<uint16_t>();
+	std::string strLabel;
+	pkt.readString(strLabel, strLen);
+	
+
+	if (strLabel == "Login Notice")
+	{
+		uint16_t iSize = pkt.read<uint16_t>();
+
+		if (iSize > 0 && iSize < 4096) // check limits
+		{
+			// read content
+			std::string strContent;
+			pkt.readString(strContent, iSize);
+
+			/* //to trace bytes
+			for (size_t i = 0; i < strContent.size(); i++)
+			{
+				TRACE("[%03d] %02X (%c)\n", (int) i, (unsigned char) strContent[i],
+					isprint(strContent[i]) ? strContent[i] : '.');
+			}
+			*/
+			
+
+			m_pUILogIn->AddNoticeText(strContent);
+
+		}
+
+	}
+	
+
+}
+
 void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 {
 	int iServerCount = pkt.read<uint8_t>();	// 서버 갯수
@@ -313,14 +295,24 @@ void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 
 void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 {
-	int iResult = pkt.read<uint8_t>(); // Recv - b1(0:실패 1:성공 2:ID없음 3:PW틀림 4:서버점검중)
-	if (1 == iResult) // 접속 성공..
+	
+	// Recv - b1 (0: Failure, 1: Success, 2: ID Not Found, 3: Incorrect Password,
+	// 4: Server Under Maintenance)
+	
+	int iResult = pkt.read<uint8_t>();
+	
+// Connection successful
+	if (1 == iResult) // Connection successful
 	{
-		// 모든 메시지 박스 닫기..
+		//request notice texts from server
+		this->MsgSend_NoticeText();
+
+		// Close all message boxes..
 		MessageBoxClose(-1);
-		m_pUILogIn->OpenServerList(); // 서버 리스트 읽기..
+		
+		m_pUILogIn->OpenNoticePage();
 	}
-	else if (2 == iResult) // ID 가 없어서 실패한거면..
+	else if (2 == iResult) // If the failure is due to missing ID..
 	{
 		if (N3_ACCOUNT_LOGIN == iCmd)
 		{
@@ -492,6 +484,9 @@ bool CGameProcLogIn::ProcessPacket(Packet & pkt)
 		case N3_ACCOUNT_LOGIN: // 계정 접속 성공..
 		case N3_ACCOUNT_LOGIN_MGAME: // MGame 계정 접속 성공..
 			MsgRecv_AccountLogIn(iCmd, pkt);
+			return true;
+		case N3_NOTICE_TEXT:
+			this->MsgRecv_NoticeText(pkt);
 			return true;
 	}
 
