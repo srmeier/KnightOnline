@@ -542,12 +542,13 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 	{
 		switch ( CGameBase::s_pPlayer->m_InfoBase.eNation )
 		{
-			case NATION_KARUS:			// 카루스..
+			case NATION_KARUS:			// Karus
 				switch ( CGameBase::s_pPlayer->m_InfoBase.eClass )
 				{
 					case CLASS_KA_SORCERER:
 					case CLASS_KA_HUNTER:
 					case CLASS_KA_SHAMAN:
+					case CLASS_KA_BERSERKER:
 						{
 							std::string szMsg;
 							CGameBase::GetText(IDS_SKILL_POINT_NOT_YET, &szMsg);
@@ -558,12 +559,13 @@ void CUISkillTreeDlg::PointPushUpButton(int iValue)
 				}
 				break;
 
-			case NATION_ELMORAD:		// 엘모라도..
+			case NATION_ELMORAD:		// Elmorad
 				switch ( CGameBase::s_pPlayer->m_InfoBase.eClass )
 				{
 					case CLASS_EL_MAGE:
 					case CLASS_EL_RANGER:
 					case CLASS_EL_CLERIC:
+					case CLASS_EL_BLADE:
 						{
 							std::string szMsg;
 							CGameBase::GetText(IDS_SKILL_POINT_NOT_YET, &szMsg);
