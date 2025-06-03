@@ -31,45 +31,46 @@ CUILogIn::CUILogIn()
 	m_pBtn_Option = nullptr;
 	m_pBtn_Join = nullptr;
 	
-	m_pGroup_Notice_1 = NULL;
-	m_pGroup_Notice_2 = NULL;
-	m_pGroup_Notice_3 = NULL;
+	m_pGroup_Notice_1 = nullptr;
+	m_pGroup_Notice_2 = nullptr;
+	m_pGroup_Notice_3 = nullptr;
 
-	m_pText_Notice1_Name_1 = NULL; 
-	m_pText_Notice1_Text_1 = NULL;
+	m_pText_Notice1_Name_1 = nullptr;
+	m_pText_Notice1_Text_1 = nullptr;
 
-	m_pText_Notice2_Name_1 = NULL;
-	m_pText_Notice2_Text_1 = NULL;
-	m_pText_Notice2_Name_2 = NULL;
-	m_pText_Notice2_Text_2 = NULL;
+	m_pText_Notice2_Name_1 = nullptr;
+	m_pText_Notice2_Text_1 = nullptr;
+	m_pText_Notice2_Name_2 = nullptr;
+	m_pText_Notice2_Text_2 = nullptr;
 
-	m_pText_Notice3_Name_1 = NULL;
-	m_pText_Notice3_Text_1 = NULL;
-	m_pText_Notice3_Name_2 = NULL;
-	m_pText_Notice3_Text_2 = NULL;
-	m_pText_Notice3_Name_3 = NULL;
-	m_pText_Notice3_Text_3 = NULL;
+	m_pText_Notice3_Name_1 = nullptr;
+	m_pText_Notice3_Text_1 = nullptr;
+	m_pText_Notice3_Name_2 = nullptr;
+	m_pText_Notice3_Text_2 = nullptr;
+	m_pText_Notice3_Name_3 = nullptr;
+	m_pText_Notice3_Text_3 = nullptr;
 
-	m_pBtn_NoticeOK_1 = NULL;
-	m_pBtn_NoticeOK_2 = NULL;
-	m_pBtn_NoticeOK_3 = NULL;
+	m_pBtn_NoticeOK_1 = nullptr;
+	m_pBtn_NoticeOK_2 = nullptr;
+	m_pBtn_NoticeOK_3 = nullptr;
 
-	m_pGroup_ServerList = NULL;
-	m_pGroup_LogIn = NULL;
+	m_pGroup_ServerList = nullptr;
+	m_pGroup_LogIn = nullptr;
 
-	m_pStr_Premium = NULL;
+	m_pStr_Premium = nullptr;
 
-	m_pText_Rights = NULL;
-	m_pImg_MGameLogo = NULL;
-	m_pImg_DaumLogo = NULL;
-	m_pImg_GradeLogo = NULL;
+	m_pText_Rights = nullptr;
+	m_pImg_MGameLogo = nullptr;
+	m_pImg_DaumLogo = nullptr;
+	m_pImg_GradeLogo = nullptr;
 
 	m_iSelectedServerIndex = -1;
 
 	for (size_t i = 1; i <= MAX_SERVERS; i++)
 	{
-		m_pServer_Group[i - 1] = NULL;
-		m_pArrow_Group[i - 1] = NULL;
+		m_pServer_Group[i - 1] = nullptr;
+		m_pArrow_Group[i - 1] = nullptr;
+		m_pList_Group[i - 1] = nullptr;
 	} 
 
 	m_bOpenningNow = false; // 위에서 아래로 스르륵...열려야 한다면..
