@@ -85,6 +85,7 @@ protected:
 
 	CN3UIBase* m_pServer_Group[MAX_SERVERS];
 	CN3UIBase* m_pArrow_Group[MAX_SERVERS];
+	CN3UIString* m_pList_Group[MAX_SERVERS];
 
 	std::vector<__GameServerInfo> m_ListServerInfos;
 

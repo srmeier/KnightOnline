@@ -290,18 +290,20 @@ bool CUILogIn::Load(HANDLE hFile)
 	for (size_t i = 1; i <= MAX_SERVERS; i++)
 	{
 		std::string strPath = "server_" + std::to_string(i);
-		CN3UIBase* pChild = m_pGroup_ServerList->GetChildByID(strPath);
+		CN3UIBase* pChildServer = m_pGroup_ServerList->GetChildByID(strPath);
+		__ASSERT(pChildServer, "NULL UI Component!!");
 
 		std::string strPathImage = "img_arrow" + std::to_string(i);
 		CN3UIBase* pChildImage = m_pGroup_ServerList->GetChildByID(strPathImage);
-
-			
-		if (!pChild || !pChildImage)
-			continue; 
+		__ASSERT(pChildImage, "NULL UI Component!!");
 		
-		m_pServer_Group[i - 1] = pChild;
-		m_pArrow_Group[i - 1] = pChildImage;
+		std::string strPathList = "List_Server";
+		CN3UIString* pChildList = (CN3UIString*) pChildServer->GetChildByID(strPathList);
+		__ASSERT(pChildList, "NULL UI Component!!");
 
+		m_pServer_Group[i - 1] = pChildServer;
+		m_pArrow_Group[i - 1] = pChildImage;
+		m_pList_Group[i - 1] = pChildList;
 	}
 
 	m_pBtn_Connect = (CN3UIButton*)m_pGroup_ServerList->GetChildByID("Btn_Connect");	
@@ -705,7 +707,6 @@ bool CUILogIn::OnKeyPress(int iKey)
 		{
 		case DIK_UP:
 		{
-			
 			int iServerCount = static_cast<int>(m_ListServerInfos.size());
 
 			if (iServerCount == 0)
@@ -716,11 +717,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 			if (m_iSelectedServerIndex < 0)
 				m_iSelectedServerIndex = iServerCount - 1;
 
-			//change its color 
-			CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[m_iSelectedServerIndex]->GetChildByID("List_Server");
-			__ASSERT(pStrServer, "NULL UI Component!!");
-
-			ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+			ReceiveMessage(m_pList_Group[m_iSelectedServerIndex], UIMSG_STRING_LCLICK);
 			
 		}
 		return true;
@@ -733,11 +730,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 			if (m_iSelectedServerIndex >= iServerCount)
 				m_iSelectedServerIndex = 0;
 
-			//change its color 
-			CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[m_iSelectedServerIndex]->GetChildByID("List_Server");
-			__ASSERT(pStrServer, "NULL UI Component!!");
-
-			ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
+			ReceiveMessage(m_pList_Group[m_iSelectedServerIndex], UIMSG_STRING_LCLICK);
 		}
 		return true;
 		case DIK_NUMPADENTER:
@@ -748,14 +741,7 @@ bool CUILogIn::OnKeyPress(int iKey)
 			if (m_iSelectedServerIndex == -1)
 			{
 				m_iSelectedServerIndex = 0;
-				
-				//change its color 
-				CN3UIString* pStrServer = (CN3UIString*) m_pServer_Group[0]->GetChildByID("List_Server");
-				__ASSERT(pStrServer, "NULL UI Component!!");
-
-				ReceiveMessage(pStrServer, UIMSG_STRING_LCLICK);
-
-				
+				ReceiveMessage(m_pList_Group[m_iSelectedServerIndex], UIMSG_STRING_LCLICK);
 			}
 
 		}
