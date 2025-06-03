@@ -1696,7 +1696,6 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 					break;
 
 				case CLASS_EL_BLADE:
-					TRACE("worked\n");
 					AllClearImageByName("blade", true);
 					break;
 
