@@ -92,6 +92,8 @@ void CUIInn::Message(int iMessageID)
 
 	if (iMessageID == IDS_CLAN_DENY_LOWGOLD)
 		CGameBase::GetTextF(iMessageID, &szMsg, CLAN_COST);
+	else
+		CGameBase::GetText(iMessageID, &szMsg);
 
 	CGameProcedure::MessageBoxPost(szMsg, "", MB_OK, BEHAVIOR_NOTHING);	
 }
