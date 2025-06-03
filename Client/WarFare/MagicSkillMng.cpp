@@ -1632,6 +1632,7 @@ void CMagicSkillMng::Tick()
 #ifdef _DEBUG
 	m_fMsgUpdateTimer += CN3Base::s_fSecPerFrm;
 #endif
+
 	for (auto it = m_RecastTimes.begin(); it != m_RecastTimes.end(); )
 	{
 #ifdef _DEBUG
@@ -1644,14 +1645,13 @@ void CMagicSkillMng::Tick()
 		}
 #endif
 		it->second -= CN3Base::s_fSecPerFrm;
-		
+
 		if (it->second < 0)
-		{
-			it = m_RecastTimes.erase(it);			
-		}
+			it = m_RecastTimes.erase(it);
 		else
 			++it;
 	}
+
 	for (auto it = m_NonActionRecastTimes.begin(); it != m_NonActionRecastTimes.end(); )
 	{
 #ifdef _DEBUG
@@ -1663,12 +1663,14 @@ void CMagicSkillMng::Tick()
 			m_fMsgUpdateTimer = 0.0f;
 		}
 #endif
+
 		it->second -= CN3Base::s_fSecPerFrm;
 		if (it->second < 0)
 			it = m_NonActionRecastTimes.erase(it);
 		else
 			++it;
 	}
+
 	// Legacy Existing code for delay and casting
 	m_fDelay -= CN3Base::s_fSecPerFrm;
 	if (m_fDelay < 0.0f) m_fDelay = 0.0f;
@@ -3056,14 +3058,14 @@ void CMagicSkillMng::StunMySelf(__TABLE_UPC_SKILL_TYPE_3* pType3)
 	}
 }
 
-
-float CMagicSkillMng::GetSkillCooldown(__TABLE_UPC_SKILL* pSkill)
+float CMagicSkillMng::GetCooldown(const __TABLE_UPC_SKILL* pSkill) const
 {
 	if (pSkill->iSelfAnimID1 > 0)
 	{
 		auto it = m_RecastTimes.find(pSkill->dwID);
 		if (it == m_RecastTimes.end())
 			return -1;
+
 		return it->second;
 	}
 	else
@@ -3071,6 +3073,7 @@ float CMagicSkillMng::GetSkillCooldown(__TABLE_UPC_SKILL* pSkill)
 		auto it = m_NonActionRecastTimes.find(pSkill->dwID);
 		if (it == m_NonActionRecastTimes.end())
 			return -1;
+
 		return it->second;
 	}
 }

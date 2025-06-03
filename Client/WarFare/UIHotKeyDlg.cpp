@@ -14,13 +14,14 @@
 #include "MagicSkillMng.h"
 #include "UIManager.h"
 #include "UIInventory.h"
+
 #include <cmath>
+#include <algorithm>
 
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #endif
-
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -322,27 +323,24 @@ void CUIHotKeyDlg::Render()
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
 
 	int k;
-	for(k = 0; k < MAX_SKILL_IN_HOTKEY; k++ )
+	for (k = 0; k < MAX_SKILL_IN_HOTKEY; k++)
 	{
-		if (m_pMyHotkey[m_iCurPage][k] != NULL)
+		if (m_pMyHotkey[m_iCurPage][k] != nullptr)
 		{
-			float skillCd = CGameProcedure::s_pProcMain->m_pMagicSkillMng->GetSkillCooldown(m_pMyHotkey[m_iCurPage][k]->pSkill);
+			float fCooldown = CGameProcedure::s_pProcMain->m_pMagicSkillMng->GetCooldown(
+				m_pMyHotkey[m_iCurPage][k]->pSkill);
 			
-			//not on cd
-			if (skillCd == -1)
+			// not on cooldown
+			if (fCooldown < 0)
 			{
 				CN3UIIcon* pUIIcon = m_pMyHotkey[m_iCurPage][k]->pUIIcon;
-				if (pUIIcon)
+				if (pUIIcon != nullptr)
 					pUIIcon->Render();
 			}
 			else
 			{
-				RenderCooldown(m_pMyHotkey[m_iCurPage][k], skillCd);
+				RenderCooldown(m_pMyHotkey[m_iCurPage][k], fCooldown);
 			}
-
-			//	CN3UIIcon* pUIIcon = m_pMyHotkey[m_iCurPage][k]->pUIIcon;
-			//	if (pUIIcon)
-			//		pUIIcon->Render();
 
 			DisplayCountStr(m_pMyHotkey[m_iCurPage][k]);
 		}
@@ -999,64 +997,70 @@ void CUIHotKeyDlg::RenderSelectIcon(CN3UIIcon* pUIIcon)
 	CN3Base::s_lpD3DDev->SetFVF(dwVertexShader);
 }
 
-// until upgraded to c++ 17, this will do.
-template <typename T>
-T clamp(T value, T min, T max)
+void CUIHotKeyDlg::RenderCooldown(const __IconItemSkill* pSkill, float fCooldown)
 {
-	return (value < min) ? min : (value > max) ? max : value;
-}
-
-void CUIHotKeyDlg::RenderCooldown(__IconItemSkill * pSkill, float fSkillCdTime)
-{
-	if (!pSkill)
+	if (pSkill == nullptr)
 		return;
 
+	constexpr D3DCOLOR Color = D3DCOLOR_ARGB(0x80, 0xFF, 0x00, 0x00);
 
-	RECT rc = pSkill->pUIIcon->GetRegion();
+	const RECT rc = pSkill->pUIIcon->GetRegion();
 
-	float centerY = (rc.top + rc.bottom) / 2;
-	float centerX = (rc.left + rc.right) / 2;
-	float radius = std::sqrt(std::pow(centerX - rc.left, 2) + std::pow(centerY - rc.top, 2));
+	const float centerX = static_cast<float>(rc.left + rc.right) / 2;
+	const float centerY = static_cast<float>(rc.top + rc.bottom) / 2;
 
-	float progress = (fSkillCdTime / (static_cast<float>(pSkill->pSkill->iReCastTime) / 10.0f));
+	const float halfWidth = static_cast<float>(centerX - rc.left);
+	const float halfHeight = static_cast<float>(centerY - rc.top);
 
-	progress = clamp(progress, 0.0f, 1.0f);
+	const float radius = std::sqrtf(
+		std::pow(halfWidth, 2.0f)
+		+ std::pow(halfHeight, 2.0f));
+
+	float progress = 0.0f;
+	
+	if (pSkill->pSkill->iReCastTime > 0)
+	{
+		progress = (fCooldown / (static_cast<float>(pSkill->pSkill->iReCastTime) / 10.0f));
+		progress = std::clamp(progress, 0.0f, 1.0f);
+	}
+
+	// arbitrary number of segments. this might be too many for such a small icon.
+	const int segments = 64;
+	const int segmentCountToDraw = static_cast<int>((segments * progress));
 
 	std::vector<__VertexTransformedColor> vertices;
-	vertices.clear();
-	//not 100% sure on the color. Choosing arbitrary 50% opacity.
-	vertices.push_back({ centerX, centerY, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0x80FF0000 });
+	vertices.reserve(segments);
 
-	//arbitrary number of segments. this might be too many for such a small icon.
-	int segments = 64;
-	int segmentCountToDraw = static_cast<int>((segments * progress));
+	// not 100% sure on the color. Choosing arbitrary 50% opacity.
+	vertices.emplace_back(centerX, centerY, UI_DEFAULT_Z, UI_DEFAULT_RHW, Color);
 
-	float fullCircle = D3DX_PI * 2.0f;
-	float maxAngle = fullCircle * progress;
-	float startAngle = -D3DX_PI / 2.0f; // 12 o'clock
+	const float fullCircle = D3DX_PI * 2.0f;
+	const float maxAngle = fullCircle * progress;
+	const float startAngle = -D3DX_PI / 2.0f; // 12 o'clock
 
 	std::vector<__VertexTransformedColor> arcVertices;
-	for (int i = 0; i <= segmentCountToDraw; ++i)
+	arcVertices.reserve(segmentCountToDraw);
+
+	for (int i = 0; i <= segmentCountToDraw; i++)
 	{
 		float angle = startAngle - maxAngle * (static_cast<float>(i) / segmentCountToDraw);
 		float x = centerX + cosf(angle) * radius;
 		float y = centerY + sinf(angle) * radius;
-		arcVertices.push_back({ x, y, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0x80FF0000 });
+		arcVertices.emplace_back(x, y, UI_DEFAULT_Z, UI_DEFAULT_RHW, Color);
 	}
-	//very crude way but i'd rather keep culling enabled.
-	std::reverse(arcVertices.begin(), arcVertices.end());
-	vertices.insert(vertices.end(), arcVertices.begin(), arcVertices.end());
 
-	//disable culling and reverse vectors.
-	//for (int i = 0; i <= segmentCountToDraw; ++i)
+	// very crude way but i'd rather keep culling enabled.
+	vertices.insert(vertices.end(), arcVertices.rbegin(), arcVertices.rend());
+
+	// disable culling and reverse vectors.
+	//for (int i = 0; i <= segmentCountToDraw; i++)
 	//{
 	//	// Go clockwise by subtracting angle increments
 	//	float angle = startAngle - maxAngle * (static_cast<float>(i) / segmentCountToDraw);
 	//	float x = centerX + cosf(angle) * radius;
 	//	float y = centerY + sinf(angle) * radius;
-	//	vertices.push_back({ x, y, UI_DEFAULT_Z, UI_DEFAULT_RHW, 0x80FF0000 });
+	//	vertices.emplace_back(x, y, UI_DEFAULT_Z, UI_DEFAULT_RHW, Color);
 	//}
-
 
 	DWORD dwZ, dwFog, dwAlpha, dwCOP, dwCA1, dwSrcBlend, dwDestBlend, dwVertexShader, dwAOP, dwAA1;
 	CN3Base::s_lpD3DDev->GetRenderState(D3DRS_ZENABLE, &dwZ);
@@ -1083,7 +1087,7 @@ void CUIHotKeyDlg::RenderCooldown(__IconItemSkill * pSkill, float fSkillCdTime)
 	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
 
 	CN3Base::s_lpD3DDev->SetFVF(FVF_TRANSFORMED);
-	//CN3Base::s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	// CN3Base::s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	CN3Base::s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, vertices.size() - 2, &vertices[0], sizeof(__VertexTransformedColor));
 
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, dwZ);
