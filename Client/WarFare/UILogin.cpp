@@ -705,9 +705,13 @@ bool CUILogIn::OnKeyPress(int iKey)
 		{
 		case DIK_UP:
 		{
-			m_iSelectedServerIndex--;
 			
-			uint8_t iServerCount = m_ListServerInfos.size();
+			int iServerCount = static_cast<int>(m_ListServerInfos.size());
+
+			if (iServerCount == 0)
+				return false;
+
+			m_iSelectedServerIndex--;
 
 			if (m_iSelectedServerIndex < 0)
 				m_iSelectedServerIndex = iServerCount - 1;
