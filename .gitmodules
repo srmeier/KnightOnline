@@ -1,7 +1,7 @@
 [submodule "deps/dx9sdk"]
 	path = deps/dx9sdk
-	url = https://github.com/twostars/microsoft-directx-sdk
+	url = https://github.com/Open-KO/microsoft-directx-sdk
 [submodule "Client/Data"]
 	path = Client/Data
-	url = https://github.com/twostars/ko-client-assets
+	url = https://github.com/Open-KO/ko-client-assets
 	branch = openko-1298
