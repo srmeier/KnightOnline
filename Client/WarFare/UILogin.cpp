@@ -285,13 +285,13 @@ bool CUILogIn::Load(HANDLE hFile)
 
 	
 	//get List_Server (structure : Group_ServerList_01 -> server_20 -> List_Server )
-	for (size_t i = 1; i <= MAX_SERVERS; i++)
+	for (size_t i = 0; i < MAX_SERVERS; i++)
 	{
-		std::string strPath = "server_" + std::to_string(i);
+		std::string strPath = "server_" + std::to_string(i + 1);
 		CN3UIBase* pChildServer = m_pGroup_ServerList->GetChildByID(strPath);
 		__ASSERT(pChildServer, "NULL UI Component!!");
 
-		std::string strPathImage = "img_arrow" + std::to_string(i);
+		std::string strPathImage = "img_arrow" + std::to_string(i + 1);
 		CN3UIBase* pChildImage = m_pGroup_ServerList->GetChildByID(strPathImage);
 		__ASSERT(pChildImage, "NULL UI Component!!");
 		
@@ -299,9 +299,9 @@ bool CUILogIn::Load(HANDLE hFile)
 		CN3UIString* pChildList = (CN3UIString*) pChildServer->GetChildByID(strPathList);
 		__ASSERT(pChildList, "NULL UI Component!!");
 
-		m_pServer_Group[i - 1] = pChildServer;
-		m_pArrow_Group[i - 1] = pChildImage;
-		m_pList_Group[i - 1] = pChildList;
+		m_pServer_Group[i] = pChildServer;
+		m_pArrow_Group[i] = pChildImage;
+		m_pList_Group[i] = pChildList;
 	}
 
 	m_pBtn_Connect = (CN3UIButton*)m_pGroup_ServerList->GetChildByID("Btn_Connect");	
