@@ -73,7 +73,6 @@ struct	__IconItemSkill		{
 //								e_UIIconType			eIconType;
 								CN3UIIcon*				pUIIcon;
 								std::string				szIconFN;
-								float					fCurrentCooldDown;
 
 								union {
 									struct {

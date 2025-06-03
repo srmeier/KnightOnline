@@ -1307,14 +1307,14 @@ void CMagicSkillMng::SetSkillCooldown(__TABLE_UPC_SKILL* pSkill)
 	// Convert iReCastTime (stored in tenths of seconds) to seconds
 	const float fCooldown = static_cast<float>(pSkill->iReCastTime) / 10.0f;
 
-	//if (pSkill->iSelfAnimID1 > 0)
-	//{
+	if (pSkill->iSelfAnimID1 > 0)
+	{
 		m_RecastTimes[pSkill->dwID] = fCooldown;
-	//}
-	//else
-	//{
-	//	m_NonActionRecastTimes[pSkill->dwID] = fCooldown;
-	//}
+	}
+	else
+	{
+		m_NonActionRecastTimes[pSkill->dwID] = fCooldown;
+	}
 }
 
 bool CMagicSkillMng::CheckValidDistance(__TABLE_UPC_SKILL* pSkill, __Vector3 vTargetPos, float fTargetRadius)
@@ -1644,28 +1644,7 @@ void CMagicSkillMng::Tick()
 		}
 #endif
 		it->second -= CN3Base::s_fSecPerFrm;
-		int k;
-		for (k = 0; k < MAX_SKILL_HOTKEY_PAGE; ++k)
-		{
-			int j;
-			for (j = 0; j < MAX_SKILL_IN_HOTKEY; ++j)
-			{
-				__IconItemSkill* icon = m_pGameProcMain->m_pUIHotKeyDlg->m_pMyHotkey[k][j];
-				if (!icon) continue;
-
-				if (icon->pSkill->dwID == it->first)
-				{
-					if (icon->fCurrentCooldDown < icon->pSkill->iReCastTime)
-						icon->fCurrentCooldDown += CN3Base::s_fSecPerFrm;
-
-					if (it->second < 0)
-					{
-						icon->fCurrentCooldDown = 0.0f;
-					}
-				}
-			}			
-		}
-
+		
 		if (it->second < 0)
 		{
 			it = m_RecastTimes.erase(it);			
@@ -1673,7 +1652,7 @@ void CMagicSkillMng::Tick()
 		else
 			++it;
 	}
-	/*for (auto it = m_NonActionRecastTimes.begin(); it != m_NonActionRecastTimes.end(); )
+	for (auto it = m_NonActionRecastTimes.begin(); it != m_NonActionRecastTimes.end(); )
 	{
 #ifdef _DEBUG
 		if (m_fMsgUpdateTimer >= 0.2f)
@@ -1686,10 +1665,10 @@ void CMagicSkillMng::Tick()
 #endif
 		it->second -= CN3Base::s_fSecPerFrm;
 		if (it->second < 0)
-			it = m_RecastTimes.erase(it);
+			it = m_NonActionRecastTimes.erase(it);
 		else
 			++it;
-	}*/
+	}
 	// Legacy Existing code for delay and casting
 	m_fDelay -= CN3Base::s_fSecPerFrm;
 	if (m_fDelay < 0.0f) m_fDelay = 0.0f;
@@ -3074,5 +3053,24 @@ void CMagicSkillMng::StunMySelf(__TABLE_UPC_SKILL_TYPE_3* pType3)
 	{
 		m_pGameProcMain->CommandSitDown(false, false); // 일으켜 세운다.
 		s_pPlayer->Stun(STUN_TIME);
+	}
+}
+
+
+float CMagicSkillMng::GetSkillCooldown(__TABLE_UPC_SKILL* pSkill)
+{
+	if (pSkill->iSelfAnimID1 > 0)
+	{
+		auto it = m_RecastTimes.find(pSkill->dwID);
+		if (it == m_RecastTimes.end())
+			return -1;
+		return it->second;
+	}
+	else
+	{
+		auto it = m_NonActionRecastTimes.find(pSkill->dwID);
+		if (it == m_NonActionRecastTimes.end())
+			return -1;
+		return it->second;
 	}
 }

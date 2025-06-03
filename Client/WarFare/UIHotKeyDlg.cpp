@@ -326,14 +326,23 @@ void CUIHotKeyDlg::Render()
 	{
 		if (m_pMyHotkey[m_iCurPage][k] != NULL)
 		{
-			if (m_pMyHotkey[m_iCurPage][k]->fCurrentCooldDown > 0 && m_pMyHotkey[m_iCurPage][k]->fCurrentCooldDown < m_pMyHotkey[m_iCurPage][k]->pSkill->iReCastTime)
-				RenderCooldown(m_pMyHotkey[m_iCurPage][k]);
-			else
+			float skillCd = CGameProcedure::s_pProcMain->m_pMagicSkillMng->GetSkillCooldown(m_pMyHotkey[m_iCurPage][k]->pSkill);
+			
+			//not on cd
+			if (skillCd == -1)
 			{
 				CN3UIIcon* pUIIcon = m_pMyHotkey[m_iCurPage][k]->pUIIcon;
 				if (pUIIcon)
 					pUIIcon->Render();
 			}
+			else
+			{
+				RenderCooldown(m_pMyHotkey[m_iCurPage][k], skillCd);
+			}
+
+			//	CN3UIIcon* pUIIcon = m_pMyHotkey[m_iCurPage][k]->pUIIcon;
+			//	if (pUIIcon)
+			//		pUIIcon->Render();
 
 			DisplayCountStr(m_pMyHotkey[m_iCurPage][k]);
 		}
@@ -719,9 +728,7 @@ void CUIHotKeyDlg::DoOperate(__IconItemSkill*	pSkill)
 	//char szBuf[512];
 	// 메시지 박스 출력..	
 	//wsprintf(szBuf, "%s 스킬이 사용되었습니다.", pSkill->pSkill->szName.c_str() );
-	//CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffff00);
-
-	PlayRepairSound();					
+	//CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffff00);			
 	
 	int iIDTarget = CGameBase::s_pPlayer->m_iIDTarget;
 	CGameProcedure::s_pProcMain->m_pMagicSkillMng->MsgSend_MagicProcess(iIDTarget, pSkill->pSkill);
@@ -999,7 +1006,7 @@ T clamp(T value, T min, T max)
 	return (value < min) ? min : (value > max) ? max : value;
 }
 
-void CUIHotKeyDlg::RenderCooldown(__IconItemSkill * pSkill)
+void CUIHotKeyDlg::RenderCooldown(__IconItemSkill * pSkill, float fSkillCdTime)
 {
 	if (!pSkill)
 		return;
@@ -1011,7 +1018,7 @@ void CUIHotKeyDlg::RenderCooldown(__IconItemSkill * pSkill)
 	float centerX = (rc.left + rc.right) / 2;
 	float radius = std::sqrt(std::pow(centerX - rc.left, 2) + std::pow(centerY - rc.top, 2));
 
-	float progress = 1.0f - (pSkill->fCurrentCooldDown / (static_cast<float>(pSkill->pSkill->iReCastTime) / 10.0f));
+	float progress = (fSkillCdTime / (static_cast<float>(pSkill->pSkill->iReCastTime) / 10.0f));
 
 	progress = clamp(progress, 0.0f, 1.0f);
 
