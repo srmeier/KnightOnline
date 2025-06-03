@@ -478,11 +478,11 @@ void CUILogIn::Tick()
 	}
 }
 
-void CUILogIn::AddNoticeText(std::string strNoticeText)
+void CUILogIn::AddNews(const std::string& strNews)
 {
 	//TODO: needs improvement	
 
-	std::string input = strNoticeText;
+	std::string input = strNews;
 	std::string pieces[10];
 	int count = 0;
 

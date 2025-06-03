@@ -102,7 +102,7 @@ public:
 	void SetVisibleLogInUIs(bool bEnable); // 계정 LogIn 에 필요한 UI 들을 숨긴다..
 	void OpenServerList();
 	void OpenNoticePage();
-	void AddNoticeText(std::string strNoticeText);
+	void AddNews(const std::string& strNews);
 
 	void Tick();
 

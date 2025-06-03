@@ -265,7 +265,7 @@ void CGameProcLogIn::MsgRecv_NoticeText(Packet& pkt)
 			*/
 			
 
-			m_pUILogIn->AddNoticeText(strContent);
+			m_pUILogIn->AddNews(strContent);
 
 		}
 
