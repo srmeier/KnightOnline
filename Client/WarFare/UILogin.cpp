@@ -139,8 +139,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		{
 			if (m_pServer_Group[i] == nullptr) continue;
 
-			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
-			if (pSender == pStr)
+			if (pSender == m_pList_Group[i])
 			{
 				m_iSelectedServerIndex = i;
 				CGameProcedure::s_pProcLogIn->ConnectToGameServer();
@@ -156,18 +155,16 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		{
 			if (m_pServer_Group[i] == nullptr) continue;
 
-			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
-			if (pStr) pStr->SetColor(0xFFFFFFFF); //white
+			m_pList_Group[i]->SetColor(0xFFFFFFFF); //white
 		}
 
 		for (int i = 0; i < MAX_SERVERS; ++i)
 		{
 			if (m_pServer_Group[i] == nullptr) continue;
 
-			CN3UIString* pStr = (CN3UIString*) (m_pServer_Group[i]->GetChildByID("List_Server"));
-			if (pSender == pStr)
+			if (pSender == m_pList_Group[i])
 			{
-				pStr->SetColor(0xFFFFFF00); // A=255, R=255, G=255, B=0, yellow 
+				m_pList_Group[i]->SetColor(0xFFFFFF00);
 				m_iSelectedServerIndex = i;
 				return true;
 			}
