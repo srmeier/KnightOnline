@@ -482,14 +482,14 @@ void CUILogIn::AddNews(const std::string& strNews)
 {
 	//TODO: needs improvement	
 
-	std::string pieces[10];
+	std::string pieces[6];
 	int count = 0;
 
 	size_t BOX_START_LEN = 3; // '#', 0x00, '\n'
 	size_t BOX_END_LEN = 5;   // '#', 0x00, '\n', 0x00, '\n'
 
 	size_t searchPos = 0;
-	while (count + 1 < 10)
+	while (count < 6)
 	{
 		size_t boxStart = strNews.find("#\0\n", searchPos);
 		if (boxStart == std::string::npos)
