@@ -482,7 +482,6 @@ void CUILogIn::AddNews(const std::string& strNews)
 {
 	//TODO: needs improvement	
 
-	std::string input = strNews;
 	std::string pieces[10];
 	int count = 0;
 
@@ -492,19 +491,19 @@ void CUILogIn::AddNews(const std::string& strNews)
 	size_t searchPos = 0;
 	while (count + 1 < 10)
 	{
-		size_t boxStart = input.find("#\0\n", searchPos);
+		size_t boxStart = strNews.find("#\0\n", searchPos);
 		if (boxStart == std::string::npos)
 			break;
 
 		// title is inbetween searchPos and boxStart
-		std::string title = input.substr(searchPos, boxStart - searchPos);
+		std::string title = strNews.substr(searchPos, boxStart - searchPos);
 
 		size_t messageStart = boxStart + BOX_START_LEN;
-		size_t boxEnd = input.find("#\0\n\0\n", messageStart);
+		size_t boxEnd = strNews.find("#\0\n\0\n", messageStart);
 		if (boxEnd == std::string::npos)
 			break;
 
-		std::string message = input.substr(messageStart, boxEnd - messageStart);
+		std::string message = strNews.substr(messageStart, boxEnd - messageStart);
 
 		pieces[count++] = title;
 		pieces[count++] = message;
