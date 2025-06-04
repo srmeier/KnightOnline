@@ -236,13 +236,13 @@ void CUILogIn_1098::InitEditControls()
 		m_pEdit_pw->SetString("");
 }
 
-bool CUILogIn_1098::ServerInfoAdd(const __GameServerInfo_1098& GSI)
+bool CUILogIn_1098::ServerInfoAdd(const __GameServerInfo& GSI)
 {
 	m_ListServerInfos.push_back(GSI);
 	return true;
 }
 
-bool CUILogIn_1098::ServerInfoGet(int iIndex, __GameServerInfo_1098& GSI)
+bool CUILogIn_1098::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
 {
 	if (m_pList_Server == nullptr
 		|| iIndex < 0
@@ -253,7 +253,7 @@ bool CUILogIn_1098::ServerInfoGet(int iIndex, __GameServerInfo_1098& GSI)
 	return true;
 }
 
-bool CUILogIn_1098::ServerInfoGetCur(__GameServerInfo_1098& GSI)
+bool CUILogIn_1098::ServerInfoGetCur(__GameServerInfo& GSI)
 {
 	GSI.Init();
 
@@ -273,7 +273,7 @@ void CUILogIn_1098::ServerInfoUpdate()
 	if (!m_ListServerInfos.empty())
 	{
 		//sort(m_ListServerInfos.begin(), m_ListServerInfos.end(), not2(__GameServerInfo()));
-		for (const __GameServerInfo_1098& GSI : m_ListServerInfos)
+		for (const __GameServerInfo& GSI : m_ListServerInfos)
 			m_pList_Server->AddString(GSI.szName);
 	}
 }

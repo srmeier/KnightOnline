@@ -6,39 +6,40 @@
 
 #include "N3UIBase.h"
 
-struct __GameServerInfo_1098
-{
-	std::string	szName;
-	std::string	szIP;
-	int			iConcurrentUserCount;
-
-	void Init()
-	{
-		szName.clear();
-		szIP.clear();
-		iConcurrentUserCount = 0;
-	}
-
-	bool operator () (const __GameServerInfo_1098& x, const __GameServerInfo_1098& y) const
-	{
-		return (x.iConcurrentUserCount >= y.iConcurrentUserCount);
-	}
-
-	__GameServerInfo_1098()
-	{
-		Init();
-	}
-
-	__GameServerInfo_1098(const std::string& szName2, const std::string& szIP2, int iConcurrentUserCount2)
-	{
-		szName = szName2;
-		szIP = szIP2;
-		iConcurrentUserCount = iConcurrentUserCount2;
-	}
-};
-
 class CUILogIn_1098 : public CN3UIBase  
 {
+public:
+	struct __GameServerInfo
+	{
+		std::string	szName;
+		std::string	szIP;
+		int			iConcurrentUserCount;
+
+		void Init()
+		{
+			szName.clear();
+			szIP.clear();
+			iConcurrentUserCount = 0;
+		}
+
+		bool operator () (const __GameServerInfo& x, const __GameServerInfo& y) const
+		{
+			return (x.iConcurrentUserCount >= y.iConcurrentUserCount);
+		}
+
+		__GameServerInfo()
+		{
+			Init();
+		}
+
+		__GameServerInfo(const std::string& szName2, const std::string& szIP2, int iConcurrentUserCount2)
+		{
+			szName = szName2;
+			szIP = szIP2;
+			iConcurrentUserCount = iConcurrentUserCount2;
+		}
+	};
+
 protected:
 	CN3UIEdit*	m_pEdit_id;
 	CN3UIEdit*	m_pEdit_pw;
@@ -59,7 +60,7 @@ protected:
 
 	CN3UIList*	m_pList_Server;
 	
-	std::vector<__GameServerInfo_1098> m_ListServerInfos;
+	std::vector<__GameServerInfo> m_ListServerInfos;
 
 	bool	m_bOpenningNow; // 위에서 아래로 스르륵...열려야 한다면..
 	float 	m_fMoveDelta;
@@ -80,9 +81,9 @@ public:
 	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // 메시지를 받는다.. 보낸놈, msg
 
 	int		ServerInfoCount() { return (int) m_ListServerInfos.size(); }
-	bool	ServerInfoAdd(const __GameServerInfo_1098& GSI);
-	bool	ServerInfoGet(int iIndex, __GameServerInfo_1098& GSI);
-	bool	ServerInfoGetCur(__GameServerInfo_1098& GSI);
+	bool	ServerInfoAdd(const __GameServerInfo& GSI);
+	bool	ServerInfoGet(int iIndex, __GameServerInfo& GSI);
+	bool	ServerInfoGetCur(__GameServerInfo& GSI);
 	void	ServerInfoUpdate();
 
 	void AccountIDGet(std::string& szID);

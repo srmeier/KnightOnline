@@ -324,13 +324,13 @@ void CUILogIn_1298::InitEditControls()
 		m_pEdit_pw->SetString("");
 }
 
-bool CUILogIn_1298::ServerInfoAdd(const __GameServerInfo_1298& GSI)
+bool CUILogIn_1298::ServerInfoAdd(const __GameServerInfo& GSI)
 {
 	m_ListServerInfos.push_back(GSI);
 	return true;
 }
 
-bool CUILogIn_1298::ServerInfoGet(int iIndex, __GameServerInfo_1298& GSI)
+bool CUILogIn_1298::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
 {
 	if (iIndex < 0
 		|| iIndex >= (int) m_ListServerInfos.size())
@@ -340,7 +340,7 @@ bool CUILogIn_1298::ServerInfoGet(int iIndex, __GameServerInfo_1298& GSI)
 	return true;
 }
 
-bool CUILogIn_1298::ServerInfoGetCur(__GameServerInfo_1298& GSI)
+bool CUILogIn_1298::ServerInfoGetCur(__GameServerInfo& GSI)
 {
 	GSI.Init();
 
