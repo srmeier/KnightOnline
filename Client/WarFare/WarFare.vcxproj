@@ -183,6 +183,8 @@
     <ClCompile Include="UITradeSellBBS.cpp" />
     <ClCompile Include="UITransactionDlg.cpp" />
     <ClCompile Include="UIUpgradeSelect.cpp" />
+    <ClCompile Include="UIItemUpgrade.cpp" />
+    <ClCompile Include="UIRingUpgrade.cpp" />
     <ClCompile Include="UIVarious.cpp" />
     <ClCompile Include="UIWareHouseDlg.cpp" />
     <ClCompile Include="UIWarp.cpp" />
@@ -294,6 +296,8 @@
     <ClInclude Include="UITradeSellBBS.h" />
     <ClInclude Include="UITransactionDlg.h" />
     <ClInclude Include="UIUpgradeSelect.h" />
+    <ClInclude Include="UIItemUpgrade.h" />
+    <ClInclude Include="UIRingUpgrade.h" />
     <ClInclude Include="UIVarious.h" />
     <ClInclude Include="UIWareHouseDlg.h" />
     <ClInclude Include="UIWarp.h" />

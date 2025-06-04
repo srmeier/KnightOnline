@@ -1,8 +1,8 @@
 ﻿#include "StdAfx.h"
 #include "UIUpgradeSelect.h"
 #include "GameProcMain.h"
-// #include "UIItemUpgrade.h"
-// #include "UIRingUpgrade.h"
+#include "UIItemUpgrade.h"
+#include "UIRingUpgrade.h"
 #include "UIManager.h"
 
 #include <N3BASE/N3UIButton.h>
@@ -42,37 +42,25 @@ bool CUIUpgradeSelect::ReceiveMessage(
 	{
 		if (pSender == m_pBtn_Upgrade_1)
 		{
-#if 1
-			CGameProcedure::MessageBoxPost(
-				"CUIItemUpgrade needs to be implemented.",
-				"Not implemented",
-				MB_OK);
-#else
 			CUIItemUpgrade* pUIItemUpgrade = CGameProcedure::s_pProcMain->m_pUIItemUpgrade;
 			if (pUIItemUpgrade != nullptr)
 			{
-				pUIItemUpgrade->SetVisible(true);
-				pUIItemUpgrade->SetNpcID(m_iNpcID);
+				CGameProcedure::s_pProcMain->UpgradeTransactionState();
+				pUIItemUpgrade->Open();
 			}
-#endif
+
 
 			SetVisible(false);
 		}
 		else if (pSender == m_pBtn_Upgrade_2)
 		{
-#if 1
-			CGameProcedure::MessageBoxPost(
-				"CUIRingUpgrade needs to be implemented.",
-				"Not implemented",
-				MB_OK);
-#else
 			CUIRingUpgrade* pUIRingUpgrade = CGameProcedure::s_pProcMain->m_pUIRingUpgrade;
 			if (pUIRingUpgrade != nullptr)
 			{
-				pUIRingUpgrade->SetVisible(true);
-				pUIRingUpgrade->SetNpcID(m_iNpcID);
+				CGameProcedure::s_pProcMain->UpgradeTransactionState();
+				pUIRingUpgrade->Open();
 			}
-#endif
+
 
 			SetVisible(false);
 		}

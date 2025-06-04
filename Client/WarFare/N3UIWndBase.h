@@ -31,6 +31,8 @@ enum e_UIWND				{
 								UIWND_EXCHANGE_REPAIR,		// Exchange Repair Wnd..
 								UIWND_WARE_HOUSE,			// 보관함..
 								UIWND_UNKNOWN,				// Wnd Unknown..
+								UIWND_UPGRADE,				// Upgrade Wnd..
+								UIWND_RING_UPGRADE,		// Ring Upgrade Wnd..
 							};
 
 // District Info..
