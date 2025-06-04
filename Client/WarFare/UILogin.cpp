@@ -26,24 +26,24 @@ static char THIS_FILE[] = __FILE__;
 
 CUILogIn::CUILogIn()
 {
-	m_pEdit_id = NULL;
-	m_pEdit_pw = NULL;
+	m_pEdit_id = nullptr;
+	m_pEdit_pw = nullptr;
 
-	m_pBtn_LogIn = NULL;
-	m_pBtn_Connect = NULL;
-	m_pBtn_Cancel = NULL;
-	m_pBtn_Option = NULL;
-	m_pBtn_Join = NULL;
+	m_pBtn_LogIn = nullptr;
+	m_pBtn_Connect = nullptr;
+	m_pBtn_Cancel = nullptr;
+	m_pBtn_Option = nullptr;
+	m_pBtn_Join = nullptr;
 
-	m_pGroup_ServerList = NULL;
-	m_pGroup_LogIn = NULL;
+	m_pGroup_ServerList = nullptr;
+	m_pGroup_LogIn = nullptr;
 
-	m_pText_Rights = NULL;
-	m_pImg_MGameLogo = NULL;
-	m_pImg_DaumLogo = NULL;
-	m_pImg_GradeLogo = NULL;
+	m_pText_Rights = nullptr;
+	m_pImg_MGameLogo = nullptr;
+	m_pImg_DaumLogo = nullptr;
+	m_pImg_GradeLogo = nullptr;
 
-	m_pList_Server = NULL;
+	m_pList_Server = nullptr;
 
 	m_bOpenningNow = false; // 위에서 아래로 스르륵...열려야 한다면..
 	m_fMoveDelta = 0;
@@ -58,7 +58,7 @@ CUILogIn::~CUILogIn()
 
 bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
-	if (NULL == pSender) return false;
+	if (nullptr == pSender) return false;
 
 	//s_CameraData.vp;  //불러 오는 과정을 살펴본다 
 	//uint32_t mm = s_CameraData.vp.Height;
@@ -92,7 +92,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 		{
 			if (!CGameProcedure::s_pProcLogIn->m_szRegistrationSite.empty())
 			{
-				ShellExecute(NULL, "open", CGameProcedure::s_pProcLogIn->m_szRegistrationSite.c_str(), NULL, NULL, SW_SHOWNORMAL);
+				ShellExecute(nullptr, "open", CGameProcedure::s_pProcLogIn->m_szRegistrationSite.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 			}
 
 			return true;
@@ -125,44 +125,42 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 
 bool CUILogIn::Load(HANDLE hFile)
 {
-	if (CN3UIBase::Load(hFile) == false) return false;
+	if (!CN3UIBase::Load(hFile))
+		return false;
 
-	//PrintChildIDs();
+	N3_VERIFY_UI_COMPONENT(m_pGroup_LogIn, GetChildByID("Group_LogIn"));
 
-	m_pGroup_LogIn = GetChildByID("Group_LogIn");
-	__ASSERT(m_pGroup_LogIn, "NULL UI Component!!");
-
-	if (m_pGroup_LogIn)
+	if (m_pGroup_LogIn != nullptr)
 	{
-		m_pBtn_LogIn = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("Btn_Login");		__ASSERT(m_pBtn_LogIn, "NULL UI Component!!");
-		m_pBtn_Cancel = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("Btn_Cancel");	__ASSERT(m_pBtn_Cancel, "NULL UI Component!!");
-		m_pBtn_Option = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("Btn_Option");	__ASSERT(m_pBtn_Option, "NULL UI Component!!");
-		m_pBtn_Join = (CN3UIButton*)m_pGroup_LogIn->GetChildByID("Btn_Join");		__ASSERT(m_pBtn_Join, "NULL UI Component!!");
+		N3_VERIFY_UI_COMPONENT(m_pBtn_LogIn,	(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Login"));
+		N3_VERIFY_UI_COMPONENT(m_pBtn_Cancel,	(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Cancel"));
+		N3_VERIFY_UI_COMPONENT(m_pBtn_Option,	(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Option"));
+		N3_VERIFY_UI_COMPONENT(m_pBtn_Join,		(CN3UIButton*) m_pGroup_LogIn->GetChildByID("Btn_Join"));
 
-		m_pEdit_id = (CN3UIEdit*)m_pGroup_LogIn->GetChildByID("Edit_ID");			__ASSERT(m_pEdit_id, "NULL UI Component!!");
-		m_pEdit_pw = (CN3UIEdit*)m_pGroup_LogIn->GetChildByID("Edit_PW");			__ASSERT(m_pEdit_pw, "NULL UI Component!!");
+		N3_VERIFY_UI_COMPONENT(m_pEdit_id,		(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_ID"));
+		N3_VERIFY_UI_COMPONENT(m_pEdit_pw,		(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_PW"));
 
-		//m_pImg_GradeLogo = m_pGroup_LogIn->GetChildByID("Img_Grade");	__ASSERT(m_pImg_GradeLogo, "NULL UI Component!!");
+		// N3_VERIFY_UI_COMPONENT(m_pImg_GradeLogo,	m_pGroup_LogIn->GetChildByID("Img_Grade"));
 	}
 
-	m_pText_Rights = GetChildByID("Text_Rights");	__ASSERT(m_pText_Rights, "NULL UI Component!!");
-	m_pImg_MGameLogo = GetChildByID("Img_MGame");	__ASSERT(m_pImg_MGameLogo, "NULL UI Component!!");
-	m_pImg_DaumLogo = GetChildByID("Img_Daum");		__ASSERT(m_pImg_DaumLogo, "NULL UI Component!!");
+	N3_VERIFY_UI_COMPONENT(m_pText_Rights,		GetChildByID("Text_Rights"));
+	N3_VERIFY_UI_COMPONENT(m_pImg_MGameLogo,	GetChildByID("Img_MGame"));
+	N3_VERIFY_UI_COMPONENT(m_pImg_DaumLogo,		GetChildByID("Img_Daum"));
 
-	if (m_pText_Rights) m_pText_Rights->SetVisible(false);
-	if (m_pImg_MGameLogo) m_pImg_MGameLogo->SetVisible(false);
-	if (m_pImg_DaumLogo) m_pImg_DaumLogo->SetVisible(false);
+	if (m_pText_Rights != nullptr)
+		m_pText_Rights->SetVisible(false);
 
-	GetChildByID("Group_Notice_1")->SetVisible(false);
-	GetChildByID("Group_Notice_2")->SetVisible(false);
-	GetChildByID("Group_Notice_3")->SetVisible(false);
-	GetChildByID("premium")->SetVisible(false);
+	if (m_pImg_MGameLogo != nullptr)
+		m_pImg_MGameLogo->SetVisible(false);
 
-	m_pGroup_ServerList = GetChildByID("Group_ServerList");		__ASSERT(m_pGroup_ServerList, "NULL UI Component!!");
-	if (m_pGroup_ServerList)
+	if (m_pImg_DaumLogo != nullptr)
+		m_pImg_DaumLogo->SetVisible(false);
+
+	N3_VERIFY_UI_COMPONENT(m_pGroup_ServerList, GetChildByID("Group_ServerList"));
+	if (m_pGroup_ServerList != nullptr)
 	{
-		m_pList_Server = (CN3UIList*)(m_pGroup_ServerList->GetChildByID("List_Server"));	__ASSERT(m_pList_Server, "NULL UI Component!!");
-		m_pBtn_Connect = (CN3UIButton*)m_pGroup_ServerList->GetChildByID("Btn_Connect");	__ASSERT(m_pBtn_Connect, "NULL UI Component!!");
+		N3_VERIFY_UI_COMPONENT(m_pList_Server,	(CN3UIList*) m_pGroup_ServerList->GetChildByID("List_Server"));
+		N3_VERIFY_UI_COMPONENT(m_pBtn_Connect,	(CN3UIButton*) m_pGroup_ServerList->GetChildByID("Btn_Connect"));
 
 		m_pGroup_ServerList->SetVisible(false);
 	}
@@ -172,18 +170,18 @@ bool CUILogIn::Load(HANDLE hFile)
 
 void CUILogIn::AccountIDGet(std::string& szID)
 {
-	if (m_pEdit_id)
+	if (m_pEdit_id != nullptr)
 		szID = m_pEdit_id->GetString();
 	else
-		szID = "";
+		szID.clear();
 }
 
 void CUILogIn::AccountPWGet(std::string& szPW)
 {
-	if (m_pEdit_pw)
+	if (m_pEdit_pw != nullptr)
 		szPW = m_pEdit_pw->GetString();
 	else
-		szPW = "";
+		szPW.clear();
 }
 
 void CUILogIn::ConnectButtonSetEnable(bool bEnable)
@@ -191,18 +189,24 @@ void CUILogIn::ConnectButtonSetEnable(bool bEnable)
 	eUI_STATE eState1 = (bEnable ? UI_STATE_BUTTON_NORMAL : UI_STATE_BUTTON_DISABLE);
 	eUI_STATE eState2 = (bEnable ? UI_STATE_LIST_ENABLE : UI_STATE_LIST_DISABLE);
 
-	if (m_pBtn_Connect) m_pBtn_Connect->SetState(eState1);
-	if (m_pList_Server) m_pList_Server->SetState(eState2);
+	if (m_pBtn_Connect != nullptr)
+		m_pBtn_Connect->SetState(eState1);
+
+	if (m_pList_Server != nullptr)
+		m_pList_Server->SetState(eState2);
 }
 
 void CUILogIn::FocusToID()
 {
-	if (m_pEdit_id) m_pEdit_id->SetFocus();
+	if (m_pEdit_id != nullptr)
+		m_pEdit_id->SetFocus();
 }
 
 void CUILogIn::FocusCircular()
 {
-	if (NULL == m_pEdit_id || NULL == m_pEdit_pw) return;
+	if (m_pEdit_id == nullptr
+		|| m_pEdit_pw == nullptr)
+		return;
 
 	if (m_pEdit_id->HaveFocus())
 		m_pEdit_pw->SetFocus();
@@ -212,16 +216,14 @@ void CUILogIn::FocusCircular()
 
 void CUILogIn::InitEditControls()
 {
-	if (m_pEdit_id)
+	if (m_pEdit_id != nullptr)
 	{
 		m_pEdit_id->SetString("");
 		m_pEdit_id->SetFocus();
 	}
 
-	if (m_pEdit_pw)
-	{
+	if (m_pEdit_pw != nullptr)
 		m_pEdit_pw->SetString("");
-	}
 }
 
 bool CUILogIn::ServerInfoAdd(const __GameServerInfo& GSI)
@@ -232,8 +234,8 @@ bool CUILogIn::ServerInfoAdd(const __GameServerInfo& GSI)
 
 bool CUILogIn::ServerInfoGet(size_t iIndex, __GameServerInfo& GSI)
 {
-	if (NULL == m_pList_Server
-		|| iIndex >= m_ListServerInfos.size())
+	if (m_pList_Server == nullptr
+		|| iIndex >= (int) m_ListServerInfos.size())
 		return false;
 
 	GSI = m_ListServerInfos[iIndex];
@@ -243,25 +245,25 @@ bool CUILogIn::ServerInfoGet(size_t iIndex, __GameServerInfo& GSI)
 bool CUILogIn::ServerInfoGetCur(__GameServerInfo& GSI)
 {
 	GSI.Init();
-	if (NULL == m_pList_Server) return false;
+
+	if (m_pList_Server == nullptr)
+		return false;
 
 	int iIndex = m_pList_Server->GetCurSel();
-	return this->ServerInfoGet(iIndex, GSI);
+	return ServerInfoGet(iIndex, GSI);
 }
 
 void CUILogIn::ServerInfoUpdate()
 {
-	if (NULL == m_pList_Server) return;
+	if (m_pList_Server == nullptr)
+		return;
 
 	m_pList_Server->ResetContent();
 	if (!m_ListServerInfos.empty())
 	{
 		//sort(m_ListServerInfos.begin(), m_ListServerInfos.end(), not2(__GameServerInfo()));
-		int iSize = m_ListServerInfos.size();
-		for (int i = 0; i < iSize; i++)
-		{
-			m_pList_Server->AddString(m_ListServerInfos[i].szName);
-		}
+		for (const __GameServerInfo& GSI : m_ListServerInfos)
+			m_pList_Server->AddString(GSI.szName);
 	}
 }
 
@@ -269,21 +271,23 @@ void CUILogIn::Tick()
 {
 	CN3UIBase::Tick();
 
-	if (m_pGroup_ServerList)
+	if (m_pGroup_ServerList != nullptr)
 	{
-		if (m_bOpenningNow) // 위에서 아래로 스르륵...열려야 한다면..
+		// 위에서 아래로 스르륵...열려야 한다면..
+		if (m_bOpenningNow)
 		{
 			POINT ptCur = m_pGroup_ServerList->GetPos();
 			RECT rc = m_pGroup_ServerList->GetRegion();
-			float fHeight = (float)(rc.bottom - rc.top);
+			float fHeight = (float) (rc.bottom - rc.top);
 
 			float fDelta = 5000.0f * CN3Base::s_fSecPerFrm;
 			fDelta *= (fHeight - m_fMoveDelta) / fHeight;
-			if (fDelta < 2.0f) fDelta = 2.0f;
+			if (fDelta < 2.0f)
+				fDelta = 2.0f;
 			m_fMoveDelta += fDelta;
 
 			int iYLimit = 0;
-			ptCur.y = (int)(m_fMoveDelta - fHeight);
+			ptCur.y = (int) (m_fMoveDelta - fHeight);
 			if (ptCur.y >= iYLimit) // 다열렸다!!
 			{
 				ptCur.y = iYLimit;
@@ -297,7 +301,9 @@ void CUILogIn::Tick()
 
 void CUILogIn::OpenServerList()
 {
-	if (m_bOpenningNow || NULL == m_pGroup_ServerList) return;
+	if (m_bOpenningNow
+		|| m_pGroup_ServerList == nullptr)
+		return;
 
 	// 스르륵 열린다!!
 	m_pGroup_ServerList->SetVisible(true);
@@ -310,24 +316,33 @@ void CUILogIn::OpenServerList()
 
 void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 {
-	if (m_pGroup_LogIn) m_pGroup_LogIn->SetVisible(bEnable); // 로그인을 숨긴다..
+	// 로그인을 숨긴다..
+	if (m_pGroup_LogIn != nullptr)
+		m_pGroup_LogIn->SetVisible(bEnable);
 
 	// 로그인한 계정의 구분에 따라 UI 만지기...
-	if (m_pText_Rights) m_pText_Rights->SetVisible(false);
-	if (m_pImg_MGameLogo) m_pImg_MGameLogo->SetVisible(false);
-	if (m_pImg_DaumLogo) m_pImg_DaumLogo->SetVisible(false);
+	if (m_pText_Rights != nullptr)
+		m_pText_Rights->SetVisible(false);
 
-	if (false == bEnable)
+	if (m_pImg_MGameLogo != nullptr)
+		m_pImg_MGameLogo->SetVisible(false);
+
+	if (m_pImg_DaumLogo != nullptr)
+		m_pImg_DaumLogo->SetVisible(false);
+
+	if (!bEnable)
 	{
 		if (LIC_MGAME == CGameProcedure::s_eLogInClassification)
 		{
-			if (m_pText_Rights && m_pImg_MGameLogo)
+			if (m_pText_Rights != nullptr
+				&& m_pImg_MGameLogo != nullptr)
 			{
 				// 아래쪽 중단으로 맞춘다..
-				RECT rcView = { 0, 0, (int)s_CameraData.vp.Width, (int)s_CameraData.vp.Height };
+				RECT rcView = { 0, 0, (int) s_CameraData.vp.Width, (int) s_CameraData.vp.Height };
 				int iX = (rcView.right - (m_pText_Rights->GetWidth() + m_pImg_MGameLogo->GetWidth())) / 2;
 				int iY = rcView.bottom - m_pText_Rights->GetHeight() - 20;
 				m_pText_Rights->SetPos(iX, iY);
+
 				RECT rc = m_pText_Rights->GetRegion();
 				m_pImg_MGameLogo->SetPos(rc.right, rcView.bottom - m_pImg_MGameLogo->GetHeight() - 20);
 
@@ -337,13 +352,15 @@ void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 		}
 		else if (LIC_DAUM == CGameProcedure::s_eLogInClassification)
 		{
-			if (m_pText_Rights && m_pImg_DaumLogo)
+			if (m_pText_Rights != nullptr
+				&& m_pImg_DaumLogo != nullptr)
 			{
 				// 아래쪽 중단으로 맞춘다..
-				RECT rcView = { 0, 0, (int)s_CameraData.vp.Width, (int)s_CameraData.vp.Height };
+				RECT rcView = { 0, 0, (int) s_CameraData.vp.Width, (int) s_CameraData.vp.Height };
 				int iX = (rcView.right - (m_pText_Rights->GetWidth() + m_pImg_DaumLogo->GetWidth())) / 2;
 				int iY = rcView.bottom - m_pText_Rights->GetHeight() - 20;
 				m_pText_Rights->SetPos(iX, iY);
+
 				RECT rc = m_pText_Rights->GetRegion();
 				m_pImg_DaumLogo->SetPos(rc.right, rcView.bottom - m_pImg_DaumLogo->GetHeight() - 20);
 
@@ -353,9 +370,9 @@ void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 		}
 		else
 		{
-			if (m_pText_Rights)
+			if (m_pText_Rights != nullptr)
 			{
-				RECT rcView = { 0, 0, (int)s_CameraData.vp.Width, (int)s_CameraData.vp.Height };
+				RECT rcView = { 0, 0, (int) s_CameraData.vp.Width, (int) s_CameraData.vp.Height };
 				int iX = (rcView.right - m_pText_Rights->GetWidth()) / 2;
 				int iY = rcView.bottom - m_pText_Rights->GetHeight() - 20;
 				m_pText_Rights->SetPos(iX, iY);
@@ -368,7 +385,8 @@ void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 
 void CUILogIn::RecalcGradePos()
 {
-	if (m_pImg_GradeLogo) // 이용등급 표시
+	// 이용등급 표시
+	if (m_pImg_GradeLogo != nullptr)
 	{
 		RECT rc = m_pImg_GradeLogo->GetRegion();
 		int iX = s_CameraData.vp.Width - (rc.right - rc.left + 10);
@@ -386,40 +404,45 @@ bool CUILogIn::OnKeyPress(int iKey)
 		case DIK_TAB:
 			FocusCircular();
 			return true;
-			//		case DIK_NUMPADENTER:
-			//		case DIK_RETURN:
-			//			CGameProcedure::s_pProcLogIn->MsgSend_AccountLogIn(LIC_KNIGHTONLINE);
-			//			return true;
+		// case DIK_NUMPADENTER:
+		// case DIK_RETURN:
+		//	CGameProcedure::s_pProcLogIn->MsgSend_AccountLogIn(LIC_KNIGHTONLINE);
+		//	return true;
 		}
 	}
-	else if (!m_bOpenningNow && m_pGroup_ServerList && m_pGroup_ServerList->IsVisible())
+	else if (!m_bOpenningNow
+		&& m_pGroup_ServerList != nullptr
+		&& m_pGroup_ServerList->IsVisible())
 	{
 		switch (iKey)
 		{
-		case DIK_UP:
-		{
-			if (NULL == m_pList_Server) return false;
+			case DIK_UP:
+			{
+				if (m_pList_Server == nullptr)
+					return false;
 
-			int iIndex = m_pList_Server->GetCurSel();
-
-			if (iIndex > 0) m_pList_Server->SetCurSel(iIndex - 1);
-			int iCnt = m_pList_Server->GetCount();
-		}
-		return true;
-		case DIK_DOWN:
-		{
-			if (NULL == m_pList_Server) return false;
-
-			int iIndex = m_pList_Server->GetCurSel();
-			int iCnt = m_pList_Server->GetCount();
-
-			if (iCnt - iIndex > 1) m_pList_Server->SetCurSel(iIndex + 1);
-		}
-		return true;
-		case DIK_NUMPADENTER:
-		case DIK_RETURN:
-			ReceiveMessage(m_pBtn_Connect, UIMSG_BUTTON_CLICK);
+				int iIndex = m_pList_Server->GetCurSel();
+				if (iIndex > 0)
+					m_pList_Server->SetCurSel(iIndex - 1);
+			}
 			return true;
+
+			case DIK_DOWN:
+			{
+				if (m_pList_Server == nullptr)
+					return false;
+
+				int iIndex = m_pList_Server->GetCurSel();
+				int iCnt = m_pList_Server->GetCount();
+				if ((iCnt - iIndex) > 1)
+					m_pList_Server->SetCurSel(iIndex + 1);
+			}
+			return true;
+
+			case DIK_NUMPADENTER:
+			case DIK_RETURN:
+				ReceiveMessage(m_pBtn_Connect, UIMSG_BUTTON_CLICK);
+				return true;
 		}
 	}
 

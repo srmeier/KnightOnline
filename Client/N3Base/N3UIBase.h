@@ -17,9 +17,10 @@
 #include <set>
 #include <string>
 
-#define N3_VERIFY_UI_COMPONENT(varName, lookupResult) \
+#define N3_VERIFY_UI_COMPONENT(varName, lookupResult) { \
 	varName = lookupResult; \
-	__ASSERT(varName != nullptr, "NULL UI Component!!!")
+	__ASSERT(varName != nullptr, "NULL UI Component!!!"); \
+}
 
 class CN3UIBase;
 
