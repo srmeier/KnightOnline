@@ -59,7 +59,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>..\;..\N3Base\;..\..\Server\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\;..\N3Base\;..\..\Server\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -108,7 +108,7 @@
     <ClCompile Include="GameProcCharacterCreate.cpp" />
     <ClCompile Include="GameProcCharacterSelect.cpp" />
     <ClCompile Include="GameProcedure.cpp" />
-    <ClCompile Include="GameProcLogIn.cpp" />
+    <ClCompile Include="GameProcLogIn_1298.cpp" />
     <ClCompile Include="GameProcLogIn_1098.cpp" />
     <ClCompile Include="GameProcMain.cpp" />
     <ClCompile Include="GameProcNationSelect.cpp" />
@@ -155,7 +155,7 @@
     <ClCompile Include="UIKnightsOperation.cpp" />
     <ClCompile Include="UILoading.cpp" />
     <ClCompile Include="UILoadingDlg.cpp" />
-    <ClCompile Include="UILogin.cpp" />
+    <ClCompile Include="UILogin_1298.cpp" />
     <ClCompile Include="UILogin_1098.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIMessageBox.cpp" />
@@ -208,6 +208,7 @@
     <ClInclude Include="GameProcCharacterSelect.h" />
     <ClInclude Include="GameProcedure.h" />
     <ClInclude Include="GameProcLogIn.h" />
+    <ClInclude Include="GameProcLogIn_1298.h" />
     <ClInclude Include="GameProcLogIn_1098.h" />
     <ClInclude Include="GameProcMain.h" />
     <ClInclude Include="GameProcNationSelect.h" />
@@ -268,7 +269,7 @@
     <ClInclude Include="UIKnightsOperation.h" />
     <ClInclude Include="UILoading.h" />
     <ClInclude Include="UILoadingDlg.h" />
-    <ClInclude Include="UILogin.h" />
+    <ClInclude Include="UILogin_1298.h" />
     <ClInclude Include="UILogin_1098.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIMessageBox.h" />

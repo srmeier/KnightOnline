@@ -1,4 +1,6 @@
 ﻿#include "stdafx.h"
+
+#if defined(LOGIN_SCENE_VERSION) && LOGIN_SCENE_VERSION == 1098
 #include "resource.h"
 #include "GameEng.h"
 #include "GameProcLogIn_1098.h"
@@ -20,6 +22,8 @@
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #endif
+
+using __GameServerInfo = CUILogIn_1098::__GameServerInfo;
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -298,7 +302,7 @@ void CGameProcLogIn_1098::MsgRecv_GameServerGroupList(Packet& pkt)
 	for (int i = 0; i < iServerCount; i++)
 	{
 		int iLen = 0;
-		__GameServerInfo_1098 GSI;
+		__GameServerInfo GSI;
 		iLen = pkt.read<int16_t>();
 		pkt.readString(GSI.szIP, iLen);
 		iLen = pkt.read<int16_t>();
@@ -418,7 +422,7 @@ int CGameProcLogIn_1098::MsgRecv_GameServerLogIn(Packet & pkt) // virtual - 국�
 
 	if (0xff == iNation)
 	{
-		__GameServerInfo_1098 GSI;
+		__GameServerInfo GSI;
 		std::string szMsg;
 
 		m_pUILogIn->ServerInfoGetCur(GSI);
@@ -500,7 +504,7 @@ bool CGameProcLogIn_1098::ProcessPacket(Packet & pkt)
 
 void CGameProcLogIn_1098::ConnectToGameServer() // 고른 게임 서버에 접속
 {
-	__GameServerInfo_1098 GSI;
+	__GameServerInfo GSI;
 	if (!m_pUILogIn->ServerInfoGetCur(GSI))
 		return; // 서버를 고른다음..
 
@@ -543,3 +547,5 @@ void CGameProcLogIn_1098::PacketSend_MGameLogin()
 }*/
 
 //	~(By Ecli666 On 2002-07-15 오후 7:35:16 )
+
+#endif

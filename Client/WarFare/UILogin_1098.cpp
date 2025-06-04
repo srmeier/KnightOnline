@@ -1,8 +1,9 @@
 ﻿#include "stdafx.h"
+
+#if defined(LOGIN_SCENE_VERSION) && LOGIN_SCENE_VERSION == 1098
 #include "resource.h"
 #include "UILogIn_1098.h"
-#include "GameProcLogIn.h"
-
+#include "GameProcLogIn_1098.h"
 #include "N3UIEdit.h"
 #include "N3UIButton.h"
 #include "N3UIList.h"
@@ -49,20 +50,18 @@ CUILogIn_1098::CUILogIn_1098()
 
 CUILogIn_1098::~CUILogIn_1098()
 {
-
 }
 
 bool CUILogIn_1098::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
-	if (nullptr == pSender) return false;
-
-	//s_CameraData.vp;  //불러 오는 과정을 살펴본다 
-	//uint32_t mm = s_CameraData.vp.Height;
-	//uint32_t ss = s_CameraData.vp.Width;	
+	if (pSender == nullptr)
+		return false;
 
 	if (dwMsg == UIMSG_BUTTON_CLICK)
 	{
-		if (pSender == m_pBtn_LogIn && m_pEdit_id && m_pEdit_pw)
+		if (pSender == m_pBtn_LogIn
+			&& m_pEdit_id != nullptr
+			&& m_pEdit_pw != nullptr)
 		{
 			CGameProcedure::s_pProcLogIn->MsgSend_AccountLogIn(LIC_KNIGHTONLINE);
 			return true;
@@ -152,6 +151,21 @@ bool CUILogIn_1098::Load(HANDLE hFile)
 	if (m_pImg_DaumLogo != nullptr)
 		m_pImg_DaumLogo->SetVisible(false);
 
+	const std::string szIDsToHide[] =
+	{
+		"Group_Notice_1",
+		"Group_Notice_2",
+		"Group_Notice_3",
+		"premium"
+	};
+
+	for (const std::string& szID : szIDsToHide)
+	{
+		CN3UIBase* pChild = GetChildByID(szID);
+		if (pChild != nullptr)
+			pChild->SetVisible(false);
+	}
+
 	N3_VERIFY_UI_COMPONENT(m_pGroup_ServerList, GetChildByID("Group_ServerList"));
 	if (m_pGroup_ServerList != nullptr)
 	{
@@ -222,13 +236,13 @@ void CUILogIn_1098::InitEditControls()
 		m_pEdit_pw->SetString("");
 }
 
-bool CUILogIn_1098::ServerInfoAdd(const __GameServerInfo_1098& GSI)
+bool CUILogIn_1098::ServerInfoAdd(const __GameServerInfo& GSI)
 {
 	m_ListServerInfos.push_back(GSI);
 	return true;
 }
 
-bool CUILogIn_1098::ServerInfoGet(int iIndex, __GameServerInfo_1098& GSI)
+bool CUILogIn_1098::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
 {
 	if (m_pList_Server == nullptr
 		|| iIndex < 0
@@ -239,7 +253,7 @@ bool CUILogIn_1098::ServerInfoGet(int iIndex, __GameServerInfo_1098& GSI)
 	return true;
 }
 
-bool CUILogIn_1098::ServerInfoGetCur(__GameServerInfo_1098& GSI)
+bool CUILogIn_1098::ServerInfoGetCur(__GameServerInfo& GSI)
 {
 	GSI.Init();
 
@@ -259,7 +273,7 @@ void CUILogIn_1098::ServerInfoUpdate()
 	if (!m_ListServerInfos.empty())
 	{
 		//sort(m_ListServerInfos.begin(), m_ListServerInfos.end(), not2(__GameServerInfo()));
-		for (const __GameServerInfo_1098& GSI : m_ListServerInfos)
+		for (const __GameServerInfo& GSI : m_ListServerInfos)
 			m_pList_Server->AddString(GSI.szName);
 	}
 }
@@ -445,3 +459,5 @@ bool CUILogIn_1098::OnKeyPress(int iKey)
 
 	return CN3UIBase::OnKeyPress(iKey);
 }
+
+#endif
