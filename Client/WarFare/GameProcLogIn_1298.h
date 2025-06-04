@@ -2,10 +2,10 @@
 
 #include "GameProcedure.h"
 
-class CGameProcLogIn : public CGameProcedure
+class CGameProcLogIn_1298 : public CGameProcedure
 {
 public:
-	class CUILogIn*		m_pUILogIn;
+	class CUILogIn_1298*		m_pUILogIn;
 	
 	bool			m_bLogIn; // 로그인 중복 방지..
 	std::string		m_szRegistrationSite;
@@ -31,7 +31,7 @@ protected:
 public:
 
 	void ConnectToGameServer(); // 고른 게임 서버에 접속
-	CGameProcLogIn();
-	~CGameProcLogIn() override;
+	CGameProcLogIn_1298();
+	~CGameProcLogIn_1298() override;
 //	void PacketSend_MGameLogin();
 };

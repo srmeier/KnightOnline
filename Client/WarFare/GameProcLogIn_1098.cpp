@@ -1,4 +1,6 @@
 ﻿#include "stdafx.h"
+
+#if 0
 #include "resource.h"
 #include "GameEng.h"
 #include "GameProcLogIn_1098.h"
@@ -543,3 +545,5 @@ void CGameProcLogIn_1098::PacketSend_MGameLogin()
 }*/
 
 //	~(By Ecli666 On 2002-07-15 오후 7:35:16 )
+
+#endif

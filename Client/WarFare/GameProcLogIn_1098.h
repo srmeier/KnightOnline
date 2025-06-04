@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#if 0
+
 #include "GameProcedure.h"
 
 class CGameProcLogIn_1098 : public CGameProcedure
@@ -38,3 +40,5 @@ public:
 	~CGameProcLogIn_1098() override;
 //	void PacketSend_MGameLogin();
 };
+
+#endif

@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "resource.h"
 #include "UILogIn_1098.h"
-#include "GameProcLogIn.h"
+#include "GameProcLogIn_1098.h"
 
 #include "N3UIEdit.h"
 #include "N3UIButton.h"
@@ -15,6 +15,8 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif
+
+#if 0
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -443,3 +445,5 @@ bool CUILogIn_1098::OnKeyPress(int iKey)
 
 	return CN3UIBase::OnKeyPress(iKey);
 }
+
+#endif

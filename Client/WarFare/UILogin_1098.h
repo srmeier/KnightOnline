@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#if 0
+
 #include <string>
 #include <vector>
 
@@ -92,3 +94,5 @@ public:
 	CUILogIn_1098();
 	~CUILogIn_1098() override;
 };
+
+#endif

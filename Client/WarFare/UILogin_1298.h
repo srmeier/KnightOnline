@@ -36,7 +36,7 @@ struct __GameServerInfo
 	}
 };
 
-class CUILogIn : public CN3UIBase  
+class CUILogIn_1298 : public CN3UIBase  
 {
 protected:
 	static constexpr int MAX_SERVERS = 20; // max number of servers in UIF file.
@@ -116,6 +116,6 @@ public:
 
 	void ConnectButtonSetEnable(bool bEnable);
 
-	CUILogIn();
-	~CUILogIn() override;
+	CUILogIn_1298();
+	~CUILogIn_1298() override;
 };
