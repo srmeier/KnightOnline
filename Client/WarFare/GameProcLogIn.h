@@ -15,10 +15,10 @@ public:
 	void	MsgRecv_AccountLogIn(int iCmd, Packet& pkt);
 	int		MsgRecv_VersionCheck(Packet& pkt); // virtual
 	int		MsgRecv_GameServerLogIn(Packet& pkt); // virtual - 국가 번호를 리턴한다.
-	void	MsgRecv_NoticeText(Packet& pkt);
+	void	MsgRecv_News(Packet& pkt);
 
 	bool	MsgSend_AccountLogIn(enum e_LogInClassification eLIC);
-	bool	MsgSend_NoticeText();
+	bool	MsgSend_NewsReq();
 
 	void Release();
 	void Init();

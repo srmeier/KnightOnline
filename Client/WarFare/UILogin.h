@@ -39,8 +39,7 @@ struct __GameServerInfo
 class CUILogIn : public CN3UIBase  
 {
 protected:
-
-	static constexpr int MAX_SERVERS = 20; //max number of servers in UIF file.
+	static constexpr int MAX_SERVERS = 20; // max number of servers in UIF file.
 
 	CN3UIEdit*	m_pEdit_id;
 	CN3UIEdit*	m_pEdit_pw;
@@ -78,11 +77,6 @@ protected:
 	CN3UIString* m_pText_Notice3_Name_3;
 	CN3UIString* m_pText_Notice3_Text_3;
 
-	CN3UIBase* m_pText_Rights;
-	CN3UIBase* m_pImg_MGameLogo;
-	CN3UIBase* m_pImg_DaumLogo;
-	CN3UIBase* m_pImg_GradeLogo;
-
 	CN3UIBase* m_pServer_Group[MAX_SERVERS];
 	CN3UIBase* m_pArrow_Group[MAX_SERVERS];
 	CN3UIString* m_pList_Group[MAX_SERVERS];
@@ -90,7 +84,7 @@ protected:
 	std::vector<__GameServerInfo> m_ListServerInfos;
 
 	bool	m_bOpenningNow; // 위에서 아래로 스르륵...열려야 한다면..
-	bool	m_bNoticeScreen;
+	bool	m_bIsNewsVisible;
 	float 	m_fMoveDelta;
 	bool	m_bLogIn; // 로그인 중복 방지..
 	int		m_iSelectedServerIndex;
@@ -98,10 +92,9 @@ protected:
 public:
 	void SetRequestedLogIn(bool bLogIn) { m_bLogIn = bLogIn; }
 	bool OnKeyPress(int iKey);
-	void RecalcGradePos();
 	void SetVisibleLogInUIs(bool bEnable); // 계정 LogIn 에 필요한 UI 들을 숨긴다..
 	void OpenServerList();
-	void OpenNoticePage();
+	void OpenNews();
 	void AddNews(const std::string& strNews);
 
 	void Tick();

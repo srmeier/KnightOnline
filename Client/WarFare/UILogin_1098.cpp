@@ -49,20 +49,18 @@ CUILogIn_1098::CUILogIn_1098()
 
 CUILogIn_1098::~CUILogIn_1098()
 {
-
 }
 
 bool CUILogIn_1098::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
-	if (nullptr == pSender) return false;
-
-	//s_CameraData.vp;  //불러 오는 과정을 살펴본다 
-	//uint32_t mm = s_CameraData.vp.Height;
-	//uint32_t ss = s_CameraData.vp.Width;	
+	if (pSender == nullptr)
+		return false;
 
 	if (dwMsg == UIMSG_BUTTON_CLICK)
 	{
-		if (pSender == m_pBtn_LogIn && m_pEdit_id && m_pEdit_pw)
+		if (pSender == m_pBtn_LogIn
+			&& m_pEdit_id != nullptr
+			&& m_pEdit_pw != nullptr)
 		{
 			CGameProcedure::s_pProcLogIn->MsgSend_AccountLogIn(LIC_KNIGHTONLINE);
 			return true;

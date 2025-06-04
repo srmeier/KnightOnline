@@ -9,14 +9,10 @@
 #include "APISocket.h"
 #include "PacketDef.h"
 
-#include "N3Camera.h"
-#include "N3Light.h"
-#include "N3Chr.h"
 #include "N3SndObj.h"
 #include "N3SndObjStream.h"
 #include "N3SndMgr.h"
 
-#include "N3UIList.h"
 #include <ctime>
 
 #ifdef _DEBUG
@@ -31,7 +27,7 @@ static char THIS_FILE[]=__FILE__;
 CGameProcLogIn::CGameProcLogIn()
 {
 	m_pUILogIn	= nullptr;
-	m_bLogIn = false; // 로그인 중복 방지..
+	m_bLogIn	= false; // 로그인 중복 방지..
 }
 
 CGameProcLogIn::~CGameProcLogIn()
@@ -51,34 +47,28 @@ void CGameProcLogIn::Init()
 {
 	CGameProcedure::Init();
 	
-	//random elmorad or karus background
-	std::string strNationPrefix = "el";
-	std::srand(std::time(nullptr));
-	int iRand = std::rand() % 101;
-	(iRand < 50) ? strNationPrefix = "el" : strNationPrefix = "ka";
+	srand((uint32_t) time(nullptr));
+
+	// Random elmorad or karus background
+	int iRandomNation = 1 + (rand() % 2);
 
 	m_pUILogIn = new CUILogIn();
 	m_pUILogIn->Init(s_pUIMgr);
-	std::string szPath = "UI_us\\" + strNationPrefix + "_login_intro_us.uif";
-	m_pUILogIn->LoadFromFile(szPath);
 
-	s_pEng->s_SndMgr.ReleaseStreamObj(&s_pSnd_BGM);
-
-	//NOTE: mp3 files don't work
-	//this is used for testing. original sound is not in Snd folder.
-	//it exists as bgm_el_battle.mp3, convert it to .wav to make it work
-	std::string szFN = "Snd\\bgm_el_battle.wav";
-	CGameProcedure::s_pSnd_BGM = s_pEng->s_SndMgr.CreateStreamObj(szFN);
+	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.Find(iRandomNation);
 	if (pTbl != nullptr)
-		m_pUILogIn->LoadFromFile(pTbl->szLogIn);
+		m_pUILogIn->LoadFromFile(pTbl->szLoginIntro);
+
+	s_SndMgr.ReleaseStreamObj(&s_pSnd_BGM);
+
+	std::string szFN = "Snd\\Intro_Sound.mp3";
+	s_pSnd_BGM = s_SndMgr.CreateStreamObj(szFN);
 
 	RECT rc = m_pUILogIn->GetRegion();
 	int iX = (CN3Base::s_CameraData.vp.Width - (rc.right - rc.left))/2;
 	int iY = CN3Base::s_CameraData.vp.Height - (rc.bottom - rc.top);
 	m_pUILogIn->SetPos(iX, iY);
 	
-	//m_pUILogIn->RecalcGradePos(); //sets position of grade logo
-
 	rc.left = 0; rc.top = 0; rc.right = CN3Base::s_CameraData.vp.Width; rc.bottom = CN3Base::s_CameraData.vp.Height;
 	m_pUILogIn->SetRegion(rc); // 이걸 꼭 해줘야 UI 처리가 제대로 된다..
 	s_pUIMgr->SetFocusedUI((CN3UIBase*)m_pUILogIn);
@@ -177,7 +167,7 @@ void CGameProcLogIn::Render()
 	s_lpD3DDev->SetRenderState(D3DRS_ZWRITEENABLE, dwZWrite);
 	CGameProcedure::Render(); // Render UI and other basic elements.
 
-	s_pEng->s_lpD3DDev->EndScene();	// Starting scene rendering...
+	s_lpD3DDev->EndScene();	// Starting scene rendering...
 
 	s_pEng->Present(CN3Base::s_hWndBase);
 }
@@ -222,21 +212,18 @@ bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 	return true;
 }
 
-bool CGameProcLogIn::MsgSend_NoticeText()
+bool CGameProcLogIn::MsgSend_NewsReq()
 {
-	uint8_t byBuff[2];									
-	int iOffset = 0;										
+	uint8_t byBuff[2];
+	int iOffset = 0;
 
-	uint8_t byCmd = N3_NEWS;
-	
-	CAPISocket::MP_AddByte(byBuff, iOffset, byCmd);					
-
-	s_pSocket->Send(byBuff, iOffset);								
+	CAPISocket::MP_AddByte(byBuff, iOffset, N3_NEWS);
+	s_pSocket->Send(byBuff, iOffset);
 
 	return true;
 }
 
-void CGameProcLogIn::MsgRecv_NoticeText(Packet& pkt)
+void CGameProcLogIn::MsgRecv_News(Packet& pkt)
 {
 	//consider changing server side, packet starts with string "Login Notice"
 	//see LoginSession::HandleNews
@@ -244,34 +231,29 @@ void CGameProcLogIn::MsgRecv_NoticeText(Packet& pkt)
 	uint16_t strLen = pkt.read<uint16_t>();
 	std::string strLabel;
 	pkt.readString(strLabel, strLen);
-	
 
-	if (strLabel == "Login Notice")
+	if (strLabel != "Login Notice")
+		return;
+
+	// check limits
+	uint16_t wSize = pkt.read<uint16_t>();
+	if (wSize == 0
+		|| wSize >= 4096)
+		return;
+
+	// read content
+	std::string strContent;
+	pkt.readString(strContent, wSize);
+
+	/* //to trace bytes
+	for (size_t i = 0; i < strContent.size(); i++)
 	{
-		uint16_t iSize = pkt.read<uint16_t>();
-
-		if (iSize > 0 && iSize < 4096) // check limits
-		{
-			// read content
-			std::string strContent;
-			pkt.readString(strContent, iSize);
-
-			/* //to trace bytes
-			for (size_t i = 0; i < strContent.size(); i++)
-			{
-				TRACE("[%03d] %02X (%c)\n", (int) i, (unsigned char) strContent[i],
-					isprint(strContent[i]) ? strContent[i] : '.');
-			}
-			*/
-			
-
-			m_pUILogIn->AddNews(strContent);
-
-		}
-
+		TRACE("[%03d] %02X (%c)\n", (int) i, (unsigned char) strContent[i],
+			isprint(strContent[i]) ? strContent[i] : '.');
 	}
-	
+	*/
 
+	m_pUILogIn->AddNews(strContent);
 }
 
 void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
@@ -295,24 +277,24 @@ void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 
 void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 {
-	
 	// Recv - b1 (0: Failure, 1: Success, 2: ID Not Found, 3: Incorrect Password,
 	// 4: Server Under Maintenance)
 	
 	int iResult = pkt.read<uint8_t>();
-	
-// Connection successful
-	if (1 == iResult) // Connection successful
+
+	// Connection successful
+	if (1 == iResult)
 	{
-		//request notice texts from server
-		this->MsgSend_NoticeText();
+		// request news from server
+		MsgSend_NewsReq();
 
 		// Close all message boxes..
 		MessageBoxClose(-1);
 		
-		m_pUILogIn->OpenNoticePage();
+		m_pUILogIn->OpenNews();
 	}
-	else if (2 == iResult) // If the failure is due to missing ID..
+	// ID not found
+	else if (2 == iResult)
 	{
 		if (N3_ACCOUNT_LOGIN == iCmd)
 		{
@@ -384,7 +366,8 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 		MessageBoxPost(szMsg, szTmp, MB_OK); // MGame ID 로 접속할거냐고 물어본다.
 	}
 
-	if (1 != iResult) // 로그인 실패..
+	// 로그인 실패..
+	if (1 != iResult)
 	{
 		m_pUILogIn->SetVisibleLogInUIs(true); // 접속 성공..UI 조작 불가능..
 		m_pUILogIn->SetRequestedLogIn(false);
@@ -486,7 +469,7 @@ bool CGameProcLogIn::ProcessPacket(Packet & pkt)
 			MsgRecv_AccountLogIn(iCmd, pkt);
 			return true;
 		case N3_NEWS:
-			this->MsgRecv_NoticeText(pkt);
+			MsgRecv_News(pkt);
 			return true;
 	}
 
