@@ -18,6 +18,7 @@
 #include "UIInventory.h"
 #include "UIVarious.h"
 #include "UIPartyOrForce.h"
+#include "UIHotKeyDlg.h"
 #include "MagicSkillMng.h"
 #include "N3SndObj.h"
 #include "N3SndObjStream.h"
@@ -1377,6 +1378,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 
 		CGameProcedure::s_pFX->TriggerBundle(SourceID, spart1, pSkill->iSelfFX1, SourceID, spart1, -1);
 		if(spart2!=0) CGameProcedure::s_pFX->TriggerBundle(SourceID, spart2, pSkill->iSelfFX1, SourceID, spart2, -2);
+		SetSkillCooldown(pSkill);
 		return;
 	}
 	m_pGameProcMain->CommandSitDown(false, false); // 혹시라도 앉아있음 일으켜 세운다..
@@ -1457,7 +1459,7 @@ void CMagicSkillMng::StartSkillMagicAtPosPacket(__TABLE_UPC_SKILL* pSkill, __Vec
 	CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 	
 	CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..
-
+	SetSkillCooldown(pSkill);
 
 	if(pSkill->iTarget == SKILLMAGIC_TARGET_ENEMY_ONLY) m_pGameProcMain->PlayBGM_Battle();
 }
@@ -1480,6 +1482,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 
 		CGameProcedure::s_pFX->TriggerBundle(SourceID, spart1, pSkill->iSelfFX1, SourceID, spart1, -1);
 		if(spart2!=0) CGameProcedure::s_pFX->TriggerBundle(SourceID, spart2, pSkill->iSelfFX1, SourceID, spart2, -2);
+		SetSkillCooldown(pSkill);
 		return;
 	}
 
@@ -1533,6 +1536,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..	
+		SetSkillCooldown(pSkill);
 		return;
 	}
 
@@ -1559,6 +1563,7 @@ void CMagicSkillMng::StartSkillMagicAtTargetPacket(__TABLE_UPC_SKILL* pSkill, in
 		CAPISocket::MP_AddShort(byBuff, iOffset, 0);
 		
 		CGameProcedure::s_pSocket->Send(byBuff, iOffset); // 보낸다..	
+		SetSkillCooldown(pSkill);
 		return;
 	}
 
@@ -1627,6 +1632,7 @@ void CMagicSkillMng::Tick()
 #ifdef _DEBUG
 	m_fMsgUpdateTimer += CN3Base::s_fSecPerFrm;
 #endif
+
 	for (auto it = m_RecastTimes.begin(); it != m_RecastTimes.end(); )
 	{
 #ifdef _DEBUG
@@ -1639,11 +1645,13 @@ void CMagicSkillMng::Tick()
 		}
 #endif
 		it->second -= CN3Base::s_fSecPerFrm;
+
 		if (it->second < 0)
 			it = m_RecastTimes.erase(it);
 		else
 			++it;
 	}
+
 	for (auto it = m_NonActionRecastTimes.begin(); it != m_NonActionRecastTimes.end(); )
 	{
 #ifdef _DEBUG
@@ -1655,12 +1663,14 @@ void CMagicSkillMng::Tick()
 			m_fMsgUpdateTimer = 0.0f;
 		}
 #endif
+
 		it->second -= CN3Base::s_fSecPerFrm;
 		if (it->second < 0)
-			it = m_RecastTimes.erase(it);
+			it = m_NonActionRecastTimes.erase(it);
 		else
 			++it;
 	}
+
 	// Legacy Existing code for delay and casting
 	m_fDelay -= CN3Base::s_fSecPerFrm;
 	if (m_fDelay < 0.0f) m_fDelay = 0.0f;
@@ -3045,5 +3055,25 @@ void CMagicSkillMng::StunMySelf(__TABLE_UPC_SKILL_TYPE_3* pType3)
 	{
 		m_pGameProcMain->CommandSitDown(false, false); // 일으켜 세운다.
 		s_pPlayer->Stun(STUN_TIME);
+	}
+}
+
+float CMagicSkillMng::GetCooldown(const __TABLE_UPC_SKILL* pSkill) const
+{
+	if (pSkill->iSelfAnimID1 > 0)
+	{
+		auto it = m_RecastTimes.find(pSkill->dwID);
+		if (it == m_RecastTimes.end())
+			return -1;
+
+		return it->second;
+	}
+	else
+	{
+		auto it = m_NonActionRecastTimes.find(pSkill->dwID);
+		if (it == m_NonActionRecastTimes.end())
+			return -1;
+
+		return it->second;
 	}
 }

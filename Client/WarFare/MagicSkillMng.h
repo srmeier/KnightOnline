@@ -132,6 +132,7 @@ public:
 	void	Tick();
 	void	UpdateZonePointerPositions();
 	void	CancelZonePointer();
+	float   GetCooldown(const __TABLE_UPC_SKILL* pSkill) const;
 
 	CMagicSkillMng();
 	CMagicSkillMng(CGameProcMain* pGameProcMain);

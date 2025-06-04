@@ -60,9 +60,6 @@
     <ClCompile Include="GameProcCharacterSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameProcLogIn.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameProcNationSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -175,9 +172,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UILoadingDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UILogin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
@@ -294,6 +288,18 @@
     <ClCompile Include="UIRingUpgrade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameProcLogIn_1098.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UILogin_1098.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameProcLogIn_1298.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UILogin_1298.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameProcedure.h">
@@ -342,9 +348,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameProcCharacterSelect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameProcLogIn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameProcNationSelect.h">
@@ -506,9 +509,6 @@
     <ClInclude Include="UILoadingDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UILogin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UIManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -618,6 +618,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UIUpgradeSelect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameProcLogIn_1098.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UILogin_1098.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameProcLogIn_1298.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UILogin_1298.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameProcLogIn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

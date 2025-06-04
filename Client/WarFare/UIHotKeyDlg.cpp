@@ -15,11 +15,13 @@
 #include "UIManager.h"
 #include "UIInventory.h"
 
+#include <cmath>
+#include <algorithm>
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
 #endif
-
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -321,10 +323,27 @@ void CUIHotKeyDlg::Render()
 	POINT ptCur = CGameProcedure::s_pLocalInput->MouseGetPos();
 
 	int k;
-	for(k = 0; k < MAX_SKILL_IN_HOTKEY; k++ )
+	for (k = 0; k < MAX_SKILL_IN_HOTKEY; k++)
 	{
-		if (m_pMyHotkey[m_iCurPage][k] != NULL) 
+		if (m_pMyHotkey[m_iCurPage][k] != nullptr)
+		{
+			float fCooldown = CGameProcedure::s_pProcMain->m_pMagicSkillMng->GetCooldown(
+				m_pMyHotkey[m_iCurPage][k]->pSkill);
+			
+			// not on cooldown
+			if (fCooldown < 0)
+			{
+				CN3UIIcon* pUIIcon = m_pMyHotkey[m_iCurPage][k]->pUIIcon;
+				if (pUIIcon != nullptr)
+					pUIIcon->Render();
+			}
+			else
+			{
+				RenderCooldown(m_pMyHotkey[m_iCurPage][k], fCooldown);
+			}
+
 			DisplayCountStr(m_pMyHotkey[m_iCurPage][k]);
+		}
 	}
 
 	for(k = 0; k < MAX_SKILL_IN_HOTKEY; k++ )
@@ -707,9 +726,7 @@ void CUIHotKeyDlg::DoOperate(__IconItemSkill*	pSkill)
 	//char szBuf[512];
 	// 메시지 박스 출력..	
 	//wsprintf(szBuf, "%s 스킬이 사용되었습니다.", pSkill->pSkill->szName.c_str() );
-	//CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffff00);
-
-	PlayRepairSound();					
+	//CGameProcedure::s_pProcMain->MsgOutput(szBuf, 0xffffff00);			
 	
 	int iIDTarget = CGameBase::s_pPlayer->m_iIDTarget;
 	CGameProcedure::s_pProcMain->m_pMagicSkillMng->MsgSend_MagicProcess(iIDTarget, pSkill->pSkill);
@@ -973,6 +990,112 @@ void CUIHotKeyDlg::RenderSelectIcon(CN3UIIcon* pUIIcon)
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, dwAlpha);
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, dwSrcBlend);
 	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, dwDestBlend);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, dwCOP);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, dwCA1);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, dwAOP);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, dwAA1);
+	CN3Base::s_lpD3DDev->SetFVF(dwVertexShader);
+}
+
+void CUIHotKeyDlg::RenderCooldown(const __IconItemSkill* pSkill, float fCooldown)
+{
+	if (pSkill == nullptr)
+		return;
+
+	constexpr D3DCOLOR Color = D3DCOLOR_ARGB(0x80, 0xFF, 0x00, 0x00);
+
+	const RECT rc = pSkill->pUIIcon->GetRegion();
+
+	const float centerX = static_cast<float>(rc.left + rc.right) / 2;
+	const float centerY = static_cast<float>(rc.top + rc.bottom) / 2;
+
+	const float halfWidth = static_cast<float>(centerX - rc.left);
+	const float halfHeight = static_cast<float>(centerY - rc.top);
+
+	const float radius = std::sqrtf(
+		std::pow(halfWidth, 2.0f)
+		+ std::pow(halfHeight, 2.0f));
+
+	float progress = 0.0f;
+	
+	if (pSkill->pSkill->iReCastTime > 0)
+	{
+		progress = (fCooldown / (static_cast<float>(pSkill->pSkill->iReCastTime) / 10.0f));
+		progress = std::clamp(progress, 0.0f, 1.0f);
+	}
+
+	// arbitrary number of segments. this might be too many for such a small icon.
+	const int segments = 64;
+	const int segmentCountToDraw = static_cast<int>((segments * progress));
+
+	std::vector<__VertexTransformedColor> vertices;
+	vertices.reserve(segments);
+
+	// not 100% sure on the color. Choosing arbitrary 50% opacity.
+	vertices.emplace_back(centerX, centerY, UI_DEFAULT_Z, UI_DEFAULT_RHW, Color);
+
+	const float fullCircle = D3DX_PI * 2.0f;
+	const float maxAngle = fullCircle * progress;
+	const float startAngle = -D3DX_PI / 2.0f; // 12 o'clock
+
+	std::vector<__VertexTransformedColor> arcVertices;
+	arcVertices.reserve(segmentCountToDraw);
+
+	for (int i = 0; i <= segmentCountToDraw; i++)
+	{
+		float angle = startAngle - maxAngle * (static_cast<float>(i) / segmentCountToDraw);
+		float x = centerX + cosf(angle) * radius;
+		float y = centerY + sinf(angle) * radius;
+		arcVertices.emplace_back(x, y, UI_DEFAULT_Z, UI_DEFAULT_RHW, Color);
+	}
+
+	// very crude way but i'd rather keep culling enabled.
+	vertices.insert(vertices.end(), arcVertices.rbegin(), arcVertices.rend());
+
+	// disable culling and reverse vectors.
+	//for (int i = 0; i <= segmentCountToDraw; i++)
+	//{
+	//	// Go clockwise by subtracting angle increments
+	//	float angle = startAngle - maxAngle * (static_cast<float>(i) / segmentCountToDraw);
+	//	float x = centerX + cosf(angle) * radius;
+	//	float y = centerY + sinf(angle) * radius;
+	//	vertices.emplace_back(x, y, UI_DEFAULT_Z, UI_DEFAULT_RHW, Color);
+	//}
+
+	DWORD dwZ, dwFog, dwAlpha, dwCOP, dwCA1, dwSrcBlend, dwDestBlend, dwVertexShader, dwAOP, dwAA1;
+	CN3Base::s_lpD3DDev->GetRenderState(D3DRS_ZENABLE, &dwZ);
+	CN3Base::s_lpD3DDev->GetRenderState(D3DRS_FOGENABLE, &dwFog);
+	CN3Base::s_lpD3DDev->GetRenderState(D3DRS_ALPHABLENDENABLE, &dwAlpha);
+	CN3Base::s_lpD3DDev->GetRenderState(D3DRS_SRCBLEND, &dwSrcBlend);
+	CN3Base::s_lpD3DDev->GetRenderState(D3DRS_DESTBLEND, &dwDestBlend);
+	CN3Base::s_lpD3DDev->GetTextureStageState(0, D3DTSS_COLOROP, &dwCOP);
+	CN3Base::s_lpD3DDev->GetTextureStageState(0, D3DTSS_COLORARG1, &dwCA1);
+	CN3Base::s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAOP, &dwAOP);
+	CN3Base::s_lpD3DDev->GetTextureStageState(0, D3DTSS_ALPHAARG1, &dwAA1);
+	CN3Base::s_lpD3DDev->GetFVF(&dwVertexShader);
+
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, FALSE);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, FALSE);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_SCISSORTESTENABLE, TRUE);
+	CN3Base::s_lpD3DDev->SetScissorRect(&rc);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);
+
+	CN3Base::s_lpD3DDev->SetFVF(FVF_TRANSFORMED);
+	// CN3Base::s_lpD3DDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	CN3Base::s_lpD3DDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, vertices.size() - 2, &vertices[0], sizeof(__VertexTransformedColor));
+
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ZENABLE, dwZ);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_FOGENABLE, dwFog);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_ALPHABLENDENABLE, dwAlpha);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_SRCBLEND, dwSrcBlend);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_DESTBLEND, dwDestBlend);
+	CN3Base::s_lpD3DDev->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
 	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLOROP, dwCOP);
 	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_COLORARG1, dwCA1);
 	CN3Base::s_lpD3DDev->SetTextureStageState(0, D3DTSS_ALPHAOP, dwAOP);

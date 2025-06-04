@@ -1,52 +1,45 @@
-﻿// UILogIn.h: interface for the CUILogIn class.
-//
-//////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
-#if !defined(AFX_UILogIn_H__5D51312E_7B98_43C2_871B_12A9CC0C2096__INCLUDED_)
-#define AFX_UILogIn_H__5D51312E_7B98_43C2_871B_12A9CC0C2096__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
-
+#if defined(LOGIN_SCENE_VERSION) && LOGIN_SCENE_VERSION == 1098
 #include <string>
 #include <vector>
 
 #include "N3UIBase.h"
 
-struct __GameServerInfo
+class CUILogIn_1098 : public CN3UIBase  
 {
-	std::string	szName;
-	std::string	szIP;
-	int			iConcurrentUserCount;
-
-	void Init()
+public:
+	struct __GameServerInfo
 	{
-		szName.clear();
-		szIP.clear();
-		iConcurrentUserCount = 0;
-	}
+		std::string	szName;
+		std::string	szIP;
+		int			iConcurrentUserCount;
 
-	bool operator () (const __GameServerInfo& x, const __GameServerInfo& y) const
-	{
-		return (x.iConcurrentUserCount >= y.iConcurrentUserCount);
-	}
+		void Init()
+		{
+			szName.clear();
+			szIP.clear();
+			iConcurrentUserCount = 0;
+		}
 
-	__GameServerInfo()
-	{
-		Init();
-	}
+		bool operator () (const __GameServerInfo& x, const __GameServerInfo& y) const
+		{
+			return (x.iConcurrentUserCount >= y.iConcurrentUserCount);
+		}
 
-	__GameServerInfo(const std::string& szName2, const std::string& szIP2, int iConcurrentUserCount2)
-	{
-		szName = szName2;
-		szIP = szIP2;
-		iConcurrentUserCount = iConcurrentUserCount2;
-	}
-};
+		__GameServerInfo()
+		{
+			Init();
+		}
 
-class CUILogIn : public CN3UIBase  
-{
+		__GameServerInfo(const std::string& szName2, const std::string& szIP2, int iConcurrentUserCount2)
+		{
+			szName = szName2;
+			szIP = szIP2;
+			iConcurrentUserCount = iConcurrentUserCount2;
+		}
+	};
+
 protected:
 	CN3UIEdit*	m_pEdit_id;
 	CN3UIEdit*	m_pEdit_pw;
@@ -87,9 +80,9 @@ public:
 	bool Load(HANDLE hFile);
 	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // 메시지를 받는다.. 보낸놈, msg
 
-	int		ServerInfoCount() { return m_ListServerInfos.size(); }
+	int		ServerInfoCount() { return (int) m_ListServerInfos.size(); }
 	bool	ServerInfoAdd(const __GameServerInfo& GSI);
-	bool	ServerInfoGet(size_t iIndex, __GameServerInfo& GSI);
+	bool	ServerInfoGet(int iIndex, __GameServerInfo& GSI);
 	bool	ServerInfoGetCur(__GameServerInfo& GSI);
 	void	ServerInfoUpdate();
 
@@ -98,8 +91,8 @@ public:
 
 	void ConnectButtonSetEnable(bool bEnable);
 
-	CUILogIn();
-	virtual ~CUILogIn();
+	CUILogIn_1098();
+	~CUILogIn_1098() override;
 };
 
-#endif // !defined(AFX_UILogIn_H__5D51312E_7B98_43C2_871B_12A9CC0C2096__INCLUDED_)
+#endif
