@@ -234,11 +234,17 @@ elseif nEventID == 3002 then
 	end
 	end
 	end
-elseif nEventID == 6010 then
-	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
-	if false then
-	pUser:SelectMsg(6000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+elseif nEventID == 6010 then --priest master check eligible 
+	if pUser:CheckPromotionEligible() == 1 then
+	pUser:SelectMsg(9000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	elseif pUser:CheckPromotionEligible() == 2 then
+	pUser:NpcSay(9001, -1, -1, -1, -1, -1, -1, -1);
+	elseif pUser:CheckPromotionEligible() == 3 then 
+	pUser:NpcSay(9007, -1, -1, -1, -1, -1, -1, -1);
+	elseif pUser:CheckPromotionEligible() == 4 then 
+	pUser:NpcSay(9006, -1, -1, -1, -1, -1, -1, -1);
 	end
+	do return; end
 elseif nEventID == 6011 then
 	pUser:SendDebugString("Unhandled LOGIC command 'CHECK_PROMOTION_ELIGIBLE'."); -- unhandled logic command (CHECK_PROMOTION_ELIGIBLE)
 	if false then
@@ -249,12 +255,18 @@ elseif nEventID == 6013 then
 	if false then
 	pUser:SelectMsg(8000, 501, 6030, 502, 6040, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	end
-elseif nEventID == 6030 then
-	pUser:SendDebugString("Unknown EXEC command 'GIVE_PROMOTION_QUEST'."); -- unknown execute command (GIVE_PROMOTION_QUEST)
+elseif nEventID == 6030 then -- priest master give quest yes no dlg
+	pUser:SelectMsg(9002, 1, 6031, 2, 6032, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	do return; end
+elseif nEventID == 6031 then -- accept priest master quest 
+	pUser:NpcSay(9003, -1, -1, -1, -1, -1, -1, -1);
+	do return; end	
+elseif nEventID == 6032 then -- dont accept priest master quest 
+	pUser:NpcSay(9003, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
 elseif nEventID == 6040 then
-	pUser:SendDebugString("Unknown EXEC command 'PROMOTE_USER'."); -- unknown execute command (PROMOTE_USER)
-	do return; end
+	--pUser:SendDebugString("Unknown EXEC command 'PROMOTE_USER'."); -- unknown execute command (PROMOTE_USER)
+	pUser:PromoteUser();
 	do return; end
 elseif nEventID == 7281 then
 	local count = pUser:HowMuchItem(379049000);

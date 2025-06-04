@@ -185,6 +185,65 @@ bool CUser::PromoteUser()
 	return true;
 }
 
+uint8_t CUser::CheckPromotionEligible()
+{
+	//level check
+	if (GetLevel() < 60)
+		return 2;
+
+	//beginner
+	if (isBeginner())
+		return 3;
+
+	//already master
+	if (isMastered())
+		return 4;
+
+	return 1;
+}
+
+bool CUser::GivePromotionQuest()
+{
+	if (isBeginner())
+	{
+		return false;
+	}
+	
+	uint16_t iQuestID = 0;
+	if (isNoviceWarrior())
+	{
+		iQuestID = QUEST_ID_MASTERY_WARRIOR;
+	}else if(isNoviceRogue())
+	{
+		iQuestID = QUEST_ID_MASTERY_ROGUE;
+	}
+	else if (isNoviceMage())
+	{
+		iQuestID = QUEST_ID_MASTERY_MAGE;
+	}
+	else if (isNovicePriest())
+	{
+		iQuestID = QUEST_ID_MASTERY_PRIEST;
+	}
+
+	//dont give quest if user already have it
+	if (CheckExistEvent(iQuestID, 1))
+	{
+		return false;
+	}
+
+	//return if quest already finished 
+	if (CheckExistEvent(iQuestID, 2))
+	{
+		return false;
+	}
+
+	//give quest
+	SaveEvent(iQuestID, 1);
+
+	return true;
+}
+
 bool CUser::RunZoneQuestScript(
 	int32_t iEventID)
 {
