@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "resource.h"
-#include "UILogIn.h"
+#include "UILogIn_1098.h"
 #include "GameProcLogIn.h"
 
 #include "N3UIEdit.h"
@@ -20,7 +20,7 @@ static char THIS_FILE[] = __FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CUILogIn::CUILogIn()
+CUILogIn_1098::CUILogIn_1098()
 {
 	m_pEdit_id = nullptr;
 	m_pEdit_pw = nullptr;
@@ -47,12 +47,12 @@ CUILogIn::CUILogIn()
 	m_bLogIn = false;
 }
 
-CUILogIn::~CUILogIn()
+CUILogIn_1098::~CUILogIn_1098()
 {
 
 }
 
-bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
+bool CUILogIn_1098::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 {
 	if (nullptr == pSender) return false;
 
@@ -102,7 +102,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	else if (dwMsg == UIMSG_EDIT_RETURN)
 	{
 		// TEMP(srmeier): there is a weird issue where the key inputs aren't going
-		// through CGameProcedure::ProcessUIKeyInput() so CUILogIn::OnKeyPress() isn't
+		// through CGameProcedure::ProcessUIKeyInput() so CUILogIn_1098::OnKeyPress() isn't
 		// being called...
 		if (!m_bLogIn && m_pEdit_id && m_pEdit_pw)
 		{
@@ -119,7 +119,7 @@ bool CUILogIn::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	return false;
 }
 
-bool CUILogIn::Load(HANDLE hFile)
+bool CUILogIn_1098::Load(HANDLE hFile)
 {
 	if (!CN3UIBase::Load(hFile))
 		return false;
@@ -164,7 +164,7 @@ bool CUILogIn::Load(HANDLE hFile)
 	return true;
 }
 
-void CUILogIn::AccountIDGet(std::string& szID)
+void CUILogIn_1098::AccountIDGet(std::string& szID)
 {
 	if (m_pEdit_id != nullptr)
 		szID = m_pEdit_id->GetString();
@@ -172,7 +172,7 @@ void CUILogIn::AccountIDGet(std::string& szID)
 		szID.clear();
 }
 
-void CUILogIn::AccountPWGet(std::string& szPW)
+void CUILogIn_1098::AccountPWGet(std::string& szPW)
 {
 	if (m_pEdit_pw != nullptr)
 		szPW = m_pEdit_pw->GetString();
@@ -180,7 +180,7 @@ void CUILogIn::AccountPWGet(std::string& szPW)
 		szPW.clear();
 }
 
-void CUILogIn::ConnectButtonSetEnable(bool bEnable)
+void CUILogIn_1098::ConnectButtonSetEnable(bool bEnable)
 {
 	eUI_STATE eState1 = (bEnable ? UI_STATE_BUTTON_NORMAL : UI_STATE_BUTTON_DISABLE);
 	eUI_STATE eState2 = (bEnable ? UI_STATE_LIST_ENABLE : UI_STATE_LIST_DISABLE);
@@ -192,13 +192,13 @@ void CUILogIn::ConnectButtonSetEnable(bool bEnable)
 		m_pList_Server->SetState(eState2);
 }
 
-void CUILogIn::FocusToID()
+void CUILogIn_1098::FocusToID()
 {
 	if (m_pEdit_id != nullptr)
 		m_pEdit_id->SetFocus();
 }
 
-void CUILogIn::FocusCircular()
+void CUILogIn_1098::FocusCircular()
 {
 	if (m_pEdit_id == nullptr
 		|| m_pEdit_pw == nullptr)
@@ -210,7 +210,7 @@ void CUILogIn::FocusCircular()
 		m_pEdit_id->SetFocus();
 }
 
-void CUILogIn::InitEditControls()
+void CUILogIn_1098::InitEditControls()
 {
 	if (m_pEdit_id != nullptr)
 	{
@@ -222,13 +222,13 @@ void CUILogIn::InitEditControls()
 		m_pEdit_pw->SetString("");
 }
 
-bool CUILogIn::ServerInfoAdd(const __GameServerInfo& GSI)
+bool CUILogIn_1098::ServerInfoAdd(const __GameServerInfo_1098& GSI)
 {
 	m_ListServerInfos.push_back(GSI);
 	return true;
 }
 
-bool CUILogIn::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
+bool CUILogIn_1098::ServerInfoGet(int iIndex, __GameServerInfo_1098& GSI)
 {
 	if (m_pList_Server == nullptr
 		|| iIndex < 0
@@ -239,7 +239,7 @@ bool CUILogIn::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
 	return true;
 }
 
-bool CUILogIn::ServerInfoGetCur(__GameServerInfo& GSI)
+bool CUILogIn_1098::ServerInfoGetCur(__GameServerInfo_1098& GSI)
 {
 	GSI.Init();
 
@@ -250,7 +250,7 @@ bool CUILogIn::ServerInfoGetCur(__GameServerInfo& GSI)
 	return ServerInfoGet(iIndex, GSI);
 }
 
-void CUILogIn::ServerInfoUpdate()
+void CUILogIn_1098::ServerInfoUpdate()
 {
 	if (m_pList_Server == nullptr)
 		return;
@@ -259,12 +259,12 @@ void CUILogIn::ServerInfoUpdate()
 	if (!m_ListServerInfos.empty())
 	{
 		//sort(m_ListServerInfos.begin(), m_ListServerInfos.end(), not2(__GameServerInfo()));
-		for (const __GameServerInfo& GSI : m_ListServerInfos)
+		for (const __GameServerInfo_1098& GSI : m_ListServerInfos)
 			m_pList_Server->AddString(GSI.szName);
 	}
 }
 
-void CUILogIn::Tick()
+void CUILogIn_1098::Tick()
 {
 	CN3UIBase::Tick();
 
@@ -296,7 +296,7 @@ void CUILogIn::Tick()
 	}
 }
 
-void CUILogIn::OpenServerList()
+void CUILogIn_1098::OpenServerList()
 {
 	if (m_bOpenningNow
 		|| m_pGroup_ServerList == nullptr)
@@ -311,7 +311,7 @@ void CUILogIn::OpenServerList()
 	m_bOpenningNow = true;
 }
 
-void CUILogIn::SetVisibleLogInUIs(bool bEnable)
+void CUILogIn_1098::SetVisibleLogInUIs(bool bEnable)
 {
 	// 로그인을 숨긴다..
 	if (m_pGroup_LogIn != nullptr)
@@ -380,7 +380,7 @@ void CUILogIn::SetVisibleLogInUIs(bool bEnable)
 	}
 }
 
-void CUILogIn::RecalcGradePos()
+void CUILogIn_1098::RecalcGradePos()
 {
 	// 이용등급 표시
 	if (m_pImg_GradeLogo != nullptr)
@@ -392,7 +392,7 @@ void CUILogIn::RecalcGradePos()
 	}
 }
 
-bool CUILogIn::OnKeyPress(int iKey)
+bool CUILogIn_1098::OnKeyPress(int iKey)
 {
 	if (!m_bLogIn)
 	{

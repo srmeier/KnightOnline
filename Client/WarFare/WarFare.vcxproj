@@ -65,7 +65,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>shared.lib;ws2_32.lib;jpegLib.lib;winmm.lib;imm32.lib;wsock32.lib;DInput8.lib;N3Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
-     <AdditionalLibraryDirectories>..\lib\;..\N3Base\$(Configuration)\;..\..\Server\shared\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\lib\;..\N3Base\$(Configuration)\;..\..\Server\shared\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -109,6 +109,7 @@
     <ClCompile Include="GameProcCharacterSelect.cpp" />
     <ClCompile Include="GameProcedure.cpp" />
     <ClCompile Include="GameProcLogIn.cpp" />
+    <ClCompile Include="GameProcLogIn_1098.cpp" />
     <ClCompile Include="GameProcMain.cpp" />
     <ClCompile Include="GameProcNationSelect.cpp" />
     <ClCompile Include="GameProcOption.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="UILoading.cpp" />
     <ClCompile Include="UILoadingDlg.cpp" />
     <ClCompile Include="UILogin.cpp" />
+    <ClCompile Include="UILogin_1098.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIMessageBox.cpp" />
     <ClCompile Include="UIMessageBoxManager.cpp" />
@@ -206,6 +208,7 @@
     <ClInclude Include="GameProcCharacterSelect.h" />
     <ClInclude Include="GameProcedure.h" />
     <ClInclude Include="GameProcLogIn.h" />
+    <ClInclude Include="GameProcLogIn_1098.h" />
     <ClInclude Include="GameProcMain.h" />
     <ClInclude Include="GameProcNationSelect.h" />
     <ClInclude Include="GameProcOption.h" />
@@ -266,6 +269,7 @@
     <ClInclude Include="UILoading.h" />
     <ClInclude Include="UILoadingDlg.h" />
     <ClInclude Include="UILogin.h" />
+    <ClInclude Include="UILogin_1098.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIMessageBox.h" />
     <ClInclude Include="UIMessageBoxManager.h" />

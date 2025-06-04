@@ -2,18 +2,18 @@
 
 #include "GameProcedure.h"
 
-class CGameProcLogIn : public CGameProcedure
+class CGameProcLogIn_1098 : public CGameProcedure
 {
 public:
-	class CN3Chr*		m_pChr;
-	class CN3Texture*	m_pTexBkg;
-	class CUILogIn*		m_pUILogIn;
+	class CN3Chr*			m_pChr;
+	class CN3Texture*		m_pTexBkg;
+	class CUILogIn_1098*	m_pUILogIn;
 
-	class CN3Camera*	m_pCamera;
-	class CN3Light*		m_pLights[3];
+	class CN3Camera*		m_pCamera;
+	class CN3Light*			m_pLights[3];
 
-	bool			m_bLogIn; // 로그인 중복 방지..
-	std::string		m_szRegistrationSite;
+	bool					m_bLogIn; // 로그인 중복 방지..
+	std::string				m_szRegistrationSite;
 
 public:
 	void	MsgRecv_GameServerGroupList(Packet& pkt);
@@ -34,7 +34,7 @@ protected:
 public:
 
 	void ConnectToGameServer(); // 고른 게임 서버에 접속
-	CGameProcLogIn();
-	~CGameProcLogIn() override;
+	CGameProcLogIn_1098();
+	~CGameProcLogIn_1098() override;
 //	void PacketSend_MGameLogin();
 };

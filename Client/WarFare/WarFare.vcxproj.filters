@@ -288,6 +288,12 @@
     <ClCompile Include="UIUpgradeSelect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameProcLogIn_1098.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UILogin_1098.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameProcedure.h">
@@ -612,6 +618,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UIUpgradeSelect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameProcLogIn_1098.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UILogin_1098.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,8 +1,8 @@
 ﻿#include "stdafx.h"
 #include "resource.h"
 #include "GameEng.h"
-#include "GameProcLogIn.h"
-#include "UILogIn.h"
+#include "GameProcLogIn_1098.h"
+#include "UILogIn_1098.h"
 #include "PlayerMySelf.h"
 #include "UIManager.h"
 #include "LocalInput.h"
@@ -25,7 +25,7 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CGameProcLogIn::CGameProcLogIn()
+CGameProcLogIn_1098::CGameProcLogIn_1098()
 {
 	m_pUILogIn	= nullptr;
 	m_pChr		= nullptr;
@@ -38,7 +38,7 @@ CGameProcLogIn::CGameProcLogIn()
 	m_bLogIn = false; // 로그인 중복 방지..
 }
 
-CGameProcLogIn::~CGameProcLogIn()
+CGameProcLogIn_1098::~CGameProcLogIn_1098()
 {
 	delete m_pUILogIn;
 	delete m_pChr;
@@ -49,7 +49,7 @@ CGameProcLogIn::~CGameProcLogIn()
 		delete m_pLights[i];
 }
 
-void CGameProcLogIn::Release()
+void CGameProcLogIn_1098::Release()
 {
 	CGameProcedure::Release();
 
@@ -72,7 +72,7 @@ void CGameProcLogIn::Release()
 	}
 }
 
-void CGameProcLogIn::Init()
+void CGameProcLogIn_1098::Init()
 {
 	CGameProcedure::Init();
 
@@ -100,7 +100,7 @@ void CGameProcLogIn::Init()
 	s_pEng->s_SndMgr.ReleaseStreamObj(&s_pSnd_BGM);
 	s_pSnd_BGM = s_pEng->s_SndMgr.CreateStreamObj(35);	//몬스터 울부짖는 26초짜리 소리..
 
-	m_pUILogIn = new CUILogIn();
+	m_pUILogIn = new CUILogIn_1098();
 	m_pUILogIn->Init(s_pUIMgr);
 	
 	__TABLE_UI_RESRC* pTbl = s_pTbl_UI.GetIndexedData(0); // 국가 기준이 없기 때문이다...
@@ -172,7 +172,7 @@ void CGameProcLogIn::Init()
 	}
 }
 
-void CGameProcLogIn::Tick() // 프로시져 인덱스를 리턴한다. 0 이면 그대로 진행
+void CGameProcLogIn_1098::Tick() // 프로시져 인덱스를 리턴한다. 0 이면 그대로 진행
 {
 	CGameProcedure::Tick();	// 키, 마우스 입력 등등..
 
@@ -197,7 +197,7 @@ void CGameProcLogIn::Tick() // 프로시져 인덱스를 리턴한다. 0 이면 
 	}
 }
 
-void CGameProcLogIn::Render()
+void CGameProcLogIn_1098::Render()
 {
 	D3DCOLOR crEnv = 0x00000000;
 	s_pEng->Clear(crEnv); // 배경은 검은색
@@ -252,7 +252,7 @@ void CGameProcLogIn::Render()
 	s_pEng->Present(CN3Base::s_hWndBase);
 }
 
-bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
+bool CGameProcLogIn_1098::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 {
 	if (LIC_KNIGHTONLINE == eLIC)
 	{
@@ -292,13 +292,13 @@ bool CGameProcLogIn::MsgSend_AccountLogIn(e_LogInClassification eLIC)
 	return true;
 }
 
-void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
+void CGameProcLogIn_1098::MsgRecv_GameServerGroupList(Packet& pkt)
 {
 	int iServerCount = pkt.read<uint8_t>();	// 서버 갯수
 	for (int i = 0; i < iServerCount; i++)
 	{
 		int iLen = 0;
-		__GameServerInfo GSI;
+		__GameServerInfo_1098 GSI;
 		iLen = pkt.read<int16_t>();
 		pkt.readString(GSI.szIP, iLen);
 		iLen = pkt.read<int16_t>();
@@ -311,7 +311,7 @@ void CGameProcLogIn::MsgRecv_GameServerGroupList(Packet& pkt)
 	m_pUILogIn->ServerInfoUpdate();
 }
 
-void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
+void CGameProcLogIn_1098::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 {
 	int iResult = pkt.read<uint8_t>(); // Recv - b1(0:실패 1:성공 2:ID없음 3:PW틀림 4:서버점검중)
 	if (1 == iResult) // 접속 성공..
@@ -400,7 +400,7 @@ void CGameProcLogIn::MsgRecv_AccountLogIn(int iCmd, Packet& pkt)
 	}
 }
 
-int CGameProcLogIn::MsgRecv_VersionCheck(Packet & pkt) // virtual
+int CGameProcLogIn_1098::MsgRecv_VersionCheck(Packet & pkt) // virtual
 {
 	int iVersion = CGameProcedure::MsgRecv_VersionCheck(pkt);
 	if (iVersion == CURRENT_VERSION)
@@ -412,13 +412,13 @@ int CGameProcLogIn::MsgRecv_VersionCheck(Packet & pkt) // virtual
 	return iVersion;
 }
 
-int CGameProcLogIn::MsgRecv_GameServerLogIn(Packet & pkt) // virtual - 국가번호를 리턴한다.
+int CGameProcLogIn_1098::MsgRecv_GameServerLogIn(Packet & pkt) // virtual - 국가번호를 리턴한다.
 {
 	int iNation = CGameProcedure::MsgRecv_GameServerLogIn(pkt); // 국가 - 0 없음 0xff - 실패..
 
 	if (0xff == iNation)
 	{
-		__GameServerInfo GSI;
+		__GameServerInfo_1098 GSI;
 		std::string szMsg;
 
 		m_pUILogIn->ServerInfoGetCur(GSI);
@@ -472,7 +472,7 @@ int CGameProcLogIn::MsgRecv_GameServerLogIn(Packet & pkt) // virtual - 국가번
 	return iNation;
 }
 
-bool CGameProcLogIn::ProcessPacket(Packet & pkt)
+bool CGameProcLogIn_1098::ProcessPacket(Packet & pkt)
 {
 	size_t rpos = pkt.rpos();
 	if (CGameProcedure::ProcessPacket(pkt))
@@ -498,9 +498,9 @@ bool CGameProcLogIn::ProcessPacket(Packet & pkt)
 	return false;
 }
 
-void CGameProcLogIn::ConnectToGameServer() // 고른 게임 서버에 접속
+void CGameProcLogIn_1098::ConnectToGameServer() // 고른 게임 서버에 접속
 {
-	__GameServerInfo GSI;
+	__GameServerInfo_1098 GSI;
 	if (!m_pUILogIn->ServerInfoGetCur(GSI))
 		return; // 서버를 고른다음..
 
@@ -522,7 +522,7 @@ void CGameProcLogIn::ConnectToGameServer() // 고른 게임 서버에 접속
 //	By : Ecli666 ( On 2002-07-15 오후 7:35:16 )
 //
 /*
-void CGameProcLogIn::PacketSend_MGameLogin()
+void CGameProcLogIn_1098::PacketSend_MGameLogin()
 {
 	if(m_szID.size() >= 20 || m_szPW.size() >= 12)
 	{
