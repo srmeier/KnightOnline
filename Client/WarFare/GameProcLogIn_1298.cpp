@@ -1,4 +1,6 @@
 ﻿#include "stdafx.h"
+
+#if !defined(LOGIN_SCENE_VERSION) || LOGIN_SCENE_VERSION == 1298
 #include "resource.h"
 #include "GameEng.h"
 #include "GameProcLogIn_1298.h"
@@ -262,7 +264,7 @@ void CGameProcLogIn_1298::MsgRecv_GameServerGroupList(Packet& pkt)
 	for (int i = 0; i < iServerCount; i++)
 	{
 		int iLen = 0;
-		__GameServerInfo GSI;
+		__GameServerInfo_1298 GSI;
 		iLen = pkt.read<int16_t>();
 		pkt.readString(GSI.szIP, iLen);
 		iLen = pkt.read<int16_t>();
@@ -393,7 +395,7 @@ int CGameProcLogIn_1298::MsgRecv_GameServerLogIn(Packet & pkt) // virtual - 국�
 
 	if (0xff == iNation)
 	{
-		__GameServerInfo GSI;
+		__GameServerInfo_1298 GSI;
 		std::string szMsg;
 
 		m_pUILogIn->ServerInfoGetCur(GSI);
@@ -478,7 +480,7 @@ bool CGameProcLogIn_1298::ProcessPacket(Packet & pkt)
 
 void CGameProcLogIn_1298::ConnectToGameServer() // 고른 게임 서버에 접속
 {
-	__GameServerInfo GSI;
+	__GameServerInfo_1298 GSI;
 	if (!m_pUILogIn->ServerInfoGetCur(GSI))
 		return; // 서버를 고른다음..
 
@@ -521,3 +523,4 @@ void CGameProcLogIn_1298::PacketSend_MGameLogin()
 }*/
 
 //	~(By Ecli666 On 2002-07-15 오후 7:35:16 )
+#endif

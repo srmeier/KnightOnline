@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#if 0
-
+#if defined(LOGIN_SCENE_VERSION) && LOGIN_SCENE_VERSION == 1098
 #include <string>
 #include <vector>
 

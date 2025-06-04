@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 
-#if 0
+#if defined(LOGIN_SCENE_VERSION) && LOGIN_SCENE_VERSION == 1098
 #include "resource.h"
 #include "GameEng.h"
 #include "GameProcLogIn_1098.h"

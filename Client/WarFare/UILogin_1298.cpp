@@ -1,8 +1,9 @@
 ﻿#include "stdafx.h"
+
+#if !defined(LOGIN_SCENE_VERSION) || LOGIN_SCENE_VERSION == 1298
 #include "resource.h"
 #include "UILogIn_1298.h"
 #include "GameProcLogIn_1298.h"
-
 #include "N3UIEdit.h"
 #include "N3UIButton.h"
 #include "N3UIString.h"
@@ -323,13 +324,13 @@ void CUILogIn_1298::InitEditControls()
 		m_pEdit_pw->SetString("");
 }
 
-bool CUILogIn_1298::ServerInfoAdd(const __GameServerInfo& GSI)
+bool CUILogIn_1298::ServerInfoAdd(const __GameServerInfo_1298& GSI)
 {
 	m_ListServerInfos.push_back(GSI);
 	return true;
 }
 
-bool CUILogIn_1298::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
+bool CUILogIn_1298::ServerInfoGet(int iIndex, __GameServerInfo_1298& GSI)
 {
 	if (iIndex < 0
 		|| iIndex >= (int) m_ListServerInfos.size())
@@ -339,7 +340,7 @@ bool CUILogIn_1298::ServerInfoGet(int iIndex, __GameServerInfo& GSI)
 	return true;
 }
 
-bool CUILogIn_1298::ServerInfoGetCur(__GameServerInfo& GSI)
+bool CUILogIn_1298::ServerInfoGetCur(__GameServerInfo_1298& GSI)
 {
 	GSI.Init();
 
@@ -677,3 +678,4 @@ bool CUILogIn_1298::OnKeyPress(int iKey)
 
 	return CN3UIBase::OnKeyPress(iKey);
 }
+#endif

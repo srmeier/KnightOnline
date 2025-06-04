@@ -12,7 +12,7 @@
 #include "UIPartyBBS.h"
 #include "GameEng.h"
 #include "GameProcedure.h"
-#include "GameProcLogin_1298.h"
+#include "GameProcLogin.h"
 #include "LocalInput.h"
 #include "UIMessageBoxManager.h"
 #include "SubProcPerTrade.h"
@@ -91,7 +91,7 @@ bool CUIMessageBox::ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg)
 	{
 		CPlayerMySelf* pPlayer = CGameBase::s_pPlayer;
 		CGameProcMain* pProcMain = CGameProcedure::s_pProcMain;
-		CGameProcLogIn_1298* pProcLogIn = CGameProcedure::s_pProcLogIn;
+		CGameProcLogIn* pProcLogIn = CGameProcedure::s_pProcLogIn;
 		CGameProcCharacterSelect* pProcChrSelect = CGameProcedure::s_pProcCharacterSelect;
 		CN3Shape* pShape = CGameBase::s_pPlayer->m_pObjectTarget;
 

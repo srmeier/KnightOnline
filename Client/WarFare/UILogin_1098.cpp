@@ -1,8 +1,9 @@
 ﻿#include "stdafx.h"
+
+#if defined(LOGIN_SCENE_VERSION) && LOGIN_SCENE_VERSION == 1098
 #include "resource.h"
 #include "UILogIn_1098.h"
 #include "GameProcLogIn_1098.h"
-
 #include "N3UIEdit.h"
 #include "N3UIButton.h"
 #include "N3UIList.h"
@@ -15,8 +16,6 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif
-
-#if 0
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -151,6 +150,21 @@ bool CUILogIn_1098::Load(HANDLE hFile)
 
 	if (m_pImg_DaumLogo != nullptr)
 		m_pImg_DaumLogo->SetVisible(false);
+
+	const std::string szIDsToHide[] =
+	{
+		"Group_Notice_1",
+		"Group_Notice_2",
+		"Group_Notice_3",
+		"premium"
+	};
+
+	for (const std::string& szID : szIDsToHide)
+	{
+		CN3UIBase* pChild = GetChildByID(szID);
+		if (pChild != nullptr)
+			pChild->SetVisible(false);
+	}
 
 	N3_VERIFY_UI_COMPONENT(m_pGroup_ServerList, GetChildByID("Group_ServerList"));
 	if (m_pGroup_ServerList != nullptr)

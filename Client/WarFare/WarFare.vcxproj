@@ -59,7 +59,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>..\;..\N3Base\;..\..\Server\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\;..\N3Base\;..\..\Server\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -207,6 +207,7 @@
     <ClInclude Include="GameProcCharacterCreate.h" />
     <ClInclude Include="GameProcCharacterSelect.h" />
     <ClInclude Include="GameProcedure.h" />
+    <ClInclude Include="GameProcLogIn.h" />
     <ClInclude Include="GameProcLogIn_1298.h" />
     <ClInclude Include="GameProcLogIn_1098.h" />
     <ClInclude Include="GameProcMain.h" />

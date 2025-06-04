@@ -5,7 +5,7 @@
 
 #include "N3UIBase.h"
 
-struct __GameServerInfo
+struct __GameServerInfo_1298
 {
 	std::string	szName;
 	std::string	szIP;
@@ -18,17 +18,17 @@ struct __GameServerInfo
 		iConcurrentUserCount = 0;
 	}
 
-	bool operator () (const __GameServerInfo& x, const __GameServerInfo& y) const
+	bool operator () (const __GameServerInfo_1298& x, const __GameServerInfo_1298& y) const
 	{
 		return (x.iConcurrentUserCount >= y.iConcurrentUserCount);
 	}
 
-	__GameServerInfo()
+	__GameServerInfo_1298()
 	{
 		Init();
 	}
 
-	__GameServerInfo(const std::string& szName2, const std::string& szIP2, int iConcurrentUserCount2)
+	__GameServerInfo_1298(const std::string& szName2, const std::string& szIP2, int iConcurrentUserCount2)
 	{
 		szName = szName2;
 		szIP = szIP2;
@@ -81,7 +81,7 @@ protected:
 	CN3UIBase* m_pArrow_Group[MAX_SERVERS];
 	CN3UIString* m_pList_Group[MAX_SERVERS];
 
-	std::vector<__GameServerInfo> m_ListServerInfos;
+	std::vector<__GameServerInfo_1298> m_ListServerInfos;
 
 	bool	m_bOpenningNow; // 위에서 아래로 스르륵...열려야 한다면..
 	bool	m_bIsNewsVisible;
@@ -106,9 +106,9 @@ public:
 	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // 메시지를 받는다.. 보낸놈, msg
 
 	int		ServerInfoCount() { return (int) m_ListServerInfos.size(); }
-	bool	ServerInfoAdd(const __GameServerInfo& GSI);
-	bool	ServerInfoGet(int iIndex, __GameServerInfo& GSI);
-	bool	ServerInfoGetCur(__GameServerInfo& GSI);
+	bool	ServerInfoAdd(const __GameServerInfo_1298& GSI);
+	bool	ServerInfoGet(int iIndex, __GameServerInfo_1298& GSI);
+	bool	ServerInfoGetCur(__GameServerInfo_1298& GSI);
 	void	ServerInfoUpdate();
 
 	void AccountIDGet(std::string& szID);

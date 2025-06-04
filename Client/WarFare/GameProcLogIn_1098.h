@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#if 0
+#if defined(LOGIN_SCENE_VERSION) && LOGIN_SCENE_VERSION == 1098
 
 #include "GameProcedure.h"
 
@@ -40,5 +40,7 @@ public:
 	~CGameProcLogIn_1098() override;
 //	void PacketSend_MGameLogin();
 };
+
+class CGameProcLogIn : public CGameProcLogIn_1098 {};
 
 #endif

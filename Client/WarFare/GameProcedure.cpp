@@ -17,7 +17,7 @@
 #include "N3FXMgr.h"
 #include "PlayerMyself.h"
 #include "GameProcedure.h"
-#include "GameProcLogIn_1298.h"
+#include "GameProcLogIn.h"
 //#include "GameProcStart.h"
 #include "GameProcNationSelect.h"
 #include "GameProcCharacterCreate.h"
@@ -71,7 +71,7 @@ CUIMessageBoxManager*	CGameProcedure::s_pMsgBoxMgr = nullptr;		// MessageBox Man
 CGameProcedure*				CGameProcedure::s_pProcPrev = nullptr;
 CGameProcedure*				CGameProcedure::s_pProcActive = nullptr;
 
-CGameProcLogIn_1298*		CGameProcedure::s_pProcLogIn = nullptr;
+CGameProcLogIn*				CGameProcedure::s_pProcLogIn = nullptr;
 CGameProcNationSelect*		CGameProcedure::s_pProcNationSelect = nullptr;
 CGameProcCharacterCreate*	CGameProcedure::s_pProcCharacterCreate = nullptr;
 CGameProcCharacterSelect*	CGameProcedure::s_pProcCharacterSelect = nullptr;
@@ -234,7 +234,7 @@ void CGameProcedure::StaticMemberInit(
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// 각 프로시저들 생성
-	s_pProcLogIn			= new CGameProcLogIn_1298();				// 로그인 프로시져
+	s_pProcLogIn			= new CGameProcLogIn();				// 로그인 프로시져
 	s_pProcNationSelect		= new CGameProcNationSelect();		// 나라 선택
 	s_pProcCharacterSelect	= new CGameProcCharacterSelect();	// 캐릭터 선택
 	s_pProcCharacterCreate	= new CGameProcCharacterCreate();	// 캐릭터 만들기
