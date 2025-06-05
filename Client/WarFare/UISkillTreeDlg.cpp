@@ -24,6 +24,9 @@
 #include "N3UIString.h"
 #include "N3SndObj.h"
 
+#include <algorithm> // std::transform
+#include <cctype>    // std::tolower
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -1275,13 +1278,13 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 	switch ( CGameBase::s_pPlayer->m_InfoBase.eClass )
 	{
 		case CLASS_KA_BERSERKER:
+		case CLASS_KA_GUARDIAN:
 			pButton = (CN3UIButton* )GetChildByID("btn_berserker0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_berserker1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_berserker2");	ASSET_3
 			//pButton = (CN3UIButton* )GetChildByID("btn_berserker3");	ASSET_4
 			break;
 
-		// TODO: will need to add the "mastered" class to these as well...
 		case CLASS_KA_PENETRATOR:
 		case CLASS_KA_HUNTER:
 			pButton = (CN3UIButton* )GetChildByID("btn_hunter0");		ASSET_1
@@ -1291,6 +1294,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			break;
 
 		case CLASS_KA_SHAMAN:
+		case CLASS_KA_DARKPRIEST:
 			pButton = (CN3UIButton* )GetChildByID("btn_shaman0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_shaman1");		ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_shaman2");		ASSET_3
@@ -1298,6 +1302,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			break;
 
 		case CLASS_KA_SORCERER:
+		case CLASS_KA_NECROMANCER:
 			pButton = (CN3UIButton* )GetChildByID("btn_sorcerer0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_sorcerer1");		ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_sorcerer2");		ASSET_3
@@ -1305,6 +1310,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			break;
 
 		case CLASS_EL_BLADE:
+		case CLASS_EL_PROTECTOR:
 			pButton = (CN3UIButton* )GetChildByID("btn_blade0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_blade1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_blade2");	ASSET_3
@@ -1312,6 +1318,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			break;
 
 		case CLASS_EL_RANGER:
+		case CLASS_EL_ASSASIN:
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_ranger2");	ASSET_3
@@ -1319,6 +1326,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			break;
 
 		case CLASS_EL_CLERIC:
+		case CLASS_EL_DRUID:
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric0");	ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric1");	ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_cleric2");	ASSET_3
@@ -1326,6 +1334,7 @@ void CUISkillTreeDlg::ButtonVisibleStateSet()
 			break;
 
 		case CLASS_EL_MAGE:
+		case CLASS_EL_ENCHANTER:
 			pButton = (CN3UIButton* )GetChildByID("btn_mage0");		ASSET_1
 			pButton = (CN3UIButton* )GetChildByID("btn_mage1");		ASSET_2
 			pButton = (CN3UIButton* )GetChildByID("btn_mage2");		ASSET_3
@@ -1621,10 +1630,10 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 			AllClearImageByName("berserker", false);
 			AllClearImageByName("sorcerer", false);
 			AllClearImageByName("shaman", false);
-			AllClearImageByName("Shadow Knight",false);
-			AllClearImageByName("Berserker Hero", false);
-			AllClearImageByName("Elemental Lord", false);
-			AllClearImageByName("Shadow Bane", false);
+			AllClearImageByName("shadow_knight",false);
+			AllClearImageByName("berserker_hero", false);
+			AllClearImageByName("elemental_lord", false);
+			AllClearImageByName("shadow_bane", false);
 			
 
 			// 직업.. 
@@ -1654,18 +1663,22 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 					break;
 
 				case CLASS_KA_GUARDIAN:
+					AllClearImageByName("berserker", true);
 					AllClearImageByName("Berserker Hero", true);
 					break;
 
 				case CLASS_KA_PENETRATOR:
+					AllClearImageByName("hunter", true);
 					AllClearImageByName("Shadow Bane", true);
 					break;
 
 				case CLASS_KA_NECROMANCER:
+					AllClearImageByName("sorcerer", true);
 					AllClearImageByName("Elemental Lord", true);
 					break;
 
 				case CLASS_KA_DARKPRIEST:
+					AllClearImageByName("shaman", true);
 					AllClearImageByName("Shadow Knight", true);
 					break;
 			}
@@ -1676,10 +1689,10 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 			AllClearImageByName("blade", false);
 			AllClearImageByName("mage", false);
 			AllClearImageByName("cleric", false);
-			AllClearImageByName("Blade Master", false);
-			AllClearImageByName("kasar hood", false);
-			AllClearImageByName("Arc Mage", false);
-			AllClearImageByName("Paladin", false);
+			AllClearImageByName("blade_master", false);
+			AllClearImageByName("kasar_hood", false);
+			AllClearImageByName("arc_mage", false);
+			AllClearImageByName("paladin", false);
 
 			// 직업.. 
 			switch ( CGameBase::s_pPlayer->m_InfoBase.eClass )
@@ -1708,19 +1721,23 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 					break;
 
 				case CLASS_EL_PROTECTOR:
-					AllClearImageByName("Blade Master", true);
+					AllClearImageByName("blade", true);
+					AllClearImageByName("blade_master", true);
 					break;
 
 				case CLASS_EL_ASSASIN:
-					AllClearImageByName("Kasar Hood", true);
+					AllClearImageByName("ranger", true);
+					AllClearImageByName("kasar_hood", true);
 					break;
 					
 				case CLASS_EL_ENCHANTER:
-					AllClearImageByName("Arc Mage", true);
+					AllClearImageByName("mage", true);
+					AllClearImageByName("arc_mage", true);
 					break;
 
 				case CLASS_EL_DRUID:
-					AllClearImageByName("Paladin", true);
+					AllClearImageByName("cleric", true);
+					AllClearImageByName("paladin", true);
 					break;
 
 			}
@@ -1729,13 +1746,42 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 	
 }
 
+void CUISkillTreeDlg::NormalizeString(std::string& strInput)
+{
+	std::string result = strInput;
+
+	// convert to lower case
+	std::transform(strInput.begin(), strInput.end(), strInput.begin(), ::tolower);
+
+	// remove empty spaces (' ') & underscore ('_')
+	strInput.erase(std::remove_if(strInput.begin(), strInput.end(),
+		[](char c)
+		{
+			return c == ' ' || c == '_';
+		}), strInput.end());
+
+}
+
 CN3UIImage*	CUISkillTreeDlg::GetChildImageByName(const std::string& szFN)
 {
+
+	std::string strInputNorm = szFN;
+	NormalizeString(strInputNorm);
+
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
-		CN3UIBase* pChild = (CN3UIBase* )(*itor);
-		if ( (pChild->UIType() == UI_TYPE_IMAGE) && (szFN.compare(pChild->m_szID) == 0) )
-			return (CN3UIImage*)pChild;
+		
+		CN3UIBase* pChild = (CN3UIBase*) (*itor);
+
+		if (pChild->UIType() != UI_TYPE_IMAGE)
+			continue;
+
+		std::string strIDNorm = pChild->m_szID;
+		NormalizeString(strIDNorm);
+
+		if (strIDNorm == strInputNorm)
+			return (CN3UIImage*) pChild;
+
 	}
 
 	return NULL;
@@ -1743,10 +1789,17 @@ CN3UIImage*	CUISkillTreeDlg::GetChildImageByName(const std::string& szFN)
 
 CN3UIBase* CUISkillTreeDlg::GetChildBaseByName(const std::string &szFN)
 {
-	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
+
+	std::string strInputNorm = szFN;
+	NormalizeString(strInputNorm);
+
+	for (UIListItor itor = m_Children.begin(); itor != m_Children.end(); ++itor)
 	{
-		CN3UIBase* pChild = (CN3UIBase* )(*itor);
-		if ( szFN.compare(pChild->m_szID) == 0 )
+		CN3UIBase* pChild = (CN3UIBase*) (*itor);
+		std::string strIDNorm = pChild->m_szID;
+		NormalizeString(strIDNorm);
+
+		if (strIDNorm == strInputNorm)
 			return pChild;
 	}
 
@@ -1755,11 +1808,23 @@ CN3UIBase* CUISkillTreeDlg::GetChildBaseByName(const std::string &szFN)
 
 CN3UIButton* CUISkillTreeDlg::GetChildButtonByName(const std::string& szFN)
 {
+
+	std::string strInputNorm = szFN;
+	NormalizeString(strInputNorm);
+
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (CN3UIBase* )(*itor);
-		if ( (pChild->UIType() == UI_TYPE_BUTTON) && (szFN.compare(pChild->m_szID) == 0) )
-			return (CN3UIButton*)pChild;
+
+		if (pChild->UIType() != UI_TYPE_BUTTON)
+			continue;
+
+		std::string strIDNorm = pChild->m_szID;
+		NormalizeString(strIDNorm);
+
+		if (strIDNorm == strInputNorm)
+			return (CN3UIButton*) pChild;
+
 	}
 
 	return NULL;

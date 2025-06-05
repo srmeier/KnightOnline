@@ -57,6 +57,7 @@ protected:
 	RECT				GetSampleRect();
 	void				PageButtonInitialize();
 	bool				CheckSkillCanBeUse(__TABLE_UPC_SKILL* pUSkill);
+	void				NormalizeString(std::string& strInput);
 public:
 	void SetVisible(bool bVisible);
 	CUISkillTreeDlg();
