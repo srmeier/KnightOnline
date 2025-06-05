@@ -152,12 +152,100 @@ bool CUser::PromoteUserNovice()
 // From novice to master.
 bool CUser::PromoteUser()
 {
-	/* unlike the official, the checks & item removal should be handled in the script, not here */
-	uint8_t bOldClass = GetClassType();
-
-	// We must be a novice before we can be promoted to master.
-	if (!isNovice()) 
+	//re-check if user really eligible
+	if (CheckPromotionEligible() != 1)
 		return false;
+
+	//additional general controlls
+	if (isTrading() || isStoreOpen() || isMerchanting() || isSellingMerchant())
+		return false;
+
+	//if user did not start master quest return false
+	if (!CheckExistEvent(QUEST_ID_MASTERY_WARRIOR, 1) && 
+		!CheckExistEvent(QUEST_ID_MASTERY_ROGUE, 1) && 
+		!CheckExistEvent(QUEST_ID_MASTERY_MAGE, 1) &&
+		!CheckExistEvent(QUEST_ID_MASTERY_PRIEST, 1))
+	{
+		return false;
+	}
+
+	//item check with respect to class
+	//10x opal, 10x sapphire, 10x crystal, [same for all classes]
+	if (!CheckExistItem(389076000, 10) || 
+		!CheckExistItem(389074000, 10) || 
+		!CheckExistItem(389075000, 10)
+		)
+	{
+		return false;
+	}
+
+	if (isNoviceWarrior())
+	{
+		//warrior master: 1x lobo,1x lycaon,1x lupus pendants
+		
+		if (!CheckExistItem(320410011,1) || !CheckExistItem(320410013,1) ||
+			!CheckExistItem(320410012,1))
+		{
+			return false;
+		}
+
+		RobItem(320410011, 1);
+		RobItem(320410013, 1);
+		RobItem(320410012, 1);
+
+	}
+	else if (isNoviceRogue())
+	{
+		//rogue master: tail of shaula, tail of lesath, 10x blood of glyptodont, 1x fang of bakirra
+		if (!CheckExistItem(379040000, 1) || !CheckExistItem(379041000, 1) ||
+			!CheckExistItem(379014000, 10) || !CheckExistItem(379042000, 1))
+		{
+			return false;
+		}
+
+		RobItem(379040000, 1);
+		RobItem(379041000, 1);
+		RobItem(379014000, 10);
+		RobItem(379042000, 1);
+	}
+	else if (isNoviceMage())
+	{
+		//mage master requires: 1x kekuri ring, 50x gavolt wing, 50x zombie eye, 1x cursed bone
+		//1x feather of harpy queen, 10x blood of glyptodont
+		if (!CheckExistItem(330310014, 1) || !CheckExistItem(379043000, 50) ||
+			!CheckExistItem(379044000, 50) || !CheckExistItem(379045000, 1) ||
+			!CheckExistItem(379046000, 1) || !CheckExistItem(379014000, 10))
+		{
+			return false;
+		}
+
+		RobItem(330310014, 1);
+		RobItem(379043000, 50);
+		RobItem(379044000, 50);
+		RobItem(379045000, 1);
+		RobItem(379046000, 1);
+		RobItem(379014000, 10);
+
+	}
+	else if (isNovicePriest())
+	{
+		//priest master: 1x holy water of temple, 10 million coin
+		if (!CheckExistItem(379047000,1) || !hasCoins(10000000))
+		{
+			return false;
+		}
+		
+		RobItem(379047000, 1);
+		GoldLose(10000000);
+	}
+
+
+	//rob opal & crystal & sapphire 10x
+	RobItem(389076000, 10);
+	RobItem(389074000, 10);
+	RobItem(389075000, 10);
+	TRACE("test_7\n");
+	uint8_t bOldClass = GetClassType();
 
 	// Build the new class.
 	uint16_t sNewClass = (GetNation() * 100) + bOldClass + 1;
@@ -187,27 +275,22 @@ bool CUser::PromoteUser()
 
 uint8_t CUser::CheckPromotionEligible()
 {
-	//level check
-	if (GetLevel() < 60)
+	//level and first spec check, text id 9001
+	if (GetLevel() < 60 || isBeginner())
 		return 2;
-
-	//beginner
-	if (isBeginner())
+	
+	//already master, text id 9006
+	if (isMastered())
 		return 3;
 
-	//already master
-	if (isMastered())
-		return 4;
-
+	//success, text id 9000
 	return 1;
 }
 
 bool CUser::GivePromotionQuest()
 {
 	if (isBeginner())
-	{
 		return false;
-	}
 	
 	uint16_t iQuestID = 0;
 	if (isNoviceWarrior())
