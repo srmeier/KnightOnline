@@ -204,7 +204,7 @@ bool CUser::HandlePacket(Packet & pkt)
 	uint8_t command;
 	pkt >> command;
 
-	//TRACE("[SID=%d] Packet: %X (len=%d)\n", GetSocketID(), command, pkt.wpos());
+	TRACE("[SID=%d] Packet: %X (len=%d)\n", GetSocketID(), command, pkt.wpos());
 
 	// If crypto's not been enabled yet, force the version packet to be sent.
 	//if (!isCryptoEnabled())
