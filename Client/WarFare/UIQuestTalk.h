@@ -19,7 +19,7 @@ class CUIQuestTalk   : public CN3UIBase
 protected:
 	class CN3UIString*		m_pTextTalk;
 	class CN3UIButton*		m_pBtnOk;
-
+	class CN3UIButton*		m_pBtnClose;
 	std::string				m_szTalk[MAX_STRING_TALK];
 	int						m_iNumTalk;
 	int						m_iCurTalk;
