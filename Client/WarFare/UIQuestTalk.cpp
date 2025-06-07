@@ -26,7 +26,7 @@ CUIQuestTalk::CUIQuestTalk()
 {
 	m_pTextTalk	= NULL;
 	m_pBtnOk	= NULL;
-
+	m_pBtnClose = NULL;
 	m_iNumTalk	= 0;
 	m_iCurTalk	= 0;
 }
@@ -78,6 +78,10 @@ bool CUIQuestTalk::ReceiveMessage(CN3UIBase *pSender, uint32_t dwMsg)
 				m_pTextTalk->SetString(m_szTalk[m_iCurTalk]);
 			}
 		}
+		else if (pSender == m_pBtnClose)
+		{
+			SetVisible(false);
+		}
 	}
 
 	return true;
@@ -92,10 +96,9 @@ bool CUIQuestTalk::Load(HANDLE hFile)
 	m_pBtnOk	= (CN3UIButton*)(this->GetChildByID("btn_Ok_center"));		__ASSERT(m_pBtnOk, "NULL UI Component!!!");
 
 	// NOTE(srmeier): new stuff
-	CN3UIButton* m_pBtnClose = (CN3UIButton*)(this->GetChildByID("btn_close"));
-	if (m_pBtnClose) {
-		m_pBtnClose->SetVisible(false);
-	}
+	m_pBtnClose = (CN3UIButton*)(this->GetChildByID("btn_close"));
+	__ASSERT(m_pBtnClose, "NULL UI Component!!!");
+	//m_pBtnClose->SetVisible(false);
 
 	CN3UIButton* m_pBtnUpperEvent = (CN3UIButton*)(this->GetChildByID("btn_UpperEvent"));
 	if (m_pBtnUpperEvent) {
