@@ -145,6 +145,7 @@ DEFINE_LUA_CLASS
 	MAKE_LUA_METHOD(CheckMonsterChallengeTime)
 	MAKE_LUA_METHOD(CheckMonsterChallengeUserCount)
 	MAKE_LUA_METHOD(GetPVPMonumentNation)
+	MAKE_LUA_METHOD(SendQuestStateUpdate)
 	);
 #undef LUA_CLASS
 

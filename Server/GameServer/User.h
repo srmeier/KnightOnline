@@ -1300,4 +1300,9 @@ public:
 	DECLARE_LUA_FUNCTION(CheckMonsterChallengeUserCount) {
 		LUA_RETURN(LUA_GET_INSTANCE()->GetMonsterChallengeUserCount());
 	}
+
+	DECLARE_LUA_FUNCTION(SendQuestStateUpdate)
+	{
+		LUA_NO_RETURN(LUA_GET_INSTANCE()->SendQuestStateUpdate(LUA_ARG(uint16_t, 2), LUA_ARG(uint8_t, 3), true));
+	}
 };
