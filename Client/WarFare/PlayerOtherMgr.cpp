@@ -553,7 +553,8 @@ CPlayerNPC*	CPlayerOtherMgr::CharacterGetByNearstEnemy(e_Nation eNation, const _
 	return pTarget;
 }
 
-CPlayerNPC* CPlayerOtherMgr::CharacterGetByNearstNPC(const __Vector3& vPosPlayer) // 가장 가까운 적 가져오기..
+//select closest NPC 
+CPlayerNPC* CPlayerOtherMgr::CharacterGetByNearstNPC(const __Vector3& vPosPlayer) 
 {
 	CPlayerNPC* pTarget = NULL;
 	float fDistMin = FLT_MAX;

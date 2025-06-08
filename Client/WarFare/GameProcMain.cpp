@@ -5274,7 +5274,7 @@ void CGameProcMain::CommandTargetSelect_NearstOurForce() // 가장 가까운 파
 	s_pPlayer->RotateTo(pTarget);
 }
 
-void CGameProcMain::CommandTargetSelect_NearstNPC() // 가장 가까운 적 타겟 잡기..
+void CGameProcMain::CommandTargetSelect_NearstNPC() // select closest NPC
 {
 	CPlayerNPC* pTarget = s_pOPMgr->CharacterGetByNearstNPC(s_pPlayer->Position());
 	this->TargetSelect(pTarget);
