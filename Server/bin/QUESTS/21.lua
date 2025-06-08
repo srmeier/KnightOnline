@@ -2976,52 +2976,35 @@ elseif nEventID == 31189 then
 elseif nEventID == 35001 then
 	pUser:SelectMsg(35001, 2901, 35012, 2902, 35032, 2903, 35052, 2904, 35072, 2905, 35092, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
-elseif nEventID == 35012 then
+elseif nEventID == 35012 then -- worm extermination
 	local lvl = pUser:GetLevel();
 	if lvl >= 1 and lvl <= 10 then
 	pUser:NpcSay(35002, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	local state = pUser:SearchQuest(30);
-	if state == 1 then
-	local state = pUser:SearchQuest(30);
-	if state == 1 then
-	local count = pUser:HowMuchItem(379048000);
-	if count >= 10 and count <= 9999 then
-	pUser:SelectMsg(35007, 2914, 35030, 2915, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
-	local count = pUser:HowMuchItem(379048000);
-	if count >= 0 and count <= 9 then
-	pUser:NpcSay(35006, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	end
-	end
-	local state = pUser:SearchQuest(30);
-	if state == 0 then
-	local state = pUser:SearchQuest(30);
-	if state == 0 then
-	pUser:SelectMsg(35004, 2911, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
-	end
-	local state = pUser:SearchQuest(30);
-	if state == 2 then
-	local state = pUser:SearchQuest(30);
-	if state == 2 then
-	pUser:SelectMsg(35003, 2913, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
+	return 
+	end	
+	if  pUser:CheckExistEvent(30,0) then -- quest not accepted before
+		pUser:SelectMsg(35004, 2911, 35024, 2912, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+	elseif pUser:CheckExistEvent(30,1) then --quest on progress
+		local count = pUser:HowMuchItem(379048000);
+		if count >= 0 and count <= 9 then
+		pUser:NpcSay(35006, -1, -1, -1, -1, -1, -1, -1);
+		return
+		elseif count >= 10 and count <= 9999 then 
+		pUser:SelectMsg(35007, 2914, 35030, 2915, 35029, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+		end
+	elseif pUser:CheckExistEvent(30,2) then -- quest completed before
+		pUser:NpcSay(35003, -1, -1, -1, -1, -1, -1, -1);
+		return
 	end
 elseif nEventID == 35024 then
-	local state = pUser:SearchQuest(30);
-	if state == 0 then
+	if pUser:CheckExistEvent(30,0) then
 	pUser:NpcSay(35005, -1, -1, -1, -1, -1, -1, -1);
 	pUser:SaveEvent(30, 1);
 	end
 elseif nEventID == 35029 then
 	pUser:NpcSay(35009, -1, -1, -1, -1, -1, -1, -1);
 elseif nEventID == 35030 then
-	local state = pUser:SearchQuest(30);
-	if state == 1 then
+	if pUser:CheckExistEvent(30,1) then
 	local count = pUser:HowMuchItem(379048000);
 	if count >= 10 and count <= 9999 then
 	pUser:RobItem(379048000, 10);
