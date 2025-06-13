@@ -449,15 +449,16 @@ void CN3UIBase::PrintChildIDs(void) {
 
 CN3UIBase* CN3UIBase::GetChildByID(const std::string& szID)
 {
-	if(szID.empty()) return NULL;
+	if (szID.empty())
+		return nullptr;
 
-	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
+	for (CN3UIBase* pChild : m_Children)
 	{
-		CN3UIBase* pChild = (*itor);
-//		if(pChild->m_szID == szID) return pChild;
-		if(lstrcmpi(pChild->m_szID.c_str(), szID.c_str()) == 0) return pChild; // 대소문자 안가리고 검색..
+		if (lstrcmpiA(szID.c_str(), pChild->m_szID.c_str()) == 0)
+			return pChild;
 	}
-	return NULL;
+
+	return nullptr;
 }
 
 void CN3UIBase::SetVisible(bool bVisible)

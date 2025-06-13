@@ -1598,12 +1598,12 @@ void CUISkillTreeDlg::AllClearImageByName(const std::string& szFN, bool bTrueOrN
 	for ( int i = 0; i < 4; i++ )
 	{
 		str = "img_";	str += szFN;	sprintf(cstr, "_%d", i);	str+= cstr;
-		pBase = GetChildBaseByName(str);
+		pBase = GetChildByID(str);
 		if (pBase) pBase->SetVisible(bTrueOrNot);	
 	}
 
 	str = "img_";	str += szFN;
-	pBase = GetChildBaseByName(str);
+	pBase = GetChildByID(str);
 	if (pBase) pBase->SetVisible(bTrueOrNot);
 
 	for (int i = 0; i < 4; i++ )
@@ -1743,40 +1743,28 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 	
 }
 
-CN3UIImage*	CUISkillTreeDlg::GetChildImageByName(const std::string& szFN)
+CN3UIImage*	CUISkillTreeDlg::GetChildImageByName(const std::string& szID)
 {
-	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
+	for (CN3UIBase* pChild : m_Children)
 	{
-		CN3UIBase* pChild = (CN3UIBase* )(*itor);
-		if ( (pChild->UIType() == UI_TYPE_IMAGE) && (szFN.compare(pChild->m_szID) == 0) )
-			return (CN3UIImage*)pChild;
+		if (pChild->UIType() == UI_TYPE_IMAGE
+			&& lstrcmpiA(szID.c_str(), pChild->m_szID.c_str()) == 0)
+			return static_cast<CN3UIImage*>(pChild);
 	}
 
-	return NULL;
+	return nullptr;
 }
 
-CN3UIBase* CUISkillTreeDlg::GetChildBaseByName(const std::string &szFN)
+CN3UIButton* CUISkillTreeDlg::GetChildButtonByName(const std::string& szID)
 {
-	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
+	for (CN3UIBase* pChild : m_Children)
 	{
-		CN3UIBase* pChild = (CN3UIBase*) (*itor);
-		if ( szFN.compare(pChild->m_szID) == 0 )
-			return pChild;
+		if (pChild->UIType() == UI_TYPE_BUTTON
+			&& lstrcmpiA(szID.c_str(), pChild->m_szID.c_str()) == 0)
+			return static_cast<CN3UIButton*>(pChild);
 	}
 
-	return NULL;
-}
-
-CN3UIButton* CUISkillTreeDlg::GetChildButtonByName(const std::string& szFN)
-{
-	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
-	{
-		CN3UIBase* pChild = (CN3UIBase* )(*itor);
-		if ( (pChild->UIType() == UI_TYPE_BUTTON) && (szFN.compare(pChild->m_szID) == 0) )
-			return (CN3UIButton*)pChild;
-	}
-
-	return NULL;
+	return nullptr;
 }
 
 //this_ui_add_start

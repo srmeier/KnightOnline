@@ -84,9 +84,8 @@ public:
 	void				SetPageInIconRegion(int iKindOf, int iPageNum);		// 아이콘 역역에서 현재 페이지 설정..
 	void				SetPageInCharRegion();								// 문자 역역에서 현재 페이지 설정..
 
-	CN3UIImage*			GetChildImageByName(const std::string& szFN);
-	CN3UIBase*			GetChildBaseByName(const std::string& szFN);	
-	CN3UIButton*		GetChildButtonByName(const std::string& szFN);
+	CN3UIImage*			GetChildImageByName(const std::string& szID);
+	CN3UIButton*		GetChildButtonByName(const std::string& szID);
 
 	void				PageLeft();
 	void				PageRight();
