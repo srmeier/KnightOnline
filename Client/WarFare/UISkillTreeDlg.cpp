@@ -24,9 +24,6 @@
 #include "N3UIString.h"
 #include "N3SndObj.h"
 
-#include <algorithm> // std::transform
-#include <cctype>    // std::tolower
-
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -1630,10 +1627,10 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 			AllClearImageByName("berserker", false);
 			AllClearImageByName("sorcerer", false);
 			AllClearImageByName("shaman", false);
-			AllClearImageByName("shadow_knight",false);
-			AllClearImageByName("berserker_hero", false);
-			AllClearImageByName("elemental_lord", false);
-			AllClearImageByName("shadow_bane", false);
+			AllClearImageByName("Shadow Knight",false);
+			AllClearImageByName("Berserker Hero", false);
+			AllClearImageByName("Elemental Lord", false);
+			AllClearImageByName("Shadow Bane", false);
 			
 
 			// 직업.. 
@@ -1689,10 +1686,10 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 			AllClearImageByName("blade", false);
 			AllClearImageByName("mage", false);
 			AllClearImageByName("cleric", false);
-			AllClearImageByName("blade_master", false);
-			AllClearImageByName("kasar_hood", false);
-			AllClearImageByName("arc_mage", false);
-			AllClearImageByName("paladin", false);
+			AllClearImageByName("Blade Master", false);
+			AllClearImageByName("kasar hood", false);
+			AllClearImageByName("Arc Mage", false);
+			AllClearImageByName("Paladin", false);
 
 			// 직업.. 
 			switch ( CGameBase::s_pPlayer->m_InfoBase.eClass )
@@ -1722,22 +1719,22 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 
 				case CLASS_EL_PROTECTOR:
 					AllClearImageByName("blade", true);
-					AllClearImageByName("blade_master", true);
+					AllClearImageByName("Blade Master", true);
 					break;
 
 				case CLASS_EL_ASSASIN:
 					AllClearImageByName("ranger", true);
-					AllClearImageByName("kasar_hood", true);
+					AllClearImageByName("Kasar Hood", true);
 					break;
 					
 				case CLASS_EL_ENCHANTER:
 					AllClearImageByName("mage", true);
-					AllClearImageByName("arc_mage", true);
+					AllClearImageByName("Arc Mage", true);
 					break;
 
 				case CLASS_EL_DRUID:
 					AllClearImageByName("cleric", true);
-					AllClearImageByName("paladin", true);
+					AllClearImageByName("Paladin", true);
 					break;
 
 			}
@@ -1746,42 +1743,13 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 	
 }
 
-void CUISkillTreeDlg::NormalizeString(std::string& strInput)
-{
-	std::string result = strInput;
-
-	// convert to lower case
-	std::transform(strInput.begin(), strInput.end(), strInput.begin(), ::tolower);
-
-	// remove empty spaces (' ') & underscore ('_')
-	strInput.erase(std::remove_if(strInput.begin(), strInput.end(),
-		[](char c)
-		{
-			return c == ' ' || c == '_';
-		}), strInput.end());
-
-}
-
 CN3UIImage*	CUISkillTreeDlg::GetChildImageByName(const std::string& szFN)
 {
-
-	std::string strInputNorm = szFN;
-	NormalizeString(strInputNorm);
-
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
-		
-		CN3UIBase* pChild = (CN3UIBase*) (*itor);
-
-		if (pChild->UIType() != UI_TYPE_IMAGE)
-			continue;
-
-		std::string strIDNorm = pChild->m_szID;
-		NormalizeString(strIDNorm);
-
-		if (strIDNorm == strInputNorm)
-			return (CN3UIImage*) pChild;
-
+		CN3UIBase* pChild = (CN3UIBase* )(*itor);
+		if ( (pChild->UIType() == UI_TYPE_IMAGE) && (szFN.compare(pChild->m_szID) == 0) )
+			return (CN3UIImage*)pChild;
 	}
 
 	return NULL;
@@ -1789,17 +1757,10 @@ CN3UIImage*	CUISkillTreeDlg::GetChildImageByName(const std::string& szFN)
 
 CN3UIBase* CUISkillTreeDlg::GetChildBaseByName(const std::string &szFN)
 {
-
-	std::string strInputNorm = szFN;
-	NormalizeString(strInputNorm);
-
-	for (UIListItor itor = m_Children.begin(); itor != m_Children.end(); ++itor)
+	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (CN3UIBase*) (*itor);
-		std::string strIDNorm = pChild->m_szID;
-		NormalizeString(strIDNorm);
-
-		if (strIDNorm == strInputNorm)
+		if ( szFN.compare(pChild->m_szID) == 0 )
 			return pChild;
 	}
 
@@ -1808,23 +1769,11 @@ CN3UIBase* CUISkillTreeDlg::GetChildBaseByName(const std::string &szFN)
 
 CN3UIButton* CUISkillTreeDlg::GetChildButtonByName(const std::string& szFN)
 {
-
-	std::string strInputNorm = szFN;
-	NormalizeString(strInputNorm);
-
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		CN3UIBase* pChild = (CN3UIBase* )(*itor);
-
-		if (pChild->UIType() != UI_TYPE_BUTTON)
-			continue;
-
-		std::string strIDNorm = pChild->m_szID;
-		NormalizeString(strIDNorm);
-
-		if (strIDNorm == strInputNorm)
-			return (CN3UIButton*) pChild;
-
+		if ( (pChild->UIType() == UI_TYPE_BUTTON) && (szFN.compare(pChild->m_szID) == 0) )
+			return (CN3UIButton*)pChild;
 	}
 
 	return NULL;
