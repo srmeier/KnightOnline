@@ -1687,7 +1687,7 @@ void CUISkillTreeDlg::SetPageInCharRegion()						// 문자 역역에서 현재 �
 			AllClearImageByName("mage", false);
 			AllClearImageByName("cleric", false);
 			AllClearImageByName("Blade Master", false);
-			AllClearImageByName("kasar hood", false);
+			AllClearImageByName("Kasar Hood", false);
 			AllClearImageByName("Arc Mage", false);
 			AllClearImageByName("Paladin", false);
 
