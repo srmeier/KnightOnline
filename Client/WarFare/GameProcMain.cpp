@@ -2603,7 +2603,7 @@ bool CGameProcMain::MsgRecv_UserIn(Packet& pkt, bool bWithFX)
 		int iLMin = iLevel - 8;
 		if(iLMin < 0) iLMin = 0;
 		int iLMax = iLevel + 8;
-		if(iLMax > 60) iLMax = 60;
+		if(iLMax > 80) iLMax = 80;
 
 		std::string szMsg;
 		GetTextF(IDS_WANT_PARTY_MEMBER, &szMsg, iLMin, iLMax);

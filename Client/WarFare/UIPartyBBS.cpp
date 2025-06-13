@@ -316,7 +316,7 @@ void CUIPartyBBS::PartyStringSet(uint8_t byType)
 		int iLMin = iLevel - 8;
 		if(iLMin < 0) iLMin = 0;
 		int iLMax = iLevel + 8;
-		if(iLMax > 60) iLMax = 60;
+		if(iLMax > 80) iLMax = 80;
 
 		char szBuff[128];
 		std::string szMsg;
