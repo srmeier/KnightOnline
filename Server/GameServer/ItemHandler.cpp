@@ -770,9 +770,16 @@ bool CUser::RunExchange(int nExchangeID, uint32_t count)
 		|| isMerchanting())
 		return false;
 
+	// no empty space in inventory
+	if (!CheckExchange(nExchangeID)) 
+	{
+		Packet result(WIZ_ITEM_GET);
+		result << uint8_t(0); //error code : loot no room = 0
+		Send(&result);
+		return false;
+	}
+
 	if (pExchange == nullptr
-		// Is it a valid exchange (do we have room?)
-			|| !CheckExchange(nExchangeID)
 			// We handle flags from 0-101 only. Anything else is broken.
 			|| pExchange->bRandomFlag > 101)
 			return false;
