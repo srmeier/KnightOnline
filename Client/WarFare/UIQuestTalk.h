@@ -17,22 +17,27 @@
 class CUIQuestTalk   : public CN3UIBase
 {
 protected:
-	class CN3UIString*		m_pTextTalk;
-	class CN3UIButton*		m_pBtnOk;
+	CN3UIString*	m_pTextTalk;
+	CN3UIButton*	m_pBtnOk;
+	CN3UIButton*	m_pBtnClose;
+	CN3UIButton*	m_pBtnUpperEvent;
+	CN3UIButton*	m_pBtnNext;
+	CN3UIButton*	m_pBtnOkRight;
+	CN3UIButton*	m_pBtnPre;
 
-	std::string				m_szTalk[MAX_STRING_TALK];
-	int						m_iNumTalk;
-	int						m_iCurTalk;
+	std::string		m_szTalk[MAX_STRING_TALK];
+	int				m_iNumTalk;
+	int				m_iCurTalk;
 
 public:
-	void SetVisible(bool bVisible);
-	bool OnKeyPress(int iKey);
-	bool Load(HANDLE hFile);
-	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg);
+	void Release() override;
+	void SetVisible(bool bVisible) override;
+	bool OnKeyPress(int iKey) override;
+	bool Load(HANDLE hFile) override;
+	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg) override;
 	void Open(Packet& pkt);
 	CUIQuestTalk();
-	virtual ~CUIQuestTalk();
-
+	~CUIQuestTalk() override;
 };
 
 #endif // !defined(AFX_UIQUESTTALK_H__DB9A4C59_4BE8_4698_9462_CF036C8D834D__INCLUDED_)
