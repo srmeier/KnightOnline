@@ -149,39 +149,49 @@ void CN3UIBase::SetPos(int x, int y)
 
 void CN3UIBase::SetPosCenter()
 {
-	POINT pt = this->GetPos();
-	RECT rc = this->GetRegion();
-	int iW = rc.right - rc.left;
-	int iH = rc.bottom - rc.top;
-	int iWVP = CN3Base::s_CameraData.vp.Width;
-	int iHVP = CN3Base::s_CameraData.vp.Height;
+	// Target location of our UI Element
+	const int elementCenterX = static_cast<int>((s_CameraData.vp.Width - GetWidth()) / 2);
+	const int elementCenterY = static_cast<int>((s_CameraData.vp.Height - GetHeight()) / 2);
+	
+	// Delta is the diff between our target and our current position
+	POINT currentPos = GetPos();
+	const int deltaX = elementCenterX - currentPos.x;
+	const int deltaY = elementCenterY - currentPos.y;
 
-	// 움직인 차이 구하기
-	MoveOffset(((iWVP - iW) / 2) - pt.x, ((iHVP - iH) / 2) - pt.y);
+	// Shift the UI element; We call MoveOffset as it will also shift all child elements
+	MoveOffset(deltaX, deltaY);
 }
 
-// offset만큼 이동해준다.(children도 이동)
+// MoveOffset shifts the UI element and all of its children by the given offsets
 BOOL CN3UIBase::MoveOffset(int iOffsetX, int iOffsetY)
 {
-	if (0 == iOffsetX && 0 == iOffsetY) return FALSE;
-	// ui 영역
-	m_rcRegion.left += iOffsetX;		m_rcRegion.top += iOffsetY;
-	m_rcRegion.right += iOffsetX;		m_rcRegion.bottom += iOffsetY;
+	if (0 == iOffsetX && 0 == iOffsetY)
+	{
+		return FALSE;
+	}
+	
+	// Shift UI Element Bounding Box
+	m_rcRegion.left += iOffsetX;
+	m_rcRegion.top += iOffsetY;
+	m_rcRegion.right += iOffsetX;
+	m_rcRegion.bottom += iOffsetY;
 
 	// movable 영역
 	if(	m_rcMovable.right - m_rcMovable.left != 0 &&
 		m_rcMovable.bottom - m_rcMovable.top != 0 )
 	{
-		m_rcMovable.left += iOffsetX;		m_rcMovable.top += iOffsetY;
-		m_rcMovable.right += iOffsetX;		m_rcMovable.bottom += iOffsetY;
+		m_rcMovable.left += iOffsetX;
+		m_rcMovable.top += iOffsetY;
+		m_rcMovable.right += iOffsetX;
+		m_rcMovable.bottom += iOffsetY;
 	}
 
-	// children 좌표 갱신
-	CN3UIBase* pCUI = NULL; // Child UI...
+	// Shift Child Elements
+	CN3UIBase* pCUI = nullptr; // Child UI...
 	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
 	{
 		pCUI = (*itor);
-		__ASSERT(pCUI, "child UI pointer is NULL!");
+		__ASSERT(pCUI, "child UI pointer is NULL!")
 		pCUI->MoveOffset(iOffsetX, iOffsetY);
 	}
 	return TRUE;
@@ -463,25 +473,46 @@ CN3UIBase* CN3UIBase::GetChildByID(const std::string& szID)
 
 void CN3UIBase::SetVisible(bool bVisible)
 {
-	if (bVisible != m_bVisible)
+	if (bVisible == m_bVisible)
 	{
-		if (bVisible) { if(m_pSnd_OpenUI) m_pSnd_OpenUI->Play(); }	// 여는 소리
-		else { if(m_pSnd_CloseUI) m_pSnd_CloseUI->Play(); }	// 닫는 소리
+		// No change
+		return;
 	}
+
+	// update state
 	m_bVisible = bVisible;
-	if(!m_bVisible)
+
+	if (m_bVisible)
 	{
+		// UI element made visible
+		// play open sound, if defined
+		if (m_pSnd_OpenUI)
+		{
+			m_pSnd_OpenUI->Play();
+		}
+	}
+	else
+	{
+		// UI element hidden
+		// play close sound, if defined
+		if(m_pSnd_CloseUI)
+		{
+			m_pSnd_CloseUI->Play();
+		}
+
+		// hide children and delink pointer
 		if(m_pChildUI)
 		{
 			m_pChildUI->SetVisible(false);
 		}
-		m_pChildUI	= NULL;
-		if(m_pParentUI)
+		m_pChildUI = nullptr;
+
+		// delink pointer to parent
+		if(m_pParentUI && m_pParentUI->m_pChildUI == this)
 		{
-			if(m_pParentUI->m_pChildUI == this)
-				m_pParentUI->m_pChildUI = NULL;
+			m_pParentUI->m_pChildUI = nullptr;
 		}
-		m_pParentUI = NULL;
+		m_pParentUI = nullptr;
 		m_iChildID	= -1;
 	}
 }

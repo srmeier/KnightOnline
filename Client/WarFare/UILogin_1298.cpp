@@ -260,7 +260,10 @@ bool CUILogIn_1298::Load(HANDLE hFile)
 	N3_VERIFY_UI_COMPONENT(m_pGroup_ServerList,	GetChildByID("Group_ServerList_01"));
 
 	if (m_pGroup_ServerList != nullptr)
+	{
+		m_pGroup_ServerList->SetPosCenter();
 		m_pGroup_ServerList->SetVisible(false);
+	}
 
 	// get List_Server (structure: Group_ServerList_01 -> server_20 -> List_Server )
 	for (size_t i = 0; i < MAX_SERVERS; i++)
@@ -421,31 +424,34 @@ void CUILogIn_1298::Tick()
 {
 	CN3UIBase::Tick();
 
-	if (m_pGroup_ServerList != nullptr)
+	if (m_pGroup_ServerList != nullptr && m_bOpenningNow)
 	{
-		// slide effect opening, from top to bottom
-		if (m_bOpenningNow)
+		/*
+		POINT currentPosition = m_pGroup_ServerList->GetPos();
+		float fHeight = static_cast<float>(m_pGroup_ServerList->GetHeight());
+
+		float fDelta = 5000.0f * s_fSecPerFrm;
+		fDelta *= (fHeight - m_fMoveDelta) / fHeight;
+		if (fDelta < 2.0f)
+			fDelta = 2.0f;
+		m_fMoveDelta += fDelta;
+
+		int iYLimit = 0;
+		currentPosition.y = (int) (m_fMoveDelta - fHeight);
+		if (currentPosition.y >= iYLimit) // It was opened!!
 		{
-			POINT ptCur = m_pGroup_ServerList->GetPos();
-			RECT rc = m_pGroup_ServerList->GetRegion();
-			float fHeight = (float) (rc.bottom - rc.top);
-
-			float fDelta = 5000.0f * CN3Base::s_fSecPerFrm;
-			fDelta *= (fHeight - m_fMoveDelta) / fHeight;
-			if (fDelta < 2.0f)
-				fDelta = 2.0f;
-			m_fMoveDelta += fDelta;
-
-			int iYLimit = 0;
-			ptCur.y = (int) (m_fMoveDelta - fHeight);
-			if (ptCur.y >= iYLimit) // 다열렸다!!
-			{
-				ptCur.y = iYLimit;
-				m_bOpenningNow = false;
-			}
-
-			m_pGroup_ServerList->SetPos(ptCur.x, ptCur.y);
+			currentPosition.y = iYLimit;
+			m_bOpenningNow = false;
 		}
+
+		m_pGroup_ServerList->SetPos(currentPosition.x, currentPosition.y);
+		*/
+		// The above code breaks y-axis centering as it animates a fly-in menu.
+		// The animation is so fast on modern computers that you can't even tell it's happening.
+		// iYLimit is the target position of the UI element - basically forcing the server list to
+		// be aligned to the top of the window.  Doesn't work for modern resolutions.
+		// Not sure if it's desirable to even bother updating this, or if the code should just be tossed.
+		m_bOpenningNow = false;
 	}
 }
 
@@ -575,8 +581,7 @@ void CUILogIn_1298::OpenNews()
 
 void CUILogIn_1298::OpenServerList()
 {
-	if (m_bOpenningNow
-		|| m_pGroup_ServerList == nullptr)
+	if (m_bOpenningNow || m_pGroup_ServerList == nullptr)
 		return;
 
 	// close all notice boxes
@@ -593,10 +598,10 @@ void CUILogIn_1298::OpenServerList()
 	if (m_pGroup_ServerList != nullptr)
 	{
 		m_pGroup_ServerList->SetVisible(true);
-		RECT rc = m_pGroup_ServerList->GetRegion();
+		/*RECT rc = m_pGroup_ServerList->GetRegion();
 		int iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
 		int iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
-		m_pGroup_ServerList->SetPos(iX, iY);
+		m_pGroup_ServerList->SetPos(iX, iY);*/
 	}
 	
 	if (m_pStr_Premium != nullptr)
