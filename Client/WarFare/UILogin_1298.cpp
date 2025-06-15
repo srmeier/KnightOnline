@@ -69,10 +69,7 @@ CUILogIn_1298::CUILogIn_1298()
 		m_pList_Group[i] = nullptr;
 	} 
 
-	m_bOpenningNow = false; // 위에서 아래로 스르륵...열려야 한다면..
 	m_bIsNewsVisible = false; 
-	m_fMoveDelta = 0;
-
 	m_bLogIn = false;
 }
 
@@ -201,7 +198,6 @@ bool CUILogIn_1298::Load(HANDLE hFile)
 		N3_VERIFY_UI_COMPONENT(m_pEdit_id,			(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_ID"));
 		N3_VERIFY_UI_COMPONENT(m_pEdit_pw,			(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_PW"));
 
-		m_pGroup_LogIn->SetPosCenter();
 		m_pGroup_LogIn->SetVisible(true);
 	}
 
@@ -268,6 +264,24 @@ bool CUILogIn_1298::Load(HANDLE hFile)
 	N3_VERIFY_UI_COMPONENT(m_pBtn_Connect , (CN3UIButton* )m_pGroup_ServerList->GetChildByID("Btn_Connect"));
 		
 	return true;
+}
+
+void CUILogIn_1298::PositionGroups()
+{
+	if (m_pGroup_LogIn != nullptr)
+		m_pGroup_LogIn->SetPosCenter();
+
+	if (m_pGroup_ServerList != nullptr)
+		m_pGroup_ServerList->SetPosCenter();
+
+	if (m_pGroup_Notice_1 != nullptr)
+		m_pGroup_Notice_1->SetPosCenter();
+
+	if (m_pGroup_Notice_2 != nullptr)
+		m_pGroup_Notice_2->SetPosCenter();
+
+	if (m_pGroup_Notice_3 != nullptr)
+		m_pGroup_Notice_3->SetPosCenter();
 }
 
 void CUILogIn_1298::AccountIDGet(std::string& szID)
@@ -408,38 +422,6 @@ void CUILogIn_1298::ServerInfoUpdate()
 	}
 }
 
-void CUILogIn_1298::Tick()
-{
-	CN3UIBase::Tick();
-
-	if (m_pGroup_ServerList != nullptr)
-	{
-		// slide effect opening, from top to bottom
-		if (m_bOpenningNow)
-		{
-			POINT ptCur = m_pGroup_ServerList->GetPos();
-			RECT rc = m_pGroup_ServerList->GetRegion();
-			float fHeight = (float) (rc.bottom - rc.top);
-
-			float fDelta = 5000.0f * CN3Base::s_fSecPerFrm;
-			fDelta *= (fHeight - m_fMoveDelta) / fHeight;
-			if (fDelta < 2.0f)
-				fDelta = 2.0f;
-			m_fMoveDelta += fDelta;
-
-			int iYLimit = 0;
-			ptCur.y = (int) (m_fMoveDelta - fHeight);
-			if (ptCur.y >= iYLimit) // 다열렸다!!
-			{
-				ptCur.y = iYLimit;
-				m_bOpenningNow = false;
-			}
-
-			m_pGroup_ServerList->SetPos(ptCur.x, ptCur.y);
-		}
-	}
-}
-
 void CUILogIn_1298::AddNews(const std::string& strNews)
 {
 	// TODO: needs improvement	
@@ -566,8 +548,7 @@ void CUILogIn_1298::OpenNews()
 
 void CUILogIn_1298::OpenServerList()
 {
-	if (m_bOpenningNow
-		|| m_pGroup_ServerList == nullptr)
+	if (m_pGroup_ServerList == nullptr)
 		return;
 
 	// close all notice boxes
@@ -582,19 +563,11 @@ void CUILogIn_1298::OpenServerList()
 
 	// 스르륵 열린다!! = open without sound
 	if (m_pGroup_ServerList != nullptr)
-	{
 		m_pGroup_ServerList->SetVisible(true);
-		RECT rc = m_pGroup_ServerList->GetRegion();
-		int iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
-		int iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
-		m_pGroup_ServerList->SetPos(iX, iY);
-	}
 	
 	if (m_pStr_Premium != nullptr)
 		m_pStr_Premium->SetVisible(true);
 
-	m_fMoveDelta = 0;
-	m_bOpenningNow = true;
 	m_bIsNewsVisible = false;
 }
 
