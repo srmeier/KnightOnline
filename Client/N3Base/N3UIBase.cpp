@@ -165,10 +165,9 @@ void CN3UIBase::SetPosCenter()
 // MoveOffset shifts the UI element and all of its children by the given offsets
 BOOL CN3UIBase::MoveOffset(int iOffsetX, int iOffsetY)
 {
-	if (0 == iOffsetX && 0 == iOffsetY)
-	{
+	if (iOffsetX == 0
+		&& iOffsetY == 0)
 		return FALSE;
-	}
 	
 	// Shift UI Element Bounding Box
 	m_rcRegion.left += iOffsetX;
@@ -186,12 +185,10 @@ BOOL CN3UIBase::MoveOffset(int iOffsetX, int iOffsetY)
 		m_rcMovable.bottom += iOffsetY;
 	}
 
-	// Shift Child Elements
-	CN3UIBase* pCUI = nullptr; // Child UI...
-	for(UIListItor itor = m_Children.begin(); m_Children.end() != itor; ++itor)
+	// Shift child elements
+	for (CN3UIBase* pCUI : m_Children)
 	{
-		pCUI = (*itor);
-		__ASSERT(pCUI, "child UI pointer is NULL!")
+		__ASSERT(pCUI, "child UI pointer is NULL!");
 		pCUI->MoveOffset(iOffsetX, iOffsetY);
 	}
 	return TRUE;
@@ -473,45 +470,38 @@ CN3UIBase* CN3UIBase::GetChildByID(const std::string& szID)
 
 void CN3UIBase::SetVisible(bool bVisible)
 {
+	// No change
 	if (bVisible == m_bVisible)
-	{
-		// No change
 		return;
-	}
 
 	// update state
 	m_bVisible = bVisible;
 
-	if (m_bVisible)
+	// UI element made visible
+	if (bVisible)
 	{
-		// UI element made visible
 		// play open sound, if defined
-		if (m_pSnd_OpenUI)
-		{
+		if (m_pSnd_OpenUI != nullptr)
 			m_pSnd_OpenUI->Play();
-		}
 	}
+	// UI element hidden
 	else
 	{
-		// UI element hidden
 		// play close sound, if defined
-		if(m_pSnd_CloseUI)
-		{
+		if (m_pSnd_CloseUI != nullptr)
 			m_pSnd_CloseUI->Play();
-		}
 
-		// hide children and delink pointer
-		if(m_pChildUI)
-		{
+		// hide child UI and delink pointer
+		if (m_pChildUI != nullptr)
 			m_pChildUI->SetVisible(false);
-		}
+
 		m_pChildUI = nullptr;
 
 		// delink pointer to parent
-		if(m_pParentUI && m_pParentUI->m_pChildUI == this)
-		{
+		if (m_pParentUI != nullptr
+			&& m_pParentUI->m_pChildUI == this)
 			m_pParentUI->m_pChildUI = nullptr;
-		}
+
 		m_pParentUI = nullptr;
 		m_iChildID	= -1;
 	}

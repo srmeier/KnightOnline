@@ -189,15 +189,6 @@ bool CUILogIn_1298::Load(HANDLE hFile)
 	if (!CN3UIBase::Load(hFile))
 		return false;
 
-	// fit to screen
-	const int xOffset = static_cast<int>((s_CameraData.vp.Width - (m_rcRegion.right - m_rcRegion.left))/2);
-	const int yOffset = static_cast<int>((s_CameraData.vp.Height - (m_rcRegion.bottom - m_rcRegion.top))/2);
-	SetPos(xOffset, yOffset);
-	m_rcRegion.left = 0;
-	m_rcRegion.top = 0;
-	m_rcRegion.right = static_cast<int>(s_CameraData.vp.Width);
-	m_rcRegion.bottom = static_cast<int>(s_CameraData.vp.Height);
-	
 	N3_VERIFY_UI_COMPONENT(m_pGroup_LogIn, GetChildByID("Group_LogIn"));
 
 	if (m_pGroup_LogIn != nullptr)
@@ -210,7 +201,6 @@ bool CUILogIn_1298::Load(HANDLE hFile)
 		N3_VERIFY_UI_COMPONENT(m_pEdit_id,			(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_ID"));
 		N3_VERIFY_UI_COMPONENT(m_pEdit_pw,			(CN3UIEdit*) m_pGroup_LogIn->GetChildByID("Edit_PW"));
 
-		m_pGroup_LogIn->SetPosCenter();
 		m_pGroup_LogIn->SetVisible(true);
 	}
 
@@ -260,10 +250,7 @@ bool CUILogIn_1298::Load(HANDLE hFile)
 	N3_VERIFY_UI_COMPONENT(m_pGroup_ServerList,	GetChildByID("Group_ServerList_01"));
 
 	if (m_pGroup_ServerList != nullptr)
-	{
-		m_pGroup_ServerList->SetPosCenter();
 		m_pGroup_ServerList->SetVisible(false);
-	}
 
 	// get List_Server (structure: Group_ServerList_01 -> server_20 -> List_Server )
 	for (size_t i = 0; i < MAX_SERVERS; i++)
@@ -280,6 +267,24 @@ bool CUILogIn_1298::Load(HANDLE hFile)
 	N3_VERIFY_UI_COMPONENT(m_pBtn_Connect , (CN3UIButton* )m_pGroup_ServerList->GetChildByID("Btn_Connect"));
 		
 	return true;
+}
+
+void CUILogIn_1298::PositionGroups()
+{
+	if (m_pGroup_LogIn != nullptr)
+		m_pGroup_LogIn->SetPosCenter();
+
+	if (m_pGroup_ServerList != nullptr)
+		m_pGroup_ServerList->SetPosCenter();
+
+	if (m_pGroup_Notice_1 != nullptr)
+		m_pGroup_Notice_1->SetPosCenter();
+
+	if (m_pGroup_Notice_2 != nullptr)
+		m_pGroup_Notice_2->SetPosCenter();
+
+	if (m_pGroup_Notice_3 != nullptr)
+		m_pGroup_Notice_3->SetPosCenter();
 }
 
 void CUILogIn_1298::AccountIDGet(std::string& szID)
@@ -424,7 +429,8 @@ void CUILogIn_1298::Tick()
 {
 	CN3UIBase::Tick();
 
-	if (m_pGroup_ServerList != nullptr && m_bOpenningNow)
+	if (m_pGroup_ServerList != nullptr
+		&& m_bOpenningNow)
 	{
 		/*
 		POINT currentPosition = m_pGroup_ServerList->GetPos();
@@ -581,7 +587,8 @@ void CUILogIn_1298::OpenNews()
 
 void CUILogIn_1298::OpenServerList()
 {
-	if (m_bOpenningNow || m_pGroup_ServerList == nullptr)
+	if (m_bOpenningNow
+		|| m_pGroup_ServerList == nullptr)
 		return;
 
 	// close all notice boxes
@@ -596,9 +603,7 @@ void CUILogIn_1298::OpenServerList()
 
 	// 스르륵 열린다!! = open without sound
 	if (m_pGroup_ServerList != nullptr)
-	{
 		m_pGroup_ServerList->SetVisible(true);
-	}
 	
 	if (m_pStr_Premium != nullptr)
 		m_pStr_Premium->SetVisible(true);

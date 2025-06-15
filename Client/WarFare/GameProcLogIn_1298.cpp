@@ -63,6 +63,16 @@ void CGameProcLogIn_1298::Init()
 	if (pTbl != nullptr)
 		m_pUILogIn->LoadFromFile(pTbl->szLoginIntro);
 
+	m_pUILogIn->SetPosCenter();
+
+	RECT rc;
+	rc.left = 0;
+	rc.top = 0;
+	rc.right = static_cast<int>(s_CameraData.vp.Width);
+	rc.bottom = static_cast<int>(s_CameraData.vp.Height);
+	m_pUILogIn->SetRegion(rc);
+	m_pUILogIn->PositionGroups();
+
 	s_SndMgr.ReleaseStreamObj(&s_pSnd_BGM);
 
 	std::string szFN = "Snd\\Intro_Sound.mp3";

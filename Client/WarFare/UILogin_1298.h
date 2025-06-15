@@ -105,6 +105,8 @@ public:
 	void FocusCircular();
 	void FocusToID();
 	bool Load(HANDLE hFile);
+	void PositionGroups();
+
 	bool ReceiveMessage(CN3UIBase* pSender, uint32_t dwMsg); // 메시지를 받는다.. 보낸놈, msg
 
 	int		ServerInfoCount() { return (int) m_ListServerInfos.size(); }
