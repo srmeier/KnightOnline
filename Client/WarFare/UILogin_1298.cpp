@@ -598,10 +598,6 @@ void CUILogIn_1298::OpenServerList()
 	if (m_pGroup_ServerList != nullptr)
 	{
 		m_pGroup_ServerList->SetVisible(true);
-		/*RECT rc = m_pGroup_ServerList->GetRegion();
-		int iX = ((int) s_CameraData.vp.Width - (rc.right - rc.left)) / 2;
-		int iY = ((int) s_CameraData.vp.Height - (rc.bottom - rc.top)) / 2;
-		m_pGroup_ServerList->SetPos(iX, iY);*/
 	}
 	
 	if (m_pStr_Premium != nullptr)
