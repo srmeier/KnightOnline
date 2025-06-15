@@ -679,14 +679,13 @@ bool CN3UIBase::Save(HANDLE hFile)
 
 	if (m_iFileFormatVersion >= N3FORMAT_VER_1264)
 	{
-		TRACE("version bigger or equal \n");
+		
 		int16_t sCC = static_cast<int16_t>(iCC);
-		TRACE("sCC %d\n", sCC);
 		int16_t sIdk0 = 1; // unknown
-		TRACE("sIdk0 %d\n", sIdk0);
 
 		WriteFile(hFile, &sCC, sizeof(int16_t), &dwRWC, NULL); // children count
 		WriteFile(hFile, &sIdk0, sizeof(int16_t), &dwRWC, NULL); //unknown
+
 	}
 	else
 	{
@@ -703,12 +702,6 @@ bool CN3UIBase::Save(HANDLE hFile)
 
 		WriteFile(hFile, &eUIType, sizeof(eUIType), &dwRWC, NULL); // UI Type 쓰고..
 		pChild->Save(hFile);
-
-		if (eUIType == UI_TYPE_STRING)
-		{
-			char padding[4] = { 0, 0, 0, 0 };
-			WriteFile(hFile, padding, 4, &dwRWC, NULL);
-		}
 
 	}
 
