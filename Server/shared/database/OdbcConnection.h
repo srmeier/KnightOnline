@@ -36,14 +36,16 @@ public:
 	bool isConnected();
 	bool isError();
 
-	INLINE HDBC GetConnectionHandle()
-	{
+	INLINE HDBC GetConnectionHandle() const {
 		return m_connHandle;
 	}
 
-	INLINE bool isMarsEnabled()
-	{
+	INLINE bool IsMarsEnabled() const {
 		return m_bMarsEnabled;
+	}
+
+	INLINE std::recursive_mutex& GetLock() {
+		return *m_lock;
 	}
 
 	bool Connect(const tstring& szDSN, const tstring& szUser, const tstring& szPass, bool bMarsEnabled = false);

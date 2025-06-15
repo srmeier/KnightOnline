@@ -66,6 +66,7 @@ bool CDBProcess::LoadVersionList(
 
 bool CDBProcess::LoadUserCountList()
 {
+	std::lock_guard<std::recursive_mutex> lock(m_dbConnection.GetLock());
 	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
 	if (dbCommand.get() == nullptr)
 		return false;
@@ -101,41 +102,45 @@ bool CDBProcess::LoadAccountMap()
 {
 	std::map<std::string, _TB_USER> accountMap;
 
-	std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
-	if (dbCommand.get() == nullptr)
-		return false;
-
-	if (!dbCommand->Execute(_T("SELECT strAccountID, strPasswd, strAuthority FROM TB_USER")))
 	{
-		g_pMain->ReportSQLError(m_dbConnection.GetError());
-		return false;
-	}
+		std::lock_guard<std::recursive_mutex> lock(m_dbConnection.GetLock());
 
-	if (dbCommand->hasData())
-	{
-		std::string key;
-		do
+		std::unique_ptr<OdbcCommand> dbCommand(m_dbConnection.CreateCommand());
+		if (dbCommand.get() == nullptr)
+			return false;
+
+		if (!dbCommand->Execute(_T("SELECT strAccountID, strPasswd, strAuthority FROM TB_USER")))
 		{
-			char strAccountID[MAX_ID_SIZE + 1] = {}, strPasswd[MAX_PW_SIZE + 1] = {};
-			_TB_USER user = {};
-
-			dbCommand->FetchString(1, strAccountID, sizeof(strAccountID) - 1);
-			dbCommand->FetchString(2, strPasswd, sizeof(strPasswd) - 1);
-			dbCommand->FetchByte(3, user.byAuthority);
-
-			user.strAccountID = strAccountID;
-			user.strPasswd = strPasswd;
-
-			key = user.strAccountID;
-
-			// NOTE: By default we use case-insensitive matching for account names.
-			// As such, we'll transform this to uppercase for the key.
-			STRTOUPPER(key);
-
-			accountMap.insert(
-				std::make_pair(key, std::move(user)));
+			g_pMain->ReportSQLError(m_dbConnection.GetError());
+			return false;
 		}
-		while (dbCommand->MoveNext());
+
+		if (dbCommand->hasData())
+		{
+			std::string key;
+			do
+			{
+				char strAccountID[MAX_ID_SIZE + 1] = {}, strPasswd[MAX_PW_SIZE + 1] = {};
+				_TB_USER user = {};
+
+				dbCommand->FetchString(1, strAccountID, sizeof(strAccountID) - 1);
+				dbCommand->FetchString(2, strPasswd, sizeof(strPasswd) - 1);
+				dbCommand->FetchByte(3, user.byAuthority);
+
+				user.strAccountID = strAccountID;
+				user.strPasswd = strPasswd;
+
+				key = user.strAccountID;
+
+				// NOTE: By default we use case-insensitive matching for account names.
+				// As such, we'll transform this to uppercase for the key.
+				STRTOUPPER(key);
+
+				accountMap.insert(
+					std::make_pair(key, std::move(user)));
+			}
+			while (dbCommand->MoveNext());
+		}
 	}
 
 	{
