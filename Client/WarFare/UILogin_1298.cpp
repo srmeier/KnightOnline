@@ -69,10 +69,7 @@ CUILogIn_1298::CUILogIn_1298()
 		m_pList_Group[i] = nullptr;
 	} 
 
-	m_bOpenningNow = false; // 위에서 아래로 스르륵...열려야 한다면..
 	m_bIsNewsVisible = false; 
-	m_fMoveDelta = 0;
-
 	m_bLogIn = false;
 }
 
@@ -425,42 +422,6 @@ void CUILogIn_1298::ServerInfoUpdate()
 	}
 }
 
-void CUILogIn_1298::Tick()
-{
-	CN3UIBase::Tick();
-
-	if (m_pGroup_ServerList != nullptr
-		&& m_bOpenningNow)
-	{
-		/*
-		POINT currentPosition = m_pGroup_ServerList->GetPos();
-		float fHeight = static_cast<float>(m_pGroup_ServerList->GetHeight());
-
-		float fDelta = 5000.0f * s_fSecPerFrm;
-		fDelta *= (fHeight - m_fMoveDelta) / fHeight;
-		if (fDelta < 2.0f)
-			fDelta = 2.0f;
-		m_fMoveDelta += fDelta;
-
-		int iYLimit = 0;
-		currentPosition.y = (int) (m_fMoveDelta - fHeight);
-		if (currentPosition.y >= iYLimit) // It was opened!!
-		{
-			currentPosition.y = iYLimit;
-			m_bOpenningNow = false;
-		}
-
-		m_pGroup_ServerList->SetPos(currentPosition.x, currentPosition.y);
-		*/
-		// The above code breaks y-axis centering as it animates a fly-in menu.
-		// The animation is so fast on modern computers that you can't even tell it's happening.
-		// iYLimit is the target position of the UI element - basically forcing the server list to
-		// be aligned to the top of the window.  Doesn't work for modern resolutions.
-		// Not sure if it's desirable to even bother updating this, or if the code should just be tossed.
-		m_bOpenningNow = false;
-	}
-}
-
 void CUILogIn_1298::AddNews(const std::string& strNews)
 {
 	// TODO: needs improvement	
@@ -587,8 +548,7 @@ void CUILogIn_1298::OpenNews()
 
 void CUILogIn_1298::OpenServerList()
 {
-	if (m_bOpenningNow
-		|| m_pGroup_ServerList == nullptr)
+	if (m_pGroup_ServerList == nullptr)
 		return;
 
 	// close all notice boxes
@@ -608,8 +568,6 @@ void CUILogIn_1298::OpenServerList()
 	if (m_pStr_Premium != nullptr)
 		m_pStr_Premium->SetVisible(true);
 
-	m_fMoveDelta = 0;
-	m_bOpenningNow = true;
 	m_bIsNewsVisible = false;
 }
 

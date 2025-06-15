@@ -85,9 +85,7 @@ protected:
 
 	std::vector<__GameServerInfo> m_ListServerInfos;
 
-	bool	m_bOpenningNow; // 위에서 아래로 스르륵...열려야 한다면..
 	bool	m_bIsNewsVisible;
-	float 	m_fMoveDelta;
 	bool	m_bLogIn; // 로그인 중복 방지..
 	int		m_iSelectedServerIndex;
 	std::string m_strNoticeText;
@@ -98,8 +96,6 @@ public:
 	void OpenServerList();
 	void OpenNews();
 	void AddNews(const std::string& strNews);
-
-	void Tick();
 
 	void InitEditControls();
 	void FocusCircular();
