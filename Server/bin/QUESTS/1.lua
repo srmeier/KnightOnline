@@ -2018,49 +2018,36 @@ elseif nEventID == 15951 then
 	end
 	end
 elseif nEventID == 16951 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
-	pUser:NpcSay(15956, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
 	pUser:SelectMsg(15957, 1003, 16956, 1004, 16957, 1005, 16958, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
-	end
-elseif nEventID == 16956 then
+	return
+elseif nEventID == 16956 then --user buys 500 NP
 	local coins = pUser:GetCoins();
-	if coins >= 0 and coins <= 1499999 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
-	pUser:NpcSay(15961, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
+	if coins < 1500000 then --coin check
+		pUser:NpcSay(15961, -1, -1, -1, -1, -1, -1, -1);
+	return
 	end
+	if pUser:hasLoyalty(100) then -- loyalty check
+		pUser:NpcSay(15959, -1, -1, -1, -1, -1, -1, -1);
+	return
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
 	pUser:GoldLose(1500000);
-	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
-	do return; end
+	pUser:GiveLoyalty(500);
 	pUser:NpcSay(15958, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
-elseif nEventID == 16957 then
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
+	return
+elseif nEventID == 16957 then --user buys 100 NP
 	local coins = pUser:GetCoins();
-	if coins >= 0 and coins <= 349999 then
+	if coins < 350000 then
 	pUser:NpcSay(15961, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
+	return
 	end
+	if pUser:hasLoyalty(100) then -- loyalty check
+		pUser:NpcSay(15959, -1, -1, -1, -1, -1, -1, -1);
+	return
 	end
-	pUser:SendDebugString("Unknown LOGIC command 'CHECK_LOYALTY'.");
-	if false then -- unknown logic command (CHECK_LOYALTY)
 	pUser:GoldLose(350000);
-	pUser:SendDebugString("Unknown EXEC command 'CHANGE_LOYALTY'."); -- unknown execute command (CHANGE_LOYALTY)
-	do return; end
+	pUser:GiveLoyalty(100);
 	pUser:NpcSay(15960, -1, -1, -1, -1, -1, -1, -1);
-	do return; end
-	end
+	return 
 elseif nEventID == 16958 then
 	pUser:NpcSay(15959, -1, -1, -1, -1, -1, -1, -1);
 	do return; end
