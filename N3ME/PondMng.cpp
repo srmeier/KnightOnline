@@ -420,7 +420,9 @@ BOOL CPondMng::MouseMsgFilter(LPMSG pMsg)
 
 				vPN.Set(0,1,0); vPV = vMouseStrPos;
 				m_VtxPosDummy.GetPickRay(point, vRayDir, vRayOrig);	// 이함수 잠시 빌려씀.
-				float fT = D3DXVec3Dot(&vPN,&(vPV-vRayOrig)) / D3DXVec3Dot(&vPN, &vRayDir);
+
+				__Vector3 vTmp = vPV - vRayOrig;
+				float fT = D3DXVec3Dot(&vPN, &vTmp) / D3DXVec3Dot(&vPN, &vRayDir);
 				vPos = vRayOrig + vRayDir*fT;	//	시작점과 마우스점을 구했음
 
 				ReSetDrawRect(vMouseStrPos,vPos);	//	받은 두점을 맵상의 사각형태로 변환
@@ -548,9 +550,13 @@ BOOL CPondMng::MouseMsgFilter(LPMSG pMsg)
 				__Vector3 vPN, vPV;	// 평면의 법선과 포함된 점
 				__Vector3 vPos;	// 위의 평면과 직선의 만나는 점(구할 점)
 
-				vPN.Set(0,1,0); vPV = vMouseStrPos;
+				vPN.Set(0,1,0);
+				vPV = vMouseStrPos;
+
 				m_VtxPosDummy.GetPickRay(point, vRayDir, vRayOrig);	// 이함수 잠시 빌려씀.
-				float fT = D3DXVec3Dot(&vPN,&(vPV-vRayOrig)) / D3DXVec3Dot(&vPN, &vRayDir);
+
+				__Vector3 vTmp = vPV - vRayOrig;
+				float fT = D3DXVec3Dot(&vPN, &vTmp) / D3DXVec3Dot(&vPN, &vRayDir);
 				vPos = vRayOrig + vRayDir*fT;
 
 				ReSetDrawRect(vMouseStrPos,vPos);
