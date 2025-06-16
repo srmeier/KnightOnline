@@ -404,19 +404,10 @@ bool CN3UIString::Load(HANDLE hFile)
 	}
 
 	// NOTE: testing UI string
-	if(m_iFileFormatVersion >= N3FORMAT_VER_1264) {
-		//char temp[0xFF];
-
-		//sprintf(temp, "\nm_dwReserved = %d\n", m_dwReserved);
-		//OutputDebugString(temp);
-		//sprintf(temp, "m_dwStyle = %d\n", m_dwStyle);
-		//OutputDebugString(temp);
-
+	if (m_iFileFormatVersion >= N3FORMAT_VER_1264)
+	{
 		int iIdk0;
-		ReadFile(hFile, &iIdk0, sizeof(int), &dwNum, NULL);
-
-		//sprintf(temp, "iIdk0 = %d\n", iIdk0);
-		//OutputDebugString(temp);
+		ReadFile(hFile, &iIdk0, sizeof(int), &dwNum, nullptr);
 	}
 
 	return true;
@@ -471,6 +462,13 @@ bool CN3UIString::Save(HANDLE hFile)
 	{
 		WriteFile(hFile, m_szString.c_str(), iStrLen, &dwNum, NULL);				// string
 	}
+
+	if (m_iFileFormatVersion >= N3FORMAT_VER_1264)
+	{
+		int iIdk0 = 0;
+		WriteFile(hFile, &iIdk0, sizeof(int), &dwNum, nullptr);
+	}
+
 	return true;
 }
 
