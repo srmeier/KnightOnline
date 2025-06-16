@@ -363,7 +363,11 @@ if "%GitDir%"=="" (
 )
 
 :init_and_update_submodules
-"%GitDir%git.exe" submodule update --init --recursive
+if "$(NO_CLIENT_ASSETS)"=="1" (
+	"%GitDir%git.exe" submodule update --init --recursive --remote ../../deps/dx9sdk
+) else (
+	"%GitDir%git.exe" submodule update --init --recursive
+)
       </Command>
     </PreBuildEvent>
     <ClCompile>
