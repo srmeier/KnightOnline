@@ -30,6 +30,7 @@ CN3UIString::CN3UIString()
 	ZeroMemory(&m_ptDrawPos, sizeof(m_ptDrawPos));
 	m_iLineCount = 0;
 	m_iStartLine = 0;
+	m_iIdk0 = 0;
 }
 
 CN3UIString::~CN3UIString()
@@ -405,10 +406,7 @@ bool CN3UIString::Load(HANDLE hFile)
 
 	// NOTE: testing UI string
 	if (m_iFileFormatVersion >= N3FORMAT_VER_1264)
-	{
-		int iIdk0;
-		ReadFile(hFile, &iIdk0, sizeof(int), &dwNum, nullptr);
-	}
+		ReadFile(hFile, &m_iIdk0, sizeof(int), &dwNum, nullptr);
 
 	return true;
 }
@@ -464,10 +462,7 @@ bool CN3UIString::Save(HANDLE hFile)
 	}
 
 	if (m_iFileFormatVersion >= N3FORMAT_VER_1264)
-	{
-		int iIdk0 = 0;
-		WriteFile(hFile, &iIdk0, sizeof(int), &dwNum, nullptr);
-	}
+		WriteFile(hFile, &m_iIdk0, sizeof(int), &dwNum, nullptr);
 
 	return true;
 }
