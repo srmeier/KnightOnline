@@ -338,38 +338,6 @@
     <TargetName>$(ProjectName)_tool</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup>
-    <PreBuildEvent>
-      <Command>set "GitDir="
-where /q git
-if not errorlevel 1 (goto init_and_update_submodules)
-
-set GithubDir=%LOCALAPPDATA%\GitHubDesktop
-set "LocalGithubGitDir32=resources\app\git\mingw32\bin\"
-set "LocalGithubGitDir64=resources\app\git\mingw64\bin\"
-for /f "delims=" %%a in ('dir /b /ad /oN "%GithubDir%\app-*"') do (
-	if exist "%GithubDir%\%%a\%LocalGithubGitDir64%git.exe" (
-		set "GitDir=%GithubDir%\%%a\%LocalGithubGitDir64%"
-	) else (
-		if exist "%GithubDir%\%%a\%LocalGithubGitDir32%git.exe" (
-			set "GitDir=%GithubDir%\%%a\%LocalGithubGitDir32%"
-		)
-	)
-)
-
-if "%GitDir%"=="" (
-	ECHO Failed to update submodules: git.exe not found.
-	ECHO Ensure that git is installed and placed in your PATH environment variable.
-	EXIT /B
-)
-
-:init_and_update_submodules
-if "$(NO_CLIENT_ASSETS)"=="1" (
-	"%GitDir%git.exe" submodule update --init --recursive --remote ../../deps/dx9sdk
-) else (
-	"%GitDir%git.exe" submodule update --init --recursive
-)
-      </Command>
-    </PreBuildEvent>
     <ClCompile>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
