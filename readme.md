@@ -1,3 +1,7 @@
+> [!WARNING]  
+> As per [#238](https://github.com/Open-KO/KnightOnline/issues/238), we are currently in the process of reverting the server project back to base official code and then updating it for basic 1.298 support.
+> As such, this means we will not be accepting any PRs for server changes or Lua scripts as they're being replaced entirely (you can make changes to the EVT scripts however; these will be used).
+
 # Open Knight Online (OpenKO)
 
 We started this project to learn more about how the MMORPG Knight Online works. MMORPGs are very intricate programs requiring knowledge in many areas of computer science such as TCP/IP, SQL server, performance tuning, 3D graphics and animation, load balancing, and more. Starting with the original leaked source we have updated to DirectX 9, added function flags so that various file formats may be supported while remaining backwards compatible, and much much more.
