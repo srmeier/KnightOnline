@@ -132,7 +132,8 @@ const int SOCKET_PORT_LOGIN = 15100;
 	enum e_SubPacket_Administrator { N3_SP_ADMINISTRATOR_ARREST = 0x01, // 그 유저 있는 곳으로 존체인지.. Send b1(Type) s1(유저이름길이), str1(유저이름)
 									N3_SP_ADMINISTRATOR_FORBID_CONNECT = 0x02, // 접속금지 및 쫓아내기.. Send b1(Type) s1(유저이름길이), str1(유저이름)
 									N3_SP_ADMINISTRATOR_CHAT_FORBID = 0x03, // 채팅금지 Send b1(Type) s1(유저이름길이), str1(유저이름)
-									N3_SP_ADMINISTRATOR_CHAT_PERMIT = 0x04 }; // 채팅허가 Send b1(Type) s1(유저이름길이), str1(유저이름)
+									N3_SP_ADMINISTRATOR_CHAT_PERMIT = 0x04, // 채팅허가 Send b1(Type) s1(유저이름길이), str1(유저이름)
+									N3_SP_ADMINISTRATOR_GIVE_EXP = 0x0A}; 
 									
 	enum e_SubPacket_WareHouse {	N3_SP_WARE_OPEN = 				0x01,	// Open..
 									N3_SP_WARE_GET_IN =				0x02,	// 堅?.
